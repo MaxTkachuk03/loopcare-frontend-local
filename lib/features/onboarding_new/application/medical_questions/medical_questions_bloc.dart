@@ -5,7 +5,6 @@ import 'package:hydrated_bloc/hydrated_bloc.dart';
 import 'package:injectable/injectable.dart';
 import 'package:loopcare_frontend/core/application/customer_io_service/customer_io_service.dart';
 import 'package:loopcare_frontend/core/domain/analytics/firebase_event_custom_definitions.dart';
-import 'package:loopcare_frontend/core/domain/analytics/firebase_event_list.dart';
 import 'package:loopcare_frontend/core/domain/medical_onboarding.dart';
 import 'package:loopcare_frontend/core/infrastructure/services/firebase_event_service.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
@@ -67,7 +66,7 @@ class MedicalQuestionsBloc extends HydratedBloc<MedicalQuestionsEvent, MedicalQu
     Emitter<MedicalQuestionsState> emit,
   ) {
     AnalyticsEventService.instance.logEvent(
-      FirebaseEvents.userPregnancy,
+      CIOEvents.onboardingPregnancy,
       parameters: {
         CustomDefinitions.value: event.value,
       },
@@ -88,7 +87,7 @@ class MedicalQuestionsBloc extends HydratedBloc<MedicalQuestionsEvent, MedicalQu
     Emitter<MedicalQuestionsState> emit,
   ) {
     AnalyticsEventService.instance.logEvent(
-      FirebaseEvents.userInTherapy,
+      CIOEvents.onboardingPsychiatrist,
       parameters: {
         CustomDefinitions.value: event.value.toString(),
       },
@@ -109,7 +108,7 @@ class MedicalQuestionsBloc extends HydratedBloc<MedicalQuestionsEvent, MedicalQu
     Emitter<MedicalQuestionsState> emit,
   ) {
     AnalyticsEventService.instance.logEvent(
-      FirebaseEvents.userMedicines,
+      CIOEvents.onboardingMedicine,
       parameters: {
         CustomDefinitions.value: event.medicines.toString(),
       },
@@ -129,6 +128,13 @@ class MedicalQuestionsBloc extends HydratedBloc<MedicalQuestionsEvent, MedicalQu
     MedicationFuturePeriodChanged event,
     Emitter<MedicalQuestionsState> emit,
   ) {
+    AnalyticsEventService.instance.logEvent(
+      CIOEvents.onboardingTreatmentPeriod,
+      parameters: {
+        CustomDefinitions.value: event.value.name,
+      },
+    );
+
     CustomerIoService.track(
       event: CIOEvents.onboardingTreatmentPeriod,
       attributes: {
@@ -143,6 +149,13 @@ class MedicalQuestionsBloc extends HydratedBloc<MedicalQuestionsEvent, MedicalQu
     MedicationPastPeriodChanged event,
     Emitter<MedicalQuestionsState> emit,
   ) {
+    AnalyticsEventService.instance.logEvent(
+      CIOEvents.onboardingTakingPeriod,
+      parameters: {
+        CustomDefinitions.value: event.value.name,
+      },
+    );
+
     CustomerIoService.track(
       event: CIOEvents.onboardingTakingPeriod,
       attributes: {
@@ -158,7 +171,7 @@ class MedicalQuestionsBloc extends HydratedBloc<MedicalQuestionsEvent, MedicalQu
     Emitter<MedicalQuestionsState> emit,
   ) {
     AnalyticsEventService.instance.logEvent(
-      FirebaseEvents.userSemaglutide,
+      CIOEvents.onboardingSemaglutide,
       parameters: {
         CustomDefinitions.value: event.value.name,
       },
@@ -180,7 +193,7 @@ class MedicalQuestionsBloc extends HydratedBloc<MedicalQuestionsEvent, MedicalQu
   ) {
 
     AnalyticsEventService.instance.logEvent(
-      _firebaseEventsFromDisease(event.diseases),
+      _analyticsEventFromDisease(event.diseases),
       parameters: {
         if (event.value && event.diseases.isDiabetes)
           CustomDefinitions.type: event.diseases.name,
@@ -189,7 +202,7 @@ class MedicalQuestionsBloc extends HydratedBloc<MedicalQuestionsEvent, MedicalQu
     );
 
     CustomerIoService.track(
-      event: _cIOEventFromDisease(event.diseases),
+      event: _analyticsEventFromDisease(event.diseases),
       attributes: {
         if (event.value && event.diseases.isDiabetes)
           'Diabetes Types': event.diseases.name,
@@ -221,23 +234,7 @@ class MedicalQuestionsBloc extends HydratedBloc<MedicalQuestionsEvent, MedicalQu
   @override
   Map<String, dynamic>? toJson(MedicalQuestionsState state) => state.toJson();
 
-  String _firebaseEventsFromDisease(Diseases disease) => switch(disease) {
-    Diseases.locomotorSystemDisease => FirebaseEvents.userLocomotorSystem,
-    Diseases.liverDisease => FirebaseEvents.userHepatitisLiverDisease,
-    Diseases.asthma => FirebaseEvents.userAstmaCOPD,
-    Diseases.renalFailure => FirebaseEvents.userRenalFailure,
-    Diseases.stomachReductionDisease => FirebaseEvents.userStomachReduction,
-    Diseases.cardioVascularDisease => FirebaseEvents.userHeartSurgery,
-    Diseases.hypertension => FirebaseEvents.userHypertension,
-    Diseases.metabolicDisease => FirebaseEvents.userMetabolicDisease,
-    Diseases.thyroidDisease => FirebaseEvents.userThyroidDisease,
-    Diseases.obesity => FirebaseEvents.userSecondaryFormOfObesity,
-    Diseases.diabetesTypeI => FirebaseEvents.userDiabetes,
-    Diseases.diabetesTypeII => FirebaseEvents.userDiabetes,
-    Diseases.sleepApneaSyndrome => FirebaseEvents.userSleepApnea,
-  };
-
-  String _cIOEventFromDisease(Diseases disease) => switch(disease) {
+  String _analyticsEventFromDisease(Diseases disease) => switch(disease) {
     Diseases.locomotorSystemDisease => CIOEvents.onboardingLocomotor,
     Diseases.liverDisease => CIOEvents.onboardingLiverDisease,
     Diseases.asthma => CIOEvents.onboardingAsthma,

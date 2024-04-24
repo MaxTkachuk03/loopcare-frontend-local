@@ -6,18 +6,18 @@ final screenNames = {
   'DashboardRoute': 'Calendar Screen', // added
   'EducationRoute': 'Education Screen', // added
   'AccountRoute': 'User profile Screen', // added
-  'JoinUsRoute': 'Join Us Screen', // added
+  'JoinUsRoute': 'Onboarding Intro Screen', // added
   'LoginRoute': 'Login Screen', // added
   'ForgotPasswordRoute': 'Forgot Password Screen', // added
-  'NameRoute': 'User Name Screen', // added
+  'NameRoute': 'Onboarding Name Screen', // added
   'SuccessVerifiedEmailRoute': 'Success Verified Email Screen', // added
-  'PhysicalIntroRoute': 'Physical intro Screen', // added
-  'LegalStatementRoute': 'Legal Statement Screen', // added
-  'SignUpWelcomeRoute': 'Sign Up Screen', // added
-  'PasswordRoute': 'User Password Screen', // added
-  'EmailAddressRoute': 'User Email Address Screen', // added
-  'WaitingForConfirmationRoute': 'User Confirmation Screen', // added
-  'ChangeEmailAddressRoute': 'Change User Email Address Screen', // added
+  'PhysicalIntroRoute': 'Basics Intro Screen', // added
+  'LegalStatementRoute': 'Onboarding Legal Statement Screen', // added
+  'SignUpWelcomeRoute': 'Register Intro Screen', // added
+  'PasswordRoute': 'Register Password Screen', // added
+  'EmailAddressRoute': 'Onboarding Email Screen', // added
+  'WaitingForConfirmationRoute': 'Register Confirm Email Screen', // added
+  'ChangeEmailAddressRoute': 'Register Change Email Screen', // added
   'BarcodeScannerRoute': 'Barcode Scanner Screen', // added
   'NutritionInstructionsRoute': 'Nutrition Instructions Screen', // added
   'SelectFoodRoute': 'Select Food Screen', // added
