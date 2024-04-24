@@ -21,4 +21,6 @@ class AppMixpanelEvents {
   static String get updateToken => 'AuthTokenInterceptor_refresh_token_update';
   static String get succeedUpdateToken => 'AuthTokenInterceptor_succeed_token_update';
   static String get failedUpdateToken => 'AuthTokenInterceptor_failed_token_update';
+
+  static String get appflyerSdkStartError => 'appflyer_sdk_start_error';
 }
