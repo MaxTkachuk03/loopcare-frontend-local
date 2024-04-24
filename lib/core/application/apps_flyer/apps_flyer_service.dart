@@ -5,6 +5,8 @@ import 'package:appsflyer_sdk/appsflyer_sdk.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:loopcare_frontend/build_type.dart';
 import 'package:loopcare_frontend/core/application/apps_flyer/apps_flyer_events.dart';
+import 'package:loopcare_frontend/core/infrastructure/services/events.dart';
+import 'package:loopcare_frontend/core/infrastructure/services/mixpanel_event_service.dart';
 
 class AppsFlyerService {
   static AppsFlyerOptions appsFlyerOptions = AppsFlyerOptions(
@@ -44,11 +46,12 @@ class AppsFlyerService {
     });
 
     appsflyerSdk.startSDK(
-      onSuccess: () {
-        print("AppsFlyer SDK initialized successfully");
-      },
+      onSuccess: () {},
       onError: (int errorCode, String errorMessage) {
-        print("Error initializing AppsFlyer SDK: Code $errorCode - $errorMessage");
+        MixpanelEventService.instance.track(
+          AppMixpanelEvents.appflyerSdkStartError,
+          {'error': "code $errorCode - $errorMessage"},
+        );
       },
     );
   }
