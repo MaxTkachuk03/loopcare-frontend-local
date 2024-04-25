@@ -49,6 +49,8 @@ dependencies:
   intl: ^0.18.1
   in_app_purchase: ^3.1.13
   json_annotation: ^4.8.1
+  just_audio: ^0.9.37
+  just_audio_background: ^0.0.1-beta.11
   lint: 2.0.1
   mime: ^1.0.4
   mixpanel_analytics: 2.1.1
