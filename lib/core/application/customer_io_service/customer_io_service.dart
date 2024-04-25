@@ -9,6 +9,7 @@ import 'package:loopcare_frontend/core/application/customer_io_service/customer_
 import 'package:loopcare_frontend/core/application/customer_io_service/customer_io_events.dart';
 import 'package:loopcare_frontend/core/application/firebase/mesaging/firebase_messaging.dart';
 import 'package:loopcare_frontend/core/application/permissions_service.dart';
+import 'package:loopcare_frontend/core/presentation/localization/localization_constants.dart';
 
 export 'customer_io_attributes.dart';
 export 'customer_io_events.dart';
@@ -81,7 +82,7 @@ class CustomerIoService {
     CustomerIO.identify(
       identifier: customerIoId,
       attributes: {
-        'user_id': id,
+        'user_id': '$id-${LocalizationConstants.serverCountryCode}',
         'email': email,
         'name': name,
         'system_locale': Platform.localeName,
@@ -140,7 +141,7 @@ class CustomerIoService {
     required int id,
   }) async {
     CustomerIO.setProfileAttributes(
-      attributes: {'user_id': id},
+      attributes: {'user_id': '$id-${LocalizationConstants.serverCountryCode}'},
     );
   }
 

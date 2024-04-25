@@ -13,7 +13,7 @@ class SubscriptionPlane extends SubscriptionPlaneItem {
     super.recommended,
     super.offer,
     super.regularPrice,
-    super.currency,
+    required super.priceWithCurrency,
     required super.selected,
     super.onTap,
     super.key,
@@ -25,7 +25,7 @@ class SubscriptionPlaneItem extends StatelessWidget {
   final String description;
   final String? offer;
   final String? regularPrice;
-  final String? currency;
+  final String priceWithCurrency;
   final Function()? onTap;
   final bool selected;
   final bool recommended;
@@ -37,7 +37,7 @@ class SubscriptionPlaneItem extends StatelessWidget {
     required this.selected,
     this.offer,
     this.regularPrice,
-    this.currency,
+    required this.priceWithCurrency,
     this.onTap,
     this.recommended = false,
   });
@@ -68,17 +68,23 @@ class SubscriptionPlaneItem extends StatelessWidget {
                   children: [
                     CustomText.bitter600(
                       LocalizedTexts.subscriptionTitlePrice.tr(
-                        namedArgs: {
-                          'title': title,
-                          'C': '${regularPrice!}$currency',
-                        },
+                        args: [title, priceWithCurrency],
                       ),
                       style: context.textTheme.bodyMedium?.copyWith(
                         color: AppColors.blueDarkest,
                       ),
                       textAlign: TextAlign.center,
                     ),
-                    _DescriptionWrapper(description: description),
+                    if (description.contains('('))
+                      _DescriptionWrapper(description: description)
+                    else
+                      CustomText.w400(
+                        description,
+                        style: context.textTheme.bodyMedium?.copyWith(
+                          color: AppColors.blueDarkest,
+                        ),
+                        textAlign: TextAlign.center,
+                      ),
                   ],
                 ),
               ),

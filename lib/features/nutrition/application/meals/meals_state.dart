@@ -103,19 +103,21 @@ class MealsState with _$MealsState {
         return null;
       }
 
-      double sum = 0;
+      double caloriesSum = 0;
+      double weight = 0;
 
       final selectedDayMeals = state.meals[currentDate.isoStringWithoutTime] ?? <MealsListItem>[];
 
       for (MealsListItem meal in selectedDayMeals) {
         if (meal.loggingDate?.isSameDate(currentDate) ?? false) {
-          sum += meal.calorieDensitySum;
+          caloriesSum += meal.caloriesSum;
+          weight += meal.weightSum;
         }
       }
 
-      final result = sum / selectedDayMeals.length;
+      final result = caloriesSum / weight;
 
-      return result.isNaN || result.isInfinite ? null : result;
+      return result.isNaN || result.isInfinite ? 0 : result;
     });
   }
 
@@ -134,13 +136,13 @@ class MealsState with _$MealsState {
 
         for (var meal in selectedDayMeals) {
           if (meal.loggingDate?.isSameDate(currentDate) ?? false) {
-            caloriesSum += meal.serving.calories;
-            proteinSum += meal.serving.protein;
+            caloriesSum += meal.caloriesSum;
+            proteinSum += meal.proteinSum;
           }
         }
 
         final result = (((proteinSum * 4) / caloriesSum) * 100);
-        return (result.isNaN || result.isInfinite) ? null : result;
+        return (result.isNaN || result.isInfinite) ? 0 : result;
       },
     );
   }
@@ -346,7 +348,9 @@ class MealsState with _$MealsState {
 
         if (currentMeal == null) return null;
 
-        return currentMeal.proteinDegree;
+        final result = (((currentMeal.proteinSum * 4) / currentMeal.caloriesSum) * 100);
+
+        return (result.isNaN || result.isInfinite) ? 0 : result;
       },
     );
   }
@@ -366,7 +370,9 @@ class MealsState with _$MealsState {
 
         if (currentMeal == null) return null;
 
-        return currentMeal.calorieDensity;
+        final calorieDensity = currentMeal.caloriesSum / currentMeal.weightSum;
+
+        return calorieDensity.isNaN || calorieDensity.isInfinite ? 0.0 : calorieDensity;
       },
     );
   }
@@ -376,12 +382,12 @@ class MealsState with _$MealsState {
     double amountSum = 0;
 
     for (var meal in selectedDayMeals) {
-      caloriesSum += meal.serving.calories;
-      amountSum += meal.serving.metricServingAmount ?? 1;
+      caloriesSum += meal.servingCalories;
+      amountSum += meal.servingWeight;
     }
 
     final result = caloriesSum / amountSum;
-    return result.isNaN || result.isInfinite ? 0.0 : result;
+    return result.isNaN || result.isInfinite ? 0 : result;
   }
 
   List<MealsListItem> get todaysLoggedPlannedMeals {

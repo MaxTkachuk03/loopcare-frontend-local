@@ -54,48 +54,40 @@ class ModalBottomSheet {
     showModalBottomSheet<void>(
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(24.0)),
       context: context,
-      builder: (BuildContext context) {
-        return FractionallySizedBox(
-          heightFactor: 0.75,
-          child: ScrollableContainer(
-            child: MainContainer(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  const SizedBox(height: 25.0),
-                  const CircleAvatar(
-                    radius: 22.0,
-                    backgroundColor: AppColors.greenRegular,
-                    child: Icon(Icons.check, size: 30),
-                  ),
-                  const SizedBox(height: 26.0),
-                  CustomText.w600(
-                    '${LocalizedTexts.emailConfirmedBottomSheetTitle.tr()}!',
-                    style: context.textTheme.bodyMedium,
-                  ),
-                  const SizedBox(height: 20.0),
-                  CustomText.w400(
-                    '${LocalizedTexts.emailConfirmedBottomSheetContent.tr()}.',
-                    style: context.textTheme.bodyMedium,
-                  ),
-                  const SizedBox(height: 40.0),
-                  CustomElevatedButton.blueFullWidth(
-                    label: LocalizedTexts.continueBtn.tr(),
-                    onPressed: () {
-                      context.router.pop();
-                    },
-                  ),
-                  const SizedBox(height: 30.0),
-                ],
+      builder: (context) {
+        return MainContainer(
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              const SizedBox(height: 25.0),
+              const CircleAvatar(
+                radius: 22.0,
+                backgroundColor: AppColors.greenRegular,
+                child: Icon(Icons.check, size: 30),
               ),
-            ),
+              const SizedBox(height: 26.0),
+              CustomText.w600(
+                '${LocalizedTexts.emailConfirmedBottomSheetTitle.tr()}!',
+                style: context.textTheme.bodyMedium,
+              ),
+              const SizedBox(height: 20.0),
+              CustomText.w400(
+                '${LocalizedTexts.emailConfirmedBottomSheetContent.tr()}.',
+                style: context.textTheme.bodyMedium,
+              ),
+              const SizedBox(height: 40.0),
+              CustomElevatedButton.blueFullWidth(
+                label: LocalizedTexts.continueBtn.tr(),
+                onPressed: context.router.pop,
+              ),
+              const SizedBox(height: 30.0),
+            ],
           ),
         );
       },
-    ).whenComplete(() {
-      onContinuePressed();
-    });
+    ).whenComplete(onContinuePressed);
   }
 
   static void physicalInvalidMessage({required BuildContext context, required String message}) {
@@ -1301,6 +1293,75 @@ class ModalBottomSheet {
             ),
           ),
         );
+      },
+    );
+  }
+
+  static void goalFunFact({
+    required BuildContext context,
+    required String title,
+    required String content,
+  }) {
+    // TODO all showModalBottomSheets should be refactored with such approach
+    showModalBottomSheet<void>(
+      context: context,
+      showDragHandle: true,
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12.0)),
+      builder: (BuildContext context) {
+        return ScrollableContainer(
+          child: MainContainer(
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: [
+                    CustomText.bitter600(title, style: context.textTheme.displayMedium),
+                    const SizedBox(height: 45),
+                    Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        const CircleAvatar(
+                          radius: 22.0,
+                          backgroundColor: AppColors.greenRegular,
+                          child: Icon(Icons.emoji_objects_rounded),
+                        ),
+                        const SizedBox(width: 16.0),
+                        Expanded(child: CustomText.w400(content, style: context.textTheme.bodyMedium)),
+                      ],
+                    ),
+                    const SizedBox(height: 45),
+                  ],
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(bottom: 30.0),
+                  child: CustomElevatedButton.blueFullWidth(
+                    label: LocalizedTexts.ok.tr().toUpperCase(),
+                    onPressed: context.router.pop,
+                  ),
+                ),
+              ],
+            ),
+          ),
+        );
+      },
+    );
+  }
+
+  static void smartGoalComplete({
+    required BuildContext context,
+    required Widget content,
+  }) {
+    showModalBottomSheet(
+      context: context,
+      showDragHandle: true,
+      isScrollControlled: true,
+      useSafeArea: true,
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12.0)),
+      builder: (BuildContext context) {
+        return SingleChildScrollView(child: MainContainer(child: content));
       },
     );
   }

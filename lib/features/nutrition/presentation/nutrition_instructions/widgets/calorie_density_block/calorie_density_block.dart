@@ -32,6 +32,7 @@ class CalorieDensityBlock extends StatelessWidget {
                 return const SizedBox();
               }
               final calorieDegreeValue = value == null || value == 0 ? '-' : value!.toStringAsFixed(1);
+
               return GestureDetector(
                 onTap: () => _onItemPressed(context),
                 child: Column(

@@ -1,6 +1,7 @@
 class CIOAttributes {
   const CIOAttributes._();
 
+  static const String userId = 'User Id';
   static const String birthday = 'Birth date';
   static const String gender = 'Gender';
   static const String sex = 'Sex';
@@ -46,4 +47,14 @@ class CIOAttributes {
   static const String place = 'Place';
   static const String food = 'Food';
   static const String note = 'Note';
+
+  // Smart goals
+  static String goalCategoryTitle = 'Goal Category Title';
+  static String goalTitle = 'Goal  Title';
+  static String score = 'Score';
+  static String wantsToRepeat = 'Wants To Repeat';
+  static const String finishDate = 'Finish date';
+  static const String reviewLastDate = 'Review last date';
+  static const String logValue = 'Number of times';
+  static const String dateLog = 'Date chosen for log';
 }

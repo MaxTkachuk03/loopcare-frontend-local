@@ -33,7 +33,7 @@ part 'subscription_bloc.freezed.dart';
 part 'subscription_event.dart';
 part 'subscription_state.dart';
 
-const delayDuration = 40;
+const delayDuration = 60;
 
 @singleton
 class SubscriptionBloc extends Bloc<SubscriptionEvent, SubscriptionState> {
@@ -117,9 +117,6 @@ class SubscriptionBloc extends Bloc<SubscriptionEvent, SubscriptionState> {
     response.fold((error) {
       add(SubscriptionEvent.errorVerifyPurchase(error));
     }, (r) async {
-      if (oldPurchaseDetails != null && oldPurchaseDetails.pendingCompletePurchase) {
-        await inAppPurchaseService.instance.completePurchase(oldPurchaseDetails);
-      }
       r.valid ?? true
           ? add(SubscriptionEvent.buySubscription(product))
           : add(const SubscriptionEvent.errorVerifyPurchase(RequestError.streamSubscription(generalMessage)));
@@ -188,9 +185,6 @@ class SubscriptionBloc extends Bloc<SubscriptionEvent, SubscriptionState> {
       SubscriptionState.loading(state.data.copyWith(isLoading: true, isWaitTimeout: false)),
     );
     try {
-      if (purchaseDetails.pendingCompletePurchase) {
-        await inAppPurchaseService.instance.completePurchase(purchaseDetails);
-      }
       if (purchaseDetails.status == PurchaseStatus.purchased) {
         await _verifyPurchasedOrRestore(purchaseDetails);
       }
@@ -204,7 +198,6 @@ class SubscriptionBloc extends Bloc<SubscriptionEvent, SubscriptionState> {
         add(SubscriptionEvent.errorVerifyPurchase(error));
       },
       (r) async {
-        await inAppPurchaseService.instance.completePurchase(purchaseDetails);
         final accessTokenUpdated = await authTokenManager.updateAccessToken();
         if (accessTokenUpdated) {
           CustomerIoService.track(
@@ -341,9 +334,10 @@ class SubscriptionBloc extends Bloc<SubscriptionEvent, SubscriptionState> {
     response.fold((error) {
       emit(SubscriptionState.serviceSubscriptionUnavailable(state.data));
     }, (r) {
-      debugPrint('devcpp SERVER PRODUCTS RESPONSE: ${r.data.toString()}');
+      List<ServerProduct> serverList = [...r.data];
+      serverList.sort((a, b) => a.price!.toInt().compareTo(b.price!.toInt()));
       emit(
-        SubscriptionState.loading(state.data.copyWith(isLoading: false, serverPlans: r.data)),
+        SubscriptionState.loading(state.data.copyWith(isLoading: false, serverPlans: serverList)),
       );
       add(const SubscriptionEvent.getSubscriptionPlans());
     });

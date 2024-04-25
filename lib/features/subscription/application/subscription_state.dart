@@ -60,5 +60,5 @@ class SubscriptionStateData with _$SubscriptionStateData {
 
   String? get errorMessage => error?.maybeMap(conflict: (s) => s.error.error, orElse: () => null);
 
-  bool get hasSubscription => (subscription?.isActive ?? false) && subscription?.state == 'common';
+  bool get hasSubscription => (subscription?.isActive ?? false);
 }

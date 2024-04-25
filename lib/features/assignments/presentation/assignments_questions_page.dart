@@ -96,11 +96,11 @@ class _AssignmentsQuestionsPageState extends State<AssignmentsQuestionsPage> {
         return;
       }
 
-      final emailApproveDate = getIt<SharedStorageService>().account?.emailApproveDate ?? DateTime.now();
+      final accountCreatedDate = getIt<SharedStorageService>().account?.createdAt ?? DateTime.now();
 
       context
         ..read<AssignmentsBloc>()
-            .add(AssignmentsEvent.getAllLessonQuestions(emailApproveDate, DateTime.now()))
+            .add(AssignmentsEvent.getAllLessonQuestions(accountCreatedDate, DateTime.now()))
         ..router.pushNamed(AppRoutes.assignmentsSaved);
     } else {
       context.router.push(
@@ -305,6 +305,7 @@ class _AssignmentsQuestionsPageState extends State<AssignmentsQuestionsPage> {
 
   @override
   Widget build(BuildContext context) {
+
     return CustomScaffold.petrolLightest(
       appBar: CustomAppBar.petrol(
         title: LocalizedTexts.assignment.tr(),
@@ -325,7 +326,10 @@ class _AssignmentsQuestionsPageState extends State<AssignmentsQuestionsPage> {
                 builder: (context, state) {
                   return state.maybeMap(
                     loading: (_) => const Loader(),
-                    orElse: () => content(state),
+                    orElse: () {
+                      state.data.questionForStep(lessonId, widget.step).isEditable;
+                      return content(state);
+                    },
                   );
                 },
               ),
