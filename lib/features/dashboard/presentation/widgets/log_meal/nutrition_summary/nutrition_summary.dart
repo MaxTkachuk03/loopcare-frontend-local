@@ -1,0 +1,75 @@
+import 'package:easy_localization/easy_localization.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:loopcare_frontend/core/domain/calorie_density_scale_values.dart';
+import 'package:loopcare_frontend/core/domain/protein_degree_scale_values.dart';
+import 'package:loopcare_frontend/core/presentation/loader/loader.dart';
+import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
+import 'package:loopcare_frontend/core/presentation/utils/string_extensions.dart';
+import 'package:loopcare_frontend/features/dashboard/presentation/widgets/log_meal/nutrition_summary/nutrition_scale.dart';
+import 'package:loopcare_frontend/features/nutrition/application/nutrition_instructions/nutrition_instructions_bloc.dart';
+
+class NutritionSummary extends StatelessWidget {
+  final double? calorieDensity;
+  final double? proteinDegree;
+
+  const NutritionSummary({super.key, this.calorieDensity, this.proteinDegree});
+
+  String get proteinDegreeLabel =>
+      proteinDegree == null || proteinDegree == 0 ? '-' : '${proteinDegree?.round()}%';
+
+  String get calorieDensityLabel => calorieDensity?.toStringAsFixed(1) ?? '-';
+
+  @override
+  Widget build(BuildContext context) {
+    return BlocBuilder<NutritionInstructionsBloc, NutritionInstructionsState>(
+      builder: (BuildContext context, state) {
+        return state.maybeMap(
+          orElse: () => const SizedBox.shrink(),
+          loading: (_) => const Loader(),
+          loaded: (state) {
+            final currentCalorieDensityItem = state.data.getCalorieDensityItem(calorieDensity);
+
+            if (state.data.calorieDensityValues.isEmpty || currentCalorieDensityItem == null) {
+              return const SizedBox();
+            }
+
+            final currentProteinDegreeItem = state.data.getProteinDegreeItem(proteinDegree);
+
+            if (state.data.proteinDegreeValues.isEmpty || currentProteinDegreeItem == null) {
+              return const SizedBox();
+            }
+
+            print(currentCalorieDensityItem);
+            print(currentProteinDegreeItem);
+
+            return Row(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                NutritionScale(
+                  topLabel: LocalizedTexts.calorieDensity.tr(),
+                  bottomLabel: currentCalorieDensityItem.label.capitalize(),
+                  color: calorieDensityScaleValuesColorForRange(calorieDensity),
+                  indicatorLabel: calorieDensityLabel,
+                ),
+                NutritionScale(
+                  topLabel: LocalizedTexts.proteinDegree.tr(),
+                  bottomLabel: currentProteinDegreeItem.label.capitalize(),
+                  color: proteinDegreeScaleValuesColorForRange(proteinDegree),
+                  indicatorLabel: proteinDegreeLabel,
+                ),
+                NutritionScale(
+                  topLabel: LocalizedTexts.proteinDegree.tr(),
+                  bottomLabel: currentProteinDegreeItem.label.capitalize(),
+                  color: proteinDegreeScaleValuesColorForRange(proteinDegree),
+                  indicatorLabel: proteinDegreeLabel,
+                ),
+              ],
+            );
+          },
+        );
+      },
+    );
+  }
+}

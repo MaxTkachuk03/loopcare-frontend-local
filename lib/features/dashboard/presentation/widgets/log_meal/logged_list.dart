@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:loopcare_frontend/features/dashboard/presentation/widgets/log_meal/logged_list_item.dart';
 
+// TODO dead widget
 class LoggedList extends StatelessWidget {
   final List<String> categoryList;
   final List<String> categoryListRaw;

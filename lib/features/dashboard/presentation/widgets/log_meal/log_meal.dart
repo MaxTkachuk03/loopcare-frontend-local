@@ -13,11 +13,8 @@ import 'package:loopcare_frontend/core/presentation/text/custom_text.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 import 'package:loopcare_frontend/core/presentation/utils/build_context_extensions.dart';
 import 'package:loopcare_frontend/core/presentation/utils/date_time_extensions.dart';
-import 'package:loopcare_frontend/core/presentation/utils/string_extensions.dart';
-import 'package:loopcare_frontend/core/presentation/widgets/custom_rounded_button_with_icon.dart';
 import 'package:loopcare_frontend/features/dashboard/presentation/widgets/dashboard_card_title/dashboard_card_title.dart';
-import 'package:loopcare_frontend/features/dashboard/presentation/widgets/log_meal/logged_list.dart';
-import 'package:loopcare_frontend/features/dashboard/presentation/widgets/log_meal/nutrition_block/calorie_nutrition_block.dart';
+import 'package:loopcare_frontend/features/dashboard/presentation/widgets/log_meal/nutrition_summary/nutrition_summary.dart';
 import 'package:loopcare_frontend/features/nutrition/application/meals/meals_bloc.dart';
 import 'package:loopcare_frontend/features/nutrition/domain/core/name_label.dart';
 import 'package:loopcare_frontend/features/nutrition/domain/select_serving/meal_category.dart';
@@ -62,6 +59,8 @@ class LogMeal extends StatelessWidget {
   }
 
   _onIntakePressed(BuildContext context) => context.router.pushNamed(AppRoutes.dailyIntake);
+
+  // state.isEnableOnDashboard ? () => _onIntakePressed(context) : null
 
   @override
   Widget build(BuildContext context) {
@@ -115,60 +114,22 @@ class LogMeal extends StatelessWidget {
                           ),
                       ],
                     ),
-                    actionIcon: AppIcons.plus,
+                    actionIcon: AppIcons.arrow,
+                    circleButton: false,
                     editable: state.isEnableOnDashboard,
                   ),
-                  if (state.filledCategories.isNotEmpty)
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                      child: Column(
-                        children: [
-                          const Divider(
-                            color: AppColors.blueOffRegular,
-                            height: 8,
-                          ),
-                          const SizedBox(height: 4.0),
-                          GestureDetector(
-                            onTap: state.isEnableOnDashboard ? () => _onIntakePressed(context) : null,
-                            child: Column(
-                              children: [
-                                Row(
-                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    CustomText.w600(
-                                      LocalizedTexts.loggedMeals.tr().capitalize(),
-                                      style: context.textTheme.bodySmall,
-                                    ),
-                                    const SizedBox(width: 4.0),
-                                    if (state.filledCategories.isNotEmpty)
-                                      CustomOutlinedRoundedButtonWithIcon(
-                                        onPressed: state.isEnableOnDashboard
-                                            ? () => _onPressHandler(context)
-                                            : null,
-                                        icon: AppIcons.edit,
-                                      )
-                                  ],
-                                ),
-                                LoggedList(
-                                  categoryList: MealCategory.values
-                                      .map((e) => e.shortLabel?.capitalizeOnlyFirstLetter() ?? '')
-                                      .toList(),
-                                  categoryListRaw: MealCategory.values.map((e) => e.label ?? '').toList(),
-                                  filledList: state.filledCategories,
-                                ),
-                              ],
-                            ),
-                          ),
-                          const SizedBox(height: 16.0),
-                          CalorieNutritionBlock(
-                            proteinDegree: state.selectedDayMealProteinDegreeSum,
-                            calorieDensity: state.selectedDayMealCalorieDensitySum,
-                            subtitle: state.getCurrentDate.americanShortDateWithYear,
-                          ),
-                          const SizedBox(height: 8.0),
-                        ],
-                      ),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                    child: Column(
+                      children: [
+                        const Divider(color: AppColors.blueOffRegular, height: 36),
+                        NutritionSummary(
+                          proteinDegree: state.selectedDayMealProteinDegreeSum,
+                          calorieDensity: state.selectedDayMealCalorieDensitySum,
+                        ),
+                      ],
                     ),
+                  ),
                 ],
               );
             },

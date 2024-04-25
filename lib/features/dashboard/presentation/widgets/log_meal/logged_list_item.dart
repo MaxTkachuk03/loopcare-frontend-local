@@ -4,6 +4,7 @@ import 'package:loopcare_frontend/core/presentation/text/custom_text.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 import 'package:loopcare_frontend/core/presentation/utils/build_context_extensions.dart';
 
+// TODO dead widget
 class LoggedListItem extends StatelessWidget {
   final String label;
   final bool isFilled;
