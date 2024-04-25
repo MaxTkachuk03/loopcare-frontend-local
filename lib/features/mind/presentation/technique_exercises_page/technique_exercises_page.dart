@@ -58,7 +58,7 @@ class _TechniqueExercisesPageState extends State<TechniqueExercisesPage> with Mi
               textColor: AppColors.blueDarker,
               description: currentTechnique?.shortIntroduction ?? '',
               onExplanationPressed: () => context.router.pushNamed(AppRoutes.techniqueExplanation),
-              videoPreview: currentTechnique?.explanation.preview,
+              videoPreview: currentTechnique?.explanation.image,
               listTitle: LocalizedTexts.chooseAnExercise.tr(),
               itemCount: state.data.exercises.length,
               itemBuilder: (context, index) {

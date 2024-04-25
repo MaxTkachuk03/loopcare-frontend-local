@@ -4,8 +4,9 @@ const exercises = [
     "title": "Basic breathing",
     "image": "https://img.freepik.com/premium-vector/dreamy-gradient-wallpaper-with-mandala-pattern-vector-background-yoga-meditation-poster_317038-294.jpg",
     "shortDescription": "Healthy breathing for everyday situations",
-    "intro": {
+    "explanation": {
       "type": "text",
+      "image": "https://img.freepik.com/premium-vector/dreamy-gradient-wallpaper-with-mandala-pattern-vector-background-yoga-meditation-poster_317038-294.jpg",
       "src": """<html lang="en">
 <body>
 <p>There are a range of benefits from using pursed lip breathing. The technique is effective in reducing stress and improving shortness of breath. In addition, it can assist with slowing down your breathing and relaxation.</p>
@@ -37,8 +38,9 @@ const exercises = [
     "title": "Box breathing",
     "shortDescription": "To reduce stress and boost concentration",
     "image": "https://img.freepik.com/premium-vector/dreamy-gradient-wallpaper-with-mandala-pattern-vector-background-yoga-meditation-poster_317038-294.jpg",
-    "intro": {
+    "explanation": {
       "type": "text",
+      "image": "https://img.freepik.com/premium-vector/dreamy-gradient-wallpaper-with-mandala-pattern-vector-background-yoga-meditation-poster_317038-294.jpg",
       "src": "explanation.html",
       "duration": 60
     },
@@ -55,9 +57,10 @@ const exercises = [
     "title": "4-7-8 breathing",
     "shortDescription": "Relieves cravings and anxiety",
     "image": "https://img.freepik.com/premium-vector/dreamy-gradient-wallpaper-with-mandala-pattern-vector-background-yoga-meditation-poster_317038-294.jpg",
-    "intro": {
+    "explanation": {
       "type": "text",
       "duration": 60,
+      "image": "https://img.freepik.com/premium-vector/dreamy-gradient-wallpaper-with-mandala-pattern-vector-background-yoga-meditation-poster_317038-294.jpg",
       "src": "explanation.html"
     },
     "exercise": {
@@ -73,8 +76,9 @@ const exercises = [
     "title": "Mindful breathing",
     "shortDescription": "To reduce stress and calm down",
     "image": "https://img.freepik.com/premium-vector/dreamy-gradient-wallpaper-with-mandala-pattern-vector-background-yoga-meditation-poster_317038-294.jpg",
-    "intro": {
+    "explanation": {
       "type": "text",
+      "image": "https://img.freepik.com/premium-vector/dreamy-gradient-wallpaper-with-mandala-pattern-vector-background-yoga-meditation-poster_317038-294.jpg",
       "src": "explanation.html",
       "duration": 30
     },
@@ -91,8 +95,9 @@ const exercises = [
     "title": "Pursed lip breathing",
     "shortDescription": "Improves shortness of breath",
     "image": "https://img.freepik.com/premium-vector/dreamy-gradient-wallpaper-with-mandala-pattern-vector-background-yoga-meditation-poster_317038-294.jpg",
-    "intro": {
+    "explanation": {
       "type": "text",
+      "image": "https://img.freepik.com/premium-vector/dreamy-gradient-wallpaper-with-mandala-pattern-vector-background-yoga-meditation-poster_317038-294.jpg",
       "src": "explanation.html",
       "duration": 60
     },

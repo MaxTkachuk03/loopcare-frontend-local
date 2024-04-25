@@ -5,10 +5,11 @@ class _TextExplanationLeadingWidget extends StatelessWidget {
     super.key,
     required this.type,
     required this.url,
-  }) : assert(
-        type == _MindContentScreenType.explanation && url != null || type != _MindContentScreenType.explanation,
-        'Parameter {url} required for {type} [_MindContentScreenType.intro] and [_MindContentScreenType.explanation]',
-      );
+  });
+      // : assert(
+      //   type == _MindContentScreenType.explanation && url != null || type != _MindContentScreenType.explanation,
+      //   'Parameter {url} required for {type} [_MindContentScreenType.intro] and [_MindContentScreenType.explanation]',
+      // );
 
   final _MindContentScreenType type;
   final String? url;
@@ -20,10 +21,10 @@ class _TextExplanationLeadingWidget extends StatelessWidget {
       _MindContentScreenType.intro => ExerciseListTile(
         exercise: context.read<MindBloc>().state.data.currentExerciseWithoutIntro,
       ),
-      _MindContentScreenType.explanation => SizedBox(
+      _MindContentScreenType.explanation => url != null ? SizedBox(
         height: 276,
         child: NetworkImageWithCache(url: url!),
-      ),
+      ) : SizedBox(),
     };
   }
 }

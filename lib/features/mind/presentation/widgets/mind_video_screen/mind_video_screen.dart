@@ -64,15 +64,34 @@ class _MindVideoScreenState extends State<MindVideoScreen> {
       SystemService.allowOnlyLandscapeOrientation();
     }
 
+    _videoController.addListener(_videoCompleteListener);
+
+    // Replace loading overlay with video
     setState(() {});
+  }
 
-    _videoController.addListener(() {
-      _playingNotifier.value = _videoController.value.isPlaying;
+  void _videoCompleteListener() {
+    _playingNotifier.value = _videoController.value.isPlaying;
 
-      if (_videoController.value.isCompleted) {
-        _videoController.pause();
+    if (_videoController.value.isCompleted) {
+      _onComplete();
+    }
+  }
+
+  void _onComplete() {
+    // WidgetsBinding - run too fast and crash with _videoController call after
+    // dispose() called is appeared. So that is why we use Future.delayed
+    Future.delayed(const Duration(milliseconds: 100), () {
+      if (!_isCompleted) {
         widget.onCompleted();
         _isCompleted = true;
+      }
+
+      if (widget.onCompleteOverlay != null) {
+        _videoController.pause();
+
+        // Add widget.onCompleteOverlay on screen. Set [_isCompleted]
+        // parameter for UI
         setState(() {});
       }
     });
@@ -107,8 +126,8 @@ class _MindVideoScreenState extends State<MindVideoScreen> {
 
   @override
   Widget build(BuildContext context) {
-
     final mediaQuery = MediaQuery.of(context);
+
     return Scaffold(
       body: Builder(
         builder: (context) {

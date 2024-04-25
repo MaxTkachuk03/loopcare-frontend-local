@@ -14,13 +14,11 @@ class ExplanationPage extends StatelessWidget {
     final bloc = context.read<MindBloc>();
     final title = LocalizedTexts.mindTraining.tr();
     final explanation = bloc.state.data.mindInfo!.explanation;
-    final url = bloc.state.data.mindInfo!.explanation.preview;
 
     return MindContentScreen.explanation(
       title: title,
       steps: [explanation],
       contentTitle: title,
-      url: url,
       onComplete: context.router.pop,
     );
   }

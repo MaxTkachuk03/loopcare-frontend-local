@@ -93,7 +93,10 @@ class _TechniquesListTileState extends State<TechniquesListTile> {
                 ),
                 child: SizedBox(
                   width: 120.0,
-                  child: NetworkImageWithCache(url: widget.technique.image),
+                  child: NetworkImageWithCache(
+                    url: widget.technique.image,
+                    imageBoxFit: BoxFit.cover,
+                  ),
                 ),
               ),
             ),

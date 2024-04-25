@@ -12,13 +12,11 @@ class ExplanationTechniquePage extends StatelessWidget {
     final bloc = context.read<MindBloc>();
     final title = bloc.state.data.currentTechnique?.title ?? '';
     final explanation = bloc.state.data.currentTechnique!.explanation;
-    final url = bloc.state.data.currentTechnique!.explanation.preview;
 
     return MindContentScreen.explanation(
       title: title,
       steps: [explanation],
       contentTitle: title,
-      url: url,
       onComplete: context.router.pop,
     );
   }

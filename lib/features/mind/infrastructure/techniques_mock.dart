@@ -6,9 +6,9 @@ const techniques = [
     "image": "https://www.bhf.org.uk/-/media/images/information-support/heart-matters/2023/december/wellbeing/deep-breathing-620x400.png",
     "shortIntroduction": "Many people normally don't pay a lot of attention to their breathing. It seems automatic – a process that just happens. But breathing is much more than this. Use Breathing as a way to better your health and to relieve stress.",
     "explanation": {
-      "type": "video",
+      "type": "text",
       "duration": 120,
-      "preview": "https://www.bhf.org.uk/-/media/images/information-support/heart-matters/2023/december/wellbeing/deep-breathing-620x400.png",
+      "image": "https://www.bhf.org.uk/-/media/images/information-support/heart-matters/2023/december/wellbeing/deep-breathing-620x400.png",
       "src": """<html lang="en">
 <body>
 <p>There are a range of benefits from using pursed lip breathing. The technique is effective in reducing stress and improving shortness of breath. In addition, it can assist with slowing down your breathing and relaxation.</p>

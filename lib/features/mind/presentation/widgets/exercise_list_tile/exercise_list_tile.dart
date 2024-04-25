@@ -48,7 +48,9 @@ class ExerciseListTile extends StatelessWidget {
               ),
               child: SizedBox(
                 width: 150.0,
-                child: NetworkImageWithCache(url: exercise.image),
+                child: NetworkImageWithCache(
+                  url: exercise.image,
+                ),
               ),
             ),
           ),
@@ -90,7 +92,7 @@ class ExerciseListTile extends StatelessWidget {
                 const SizedBox(height: 10),
                 Row(
                   children: [
-                    if (exercise.intro != null) ...[
+                    if (exercise.explanation != null) ...[
                       CustomElevatedButton.yellowSmall(
                         label: LocalizedTexts.intro.tr(),
                         onPressed: () => context

@@ -38,7 +38,6 @@ class MindContentScreen extends StatefulWidget {
     required this.onExerciseCompleted,
     required this.onRepeat,
   }) : onComplete = null,
-        url = null,
         _type = _MindContentScreenType.exercise;
 
   const MindContentScreen.intro({
@@ -49,7 +48,6 @@ class MindContentScreen extends StatefulWidget {
     required this.onComplete,
   }) : onExerciseCompleted = null,
         onRepeat = null,
-        url = null,
         difficulty = null,
         _type = _MindContentScreenType.intro;
 
@@ -59,14 +57,12 @@ class MindContentScreen extends StatefulWidget {
     required this.steps,
     required this.onComplete,
     required this.contentTitle,
-    required this.url,
   }) : onExerciseCompleted = null,
         onRepeat = null,
         difficulty = null,
         _type = _MindContentScreenType.explanation;
 
   final String title;
-  final String? url;
   final List<MindContent> steps;
   final void Function()? onExerciseCompleted;
   final void Function()? onRepeat;
@@ -183,8 +179,20 @@ class _MindContentScreenState extends State<MindContentScreen> {
           title: widget.title,
           leading: CustomFilledIconButton.leadingPetrolLighter(),
         ),
-        body: CustomSafeArea(
-          child: completesWidget,
+        body: DecoratedBox(
+          decoration: const BoxDecoration(
+            gradient: LinearGradient(
+              colors: [
+                Color(0xFF7CB5B9),
+                Color(0xFF115059),
+              ],
+              begin: Alignment.topCenter,
+              end: Alignment.bottomCenter,
+            ),
+          ),
+          child: CustomSafeArea(
+            child: completesWidget,
+          ),
         ),
       );
     }
@@ -207,7 +215,7 @@ class _MindContentScreenState extends State<MindContentScreen> {
         backgroundBrightness: _type.isIntro ? Brightness.dark : Brightness.light,
         leading: _TextExplanationLeadingWidget(
           type: _type,
-          url: widget.url,
+          url: currentStep.image,
         ),
       ),
     };

@@ -9,9 +9,9 @@ import 'package:loopcare_frontend/features/mind/application/dto/mind_techniques_
 import 'package:loopcare_frontend/features/mind/application/mind_service.dart';
 
 // TODO import mock data
-import 'techniques_mock.dart';
-import 'mind_info_mock.dart';
-import 'exercises_mock.dart';
+// import 'techniques_mock.dart';
+// import 'mind_info_mock.dart';
+// import 'exercises_mock.dart';
 
 @Injectable(as: MindService)
 class APIMindService implements MindService {
@@ -45,6 +45,9 @@ class APIMindService implements MindService {
 
   @override
   Future<Either<RequestError, dynamic>> completeExercise(int techniqueId, int exerciseId) async {
-    return client.put('/mind/techniques/$techniqueId/exercises/$exerciseId/complete');
+    return client.put(
+      '/mind/techniques/$techniqueId/exercises/$exerciseId',
+      data: {},
+    );
   }
 }

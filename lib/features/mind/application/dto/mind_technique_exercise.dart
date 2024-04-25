@@ -17,7 +17,7 @@ class MindTechniqueExercise with _$MindTechniqueExercise {
     required String shortDescription,
     required TechniqueExerciseDifficulty difficulty,
     required bool isLocked,
-    MindContent? intro,
+    MindContent? explanation,
     DateTime? completedAt,
     required MindContent exercise,
   }) = _MindTechniqueExercise;
