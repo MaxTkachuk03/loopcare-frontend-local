@@ -31,7 +31,7 @@ class TextWithAccents extends StatelessWidget {
   Widget build(BuildContext context) {
     final parts = _parts(text, accents);
     final regularStyle = style ?? context.textTheme.bodyMedium?.copyWith(fontWeight: FontWeight.w400);
-    final accentedStyle = style ?? context.textTheme.bodyMedium?.copyWith(fontWeight: FontWeight.w600);
+    final accentStyle = accentedStyle ?? context.textTheme.bodyMedium?.copyWith(fontWeight: FontWeight.w600);
 
     return RichText(
       text: TextSpan(
@@ -39,7 +39,7 @@ class TextWithAccents extends StatelessWidget {
             .map(
               (value) => TextSpan(
                 text: value,
-                style: accents.contains(value) ? accentedStyle : regularStyle,
+                style: accents.contains(value) ? accentStyle : regularStyle,
               ),
             )
             .toList(),

@@ -54,8 +54,7 @@ class _LessonPageState extends State<LessonPage> {
 
     if (lessonBloc.state.data.isLastPage) {
       final extraAction = lessonBloc.state.data.extraAction;
-      if (extraAction == ExtraActionTypes.setupGroupingPreferences &&
-          !(account?.isGroupSessionsUnlocked ?? false)) {
+      if (extraAction == ExtraActionTypes.setupGroupingPreferences && !(account?.isGroupSessionsUnlocked ?? false)) {
         _unlockFeature(account, UnlockedFeatureType.grouping);
 
         AnalyticsEventService.instance.logEvent(FirebaseEvents.unlockedSupportGroupFeature);
@@ -82,6 +81,12 @@ class _LessonPageState extends State<LessonPage> {
 
       if (lessonBloc.state.data.isBuddyUnlocked && !(account?.isBuddyUnlocked ?? false)) {
         context.router.pushNamed(AppRoutes.buddyIntro);
+        return;
+      }
+
+      if (extraAction == ExtraActionTypes.unlockSmartGoals && !(account?.isSmartGoalsUnlocked ?? false)) {
+        //Todo unlock smart goals
+        debugPrint('devcpp UNLOCK SMART FEATURE');
         return;
       }
 
@@ -174,12 +179,10 @@ class _LessonPageState extends State<LessonPage> {
               return state.maybeMap(
                 initial: (_) => const Loader(),
                 contentIsLoading: (_) => const Loader(),
-                errorGettingContent: (s) =>
-                    ErrorScreen(error: s.data.error!, onButtonPressed: _onRetryHandler),
+                errorGettingContent: (s) => ErrorScreen(error: s.data.error!, onButtonPressed: _onRetryHandler),
                 orElse: () {
                   if (state.data.isArticlePage) {
-                    return LessonTextBody(
-                        onNextPressed: _onNextPressed, content: state.data.currentPage.content);
+                    return LessonTextBody(onNextPressed: _onNextPressed, content: state.data.currentPage.content);
                   }
 
                   if (state.data.isAudioPage) {
