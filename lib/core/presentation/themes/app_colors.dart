@@ -126,6 +126,7 @@ class AppColors {
   static const Color yellowDarkest = Color(0xFF372A0F);
 
   // Green
+  static const Color greenLightestTrans = Color(0x88FBFFEE);
   static const Color greenLightest = Color(0xFFFBFFEE);
   static const Color greenLighter = Color(0xFFD9E5B7);
   static const Color greenOffRegular = Color(0xFFAECA5F);
