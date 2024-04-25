@@ -64,9 +64,7 @@ class SearchResultGridItem extends StatelessWidget {
                 child: CustomText.w600(
                   item.name,
                   textAlign: TextAlign.start,
-                  style: context.textTheme.bodySmall?.copyWith(
-                    fontWeight: FontWeight.w700,
-                  ),
+                  style: context.textTheme.bodySmall,
                   maxLines: 2,
                   overflow: TextOverflow.ellipsis,
                 ),
