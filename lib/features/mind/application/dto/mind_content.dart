@@ -7,7 +7,7 @@ part 'mind_content.g.dart';
 @immutable
 @JsonSerializable()
 class MindContent {
-  final int duration;
+  final int? duration;
   final String src;
   final String? preview;
   final String? question;

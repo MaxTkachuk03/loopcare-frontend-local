@@ -11,7 +11,7 @@ class MindTechnique {
   final int id;
   final String title;
   final String image;
-  final String  subtitle;
+  final String subtitle;
   final String? shortIntroduction;
   final MindContent explanation;
   final bool isLocked;

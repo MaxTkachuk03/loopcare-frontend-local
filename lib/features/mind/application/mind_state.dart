@@ -59,7 +59,7 @@ class MindStateData with _$MindStateData {
       difficulty: currentExercise!.difficulty,
       shortDescription: currentExercise!.shortDescription,
       title: currentExercise!.title,
-      steps: currentExercise!.steps,
+      exercise: currentExercise!.exercise,
     );
   }
 }

@@ -17,14 +17,11 @@ class IntroExercisePage extends StatefulWidget {
 class _IntroExercisePageState extends State<IntroExercisePage> with MindAnalyticsMixin {
 
   @override
-  int get techniqueId => context.read<MindBloc>().state.data.currentTechnique!.id;
-
-  @override
-  int get exerciseId => context.read<MindBloc>().state.data.currentExercise!.id;
-
-  @override
   void initState() {
     super.initState();
+    techniqueId = context.read<MindBloc>().state.data.currentTechnique!.id;
+    exerciseId = context.read<MindBloc>().state.data.currentExercise!.id;
+
     track(FirebaseEvents.mindExerciseIntro);
   }
 

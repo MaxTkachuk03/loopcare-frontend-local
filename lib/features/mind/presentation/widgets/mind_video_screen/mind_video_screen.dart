@@ -9,6 +9,7 @@ import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 import 'package:loopcare_frontend/core/presentation/utils/build_context_extensions.dart';
 import 'package:loopcare_frontend/features/mind/presentation/widgets/mind_video_screen/widgets/hiding_box.dart';
 import 'package:video_player/video_player.dart';
+import 'package:wakelock/wakelock.dart';
 
 part 'widgets/_play_pause_button.dart';
 part 'widgets/_video_app_bar.dart';
@@ -46,8 +47,11 @@ class _MindVideoScreenState extends State<MindVideoScreen> {
   bool _isCompleted = false;
 
   Future<void> _initVideoPlayerController() async {
+    await Wakelock.enable();
+
     final url = Uri.parse(widget.url);
     _videoController = VideoPlayerController.networkUrl(url);
+
     await _videoController.initialize();
     _initialised = true;
 
@@ -74,6 +78,13 @@ class _MindVideoScreenState extends State<MindVideoScreen> {
     });
   }
 
+  Future<void> _onlyPortraitOrientation() async {
+    await Wakelock.disable();
+
+    SystemService.allowOnlyPortraitOrientation();
+    SystemService.showSystemOverlays();
+  }
+
   void _togglePlay() {
     if (!_isCompleted) {
       _playingNotifier.value = !_videoController.value.isPlaying;
@@ -89,8 +100,7 @@ class _MindVideoScreenState extends State<MindVideoScreen> {
 
   @override
   void dispose() {
-    SystemService.allowOnlyPortraitOrientation();
-    SystemService.showSystemOverlays();
+    _onlyPortraitOrientation();
     _videoController.dispose();
     super.dispose();
   }

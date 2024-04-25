@@ -19,11 +19,11 @@ class MindTechniqueExercise with _$MindTechniqueExercise {
     required bool isLocked,
     MindContent? intro,
     DateTime? completedAt,
-    required List<MindContent> steps,
+    required MindContent exercise,
   }) = _MindTechniqueExercise;
 
   factory MindTechniqueExercise.fromJson(Map<String, dynamic> json) =>
       _$MindTechniqueExerciseFromJson(json);
 
-  int get stepsDuration => steps.map((s) => s.duration).sum;
+  int get stepsDuration => exercise.duration ?? 0;
 }

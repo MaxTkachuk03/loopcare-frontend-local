@@ -25,11 +25,10 @@ class TechniqueExercisesPage extends StatefulWidget {
 class _TechniqueExercisesPageState extends State<TechniqueExercisesPage> with MindAnalyticsMixin {
 
   @override
-  int get techniqueId => context.read<MindBloc>().state.data.currentTechnique!.id;
-
-  @override
   void initState() {
     super.initState();
+    techniqueId = context.read<MindBloc>().state.data.currentTechnique!.id;
+
     track(FirebaseEvents.mindSelectTechnique);
   }
 

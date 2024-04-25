@@ -160,7 +160,7 @@ class _MindContentScreenState extends State<MindContentScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final duration = Duration(seconds: steps.map((e) => e.duration).sum).inMinutes.toString();
+    final duration = Duration(seconds: steps.map((e) => e.duration ?? 0).sum).inMinutes.toString();
 
     final currentStep = steps[currentStepIndex];
 
@@ -201,9 +201,10 @@ class _MindContentScreenState extends State<MindContentScreen> {
       ),
       TechniqueExplanationType.text => MindTextScreen(
         title: widget.title,
-        content: currentStep.src,
+        url: currentStep.src,
         buttonLabel: _buttonLabel,
         onCompleted: widget.onComplete,
+        backgroundBrightness: _type.isIntro ? Brightness.dark : Brightness.light,
         leading: _TextExplanationLeadingWidget(
           type: _type,
           url: widget.url,

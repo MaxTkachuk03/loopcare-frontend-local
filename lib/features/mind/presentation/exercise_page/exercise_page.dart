@@ -1,3 +1,4 @@
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loopcare_frontend/core/application/customer_io_service/customer_io_service.dart';
@@ -65,13 +66,13 @@ class ExercisePage extends StatelessWidget {
   Widget build(BuildContext context) {
     final data = context.read<MindBloc>().state.data;
     final title = data.currentTechnique?.title ?? '';
-    final steps = data.currentExercise?.steps ?? [];
+    final exercise = data.currentExercise!.exercise;
     final exerciseTitle = data.currentExercise?.title ?? '';
     final difficulty = data.currentExercise?.difficulty;
 
     return MindContentScreen.exercise(
       title: title,
-      steps: steps,
+      steps: [exercise],
       contentTitle: exerciseTitle,
       difficulty: difficulty,
       onExerciseCompleted: () => _onExerciseCompleted(context),

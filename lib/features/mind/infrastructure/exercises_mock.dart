@@ -24,13 +24,11 @@ const exercises = [
  """,
       "duration": 30
     },
-    "steps": [
-      {
-        "type": "video",
-        "duration": 180,
-        "src": "/exerciseVideo/hls/in1dex.m3u8"
-      }
-    ],
+    "exercise": {
+      "type": "video",
+      "duration": 180,
+      "src": "/exerciseVideo/hls/in1dex.m3u8"
+    },
     "isLocked": false,
     "difficulty": "easy"
   },
@@ -44,13 +42,11 @@ const exercises = [
       "src": "explanation.html",
       "duration": 60
     },
-    "steps": [
-      {
-        "type": "video",
-        "duration":240,
-        "src": "/exerciseVideo/hls/index.m3u8"
-      }
-    ],
+    "exercise": {
+      "type": "video",
+      "duration": 240,
+      "src": "/exerciseVideo/hls/in1dex.m3u8"
+    },
     "isLocked": false,
     "difficulty": "easy"
   },
@@ -64,13 +60,11 @@ const exercises = [
       "duration": 60,
       "src": "explanation.html"
     },
-    "steps": [
-      {
-        "type": "video",
-        "duration": 199,
-        "src": "/exerciseVideo/hls/index.m3u8"
-      }
-    ],
+    "exercise": {
+      "type": "video",
+      "duration": 199,
+      "src": "/exerciseVideo/hls/in1dex.m3u8"
+    },
     "isLocked": false,
     "difficulty": "easy"
   },
@@ -84,13 +78,11 @@ const exercises = [
       "src": "explanation.html",
       "duration": 30
     },
-    "steps": [
-      {
-        "type": "video",
-        "duration": 150,
-        "src": "/exerciseVideo/hls/index.m3u8"
-      }
-    ],
+    "exercise": {
+      "type": "video",
+      "duration": 150,
+      "src": "/exerciseVideo/hls/in1dex.m3u8"
+    },
     "isLocked": false,
     "difficulty": "easy"
   },
@@ -104,13 +96,11 @@ const exercises = [
       "src": "explanation.html",
       "duration": 60
     },
-    "steps": [
-      {
-        "type": "video",
-        "duration": 120,
-        "src": "/exerciseVideo/hls/index.m3u8"
-      }
-    ],
+    "exercise": {
+      "type": "video",
+      "duration": 120,
+      "src": "/exerciseVideo/hls/in1dex.m3u8"
+    },
     "isLocked": false,
     "difficulty": "easy"
   }
