@@ -148,6 +148,7 @@ class _LessonAudioBodyState extends State<LessonAudioBody> {
                               AudioBlock(
                                 url: state.data.currentPage.content.audioFilePath,
                                 duration: state.data.lessonDuration,
+                                title: state.data.lessonTitle,
                                 controller: _subtitleController,
                                 onPlayerComplete: _setIsComplete,
                               ),
