@@ -44,6 +44,12 @@ class FlexibleHeaderState extends State<FlexibleHeader> {
   }
 
   @override
+  void dispose() {
+    showTitle.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     Widget background;
     return BlocBuilder<RecipeDetailsBloc, RecipeDetailsState>(

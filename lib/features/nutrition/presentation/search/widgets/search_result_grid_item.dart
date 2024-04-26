@@ -27,7 +27,8 @@ class SearchResultGridItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return Card(
       color: AppColors.white,
-      elevation: 8,
+      margin: EdgeInsets.zero,
+      elevation: 4,
       shape: RoundedRectangleBorder(
         borderRadius: borderRadius,
       ),
@@ -58,7 +59,7 @@ class SearchResultGridItem extends StatelessWidget {
               ),
             ),
             Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 6.0),
+              padding: const EdgeInsets.only(right: 6.0, left: 6.0, bottom: 4.0),
               child: SizedBox(
                 height: _titleHeight,
                 child: CustomText.w600(
