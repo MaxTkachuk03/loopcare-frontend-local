@@ -205,6 +205,10 @@ class LocalizedTexts {
   static const String on = 'on';
   static const String off = 'off';
   static const String noMoodRecords = 'noMoodRecords';
+  static const String calorie = 'calorie';
+  static const String dencity = 'dencity';
+  static const String protein = 'protein';
+  static const String degree = 'degree';
 
   // Education
   static const String all = 'all';
@@ -531,7 +535,8 @@ class LocalizedTexts {
   static const String restoreSubscriptionFromSettings = "restoreSubscriptionFromSettings";
   static const String askRestoreSubscription = "askRestoreSubscription";
   static const String duplicateSubscriptionFromSettings = "duplicateSubscriptionFromSettings";
-  static const String otherPurchaseVendorCancelAccountSubscription = "otherPurchaseVendorCancelAccountSubscription";
+  static const String otherPurchaseVendorCancelAccountSubscription =
+      "otherPurchaseVendorCancelAccountSubscription";
 
   // Quizzes
   static const String quiz = "quiz";

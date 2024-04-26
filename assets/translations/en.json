@@ -851,15 +851,19 @@
   "weeklyQuickReview" : "Quick goal review",
   "weeklyDaysLeft": "{} days left",
   "weeklyCompleteTitle": "When did you complete this goal?",
- "weeklyDate": "Date",
+  "weeklyDate": "Date",
   "weeklyCompletedFar":"Completed so far",
   "weeklyAddCompletions": "Add completion(s)",
   "weeklyTime": "{} time",
   "weeklyTimes": "{} times",
   "weeklyMakeCorrections":"Make corrections",
   "weeklyShowGoalDetails":"Show goal details",
- "weeklyModalProgress": "Add completions",
- "weeklyModalInfo":  "Info",
+  "weeklyModalProgress": "Add completions",
+  "weeklyModalInfo":  "Info",
+  "calorie": "calorie",
+  "dencity": "dencity",
+  "protein": "protein",
+  "degree": "degree",
 
 
 

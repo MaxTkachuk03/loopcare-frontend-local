@@ -12,13 +12,15 @@ import 'package:loopcare_frontend/features/nutrition/application/nutrition_instr
 class NutritionSummary extends StatelessWidget {
   final double? calorieDensity;
   final double? proteinDegree;
+  final double? fiber;
 
-  const NutritionSummary({super.key, this.calorieDensity, this.proteinDegree});
+  const NutritionSummary({super.key, this.calorieDensity, this.proteinDegree, this.fiber});
 
-  String get proteinDegreeLabel =>
-      proteinDegree == null || proteinDegree == 0 ? '-' : '${proteinDegree?.round()}%';
+  String get proteinDegreeLabel => '${proteinDegree?.round()}%';
 
-  String get calorieDensityLabel => calorieDensity?.toStringAsFixed(1) ?? '-';
+  String get calorieDensityLabel => '${calorieDensity?.toStringAsFixed(1)}';
+
+  String get fiberLabel => '${calorieDensity?.toStringAsFixed(1)}';
 
   @override
   Widget build(BuildContext context) {
@@ -40,9 +42,6 @@ class NutritionSummary extends StatelessWidget {
               return const SizedBox();
             }
 
-            print(currentCalorieDensityItem);
-            print(currentProteinDegreeItem);
-
             return Row(
               crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -52,18 +51,21 @@ class NutritionSummary extends StatelessWidget {
                   bottomLabel: currentCalorieDensityItem.label.capitalize(),
                   color: calorieDensityScaleValuesColorForRange(calorieDensity),
                   indicatorLabel: calorieDensityLabel,
+                  isDisabled: calorieDensity == 0,
                 ),
                 NutritionScale(
                   topLabel: LocalizedTexts.proteinDegree.tr(),
                   bottomLabel: currentProteinDegreeItem.label.capitalize(),
                   color: proteinDegreeScaleValuesColorForRange(proteinDegree),
                   indicatorLabel: proteinDegreeLabel,
+                  isDisabled: proteinDegree == 0,
                 ),
                 NutritionScale(
                   topLabel: LocalizedTexts.proteinDegree.tr(),
                   bottomLabel: currentProteinDegreeItem.label.capitalize(),
                   color: proteinDegreeScaleValuesColorForRange(proteinDegree),
                   indicatorLabel: proteinDegreeLabel,
+                  isDisabled: proteinDegree == 0,
                 ),
               ],
             );
