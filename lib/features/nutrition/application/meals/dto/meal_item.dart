@@ -26,6 +26,10 @@ class MealItem with _$MealItem {
 
   double get servingCalories => serving.calories;
 
+  double get servingFiber => serving.fiber;
+
+  double get servingCarbs => serving.carbohydrate;
+
   double get servingWeight => serving.metricServingAmount ?? 0.0;
 
   double get servingProtein => serving.protein;

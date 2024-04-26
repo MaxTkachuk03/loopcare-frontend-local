@@ -50,9 +50,7 @@ class ProteinDegreeBlock extends StatelessWidget {
                   CustomCalorieDensityScale(
                     density: value,
                     label: proteinDegreeValue,
-                    color: value == null || value == 0
-                        ? AppColors.white
-                        : proteinDegreeScaleValuesColorForRange(value),
+                    color: value == null || value == 0 ? AppColors.white : proteinDegreeColor(value),
                     layoutSize: CustomCalorieDensityScaleLayoutSize.small,
                   ),
                   const SizedBox(height: 8.0),

@@ -121,6 +121,54 @@ class MealsState with _$MealsState {
     });
   }
 
+  double? get selectedDayMealFiber {
+    return mapOrNull(mealsInfo: (state) {
+      final currentDate = state.currentDate;
+
+      if (state.meals.isEmpty || currentDate == null) {
+        return null;
+      }
+
+      double fiberSum = 0;
+
+      final selectedDayMeals = state.meals[currentDate.isoStringWithoutTime] ?? <MealsListItem>[];
+
+      for (MealsListItem meal in selectedDayMeals) {
+        if (meal.loggingDate?.isSameDate(currentDate) ?? false) {
+          fiberSum += meal.fiberSum;
+        }
+      }
+
+      return fiberSum;
+    });
+  }
+
+  double? get selectedDayMealCarbFiberRatio {
+    return mapOrNull(mealsInfo: (state) {
+      final currentDate = state.currentDate;
+
+      if (state.meals.isEmpty || currentDate == null) {
+        return null;
+      }
+
+      double fiberSum = 0;
+      double carbsSum = 0;
+
+      final selectedDayMeals = state.meals[currentDate.isoStringWithoutTime] ?? <MealsListItem>[];
+
+      for (MealsListItem meal in selectedDayMeals) {
+        if (meal.loggingDate?.isSameDate(currentDate) ?? false) {
+          fiberSum += meal.fiberSum;
+          carbsSum += meal.carbohydratesSum;
+        }
+      }
+
+      final result = carbsSum / fiberSum;
+
+      return (result.isNaN || result.isInfinite) ? 0 : result;
+    });
+  }
+
   double? get selectedDayMealProteinDegreeSum {
     return mapOrNull(
       mealsInfo: (state) {

@@ -43,6 +43,7 @@ import 'package:loopcare_frontend/features/nutrition/application/select_serving/
 import 'package:loopcare_frontend/features/nutrition/application/select_serving/dto/add_to_favorites_response.dart';
 import 'package:loopcare_frontend/features/nutrition/application/select_serving/dto/food_item_servings_response.dart';
 import 'package:loopcare_frontend/features/nutrition/application/select_serving/dto/update_favorite_body.dart';
+import 'package:loopcare_frontend/features/nutrition/infrastructure/get_values_explanation_mock.dart';
 
 @Injectable(as: NutritionService)
 class APINutritionService implements NutritionService {
@@ -52,7 +53,9 @@ class APINutritionService implements NutritionService {
 
   @override
   Future<Either<RequestError, ValuesExplanationResponse>> getValuesExplanation() async {
-    return client.get('/nutrition/value-explanation').then(parseResponse(ValuesExplanationResponse.fromJson));
+    return right(ValuesExplanationResponse.fromJson({'data': data}));
+
+    // return client.get('/nutrition/value-explanation').then(parseResponse(ValuesExplanationResponse.fromJson));
   }
 
   @override

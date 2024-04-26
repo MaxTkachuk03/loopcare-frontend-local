@@ -71,9 +71,12 @@ class _DashboardPageState extends State<DashboardPage> with WidgetsBindingObserv
 
   void _loadInitialData() {
     context.read<AuthenticationBloc>().add(const AuthenticationEvent.getAccount());
+    context.read<NutritionInstructionsBloc>().add(const NutritionInstructionsEvent.fetchValuesExplanation());
 
     if (!context.read<NutritionInstructionsBloc>().state.data.alreadyLoaded) {
-      context.read<NutritionInstructionsBloc>().add(const NutritionInstructionsEvent.fetchValuesExplanation());
+      context
+          .read<NutritionInstructionsBloc>()
+          .add(const NutritionInstructionsEvent.fetchValuesExplanation());
     }
 
     context
@@ -87,7 +90,9 @@ class _DashboardPageState extends State<DashboardPage> with WidgetsBindingObserv
           ),
         );
 
-    context.read<DashboardEducationBloc>().add(DashboardEducationEvent.getDashboardLessons(currentDate: _selectedDay));
+    context
+        .read<DashboardEducationBloc>()
+        .add(DashboardEducationEvent.getDashboardLessons(currentDate: _selectedDay));
 
     context.read<EducationProgramBloc>().add(const EducationProgramEvent.getLessons());
 
@@ -120,7 +125,9 @@ class _DashboardPageState extends State<DashboardPage> with WidgetsBindingObserv
         .read<DashboardWeightBloc>()
         .add(DashboardWeightEvent.fetchWeights(_selectedDay.utsIsoStringWeekBeforeDateWithMidnightTime));
 
-    context.read<DashboardEducationBloc>().add(DashboardEducationEvent.getDashboardLessons(currentDate: _selectedDay));
+    context
+        .read<DashboardEducationBloc>()
+        .add(DashboardEducationEvent.getDashboardLessons(currentDate: _selectedDay));
     context.read<EducationProgramBloc>().add(const EducationProgramEvent.getLessons());
 
     if (context.read<AuthenticationBloc>().state.data.isFoodLoggingUnlocked) {
@@ -173,7 +180,9 @@ class _DashboardPageState extends State<DashboardPage> with WidgetsBindingObserv
         final isFreshUser = account?.createdAt != null && (account?.createdAt?.isToday ?? false);
 
         if (value.data.weights.isEmpty && isFreshUser) {
-          context.read<DashboardWeightBloc>().add(DashboardWeightEvent.logWeight(DateTime.now(), account!.weight));
+          context
+              .read<DashboardWeightBloc>()
+              .add(DashboardWeightEvent.logWeight(DateTime.now(), account!.weight));
         }
       },
     );
@@ -236,7 +245,9 @@ class _DashboardPageState extends State<DashboardPage> with WidgetsBindingObserv
                                   const SizedBox(height: 19.0),
                                   BlocBuilder<MealsBloc, MealsState>(
                                     builder: (BuildContext context, state) {
-                                      return state.isNeedToHideOnDashboard ? const SizedBox.shrink() : const LogMeal();
+                                      return state.isNeedToHideOnDashboard
+                                          ? const SizedBox.shrink()
+                                          : const LogMeal();
                                     },
                                   ),
                                   // const SizedBox(height: 10.0), //TODO: LOOPCARE-1798: Hide Meal planning block

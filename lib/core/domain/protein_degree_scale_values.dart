@@ -1,20 +1,27 @@
-import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:loopcare_frontend/core/domain/calorie_density_scale_values.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 
 final List<Range> proteinDegreeScaleValues = [
-  Range(min: 0, max: 15, color: const Color(0xFFB7131E)),
-  Range(min: 15, max: 20, color: const Color(0xFFCD9D52)),
-  Range(min: 20, max: 25, color: const Color(0xFF73B642)),
-  Range(min: 25, max: 99, color: const Color(0xFF24CB35)),
+  // TODO check ranges with Diana
+  Range(min: 1, max: 6.99, color: AppColors.hq1),
+  Range(min: 7, max: 8.99, color: AppColors.hq2),
+  Range(min: 9, max: 10.99, color: AppColors.hq3),
+  Range(min: 11, max: 12.99, color: AppColors.mq1),
+  Range(min: 13, max: 15.99, color: AppColors.mq2),
+  Range(min: 18, max: 19.99, color: AppColors.mq3),
+  Range(min: 21, max: 23.99, color: AppColors.lq1),
+  Range(min: 24, max: 26.99, color: AppColors.lq2),
+  Range(min: 27, max: 29.99, color: AppColors.lq3),
+  Range(min: 30, max: 100, color: AppColors.lq4),
 ];
 
-Color proteinDegreeScaleValuesColorForRange(double? density) {
-  if (density == null) return AppColors.white;
+Color proteinDegreeColor(double? value) {
+  if (value == null || value < proteinDegreeScaleValues.first.min) return AppColors.white;
 
-  var retColor = proteinDegreeScaleValues
-      .firstWhereOrNull((element) => (element.min <= density && density < element.max));
+  if (value > proteinDegreeScaleValues.last.max) return AppColors.lq4;
 
-  return retColor?.color ?? AppColors.white;
+  final val = proteinDegreeScaleValues.firstWhere((e) => (e.min <= value && value < e.max));
+
+  return val.color;
 }

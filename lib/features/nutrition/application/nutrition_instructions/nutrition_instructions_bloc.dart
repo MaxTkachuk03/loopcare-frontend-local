@@ -32,6 +32,7 @@ class NutritionInstructionsBloc extends HydratedBloc<NutritionInstructionsEvent,
     response.fold(
       (l) => emit(NutritionInstructionsState.error(state.data.copyWith(error: l, isLoading: false))),
       (r) {
+        print(r);
         final calorieDensityValues =
             r.data.where((el) => el.category == NutritionInstructionCategory.calorieDensity.name).toList();
         final proteinDegreeValues =

@@ -209,6 +209,7 @@ class LocalizedTexts {
   static const String dencity = 'dencity';
   static const String protein = 'protein';
   static const String degree = 'degree';
+  static const String fiber = 'fiber';
 
   // Education
   static const String all = 'all';

@@ -2,6 +2,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loopcare_frontend/core/domain/calorie_density_scale_values.dart';
+import 'package:loopcare_frontend/core/domain/carb_fiber_ratio_values.dart';
 import 'package:loopcare_frontend/core/domain/protein_degree_scale_values.dart';
 import 'package:loopcare_frontend/core/presentation/loader/loader.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
@@ -13,17 +14,20 @@ class NutritionSummary extends StatelessWidget {
   final double? calorieDensity;
   final double? proteinDegree;
   final double? fiber;
+  final double? carbFiberRatio;
 
-  const NutritionSummary({super.key, this.calorieDensity, this.proteinDegree, this.fiber});
+  const NutritionSummary(
+      {super.key, this.calorieDensity, this.proteinDegree, this.fiber, this.carbFiberRatio});
 
   String get proteinDegreeLabel => '${proteinDegree?.round()}%';
 
   String get calorieDensityLabel => '${calorieDensity?.toStringAsFixed(1)}';
 
-  String get fiberLabel => '${calorieDensity?.toStringAsFixed(1)}';
+  String get fiberLabel => '${fiber?.toStringAsFixed(1)}g';
 
   @override
   Widget build(BuildContext context) {
+    print(carbFiberRatio?.toStringAsFixed(2));
     return BlocBuilder<NutritionInstructionsBloc, NutritionInstructionsState>(
       builder: (BuildContext context, state) {
         return state.maybeMap(
@@ -56,16 +60,16 @@ class NutritionSummary extends StatelessWidget {
                 NutritionScale(
                   topLabel: LocalizedTexts.proteinDegree.tr(),
                   bottomLabel: currentProteinDegreeItem.label.capitalize(),
-                  color: proteinDegreeScaleValuesColorForRange(proteinDegree),
+                  color: proteinDegreeColor(30),
                   indicatorLabel: proteinDegreeLabel,
                   isDisabled: proteinDegree == 0,
                 ),
                 NutritionScale(
-                  topLabel: LocalizedTexts.proteinDegree.tr(),
+                  topLabel: LocalizedTexts.fiber.tr().capitalize(),
                   bottomLabel: currentProteinDegreeItem.label.capitalize(),
-                  color: proteinDegreeScaleValuesColorForRange(proteinDegree),
-                  indicatorLabel: proteinDegreeLabel,
-                  isDisabled: proteinDegree == 0,
+                  color: carbFiberRatioColor(carbFiberRatio),
+                  indicatorLabel: fiberLabel,
+                  isDisabled: fiber == 0,
                 ),
               ],
             );
