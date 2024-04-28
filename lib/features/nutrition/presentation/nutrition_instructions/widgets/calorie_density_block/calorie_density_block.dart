@@ -1,7 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:loopcare_frontend/core/domain/calorie_density_scale_values.dart';
+import 'package:loopcare_frontend/core/domain/nutrition_indicator_color_picker.dart';
 import 'package:loopcare_frontend/core/presentation/calorie_density_scale/custom_calorie_density_scale.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/core/presentation/text/custom_text.dart';
@@ -49,7 +49,10 @@ class CalorieDensityBlock extends StatelessWidget {
                       label: calorieDegreeValue,
                       color: value == null || value == 0
                           ? AppColors.white
-                          : calorieDensityScaleValuesColorForRange(value),
+                          : NutritionIndicatorColorPicker.getIndicatorColor(
+                              NutritionIndicatorType.calorieDensity,
+                              value,
+                            ),
                       layoutSize: CustomCalorieDensityScaleLayoutSize.small,
                     ),
                     const SizedBox(height: 8.0),

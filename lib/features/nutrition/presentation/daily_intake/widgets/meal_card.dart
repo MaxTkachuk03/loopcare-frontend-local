@@ -1,7 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:loopcare_frontend/core/domain/calorie_density_scale_values.dart';
+import 'package:loopcare_frontend/core/domain/nutrition_indicator_color_picker.dart';
 import 'package:loopcare_frontend/core/presentation/icon_images/app_icons.dart';
 import 'package:loopcare_frontend/core/presentation/routes/app_router.dart';
 import 'package:loopcare_frontend/core/presentation/text/custom_text.dart';
@@ -46,7 +46,10 @@ class MealCard extends StatelessWidget {
                   children: [
                     CircleAvatar(
                       radius: 5,
-                      backgroundColor: calorieDensityScaleValuesColorForRange(calorieDensity),
+                      backgroundColor: NutritionIndicatorColorPicker.getIndicatorColor(
+                        NutritionIndicatorType.calorieDensity,
+                        calorieDensity,
+                      ),
                     ),
                     const SizedBox(width: 10.0),
                     CustomText.bitter600(

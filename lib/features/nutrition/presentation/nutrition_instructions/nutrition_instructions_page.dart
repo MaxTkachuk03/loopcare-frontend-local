@@ -7,9 +7,8 @@ import 'package:loopcare_frontend/core/presentation/localization/localized_texts
 import 'package:loopcare_frontend/core/presentation/scaffold/custom_scaffold.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/main_container.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/nutrition_tabs/nutrition_tabs.dart';
-import 'package:loopcare_frontend/features/nutrition/presentation/nutrition_instructions/widgets/calorie_density/calorie_density.dart';
-import 'package:loopcare_frontend/features/nutrition/presentation/nutrition_instructions/widgets/protein_degree/protein_degree.dart';
 
+// TODO remove
 class NutritionInstructionsPage extends StatelessWidget {
   final double? calorieDensity;
   final double? proteinDegree;
@@ -39,8 +38,8 @@ class NutritionInstructionsPage extends StatelessWidget {
             child: NutritionTabs(
               initialIndex: tabIndex,
               tabBarViewChildren: [
-                CalorieDensity(value: calorieDensity),
-                ProteinDegree(value: proteinDegree),
+                // CalorieDensity(value: calorieDensity),
+                // ProteinDegree(value: proteinDegree),
               ],
             ),
           ),

@@ -52,8 +52,14 @@ class LocalizedTexts {
   static const String proteinDegree = 'proteinDegree';
   static const String whatIsCalorieDensity = 'whatIsCalorieDensity';
   static const String whatIsProtein = 'whatIsProtein';
-  static const String calorieDensityExplanationTwo = 'calorieDensityExplanationTwo';
-  static const String calorieDensityExplanationOne = 'calorieDensityExplanationOne';
+  static const String calorieDensityExplanation = 'calorieDensityExplanation';
+  static const String forMoreInformationSeeLesson = 'forMoreInformationSeeLesson';
+  static const String proteinDegreeExplanation = 'proteinDegreeExplanation';
+  static const String fiberExplanation = 'fiberExplanation';
+  static const String importanceOfProtein = 'importanceOfProtein';
+  static const String carbohydratesPart2 = 'carbohydratesPart2';
+  static const String fiberDailyGoal = 'fiberDailyGoal';
+  static const String fiberRatioToCarbo = 'fiberRatioToCarbo';
   static const String myFavorites = 'myFavorites';
   static const String my = 'my';
   static const String myDishes = 'myDishes';

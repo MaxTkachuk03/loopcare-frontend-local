@@ -169,6 +169,28 @@ class MealsState with _$MealsState {
     });
   }
 
+  double? get selectedDayMealTotalCarbs {
+    return mapOrNull(mealsInfo: (state) {
+      final currentDate = state.currentDate;
+
+      if (state.meals.isEmpty || currentDate == null) {
+        return null;
+      }
+
+      double carbsSum = 0;
+
+      final selectedDayMeals = state.meals[currentDate.isoStringWithoutTime] ?? <MealsListItem>[];
+
+      for (MealsListItem meal in selectedDayMeals) {
+        if (meal.loggingDate?.isSameDate(currentDate) ?? false) {
+          carbsSum += meal.carbohydratesSum;
+        }
+      }
+
+      return carbsSum;
+    });
+  }
+
   double? get selectedDayMealProteinDegreeSum {
     return mapOrNull(
       mealsInfo: (state) {

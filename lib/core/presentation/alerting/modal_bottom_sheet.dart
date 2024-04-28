@@ -210,8 +210,9 @@ class ModalBottomSheet {
                   const SizedBox(height: 12.0),
                   CustomOutlinedButton.blueFullWidth(
                     onPressed: noActiveSubscription ? onDeleted : onSubscriptionPref,
-                    label:
-                        noActiveSubscription ? LocalizedTexts.yesDelete.tr() : LocalizedTexts.manageSubscription.tr(),
+                    label: noActiveSubscription
+                        ? LocalizedTexts.yesDelete.tr()
+                        : LocalizedTexts.manageSubscription.tr(),
                   )
                 ],
               ),
@@ -1362,6 +1363,22 @@ class ModalBottomSheet {
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12.0)),
       builder: (BuildContext context) {
         return SingleChildScrollView(child: MainContainer(child: content));
+      },
+    );
+  }
+
+  static void nutritionIndicatorOverlay({
+    required BuildContext context,
+    required Widget content,
+  }) {
+    showModalBottomSheet(
+      context: context,
+      showDragHandle: true,
+      isScrollControlled: true,
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12.0)),
+      builder: (BuildContext context) {
+        return FractionallySizedBox(
+            heightFactor: 0.95, child: ScrollableContainer(child: MainContainer(child: content)));
       },
     );
   }

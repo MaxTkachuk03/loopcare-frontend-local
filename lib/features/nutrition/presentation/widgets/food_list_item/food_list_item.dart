@@ -1,12 +1,12 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:loopcare_frontend/core/domain/nutrition_indicator_color_picker.dart';
 import 'package:loopcare_frontend/core/presentation/buttons/custom_icon_button.dart';
 import 'package:loopcare_frontend/core/presentation/icon_images/app_icons.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/core/presentation/text/custom_text.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 import 'package:loopcare_frontend/core/presentation/utils/build_context_extensions.dart';
-import 'package:loopcare_frontend/core/presentation/utils/calorie_density_color.dart';
 import 'package:loopcare_frontend/features/nutrition/domain/food_item/food_item.dart';
 import 'package:loopcare_frontend/features/nutrition/domain/meal_item_type/meal_item_type.dart';
 import 'package:loopcare_frontend/features/nutrition/domain/nutrition_item/nutrition_item.dart';
@@ -65,7 +65,10 @@ class FoodListItem extends StatelessWidget {
                     radius: 5,
                     backgroundColor: excludedFromCalculations
                         ? AppColors.grey
-                        : getCalorieDensityColor(foodItem.calorieDensity),
+                        : NutritionIndicatorColorPicker.getIndicatorColor(
+                            NutritionIndicatorType.calorieDensity,
+                            foodItem.calorieDensity,
+                          ),
                   ),
                 ],
               ),

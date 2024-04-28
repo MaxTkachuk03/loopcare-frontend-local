@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:loopcare_frontend/core/domain/calorie_density_scale_values.dart';
+import 'package:loopcare_frontend/core/domain/nutrition_indicator_color_picker.dart';
 import 'package:loopcare_frontend/core/presentation/text/custom_text.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 import 'package:loopcare_frontend/core/presentation/utils/build_context_extensions.dart';
 
+//TODO get rip of this file
 enum CustomCalorieDensityScaleLayoutSize { big, small }
 
 class CustomCalorieDensityScale extends StatelessWidget {
@@ -37,7 +38,11 @@ class CustomCalorieDensityScale extends StatelessWidget {
           borderRadius: BorderRadius.all(Radius.circular(_widgetSize() / 2)),
           border: Border.all(
             width: _borderSize(),
-            color: color ?? calorieDensityScaleValuesColorForRange(density),
+            color: color ??
+                NutritionIndicatorColorPicker.getIndicatorColor(
+                  NutritionIndicatorType.calorieDensity,
+                  density,
+                ),
             style: BorderStyle.solid,
           ),
         ),
