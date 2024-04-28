@@ -496,6 +496,7 @@
   "learnMoreButton": "Learn more",
   "lock": "Lock",
   "unlocksOn": "Unlocks on {}",
+  "unlocksAfterCompletionExercise": "Unlocks after completion of previous exercise",
   "intro": "Intro",
   "exercises": "Exercises",
   "countMins": "{} mins",

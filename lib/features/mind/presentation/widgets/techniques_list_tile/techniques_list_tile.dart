@@ -112,7 +112,7 @@ class _TechniquesListTileState extends State<TechniquesListTile> {
                 style: context.textTheme.bodyMedium,
               ),
               const SizedBox(height: 10),
-              _AccessExercisesLine(
+              _AccessLine(
                 date: widget.technique.unlocksAt,
                 isLocked: isLocked,
                 onPressed: onTechniqueSelect,
@@ -125,8 +125,8 @@ class _TechniquesListTileState extends State<TechniquesListTile> {
   }
 }
 
-class _AccessExercisesLine extends StatelessWidget {
-  const _AccessExercisesLine({
+class _AccessLine extends StatelessWidget {
+  const _AccessLine({
     required this.date,
     required this.isLocked,
     required this.onPressed,

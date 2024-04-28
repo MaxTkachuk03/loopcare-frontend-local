@@ -488,6 +488,7 @@ class LocalizedTexts {
   static const String learnMoreButton = "learnMoreButton";
   static const String lock = "lock";
   static const String unlocksOn = "unlocksOn";
+  static const String unlocksAfterCompletionExercise = "unlocksAfterCompletionExercise";
   static const String intro = "intro";
   static const String exercises = "exercises";
   static const String countMins = "countMins";

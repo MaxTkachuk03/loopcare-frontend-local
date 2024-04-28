@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loopcare_frontend/core/presentation/buttons/custom_elevated_button.dart';
 import 'package:loopcare_frontend/core/presentation/clippers/education_clipper.dart';
+import 'package:loopcare_frontend/core/presentation/icon_images/app_icons.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/core/presentation/network_image_with_cache/network_image_with_cache.dart';
 import 'package:loopcare_frontend/core/presentation/routes/app_router.dart';
@@ -26,7 +27,8 @@ class ExerciseListTile extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       height: 212.0,
-      margin: const EdgeInsets.only(bottom: 20),
+      margin: const EdgeInsets.only(bottom: 20.0),
+      padding: const EdgeInsets.only(right: 12.0),
       decoration: const BoxDecoration(
         color: AppColors.white,
         borderRadius: BorderRadius.all(Radius.circular(10)),
@@ -40,16 +42,19 @@ class ExerciseListTile extends StatelessWidget {
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          ClipPath(
-            clipper: ImageClipper(),
-            child: ClipRRect(
-              borderRadius: const BorderRadius.horizontal(
-                left: Radius.circular(8),
-              ),
-              child: SizedBox(
-                width: 150.0,
-                child: NetworkImageWithCache(
-                  url: exercise.image,
+          Opacity(
+            opacity: exercise.isLocked ? 0.5 : 1.0,
+            child: ClipPath(
+              clipper: ImageClipper(),
+              child: ClipRRect(
+                borderRadius: const BorderRadius.horizontal(
+                  left: Radius.circular(8),
+                ),
+                child: SizedBox(
+                  width: 160.0,
+                  child: NetworkImageWithCache(
+                    url: exercise.image,
+                  ),
                 ),
               ),
             ),
@@ -90,30 +95,58 @@ class ExerciseListTile extends StatelessWidget {
                   ],
                 ),
                 const SizedBox(height: 10),
-                Row(
-                  children: [
-                    if (exercise.explanation != null) ...[
-                      CustomElevatedButton.yellowSmall(
-                        label: LocalizedTexts.intro.tr(),
-                        onPressed: () => context
-                          ..read<MindBloc>().add(MindEvent.selectExercise(exercise: exercise))
-                          ..router.pushNamed(AppRoutes.mindIntroExercise),
-                      ),
-                      const SizedBox(width: 16),
-                    ],
-                    CustomElevatedButton.yellowSmall(
-                      label: LocalizedTexts.start.tr(),
-                      onPressed: () => context
-                        ..read<MindBloc>().add(MindEvent.selectExercise(exercise: exercise))
-                        ..router.pushNamed(AppRoutes.mindExercise),
-                    ),
-                  ],
-                ),
+                _AccessExerciseLine(exercise, key: ValueKey('access_exercise_${exercise.id}')),
               ],
             ),
           )
         ],
       ),
     );
+  }
+}
+
+
+class _AccessExerciseLine extends StatelessWidget {
+  const _AccessExerciseLine(this.exercise, {super.key});
+
+  final MindTechniqueExercise exercise;
+
+  @override
+  Widget build(BuildContext context) {
+    if (exercise.isLocked) {
+      return Row(
+        children: [
+          AppIcons.locked,
+          const SizedBox(width: 8.0),
+          Expanded(
+            child: CustomText.w600(
+              LocalizedTexts.unlocksAfterCompletionExercise.tr(),
+              style: context.textTheme.bodySmall,
+            ),
+          ),
+        ],
+      );
+    } else {
+      return Wrap(
+        runSpacing: 6,
+        spacing: 16,
+        children: [
+          if (exercise.explanation != null) ...[
+            CustomElevatedButton.yellowSmall(
+              label: LocalizedTexts.intro.tr(),
+              onPressed: () => context
+                ..read<MindBloc>().add(MindEvent.selectExercise(exercise: exercise))
+                ..router.pushNamed(AppRoutes.mindIntroExercise),
+            ),
+          ],
+          CustomElevatedButton.yellowSmall(
+            label: LocalizedTexts.start.tr(),
+            onPressed: () => context
+              ..read<MindBloc>().add(MindEvent.selectExercise(exercise: exercise))
+              ..router.pushNamed(AppRoutes.mindExercise),
+          ),
+        ],
+      );
+    }
   }
 }
