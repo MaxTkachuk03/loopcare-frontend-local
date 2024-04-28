@@ -63,7 +63,6 @@ class _SupportGroupState extends State<SupportGroup> {
             ),
             const Divider(
               color: AppColors.blueOffRegular,
-              height: 8,
               indent: 8.0,
               endIndent: 8.0,
             ),

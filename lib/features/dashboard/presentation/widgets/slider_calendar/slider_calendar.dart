@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 import 'package:loopcare_frontend/core/presentation/utils/date_time_extensions.dart';
 import 'package:loopcare_frontend/features/dashboard/presentation/widgets/slider_calendar/calendar_day.dart';
 import 'package:loopcare_frontend/features/onboarding_new/utils/date_time_utils.dart';
@@ -63,8 +64,9 @@ class _SliderCalendarState extends State<SliderCalendar> {
       _scrollToIndex();
     });
 
-    return SizedBox(
-      height: 70,
+    return Container(
+      color: AppColors.blueRegular,
+      height: 76,
       child: ScrollablePositionedList.builder(
         itemCount: _days.length,
         scrollDirection: _scrollDirection,

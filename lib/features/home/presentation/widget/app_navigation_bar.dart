@@ -33,7 +33,7 @@ class AppNavigationBar extends StatelessWidget {
     return bottomTabs(enableChat: enable)
         .map((e) => BottomNavigationBarItem(
               icon: Padding(
-                padding: const EdgeInsets.only(top: 6),
+                padding: const EdgeInsets.only(top: 6.0, bottom: 4.0),
                 child: BlocBuilder<ChatWatcherBloc, ChatWatcherState>(
                   buildWhen: (context, state) => e.isGroupChat,
                   builder: (context, state) {
@@ -65,7 +65,10 @@ class AppNavigationBar extends StatelessWidget {
                   },
                 ),
               ),
-              activeIcon: e.activeIcon,
+              activeIcon: Padding(
+                padding: const EdgeInsets.only(top: 6.0, bottom: 4.0),
+                child: e.activeIcon,
+              ),
               label: e.label(getIt<SharedStorageService>().account?.nameCapitalised ?? ''),
             ))
         .toList();
