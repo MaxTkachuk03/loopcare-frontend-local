@@ -5,6 +5,7 @@ import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 import 'package:loopcare_frontend/core/presentation/utils/build_context_extensions.dart';
 
 const achieveRadius = 14.0;
+const counterRadius = 20.0;
 
 class GoalProgressIndicator extends StatelessWidget {
   final int steps;
@@ -18,7 +19,7 @@ class GoalProgressIndicator extends StatelessWidget {
     super.key,
     required this.steps,
     required this.currentStep,
-    this.innerSize = 20.0,
+    this.innerSize = counterRadius,
     this.progressSize = 48,
     this.strokeWidth = 8,
     required this.isAchievedNotifier,
@@ -93,24 +94,28 @@ class _TextAccent extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return AutoSizeText.rich(
-      maxLines: 1,
-      style: context.textTheme.bodySmall,
-      TextSpan(
-        children: <InlineSpan>[
-          TextSpan(
-            text: '$currentStep',
-            style: getStyle(context),
-          ),
-          TextSpan(
-            text: '/',
-            style: getStyle(context)?.copyWith(color: AppColors.blueLightest),
-          ),
-          TextSpan(
-            text: '$steps',
-            style: getStyle(context),
-          ),
-        ],
+    return Container(
+      width: 2 * counterRadius,
+      alignment: Alignment.center,
+      child: AutoSizeText.rich(
+        maxLines: 1,
+        style: context.textTheme.bodySmall,
+        TextSpan(
+          children: <InlineSpan>[
+            TextSpan(
+              text: '$currentStep',
+              style: getStyle(context),
+            ),
+            TextSpan(
+              text: '/',
+              style: getStyle(context)?.copyWith(color: AppColors.blueLightest),
+            ),
+            TextSpan(
+              text: '$steps',
+              style: getStyle(context),
+            ),
+          ],
+        ),
       ),
     );
   }

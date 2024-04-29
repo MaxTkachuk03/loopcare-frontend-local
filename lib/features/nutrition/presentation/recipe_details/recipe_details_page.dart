@@ -38,9 +38,11 @@ class RecipeDetailsPage extends StatefulWidget {
 
 class _RecipeDetailsPageState extends State<RecipeDetailsPage> {
   static const double _defaultNumberOfUnitsForDish = 1.0;
+  late ScrollController scrollController;
 
   @override
   void initState() {
+    super.initState();
     final recipeId = context.read<RecipeBloc>().state.externalRecipeId;
 
     if (recipeId != null) {
@@ -48,7 +50,13 @@ class _RecipeDetailsPageState extends State<RecipeDetailsPage> {
             RecipeDetailsEvent.fetchOriginRecipe(int.parse(recipeId)),
           );
     }
-    super.initState();
+    scrollController = ScrollController();
+  }
+
+  @override
+  void dispose() {
+    scrollController.dispose();
+    super.dispose();
   }
 
   @override
@@ -72,10 +80,15 @@ class _RecipeDetailsPageState extends State<RecipeDetailsPage> {
                 tabController.addListener(() => _logAnalytics(tabController));
                 return CustomScaffold.greenLightest(
                   body: NestedScrollView(
+                    controller: scrollController,
                     physics: const AlwaysScrollableScrollPhysics(),
                     headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
                       return <Widget>[
-                        FlexibleHeader(innerBoxIsScrolled: false, tabController: tabController),
+                        FlexibleHeader(
+                          innerBoxIsScrolled: false,
+                          tabController: tabController,
+                          scrollController: scrollController,
+                        ),
                         SliverPersistentHeader(
                           pinned: true,
                           delegate: SliverRecipeAppBarDelegate(
@@ -129,10 +142,9 @@ class _RecipeDetailsPageState extends State<RecipeDetailsPage> {
   void _onSaveToMyDishesHandler() {
     final state = context.read<MealsBloc>().state;
 
-    final mealCategory =
-        DishFavoritesCategory.values.asNameMap().containsKey(state.currentMealCategory?.toLowerCase())
-            ? state.currentMealCategory
-            : MealCategory.breakfast.originalValue;
+    final mealCategory = DishFavoritesCategory.values.asNameMap().containsKey(state.currentMealCategory?.toLowerCase())
+        ? state.currentMealCategory
+        : MealCategory.breakfast.originalValue;
 
     if (mealCategory == null) return;
 

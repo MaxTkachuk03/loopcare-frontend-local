@@ -69,7 +69,7 @@ class GoalsListItem extends StatelessWidget {
               ),
             ),
             CustomIconButton(
-              icon: const Icon(Icons.error_outline_outlined, color: AppColors.blueDarker),
+              icon: const Icon(Icons.info_outline_rounded, color: AppColors.blueDarker),
               onPressed: () => _onInfoHandler(context),
             ),
           ],

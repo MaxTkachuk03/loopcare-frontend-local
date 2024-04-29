@@ -20,7 +20,7 @@ class DashboardCardTitle extends StatelessWidget {
   final bool editable;
   final bool circleButton;
   final AssetImage actionIcon;
-  
+
   @override
   Widget build(BuildContext context) {
     Widget action = SizedBox.square(
@@ -41,8 +41,8 @@ class DashboardCardTitle extends StatelessWidget {
         child: action,
       );
     }
-    
-    return  Material(
+
+    return Material(
       color: AppColors.transparent,
       child: InkWell(
         onTap: editable ? onTap : null,
