@@ -6,7 +6,7 @@ import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 import 'package:loopcare_frontend/core/presentation/utils/build_context_extensions.dart';
 import 'package:loopcare_frontend/features/nutrition/application/search/dto/search_item.dart';
 
-const circularRadius = 12.0;
+const circularRadius = 8.0;
 const _titleHeight = 40.0;
 
 class SearchResultGridItem extends StatelessWidget {
@@ -28,7 +28,7 @@ class SearchResultGridItem extends StatelessWidget {
     return Card(
       color: AppColors.white,
       margin: EdgeInsets.zero,
-      elevation: 4,
+      elevation: 0,
       shape: RoundedRectangleBorder(
         borderRadius: borderRadius,
       ),
