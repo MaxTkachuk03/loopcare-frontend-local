@@ -6,6 +6,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loopcare_frontend/core/presentation/alerting/modal_bottom_sheet.dart';
 import 'package:loopcare_frontend/core/presentation/error/error_screen.dart';
 import 'package:loopcare_frontend/core/presentation/icon_images/app_icons.dart';
+import 'package:loopcare_frontend/core/presentation/loader/loader.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/core/presentation/routes/app_router.dart';
 import 'package:loopcare_frontend/core/presentation/routes/app_router.gr.dart';
@@ -74,67 +75,69 @@ class LogMeal extends StatelessWidget {
         builder: (context, state) {
           final Color textColor = state.isEnableOnDashboard ? AppColors.blueDarker : AppColors.greyLabel;
 
-          return state.maybeMap(
-            error: (errorState) {
-              final error = errorState.fetchError;
-
-              return Container(
-                padding: const EdgeInsets.only(top: 8.0, bottom: 16.0, right: 16.0, left: 16.0),
-                decoration: const BoxDecoration(
-                  color: AppColors.white,
-                  borderRadius: BorderRadius.all(Radius.circular(8)),
-                ),
-                child: ErrorScreen(
-                  error: error,
-                  onButtonPressed: () => context.read<MealsBloc>().add(const MealsEvent.fetchMeals()),
-                ),
-              );
-            },
-            orElse: () {
-              return Column(
-                children: [
-                  DashboardCardTitle(
-                    onTap: () => _onPressHandler(context),
-                    highlightColor: AppColors.greenLightest,
-                    leadingIcon: AppIcons.customDashboardLogMeals,
-                    title: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        CustomText.bitter600(
-                          LocalizedTexts.logYourMeals.tr(),
-                          style: context.textTheme.headlineSmall?.copyWith(color: textColor),
-                        ),
-                        if (state.filledCategories.isEmpty)
-                          CustomText.w400(
-                            state.isEnableOnDashboard
-                                ? LocalizedTexts.noMealsLoggedYet.tr()
-                                : LocalizedTexts.noMealsLogged.tr(),
-                            style: context.textTheme.bodySmall?.copyWith(color: textColor),
-                          ),
-                      ],
+          return Column(
+            children: [
+              DashboardCardTitle(
+                onTap: () => _onPressHandler(context),
+                highlightColor: AppColors.greenLightest,
+                leadingIcon: AppIcons.customDashboardLogMeals,
+                title: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    CustomText.bitter600(
+                      LocalizedTexts.logYourMeals.tr(),
+                      style: context.textTheme.headlineSmall?.copyWith(color: textColor),
                     ),
-                    actionIcon: AppIcons.arrow,
-                    circleButton: false,
-                    editable: state.isEnableOnDashboard,
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                    child: Column(
-                      children: [
-                        const Divider(color: AppColors.blueOffRegular, height: 36),
-                        NutritionSummary(
+                    if (state.filledCategories.isEmpty)
+                      CustomText.w400(
+                        state.isEnableOnDashboard
+                            ? LocalizedTexts.noMealsLoggedYet.tr()
+                            : LocalizedTexts.noMealsLogged.tr(),
+                        style: context.textTheme.bodySmall?.copyWith(color: textColor),
+                      ),
+                  ],
+                ),
+                actionIcon: AppIcons.arrow,
+                circleButton: false,
+                editable: state.isEnableOnDashboard,
+              ),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                child: Column(
+                  children: [
+                    const Divider(color: AppColors.blueOffRegular, height: 36),
+                    BlocBuilder<MealsBloc, MealsState>(builder: (context, state) {
+                      return state.maybeMap(
+                        loading: (_) => const Loader(),
+                        error: (errorState) {
+                          final error = errorState.fetchError;
+
+                          return Container(
+                            padding: const EdgeInsets.only(top: 8.0, bottom: 16.0, right: 16.0, left: 16.0),
+                            decoration: const BoxDecoration(
+                              color: AppColors.white,
+                              borderRadius: BorderRadius.all(Radius.circular(8)),
+                            ),
+                            child: ErrorScreen(
+                              error: error,
+                              onButtonPressed: () =>
+                                  context.read<MealsBloc>().add(const MealsEvent.fetchMeals()),
+                            ),
+                          );
+                        },
+                        orElse: () => NutritionSummary(
                           proteinDegree: state.selectedDayMealProteinDegreeSum,
                           calorieDensity: state.selectedDayMealCalorieDensitySum,
                           fiber: state.selectedDayMealFiber,
                           carbFiberRatio: state.selectedDayMealCarbFiberRatio,
                         ),
-                      ],
-                    ),
-                  ),
-                ],
-              );
-            },
+                      );
+                    }),
+                  ],
+                ),
+              ),
+            ],
           );
         },
       ),

@@ -216,6 +216,23 @@ class LocalizedTexts {
   static const String protein = 'protein';
   static const String degree = 'degree';
   static const String fiber = 'fiber';
+  static const String calorieDensityHighQualityDescription = 'calorieDensityHighQualityDescription';
+  static const String calorieDensityHighQualityLabel = 'calorieDensityHighQualityLabel';
+  static const String calorieDensityMidQualityDescription = 'calorieDensityMidQualityDescription';
+  static const String calorieDensityMidQualityLabel = 'calorieDensityMidQualityLabel';
+  static const String calorieDensityLowQualityDescription = 'calorieDensityLowQualityDescription';
+  static const String calorieDensityLowQualityLabel = 'calorieDensityLowQualityLabel';
+  static const String proteinDegreeLowQualityDescription = 'proteinDegreeLowQualityDescription';
+  static const String proteinDegreeLowQualityLabel = 'proteinDegreeLowQualityLabel';
+  static const String proteinDegreeLowMidQualityDescription = 'proteinDegreeLowMidQualityDescription';
+  static const String proteinDegreeLowMidQualityLabel = 'proteinDegreeLowMidQualityLabel';
+  static const String proteinDegreeMidQualityDescription = 'proteinDegreeMidQualityDescription';
+  static const String proteinDegreeMidQualityLabel = 'proteinDegreeMidQualityLabel';
+  static const String proteinDegreeHighQualityDescription = 'proteinDegreeHighQualityDescription';
+  static const String proteinDegreeHighQualityLabel = 'proteinDegreeHighQualityLabel';
+  static const String fiberHighQualityLabel = 'fiberHighQualityLabel';
+  static const String fiberMidQualityLabel = 'fiberMidQualityLabel';
+  static const String fiberLowQualityLabel = 'fiberLowQualityLabel';
 
   // Education
   static const String all = 'all';

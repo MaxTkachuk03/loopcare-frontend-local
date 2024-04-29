@@ -305,13 +305,13 @@ class MealsBloc extends Bloc<MealsEvent, MealsState> {
     final mealsResponses = await Future.wait(
       [
         nutritionService.getMeals(
-          startDate: selectedDate.beginDay.toIso8601String(),
+          startDate: selectedDate.beginDay.subtract(const Duration(days: 8)).toIso8601String(),
           endDate: selectedDate.endDay.toIso8601String(),
         ),
-        // nutritionService.getPlannedMeals(
-        //   startDate: selectedDate.beginDay.toIso8601String(),
-        //   endDate: selectedDate.endDay.toIso8601String(),
-        // )
+        nutritionService.getPlannedMeals(
+          startDate: selectedDate.beginDay.toIso8601String(),
+          endDate: selectedDate.endDay.toIso8601String(),
+        )
       ],
     );
 

@@ -871,8 +871,23 @@
   "protein": "protein",
   "degree": "degree",
   "fiber": "fiber",
-
-
+  "calorieDensityHighQualityDescription": "Nice work! This is a very filling meal. The combination of items you chose will help you fight excessive hunger and cravings!",
+  "calorieDensityHighQualityLabel": "Very Filling",
+  "calorieDensityMidQualityDescription": "The density of this meal is average. If you struggle with excessive hunger throughout the day, consider adding more low dense options!",
+  "calorieDensityMidQualityLabel": "Somewhat Filling",
+  "calorieDensityLowQualityDescription": "The density of the meal you logged is high. A daily density at this level will make it more likely you eat in excess today.",
+  "calorieDensityLowQualityLabel": "Not Filling",
+  "proteinDegreeLowQualityDescription": "The percentage of protein in this meal is very low. You will likely struggle with excessive hunger and cravings throughout the day. Increasing the portion of protein in this meal above 25% will improve it.",
+  "proteinDegreeLowQualityLabel": "Needs Improvement",
+  "proteinDegreeLowMidQualityDescription": "The percentage of protein in this meal is slightly low. You may struggle with excessive hunger and cravings throughout the day. Increasing the portion of protein in this meal above 25% will improve it.",
+  "proteinDegreeLowMidQualityLabel": "Could be better",
+  "proteinDegreeMidQualityDescription": "The percentage of protein in this meal is okay. If you struggle with excessive hunger and cravings throughout the day, increasing the portion of protein in this meal above 25% will improve it.",
+  "proteinDegreeMidQualityLabel": "Average",
+  "proteinDegreeHighQualityDescription": "Nice work! The protein content of this meal will help you fight excessive hunger and cravings throughout your day!",
+  "proteinDegreeHighQualityLabel": "Good",
+  "fiberHighQualityLabel": "High quality",
+  "fiberMidQualityLabel": "Mixed quality",
+  "fiberLowQualityLabel": "Low quality",
 
 
 

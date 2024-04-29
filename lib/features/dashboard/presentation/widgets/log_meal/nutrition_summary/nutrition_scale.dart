@@ -1,6 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:loopcare_frontend/core/domain/nutrition_indicator_color_picker.dart';
+import 'package:loopcare_frontend/core/domain/nutrition/nutrition_indicator_color_picker.dart';
+import 'package:loopcare_frontend/core/domain/nutrition/nutrition_values_description.dart';
 import 'package:loopcare_frontend/core/presentation/alerting/modal_bottom_sheet.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/core/presentation/nutrition_indicator/nutrition_indicator.dart';
@@ -54,20 +55,22 @@ class NutritionScale extends StatelessWidget {
   void _onTapHandller(BuildContext context) =>
       ModalBottomSheet.nutritionIndicatorOverlay(context: context, content: _getContent(context));
 
-  factory NutritionScale.calorieDensity({double? value, required String bottomLabel}) => NutritionScale(
+  factory NutritionScale.calorieDensity({double? value}) => NutritionScale(
         key: const ValueKey<String>('calorieDensity'),
         topLabel: LocalizedTexts.calorieDensity.tr(),
-        bottomLabel: bottomLabel.capitalize(),
+        bottomLabel:
+            NutritionValuesDescription.getCalorieDensityItemByValue(value ?? 0).label.tr().capitalize(),
         color: NutritionIndicatorColorPicker.getIndicatorColor(NutritionIndicatorType.calorieDensity, value),
         value: value,
         indicatorLabel: '${value?.toStringAsFixed(1)}',
         isDisabled: value == 0,
       );
 
-  factory NutritionScale.proteinDegree({double? value, required String bottomLabel}) => NutritionScale(
+  factory NutritionScale.proteinDegree({double? value}) => NutritionScale(
         key: const ValueKey<String>('proteinDegree'),
         topLabel: LocalizedTexts.proteinDegree.tr(),
-        bottomLabel: bottomLabel.capitalize(),
+        bottomLabel:
+            NutritionValuesDescription.getProteinDegreeItemByValue(value ?? 0).label.tr().capitalize(),
         color: NutritionIndicatorColorPicker.getIndicatorColor(NutritionIndicatorType.proteinDegree, value),
         value: value,
         indicatorLabel: '${value?.round()}%',
@@ -76,14 +79,14 @@ class NutritionScale extends StatelessWidget {
 
   factory NutritionScale.fiber({
     double? value,
-    required String bottomLabel,
     required double? totalCarbs,
     required double? carbsFiberRatio,
   }) =>
       NutritionScale(
         key: const ValueKey<String>('fiber'),
-        topLabel: LocalizedTexts.fiber.tr(),
-        bottomLabel: bottomLabel.capitalize(),
+        topLabel: LocalizedTexts.fiber.tr().capitalize(),
+        bottomLabel:
+            NutritionValuesDescription.getFiberItemByValue(carbsFiberRatio ?? 0).label.tr().capitalize(),
         color: NutritionIndicatorColorPicker.getIndicatorColor(NutritionIndicatorType.fiber, value),
         value: value,
         indicatorLabel: '${value?.toStringAsFixed(1)}g',
@@ -105,9 +108,15 @@ class NutritionScale extends StatelessWidget {
           CustomText.w600(topLabel, style: context.textTheme.bodySmall, textAlign: TextAlign.center),
           const SizedBox(height: 8.0),
           NutritionIndicator.small(
-              label: isDisabled ? '-' : indicatorLabel, color: isDisabled ? AppColors.blueLightest : color),
+            label: isDisabled ? '-' : indicatorLabel,
+            color: isDisabled ? AppColors.blueLightest : color,
+          ),
           const SizedBox(height: 8.0),
-          CustomText.w600(isDisabled ? '-' : bottomLabel, style: context.textTheme.bodySmall),
+          CustomText.w600(
+            isDisabled ? '-' : bottomLabel,
+            style: context.textTheme.bodySmall,
+            textAlign: TextAlign.center,
+          ),
         ],
       ),
     );

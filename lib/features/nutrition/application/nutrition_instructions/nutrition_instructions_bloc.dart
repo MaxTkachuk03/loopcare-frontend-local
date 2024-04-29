@@ -5,7 +5,6 @@ import 'package:injectable/injectable.dart';
 import 'package:loopcare_frontend/core/infrastructure/dio_client/request_error.dart';
 import 'package:loopcare_frontend/features/nutrition/application/nutrition_instructions/dto/nutrition_instruction_value.dart';
 import 'package:loopcare_frontend/features/nutrition/application/nutrition_service.dart';
-import 'package:loopcare_frontend/features/nutrition/domain/nutrition_instructions/nutrition_instruction_category.dart';
 
 part 'nutrition_instructions_event.dart';
 part 'nutrition_instructions_state.dart';
@@ -32,22 +31,14 @@ class NutritionInstructionsBloc extends HydratedBloc<NutritionInstructionsEvent,
     response.fold(
       (l) => emit(NutritionInstructionsState.error(state.data.copyWith(error: l, isLoading: false))),
       (r) {
-        print(r);
-        final calorieDensityValues =
-            r.data.where((el) => el.category == NutritionInstructionCategory.calorieDensity.name).toList();
-        final proteinDegreeValues =
-            r.data.where((el) => el.category == NutritionInstructionCategory.proteinDegree.name).toList();
+        NutritionInstructionValue possibleMinValue = r.data.first;
 
-        NutritionInstructionValue possibleMinValue = calorieDensityValues
-            .reduce((a, b) => double.parse(a.minValue) < double.parse(b.minValue) ? a : b);
-
-        NutritionInstructionValue possibleMaxValue = calorieDensityValues
-            .reduce((a, b) => double.parse(a.maxValue) > double.parse(b.maxValue) ? a : b);
+        NutritionInstructionValue possibleMaxValue = r.data.first;
 
         emit(
           NutritionInstructionsState.loaded(state.data.copyWith(
-            calorieDensityValues: calorieDensityValues,
-            proteinDegreeValues: proteinDegreeValues,
+            calorieDensityValues: r.data,
+            proteinDegreeValues: r.data,
             minCalorieDegreeValue: possibleMinValue,
             maxCalorieDegreeValue: possibleMaxValue,
             proteinDegreeValue: 0.0,

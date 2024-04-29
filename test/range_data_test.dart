@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:loopcare_frontend/core/domain/nutrition_indicator_color_picker.dart';
+import 'package:loopcare_frontend/core/domain/nutrition/nutrition_indicator_color_picker.dart';
 import 'package:test/test.dart';
 
 void main() {

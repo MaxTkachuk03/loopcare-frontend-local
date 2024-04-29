@@ -2,6 +2,7 @@ import 'package:collection/collection.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:loopcare_frontend/core/domain/account/gender_preferences.dart';
 import 'package:loopcare_frontend/core/domain/account/sex_type.dart';
+import 'package:loopcare_frontend/core/domain/constants.dart';
 import 'package:loopcare_frontend/core/domain/medical_onboarding.dart';
 import 'package:loopcare_frontend/core/domain/mental_health_tests.dart';
 import 'package:loopcare_frontend/core/domain/unlock_config/feature/feature.dart';
@@ -105,6 +106,9 @@ abstract class Account implements _$Account {
   bool get isOnTrial => subscription.state == SubscriptionStatus.trialPeriod;
 
   String get nameCapitalised => name.isNotEmpty ? name.capitalizeEachWordFirstLetter() : '';
+
+  int get fiberDailyGoal =>
+      sex == SexType.male ? Constants.maleFiberDailyGoal : Constants.femaleFiberDailyGoal;
 
   factory Account.fromJson(Map<String, dynamic> json) => _$AccountFromJson(json);
 }

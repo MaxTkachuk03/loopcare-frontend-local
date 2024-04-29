@@ -28,17 +28,16 @@ class NutritionIndicatorColorPicker {
   ];
 
   static final List<Range> proteinDegreeScaleValues = [
-    // TODO check ranges with Diana there blind zones right now
-    Range(min: 1, max: 6.99, color: AppColors.hq1),
-    Range(min: 7, max: 8.99, color: AppColors.hq2),
-    Range(min: 9, max: 10.99, color: AppColors.hq3),
-    Range(min: 11, max: 12.99, color: AppColors.mq1),
-    Range(min: 13, max: 15.99, color: AppColors.mq2),
-    Range(min: 18, max: 19.99, color: AppColors.mq3),
-    Range(min: 21, max: 23.99, color: AppColors.lq1),
-    Range(min: 24, max: 26.99, color: AppColors.lq2),
-    Range(min: 27, max: 29.99, color: AppColors.lq3),
-    Range(min: 30, max: 100, color: AppColors.lq4),
+    Range(min: 1, max: 6.99, color: AppColors.lq4),
+    Range(min: 7, max: 8.99, color: AppColors.lq3),
+    Range(min: 9, max: 10.99, color: AppColors.lq2),
+    Range(min: 11, max: 12.99, color: AppColors.lq1),
+    Range(min: 13, max: 16.99, color: AppColors.mq3),
+    Range(min: 17, max: 19.99, color: AppColors.mq2),
+    Range(min: 20, max: 23.99, color: AppColors.mq1),
+    Range(min: 24, max: 26.99, color: AppColors.hq3),
+    Range(min: 27, max: 29.99, color: AppColors.hq2),
+    Range(min: 30, max: 100, color: AppColors.hq1),
   ];
 
   static final List<Range> carbFiberRatioValues = [
@@ -67,9 +66,10 @@ class NutritionIndicatorColorPicker {
 
   static Color getIndicatorColor(NutritionIndicatorType type, double? value) {
     final list = _getColorsList(type);
+
     if (value == null || value < list.first.min) return AppColors.white;
 
-    if (value > list.last.max) return AppColors.lq4;
+    if (value > list.last.max) return list.last.color;
 
     return list.firstWhere((e) => (e.min <= value && value < e.max), orElse: () => list.last).color;
   }

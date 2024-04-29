@@ -65,7 +65,6 @@ import 'package:loopcare_frontend/features/nutrition/presentation/edit_dish/edit
 import 'package:loopcare_frontend/features/nutrition/presentation/log_planned_meals/log_planned_meals_page.dart';
 import 'package:loopcare_frontend/features/nutrition/presentation/log_weight_page/log_weight_page.dart';
 import 'package:loopcare_frontend/features/nutrition/presentation/meal/meal_page.dart';
-import 'package:loopcare_frontend/features/nutrition/presentation/nutrition_instructions/nutrition_instructions_page.dart';
 import 'package:loopcare_frontend/features/nutrition/presentation/recipe/recipe_page.dart';
 import 'package:loopcare_frontend/features/nutrition/presentation/recipe_details/recipe_details_page.dart';
 import 'package:loopcare_frontend/features/nutrition/presentation/recommendations/recommendations_page.dart';
@@ -206,10 +205,6 @@ const groupLessonRoutes = [
     ), // added
 
     // Nutrition
-    AutoRoute(
-      path: AppRoutes.nutritionInstructions,
-      page: NutritionInstructionsPage,
-    ), // added
     AutoRoute(
       path: AppRoutes.selectFood,
       page: SelectFoodPage,

@@ -3,12 +3,21 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:loopcare_frontend/core/domain/nutrition_indicator_color_picker.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:loopcare_frontend/core/domain/nutrition/nutrition_description_item.dart';
+import 'package:loopcare_frontend/core/domain/nutrition/nutrition_indicator_color_picker.dart';
+import 'package:loopcare_frontend/core/domain/nutrition/nutrition_values_description.dart';
+import 'package:loopcare_frontend/core/infrastructure/services/shared_storage/shared_storage_service.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/core/presentation/nutrition_indicator/nutrition_indicator.dart';
 import 'package:loopcare_frontend/core/presentation/text/custom_text.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 import 'package:loopcare_frontend/core/presentation/utils/build_context_extensions.dart';
+import 'package:loopcare_frontend/core/presentation/utils/string_extensions.dart';
+import 'package:loopcare_frontend/features/education/application/education_lesson/education_lesson_bloc.dart';
+import 'package:loopcare_frontend/injection.dart';
+
+final account = getIt<SharedStorageService>().account;
 
 class FiberDescription extends StatelessWidget {
   final double? fiberValue;
@@ -17,16 +26,26 @@ class FiberDescription extends StatelessWidget {
 
   const FiberDescription({super.key, this.fiberValue, this.totalCarbs, this.carbsFiberRatio});
 
-  get _isDisabled => fiberValue == 0;
+  bool get _isDisabled => fiberValue == 0;
 
-  get _indicatorColor => _isDisabled
+  Color get _indicatorColor => _isDisabled
       ? AppColors.blueLightest
       : NutritionIndicatorColorPicker.getIndicatorColor(NutritionIndicatorType.fiber, fiberValue);
 
-  get _indicatorLabel => _isDisabled ? '-' : '${fiberValue?.round()}%';
+  String get _indicatorLabel => _isDisabled ? '-' : '${fiberValue?.toStringAsFixed(1)}g';
 
-  // TODO add corrent lesson id, check back navigation from the lesson
-  void _openLesson(BuildContext context) => context.router.pushNamed('/lesson/1/page/0');
+  String get _fiberDailyGoal => '${account?.fiberDailyGoal}';
+
+  void _openLesson(BuildContext context) {
+    context
+        .read<EducationLessonBloc>()
+        .add(const EducationLessonEvent.getLessonContent(lessonId: 49, pageIndex: 0));
+
+    context.router.pushNamed('/lesson/49/page/0');
+  }
+
+  NutritionValueDescriptionItem get fiberItem =>
+      NutritionValuesDescription.getFiberItemByValue(carbsFiberRatio ?? 0);
 
   @override
   Widget build(BuildContext context) {
@@ -35,7 +54,7 @@ class FiberDescription extends StatelessWidget {
         Padding(
           padding: const EdgeInsets.symmetric(vertical: 20.0),
           child: CustomText.bitter600(
-            LocalizedTexts.fiber.tr(),
+            LocalizedTexts.fiber.tr().capitalize(),
             style: context.textTheme.displayMedium,
           ),
         ),
@@ -48,9 +67,10 @@ class FiberDescription extends StatelessWidget {
               child: Column(
                 children: [
                   NutritionIndicator.big(label: _indicatorLabel, color: _indicatorColor),
-                  CustomText.w400(
-                    LocalizedTexts.fiberDailyGoal.tr(args: ['$fiberValue', '20']),
-                    style: context.textTheme.bodySmall,
+                  const SizedBox(height: 8),
+                  CustomText.w600(
+                    fiberItem.label.tr(),
+                    style: context.textTheme.bodyMedium,
                     textAlign: TextAlign.center,
                   ),
                 ],
@@ -63,12 +83,13 @@ class FiberDescription extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
                   CustomText.w400(
-                    LocalizedTexts.fiberDailyGoal.tr(args: ['$fiberValue', '20']),
+                    LocalizedTexts.fiberDailyGoal.tr(args: ['$fiberValue', _fiberDailyGoal]),
                     style: context.textTheme.bodySmall,
                   ),
                   const SizedBox(height: 20),
                   CustomText.w400(
-                    LocalizedTexts.fiberRatioToCarbo.tr(args: ['$totalCarbs', '$carbsFiberRatio']),
+                    LocalizedTexts.fiberRatioToCarbo
+                        .tr(args: ['$totalCarbs', '${carbsFiberRatio?.toStringAsFixed(1)}']),
                     style: context.textTheme.bodySmall,
                   ),
                 ],
