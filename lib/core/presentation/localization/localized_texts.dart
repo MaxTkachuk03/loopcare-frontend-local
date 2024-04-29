@@ -1003,4 +1003,40 @@ class LocalizedTexts {
   //Mind
   static const String mindDashboardTitle = 'mindDashboardTitle';
   static const String mindDashboardBtn = 'mindDashboardBtn';
+
+  // Smart goals
+  static const String myGoals = 'myGoals';
+  static const String noGoalsSelected = 'noGoalsSelected';
+  static const String chooseGoalsForUpcomingDays = 'chooseGoalsForUpcomingDays';
+  static const String upcomingGoals = 'upcomingGoals';
+  static const String upcomingGoalsTitle = 'upcomingGoalsTitle';
+  static const String upcomingGoalsDescription = 'upcomingGoalsDescription';
+  static const String addGoal = 'addGoal';
+  static const String confirmGoals = 'confirmGoals';
+  static const String selectGoalsCategoryTitle = 'selectGoalsCategoryTitle';
+  static const String selectGoalsTitle = 'selectGoalsTitle';
+  static const String completeCounter = 'completeCounter';
+  static const String saveWeeklyGoalsSuccessMessage = 'saveWeeklyGoalsSuccessMessage';
+  static const String goalsStatisticsTitle = 'goalsStatisticsTitle';
+  static const String goalsAccomplishedInTotal = 'goalsAccomplishedInTotal';
+  static const String goalsAccomplishedEmptyMessage = 'goalsAccomplishedEmptyMessage';
+  static const String goalsAccomplished = 'goalsAccomplished';
+  static const String goal = 'goal';
+  static const String yourCompletion = 'yourCompletion';
+  static const String timesInDays = 'timesInDays';
+  static const String howHardWasTheGoal = 'howHardWasTheGoal';
+  static const String wantToTryInFuture = 'wantToTryInFuture';
+  static const String goalReview = 'goalReview';
+  static const String weeklyQuickReview = 'weeklyQuickReview';
+  static const String weeklyDaysLeft = 'weeklyDaysLeft';
+  static const String weeklyCompleteTitle = 'weeklyCompleteTitle';
+  static const String weeklyDate = 'weeklyDate';
+  static const String weeklyCompletedFar = 'weeklyCompletedFar';
+  static const String weeklyAddCompletions = 'weeklyAddCompletions';
+  static const String weeklyTime = 'weeklyTime';
+  static const String weeklyTimes = 'weeklyTimes';
+  static const String weeklyMakeCorrections = 'weeklyMakeCorrections';
+  static const String weeklyShowGoalDetails = 'weeklyShowGoalDetails';
+  static const String weeklyModalProgress = 'weeklyModalProgress';
+  static const String weeklyModalInfo = 'weeklyModalInfo';
 }

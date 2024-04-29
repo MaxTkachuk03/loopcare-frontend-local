@@ -22,7 +22,6 @@ class FinalResultsText extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<MentalQuestionsBloc, MentalQuestionsState>(
       builder: (context, state) {
-
         final gad7Result = state.results[MentalHealthTestType.gad7]?.interpretation;
         final phq8Result = state.results[MentalHealthTestType.phq8]?.interpretation;
         final phq15Result = state.results[MentalHealthTestType.phq15]?.interpretation;
@@ -31,7 +30,6 @@ class FinalResultsText extends StatelessWidget {
 
         if (phq8IsHigh) {
           return Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
               CustomText.w400(
                 LocalizedTexts.phq8FinalResultHigh1.tr(),
@@ -122,8 +120,7 @@ class FinalResultsText extends StatelessWidget {
               ),
               BulletListItem(
                 bulletSize: 14.0,
-                text: CustomText.w400(LocalizedTexts.unlockBuddyMessage.tr(),
-                    style: context.textTheme.bodyMedium),
+                text: CustomText.w400(LocalizedTexts.unlockBuddyMessage.tr(), style: context.textTheme.bodyMedium),
               ),
               const SizedBox(height: 16),
               CustomText.w400(

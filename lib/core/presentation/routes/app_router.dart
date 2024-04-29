@@ -92,6 +92,11 @@ import 'package:loopcare_frontend/features/physical_activities/presentation/sele
 import 'package:loopcare_frontend/features/proxy/proxy_page.dart';
 import 'package:loopcare_frontend/features/quizzes/presentation/quizzes_intro_page.dart';
 import 'package:loopcare_frontend/features/quizzes/presentation/quizzes_questions_page.dart';
+import 'package:loopcare_frontend/features/smart_goals/presentation/goal_review_page/goal_review_page.dart';
+import 'package:loopcare_frontend/features/smart_goals/presentation/goals_statistics_page/goals_statistics_page.dart';
+import 'package:loopcare_frontend/features/smart_goals/presentation/select_goals_actegory_page/select_goals_category_page.dart';
+import 'package:loopcare_frontend/features/smart_goals/presentation/select_goals_page/select_goals_page.dart';
+import 'package:loopcare_frontend/features/smart_goals/presentation/set_weekly_goals_page/set_weekly_goals_page.dart';
 import 'package:loopcare_frontend/features/subscription/presentation/subscription_page.dart';
 import 'package:loopcare_frontend/features/video_player/presentation/video_page.dart';
 import 'package:loopcare_frontend/features/video_session/presentation/session_call_page.dart';
@@ -524,6 +529,28 @@ const groupLessonRoutes = [
       path: AppRoutes.buddyCompleted,
       page: BuddyCompletedPage,
     ), // added
+
+    // Smart goals
+    AutoRoute(
+      path: AppRoutes.setWeeklyGoals,
+      page: SetWeeklyGoalsPage,
+    ),
+    AutoRoute(
+      path: AppRoutes.selectGoalsCategory,
+      page: SelectGoalsCategoryPage,
+    ),
+    AutoRoute(
+      path: AppRoutes.selectGoals,
+      page: SelectGoalsPage,
+    ),
+    AutoRoute(
+      path: AppRoutes.goalsStatistics,
+      page: GoalsStatisticsPage,
+    ),
+    AutoRoute(
+      path: AppRoutes.goalReview,
+      page: GoalReviewPage,
+    ),
   ],
 )
 class $AppRouter {}

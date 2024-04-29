@@ -157,6 +157,8 @@ class AppIcons {
   static SvgPicture customDashboardMood =
       SvgPicture.asset('$iconsFilePath/custom_dashboard_mood.svg', width: 44, height: 44);
   static SvgPicture customDashboardMind = SvgPicture.asset('$iconsFilePath/mind.svg', width: 44, height: 44);
+  static SvgPicture customDashboardSmartGoals =
+      SvgPicture.asset('$iconsFilePath/custom_dashboard_smart_goals.svg', width: 44, height: 44);
 
   static SvgPicture customRedPhone = SvgPicture.asset('$iconsFilePath/custom_red_phone.svg');
   static SvgPicture microphoneOn = SvgPicture.asset('$iconsFilePath/icon_microphone_on.svg');
@@ -193,6 +195,7 @@ class AppIcons {
   static SvgPicture customInfo = SvgPicture.asset('$iconsFilePath/custom_icon_info.svg', width: 44, height: 44);
 
   static SvgPicture locked = SvgPicture.asset('$iconsFilePath/lock.svg');
+  static SvgPicture achieve = SvgPicture.asset('$iconsFilePath/achieve.svg', width: 14, height: 14);
 
   AppIcons._();
 }

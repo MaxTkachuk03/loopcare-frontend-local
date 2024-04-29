@@ -35,6 +35,14 @@ extension DateTimeExtension on DateTime {
     return DateFormat('dd-MM-yyyy').format(this);
   }
 
+  String get dateStringOnly {
+    return DateFormat('yyyy-MM-dd').format(this);
+  }
+
+  DateTime get dateOnly {
+    return DateTime(this.year, this.month, this.day);
+  }
+
   String get isoStringWithoutTime {
     return toIso8601String().split('T')[0];
   }
@@ -85,6 +93,10 @@ extension DateTimeExtension on DateTime {
 
   String get shortWeekdayString {
     return DateFormat('E', 'en_EN').format(this);
+  }
+
+  String get shortWeekdayWithMonth {
+    return DateFormat('E dd MMMM', 'en_EN').format(this);
   }
 
   String get shortestWeekdayString {
@@ -239,3 +251,17 @@ extension DateTimeExtension on DateTime {
 
 String getFormattedDateFromMilliseconds(int milliseconds) =>
     DateFormat('HH:mm', 'en_EN').format(DateTime.fromMillisecondsSinceEpoch(milliseconds));
+
+List<DateTime> getDays({required DateTime start, required DateTime end}) {
+  final days = end.difference(start).inDays;
+
+  return [for (int i = 0; i < days; i++) start.add(Duration(days: i))];
+}
+
+List<DateTime> getDaysOnly({required DateTime start, required DateTime end}) {
+  final days = end.difference(start).inDays;
+
+  return [for (int i = 0; i < days; i++) start.add(Duration(days: i)).dateOnly];
+}
+
+DateTime getDateOnly(String date) => DateFormat("yyyy-MM-dd").parse(date);

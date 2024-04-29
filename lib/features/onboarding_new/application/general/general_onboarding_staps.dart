@@ -1,9 +1,12 @@
 part of 'general_onboarding_bloc.dart';
 
 enum GeneralOnboardingStep {
-  physical(AppColors.yellowRegular, AppColors.blueRegular, AppColors.yellowLightest, AppColors.yellowOffRegular, AppColors.yellowLighter, LocalizedTexts.physicalIntroTitle),
-  medical(AppColors.blueRegular,  AppColors.coralRegular, AppColors.blueLightest, AppColors.blueOffRegular, AppColors.blueLighter, LocalizedTexts.medicalIntroTitle),
-  mental(AppColors.orangeRegular, AppColors.blueRegular, AppColors.orangeLightest, AppColors.orangeOffRegular, AppColors.orangeLighter,LocalizedTexts.mentalHealth);
+  physical(AppColors.yellowRegular, AppColors.blueRegular, AppColors.yellowLightest, AppColors.yellowOffRegular,
+      AppColors.yellowLighter, LocalizedTexts.physicalIntroTitle),
+  medical(AppColors.blueRegular, AppColors.coralRegular, AppColors.blueLightest, AppColors.blueOffRegular,
+      AppColors.blueLighter, LocalizedTexts.medicalIntroTitle),
+  mental(AppColors.orangeRegular, AppColors.blueRegular, AppColors.orangeLightest, AppColors.orangeOffRegular,
+      AppColors.orangeLighter, LocalizedTexts.mentalHealth);
 
   const GeneralOnboardingStep(
     this.primaryColor,
@@ -43,9 +46,7 @@ enum PhysicalQuestionStep {
 
   bool get isIntro => this == intro;
 
-  bool get isExclusionOrResult => this == ageExclusion ||
-      this == bmiExclusion ||
-      this == result;
+  bool get isExclusionOrResult => this == ageExclusion || this == bmiExclusion || this == result;
 }
 
 enum MedicalQuestionStep {
@@ -93,7 +94,8 @@ enum MentalQuestionStep {
   introStepTwo(MentalHealthIntroContent(key: ValueKey('mental_intro_step_two_content'))),
   test(MentalHealthQuestionContent(key: ValueKey('mental_test_content'))),
   testSummery(MentalCheckResultContent(key: ValueKey('mental_test_content'))),
-  result(MentalCheckResultFinalContent(key: ValueKey('mental_health_result_content')));
+  result(MentalCheckResultFinalContent(key: ValueKey('mental_health_result_content'))),
+  resultFailed(MentalCheckResultFinalContent(key: ValueKey('mental_health_result_failed_content')));
 
   const MentalQuestionStep(this.content);
 
@@ -103,7 +105,7 @@ enum MentalQuestionStep {
 
   bool get isIntro => this == introStepOne;
 
-  bool get isResult => this == testSummery || this == result;
+  bool get isResult => this == testSummery || this == result || this == resultFailed;
 
   bool get isTests => this == testSummery || this == test;
 }

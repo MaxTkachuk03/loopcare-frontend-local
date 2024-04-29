@@ -45,40 +45,19 @@ class FirebaseEvents {
   static String get searchScreenClosed => 'search_screen_closed';
   static String get performedSearch => 'performe_search';
   static String get userCompleteQuiz => 'user_complete_quiz';
-  static String get userBirthday => 'user_birthday';
-  static String get userSex => 'user_sex';
-  static String get userBiologicalSex => 'user_biological_sex';
-  static String get userHappiness => 'user_happiness';
-  static String get userHeight => 'user_height';
-  static String get userWeight => 'user_weight';
-  static String get userBmi => 'user_bmi';
-  static String get userBmiExclusion => 'user_bmi_exclusion';
-  static String get userPregnancy => 'user_pregnancy';
-  static String get userMentalHealthTest => 'user_mental_health_test';
-  static String get showPopupAboutExceededTime => 'show_popup_about_exceeded_time';
-  static String get legalStatement => 'legal_statement';
-  static String get userName => 'user_name';
-  static String get userEmail => 'user_email';
+
+  // Onboarding
+  static String get userBmi => 'onboarding_user_bmi';
+  static String get userBmiExclusion => 'onboarding_bmi_exclusion';
+  static String get userMentalHealthTest => 'onboarding_interim_result';
+  static String get showPopupAboutExceededTime => 'onboarding_show_popup_about_exceeded_time';
+  static String get legalStatement => 'onboarding_legal_statement';
+  static String get userName => 'onboarding_user_name';
+  static String get userEmail => 'onboarding_user_email';
+
   static String get reportIssue => 'report_issue';
   static String get foodLogged => 'food_logged';
   static String get userLeaveGroup => 'user_leave_group';
-  static String get userMedicines => 'user_medicines';
-  static String get userSemaglutide => 'user_semaglutide';
-  static String get userLengthSemaglutideIntake => 'user_length_semaglutide_intake';
-  static String get userSemaglutideTreatmentSupposedLength => 'user_semaglutide_treatment_supposed_length';
-  static String get userSecondaryFormOfObesity => 'user_secondary_form_of_obesity';
-  static String get userThyroidDisease => 'user_thyroid_disease';
-  static String get userMetabolicDisease => 'user_metabolic_disease';
-  static String get userHypertension => 'user_hypertension';
-  static String get userHeartSurgery => 'user_heart_surgery';
-  static String get userStomachReduction => 'user_stomach_reduction';
-  static String get userDiabetes => 'user_diabetes';
-  static String get userRenalFailure => 'user_renal_failure';
-  static String get userAstmaCOPD => 'user_astma_COPD';
-  static String get userHepatitisLiverDisease => 'user_hepatitis_liver_disease';
-  static String get userSleepApnea => 'user_sleep_apnea';
-  static String get userLocomotorSystem => 'user_locomotor_system';
-  static String get userInTherapy => 'user_in_therapy';
   static String get programStarted => 'program_started';
   static String get programClosed => 'program_closed';
   static String get programLike => 'program_like';
@@ -96,4 +75,9 @@ class FirebaseEvents {
   static String get mindCloseExerciseIntro => 'mind_close_exercise_intro';
   static String get mindCompletedExercise => 'mind_completed_exercise';
   static String get mindRepeatedExercise => 'mind_repeated_exercise';
+
+  // Smart goals
+  static String get userSavedGoals => 'user_saved_goals';
+  static String get userAddedReview => 'user_added_review';
+  static String get userLogGoal => 'user_log_goal';
 }

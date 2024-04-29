@@ -225,7 +225,7 @@ class _MealPageState extends State<MealPage> {
     }
   }
 
-  _onBackToDashboardPressed() {
+  _onBack() {
     final state = context.read<MealsBloc>().state;
 
     if (state.currentFoodItems.isEmpty) {
@@ -233,11 +233,15 @@ class _MealPageState extends State<MealPage> {
     }
 
     _setOriginDate();
-    context.router.pop();
+  }
+
+  void _onBackToDashboardPressed() {
+    _onBack();
+    context.router.popUntilRouteWithName(HomeRoute.name);
   }
 
   Future<bool> _onWillPop() async {
-    _onBackToDashboardPressed();
+    _onBack();
 
     return Future.value(true);
   }
@@ -366,7 +370,7 @@ class _MealPageState extends State<MealPage> {
                             children: [
                               const SizedBox(height: 26.0),
                               CustomElevatedButton.blueFullWidth(
-                                onPressed: () => _onBackToDashboardPressed(),
+                                onPressed: _onBackToDashboardPressed,
                                 //TODO confirm label text for back btn
                                 label: LocalizedTexts.backToTodayLogging.tr(),
                               ),

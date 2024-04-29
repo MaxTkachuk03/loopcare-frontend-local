@@ -20,6 +20,7 @@ import 'package:loopcare_frontend/features/dashboard/presentation/widgets/mind/d
 import 'package:loopcare_frontend/features/dashboard/presentation/widgets/person_mood/person_mood.dart';
 import 'package:loopcare_frontend/features/dashboard/presentation/widgets/physical_activities/physical_activities.dart';
 import 'package:loopcare_frontend/features/dashboard/presentation/widgets/slider_calendar/slider_calendar.dart';
+import 'package:loopcare_frontend/features/dashboard/presentation/widgets/smart_goals/dashboard_smart_goals.dart';
 import 'package:loopcare_frontend/features/dashboard/presentation/widgets/support_group/support_group.dart';
 import 'package:loopcare_frontend/features/dashboard/presentation/widgets/weight/weight_block.dart';
 import 'package:loopcare_frontend/features/education/application/education_program/education_program_bloc.dart';
@@ -29,6 +30,7 @@ import 'package:loopcare_frontend/features/nutrition/application/dashboard_educa
 import 'package:loopcare_frontend/features/nutrition/application/dashboard_weight/dashboard_weight_bloc.dart';
 import 'package:loopcare_frontend/features/nutrition/application/meals/meals_bloc.dart';
 import 'package:loopcare_frontend/features/nutrition/application/nutrition_instructions/nutrition_instructions_bloc.dart';
+import 'package:loopcare_frontend/features/smart_goals/application/smart_goals_bloc.dart';
 
 class DashboardPage extends StatefulWidget {
   const DashboardPage({super.key});
@@ -103,6 +105,11 @@ class _DashboardPageState extends State<DashboardPage> with WidgetsBindingObserv
             ),
           );
     }
+    if (context.read<AuthenticationBloc>().state.data.isSmartGoalUnlocked) {
+      context.read<SmartGoalsBloc>().add(
+            const SmartGoalsEvent.getWeeklyGoals(),
+          );
+    }
   }
 
   Future<void> _onRefresh() async {
@@ -133,6 +140,11 @@ class _DashboardPageState extends State<DashboardPage> with WidgetsBindingObserv
             ),
           );
     }
+    if (context.read<AuthenticationBloc>().state.data.isSmartGoalUnlocked) {
+      context.read<SmartGoalsBloc>().add(
+            const SmartGoalsEvent.getWeeklyGoals(),
+          );
+    }
   }
 
   void _onDaySelected(DateTime day) {
@@ -144,8 +156,8 @@ class _DashboardPageState extends State<DashboardPage> with WidgetsBindingObserv
     if (context.read<AuthenticationBloc>().state.data.isAssignmentsUnlocked) {
       context.read<AssignmentsBloc>().add(
             AssignmentsEvent.getAllLessonQuestions(
-              _selectedDay.beginDay,
-              _selectedDay.endDay,
+              day.beginDay,
+              day.endDay,
             ),
           );
     }
@@ -198,6 +210,21 @@ class _DashboardPageState extends State<DashboardPage> with WidgetsBindingObserv
                             },
                           ),
                           const SizedBox(height: 26.0),
+                          BlocBuilder<AuthenticationBloc, AuthenticationState>(
+                            builder: (BuildContext context, state) {
+                              if (state.data.account?.isSmartGoalsUnlocked ?? false) {
+                                return const Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    DashboardSmartGoals(),
+                                    SizedBox(height: 19.0),
+                                  ],
+                                );
+                              } else {
+                                return const SizedBox.shrink();
+                              }
+                            },
+                          ),
                           WeightBlock(date: _selectedDay),
                           BlocBuilder<AuthenticationBloc, AuthenticationState>(
                             builder: (BuildContext context, state) {
@@ -263,8 +290,10 @@ class _DashboardPageState extends State<DashboardPage> with WidgetsBindingObserv
                               );
                             },
                           ),
-                          const SizedBox(height: 19.0),
-                          if (_showEducationWidget) Education(date: _selectedDay),
+                          if (_showEducationWidget) ...[
+                            const SizedBox(height: 19.0),
+                            Education(date: _selectedDay),
+                          ],
                           BlocBuilder<AuthenticationBloc, AuthenticationState>(
                             builder: (context, state) {
                               if (!state.data.isAssignmentsUnlocked) {

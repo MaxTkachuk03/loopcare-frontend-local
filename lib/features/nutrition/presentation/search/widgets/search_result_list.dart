@@ -111,7 +111,7 @@ class _SearchResultListState extends State<SearchResultList> {
       child: GridView.builder(
         gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
           crossAxisCount: 2,
-          crossAxisSpacing: 8,
+          crossAxisSpacing: 16,
           mainAxisSpacing: 16,
         ),
         itemCount: itemsState.data.items.length + 1,
@@ -159,9 +159,8 @@ class _SearchResultListState extends State<SearchResultList> {
                   padding: const EdgeInsets.all(0.0),
                   icon: ImageIcon(
                     AppIcons.detailsLayout,
-                    color: (selectedLayout == SearchListLayout.detailed)
-                        ? AppColors.blueRegular
-                        : AppColors.yellowLight,
+                    color:
+                        (selectedLayout == SearchListLayout.detailed) ? AppColors.blueRegular : AppColors.yellowLight,
                   ),
                 ),
               ),
@@ -176,9 +175,7 @@ class _SearchResultListState extends State<SearchResultList> {
                   padding: const EdgeInsets.all(0.0),
                   icon: ImageIcon(
                     AppIcons.listLayout,
-                    color: (selectedLayout == SearchListLayout.list)
-                        ? AppColors.blueRegular
-                        : AppColors.yellowLight,
+                    color: (selectedLayout == SearchListLayout.list) ? AppColors.blueRegular : AppColors.yellowLight,
                   ),
                 ),
               ),

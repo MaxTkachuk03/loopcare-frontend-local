@@ -55,14 +55,19 @@ class SubscriptionController {
     List<ProductDetails> list = [...(Platform.isAndroid ? _getUniqueAndroidPlans() : _getIosPlans())];
     final lastId = list.isNotEmpty ? list.last.id : -1;
 
-    for (var plan in list) {
-      products.add(PurchasableProduct(
-        details: plan,
-        offer: _getPricePerMonth(plan.rawPrice),
-        regularPrice: plan.rawPrice,
-        currency: _getCurrency(plan.currencyCode),
-        recommended: plan.id == lastId,
-      ));
+    for (var serverPlan in data.serverPlans) {
+      for (var plan in list) {
+        if (serverPlan.productId == plan.id) {
+          products.add(PurchasableProduct(
+              details: plan,
+              offer: _getPricePerMonth(plan.rawPrice),
+              regularPrice: plan.rawPrice,
+              currency: _getCurrency(plan.currencyCode),
+              recommended: plan.id == lastId,
+              localizationDescription: serverPlan.subscriptionPlan?.description,
+              localizationTitle: serverPlan.subscriptionPlan?.title));
+        }
+      }
     }
   }
 

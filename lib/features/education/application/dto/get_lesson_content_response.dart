@@ -2,7 +2,6 @@ import 'package:flutter/foundation.dart';
 import 'package:json_annotation/json_annotation.dart';
 import 'package:loopcare_frontend/core/domain/unlock_config/lesson_unlock_config/lesson_unlock_config.dart';
 import 'package:loopcare_frontend/features/education/application/dto/lesson_page.dart';
-import 'package:loopcare_frontend/features/education/domain/extra_action_types.dart';
 import 'package:loopcare_frontend/features/quizzes/domain/lesson_question.dart';
 
 part 'get_lesson_content_response.g.dart';
