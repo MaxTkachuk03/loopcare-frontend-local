@@ -109,9 +109,7 @@ class _WeeklyGoalModalState extends State<WeeklyGoalModal> with SingleTickerProv
           child: CustomElevatedButton.blueFullWidth(
             label: LocalizedTexts.done.tr().capitalize(),
             onPressed: () {
-              if (_tabController.index == 0) {
-                widget.onDone();
-              }
+              widget.onDone();
               context.router.pop();
             },
           ),
