@@ -44,9 +44,7 @@ class PurchaseDetailsStreamSubscription {
           events.sort((a, b) => int.parse(a.transactionDate!).compareTo(int.parse(b.transactionDate!)));
 
           for (var purchaseDetails in events) {
-            if (purchaseDetails.pendingCompletePurchase) {
-              await inAppPurchaseService.completePurchase(purchaseDetails);
-            }
+            await inAppPurchaseService.completePurchase(purchaseDetails);
           }
           onRestored?.call(events.last);
           return;
@@ -56,7 +54,6 @@ class PurchaseDetailsStreamSubscription {
           (PurchaseDetails purchaseDetails) async {
             switch (purchaseDetails.status) {
               case PurchaseStatus.pending:
-                await inAppPurchaseService.completePurchase(purchaseDetails);
                 break;
               case PurchaseStatus.purchased:
                 onPurchased?.call(purchaseDetails);
@@ -70,6 +67,7 @@ class PurchaseDetailsStreamSubscription {
               default:
                 break;
             }
+            await inAppPurchaseService.completePurchase(purchaseDetails);
           },
         );
       },

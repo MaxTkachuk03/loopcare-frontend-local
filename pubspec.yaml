@@ -1,5 +1,5 @@
 name: loopcare_frontend
-version: 1.0.31+174
+version: 1.0.31+175
 publish_to: none
 description: Lean on me
 environment:
@@ -10,6 +10,7 @@ dependencies:
     path: ./local_plugins/advertising_id
   auto_route: 5.0.4
   auto_size_text: ^3.0.0
+  autoscale_tabbarview: ^1.0.2
   badges: ^3.1.2
   bloc_concurrency: ^0.2.2
   cached_network_image: ^3.3.0
@@ -38,7 +39,6 @@ dependencies:
   flutter_chat_ui: ^1.6.10
   flutter_polygon: ^0.3.0+2
   flutter_svg: ^2.0.9
-  fluttertoast: 8.2.4
   flutter_widget_from_html: ^0.14.9
   freezed_annotation: ^2.4.1
   get_it: ^7.6.4
@@ -48,6 +48,8 @@ dependencies:
   intl: ^0.18.1
   in_app_purchase: ^3.1.13
   json_annotation: ^4.8.1
+  just_audio: ^0.9.37
+  just_audio_background: ^0.0.1-beta.11
   lint: 2.0.1
   mime: ^1.0.4
   mixpanel_analytics: 2.1.1
@@ -77,6 +79,8 @@ dependencies:
     path: ./local_plugins/zoom_video_sdk_update
   bubble: ^1.2.1
   moment_dart: ^1.1.0
+  appsflyer_sdk: ^6.14.2
+
 
 dev_dependencies:
   analyzer: ^5.13.0

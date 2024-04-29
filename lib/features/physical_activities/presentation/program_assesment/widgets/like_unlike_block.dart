@@ -14,10 +14,13 @@ const _kBorderThick = 2.0;
 const _kBorderRadius = 10.0;
 
 class LikeUnlikeBlock extends StatefulWidget {
+  final Color? selectedColor;
+
   final void Function(bool like) onLikeChange;
 
   const LikeUnlikeBlock({
     super.key,
+    this.selectedColor = AppColors.yellowRegular,
     required this.onLikeChange,
   });
 
@@ -43,6 +46,7 @@ class _LikeUnlikeBlockState extends State<LikeUnlikeBlock> {
                 ? _SelectedButton(
                     icon: AppIcons.noScore,
                     label: LocalizedTexts.notReally.tr(),
+                    color: widget.selectedColor,
                   )
                 : _RegularButton(
                     label: LocalizedTexts.notReally.tr(),
@@ -54,6 +58,7 @@ class _LikeUnlikeBlockState extends State<LikeUnlikeBlock> {
                 ? _SelectedButton(
                     icon: AppIcons.yesScoreFilled,
                     label: LocalizedTexts.yesYes.tr(),
+                    color: widget.selectedColor,
                   )
                 : _RegularButton(
                     isLeft: false,
@@ -78,10 +83,12 @@ class _LikeUnlikeBlockState extends State<LikeUnlikeBlock> {
 class _SelectedButton extends StatelessWidget {
   final Widget icon;
   final String label;
+  final Color? color;
 
   const _SelectedButton({
     required this.icon,
     required this.label,
+    required this.color,
   });
 
   @override
@@ -90,9 +97,9 @@ class _SelectedButton extends StatelessWidget {
       width: _kSelectedWidth,
       height: _kSelectedHeight,
       alignment: Alignment.center,
-      decoration: const BoxDecoration(
-        color: AppColors.yellowRegular,
-        borderRadius: BorderRadius.all(Radius.circular(_kBorderRadius)),
+      decoration: BoxDecoration(
+        color: color,
+        borderRadius: const BorderRadius.all(Radius.circular(_kBorderRadius)),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,

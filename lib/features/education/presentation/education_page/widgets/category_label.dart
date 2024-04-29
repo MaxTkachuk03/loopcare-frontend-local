@@ -10,8 +10,14 @@ import 'package:loopcare_frontend/features/physical_activities/domain/program_di
 class CategoryLabel extends StatelessWidget {
   final String label;
   final Color color;
+  final Color textColor;
 
-  const CategoryLabel({super.key, required this.label, required this.color});
+  const CategoryLabel({
+    super.key,
+    required this.label,
+    required this.color,
+    this.textColor = AppColors.white,
+  });
 
   factory CategoryLabel.general() =>
       CategoryLabel(label: LessonCategory.general.label, color: AppColors.petrolRegular);
@@ -46,6 +52,9 @@ class CategoryLabel extends StatelessWidget {
   factory CategoryLabel.buddy() =>
       CategoryLabel(label: LocalizedTexts.buddy.tr(), color: AppColors.coralRegular);
 
+  factory CategoryLabel.smartGoals({required String label}) =>
+      CategoryLabel(label: label, color: AppColors.greenRegular, textColor: AppColors.blueDarker);
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -55,7 +64,7 @@ class CategoryLabel extends StatelessWidget {
         label.toUpperCase(),
         style: context.textTheme.bodyMedium?.copyWith(
           fontSize: ThemeConstants.fontSize10,
-          color: AppColors.white,
+          color: textColor,
         ),
       ),
     );

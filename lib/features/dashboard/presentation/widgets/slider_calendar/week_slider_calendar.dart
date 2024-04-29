@@ -31,8 +31,8 @@ class _WeekSliderCalendarState extends State<WeekSliderCalendar> {
   @override
   void initState() {
     super.initState();
-    final emailApproveDate = getIt<SharedStorageService>().account?.emailApproveDate;
-    final startDate = emailApproveDate?.firstDayOfCurrentWeek.subtract(const Duration(days: 7)) ??
+    final accountCreatedDate = getIt<SharedStorageService>().account?.createdAt;
+    final startDate = accountCreatedDate?.firstDayOfCurrentWeek.subtract(const Duration(days: 7)) ??
         DateTime.now().subtract(const Duration(days: 2 * 365));
 
     _weeks = getWeeksElementBeteween(

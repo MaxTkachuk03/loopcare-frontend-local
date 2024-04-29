@@ -1,5 +1,4 @@
 import 'dart:async';
-
 import 'package:easy_localization/easy_localization.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
@@ -7,8 +6,10 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
+import 'package:just_audio_background/just_audio_background.dart';
 import 'package:loopcare_frontend/build_type.dart';
 import 'package:loopcare_frontend/core/app.dart';
+import 'package:loopcare_frontend/core/application/apps_flyer/apps_flyer_service.dart';
 import 'package:loopcare_frontend/core/application/customer_io_service/customer_io_service.dart';
 import 'package:loopcare_frontend/core/application/permissions_service.dart';
 import 'package:loopcare_frontend/core/application/system_service.dart';
@@ -52,7 +53,10 @@ Future<void> main() async {
 
   SystemService.allowOnlyPortraitOrientation();
 
+  await AppsFlyerService.start();
+
   await CustomerIoService.initialize();
+
   await MixpanelManager().init();
 
   HydratedBloc.storage = await HydratedStorage.build(
@@ -67,6 +71,12 @@ Future<void> main() async {
 
   // Todo: move to Splash Screen
   await PermissionsService.instance.requestNotificationPermissions();
+
+  await JustAudioBackground.init(
+    androidNotificationChannelId: 'com.ryanheise.bg_demo.channel.audio',
+    androidNotificationChannelName: 'Audio playback',
+    androidNotificationOngoing: true,
+  );
 
   return runApp(
     EasyLocalization(

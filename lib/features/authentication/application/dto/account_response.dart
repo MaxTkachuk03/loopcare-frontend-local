@@ -25,7 +25,7 @@ class AccountResponse {
   final String name;
   final String email;
   final String? country;
-  final DateTime emailApproveDate;
+  final DateTime? emailApproveDate;
   final String measurementSystem;
   final bool isConsentApproved;
   final bool isLegalApproved;
@@ -44,6 +44,7 @@ class AccountResponse {
   final MentalHealthTests? mentalHealthTests;
   final PhysicalActivitiesPreferences? physicalActivitiesPreferences;
   final MedicalOnboarding medicalOnboarding;
+  final DateTime? createdAt;
 
   const AccountResponse({
     required this.id,
@@ -71,6 +72,7 @@ class AccountResponse {
     required this.medicalOnboarding,
     this.buddyState,
     this.buddy,
+    this.createdAt,
   });
 
   factory AccountResponse.fromJson(Map<String, dynamic> json) => _$AccountResponseFromJson(json);

@@ -9,6 +9,8 @@ import 'package:loopcare_frontend/features/education/application/dto/get_lessons
 import 'package:loopcare_frontend/features/education/application/education_service.dart';
 import 'package:loopcare_frontend/features/education/domain/questions/lesson_answer_body.dart';
 import 'package:loopcare_frontend/features/education/domain/questions/lesson_questions_response.dart';
+// import 'package:loopcare_frontend/features/education/infrastructure/lesson_mock.dart';
+// import 'package:loopcare_frontend/features/education/infrastructure/lessons_mock.dart';
 import 'package:loopcare_frontend/features/quizzes/domain/lesson_question.dart';
 
 @Injectable(as: EducationService)
@@ -80,7 +82,7 @@ class APIEducationService implements EducationService {
   @override
   Future<Either<RequestError, GetLessonsResponse>> getLessons() async {
     // TODO mock
-    //return right(GetLessonsResponse.fromJson({'lessons': lessons}));
+    // return right(GetLessonsResponse.fromJson({'lessons': lessons}));
     return client.get('/education/lessons').then(parseResponse(GetLessonsResponse.fromJson));
   }
 
@@ -89,7 +91,7 @@ class APIEducationService implements EducationService {
     int lessonId,
   ) async {
     // TODO mock
-    //return right(GetLessonContentResponse.fromJson(lesson));
+    // return right(GetLessonContentResponse.fromJson(lesson));
     return client.get('/education/lessons/$lessonId').then(parseResponse(GetLessonContentResponse.fromJson));
   }
 

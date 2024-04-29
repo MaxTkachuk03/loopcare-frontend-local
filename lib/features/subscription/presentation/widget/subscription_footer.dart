@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:loopcare_frontend/features/subscription/application/subscription_controller.dart';
 import 'package:loopcare_frontend/features/subscription/donain/purchasable_product.dart';
@@ -30,12 +28,11 @@ class _FooterSubscriptionState extends State<FooterSubscription> {
                   (product) => Padding(
                     padding: const EdgeInsets.only(top: 8.0),
                     child: SubscriptionPlane.general(
-                      title: product.details?.title ?? '',
-                      description: product.details?.description ?? '',
+                      title: product.title,
+                      description: product.description,
                       recommended: product.recommended,
-                      regularPrice:
-                          Platform.isAndroid ? product.details?.price ?? '' : '${product.details?.rawPrice ?? ''}',
-                      currency: product.currency,
+                      regularPrice: product.roundPrice,
+                      priceWithCurrency: product.priceWithCurrency,
                       onTap: () => widget.controller.setPlans(product),
                       selected: widget.controller.selectedPlan.value?.details?.id == product.details?.id &&
                           widget.controller.selectedPlan.value?.details?.price == product.details?.price,

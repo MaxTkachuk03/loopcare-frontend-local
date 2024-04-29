@@ -10,10 +10,12 @@ import 'package:loopcare_frontend/core/infrastructure/route_observers/route_obse
 import 'package:loopcare_frontend/core/infrastructure/services/app_bloc_provider.dart';
 import 'package:loopcare_frontend/core/infrastructure/services/app_config.dart';
 import 'package:loopcare_frontend/core/infrastructure/services/firebase_navigator_observer.dart';
+import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/core/presentation/routes/app_router.gr.dart';
 import 'package:loopcare_frontend/core/presentation/routes/gender_prefs_guard.dart';
 import 'package:loopcare_frontend/core/presentation/routes/intro_guard.dart';
 import 'package:loopcare_frontend/core/presentation/routes/proxy_guard.dart';
+import 'package:loopcare_frontend/core/presentation/text/custom_text.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 import 'package:loopcare_frontend/features/authentication/application/authentication_bloc.dart';
 import 'package:loopcare_frontend/features/consent_confirmation/application/consent_confirmation_bloc.dart';
@@ -44,7 +46,10 @@ class App extends StatelessWidget {
             builder: (context) {
               final networkStatus = Provider.of<NetworkStatus>(context);
               if (networkStatus == NetworkStatus.offline) {
-                showConnectionErrorMessage();
+                context.showError(
+                    content: CustomText(
+                  LocalizedTexts.connectionLost.tr(),
+                ));
               }
               return const _App();
             },

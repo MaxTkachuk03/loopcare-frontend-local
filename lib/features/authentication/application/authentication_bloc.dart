@@ -136,7 +136,7 @@ class AuthenticationBloc extends HydratedBloc<AuthenticationEvent, Authenticatio
           AppMixpanelEvents.loginFail,
           {
             'email': event.email,
-            'message': error.error,
+            'message': error.error.toString(),
           },
         );
         emit(AuthenticationState.init(state.data));
@@ -182,6 +182,7 @@ class AuthenticationBloc extends HydratedBloc<AuthenticationEvent, Authenticatio
           sex: response.sex,
           emailApproveDate: response.emailApproveDate,
           subscription: response.subscription,
+          createdAt: response.createdAt,
         );
 
         emit(
@@ -215,14 +216,6 @@ class AuthenticationBloc extends HydratedBloc<AuthenticationEvent, Authenticatio
     SignUp event,
     Emitter<AuthenticationState> emit,
   ) async {
-    AnalyticsEventService.instance.logEvent(
-      FirebaseEvents.userEmail,
-      parameters: {
-        CustomDefinitions.value: state.data.email,
-        CustomDefinitions.confirmed: 'false',
-      },
-    );
-
     final data = SignUpData(
       name: state.data.name,
       email: state.data.email.toLowerCase(),
@@ -250,11 +243,35 @@ class AuthenticationBloc extends HydratedBloc<AuthenticationEvent, Authenticatio
         ),
       ),
       (response) {
+        AnalyticsEventService.instance.logEvent(
+          CIOEvents.onboardingNewUserCreated,
+          parameters: {
+            CustomDefinitions.value: state.data.email,
+            CustomDefinitions.confirmed: 'false',
+          },
+        );
+
         CustomerIoService.track(event: CIOEvents.onboardingTermsAndConditionsPrivacyPolicyAccept);
         CustomerIoService.track(event: CIOEvents.onboardingPasswordCreated);
         CustomerIoService.track(event: CIOEvents.onboardingNewUserCreated);
         CustomerIoService.setUserVerifiedState(verified: false);
         CustomerIoService.setUserId(id: response.id);
+
+        authTokenManager.setAccessToken(response.accessToken);
+        authTokenManager.setRefreshToken(response.refreshToken);
+
+        final account = _sharedPref.account = Account(
+          id: response.id,
+          customerIoId: response.customerIoId,
+          name: response.name,
+          email: response.email,
+          country: response.country,
+          gender: response.gender,
+          sex: response.sex,
+          emailApproveDate: response.emailApproveDate,
+          subscription: response.subscription,
+          createdAt: response.createdAt,
+        );
 
         emit(
           AuthenticationState.waitedForConfirmation(
@@ -265,6 +282,7 @@ class AuthenticationBloc extends HydratedBloc<AuthenticationEvent, Authenticatio
               name: state.data.name,
               password: event.password,
               emailWasSend: true,
+              account: account,
             ),
           ),
         );
@@ -474,6 +492,13 @@ class AuthenticationBloc extends HydratedBloc<AuthenticationEvent, Authenticatio
     UpdateName event,
     Emitter<AuthenticationState> emit,
   ) async {
+    AnalyticsEventService.instance.logEvent(
+      FirebaseEvents.userName,
+      parameters: {
+        CustomDefinitions.value: event.name,
+      },
+    );
+
     emit(
       state.copyWith(
         data: state.data.copyWith(
