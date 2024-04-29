@@ -11,8 +11,7 @@ class GoalsList extends StatefulWidget {
   final List<SmartGoal> selectedGoals;
   final void Function(SmartGoal goal, bool isSelected) onGoalSelect;
 
-  const GoalsList(
-      {super.key, required this.categoryId, required this.onGoalSelect, required this.selectedGoals});
+  const GoalsList({super.key, required this.categoryId, required this.onGoalSelect, required this.selectedGoals});
 
   @override
   State<GoalsList> createState() => _GoalsListState();

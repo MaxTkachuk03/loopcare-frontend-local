@@ -38,6 +38,7 @@ class SmartGoalsBloc extends Bloc<SmartGoalsEvent, SmartGoalsState> {
     on<SaveGoals>(_onSaveGoals);
     on<AddReview>(_onAddReview);
     on<AddGoals>(_onAddGoals);
+    on<RemoveGoal>(_onRemoveGoal);
     on<ResetSelected>(_onResetSelected);
     on<UpdateLoggerTimes>(_onUpdateLoggerTimes);
     on<ResetLoggerTimes>(_onResetLoggerTimes);
@@ -164,8 +165,16 @@ class SmartGoalsBloc extends Bloc<SmartGoalsEvent, SmartGoalsState> {
     AddGoals event,
     Emitter<SmartGoalsState> emit,
   ) async {
-    emit(
-        SmartGoalsState.goalsLoaded(state.data.copyWith(selectedGoals: [...state.data.selectedGoals, ...event.goals])));
+    emit(SmartGoalsState.goalsLoaded(state.data.copyWith(selectedGoals: [...event.goals])));
+  }
+
+  FutureOr<void> _onRemoveGoal(
+    RemoveGoal event,
+    Emitter<SmartGoalsState> emit,
+  ) async {
+    final goals = [...state.data.selectedGoals];
+    goals.remove(event.goal);
+    emit(SmartGoalsState.goalsLoaded(state.data.copyWith(selectedGoals: goals)));
   }
 
   FutureOr<void> _onResetSelected(

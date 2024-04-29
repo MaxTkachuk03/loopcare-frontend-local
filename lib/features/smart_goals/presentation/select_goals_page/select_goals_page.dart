@@ -30,17 +30,29 @@ class SelectGoalsPage extends StatefulWidget {
 }
 
 class _SelectGoalsPageState extends State<SelectGoalsPage> {
-  final List<SmartGoal> _selectedGoals = [];
+  List<SmartGoal> _selectedGoals = [];
+
+  @override
+  void initState() {
+    super.initState();
+    _selectedGoals = [...context.read<SmartGoalsBloc>().state.data.selectedGoals];
+  }
 
   void _onAddGoalHandler(BuildContext context) => context
     ..read<SmartGoalsBloc>().add(SmartGoalsEvent.addGoals(goals: _selectedGoals))
     ..router.popUntilRouteWithName(SetWeeklyGoalsRoute.name);
 
   void _onGoalSelectHandler(SmartGoal goal, bool isSelected) {
-    final otherCategoriesGoalsLength = context.read<SmartGoalsBloc>().state.data.selectedGoals.length;
-    if (!isSelected && _selectedGoals.length + otherCategoriesGoalsLength >= 2) return;
+    if (!isSelected && _selectedGoals.length >= 2) return;
 
-    isSelected ? _selectedGoals.remove(goal) : _selectedGoals.add(goal);
+    if (isSelected) {
+      _selectedGoals.remove(goal);
+      if (context.read<SmartGoalsBloc>().state.data.selectedGoals.contains(goal)) {
+        context.read<SmartGoalsBloc>().add(SmartGoalsEvent.removeGoal(goal: goal));
+      }
+    } else {
+      _selectedGoals.add(goal);
+    }
 
     setState(() {});
   }

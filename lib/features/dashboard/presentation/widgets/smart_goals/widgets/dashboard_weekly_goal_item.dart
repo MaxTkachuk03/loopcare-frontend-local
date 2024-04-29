@@ -38,7 +38,7 @@ class DashboardWeeklyGoalItem extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           GoalProgressIndicator(
-            currentStep: item.completionsDays,
+            currentStep: item.completionsAmount,
             steps: item.smartGoal.requiredCompletionDays,
             isAchievedNotifier: item.isAchieved,
           ),

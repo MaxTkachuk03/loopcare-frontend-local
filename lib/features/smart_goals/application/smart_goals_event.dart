@@ -12,10 +12,11 @@ class SmartGoalsEvent with _$SmartGoalsEvent {
 
   const factory SmartGoalsEvent.addGoals({required List<SmartGoal> goals}) = AddGoals;
 
+  const factory SmartGoalsEvent.removeGoal({required SmartGoal goal}) = RemoveGoal;
+
   const factory SmartGoalsEvent.resetSelected() = ResetSelected;
 
-  const factory SmartGoalsEvent.updateLoggerTimes({required ProgressSmartGoalLog goalProgress}) =
-      UpdateLoggerTimes;
+  const factory SmartGoalsEvent.updateLoggerTimes({required ProgressSmartGoalLog goalProgress}) = UpdateLoggerTimes;
 
   const factory SmartGoalsEvent.resetLoggerTimes({required WeeklySmartGoal weeklyGoal}) = ResetLoggerTimes;
 
