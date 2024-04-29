@@ -18,6 +18,7 @@ import 'package:loopcare_frontend/core/presentation/routes/app_router.gr.dart';
 import 'package:loopcare_frontend/core/presentation/scaffold/custom_scaffold.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/main_container.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/scrollable_container.dart';
+import 'package:loopcare_frontend/features/dashboard/presentation/widgets/log_meal/nutrition_summary/nutrition_summary.dart';
 import 'package:loopcare_frontend/features/nutrition/application/edit_dish/edit_dish_bloc.dart';
 import 'package:loopcare_frontend/features/nutrition/application/meals/meals_bloc.dart';
 import 'package:loopcare_frontend/features/nutrition/application/recipe/recipe_bloc.dart';
@@ -27,7 +28,6 @@ import 'package:loopcare_frontend/features/nutrition/domain/dish_favorites_categ
 import 'package:loopcare_frontend/features/nutrition/domain/meal_item_type/meal_item_type.dart';
 import 'package:loopcare_frontend/features/nutrition/domain/nutrition_values_types/nutrition_values_types.dart';
 import 'package:loopcare_frontend/features/nutrition/presentation/edit_dish/edit_dish_page.dart';
-import 'package:loopcare_frontend/features/nutrition/presentation/nutrition_instructions/widgets/nutrition_block/nutrition_block.dart';
 import 'package:loopcare_frontend/features/nutrition/presentation/recipe/widgets/recipe_list.dart';
 import 'package:loopcare_frontend/features/nutrition/presentation/widgets/meal_portions/nutrition_values_block.dart';
 import 'package:loopcare_frontend/features/nutrition/presentation/widgets/servings_amount/servings_amount.dart';
@@ -202,12 +202,15 @@ class _RecipePageState extends State<RecipePage> {
                                   nutritionValuesList: recipeState.data.recipe.nutritionValues,
                                   onNutritionFactSelect: _onNutritionFactSelect),
                               RecipeList(
-                                  nutritionKey: recipeState.data.currentNutritionType.name,
-                                  list: recipeState.data.recipe.ingredients,
-                                  isMealRecipe: widget.isMealRecipe ?? false),
-                              NutritionBlock(
+                                nutritionKey: recipeState.data.currentNutritionType.name,
+                                list: recipeState.data.recipe.ingredients,
+                                isMealRecipe: widget.isMealRecipe ?? false,
+                              ),
+                              NutritionSummary(
                                 proteinDegree: recipeState.data.recipe.proteinDegreeVal,
                                 calorieDensity: recipeState.data.recipe.calorieDensityVal,
+                                fiber: recipeState.data.recipe.fiberSum,
+                                carbFiberRatio: recipeState.data.recipe.carbFiberRatio,
                               ),
                               const SizedBox(height: 15.0),
                               MainContainer(

@@ -13,9 +13,9 @@ import 'package:loopcare_frontend/core/presentation/utils/build_context_extensio
 import 'package:loopcare_frontend/core/presentation/utils/double_extensions.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/main_container.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/scrollable_container.dart';
+import 'package:loopcare_frontend/features/dashboard/presentation/widgets/log_meal/nutrition_summary/nutrition_summary.dart';
 import 'package:loopcare_frontend/features/nutrition/application/recipe_details/recipe_details_bloc.dart';
 import 'package:loopcare_frontend/features/nutrition/domain/recipe_details/recipe_details.dart';
-import 'package:loopcare_frontend/features/nutrition/presentation/nutrition_instructions/widgets/nutrition_block/nutrition_block.dart';
 import 'package:loopcare_frontend/features/nutrition/presentation/recipe_details/widgets/summary_item.dart';
 
 class Summary extends StatelessWidget {
@@ -87,9 +87,17 @@ class Summary extends StatelessWidget {
                       ],
                     ),
                   ),
-                  NutritionBlock(
-                    calorieDensity: s.recipe.calorieDensity,
-                    proteinDegree: s.recipe.proteinDegree,
+                  Container(
+                    padding: const EdgeInsets.all(12.0),
+                    decoration: const BoxDecoration(
+                      color: AppColors.greenLighter,
+                    ),
+                    child: NutritionSummary(
+                      proteinDegree: s.recipe.proteinDegreeVal,
+                      calorieDensity: s.recipe.calorieDensityVal,
+                      fiber: s.recipe.fiberSum,
+                      carbFiberRatio: s.recipe.carbFiberRatio,
+                    ),
                   ),
                   const SizedBox(height: 20.0),
                   MainContainer(

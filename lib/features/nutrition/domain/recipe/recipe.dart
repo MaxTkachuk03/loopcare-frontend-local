@@ -41,12 +41,42 @@ abstract class Recipe implements _$Recipe {
     double proteinSum = 0;
 
     for (var i in ingredients) {
+      if (!i.hasWeight) continue;
+
       caloriesSum += i.calories;
       proteinSum += i.servingProtein;
     }
 
     final result = (((proteinSum * 4) / caloriesSum) * 100);
     return (result.isNaN || result.isInfinite) ? 0 : result;
+  }
+
+  double get carbFiberRatio {
+    double carbsSum = 0;
+    double fiberSum = 0;
+
+    for (var i in ingredients) {
+      if (!i.hasWeight) continue;
+
+      carbsSum += i.servingCarbohydrates;
+      fiberSum += i.servingFiber;
+    }
+
+    final result = carbsSum / fiberSum;
+
+    return (result.isNaN || result.isInfinite) ? 0 : result;
+  }
+
+  double get fiberSum {
+    double fiberSum = 0;
+
+    for (var i in ingredients) {
+      if (!i.hasWeight) continue;
+
+      fiberSum += i.servingFiber;
+    }
+
+    return fiberSum;
   }
 
   factory Recipe.fromJson(Map<String, dynamic> json) => _$RecipeFromJson(json);

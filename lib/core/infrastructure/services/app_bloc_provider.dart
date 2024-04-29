@@ -22,7 +22,6 @@ import 'package:loopcare_frontend/features/nutrition/application/dashboard_weigh
 import 'package:loopcare_frontend/features/nutrition/application/dish/dish_bloc.dart';
 import 'package:loopcare_frontend/features/nutrition/application/edit_dish/edit_dish_bloc.dart';
 import 'package:loopcare_frontend/features/nutrition/application/meals/meals_bloc.dart';
-import 'package:loopcare_frontend/features/nutrition/application/nutrition_instructions/nutrition_instructions_bloc.dart';
 import 'package:loopcare_frontend/features/nutrition/application/recipe/recipe_bloc.dart';
 import 'package:loopcare_frontend/features/nutrition/application/recipe_details/recipe_details_bloc.dart';
 import 'package:loopcare_frontend/features/nutrition/application/search/search_bloc.dart';
@@ -72,9 +71,6 @@ class AppBlocProvider {
         ),
         BlocProvider<YouAndFoodBloc>(
           create: (_) => getIt<YouAndFoodBloc>(),
-        ),
-        BlocProvider<NutritionInstructionsBloc>(
-          create: (_) => getIt<NutritionInstructionsBloc>(),
         ),
         BlocProvider<SelectFoodBloc>(
           create: (_) => getIt<SelectFoodBloc>(),

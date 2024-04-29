@@ -28,7 +28,6 @@ import 'package:loopcare_frontend/features/mood/application/mood_bloc.dart';
 import 'package:loopcare_frontend/features/nutrition/application/dashboard_education/dashboard_education_bloc.dart';
 import 'package:loopcare_frontend/features/nutrition/application/dashboard_weight/dashboard_weight_bloc.dart';
 import 'package:loopcare_frontend/features/nutrition/application/meals/meals_bloc.dart';
-import 'package:loopcare_frontend/features/nutrition/application/nutrition_instructions/nutrition_instructions_bloc.dart';
 import 'package:loopcare_frontend/features/smart_goals/application/smart_goals_bloc.dart';
 
 class DashboardPage extends StatefulWidget {
@@ -71,13 +70,6 @@ class _DashboardPageState extends State<DashboardPage> with WidgetsBindingObserv
 
   void _loadInitialData() {
     context.read<AuthenticationBloc>().add(const AuthenticationEvent.getAccount());
-    context.read<NutritionInstructionsBloc>().add(const NutritionInstructionsEvent.fetchValuesExplanation());
-
-    if (!context.read<NutritionInstructionsBloc>().state.data.alreadyLoaded) {
-      context
-          .read<NutritionInstructionsBloc>()
-          .add(const NutritionInstructionsEvent.fetchValuesExplanation());
-    }
 
     context
         .read<DashboardWeightBloc>()

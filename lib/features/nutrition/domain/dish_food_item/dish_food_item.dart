@@ -20,5 +20,17 @@ class DishFoodItem with _$DishFoodItem {
     required ServingSize serving,
   }) = _DishFoodItem;
 
+  double get servingCalories => serving.calories;
+
+  double get servingFiber => serving.fiber;
+
+  double get servingCarbs => serving.carbohydrate;
+
+  double get servingWeight => serving.metricServingAmount ?? 0.0;
+
+  double get servingProtein => serving.protein;
+
+  bool get hasWeight => serving.metricServingAmount != 0 && serving.metricServingAmount != null;
+
   factory DishFoodItem.fromJson(Map<String, dynamic> json) => _$DishFoodItemFromJson(json);
 }

@@ -25,5 +25,94 @@ abstract class Dish implements _$Dish {
     required ServingSize serving,
   }) = _Dish;
 
+  double get caloriesSum {
+    double caloriesSum = 0;
+
+    for (var item in foodItems) {
+      if (!item.hasWeight || item.excludedFromCalculations) continue;
+
+      caloriesSum += item.servingCalories;
+    }
+
+    return caloriesSum;
+  }
+
+  double get fiberSum {
+    double fiberSum = 0;
+
+    for (var item in foodItems) {
+      if (!item.hasWeight || item.excludedFromCalculations) continue;
+
+      fiberSum += item.servingFiber;
+    }
+
+    return fiberSum;
+  }
+
+  double get carbohydratesSum {
+    double carbohydratesSum = 0;
+
+    for (var item in foodItems) {
+      if (!item.hasWeight || item.excludedFromCalculations) continue;
+
+      carbohydratesSum += item.servingCarbs;
+    }
+
+    return carbohydratesSum;
+  }
+
+  double get weightSum {
+    double weightSum = 0;
+
+    for (var item in foodItems) {
+      if (!item.hasWeight || item.excludedFromCalculations) continue;
+
+      weightSum += item.servingWeight;
+    }
+
+    return weightSum;
+  }
+
+  double get proteinSum {
+    double proteinSum = 0;
+
+    for (var item in foodItems) {
+      if (!item.hasWeight || item.excludedFromCalculations) continue;
+
+      proteinSum += item.servingProtein;
+    }
+
+    return proteinSum;
+  }
+
+  double get carbsSum {
+    double carbsSum = 0;
+
+    for (var item in foodItems) {
+      if (!item.hasWeight || item.excludedFromCalculations) continue;
+
+      carbsSum += item.servingCarbs;
+    }
+
+    return carbsSum;
+  }
+
+  double get calorieDensityValue {
+    final result = caloriesSum / weightSum;
+
+    return result.isNaN || result.isInfinite ? 0 : result;
+  }
+
+  double get proteinDegreeValue {
+    final result = (((proteinSum * 4) / caloriesSum) * 100);
+    return (result.isNaN || result.isInfinite) ? 0 : result;
+  }
+
+  double get carbFiberRatio {
+    final result = carbsSum / fiberSum;
+
+    return (result.isNaN || result.isInfinite) ? 0 : result;
+  }
+
   factory Dish.fromJson(Map<String, dynamic> json) => _$DishFromJson(json);
 }

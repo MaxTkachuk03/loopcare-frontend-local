@@ -20,6 +20,7 @@ import 'package:loopcare_frontend/core/presentation/utils/date_time_extensions.d
 import 'package:loopcare_frontend/core/presentation/utils/string_extensions.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/main_container.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/scrollable_container.dart';
+import 'package:loopcare_frontend/features/dashboard/presentation/widgets/log_meal/nutrition_summary/nutrition_summary.dart';
 import 'package:loopcare_frontend/features/nutrition/application/edit_dish/edit_dish_bloc.dart';
 import 'package:loopcare_frontend/features/nutrition/application/meals/meals_bloc.dart';
 import 'package:loopcare_frontend/features/nutrition/application/recipe/recipe_bloc.dart';
@@ -29,7 +30,6 @@ import 'package:loopcare_frontend/features/nutrition/domain/nutrition_values_typ
 import 'package:loopcare_frontend/features/nutrition/domain/select_serving/meal_category.dart';
 import 'package:loopcare_frontend/features/nutrition/presentation/edit_dish/edit_dish_page.dart';
 import 'package:loopcare_frontend/features/nutrition/presentation/meal/widgets/meals_list.dart';
-import 'package:loopcare_frontend/features/nutrition/presentation/nutrition_instructions/widgets/nutrition_block/nutrition_block.dart';
 import 'package:loopcare_frontend/features/nutrition/presentation/widgets/circle_plus_button/circle_plus_button.dart';
 import 'package:loopcare_frontend/features/nutrition/presentation/widgets/meal_portions/nutrition_values_block.dart';
 
@@ -307,9 +307,11 @@ class _MealPageState extends State<MealPage> {
                               onNutritionFactSelect: _onNutritionFactSelect,
                             ),
                             MealsList(isActive: currentDate.laterThanWeekAgo),
-                            NutritionBlock(
+                            NutritionSummary(
                               proteinDegree: state.currentMealProteinDegree,
                               calorieDensity: state.currentMealCalorieDensity,
+                              fiber: state.currentMealFiber,
+                              carbFiberRatio: state.currentMealCarbFiberRatio,
                             ),
                             // TODO: LOOPCARE-1798 Hide Meal planning block
                             // ChooseDateBlock(

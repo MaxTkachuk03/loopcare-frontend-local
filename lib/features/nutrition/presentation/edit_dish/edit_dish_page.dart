@@ -22,6 +22,7 @@ import 'package:loopcare_frontend/core/presentation/utils/string_extensions.dart
 import 'package:loopcare_frontend/core/presentation/widgets/keyboard_listener_container.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/main_container.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/scrollable_container.dart';
+import 'package:loopcare_frontend/features/dashboard/presentation/widgets/log_meal/nutrition_summary/nutrition_summary.dart';
 import 'package:loopcare_frontend/features/nutrition/application/edit_dish/edit_dish_bloc.dart';
 import 'package:loopcare_frontend/features/nutrition/application/meals/meals_bloc.dart';
 import 'package:loopcare_frontend/features/nutrition/application/search/dto/search_item.dart';
@@ -33,7 +34,6 @@ import 'package:loopcare_frontend/features/nutrition/domain/select_serving/meal_
 import 'package:loopcare_frontend/features/nutrition/presentation/dish_details_page/widgets/dish_list/dish_list.dart';
 import 'package:loopcare_frontend/features/nutrition/presentation/edit_dish/widgets/close_action.dart';
 import 'package:loopcare_frontend/features/nutrition/presentation/edit_dish/widgets/meal_category_chips.dart';
-import 'package:loopcare_frontend/features/nutrition/presentation/nutrition_instructions/widgets/nutrition_block/nutrition_block.dart';
 import 'package:loopcare_frontend/features/nutrition/presentation/widgets/meal_portions/nutrition_values_block.dart';
 import 'package:loopcare_frontend/features/nutrition/presentation/widgets/servings_amount/servings_amount.dart';
 
@@ -383,9 +383,11 @@ class _EditDishPageState extends State<EditDishPage> {
                                     onListItemTapHandler: _onTapFoodItem,
                                     isScrollable: false,
                                   ),
-                                  NutritionBlock(
-                                    calorieDensity: dishState.currentDish.calorieDensity,
-                                    proteinDegree: dishState.currentDish.proteinDegree,
+                                  NutritionSummary(
+                                    proteinDegree: dishState.currentDish.proteinDegreeValue,
+                                    calorieDensity: dishState.currentDish.calorieDensityValue,
+                                    fiber: dishState.currentDish.fiberSum,
+                                    carbFiberRatio: dishState.currentDish.carbFiberRatio,
                                   ),
                                   const SizedBox(height: 15.0),
                                   MainContainer(

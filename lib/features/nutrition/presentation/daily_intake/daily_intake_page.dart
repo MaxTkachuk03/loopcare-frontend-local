@@ -10,10 +10,10 @@ import 'package:loopcare_frontend/core/presentation/scaffold/custom_scaffold.dar
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 import 'package:loopcare_frontend/core/presentation/utils/date_time_extensions.dart';
 import 'package:loopcare_frontend/core/presentation/utils/string_extensions.dart';
+import 'package:loopcare_frontend/features/dashboard/presentation/widgets/log_meal/nutrition_summary/nutrition_summary.dart';
 import 'package:loopcare_frontend/features/nutrition/application/meals/meals_bloc.dart';
 import 'package:loopcare_frontend/features/nutrition/domain/select_serving/meal_category.dart';
 import 'package:loopcare_frontend/features/nutrition/presentation/daily_intake/widgets/meal_card.dart';
-import 'package:loopcare_frontend/features/nutrition/presentation/nutrition_instructions/widgets/nutrition_block/nutrition_block.dart';
 
 class DailyIntakePage extends StatelessWidget {
   const DailyIntakePage({super.key});
@@ -65,9 +65,11 @@ class DailyIntakePage extends StatelessWidget {
                         },
                       ),
                     ),
-                    NutritionBlock(
+                    NutritionSummary(
                       proteinDegree: mealsState.selectedDayMealProteinDegreeSum,
-                      calorieDensity: mealsState.selectedDayMealCalorieDensitySum,
+                      calorieDensity: mealsState.selectedDayMealProteinDegreeSum,
+                      fiber: mealsState.selectedDayMealFiber,
+                      carbFiberRatio: mealsState.selectedDayMealCarbFiberRatio,
                     ),
                   ],
                 ),

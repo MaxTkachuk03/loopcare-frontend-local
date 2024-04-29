@@ -30,7 +30,7 @@ class FiberDescription extends StatelessWidget {
 
   Color get _indicatorColor => _isDisabled
       ? AppColors.blueLightest
-      : NutritionIndicatorColorPicker.getIndicatorColor(NutritionIndicatorType.fiber, fiberValue);
+      : NutritionIndicatorColorPicker.getIndicatorColor(NutritionIndicatorType.fiber, carbsFiberRatio);
 
   String get _indicatorLabel => _isDisabled ? '-' : '${fiberValue?.toStringAsFixed(1)}g';
 
@@ -83,7 +83,8 @@ class FiberDescription extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
                   CustomText.w400(
-                    LocalizedTexts.fiberDailyGoal.tr(args: ['$fiberValue', _fiberDailyGoal]),
+                    LocalizedTexts.fiberDailyGoal
+                        .tr(args: ['${fiberValue?.toStringAsFixed(1)}', _fiberDailyGoal]),
                     style: context.textTheme.bodySmall,
                   ),
                   const SizedBox(height: 20),

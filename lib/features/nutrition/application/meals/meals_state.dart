@@ -447,6 +447,48 @@ class MealsState with _$MealsState {
     );
   }
 
+  double? get currentMealFiber {
+    return mapOrNull(
+      mealsInfo: (state) {
+        final currentDate = state.currentDate;
+        if (mealsMap.isEmpty || state.currentMealId == null || currentDate == null) {
+          return null;
+        }
+
+        final selectedDayMeals = mealsMap[currentDate.isoStringWithoutTime] ?? <MealsListItem>[];
+
+        final MealsListItem? currentMeal =
+            selectedDayMeals.firstWhereOrNull((item) => item.id == state.currentMealId);
+
+        if (currentMeal == null) return null;
+
+        return currentMeal.fiberSum;
+      },
+    );
+  }
+
+  double? get currentMealCarbFiberRatio {
+    return mapOrNull(
+      mealsInfo: (state) {
+        final currentDate = state.currentDate;
+        if (mealsMap.isEmpty || state.currentMealId == null || currentDate == null) {
+          return null;
+        }
+
+        final selectedDayMeals = mealsMap[currentDate.isoStringWithoutTime] ?? <MealsListItem>[];
+
+        final MealsListItem? currentMeal =
+            selectedDayMeals.firstWhereOrNull((item) => item.id == state.currentMealId);
+
+        if (currentMeal == null) return null;
+
+        final carbFiberRatio = currentMeal.carbohydratesSum / currentMeal.fiberSum;
+
+        return carbFiberRatio.isNaN || carbFiberRatio.isInfinite ? 0.0 : carbFiberRatio;
+      },
+    );
+  }
+
   double calorieDensitySum(List<MealItem> selectedDayMeals) {
     double caloriesSum = 0;
     double amountSum = 0;

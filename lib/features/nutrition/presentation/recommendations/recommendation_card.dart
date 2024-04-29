@@ -10,7 +10,6 @@ import 'package:loopcare_frontend/core/presentation/routes/app_router.gr.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 import 'package:loopcare_frontend/features/nutrition/application/recipe/recipe_bloc.dart';
 import 'package:loopcare_frontend/features/nutrition/domain/recommendations/recommendation_recipe.dart';
-import 'package:loopcare_frontend/features/nutrition/presentation/nutrition_instructions/widgets/nutrition_block/nutrition_block.dart';
 import 'package:loopcare_frontend/features/nutrition/presentation/recipe_details/widgets/summary_item.dart';
 import 'package:loopcare_frontend/features/nutrition/presentation/recommendations/show_block.dart';
 
@@ -133,12 +132,6 @@ class RecommendationCard extends StatelessWidget {
                 ),
               ],
             ),
-          ),
-          NutritionBlock(
-            calorieDensity: recommendation.calorieDensity,
-            proteinDegree: recommendation.proteinDegree,
-            bottomBorder: false,
-            showArrow: false,
           ),
         ],
       ),

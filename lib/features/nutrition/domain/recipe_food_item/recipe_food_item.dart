@@ -27,5 +27,9 @@ abstract class RecipeFoodItem implements _$RecipeFoodItem {
 
   double get servingWeight => serving.metricServingAmount ?? 0.0;
 
+  double get servingCarbohydrates => serving.carbohydrate;
+
+  double get servingFiber => serving.fiber;
+
   factory RecipeFoodItem.fromJson(Map<String, dynamic> json) => _$RecipeFoodItemFromJson(json);
 }

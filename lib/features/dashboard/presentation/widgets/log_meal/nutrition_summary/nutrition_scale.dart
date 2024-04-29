@@ -77,17 +77,13 @@ class NutritionScale extends StatelessWidget {
         isDisabled: value == 0,
       );
 
-  factory NutritionScale.fiber({
-    double? value,
-    required double? totalCarbs,
-    required double? carbsFiberRatio,
-  }) =>
+  factory NutritionScale.fiber(
+          {double? value, required double? totalCarbs, required double? carbsFiberRatio}) =>
       NutritionScale(
         key: const ValueKey<String>('fiber'),
         topLabel: LocalizedTexts.fiber.tr().capitalize(),
-        bottomLabel:
-            NutritionValuesDescription.getFiberItemByValue(carbsFiberRatio ?? 0).label.tr().capitalize(),
-        color: NutritionIndicatorColorPicker.getIndicatorColor(NutritionIndicatorType.fiber, value),
+        bottomLabel: NutritionValuesDescription.getFiberItemByValue(value ?? 0).label.tr().capitalize(),
+        color: NutritionIndicatorColorPicker.getIndicatorColor(NutritionIndicatorType.fiber, carbsFiberRatio),
         value: value,
         indicatorLabel: '${value?.toStringAsFixed(1)}g',
         isDisabled: value == 0,

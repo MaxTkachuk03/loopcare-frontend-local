@@ -27,6 +27,63 @@ abstract class RecipeDetails implements _$RecipeDetails {
     required double servingAmount,
   }) = _RecipeDetails;
 
-  factory RecipeDetails.fromJson(Map<String, dynamic> json) =>
-      _$RecipeDetailsFromJson(json);
+  double get calorieDensityVal {
+    double caloriesSum = 0;
+    double amountSum = 0;
+
+    for (var i in ingredients) {
+      if (!i.hasWeight) continue;
+
+      caloriesSum += i.calories;
+      amountSum += i.servingWeight;
+    }
+
+    final result = caloriesSum / amountSum;
+    return result.isNaN || result.isInfinite ? 0 : result;
+  }
+
+  double get proteinDegreeVal {
+    double caloriesSum = 0;
+    double proteinSum = 0;
+
+    for (var i in ingredients) {
+      if (!i.hasWeight) continue;
+
+      caloriesSum += i.calories;
+      proteinSum += i.servingProtein;
+    }
+
+    final result = (((proteinSum * 4) / caloriesSum) * 100);
+    return (result.isNaN || result.isInfinite) ? 0 : result;
+  }
+
+  double get carbFiberRatio {
+    double carbsSum = 0;
+    double fiberSum = 0;
+
+    for (var i in ingredients) {
+      if (!i.hasWeight) continue;
+
+      carbsSum += i.servingCarbohydrates;
+      fiberSum += i.servingFiber;
+    }
+
+    final result = carbsSum / fiberSum;
+
+    return (result.isNaN || result.isInfinite) ? 0 : result;
+  }
+
+  double get fiberSum {
+    double fiberSum = 0;
+
+    for (var i in ingredients) {
+      if (!i.hasWeight) continue;
+
+      fiberSum += i.servingFiber;
+    }
+
+    return fiberSum;
+  }
+
+  factory RecipeDetails.fromJson(Map<String, dynamic> json) => _$RecipeDetailsFromJson(json);
 }
