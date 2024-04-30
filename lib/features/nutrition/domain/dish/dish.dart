@@ -114,5 +114,11 @@ abstract class Dish implements _$Dish {
     return (result.isNaN || result.isInfinite) ? 0 : result;
   }
 
+  double get carbsPercent {
+    final result = ((carbsSum * 4) / caloriesSum) * 100;
+
+    return (result.isNaN || result.isInfinite) ? 0 : result;
+  }
+
   factory Dish.fromJson(Map<String, dynamic> json) => _$DishFromJson(json);
 }

@@ -70,6 +70,7 @@ class DailyIntakePage extends StatelessWidget {
                       calorieDensity: mealsState.selectedDayMealProteinDegreeSum,
                       fiber: mealsState.selectedDayMealFiber,
                       carbFiberRatio: mealsState.selectedDayMealCarbFiberRatio,
+                      carbsPercent: mealsState.carbsPercent,
                     ),
                   ],
                 ),

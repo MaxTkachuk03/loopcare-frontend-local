@@ -169,6 +169,32 @@ class MealsState with _$MealsState {
     });
   }
 
+  double? get carbsPercent {
+    return mapOrNull(mealsInfo: (state) {
+      final currentDate = state.currentDate;
+
+      if (state.meals.isEmpty || currentDate == null) {
+        return null;
+      }
+
+      double calorieSum = 0;
+      double carbsSum = 0;
+
+      final selectedDayMeals = state.meals[currentDate.isoStringWithoutTime] ?? <MealsListItem>[];
+
+      for (MealsListItem meal in selectedDayMeals) {
+        if (meal.loggingDate?.isSameDate(currentDate) ?? false) {
+          calorieSum += meal.caloriesSum;
+          carbsSum += meal.carbohydratesSum;
+        }
+      }
+
+      final result = ((carbsSum * 4) / calorieSum) * 100;
+
+      return (result.isNaN || result.isInfinite) ? 0 : result;
+    });
+  }
+
   double? get selectedDayMealTotalCarbs {
     return mapOrNull(mealsInfo: (state) {
       final currentDate = state.currentDate;
@@ -188,6 +214,32 @@ class MealsState with _$MealsState {
       }
 
       return carbsSum;
+    });
+  }
+
+  double? get selectedDayMealCarbsPercent {
+    return mapOrNull(mealsInfo: (state) {
+      final currentDate = state.currentDate;
+
+      if (state.meals.isEmpty || currentDate == null) {
+        return null;
+      }
+
+      double carbsSum = 0;
+      double calorieSum = 0;
+
+      final selectedDayMeals = state.meals[currentDate.isoStringWithoutTime] ?? <MealsListItem>[];
+
+      for (MealsListItem meal in selectedDayMeals) {
+        if (meal.loggingDate?.isSameDate(currentDate) ?? false) {
+          carbsSum += meal.carbohydratesSum;
+          calorieSum += meal.caloriesSum;
+        }
+      }
+
+      final result = ((carbsSum * 4) / calorieSum) * 100;
+
+      return (result.isNaN || result.isInfinite) ? 0 : result;
     });
   }
 
@@ -485,6 +537,28 @@ class MealsState with _$MealsState {
         final carbFiberRatio = currentMeal.carbohydratesSum / currentMeal.fiberSum;
 
         return carbFiberRatio.isNaN || carbFiberRatio.isInfinite ? 0.0 : carbFiberRatio;
+      },
+    );
+  }
+
+  double? get currentMealCarbsPercent {
+    return mapOrNull(
+      mealsInfo: (state) {
+        final currentDate = state.currentDate;
+        if (mealsMap.isEmpty || state.currentMealId == null || currentDate == null) {
+          return null;
+        }
+
+        final selectedDayMeals = mealsMap[currentDate.isoStringWithoutTime] ?? <MealsListItem>[];
+
+        final MealsListItem? currentMeal =
+            selectedDayMeals.firstWhereOrNull((item) => item.id == state.currentMealId);
+
+        if (currentMeal == null) return null;
+
+        final result = ((currentMeal.carbohydratesSum * 4) / currentMeal.caloriesSum) * 100;
+
+        return result.isNaN || result.isInfinite ? 0.0 : result;
       },
     );
   }

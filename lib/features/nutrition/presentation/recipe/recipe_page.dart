@@ -197,10 +197,11 @@ class _RecipePageState extends State<RecipePage> {
                                 onValueChangeHandler: _onValueChangeHandler,
                               ),
                               NutritionValuesBlock(
-                                  numberOfPortions: recipeState.data.recipe.numberOfServings,
-                                  selectedNutritionType: recipeState.data.currentNutritionType,
-                                  nutritionValuesList: recipeState.data.recipe.nutritionValues,
-                                  onNutritionFactSelect: _onNutritionFactSelect),
+                                numberOfPortions: recipeState.data.recipe.numberOfServings,
+                                selectedNutritionType: recipeState.data.currentNutritionType,
+                                nutritionValuesList: recipeState.data.recipe.nutritionValues,
+                                onNutritionFactSelect: _onNutritionFactSelect,
+                              ),
                               RecipeList(
                                 nutritionKey: recipeState.data.currentNutritionType.name,
                                 list: recipeState.data.recipe.ingredients,
@@ -211,6 +212,7 @@ class _RecipePageState extends State<RecipePage> {
                                 calorieDensity: recipeState.data.recipe.calorieDensityVal,
                                 fiber: recipeState.data.recipe.fiberSum,
                                 carbFiberRatio: recipeState.data.recipe.carbFiberRatio,
+                                carbsPercent: recipeState.data.recipe.carbsPercent,
                               ),
                               const SizedBox(height: 15.0),
                               MainContainer(

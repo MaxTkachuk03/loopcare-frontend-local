@@ -22,11 +22,13 @@ class NutritionScale extends StatelessWidget {
   final bool isDisabled;
   final double? totalCarbs;
   final double? carbsFiberRatio;
+  final bool? isFiberInsignificant;
 
   const NutritionScale({
     super.key,
     this.totalCarbs,
     this.carbsFiberRatio,
+    this.isFiberInsignificant,
     required this.topLabel,
     required this.bottomLabel,
     required this.color,
@@ -46,7 +48,12 @@ class NutritionScale extends StatelessWidget {
       case proteinDegreeKey:
         return ProteinDegreeDescription(proteinDegreeValue: value);
       case fiberKey:
-        return FiberDescription(fiberValue: value, totalCarbs: totalCarbs, carbsFiberRatio: carbsFiberRatio);
+        return FiberDescription(
+          fiberValue: value,
+          totalCarbs: totalCarbs,
+          carbsFiberRatio: carbsFiberRatio,
+          isFiberInsignificant: isFiberInsignificant,
+        );
       default:
         return CalorieDensityDescription(calorieDensityValue: value);
     }
@@ -77,26 +84,31 @@ class NutritionScale extends StatelessWidget {
         isDisabled: value == 0,
       );
 
-  factory NutritionScale.fiber(
-          {double? value, required double? totalCarbs, required double? carbsFiberRatio}) =>
+  factory NutritionScale.fiber({
+    double? value,
+    required double? totalCarbs,
+    required double? carbsFiberRatio,
+    required bool isFiberInsignificant,
+  }) =>
       NutritionScale(
         key: const ValueKey<String>('fiber'),
         topLabel: LocalizedTexts.fiber.tr().capitalize(),
         bottomLabel: NutritionValuesDescription.getFiberItemByValue(value ?? 0).label.tr().capitalize(),
-        color: NutritionIndicatorColorPicker.getIndicatorColor(NutritionIndicatorType.fiber, carbsFiberRatio),
+        color: isFiberInsignificant
+            ? AppColors.greyLight
+            : NutritionIndicatorColorPicker.getIndicatorColor(NutritionIndicatorType.fiber, carbsFiberRatio),
         value: value,
         indicatorLabel: '${value?.toStringAsFixed(1)}g',
-        isDisabled: value == 0,
+        isDisabled: value == 0 || totalCarbs == 0,
         totalCarbs: totalCarbs,
         carbsFiberRatio: carbsFiberRatio,
+        isFiberInsignificant: isFiberInsignificant,
       );
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      // TODO uncomment
-      // onTap: isDisabled ? null : () => _onTapHandller(context),
-      onTap: () => _onTapHandller(context),
+      onTap: isDisabled ? null : () => _onTapHandller(context),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.center,

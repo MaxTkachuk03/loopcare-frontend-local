@@ -287,6 +287,7 @@ class _DishDetailsPageState extends State<DishDetailsPage> {
                                 calorieDensity: dishState.selectedDish.calorieDensityValue,
                                 fiber: dishState.selectedDish.fiberSum,
                                 carbFiberRatio: dishState.selectedDish.carbFiberRatio,
+                                carbsPercent: dishState.selectedDish.carbsPercent,
                               ),
                               const SizedBox(height: 26.0),
                               MainContainer(

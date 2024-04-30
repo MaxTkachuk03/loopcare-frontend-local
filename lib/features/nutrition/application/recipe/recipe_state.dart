@@ -4,13 +4,13 @@ part of 'recipe_bloc.dart';
 class RecipeState with _$RecipeState {
   const RecipeState._();
 
-  const factory RecipeState.initial(RecipenData data) = Initial;
+  const factory RecipeState.initial(RecipeData data) = Initial;
 
-  const factory RecipeState.loadingRecipe(RecipenData data) = LoadingRecipe;
+  const factory RecipeState.loadingRecipe(RecipeData data) = LoadingRecipe;
 
-  const factory RecipeState.recipeInfo(RecipenData data) = RecipeInfo;
+  const factory RecipeState.recipeInfo(RecipeData data) = RecipeInfo;
 
-  const factory RecipeState.error(RecipenData data) = Error;
+  const factory RecipeState.error(RecipeData data) = Error;
 
   String get servingAmount {
     return maybeMap(
@@ -30,14 +30,14 @@ class RecipeState with _$RecipeState {
 }
 
 @freezed
-class RecipenData with _$RecipenData {
-  const RecipenData._();
+class RecipeData with _$RecipeData {
+  const RecipeData._();
 
-  const factory RecipenData({
+  const factory RecipeData({
     @Default(Recipe()) Recipe recipe,
     @Default([]) List<RecommendationRecipe> recommendationRecipe,
     @Default(NutritionValuesTypes.calories) NutritionValuesTypes currentNutritionType,
     @Default(false) bool isLoading,
     RequestError? error,
-  }) = _RecipenData;
+  }) = _RecipeData;
 }

@@ -23,7 +23,7 @@ part 'recipe_bloc.freezed.dart';
 class RecipeBloc extends Bloc<RecipeEvent, RecipeState> {
   final NutritionService nutritionService;
 
-  RecipeBloc(this.nutritionService) : super(const RecipeState.initial(RecipenData())) {
+  RecipeBloc(this.nutritionService) : super(const RecipeState.initial(RecipeData())) {
     on<FetchRecipe>(_onFetchRecipe);
     on<FetchRecipeFromMeal>(_onFetchRecipeFromMeal);
     on<NutritionItemChanged>(_onNutritionItemChanged);
@@ -114,6 +114,7 @@ class RecipeBloc extends Bloc<RecipeEvent, RecipeState> {
                 nutritionValues: response.servingSize.list,
                 numberOfServings: response.numberOfServings,
                 servingAmount: response.servingSize.numberOfUnits,
+                servingSize: response.servingSize,
               ),
             ),
           ),
@@ -159,6 +160,7 @@ class RecipeBloc extends Bloc<RecipeEvent, RecipeState> {
                 nutritionValues: response.servingSize.list,
                 numberOfServings: response.numberOfServings,
                 servingAmount: response.servingSize.numberOfUnits,
+                servingSize: response.servingSize,
               ),
             ),
           ),
@@ -217,6 +219,7 @@ class RecipeBloc extends Bloc<RecipeEvent, RecipeState> {
                   nutritionValues: r.servingSize.list,
                   numberOfServings: r.numberOfServings,
                   servingAmount: r.servingSize.numberOfUnits,
+                  servingSize: r.servingSize,
                 ),
               ),
             ),
@@ -264,6 +267,7 @@ class RecipeBloc extends Bloc<RecipeEvent, RecipeState> {
                     nutritionValues: r.servingSize.list,
                     numberOfServings: r.numberOfServings,
                     servingAmount: r.servingSize.numberOfUnits,
+                    servingSize: r.servingSize,
                   ),
                 ),
               ),
@@ -308,6 +312,7 @@ class RecipeBloc extends Bloc<RecipeEvent, RecipeState> {
                     nutritionValues: r.servingSize.list,
                     numberOfServings: r.numberOfServings,
                     servingAmount: r.servingSize.numberOfUnits,
+                    servingSize: r.servingSize,
                   ),
                 ),
               ),
@@ -348,14 +353,16 @@ class RecipeBloc extends Bloc<RecipeEvent, RecipeState> {
               state.copyWith(
                 data: state.data.copyWith(
                   recipe: Recipe(
-                      id: r.id,
-                      externalId: r.externalId,
-                      ingredients: r.ingredients,
-                      calorieDensity: r.calorieDensity,
-                      proteinDegree: r.proteinDegree,
-                      nutritionValues: r.servingSize.list,
-                      numberOfServings: r.numberOfServings,
-                      servingAmount: r.servingSize.numberOfUnits),
+                    id: r.id,
+                    externalId: r.externalId,
+                    ingredients: r.ingredients,
+                    calorieDensity: r.calorieDensity,
+                    proteinDegree: r.proteinDegree,
+                    nutritionValues: r.servingSize.list,
+                    numberOfServings: r.numberOfServings,
+                    servingAmount: r.servingSize.numberOfUnits,
+                    servingSize: r.servingSize,
+                  ),
                 ),
               ),
             );

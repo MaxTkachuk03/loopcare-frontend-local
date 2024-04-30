@@ -9,6 +9,7 @@ class NutritionSummary extends StatelessWidget {
   final double? proteinDegree;
   final double? fiber;
   final double? carbFiberRatio;
+  final double? carbsPercent;
 
   const NutritionSummary({
     super.key,
@@ -16,7 +17,10 @@ class NutritionSummary extends StatelessWidget {
     this.proteinDegree,
     this.fiber,
     this.carbFiberRatio,
+    this.carbsPercent,
   });
+
+  bool get _isFiberInsignificant => (carbsPercent ?? 0) < 20;
 
   @override
   Widget build(BuildContext context) {
@@ -31,6 +35,7 @@ class NutritionSummary extends StatelessWidget {
             value: fiber,
             totalCarbs: context.read<MealsBloc>().state.selectedDayMealTotalCarbs,
             carbsFiberRatio: carbFiberRatio,
+            isFiberInsignificant: _isFiberInsignificant,
           ),
         ),
       ],

@@ -312,6 +312,7 @@ class _MealPageState extends State<MealPage> {
                               calorieDensity: state.currentMealCalorieDensity,
                               fiber: state.currentMealFiber,
                               carbFiberRatio: state.currentMealCarbFiberRatio,
+                              carbsPercent: state.currentMealCarbsPercent,
                             ),
                             // TODO: LOOPCARE-1798 Hide Meal planning block
                             // ChooseDateBlock(

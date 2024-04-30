@@ -60,6 +60,7 @@ class Ingredients extends StatelessWidget {
                     calorieDensity: recipeState.data.recipe.calorieDensityVal,
                     fiber: recipeState.data.recipe.fiberSum,
                     carbFiberRatio: recipeState.data.recipe.carbFiberRatio,
+                    carbsPercent: recipeState.data.recipe.carbsPercent,
                   ),
                 ),
               ],

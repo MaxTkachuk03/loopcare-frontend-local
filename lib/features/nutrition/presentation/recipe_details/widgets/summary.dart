@@ -97,6 +97,7 @@ class Summary extends StatelessWidget {
                       calorieDensity: s.recipe.calorieDensityVal,
                       fiber: s.recipe.fiberSum,
                       carbFiberRatio: s.recipe.carbFiberRatio,
+                      carbsPercent: s.recipe.carbsPercent,
                     ),
                   ),
                   const SizedBox(height: 20.0),

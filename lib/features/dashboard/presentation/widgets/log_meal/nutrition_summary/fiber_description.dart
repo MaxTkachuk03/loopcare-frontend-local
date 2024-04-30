@@ -23,14 +23,27 @@ class FiberDescription extends StatelessWidget {
   final double? fiberValue;
   final double? totalCarbs;
   final double? carbsFiberRatio;
+  final bool? isFiberInsignificant;
 
-  const FiberDescription({super.key, this.fiberValue, this.totalCarbs, this.carbsFiberRatio});
+  const FiberDescription({
+    super.key,
+    this.fiberValue,
+    this.totalCarbs,
+    this.carbsFiberRatio,
+    required this.isFiberInsignificant,
+  });
 
-  bool get _isDisabled => fiberValue == 0;
+  bool get _isDisabled => fiberValue == 0 || totalCarbs == 0;
 
-  Color get _indicatorColor => _isDisabled
-      ? AppColors.blueLightest
-      : NutritionIndicatorColorPicker.getIndicatorColor(NutritionIndicatorType.fiber, carbsFiberRatio);
+  Color get _indicatorColor {
+    if (_isDisabled) {
+      return AppColors.blueLightest;
+    } else if (isFiberInsignificant ?? false) {
+      return AppColors.greyLight;
+    } else {
+      return NutritionIndicatorColorPicker.getIndicatorColor(NutritionIndicatorType.fiber, carbsFiberRatio);
+    }
+  }
 
   String get _indicatorLabel => _isDisabled ? '-' : '${fiberValue?.toStringAsFixed(1)}g';
 

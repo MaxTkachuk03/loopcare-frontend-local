@@ -131,6 +131,7 @@ class LogMeal extends StatelessWidget {
                           calorieDensity: state.selectedDayMealCalorieDensitySum,
                           fiber: state.selectedDayMealFiber,
                           carbFiberRatio: state.selectedDayMealCarbFiberRatio,
+                          carbsPercent: state.selectedDayMealCarbsPercent,
                         ),
                       );
                     }),

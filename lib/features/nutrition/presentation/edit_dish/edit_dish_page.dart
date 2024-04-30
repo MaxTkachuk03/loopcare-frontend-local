@@ -388,6 +388,7 @@ class _EditDishPageState extends State<EditDishPage> {
                                     calorieDensity: dishState.currentDish.calorieDensityValue,
                                     fiber: dishState.currentDish.fiberSum,
                                     carbFiberRatio: dishState.currentDish.carbFiberRatio,
+                                    carbsPercent: dishState.currentDish.carbsPercent,
                                   ),
                                   const SizedBox(height: 15.0),
                                   MainContainer(
