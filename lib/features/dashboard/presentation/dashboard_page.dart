@@ -183,7 +183,7 @@ class _DashboardPageState extends State<DashboardPage> with WidgetsBindingObserv
     final currentHour = DateTime.now().hour;
     final currentMinute = DateTime.now().minute;
 
-    final message = '${LocalizedTexts.hello.tr()}, $name!';
+    final message = '${LocalizedTexts.hello.tr()}, $name';
 
     if (currentHour < 5) {
       return message;
