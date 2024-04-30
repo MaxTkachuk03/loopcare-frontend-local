@@ -28,8 +28,9 @@ class Recipe with _$Recipe {
   double get _servingProtein => servingSize.protein;
   double get _servingCarbs => servingSize.carbohydrate;
   double get _servingFiber => servingSize.fiber;
+  double get _servings => servingSize.numberOfUnits;
 
-  double get fiberSum => _servingFiber;
+  double get fiberSum => _servingFiber * _servings;
 
   double get calorieDensityVal {
     final result = _servingCalories / _servingWeight;

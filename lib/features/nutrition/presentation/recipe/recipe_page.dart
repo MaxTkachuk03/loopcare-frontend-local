@@ -16,6 +16,7 @@ import 'package:loopcare_frontend/core/presentation/localization/localized_texts
 import 'package:loopcare_frontend/core/presentation/routes/app_router.dart';
 import 'package:loopcare_frontend/core/presentation/routes/app_router.gr.dart';
 import 'package:loopcare_frontend/core/presentation/scaffold/custom_scaffold.dart';
+import 'package:loopcare_frontend/core/presentation/utils/function_extensions.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/main_container.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/scrollable_container.dart';
 import 'package:loopcare_frontend/features/dashboard/presentation/widgets/log_meal/nutrition_summary/nutrition_summary.dart';
@@ -194,7 +195,8 @@ class _RecipePageState extends State<RecipePage> {
                             children: [
                               ServingsAmount(
                                 inputController: _servingController,
-                                onValueChangeHandler: _onValueChangeHandler,
+                                onValueChangeHandler:
+                                    _onValueChangeHandler.withDebounce(const Duration(milliseconds: 500)),
                               ),
                               NutritionValuesBlock(
                                 numberOfPortions: recipeState.data.recipe.numberOfServings,
@@ -300,12 +302,7 @@ class _RecipePageState extends State<RecipePage> {
     if (double.parse(val) == 0 || double.parse(val) < 0.1) return;
 
     context.read<RecipeBloc>().add(
-          RecipeEvent.servingChanged(
-            mealId: mealId,
-            servingAmount: double.parse(val),
-            recipeId: recipeId,
-          ),
-        );
+        RecipeEvent.servingChanged(mealId: mealId, servingAmount: double.parse(val), recipeId: recipeId));
   }
 
   void _recipeListener(BuildContext context, RecipeState state) {

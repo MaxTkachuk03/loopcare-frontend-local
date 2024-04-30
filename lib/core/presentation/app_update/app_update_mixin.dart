@@ -14,20 +14,22 @@ import 'package:url_launcher/url_launcher.dart';
 
 mixin AppUpdateMixin {
   Future<void> initPackageInfo(BuildContext context) async {
-    final info = await PackageInfo.fromPlatform();
+    Future.delayed(const Duration(seconds: 2), () async {
+      final info = await PackageInfo.fromPlatform();
 
-    if (!context.mounted) return;
+      if (!context.mounted) return;
 
-    int platformMinVersion = Platform.isAndroid
-        ? context.read<AppUpdateBloc>().state.data.androidMinVersion
-        : context.read<AppUpdateBloc>().state.data.iosMinVersion;
+      int platformMinVersion = Platform.isAndroid
+          ? context.read<AppUpdateBloc>().state.data.androidMinVersion
+          : context.read<AppUpdateBloc>().state.data.iosMinVersion;
 
-    if (int.parse(info.buildNumber) < platformMinVersion) {
-      ModalBottomSheet.appUpdate(
-        context: context,
-        onUpdatePressed:() => _launchInBrowser(context),
-      );
-    }
+      if (int.parse(info.buildNumber) < platformMinVersion) {
+        ModalBottomSheet.appUpdate(
+          context: context,
+          onUpdatePressed:() => _launchInBrowser(context),
+        );
+      }
+    });
   }
 
 
@@ -36,7 +38,7 @@ mixin AppUpdateMixin {
     if (const String.fromEnvironment('FLAVOR') == 'prod') {
       link = Platform.isAndroid ? playStoreAppUrl : appStoreAppUrl;
     } else {
-      link = Platform.isAndroid ? firebaseAndroidAppUrl : firebaseIosAppUrl;
+      link = Platform.isAndroid ? firebaseAndroidAppUrl : testFlightAppUrl;
     }
 
     final uri = Uri.parse(link);

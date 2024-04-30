@@ -53,7 +53,7 @@ Future<void> main() async {
 
   SystemService.allowOnlyPortraitOrientation();
 
-  await AppsFlyerService.start();
+  if (kIsProd) await AppsFlyerService.start();
 
   await CustomerIoService.initialize();
 

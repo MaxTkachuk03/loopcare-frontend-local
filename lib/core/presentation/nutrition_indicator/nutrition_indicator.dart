@@ -39,7 +39,12 @@ class NutritionIndicator extends StatelessWidget {
         ),
         child: Align(
           alignment: Alignment.center,
-          child: CustomText.w600(label, style: _textStyle(context)?.copyWith(color: AppColors.white)),
+          child: FittedBox(
+            child: CustomText.w600(
+              label,
+              style: _textStyle(context)?.copyWith(color: AppColors.white),
+            ),
+          ),
         ),
       ),
     );

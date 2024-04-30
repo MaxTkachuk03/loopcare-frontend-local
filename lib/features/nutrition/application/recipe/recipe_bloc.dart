@@ -5,7 +5,6 @@ import 'package:loopcare_frontend/features/nutrition/application/recipe/dto/upda
 import 'package:loopcare_frontend/features/nutrition/application/recipe/dto/update_recipe_body.dart';
 import 'package:loopcare_frontend/features/nutrition/domain/nutrition_values_types/nutrition_values_types.dart';
 import 'package:loopcare_frontend/features/nutrition/domain/recommendations/recommendation_recipe.dart';
-import 'package:rxdart/rxdart.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
@@ -27,11 +26,7 @@ class RecipeBloc extends Bloc<RecipeEvent, RecipeState> {
     on<FetchRecipe>(_onFetchRecipe);
     on<FetchRecipeFromMeal>(_onFetchRecipeFromMeal);
     on<NutritionItemChanged>(_onNutritionItemChanged);
-    on<ServingChanged>(
-      _onServingChanged,
-      transformer: (events, mapper) =>
-          events.distinct().debounceTime(const Duration(milliseconds: 300)).switchMap(mapper),
-    );
+    on<ServingChanged>(_onServingChanged);
     on<AddFoodItemToRecipe>(_onAddFoodItemToRecipe);
     on<RemoveFoodItemToRecipe>(_onRemoveFoodItemToRecipe);
     on<UpdateFoodItemToRecipe>(_onUpdateFoodItemToRecipe);
