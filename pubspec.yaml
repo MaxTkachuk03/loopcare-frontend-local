@@ -1,5 +1,5 @@
 name: loopcare_frontend
-version: 1.0.31+175
+version: 1.1.0+176
 publish_to: none
 description: Lean on me
 environment:
@@ -108,34 +108,24 @@ flutter:
     - .env.uat
     - .env.prod
   fonts:
-    - 
-      family: OpenSans
-      fonts: 
-        - 
-          asset: assets/fonts/OpenSans-Regular.ttf
-        - 
-          asset: assets/fonts/OpenSans-Italic.ttf
+    - family: OpenSans
+      fonts:
+        - asset: assets/fonts/OpenSans-Regular.ttf
+        - asset: assets/fonts/OpenSans-Italic.ttf
           style: italic
-        - 
-          asset: assets/fonts/OpenSans-SemiBold.ttf
+        - asset: assets/fonts/OpenSans-SemiBold.ttf
           weight: 600
-        - 
-          asset: assets/fonts/OpenSans-SemiBoldItalic.ttf
+        - asset: assets/fonts/OpenSans-SemiBoldItalic.ttf
           style: italic
           weight: 600
-    - 
-      family: Bitter
-      fonts: 
-        - 
-          asset: assets/fonts/Bitter-Regular.ttf
-        - 
-          asset: assets/fonts/Bitter-Italic.ttf
+    - family: Bitter
+      fonts:
+        - asset: assets/fonts/Bitter-Regular.ttf
+        - asset: assets/fonts/Bitter-Italic.ttf
           style: italic
-        - 
-          asset: assets/fonts/Bitter-SemiBold.ttf
+        - asset: assets/fonts/Bitter-SemiBold.ttf
           weight: 600
-        - 
-          asset: assets/fonts/Bitter-SemiBoldItalic.ttf
+        - asset: assets/fonts/Bitter-SemiBoldItalic.ttf
           style: italic
           weight: 600
   uses-material-design: true
