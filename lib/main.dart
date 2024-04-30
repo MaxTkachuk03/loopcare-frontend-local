@@ -6,6 +6,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
+import 'package:just_audio_background/just_audio_background.dart';
 import 'package:loopcare_frontend/build_type.dart';
 import 'package:loopcare_frontend/core/app.dart';
 import 'package:loopcare_frontend/core/application/apps_flyer/apps_flyer_service.dart';
@@ -52,7 +53,7 @@ Future<void> main() async {
 
   SystemService.allowOnlyPortraitOrientation();
 
-  await AppsFlyerService.start();
+  if (kIsProd) await AppsFlyerService.start();
 
   await CustomerIoService.initialize();
 
@@ -70,6 +71,12 @@ Future<void> main() async {
 
   // Todo: move to Splash Screen
   await PermissionsService.instance.requestNotificationPermissions();
+
+  await JustAudioBackground.init(
+    androidNotificationChannelId: 'com.ryanheise.bg_demo.channel.audio',
+    androidNotificationChannelName: 'Audio playback',
+    androidNotificationOngoing: true,
+  );
 
   return runApp(
     EasyLocalization(

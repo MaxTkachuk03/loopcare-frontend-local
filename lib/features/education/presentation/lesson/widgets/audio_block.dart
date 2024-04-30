@@ -2,12 +2,14 @@ import 'dart:async';
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:just_audio/just_audio.dart';
+import 'package:just_audio_background/just_audio_background.dart';
 import 'package:loopcare_frontend/features/education/domain/subtitle/image_subtitle_controller.dart';
 import 'package:loopcare_frontend/features/education/presentation/lesson/widgets/player_widget.dart';
 
 class AudioBlock extends StatefulWidget {
   final void Function() onPlayerComplete;
   final String url;
+  final String title;
   final int duration;
   final SubtitleController controller;
 
@@ -15,6 +17,7 @@ class AudioBlock extends StatefulWidget {
     super.key,
     required this.onPlayerComplete,
     required this.url,
+    required this.title,
     required this.duration,
     required this.controller,
   });
@@ -97,8 +100,14 @@ class _AudioBlockState extends State<AudioBlock> with AutoRouteAware {
 
   Future<void> _setupPlayer() async {
     try {
-      await audioPlayer.setAudioSource(AudioSource.uri(Uri.parse('file://${widget.url}')),
-          initialPosition: Duration.zero, preload: true);
+      await audioPlayer.setAudioSource(
+        AudioSource.uri(
+          Uri.parse('file://${widget.url}'),
+          tag: MediaItem(id: widget.url, title: widget.title),
+        ),
+        initialPosition: Duration.zero,
+        preload: true,
+      );
     } on PlayerException catch (e) {
       // iOS/macOS: maps to NSError.code
       // Android: maps to ExoPlayerException.type
