@@ -9,8 +9,8 @@ import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 import 'package:loopcare_frontend/core/presentation/utils/build_context_extensions.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/main_container.dart';
 
-class MindViewContent extends StatelessWidget {
-  const MindViewContent({
+class MindListContent extends StatelessWidget {
+  const MindListContent({
     super.key,
     required this.title,
     required this.subtitle,
@@ -60,7 +60,7 @@ class MindViewContent extends StatelessWidget {
           SliverPadding(
             padding: const EdgeInsets.only(top: 20),
             sliver: SliverToBoxAdapter(
-              child: CustomText.bitter500(
+              child: CustomText.bitter600(
                 subtitle,
                 style: context.textTheme.displayMedium?.copyWith(color: textColor),
               ),

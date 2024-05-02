@@ -61,7 +61,7 @@ class _TechniquesPageState extends State<TechniquesPage> with MindAnalyticsMixin
           buildWhen: (previous, current) => previous.data.techniques.isEmpty,
           builder: (context, state) {
 
-            return MindViewContent(
+            return MindListContent(
               isLoading: state.data.isLoading && state.data.techniques.isEmpty,
               title: state.data.mindInfo?.title ?? '',
               subtitle: state.data.mindInfo?.subtitle ?? '',

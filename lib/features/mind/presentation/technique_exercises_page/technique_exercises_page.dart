@@ -50,7 +50,7 @@ class _TechniqueExercisesPageState extends State<TechniqueExercisesPage> with Mi
           builder: (context, state) {
             final currentTechnique = state.data.currentTechnique;
 
-            return MindViewContent(
+            return MindListContent(
               isLoading: state.data.isLoading,
               isVideoExplanation: currentTechnique?.explanation.type.isVideo ?? false,
               title: currentTechnique?.title ?? '',
