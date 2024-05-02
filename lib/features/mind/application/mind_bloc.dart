@@ -124,10 +124,18 @@ class MindBloc extends Bloc<MindEvent, MindState> {
           add(MindEvent.unlockNextExercise(exerciseId: state.data.nextExercise.id));
         }
 
-        // todo update model
+        final updatedExercise = state.data.currentExercise!.copyWith(completedAt: r.completedAt);
+
+        final exercises = state.data.exercises
+            .map((e) => e.id == exerciseId ? updatedExercise : e)
+            .toList();
+
         emit(
           MindState.exerciseCompleted(
-            state.data,
+            state.data.copyWith(
+              currentExercise: updatedExercise,
+              exercises: exercises,
+            ),
           ),
         );
       },

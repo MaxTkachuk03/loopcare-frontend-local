@@ -21,7 +21,10 @@ class HtmlLaunchContentRender extends StatelessWidget {
       future: HtmlBodyService.getBodyFromHtml(url),
       builder: (context, snapshot) {
         if (!snapshot.hasData) {
-          return const Center(child: Loader());
+          return const Padding(
+            padding: EdgeInsets.only(top: 240),
+            child: Center(child: Loader()),
+          );
         } else {
           return HtmlRenderer(
             key: const ValueKey('HtmlLincContentRender'),
