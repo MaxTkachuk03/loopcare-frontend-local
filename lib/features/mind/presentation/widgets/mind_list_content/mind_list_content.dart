@@ -52,7 +52,7 @@ class MindListContent extends StatelessWidget {
             sliver: SliverToBoxAdapter(
               child: CustomText.bitter600(
                 title,
-                style: context.textTheme.displaySmall?.copyWith(color: textColor),
+                style: context.textTheme.displayLarge?.copyWith(color: textColor),
               ),
             ),
           ),
@@ -62,7 +62,7 @@ class MindListContent extends StatelessWidget {
             sliver: SliverToBoxAdapter(
               child: CustomText.bitter600(
                 subtitle,
-                style: context.textTheme.displayMedium?.copyWith(color: textColor),
+                style: context.textTheme.bodyLarge?.copyWith(color: textColor),
               ),
             ),
           ),
@@ -106,9 +106,9 @@ class MindListContent extends StatelessWidget {
             SliverPadding(
               padding: const EdgeInsets.only(top: 20),
               sliver: SliverToBoxAdapter(
-                child: CustomText.bitter500(
+                child: CustomText.bitter600(
                   listTitle!,
-                  style: context.textTheme.displayMedium?.copyWith(color: textColor),
+                  style: context.textTheme.bodyLarge?.copyWith(color: textColor),
                 ),
               ),
             ),

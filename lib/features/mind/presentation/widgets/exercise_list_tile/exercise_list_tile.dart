@@ -68,7 +68,7 @@ class ExerciseListTile extends StatelessWidget {
               children: [
                 CustomText.bitter600(
                   exercise.title,
-                  style: context.textTheme.bodySmall,
+                  style: context.textTheme.bodyMedium,
                   maxLines: 2,
                   overflow: TextOverflow.ellipsis,
                 ),

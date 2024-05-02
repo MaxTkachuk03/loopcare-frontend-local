@@ -10,6 +10,7 @@ class MindContent {
   final int? duration;
   final String src;
   final String? image;
+  final String? title;
   final String? question;
   final TechniqueExplanationType type;
 
@@ -18,6 +19,7 @@ class MindContent {
     required this.duration,
     required this.src,
     required this.image,
+    required this.title,
     required this.question,
     required this.type,
   });

@@ -214,6 +214,7 @@ class _MindContentScreenState extends State<MindContentScreen> {
         onCompleted: widget.onComplete,
         backgroundBrightness: _type.isIntro ? Brightness.dark : Brightness.light,
         leading: _TextExplanationLeadingWidget(
+          key: const ValueKey('headline_explanation_widget'),
           type: _type,
           url: currentStep.image,
         ),
