@@ -1,5 +1,5 @@
 name: loopcare_frontend
-version: 1.0.31+179
+version: 1.0.31+176
 publish_to: none
 description: Lean on me
 environment:
@@ -80,7 +80,6 @@ dependencies:
   bubble: ^1.2.1
   moment_dart: ^1.1.0
   appsflyer_sdk: ^6.14.2
-
 
 dev_dependencies:
   analyzer: ^5.13.0
