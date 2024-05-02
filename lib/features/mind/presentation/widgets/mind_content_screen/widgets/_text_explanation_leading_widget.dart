@@ -6,10 +6,6 @@ class _TextExplanationLeadingWidget extends StatelessWidget {
     required this.type,
     required this.url,
   });
-      // : assert(
-      //   type == _MindContentScreenType.explanation && url != null || type != _MindContentScreenType.explanation,
-      //   'Parameter {url} required for {type} [_MindContentScreenType.intro] and [_MindContentScreenType.explanation]',
-      // );
 
   final _MindContentScreenType type;
   final String? url;
