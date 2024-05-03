@@ -13,7 +13,6 @@ import 'package:loopcare_frontend/features/nutrition/application/nutrition_servi
 import 'package:loopcare_frontend/features/nutrition/application/select_food/select_food_bloc.dart';
 import 'package:loopcare_frontend/features/nutrition/domain/dish/dish.dart';
 import 'package:loopcare_frontend/features/nutrition/domain/nutrition_values_types/nutrition_values_types.dart';
-import 'package:rxdart/rxdart.dart';
 
 import 'dto/add_dish_to_meal_body.dart';
 
@@ -33,11 +32,7 @@ class DishBloc extends Bloc<DishEvent, DishState> {
     on<GetClonedDish>(_onGetClonedDish);
     on<GetDishById>(_onGetDishById);
     on<NutritionItemChanged>(_onNutritionItemChanged);
-    on<ServingChanged>(
-      _onServingChanged,
-      transformer: (events, mapper) =>
-          events.distinct().debounceTime(const Duration(milliseconds: 300)).switchMap(mapper),
-    );
+    on<ServingChanged>(_onServingChanged);
     on<UpdateFoodItemInDish>(_onUpdateFoodItemInDish);
     on<DeleteFoodItemFromDish>(_onDeleteFoodItemFromDish);
     on<AddToMeal>(_onAddToMeal);

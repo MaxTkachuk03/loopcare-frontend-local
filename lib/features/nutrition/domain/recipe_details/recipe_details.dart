@@ -1,4 +1,5 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:loopcare_frontend/core/domain/nutrition/nutrition_utils.dart';
 import 'package:loopcare_frontend/features/nutrition/domain/direction_item/direction_item.dart';
 import 'package:loopcare_frontend/features/nutrition/domain/nutrition_item/nutrition_item.dart';
 import 'package:loopcare_frontend/features/nutrition/domain/recipe_food_item/recipe_food_item.dart';
@@ -9,7 +10,7 @@ part 'recipe_details.freezed.dart';
 part 'recipe_details.g.dart';
 
 @freezed
-class RecipeDetails with _$RecipeDetails {
+class RecipeDetails with _$RecipeDetails, NutritionUtils {
   const RecipeDetails._();
 
   const factory RecipeDetails({
@@ -37,25 +38,13 @@ class RecipeDetails with _$RecipeDetails {
 
   double get fiberSum => _servingFiber;
 
-  double get calorieDensityVal {
-    final result = _servingCalories / _servingWeight;
-    return result.isNaN || result.isInfinite ? 0 : result;
-  }
+  double get calorieDensityVal => getCalorieDensity(_servingCalories, _servingWeight);
 
-  double get proteinDegreeVal {
-    final result = (((_servingProtein * 4) / _servingCalories) * 100);
-    return (result.isNaN || result.isInfinite) ? 0 : result;
-  }
+  double get proteinDegreeVal => getProteinDegree(_servingProtein, _servingCalories);
 
-  double get carbFiberRatio {
-    final result = _servingCarbs / _servingFiber;
-    return (result.isNaN || result.isInfinite) ? 0 : result;
-  }
+  double get carbFiberRatio => getCarbFiberRatio(_servingCarbs, _servingFiber);
 
-  double get carbsPercent {
-    final result = ((_servingCarbs * 4) / _servingCalories) * 100;
-    return (result.isNaN || result.isInfinite) ? 0 : result;
-  }
+  double get carbsPercent => getCarbsPercent(_servingCarbs, _servingCalories);
 
   factory RecipeDetails.fromJson(Map<String, dynamic> json) => _$RecipeDetailsFromJson(json);
 }

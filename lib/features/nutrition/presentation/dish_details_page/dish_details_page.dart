@@ -17,6 +17,7 @@ import 'package:loopcare_frontend/core/presentation/localization/localized_texts
 import 'package:loopcare_frontend/core/presentation/routes/app_router.dart';
 import 'package:loopcare_frontend/core/presentation/routes/app_router.gr.dart';
 import 'package:loopcare_frontend/core/presentation/scaffold/custom_scaffold.dart';
+import 'package:loopcare_frontend/core/presentation/utils/function_extensions.dart';
 import 'package:loopcare_frontend/core/presentation/utils/string_extensions.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/main_container.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/scrollable_container.dart';
@@ -82,10 +83,7 @@ class _DishDetailsPageState extends State<DishDetailsPage> {
 
     if (mealId == null || val.isEmpty) return;
 
-    context.read<DishBloc>().add(DishEvent.servingChanged(
-          mealId: mealId,
-          servingAmount: int.parse(val),
-        ));
+    context.read<DishBloc>().add(DishEvent.servingChanged(mealId: mealId, servingAmount: int.parse(val)));
   }
 
   void _onNutritionFactSelect(NutritionValuesTypes item) {
@@ -267,7 +265,8 @@ class _DishDetailsPageState extends State<DishDetailsPage> {
                             children: [
                               ServingsAmount(
                                 inputController: _servingController,
-                                onValueChangeHandler: _onServingChanges,
+                                onValueChangeHandler:
+                                    _onServingChanges.withDebounce(const Duration(milliseconds: 500)),
                               ),
                               NutritionValuesBlock(
                                 numberOfPortions: dishState.selectedDish.numberOfServings.toInt(),

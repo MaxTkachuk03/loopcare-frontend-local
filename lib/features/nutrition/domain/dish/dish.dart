@@ -1,4 +1,5 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:loopcare_frontend/core/domain/nutrition/nutrition_utils.dart';
 import 'package:loopcare_frontend/features/nutrition/domain/dish_food_item/dish_food_item.dart';
 import 'package:loopcare_frontend/features/nutrition/domain/select_serving/meal_category.dart';
 import 'package:loopcare_frontend/features/nutrition/domain/serving_size/serving_size.dart';
@@ -8,7 +9,7 @@ part 'dish.freezed.dart';
 part 'dish.g.dart';
 
 @freezed
-abstract class Dish implements _$Dish {
+class Dish with _$Dish, NutritionUtils {
   const Dish._();
 
   const factory Dish({
@@ -25,100 +26,39 @@ abstract class Dish implements _$Dish {
     required ServingSize serving,
   }) = _Dish;
 
-  double get caloriesSum {
-    double caloriesSum = 0;
+  double get _servings => serving.numberOfUnits;
+
+  double sumNutritionalProperty(double Function(DishFoodItem item) getProperty) {
+    double sum = 0;
 
     for (var item in foodItems) {
       if (!item.hasWeight || item.excludedFromCalculations) continue;
 
-      caloriesSum += item.servingCalories;
+      sum += getProperty(item);
     }
 
-    return caloriesSum;
+    return sum;
   }
 
-  double get fiberSum {
-    double fiberSum = 0;
+  double get caloriesSum => sumNutritionalProperty((item) => item.servingCalories);
 
-    for (var item in foodItems) {
-      if (!item.hasWeight || item.excludedFromCalculations) continue;
+  double get fiberSum => sumNutritionalProperty((item) => item.servingFiber) * _servings;
 
-      fiberSum += item.servingFiber;
-    }
+  double get carbohydratesSum => sumNutritionalProperty((item) => item.servingCarbs);
 
-    return fiberSum;
-  }
+  double get weightSum => sumNutritionalProperty((item) => item.servingWeight);
 
-  double get carbohydratesSum {
-    double carbohydratesSum = 0;
+  double get proteinSum => sumNutritionalProperty((item) => item.servingProtein);
 
-    for (var item in foodItems) {
-      if (!item.hasWeight || item.excludedFromCalculations) continue;
+  double get carbsSum => sumNutritionalProperty((item) => item.servingCarbs);
 
-      carbohydratesSum += item.servingCarbs;
-    }
+  double get calorieDensityValue => getCalorieDensity(caloriesSum, weightSum);
 
-    return carbohydratesSum;
-  }
+  double get proteinDegreeValue => getProteinDegree(proteinSum, caloriesSum);
 
-  double get weightSum {
-    double weightSum = 0;
+  double get carbFiberRatio => getCarbFiberRatio(carbsSum, fiberSum);
 
-    for (var item in foodItems) {
-      if (!item.hasWeight || item.excludedFromCalculations) continue;
-
-      weightSum += item.servingWeight;
-    }
-
-    return weightSum;
-  }
-
-  double get proteinSum {
-    double proteinSum = 0;
-
-    for (var item in foodItems) {
-      if (!item.hasWeight || item.excludedFromCalculations) continue;
-
-      proteinSum += item.servingProtein;
-    }
-
-    return proteinSum;
-  }
-
-  double get carbsSum {
-    double carbsSum = 0;
-
-    for (var item in foodItems) {
-      if (!item.hasWeight || item.excludedFromCalculations) continue;
-
-      carbsSum += item.servingCarbs;
-    }
-
-    return carbsSum;
-  }
-
-  double get calorieDensityValue {
-    final result = caloriesSum / weightSum;
-
-    return result.isNaN || result.isInfinite ? 0 : result;
-  }
-
-  double get proteinDegreeValue {
-    final result = (((proteinSum * 4) / caloriesSum) * 100);
-    return (result.isNaN || result.isInfinite) ? 0 : result;
-  }
-
-  double get carbFiberRatio {
-    final result = carbsSum / fiberSum;
-
-    return (result.isNaN || result.isInfinite) ? 0 : result;
-  }
-
-  double get carbsPercent {
-    final result = ((carbsSum * 4) / caloriesSum) * 100;
-
-    return (result.isNaN || result.isInfinite) ? 0 : result;
-  }
+  double get carbsPercent => getCarbsPercent(carbsSum, caloriesSum);
 
   factory Dish.fromJson(Map<String, dynamic> json) => _$DishFromJson(json);
 }

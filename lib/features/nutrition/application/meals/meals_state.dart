@@ -1,7 +1,7 @@
 part of 'meals_bloc.dart';
 
 @freezed
-class MealsState with _$MealsState {
+class MealsState with _$MealsState, NutritionUtils {
   const MealsState._();
 
   const factory MealsState.initial() = _Initial;
@@ -115,9 +115,7 @@ class MealsState with _$MealsState {
         }
       }
 
-      final result = caloriesSum / weight;
-
-      return result.isNaN || result.isInfinite ? 0 : result;
+      return getCalorieDensity(caloriesSum, weight);
     });
   }
 
@@ -163,9 +161,7 @@ class MealsState with _$MealsState {
         }
       }
 
-      final result = carbsSum / fiberSum;
-
-      return (result.isNaN || result.isInfinite) ? 0 : result;
+      return getCarbFiberRatio(carbsSum, fiberSum);
     });
   }
 
@@ -189,9 +185,7 @@ class MealsState with _$MealsState {
         }
       }
 
-      final result = ((carbsSum * 4) / calorieSum) * 100;
-
-      return (result.isNaN || result.isInfinite) ? 0 : result;
+      return getCarbsPercent(carbsSum, calorieSum);
     });
   }
 
@@ -237,9 +231,7 @@ class MealsState with _$MealsState {
         }
       }
 
-      final result = ((carbsSum * 4) / calorieSum) * 100;
-
-      return (result.isNaN || result.isInfinite) ? 0 : result;
+      return getCarbsPercent(carbsSum, calorieSum);
     });
   }
 
@@ -263,8 +255,7 @@ class MealsState with _$MealsState {
           }
         }
 
-        final result = (((proteinSum * 4) / caloriesSum) * 100);
-        return (result.isNaN || result.isInfinite) ? 0 : result;
+        return getProteinDegree(proteinSum, caloriesSum);
       },
     );
   }
@@ -470,9 +461,7 @@ class MealsState with _$MealsState {
 
         if (currentMeal == null) return null;
 
-        final result = (((currentMeal.proteinSum * 4) / currentMeal.caloriesSum) * 100);
-
-        return (result.isNaN || result.isInfinite) ? 0 : result;
+        return getProteinDegree(currentMeal.proteinSum, currentMeal.caloriesSum);
       },
     );
   }
@@ -492,9 +481,7 @@ class MealsState with _$MealsState {
 
         if (currentMeal == null) return null;
 
-        final calorieDensity = currentMeal.caloriesSum / currentMeal.weightSum;
-
-        return calorieDensity.isNaN || calorieDensity.isInfinite ? 0.0 : calorieDensity;
+        return getCalorieDensity(currentMeal.caloriesSum, currentMeal.weightSum);
       },
     );
   }
@@ -534,9 +521,7 @@ class MealsState with _$MealsState {
 
         if (currentMeal == null) return null;
 
-        final carbFiberRatio = currentMeal.carbohydratesSum / currentMeal.fiberSum;
-
-        return carbFiberRatio.isNaN || carbFiberRatio.isInfinite ? 0.0 : carbFiberRatio;
+        return getCarbFiberRatio(currentMeal.carbohydratesSum, currentMeal.fiberSum);
       },
     );
   }
@@ -556,9 +541,7 @@ class MealsState with _$MealsState {
 
         if (currentMeal == null) return null;
 
-        final result = ((currentMeal.carbohydratesSum * 4) / currentMeal.caloriesSum) * 100;
-
-        return result.isNaN || result.isInfinite ? 0.0 : result;
+        return getCarbsPercent(currentMeal.carbohydratesSum, currentMeal.caloriesSum);
       },
     );
   }
@@ -572,8 +555,7 @@ class MealsState with _$MealsState {
       amountSum += meal.servingWeight;
     }
 
-    final result = caloriesSum / amountSum;
-    return result.isNaN || result.isInfinite ? 0 : result;
+    return getCalorieDensity(caloriesSum, amountSum);
   }
 
   List<MealsListItem> get todaysLoggedPlannedMeals {
