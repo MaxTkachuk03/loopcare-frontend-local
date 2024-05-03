@@ -46,20 +46,4 @@ class MindStateData with _$MindStateData {
   bool get isLastExercise => currentExercise?.id == exercises.last.id;
 
   bool get isConsecutiveUnlock => currentTechnique?.exerciseUnlockStyle == TechniqueExerciseUnlockStyle.consecutive;
-
-  MindTechniqueExercise get currentExerciseWithoutIntro {
-    if (currentExercise == null) {
-      throw FlutterError('MindState does not continue [currentExercise]');
-    }
-
-    return MindTechniqueExercise(
-      id: currentExercise!.id,
-      image: currentExercise!.image,
-      isLocked: currentExercise!.isLocked,
-      difficulty: currentExercise!.difficulty,
-      shortDescription: currentExercise!.shortDescription,
-      title: currentExercise!.title,
-      exercise: currentExercise!.exercise,
-    );
-  }
 }

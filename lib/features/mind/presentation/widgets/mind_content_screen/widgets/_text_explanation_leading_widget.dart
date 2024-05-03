@@ -25,7 +25,8 @@ class _TextExplanationLeadingWidget extends StatelessWidget {
           ),
           const SizedBox(height: 20),
           ExerciseListTile(
-            exercise: mindData.currentExerciseWithoutIntro,
+            exercise: mindData.currentExercise!,
+            hideIntro: true,
           ),
           const SizedBox(height: 8),
           CustomText.bitter600(

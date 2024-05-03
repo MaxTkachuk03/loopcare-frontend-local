@@ -19,8 +19,10 @@ class ExerciseListTile extends StatelessWidget {
   const ExerciseListTile({
     super.key,
     required this.exercise,
+    this.hideIntro = false,
   });
 
+  final bool hideIntro;
   final MindTechniqueExercise exercise;
 
   @override
@@ -95,7 +97,11 @@ class ExerciseListTile extends StatelessWidget {
                   ],
                 ),
                 const SizedBox(height: 10),
-                _AccessExerciseLine(exercise, key: ValueKey('access_exercise_${exercise.id}')),
+                _AccessExerciseLine(
+                  key: ValueKey('access_exercise_${exercise.id}'),
+                  exercise: exercise,
+                  hideIntro: hideIntro,
+                ),
               ],
             ),
           )
@@ -107,9 +113,14 @@ class ExerciseListTile extends StatelessWidget {
 
 
 class _AccessExerciseLine extends StatelessWidget {
-  const _AccessExerciseLine(this.exercise, {super.key});
+  const _AccessExerciseLine({
+    super.key,
+    required this.exercise,
+    required this.hideIntro,
+  });
 
   final MindTechniqueExercise exercise;
+  final bool hideIntro;
 
   @override
   Widget build(BuildContext context) {
@@ -131,7 +142,7 @@ class _AccessExerciseLine extends StatelessWidget {
         runSpacing: 6,
         spacing: 16,
         children: [
-          if (exercise.explanation != null) ...[
+          if (exercise.explanation != null && !hideIntro) ...[
             CustomElevatedButton.yellowSmall(
               label: LocalizedTexts.intro.tr(),
               onPressed: () => context

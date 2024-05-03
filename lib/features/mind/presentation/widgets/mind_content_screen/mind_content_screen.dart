@@ -10,6 +10,7 @@ import 'package:loopcare_frontend/core/presentation/buttons/custom_outlined_butt
 import 'package:loopcare_frontend/core/presentation/custom_safe_area.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/core/presentation/network_image_with_cache/network_image_with_cache.dart';
+import 'package:loopcare_frontend/core/presentation/routes/app_router.gr.dart';
 import 'package:loopcare_frontend/core/presentation/scaffold/custom_scaffold.dart';
 import 'package:loopcare_frontend/core/presentation/text/custom_text.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
@@ -148,6 +149,9 @@ class _MindContentScreenState extends State<MindContentScreen> {
     );
   }
 
+  void _defaultCompletion() =>
+      context.router.popUntilRouteWithName(TechniqueExercisesRoute.name);
+
   @override
   void initState() {
     super.initState();
@@ -170,7 +174,7 @@ class _MindContentScreenState extends State<MindContentScreen> {
       minutesCounter: duration,
       techniqueTitle: widget.title,
       onRepeatPressed: _type.isExercise ? onRepeat : null,
-      onCompletePressed: widget.onComplete ?? context.router.pop,
+      onCompletePressed: widget.onComplete ?? _defaultCompletion,
     );
 
     if (isCompleted) {
