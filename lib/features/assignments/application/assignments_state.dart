@@ -52,7 +52,8 @@ class AssignmentsStateData with _$AssignmentsStateData {
   }
 
   bool hasQuestionsForCurrentWeek(DateTime selectedDay) => questions.any((e) =>
-      e.openedAt?.inRange(selectedDay.firstDayOfPreviousWeek, selectedDay.lastDayOfCurrentWeek) ?? false);
+      (!e.isCompleted || DateUtils.isSameDay(e.answeredAt, selectedDay)) &&
+          (e.openedAt?.inRange(selectedDay.firstDayOfPreviousWeek, selectedDay.lastDayOfCurrentWeek) ?? false));
 
   Map<int, List<LessonQuestion>> get questionsByLessonId {
     final Map<int, List<LessonQuestion>> questionsByLessonId = {};

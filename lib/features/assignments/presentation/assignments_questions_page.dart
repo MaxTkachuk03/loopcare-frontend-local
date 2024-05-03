@@ -97,11 +97,7 @@ class _AssignmentsQuestionsPageState extends State<AssignmentsQuestionsPage> {
         AssignmentsEvent.getAllLessonQuestions(accountCreatedDate, DateTime.now()),
       );
 
-      if (widget.fromDashboard) {
-        context.router.popUntilRoot();
-      } else {
-        context.router.pushNamed(AppRoutes.assignmentsSaved);
-      }
+      context.router.pushNamed(AppRoutes.assignmentsSaved);
 
     } else {
       context.router.push(
