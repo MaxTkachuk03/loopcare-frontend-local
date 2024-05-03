@@ -38,8 +38,9 @@ class App extends StatelessWidget {
     return MultiProvider(
       providers: [
         StreamProvider<NetworkStatus>(
-            initialData: NetworkStatus.online,
-            create: (context) => getIt<NetworkStatusService>().networkStatusController.stream),
+          initialData: NetworkStatus.online,
+          create: (context) => getIt<NetworkStatusService>().networkStatusController.stream,
+        ),
         MultiBlocProvider(
           providers: AppBlocProvider.providers,
           child: Builder(
@@ -47,9 +48,10 @@ class App extends StatelessWidget {
               final networkStatus = Provider.of<NetworkStatus>(context);
               if (networkStatus == NetworkStatus.offline) {
                 context.showError(
-                    content: CustomText(
-                  LocalizedTexts.connectionLost.tr(),
-                ));
+                  content: CustomText(
+                    LocalizedTexts.connectionLost.tr(),
+                  ),
+                );
               }
               return const _App();
             },
