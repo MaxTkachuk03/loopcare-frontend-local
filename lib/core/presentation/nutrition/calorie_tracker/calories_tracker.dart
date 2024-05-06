@@ -84,12 +84,20 @@ class CaloriesTracker extends StatelessWidget {
                               border: Border.all(color: AppColors.white, style: BorderStyle.solid),
                             ),
                           ),
-                          LinearProgressIndicator(
-                            minHeight: 15.0,
-                            valueColor: const AlwaysStoppedAnimation<Color>(AppColors.blueRegular),
-                            backgroundColor: AppColors.blueLightest,
-                            borderRadius: const BorderRadius.all(Radius.circular(8.0)),
-                            value: _getCaloriesMaintenanceRatio(caloriesMaintenance),
+                          TweenAnimationBuilder<double>(
+                            duration: const Duration(milliseconds: 250),
+                            curve: Curves.easeInOut,
+                            tween: Tween<double>(
+                              begin: 0,
+                              end: _getCaloriesMaintenanceRatio(caloriesMaintenance),
+                            ),
+                            builder: (context, value, _) => LinearProgressIndicator(
+                              minHeight: 15.0,
+                              valueColor: const AlwaysStoppedAnimation<Color>(AppColors.blueRegular),
+                              backgroundColor: AppColors.blueLightest,
+                              borderRadius: const BorderRadius.all(Radius.circular(8.0)),
+                              value: value,
+                            ),
                           ),
                         ],
                       ),
