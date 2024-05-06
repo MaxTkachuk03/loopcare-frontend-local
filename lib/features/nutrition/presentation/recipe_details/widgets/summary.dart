@@ -6,6 +6,7 @@ import 'package:loopcare_frontend/core/presentation/buttons/custom_elevated_butt
 import 'package:loopcare_frontend/core/presentation/buttons/custom_outlined_button.dart';
 import 'package:loopcare_frontend/core/presentation/icon_images/app_icons.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
+import 'package:loopcare_frontend/core/presentation/nutrition/nutrition_summary/nutrition_summary.dart';
 import 'package:loopcare_frontend/core/presentation/routes/app_router.gr.dart';
 import 'package:loopcare_frontend/core/presentation/text/custom_text.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
@@ -13,7 +14,6 @@ import 'package:loopcare_frontend/core/presentation/utils/build_context_extensio
 import 'package:loopcare_frontend/core/presentation/utils/double_extensions.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/main_container.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/scrollable_container.dart';
-import 'package:loopcare_frontend/features/dashboard/presentation/widgets/log_meal/nutrition_summary/nutrition_summary.dart';
 import 'package:loopcare_frontend/features/nutrition/application/recipe_details/recipe_details_bloc.dart';
 import 'package:loopcare_frontend/features/nutrition/domain/recipe_details/recipe_details.dart';
 import 'package:loopcare_frontend/features/nutrition/presentation/recipe_details/widgets/summary_item.dart';
@@ -98,6 +98,7 @@ class Summary extends StatelessWidget {
                       fiber: s.recipe.fiberSum,
                       carbFiberRatio: s.recipe.carbFiberRatio,
                       carbsPercent: s.recipe.carbsPercent,
+                      totalCalories: s.recipe.servingCalories,
                     ),
                   ),
                   const SizedBox(height: 20.0),

@@ -14,6 +14,7 @@ import 'package:loopcare_frontend/core/presentation/custom_safe_area.dart';
 import 'package:loopcare_frontend/core/presentation/error/error_screen.dart';
 import 'package:loopcare_frontend/core/presentation/loader/loader.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
+import 'package:loopcare_frontend/core/presentation/nutrition/nutrition_summary/nutrition_summary.dart';
 import 'package:loopcare_frontend/core/presentation/routes/app_router.gr.dart';
 import 'package:loopcare_frontend/core/presentation/scaffold/custom_scaffold.dart';
 import 'package:loopcare_frontend/core/presentation/text_field/custom_text_field.dart';
@@ -22,7 +23,6 @@ import 'package:loopcare_frontend/core/presentation/utils/string_extensions.dart
 import 'package:loopcare_frontend/core/presentation/widgets/keyboard_listener_container.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/main_container.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/scrollable_container.dart';
-import 'package:loopcare_frontend/features/dashboard/presentation/widgets/log_meal/nutrition_summary/nutrition_summary.dart';
 import 'package:loopcare_frontend/features/nutrition/application/edit_dish/edit_dish_bloc.dart';
 import 'package:loopcare_frontend/features/nutrition/application/meals/meals_bloc.dart';
 import 'package:loopcare_frontend/features/nutrition/application/search/dto/search_item.dart';
@@ -389,6 +389,7 @@ class _EditDishPageState extends State<EditDishPage> {
                                     fiber: dishState.currentDish.fiberSum,
                                     carbFiberRatio: dishState.currentDish.carbFiberRatio,
                                     carbsPercent: dishState.currentDish.carbsPercent,
+                                    totalCalories: dishState.currentDish.caloriesSum,
                                   ),
                                   const SizedBox(height: 15.0),
                                   MainContainer(

@@ -13,6 +13,7 @@ import 'package:loopcare_frontend/features/nutrition/application/dish/dto/clone_
 import 'package:loopcare_frontend/features/nutrition/application/dish/dto/update_dish_food_item_response.dart';
 import 'package:loopcare_frontend/features/nutrition/application/dish/dto/update_dish_in_meal_body.dart';
 import 'package:loopcare_frontend/features/nutrition/application/dish/dto/update_food_item_in_dish_body.dart';
+import 'package:loopcare_frontend/features/nutrition/application/bmr/dto/get_bmr_response.dart';
 import 'package:loopcare_frontend/features/nutrition/application/meals/dto/add_planned_meal_body.dart';
 import 'package:loopcare_frontend/features/nutrition/application/edit_dish/dto/create_dish_body.dart';
 import 'package:loopcare_frontend/features/nutrition/application/edit_dish/dto/create_dish_from_meal_body.dart';
@@ -41,12 +42,19 @@ import 'package:loopcare_frontend/features/nutrition/application/select_serving/
 import 'package:loopcare_frontend/features/nutrition/application/select_serving/dto/add_to_favorites_response.dart';
 import 'package:loopcare_frontend/features/nutrition/application/select_serving/dto/food_item_servings_response.dart';
 import 'package:loopcare_frontend/features/nutrition/application/select_serving/dto/update_favorite_body.dart';
+import 'package:loopcare_frontend/features/nutrition/infrastructure/get_bmr_mock.dart';
 
 @Injectable(as: NutritionService)
 class APINutritionService implements NutritionService {
   DioClient client;
 
   APINutritionService(this.client);
+
+  @override
+  Future<Either<RequestError, GetBmrResponse>> getBmr(DateTime date) async {
+    return right(GetBmrResponse.fromJson({'data': bmr}));
+    //return client.get('/nutrition/bmr').then(parseResponse(GetBmrResponse.fromJson));
+  }
 
   @override
   Future<Either<RequestError, FavoritesResponse>> getFavorites(

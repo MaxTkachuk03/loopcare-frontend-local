@@ -30,7 +30,7 @@ class RecipeDetails with _$RecipeDetails, NutritionUtils {
     required ServingSize servingSize,
   }) = _RecipeDetails;
 
-  double get _servingCalories => servingSize.calories;
+  double get servingCalories => servingSize.calories;
   double get _servingWeight => servingSize.metricServingAmount;
   double get _servingProtein => servingSize.protein;
   double get _servingCarbs => servingSize.carbohydrate;
@@ -38,13 +38,13 @@ class RecipeDetails with _$RecipeDetails, NutritionUtils {
 
   double get fiberSum => _servingFiber;
 
-  double get calorieDensityVal => getCalorieDensity(_servingCalories, _servingWeight);
+  double get calorieDensityVal => getCalorieDensity(servingCalories, _servingWeight);
 
-  double get proteinDegreeVal => getProteinDegree(_servingProtein, _servingCalories);
+  double get proteinDegreeVal => getProteinDegree(_servingProtein, servingCalories);
 
   double get carbFiberRatio => getCarbFiberRatio(_servingCarbs, _servingFiber);
 
-  double get carbsPercent => getCarbsPercent(_servingCarbs, _servingCalories);
+  double get carbsPercent => getCarbsPercent(_servingCarbs, servingCalories);
 
   factory RecipeDetails.fromJson(Map<String, dynamic> json) => _$RecipeDetailsFromJson(json);
 }

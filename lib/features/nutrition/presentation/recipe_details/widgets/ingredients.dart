@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:loopcare_frontend/core/presentation/nutrition/nutrition_summary/nutrition_summary.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
-import 'package:loopcare_frontend/features/dashboard/presentation/widgets/log_meal/nutrition_summary/nutrition_summary.dart';
 import 'package:loopcare_frontend/features/nutrition/application/recipe/recipe_bloc.dart';
 import 'package:loopcare_frontend/features/nutrition/domain/food_item/food_item.dart';
 import 'package:loopcare_frontend/features/nutrition/domain/meal_item_type/meal_item_type.dart';
@@ -61,6 +61,7 @@ class Ingredients extends StatelessWidget {
                     fiber: recipeState.data.recipe.fiberSum,
                     carbFiberRatio: recipeState.data.recipe.carbFiberRatio,
                     carbsPercent: recipeState.data.recipe.carbsPercent,
+                    totalCalories: recipeState.data.recipe.servingCalories,
                   ),
                 ),
               ],

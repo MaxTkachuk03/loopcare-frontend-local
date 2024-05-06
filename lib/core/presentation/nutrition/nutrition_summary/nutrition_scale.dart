@@ -4,14 +4,14 @@ import 'package:loopcare_frontend/core/domain/nutrition/nutrition_indicator_colo
 import 'package:loopcare_frontend/core/domain/nutrition/nutrition_values_description.dart';
 import 'package:loopcare_frontend/core/presentation/alerting/modal_bottom_sheet.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
-import 'package:loopcare_frontend/core/presentation/nutrition_indicator/nutrition_indicator.dart';
+import 'package:loopcare_frontend/core/presentation/nutrition/nutrition_indicator/nutrition_indicator.dart';
+import 'package:loopcare_frontend/core/presentation/nutrition/overlays/calorie_density_description.dart';
+import 'package:loopcare_frontend/core/presentation/nutrition/overlays/fiber_description.dart';
+import 'package:loopcare_frontend/core/presentation/nutrition/overlays/protein_degree_description.dart';
 import 'package:loopcare_frontend/core/presentation/text/custom_text.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 import 'package:loopcare_frontend/core/presentation/utils/build_context_extensions.dart';
 import 'package:loopcare_frontend/core/presentation/utils/string_extensions.dart';
-import 'package:loopcare_frontend/features/dashboard/presentation/widgets/log_meal/nutrition_summary/calorie_density_description.dart';
-import 'package:loopcare_frontend/features/dashboard/presentation/widgets/log_meal/nutrition_summary/fiber_description.dart';
-import 'package:loopcare_frontend/features/dashboard/presentation/widgets/log_meal/nutrition_summary/protein_degree_description.dart';
 
 class NutritionScale extends StatelessWidget {
   final String topLabel;

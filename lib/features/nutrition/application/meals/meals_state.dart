@@ -189,6 +189,29 @@ class MealsState with _$MealsState, NutritionUtils {
     });
   }
 
+  double? get totalCalories {
+    return mapOrNull(mealsInfo: (state) {
+      final currentDate = state.currentDate;
+
+      if (state.meals.isEmpty || currentDate == null) {
+        return null;
+      }
+
+      double calorieSum = 0;
+
+      final selectedDayMeals = state.meals[currentDate.isoStringWithoutTime] ?? <MealsListItem>[];
+
+      for (MealsListItem meal in selectedDayMeals) {
+        if (meal.loggingDate?.isSameDate(currentDate) ?? false) {
+          print(meal.caloriesSum);
+          calorieSum += meal.caloriesSum;
+        }
+      }
+
+      return calorieSum;
+    });
+  }
+
   double? get selectedDayMealTotalCarbs {
     return mapOrNull(mealsInfo: (state) {
       final currentDate = state.currentDate;
@@ -232,6 +255,28 @@ class MealsState with _$MealsState, NutritionUtils {
       }
 
       return getCarbsPercent(carbsSum, calorieSum);
+    });
+  }
+
+  double? get selectedDayMealCalories {
+    return mapOrNull(mealsInfo: (state) {
+      final currentDate = state.currentDate;
+
+      if (state.meals.isEmpty || currentDate == null) {
+        return null;
+      }
+
+      double calorieSum = 0;
+
+      final selectedDayMeals = state.meals[currentDate.isoStringWithoutTime] ?? <MealsListItem>[];
+
+      for (MealsListItem meal in selectedDayMeals) {
+        if (meal.loggingDate?.isSameDate(currentDate) ?? false) {
+          calorieSum += meal.caloriesSum;
+        }
+      }
+
+      return calorieSum;
     });
   }
 
@@ -542,6 +587,26 @@ class MealsState with _$MealsState, NutritionUtils {
         if (currentMeal == null) return null;
 
         return getCarbsPercent(currentMeal.carbohydratesSum, currentMeal.caloriesSum);
+      },
+    );
+  }
+
+  double? get currentMealCalories {
+    return mapOrNull(
+      mealsInfo: (state) {
+        final currentDate = state.currentDate;
+        if (mealsMap.isEmpty || state.currentMealId == null || currentDate == null) {
+          return null;
+        }
+
+        final selectedDayMeals = mealsMap[currentDate.isoStringWithoutTime] ?? <MealsListItem>[];
+
+        final MealsListItem? currentMeal =
+            selectedDayMeals.firstWhereOrNull((item) => item.id == state.currentMealId);
+
+        if (currentMeal == null) return null;
+
+        return currentMeal.caloriesSum;
       },
     );
   }

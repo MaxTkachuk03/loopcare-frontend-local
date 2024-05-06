@@ -25,6 +25,7 @@ import 'package:loopcare_frontend/features/dashboard/presentation/widgets/weight
 import 'package:loopcare_frontend/features/education/application/education_program/education_program_bloc.dart';
 import 'package:loopcare_frontend/features/group_sessions/application/topics_bloc.dart';
 import 'package:loopcare_frontend/features/mood/application/mood_bloc.dart';
+import 'package:loopcare_frontend/features/nutrition/application/bmr/bmr_bloc.dart';
 import 'package:loopcare_frontend/features/nutrition/application/dashboard_education/dashboard_education_bloc.dart';
 import 'package:loopcare_frontend/features/nutrition/application/dashboard_weight/dashboard_weight_bloc.dart';
 import 'package:loopcare_frontend/features/nutrition/application/meals/meals_bloc.dart';
@@ -70,6 +71,8 @@ class _DashboardPageState extends State<DashboardPage> with WidgetsBindingObserv
 
   void _loadInitialData() {
     context.read<AuthenticationBloc>().add(const AuthenticationEvent.getAccount());
+
+    context.read<BmrBloc>().add(BmrEvent.getBmr(date: _selectedDay));
 
     context
         .read<DashboardWeightBloc>()
@@ -150,6 +153,7 @@ class _DashboardPageState extends State<DashboardPage> with WidgetsBindingObserv
     context.read<MealsBloc>().add(MealsEvent.setCurrentDate(day, updateOrigin: true));
     context.read<MoodBloc>().add(MoodEvent.setDate(day));
     context.read<DashboardEducationBloc>().add(DashboardEducationEvent.getDashboardLessons(currentDate: day));
+    context.read<BmrBloc>().add(BmrEvent.getBmr(date: day));
 
     if (context.read<AuthenticationBloc>().state.data.isAssignmentsUnlocked) {
       context.read<AssignmentsBloc>().add(
@@ -166,6 +170,8 @@ class _DashboardPageState extends State<DashboardPage> with WidgetsBindingObserv
   }
 
   void _weightListener(BuildContext context, DashboardWeightState state) {
+    context.read<BmrBloc>().add(BmrEvent.getBmr(date: _selectedDay));
+
     state.mapOrNull(
       updated: (value) {
         final account = context.read<AuthenticationBloc>().state.data.account;

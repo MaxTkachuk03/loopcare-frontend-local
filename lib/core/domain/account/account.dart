@@ -110,5 +110,8 @@ abstract class Account implements _$Account {
   int get fiberDailyGoal =>
       sex == SexType.male ? Constants.maleFiberDailyGoal : Constants.femaleFiberDailyGoal;
 
+  int get minCalorieRangeValue =>
+      sex == SexType.male ? Constants.maleMinCaloriesRangeValue : Constants.femaleMinCaloriesRangeValue;
+
   factory Account.fromJson(Map<String, dynamic> json) => _$AccountFromJson(json);
 }
