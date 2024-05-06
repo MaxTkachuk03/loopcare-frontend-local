@@ -32,9 +32,9 @@ class CalorieDensityDescription extends StatelessWidget {
   void _openLesson(BuildContext context) {
     context
         .read<EducationLessonBloc>()
-        .add(const EducationLessonEvent.getLessonContent(lessonId: 15, pageIndex: 0));
+        .add(const EducationLessonEvent.getLessonContent(lessonId: 8, pageIndex: 0));
 
-    context.router.pushNamed('/lesson/15/page/0');
+    context.router.pushNamed('/lesson/8/page/0');
   }
 
   NutritionValueDescriptionItem get calorieDensityItem =>

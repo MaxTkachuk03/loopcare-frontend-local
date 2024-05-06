@@ -50,6 +50,9 @@ class LocalizedTexts {
   static const String nutritionSummary = 'nutritionSummary';
   static const String calorieDensity = 'calorieDensity';
   static const String proteinDegree = 'proteinDegree';
+  static const String dailyCalorieBudget = 'dailyCalorieBudget';
+  static const String dailyCalorieBudgetDescription = 'dailyCalorieBudgetDescription';
+  static const String dailyCalorieBudgetLink = 'dailyCalorieBudgetLink';
   static const String whatIsCalorieDensity = 'whatIsCalorieDensity';
   static const String whatIsProtein = 'whatIsProtein';
   static const String calorieDensityExplanation = 'calorieDensityExplanation';
