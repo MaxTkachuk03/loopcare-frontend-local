@@ -18,6 +18,6 @@ class BmrStateData with _$BmrStateData {
   const factory BmrStateData({
     @Default(false) bool isLoading,
     RequestError? error,
-    @Default({}) Map<String, double> bmr,
+    @Default(0) double bmr,
   }) = _BmrStateData;
 }

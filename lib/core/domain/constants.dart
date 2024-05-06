@@ -6,4 +6,7 @@ class Constants {
 
   static const maleMinCaloriesRangeValue = 1400;
   static const femaleMinCaloriesRangeValue = 1200;
+
+  static const double calorieMaintenanceTopRange = 400;
+  static const double calorieMaintenanceBottomRange = 800;
 }

@@ -1,7 +1,7 @@
 import 'package:loopcare_frontend/core/domain/nutrition/nutrition_description_item.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 
-final calorieDensityDataItems = [
+const calorieDensityDataItems = [
   {
     "minValue": 0,
     "maxValue": 1.64,
@@ -22,7 +22,7 @@ final calorieDensityDataItems = [
   },
 ];
 
-final proteinDegreeDataItems = [
+const proteinDegreeDataItems = [
   {
     "minValue": 0,
     "maxValue": 15,
@@ -49,7 +49,7 @@ final proteinDegreeDataItems = [
   },
 ];
 
-final fiberDataItems = [
+const fiberDataItems = [
   {
     "minValue": 1,
     "maxValue": 12.99,

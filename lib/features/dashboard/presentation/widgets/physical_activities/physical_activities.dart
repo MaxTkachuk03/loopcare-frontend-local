@@ -119,14 +119,15 @@ class _PhysicalActivitiesState extends State<PhysicalActivities> {
                               return ErrorScreen(
                                 error: error!,
                                 onButtonPressed: () => context.read<PhysicalActivitiesBloc>().add(
-                                    PhysicalActivitiesEvent.getWeeklyPhysicalActivities(widget.selectedDay),
-                                  ),
+                                      PhysicalActivitiesEvent.getWeeklyPhysicalActivities(widget.selectedDay),
+                                    ),
                               );
                             },
                             loading: (_) => const SizedBox(height: 100, child: Loader()),
                             orElse: () => const SizedBox.shrink(),
                             activitiesLoaded: (s) {
-                              final int timesPerWeek = getIt<SharedStorageService>().account!.trainingFrequency;
+                              final int timesPerWeek =
+                                  getIt<SharedStorageService>().account!.trainingFrequency;
 
                               return isAvailable
                                   ? FilledActivitiesList(

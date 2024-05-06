@@ -26,12 +26,8 @@ class BmrBloc extends Bloc<BmrEvent, BmrState> {
     final response = await _nutritionService.getBmr(event.date);
 
     response.fold(
-      (l) {
-        print(l);
-        emit(BmrState.error(state.data.copyWith(error: l, isLoading: false)));
-      },
-      (r) => emit(BmrState.bmrLoaded(state.data
-          .copyWith(bmr: {...state.data.bmr, event.date.toString(): r.data.bmr}, isLoading: false))),
+      (l) => emit(BmrState.error(state.data.copyWith(error: l, isLoading: false))),
+      (r) => emit(BmrState.bmrLoaded(state.data.copyWith(bmr: r.data.bmr, isLoading: false))),
     );
   }
 }
