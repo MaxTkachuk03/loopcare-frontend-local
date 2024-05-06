@@ -29,29 +29,27 @@ class NutritionSummary extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MainContainer(
-      child: Column(
-        children: [
-          Row(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Expanded(child: NutritionScale.calorieDensity(value: calorieDensity)),
-              Expanded(child: NutritionScale.proteinDegree(value: proteinDegree)),
-              Expanded(
-                child: NutritionScale.fiber(
-                  value: fiber,
-                  totalCarbs: context.read<MealsBloc>().state.selectedDayMealTotalCarbs,
-                  carbsFiberRatio: carbFiberRatio,
-                  isFiberInsignificant: _isFiberInsignificant,
-                ),
+    return Column(
+      children: [
+        Row(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Expanded(child: NutritionScale.calorieDensity(value: calorieDensity)),
+            Expanded(child: NutritionScale.proteinDegree(value: proteinDegree)),
+            Expanded(
+              child: NutritionScale.fiber(
+                value: fiber,
+                totalCarbs: context.read<MealsBloc>().state.selectedDayMealTotalCarbs,
+                carbsFiberRatio: carbFiberRatio,
+                isFiberInsignificant: _isFiberInsignificant,
               ),
-            ],
-          ),
-          if (showCaloriesTracker) const SizedBox(height: 20),
-          if (showCaloriesTracker) CaloriesTracker(totalCalories: totalCalories ?? 0),
-        ],
-      ),
+            ),
+          ],
+        ),
+        if (showCaloriesTracker) const SizedBox(height: 24),
+        if (showCaloriesTracker) MainContainer(child: CaloriesTracker(totalCalories: totalCalories ?? 0)),
+      ],
     );
   }
 }
