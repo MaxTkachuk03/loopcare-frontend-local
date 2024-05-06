@@ -36,5 +36,5 @@ class PurchasableProduct {
   String get title => Platform.isIOS ? _titleIOS : _titleAndroid;
 
   String get priceWithCurrency =>
-      (currency == '\$' || currency == '\£') ? '$currency$roundPrice' : '$roundPrice$currency';
+      (currency == '\$' || currency == '£') ? '$currency$roundPrice' : '$roundPrice$currency';
 }
