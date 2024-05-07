@@ -43,8 +43,8 @@ class DailyIntakePage extends StatelessWidget {
                               mealsState.meals[mealsState.currentDate?.isoStringWithoutTime];
 
                           var category = MealCategory.values[index].name;
-                          var mealForCurrentCategory = selectedDayMeals?.firstWhereOrNull(
-                              (element) => element.mealCategory == MealCategory.values[index].label);
+                          var mealForCurrentCategory = selectedDayMeals
+                              ?.firstWhereOrNull((m) => m.mealCategory == MealCategory.values[index].label);
 
                           final mealItems = mealForCurrentCategory?.mealItems;
                           final isEnabled = mealItems != null && mealItems.isNotEmpty;
@@ -56,22 +56,20 @@ class DailyIntakePage extends StatelessWidget {
                             calorieDensity: isEnabled ? mealsState.calorieDensitySum(mealItems) : null,
                           );
                         },
-                        separatorBuilder: (context, index) {
-                          return const Divider(
-                            color: AppColors.blueLighter,
-                            thickness: 1.0,
-                            height: 1.0,
-                          );
-                        },
+                        separatorBuilder: (_, __) =>
+                            const Divider(color: AppColors.blueLighter, thickness: 1.0, height: 1.0),
                       ),
                     ),
-                    NutritionSummary(
-                      proteinDegree: mealsState.selectedDayMealProteinDegreeSum,
-                      calorieDensity: mealsState.selectedDayMealProteinDegreeSum,
-                      fiber: mealsState.selectedDayMealFiber,
-                      carbFiberRatio: mealsState.selectedDayMealCarbFiberRatio,
-                      carbsPercent: mealsState.carbsPercent,
-                      totalCalories: mealsState.totalCalories,
+                    Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 30.0),
+                      child: NutritionSummary(
+                        proteinDegree: mealsState.selectedDayMealProteinDegreeSum,
+                        calorieDensity: mealsState.selectedDayMealProteinDegreeSum,
+                        fiber: mealsState.selectedDayMealFiber,
+                        carbFiberRatio: mealsState.selectedDayMealCarbFiberRatio,
+                        carbsPercent: mealsState.carbsPercent,
+                        totalCalories: mealsState.totalCalories,
+                      ),
                     ),
                   ],
                 ),
@@ -79,9 +77,7 @@ class DailyIntakePage extends StatelessWidget {
             );
           },
           orElse: () => CustomScaffold.greenLightest(
-            appBar: CustomAppBar.green(
-              leading: CustomFilledIconButton.leadingGreenLighter(),
-            ),
+            appBar: CustomAppBar.green(leading: CustomFilledIconButton.leadingGreenLighter()),
           ),
         );
       },

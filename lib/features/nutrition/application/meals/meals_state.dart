@@ -203,7 +203,6 @@ class MealsState with _$MealsState, NutritionUtils {
 
       for (MealsListItem meal in selectedDayMeals) {
         if (meal.loggingDate?.isSameDate(currentDate) ?? false) {
-          print(meal.caloriesSum);
           calorieSum += meal.caloriesSum;
         }
       }
