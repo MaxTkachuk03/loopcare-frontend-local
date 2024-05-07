@@ -155,8 +155,8 @@ class _DashboardPageState extends State<DashboardPage> with WidgetsBindingObserv
     if (context.read<AuthenticationBloc>().state.data.isAssignmentsUnlocked) {
       context.read<AssignmentsBloc>().add(
             AssignmentsEvent.getAllLessonQuestions(
-              day.beginDay,
-              day.endDay,
+              day.firstDayOfPreviousWeek,
+              day.lastDayOfCurrentWeek,
             ),
           );
     }
