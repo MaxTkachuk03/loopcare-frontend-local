@@ -59,7 +59,6 @@ class Education extends StatelessWidget {
                   children: [
                     const Divider(
                       color: AppColors.blueOffRegular,
-                      height: 8,
                     ),
                     const SizedBox(height: 8.0),
                     state.maybeMap(
