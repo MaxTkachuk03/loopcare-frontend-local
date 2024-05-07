@@ -35,102 +35,60 @@ class LogMeal extends StatelessWidget {
             color: AppColors.white,
             borderRadius: BorderRadius.all(Radius.circular(8)),
           ),
-          child: state.maybeMap(
-            error: (errorState) {
-              final error = errorState.fetchError;
-
-              return ErrorScreen(
-                error: error,
-                onButtonPressed: () => context.read<MealsBloc>().add(const MealsEvent.fetchMeals()),
-              );
-            },
-            orElse: () {
-              return Column(
-                children: [
-                  DashboardCardTitle(
-                    onTap: () => _onPressHandler(context),
-                    highlightColor: AppColors.greenLightest,
-                    leadingIcon: AppIcons.customDashboardLogMeals,
-                    title: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        CustomText.bitter600(
-                          LocalizedTexts.logYourMeals.tr(),
-                          style: context.textTheme.headlineSmall?.copyWith(color: textColor),
-                        ),
-                        if (state.filledCategories.isEmpty)
-                          CustomText.w400(
-                            state.isEnableOnDashboard
-                                ? LocalizedTexts.noMealsLoggedYet.tr()
-                                : LocalizedTexts.noMealsLogged.tr(),
-                            style: context.textTheme.bodySmall?.copyWith(color: textColor),
-                          ),
-                      ],
+          child: Column(
+            children: [
+              DashboardCardTitle(
+                onTap: () => _onPressHandler(context),
+                highlightColor: AppColors.greenLightest,
+                leadingIcon: AppIcons.customDashboardLogMeals,
+                title: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    CustomText.bitter600(
+                      LocalizedTexts.logYourMeals.tr(),
+                      style: context.textTheme.headlineSmall?.copyWith(color: textColor),
                     ),
-                    actionIcon: AppIcons.plus,
-                    editable: state.isEnableOnDashboard,
-                  ),
-                  if (state.filledCategories.isNotEmpty)
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                      child: Column(
-                        children: [
-                          const Divider(
-                            color: AppColors.blueOffRegular,
-                          ),
-                          const SizedBox(height: 4.0),
-                          GestureDetector(
-                            onTap: state.isEnableOnDashboard ? () => _onIntakePressed(context) : null,
-                            child: Column(
-                              children: [
-                                Row(
-                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    CustomText.w600(
-                                      LocalizedTexts.loggedMeals.tr().capitalize(),
-                                      style: context.textTheme.bodySmall,
-                                    ),
-                                    const SizedBox(width: 4.0),
-                                    if (state.filledCategories.isNotEmpty)
-                                      CustomOutlinedRoundedButtonWithIcon(
-                                        onPressed: state.isEnableOnDashboard
-                                            ? () => _onPressHandler(context)
-                                            : null,
-                                        icon: AppIcons.edit,
-                                      )
-                                  ],
-                                ),
-                                LoggedList(
-                                  categoryList: MealCategory.values
-                                      .map((e) => e.shortLabel?.capitalizeOnlyFirstLetter() ?? '')
-                                      .toList(),
-                                  categoryListRaw: MealCategory.values.map((e) => e.label ?? '').toList(),
-                                  filledList: state.filledCategories,
-                                ),
-                              ],
-                            ),
-                          ),
-                          const SizedBox(height: 16.0),
-        NutritionSummary(
-        proteinDegree: state.selectedDayMealProteinDegreeSum,
-        calorieDensity: state.selectedDayMealCalorieDensitySum,
-        fiber: state.selectedDayMealFiber,
-        carbFiberRatio: state.selectedDayMealCarbFiberRatio,
-        carbsPercent: state.selectedDayMealCarbsPercent,
-        totalCalories: state.selectedDayMealCalories,
-        showCaloriesTracker: false,
-        ),
-                          const SizedBox(height: 8.0),
-                        ],
+                    if (state.filledCategories.isEmpty)
+                      CustomText.w400(
+                        state.isEnableOnDashboard
+                            ? LocalizedTexts.noMealsLoggedYet.tr()
+                            : LocalizedTexts.noMealsLogged.tr(),
+                        style: context.textTheme.bodySmall?.copyWith(color: textColor),
                       ),
-                    ),
-                ],
-              );
-            },
-          );
-        },
-      ),
+                  ],
+                ),
+                actionIcon: AppIcons.arrow,
+                circleButton: false,
+                editable: state.isEnableOnDashboard,
+              ),
+              const Divider(
+                color: AppColors.blueOffRegular,
+              ),
+              state.maybeMap(
+                loading: (_) => const Loader(),
+                error: (errorState) {
+                  final error = errorState.fetchError;
+
+                  return ErrorScreen(
+                    error: error,
+                    onButtonPressed: () => context.read<MealsBloc>().add(const MealsEvent.fetchMeals()),
+                  );
+                },
+                orElse: () => NutritionSummary(
+                  proteinDegree: state.selectedDayMealProteinDegreeSum,
+                  calorieDensity: state.selectedDayMealCalorieDensitySum,
+                  fiber: state.selectedDayMealFiber,
+                  carbFiberRatio: state.selectedDayMealCarbFiberRatio,
+                  carbsPercent: state.selectedDayMealCarbsPercent,
+                  totalCalories: state.selectedDayMealCalories,
+                  showCaloriesTracker: false,
+                ),
+              ),
+            ],
+          ),
+        );
+      },
     );
   }
 }
