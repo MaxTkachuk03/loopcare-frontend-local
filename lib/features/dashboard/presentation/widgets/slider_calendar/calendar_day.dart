@@ -18,31 +18,26 @@ class CalendarDay extends StatelessWidget {
     required this.isFutureDate,
   });
 
-  Color _getDayColor() {
-    return isSelected
-        ? AppColors.blueOffRegular
-        : isFutureDate
-            ? AppColors.blueDarker
-            : AppColors.blueDarker;
-  }
+  Color get _dayColor => isSelected ? AppColors.blueOffRegular : AppColors.blueDarker;
+
+  Color get _textColor => isSelected ? AppColors.white : AppColors.blueLighter;
+
+  double get _width => isSelected ? 81.0 : 68.0;
+
+  double get _topPadding => isSelected ? 0.0 : 6.0;
+
+  double get _fontSize => isSelected ? 16.0 : 14.0;
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () => onPressHandler(day),
       child: Container(
-        width: 68,
+        width: _width,
+        margin: EdgeInsets.fromLTRB(0.5, _topPadding, 0.5, 0),
         decoration: BoxDecoration(
-          color: _getDayColor(),
-          borderRadius: const BorderRadius.all(Radius.circular(8)),
-          boxShadow: const [
-            BoxShadow(
-              color: AppColors.blueRegular,
-              spreadRadius: 1,
-              blurRadius: 1,
-              offset: Offset(1, -3),
-            ),
-          ],
+          color: _dayColor,
+          borderRadius: const BorderRadius.vertical(top: Radius.circular(8)),
         ),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -50,23 +45,22 @@ class CalendarDay extends StatelessWidget {
             CustomText.w600(
               DateFormat.E('en_EN').format(day),
               style: context.textTheme.bodySmall!.copyWith(
-                color: isSelected ? AppColors.white : AppColors.blueLighter,
-                decoration: isSelected ? TextDecoration.underline : TextDecoration.none,
-                fontSize: isSelected ? 16.0 : 14.0,
+                color: _textColor,
+                fontSize: _fontSize,
               ),
             ),
             CustomText.w400(
               DateFormat.d('en_EN').format(day),
               style: context.textTheme.titleMedium!.copyWith(
-                color: isSelected ? AppColors.white : AppColors.blueLighter,
-                fontSize: isSelected ? 16.0 : 12.0,
+                color: _textColor,
+                fontSize: _fontSize,
               ),
             ),
             CustomText.w400(
               DateFormat.MMM('en_EN').format(day),
               style: context.textTheme.titleMedium!.copyWith(
-                color: isSelected ? AppColors.white : AppColors.blueLighter,
-                fontSize: isSelected ? 16.0 : 12.0,
+                color: _textColor,
+                fontSize: _fontSize,
               ),
             ),
           ],
