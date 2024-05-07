@@ -80,6 +80,7 @@ dependencies:
   bubble: ^1.2.1
   moment_dart: ^1.1.0
   appsflyer_sdk: ^6.14.2
+  shimmer: ^3.0.0
 
 dev_dependencies:
   analyzer: ^5.13.0

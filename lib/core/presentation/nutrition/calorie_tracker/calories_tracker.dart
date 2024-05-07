@@ -5,8 +5,8 @@ import 'package:loopcare_frontend/core/domain/constants.dart';
 import 'package:loopcare_frontend/core/domain/nutrition/calorie_budget.dart';
 import 'package:loopcare_frontend/core/infrastructure/services/shared_storage/shared_storage_service.dart';
 import 'package:loopcare_frontend/core/presentation/alerting/modal_bottom_sheet.dart';
-import 'package:loopcare_frontend/core/presentation/loader/loader.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
+import 'package:loopcare_frontend/core/presentation/nutrition/calorie_tracker/calories_progress_indicator.dart';
 import 'package:loopcare_frontend/core/presentation/nutrition/calorie_tracker/range_item.dart';
 import 'package:loopcare_frontend/core/presentation/nutrition/overlays/calorie_budget_description.dart';
 import 'package:loopcare_frontend/core/presentation/text/custom_text.dart';
@@ -54,7 +54,8 @@ class CaloriesTracker extends StatelessWidget {
       child: BlocBuilder<BmrBloc, BmrState>(
         builder: (context, state) {
           return state.maybeMap(
-              loading: (_) => const Loader(),
+              loading: (_) => CaloriesProgressIndicator.loading(),
+              error: (_) => CaloriesProgressIndicator.error(),
               orElse: () {
                 final double caloriesMaintenance = state.data.bmr * _caloriesMaintenanceIndex;
 
@@ -84,21 +85,7 @@ class CaloriesTracker extends StatelessWidget {
                               border: Border.all(color: AppColors.white, style: BorderStyle.solid),
                             ),
                           ),
-                          TweenAnimationBuilder<double>(
-                            duration: const Duration(milliseconds: 250),
-                            curve: Curves.easeInOut,
-                            tween: Tween<double>(
-                              begin: 0,
-                              end: _getCaloriesMaintenanceRatio(caloriesMaintenance),
-                            ),
-                            builder: (context, value, _) => LinearProgressIndicator(
-                              minHeight: 15.0,
-                              valueColor: const AlwaysStoppedAnimation<Color>(AppColors.blueRegular),
-                              backgroundColor: AppColors.blueLightest,
-                              borderRadius: const BorderRadius.all(Radius.circular(8.0)),
-                              value: value,
-                            ),
-                          ),
+                          CaloriesProgressIndicator(value: _getCaloriesMaintenanceRatio(caloriesMaintenance)),
                         ],
                       ),
                       const SizedBox(height: 16.0),
