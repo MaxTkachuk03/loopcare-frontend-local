@@ -40,6 +40,9 @@ class Dish with _$Dish, NutritionUtils {
     return sum;
   }
 
+  double get caloriesSumWithDrinks =>
+      foodItems.fold<double>(0.0, (sum, i) => sum + (i.hasWeight ? i.servingCalories : 0.0));
+
   double get caloriesSum => sumNutritionalProperty((item) => item.servingCalories);
 
   double get fiberSum => sumNutritionalProperty((item) => item.servingFiber) * _servings;
