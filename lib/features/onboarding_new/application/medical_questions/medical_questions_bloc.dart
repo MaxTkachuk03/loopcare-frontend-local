@@ -180,7 +180,7 @@ class MedicalQuestionsBloc extends HydratedBloc<MedicalQuestionsEvent, MedicalQu
     CustomerIoService.track(
       event: CIOEvents.onboardingSemaglutide,
       attributes: {
-        CIOAttributes.semaglutide: event.value,
+        CIOAttributes.semaglutide: event.value.name,
       },
     );
 

@@ -9,13 +9,16 @@ enum NetworkStatus { online, offline }
 
 class NetworkStatusService {
   final Connectivity _connectivity = Connectivity();
-  StreamController<NetworkStatus> networkStatusController = StreamController<NetworkStatus>();
+  final StreamController<NetworkStatus> networkStatusController = StreamController<NetworkStatus>();
 
   NetworkStatusService() {
     _connectivity.onConnectivityChanged.listen((status) {
-      networkStatusController.add(_getNetworkStatus(status));
+      if (!networkStatusController.isClosed) {
+        networkStatusController.add(_getNetworkStatus(status));
+      }
     });
   }
+
   NetworkStatus _getNetworkStatus(ConnectivityResult status) {
     return status == ConnectivityResult.mobile || status == ConnectivityResult.wifi
         ? NetworkStatus.online
