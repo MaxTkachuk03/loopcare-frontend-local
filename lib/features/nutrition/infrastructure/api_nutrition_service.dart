@@ -42,7 +42,6 @@ import 'package:loopcare_frontend/features/nutrition/application/select_serving/
 import 'package:loopcare_frontend/features/nutrition/application/select_serving/dto/add_to_favorites_response.dart';
 import 'package:loopcare_frontend/features/nutrition/application/select_serving/dto/food_item_servings_response.dart';
 import 'package:loopcare_frontend/features/nutrition/application/select_serving/dto/update_favorite_body.dart';
-import 'package:loopcare_frontend/features/nutrition/infrastructure/get_bmr_mock.dart';
 
 @Injectable(as: NutritionService)
 class APINutritionService implements NutritionService {
@@ -52,8 +51,7 @@ class APINutritionService implements NutritionService {
 
   @override
   Future<Either<RequestError, GetBmrResponse>> getBmr(DateTime date) async {
-    return right(GetBmrResponse.fromJson({'data': bmr}));
-    //return client.get('/nutrition/bmr').then(parseResponse(GetBmrResponse.fromJson));
+    return client.get('/nutrition/bmr').then(parseResponse(GetBmrResponse.fromJson));
   }
 
   @override

@@ -17,7 +17,7 @@ class BmrStateData with _$BmrStateData {
 
   const factory BmrStateData({
     @Default(false) bool isLoading,
-    RequestError? error,
     @Default(0) double bmr,
+    RequestError? error,
   }) = _BmrStateData;
 }

@@ -27,7 +27,7 @@ class BmrBloc extends Bloc<BmrEvent, BmrState> {
 
     response.fold(
       (l) => emit(BmrState.error(state.data.copyWith(error: l, isLoading: false))),
-      (r) => emit(BmrState.bmrLoaded(state.data.copyWith(bmr: r.data.bmr, isLoading: false))),
+      (r) => emit(BmrState.bmrLoaded(state.data.copyWith(bmr: double.parse(r.bmr), isLoading: false))),
     );
   }
 }
