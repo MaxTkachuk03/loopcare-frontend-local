@@ -13,6 +13,7 @@ import 'package:loopcare_frontend/features/onboarding_new/application/general/ge
 import 'package:loopcare_frontend/features/onboarding_new/application/mental_questions/mental_questions_bloc.dart';
 import 'package:loopcare_frontend/injection.dart';
 
+@Deprecated('Not used since 1.2.0')
 class IntroGuard extends AutoRouteGuard {
   final AuthenticationBloc authenticationBloc;
   final SharedStorageService storage = getIt<SharedStorageService>();
@@ -43,9 +44,7 @@ class IntroGuard extends AutoRouteGuard {
 
       if (accessToken.isEmpty || refreshToken.isEmpty) {
         route = AppRoutes.login;
-      }
-      //Todo hide subscription flow LOOPCARE-2197
-      else if ((storage.account?.hasActiveSubscription ?? false) || !kIsProd) {
+      } else if ((storage.account?.hasActiveSubscription ?? false) || !kIsProd) {
         route = AppRoutes.home;
       } else {
         route = AppRoutes.subscription;

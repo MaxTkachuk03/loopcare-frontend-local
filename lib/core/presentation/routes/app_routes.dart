@@ -1,8 +1,8 @@
 part of 'app_router.dart';
 
 class AppRoutes {
+  static const String splash = '/';
   static const String proxy = '/proxy'; // added
-  static const String preIntro = '/pre-intro'; //added
   static const String intro = '/intro'; // added
   static const String accessCode = '/access-code'; // added
   static const String joinUs = '/join-us'; // added
