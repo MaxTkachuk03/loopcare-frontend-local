@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loopcare_frontend/core/infrastructure/services/shared_storage/shared_storage_service.dart';
-import 'package:loopcare_frontend/core/presentation/app_update/app_update_mixin.dart';
 import 'package:loopcare_frontend/core/presentation/routes/app_router.gr.dart';
 import 'package:loopcare_frontend/features/authentication/application/authentication_bloc.dart';
 import 'package:loopcare_frontend/features/home/presentation/widget/app_navigation_bar.dart';
@@ -17,17 +16,13 @@ class HomePage extends StatefulWidget {
   State<HomePage> createState() => _HomePageState();
 }
 
-class _HomePageState extends State<HomePage> with AppUpdateMixin {
+class _HomePageState extends State<HomePage> {
   final ValueNotifier<bool> isChatEnable = ValueNotifier(false);
 
   @override
   void initState() {
     super.initState();
     isChatEnable.value = getIt<SharedStorageService>().account?.isUserGrouped ?? false;
-
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      initPackageInfo(context);
-    });
   }
 
   @override
