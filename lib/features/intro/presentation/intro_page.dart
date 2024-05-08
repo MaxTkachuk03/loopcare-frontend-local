@@ -2,9 +2,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:get_it/get_it.dart';
 import 'package:loopcare_frontend/core/infrastructure/services/app_config.dart';
-import 'package:loopcare_frontend/core/presentation/app_update/app_update_mixin.dart';
 import 'package:loopcare_frontend/core/presentation/bottom_placed_button/bottom_placed_button.dart';
 import 'package:loopcare_frontend/core/presentation/buttons/custom_elevated_button.dart';
 import 'package:loopcare_frontend/core/presentation/custom_safe_area.dart';
@@ -15,31 +13,14 @@ import 'package:loopcare_frontend/core/presentation/scaffold/custom_scaffold.dar
 import 'package:loopcare_frontend/core/presentation/text/custom_text.dart';
 import 'package:loopcare_frontend/core/presentation/utils/build_context_extensions.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/main_container.dart';
-import 'package:loopcare_frontend/features/transparency/applictation/device_info_service.dart';
 import 'package:loopcare_frontend/injection.dart';
 
 AppConfig appConfig = getIt<AppConfig>();
 
-class IntroPage extends StatefulWidget {
+class IntroPage extends StatelessWidget {
   const IntroPage({super.key});
 
-  @override
-  State<IntroPage> createState() => _IntroPageState();
-}
-
-class _IntroPageState extends State<IntroPage> with AppUpdateMixin {
-  @override
-  void initState() {
-    super.initState();
-    final deviceInfoService = GetIt.instance<DeviceInfoService>();
-    deviceInfoService.onRequestTrackingAuthorization();
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      initPackageInfo(context);
-    });
-  }
-
   void _onGetStarted(BuildContext context) {
-    // Todo hide register code LOOPCARE-2196
     context.router.pushNamed(AppRoutes.joinUs);
   }
 

@@ -19,7 +19,7 @@ class AppsFlyerService {
 
   static AppsflyerSdk appsflyerSdk = AppsflyerSdk(appsFlyerOptions);
 
-  static start() async {
+  static Future<void> start() async {
     TrackingStatus status = await AppTrackingTransparency.trackingAuthorizationStatus;
 
     await appsflyerSdk.initSdk(
