@@ -45,7 +45,7 @@ class Dish with _$Dish, NutritionUtils {
 
   double get caloriesSum => sumNutritionalProperty((item) => item.servingCalories);
 
-  double get fiberSum => sumNutritionalProperty((item) => item.servingFiber) * _servings;
+  double get fiberSum => sumNutritionalProperty((item) => item.servingFiber);
 
   double get carbohydratesSum => sumNutritionalProperty((item) => item.servingCarbs);
 

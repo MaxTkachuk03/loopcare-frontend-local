@@ -53,6 +53,7 @@ class DishDetailsPage extends StatefulWidget {
 
 class _DishDetailsPageState extends State<DishDetailsPage> {
   late TextEditingController _servingController = TextEditingController();
+  late double _servingsAmount;
 
   @override
   void initState() {
@@ -66,6 +67,8 @@ class _DishDetailsPageState extends State<DishDetailsPage> {
 
     _servingController = TextEditingController(text: dishBloc.state.servingAmount);
 
+    _servingsAmount = double.parse(dishBloc.state.servingAmount);
+
     super.initState();
   }
 
@@ -76,6 +79,12 @@ class _DishDetailsPageState extends State<DishDetailsPage> {
   }
 
   void _onServingChanges(String val) {
+    setState(() {
+      _servingsAmount = double.parse(val.isEmpty ? '0' : val);
+    });
+
+    _servingController.text = val;
+
     if (!(widget.isMealDish ?? false)) return;
 
     final mealState = context.read<MealsBloc>().state;
@@ -284,10 +293,10 @@ class _DishDetailsPageState extends State<DishDetailsPage> {
                               NutritionSummary(
                                 proteinDegree: dishState.selectedDish.proteinDegreeValue,
                                 calorieDensity: dishState.selectedDish.calorieDensityValue,
-                                fiber: dishState.selectedDish.fiberSum,
+                                fiber: dishState.selectedDish.fiberSum * _servingsAmount,
                                 carbFiberRatio: dishState.selectedDish.carbFiberRatio,
                                 carbsPercent: dishState.selectedDish.carbsPercent,
-                                totalCalories: dishState.selectedDish.caloriesSumWithDrinks,
+                                totalCalories: dishState.selectedDish.caloriesSumWithDrinks * _servingsAmount,
                               ),
                               const SizedBox(height: 26.0),
                               MainContainer(

@@ -57,6 +57,7 @@ class EditDishPage extends StatefulWidget {
 
 class _EditDishPageState extends State<EditDishPage> {
   bool _isUserSaveChanges = false;
+  late double _servingsAmount;
 
   final _chips = [MealCategory.breakfast, MealCategory.lunch, MealCategory.dinner];
   List<MealCategory> _selectedMealCategories = [MealCategory.breakfast];
@@ -74,6 +75,8 @@ class _EditDishPageState extends State<EditDishPage> {
     editDishBloc.add(widget.event);
 
     _servingController.text = editDishBloc.state.servingAmount;
+    _portionsController.text = editDishBloc.state.numberOfPortions;
+    _servingsAmount = double.parse(editDishBloc.state.numberOfServings);
 
     super.initState();
   }
@@ -141,7 +144,13 @@ class _EditDishPageState extends State<EditDishPage> {
     context.read<EditDishBloc>().add(const EditDishEvent.deleteDish());
   }
 
-  void _onServingChanges(String value) {}
+  void _onServingChanges(String value) {
+    setState(() {
+      _servingsAmount = double.parse(value.isEmpty ? '0' : value);
+    });
+
+    _servingController.text = value;
+  }
 
   String? _validationError() {
     if (_selectedMealCategories.isEmpty) {
@@ -254,6 +263,9 @@ class _EditDishPageState extends State<EditDishPage> {
     if (state is DishInfo) {
       _selectedMealCategories = state.currentDish.mealCategories;
       _dishNameController.text = state.currentDish.name;
+      _servingController.text = state.numberOfServings;
+      _portionsController.text = state.numberOfPortions;
+      _servingsAmount = double.parse(state.numberOfServings);
     }
   }
 
@@ -353,8 +365,8 @@ class _EditDishPageState extends State<EditDishPage> {
                           );
                         },
                         dishInfo: (dishState) {
-                          _servingController.text = dishState.numberOfServings;
-                          _portionsController.text = dishState.numberOfPortions;
+                          // _servingController.text = dishState.numberOfServings;
+                          // _portionsController.text = dishState.numberOfPortions;
 
                           return Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
@@ -386,10 +398,11 @@ class _EditDishPageState extends State<EditDishPage> {
                                   NutritionSummary(
                                     proteinDegree: dishState.currentDish.proteinDegreeValue,
                                     calorieDensity: dishState.currentDish.calorieDensityValue,
-                                    fiber: dishState.currentDish.fiberSum,
+                                    fiber: dishState.currentDish.fiberSum * _servingsAmount,
                                     carbFiberRatio: dishState.currentDish.carbFiberRatio,
                                     carbsPercent: dishState.currentDish.carbsPercent,
-                                    totalCalories: dishState.currentDish.caloriesSumWithDrinks,
+                                    totalCalories:
+                                        dishState.currentDish.caloriesSumWithDrinks * _servingsAmount,
                                   ),
                                   const SizedBox(height: 15.0),
                                   MainContainer(
