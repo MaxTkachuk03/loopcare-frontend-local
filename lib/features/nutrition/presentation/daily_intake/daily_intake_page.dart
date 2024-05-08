@@ -64,7 +64,7 @@ class DailyIntakePage extends StatelessWidget {
                       padding: const EdgeInsets.symmetric(vertical: 30.0),
                       child: NutritionSummary(
                         proteinDegree: mealsState.selectedDayMealProteinDegreeSum,
-                        calorieDensity: mealsState.selectedDayMealProteinDegreeSum,
+                        calorieDensity: mealsState.selectedDayMealCalorieDensitySum,
                         fiber: mealsState.selectedDayMealFiber,
                         carbFiberRatio: mealsState.selectedDayMealCarbFiberRatio,
                         carbsPercent: mealsState.carbsPercent,
