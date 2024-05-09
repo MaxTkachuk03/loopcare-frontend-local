@@ -93,8 +93,7 @@ class MindBloc extends Bloc<MindEvent, MindState> {
     final techniqueId = state.data.currentTechnique?.id;
     final exerciseId = state.data.currentExercise?.id;
 
-    if (techniqueId == null || exerciseId == null ||
-        state.data.currentExercise?.completedAt != null) {
+    if (techniqueId == null || exerciseId == null) {
       return;
     }
 
@@ -109,14 +108,6 @@ class MindBloc extends Bloc<MindEvent, MindState> {
             CustomDefinitions.techniqueId: techniqueId,
             CustomDefinitions.exerciseId: exerciseId,
             CustomDefinitions.timestamp: DateTime.now().toIso8601String(),
-          },
-        );
-
-        CustomerIoService.track(
-          event: CIOEvents.mindCompletedExercise,
-          attributes: {
-            CIOAttributes.techniqueId: techniqueId,
-            CIOAttributes.exerciseId: exerciseId,
           },
         );
 
