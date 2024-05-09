@@ -43,7 +43,7 @@ class _TechniquesPageState extends State<TechniquesPage> with MindAnalyticsMixin
 
   @override
   void dispose() {
-    track(FirebaseEvents.mindClose, forCIO: false);
+    track(FirebaseEvents.mindClose);
     super.dispose();
   }
 

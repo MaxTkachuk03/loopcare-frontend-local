@@ -34,7 +34,7 @@ class _TechniqueExercisesPageState extends State<TechniqueExercisesPage> with Mi
 
   @override
   void dispose() {
-    track(FirebaseEvents.mindCloseTechnique, forCIO: false);
+    track(FirebaseEvents.mindCloseTechnique);
     super.dispose();
   }
 

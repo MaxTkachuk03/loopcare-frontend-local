@@ -27,7 +27,7 @@ class _IntroExercisePageState extends State<IntroExercisePage> with MindAnalytic
 
   @override
   void dispose() {
-    track(FirebaseEvents.mindCloseExerciseIntro, forCIO: false);
+    track(FirebaseEvents.mindCloseExerciseIntro);
     super.dispose();
   }
 

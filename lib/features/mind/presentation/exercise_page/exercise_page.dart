@@ -1,66 +1,35 @@
-import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:loopcare_frontend/core/application/customer_io_service/customer_io_service.dart';
-import 'package:loopcare_frontend/core/domain/analytics/firebase_event_custom_definitions.dart';
 import 'package:loopcare_frontend/core/domain/analytics/firebase_event_list.dart';
-import 'package:loopcare_frontend/core/infrastructure/services/firebase_event_service.dart';
 import 'package:loopcare_frontend/features/mind/application/mind_bloc.dart';
+import 'package:loopcare_frontend/features/mind/domain/mind_analytics_mixin/mind_analytics_mixin.dart';
 import 'package:loopcare_frontend/features/mind/presentation/widgets/mind_content_screen/mind_content_screen.dart';
 
-class ExercisePage extends StatelessWidget {
+class ExercisePage extends StatefulWidget {
   const ExercisePage({super.key});
 
+  @override
+  State<ExercisePage> createState() => _ExercisePageState();
+}
+
+class _ExercisePageState extends State<ExercisePage> with MindAnalyticsMixin {
+
+  @override
+  void initState() {
+    super.initState();
+    techniqueId = context.read<MindBloc>().state.data.currentTechnique!.id;
+    exerciseId = context.read<MindBloc>().state.data.currentExercise!.id;
+
+    track(FirebaseEvents.mindOpenExercise);
+  }
+
   void _onExerciseCompleted(BuildContext context) {
-    final bloc = context.read<MindBloc>();
-    final data = bloc.state.data;
+    context.read<MindBloc>().add(const MindEvent.completeCurrentExercise());
 
-    final techniqueId = data.currentTechnique?.id;
-    final exerciseId = data.currentExercise?.id;
-
-    bloc.add(const MindEvent.completeCurrentExercise());
-
-    AnalyticsEventService.instance.logEvent(
-      FirebaseEvents.mindCompletedExercise,
-      parameters: {
-        CustomDefinitions.techniqueId: techniqueId,
-        CustomDefinitions.exerciseId: exerciseId,
-        CustomDefinitions.timestamp: DateTime.now().toIso8601String(),
-      },
-    );
-
-    CustomerIoService.track(
-      event: CIOEvents.mindCompletedExercise,
-      attributes: {
-        CIOAttributes.techniqueId: techniqueId,
-        CIOAttributes.exerciseId: exerciseId,
-      },
-    );
+    track(FirebaseEvents.mindCompletedExercise);
   }
 
-  void _onRepeat(BuildContext context) {
-    final data = context.read<MindBloc>().state.data;
-
-    final techniqueId = data.currentTechnique?.id;
-    final exerciseId = data.currentExercise?.id;
-
-    AnalyticsEventService.instance.logEvent(
-      FirebaseEvents.mindRepeatedExercise,
-      parameters: {
-        CustomDefinitions.techniqueId: techniqueId,
-        CustomDefinitions.exerciseId: exerciseId,
-        CustomDefinitions.timestamp: DateTime.now().toIso8601String(),
-      },
-    );
-
-    CustomerIoService.track(
-      event: CIOEvents.mindRepeatedExercise,
-      attributes: {
-        CIOAttributes.techniqueId: techniqueId,
-        CIOAttributes.exerciseId: exerciseId,
-      },
-    );
-  }
+  void _onRepeat() => track(FirebaseEvents.mindRepeatedExercise);
 
   @override
   Widget build(BuildContext context) {
@@ -76,7 +45,7 @@ class ExercisePage extends StatelessWidget {
       contentTitle: exerciseTitle,
       difficulty: difficulty,
       onExerciseCompleted: () => _onExerciseCompleted(context),
-      onRepeat: () => _onRepeat(context),
+      onRepeat: _onRepeat,
     );
   }
 }

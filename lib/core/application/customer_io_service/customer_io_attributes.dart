@@ -52,10 +52,6 @@ class CIOAttributes {
   static const String food = 'Food';
   static const String note = 'Note';
 
-  // Mind
-  static const String techniqueId = 'Technique Id';
-  static const String exerciseId = 'Exercise Id';
-
   // Smart goals
   static String goalCategoryTitle = 'Goal Category Title';
   static String goalTitle = 'Goal  Title';

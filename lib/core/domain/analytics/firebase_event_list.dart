@@ -73,6 +73,7 @@ class FirebaseEvents {
   static String get mindCloseTechnique => 'mind_close_technique';
   static String get mindExerciseIntro => 'mind_open_exercise_intro';
   static String get mindCloseExerciseIntro => 'mind_close_exercise_intro';
+  static String get mindOpenExercise => 'mind_open_exercise';
   static String get mindCompletedExercise => 'mind_completed_exercise';
   static String get mindRepeatedExercise => 'mind_repeated_exercise';
 

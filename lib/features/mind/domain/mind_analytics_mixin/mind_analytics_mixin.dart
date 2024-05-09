@@ -1,4 +1,3 @@
-import 'package:loopcare_frontend/core/application/customer_io_service/customer_io_service.dart';
 import 'package:loopcare_frontend/core/domain/analytics/firebase_event_custom_definitions.dart';
 import 'package:loopcare_frontend/core/infrastructure/services/firebase_event_service.dart';
 
@@ -6,11 +5,11 @@ mixin MindAnalyticsMixin {
   int? _techniqueId;
   int? _exerciseId;
 
-  set techniqueId(int id) => _techniqueId == id;
+  set techniqueId(int id) => _techniqueId = id;
 
-  set exerciseId(int id) => _exerciseId == id;
+  set exerciseId(int id) => _exerciseId = id;
 
-  void track(String event, {bool forCIO = true}) {
+  void track(String event) {
     AnalyticsEventService.instance.logEvent(
       event,
       parameters: {
@@ -19,15 +18,5 @@ mixin MindAnalyticsMixin {
         CustomDefinitions.timestamp: DateTime.now().toIso8601String(),
       },
     );
-
-    if (forCIO) {
-      CustomerIoService.track(
-        event: event,
-        attributes: {
-          if (_techniqueId != null ) CIOAttributes.techniqueId: _techniqueId,
-          if (_exerciseId != null ) CIOAttributes.exerciseId: _exerciseId,
-        },
-      );
-    }
   }
 }
