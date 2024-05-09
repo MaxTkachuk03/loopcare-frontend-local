@@ -46,7 +46,7 @@ class APIMindService implements MindService {
 
   @override
   Future<Either<RequestError, MindTechniqueExercise>> completeExercise(int techniqueId, int exerciseId) async {
-    return client.put(
+    return client.post(
       '/mind/techniques/$techniqueId/exercises/$exerciseId',
       data: {},
     ).then(parseResponse(MindTechniqueExercise.fromJson));

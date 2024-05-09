@@ -18,7 +18,6 @@ class MindTechnique {
   final DateTime? unlocksAt;
   final TechniqueExerciseUnlockStyle exerciseUnlockStyle;
 
-
   const MindTechnique({
     required this.id,
     required this.title,
