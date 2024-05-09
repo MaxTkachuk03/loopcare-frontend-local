@@ -245,13 +245,6 @@ class _DashboardPageState extends State<DashboardPage> with WidgetsBindingObserv
                             },
                           ),
                           WeightBlock(date: _selectedDay),
-                          const Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              SizedBox(height: 19.0),
-                              DashboardMindWidget(),
-                            ],
-                          ),
                           BlocBuilder<AuthenticationBloc, AuthenticationState>(
                             builder: (BuildContext context, state) {
                               if (state.data.account?.isMindUnlocked ?? false) {

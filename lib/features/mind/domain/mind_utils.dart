@@ -14,9 +14,11 @@ class  MindUtils {
         ..write('m ');
     }
 
-    buffer
-      ..write(seconds.toString())
-      ..write('s');
+    if (seconds > 0) {
+      buffer
+        ..write(seconds.toString())
+        ..write('s');
+    }
 
     return buffer.toString();
   }
