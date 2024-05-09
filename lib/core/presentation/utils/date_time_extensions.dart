@@ -19,7 +19,7 @@ extension DateTimeExtension on DateTime {
   }
 
   bool get laterThanWeekAgo {
-    return beginDay.isAfter(DateTime.now().subtract(const Duration(days: 7)).beginDay);
+    return beginDay.isAfter(DateTime.now().subtract(const Duration(days: 8)).beginDay);
   }
 
   DateTime get midnightTime {

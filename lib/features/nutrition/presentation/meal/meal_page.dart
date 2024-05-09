@@ -259,7 +259,9 @@ class _MealPageState extends State<MealPage> {
               title: _appBarTitle,
               subtitle: _appBarSubTitle,
               leading: CustomFilledIconButton.leadingGreenLighter(),
-              actions: currentDate.isTodayOrFuture ? const [CirclePlusButton()] : null,
+              actions: currentDate.inRange(DateTime.now().subtract(const Duration(days: 8)), DateTime.now())
+                  ? const [CirclePlusButton()]
+                  : null,
             ),
             body: CustomSafeArea(
               child: ScrollableContainer(
