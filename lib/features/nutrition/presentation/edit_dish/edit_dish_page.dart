@@ -24,7 +24,6 @@ import 'package:loopcare_frontend/core/presentation/widgets/keyboard_listener_co
 import 'package:loopcare_frontend/core/presentation/widgets/main_container.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/scrollable_container.dart';
 import 'package:loopcare_frontend/features/nutrition/application/edit_dish/edit_dish_bloc.dart';
-import 'package:loopcare_frontend/features/nutrition/application/meals/meals_bloc.dart';
 import 'package:loopcare_frontend/features/nutrition/application/search/dto/search_item.dart';
 import 'package:loopcare_frontend/features/nutrition/application/search/dto/search_mode.dart';
 import 'package:loopcare_frontend/features/nutrition/domain/dish_food_item/dish_food_item.dart';
@@ -59,8 +58,8 @@ class _EditDishPageState extends State<EditDishPage> {
   bool _isUserSaveChanges = false;
   late double _servingsAmount;
 
-  final _chips = [MealCategory.breakfast, MealCategory.lunch, MealCategory.dinner];
-  List<MealCategory> _selectedMealCategories = [MealCategory.breakfast];
+  MealCategory _selectedMealCategory = MealCategory.breakfast;
+
   late final TextEditingController _servingController = TextEditingController();
   late final TextEditingController _portionsController = TextEditingController();
   late final TextEditingController _dishNameController = TextEditingController();
@@ -153,9 +152,6 @@ class _EditDishPageState extends State<EditDishPage> {
   }
 
   String? _validationError() {
-    if (_selectedMealCategories.isEmpty) {
-      return LocalizedTexts.invalidDishSelectedMealCategory.tr();
-    }
     if (_dishNameController.text.isEmpty) {
       return LocalizedTexts.invalidDishNameMessage.tr();
     }
@@ -181,12 +177,13 @@ class _EditDishPageState extends State<EditDishPage> {
       name: _dishNameController.text,
       numberOfUnits: double.parse(_servingController.text.replaceCommaWithDot.deleteDotAtTheEnd),
       numberOfServings: double.parse(_portionsController.text),
-      mealCategories: _selectedMealCategories,
+      mealCategories: [_selectedMealCategory],
     ));
 
     setState(() {
       _isUserSaveChanges = true;
     });
+
     context.showSuccessBar(content: Text(LocalizedTexts.dishWasSaved.tr()));
     context.router.pop();
   }
@@ -245,27 +242,20 @@ class _EditDishPageState extends State<EditDishPage> {
     );
   }
 
-  _onChipPressed(item) {
-    List<MealCategory> updatedCategories = List.from(_selectedMealCategories);
-
-    if (updatedCategories.contains(item)) {
-      updatedCategories.remove(item);
-    } else {
-      updatedCategories.add(item);
-    }
-
+  void _onChangeHandler(item) {
     setState(() {
-      _selectedMealCategories = updatedCategories;
+      _selectedMealCategory = item;
     });
   }
 
   _dishLoadedlistener(BuildContext context, state) {
     if (state is DishInfo) {
-      _selectedMealCategories = state.currentDish.mealCategories;
-      _dishNameController.text = state.currentDish.name;
-      _servingController.text = state.numberOfServings;
-      _portionsController.text = state.numberOfPortions;
-      _servingsAmount = double.parse(state.numberOfServings);
+      setState(() {
+        _dishNameController.text = state.currentDish.name;
+        _servingController.text = state.numberOfServings;
+        _portionsController.text = state.numberOfPortions;
+        _servingsAmount = double.parse(state.numberOfServings);
+      });
     }
   }
 
@@ -306,40 +296,22 @@ class _EditDishPageState extends State<EditDishPage> {
                 preferredSize: const Size.fromHeight(150),
                 child: Column(
                   children: [
-                    BlocBuilder<MealsBloc, MealsState>(
-                      builder: (context, state) {
-                        return Container(
-                          padding: const EdgeInsets.symmetric(horizontal: 20.0),
-                          color: state.isPlanningMeals ? AppColors.darkGreen : AppColors.greenRegular,
-                          child: BlocBuilder<EditDishBloc, EditDishState>(
-                            builder: (BuildContext context, state) {
-                              return state.maybeMap(
-                                dishInfo: (dishState) {
-                                  return MealCategoryChips(
-                                    categories: _chips,
-                                    selectedChips: _selectedMealCategories.first,
-                                    onItemPressHandler: _onChipPressed,
-                                  );
-                                },
-                                orElse: () => const SizedBox.shrink(),
-                              );
-                            },
-                          ),
-                        );
-                      },
+                    Container(
+                      padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                      color: AppColors.greenRegular,
+                      child: MealCategoryChips(
+                        initialCategory: _selectedMealCategory,
+                        onItemPressHandler: _onChangeHandler,
+                      ),
                     ),
-                    BlocBuilder<MealsBloc, MealsState>(
-                      builder: (context, state) {
-                        return Container(
-                          padding: const EdgeInsets.all(20.0),
-                          color: state.isPlanningMeals ? AppColors.darkGreen : AppColors.greenRegular,
-                          child: CustomTextField(
-                            focusNode: _dishNameFocusNode,
-                            controller: _dishNameController,
-                            hintText: LocalizedTexts.giveNameToThisDish.tr(),
-                          ),
-                        );
-                      },
+                    Container(
+                      padding: const EdgeInsets.all(20.0),
+                      color: AppColors.greenRegular,
+                      child: CustomTextField(
+                        focusNode: _dishNameFocusNode,
+                        controller: _dishNameController,
+                        hintText: LocalizedTexts.giveNameToThisDish.tr(),
+                      ),
                     ),
                   ],
                 ),
@@ -365,9 +337,6 @@ class _EditDishPageState extends State<EditDishPage> {
                           );
                         },
                         dishInfo: (dishState) {
-                          // _servingController.text = dishState.numberOfServings;
-                          // _portionsController.text = dishState.numberOfPortions;
-
                           return Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
