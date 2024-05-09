@@ -13,6 +13,7 @@ import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 import 'package:loopcare_frontend/core/presentation/utils/build_context_extensions.dart';
 import 'package:loopcare_frontend/features/mind/application/dto/mind_technique_exercise.dart';
 import 'package:loopcare_frontend/features/mind/application/mind_bloc.dart';
+import 'package:loopcare_frontend/features/mind/domain/mind_utils.dart';
 import 'package:loopcare_frontend/features/mind/presentation/widgets/mind_difficulty_badge/mind_difficulty_badge.dart';
 
 class ExerciseListTile extends StatelessWidget {
@@ -89,9 +90,7 @@ class ExerciseListTile extends StatelessWidget {
                     const Icon(Icons.watch_later_outlined, size: 20),
                     const SizedBox(width: 6),
                     CustomText.w600(
-                      LocalizedTexts.countMins.tr(
-                        args: [Duration(seconds: exercise.stepsDuration).inMinutes.toString()],
-                      ),
+                      MindUtils.getDurationLine(exercise.stepsDuration),
                       style: context.textTheme.bodySmall,
                     ),
                   ],

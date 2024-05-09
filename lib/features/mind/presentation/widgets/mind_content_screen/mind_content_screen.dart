@@ -20,6 +20,7 @@ import 'package:loopcare_frontend/features/mind/application/dto/mind_content.dar
 import 'package:loopcare_frontend/features/mind/application/dto/technique_exercise_difficulty.dart';
 import 'package:loopcare_frontend/features/mind/application/dto/technique_explanation_type.dart';
 import 'package:loopcare_frontend/features/mind/application/mind_bloc.dart';
+import 'package:loopcare_frontend/features/mind/domain/mind_utils.dart';
 import 'package:loopcare_frontend/features/mind/presentation/widgets/exercise_list_tile/exercise_list_tile.dart';
 import 'package:loopcare_frontend/features/mind/presentation/widgets/mind_difficulty_badge/mind_difficulty_badge.dart';
 import 'package:loopcare_frontend/features/mind/presentation/widgets/mind_text_screen/mind_text_screen.dart';
@@ -160,7 +161,7 @@ class _MindContentScreenState extends State<MindContentScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final duration = Duration(seconds: steps.map((e) => e.duration ?? 0).sum).inMinutes.toString();
+    final duration = steps.map((e) => e.duration ?? 0).sum;
 
     final currentStep = steps[currentStepIndex];
 
@@ -171,7 +172,7 @@ class _MindContentScreenState extends State<MindContentScreen> {
       isExercise: _type.isExercise,
       completeButtonLabel: _buttonLabel,
       difficulty: widget.difficulty,
-      minutesCounter: duration,
+      minutesCounter: MindUtils.getDurationLine(duration),
       techniqueTitle: widget.title,
       onRepeatPressed: _type.isExercise ? onRepeat : null,
       onCompletePressed: widget.onComplete ?? _defaultCompletion,

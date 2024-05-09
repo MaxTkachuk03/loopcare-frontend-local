@@ -64,9 +64,7 @@ class _VideoCompleteContent extends StatelessWidget {
               ),
               const SizedBox(width: 6),
               CustomText.w600(
-                LocalizedTexts.countMins.tr(
-                  args: [minutesCounter!],
-                ),
+                minutesCounter!,
                 style: context.textTheme.bodySmall?.copyWith(color: AppColors.white),
               ),
               const SizedBox(width: 16),
