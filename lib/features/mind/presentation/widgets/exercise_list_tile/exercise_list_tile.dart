@@ -138,20 +138,21 @@ class _AccessExerciseLine extends StatelessWidget {
         ],
       );
     } else {
-      return Wrap(
-        runSpacing: 6,
-        spacing: 16,
+      return Row(
         children: [
           if (exercise.explanation != null && !hideIntro) ...[
             CustomElevatedButton.yellowSmall(
               label: LocalizedTexts.intro.tr(),
+              contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
               onPressed: () => context
                 ..read<MindBloc>().add(MindEvent.selectExercise(exercise: exercise))
                 ..router.pushNamed(AppRoutes.mindIntroExercise),
             ),
+            const SizedBox(width: 16),
           ],
           CustomElevatedButton.yellowSmall(
             label: LocalizedTexts.start.tr(),
+            contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
             onPressed: () => context
               ..read<MindBloc>().add(MindEvent.selectExercise(exercise: exercise))
               ..router.pushNamed(AppRoutes.mindExercise),

@@ -154,6 +154,7 @@ class CustomElevatedButton extends StatelessWidget {
     Key? key,
     VoidCallback? onPressed,
     required String label,
+    EdgeInsetsGeometry? contentPadding,
     bool fullWidth = false,
   }) =>
       CustomElevatedButton(
@@ -162,6 +163,7 @@ class CustomElevatedButton extends StatelessWidget {
         color: AppColors.blueDarker,
         label: label,
         styles: ElevatedButton.styleFrom(
+          padding: contentPadding,
           backgroundColor: AppColors.yellowRegular,
           foregroundColor: AppColors.blueDarker,
           minimumSize: ButtonStyles.smallSize,
