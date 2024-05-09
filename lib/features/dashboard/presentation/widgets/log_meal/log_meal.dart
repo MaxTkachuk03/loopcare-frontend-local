@@ -61,34 +61,31 @@ class LogMeal extends StatelessWidget {
     );
   }
 
-  _onIntakePressed(BuildContext context) => context.router.pushNamed(AppRoutes.dailyIntake);
+  void _onIntakePressed(BuildContext context) => context.router.pushNamed(AppRoutes.dailyIntake);
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.only(top: 8.0, bottom: 8.0, right: 8.0, left: 8.0),
-      decoration: const BoxDecoration(
-        color: AppColors.white,
-        borderRadius: BorderRadius.all(Radius.circular(8)),
-      ),
-      child: BlocBuilder<MealsBloc, MealsState>(
-        builder: (context, state) {
-          final Color textColor = state.isEnableOnDashboard ? AppColors.blueDarker : AppColors.greyLabel;
+    return BlocBuilder<MealsBloc, MealsState>(
+      builder: (context, state) {
+        if (state.isNeedToHideOnDashboard) {
+          return const SizedBox.shrink();
+        }
 
-          return state.maybeMap(
+        final Color textColor = state.isEnableOnDashboard ? AppColors.blueDarker : AppColors.greyLabel;
+
+        return Container(
+          padding: const EdgeInsets.only(top: 8.0, bottom: 8.0, right: 8.0, left: 8.0),
+          decoration: const BoxDecoration(
+            color: AppColors.white,
+            borderRadius: BorderRadius.all(Radius.circular(8)),
+          ),
+          child: state.maybeMap(
             error: (errorState) {
               final error = errorState.fetchError;
 
-              return Container(
-                padding: const EdgeInsets.only(top: 8.0, bottom: 16.0, right: 16.0, left: 16.0),
-                decoration: const BoxDecoration(
-                  color: AppColors.white,
-                  borderRadius: BorderRadius.all(Radius.circular(8)),
-                ),
-                child: ErrorScreen(
-                  error: error,
-                  onButtonPressed: () => context.read<MealsBloc>().add(const MealsEvent.fetchMeals()),
-                ),
+              return ErrorScreen(
+                error: error,
+                onButtonPressed: () => context.read<MealsBloc>().add(const MealsEvent.fetchMeals()),
               );
             },
             orElse: () {
@@ -125,7 +122,6 @@ class LogMeal extends StatelessWidget {
                         children: [
                           const Divider(
                             color: AppColors.blueOffRegular,
-                            height: 8,
                           ),
                           const SizedBox(height: 4.0),
                           GestureDetector(
@@ -172,9 +168,9 @@ class LogMeal extends StatelessWidget {
                 ],
               );
             },
-          );
-        },
-      ),
+          ),
+        );
+      },
     );
   }
 }

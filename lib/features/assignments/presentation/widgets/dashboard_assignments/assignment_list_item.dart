@@ -49,7 +49,7 @@ class AssignmentListItem extends StatelessWidget {
                           if (isComplete)
                             CustomText.w400(
                               LocalizedTexts.completedOn.tr(
-                                namedArgs: {'date': item.completedAt?.dayWithMonthWithoutLeadingZero ?? ''},
+                                namedArgs: {'date': item.answeredAt?.dayWithMonthWithoutLeadingZero ?? ''},
                               ),
                               style: context.textTheme.bodySmall,
                             ),

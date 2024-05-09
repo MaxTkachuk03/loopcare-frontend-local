@@ -62,7 +62,6 @@ class _DashboardAssignmentsState extends State<DashboardAssignments> {
             ),
             const Divider(
               color: AppColors.blueOffRegular,
-              height: 8,
               indent: 8.0,
               endIndent: 8.0,
             ),
