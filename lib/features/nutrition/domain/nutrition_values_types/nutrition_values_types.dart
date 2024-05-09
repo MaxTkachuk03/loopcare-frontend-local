@@ -26,13 +26,14 @@ extension NutritionValuesTypesX on NutritionValuesTypes {
         return 'kcal';
       case NutritionValuesTypes.sodium:
       case NutritionValuesTypes.potassium:
-        return 'mg';
-      case NutritionValuesTypes.vitaminA:
+      case NutritionValuesTypes.cholesterol:
       case NutritionValuesTypes.vitaminC:
-      case NutritionValuesTypes.vitaminD:
       case NutritionValuesTypes.calcium:
       case NutritionValuesTypes.iron:
-        return '';
+        return 'mg';
+      case NutritionValuesTypes.vitaminA:
+      case NutritionValuesTypes.vitaminD:
+        return 'mcg';
       default:
         return 'g';
     }

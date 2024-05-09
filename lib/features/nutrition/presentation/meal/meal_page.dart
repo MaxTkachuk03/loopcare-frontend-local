@@ -48,7 +48,7 @@ class _MealPageState extends State<MealPage> {
   void initState() {
     super.initState();
     final mealState = context.read<MealsBloc>().state;
-    // FIXME very bad solution, need to change mealState.currentMealCategory type in the model to the enum value, could broke a lot of, thats why using temporary solution now
+    // FIXME very bad solution, need to change mealState.currentMealCategory type in the model to the enum value, could broke a lot of, that's why using temporary solution now
     final mealCategory =
         mealState.currentMealCategory == 'inbetweens & snacks' ? 'snack' : mealState.currentMealCategory;
     if (mealCategory != null) {
@@ -154,9 +154,7 @@ class _MealPageState extends State<MealPage> {
   }
 
   void _onNutritionFactSelect(NutritionValuesTypes item) {
-    context.read<MealsBloc>().add(
-          MealsEvent.nutritionItemChanged(item),
-        );
+    context.read<MealsBloc>().add(MealsEvent.nutritionItemChanged(item));
   }
 
   _onRecommendationsPressed(BuildContext context) {
@@ -293,7 +291,6 @@ class _MealPageState extends State<MealPage> {
                         ),
                       );
                     }
-
                     return Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,

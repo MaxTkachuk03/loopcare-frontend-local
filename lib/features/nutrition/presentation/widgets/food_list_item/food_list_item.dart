@@ -99,16 +99,11 @@ class FoodListItem extends StatelessWidget {
               Row(
                 children: [
                   CustomText.w400(
-                      '${currentNutritionFact.value.toStringAsFixed(2)} ${LocalizedTexts.kcal.tr()}',
-                      style: context.textTheme.bodySmall),
+                    '${currentNutritionFact.value.toStringAsFixed(2)}${currentNutritionFact.unitLabel}',
+                    style: context.textTheme.bodySmall,
+                  ),
                   if (onTap != null)
-                    const SizedBox(
-                      width: 44,
-                      child: ImageIcon(
-                        AppIcons.arrow,
-                        color: AppColors.blueDarker,
-                      ),
-                    ),
+                    const SizedBox(width: 44, child: ImageIcon(AppIcons.arrow, color: AppColors.blueDarker)),
                 ],
               ),
             ],
