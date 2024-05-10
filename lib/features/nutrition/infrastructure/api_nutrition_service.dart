@@ -51,7 +51,8 @@ class APINutritionService implements NutritionService {
 
   @override
   Future<Either<RequestError, GetBmrResponse>> getBmr(DateTime date) async {
-    return client.get('/nutrition/bmr').then(parseResponse(GetBmrResponse.fromJson));
+    return client
+        .get('/nutrition/bmr', queryParameters: {"date": date}).then(parseResponse(GetBmrResponse.fromJson));
   }
 
   @override
