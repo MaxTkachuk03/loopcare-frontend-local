@@ -10,6 +10,11 @@ extension DateTimeExtension on DateTime {
     return isSameDate(DateTime.now());
   }
 
+  DateTime get withCurrentTime {
+    final currentDate = DateTime.now();
+    return DateTime(year, month, day, currentDate.hour, currentDate.minute, currentDate.second);
+  }
+
   bool get isFuture {
     return beginDay.isAfter(DateTime.now().beginDay);
   }
