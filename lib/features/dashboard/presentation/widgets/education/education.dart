@@ -58,7 +58,7 @@ class Education extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     const Divider(
-                      color: AppColors.blueOffRegular,
+                      color: AppColors.blueLighter,
                     ),
                     const SizedBox(height: 8.0),
                     state.maybeMap(
