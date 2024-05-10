@@ -121,7 +121,7 @@ class LogMeal extends StatelessWidget {
                       child: Column(
                         children: [
                           const Divider(
-                            color: AppColors.blueOffRegular,
+                            color: AppColors.blueLighter,
                           ),
                           const SizedBox(height: 4.0),
                           GestureDetector(

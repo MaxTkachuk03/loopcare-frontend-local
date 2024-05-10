@@ -38,7 +38,6 @@ abstract class Account implements _$Account {
     @Default(null) int? groupId,
     @Default(null) DateTime? groupingStartedAt,
     @Default(0) double height,
-    @Default(0) double weight,
     @Default(0) double bmi,
     DateTime? birthDate,
     @Default('') String diabetes,
