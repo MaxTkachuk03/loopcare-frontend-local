@@ -11,7 +11,6 @@ abstract class PhysicalFitness implements _$PhysicalFitness {
   const factory PhysicalFitness({
     required int id,
     required double height,
-    required double weight,
     required double bmi,
     required DateTime birthDate,
     DateTime? createdAt,
