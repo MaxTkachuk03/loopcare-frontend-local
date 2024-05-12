@@ -10,6 +10,7 @@ import 'package:loopcare_frontend/core/infrastructure/services/firebase_event_se
 import 'package:loopcare_frontend/features/mind/application/dto/mind_info_response.dart';
 import 'package:loopcare_frontend/features/mind/application/dto/mind_technique.dart';
 import 'package:loopcare_frontend/features/mind/application/dto/mind_technique_exercise.dart';
+import 'package:loopcare_frontend/features/mind/application/dto/mind_techniques_response.dart';
 import 'package:loopcare_frontend/features/mind/application/dto/technique_unlock_style.dart';
 import 'package:loopcare_frontend/features/mind/application/mind_service.dart';
 
@@ -32,26 +33,24 @@ class MindBloc extends Bloc<MindEvent, MindState> {
   FutureOr<void> _onGetTechniques(GetTechniques event, Emitter<MindState> emit) async {
     emit(MindState.loading(state.data.copyWith(isLoading: true)));
 
-    final responseInfo = await _mindService.getMindInfo();
+    final responses = await Future.wait([
+      _mindService.getMindInfo(),
+      _mindService.getTechniques(),
+    ]);
 
-    final responseTechniques = await _mindService.getTechniques();
+    final failedResponses = responses.where((response) => response.isLeft());
 
-    if (responseTechniques.isLeft() || responseInfo.isLeft()) {
-      responseTechniques.fold(
-        (l) => emit(MindState.error(state.data.copyWith(error: l, isLoading: false))),
-        (r) => null,
-      );
-
-      responseInfo.fold(
-        (l) => emit(MindState.error(state.data.copyWith(error: l, isLoading: false))),
-        (r) => null,
-      );
+    if (failedResponses.isNotEmpty) {
+      failedResponses.first.fold(
+            (l) => emit(MindState.error(state.data.copyWith(error: l, isLoading: false))),
+            (r) => null,
+          );
     } else {
       emit(
         MindState.gotTechniques(
           state.data.copyWith(
-            mindInfo: responseInfo.foldRight(null, (r, _) => r),
-            techniques: responseTechniques.foldRight([], (r, _) => r.data),
+            mindInfo: responses.first.foldRight(null, (r, _) => r as MindInfoResponse),
+            techniques: responses.last.foldRight([], (r, _) => (r as MindTechniquesResponse).data),
             isLoading: false,
           ),
         ),

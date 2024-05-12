@@ -25,9 +25,9 @@ import 'package:loopcare_frontend/core/presentation/loader/loader.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/core/presentation/routes/app_router.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
+import 'package:loopcare_frontend/core/presentation/utils/date_time_utils.dart';
 import 'package:loopcare_frontend/features/authentication/application/dto/group_session_report.dart';
 import 'package:loopcare_frontend/features/group_sessions/application/topics_bloc.dart';
-import 'package:loopcare_frontend/features/onboarding_new/utils/date_time_utils.dart';
 import 'package:loopcare_frontend/features/report_abuse/application/report_abuse_bloc.dart';
 import 'package:loopcare_frontend/features/video_session/application/session_call_bloc.dart';
 import 'package:loopcare_frontend/features/video_session/domain/zoom_config.dart';
@@ -597,7 +597,7 @@ class _SessionCallPageState extends State<SessionCallPage> with WidgetsBindingOb
 
     final sessionReport = GroupSessionReport(
       id: signedSessionId,
-      time: formatSecondsToDurationString(timePassed.inSeconds),
+      time: formatSecondsToTimeString(timePassed.inSeconds),
     );
 
     if (mounted) {
@@ -608,7 +608,7 @@ class _SessionCallPageState extends State<SessionCallPage> with WidgetsBindingOb
       FirebaseEvents.groupSessionReportedIssue,
       parameters: {
         CustomDefinitions.sessionId: signedSessionId,
-        CustomDefinitions.timePassed: formatSecondsToDurationString(timePassed.inSeconds),
+        CustomDefinitions.timePassed: formatSecondsToTimeString(timePassed.inSeconds),
       },
     );
   }

@@ -154,6 +154,24 @@ class CustomElevatedButton extends StatelessWidget {
     Key? key,
     VoidCallback? onPressed,
     required String label,
+    bool fullWidth = false,
+  }) =>
+      CustomElevatedButton(
+        key: key,
+        onPressed: onPressed,
+        color: AppColors.blueDarker,
+        label: label,
+        styles: ElevatedButton.styleFrom(
+          backgroundColor: AppColors.yellowRegular,
+          foregroundColor: AppColors.blueDarker,
+          minimumSize: ButtonStyles.smallSize,
+        ),
+      );
+
+  factory CustomElevatedButton.yellowTiny({
+    Key? key,
+    VoidCallback? onPressed,
+    required String label,
     EdgeInsetsGeometry? contentPadding,
     bool fullWidth = false,
   }) =>
@@ -163,12 +181,13 @@ class CustomElevatedButton extends StatelessWidget {
         color: AppColors.blueDarker,
         label: label,
         styles: ElevatedButton.styleFrom(
-          padding: contentPadding,
+          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
           backgroundColor: AppColors.yellowRegular,
           foregroundColor: AppColors.blueDarker,
           minimumSize: ButtonStyles.smallSize,
         ),
       );
+
 
   factory CustomElevatedButton.greenFullWidth({
     Key? key,

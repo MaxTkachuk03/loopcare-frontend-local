@@ -140,18 +140,16 @@ class _AccessExerciseLine extends StatelessWidget {
       return Row(
         children: [
           if (exercise.explanation != null && !hideIntro) ...[
-            CustomElevatedButton.yellowSmall(
+            CustomElevatedButton.yellowTiny(
               label: LocalizedTexts.intro.tr(),
-              contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
               onPressed: () => context
                 ..read<MindBloc>().add(MindEvent.selectExercise(exercise: exercise))
                 ..router.pushNamed(AppRoutes.mindIntroExercise),
             ),
             const SizedBox(width: 16),
           ],
-          CustomElevatedButton.yellowSmall(
+          CustomElevatedButton.yellowTiny(
             label: LocalizedTexts.start.tr(),
-            contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
             onPressed: () => context
               ..read<MindBloc>().add(MindEvent.selectExercise(exercise: exercise))
               ..router.pushNamed(AppRoutes.mindExercise),
