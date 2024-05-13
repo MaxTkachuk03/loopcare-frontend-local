@@ -129,7 +129,7 @@ class _PhysicalActivitiesFrequencyPageState extends State<PhysicalActivitiesFreq
                           );
                         },
                       ),
-                      const SizedBox(height: 8.0),
+                      const SizedBox(height: 30.0),
                     ],
                   ),
                 ],

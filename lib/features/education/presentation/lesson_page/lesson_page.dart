@@ -44,49 +44,16 @@ class LessonPage extends StatefulWidget {
 }
 
 class _LessonPageState extends State<LessonPage> {
+
   _onNextPressed() {
     final lessonBloc = context.read<EducationLessonBloc>();
-    final account = getIt<SharedStorageService>().account;
-
-    lessonBloc.add(const EducationLessonEvent.nextPage());
-
-    lessonBloc.add(const EducationLessonEvent.progressForward());
-
     if (lessonBloc.state.data.isLastPage) {
-      final extraAction = lessonBloc.state.data.extraAction;
-      if (extraAction == ExtraActionTypes.setupGroupingPreferences && !(account?.isGroupSessionsUnlocked ?? false)) {
-        _unlockFeature(account, UnlockedFeatureType.grouping);
 
-        AnalyticsEventService.instance.logEvent(FirebaseEvents.unlockedSupportGroupFeature);
+      final account = getIt<SharedStorageService>().account;
 
-        context
-          ..read<GroupPreferencesBloc>()
-              .add(const GroupPreferencesEvent.changeGroupPrefsMode(GroupPrefsMode.groupingLesson))
-          ..router.pushNamed(AppRoutes.supportGroupIntro);
-        return;
-      }
-
-      if (extraAction == ExtraActionTypes.unlockMeals && !(account?.isFoodLoggingUnlocked ?? false)) {
-        _unlockFeature(account, UnlockedFeatureType.meals);
-        context.router.pushNamed(AppRoutes.lessonCompleteFoodPreferences);
-        return;
-      }
-
-      if (extraAction == ExtraActionTypes.unlockPhysicalActivities &&
-          !(account?.isPhysicalActivitiesUnlocked ?? false)) {
-        _unlockFeature(account, UnlockedFeatureType.physicalActivities);
-        context.router.pushNamed(AppRoutes.physicalPreferencesIntro);
-        return;
-      }
-
-      if (lessonBloc.state.data.isBuddyUnlocked && !(account?.isBuddyUnlocked ?? false)) {
+      if (lessonBloc.state.data.isBuddyUnlocked &&
+          !(account?.isBuddyUnlocked ?? false)) {
         context.router.pushNamed(AppRoutes.buddyIntro);
-        return;
-      }
-
-      if (extraAction == ExtraActionTypes.unlockSmartGoals && !(account?.isSmartGoalsUnlocked ?? false)) {
-        //Todo unlock smart goals
-        debugPrint('devcpp UNLOCK SMART FEATURE');
         return;
       }
 
@@ -99,19 +66,13 @@ class _LessonPageState extends State<LessonPage> {
       return;
     }
 
+    lessonBloc.add(const EducationLessonEvent.nextPage());
+
+    lessonBloc.add(const EducationLessonEvent.progressForward());
+
     int pageIndex = widget.pageIndex + 1;
 
     context.router.pushNamed('/lesson/${widget.lessonId}/page/$pageIndex');
-  }
-
-  void _unlockFeature(Account? account, UnlockedFeatureType feature) {
-    context.read<AuthenticationBloc>().add(
-          AuthenticationEvent.unlockFeature(UnlockFeature(
-            feature: feature.name,
-            unlocked: true,
-            subFeatures: null,
-          )),
-        );
   }
 
   _onPrevPressed() {
