@@ -40,7 +40,7 @@ class NutritionSummary extends StatelessWidget {
             Expanded(
               child: NutritionScale.fiber(
                 value: fiber,
-                totalCarbs: context.read<MealsBloc>().state.selectedDayMealTotalCarbs,
+                totalCarbs: context.read<MealsBloc>().state.data.selectedDayMealTotalCarbs,
                 carbsFiberRatio: carbFiberRatio,
                 isFiberInsignificant: _isFiberInsignificant,
               ),

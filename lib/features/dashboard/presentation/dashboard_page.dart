@@ -172,19 +172,6 @@ class _DashboardPageState extends State<DashboardPage> with WidgetsBindingObserv
 
   void _weightListener(BuildContext context, DashboardWeightState state) {
     context.read<BmrBloc>().add(BmrEvent.getBmr(date: _selectedDay));
-
-    state.mapOrNull(
-      updated: (value) {
-        final account = context.read<AuthenticationBloc>().state.data.account;
-        final isFreshUser = account?.createdAt != null && (account?.createdAt?.isToday ?? false);
-
-        if (value.data.weights.isEmpty && isFreshUser) {
-          context
-              .read<DashboardWeightBloc>()
-              .add(DashboardWeightEvent.logWeight(DateTime.now(), account!.weight));
-        }
-      },
-    );
   }
 
   String _getHelloMessage(String name) {

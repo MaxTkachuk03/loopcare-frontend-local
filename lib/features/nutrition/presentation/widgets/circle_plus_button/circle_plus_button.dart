@@ -25,9 +25,9 @@ class CirclePlusButton extends StatelessWidget {
   }
 
   _onSearchTap(BuildContext context) {
-    final mealCategory = context.read<MealsBloc>().state.currentMealCategory == 'inbetweens & snacks'
+    final mealCategory = context.read<MealsBloc>().state.data.currentMealCategory == 'inbetweens & snacks'
         ? 'snack'
-        : context.read<MealsBloc>().state.currentMealCategory;
+        : context.read<MealsBloc>().state.data.currentMealCategory;
     context.router.push(SelectFoodRoute(mealCategory: mealCategory ?? ''));
   }
 }

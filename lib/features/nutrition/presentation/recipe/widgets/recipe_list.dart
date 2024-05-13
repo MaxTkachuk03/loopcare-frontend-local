@@ -56,9 +56,9 @@ class RecipeList extends StatelessWidget {
   void _onDeletePressed(BuildContext context, FoodItem item) {
     final mealState = context.read<MealsBloc>().state;
     final recipeState = context.read<RecipeBloc>().state;
-    final mealId = mealState.getCurrentMealId;
+    final mealId = mealState.data.getCurrentMealId;
     final recipeId = !isMealRecipe
-        ? mealState.currentFoodItems
+        ? mealState.data.currentFoodItems
             .firstWhere((element) =>
                 element.type == MealItemType.recipe && element.externalId == recipeState.externalRecipeId)
             .id
@@ -90,10 +90,10 @@ class RecipeList extends StatelessWidget {
         onConfirm: (double numberOfUnits, String servingId) {
           final mealState = context.read<MealsBloc>().state;
           final recipeState = context.read<RecipeBloc>().state;
-          final mealId = mealState.getCurrentMealId;
+          final mealId = mealState.data.getCurrentMealId;
 
           final recipeId = !isMealRecipe
-              ? mealState.currentFoodItems
+              ? mealState.data.currentFoodItems
                   .firstWhere((element) =>
                       element.type == MealItemType.recipe &&
                       element.externalId == recipeState.externalRecipeId)
