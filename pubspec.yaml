@@ -38,6 +38,7 @@ dependencies:
   flutter_dotenv: ^5.1.0
   flutter_chat_ui: ^1.6.10
   flutter_polygon: ^0.3.0+2
+  flutter_secure_storage: 8.1.0
   flutter_svg: ^2.0.9
   flutter_widget_from_html: ^0.14.9
   freezed_annotation: ^2.4.1
