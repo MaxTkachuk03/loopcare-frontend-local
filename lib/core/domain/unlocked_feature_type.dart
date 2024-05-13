@@ -6,6 +6,7 @@ enum UnlockedFeatureType {
   allowGroupSessions,
   buddy,
   smartGoals,
+  mind,
   unknown,
 }
 

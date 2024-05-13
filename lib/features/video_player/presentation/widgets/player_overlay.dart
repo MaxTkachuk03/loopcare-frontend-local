@@ -8,7 +8,7 @@ import 'package:loopcare_frontend/core/presentation/localization/localized_texts
 import 'package:loopcare_frontend/core/presentation/text/custom_text.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 import 'package:loopcare_frontend/core/presentation/utils/build_context_extensions.dart';
-import 'package:loopcare_frontend/features/education/presentation/utils/format_duration.dart';
+import 'package:loopcare_frontend/core/presentation/utils/date_time_utils.dart';
 import 'package:loopcare_frontend/features/physical_activities/domain/physical_program_exercise.dart';
 import 'package:loopcare_frontend/features/video_player/presentation/widgets/player_controls.dart';
 import 'package:loopcare_frontend/features/video_player/presentation/widgets/program_difficulty_chip.dart';
@@ -164,7 +164,7 @@ class _PlayerOverlayState extends State<PlayerOverlay> {
                             AppIcons.clockWhite,
                             const SizedBox(width: 6.0),
                             CustomText.w600(
-                              formatDuration(widget.exercise.duration),
+                              formatSecondsToDurationString(widget.exercise.duration, alwaysShowSeconds: true),
                               style: context.textTheme.bodySmall?.copyWith(
                                 color: AppColors.white,
                                 fontSize:

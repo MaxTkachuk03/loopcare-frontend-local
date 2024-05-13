@@ -49,6 +49,10 @@ class CustomDefinitions {
   static String get isRecipe => 'isRecipe';
   static String get isMeal => 'isMeal';
 
+  // Mind
+  static String get techniqueId => 'techniqueId';
+  static String get exerciseId => 'exerciseId';
+
   // Smart goals
   static String get goalCategoryTitle => 'goalCategoryTitle';
   static String get score => 'score';

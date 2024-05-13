@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 import 'package:loopcare_frontend/core/presentation/utils/date_time_extensions.dart';
+import 'package:loopcare_frontend/core/presentation/utils/date_time_utils.dart';
 import 'package:loopcare_frontend/features/dashboard/presentation/widgets/slider_calendar/calendar_day.dart';
-import 'package:loopcare_frontend/features/onboarding_new/utils/date_time_utils.dart';
 import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 
 class SliderCalendar extends StatefulWidget {
@@ -30,7 +30,7 @@ class _SliderCalendarState extends State<SliderCalendar> {
 
     _selectedDay = DateTime.now();
 
-    _days = getDaysInBeteween(
+    _days = getDaysInBetween(
       DateUtils.dateOnly(DateTime.now().subtract(const Duration(days: 2 * 365))),
       DateUtils.dateOnly(DateTime.now().add(const Duration(days: 14))),
     );
