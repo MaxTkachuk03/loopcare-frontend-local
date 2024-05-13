@@ -498,6 +498,22 @@
   "alreadyPlannedCategory": "{mealCategory} ALREADY PLANNED",
   "replaceWith": "Replace with?",
   "nothingOnTheMenu": "Nothing on the menu yet",
+  "mindTraining": "Mind training",
+  "learnMoreButton": "Learn more",
+  "lock": "Lock",
+  "unlocksOn": "Unlocks on {}",
+  "unlocksAfterCompletionExercise": "Unlocks after completion of previous exercise",
+  "intro": "Intro",
+  "exercises": "Exercises",
+  "countMins": "{} mins",
+  "chooseAnExercise": "Choose an exercise",
+  "completedExerciseMessage1": "Great! You completed",
+  "completedExerciseMessage2": "{} exercise",
+  "completedIntroductionMessage2": "the introduction to",
+  "chooseTechnique": "Choose technique",
+  "chooseExercise": "Choose exercise",
+  "selectedExercise": "Selected exercise",
+  "skipIntro": "Skip intro",
   "selectMoodText": "How do you feel?",
   "selectMoodSubtext": "You can choose what information to fill.",
   "time": "Time",
@@ -894,6 +910,9 @@
   "fiberHighQualityLabel": "High quality",
   "fiberMidQualityLabel": "Mixed quality",
   "fiberLowQualityLabel": "Low quality",
+
+  "mindDashboardTitle": "Mind training",
+  "mindDashboardBtn": "Choose exercise",
 
 
 

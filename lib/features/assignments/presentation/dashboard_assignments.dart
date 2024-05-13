@@ -61,7 +61,7 @@ class _DashboardAssignmentsState extends State<DashboardAssignments> {
               circleButton: false,
             ),
             const Divider(
-              color: AppColors.blueOffRegular,
+              color: AppColors.blueLighter,
               indent: 8.0,
               endIndent: 8.0,
             ),

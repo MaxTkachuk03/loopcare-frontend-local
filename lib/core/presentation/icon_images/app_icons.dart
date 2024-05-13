@@ -156,6 +156,7 @@ class AppIcons {
       SvgPicture.asset('$iconsFilePath/custom_education_dashboard.svg', width: 44, height: 44);
   static SvgPicture customDashboardMood =
       SvgPicture.asset('$iconsFilePath/custom_dashboard_mood.svg', width: 44, height: 44);
+  static SvgPicture customDashboardMind = SvgPicture.asset('$iconsFilePath/mind.svg', width: 44, height: 44);
   static SvgPicture customDashboardSmartGoals =
       SvgPicture.asset('$iconsFilePath/custom_dashboard_smart_goals.svg', width: 44, height: 44);
 
@@ -192,6 +193,8 @@ class AppIcons {
   static SvgPicture noScore = SvgPicture.asset('$iconsFilePath/no_score.svg', width: 22, height: 22);
   static SvgPicture yesScoreFilled = SvgPicture.asset('$iconsFilePath/yes_score_filled.svg', width: 22, height: 22);
   static SvgPicture customInfo = SvgPicture.asset('$iconsFilePath/custom_icon_info.svg', width: 44, height: 44);
+
+  static SvgPicture locked = SvgPicture.asset('$iconsFilePath/lock.svg');
   static SvgPicture achieve = SvgPicture.asset('$iconsFilePath/achieve.svg', width: 14, height: 14);
 
   AppIcons._();

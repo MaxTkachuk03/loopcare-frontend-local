@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loopcare_frontend/core/infrastructure/services/shared_storage/shared_storage_service.dart';
 import 'package:loopcare_frontend/core/presentation/utils/date_time_extensions.dart';
+import 'package:loopcare_frontend/core/presentation/utils/date_time_utils.dart';
 import 'package:loopcare_frontend/features/dashboard/domain/slider_calendar/week_element.dart';
 import 'package:loopcare_frontend/features/dashboard/presentation/widgets/slider_calendar/calendar_week.dart';
 import 'package:loopcare_frontend/features/nutrition/application/meals/meals_bloc.dart';
-import 'package:loopcare_frontend/features/onboarding_new/utils/date_time_utils.dart';
 import 'package:loopcare_frontend/injection.dart';
 import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 
@@ -35,7 +35,7 @@ class _WeekSliderCalendarState extends State<WeekSliderCalendar> {
     final startDate = accountCreatedDate?.firstDayOfCurrentWeek.subtract(const Duration(days: 7)) ??
         DateTime.now().subtract(const Duration(days: 2 * 365));
 
-    _weeks = getWeeksElementBeteween(
+    _weeks = getWeeksElementBetween(
       DateUtils.dateOnly(startDate),
       DateUtils.dateOnly(DateTime.now().add(const Duration(days: 13))),
     );

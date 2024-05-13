@@ -64,7 +64,7 @@ class PersonMood extends StatelessWidget {
                     editable: isEditable,
                   ),
                   const Divider(
-                    color: AppColors.blueOffRegular,
+                    color: AppColors.blueLighter,
                     indent: 8.0,
                     endIndent: 8.0,
                   ),

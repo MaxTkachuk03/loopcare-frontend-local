@@ -1,6 +1,7 @@
 class CIOAttributes {
   const CIOAttributes._();
 
+  // Onboarding
   static const String userId = 'User Id';
   static const String birthday = 'Birth date';
   static const String gender = 'Gender';
@@ -36,9 +37,12 @@ class CIOAttributes {
   static const String interpretation = 'Interpretation';
   static const String consentToEmail = 'Consent to email';
   static const String updateEmail = 'New email address';
+
+  // Subscription
   static const String identifierOption = 'Subscription identifier';
   static const String subscriptionExpirationDate = 'Subscription expiration date';
 
+  // Education
   static const String articleId = 'Article ID';
   static const String articleTitle = 'Article title';
   static const String weightLogged = 'Weight logged';

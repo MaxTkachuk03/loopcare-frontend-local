@@ -27,7 +27,7 @@ class ThisWeekAssignments extends StatelessWidget {
             onBtnPressed: (int lessonId) => _startLessonQuestion(context, lessonId),
           ),
         if (weekQuestions.isNotEmpty && todayQuestions.isNotEmpty)
-          const Divider(color: AppColors.blueOffRegular),
+          const Divider(color: AppColors.blueLighter),
         if (todayQuestions.isNotEmpty)
           ThisWeekAssignmentsDone(
             questions: todayQuestions,

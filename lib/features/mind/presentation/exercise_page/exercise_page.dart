@@ -1,0 +1,51 @@
+import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:loopcare_frontend/core/domain/analytics/firebase_event_list.dart';
+import 'package:loopcare_frontend/features/mind/application/mind_bloc.dart';
+import 'package:loopcare_frontend/features/mind/domain/mind_analytics_mixin/mind_analytics_mixin.dart';
+import 'package:loopcare_frontend/features/mind/presentation/widgets/mind_content_screen/mind_content_screen.dart';
+
+class ExercisePage extends StatefulWidget {
+  const ExercisePage({super.key});
+
+  @override
+  State<ExercisePage> createState() => _ExercisePageState();
+}
+
+class _ExercisePageState extends State<ExercisePage> with MindAnalyticsMixin {
+
+  @override
+  void initState() {
+    super.initState();
+    techniqueId = context.read<MindBloc>().state.data.currentTechnique!.id;
+    exerciseId = context.read<MindBloc>().state.data.currentExercise!.id;
+
+    track(FirebaseEvents.mindOpenExercise);
+  }
+
+  void _onExerciseCompleted(BuildContext context) {
+    context.read<MindBloc>().add(const MindEvent.completeCurrentExercise());
+
+    track(FirebaseEvents.mindCompletedExercise);
+  }
+
+  void _onRepeat() => track(FirebaseEvents.mindRepeatedExercise);
+
+  @override
+  Widget build(BuildContext context) {
+    final data = context.read<MindBloc>().state.data;
+    final title = data.currentTechnique?.title ?? '';
+    final exercise = data.currentExercise!.exercise;
+    final exerciseTitle = data.currentExercise?.title ?? '';
+    final difficulty = data.currentExercise?.difficulty;
+
+    return MindContentScreen.exercise(
+      title: title,
+      steps: [exercise],
+      contentTitle: exerciseTitle,
+      difficulty: difficulty,
+      onExerciseCompleted: () => _onExerciseCompleted(context),
+      onRepeat: _onRepeat,
+    );
+  }
+}

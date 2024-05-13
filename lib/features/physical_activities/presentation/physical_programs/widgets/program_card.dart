@@ -13,8 +13,8 @@ import 'package:loopcare_frontend/core/presentation/routes/app_router.gr.dart';
 import 'package:loopcare_frontend/core/presentation/text/custom_text.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 import 'package:loopcare_frontend/core/presentation/utils/build_context_extensions.dart';
+import 'package:loopcare_frontend/core/presentation/utils/date_time_utils.dart';
 import 'package:loopcare_frontend/features/education/presentation/education_page/widgets/category_label.dart';
-import 'package:loopcare_frontend/features/education/presentation/utils/format_duration.dart';
 import 'package:loopcare_frontend/features/physical_activities/application/physical_programs_bloc.dart';
 import 'package:loopcare_frontend/features/physical_activities/domain/physical_program.dart';
 
@@ -139,7 +139,7 @@ class ProgramCard extends StatelessWidget {
                         AppIcons.clock,
                         const SizedBox(width: 4.0),
                         CustomText.w600(
-                          formatDuration(program.duration),
+                          formatSecondsToDurationString(program.duration, alwaysShowSeconds: true),
                           style: context.textTheme.bodySmall?.copyWith(fontSize: ThemeConstants.fontSize10),
                         )
                       ],

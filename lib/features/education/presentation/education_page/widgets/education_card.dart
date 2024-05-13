@@ -10,13 +10,13 @@ import 'package:loopcare_frontend/core/presentation/network_image_with_cache/net
 import 'package:loopcare_frontend/core/presentation/text/custom_text.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 import 'package:loopcare_frontend/core/presentation/utils/build_context_extensions.dart';
+import 'package:loopcare_frontend/core/presentation/utils/date_time_utils.dart';
 import 'package:loopcare_frontend/features/education/application/education_lesson/education_lesson_bloc.dart';
 import 'package:loopcare_frontend/features/education/application/education_program/education_program_bloc.dart';
 import 'package:loopcare_frontend/features/education/domain/education_lesson.dart';
 import 'package:loopcare_frontend/features/education/presentation/education_page/utils/get_label_by_category.dart';
 import 'package:loopcare_frontend/features/education/presentation/education_page/widgets/education_countdown.dart';
 import 'package:loopcare_frontend/features/education/presentation/education_page/widgets/lesson_state.dart';
-import 'package:loopcare_frontend/features/education/presentation/utils/format_duration.dart';
 
 class EducationCard extends StatelessWidget {
   static const _initialLessonPageIndex = 0;
@@ -138,7 +138,7 @@ class EducationCard extends StatelessWidget {
                                     const Icon(Icons.watch_later_outlined, size: 16),
                                     const SizedBox(width: 6.0),
                                     CustomText.w600(
-                                      formatDuration(lesson.duration),
+                                      formatSecondsToDurationString(lesson.duration, alwaysShowSeconds: true),
                                       style: context.textTheme.bodySmall,
                                     )
                                   ],

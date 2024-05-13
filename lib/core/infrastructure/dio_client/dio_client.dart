@@ -180,6 +180,24 @@ class DioClient {
     return handleProcess(response);
   }
 
+  Future<Either<RequestError, Response<dynamic>>> put(
+    String path, {
+    dynamic data,
+    Map<String, dynamic>? queryParameters,
+    Options? options,
+    String? baseUrl,
+    CancelToken? cancelToken,
+  }) async {
+    final response = dio.put(
+      path,
+      data: data,
+      queryParameters: queryParameters,
+      options: options,
+      cancelToken: cancelToken,
+    );
+    return handleProcess(response);
+  }
+
   Future<Either<RequestError, Response<dynamic>>> downloading(
     String path,
     String savePath, {

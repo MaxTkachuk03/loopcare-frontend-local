@@ -62,7 +62,7 @@ class _SupportGroupState extends State<SupportGroup> {
               circleButton: false,
             ),
             const Divider(
-              color: AppColors.blueOffRegular,
+              color: AppColors.blueLighter,
               indent: 8.0,
               endIndent: 8.0,
             ),

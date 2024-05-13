@@ -1,5 +1,5 @@
 name: loopcare_frontend
-version: 1.0.31+178
+version: 1.2.0+184
 publish_to: none
 description: Lean on me
 environment:
@@ -137,5 +137,5 @@ flutter_native_splash:
   image: assets/images/app_logo.png
 
   android_12:
-    image: assets/images/app_logo.png
+    image: assets/images/android_splash_logo.png
     color: "#aeca5f"

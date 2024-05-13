@@ -1,7 +1,7 @@
 import 'package:loopcare_frontend/core/presentation/utils/date_time_extensions.dart';
 import 'package:loopcare_frontend/features/dashboard/domain/slider_calendar/week_element.dart';
 
-List<DateTime> getDaysInBeteween(DateTime startDate, DateTime endDate) {
+List<DateTime> getDaysInBetween(DateTime startDate, DateTime endDate) {
   List<DateTime> days = [];
   for (int i = 0; i <= endDate.difference(startDate).inDays; i++) {
     days.add(
@@ -16,12 +16,12 @@ List<DateTime> getDaysInBeteween(DateTime startDate, DateTime endDate) {
   return days;
 }
 
-List<WeekElement> getWeeksElementBeteween(DateTime startDate, DateTime endDate) {
+List<WeekElement> getWeeksElementBetween(DateTime startDate, DateTime endDate) {
   var utcDate = DateTime.utc(startDate.year, startDate.month, startDate.day);
   var date = findFirstDateOfTheWeek(utcDate);
 
   List<WeekElement> weeks = List.generate(
-    (getWeeksBeteween(startDate, endDate)),
+    (getWeeksBetween(startDate, endDate)),
     (int index) {
       date = date.add(const Duration(days: 7));
 
@@ -37,10 +37,10 @@ List<WeekElement> getWeeksElementBeteween(DateTime startDate, DateTime endDate) 
   return weeks;
 }
 
-List<int> getWeeksNumberBeteween(DateTime startDate, DateTime endDate) {
+List<int> getWeeksNumberBetween(DateTime startDate, DateTime endDate) {
   var date = findFirstDateOfTheWeek(startDate);
 
-  List<int> weeks = List.generate((getWeeksBeteween(startDate, endDate)), (int index) {
+  List<int> weeks = List.generate((getWeeksBetween(startDate, endDate)), (int index) {
     date = date.add(const Duration(days: 7));
     return date.weekNumber;
   }, growable: false);
@@ -48,7 +48,7 @@ List<int> getWeeksNumberBeteween(DateTime startDate, DateTime endDate) {
   return weeks;
 }
 
-int getWeeksBeteween(DateTime startDate, DateTime endDate) {
+int getWeeksBetween(DateTime startDate, DateTime endDate) {
   var daysBetween = endDate.difference(startDate).inDays;
   var weeks = (daysBetween / 7).floor();
 
@@ -60,31 +60,12 @@ bool isNotIdentical(List<DateTime> first, List<DateTime> second) {
   return first.where((item) => !item.isContainedIn(second)).toList().isNotEmpty;
 }
 
-String formatSecondsToDurationString(int value) {
-  Duration duration = Duration(seconds: value);
-
-  int hours = duration.inHours;
-  int minutes = duration.inMinutes.remainder(60);
-  int seconds = duration.inSeconds.remainder(60);
-
-  return '$hours:${minutes.toString().padLeft(2, '0')}:${seconds.toString().padLeft(2, '0')}';
+String formatSecondsToTimeString(int value) {
+  return _DayAndTime.fromSeconds(value).formatToTimeString();
 }
 
-String formatSecondsToEducationDurationString(int value) {
-  Duration duration = Duration(seconds: value);
-
-  int days = duration.inDays;
-  int hours = duration.inHours.remainder(24);
-  int minutes = duration.inMinutes.remainder(60);
-  int seconds = duration.inSeconds.remainder(60);
-  String daysStr = days > 0 ? '${days}d ' : '';
-  String hoursStr = hours > 0 ? '${hours}h ' : '';
-  String minsStr = minutes > 0 ? '${minutes}m ' : '';
-  String secStr = seconds > 0 ? '${seconds}s' : '';
-
-  return daysStr.isEmpty && hoursStr.isEmpty && minsStr.isEmpty
-      ? '$daysStr$hoursStr$minsStr$secStr'
-      : '$daysStr$hoursStr$minsStr';
+String formatSecondsToDurationString(int value, {bool alwaysShowSeconds = false}) {
+  return _DayAndTime.fromSeconds(value).formatToDurationString(alwaysShowSeconds);
 }
 
 DateTime findFirstDateOfTheWeek(DateTime dateTime) {
@@ -105,4 +86,40 @@ List<DateTime> getDatesByWeekNumber(
     ret.add(DateTime(year, 1, days + i));
   }
   return ret;
+}
+
+/// Values of [DateTime] can confuse, because zero value interpret as -1
+class _DayAndTime {
+  final int day;
+  final int hour;
+  final int minute;
+  final int second;
+
+  const _DayAndTime([this.day = 0, this.hour = 0, this.minute = 0, this.second = 0]);
+
+  factory _DayAndTime.fromSeconds(int value) {
+    Duration duration = Duration(seconds: value);
+
+    final days = duration.inDays;
+    final hours = duration.inHours.remainder(24);
+    final minutes = duration.inMinutes.remainder(60);
+    final seconds = duration.inSeconds.remainder(60);
+
+    return _DayAndTime(days, hours, minutes, seconds);
+  }
+
+  String formatToDurationString([bool alwaysShowSeconds = false]) {
+    String dayStr = day > 0 ? '${day}d ' : '';
+    String hourStr = hour > 0 ? '${hour}h ' : '';
+    String minStr = minute > 0 ? '${minute}m ' : '';
+    String secStr = second > 0 ? '${second}s' : '';
+
+    return dayStr.isEmpty && hourStr.isEmpty && minStr.isEmpty
+        ? secStr
+        : '$dayStr$hourStr$minStr${alwaysShowSeconds ? secStr : ''}';
+  }
+
+  String formatToTimeString() {
+    return '$hour:${minute.toString().padLeft(2, '0')}:${second.toString().padLeft(2, '0')}';
+  }
 }
