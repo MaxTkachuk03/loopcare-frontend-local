@@ -7,7 +7,7 @@ import 'package:loopcare_frontend/core/presentation/localization/localized_texts
 import 'package:loopcare_frontend/core/presentation/text/custom_text.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 import 'package:loopcare_frontend/core/presentation/utils/build_context_extensions.dart';
-import 'package:loopcare_frontend/features/education/presentation/utils/format_duration.dart';
+import 'package:loopcare_frontend/core/presentation/utils/date_time_utils.dart';
 import 'package:loopcare_frontend/features/physical_activities/domain/physical_program_exercise.dart';
 import 'package:loopcare_frontend/features/video_player/infrastructure/video_page_controller.dart';
 import 'package:loopcare_frontend/features/video_player/presentation/widgets/countdown.dart';
@@ -100,7 +100,7 @@ class PlayerEndVideoOverlay extends StatelessWidget {
                     AppIcons.clockWhite,
                     const SizedBox(width: 6.0),
                     CustomText.w600(
-                      formatDuration(exercise.duration),
+                      formatSecondsToDurationString(exercise.duration, alwaysShowSeconds: true),
                       style: context.textTheme.bodySmall?.copyWith(
                         color: AppColors.white,
                         fontSize: _isPortraitOrientation ? ThemeConstants.fontSize10 : ThemeConstants.fontSize12,

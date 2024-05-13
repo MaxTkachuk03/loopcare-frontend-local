@@ -158,7 +158,10 @@ class LocalizedTexts {
   static const String deleteMultiDateMealModalExplain2 = 'deleteMultiDateMealModalExplain2';
   static const String openDatepicker = 'openDatepicker';
   static const String remove = 'remove';
+  static const String hello = 'hello';
   static const String goodMorning = 'goodMorning';
+  static const String goodAfternoon = 'goodAfternoon';
+  static const String goodEvening = 'goodEvening';
   static const String logYourWeight = 'logYourWeight';
   static const String logYourMeals = 'logYourMeals';
   static const String planYourMeals = 'planYourMeals';
@@ -329,6 +332,7 @@ class LocalizedTexts {
   // Video
   static const String rotateDevice = 'rotateDevice';
   static const String skipExplanation = 'skipExplanation';
+  static const String skipIntro = 'skipIntro';
   static const String repeat = 'repeat';
   static const String exerciseCompleteMessage = 'exerciseCompleteMessage';
   static const String breakBetweenExercises = 'breakBetweenExercises';
@@ -481,6 +485,23 @@ class LocalizedTexts {
   static const String noMoreSeatAvailable = "noMoreSeatAvailable";
   static const String sessionWarning_1 = "sessionWarning_1";
   static const String sessionWarning_2 = "sessionWarning_2";
+
+  // Mind
+  static const String mindTraining = "mindTraining";
+  static const String learnMoreButton = "learnMoreButton";
+  static const String lock = "lock";
+  static const String unlocksOn = "unlocksOn";
+  static const String unlocksAfterCompletionExercise = "unlocksAfterCompletionExercise";
+  static const String intro = "intro";
+  static const String exercises = "exercises";
+  static const String countMins = "countMins";
+  static const String chooseAnExercise = "chooseAnExercise";
+  static const String completedExerciseMessage1 = "completedExerciseMessage1";
+  static const String completedExerciseMessage2 = "completedExerciseMessage2";
+  static const String completedIntroductionMessage2 = "completedIntroductionMessage2";
+  static const String chooseTechnique = "chooseTechnique";
+  static const String chooseExercise = "chooseExercise";
+  static const String selectedExercise = "selectedExercise";
 
   // Mood
   static const String selectMoodText = "selectMoodText";
@@ -982,6 +1003,10 @@ class LocalizedTexts {
   static const String buddyEmail = 'buddyEmail';
   static const String buddyUserName = 'buddyUserName';
   static const String buddySince = 'buddySince';
+
+  //Mind
+  static const String mindDashboardTitle = 'mindDashboardTitle';
+  static const String mindDashboardBtn = 'mindDashboardBtn';
 
   // Smart goals
   static const String myGoals = 'myGoals';

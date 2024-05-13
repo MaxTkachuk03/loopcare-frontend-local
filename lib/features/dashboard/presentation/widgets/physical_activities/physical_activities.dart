@@ -98,8 +98,7 @@ class _PhysicalActivitiesState extends State<PhysicalActivities> {
                   circleButton: false,
                 ),
                 const Divider(
-                  color: AppColors.blueOffRegular,
-                  height: 8,
+                  color: AppColors.blueLighter,
                   indent: 8.0,
                   endIndent: 8.0,
                 ),

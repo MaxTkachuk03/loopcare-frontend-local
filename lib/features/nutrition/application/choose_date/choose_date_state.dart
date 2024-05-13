@@ -56,7 +56,7 @@ class ChooseDateData with _$ChooseDateData {
 
     if (currentDate != null) {
       var startWeekDay = currentDate?.firstDayOfCurrentWeek;
-      var daysOfWeek = getDaysInBeteween(startWeekDay, startWeekDay.add(const Duration(days: 6)));
+      var daysOfWeek = getDaysInBetween(startWeekDay, startWeekDay.add(const Duration(days: 6)));
 
       retList = {for (var item in daysOfWeek) item.isoStringWithoutTime: []};
 

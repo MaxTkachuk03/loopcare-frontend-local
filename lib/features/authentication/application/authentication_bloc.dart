@@ -593,7 +593,6 @@ class AuthenticationBloc extends HydratedBloc<AuthenticationEvent, Authenticatio
           gender: r.gender,
           sex: r.sex,
           height: r.physicalFitness.height,
-          weight: r.physicalFitness.weight,
           bmi: r.physicalFitness.bmi,
           birthDate: r.physicalFitness.birthDate,
           groupingState: r.groupingState,

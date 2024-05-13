@@ -1,8 +1,8 @@
 part of 'app_router.dart';
 
 class AppRoutes {
+  static const String splash = '/';
   static const String proxy = '/proxy'; // added
-  static const String preIntro = '/pre-intro'; //added
   static const String intro = '/intro'; // added
   static const String accessCode = '/access-code'; // added
   static const String joinUs = '/join-us'; // added
@@ -135,6 +135,14 @@ class AppRoutes {
   static const String groupRulesFour = '/group-rules-four'; // added
   static const String groupRulesFive = '/group-rules-five'; // added
   static const String groupRulesSix = '/group-rules-six'; // added
+
+  // Mind
+  static const String mindTechniques = '/mind-techniques';
+  static const String mindExplanation = '/mind-explanation';
+  static const String techniqueExplanation = '/mind-technique-explanation';
+  static const String techniqueExercises = '/exercises';
+  static const String mindExercise = '/mind-exercise';
+  static const String mindIntroExercise = '/mind-intro-exercise';
 
   // Mood
   static const String createMood = '/create-mood';

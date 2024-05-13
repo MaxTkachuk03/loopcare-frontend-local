@@ -1,6 +1,5 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:loopcare_frontend/core/presentation/routes/gender_prefs_guard.dart';
-import 'package:loopcare_frontend/core/presentation/routes/intro_guard.dart';
 import 'package:loopcare_frontend/core/presentation/routes/proxy_guard.dart';
 import 'package:loopcare_frontend/core/presentation/theme_components_theme/theme_components_theme.dart';
 import 'package:loopcare_frontend/features/access_code/access_code_page.dart';
@@ -52,9 +51,14 @@ import 'package:loopcare_frontend/features/education/presentation/support_group_
 import 'package:loopcare_frontend/features/group_sessions/presentation/preparation_materials_page.dart';
 import 'package:loopcare_frontend/features/home/presentation/home_page.dart';
 import 'package:loopcare_frontend/features/intro/presentation/intro_page.dart';
-import 'package:loopcare_frontend/features/intro/presentation/pre_intro_page.dart';
 import 'package:loopcare_frontend/features/join_us/presentation/join_us_page.dart';
 import 'package:loopcare_frontend/features/legal_statement/presentation/legal_statement_page.dart';
+import 'package:loopcare_frontend/features/mind/presentation/exercise_page/exercise_page.dart';
+import 'package:loopcare_frontend/features/mind/presentation/explanation_page/explanation_page.dart';
+import 'package:loopcare_frontend/features/mind/presentation/explanation_technique_page/explanation_technique_page.dart';
+import 'package:loopcare_frontend/features/mind/presentation/intro_exercise_page/intro_exercise_page.dart';
+import 'package:loopcare_frontend/features/mind/presentation/technique_exercises_page/technique_exercises_page.dart';
+import 'package:loopcare_frontend/features/mind/presentation/techniques_page/techniques_page.dart';
 import 'package:loopcare_frontend/features/mood/presentation/create_mood_page.dart';
 import 'package:loopcare_frontend/features/mood/presentation/mood_option_page.dart';
 import 'package:loopcare_frontend/features/nutrition/presentation/barcode_scanner/widgets/barcode_scanner_page.dart';
@@ -91,6 +95,7 @@ import 'package:loopcare_frontend/features/smart_goals/presentation/goals_statis
 import 'package:loopcare_frontend/features/smart_goals/presentation/select_goals_actegory_page/select_goals_category_page.dart';
 import 'package:loopcare_frontend/features/smart_goals/presentation/select_goals_page/select_goals_page.dart';
 import 'package:loopcare_frontend/features/smart_goals/presentation/set_weekly_goals_page/set_weekly_goals_page.dart';
+import 'package:loopcare_frontend/features/splash_screen/presentation/splash_page.dart';
 import 'package:loopcare_frontend/features/subscription/presentation/subscription_page.dart';
 import 'package:loopcare_frontend/features/video_player/presentation/video_page.dart';
 import 'package:loopcare_frontend/features/video_session/presentation/session_call_page.dart';
@@ -117,15 +122,14 @@ const groupLessonRoutes = [
   routes: [
     AutoRoute(
       initial: true,
+      path: AppRoutes.splash,
+      page: SplashPage,
+    ),
+    AutoRoute(
       path: AppRoutes.proxy,
       page: ProxyPage,
       guards: [ProxyGuard],
     ), // added
-    AutoRoute(
-      path: AppRoutes.preIntro,
-      page: PreIntroPage,
-      guards: [IntroGuard],
-    ), // dont need to add to firebase mapper
     AutoRoute(
       path: AppRoutes.intro,
       page: IntroPage,
@@ -410,6 +414,32 @@ const groupLessonRoutes = [
     AutoRoute(
       path: AppRoutes.physicalActivitiesComplete,
       page: PhysicalActivitiesCompletePage,
+    ), // added
+
+    // Mind
+    AutoRoute(
+      path: AppRoutes.mindTechniques,
+      page: TechniquesPage,
+    ), // added
+    AutoRoute(
+      path: AppRoutes.mindExplanation,
+      page: ExplanationPage,
+    ), // added
+    AutoRoute(
+      path: AppRoutes.techniqueExercises,
+      page: TechniqueExercisesPage,
+    ), // added
+    AutoRoute(
+      path: AppRoutes.techniqueExplanation,
+      page: ExplanationTechniquePage,
+    ), // added
+    AutoRoute(
+      path: AppRoutes.mindExercise,
+      page: ExercisePage,
+    ), // added
+    AutoRoute(
+      path: AppRoutes.mindIntroExercise,
+      page: IntroExercisePage,
     ), // added
 
     // Mood

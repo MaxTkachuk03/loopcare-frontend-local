@@ -26,7 +26,7 @@ class CategoryLabel extends StatelessWidget {
       CategoryLabel(label: LessonCategory.nutrition.label, color: AppColors.greenRegular);
 
   factory CategoryLabel.mind() =>
-      CategoryLabel(label: LessonCategory.mind.label, color: AppColors.orangeRegular);
+      CategoryLabel(label: LessonCategory.mind.label, color: AppColors.petrolRegular);
 
   factory CategoryLabel.activity() =>
       CategoryLabel(label: LessonCategory.activity.label, color: AppColors.yellowRegular);

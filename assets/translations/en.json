@@ -492,6 +492,22 @@
   "alreadyPlannedCategory": "{mealCategory} ALREADY PLANNED",
   "replaceWith": "Replace with?",
   "nothingOnTheMenu": "Nothing on the menu yet",
+  "mindTraining": "Mind training",
+  "learnMoreButton": "Learn more",
+  "lock": "Lock",
+  "unlocksOn": "Unlocks on {}",
+  "unlocksAfterCompletionExercise": "Unlocks after completion of previous exercise",
+  "intro": "Intro",
+  "exercises": "Exercises",
+  "countMins": "{} mins",
+  "chooseAnExercise": "Choose an exercise",
+  "completedExerciseMessage1": "Great! You completed",
+  "completedExerciseMessage2": "{} exercise",
+  "completedIntroductionMessage2": "the introduction to",
+  "chooseTechnique": "Choose technique",
+  "chooseExercise": "Choose exercise",
+  "selectedExercise": "Selected exercise",
+  "skipIntro": "Skip intro",
   "selectMoodText": "How do you feel?",
   "selectMoodSubtext": "You can choose what information to fill.",
   "time": "Time",
@@ -556,7 +572,10 @@
   "logListEmptyMessage": "Nothing logged yet What did you have for lunch?",
   "backToDashboard": "Back to dashboard",
   "backToTodayLogging": "Back to Today",
-  "goodMorning": "Hello",
+  "hello": "Hello",
+  "goodMorning": "Good Morning",
+  "goodAfternoon": "Good Afternoon",
+  "goodEvening": "Good Evening",
   "logYourWeight": "Log your weight",
   "logYourMeals": "Meal log",
   "planYourMeals": "Plan your meals",
@@ -862,6 +881,9 @@
  "weeklyModalInfo":  "Info",
 
 
+
+  "mindDashboardTitle": "Mind training",
+  "mindDashboardBtn": "Choose exercise",
 
 
 

@@ -91,17 +91,14 @@ class _AssignmentsQuestionsPageState extends State<AssignmentsQuestionsPage> {
         widget.fromDashboard,
       );
 
-      if (widget.fromDashboard) {
-        context.router.popUntilRoot();
-        return;
-      }
-
       final accountCreatedDate = getIt<SharedStorageService>().account?.createdAt ?? DateTime.now();
 
-      context
-        ..read<AssignmentsBloc>()
-            .add(AssignmentsEvent.getAllLessonQuestions(accountCreatedDate, DateTime.now()))
-        ..router.pushNamed(AppRoutes.assignmentsSaved);
+      context.read<AssignmentsBloc>().add(
+        AssignmentsEvent.getAllLessonQuestions(accountCreatedDate, DateTime.now()),
+      );
+
+      context.router.pushNamed(AppRoutes.assignmentsSaved);
+
     } else {
       context.router.push(
         AssignmentsQuestionsRoute(step: widget.step + 1, fromDashboard: widget.fromDashboard),

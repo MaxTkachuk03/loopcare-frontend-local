@@ -4,5 +4,6 @@ enum ExtraActionTypes {
   unlockMeals,
   unlockAssignments,
   unlockBuddy,
+  unlockMind,
   unlockSmartGoals,
 }
