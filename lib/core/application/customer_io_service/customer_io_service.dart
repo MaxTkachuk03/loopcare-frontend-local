@@ -10,6 +10,7 @@ import 'package:loopcare_frontend/core/application/customer_io_service/customer_
 import 'package:loopcare_frontend/core/application/firebase/mesaging/firebase_messaging.dart';
 import 'package:loopcare_frontend/core/application/permissions_service.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localization_constants.dart';
+import 'package:package_info_plus/package_info_plus.dart';
 
 export 'customer_io_attributes.dart';
 export 'customer_io_events.dart';
@@ -37,6 +38,9 @@ class CustomerIoService {
   }) async {
     final isNotificationGranted = PermissionsService.instance.isNotificationGranted;
 
+    final info = await PackageInfo.fromPlatform();
+    final appVersion = '${info.version} (${info.buildNumber})';
+
     CustomerIO.identify(
       identifier: id,
       attributes: {
@@ -46,6 +50,7 @@ class CustomerIoService {
         'system_locale': Platform.localeName,
         'consent_to_email': receiveAnEmails,
         'enable_push_notifications': isNotificationGranted,
+        'app_version': appVersion,
         'cio_subscription_preferences': {
           'topics': {
             'topic_1': receiveAnEmails,
@@ -79,12 +84,16 @@ class CustomerIoService {
     required String name,
     required int id,
   }) async {
+    final info = await PackageInfo.fromPlatform();
+    final appVersion = '${info.version} (${info.buildNumber})';
+
     CustomerIO.identify(
       identifier: customerIoId,
       attributes: {
         'user_id': '$id-${LocalizationConstants.serverCountryCode}',
         'email': email,
         'name': name,
+        'app_version': appVersion,
         'system_locale': Platform.localeName,
       },
     );
