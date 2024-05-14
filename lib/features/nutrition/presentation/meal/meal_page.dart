@@ -215,8 +215,10 @@ class _MealPageState extends State<MealPage> {
 
   _onBack() {
     final state = context.read<MealsBloc>().state;
+    final hasMoreThanOneMealRouteInStack =
+        context.router.stack.map((e) => e.name).where((n) => n == context.router.current.name).length > 1;
 
-    if (state.data.currentFoodItems.isEmpty) {
+    if (state.data.currentFoodItems.isEmpty && !hasMoreThanOneMealRouteInStack) {
       context.read<MealsBloc>().add(MealsEvent.deleteMeal(state.data.getCurrentMealId));
     }
 

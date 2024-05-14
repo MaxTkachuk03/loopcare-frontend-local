@@ -18,7 +18,6 @@ class MealsStateData with _$MealsStateData, NutritionUtils {
   const factory MealsStateData({
     int? currentMealId,
     @Default(NutritionValuesTypes.calories) NutritionValuesTypes currentNutritionType,
-    @Default(MealActionModes.mealLogging) MealActionModes mealActionMode,
     @Default({}) Map<String, List<MealsListItem>> meals,
     @Default(false) bool isLoading,
     DateTime? currentDate,
@@ -39,8 +38,8 @@ class MealsStateData with _$MealsStateData, NutritionUtils {
 
   bool get isNeededToFetchMeal => isEnableOnDashboard;
 
-  double? get selectedDayMealCalorieDensitySum {
-    if (meals.isEmpty) return null;
+  double get selectedDayMealCalorieDensitySum {
+    if (meals.isEmpty) return 0;
 
     double caloriesSum = 0;
     double weight = 0;
@@ -57,8 +56,8 @@ class MealsStateData with _$MealsStateData, NutritionUtils {
     return getCalorieDensity(caloriesSum, weight);
   }
 
-  double? get selectedDayMealFiber {
-    if (meals.isEmpty) return null;
+  double get selectedDayMealFiber {
+    if (meals.isEmpty) return 0;
 
     double fiberSum = 0;
 
@@ -73,8 +72,8 @@ class MealsStateData with _$MealsStateData, NutritionUtils {
     return fiberSum;
   }
 
-  double? get selectedDayMealCarbFiberRatio {
-    if (meals.isEmpty) return null;
+  double get selectedDayMealCarbFiberRatio {
+    if (meals.isEmpty) return 0;
 
     double fiberSum = 0;
     double carbsSum = 0;
@@ -91,8 +90,8 @@ class MealsStateData with _$MealsStateData, NutritionUtils {
     return getCarbFiberRatio(carbsSum, fiberSum);
   }
 
-  double? get carbsPercent {
-    if (meals.isEmpty) return null;
+  double get carbsPercent {
+    if (meals.isEmpty) return 0;
 
     double calorieSum = 0;
     double carbsSum = 0;
@@ -109,8 +108,8 @@ class MealsStateData with _$MealsStateData, NutritionUtils {
     return getCarbsPercent(carbsSum, calorieSum);
   }
 
-  double? get totalCalories {
-    if (meals.isEmpty) return null;
+  double get totalCalories {
+    if (meals.isEmpty) return 0;
 
     double calorieSum = 0;
 
@@ -125,8 +124,8 @@ class MealsStateData with _$MealsStateData, NutritionUtils {
     return calorieSum;
   }
 
-  double? get selectedDayMealTotalCarbs {
-    if (meals.isEmpty) return null;
+  double get selectedDayMealTotalCarbs {
+    if (meals.isEmpty) return 0;
 
     double carbsSum = 0;
 
@@ -141,8 +140,8 @@ class MealsStateData with _$MealsStateData, NutritionUtils {
     return carbsSum;
   }
 
-  double? get selectedDayMealCarbsPercent {
-    if (meals.isEmpty) return null;
+  double get selectedDayMealCarbsPercent {
+    if (meals.isEmpty) return 0;
 
     double carbsSum = 0;
     double calorieSum = 0;
@@ -159,8 +158,8 @@ class MealsStateData with _$MealsStateData, NutritionUtils {
     return getCarbsPercent(carbsSum, calorieSum);
   }
 
-  double? get selectedDayMealCalories {
-    if (meals.isEmpty) return null;
+  double get selectedDayMealCalories {
+    if (meals.isEmpty) return 0;
 
     double calorieSum = 0;
 
@@ -175,8 +174,8 @@ class MealsStateData with _$MealsStateData, NutritionUtils {
     return calorieSum;
   }
 
-  double? get selectedDayMealProteinDegreeSum {
-    if (meals.isEmpty) return null;
+  double get selectedDayMealProteinDegreeSum {
+    if (meals.isEmpty) return 0;
 
     double caloriesSum = 0;
     double proteinSum = 0;
@@ -264,86 +263,86 @@ class MealsStateData with _$MealsStateData, NutritionUtils {
     return currentMeal.mealItems.any((e) => e.type == 'recipe' || e.type == 'dish');
   }
 
-  double? get currentMealProteinDegree {
+  double get currentMealProteinDegree {
     if (mealsMap.isEmpty || currentMealId == null) {
-      return null;
+      return 0;
     }
 
     final selectedDayMeals = mealsMap[currentDateTime.isoStringWithoutTime] ?? <MealsListItem>[];
 
     final MealsListItem? currentMeal = selectedDayMeals.firstWhereOrNull((item) => item.id == currentMealId);
 
-    if (currentMeal == null) return null;
+    if (currentMeal == null) return 0;
 
     return getProteinDegree(currentMeal.proteinSum, currentMeal.caloriesSum);
   }
 
-  double? get currentMealCalorieDensity {
+  double get currentMealCalorieDensity {
     if (mealsMap.isEmpty || currentMealId == null) {
-      return null;
+      return 0;
     }
 
     final selectedDayMeals = mealsMap[currentDateTime.isoStringWithoutTime] ?? <MealsListItem>[];
 
     final MealsListItem? currentMeal = selectedDayMeals.firstWhereOrNull((item) => item.id == currentMealId);
 
-    if (currentMeal == null) return null;
+    if (currentMeal == null) return 0;
 
     return getCalorieDensity(currentMeal.caloriesSum, currentMeal.weightSum);
   }
 
-  double? get currentMealFiber {
+  double get currentMealFiber {
     if (mealsMap.isEmpty || currentMealId == null) {
-      return null;
+      return 0;
     }
 
     final selectedDayMeals = mealsMap[currentDateTime.isoStringWithoutTime] ?? <MealsListItem>[];
 
     final MealsListItem? currentMeal = selectedDayMeals.firstWhereOrNull((item) => item.id == currentMealId);
 
-    if (currentMeal == null) return null;
+    if (currentMeal == null) return 0;
 
     return currentMeal.fiberSum;
   }
 
-  double? get currentMealCarbFiberRatio {
+  double get currentMealCarbFiberRatio {
     if (mealsMap.isEmpty || currentMealId == null) {
-      return null;
+      return 0;
     }
 
     final selectedDayMeals = mealsMap[currentDateTime.isoStringWithoutTime] ?? <MealsListItem>[];
 
     final MealsListItem? currentMeal = selectedDayMeals.firstWhereOrNull((item) => item.id == currentMealId);
 
-    if (currentMeal == null) return null;
+    if (currentMeal == null) return 0;
 
     return getCarbFiberRatio(currentMeal.carbohydratesSum, currentMeal.fiberSum);
   }
 
-  double? get currentMealCarbsPercent {
+  double get currentMealCarbsPercent {
     if (mealsMap.isEmpty || currentMealId == null) {
-      return null;
+      return 0;
     }
 
     final selectedDayMeals = mealsMap[currentDateTime.isoStringWithoutTime] ?? <MealsListItem>[];
 
     final MealsListItem? currentMeal = selectedDayMeals.firstWhereOrNull((item) => item.id == currentMealId);
 
-    if (currentMeal == null) return null;
+    if (currentMeal == null) return 0;
 
     return getCarbsPercent(currentMeal.carbohydratesSum, currentMeal.caloriesSum);
   }
 
-  double? get currentMealCalories {
+  double get currentMealCalories {
     if (mealsMap.isEmpty || currentMealId == null) {
-      return null;
+      return 0;
     }
 
     final selectedDayMeals = mealsMap[currentDateTime.isoStringWithoutTime] ?? <MealsListItem>[];
 
     final MealsListItem? currentMeal = selectedDayMeals.firstWhereOrNull((item) => item.id == currentMealId);
 
-    if (currentMeal == null) return null;
+    if (currentMeal == null) return 0;
 
     return currentMeal.caloriesSum;
   }

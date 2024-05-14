@@ -14,7 +14,6 @@ import 'package:loopcare_frontend/features/nutrition/application/meals/dto/meals
 import 'package:loopcare_frontend/features/nutrition/application/nutrition_service.dart';
 import 'package:loopcare_frontend/features/nutrition/application/recipe/dto/add_recipe_to_meal_body.dart';
 import 'package:loopcare_frontend/features/nutrition/domain/favorites_item/favorites_item.dart';
-import 'package:loopcare_frontend/features/nutrition/domain/meal_action_mode/meal_action_modes.dart';
 import 'package:loopcare_frontend/features/nutrition/domain/nutrition_values_types/nutrition_values_types.dart';
 import 'package:loopcare_frontend/features/nutrition/domain/select_serving/meal_category.dart';
 import 'package:loopcare_frontend/features/nutrition/domain/serving_size/serving_size.dart';
@@ -109,10 +108,10 @@ class MealsBloc extends Bloc<MealsEvent, MealsState> {
     SetMealId event,
     Emitter<MealsState> emit,
   ) async {
+    print('set meal id event with id = ${event.id}');
     emit(
       MealsState.mealsInfo(state.data.copyWith(
         currentMealId: event.id,
-        mealActionMode: MealActionModes.mealLogging,
         currentMealCategory: event.mealCategory,
       )),
     );
@@ -290,7 +289,10 @@ class MealsBloc extends Bloc<MealsEvent, MealsState> {
     response.fold(
       (l) => emit(MealsState.error(state.data.copyWith(error: l, isLoading: false))),
       (r) {
+        print('delete meal success case data server meal id = ${r.id}');
+        print('delete meal success case data id from from event = ${mealId}');
         emit(MealsState.mealsInfo(state.data.copyWith(meals: _deleteMealFromList(mealId))));
+        print('delete meal success case state after delete = ${state.data}');
       },
     );
   }
@@ -298,8 +300,8 @@ class MealsBloc extends Bloc<MealsEvent, MealsState> {
   Map<String, List<MealsListItem>> _deleteMealFromList(int mealId) {
     final currentDate = state.data.currentDateTime;
 
-    Map<String, List<MealsListItem>> meals =
-        state.data.mealsMap.map((key, value) => MapEntry(key, [...value]));
+    Map<String, List<MealsListItem>> meals = {...state.data.mealsMap};
+
     var selectedDayMeals = meals[currentDate.isoStringWithoutTime] ?? <MealsListItem>[];
 
     selectedDayMeals.removeWhere((e) => e.id == mealId);
@@ -349,10 +351,7 @@ class MealsBloc extends Bloc<MealsEvent, MealsState> {
     AddMeal event,
     Emitter<MealsState> emit,
   ) async {
-    emit(MealsState.loading(state.data.copyWith(
-      isLoading: true,
-      mealActionMode: MealActionModes.mealLogging,
-    )));
+    emit(MealsState.loading(state.data.copyWith(isLoading: true)));
 
     var loggingDate = state.data.currentDateTime.midnightTime.toIso8601String();
 
@@ -363,6 +362,7 @@ class MealsBloc extends Bloc<MealsEvent, MealsState> {
     response.fold(
       (l) => emit(MealsState.error(state.data.copyWith(error: l, isLoading: false))),
       (r) {
+        _getUpdatedMealsList(r);
         var updatedList = <MealsListItem>[];
         final loggingDate = r.loggingDate;
 
@@ -387,7 +387,6 @@ class MealsBloc extends Bloc<MealsEvent, MealsState> {
         emit(
           MealsState.mealsInfo(
             state.data.copyWith(
-              mealActionMode: MealActionModes.mealLogging,
               currentMealCategory: event.mealCategory,
               currentMealId: r.id,
               meals: meals,
@@ -399,9 +398,7 @@ class MealsBloc extends Bloc<MealsEvent, MealsState> {
     );
   }
 
-  Map<String, List<MealsListItem>> _getUpdatedMealsList(
-    MealsListItem mealItem,
-  ) {
+  Map<String, List<MealsListItem>> _getUpdatedMealsList(MealsListItem mealItem) {
     final date = mealItem.loggingDate;
 
     if (date == null) return state.data.mealsMap;

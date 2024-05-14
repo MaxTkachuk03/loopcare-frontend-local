@@ -67,8 +67,8 @@ class LogMeal extends StatelessWidget {
               ),
               state.maybeMap(
                 loading: (_) => const Loader(),
-                error: (errorState) {
-                  final error = errorState.data.error;
+                error: (s) {
+                  final error = s.data.error;
 
                   return ErrorScreen(
                     error: error!,
