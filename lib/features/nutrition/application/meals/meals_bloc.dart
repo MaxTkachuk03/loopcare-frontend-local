@@ -334,11 +334,12 @@ class MealsBloc extends Bloc<MealsEvent, MealsState> {
     response.fold(
       (l) => emit(MealsState.error(state.data.copyWith(error: l, isLoading: false))),
       (r) {
-        // print('data from server = ${r.toJson()}');
-        // print('data in state = ${state.data.meals}');
-        // print('updated data in state = ${_getUpdatedMealsList(r)}');
         emit(
-          MealsState.mealsInfo(state.data.copyWith(currentMealId: mealId, meals: _getUpdatedMealsList(r))),
+          MealsState.mealsInfo(state.data.copyWith(
+            currentMealId: mealId,
+            meals: _getUpdatedMealsList(r),
+            isLoading: false,
+          )),
         );
       },
     );

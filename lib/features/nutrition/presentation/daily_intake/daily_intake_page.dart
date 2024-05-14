@@ -23,6 +23,9 @@ class DailyIntakePage extends StatelessWidget {
     return BlocBuilder<MealsBloc, MealsState>(
       builder: (context, state) {
         return state.maybeMap(
+          orElse: () => CustomScaffold.greenLightest(
+            appBar: CustomAppBar.green(leading: CustomFilledIconButton.leadingGreenLighter()),
+          ),
           mealsInfo: (mealsState) {
             return CustomScaffold.greenLightest(
               appBar: CustomAppBar.green(
@@ -38,7 +41,7 @@ class DailyIntakePage extends StatelessWidget {
                         itemCount: MealCategory.values.length,
                         itemBuilder: (context, index) {
                           final selectedDayMeals =
-                              mealsState.data.meals[mealsState.data.currentDate?.isoStringWithoutTime];
+                              mealsState.data.meals[mealsState.data.currentDateTime.isoStringWithoutTime];
                           var category = MealCategory.values[index].name;
 
                           var mealForCurrentCategory = selectedDayMeals?.firstWhereOrNull(
@@ -73,9 +76,6 @@ class DailyIntakePage extends StatelessWidget {
               ),
             );
           },
-          orElse: () => CustomScaffold.greenLightest(
-            appBar: CustomAppBar.green(leading: CustomFilledIconButton.leadingGreenLighter()),
-          ),
         );
       },
     );
