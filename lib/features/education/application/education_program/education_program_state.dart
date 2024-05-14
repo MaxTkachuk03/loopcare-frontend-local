@@ -25,4 +25,6 @@ class EducationProgramData with _$EducationProgramData {
   }) = _EducationProgramData;
 
   int get activeLessonIndex => lessons.indexWhere((element) => !element.isCompleted && !element.isLocked);
+
+  String getLessonCardImage(int id) => lessons.firstWhere((lesson) => lesson.id == id).cardImage;
 }
