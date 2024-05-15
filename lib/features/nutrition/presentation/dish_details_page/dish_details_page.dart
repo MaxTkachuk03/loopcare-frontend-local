@@ -88,7 +88,7 @@ class _DishDetailsPageState extends State<DishDetailsPage> {
     if (!(widget.isMealDish ?? false)) return;
 
     final mealState = context.read<MealsBloc>().state;
-    final mealId = mealState.getCurrentMealId;
+    final mealId = mealState.data.getCurrentMealId;
 
     if (mealId == null || val.isEmpty) return;
 
@@ -136,7 +136,7 @@ class _DishDetailsPageState extends State<DishDetailsPage> {
         mode: SearchMode.food,
         onItemTap: (SearchItem item) {
           final mealBloc = context.read<MealsBloc>();
-          final mealId = mealBloc.state.getCurrentMealId;
+          final mealId = mealBloc.state.data.getCurrentMealId;
 
           if (mealId == null) {
             debugPrint('Search item click freezed DishDetailsPage mealId == null');
@@ -165,13 +165,14 @@ class _DishDetailsPageState extends State<DishDetailsPage> {
   }
 
   _onLogDishHandler() {
-    final mealId = context.read<MealsBloc>().state.getCurrentMealId;
+    final mealId = context.read<MealsBloc>().state.data.getCurrentMealId;
+    final dishId = context.read<DishBloc>().state.mapOrNull(dish: (s) => s.selectedDish.id);
 
-    if (mealId == null) return;
+    if (mealId == null || dishId == null) return;
 
     final numberOfServings = _servingController.text.replaceCommaWithDot.deleteDotAtTheEnd;
 
-    context.read<DishBloc>().add(DishEvent.addToMeal(mealId, numberOfServings));
+    context.read<MealsBloc>().add(MealsEvent.addDishToMeal(mealId, numberOfServings, dishId));
 
     context.router.pushNamed(AppRoutes.meal);
   }
@@ -363,7 +364,7 @@ class _DishDetailsPageState extends State<DishDetailsPage> {
     if (state.dish == null) return;
 
     final mealBloc = context.read<MealsBloc>();
-    final mealId = mealBloc.state.getCurrentMealId;
+    final mealId = mealBloc.state.data.getCurrentMealId;
 
     if (mealId == null) return;
 

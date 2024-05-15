@@ -33,7 +33,7 @@ class UnderAppBarContainer extends StatelessWidget {
     return BlocBuilder<MealsBloc, MealsState>(
       builder: (BuildContext context, state) {
         return Container(
-          color: state.isPlanningMeals ? AppColors.greenDarker : AppColors.greenRegular,
+          color: AppColors.greenRegular,
           padding: const EdgeInsets.symmetric(horizontal: 24.0),
           child: Column(
             children: [
@@ -91,7 +91,7 @@ class UnderAppBarContainer extends StatelessWidget {
       SearchRoute(
         onItemTap: (SearchItem item) {
           final mealBloc = context.read<MealsBloc>();
-          final mealId = mealBloc.state.getCurrentMealId;
+          final mealId = mealBloc.state.data.getCurrentMealId;
           if (mealId == null) {
             return;
           }
@@ -106,7 +106,7 @@ class UnderAppBarContainer extends StatelessWidget {
                 foodItemName: item.name,
                 initialServingAmount: 1,
                 onConfirm: (double numberOfUnits, String servingId) {
-                  final mealId = mealBloc.state.getCurrentMealId;
+                  final mealId = mealBloc.state.data.getCurrentMealId;
                   if (mealId != null) {
                     mealBloc.add(
                       MealsEvent.addFoodItemToMeal(

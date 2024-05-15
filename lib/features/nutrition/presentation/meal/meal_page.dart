@@ -2,6 +2,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loopcare_frontend/core/infrastructure/services/firebase_event_service.dart';
 import 'package:loopcare_frontend/core/presentation/alerting/modal_bottom_sheet.dart';
@@ -49,28 +50,29 @@ class _MealPageState extends State<MealPage> {
     super.initState();
     final mealState = context.read<MealsBloc>().state;
     // FIXME very bad solution, need to change mealState.currentMealCategory type in the model to the enum value, could broke a lot of, that's why using temporary solution now
-    final mealCategory =
-        mealState.currentMealCategory == 'inbetweens & snacks' ? 'snack' : mealState.currentMealCategory;
+    final mealCategory = mealState.data.currentMealCategory == 'inbetweens & snacks'
+        ? 'snack'
+        : mealState.data.currentMealCategory;
     if (mealCategory != null) {
       context.read<RecipeBloc>().add(RecipeEvent.getRecommendations(mealCategory));
     }
     final state = context.read<MealsBloc>().state;
-    currentDate = state.getCurrentDate;
+    currentDate = state.data.currentDateTime;
   }
 
   void _onSaveToMyDishesHandler() {
     final state = context.read<MealsBloc>().state;
 
     final mealCategory =
-        DishFavoritesCategory.values.asNameMap().containsKey(state.currentMealCategory?.toLowerCase())
-            ? state.currentMealCategory?.toLowerCase()
+        DishFavoritesCategory.values.asNameMap().containsKey(state.data.currentMealCategory?.toLowerCase())
+            ? state.data.currentMealCategory?.toLowerCase()
             : MealCategory.breakfast.originalValue;
 
-    final mealId = state.getCurrentMealId;
+    final mealId = state.data.getCurrentMealId;
 
     if (mealId == null || mealCategory == null) return;
 
-    if (state.isContainsRecipeOrDish) {
+    if (state.data.isContainsRecipeOrDish) {
       context.showError(content: Text(LocalizedTexts.invalidCreateDishFromMealMessage.tr()));
       return;
     }
@@ -90,14 +92,14 @@ class _MealPageState extends State<MealPage> {
 
   String get _genericDishName {
     // TODO dish name cant be empty, so get generic name for now
-    final mealCategory = context.read<MealsBloc>().state.currentMealCategory;
-    final mealId = context.read<MealsBloc>().state.getCurrentMealId;
+    final mealCategory = context.read<MealsBloc>().state.data.currentMealCategory;
+    final mealId = context.read<MealsBloc>().state.data.getCurrentMealId;
     return '$mealCategory dish from meal $mealId';
   }
 
   String get _appBarTitle {
     final state = context.read<MealsBloc>().state;
-    final currentMealCategory = state.currentMealCategory;
+    final currentMealCategory = state.data.currentMealCategory;
 
     if (currentMealCategory == null) return '';
 
@@ -105,7 +107,7 @@ class _MealPageState extends State<MealPage> {
       'meal_screen_type_${currentMealCategory.replaceAll(' ', '_').replaceFirst('&', 'and')}',
     );
 
-    return '${currentMealCategory.capitalizeOnlyFirstLetter()}${state.isPlanningMeals ? '' : ' ${LocalizedTexts.logList.tr()}'}';
+    return '${currentMealCategory.capitalizeOnlyFirstLetter()}${' ${LocalizedTexts.logList.tr()}'}';
   }
 
   String get _appBarSubTitle {
@@ -113,8 +115,8 @@ class _MealPageState extends State<MealPage> {
     // TODO: LOOPCARE-1798 Hide Meal planning block
     // final dates = state.currentMealDates;
 
-    final date = state.getCurrentDate.isoStringWithoutTime != DateTime.now().isoStringWithoutTime
-        ? state.getCurrentDate.shortDate
+    final date = state.data.currentDateTime.isoStringWithoutTime != DateTime.now().isoStringWithoutTime
+        ? state.data.currentDateTime.shortDate
         : LocalizedTexts.today.tr().capitalize();
     return date;
   }
@@ -131,23 +133,15 @@ class _MealPageState extends State<MealPage> {
   //   return state.getCurrentDate.shortDate;
   // }
 
-  void _onFilledListener(BuildContext context, MealsState state) {
-    if (state.currentMeal == null) {
-      context.router.popUntilRouteWithName(HomeRoute.name);
-    }
-// TODO: LOOPCARE-1798 Hide Meal planning block
-    // context.read<ChooseDateBloc>().add(ChooseDateEvent.fetchMealById(state.getCurrentMealId ?? -1));
-  }
-
   void _onChooseDates(BuildContext context) {
-    final state = context.read<MealsBloc>().state;
+    final state = context.read<MealsBloc>().state.data;
 
     if (state.currentFoodItems.isNotEmpty) {
       context.router.push(
         ChooseDateCalendarRoute(
           mealCategory: state.currentMealCategory ?? '',
           dates: state.currentMeal?.planningDates,
-          mealId: context.read<MealsBloc>().state.getCurrentMealId ?? -1,
+          mealId: state.getCurrentMealId ?? -1,
         ),
       );
     }
@@ -159,13 +153,13 @@ class _MealPageState extends State<MealPage> {
 
   _onRecommendationsPressed(BuildContext context) {
     final mealState = context.read<MealsBloc>().state;
-    final mealCategory = mealState.currentMealCategory;
+    final mealCategory = mealState.data.currentMealCategory;
 
     if (mealCategory != null) {
       context.router.push(
         RecommendationsRoute(
           mealCategory: mealCategory,
-          date: mealState.getCurrentDate,
+          date: mealState.data.currentDateTime,
           fromMealPage: true,
         ),
       );
@@ -174,13 +168,13 @@ class _MealPageState extends State<MealPage> {
 
   void _setOriginDate() {
     final mealBloc = context.read<MealsBloc>();
-    mealBloc.add(MealsEvent.setCurrentDate(mealBloc.state.getOriginDate));
+    mealBloc.add(MealsEvent.setCurrentDate(mealBloc.state.data.getOriginDate));
   }
 
   _onDeleteMealPressed(BuildContext context) {
     final mealsState = context.read<MealsBloc>().state;
-    final currentCategory = mealsState.currentMealCategory;
-    final mealDates = mealsState.currentMealDates;
+    final currentCategory = mealsState.data.currentMealCategory;
+    final mealDates = mealsState.data.currentMealDates;
 
     if (currentCategory == null) return;
 
@@ -192,11 +186,9 @@ class _MealPageState extends State<MealPage> {
           _onChooseDates(context);
         },
         onDeleted: () {
-          context.read<MealsBloc>().add(
-                MealsEvent.deleteMeal(
-                  context.read<MealsBloc>().state.getCurrentMealId,
-                ),
-              );
+          context
+              .read<MealsBloc>()
+              .add(MealsEvent.deleteMeal(context.read<MealsBloc>().state.data.getCurrentMealId));
 
           _setOriginDate();
 
@@ -208,11 +200,9 @@ class _MealPageState extends State<MealPage> {
       ModalBottomSheet.deleteMeal(
         context: context,
         onDeleted: () {
-          context.read<MealsBloc>().add(
-                MealsEvent.deleteMeal(
-                  context.read<MealsBloc>().state.getCurrentMealId,
-                ),
-              );
+          context
+              .read<MealsBloc>()
+              .add(MealsEvent.deleteMeal(context.read<MealsBloc>().state.data.getCurrentMealId));
           // Need  to observe behavior, and remove this after ~20 Feb 2024
           // _setOriginDate();
 
@@ -225,9 +215,11 @@ class _MealPageState extends State<MealPage> {
 
   _onBack() {
     final state = context.read<MealsBloc>().state;
+    final hasMoreThanOneMealRouteInStack =
+        context.router.stack.map((e) => e.name).where((n) => n == context.router.current.name).length > 1;
 
-    if (state.currentFoodItems.isEmpty) {
-      context.read<MealsBloc>().add(MealsEvent.deleteMeal(state.getCurrentMealId));
+    if (state.data.currentFoodItems.isEmpty && !hasMoreThanOneMealRouteInStack) {
+      context.read<MealsBloc>().add(MealsEvent.deleteMeal(state.data.getCurrentMealId));
     }
 
     _setOriginDate();
@@ -246,9 +238,7 @@ class _MealPageState extends State<MealPage> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocConsumer<MealsBloc, MealsState>(
-      listenWhen: (prev, cur) => cur.getCurrentMealId != null,
-      listener: _onFilledListener,
+    return BlocBuilder<MealsBloc, MealsState>(
       builder: (BuildContext context, state) {
         return WillPopScope(
           onWillPop: _onWillPop,
@@ -262,130 +252,109 @@ class _MealPageState extends State<MealPage> {
                   : null,
             ),
             body: CustomSafeArea(
-              child: ScrollableContainer(
-                child: state.maybeMap(
-                  loading: (_) => const Loader(),
-                  error: (errorState) {
-                    final error = errorState.fetchError;
-                    return ErrorScreen(
-                      error: error,
-                      //TODO: need to check
-                      onButtonPressed: () {
-                        final mealId = context.read<MealsBloc>().state.getCurrentMealId;
-                        if (mealId != null) {
-                          context.read<MealsBloc>().add(MealsEvent.fetchMealById(mealId));
-                        }
-                      },
-                    );
-                  },
-                  mealsInfo: (mealsState) {
-                    if (mealsState.isLoading) {
-                      return const Loader();
-                    }
-                    final error = mealsState.error;
-                    if (error != null) {
-                      return SizedBox(
-                        width: double.infinity,
-                        child: MainContainer(
-                          child: ErrorScreen(error: error),
-                        ),
-                      );
-                    }
-                    return Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: [
-                            NutritionValuesBlock(
-                              numberOfPortions: mealsState.currentMeal?.serving.numberOfUnits.toInt() ?? 0,
-                              selectedNutritionType: mealsState.currentNutritionType,
-                              nutritionValuesList: mealsState.currentMeal?.serving.list ?? <NutritionItem>[],
-                              onNutritionFactSelect: _onNutritionFactSelect,
-                            ),
-                            MealsList(isActive: currentDate.laterThanWeekAgo),
-                            NutritionSummary(
-                              proteinDegree: state.currentMealProteinDegree,
-                              calorieDensity: state.currentMealCalorieDensity,
-                              fiber: state.currentMealFiber,
-                              carbFiberRatio: state.currentMealCarbFiberRatio,
-                              carbsPercent: state.currentMealCarbsPercent,
-                              totalCalories: state.currentMealCalories,
-                            ),
-                            // TODO: LOOPCARE-1798 Hide Meal planning block
-                            // ChooseDateBlock(
-                            //   date: _mealDates(mealsState),
-                            //   onTap: (BuildContext context) =>
-                            //       currentDate.isTodayOrFuture ? _onChooseDates(context) : null,
-                            // ),
-                            const SizedBox(height: 26.0),
-                            MainContainer(
-                              child: Column(
-                                mainAxisAlignment: MainAxisAlignment.start,
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Row(
-                                    crossAxisAlignment: CrossAxisAlignment.start,
-                                    children: [
-                                      Expanded(
-                                        child: CustomOutlinedButton.blueSmall(
-                                          label: LocalizedTexts.saveToMyDishes.tr(),
-                                          onPressed: _onSaveToMyDishesHandler,
-                                        ),
-                                      ),
-                                      const SizedBox(width: 10.0),
-                                      Expanded(
-                                        child: CustomOutlinedButton.blueSmall(
-                                          label: LocalizedTexts.clearMealList.tr(),
-                                          onPressed: () => _onDeleteMealPressed(context),
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                  const SizedBox(height: 10.0),
-                                  if (mealsState.isPlanningMeals && currentDate.isTodayOrFuture)
-                                    BlocBuilder<RecipeBloc, RecipeState>(
-                                      builder: (BuildContext context, recipeState) {
-                                        return Row(
-                                          children: [
-                                            Expanded(
-                                              child: CustomOutlinedButton.blueSmall(
-                                                label: LocalizedTexts.recommendations.tr(),
-                                                onPressed: () => recipeState.data.recommendationRecipe.isEmpty
-                                                    ? null
-                                                    : _onRecommendationsPressed(context),
-                                              ),
-                                            ),
-                                            const Expanded(child: SizedBox(width: 10.0)),
-                                          ],
-                                        );
-                                      },
-                                    ),
-                                ],
-                              ),
-                            ),
-                          ],
-                        ),
-                        MainContainer(
+              child: state.maybeMap(
+                orElse: () => const SizedBox.shrink(),
+                loading: (_) => const Loader(),
+                error: (errorState) {
+                  final error = errorState.data.error;
+                  return ErrorScreen(
+                    error: error!,
+                    //TODO: need to check
+                    onButtonPressed: () {
+                      final mealId = context.read<MealsBloc>().state.data.getCurrentMealId;
+                      if (mealId != null) {
+                        context.read<MealsBloc>().add(MealsEvent.fetchMealById(mealId));
+                      }
+                    },
+                  );
+                },
+                mealsInfo: (mealsState) {
+                  return Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      NutritionValuesBlock(
+                        numberOfPortions: mealsState.data.currentMeal?.serving.numberOfUnits.toInt() ?? 0,
+                        selectedNutritionType: mealsState.data.currentNutritionType,
+                        nutritionValuesList: mealsState.data.currentMeal?.serving.list ?? <NutritionItem>[],
+                        onNutritionFactSelect: _onNutritionFactSelect,
+                      ),
+                      Expanded(
+                        child: ScrollableContainer(
                           child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            mainAxisAlignment: MainAxisAlignment.start,
                             children: [
-                              const SizedBox(height: 26.0),
-                              CustomElevatedButton.blueFullWidth(
-                                onPressed: _onBackToDashboardPressed,
-                                //TODO confirm label text for back btn
-                                label: LocalizedTexts.backToTodayLogging.tr(),
+                              MealsList(isActive: currentDate.laterThanWeekAgo),
+                              NutritionSummary(
+                                proteinDegree: state.data.currentMealProteinDegree,
+                                calorieDensity: state.data.currentMealCalorieDensity,
+                                fiber: state.data.currentMealFiber,
+                                carbFiberRatio: state.data.currentMealCarbFiberRatio,
+                                carbsPercent: state.data.currentMealCarbsPercent,
+                                totalCalories: state.data.currentMealCalories,
                               ),
-                              const SizedBox(height: 20.0)
+                              const SizedBox(height: 26.0),
+                              MainContainer(
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Row(
+                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      children: [
+                                        Expanded(
+                                          child: CustomOutlinedButton.blueSmall(
+                                            label: LocalizedTexts.saveToMyDishes.tr(),
+                                            onPressed: _onSaveToMyDishesHandler,
+                                          ),
+                                        ),
+                                        const SizedBox(width: 10.0),
+                                        Expanded(
+                                          child: CustomOutlinedButton.blueSmall(
+                                            label: LocalizedTexts.clearMealList.tr(),
+                                            onPressed: () => _onDeleteMealPressed(context),
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                    const SizedBox(height: 10.0),
+                                    if (currentDate.isTodayOrFuture)
+                                      BlocBuilder<RecipeBloc, RecipeState>(
+                                        builder: (BuildContext context, recipeState) {
+                                          return Row(
+                                            children: [
+                                              Expanded(
+                                                child: CustomOutlinedButton.blueSmall(
+                                                  label: LocalizedTexts.recommendations.tr(),
+                                                  onPressed: () =>
+                                                      recipeState.data.recommendationRecipe.isEmpty
+                                                          ? null
+                                                          : _onRecommendationsPressed(context),
+                                                ),
+                                              ),
+                                              const Expanded(child: SizedBox(width: 10.0)),
+                                            ],
+                                          );
+                                        },
+                                      ),
+                                  ],
+                                ),
+                              ),
                             ],
                           ),
-                        )
-                      ],
-                    );
-                  },
-                  orElse: () => const SizedBox.shrink(),
-                ),
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 30.0, horizontal: 24.0),
+                        child: CustomElevatedButton.blueFullWidth(
+                          onPressed: _onBackToDashboardPressed,
+                          label: LocalizedTexts.backToTodayLogging.tr(),
+                        ),
+                      )
+                    ],
+                  );
+                },
               ),
             ),
           ),

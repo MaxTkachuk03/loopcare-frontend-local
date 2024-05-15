@@ -134,21 +134,22 @@ class _RecipeDetailsPageState extends State<RecipeDetailsPage> {
 
   String get _genericDishName {
     // TODO dish name cant be empty, so get generic name for now
-    final mealCategory = context.read<MealsBloc>().state.currentMealCategory;
-    final mealId = context.read<MealsBloc>().state.getCurrentMealId;
+    final mealCategory = context.read<MealsBloc>().state.data.currentMealCategory;
+    final mealId = context.read<MealsBloc>().state.data.getCurrentMealId;
     return '$mealCategory dish from meal $mealId';
   }
 
   void _onSaveToMyDishesHandler() {
     final state = context.read<MealsBloc>().state;
 
-    final mealCategory = DishFavoritesCategory.values.asNameMap().containsKey(state.currentMealCategory?.toLowerCase())
-        ? state.currentMealCategory
-        : MealCategory.breakfast.originalValue;
+    final mealCategory =
+        DishFavoritesCategory.values.asNameMap().containsKey(state.data.currentMealCategory?.toLowerCase())
+            ? state.data.currentMealCategory
+            : MealCategory.breakfast.originalValue;
 
     if (mealCategory == null) return;
 
-    if (state.isContainsRecipeOrDish) {
+    if (state.data.isContainsRecipeOrDish) {
       context.showError(content: Text(LocalizedTexts.invalidCreateDishFromMealMessage.tr()));
       return;
     }

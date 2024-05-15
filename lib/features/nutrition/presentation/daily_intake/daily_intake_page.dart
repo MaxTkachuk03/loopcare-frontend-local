@@ -23,14 +23,15 @@ class DailyIntakePage extends StatelessWidget {
     return BlocBuilder<MealsBloc, MealsState>(
       builder: (context, state) {
         return state.maybeMap(
+          orElse: () => CustomScaffold.greenLightest(
+            appBar: CustomAppBar.green(leading: CustomFilledIconButton.leadingGreenLighter()),
+          ),
           mealsInfo: (mealsState) {
             return CustomScaffold.greenLightest(
               appBar: CustomAppBar.green(
                 leading: CustomFilledIconButton.leadingGreenLighter(),
-                title: state.getCurrentDate.fullDate,
-                subtitle: state.isPlanningMeals
-                    ? LocalizedTexts.plannedMeals.tr().capitalizeOnlyFirstLetter()
-                    : LocalizedTexts.loggedMeals.tr().capitalizeOnlyFirstLetter(),
+                title: state.data.currentDateTime.fullDate,
+                subtitle: LocalizedTexts.loggedMeals.tr().capitalizeOnlyFirstLetter(),
               ),
               body: CustomSafeArea(
                 child: Column(
@@ -40,20 +41,23 @@ class DailyIntakePage extends StatelessWidget {
                         itemCount: MealCategory.values.length,
                         itemBuilder: (context, index) {
                           final selectedDayMeals =
-                              mealsState.meals[mealsState.currentDate?.isoStringWithoutTime];
-
+                              mealsState.data.meals[mealsState.data.currentDateTime.isoStringWithoutTime];
                           var category = MealCategory.values[index].name;
-                          var mealForCurrentCategory = selectedDayMeals
-                              ?.firstWhereOrNull((m) => m.mealCategory == MealCategory.values[index].label);
+
+                          print('meal in the state = ${selectedDayMeals?.map((e) => e.id)}');
+                          print('meal in the state = ${selectedDayMeals?.map((e) => e.mealCategory)}');
+                          print('meal in the state = ${selectedDayMeals?.map((e) => e.mealItems.length)}');
+
+                          var mealForCurrentCategory = selectedDayMeals?.firstWhereOrNull(
+                              (m) => m.mealCategory.toLowerCase() == MealCategory.values[index].label);
 
                           final mealItems = mealForCurrentCategory?.mealItems;
                           final isEnabled = mealItems != null && mealItems.isNotEmpty;
-
                           return MealCard(
-                            mealId: isEnabled ? mealForCurrentCategory?.id : null,
+                            mealId: mealForCurrentCategory?.id,
                             title: category,
                             mealItems: isEnabled ? mealItems : null,
-                            calorieDensity: isEnabled ? mealsState.calorieDensitySum(mealItems) : null,
+                            calorieDensity: isEnabled ? mealsState.data.calorieDensitySum(mealItems) : null,
                           );
                         },
                         separatorBuilder: (_, __) =>
@@ -63,12 +67,12 @@ class DailyIntakePage extends StatelessWidget {
                     Padding(
                       padding: const EdgeInsets.symmetric(vertical: 30.0),
                       child: NutritionSummary(
-                        proteinDegree: mealsState.selectedDayMealProteinDegreeSum,
-                        calorieDensity: mealsState.selectedDayMealCalorieDensitySum,
-                        fiber: mealsState.selectedDayMealFiber,
-                        carbFiberRatio: mealsState.selectedDayMealCarbFiberRatio,
-                        carbsPercent: mealsState.carbsPercent,
-                        totalCalories: mealsState.totalCalories,
+                        proteinDegree: mealsState.data.selectedDayMealProteinDegreeSum,
+                        calorieDensity: mealsState.data.selectedDayMealCalorieDensitySum,
+                        fiber: mealsState.data.selectedDayMealFiber,
+                        carbFiberRatio: mealsState.data.selectedDayMealCarbFiberRatio,
+                        carbsPercent: mealsState.data.carbsPercent,
+                        totalCalories: mealsState.data.totalCalories,
                       ),
                     ),
                   ],
@@ -76,9 +80,6 @@ class DailyIntakePage extends StatelessWidget {
               ),
             );
           },
-          orElse: () => CustomScaffold.greenLightest(
-            appBar: CustomAppBar.green(leading: CustomFilledIconButton.leadingGreenLighter()),
-          ),
         );
       },
     );

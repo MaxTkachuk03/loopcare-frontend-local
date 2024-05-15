@@ -23,11 +23,11 @@ class LogMeal extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<MealsBloc, MealsState>(
       builder: (context, state) {
-        if (state.isNeedToHideOnDashboard) {
+        if (state.data.isNeedToHideOnDashboard) {
           return const SizedBox.shrink();
         }
 
-        final Color textColor = state.isEnableOnDashboard ? AppColors.blueDarker : AppColors.greyLabel;
+        final Color textColor = state.data.isEnableOnDashboard ? AppColors.blueDarker : AppColors.greyLabel;
 
         return Container(
           padding: const EdgeInsets.only(top: 8.0, bottom: 8.0, right: 8.0, left: 8.0),
@@ -49,9 +49,9 @@ class LogMeal extends StatelessWidget {
                       LocalizedTexts.logYourMeals.tr(),
                       style: context.textTheme.headlineSmall?.copyWith(color: textColor),
                     ),
-                    if (state.filledCategories.isEmpty)
+                    if (state.data.filledCategories.isEmpty)
                       CustomText.w400(
-                        state.isEnableOnDashboard
+                        state.data.isEnableOnDashboard
                             ? LocalizedTexts.noMealsLoggedYet.tr()
                             : LocalizedTexts.noMealsLogged.tr(),
                         style: context.textTheme.bodySmall?.copyWith(color: textColor),
@@ -60,28 +60,28 @@ class LogMeal extends StatelessWidget {
                 ),
                 actionIcon: AppIcons.arrow,
                 circleButton: false,
-                editable: state.isEnableOnDashboard,
+                editable: state.data.isEnableOnDashboard,
               ),
               const Divider(
                 color: AppColors.blueOffRegular,
               ),
               state.maybeMap(
                 loading: (_) => const Loader(),
-                error: (errorState) {
-                  final error = errorState.fetchError;
+                error: (s) {
+                  final error = s.data.error;
 
                   return ErrorScreen(
-                    error: error,
+                    error: error!,
                     onButtonPressed: () => context.read<MealsBloc>().add(const MealsEvent.fetchMeals()),
                   );
                 },
                 orElse: () => NutritionSummary(
-                  proteinDegree: state.selectedDayMealProteinDegreeSum,
-                  calorieDensity: state.selectedDayMealCalorieDensitySum,
-                  fiber: state.selectedDayMealFiber,
-                  carbFiberRatio: state.selectedDayMealCarbFiberRatio,
-                  carbsPercent: state.selectedDayMealCarbsPercent,
-                  totalCalories: state.selectedDayMealCalories,
+                  proteinDegree: state.data.selectedDayMealProteinDegreeSum,
+                  calorieDensity: state.data.selectedDayMealCalorieDensitySum,
+                  fiber: state.data.selectedDayMealFiber,
+                  carbFiberRatio: state.data.selectedDayMealCarbFiberRatio,
+                  carbsPercent: state.data.selectedDayMealCarbsPercent,
+                  totalCalories: state.data.selectedDayMealCalories,
                   showCaloriesTracker: false,
                 ),
               ),

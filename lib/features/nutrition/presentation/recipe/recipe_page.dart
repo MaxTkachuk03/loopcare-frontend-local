@@ -61,7 +61,7 @@ class _RecipePageState extends State<RecipePage> {
     _servingController = TextEditingController(text: recipeBloc.state.servingAmount);
 
     if (widget.isMealRecipe ?? false) {
-      final mealId = context.read<MealsBloc>().state.getCurrentMealId;
+      final mealId = context.read<MealsBloc>().state.data.getCurrentMealId;
 
       if (mealId == null) return;
 
@@ -89,7 +89,7 @@ class _RecipePageState extends State<RecipePage> {
     final isMealRecipe = widget.isMealRecipe ?? false;
 
     final recipeId = !isMealRecipe
-        ? mealState.currentFoodItems
+        ? mealState.data.currentFoodItems
             .firstWhere((element) =>
                 element.type == MealItemType.recipe && element.externalId == recipeState.externalRecipeId)
             .id
@@ -113,7 +113,7 @@ class _RecipePageState extends State<RecipePage> {
         event: EditDishEvent.createDishFromRecipe(
           recipeId,
           numberOfUnits,
-          _getSelectedMealCategories(mealState.currentMealCategory),
+          _getSelectedMealCategories(mealState.data.currentMealCategory),
         ),
       ),
     );
@@ -152,10 +152,6 @@ class _RecipePageState extends State<RecipePage> {
             listenWhen: _whenRecipeUpdated,
             listener: _recipeUpdatingListener,
           ),
-          BlocListener<MealsBloc, MealsState>(
-            listenWhen: _whenMealsUpdated,
-            listener: _mealsUpdatingListener,
-          )
         ],
         child: CustomScaffold.greenLightest(
           appBar: CustomAppBar.green(
@@ -293,7 +289,7 @@ class _RecipePageState extends State<RecipePage> {
 
   void _onValueChangeHandler(String val) {
     final mealState = context.read<MealsBloc>().state;
-    final mealId = mealState.getCurrentMealId;
+    final mealId = mealState.data.getCurrentMealId;
 
     final recipeId = _currentRecipeId;
 
@@ -310,7 +306,7 @@ class _RecipePageState extends State<RecipePage> {
     final recipe = state.mapOrNull(recipeInfo: (s) => s.data.recipe);
 
     if (recipe == null || _isLogRecipePressed) return;
-    final mealId = context.read<MealsBloc>().state.getCurrentMealId;
+    final mealId = context.read<MealsBloc>().state.data.getCurrentMealId;
 
     final isMealRecipe = widget.isMealRecipe ?? false;
 
@@ -327,7 +323,7 @@ class _RecipePageState extends State<RecipePage> {
   }
 
   void _recipeUpdatingListener(BuildContext context, RecipeState state) {
-    final mealId = context.read<MealsBloc>().state.getCurrentMealId;
+    final mealId = context.read<MealsBloc>().state.data.getCurrentMealId;
 
     if (mealId != null) {
       context.read<MealsBloc>().add(MealsEvent.fetchMealById(mealId));
@@ -373,11 +369,11 @@ class _RecipePageState extends State<RecipePage> {
         onItemTap: (SearchItem item) {
           final mealState = context.read<MealsBloc>().state;
           final recipeState = context.read<RecipeBloc>().state;
-          final mealId = mealState.getCurrentMealId;
+          final mealId = mealState.data.getCurrentMealId;
           final isMealRecipe = widget.isMealRecipe ?? false;
 
           final recipeId = !isMealRecipe
-              ? mealState.currentFoodItems
+              ? mealState.data.currentFoodItems
                   .firstWhere((element) =>
                       element.type == MealItemType.recipe &&
                       element.externalId == recipeState.externalRecipeId)
@@ -423,21 +419,4 @@ class _RecipePageState extends State<RecipePage> {
       ),
     );
   }
-
-  bool _whenMealsUpdated(MealsState previous, MealsState current) {
-    final externalRecipeId = context.read<RecipeBloc>().state.externalRecipeId;
-    final prevFoodItems = previous.currentFoodItems;
-    final curFoodItems = current.currentFoodItems;
-    if (curFoodItems.isNotEmpty) {
-      final newRecipeId = curFoodItems.firstWhere((element) => !prevFoodItems.contains(element));
-      if (newRecipeId.type == MealItemType.recipe && newRecipeId.externalId == externalRecipeId) {
-        setState(() {
-          internalRecipeId = newRecipeId.id;
-        });
-      }
-    }
-    return true;
-  }
-
-  void _mealsUpdatingListener(BuildContext context, MealsState state) {}
 }
