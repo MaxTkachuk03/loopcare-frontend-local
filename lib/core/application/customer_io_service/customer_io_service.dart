@@ -38,9 +38,6 @@ class CustomerIoService {
   }) async {
     final isNotificationGranted = PermissionsService.instance.isNotificationGranted;
 
-    final info = await PackageInfo.fromPlatform();
-    final appVersion = '${info.version} (${info.buildNumber})';
-
     CustomerIO.identify(
       identifier: id,
       attributes: {
@@ -50,7 +47,6 @@ class CustomerIoService {
         'system_locale': Platform.localeName,
         'consent_to_email': receiveAnEmails,
         'enable_push_notifications': isNotificationGranted,
-        'app_version': appVersion,
         'cio_subscription_preferences': {
           'topics': {
             'topic_1': receiveAnEmails,
@@ -93,14 +89,19 @@ class CustomerIoService {
         'user_id': '$id-${LocalizationConstants.serverCountryCode}',
         'email': email,
         'name': name,
-        'app_version': appVersion,
         'system_locale': Platform.localeName,
       },
     );
 
     await _setDevice();
 
-    CustomerIO.track(name: CIOEvents.auth, attributes: {'last_auth': _timestamp});
+    CustomerIO.track(
+      name: CIOEvents.auth,
+      attributes: {
+        'last_auth': _timestamp,
+        'app_version': appVersion,
+      },
+    );
   }
 
   static Future<void> onboardingResumeWithEmail({
@@ -116,9 +117,7 @@ class CustomerIoService {
 
     logOut();
 
-    onboardingResume(
-      customerIoId: customerIoId,
-    );
+    onboardingResume(customerIoId: customerIoId);
   }
 
   static void logOut() => CustomerIO.clearIdentify();
