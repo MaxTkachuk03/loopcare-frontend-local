@@ -7,6 +7,7 @@ import 'package:dio/io.dart';
 import 'package:flutter/foundation.dart';
 import 'package:injectable/injectable.dart';
 import 'package:loopcare_frontend/build_type.dart';
+import 'package:loopcare_frontend/core/infrastructure/dio_client/app_version_interceptor.dart';
 import 'package:loopcare_frontend/core/infrastructure/dio_client/auth_token_interceptor.dart';
 import 'package:loopcare_frontend/core/infrastructure/dio_client/dio_options.dart';
 import 'package:loopcare_frontend/core/infrastructure/dio_client/parse_request_error.dart';
@@ -40,13 +41,22 @@ Future<Either<RequestError, Response<dynamic>>> handleProcess(Future<Response<dy
 @lazySingleton
 class DioClient {
   late final Dio dio;
+  final AppVersionInterceptor _appVersionInterceptor;
   final AuthTokenInterceptor _authTokenInterceptor;
   final SharedStorageService sharedPreferences;
 
-  DioClient(this._authTokenInterceptor, this.sharedPreferences) {
+  DioClient(
+    this._appVersionInterceptor,
+    this._authTokenInterceptor,
+    this.sharedPreferences,
+  ) {
     dio = dioOptions;
 
-    dio.interceptors.add(_authTokenInterceptor);
+    dio.interceptors.addAll([
+      _authTokenInterceptor,
+      _appVersionInterceptor,
+    ]);
+
     _configureRetryConnection();
 
     if (kDebugMode) {
