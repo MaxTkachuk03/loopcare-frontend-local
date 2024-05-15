@@ -1,6 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:json_annotation/json_annotation.dart';
 import 'package:loopcare_frontend/features/mind/application/dto/technique_explanation_type.dart';
+import 'package:loopcare_frontend/features/mind/application/dto/video_orientation_type.dart';
 
 part 'mind_content.g.dart';
 
@@ -12,6 +13,7 @@ class MindContent {
   final String? image;
   final String? title;
   final String? question;
+  final VideoOrientationType? orientation;
   final TechniqueExplanationType type;
 
 
@@ -21,6 +23,7 @@ class MindContent {
     required this.image,
     required this.title,
     required this.question,
+    required this.orientation,
     required this.type,
   });
 

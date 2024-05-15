@@ -207,6 +207,7 @@ class _MindContentScreenState extends State<MindContentScreen> {
         title: widget.title,
         url: currentStep.src,
         onCompleted: onStepComplete,
+        videoOrientation: (currentStep.orientation?.isPortrait ?? false) ? Orientation.portrait : Orientation.landscape,
         onSkip: widget.onComplete,
         skipButtonLabel: skipButtonLabel,
         contentTitle: _getContentTitle(),
