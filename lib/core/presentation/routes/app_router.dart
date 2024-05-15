@@ -1,6 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:loopcare_frontend/core/presentation/routes/gender_prefs_guard.dart';
 import 'package:loopcare_frontend/core/presentation/routes/proxy_guard.dart';
+import 'package:loopcare_frontend/core/presentation/routes/unlock_feature_guard.dart';
 import 'package:loopcare_frontend/core/presentation/theme_components_theme/theme_components_theme.dart';
 import 'package:loopcare_frontend/features/access_code/access_code_page.dart';
 import 'package:loopcare_frontend/features/account/presentation/account_page/account_page.dart';
@@ -260,6 +261,7 @@ const groupLessonRoutes = [
     AutoRoute(
       path: AppRoutes.lessonComplete,
       page: LessonCompletePage,
+      guards: [UnlockFeatureGuard],
     ), // added
 
     // Dish

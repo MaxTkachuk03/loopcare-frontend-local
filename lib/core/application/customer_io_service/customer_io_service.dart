@@ -10,6 +10,7 @@ import 'package:loopcare_frontend/core/application/customer_io_service/customer_
 import 'package:loopcare_frontend/core/application/firebase/mesaging/firebase_messaging.dart';
 import 'package:loopcare_frontend/core/application/permissions_service.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localization_constants.dart';
+import 'package:package_info_plus/package_info_plus.dart';
 
 export 'customer_io_attributes.dart';
 export 'customer_io_events.dart';
@@ -79,6 +80,9 @@ class CustomerIoService {
     required String name,
     required int id,
   }) async {
+    final info = await PackageInfo.fromPlatform();
+    final appVersion = '${info.version} (${info.buildNumber})';
+
     CustomerIO.identify(
       identifier: customerIoId,
       attributes: {
@@ -91,7 +95,13 @@ class CustomerIoService {
 
     await _setDevice();
 
-    CustomerIO.track(name: CIOEvents.auth, attributes: {'last_auth': _timestamp});
+    CustomerIO.track(
+      name: CIOEvents.auth,
+      attributes: {
+        'last_auth': _timestamp,
+        'app_version': appVersion,
+      },
+    );
   }
 
   static Future<void> onboardingResumeWithEmail({
@@ -107,9 +117,7 @@ class CustomerIoService {
 
     logOut();
 
-    onboardingResume(
-      customerIoId: customerIoId,
-    );
+    onboardingResume(customerIoId: customerIoId);
   }
 
   static void logOut() => CustomerIO.clearIdentify();
