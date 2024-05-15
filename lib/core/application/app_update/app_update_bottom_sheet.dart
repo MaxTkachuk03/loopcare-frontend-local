@@ -33,7 +33,6 @@ class AppUpdateBottomSheet {
     try {
       await launchUrl(uri, mode: LaunchMode.externalApplication);
     } catch (e) {
-      // ignore: use_build_context_synchronously
       _showError();
     }
   }
