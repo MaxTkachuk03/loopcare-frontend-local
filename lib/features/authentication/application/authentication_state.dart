@@ -70,7 +70,7 @@ class AuthenticationData with _$AuthenticationData {
 
   Buddy? get buddy => account?.buddy;
 
-  bool get isFoodLoggingUnlocked => unlockedFeatures.contains(UnlockedFeatureType.meals);
+  bool get isFoodLoggingUnlocked => unlockedFeatures.contains(UnlockedFeatureType.foodLogging);
 
   bool get isCalorieDensityUnlocked => account?.isCalorieDensityUnlocked ?? false;
 
