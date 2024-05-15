@@ -9,6 +9,7 @@ import 'package:loopcare_frontend/features/education/presentation/lesson/widgets
 class AudioBlock extends StatefulWidget {
   final void Function() onPlayerComplete;
   final String url;
+  final String audioPreviewImage;
   final String title;
   final int duration;
   final SubtitleController controller;
@@ -17,6 +18,7 @@ class AudioBlock extends StatefulWidget {
     super.key,
     required this.onPlayerComplete,
     required this.url,
+    required this.audioPreviewImage,
     required this.title,
     required this.duration,
     required this.controller,
@@ -103,7 +105,11 @@ class _AudioBlockState extends State<AudioBlock> with AutoRouteAware {
       await audioPlayer.setAudioSource(
         AudioSource.uri(
           Uri.parse('file://${widget.url}'),
-          tag: MediaItem(id: widget.url, title: widget.title),
+          tag: MediaItem(
+            id: widget.url,
+            title: widget.title,
+            artUri: Uri.parse(widget.audioPreviewImage),
+          ),
         ),
         initialPosition: Duration.zero,
         preload: true,
