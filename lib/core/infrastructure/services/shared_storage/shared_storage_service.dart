@@ -48,6 +48,14 @@ class SharedStorageService {
     }
   }
 
+  set storeVersion(int value) => _prefs.setValue('store_version', value);
+
+  int get storeVersion => _prefs.getValue<int?>('store_version') ?? 1;
+
+  set localVersion(int value) => _prefs.setValue('local_version', value);
+
+  int get localVersion => _prefs.getValue<int?>('local_version') ?? 1;
+
   set account(Account? account) => setString('account', json.encode(account));
 
   Account? get account =>
