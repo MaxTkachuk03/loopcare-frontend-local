@@ -152,10 +152,6 @@ class _RecipePageState extends State<RecipePage> {
             listenWhen: _whenRecipeUpdated,
             listener: _recipeUpdatingListener,
           ),
-          BlocListener<MealsBloc, MealsState>(
-            listenWhen: _whenMealsUpdated,
-            listener: _mealsUpdatingListener,
-          )
         ],
         child: CustomScaffold.greenLightest(
           appBar: CustomAppBar.green(
@@ -423,21 +419,4 @@ class _RecipePageState extends State<RecipePage> {
       ),
     );
   }
-
-  bool _whenMealsUpdated(MealsState previous, MealsState current) {
-    final externalRecipeId = context.read<RecipeBloc>().state.externalRecipeId;
-    final prevFoodItems = previous.data.currentFoodItems;
-    final curFoodItems = current.data.currentFoodItems;
-    if (curFoodItems.isNotEmpty) {
-      final newRecipeId = curFoodItems.firstWhere((element) => !prevFoodItems.contains(element));
-      if (newRecipeId.type == MealItemType.recipe && newRecipeId.externalId == externalRecipeId) {
-        setState(() {
-          internalRecipeId = newRecipeId.id;
-        });
-      }
-    }
-    return true;
-  }
-
-  void _mealsUpdatingListener(BuildContext context, MealsState state) {}
 }

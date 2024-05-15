@@ -4,7 +4,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loopcare_frontend/core/domain/nutrition/nutrition_indicator_color_picker.dart';
 import 'package:loopcare_frontend/core/presentation/icon_images/app_icons.dart';
 import 'package:loopcare_frontend/core/presentation/routes/app_router.dart';
-import 'package:loopcare_frontend/core/presentation/routes/app_router.gr.dart';
 import 'package:loopcare_frontend/core/presentation/text/custom_text.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 import 'package:loopcare_frontend/core/presentation/utils/string_extensions.dart';
@@ -30,14 +29,12 @@ class MealCard extends StatelessWidget {
     if (mealId == null) {
       final mealCategory = title.toLowerCase();
 
-      context
-        ..read<MealsBloc>().add(MealsEvent.addMeal(mealCategory))
-        ..router.push(SelectFoodRoute(mealCategory: mealCategory));
+      context.read<MealsBloc>().add(MealsEvent.addMeal(mealCategory));
     } else {
-      context
-        ..read<MealsBloc>().add(MealsEvent.setMealId(mealId!, title))
-        ..router.pushNamed(AppRoutes.meal);
+      context.read<MealsBloc>().add(MealsEvent.setMealId(mealId!, title));
     }
+
+    context.router.pushNamed(AppRoutes.meal);
   }
 
   @override

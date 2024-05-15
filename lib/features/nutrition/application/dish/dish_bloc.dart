@@ -14,8 +14,6 @@ import 'package:loopcare_frontend/features/nutrition/application/select_food/sel
 import 'package:loopcare_frontend/features/nutrition/domain/dish/dish.dart';
 import 'package:loopcare_frontend/features/nutrition/domain/nutrition_values_types/nutrition_values_types.dart';
 
-import 'dto/add_dish_to_meal_body.dart';
-
 part 'dish_event.dart';
 
 part 'dish_state.dart';
@@ -35,7 +33,6 @@ class DishBloc extends Bloc<DishEvent, DishState> {
     on<ServingChanged>(_onServingChanged);
     on<UpdateFoodItemInDish>(_onUpdateFoodItemInDish);
     on<DeleteFoodItemFromDish>(_onDeleteFoodItemFromDish);
-    on<AddToMeal>(_onAddToMeal);
     on<AddFoodItemToDish>(_onAddFoodItemToDish);
   }
 
@@ -159,27 +156,6 @@ class DishBloc extends Bloc<DishEvent, DishState> {
               selectedDish: selectedDish,
             ),
           );
-        },
-      );
-    });
-  }
-
-  FutureOr<void> _onAddToMeal(
-    AddToMeal event,
-    Emitter<DishState> emit,
-  ) async {
-    await state.mapOrNull(dish: (state) async {
-      final data = AddDishToMealBody(
-        dishId: state.selectedDish.id,
-        numberOfUnits: double.parse(event.numberOfServings),
-      );
-
-      final response = await nutritionService.addDishToMeal(event.mealId, data);
-
-      response.fold(
-        (l) => emit(DishState.error(l)),
-        (r) {
-          mealsBloc.add(MealsEvent.addDishToMeal(r));
         },
       );
     });

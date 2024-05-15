@@ -166,12 +166,13 @@ class _DishDetailsPageState extends State<DishDetailsPage> {
 
   _onLogDishHandler() {
     final mealId = context.read<MealsBloc>().state.data.getCurrentMealId;
+    final dishId = context.read<DishBloc>().state.mapOrNull(dish: (s) => s.selectedDish.id);
 
-    if (mealId == null) return;
+    if (mealId == null || dishId == null) return;
 
     final numberOfServings = _servingController.text.replaceCommaWithDot.deleteDotAtTheEnd;
 
-    context.read<DishBloc>().add(DishEvent.addToMeal(mealId, numberOfServings));
+    context.read<MealsBloc>().add(MealsEvent.addDishToMeal(mealId, numberOfServings, dishId));
 
     context.router.pushNamed(AppRoutes.meal);
   }

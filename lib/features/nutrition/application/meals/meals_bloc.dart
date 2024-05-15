@@ -5,6 +5,7 @@ import 'package:hydrated_bloc/hydrated_bloc.dart';
 import 'package:injectable/injectable.dart';
 import 'package:loopcare_frontend/core/domain/nutrition/nutrition_utils.dart';
 import 'package:loopcare_frontend/core/infrastructure/dio_client/request_error.dart';
+import 'package:loopcare_frontend/features/nutrition/application/dish/dto/add_dish_to_meal_body.dart';
 import 'package:loopcare_frontend/features/nutrition/application/meals/dto/add_food_item_to_meal_body.dart';
 import 'package:loopcare_frontend/features/nutrition/application/meals/dto/add_food_items_list_element.dart';
 import 'package:loopcare_frontend/features/nutrition/application/meals/dto/add_many_food_items_to_meal_body.dart';
@@ -108,12 +109,9 @@ class MealsBloc extends Bloc<MealsEvent, MealsState> {
     SetMealId event,
     Emitter<MealsState> emit,
   ) async {
-    print('set meal id event with id = ${event.id}');
     emit(
-      MealsState.mealsInfo(state.data.copyWith(
-        currentMealId: event.id,
-        currentMealCategory: event.mealCategory,
-      )),
+      MealsState.mealsInfo(
+          state.data.copyWith(currentMealId: event.id, currentMealCategory: event.mealCategory)),
     );
   }
 
@@ -175,6 +173,23 @@ class MealsBloc extends Bloc<MealsEvent, MealsState> {
       (r) {
         emit(MealsState.mealsInfo(state.data.copyWith(meals: _getUpdatedMealsList(r), isLoading: false)));
       },
+    );
+  }
+
+  FutureOr<void> _onAddDishToMeal(
+    AddDishToMeal event,
+    Emitter<MealsState> emit,
+  ) async {
+    emit(MealsState.loading(state.data.copyWith(isLoading: true)));
+
+    final data = AddDishToMealBody(dishId: event.dishId, numberOfUnits: double.parse(event.numberOfServings));
+
+    final response = await nutritionService.addDishToMeal(event.mealId, data);
+
+    response.fold(
+      (l) => emit(MealsState.error(state.data.copyWith(error: l, isLoading: false))),
+      (r) =>
+          emit(MealsState.mealsInfo(state.data.copyWith(meals: _getUpdatedMealsList(r), isLoading: false))),
     );
   }
 
@@ -289,10 +304,7 @@ class MealsBloc extends Bloc<MealsEvent, MealsState> {
     response.fold(
       (l) => emit(MealsState.error(state.data.copyWith(error: l, isLoading: false))),
       (r) {
-        print('delete meal success case data server meal id = ${r.id}');
-        print('delete meal success case data id from from event = ${mealId}');
         emit(MealsState.mealsInfo(state.data.copyWith(meals: _deleteMealFromList(mealId))));
-        print('delete meal success case state after delete = ${state.data}');
       },
     );
   }
@@ -410,26 +422,6 @@ class MealsBloc extends Bloc<MealsEvent, MealsState> {
     meals[date.isoStringWithoutTime] = updatedSelectedDayMeals;
 
     return meals;
-  }
-
-  FutureOr<void> _onAddDishToMeal(
-    AddDishToMeal event,
-    Emitter<MealsState> emit,
-  ) async {
-    final currentDate = event.meal.loggingDate;
-
-    if (currentDate == null) return;
-
-    Map<String, List<MealsListItem>> meals = Map<String, List<MealsListItem>>.from(state.data.mealsMap);
-    var selectedDayMeals = meals[currentDate.isoStringWithoutTime] ?? <MealsListItem>[];
-
-    final updatedSelectedDayMeals = selectedDayMeals.map((meal) {
-      return meal.id == event.meal.id ? event.meal : meal;
-    }).toList();
-
-    meals[currentDate.isoStringWithoutTime] = updatedSelectedDayMeals;
-
-    emit(MealsState.mealsInfo(state.data.copyWith(meals: meals, isLoading: false)));
   }
 
   FutureOr<void> _onNutritionItemChanged(

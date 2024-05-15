@@ -33,7 +33,7 @@ class MealsEvent with _$MealsEvent {
   const factory MealsEvent.setCurrentDate(DateTime currentDate, {@Default(false) bool updateOrigin}) =
       SetCurrentDate;
 
-  const factory MealsEvent.addDishToMeal(MealsListItem meal) = AddDishToMeal;
+  const factory MealsEvent.addDishToMeal(int mealId, String numberOfServings, int dishId) = AddDishToMeal;
 
   const factory MealsEvent.nutritionItemChanged(NutritionValuesTypes item) = NutritionItemChanged;
 }
