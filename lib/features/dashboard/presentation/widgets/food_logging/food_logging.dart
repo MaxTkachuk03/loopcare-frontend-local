@@ -14,8 +14,8 @@ import 'package:loopcare_frontend/core/presentation/utils/build_context_extensio
 import 'package:loopcare_frontend/features/dashboard/presentation/widgets/dashboard_card_title/dashboard_card_title.dart';
 import 'package:loopcare_frontend/features/nutrition/application/meals/meals_bloc.dart';
 
-class LogMeal extends StatelessWidget {
-  const LogMeal({super.key});
+class FoodLogging extends StatelessWidget {
+  const FoodLogging({super.key});
 
   void _onPressHandler(BuildContext context) => context.router.pushNamed(AppRoutes.dailyIntake);
 

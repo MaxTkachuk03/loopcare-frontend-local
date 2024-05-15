@@ -9,9 +9,3 @@ enum UnlockedFeatureType {
   mind,
   unknown,
 }
-
-enum UnlockedSubFeatureType {
-  sleep,
-  calories,
-  unknown,
-}
