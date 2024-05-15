@@ -374,7 +374,6 @@ class MealsBloc extends Bloc<MealsEvent, MealsState> {
     response.fold(
       (l) => emit(MealsState.error(state.data.copyWith(error: l, isLoading: false))),
       (r) {
-        _getUpdatedMealsList(r);
         var updatedList = <MealsListItem>[];
         final loggingDate = r.loggingDate;
 

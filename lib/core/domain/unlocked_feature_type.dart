@@ -1,6 +1,7 @@
 enum UnlockedFeatureType {
   grouping,
   physicalActivities,
+  foodLogging,
   meals,
   assignments,
   allowGroupSessions,
