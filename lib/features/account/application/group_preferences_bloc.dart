@@ -4,8 +4,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
 import 'package:loopcare_frontend/core/domain/account/gender_preferences.dart';
+import 'package:loopcare_frontend/core/domain/analytics/firebase_event_list.dart';
 import 'package:loopcare_frontend/core/domain/yes_no_answer.dart';
 import 'package:loopcare_frontend/core/infrastructure/dio_client/request_error.dart';
+import 'package:loopcare_frontend/core/infrastructure/services/firebase_event_service.dart';
 import 'package:loopcare_frontend/features/account/application/dto/group_preferences_body.dart';
 import 'package:loopcare_frontend/features/account/application/group_preferences_service.dart';
 import 'package:loopcare_frontend/features/account/domain/group_prefs_mode.dart';
@@ -173,6 +175,8 @@ class GroupPreferencesBloc extends Bloc<GroupPreferencesEvent, GroupPreferencesS
   }
 
   FutureOr<void> _onChangeGroupPrefsMode(ChangeGroupPrefsMode event, Emitter<GroupPreferencesState> emit) {
+    AnalyticsEventService.instance.logEvent(FirebaseEvents.unlockedSupportGroupFeature);
+
     emit(GroupPreferencesState.updated(state.data.copyWith(
       groupPrefsMode: event.groupPrefsMode,
     )));
