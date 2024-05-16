@@ -16,13 +16,8 @@ class AppUpdateData with _$AppUpdateData {
   const AppUpdateData._();
 
   const factory AppUpdateData({
-    @Default(GetVersionsResponse(isEnabled: true, androidMinVersion: 1, iosMinVersion: 1))
-    GetVersionsResponse versions,
+    @Default(false) bool needToUpdate,
     @Default(false) bool isLoading,
     RequestError? error,
   }) = _AppUpdateData;
-
-  get iosMinVersion => versions.iosMinVersion;
-
-  get androidMinVersion => versions.androidMinVersion;
 }
