@@ -15,6 +15,8 @@ class AuthenticationState with _$AuthenticationState {
   const factory AuthenticationState.guest(AuthenticationData data) = GuestAuthenticationState;
 
   const factory AuthenticationState.authenticated(AuthenticationData data) = AuthenticatedState;
+
+  const factory AuthenticationState.gotAccount(AuthenticationData data) = GotAccountState;
 }
 
 @freezed
@@ -85,8 +87,6 @@ class AuthenticationData with _$AuthenticationData {
   bool get isUserGrouped => groupingState == UserGroupingState.grouped;
 
   bool get isMixedGender => account?.isMixedGender ?? false;
-
-  bool get isAuthenticated => this is AuthenticatedState;
 
   String get nameCapitalised {
     if (name.isNotEmpty) {
