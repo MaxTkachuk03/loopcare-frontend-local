@@ -287,7 +287,7 @@ class _EditDishPageState extends State<EditDishPage> {
           )
         ],
         child: KeyboardContainerListener(
-          child: CustomScaffold.greenLightest(
+          child: CustomScaffold.greenLighter(
             appBar: CustomAppBar.green(
               title: '${LocalizedTexts.addToMyDishedAs.tr()}...',
               leading: CustomFilledIconButton.leadingGreenLighter(),

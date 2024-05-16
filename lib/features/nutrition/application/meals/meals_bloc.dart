@@ -303,9 +303,8 @@ class MealsBloc extends Bloc<MealsEvent, MealsState> {
 
     response.fold(
       (l) => emit(MealsState.error(state.data.copyWith(error: l, isLoading: false))),
-      (r) {
-        emit(MealsState.mealsInfo(state.data.copyWith(meals: _deleteMealFromList(mealId))));
-      },
+      (r) => emit(
+          MealsState.mealsInfo(state.data.copyWith(meals: _deleteMealFromList(mealId), isLoading: false))),
     );
   }
 

@@ -42,8 +42,7 @@ class FoodListItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 10.0),
+    return SizedBox(
       height: 70,
       child: InkWell(
         onTap: onTap == null ? null : () => onTap?.call(context),
@@ -52,61 +51,65 @@ class FoodListItem extends StatelessWidget {
             border: Border(bottom: BorderSide(width: 1, color: AppColors.greenLighter)),
             color: AppColors.white,
           ),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: [
-              Row(
-                children: [
-                  if (onDeletePressed != null)
-                    CustomIconButton.close(
-                      onPressed: () => onDeletePressed?.call(context, foodItem),
-                    ),
-                  CircleAvatar(
-                    radius: 5,
-                    backgroundColor: excludedFromCalculations
-                        ? AppColors.grey
-                        : NutritionIndicatorColorPicker.getIndicatorColor(
-                            NutritionIndicatorType.calorieDensity,
-                            foodItem.calorieDensity,
-                          ),
-                  ),
-                ],
-              ),
-              const SizedBox(width: 10.0),
-              Expanded(
-                child: Padding(
-                  padding: const EdgeInsets.only(top: 13.0, bottom: 13),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      CustomText.w600(
-                        foodItem.foodName,
-                        maxLines: 1,
-                        style: context.textTheme.bodySmall?.copyWith(overflow: TextOverflow.ellipsis),
+          child: Padding(
+            padding: EdgeInsets.symmetric(horizontal: onDeletePressed != null ? 0.0 : 10.0),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                Row(
+                  children: [
+                    if (onDeletePressed != null)
+                      CustomIconButton.close(
+                        onPressed: () => onDeletePressed?.call(context, foodItem),
                       ),
-                      CustomText.w400(
-                        '${foodItem.serving.servingSizeLabel} | $label',
-                        maxLines: 1,
-                        style: context.textTheme.bodySmall?.copyWith(
-                          overflow: TextOverflow.ellipsis,
+                    CircleAvatar(
+                      radius: 5,
+                      backgroundColor: excludedFromCalculations
+                          ? AppColors.grey
+                          : NutritionIndicatorColorPicker.getIndicatorColor(
+                              NutritionIndicatorType.calorieDensity,
+                              foodItem.calorieDensity,
+                            ),
+                    ),
+                  ],
+                ),
+                const SizedBox(width: 10.0),
+                Expanded(
+                  child: Padding(
+                    padding: const EdgeInsets.only(top: 13.0, bottom: 13),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        CustomText.w600(
+                          foodItem.foodName,
+                          maxLines: 1,
+                          style: context.textTheme.bodySmall?.copyWith(overflow: TextOverflow.ellipsis),
                         ),
-                      )
-                    ],
+                        CustomText.w400(
+                          '${foodItem.serving.servingSizeLabel} | $label',
+                          maxLines: 1,
+                          style: context.textTheme.bodySmall?.copyWith(
+                            overflow: TextOverflow.ellipsis,
+                          ),
+                        )
+                      ],
+                    ),
                   ),
                 ),
-              ),
-              const SizedBox(width: 6.0),
-              Row(
-                children: [
-                  CustomText.w400(
-                    '${currentNutritionFact.value.toStringAsFixed(2)}${currentNutritionFact.unitLabel}',
-                    style: context.textTheme.bodySmall,
-                  ),
-                  if (onTap != null)
-                    const SizedBox(width: 44, child: ImageIcon(AppIcons.arrow, color: AppColors.blueDarker)),
-                ],
-              ),
-            ],
+                const SizedBox(width: 6.0),
+                Row(
+                  children: [
+                    CustomText.w400(
+                      '${currentNutritionFact.value.toStringAsFixed(2)}${currentNutritionFact.unitLabel}',
+                      style: context.textTheme.bodySmall,
+                    ),
+                    if (onTap != null)
+                      const SizedBox(
+                          width: 44, child: ImageIcon(AppIcons.arrow, color: AppColors.blueDarker)),
+                  ],
+                ),
+              ],
+            ),
           ),
         ),
       ),

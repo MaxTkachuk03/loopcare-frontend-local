@@ -152,10 +152,11 @@ class _MealPageState extends State<MealPage> {
     }
   }
 
-  void _setOriginDate() {
-    final mealBloc = context.read<MealsBloc>();
-    mealBloc.add(MealsEvent.setCurrentDate(mealBloc.state.data.getOriginDate));
-  }
+  // TODO don't need at all delete after test
+  // void _setOriginDate() {
+  //   final mealBloc = context.read<MealsBloc>();
+  //   mealBloc.add(MealsEvent.setCurrentDate(mealBloc.state.data.getOriginDate));
+  // }
 
   _onDeleteMealPressed(BuildContext context) {
     final mealsState = context.read<MealsBloc>().state;
@@ -176,7 +177,7 @@ class _MealPageState extends State<MealPage> {
               .read<MealsBloc>()
               .add(MealsEvent.deleteMeal(context.read<MealsBloc>().state.data.getCurrentMealId));
 
-          _setOriginDate();
+          // _setOriginDate();
 
           context.router.popUntilRouteWithName(HomeRoute.name);
         },
@@ -208,7 +209,7 @@ class _MealPageState extends State<MealPage> {
       context.read<MealsBloc>().add(MealsEvent.deleteMeal(state.data.getCurrentMealId));
     }
 
-    _setOriginDate();
+    // _setOriginDate();
   }
 
   void _onBackToDashboardPressed() {
@@ -228,7 +229,7 @@ class _MealPageState extends State<MealPage> {
       builder: (BuildContext context, state) {
         return WillPopScope(
           onWillPop: _onWillPop,
-          child: CustomScaffold.greenLightest(
+          child: CustomScaffold.greenLighter(
             appBar: CustomAppBar.green(
               title: _appBarTitle,
               subtitle: _appBarSubTitle,
@@ -272,15 +273,17 @@ class _MealPageState extends State<MealPage> {
                             mainAxisAlignment: MainAxisAlignment.start,
                             children: [
                               MealsList(isActive: currentDate.laterThanWeekAgo),
-                              NutritionSummary(
-                                proteinDegree: state.data.currentMealProteinDegree,
-                                calorieDensity: state.data.currentMealCalorieDensity,
-                                fiber: state.data.currentMealFiber,
-                                carbFiberRatio: state.data.currentMealCarbFiberRatio,
-                                carbsPercent: state.data.currentMealCarbsPercent,
-                                totalCalories: state.data.currentMealCalories,
+                              Padding(
+                                padding: const EdgeInsets.symmetric(vertical: 20.0),
+                                child: NutritionSummary(
+                                  proteinDegree: state.data.currentMealProteinDegree,
+                                  calorieDensity: state.data.currentMealCalorieDensity,
+                                  fiber: state.data.currentMealFiber,
+                                  carbFiberRatio: state.data.currentMealCarbFiberRatio,
+                                  carbsPercent: state.data.currentMealCarbsPercent,
+                                  totalCalories: state.data.currentMealCalories,
+                                ),
                               ),
-                              const SizedBox(height: 26.0),
                               MainContainer(
                                 child: Column(
                                   mainAxisAlignment: MainAxisAlignment.start,

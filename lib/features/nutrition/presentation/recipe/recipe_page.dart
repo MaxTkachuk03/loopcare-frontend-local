@@ -153,7 +153,7 @@ class _RecipePageState extends State<RecipePage> {
             listener: _recipeUpdatingListener,
           ),
         ],
-        child: CustomScaffold.greenLightest(
+        child: CustomScaffold.greenLighter(
           appBar: CustomAppBar.green(
             leading: CustomFilledIconButton.leadingGreenLighter(),
             title: widget.name,

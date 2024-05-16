@@ -237,7 +237,7 @@ class _DishDetailsPageState extends State<DishDetailsPage> {
     return BlocListener<DishBloc, DishState>(
       listenWhen: _updateMealListenWhen,
       listener: _updateMealListener,
-      child: CustomScaffold.greenLightest(
+      child: CustomScaffold.greenLighter(
         appBar: CustomAppBar.green(
           leading: CustomFilledIconButton.leadingGreenLighter(),
           title: context.watch<DishBloc>().state.mapOrNull(
