@@ -37,16 +37,12 @@ class RecipeBloc extends Bloc<RecipeEvent, RecipeState> {
     GetRecommendations event,
     Emitter<RecipeState> emit,
   ) async {
-    emit(
-      RecipeState.loadingRecipe(
-        state.data.copyWith(
-          isLoading: true,
-          error: null,
-        ),
-      ),
-    );
+    emit(RecipeState.loadingRecipe(state.data.copyWith(isLoading: true, error: null)));
 
-    final response = await nutritionService.getRecommendations([event.mealCategory.toLowerCase()]);
+    // FIXME mealCategory should be moved to enum and be the same for foodLogging and recommendations
+    final category = event.mealCategory == 'inbetweens & snacks' ? 'snack' : event.mealCategory;
+
+    final response = await nutritionService.getRecommendations([category.toLowerCase()]);
 
     response.fold(
       (error) => emit(
