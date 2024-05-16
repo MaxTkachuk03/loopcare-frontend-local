@@ -9,7 +9,6 @@ import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 import 'package:loopcare_frontend/core/presentation/utils/string_extensions.dart';
 import 'package:loopcare_frontend/features/nutrition/application/meals/dto/meal_item.dart';
 import 'package:loopcare_frontend/features/nutrition/application/meals/meals_bloc.dart';
-import 'package:loopcare_frontend/features/nutrition/presentation/widgets/grouped_meal_list/grouped_meal_list.dart';
 
 class MealCard extends StatelessWidget {
   final int? mealId;
@@ -52,7 +51,7 @@ class MealCard extends StatelessWidget {
                 Row(
                   children: [
                     CircleAvatar(
-                      radius: 5,
+                      radius: 6,
                       backgroundColor: NutritionIndicatorColorPicker.getIndicatorColor(
                         NutritionIndicatorType.calorieDensity,
                         calorieDensity,
@@ -65,19 +64,6 @@ class MealCard extends StatelessWidget {
                 ImageIcon(mealId == null ? AppIcons.plus : AppIcons.arrow, color: AppColors.blueDarker)
               ],
             ),
-            if (mealItems != null)
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  const SizedBox(height: 8.0),
-                  Padding(
-                    padding: const EdgeInsets.only(left: 20.0),
-                    child: GroupedMealList(
-                      mealItems: mealItems!,
-                    ),
-                  ),
-                ],
-              )
           ],
         ),
       ),

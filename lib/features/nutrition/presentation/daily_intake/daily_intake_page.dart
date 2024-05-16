@@ -22,60 +22,53 @@ class DailyIntakePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<MealsBloc, MealsState>(
       builder: (context, state) {
-        return state.maybeMap(
-          orElse: () => CustomScaffold.greenLightest(
-            appBar: CustomAppBar.green(leading: CustomFilledIconButton.leadingGreenLighter()),
+        return CustomScaffold.greenLighter(
+          appBar: CustomAppBar.green(
+            leading: CustomFilledIconButton.leadingGreenLighter(),
+            title: state.data.currentDateTime.fullDate,
+            subtitle: LocalizedTexts.mealLog.tr().capitalizeEachWordFirstLetter(),
           ),
-          mealsInfo: (mealsState) {
-            return CustomScaffold.greenLightest(
-              appBar: CustomAppBar.green(
-                leading: CustomFilledIconButton.leadingGreenLighter(),
-                title: state.data.currentDateTime.fullDate,
-                subtitle: LocalizedTexts.loggedMeals.tr().capitalizeOnlyFirstLetter(),
-              ),
-              body: CustomSafeArea(
-                child: Column(
-                  children: [
-                    Expanded(
-                      child: ListView.separated(
-                        itemCount: MealCategory.values.length,
-                        itemBuilder: (context, index) {
-                          final selectedDayMeals =
-                              mealsState.data.meals[mealsState.data.currentDateTime.isoStringWithoutTime];
-                          var category = MealCategory.values[index].name;
+          body: state.maybeMap(
+            orElse: () => const SizedBox.shrink(),
+            mealsInfo: (mealsState) => CustomSafeArea(
+              child: Column(
+                children: [
+                  ListView.separated(
+                    physics: const NeverScrollableScrollPhysics(),
+                    shrinkWrap: true,
+                    itemCount: MealCategory.values.length,
+                    itemBuilder: (context, index) {
+                      final selectedDayMeals =
+                          mealsState.data.meals[mealsState.data.currentDateTime.isoStringWithoutTime];
+                      var category = MealCategory.values[index].name;
 
-                          var mealForCurrentCategory = selectedDayMeals?.firstWhereOrNull(
-                              (m) => m.mealCategory.toLowerCase() == MealCategory.values[index].label);
+                      var mealForCurrentCategory = selectedDayMeals?.firstWhereOrNull(
+                          (m) => m.mealCategory.toLowerCase() == MealCategory.values[index].label);
 
-                          final mealItems = mealForCurrentCategory?.mealItems;
-                          final isEnabled = mealItems != null && mealItems.isNotEmpty;
-                          return MealCard(
-                            mealId: mealForCurrentCategory?.id,
-                            title: category,
-                            mealItems: isEnabled ? mealItems : null,
-                            calorieDensity: isEnabled ? mealsState.data.calorieDensitySum(mealItems) : null,
-                          );
-                        },
-                        separatorBuilder: (_, __) =>
-                            const Divider(color: AppColors.blueLighter, thickness: 1.0, height: 1.0),
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 30.0),
-                      child: NutritionSummary(
-                        proteinDegree: mealsState.data.selectedDayMealProteinDegreeSum,
-                        calorieDensity: mealsState.data.selectedDayMealCalorieDensitySum,
-                        fiber: mealsState.data.selectedDayMealFiber,
-                        carbFiberRatio: mealsState.data.selectedDayMealCarbFiberRatio,
-                        carbsPercent: mealsState.data.carbsPercent,
-                        totalCalories: mealsState.data.totalCalories,
-                      ),
-                    ),
-                  ],
-                ),
+                      final mealItems = mealForCurrentCategory?.mealItems;
+                      final isEnabled = mealItems != null && mealItems.isNotEmpty;
+                      return MealCard(
+                        mealId: mealForCurrentCategory?.id,
+                        title: category,
+                        mealItems: isEnabled ? mealItems : null,
+                        calorieDensity: isEnabled ? mealsState.data.calorieDensitySum(mealItems) : null,
+                      );
+                    },
+                    separatorBuilder: (_, __) =>
+                        const Divider(color: AppColors.greenLighter, thickness: 1.0, height: 1.0),
+                  ),
+                  NutritionSummary(
+                    proteinDegree: mealsState.data.selectedDayMealProteinDegreeSum,
+                    calorieDensity: mealsState.data.selectedDayMealCalorieDensitySum,
+                    fiber: mealsState.data.selectedDayMealFiber,
+                    carbFiberRatio: mealsState.data.selectedDayMealCarbFiberRatio,
+                    carbsPercent: mealsState.data.carbsPercent,
+                    totalCalories: mealsState.data.totalCalories,
+                  ),
+                ],
               ),
-            );
-          },
+            ),
+          ),
         );
       },
     );

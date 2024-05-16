@@ -11,6 +11,7 @@ import 'package:loopcare_frontend/core/presentation/routes/app_router.dart';
 import 'package:loopcare_frontend/core/presentation/text/custom_text.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 import 'package:loopcare_frontend/core/presentation/utils/build_context_extensions.dart';
+import 'package:loopcare_frontend/features/authentication/application/authentication_bloc.dart';
 import 'package:loopcare_frontend/features/dashboard/presentation/widgets/dashboard_card_title/dashboard_card_title.dart';
 import 'package:loopcare_frontend/features/nutrition/application/meals/meals_bloc.dart';
 
@@ -46,24 +47,19 @@ class FoodLogging extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     CustomText.bitter600(
-                      LocalizedTexts.logYourMeals.tr(),
+                      LocalizedTexts.mealLog.tr(),
                       style: context.textTheme.headlineSmall?.copyWith(color: textColor),
                     ),
-                    if (state.data.filledCategories.isEmpty)
-                      CustomText.w400(
-                        state.data.isEnableOnDashboard
-                            ? LocalizedTexts.noMealsLoggedYet.tr()
-                            : LocalizedTexts.noMealsLogged.tr(),
-                        style: context.textTheme.bodySmall?.copyWith(color: textColor),
-                      ),
                   ],
                 ),
                 actionIcon: AppIcons.arrow,
                 circleButton: false,
                 editable: state.data.isEnableOnDashboard,
               ),
-              const Divider(
-                color: AppColors.blueOffRegular,
+              BlocBuilder<AuthenticationBloc, AuthenticationState>(
+                builder: (context, state) => state.data.isNutritionScalesLocked
+                    ? const SizedBox.shrink()
+                    : const Divider(color: AppColors.blueOffRegular),
               ),
               state.maybeMap(
                 loading: (_) => const Loader(),

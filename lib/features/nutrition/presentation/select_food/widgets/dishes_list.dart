@@ -193,7 +193,7 @@ class _DishesListState extends State<DishesList> with AutomaticKeepAliveClientMi
     List<MealCategory> defaultMealCategories = [];
 
     for (final mealCategory in MealCategory.values) {
-      if (mealCategory.name == widget.mealCategory) {
+      if (mealCategory.name.toLowerCase() == widget.mealCategory) {
         defaultMealCategories.add(mealCategory);
       }
     }

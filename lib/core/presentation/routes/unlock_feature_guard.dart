@@ -33,7 +33,7 @@ class UnlockFeatureGuard extends AutoRouteGuard {
       return;
     }
 
-    if (extraAction == ExtraActionTypes.unlockMeals && !(account?.isFoodLoggingUnlocked ?? false)) {
+    if (extraAction == ExtraActionTypes.unlockFoodLogging && !(account?.isFoodLoggingUnlocked ?? false)) {
       _unlockFeature(UnlockedFeatureType.foodLogging);
 
       router.pushNamed(AppRoutes.lessonCompleteFoodPreferences);

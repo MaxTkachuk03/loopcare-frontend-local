@@ -48,14 +48,14 @@ class _MealPageState extends State<MealPage> {
   @override
   void initState() {
     super.initState();
+
     final mealState = context.read<MealsBloc>().state;
-    // FIXME very bad solution, need to change mealState.currentMealCategory type in the model to the enum value, could broke a lot of, that's why using temporary solution now
-    final mealCategory = mealState.data.currentMealCategory == 'inbetweens & snacks'
-        ? 'snack'
-        : mealState.data.currentMealCategory;
+    final mealCategory = mealState.data.currentMealCategory;
+
     if (mealCategory != null) {
       context.read<RecipeBloc>().add(RecipeEvent.getRecommendations(mealCategory));
     }
+
     final state = context.read<MealsBloc>().state;
     currentDate = state.data.currentDateTime;
   }
@@ -112,26 +112,12 @@ class _MealPageState extends State<MealPage> {
 
   String get _appBarSubTitle {
     final state = context.read<MealsBloc>().state;
-    // TODO: LOOPCARE-1798 Hide Meal planning block
-    // final dates = state.currentMealDates;
 
     final date = state.data.currentDateTime.isoStringWithoutTime != DateTime.now().isoStringWithoutTime
         ? state.data.currentDateTime.shortDate
         : LocalizedTexts.today.tr().capitalize();
     return date;
   }
-
-// TODO: LOOPCARE-1798 Hide Meal planning block
-  // String _mealDates(MealsState state, {bool needNewLine = false}) {
-  //   final dates = state.currentMealDates;
-  //   String newLine = needNewLine ? '\n' : '';
-  //   if (dates != null) {
-  //     final addString = dates.length > 1 ? '$newLine(and ${dates.length - 1} other dates)' : '';
-
-  //     return '${state.getCurrentDate.shortDate} $addString';
-  //   }
-  //   return state.getCurrentDate.shortDate;
-  // }
 
   void _onChooseDates(BuildContext context) {
     final state = context.read<MealsBloc>().state.data;

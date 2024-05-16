@@ -172,7 +172,7 @@ class LocalizedTexts {
   static const String goodAfternoon = 'goodAfternoon';
   static const String goodEvening = 'goodEvening';
   static const String logYourWeight = 'logYourWeight';
-  static const String logYourMeals = 'logYourMeals';
+  static const String mealLog = 'mealLog';
   static const String planYourMeals = 'planYourMeals';
   static const String mood = 'mood';
   static const String today = 'today';

@@ -78,6 +78,9 @@ class AuthenticationData with _$AuthenticationData {
 
   bool get isCarbohydrateRatioUnlocked => account?.isCarbohydrateRatioUnlocked ?? false;
 
+  bool get isNutritionScalesLocked =>
+      !isCalorieDensityUnlocked && !isProteinDegreeUnlocked && !isCarbohydrateRatioUnlocked;
+
   bool get isCalorieTrackerUnlocked => account?.isCalorieTrackerUnlocked ?? false;
 
   bool get isGroupSessionsUnlocked =>
