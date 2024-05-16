@@ -78,7 +78,7 @@ class _LessonCompletePageState extends State<LessonCompletePage> {
       return LocalizedTexts.lessonCompleteDescription.tr();
     }
 
-    if (state.data.extraAction == ExtraActionTypes.unlockMeals ||
+    if (state.data.extraAction == ExtraActionTypes.unlockFoodLogging ||
         (state.data.extraAction == ExtraActionTypes.setupGroupingPreferences && !_isGroupSessionsDisabled)) {
       return LocalizedTexts.unlockFeatureDescription.tr();
     } else {

@@ -56,7 +56,7 @@ class EducationLessonData with _$EducationLessonData {
 
   bool get isBuddyUnlocked => extraAction == ExtraActionTypes.unlockBuddy;
 
-  bool get isFoodLoggingUnlocked => extraAction == ExtraActionTypes.unlockMeals;
+  bool get isFoodLoggingUnlocked => extraAction == ExtraActionTypes.unlockFoodLogging;
 
   bool get isPhysicalActivitiesUnlocked => extraAction == ExtraActionTypes.unlockPhysicalActivities;
 
