@@ -10,6 +10,7 @@ import 'package:loopcare_frontend/core/domain/nutrition/nutrition_values_descrip
 import 'package:loopcare_frontend/core/infrastructure/services/shared_storage/shared_storage_service.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/core/presentation/nutrition/nutrition_indicator/nutrition_indicator.dart';
+import 'package:loopcare_frontend/core/presentation/nutrition/nutrition_range_description/nutrition_range_description.dart';
 import 'package:loopcare_frontend/core/presentation/text/custom_text.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 import 'package:loopcare_frontend/core/presentation/utils/build_context_extensions.dart';
@@ -102,8 +103,10 @@ class FiberDescription extends StatelessWidget {
                   ),
                   const SizedBox(height: 20),
                   CustomText.w400(
-                    LocalizedTexts.fiberRatioToCarbo
-                        .tr(args: ['$totalCarbs', '${carbsFiberRatio?.toStringAsFixed(1)}']),
+                    LocalizedTexts.fiberRatioToCarbo.tr(args: [
+                      '${totalCarbs?.toStringAsFixed(0)}',
+                      '${carbsFiberRatio?.toStringAsFixed(1)}'
+                    ]),
                     style: context.textTheme.bodySmall,
                   ),
                 ],
@@ -137,7 +140,8 @@ class FiberDescription extends StatelessWidget {
                 ],
               ),
             ),
-            const SizedBox(height: 20.0),
+            const SizedBox(height: 40.0),
+            NutritionRangeDescription.fiber(),
           ],
         ),
       ],

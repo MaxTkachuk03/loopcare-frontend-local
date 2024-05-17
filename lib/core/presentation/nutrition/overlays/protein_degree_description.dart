@@ -9,6 +9,7 @@ import 'package:loopcare_frontend/core/domain/nutrition/nutrition_indicator_colo
 import 'package:loopcare_frontend/core/domain/nutrition/nutrition_values_description.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/core/presentation/nutrition/nutrition_indicator/nutrition_indicator.dart';
+import 'package:loopcare_frontend/core/presentation/nutrition/nutrition_range_description/nutrition_range_description.dart';
 import 'package:loopcare_frontend/core/presentation/text/custom_text.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 import 'package:loopcare_frontend/core/presentation/utils/build_context_extensions.dart';
@@ -105,7 +106,8 @@ class ProteinDegreeDescription extends StatelessWidget {
                 ],
               ),
             ),
-            const SizedBox(height: 20.0),
+            const SizedBox(height: 40.0),
+            NutritionRangeDescription.proteinDegree(),
           ],
         ),
       ],
