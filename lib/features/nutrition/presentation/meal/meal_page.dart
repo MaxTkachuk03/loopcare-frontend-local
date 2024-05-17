@@ -24,7 +24,6 @@ import 'package:loopcare_frontend/core/presentation/widgets/main_container.dart'
 import 'package:loopcare_frontend/core/presentation/widgets/scrollable_container.dart';
 import 'package:loopcare_frontend/features/nutrition/application/edit_dish/edit_dish_bloc.dart';
 import 'package:loopcare_frontend/features/nutrition/application/meals/meals_bloc.dart';
-import 'package:loopcare_frontend/features/nutrition/application/recipe/recipe_bloc.dart';
 import 'package:loopcare_frontend/features/nutrition/domain/dish_favorites_category/dish_favorites_category.dart';
 import 'package:loopcare_frontend/features/nutrition/domain/nutrition_item/nutrition_item.dart';
 import 'package:loopcare_frontend/features/nutrition/domain/nutrition_values_types/nutrition_values_types.dart';
@@ -49,15 +48,14 @@ class _MealPageState extends State<MealPage> {
   void initState() {
     super.initState();
 
-    final mealState = context.read<MealsBloc>().state;
-    final mealCategory = mealState.data.currentMealCategory;
+    // TODO hide recommendations after discussion with Diana 16.05.2024
+    // final mealState = context.read<MealsBloc>().state;
+    // final mealCategory = mealState.data.currentMealCategory;
+    // if (mealCategory != null) {
+    //   context.read<RecipeBloc>().add(RecipeEvent.getRecommendations(mealCategory));
+    // }
 
-    if (mealCategory != null) {
-      context.read<RecipeBloc>().add(RecipeEvent.getRecommendations(mealCategory));
-    }
-
-    final state = context.read<MealsBloc>().state;
-    currentDate = state.data.currentDateTime;
+    currentDate = context.read<MealsBloc>().state.data.currentDateTime;
   }
 
   void _onSaveToMyDishesHandler() {
@@ -136,21 +134,21 @@ class _MealPageState extends State<MealPage> {
   void _onNutritionFactSelect(NutritionValuesTypes item) {
     context.read<MealsBloc>().add(MealsEvent.nutritionItemChanged(item));
   }
-
-  _onRecommendationsPressed(BuildContext context) {
-    final mealState = context.read<MealsBloc>().state;
-    final mealCategory = mealState.data.currentMealCategory;
-
-    if (mealCategory != null) {
-      context.router.push(
-        RecommendationsRoute(
-          mealCategory: mealCategory,
-          date: mealState.data.currentDateTime,
-          fromMealPage: true,
-        ),
-      );
-    }
-  }
+  // TODO hide recommendations after discussion with Diana 16.05.2024
+  // _onRecommendationsPressed(BuildContext context) {
+  //   final mealState = context.read<MealsBloc>().state;
+  //   final mealCategory = mealState.data.currentMealCategory;
+  //
+  //   if (mealCategory != null) {
+  //     context.router.push(
+  //       RecommendationsRoute(
+  //         mealCategory: mealCategory,
+  //         date: mealState.data.currentDateTime,
+  //         fromMealPage: true,
+  //       ),
+  //     );
+  //   }
+  // }
 
   // TODO don't need at all delete after test
   // void _setOriginDate() {
@@ -307,26 +305,28 @@ class _MealPageState extends State<MealPage> {
                                         ),
                                       ],
                                     ),
-                                    const SizedBox(height: 10.0),
-                                    if (currentDate.isTodayOrFuture)
-                                      BlocBuilder<RecipeBloc, RecipeState>(
-                                        builder: (BuildContext context, recipeState) {
-                                          return Row(
-                                            children: [
-                                              Expanded(
-                                                child: CustomOutlinedButton.blueSmall(
-                                                  label: LocalizedTexts.recommendations.tr(),
-                                                  onPressed: () =>
-                                                      recipeState.data.recommendationRecipe.isEmpty
-                                                          ? null
-                                                          : _onRecommendationsPressed(context),
-                                                ),
-                                              ),
-                                              const Expanded(child: SizedBox(width: 10.0)),
-                                            ],
-                                          );
-                                        },
-                                      ),
+                                    // TODO hide recommendations after discussion with Diana 16.05.2024
+                                    // const SizedBox(height: 10.0),
+
+                                    // if (currentDate.isTodayOrFuture)
+                                    //   BlocBuilder<RecipeBloc, RecipeState>(
+                                    //     builder: (BuildContext context, recipeState) {
+                                    //       return Row(
+                                    //         children: [
+                                    //           Expanded(
+                                    //             child: CustomOutlinedButton.blueSmall(
+                                    //               label: LocalizedTexts.recommendations.tr(),
+                                    //               onPressed: () =>
+                                    //                   recipeState.data.recommendationRecipe.isEmpty
+                                    //                       ? null
+                                    //                       : _onRecommendationsPressed(context),
+                                    //             ),
+                                    //           ),
+                                    //           const Expanded(child: SizedBox(width: 10.0)),
+                                    //         ],
+                                    //       );
+                                    //     },
+                                    //   ),
                                   ],
                                 ),
                               ),

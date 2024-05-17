@@ -92,7 +92,8 @@ class NutritionScale extends StatelessWidget {
   }) =>
       NutritionScale(
         key: const ValueKey<String>('fiber'),
-        topLabel: LocalizedTexts.fiber.tr().capitalize(),
+        topLabel:
+            '${LocalizedTexts.fiber.tr().capitalize()} ', // add space to make it in 2 two lines with second line empty on the UI
         bottomLabel: NutritionValuesDescription.getFiberItemByValue(value ?? 0).label.tr().capitalize(),
         color: isFiberInsignificant
             ? AppColors.greyLight
@@ -113,7 +114,8 @@ class NutritionScale extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          CustomText.w600(topLabel, style: context.textTheme.bodySmall, textAlign: TextAlign.center),
+          ...topLabel.split(' ').map(
+              (e) => CustomText.w600(e, style: context.textTheme.bodySmall, textAlign: TextAlign.center)),
           const SizedBox(height: 8.0),
           NutritionIndicator.small(
             label: isDisabled ? '-' : indicatorLabel,
