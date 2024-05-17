@@ -28,51 +28,33 @@ class NutritionSummary extends StatelessWidget {
 
   bool get _isFiberInsignificant => (carbsPercent ?? 0) < 20;
 
-  int _getAmountOfUnlockedBlocks(BuildContext context) {
-    final state = context.read<AuthenticationBloc>().state.data;
-    final unlockedFoodLoggingSubFeatures = [
-      state.isCalorieDensityUnlocked,
-      state.isProteinDegreeUnlocked,
-      state.isCarbohydrateRatioUnlocked
-    ];
-
-    return unlockedFoodLoggingSubFeatures.where((e) => e).length;
-  }
-
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<AuthenticationBloc, AuthenticationState>(
       builder: (context, state) {
-        final bool useStartLayout = _getAmountOfUnlockedBlocks(context) < 3;
-        final int flexVal = useStartLayout ? 0 : 1;
-
         return MainContainer(
           child: Column(
             children: [
               Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisAlignment: useStartLayout ? MainAxisAlignment.start : MainAxisAlignment.spaceBetween,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  if (state.data.isCalorieDensityUnlocked)
-                    Expanded(
-                      flex: flexVal,
-                      child: NutritionScale.calorieDensity(value: calorieDensity),
-                    ),
-                  if (state.data.isProteinDegreeUnlocked)
-                    Expanded(
-                      flex: flexVal,
-                      child: NutritionScale.proteinDegree(value: proteinDegree),
-                    ),
-                  if (state.data.isCarbohydrateRatioUnlocked)
-                    Expanded(
-                      flex: flexVal,
-                      child: NutritionScale.fiber(
-                        value: fiber,
-                        totalCarbs: context.read<MealsBloc>().state.data.selectedDayMealTotalCarbs,
-                        carbsFiberRatio: carbFiberRatio,
-                        isFiberInsignificant: _isFiberInsignificant,
-                      ),
-                    ),
+                  state.data.isCalorieDensityUnlocked
+                      ? Expanded(child: NutritionScale.calorieDensity(value: calorieDensity))
+                      : const Spacer(),
+                  state.data.isProteinDegreeUnlocked
+                      ? Expanded(child: NutritionScale.proteinDegree(value: proteinDegree))
+                      : const Spacer(),
+                  state.data.isCarbohydrateRatioUnlocked
+                      ? Expanded(
+                          child: NutritionScale.fiber(
+                            value: fiber,
+                            totalCarbs: context.read<MealsBloc>().state.data.selectedDayMealTotalCarbs,
+                            carbsFiberRatio: carbFiberRatio,
+                            isFiberInsignificant: _isFiberInsignificant,
+                          ),
+                        )
+                      : const Spacer(),
                 ],
               ),
               if (showCaloriesTracker && state.data.isCalorieTrackerUnlocked) const SizedBox(height: 24),

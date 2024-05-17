@@ -239,6 +239,7 @@ class LocalizedTexts {
   static const String fiberHighQualityLabel = 'fiberHighQualityLabel';
   static const String fiberMidQualityLabel = 'fiberMidQualityLabel';
   static const String fiberLowQualityLabel = 'fiberLowQualityLabel';
+  static const String notSignificant = 'notSignificant';
   static const String insignificant = 'insignificant';
 
   // Education

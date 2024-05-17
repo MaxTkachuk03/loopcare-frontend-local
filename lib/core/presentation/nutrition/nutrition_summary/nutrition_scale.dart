@@ -94,7 +94,9 @@ class NutritionScale extends StatelessWidget {
         key: const ValueKey<String>('fiber'),
         topLabel:
             '${LocalizedTexts.fiber.tr().capitalize()} ', // add space to make it in 2 two lines with second line empty on the UI
-        bottomLabel: NutritionValuesDescription.getFiberItemByValue(value ?? 0).label.tr().capitalize(),
+        bottomLabel: isFiberInsignificant
+            ? LocalizedTexts.notSignificant.tr()
+            : NutritionValuesDescription.getFiberItemByValue(value ?? 0).label.tr().capitalize(),
         color: isFiberInsignificant
             ? AppColors.greyLight
             : NutritionIndicatorColorPicker.getIndicatorColor(NutritionIndicatorType.fiber, carbsFiberRatio),

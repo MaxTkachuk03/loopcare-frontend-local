@@ -98,7 +98,7 @@ class _LessonCompletePageState extends State<LessonCompletePage> {
           listener: _onErrorListener,
         ),
         BlocListener<EducationLessonBloc, EducationLessonState>(
-          listenWhen: (prev, cur) => cur is LessonCompleted,
+          listenWhen: (prev, cur) => prev is Loading && cur is LessonCompleted,
           listener: _lessonCompleteListener,
         ),
       ],

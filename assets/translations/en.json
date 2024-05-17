@@ -910,6 +910,7 @@
   "fiberHighQualityLabel": "High quality",
   "fiberMidQualityLabel": "Mixed quality",
   "fiberLowQualityLabel": "Low quality",
+  "notSignificant": "Not significant",
   "insignificant": "Insignificant",
 
   "mindDashboardTitle": "Mind training",
