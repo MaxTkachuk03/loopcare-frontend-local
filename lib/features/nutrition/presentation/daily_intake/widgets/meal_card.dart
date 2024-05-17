@@ -42,7 +42,7 @@ class MealCard extends StatelessWidget {
       onTap: () => _onTapHandler(context),
       child: Container(
         color: AppColors.white,
-        padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 22.0),
+        padding: const EdgeInsets.all(20.0),
         child: Column(
           children: [
             Row(
@@ -53,9 +53,7 @@ class MealCard extends StatelessWidget {
                     CircleAvatar(
                       radius: 6,
                       backgroundColor: NutritionIndicatorColorPicker.getIndicatorColor(
-                        NutritionIndicatorType.calorieDensity,
-                        calorieDensity,
-                      ),
+                          NutritionIndicatorType.calorieDensity, calorieDensity),
                     ),
                     const SizedBox(width: 10.0),
                     CustomText.bitter600(title.capitalize(), style: Theme.of(context).textTheme.bodyLarge),

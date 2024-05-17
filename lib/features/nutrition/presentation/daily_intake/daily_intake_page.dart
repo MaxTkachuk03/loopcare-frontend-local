@@ -34,6 +34,7 @@ class DailyIntakePage extends StatelessWidget {
               child: Column(
                 children: [
                   ListView.separated(
+                    padding: EdgeInsets.zero,
                     physics: const NeverScrollableScrollPhysics(),
                     shrinkWrap: true,
                     itemCount: MealCategory.values.length,
@@ -57,6 +58,7 @@ class DailyIntakePage extends StatelessWidget {
                     separatorBuilder: (_, __) =>
                         const Divider(color: AppColors.greenLighter, thickness: 1.0, height: 1.0),
                   ),
+                  const SizedBox(height: 40.0),
                   NutritionSummary(
                     proteinDegree: mealsState.data.selectedDayMealProteinDegreeSum,
                     calorieDensity: mealsState.data.selectedDayMealCalorieDensitySum,
