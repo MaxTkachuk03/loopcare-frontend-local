@@ -211,6 +211,7 @@ class _RecipePageState extends State<RecipePage> {
                                 fiber: recipeState.data.recipe.fiberSum,
                                 carbFiberRatio: recipeState.data.recipe.carbFiberRatio,
                                 carbsPercent: recipeState.data.recipe.carbsPercent,
+                                totalCarbs: recipeState.data.recipe.totalCarbs,
                                 totalCalories: recipeState.data.recipe.totalCalories,
                               ),
                               const SizedBox(height: 15.0),

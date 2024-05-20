@@ -38,6 +38,8 @@ class RecipeDetails with _$RecipeDetails, NutritionUtils {
 
   double get fiberSum => _servingFiber;
 
+  double get carbsSum => _servingCarbs;
+
   double get calorieDensityVal => getCalorieDensity(servingCalories, _servingWeight);
 
   double get proteinDegreeVal => getProteinDegree(_servingProtein, servingCalories);

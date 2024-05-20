@@ -66,6 +66,7 @@ class DailyIntakePage extends StatelessWidget {
                     carbFiberRatio: mealsState.data.selectedDayMealCarbFiberRatio,
                     carbsPercent: mealsState.data.carbsPercent,
                     totalCalories: mealsState.data.totalCalories,
+                    totalCarbs: mealsState.data.selectedDayMealTotalCarbs,
                   ),
                 ],
               ),

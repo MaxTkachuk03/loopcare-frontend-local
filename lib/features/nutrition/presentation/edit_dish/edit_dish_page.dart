@@ -372,6 +372,7 @@ class _EditDishPageState extends State<EditDishPage> {
                                     carbsPercent: dishState.currentDish.carbsPercent,
                                     totalCalories:
                                         dishState.currentDish.caloriesSumWithDrinks * _servingsAmount,
+                                    totalCarbs: dishState.currentDish.carbsSum * _servingsAmount,
                                   ),
                                   const SizedBox(height: 15.0),
                                   MainContainer(

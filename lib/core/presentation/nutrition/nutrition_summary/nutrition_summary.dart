@@ -4,7 +4,6 @@ import 'package:loopcare_frontend/core/presentation/nutrition/calorie_tracker/ca
 import 'package:loopcare_frontend/core/presentation/nutrition/nutrition_summary/nutrition_scale.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/main_container.dart';
 import 'package:loopcare_frontend/features/authentication/application/authentication_bloc.dart';
-import 'package:loopcare_frontend/features/nutrition/application/meals/meals_bloc.dart';
 
 class NutritionSummary extends StatelessWidget {
   final double? calorieDensity;
@@ -13,6 +12,7 @@ class NutritionSummary extends StatelessWidget {
   final double? carbFiberRatio;
   final double? carbsPercent;
   final double? totalCalories;
+  final double? totalCarbs;
   final bool showCaloriesTracker;
 
   const NutritionSummary({
@@ -22,6 +22,7 @@ class NutritionSummary extends StatelessWidget {
     this.fiber,
     this.carbFiberRatio,
     this.carbsPercent,
+    this.totalCarbs,
     this.totalCalories,
     this.showCaloriesTracker = true,
   });
@@ -49,7 +50,7 @@ class NutritionSummary extends StatelessWidget {
                       ? Expanded(
                           child: NutritionScale.fiber(
                             value: fiber,
-                            totalCarbs: context.read<MealsBloc>().state.data.selectedDayMealTotalCarbs,
+                            totalCarbs: totalCarbs,
                             carbsFiberRatio: carbFiberRatio,
                             isFiberInsignificant: _isFiberInsignificant,
                           ),

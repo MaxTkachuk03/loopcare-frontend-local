@@ -347,6 +347,20 @@ class MealsStateData with _$MealsStateData, NutritionUtils {
     return currentMeal.caloriesSum;
   }
 
+  double get currentMealCarbsSum {
+    if (mealsMap.isEmpty || currentMealId == null) {
+      return 0;
+    }
+
+    final selectedDayMeals = mealsMap[currentDateTime.isoStringWithoutTime] ?? <MealsListItem>[];
+
+    final MealsListItem? currentMeal = selectedDayMeals.firstWhereOrNull((item) => item.id == currentMealId);
+
+    if (currentMeal == null) return 0;
+
+    return currentMeal.carbohydratesSum;
+  }
+
   double calorieDensitySum(List<MealItem> selectedDayMeals) {
     double caloriesSum = 0;
     double amountSum = 0;

@@ -280,6 +280,7 @@ class _MealPageState extends State<MealPage> {
                                   carbFiberRatio: state.data.currentMealCarbFiberRatio,
                                   carbsPercent: state.data.currentMealCarbsPercent,
                                   totalCalories: state.data.currentMealCalories,
+                                  totalCarbs: state.data.currentMealCarbsSum,
                                 ),
                               ),
                               MainContainer(

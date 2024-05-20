@@ -298,6 +298,7 @@ class _DishDetailsPageState extends State<DishDetailsPage> {
                                 carbFiberRatio: dishState.selectedDish.carbFiberRatio,
                                 carbsPercent: dishState.selectedDish.carbsPercent,
                                 totalCalories: dishState.selectedDish.caloriesSumWithDrinks * _servingsAmount,
+                                totalCarbs: dishState.selectedDish.carbsSum * _servingsAmount,
                               ),
                               const SizedBox(height: 26.0),
                               MainContainer(

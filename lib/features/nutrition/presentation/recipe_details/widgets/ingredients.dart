@@ -62,6 +62,7 @@ class Ingredients extends StatelessWidget {
                     carbFiberRatio: recipeState.data.recipe.carbFiberRatio,
                     carbsPercent: recipeState.data.recipe.carbsPercent,
                     totalCalories: recipeState.data.recipe.servingCalories,
+                    totalCarbs: recipeState.data.recipe.totalCarbs,
                   ),
                 ),
               ],
