@@ -74,35 +74,9 @@ class MealsBloc extends Bloc<MealsEvent, MealsState> {
     SetCurrentDate event,
     Emitter<MealsState> emit,
   ) async {
-    if (event.currentDate.isBefore(DateTime.now())) {
-      emit(MealsState.loading(state.data.copyWith(
-        isLoading: true,
-        currentDate: event.currentDate,
-        originCurrentDate: event.updateOrigin ? event.currentDate : state.data.originCurrentDate,
-      )));
+    if (event.currentDate.isFuture) return;
 
-      final response = await nutritionService.getMeals(
-        startDate: event.currentDate.beginDay.toIso8601String(),
-        endDate: event.currentDate.endDay.toIso8601String(),
-      );
-
-      response.fold(
-        (l) {
-          emit(MealsState.error(state.data.copyWith(error: l, isLoading: false)));
-        },
-        (r) {
-          emit(
-            MealsState.mealsInfo(state.data.copyWith(
-              currentDate: event.currentDate,
-              originCurrentDate: event.updateOrigin ? event.currentDate : state.data.originCurrentDate,
-              meals: _combineMealsByDate(state.data.meals, r.data),
-              selectedServing: null,
-              isLoading: false,
-            )),
-          );
-        },
-      );
-    }
+    emit(MealsState.loading(state.data.copyWith(isLoading: true, currentDate: event.currentDate)));
   }
 
   FutureOr<void> _onSetMealId(
@@ -116,28 +90,20 @@ class MealsBloc extends Bloc<MealsEvent, MealsState> {
   }
 
   FutureOr<void> _onFetchMeals(
-    FetchMeals _,
+    FetchMeals event,
     Emitter<MealsState> emit,
   ) async {
-    var selectedDate = state.data.currentDateTime;
     emit(MealsState.loading(state.data.copyWith(isLoading: true)));
 
     final response = await nutritionService.getMeals(
-      startDate: selectedDate.beginDay.subtract(const Duration(days: 8)).toIso8601String(),
-      endDate: selectedDate.endDay.toIso8601String(),
+      startDate: event.startDate.toIso8601String(),
+      endDate: event.endDate.toIso8601String(),
     );
 
     response.fold(
       (l) => emit(MealsState.error(state.data.copyWith(isLoading: false, error: l))),
-      (r) => emit(
-        MealsState.mealsInfo(
-          state.data.copyWith(
-            meals: _combineMealsByDate({}, r.data),
-            currentDate: selectedDate,
-            isLoading: false,
-          ),
-        ),
-      ),
+      (r) => emit(MealsState.mealsInfo(
+          state.data.copyWith(meals: _combineMealsByDate({}, r.data), isLoading: false))),
     );
   }
 

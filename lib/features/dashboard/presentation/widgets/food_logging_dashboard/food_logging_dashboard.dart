@@ -11,24 +11,28 @@ import 'package:loopcare_frontend/core/presentation/routes/app_router.dart';
 import 'package:loopcare_frontend/core/presentation/text/custom_text.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 import 'package:loopcare_frontend/core/presentation/utils/build_context_extensions.dart';
+import 'package:loopcare_frontend/core/presentation/utils/date_time_extensions.dart';
 import 'package:loopcare_frontend/features/authentication/application/authentication_bloc.dart';
 import 'package:loopcare_frontend/features/dashboard/presentation/widgets/dashboard_card_title/dashboard_card_title.dart';
 import 'package:loopcare_frontend/features/nutrition/application/meals/meals_bloc.dart';
 
-class FoodLogging extends StatelessWidget {
-  const FoodLogging({super.key});
+class FoodLoggingDashboard extends StatelessWidget {
+  final DateTime selectedDay;
+
+  const FoodLoggingDashboard({super.key, required this.selectedDay});
 
   void _onPressHandler(BuildContext context) => context.router.pushNamed(AppRoutes.dailyIntake);
+
+  void onErrorHandler(BuildContext context) =>
+      context.read<MealsBloc>().add(MealsEvent.fetchMeals(startDate: selectedDay, endDate: selectedDay));
 
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<MealsBloc, MealsState>(
       builder: (context, state) {
-        if (state.data.isNeedToHideOnDashboard) {
-          return const SizedBox.shrink();
-        }
-
-        final Color textColor = state.data.isEnableOnDashboard ? AppColors.blueDarker : AppColors.greyLabel;
+        final Color textColor = state.data.isEnableOnDashboard && !selectedDay.isFuture
+            ? AppColors.blueDarker
+            : AppColors.greyLabel;
 
         return Container(
           padding: const EdgeInsets.only(top: 8.0, bottom: 8.0, right: 8.0, left: 8.0),
@@ -54,7 +58,7 @@ class FoodLogging extends StatelessWidget {
                 ),
                 actionIcon: AppIcons.arrow,
                 circleButton: false,
-                editable: state.data.isEnableOnDashboard,
+                editable: state.data.isEnableOnDashboard && !selectedDay.isFuture,
               ),
               BlocBuilder<AuthenticationBloc, AuthenticationState>(
                 builder: (context, state) => state.data.isNutritionScalesLocked
@@ -66,10 +70,7 @@ class FoodLogging extends StatelessWidget {
                 error: (s) {
                   final error = s.data.error;
 
-                  return ErrorScreen(
-                    error: error!,
-                    onButtonPressed: () => context.read<MealsBloc>().add(const MealsEvent.fetchMeals()),
-                  );
+                  return ErrorScreen(error: error!, onButtonPressed: () => onErrorHandler(context));
                 },
                 orElse: () => NutritionSummary(
                   proteinDegree: state.data.selectedDayMealProteinDegreeSum,

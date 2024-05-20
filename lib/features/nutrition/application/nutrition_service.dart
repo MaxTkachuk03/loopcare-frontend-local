@@ -115,8 +115,8 @@ abstract class NutritionService {
   );
 
   Future<Either<RequestError, MealsResponse>> getMeals({
-    String? startDate,
-    String? endDate,
+    required String startDate,
+    required String endDate,
   });
 
   Future<Either<RequestError, MealsResponse>> getPlannedMeals({

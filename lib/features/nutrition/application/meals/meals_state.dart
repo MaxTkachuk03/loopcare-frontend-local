@@ -21,7 +21,6 @@ class MealsStateData with _$MealsStateData, NutritionUtils {
     @Default({}) Map<String, List<MealsListItem>> meals,
     @Default(false) bool isLoading,
     DateTime? currentDate,
-    DateTime? originCurrentDate,
     String? currentMealCategory,
     DateTime? timeStamp,
     ServingSize? selectedServing,
@@ -29,10 +28,6 @@ class MealsStateData with _$MealsStateData, NutritionUtils {
   }) = _MealsStateData;
 
   DateTime get currentDateTime => currentDate ?? DateTime.now();
-
-  DateTime get getOriginDate => originCurrentDate ?? DateTime.now();
-
-  bool get isNeedToHideOnDashboard => currentDateTime.isAfter(DateTime.now());
 
   bool get isEnableOnDashboard => currentDateTime.isAfter(DateTime.now().subtract(const Duration(days: 8)));
 

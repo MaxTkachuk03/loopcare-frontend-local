@@ -221,17 +221,13 @@ class APINutritionService implements NutritionService {
 
   @override
   Future<Either<RequestError, MealsResponse>> getMeals({
-    String? startDate,
-    String? endDate,
+    required String startDate,
+    required String endDate,
   }) async {
-    final queryParameters = <String, dynamic>{};
-    if (startDate != null && endDate != null) {
-      queryParameters.addAll({
-        'startDate': startDate,
-        'endDate': endDate,
-      });
-    }
-    return client.get('/meals', queryParameters: queryParameters).then(parseResponse(MealsResponse.fromJson));
+    return client.get(
+      '/meals',
+      queryParameters: {'startDate': startDate, 'endDate': endDate},
+    ).then(parseResponse(MealsResponse.fromJson));
   }
 
   @override

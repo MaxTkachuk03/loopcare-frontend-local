@@ -15,7 +15,7 @@ import 'package:loopcare_frontend/features/assignments/application/assignments_b
 import 'package:loopcare_frontend/features/assignments/presentation/dashboard_assignments.dart';
 import 'package:loopcare_frontend/features/authentication/application/authentication_bloc.dart';
 import 'package:loopcare_frontend/features/dashboard/presentation/widgets/education/education.dart';
-import 'package:loopcare_frontend/features/dashboard/presentation/widgets/food_logging/food_logging.dart';
+import 'package:loopcare_frontend/features/dashboard/presentation/widgets/food_logging_dashboard/food_logging_dashboard.dart';
 import 'package:loopcare_frontend/features/dashboard/presentation/widgets/mind/dashboard_mind_widget.dart';
 import 'package:loopcare_frontend/features/dashboard/presentation/widgets/person_mood/person_mood.dart';
 import 'package:loopcare_frontend/features/dashboard/presentation/widgets/physical_activities/physical_activities.dart';
@@ -92,10 +92,10 @@ class _DashboardPageState extends State<DashboardPage> with WidgetsBindingObserv
 
     context.read<EducationProgramBloc>().add(const EducationProgramEvent.getLessons());
 
-// TODO: /LOOPCARE-1893
-    // if (context.read<AuthenticationCubit>().state.isFoodLoggingUnlocked) {
-    context.read<MealsBloc>().add(const MealsEvent.fetchMeals());
-    // }
+    context.read<MealsBloc>()
+      ..add(MealsEvent.setCurrentDate(_selectedDay))
+      ..add(MealsEvent.fetchMeals(
+          startDate: _selectedDay.subtract(const Duration(days: 8)), endDate: _selectedDay));
 
     if (context.read<AuthenticationBloc>().state.data.isAssignmentsUnlocked) {
       context.read<AssignmentsBloc>().add(
@@ -105,10 +105,9 @@ class _DashboardPageState extends State<DashboardPage> with WidgetsBindingObserv
             ),
           );
     }
+
     if (context.read<AuthenticationBloc>().state.data.isSmartGoalUnlocked) {
-      context.read<SmartGoalsBloc>().add(
-            const SmartGoalsEvent.getWeeklyGoals(),
-          );
+      context.read<SmartGoalsBloc>().add(const SmartGoalsEvent.getWeeklyGoals());
     }
   }
 
@@ -127,7 +126,10 @@ class _DashboardPageState extends State<DashboardPage> with WidgetsBindingObserv
     context.read<EducationProgramBloc>().add(const EducationProgramEvent.getLessons());
 
     if (context.read<AuthenticationBloc>().state.data.isFoodLoggingUnlocked) {
-      context.read<MealsBloc>().add(const MealsEvent.fetchMeals());
+      context.read<MealsBloc>().add(MealsEvent.fetchMeals(
+            startDate: _selectedDay.subtract(const Duration(days: 8)),
+            endDate: _selectedDay,
+          ));
     }
 
     if (context.read<AuthenticationBloc>().state.data.isGroupSessionsUnlocked) {
@@ -142,6 +144,7 @@ class _DashboardPageState extends State<DashboardPage> with WidgetsBindingObserv
             ),
           );
     }
+
     if (context.read<AuthenticationBloc>().state.data.isSmartGoalUnlocked) {
       context.read<SmartGoalsBloc>().add(
             const SmartGoalsEvent.getWeeklyGoals(),
@@ -151,7 +154,9 @@ class _DashboardPageState extends State<DashboardPage> with WidgetsBindingObserv
 
   void _onDaySelected(DateTime day) {
     context.read<DashboardWeightBloc>().add(DashboardWeightEvent.setDate(day));
-    context.read<MealsBloc>().add(MealsEvent.setCurrentDate(day, updateOrigin: true));
+    context.read<MealsBloc>()
+      ..add(MealsEvent.setCurrentDate(day))
+      ..add(MealsEvent.fetchMeals(startDate: day, endDate: day));
     context.read<MoodBloc>().add(MoodEvent.setDate(day));
     context.read<DashboardEducationBloc>().add(DashboardEducationEvent.getDashboardLessons(currentDate: day));
     context.read<BmrBloc>().add(BmrEvent.getBmr(date: day));
@@ -256,11 +261,11 @@ class _DashboardPageState extends State<DashboardPage> with WidgetsBindingObserv
                           BlocBuilder<AuthenticationBloc, AuthenticationState>(
                             builder: (BuildContext context, state) {
                               if (state.data.isFoodLoggingUnlocked) {
-                                return const Column(
+                                return Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    SizedBox(height: 19.0),
-                                    FoodLogging(),
+                                    const SizedBox(height: 19.0),
+                                    FoodLoggingDashboard(selectedDay: _selectedDay),
                                   ],
                                 );
                               } else {

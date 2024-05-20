@@ -2,7 +2,7 @@ part of 'meals_bloc.dart';
 
 @freezed
 class MealsEvent with _$MealsEvent {
-  const factory MealsEvent.fetchMeals() = FetchMeals;
+  const factory MealsEvent.fetchMeals({required DateTime startDate, required DateTime endDate}) = FetchMeals;
 
   const factory MealsEvent.fetchMealById(int id) = FetchMealById;
 
@@ -30,8 +30,7 @@ class MealsEvent with _$MealsEvent {
 
   const factory MealsEvent.createFromFavorites(List<FavoritesItem> foodItemList) = CreateFromFavorites;
 
-  const factory MealsEvent.setCurrentDate(DateTime currentDate, {@Default(false) bool updateOrigin}) =
-      SetCurrentDate;
+  const factory MealsEvent.setCurrentDate(DateTime currentDate) = SetCurrentDate;
 
   const factory MealsEvent.addDishToMeal(int mealId, String numberOfServings, int dishId) = AddDishToMeal;
 
