@@ -364,6 +364,7 @@ class _EditDishPageState extends State<EditDishPage> {
                                     onListItemTapHandler: _onTapFoodItem,
                                     isScrollable: false,
                                   ),
+                                  const SizedBox(height: 20),
                                   NutritionSummary(
                                     proteinDegree: dishState.currentDish.proteinDegreeValue,
                                     calorieDensity: dishState.currentDish.calorieDensityValue,

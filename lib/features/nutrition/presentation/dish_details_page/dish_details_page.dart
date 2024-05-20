@@ -291,6 +291,7 @@ class _DishDetailsPageState extends State<DishDetailsPage> {
                                 onListItemTapHandler: _onFoodItemPressed,
                                 isScrollable: false,
                               ),
+                              const SizedBox(height: 20),
                               NutritionSummary(
                                 proteinDegree: dishState.selectedDish.proteinDegreeValue,
                                 calorieDensity: dishState.selectedDish.calorieDensityValue,
