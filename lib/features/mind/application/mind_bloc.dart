@@ -7,12 +7,14 @@ import 'package:loopcare_frontend/core/domain/analytics/firebase_event_custom_de
 import 'package:loopcare_frontend/core/domain/analytics/firebase_event_list.dart';
 import 'package:loopcare_frontend/core/infrastructure/dio_client/request_error.dart';
 import 'package:loopcare_frontend/core/infrastructure/services/firebase_event_service.dart';
+import 'package:loopcare_frontend/features/mind/application/dto/complete_exercise_data.dart';
 import 'package:loopcare_frontend/features/mind/application/dto/mind_info_response.dart';
 import 'package:loopcare_frontend/features/mind/application/dto/mind_technique.dart';
 import 'package:loopcare_frontend/features/mind/application/dto/mind_technique_exercise.dart';
 import 'package:loopcare_frontend/features/mind/application/dto/mind_techniques_response.dart';
 import 'package:loopcare_frontend/features/mind/application/dto/technique_unlock_style.dart';
 import 'package:loopcare_frontend/features/mind/application/mind_service.dart';
+import 'package:loopcare_frontend/features/mind/application/ui_models/mind_exercise_step.dart';
 
 part 'mind_bloc.freezed.dart';
 part 'mind_event.dart';
@@ -28,6 +30,7 @@ class MindBloc extends Bloc<MindEvent, MindState> {
     on<CompleteCurrentExercise>(_onCompleteCurrentExercise);
     on<UnlockNextExercise>(_onUnlockNextExercise);
     on<SelectExercise>(_onSelectExercise);
+    on<AddRating>(_onAddRating);
   }
 
   FutureOr<void> _onGetTechniques(GetTechniques event, Emitter<MindState> emit) async {
@@ -89,12 +92,16 @@ class MindBloc extends Bloc<MindEvent, MindState> {
   ) async {
     final techniqueId = state.data.currentTechnique?.id;
     final exerciseId = state.data.currentExercise?.id;
+    final data = CompleteExerciseData(
+      scaleBeforeAnswer: state.data.scaleBeforeAnswer ?? 1,
+      scaleAfterAnswer: state.data.scaleAfterAnswer ?? 1,
+    );
 
     if (techniqueId == null || exerciseId == null) {
       return;
     }
 
-    final response = await _mindService.completeExercise(techniqueId, exerciseId);
+    final response = await _mindService.completeExercise(techniqueId, exerciseId, data: data);
 
     response.fold(
       (l) => emit(MindState.error(state.data.copyWith(error: l, isLoading: false))),
@@ -155,6 +162,23 @@ class MindBloc extends Bloc<MindEvent, MindState> {
       MindState.exerciseSelected(
         state.data.copyWith(
           currentExercise: event.exercise,
+        ),
+      ),
+    );
+  }
+
+  FutureOr<void> _onAddRating(
+    AddRating event,
+    Emitter<MindState> emit,
+  ) async {
+    final scaleAfterAnswer = event.isAfter ? event.value : state.data.scaleAfterAnswer;
+    final scaleBeforeAnswer = !event.isAfter ? event.value : state.data.scaleBeforeAnswer;
+
+    emit(
+      MindState.exerciseSelected(
+        state.data.copyWith(
+          scaleAfterAnswer: scaleAfterAnswer,
+          scaleBeforeAnswer: scaleBeforeAnswer,
         ),
       ),
     );

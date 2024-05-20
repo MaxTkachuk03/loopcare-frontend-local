@@ -3,6 +3,7 @@ import 'package:injectable/injectable.dart';
 import 'package:loopcare_frontend/core/infrastructure/dio_client/dio_client.dart';
 import 'package:loopcare_frontend/core/infrastructure/dio_client/parse_response.dart';
 import 'package:loopcare_frontend/core/infrastructure/dio_client/request_error.dart';
+import 'package:loopcare_frontend/features/mind/application/dto/complete_exercise_data.dart';
 import 'package:loopcare_frontend/features/mind/application/dto/mind_info_response.dart';
 import 'package:loopcare_frontend/features/mind/application/dto/mind_technique_exercise.dart';
 import 'package:loopcare_frontend/features/mind/application/dto/mind_technique_exercises_response.dart';
@@ -45,10 +46,14 @@ class APIMindService implements MindService {
   }
 
   @override
-  Future<Either<RequestError, MindTechniqueExercise>> completeExercise(int techniqueId, int exerciseId) async {
+  Future<Either<RequestError, MindTechniqueExercise>> completeExercise(
+    int techniqueId,
+    int exerciseId, {
+    required CompleteExerciseData data,
+  }) async {
     return client.post(
       '/mind/techniques/$techniqueId/exercises/$exerciseId',
-      data: {},
+      data: data,
     ).then(parseResponse(MindTechniqueExercise.fromJson));
   }
 }
