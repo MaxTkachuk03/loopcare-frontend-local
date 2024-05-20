@@ -59,7 +59,7 @@ class FiberDescription extends StatelessWidget {
   }
 
   NutritionValueDescriptionItem get fiberItem =>
-      NutritionValuesDescription.getFiberItemByValue(carbsFiberRatio ?? 0);
+      NutritionValuesDescription.getFiberItemByValue(fiberValue ?? 0);
 
   @override
   Widget build(BuildContext context) {
