@@ -44,12 +44,14 @@ class ProteinDegreeDescription extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(
+      crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
         Padding(
           padding: const EdgeInsets.symmetric(vertical: 20.0),
           child: CustomText.bitter600(
             LocalizedTexts.proteinDegree.tr(),
             style: context.textTheme.displayMedium,
+            textAlign: TextAlign.center,
           ),
         ),
         Row(
@@ -81,35 +83,29 @@ class ProteinDegreeDescription extends StatelessWidget {
           ],
         ),
         const SizedBox(height: 20.0),
-        Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
-            const SizedBox(height: 8.0),
-            CustomText.w400(
-              LocalizedTexts.proteinDegreeExplanation.tr(),
-              style: context.textTheme.bodySmall,
-            ),
-            const SizedBox(height: 16.0),
-            RichText(
-              text: TextSpan(
-                style: context.textTheme.bodySmall,
-                children: [
-                  TextSpan(text: '${LocalizedTexts.forMoreInformationSeeLesson.tr()} '),
-                  TextSpan(
-                    text: LocalizedTexts.importanceOfProtein.tr(),
-                    style: context.textTheme.bodySmall?.copyWith(
-                      fontWeight: FontWeight.w600,
-                      decoration: TextDecoration.underline,
-                    ),
-                    recognizer: TapGestureRecognizer()..onTap = () => _openLesson(context),
-                  ),
-                ],
-              ),
-            ),
-            const SizedBox(height: 40.0),
-            NutritionRangeDescription.proteinDegree(),
-          ],
+        CustomText.w400(
+          LocalizedTexts.proteinDegreeExplanation.tr(),
+          style: context.textTheme.bodySmall,
         ),
+        const SizedBox(height: 16.0),
+        RichText(
+          text: TextSpan(
+            style: context.textTheme.bodySmall,
+            children: [
+              TextSpan(text: '${LocalizedTexts.forMoreInformationSeeLesson.tr()} '),
+              TextSpan(
+                text: LocalizedTexts.importanceOfProtein.tr(),
+                style: context.textTheme.bodySmall?.copyWith(
+                  fontWeight: FontWeight.w600,
+                  decoration: TextDecoration.underline,
+                ),
+                recognizer: TapGestureRecognizer()..onTap = () => _openLesson(context),
+              ),
+            ],
+          ),
+        ),
+        const SizedBox(height: 40.0),
+        NutritionRangeDescription.proteinDegree(),
       ],
     );
   }
