@@ -14,6 +14,7 @@ import 'package:loopcare_frontend/core/presentation/custom_safe_area.dart';
 import 'package:loopcare_frontend/core/presentation/error/error_screen.dart';
 import 'package:loopcare_frontend/core/presentation/loader/loader.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
+import 'package:loopcare_frontend/core/presentation/nutrition/nutrition_summary/nutrition_summary.dart';
 import 'package:loopcare_frontend/core/presentation/routes/app_router.gr.dart';
 import 'package:loopcare_frontend/core/presentation/scaffold/custom_scaffold.dart';
 import 'package:loopcare_frontend/core/presentation/text_field/custom_text_field.dart';
@@ -23,7 +24,6 @@ import 'package:loopcare_frontend/core/presentation/widgets/keyboard_listener_co
 import 'package:loopcare_frontend/core/presentation/widgets/main_container.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/scrollable_container.dart';
 import 'package:loopcare_frontend/features/nutrition/application/edit_dish/edit_dish_bloc.dart';
-import 'package:loopcare_frontend/features/nutrition/application/meals/meals_bloc.dart';
 import 'package:loopcare_frontend/features/nutrition/application/search/dto/search_item.dart';
 import 'package:loopcare_frontend/features/nutrition/application/search/dto/search_mode.dart';
 import 'package:loopcare_frontend/features/nutrition/domain/dish_food_item/dish_food_item.dart';
@@ -33,7 +33,6 @@ import 'package:loopcare_frontend/features/nutrition/domain/select_serving/meal_
 import 'package:loopcare_frontend/features/nutrition/presentation/dish_details_page/widgets/dish_list/dish_list.dart';
 import 'package:loopcare_frontend/features/nutrition/presentation/edit_dish/widgets/close_action.dart';
 import 'package:loopcare_frontend/features/nutrition/presentation/edit_dish/widgets/meal_category_chips.dart';
-import 'package:loopcare_frontend/features/nutrition/presentation/nutrition_instructions/widgets/nutrition_block/nutrition_block.dart';
 import 'package:loopcare_frontend/features/nutrition/presentation/widgets/meal_portions/nutrition_values_block.dart';
 import 'package:loopcare_frontend/features/nutrition/presentation/widgets/servings_amount/servings_amount.dart';
 
@@ -57,9 +56,10 @@ class EditDishPage extends StatefulWidget {
 
 class _EditDishPageState extends State<EditDishPage> {
   bool _isUserSaveChanges = false;
+  late double _servingsAmount;
 
-  final _chips = [MealCategory.breakfast, MealCategory.lunch, MealCategory.dinner];
-  List<MealCategory> _selectedMealCategories = [MealCategory.breakfast];
+  MealCategory _selectedMealCategory = MealCategory.breakfast;
+
   late final TextEditingController _servingController = TextEditingController();
   late final TextEditingController _portionsController = TextEditingController();
   late final TextEditingController _dishNameController = TextEditingController();
@@ -74,6 +74,8 @@ class _EditDishPageState extends State<EditDishPage> {
     editDishBloc.add(widget.event);
 
     _servingController.text = editDishBloc.state.servingAmount;
+    _portionsController.text = editDishBloc.state.numberOfPortions;
+    _servingsAmount = double.parse(editDishBloc.state.numberOfServings);
 
     super.initState();
   }
@@ -141,12 +143,15 @@ class _EditDishPageState extends State<EditDishPage> {
     context.read<EditDishBloc>().add(const EditDishEvent.deleteDish());
   }
 
-  void _onServingChanges(String value) {}
+  void _onServingChanges(String value) {
+    setState(() {
+      _servingsAmount = double.parse(value.isEmpty ? '0' : value);
+    });
+
+    _servingController.text = value;
+  }
 
   String? _validationError() {
-    if (_selectedMealCategories.isEmpty) {
-      return LocalizedTexts.invalidDishSelectedMealCategory.tr();
-    }
     if (_dishNameController.text.isEmpty) {
       return LocalizedTexts.invalidDishNameMessage.tr();
     }
@@ -172,12 +177,13 @@ class _EditDishPageState extends State<EditDishPage> {
       name: _dishNameController.text,
       numberOfUnits: double.parse(_servingController.text.replaceCommaWithDot.deleteDotAtTheEnd),
       numberOfServings: double.parse(_portionsController.text),
-      mealCategories: _selectedMealCategories,
+      mealCategories: [_selectedMealCategory],
     ));
 
     setState(() {
       _isUserSaveChanges = true;
     });
+
     context.showSuccessBar(content: Text(LocalizedTexts.dishWasSaved.tr()));
     context.router.pop();
   }
@@ -236,24 +242,20 @@ class _EditDishPageState extends State<EditDishPage> {
     );
   }
 
-  _onChipPressed(item) {
-    List<MealCategory> updatedCategories = List.from(_selectedMealCategories);
-
-    if (updatedCategories.contains(item)) {
-      updatedCategories.remove(item);
-    } else {
-      updatedCategories.add(item);
-    }
-
+  void _onChangeHandler(item) {
     setState(() {
-      _selectedMealCategories = updatedCategories;
+      _selectedMealCategory = item;
     });
   }
 
   _dishLoadedlistener(BuildContext context, state) {
     if (state is DishInfo) {
-      _selectedMealCategories = state.currentDish.mealCategories;
-      _dishNameController.text = state.currentDish.name;
+      setState(() {
+        _dishNameController.text = state.currentDish.name;
+        _servingController.text = state.numberOfServings;
+        _portionsController.text = state.numberOfPortions;
+        _servingsAmount = double.parse(state.numberOfServings);
+      });
     }
   }
 
@@ -285,7 +287,7 @@ class _EditDishPageState extends State<EditDishPage> {
           )
         ],
         child: KeyboardContainerListener(
-          child: CustomScaffold.greenLightest(
+          child: CustomScaffold.greenLighter(
             appBar: CustomAppBar.green(
               title: '${LocalizedTexts.addToMyDishedAs.tr()}...',
               leading: CustomFilledIconButton.leadingGreenLighter(),
@@ -294,40 +296,22 @@ class _EditDishPageState extends State<EditDishPage> {
                 preferredSize: const Size.fromHeight(150),
                 child: Column(
                   children: [
-                    BlocBuilder<MealsBloc, MealsState>(
-                      builder: (context, state) {
-                        return Container(
-                          padding: const EdgeInsets.symmetric(horizontal: 20.0),
-                          color: state.isPlanningMeals ? AppColors.darkGreen : AppColors.greenRegular,
-                          child: BlocBuilder<EditDishBloc, EditDishState>(
-                            builder: (BuildContext context, state) {
-                              return state.maybeMap(
-                                dishInfo: (dishState) {
-                                  return MealCategoryChips(
-                                    categories: _chips,
-                                    selectedChips: _selectedMealCategories.first,
-                                    onItemPressHandler: _onChipPressed,
-                                  );
-                                },
-                                orElse: () => const SizedBox.shrink(),
-                              );
-                            },
-                          ),
-                        );
-                      },
+                    Container(
+                      padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                      color: AppColors.greenRegular,
+                      child: MealCategoryChips(
+                        initialCategory: _selectedMealCategory,
+                        onItemPressHandler: _onChangeHandler,
+                      ),
                     ),
-                    BlocBuilder<MealsBloc, MealsState>(
-                      builder: (context, state) {
-                        return Container(
-                          padding: const EdgeInsets.all(20.0),
-                          color: state.isPlanningMeals ? AppColors.darkGreen : AppColors.greenRegular,
-                          child: CustomTextField(
-                            focusNode: _dishNameFocusNode,
-                            controller: _dishNameController,
-                            hintText: LocalizedTexts.giveNameToThisDish.tr(),
-                          ),
-                        );
-                      },
+                    Container(
+                      padding: const EdgeInsets.all(20.0),
+                      color: AppColors.greenRegular,
+                      child: CustomTextField(
+                        focusNode: _dishNameFocusNode,
+                        controller: _dishNameController,
+                        hintText: LocalizedTexts.giveNameToThisDish.tr(),
+                      ),
                     ),
                   ],
                 ),
@@ -353,9 +337,6 @@ class _EditDishPageState extends State<EditDishPage> {
                           );
                         },
                         dishInfo: (dishState) {
-                          _servingController.text = dishState.numberOfServings;
-                          _portionsController.text = dishState.numberOfPortions;
-
                           return Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -383,9 +364,16 @@ class _EditDishPageState extends State<EditDishPage> {
                                     onListItemTapHandler: _onTapFoodItem,
                                     isScrollable: false,
                                   ),
-                                  NutritionBlock(
-                                    calorieDensity: dishState.currentDish.calorieDensity,
-                                    proteinDegree: dishState.currentDish.proteinDegree,
+                                  const SizedBox(height: 20),
+                                  NutritionSummary(
+                                    proteinDegree: dishState.currentDish.proteinDegreeValue,
+                                    calorieDensity: dishState.currentDish.calorieDensityValue,
+                                    fiber: dishState.currentDish.fiberSum * _servingsAmount,
+                                    carbFiberRatio: dishState.currentDish.carbFiberRatio,
+                                    carbsPercent: dishState.currentDish.carbsPercent,
+                                    totalCalories:
+                                        dishState.currentDish.caloriesSumWithDrinks * _servingsAmount,
+                                    totalCarbs: dishState.currentDish.carbsSum * _servingsAmount,
                                   ),
                                   const SizedBox(height: 15.0),
                                   MainContainer(

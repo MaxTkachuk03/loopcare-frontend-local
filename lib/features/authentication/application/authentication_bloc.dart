@@ -377,7 +377,6 @@ class AuthenticationBloc extends HydratedBloc<AuthenticationEvent, Authenticatio
       customerIoId = id.toString();
     }
 
-
     if (state.data.account != null) {
       CustomerIoService.userAuthenticated(
         customerIoId: customerIoId,

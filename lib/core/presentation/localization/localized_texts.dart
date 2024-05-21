@@ -50,10 +50,19 @@ class LocalizedTexts {
   static const String nutritionSummary = 'nutritionSummary';
   static const String calorieDensity = 'calorieDensity';
   static const String proteinDegree = 'proteinDegree';
+  static const String dailyCalorieBudget = 'dailyCalorieBudget';
+  static const String dailyCalorieBudgetDescription = 'dailyCalorieBudgetDescription';
+  static const String dailyCalorieBudgetLink = 'dailyCalorieBudgetLink';
   static const String whatIsCalorieDensity = 'whatIsCalorieDensity';
   static const String whatIsProtein = 'whatIsProtein';
-  static const String calorieDensityExplanationTwo = 'calorieDensityExplanationTwo';
-  static const String calorieDensityExplanationOne = 'calorieDensityExplanationOne';
+  static const String calorieDensityExplanation = 'calorieDensityExplanation';
+  static const String forMoreInformationSeeLesson = 'forMoreInformationSeeLesson';
+  static const String proteinDegreeExplanation = 'proteinDegreeExplanation';
+  static const String fiberExplanation = 'fiberExplanation';
+  static const String importanceOfProtein = 'importanceOfProtein';
+  static const String carbohydratesPart2 = 'carbohydratesPart2';
+  static const String fiberDailyGoal = 'fiberDailyGoal';
+  static const String fiberRatioToCarbo = 'fiberRatioToCarbo';
   static const String myFavorites = 'myFavorites';
   static const String my = 'my';
   static const String myDishes = 'myDishes';
@@ -163,7 +172,7 @@ class LocalizedTexts {
   static const String goodAfternoon = 'goodAfternoon';
   static const String goodEvening = 'goodEvening';
   static const String logYourWeight = 'logYourWeight';
-  static const String logYourMeals = 'logYourMeals';
+  static const String mealLog = 'mealLog';
   static const String planYourMeals = 'planYourMeals';
   static const String mood = 'mood';
   static const String today = 'today';
@@ -208,6 +217,30 @@ class LocalizedTexts {
   static const String on = 'on';
   static const String off = 'off';
   static const String noMoodRecords = 'noMoodRecords';
+  static const String calorie = 'calorie';
+  static const String dencity = 'dencity';
+  static const String protein = 'protein';
+  static const String degree = 'degree';
+  static const String fiber = 'fiber';
+  static const String calorieDensityHighQualityDescription = 'calorieDensityHighQualityDescription';
+  static const String calorieDensityHighQualityLabel = 'calorieDensityHighQualityLabel';
+  static const String calorieDensityMidQualityDescription = 'calorieDensityMidQualityDescription';
+  static const String calorieDensityMidQualityLabel = 'calorieDensityMidQualityLabel';
+  static const String calorieDensityLowQualityDescription = 'calorieDensityLowQualityDescription';
+  static const String calorieDensityLowQualityLabel = 'calorieDensityLowQualityLabel';
+  static const String proteinDegreeLowQualityDescription = 'proteinDegreeLowQualityDescription';
+  static const String proteinDegreeLowQualityLabel = 'proteinDegreeLowQualityLabel';
+  static const String proteinDegreeLowMidQualityDescription = 'proteinDegreeLowMidQualityDescription';
+  static const String proteinDegreeLowMidQualityLabel = 'proteinDegreeLowMidQualityLabel';
+  static const String proteinDegreeMidQualityDescription = 'proteinDegreeMidQualityDescription';
+  static const String proteinDegreeMidQualityLabel = 'proteinDegreeMidQualityLabel';
+  static const String proteinDegreeHighQualityDescription = 'proteinDegreeHighQualityDescription';
+  static const String proteinDegreeHighQualityLabel = 'proteinDegreeHighQualityLabel';
+  static const String fiberHighQualityLabel = 'fiberHighQualityLabel';
+  static const String fiberMidQualityLabel = 'fiberMidQualityLabel';
+  static const String fiberLowQualityLabel = 'fiberLowQualityLabel';
+  static const String notSignificant = 'notSignificant';
+  static const String insignificant = 'insignificant';
 
   // Education
   static const String all = 'all';
@@ -552,7 +585,8 @@ class LocalizedTexts {
   static const String restoreSubscriptionFromSettings = "restoreSubscriptionFromSettings";
   static const String askRestoreSubscription = "askRestoreSubscription";
   static const String duplicateSubscriptionFromSettings = "duplicateSubscriptionFromSettings";
-  static const String otherPurchaseVendorCancelAccountSubscription = "otherPurchaseVendorCancelAccountSubscription";
+  static const String otherPurchaseVendorCancelAccountSubscription =
+      "otherPurchaseVendorCancelAccountSubscription";
 
   // Quizzes
   static const String quiz = "quiz";

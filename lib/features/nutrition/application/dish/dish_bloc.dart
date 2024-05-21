@@ -1,5 +1,4 @@
 import 'dart:async';
-
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
@@ -10,14 +9,10 @@ import 'package:loopcare_frontend/features/nutrition/application/dish/dto/update
 import 'package:loopcare_frontend/features/nutrition/application/dish/dto/update_dish_in_meal_body.dart';
 import 'package:loopcare_frontend/features/nutrition/application/dish/dto/update_food_item_in_dish_body.dart';
 import 'package:loopcare_frontend/features/nutrition/application/meals/meals_bloc.dart';
-import 'package:loopcare_frontend/features/nutrition/application/nutrition_instructions/nutrition_instructions_bloc.dart';
 import 'package:loopcare_frontend/features/nutrition/application/nutrition_service.dart';
 import 'package:loopcare_frontend/features/nutrition/application/select_food/select_food_bloc.dart';
 import 'package:loopcare_frontend/features/nutrition/domain/dish/dish.dart';
 import 'package:loopcare_frontend/features/nutrition/domain/nutrition_values_types/nutrition_values_types.dart';
-import 'package:rxdart/rxdart.dart';
-
-import 'dto/add_dish_to_meal_body.dart';
 
 part 'dish_event.dart';
 
@@ -30,25 +25,14 @@ class DishBloc extends Bloc<DishEvent, DishState> {
   final NutritionService nutritionService;
   final MealsBloc mealsBloc;
   final SelectFoodBloc selectFoodBloc;
-  final NutritionInstructionsBloc nutritionInstructionsBloc;
 
-  DishBloc(
-    this.nutritionService,
-    this.mealsBloc,
-    this.selectFoodBloc,
-    this.nutritionInstructionsBloc,
-  ) : super(const DishState.initial()) {
+  DishBloc(this.nutritionService, this.mealsBloc, this.selectFoodBloc) : super(const DishState.initial()) {
     on<GetClonedDish>(_onGetClonedDish);
     on<GetDishById>(_onGetDishById);
     on<NutritionItemChanged>(_onNutritionItemChanged);
-    on<ServingChanged>(
-      _onServingChanged,
-      transformer: (events, mapper) =>
-          events.distinct().debounceTime(const Duration(milliseconds: 300)).switchMap(mapper),
-    );
+    on<ServingChanged>(_onServingChanged);
     on<UpdateFoodItemInDish>(_onUpdateFoodItemInDish);
     on<DeleteFoodItemFromDish>(_onDeleteFoodItemFromDish);
-    on<AddToMeal>(_onAddToMeal);
     on<AddFoodItemToDish>(_onAddFoodItemToDish);
   }
 
@@ -172,27 +156,6 @@ class DishBloc extends Bloc<DishEvent, DishState> {
               selectedDish: selectedDish,
             ),
           );
-        },
-      );
-    });
-  }
-
-  FutureOr<void> _onAddToMeal(
-    AddToMeal event,
-    Emitter<DishState> emit,
-  ) async {
-    await state.mapOrNull(dish: (state) async {
-      final data = AddDishToMealBody(
-        dishId: state.selectedDish.id,
-        numberOfUnits: double.parse(event.numberOfServings),
-      );
-
-      final response = await nutritionService.addDishToMeal(event.mealId, data);
-
-      response.fold(
-        (l) => emit(DishState.error(l)),
-        (r) {
-          mealsBloc.add(MealsEvent.addDishToMeal(r));
         },
       );
     });

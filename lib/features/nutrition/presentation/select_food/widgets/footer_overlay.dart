@@ -73,9 +73,7 @@ class FooterOverlay extends StatelessWidget {
   }
 
   void _onAdd(BuildContext context, List<FavoritesItem> foodItemList) {
-    context.read<MealsBloc>().add(
-          MealsEvent.createFromFavorites(foodItemList),
-        );
+    context.read<MealsBloc>().add(MealsEvent.createFromFavorites(foodItemList));
 
     context.router.pushNamed(AppRoutes.meal);
   }

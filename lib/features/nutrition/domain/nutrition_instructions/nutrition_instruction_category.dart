@@ -1,4 +1,0 @@
-enum NutritionInstructionCategory {
-  calorieDensity,
-  proteinDegree,
-}

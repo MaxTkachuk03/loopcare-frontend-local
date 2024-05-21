@@ -1,5 +1,5 @@
 name: loopcare_frontend
-version: 1.2.0+186
+version: 1.2.4+190
 publish_to: none
 description: Lean on me
 environment:
@@ -82,6 +82,7 @@ dependencies:
   bubble: ^1.2.1
   moment_dart: ^1.1.0
   appsflyer_sdk: ^6.14.2
+  shimmer: ^3.0.0
 
 dev_dependencies:
   analyzer: ^5.13.0
@@ -110,34 +111,24 @@ flutter:
     - .env.uat
     - .env.prod
   fonts:
-    - 
-      family: OpenSans
-      fonts: 
-        - 
-          asset: assets/fonts/OpenSans-Regular.ttf
-        - 
-          asset: assets/fonts/OpenSans-Italic.ttf
+    - family: OpenSans
+      fonts:
+        - asset: assets/fonts/OpenSans-Regular.ttf
+        - asset: assets/fonts/OpenSans-Italic.ttf
           style: italic
-        - 
-          asset: assets/fonts/OpenSans-SemiBold.ttf
+        - asset: assets/fonts/OpenSans-SemiBold.ttf
           weight: 600
-        - 
-          asset: assets/fonts/OpenSans-SemiBoldItalic.ttf
+        - asset: assets/fonts/OpenSans-SemiBoldItalic.ttf
           style: italic
           weight: 600
-    - 
-      family: Bitter
-      fonts: 
-        - 
-          asset: assets/fonts/Bitter-Regular.ttf
-        - 
-          asset: assets/fonts/Bitter-Italic.ttf
+    - family: Bitter
+      fonts:
+        - asset: assets/fonts/Bitter-Regular.ttf
+        - asset: assets/fonts/Bitter-Italic.ttf
           style: italic
-        - 
-          asset: assets/fonts/Bitter-SemiBold.ttf
+        - asset: assets/fonts/Bitter-SemiBold.ttf
           weight: 600
-        - 
-          asset: assets/fonts/Bitter-SemiBoldItalic.ttf
+        - asset: assets/fonts/Bitter-SemiBoldItalic.ttf
           style: italic
           weight: 600
   uses-material-design: true

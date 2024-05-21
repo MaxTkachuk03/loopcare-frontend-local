@@ -26,9 +26,9 @@ class SelectedItemsLabel extends StatelessWidget {
                 child: Ink(
                   height: 40.0,
                   padding: const EdgeInsets.symmetric(horizontal: 12.0, vertical: 8.0),
-                  decoration: BoxDecoration(
-                    color: state.isPlanningMeals ? AppColors.petrolLighter : AppColors.greenDarker,
-                    borderRadius: const BorderRadius.all(Radius.circular(8.0)),
+                  decoration: const BoxDecoration(
+                    color: AppColors.greenDarker,
+                    borderRadius: BorderRadius.all(Radius.circular(8.0)),
                   ),
                   child: Row(
                     children: [
@@ -49,7 +49,7 @@ class SelectedItemsLabel extends StatelessWidget {
                         child: BlocBuilder<MealsBloc, MealsState>(
                           builder: (BuildContext context, state) {
                             return CustomText.w600(
-                              '${state.currentFoodItems.length}',
+                              '${state.data.currentFoodItems.length}',
                               textAlign: TextAlign.center,
                               style: context.textTheme.bodySmall?.copyWith(
                                 color: AppColors.greenDarker,

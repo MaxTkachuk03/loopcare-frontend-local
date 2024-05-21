@@ -1,13 +1,15 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:loopcare_frontend/core/domain/nutrition/nutrition_utils.dart';
 import 'package:loopcare_frontend/features/nutrition/domain/nutrition_item/nutrition_item.dart';
 import 'package:loopcare_frontend/features/nutrition/domain/recipe_food_item/recipe_food_item.dart';
+import 'package:loopcare_frontend/features/nutrition/domain/serving_size/serving_size.dart';
 
 part 'recipe.freezed.dart';
 
 part 'recipe.g.dart';
 
 @freezed
-abstract class Recipe implements _$Recipe {
+class Recipe with _$Recipe, NutritionUtils {
   const Recipe._();
 
   const factory Recipe({
@@ -19,35 +21,29 @@ abstract class Recipe implements _$Recipe {
     @Default([]) List<NutritionItem> nutritionValues,
     @Default(0) int numberOfServings,
     @Default(0) double servingAmount,
+    @Default(ServingSize()) ServingSize servingSize,
   }) = _Recipe;
 
-  double get calorieDensityVal {
-    double caloriesSum = 0;
-    double amountSum = 0;
+  double get servingCalories => servingSize.calories;
+  double get _servingWeight => servingSize.metricServingAmount;
+  double get _servingProtein => servingSize.protein;
+  double get _servingCarbs => servingSize.carbohydrate;
+  double get _servingFiber => servingSize.fiber;
+  double get _servings => servingSize.numberOfUnits;
 
-    for (var i in ingredients) {
-      if (!i.hasWeight) continue;
+  double get fiberSum => _servingFiber * _servings;
 
-      caloriesSum += i.calories;
-      amountSum += i.servingWeight;
-    }
+  double get totalCalories => servingCalories * _servings;
 
-    final result = caloriesSum / amountSum;
-    return result.isNaN || result.isInfinite ? 0 : result;
-  }
+  double get totalCarbs => _servingCarbs * _servings;
 
-  double get proteinDegreeVal {
-    double caloriesSum = 0;
-    double proteinSum = 0;
+  double get calorieDensityVal => getCalorieDensity(servingCalories, _servingWeight);
 
-    for (var i in ingredients) {
-      caloriesSum += i.calories;
-      proteinSum += i.servingProtein;
-    }
+  double get proteinDegreeVal => getProteinDegree(_servingProtein, servingCalories);
 
-    final result = (((proteinSum * 4) / caloriesSum) * 100);
-    return (result.isNaN || result.isInfinite) ? 0 : result;
-  }
+  double get carbFiberRatio => getCarbFiberRatio(_servingCarbs, _servingFiber);
+
+  double get carbsPercent => getCarbsPercent(_servingCarbs, servingCalories);
 
   factory Recipe.fromJson(Map<String, dynamic> json) => _$RecipeFromJson(json);
 }

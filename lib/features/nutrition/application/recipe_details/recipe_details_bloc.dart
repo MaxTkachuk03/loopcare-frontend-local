@@ -50,6 +50,7 @@ class RecipeDetailsBloc extends Bloc<RecipeDetailsEvent, RecipeDetailsState> {
               description: response.description,
               image: response.image,
               directions: response.directions,
+              servingSize: response.servingSize,
             ),
             currentRecipeNutritionItem: response.servingSize.list
                 .firstWhere((element) => element.key == NutritionValuesTypes.calories.name),

@@ -179,21 +179,21 @@ class _DishesListState extends State<DishesList> with AutomaticKeepAliveClientMi
     );
   }
 
-  _onCreateDish() {
-    context.router.push(EditDishRoute(
+  void _onCreateDish() {
+    context.router.push(
+      EditDishRoute(
         mode: EditDishPageMode.create,
         event: EditDishEvent.createDish(
-          _defaultNewDishName,
-          _defaultNewDishNumberOfUnits,
-          _selectedMealCategories,
-        )));
+            _defaultNewDishName, _defaultNewDishNumberOfUnits, _selectedMealCategories),
+      ),
+    );
   }
 
   List<MealCategory> get _selectedMealCategories {
     List<MealCategory> defaultMealCategories = [];
 
     for (final mealCategory in MealCategory.values) {
-      if (mealCategory.name == widget.mealCategory) {
+      if (mealCategory.name.toLowerCase() == widget.mealCategory.toLowerCase()) {
         defaultMealCategories.add(mealCategory);
       }
     }

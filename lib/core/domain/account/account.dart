@@ -2,8 +2,10 @@ import 'package:collection/collection.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:loopcare_frontend/core/domain/account/gender_preferences.dart';
 import 'package:loopcare_frontend/core/domain/account/sex_type.dart';
+import 'package:loopcare_frontend/core/domain/constants.dart';
 import 'package:loopcare_frontend/core/domain/medical_onboarding.dart';
 import 'package:loopcare_frontend/core/domain/mental_health_tests.dart';
+import 'package:loopcare_frontend/core/domain/nutrition/food_logging_sub_feature_type.dart';
 import 'package:loopcare_frontend/core/domain/unlock_config/feature/feature.dart';
 import 'package:loopcare_frontend/core/domain/unlocked_feature_type.dart';
 import 'package:loopcare_frontend/core/presentation/utils/string_extensions.dart';
@@ -59,20 +61,25 @@ abstract class Account implements _$Account {
   bool get isMixedGender => gender == GenderType.other;
 
   int get trainingFrequency {
-    final RegExpMatch? match = RegExp(r'(\d+)').firstMatch(physicalActivitiesPreferences?.trainingFrequency ?? '');
+    final RegExpMatch? match =
+        RegExp(r'(\d+)').firstMatch(physicalActivitiesPreferences?.trainingFrequency ?? '');
 
     return match != null ? int.parse(match[0] ?? '0') : 0;
   }
 
   bool get isPhysicalActivitiesUnlocked =>
-      features.firstWhereOrNull((feature) => feature.feature == UnlockedFeatureType.physicalActivities)?.unlocked ??
+      features
+          .firstWhereOrNull((feature) => feature.feature == UnlockedFeatureType.physicalActivities)
+          ?.unlocked ??
       false;
 
   bool get isFoodLoggingUnlocked =>
-      features.firstWhereOrNull((feature) => feature.feature == UnlockedFeatureType.meals)?.unlocked ?? false;
+      features.firstWhereOrNull((feature) => feature.feature == UnlockedFeatureType.foodLogging)?.unlocked ??
+      false;
 
   bool get isGroupSessionsUnlocked =>
-      features.firstWhereOrNull((feature) => feature.feature == UnlockedFeatureType.grouping)?.unlocked ?? false;
+      features.firstWhereOrNull((feature) => feature.feature == UnlockedFeatureType.grouping)?.unlocked ??
+      false;
 
   bool get isAssignmentsUnlocked =>
       features
@@ -86,10 +93,35 @@ abstract class Account implements _$Account {
       features.firstWhereOrNull((feature) => feature.feature == UnlockedFeatureType.buddy)?.unlocked ?? false;
 
   bool get isSmartGoalsUnlocked =>
-      features.firstWhereOrNull((feature) => feature.feature == UnlockedFeatureType.smartGoals)?.unlocked ?? false;
+      features.firstWhereOrNull((feature) => feature.feature == UnlockedFeatureType.smartGoals)?.unlocked ??
+      false;
 
   bool get isMindUnlocked =>
       features.firstWhereOrNull((feature) => feature.feature == UnlockedFeatureType.mind)?.unlocked ?? false;
+
+  bool get isCalorieDensityUnlocked =>
+      _isFoodLoggingSubFeatureUnlocked(FoodLoggingSubFeatureType.calorieDensity);
+
+  bool get isProteinDegreeUnlocked =>
+      _isFoodLoggingSubFeatureUnlocked(FoodLoggingSubFeatureType.proteinDegree);
+
+  bool get isCalorieTrackerUnlocked =>
+      _isFoodLoggingSubFeatureUnlocked(FoodLoggingSubFeatureType.calorieTracker);
+
+  bool get isCarbohydrateRatioUnlocked =>
+      _isFoodLoggingSubFeatureUnlocked(FoodLoggingSubFeatureType.carbohydrateRatio);
+
+  bool _isFoodLoggingSubFeatureUnlocked(FoodLoggingSubFeatureType subFeature) {
+    final foodLoggingFeature = features.firstWhereOrNull((f) => f.feature == UnlockedFeatureType.foodLogging);
+
+    if (foodLoggingFeature == null) return false;
+
+    final subFeatures = foodLoggingFeature.subFeatures;
+
+    if (!foodLoggingFeature.unlocked || subFeatures == null) return false;
+
+    return subFeatures.contains(subFeature.name);
+  }
 
   bool get disableGroupSessions => mentalHealthTests != null && _isPhq8High ? true : false;
 
@@ -102,6 +134,12 @@ abstract class Account implements _$Account {
   bool get isOnTrial => subscription.state == SubscriptionStatus.trialPeriod;
 
   String get nameCapitalised => name.isNotEmpty ? name.capitalizeEachWordFirstLetter() : '';
+
+  int get fiberDailyGoal =>
+      sex == SexType.male ? Constants.maleFiberDailyGoal : Constants.femaleFiberDailyGoal;
+
+  int get minCalorieRangeValue =>
+      sex == SexType.male ? Constants.maleMinCaloriesRangeValue : Constants.femaleMinCaloriesRangeValue;
 
   factory Account.fromJson(Map<String, dynamic> json) => _$AccountFromJson(json);
 }
