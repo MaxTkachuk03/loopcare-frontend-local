@@ -35,6 +35,7 @@ import 'package:loopcare_frontend/features/nutrition/presentation/widgets/servin
 
 class RecipePage extends StatefulWidget {
   final bool? isMealRecipe;
+  final bool isReadOnly;
   final int id;
   final String name;
 
@@ -43,6 +44,7 @@ class RecipePage extends StatefulWidget {
     required this.id,
     required this.name,
     this.isMealRecipe,
+    this.isReadOnly = false,
   });
 
   @override
@@ -204,6 +206,7 @@ class _RecipePageState extends State<RecipePage> {
                                 nutritionKey: recipeState.data.currentNutritionType.name,
                                 list: recipeState.data.recipe.ingredients,
                                 isMealRecipe: widget.isMealRecipe ?? false,
+                                isDisabled: widget.isReadOnly,
                               ),
                               const SizedBox(height: 20),
                               NutritionSummary(
@@ -216,50 +219,51 @@ class _RecipePageState extends State<RecipePage> {
                                 totalCalories: recipeState.data.recipe.totalCalories,
                               ),
                               const SizedBox(height: 15.0),
-                              MainContainer(
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  mainAxisAlignment: MainAxisAlignment.start,
-                                  children: [
-                                    Row(
-                                      crossAxisAlignment: CrossAxisAlignment.start,
-                                      children: [
-                                        Expanded(
-                                          child: CustomOutlinedButton.blueSmall(
-                                            label: LocalizedTexts.addToDishes.tr(),
-                                            onPressed: _onSaveToMyDishesHandler,
-                                          ),
-                                        ),
-                                        const SizedBox(width: 10.0),
-                                        Expanded(
-                                          child: CustomOutlinedButton.blueSmall(
-                                            label: LocalizedTexts.addFoodItem.tr(),
-                                            onPressed: _addFoodItemPressed,
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                    const SizedBox(height: 10.0),
-                                    Row(
-                                      children: [
-                                        Expanded(
-                                          child: Padding(
-                                            padding: const EdgeInsets.only(right: 10.0),
+                              if (!widget.isReadOnly)
+                                MainContainer(
+                                  child: Column(
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    children: [
+                                      Row(
+                                        crossAxisAlignment: CrossAxisAlignment.start,
+                                        children: [
+                                          Expanded(
                                             child: CustomOutlinedButton.blueSmall(
-                                              label: LocalizedTexts.viewRecipe.tr(),
-                                              onPressed: _onViewRecipePressed,
+                                              label: LocalizedTexts.addToDishes.tr(),
+                                              onPressed: _onSaveToMyDishesHandler,
                                             ),
                                           ),
-                                        ),
-                                        const Expanded(child: SizedBox(height: 10.0)),
-                                      ],
-                                    ),
-                                    const SizedBox(
-                                      height: 15.0,
-                                    ),
-                                  ],
+                                          const SizedBox(width: 10.0),
+                                          Expanded(
+                                            child: CustomOutlinedButton.blueSmall(
+                                              label: LocalizedTexts.addFoodItem.tr(),
+                                              onPressed: _addFoodItemPressed,
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                      const SizedBox(height: 10.0),
+                                      Row(
+                                        children: [
+                                          Expanded(
+                                            child: Padding(
+                                              padding: const EdgeInsets.only(right: 10.0),
+                                              child: CustomOutlinedButton.blueSmall(
+                                                label: LocalizedTexts.viewRecipe.tr(),
+                                                onPressed: _onViewRecipePressed,
+                                              ),
+                                            ),
+                                          ),
+                                          const Expanded(child: SizedBox(height: 10.0)),
+                                        ],
+                                      ),
+                                      const SizedBox(
+                                        height: 15.0,
+                                      ),
+                                    ],
+                                  ),
                                 ),
-                              ),
                             ],
                           ),
                           if (!isMealRecipe)

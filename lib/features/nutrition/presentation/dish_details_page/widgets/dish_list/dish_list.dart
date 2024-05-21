@@ -8,6 +8,7 @@ class DishList extends StatelessWidget {
   final String nutritionKey;
   final List<DishFoodItem> list;
   final bool isScrollable;
+  final bool isDisabled;
   final Function(BuildContext context, FoodItem item) onDeleteHandler;
   final Function(BuildContext context, DishFoodItem item) onListItemTapHandler;
 
@@ -18,6 +19,7 @@ class DishList extends StatelessWidget {
     required this.onDeleteHandler,
     required this.onListItemTapHandler,
     required this.isScrollable,
+    this.isDisabled = false,
   });
 
   @override
@@ -40,11 +42,8 @@ class DishList extends StatelessWidget {
           ),
           excludedFromCalculations: item.excludedFromCalculations,
           nutritionKey: nutritionKey,
-          onDeletePressed: onDeleteHandler,
-          onTap: (BuildContext context) => onListItemTapHandler(
-            context,
-            item,
-          ),
+          onDeletePressed: isDisabled ? null : onDeleteHandler,
+          onTap: isDisabled ? null : (BuildContext context) => onListItemTapHandler(context, item),
         );
       },
     );

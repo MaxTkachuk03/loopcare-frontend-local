@@ -29,9 +29,7 @@ class MealsStateData with _$MealsStateData, NutritionUtils {
 
   DateTime get currentDateTime => currentDate ?? DateTime.now();
 
-  bool get isEnableOnDashboard => currentDateTime.isAfter(DateTime.now().subtract(const Duration(days: 8)));
-
-  bool get isNeededToFetchMeal => isEnableOnDashboard;
+  bool get isEditable => currentDateTime.isAfter(DateTime.now().subtract(const Duration(days: 8)));
 
   double get selectedDayMealCalorieDensitySum {
     if (meals.isEmpty) return 0;

@@ -16,10 +16,8 @@ import 'package:loopcare_frontend/features/nutrition/presentation/widgets/food_l
 
 class MealsList extends StatelessWidget {
   final bool isActive;
-  const MealsList({
-    this.isActive = true,
-    super.key,
-  });
+
+  const MealsList({super.key, this.isActive = true});
 
   @override
   Widget build(BuildContext context) {
@@ -48,7 +46,7 @@ class MealsList extends StatelessWidget {
                         excludedFromCalculations: item.excludedFromCalculations,
                         nutritionKey: mealsState.data.currentNutritionType.name,
                         onDeletePressed: isActive ? _onDeletePressed : null,
-                        onTap: isActive ? (BuildContext context) => _onTap(context, item) : null,
+                        onTap: (BuildContext context) => _onTap(context, item),
                       );
                     },
                   );
@@ -60,10 +58,7 @@ class MealsList extends StatelessWidget {
     );
   }
 
-  void _onDeletePressed(
-    BuildContext context,
-    FoodItem item,
-  ) {
+  void _onDeletePressed(BuildContext context, FoodItem item) {
     if (item.foodType == MealItemType.recipe) {
       context.read<MealsBloc>().add(MealsEvent.deleteRecipeFromMeal(item.id));
 
@@ -83,27 +78,18 @@ class MealsList extends StatelessWidget {
 
   void _onTap(BuildContext context, MealItem item) {
     if (item.type == MealItemType.recipe) {
-      context.router.push(
-        RecipeRoute(
-          id: item.id,
-          name: item.name,
-          isMealRecipe: true,
-        ),
-      );
+      context.router
+          .push(RecipeRoute(id: item.id, name: item.name, isMealRecipe: true, isReadOnly: !isActive));
 
       return;
     }
     if (item.type == MealItemType.dish) {
       context.router.push(
-        DishDetailsRoute(
-          dishId: item.id,
-          canEditDish: false,
-          isMealDish: true,
-        ),
-      );
+          DishDetailsRoute(dishId: item.id, canEditDish: false, isMealDish: true, isReadOnly: !isActive));
 
       return;
     }
+    if (item.type == MealItemType.food && !isActive) return;
 
     final servingId = item.serving.servingId;
     final externalId = item.externalId;

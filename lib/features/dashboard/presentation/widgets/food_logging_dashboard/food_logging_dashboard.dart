@@ -26,14 +26,12 @@ class FoodLoggingDashboard extends StatelessWidget {
   void onErrorHandler(BuildContext context) =>
       context.read<MealsBloc>().add(MealsEvent.fetchMeals(startDate: selectedDay, endDate: selectedDay));
 
+  Color get _textColor => !selectedDay.isFuture ? AppColors.blueDarker : AppColors.greyLabel;
+
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<MealsBloc, MealsState>(
       builder: (context, state) {
-        final Color textColor = state.data.isEnableOnDashboard && !selectedDay.isFuture
-            ? AppColors.blueDarker
-            : AppColors.greyLabel;
-
         return Container(
           padding: const EdgeInsets.only(top: 8.0, bottom: 8.0, right: 8.0, left: 8.0),
           decoration: const BoxDecoration(
@@ -52,13 +50,13 @@ class FoodLoggingDashboard extends StatelessWidget {
                   children: [
                     CustomText.bitter600(
                       LocalizedTexts.mealLog.tr(),
-                      style: context.textTheme.headlineSmall?.copyWith(color: textColor),
+                      style: context.textTheme.headlineSmall?.copyWith(color: _textColor),
                     ),
                   ],
                 ),
                 actionIcon: AppIcons.arrow,
                 circleButton: false,
-                editable: state.data.isEnableOnDashboard && !selectedDay.isFuture,
+                editable: !selectedDay.isFuture,
               ),
               BlocBuilder<AuthenticationBloc, AuthenticationState>(
                 builder: (context, state) => state.data.isNutritionScalesLocked

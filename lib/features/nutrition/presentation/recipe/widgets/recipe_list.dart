@@ -16,12 +16,14 @@ class RecipeList extends StatelessWidget {
   final bool isMealRecipe;
   final String nutritionKey;
   final List<RecipeFoodItem> list;
+  final bool isDisabled;
 
   const RecipeList({
     super.key,
     required this.isMealRecipe,
     required this.list,
     required this.nutritionKey,
+    required this.isDisabled,
   });
 
   @override
@@ -43,11 +45,8 @@ class RecipeList extends StatelessWidget {
             serving: item.serving,
           ),
           nutritionKey: nutritionKey,
-          onDeletePressed: _onDeletePressed,
-          onTap: (BuildContext context) => _onTap(
-            context,
-            item,
-          ),
+          onDeletePressed: isDisabled ? null : _onDeletePressed,
+          onTap: isDisabled ? null : (BuildContext context) => _onTap(context, item),
         );
       },
     );

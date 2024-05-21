@@ -23,10 +23,6 @@ extension DateTimeExtension on DateTime {
     return isSameDate(DateTime.now()) || beginDay.isAfter(DateTime.now().beginDay);
   }
 
-  bool get laterThanWeekAgo {
-    return beginDay.isAfter(DateTime.now().subtract(const Duration(days: 8)).beginDay);
-  }
-
   DateTime get midnightTime {
     return DateTime(year, month, day);
   }

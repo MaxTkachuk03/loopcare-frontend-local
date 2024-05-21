@@ -38,6 +38,7 @@ import 'package:loopcare_frontend/features/nutrition/presentation/widgets/servin
 class DishDetailsPage extends StatefulWidget {
   final int dishId;
   final bool canEditDish;
+  final bool isReadOnly;
   final bool? isMealDish;
 
   const DishDetailsPage({
@@ -45,6 +46,7 @@ class DishDetailsPage extends StatefulWidget {
     required this.dishId,
     required this.canEditDish,
     this.isMealDish,
+    this.isReadOnly = false,
   });
 
   @override
@@ -290,6 +292,7 @@ class _DishDetailsPageState extends State<DishDetailsPage> {
                                 onDeleteHandler: _onDeleteFoodItemPressed,
                                 onListItemTapHandler: _onFoodItemPressed,
                                 isScrollable: false,
+                                isDisabled: widget.isReadOnly,
                               ),
                               const SizedBox(height: 20),
                               NutritionSummary(
@@ -302,31 +305,32 @@ class _DishDetailsPageState extends State<DishDetailsPage> {
                                 totalCarbs: dishState.selectedDish.carbsSum * _servingsAmount,
                               ),
                               const SizedBox(height: 26.0),
-                              MainContainer(
-                                child: SizedBox(
-                                  height: 35,
-                                  width: double.infinity,
-                                  child: Row(
-                                    mainAxisAlignment: MainAxisAlignment.start,
-                                    children: [
-                                      Expanded(
-                                        child: CustomOutlinedButton.blueFullWidth(
-                                          label: LocalizedTexts.addFoodItem.tr(),
-                                          onPressed: _onAddFoodItemHandler,
-                                        ),
-                                      ),
-                                      const SizedBox(width: 10.0),
-                                      if (widget.canEditDish)
+                              if (!widget.isReadOnly)
+                                MainContainer(
+                                  child: SizedBox(
+                                    height: 35,
+                                    width: double.infinity,
+                                    child: Row(
+                                      mainAxisAlignment: MainAxisAlignment.start,
+                                      children: [
                                         Expanded(
                                           child: CustomOutlinedButton.blueFullWidth(
-                                              label: LocalizedTexts.editMyDish.tr(),
-                                              onPressed: _onEditDishHandler // disable for now,
-                                              ),
-                                        )
-                                    ],
+                                            label: LocalizedTexts.addFoodItem.tr(),
+                                            onPressed: _onAddFoodItemHandler,
+                                          ),
+                                        ),
+                                        const SizedBox(width: 10.0),
+                                        if (widget.canEditDish)
+                                          Expanded(
+                                            child: CustomOutlinedButton.blueFullWidth(
+                                                label: LocalizedTexts.editMyDish.tr(),
+                                                onPressed: _onEditDishHandler // disable for now,
+                                                ),
+                                          )
+                                      ],
+                                    ),
                                   ),
                                 ),
-                              ),
                             ],
                           ),
                           if (!(widget.isMealDish ?? false))

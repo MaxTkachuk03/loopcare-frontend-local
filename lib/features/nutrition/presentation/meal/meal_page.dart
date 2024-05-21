@@ -42,7 +42,6 @@ class MealPage extends StatefulWidget {
 
 class _MealPageState extends State<MealPage> {
   static const double _defaultNumberOfUnitsForDish = 1.0;
-  DateTime currentDate = DateTime.now();
 
   @override
   void initState() {
@@ -54,8 +53,6 @@ class _MealPageState extends State<MealPage> {
     // if (mealCategory != null) {
     //   context.read<RecipeBloc>().add(RecipeEvent.getRecommendations(mealCategory));
     // }
-
-    currentDate = context.read<MealsBloc>().state.data.currentDateTime;
   }
 
   void _onSaveToMyDishesHandler() {
@@ -150,12 +147,6 @@ class _MealPageState extends State<MealPage> {
   //   }
   // }
 
-  // TODO don't need at all delete after test
-  // void _setOriginDate() {
-  //   final mealBloc = context.read<MealsBloc>();
-  //   mealBloc.add(MealsEvent.setCurrentDate(mealBloc.state.data.getOriginDate));
-  // }
-
   _onDeleteMealPressed(BuildContext context) {
     final mealsState = context.read<MealsBloc>().state;
     final currentCategory = mealsState.data.currentMealCategory;
@@ -232,9 +223,7 @@ class _MealPageState extends State<MealPage> {
               title: _appBarTitle,
               subtitle: _appBarSubTitle,
               leading: CustomFilledIconButton.leadingGreenLighter(),
-              actions: currentDate.inRange(DateTime.now().subtract(const Duration(days: 8)), DateTime.now())
-                  ? const [CirclePlusButton()]
-                  : null,
+              actions: state.data.isEditable ? const [CirclePlusButton()] : null,
             ),
             body: CustomSafeArea(
               child: state.maybeMap(
@@ -270,7 +259,7 @@ class _MealPageState extends State<MealPage> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             mainAxisAlignment: MainAxisAlignment.start,
                             children: [
-                              MealsList(isActive: currentDate.laterThanWeekAgo),
+                              MealsList(isActive: mealsState.data.isEditable),
                               Padding(
                                 padding: const EdgeInsets.symmetric(vertical: 20.0),
                                 child: NutritionSummary(
@@ -283,65 +272,67 @@ class _MealPageState extends State<MealPage> {
                                   totalCarbs: state.data.currentMealCarbsSum,
                                 ),
                               ),
-                              MainContainer(
-                                child: Column(
-                                  mainAxisAlignment: MainAxisAlignment.start,
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Row(
-                                      crossAxisAlignment: CrossAxisAlignment.start,
-                                      children: [
-                                        Expanded(
-                                          child: CustomOutlinedButton.blueSmall(
-                                            label: LocalizedTexts.saveToMyDishes.tr(),
-                                            onPressed: _onSaveToMyDishesHandler,
+                              if (mealsState.data.isEditable)
+                                MainContainer(
+                                  child: Column(
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    children: [
+                                      Row(
+                                        crossAxisAlignment: CrossAxisAlignment.start,
+                                        children: [
+                                          Expanded(
+                                            child: CustomOutlinedButton.blueSmall(
+                                              label: LocalizedTexts.saveToMyDishes.tr(),
+                                              onPressed: _onSaveToMyDishesHandler,
+                                            ),
                                           ),
-                                        ),
-                                        const SizedBox(width: 10.0),
-                                        Expanded(
-                                          child: CustomOutlinedButton.blueSmall(
-                                            label: LocalizedTexts.clearMealList.tr(),
-                                            onPressed: () => _onDeleteMealPressed(context),
+                                          const SizedBox(width: 10.0),
+                                          Expanded(
+                                            child: CustomOutlinedButton.blueSmall(
+                                              label: LocalizedTexts.clearMealList.tr(),
+                                              onPressed: () => _onDeleteMealPressed(context),
+                                            ),
                                           ),
-                                        ),
-                                      ],
-                                    ),
-                                    // TODO hide recommendations after discussion with Diana 16.05.2024
-                                    // const SizedBox(height: 10.0),
+                                        ],
+                                      ),
+                                      // TODO hide recommendations after discussion with Diana 16.05.2024
+                                      // const SizedBox(height: 10.0),
 
-                                    // if (currentDate.isTodayOrFuture)
-                                    //   BlocBuilder<RecipeBloc, RecipeState>(
-                                    //     builder: (BuildContext context, recipeState) {
-                                    //       return Row(
-                                    //         children: [
-                                    //           Expanded(
-                                    //             child: CustomOutlinedButton.blueSmall(
-                                    //               label: LocalizedTexts.recommendations.tr(),
-                                    //               onPressed: () =>
-                                    //                   recipeState.data.recommendationRecipe.isEmpty
-                                    //                       ? null
-                                    //                       : _onRecommendationsPressed(context),
-                                    //             ),
-                                    //           ),
-                                    //           const Expanded(child: SizedBox(width: 10.0)),
-                                    //         ],
-                                    //       );
-                                    //     },
-                                    //   ),
-                                  ],
+                                      // if (currentDate.isTodayOrFuture)
+                                      //   BlocBuilder<RecipeBloc, RecipeState>(
+                                      //     builder: (BuildContext context, recipeState) {
+                                      //       return Row(
+                                      //         children: [
+                                      //           Expanded(
+                                      //             child: CustomOutlinedButton.blueSmall(
+                                      //               label: LocalizedTexts.recommendations.tr(),
+                                      //               onPressed: () =>
+                                      //                   recipeState.data.recommendationRecipe.isEmpty
+                                      //                       ? null
+                                      //                       : _onRecommendationsPressed(context),
+                                      //             ),
+                                      //           ),
+                                      //           const Expanded(child: SizedBox(width: 10.0)),
+                                      //         ],
+                                      //       );
+                                      //     },
+                                      //   ),
+                                    ],
+                                  ),
                                 ),
-                              ),
                             ],
                           ),
                         ),
                       ),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(vertical: 30.0, horizontal: 24.0),
-                        child: CustomElevatedButton.blueFullWidth(
-                          onPressed: _onBackToDashboardPressed,
-                          label: LocalizedTexts.backToTodayLogging.tr(),
-                        ),
-                      )
+                      if (mealsState.data.isEditable)
+                        Padding(
+                          padding: const EdgeInsets.symmetric(vertical: 30.0, horizontal: 24.0),
+                          child: CustomElevatedButton.blueFullWidth(
+                            onPressed: _onBackToDashboardPressed,
+                            label: LocalizedTexts.backToTodayLogging.tr(),
+                          ),
+                        )
                     ],
                   );
                 },

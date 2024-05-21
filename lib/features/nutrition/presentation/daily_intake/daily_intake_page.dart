@@ -51,6 +51,7 @@ class DailyIntakePage extends StatelessWidget {
                       return MealCard(
                         mealId: mealForCurrentCategory?.id,
                         title: category,
+                        isDisabled: !mealsState.data.isEditable,
                         mealItems: isEnabled ? mealItems : null,
                         calorieDensity: isEnabled ? mealsState.data.calorieDensitySum(mealItems) : null,
                       );

@@ -59,9 +59,7 @@ class FoodListItem extends StatelessWidget {
                 Row(
                   children: [
                     if (onDeletePressed != null)
-                      CustomIconButton.close(
-                        onPressed: () => onDeletePressed?.call(context, foodItem),
-                      ),
+                      CustomIconButton.close(onPressed: () => onDeletePressed?.call(context, foodItem)),
                     CircleAvatar(
                       radius: 5,
                       backgroundColor: excludedFromCalculations

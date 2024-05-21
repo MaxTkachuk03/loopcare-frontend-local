@@ -15,6 +15,7 @@ class MealCard extends StatelessWidget {
   final String title;
   final double? calorieDensity;
   final List<MealItem>? mealItems;
+  final bool isDisabled;
 
   const MealCard({
     super.key,
@@ -22,9 +23,12 @@ class MealCard extends StatelessWidget {
     required this.title,
     required this.calorieDensity,
     required this.mealItems,
+    required this.isDisabled,
   });
 
   void _onTapHandler(BuildContext context) {
+    if (isDisabled && mealId == null) return;
+
     if (mealId == null) {
       final mealCategory = title.toLowerCase();
 
@@ -59,7 +63,8 @@ class MealCard extends StatelessWidget {
                     CustomText.bitter600(title.capitalize(), style: Theme.of(context).textTheme.bodyLarge),
                   ],
                 ),
-                ImageIcon(mealId == null ? AppIcons.plus : AppIcons.arrow, color: AppColors.blueDarker)
+                if (!isDisabled || mealId != null)
+                  ImageIcon(mealId == null ? AppIcons.plus : AppIcons.arrow, color: AppColors.blueDarker)
               ],
             ),
           ],
