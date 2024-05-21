@@ -195,11 +195,8 @@ class EducationLessonBloc extends Bloc<EducationLessonEvent, EducationLessonStat
     final response = await _educationService.completeLesson(state.data.lessonId);
 
     response.fold(
-      (l) {
-        emit(EducationLessonState.errorCompleteLesson(state.data.copyWith(error: l, isLoading: false)));
-      },
-      (r) {
-        emit(
+      (l) => emit(EducationLessonState.errorCompleteLesson(state.data.copyWith(error: l, isLoading: false))),
+      (r) => emit(
           EducationLessonState.lessonCompleted(
             state.data.copyWith(
               extraAction: r.unlockingConfig.extraAction,
@@ -219,8 +216,7 @@ class EducationLessonBloc extends Bloc<EducationLessonEvent, EducationLessonStat
               questions: r.questions,
             ),
           ),
-        );
-      },
+        ),
     );
   }
 

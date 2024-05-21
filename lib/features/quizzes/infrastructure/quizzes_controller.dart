@@ -23,11 +23,13 @@ class QuizzesController {
 
   bool get isOpenTextValid => answerTextController.value.text.trim().isNotEmpty;
 
-  bool get isFormValid => isCorrect.value = (selectLessonValue.value?.isCorrect ?? false);
-
   bool get isOptionChoiceValid => selectOptionValues.value.isNotEmpty;
 
   bool get isScaleChoiceValid => selectScaleValue.value != null;
+
+  void validateAnswer() => isEnableSend.value = answerTextFieldKey.currentState?.isValid ?? false;
+
+  void validateForm() => isCorrect.value = (selectLessonValue.value?.isCorrect ?? false);
 
   void setLessonValue(LessonQuestionOption item) => selectLessonValue.value = item;
 
