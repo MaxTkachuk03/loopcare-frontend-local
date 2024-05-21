@@ -13,6 +13,10 @@ import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 import 'package:loopcare_frontend/core/presentation/utils/build_context_extensions.dart';
 import 'package:loopcare_frontend/core/presentation/utils/string_extensions.dart';
 
+const _calorieDensityKey = ValueKey<String>('calorieDensity');
+const _proteinDegreeKey = ValueKey<String>('proteinDegree');
+const _fiberKey = ValueKey<String>('fiber');
+
 class NutritionScale extends StatelessWidget {
   final String topLabel;
   final String bottomLabel;
@@ -38,16 +42,12 @@ class NutritionScale extends StatelessWidget {
   });
 
   Widget _getContent(BuildContext context) {
-    const calorieDensityKey = ValueKey<String>('calorieDensity');
-    const proteinDegreeKey = ValueKey<String>('proteinDegree');
-    const fiberKey = ValueKey<String>('fiber');
-
     switch (context.widget.key) {
-      case calorieDensityKey:
+      case _calorieDensityKey:
         return CalorieDensityDescription(calorieDensityValue: value);
-      case proteinDegreeKey:
+      case _proteinDegreeKey:
         return ProteinDegreeDescription(proteinDegreeValue: value);
-      case fiberKey:
+      case _fiberKey:
         return FiberDescription(
           fiberValue: value,
           totalCarbs: totalCarbs,
@@ -63,7 +63,7 @@ class NutritionScale extends StatelessWidget {
       ModalBottomSheet.nutritionIndicatorOverlay(context: context, content: _getContent(context));
 
   factory NutritionScale.calorieDensity({double? value}) => NutritionScale(
-        key: const ValueKey<String>('calorieDensity'),
+        key: _calorieDensityKey,
         topLabel: LocalizedTexts.calorieDensity.tr(),
         bottomLabel:
             NutritionValuesDescription.getCalorieDensityItemByValue(value ?? 0).label.tr().capitalize(),
@@ -74,7 +74,7 @@ class NutritionScale extends StatelessWidget {
       );
 
   factory NutritionScale.proteinDegree({double? value}) => NutritionScale(
-        key: const ValueKey<String>('proteinDegree'),
+        key: _proteinDegreeKey,
         topLabel: LocalizedTexts.proteinDegree.tr(),
         bottomLabel:
             NutritionValuesDescription.getProteinDegreeItemByValue(value ?? 0).label.tr().capitalize(),
@@ -91,7 +91,7 @@ class NutritionScale extends StatelessWidget {
     required bool isFiberInsignificant,
   }) =>
       NutritionScale(
-        key: const ValueKey<String>('fiber'),
+        key: _fiberKey,
         topLabel:
             '${LocalizedTexts.fiber.tr().capitalize()} ', // add space to make it in 2 two lines with second line empty on the UI
         bottomLabel: isFiberInsignificant

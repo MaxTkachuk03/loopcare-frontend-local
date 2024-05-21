@@ -58,9 +58,10 @@ class NutritionSummary extends StatelessWidget {
                       : const Spacer(),
                 ],
               ),
-              if (showCaloriesTracker && state.data.isCalorieTrackerUnlocked) const SizedBox(height: 24),
-              if (showCaloriesTracker && state.data.isCalorieTrackerUnlocked)
-                CaloriesTracker(totalCalories: totalCalories ?? 0),
+              if (showCaloriesTracker && state.data.isCalorieTrackerUnlocked) ...[
+                const SizedBox(height: 24),
+                CaloriesTracker(totalCalories: totalCalories ?? 0)
+              ],
             ],
           ),
         );

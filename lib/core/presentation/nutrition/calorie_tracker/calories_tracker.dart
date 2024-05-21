@@ -15,7 +15,7 @@ import 'package:loopcare_frontend/core/presentation/utils/build_context_extensio
 import 'package:loopcare_frontend/features/nutrition/application/bmr/bmr_bloc.dart';
 import 'package:loopcare_frontend/injection.dart';
 
-final account = getIt<SharedStorageService>().account;
+final _account = getIt<SharedStorageService>().account;
 
 class CaloriesTracker extends StatelessWidget {
   final double totalCalories;
@@ -25,7 +25,7 @@ class CaloriesTracker extends StatelessWidget {
   String get _caloriesValue => totalCalories.toStringAsFixed(0);
 
   double get _caloriesMaintenanceIndex =>
-      CalorieBudget.getNutritionActivityMultiplier(account?.trainingFrequency ?? 0);
+      CalorieBudget.getNutritionActivityMultiplier(_account?.trainingFrequency ?? 0);
 
   double _getCaloriesMaintenanceRatio(double caloriesMaintenance) {
     final ratio = totalCalories / caloriesMaintenance;
@@ -39,7 +39,7 @@ class CaloriesTracker extends StatelessWidget {
   num bottomOfCaloriesRange(double caloriesMaintenance) {
     final double bottomRange = caloriesMaintenance - Constants.calorieMaintenanceBottomRange;
 
-    return bottomRange < account!.minCalorieRangeValue ? account!.minCalorieRangeValue : bottomRange;
+    return bottomRange < _account!.minCalorieRangeValue ? _account!.minCalorieRangeValue : bottomRange;
   }
 
   void _onTapHandler(BuildContext context) => ModalBottomSheet.nutritionIndicatorOverlay(
