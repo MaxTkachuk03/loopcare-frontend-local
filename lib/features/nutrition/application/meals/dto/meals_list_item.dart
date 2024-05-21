@@ -45,6 +45,16 @@ class MealsListItem with _$MealsListItem {
     return caloriesSum;
   }
 
+  double get caloriesSumWithDrinks {
+    double caloriesSum = 0;
+
+    for (var mealItem in mealItems) {
+      caloriesSum += mealItem.servingCalories;
+    }
+
+    return caloriesSum;
+  }
+
   double get fiberSum {
     double fiberSum = 0;
 
