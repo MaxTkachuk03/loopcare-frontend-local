@@ -67,16 +67,16 @@ class MindListContent extends StatelessWidget {
             ),
           ),
           // Short Description -->
-          if (description != null)
-          SliverPadding(
-            padding: const EdgeInsets.only(top: 20),
-            sliver: SliverToBoxAdapter(
-              child: CustomText.w400(
-                description!,
-                style: context.textTheme.bodyMedium?.copyWith(color: textColor),
+          if (description?.isNotEmpty ?? false)
+            SliverPadding(
+              padding: const EdgeInsets.only(top: 20),
+              sliver: SliverToBoxAdapter(
+                child: CustomText.w400(
+                  description!,
+                  style: context.textTheme.bodyMedium?.copyWith(color: textColor),
+                ),
               ),
             ),
-          ),
           // Explanation button -->
           if (isVideoExplanation)
             SliverPadding(

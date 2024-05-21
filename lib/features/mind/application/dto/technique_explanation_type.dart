@@ -1,5 +1,5 @@
 enum TechniqueExplanationType {
-  // rating,
+  rating,
   text,
   video;
 

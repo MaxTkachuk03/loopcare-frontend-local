@@ -160,8 +160,12 @@ class MindBloc extends Bloc<MindEvent, MindState> {
   ) async {
     emit(
       MindState.exerciseSelected(
-        state.data.copyWith(
+        MindStateData(
           currentExercise: event.exercise,
+          currentTechnique: state.data.currentTechnique,
+          exercises: state.data.exercises,
+          mindInfo: state.data.mindInfo,
+          techniques: state.data.techniques,
         ),
       ),
     );

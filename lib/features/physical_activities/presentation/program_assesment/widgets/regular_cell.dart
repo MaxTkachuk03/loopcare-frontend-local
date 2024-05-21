@@ -12,6 +12,7 @@ class RegularCell extends StatelessWidget {
   final String? label;
   final Color? borderColor;
   final Color? divColor;
+  final Color? textColor;
 
   const RegularCell({
     super.key,
@@ -21,6 +22,7 @@ class RegularCell extends StatelessWidget {
     this.label,
     this.borderColor,
     this.divColor,
+    this.textColor,
   });
 
   @override
@@ -37,7 +39,7 @@ class RegularCell extends StatelessWidget {
         child: Center(
           child: CustomText.w600(
             label ?? '${index + 1}',
-            style: context.textTheme.bodyMedium,
+            style: context.textTheme.bodyMedium?.copyWith(color: textColor),
           ),
         ),
       ),

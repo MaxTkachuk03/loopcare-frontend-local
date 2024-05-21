@@ -106,6 +106,14 @@ class BottomPlacedButton extends StatelessWidget {
     this.buttonPadding,
   }) : backgroundColor = AppColors.greenLightest;
 
+  const BottomPlacedButton.petrol({
+    super.key,
+    required this.body,
+    required this.button,
+    this.enableButton = true,
+    this.buttonPadding,
+  }) : backgroundColor = AppColors.petrolOffRegular;
+
   @override
   Widget build(BuildContext context) {
     Widget? bottomNavigationBar;

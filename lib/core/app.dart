@@ -16,7 +16,6 @@ import 'package:loopcare_frontend/features/authentication/application/authentica
 import 'package:loopcare_frontend/injection.dart';
 import 'package:provider/provider.dart';
 
-
 final autoRouteObserver = AutoRouteObserver();
 
 class App extends StatelessWidget {
