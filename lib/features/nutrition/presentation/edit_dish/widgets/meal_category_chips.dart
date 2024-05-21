@@ -1,17 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loopcare_frontend/core/presentation/tab_bar/custom_tab_bar.dart';
 import 'package:loopcare_frontend/features/nutrition/domain/select_serving/meal_category.dart';
+import 'package:loopcare_frontend/features/nutrition/application/edit_dish/edit_dish_bloc.dart';
 
 class MealCategoryChips extends StatefulWidget {
-  final List<MealCategory> categories;
-  final MealCategory selectedChips;
+  final MealCategory initialCategory;
   final Function onItemPressHandler;
 
   const MealCategoryChips({
     super.key,
-    required this.categories,
-    required this.selectedChips,
     required this.onItemPressHandler,
+    required this.initialCategory,
   });
 
   @override
@@ -19,33 +19,50 @@ class MealCategoryChips extends StatefulWidget {
 }
 
 class _MealCategoryChipsState extends State<MealCategoryChips> with TickerProviderStateMixin {
+  final _mealCategories = [MealCategory.breakfast, MealCategory.lunch, MealCategory.dinner];
   late TabController _tabController;
 
   @override
   void initState() {
     super.initState();
+
     _tabController = TabController(
       vsync: this,
-      length: widget.categories.length,
+      length: _mealCategories.length,
       animationDuration: Duration.zero,
-      initialIndex: widget.selectedChips.index,
+      initialIndex: _mealCategories.indexOf(widget.initialCategory),
     )..addListener(_onTabsChanged);
   }
 
-  void _onTabsChanged() => widget.onItemPressHandler(widget.categories[_tabController.index]);
+  void _onTabsChanged() {
+    final selectedCategory = _mealCategories[_tabController.index];
 
-  @override
-  void dispose() {
-    _tabController.dispose();
-    _tabController.removeListener(_onTabsChanged);
-    super.dispose();
+    widget.onItemPressHandler(selectedCategory);
+  }
+
+  void _dishLoadedlistener(BuildContext context, state) {
+    if (state is DishInfo) {
+      _tabController.index = _mealCategories.indexOf(state.currentDish.mealCategories.first);
+    }
   }
 
   @override
   Widget build(BuildContext context) {
-    return CustomTabBar.blue(
-      tabs: widget.categories.map((e) => Tab(text: e.name)).toList(),
-      tabController: _tabController,
+    return BlocListener<EditDishBloc, EditDishState>(
+      listener: _dishLoadedlistener,
+      listenWhen: (prev, cur) => prev is Loading && cur is DishInfo,
+      child: CustomTabBar.blue(
+        tabs: _mealCategories.map((e) => Tab(text: e.name)).toList(),
+        tabController: _tabController,
+      ),
     );
+  }
+
+  @override
+  void dispose() {
+    _tabController.removeListener(_onTabsChanged);
+    _tabController.dispose();
+
+    super.dispose();
   }
 }

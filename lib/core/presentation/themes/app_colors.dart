@@ -150,5 +150,17 @@ class AppColors {
   static const Color blueDarker = Color(0xFF0C2745);
   static const Color blueDarkest = Color(0xFF05111F);
 
+  // Nutritio scale colors
+  static const Color hq1 = Color(0xFF91C428);
+  static const Color hq2 = Color(0xFF9BC819);
+  static const Color hq3 = Color(0xFFB2C920);
+  static const Color mq1 = Color(0xFFCFC221);
+  static const Color mq2 = Color(0xFFF4AB3E);
+  static const Color mq3 = Color(0xFFF68D12);
+  static const Color lq1 = Color(0xFFEA7838);
+  static const Color lq2 = Color(0xFFDF4E1E);
+  static const Color lq3 = Color(0xFFD33117);
+  static const Color lq4 = Color(0xFFC70E07);
+
   AppColors._();
 }

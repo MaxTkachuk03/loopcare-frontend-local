@@ -14,6 +14,8 @@ class AppConfig {
   String get baseUrl =>
       LocalizationConstants.useUsServer ? dotenv.env['BASE_URL'] ?? "" : dotenv.env['BASE_URL_EU'] ?? "";
 
+  String get region => LocalizationConstants.regionCode;
+
   String get baseHost => Uri.parse(baseUrl).host;
 
   String get appStoreSettingsLink => 'https://apps.apple.com/account/subscriptions';

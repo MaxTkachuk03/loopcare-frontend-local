@@ -45,7 +45,7 @@ class _BlueAppBarState extends State<BlueAppBar> {
     return BlocBuilder<MealsBloc, MealsState>(
       builder: (BuildContext context, state) {
         return AppBar(
-          backgroundColor: state.isPlanningMeals || widget.isPlanningMeals ? AppColors.darkGreen : AppColors.blueAppBar,
+          backgroundColor: AppColors.blueAppBar,
           centerTitle: true,
           titleSpacing: 16,
           title: Row(

@@ -8,7 +8,7 @@ part 'food_item.freezed.dart';
 part 'food_item.g.dart';
 
 @freezed
-abstract class FoodItem implements _$FoodItem {
+class FoodItem with _$FoodItem {
   const FoodItem._();
 
   const factory FoodItem({

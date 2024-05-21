@@ -15,7 +15,7 @@ import 'package:loopcare_frontend/features/assignments/application/assignments_b
 import 'package:loopcare_frontend/features/assignments/presentation/dashboard_assignments.dart';
 import 'package:loopcare_frontend/features/authentication/application/authentication_bloc.dart';
 import 'package:loopcare_frontend/features/dashboard/presentation/widgets/education/education.dart';
-import 'package:loopcare_frontend/features/dashboard/presentation/widgets/log_meal/log_meal.dart';
+import 'package:loopcare_frontend/features/dashboard/presentation/widgets/food_logging_dashboard/food_logging_dashboard.dart';
 import 'package:loopcare_frontend/features/dashboard/presentation/widgets/mind/dashboard_mind_widget.dart';
 import 'package:loopcare_frontend/features/dashboard/presentation/widgets/person_mood/person_mood.dart';
 import 'package:loopcare_frontend/features/dashboard/presentation/widgets/physical_activities/physical_activities.dart';
@@ -26,10 +26,10 @@ import 'package:loopcare_frontend/features/dashboard/presentation/widgets/weight
 import 'package:loopcare_frontend/features/education/application/education_program/education_program_bloc.dart';
 import 'package:loopcare_frontend/features/group_sessions/application/topics_bloc.dart';
 import 'package:loopcare_frontend/features/mood/application/mood_bloc.dart';
+import 'package:loopcare_frontend/features/nutrition/application/bmr/bmr_bloc.dart';
 import 'package:loopcare_frontend/features/nutrition/application/dashboard_education/dashboard_education_bloc.dart';
 import 'package:loopcare_frontend/features/nutrition/application/dashboard_weight/dashboard_weight_bloc.dart';
 import 'package:loopcare_frontend/features/nutrition/application/meals/meals_bloc.dart';
-import 'package:loopcare_frontend/features/nutrition/application/nutrition_instructions/nutrition_instructions_bloc.dart';
 import 'package:loopcare_frontend/features/smart_goals/application/smart_goals_bloc.dart';
 
 class DashboardPage extends StatefulWidget {
@@ -71,11 +71,7 @@ class _DashboardPageState extends State<DashboardPage> with WidgetsBindingObserv
   }
 
   void _loadInitialData() {
-    if (!context.read<NutritionInstructionsBloc>().state.data.alreadyLoaded) {
-      context.read<NutritionInstructionsBloc>().add(
-            const NutritionInstructionsEvent.fetchValuesExplanation(),
-          );
-    }
+    context.read<BmrBloc>().add(BmrEvent.getBmr(date: _selectedDay));
 
     context.read<MoodBloc>().add(
           MoodEvent.getMoods(
@@ -83,6 +79,8 @@ class _DashboardPageState extends State<DashboardPage> with WidgetsBindingObserv
             DateTime.now().utcIsoStringFormat,
           ),
         );
+
+    context.read<MealsBloc>().add(MealsEvent.setCurrentDate(_selectedDay));
 
     updateDashboardData(context.read<AuthenticationBloc>().state);
   }
@@ -103,7 +101,10 @@ class _DashboardPageState extends State<DashboardPage> with WidgetsBindingObserv
     context.read<EducationProgramBloc>().add(const EducationProgramEvent.getLessons());
 
     if (state.data.isFoodLoggingUnlocked) {
-      context.read<MealsBloc>().add(const MealsEvent.fetchMeals());
+      context.read<MealsBloc>().add(MealsEvent.fetchMeals(
+          startDate: _selectedDay.subtract(const Duration(days: 8)),
+          endDate: _selectedDay,
+        ));
     }
 
     if (state.data.isGroupSessionsUnlocked) {
@@ -134,9 +135,12 @@ class _DashboardPageState extends State<DashboardPage> with WidgetsBindingObserv
 
   void _onDaySelected(DateTime day) {
     context.read<DashboardWeightBloc>().add(DashboardWeightEvent.setDate(day));
-    context.read<MealsBloc>().add(MealsEvent.setCurrentDate(day, updateOrigin: true));
+    context.read<MealsBloc>()
+      ..add(MealsEvent.setCurrentDate(day))
+      ..add(MealsEvent.fetchMeals(startDate: day, endDate: day));
     context.read<MoodBloc>().add(MoodEvent.setDate(day));
     context.read<DashboardEducationBloc>().add(DashboardEducationEvent.getDashboardLessons(currentDate: day));
+    context.read<BmrBloc>().add(BmrEvent.getBmr(date: day));
 
     if (context.read<AuthenticationBloc>().state.data.isAssignmentsUnlocked) {
       context.read<AssignmentsBloc>().add(
@@ -150,6 +154,10 @@ class _DashboardPageState extends State<DashboardPage> with WidgetsBindingObserv
     setState(() {
       _selectedDay = day;
     });
+  }
+
+  void _weightLogChangedListener(BuildContext context, DashboardWeightState state) {
+    context.read<BmrBloc>().add(BmrEvent.getBmr(date: _selectedDay));
   }
 
   String _getHelloMessage(String name) {
@@ -173,9 +181,17 @@ class _DashboardPageState extends State<DashboardPage> with WidgetsBindingObserv
 
   @override
   Widget build(BuildContext context) {
-    return BlocListener<AuthenticationBloc, AuthenticationState>(
-      listenWhen: (previous, current) => (ModalRoute.of(context)?.isCurrent ?? false),
-      listener: _accountListener,
+    return MultiBlocListener(
+      listeners: [
+        BlocListener<AuthenticationBloc, AuthenticationState>(
+          listenWhen: (previous, current) => (ModalRoute.of(context)?.isCurrent ?? false),
+          listener: _accountListener,
+        ),
+        BlocListener<DashboardWeightBloc, DashboardWeightState>(
+          listenWhen: (prev, cur) => prev is DashboardWeightStateLoading && cur is DashboardWeightStateUpdated,
+          listener: _weightLogChangedListener,
+        ),
+      ],
       child: CustomScaffold.blue(
         body: CustomSafeArea(
           child: Column(
@@ -234,11 +250,11 @@ class _DashboardPageState extends State<DashboardPage> with WidgetsBindingObserv
                           BlocBuilder<AuthenticationBloc, AuthenticationState>(
                             builder: (BuildContext context, state) {
                               if (state.data.isFoodLoggingUnlocked) {
-                                return const Column(
+                                return Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    SizedBox(height: 19.0),
-                                    LogMeal(),
+                                    const SizedBox(height: 19.0),
+                                    FoodLoggingDashboard(selectedDay: _selectedDay),
                                   ],
                                 );
                               } else {

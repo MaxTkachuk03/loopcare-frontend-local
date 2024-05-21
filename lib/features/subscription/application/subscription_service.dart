@@ -4,11 +4,15 @@ import 'package:flutter/material.dart';
 import 'package:in_app_purchase/in_app_purchase.dart';
 import 'package:in_app_purchase_storekit/store_kit_wrappers.dart';
 import 'package:injectable/injectable.dart';
+import 'package:loopcare_frontend/core/infrastructure/services/shared_storage/shared_storage_service.dart';
+import 'package:loopcare_frontend/injection.dart';
 
 @injectable
 class AppSubscriptionService {
   final InAppPurchase _inAppPurchase = InAppPurchase.instance;
   final Stream<List<PurchaseDetails>> storeSubscription = InAppPurchase.instance.purchaseStream;
+
+  String? get customerIOId => getIt<SharedStorageService>().account?.customerIoId;
 
   InAppPurchase get instance => _inAppPurchase;
   final List purchasedList = [];
@@ -30,7 +34,7 @@ class AppSubscriptionService {
     if (Platform.isIOS) {
       await _finishTransactionIOS();
     }
-    final PurchaseParam purchaseParam = PurchaseParam(productDetails: product);
+    final PurchaseParam purchaseParam = PurchaseParam(productDetails: product, applicationUserName: customerIOId);
     final isBought = await instance.buyNonConsumable(purchaseParam: purchaseParam);
     return isBought;
   }

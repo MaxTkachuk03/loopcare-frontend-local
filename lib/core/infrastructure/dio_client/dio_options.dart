@@ -7,12 +7,14 @@ const String applicationJson = Headers.jsonContentType;
 const String contentType = Headers.contentTypeHeader;
 const String accept = Headers.acceptHeader;
 const String defaultLanguage = "language";
+const String region = "region";
 const int timeoutDuration = 30000;
 
 Map<String, String> headers = {
   contentType: applicationJson,
   accept: applicationJson,
   defaultLanguage: "en",
+  region: appConfig.region,
 };
 
 final dioOptions = Dio(

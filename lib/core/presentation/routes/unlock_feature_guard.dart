@@ -26,15 +26,15 @@ class UnlockFeatureGuard extends AutoRouteGuard {
         !(account?.isGroupSessionsUnlocked ?? false)) {
       _unlockFeature(UnlockedFeatureType.grouping);
 
-      groupPreferencesBloc.add(const GroupPreferencesEvent.changeGroupPrefsMode(GroupPrefsMode.groupingLesson));
+      groupPreferencesBloc
+          .add(const GroupPreferencesEvent.changeGroupPrefsMode(GroupPrefsMode.groupingLesson));
 
       router.pushNamed(AppRoutes.supportGroupIntro);
       return;
     }
 
-    if (extraAction == ExtraActionTypes.unlockMeals &&
-        !(account?.isFoodLoggingUnlocked ?? false)) {
-      _unlockFeature(UnlockedFeatureType.meals);
+    if (extraAction == ExtraActionTypes.unlockFoodLogging && !(account?.isFoodLoggingUnlocked ?? false)) {
+      _unlockFeature(UnlockedFeatureType.foodLogging);
 
       router.pushNamed(AppRoutes.lessonCompleteFoodPreferences);
       return;

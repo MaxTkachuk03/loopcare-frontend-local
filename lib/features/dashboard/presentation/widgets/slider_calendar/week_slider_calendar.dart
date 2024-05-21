@@ -40,7 +40,7 @@ class _WeekSliderCalendarState extends State<WeekSliderCalendar> {
       DateUtils.dateOnly(DateTime.now().add(const Duration(days: 13))),
     );
 
-    _selectedDay = context.read<MealsBloc>().state.getCurrentDate;
+    _selectedDay = context.read<MealsBloc>().state.data.currentDateTime;
 
     _scrollToIndex();
   }

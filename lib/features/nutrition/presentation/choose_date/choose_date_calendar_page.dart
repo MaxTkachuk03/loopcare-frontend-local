@@ -90,7 +90,7 @@ class _ChooseDateCalendarPageState extends State<ChooseDateCalendarPage> {
         date: state.data.getWarningDate.shortDate,
         mealCategory: widget.mealCategory,
         oldItem: state.data.plannedMealsForWarningDate.first,
-        newItem: mealsState.currentMeal,
+        newItem: mealsState.data.currentMeal,
       );
     }
   }
@@ -182,15 +182,15 @@ class _ChooseDateCalendarPageState extends State<ChooseDateCalendarPage> {
   }
 
   _onSaveChangesPressed(BuildContext context) {
-    final mealsBloc = context.read<MealsBloc>();
-    final chooseDateBloc = context.read<ChooseDateBloc>();
-
-    mealsBloc.add(
-      MealsEvent.updatePlannedMeal(
-        chooseDateBloc.state.data.currentMealId,
-        chooseDateBloc.state.data.selectedDateList,
-      ),
-    );
+    // final mealsBloc = context.read<MealsBloc>();
+    // final chooseDateBloc = context.read<ChooseDateBloc>();
+// TODO removed feature
+    // mealsBloc.add(
+    //   MealsEvent.updatePlannedMeal(
+    //     chooseDateBloc.state.data.currentMealId,
+    //     chooseDateBloc.state.data.selectedDateList,
+    //   ),
+    // );
 
     context.router.pop();
     context.showSuccessBar(

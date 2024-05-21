@@ -78,7 +78,7 @@ class _LessonCompletePageState extends State<LessonCompletePage> {
       return LocalizedTexts.lessonCompleteDescription.tr();
     }
 
-    if (state.data.extraAction == ExtraActionTypes.unlockMeals ||
+    if (state.data.extraAction == ExtraActionTypes.unlockFoodLogging ||
         (state.data.extraAction == ExtraActionTypes.setupGroupingPreferences && !_isGroupSessionsDisabled)) {
       return LocalizedTexts.unlockFeatureDescription.tr();
     } else {
@@ -98,7 +98,7 @@ class _LessonCompletePageState extends State<LessonCompletePage> {
           listener: _onErrorListener,
         ),
         BlocListener<EducationLessonBloc, EducationLessonState>(
-          listenWhen: (prev, cur) => cur is LessonCompleted,
+          listenWhen: (prev, cur) => prev is Loading && cur is LessonCompleted,
           listener: _lessonCompleteListener,
         ),
       ],

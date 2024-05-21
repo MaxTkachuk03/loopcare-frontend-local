@@ -14,32 +14,32 @@ abstract class ServingSize implements _$ServingSize {
   const ServingSize._();
 
   const factory ServingSize({
-    required String? servingId,
-    required bool? isSelectedFavorite,
-    required double calcium,
-    required double calories,
-    required double carbohydrate,
-    required double cholesterol,
-    required double fat,
-    required double fiber,
-    required double? iron,
-    required String? measurementDescription,
-    required double? metricServingAmount,
-    required String? metricServingUnit,
-    required double? monounsaturatedFat,
-    required double numberOfUnits,
-    required double? polyunsaturatedFat,
-    required double? potassium,
-    required double protein,
-    required double saturatedFat,
-    required String? servingDescription,
-    required String? servingUrl,
-    required double? sodium,
-    required double? sugar,
-    required double? transFat,
-    required double? vitaminA,
-    required double? vitaminC,
-    required List<String>? favoriteMealCategories,
+    @Default(null) String? servingId,
+    @Default(false) bool isSelectedFavorite,
+    @Default(0) double calcium,
+    @Default(0) double calories,
+    @Default(0) double carbohydrate,
+    @Default(0) double cholesterol,
+    @Default(0) double fat,
+    @Default(0) double fiber,
+    @Default(0) double? iron,
+    @Default('') String measurementDescription,
+    @Default(0) double metricServingAmount,
+    @Default('') String metricServingUnit,
+    @Default(0) double monounsaturatedFat,
+    @Default(0) double numberOfUnits,
+    @Default(0) double polyunsaturatedFat,
+    @Default(0) double potassium,
+    @Default(0) double protein,
+    @Default(0) double saturatedFat,
+    @Default('') String servingDescription,
+    @Default('') String servingUrl,
+    @Default(0) double sodium,
+    @Default(0) double sugar,
+    @Default(0) double transFat,
+    @Default(0) double vitaminA,
+    @Default(0) double vitaminC,
+    @Default([]) List<String>? favoriteMealCategories,
   }) = _ServingSize;
 
   List<NutritionItem> get list {
@@ -65,7 +65,7 @@ abstract class ServingSize implements _$ServingSize {
   }
 
   String get servingLabel {
-    var metricServingUnitLabel = metricServingUnit != null ? ' $metricServingUnit' : '';
+    var metricServingUnitLabel = ' $metricServingUnit';
 
     return '$measurementDescription ($metricServingAmount$metricServingUnitLabel)';
   }

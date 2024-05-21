@@ -67,17 +67,14 @@ import 'package:loopcare_frontend/features/nutrition/presentation/choose_date/ch
 import 'package:loopcare_frontend/features/nutrition/presentation/daily_intake/daily_intake_page.dart';
 import 'package:loopcare_frontend/features/nutrition/presentation/dish_details_page/dish_details_page.dart';
 import 'package:loopcare_frontend/features/nutrition/presentation/edit_dish/edit_dish_page.dart';
-import 'package:loopcare_frontend/features/nutrition/presentation/log_planned_meals/log_planned_meals_page.dart';
 import 'package:loopcare_frontend/features/nutrition/presentation/log_weight_page/log_weight_page.dart';
 import 'package:loopcare_frontend/features/nutrition/presentation/meal/meal_page.dart';
-import 'package:loopcare_frontend/features/nutrition/presentation/nutrition_instructions/nutrition_instructions_page.dart';
 import 'package:loopcare_frontend/features/nutrition/presentation/recipe/recipe_page.dart';
 import 'package:loopcare_frontend/features/nutrition/presentation/recipe_details/recipe_details_page.dart';
 import 'package:loopcare_frontend/features/nutrition/presentation/recommendations/recommendations_page.dart';
 import 'package:loopcare_frontend/features/nutrition/presentation/search/search_page.dart';
 import 'package:loopcare_frontend/features/nutrition/presentation/select_food/select_food_page.dart';
 import 'package:loopcare_frontend/features/nutrition/presentation/select_serving_page/select_serving_page.dart';
-import 'package:loopcare_frontend/features/nutrition/presentation/week_planner/week_planner_page.dart';
 import 'package:loopcare_frontend/features/onboarding_new/presentation/onboarding_questions.dart';
 import 'package:loopcare_frontend/features/physical_activities/presentation/physical_programs/physical_programs_page.dart';
 import 'package:loopcare_frontend/features/physical_activities/presentation/preferences/widgets/physical_activities_activity_page.dart';
@@ -212,10 +209,6 @@ const groupLessonRoutes = [
 
     // Nutrition
     AutoRoute(
-      path: AppRoutes.nutritionInstructions,
-      page: NutritionInstructionsPage,
-    ), // added
-    AutoRoute(
       path: AppRoutes.selectFood,
       page: SelectFoodPage,
     ), // added
@@ -235,10 +228,10 @@ const groupLessonRoutes = [
       path: AppRoutes.meal,
       page: MealPage,
     ), // added
-    AutoRoute(
-      path: AppRoutes.logPlannedMeals,
-      page: LogPlannedMealsPage,
-    ), // added
+    // AutoRoute(
+    //   path: AppRoutes.logPlannedMeals,
+    //   page: LogPlannedMealsPage,
+    // ), // added
     AutoRoute(
       path: AppRoutes.logWeight,
       page: LogWeightPage,
@@ -251,10 +244,10 @@ const groupLessonRoutes = [
       path: AppRoutes.chooseDate,
       page: ChooseDateCalendarPage,
     ), // added
-    AutoRoute(
-      path: AppRoutes.weekPlanner,
-      page: WeekPlannerPage,
-    ), // added
+    // AutoRoute(
+    //   path: AppRoutes.weekPlanner,
+    //   page: WeekPlannerPage,
+    // ), // added
     AutoRoute(
       path: AppRoutes.recommendations,
       page: RecommendationsPage,

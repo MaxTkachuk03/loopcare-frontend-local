@@ -36,14 +36,14 @@ class EditDishState with _$EditDishState {
   String get numberOfServings {
     return maybeMap(
       dishInfo: (s) => s.currentDish.serving.numberOfUnits.toString(),
-      orElse: () => '',
+      orElse: () => '1',
     );
   }
 
   String get numberOfPortions {
     return maybeMap(
       dishInfo: (s) => s.currentDish.numberOfServings.toString(),
-      orElse: () => '',
+      orElse: () => '1',
     );
   }
 }

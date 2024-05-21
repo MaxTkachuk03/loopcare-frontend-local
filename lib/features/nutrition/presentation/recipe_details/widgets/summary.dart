@@ -6,6 +6,7 @@ import 'package:loopcare_frontend/core/presentation/buttons/custom_elevated_butt
 import 'package:loopcare_frontend/core/presentation/buttons/custom_outlined_button.dart';
 import 'package:loopcare_frontend/core/presentation/icon_images/app_icons.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
+import 'package:loopcare_frontend/core/presentation/nutrition/nutrition_summary/nutrition_summary.dart';
 import 'package:loopcare_frontend/core/presentation/routes/app_router.gr.dart';
 import 'package:loopcare_frontend/core/presentation/text/custom_text.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
@@ -15,7 +16,6 @@ import 'package:loopcare_frontend/core/presentation/widgets/main_container.dart'
 import 'package:loopcare_frontend/core/presentation/widgets/scrollable_container.dart';
 import 'package:loopcare_frontend/features/nutrition/application/recipe_details/recipe_details_bloc.dart';
 import 'package:loopcare_frontend/features/nutrition/domain/recipe_details/recipe_details.dart';
-import 'package:loopcare_frontend/features/nutrition/presentation/nutrition_instructions/widgets/nutrition_block/nutrition_block.dart';
 import 'package:loopcare_frontend/features/nutrition/presentation/recipe_details/widgets/summary_item.dart';
 
 class Summary extends StatelessWidget {
@@ -38,58 +38,67 @@ class Summary extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  MainContainer(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        const SizedBox(height: 20.0),
-                        CustomText.bitter600(
-                          s.recipe.name,
-                          style: context.textTheme.displayMedium,
-                        ),
-                        const SizedBox(height: 20.0),
-                        CustomText.w400(
-                          s.recipe.description,
-                          style: context.textTheme.bodyMedium,
-                        ),
-                        const SizedBox(height: 20.0),
-                        Row(
-                          children: [
-                            SummaryItem(
-                              label: LocalizedTexts.cookingTime.tr(),
-                              icon: AppIcons.clockGrey,
-                              quantity: '${s.recipe.cookingTimeMin}',
-                              quantityLabel: 'min',
-                            ),
-                            const SizedBox(
-                              width: 20.0,
-                            ),
-                            SummaryItem(
-                              label: LocalizedTexts.preparation.tr(),
-                              icon: AppIcons.clockGrey,
-                              quantity: '${s.recipe.preparationTimeMin}',
-                              quantityLabel: 'min',
-                            ),
-                            const SizedBox(
-                              width: 30.0,
-                            ),
-                            SummaryItem(
-                              label: LocalizedTexts.portions.tr(),
-                              icon: const Icon(
-                                Icons.person_outline_rounded,
-                                color: AppColors.blueDarker,
+                  Container(
+                    color: AppColors.white,
+                    child: MainContainer(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          const SizedBox(height: 20.0),
+                          CustomText.bitter600(
+                            s.recipe.name,
+                            style: context.textTheme.displayMedium,
+                          ),
+                          const SizedBox(height: 20.0),
+                          CustomText.w400(
+                            s.recipe.description,
+                            style: context.textTheme.bodyMedium,
+                          ),
+                          const SizedBox(height: 20.0),
+                          Row(
+                            children: [
+                              SummaryItem(
+                                label: LocalizedTexts.cookingTime.tr(),
+                                icon: AppIcons.clockGrey,
+                                quantity: '${s.recipe.cookingTimeMin}',
+                                quantityLabel: 'min',
                               ),
-                              quantity: s.recipe.servingAmount.removeDecimalZeroFormat(),
-                            ),
-                          ],
-                        ),
-                        const SizedBox(height: 20.0),
-                      ],
+                              const SizedBox(
+                                width: 20.0,
+                              ),
+                              SummaryItem(
+                                label: LocalizedTexts.preparation.tr(),
+                                icon: AppIcons.clockGrey,
+                                quantity: '${s.recipe.preparationTimeMin}',
+                                quantityLabel: 'min',
+                              ),
+                              const SizedBox(
+                                width: 30.0,
+                              ),
+                              SummaryItem(
+                                label: LocalizedTexts.portions.tr(),
+                                icon: const Icon(
+                                  Icons.person_outline_rounded,
+                                  color: AppColors.blueDarker,
+                                ),
+                                quantity: s.recipe.servingAmount.removeDecimalZeroFormat(),
+                              ),
+                            ],
+                          ),
+                          const SizedBox(height: 20.0),
+                        ],
+                      ),
                     ),
                   ),
-                  NutritionBlock(
-                    calorieDensity: s.recipe.calorieDensity,
-                    proteinDegree: s.recipe.proteinDegree,
+                  const SizedBox(height: 20.0),
+                  NutritionSummary(
+                    proteinDegree: s.recipe.proteinDegreeVal,
+                    calorieDensity: s.recipe.calorieDensityVal,
+                    fiber: s.recipe.fiberSum,
+                    carbFiberRatio: s.recipe.carbFiberRatio,
+                    carbsPercent: s.recipe.carbsPercent,
+                    totalCalories: s.recipe.servingCalories,
+                    totalCarbs: s.recipe.carbsSum,
                   ),
                   const SizedBox(height: 20.0),
                   MainContainer(
@@ -112,26 +121,26 @@ class Summary extends StatelessWidget {
     );
   }
 
-  _onPlanThisMealTap(BuildContext context, RecipeDetails item) {
-    context.router.push(
-      RecipeRoute(
-        id: int.parse(item.id.toString()),
-        name: item.name,
-      ),
-    );
-  }
+  // _onPlanThisMealTap(BuildContext context, RecipeDetails item) {
+  //   context.router.push(
+  //     RecipeRoute(
+  //       id: int.parse(item.id.toString()),
+  //       name: item.name,
+  //     ),
+  //   );
+  // }
 
-  Widget _getButton(BuildContext context, bool fromRecommendation, RecipeDetails item) {
-    if (fromRecommendation) {
-      return CustomElevatedButton.blueFullWidth(
-        onPressed: () => _onPlanThisMealTap(context, item),
-        label: LocalizedTexts.planThisMeal.tr(),
-      );
-    }
-
-    return CustomElevatedButton.blueFullWidth(
-      onPressed: () => context.router.pop(),
-      label: LocalizedTexts.skip.tr(),
-    );
-  }
+  // Widget _getButton(BuildContext context, bool fromRecommendation, RecipeDetails item) {
+  //   if (fromRecommendation) {
+  //     return CustomElevatedButton.blueFullWidth(
+  //       onPressed: () => _onPlanThisMealTap(context, item),
+  //       label: LocalizedTexts.planThisMeal.tr(),
+  //     );
+  //   }
+  //
+  //   return CustomElevatedButton.blueFullWidth(
+  //     onPressed: () => context.router.pop(),
+  //     label: LocalizedTexts.skip.tr(),
+  //   );
+  // }
 }
