@@ -34,10 +34,13 @@ class _TechniquesPageState extends State<TechniquesPage> with MindAnalyticsMixin
   void errorHandler(MindState state) =>
       context.showError(content: Text(state.data.error?.error?.message ?? LocalizedTexts.somethingWentWrong.tr()));
 
+  Future<void> getTechniques() async =>
+      context.read<MindBloc>().add(const MindEvent.getTechniques());
+
   @override
   void initState() {
     super.initState();
-    context.read<MindBloc>().add(const MindEvent.getTechniques());
+    getTechniques();
     track(FirebaseEvents.mindOpen);
   }
 
@@ -57,8 +60,7 @@ class _TechniquesPageState extends State<TechniquesPage> with MindAnalyticsMixin
       body: CustomSafeArea(
         child: BlocConsumer<MindBloc, MindState>(
           listener: listener,
-          // Todo: add update technique event listener
-          buildWhen: (previous, current) => previous.data.techniques.isEmpty,
+          buildWhen: (previous, current) => ModalRoute.of(context)?.isCurrent ?? false,
           builder: (context, state) {
 
             return MindListContent(
