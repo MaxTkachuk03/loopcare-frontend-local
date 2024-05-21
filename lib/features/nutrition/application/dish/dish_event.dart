@@ -6,8 +6,7 @@ class DishEvent with _$DishEvent {
 
   const factory DishEvent.getDishById(int dishId) = GetDishById;
 
-  const factory DishEvent.nutritionItemChanged(NutritionValuesTypes item) =
-      NutritionItemChanged;
+  const factory DishEvent.nutritionItemChanged(NutritionValuesTypes item) = NutritionItemChanged;
 
   const factory DishEvent.servingChanged({
     required int mealId,
@@ -25,9 +24,6 @@ class DishEvent with _$DishEvent {
     required int dishId,
     required int internalFoodItemId,
   }) = DeleteFoodItemFromDish;
-
-  const factory DishEvent.addToMeal(int mealId, String numberOfServings) =
-      AddToMeal;
 
   const factory DishEvent.addFoodItemToDish({
     required double numberOfUnits,

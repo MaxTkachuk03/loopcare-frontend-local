@@ -1,1 +1,0 @@
-enum NutritionValueTabType { calorieDensity, proteinDegree }

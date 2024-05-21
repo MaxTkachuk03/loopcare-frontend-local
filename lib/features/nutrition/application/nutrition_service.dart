@@ -4,13 +4,13 @@ import 'package:loopcare_frontend/core/infrastructure/dio_client/request_error.d
 import 'package:loopcare_frontend/features/nutrition/application/dashboard_weight/dto/get_dashboard_weights_response.dart';
 import 'package:loopcare_frontend/features/nutrition/application/dashboard_weight/dto/log_weight_body.dart';
 import 'package:loopcare_frontend/features/nutrition/application/dashboard_weight/dto/log_weight_response.dart';
-
 import 'package:loopcare_frontend/features/nutrition/application/dish/dto/add_dish_to_meal_body.dart';
 import 'package:loopcare_frontend/features/nutrition/application/dish/dto/add_food_item_to_dish_body.dart';
 import 'package:loopcare_frontend/features/nutrition/application/dish/dto/clone_dish_body.dart';
 import 'package:loopcare_frontend/features/nutrition/application/dish/dto/update_dish_food_item_response.dart';
 import 'package:loopcare_frontend/features/nutrition/application/dish/dto/update_dish_in_meal_body.dart';
 import 'package:loopcare_frontend/features/nutrition/application/dish/dto/update_food_item_in_dish_body.dart';
+import 'package:loopcare_frontend/features/nutrition/application/bmr/dto/get_bmr_response.dart';
 import 'package:loopcare_frontend/features/nutrition/application/meals/dto/add_planned_meal_body.dart';
 import 'package:loopcare_frontend/features/nutrition/application/edit_dish/dto/create_dish_body.dart';
 import 'package:loopcare_frontend/features/nutrition/application/edit_dish/dto/create_dish_from_meal_body.dart';
@@ -33,7 +33,6 @@ import 'package:loopcare_frontend/features/nutrition/application/meals/dto/add_m
 import 'package:loopcare_frontend/features/nutrition/application/meals/dto/add_meal_body.dart';
 import 'package:loopcare_frontend/features/nutrition/application/meals/dto/meals_list_item.dart';
 import 'package:loopcare_frontend/features/nutrition/application/meals/dto/meals_response.dart';
-import 'package:loopcare_frontend/features/nutrition/application/nutrition_instructions/dto/values_explanation_response.dart';
 import 'package:loopcare_frontend/features/nutrition/application/select_food/dto/get_dishes_response.dart';
 import 'package:loopcare_frontend/features/nutrition/application/select_serving/dto/add_to_favorites_body.dart';
 import 'package:loopcare_frontend/features/nutrition/application/select_serving/dto/add_to_favorites_response.dart';
@@ -41,7 +40,7 @@ import 'package:loopcare_frontend/features/nutrition/application/select_serving/
 import 'package:loopcare_frontend/features/nutrition/application/select_serving/dto/update_favorite_body.dart';
 
 abstract class NutritionService {
-  Future<Either<RequestError, ValuesExplanationResponse>> getValuesExplanation();
+  Future<Either<RequestError, GetBmrResponse>> getBmr(DateTime date);
 
   Future<Either<RequestError, FavoritesResponse>> getFavorites(List<String>? mealCategories);
 
@@ -116,8 +115,8 @@ abstract class NutritionService {
   );
 
   Future<Either<RequestError, MealsResponse>> getMeals({
-    String? startDate,
-    String? endDate,
+    required String startDate,
+    required String endDate,
   });
 
   Future<Either<RequestError, MealsResponse>> getPlannedMeals({

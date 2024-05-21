@@ -108,21 +108,19 @@ class _SelectServingPageState extends State<SelectServingPage> {
           const Expanded(
             child: ServingList(),
           ),
-          BlocBuilder<FoodItemServingsBloc, FoodItemServingsState>(
-            builder: (context, state) {
-              final servingAmount = double.parse(state.selectedServingAmount ?? '0');
-              final servingId = state.selectedServingItem?.servingId;
-              final enable = double.parse(state.selectedServingAmount ?? '0') != 0;
+          BlocBuilder<FoodItemServingsBloc, FoodItemServingsState>(builder: (context, state) {
+            final servingAmount = double.parse(state.selectedServingAmount ?? '0');
+            final servingId = state.selectedServingItem?.servingId;
+            final enable = double.parse(state.selectedServingAmount ?? '0') != 0;
 
-              return Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 30.0),
-                child: CustomElevatedButton.blueFullWidth(
-                  onPressed: enable ? () => _onConfirmPressed(context, servingAmount, servingId) : null,
-                  label: LocalizedTexts.confirm,
-                ),
-              );
-            }
-          ),
+            return Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 30.0),
+              child: CustomElevatedButton.blueFullWidth(
+                onPressed: enable ? () => _onConfirmPressed(context, servingAmount, servingId) : null,
+                label: LocalizedTexts.confirm.tr(),
+              ),
+            );
+          }),
         ],
       ),
     );

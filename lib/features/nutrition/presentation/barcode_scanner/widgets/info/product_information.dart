@@ -104,7 +104,7 @@ class ProductInformation extends StatelessWidget {
         foodItemName: foodItem.foodName,
         onConfirm: (double numberOfUnits, String servingId) {
           final mealBloc = context.read<MealsBloc>();
-          final mealId = mealBloc.state.getCurrentMealId;
+          final mealId = mealBloc.state.data.getCurrentMealId;
           if (mealId != null) {
             mealBloc.add(
               MealsEvent.addFoodItemToMeal(

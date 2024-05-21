@@ -11,8 +11,11 @@ import 'package:loopcare_frontend/core/infrastructure/services/network_service/n
 import 'package:loopcare_frontend/core/presentation/routes/app_router.gr.dart';
 import 'package:loopcare_frontend/core/presentation/routes/gender_prefs_guard.dart';
 import 'package:loopcare_frontend/core/presentation/routes/proxy_guard.dart';
+import 'package:loopcare_frontend/core/presentation/routes/unlock_feature_guard.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
+import 'package:loopcare_frontend/features/account/application/group_preferences_bloc.dart';
 import 'package:loopcare_frontend/features/authentication/application/authentication_bloc.dart';
+import 'package:loopcare_frontend/features/education/application/education_lesson/education_lesson_bloc.dart';
 import 'package:loopcare_frontend/injection.dart';
 import 'package:provider/provider.dart';
 
@@ -54,10 +57,19 @@ class _AppState extends State<_App> {
   void initState() {
     super.initState();
 
+    final lessonBloc = context.read<EducationLessonBloc>();
+    final groupPreferencesBloc = context.read<GroupPreferencesBloc>();
+    final authBloc = context.read<AuthenticationBloc>();
+
     _appRouter = AppRouter(
       navigatorKey: kNavigatorKey,
       proxyGuard: ProxyGuard(),
       genderPrefsGuard: GenderPrefsGuard(),
+      unlockFeatureGuard: UnlockFeatureGuard(
+        lessonBloc,
+        authBloc,
+        groupPreferencesBloc,
+      ),
     );
   }
 

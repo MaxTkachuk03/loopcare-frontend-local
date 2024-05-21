@@ -48,7 +48,7 @@ class _EducationPageState extends State<EducationPage> with SingleTickerProvider
   }
 
   _lessonCompleteListener(BuildContext context, EducationLessonState state) {
-    final currentDate = context.read<MealsBloc>().state.getCurrentDate;
+    final currentDate = context.read<MealsBloc>().state.data.currentDateTime;
 
     context.read<EducationProgramBloc>().add(const EducationProgramEvent.getLessons());
 

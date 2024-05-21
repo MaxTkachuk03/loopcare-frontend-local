@@ -5,7 +5,6 @@ import 'package:loopcare_frontend/features/nutrition/application/recipe/dto/upda
 import 'package:loopcare_frontend/features/nutrition/application/recipe/dto/update_recipe_body.dart';
 import 'package:loopcare_frontend/features/nutrition/domain/nutrition_values_types/nutrition_values_types.dart';
 import 'package:loopcare_frontend/features/nutrition/domain/recommendations/recommendation_recipe.dart';
-import 'package:rxdart/rxdart.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
@@ -23,15 +22,11 @@ part 'recipe_bloc.freezed.dart';
 class RecipeBloc extends Bloc<RecipeEvent, RecipeState> {
   final NutritionService nutritionService;
 
-  RecipeBloc(this.nutritionService) : super(const RecipeState.initial(RecipenData())) {
+  RecipeBloc(this.nutritionService) : super(const RecipeState.initial(RecipeData())) {
     on<FetchRecipe>(_onFetchRecipe);
     on<FetchRecipeFromMeal>(_onFetchRecipeFromMeal);
     on<NutritionItemChanged>(_onNutritionItemChanged);
-    on<ServingChanged>(
-      _onServingChanged,
-      transformer: (events, mapper) =>
-          events.distinct().debounceTime(const Duration(milliseconds: 300)).switchMap(mapper),
-    );
+    on<ServingChanged>(_onServingChanged);
     on<AddFoodItemToRecipe>(_onAddFoodItemToRecipe);
     on<RemoveFoodItemToRecipe>(_onRemoveFoodItemToRecipe);
     on<UpdateFoodItemToRecipe>(_onUpdateFoodItemToRecipe);
@@ -42,16 +37,12 @@ class RecipeBloc extends Bloc<RecipeEvent, RecipeState> {
     GetRecommendations event,
     Emitter<RecipeState> emit,
   ) async {
-    emit(
-      RecipeState.loadingRecipe(
-        state.data.copyWith(
-          isLoading: true,
-          error: null,
-        ),
-      ),
-    );
+    emit(RecipeState.loadingRecipe(state.data.copyWith(isLoading: true, error: null)));
 
-    final response = await nutritionService.getRecommendations([event.mealCategory.toLowerCase()]);
+    // FIXME mealCategory should be moved to enum and be the same for foodLogging and recommendations
+    final category = event.mealCategory == 'inbetweens & snacks' ? 'snack' : event.mealCategory;
+
+    final response = await nutritionService.getRecommendations([category.toLowerCase()]);
 
     response.fold(
       (error) => emit(
@@ -114,6 +105,7 @@ class RecipeBloc extends Bloc<RecipeEvent, RecipeState> {
                 nutritionValues: response.servingSize.list,
                 numberOfServings: response.numberOfServings,
                 servingAmount: response.servingSize.numberOfUnits,
+                servingSize: response.servingSize,
               ),
             ),
           ),
@@ -159,6 +151,7 @@ class RecipeBloc extends Bloc<RecipeEvent, RecipeState> {
                 nutritionValues: response.servingSize.list,
                 numberOfServings: response.numberOfServings,
                 servingAmount: response.servingSize.numberOfUnits,
+                servingSize: response.servingSize,
               ),
             ),
           ),
@@ -217,6 +210,7 @@ class RecipeBloc extends Bloc<RecipeEvent, RecipeState> {
                   nutritionValues: r.servingSize.list,
                   numberOfServings: r.numberOfServings,
                   servingAmount: r.servingSize.numberOfUnits,
+                  servingSize: r.servingSize,
                 ),
               ),
             ),
@@ -264,6 +258,7 @@ class RecipeBloc extends Bloc<RecipeEvent, RecipeState> {
                     nutritionValues: r.servingSize.list,
                     numberOfServings: r.numberOfServings,
                     servingAmount: r.servingSize.numberOfUnits,
+                    servingSize: r.servingSize,
                   ),
                 ),
               ),
@@ -308,6 +303,7 @@ class RecipeBloc extends Bloc<RecipeEvent, RecipeState> {
                     nutritionValues: r.servingSize.list,
                     numberOfServings: r.numberOfServings,
                     servingAmount: r.servingSize.numberOfUnits,
+                    servingSize: r.servingSize,
                   ),
                 ),
               ),
@@ -348,14 +344,16 @@ class RecipeBloc extends Bloc<RecipeEvent, RecipeState> {
               state.copyWith(
                 data: state.data.copyWith(
                   recipe: Recipe(
-                      id: r.id,
-                      externalId: r.externalId,
-                      ingredients: r.ingredients,
-                      calorieDensity: r.calorieDensity,
-                      proteinDegree: r.proteinDegree,
-                      nutritionValues: r.servingSize.list,
-                      numberOfServings: r.numberOfServings,
-                      servingAmount: r.servingSize.numberOfUnits),
+                    id: r.id,
+                    externalId: r.externalId,
+                    ingredients: r.ingredients,
+                    calorieDensity: r.calorieDensity,
+                    proteinDegree: r.proteinDegree,
+                    nutritionValues: r.servingSize.list,
+                    numberOfServings: r.numberOfServings,
+                    servingAmount: r.servingSize.numberOfUnits,
+                    servingSize: r.servingSize,
+                  ),
                 ),
               ),
             );

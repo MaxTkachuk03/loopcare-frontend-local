@@ -131,7 +131,7 @@ class _PhysicalActivitiesActivityTypePageState extends State<PhysicalActivitiesA
                           );
                         },
                       ),
-                      const SizedBox(height: 8.0),
+                      const SizedBox(height: 30.0),
                     ],
                   ),
                 ],

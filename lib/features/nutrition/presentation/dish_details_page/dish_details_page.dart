@@ -14,9 +14,11 @@ import 'package:loopcare_frontend/core/presentation/custom_safe_area.dart';
 import 'package:loopcare_frontend/core/presentation/error/error_screen.dart';
 import 'package:loopcare_frontend/core/presentation/loader/loader.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
+import 'package:loopcare_frontend/core/presentation/nutrition/nutrition_summary/nutrition_summary.dart';
 import 'package:loopcare_frontend/core/presentation/routes/app_router.dart';
 import 'package:loopcare_frontend/core/presentation/routes/app_router.gr.dart';
 import 'package:loopcare_frontend/core/presentation/scaffold/custom_scaffold.dart';
+import 'package:loopcare_frontend/core/presentation/utils/function_extensions.dart';
 import 'package:loopcare_frontend/core/presentation/utils/string_extensions.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/main_container.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/scrollable_container.dart';
@@ -30,7 +32,6 @@ import 'package:loopcare_frontend/features/nutrition/domain/food_item/food_item.
 import 'package:loopcare_frontend/features/nutrition/domain/nutrition_values_types/nutrition_values_types.dart';
 import 'package:loopcare_frontend/features/nutrition/presentation/dish_details_page/widgets/dish_list/dish_list.dart';
 import 'package:loopcare_frontend/features/nutrition/presentation/edit_dish/edit_dish_page.dart';
-import 'package:loopcare_frontend/features/nutrition/presentation/nutrition_instructions/widgets/nutrition_block/nutrition_block.dart';
 import 'package:loopcare_frontend/features/nutrition/presentation/widgets/meal_portions/nutrition_values_block.dart';
 import 'package:loopcare_frontend/features/nutrition/presentation/widgets/servings_amount/servings_amount.dart';
 
@@ -52,6 +53,7 @@ class DishDetailsPage extends StatefulWidget {
 
 class _DishDetailsPageState extends State<DishDetailsPage> {
   late TextEditingController _servingController = TextEditingController();
+  late double _servingsAmount;
 
   @override
   void initState() {
@@ -65,6 +67,8 @@ class _DishDetailsPageState extends State<DishDetailsPage> {
 
     _servingController = TextEditingController(text: dishBloc.state.servingAmount);
 
+    _servingsAmount = double.parse(dishBloc.state.servingAmount);
+
     super.initState();
   }
 
@@ -75,17 +79,20 @@ class _DishDetailsPageState extends State<DishDetailsPage> {
   }
 
   void _onServingChanges(String val) {
+    setState(() {
+      _servingsAmount = double.parse(val.isEmpty ? '0' : val);
+    });
+
+    _servingController.text = val;
+
     if (!(widget.isMealDish ?? false)) return;
 
     final mealState = context.read<MealsBloc>().state;
-    final mealId = mealState.getCurrentMealId;
+    final mealId = mealState.data.getCurrentMealId;
 
     if (mealId == null || val.isEmpty) return;
 
-    context.read<DishBloc>().add(DishEvent.servingChanged(
-          mealId: mealId,
-          servingAmount: int.parse(val),
-        ));
+    context.read<DishBloc>().add(DishEvent.servingChanged(mealId: mealId, servingAmount: int.parse(val)));
   }
 
   void _onNutritionFactSelect(NutritionValuesTypes item) {
@@ -129,7 +136,7 @@ class _DishDetailsPageState extends State<DishDetailsPage> {
         mode: SearchMode.food,
         onItemTap: (SearchItem item) {
           final mealBloc = context.read<MealsBloc>();
-          final mealId = mealBloc.state.getCurrentMealId;
+          final mealId = mealBloc.state.data.getCurrentMealId;
 
           if (mealId == null) {
             debugPrint('Search item click freezed DishDetailsPage mealId == null');
@@ -158,13 +165,14 @@ class _DishDetailsPageState extends State<DishDetailsPage> {
   }
 
   _onLogDishHandler() {
-    final mealId = context.read<MealsBloc>().state.getCurrentMealId;
+    final mealId = context.read<MealsBloc>().state.data.getCurrentMealId;
+    final dishId = context.read<DishBloc>().state.mapOrNull(dish: (s) => s.selectedDish.id);
 
-    if (mealId == null) return;
+    if (mealId == null || dishId == null) return;
 
     final numberOfServings = _servingController.text.replaceCommaWithDot.deleteDotAtTheEnd;
 
-    context.read<DishBloc>().add(DishEvent.addToMeal(mealId, numberOfServings));
+    context.read<MealsBloc>().add(MealsEvent.addDishToMeal(mealId, numberOfServings, dishId));
 
     context.router.pushNamed(AppRoutes.meal);
   }
@@ -229,7 +237,7 @@ class _DishDetailsPageState extends State<DishDetailsPage> {
     return BlocListener<DishBloc, DishState>(
       listenWhen: _updateMealListenWhen,
       listener: _updateMealListener,
-      child: CustomScaffold.greenLightest(
+      child: CustomScaffold.greenLighter(
         appBar: CustomAppBar.green(
           leading: CustomFilledIconButton.leadingGreenLighter(),
           title: context.watch<DishBloc>().state.mapOrNull(
@@ -267,7 +275,8 @@ class _DishDetailsPageState extends State<DishDetailsPage> {
                             children: [
                               ServingsAmount(
                                 inputController: _servingController,
-                                onValueChangeHandler: _onServingChanges,
+                                onValueChangeHandler:
+                                    _onServingChanges.withDebounce(const Duration(milliseconds: 500)),
                               ),
                               NutritionValuesBlock(
                                 numberOfPortions: dishState.selectedDish.numberOfServings.toInt(),
@@ -282,9 +291,15 @@ class _DishDetailsPageState extends State<DishDetailsPage> {
                                 onListItemTapHandler: _onFoodItemPressed,
                                 isScrollable: false,
                               ),
-                              NutritionBlock(
-                                calorieDensity: dishState.selectedDish.calorieDensity,
-                                proteinDegree: dishState.selectedDish.proteinDegree,
+                              const SizedBox(height: 20),
+                              NutritionSummary(
+                                proteinDegree: dishState.selectedDish.proteinDegreeValue,
+                                calorieDensity: dishState.selectedDish.calorieDensityValue,
+                                fiber: dishState.selectedDish.fiberSum * _servingsAmount,
+                                carbFiberRatio: dishState.selectedDish.carbFiberRatio,
+                                carbsPercent: dishState.selectedDish.carbsPercent,
+                                totalCalories: dishState.selectedDish.caloriesSumWithDrinks * _servingsAmount,
+                                totalCarbs: dishState.selectedDish.carbsSum * _servingsAmount,
                               ),
                               const SizedBox(height: 26.0),
                               MainContainer(
@@ -351,7 +366,7 @@ class _DishDetailsPageState extends State<DishDetailsPage> {
     if (state.dish == null) return;
 
     final mealBloc = context.read<MealsBloc>();
-    final mealId = mealBloc.state.getCurrentMealId;
+    final mealId = mealBloc.state.data.getCurrentMealId;
 
     if (mealId == null) return;
 

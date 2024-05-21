@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
 
 class LocalizationConstants {
@@ -34,8 +32,9 @@ class LocalizationConstants {
     'AR',
     'UY',
   ];
+  static get regionCode => WidgetsBinding.instance.platformDispatcher.locale.countryCode;
 
-  static get useUsServer => _usCodes.contains(Platform.localeName.substring(3));
+  static get useUsServer => _usCodes.contains(regionCode);
 
   static String get serverCountryCode => useUsServer ? 'US' : 'EU';
 

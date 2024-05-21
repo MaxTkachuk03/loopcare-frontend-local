@@ -13,9 +13,11 @@ import 'package:loopcare_frontend/core/presentation/custom_safe_area.dart';
 import 'package:loopcare_frontend/core/presentation/error/error_screen.dart';
 import 'package:loopcare_frontend/core/presentation/loader/loader.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
+import 'package:loopcare_frontend/core/presentation/nutrition/nutrition_summary/nutrition_summary.dart';
 import 'package:loopcare_frontend/core/presentation/routes/app_router.dart';
 import 'package:loopcare_frontend/core/presentation/routes/app_router.gr.dart';
 import 'package:loopcare_frontend/core/presentation/scaffold/custom_scaffold.dart';
+import 'package:loopcare_frontend/core/presentation/utils/function_extensions.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/main_container.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/scrollable_container.dart';
 import 'package:loopcare_frontend/features/nutrition/application/edit_dish/edit_dish_bloc.dart';
@@ -27,7 +29,6 @@ import 'package:loopcare_frontend/features/nutrition/domain/dish_favorites_categ
 import 'package:loopcare_frontend/features/nutrition/domain/meal_item_type/meal_item_type.dart';
 import 'package:loopcare_frontend/features/nutrition/domain/nutrition_values_types/nutrition_values_types.dart';
 import 'package:loopcare_frontend/features/nutrition/presentation/edit_dish/edit_dish_page.dart';
-import 'package:loopcare_frontend/features/nutrition/presentation/nutrition_instructions/widgets/nutrition_block/nutrition_block.dart';
 import 'package:loopcare_frontend/features/nutrition/presentation/recipe/widgets/recipe_list.dart';
 import 'package:loopcare_frontend/features/nutrition/presentation/widgets/meal_portions/nutrition_values_block.dart';
 import 'package:loopcare_frontend/features/nutrition/presentation/widgets/servings_amount/servings_amount.dart';
@@ -60,7 +61,7 @@ class _RecipePageState extends State<RecipePage> {
     _servingController = TextEditingController(text: recipeBloc.state.servingAmount);
 
     if (widget.isMealRecipe ?? false) {
-      final mealId = context.read<MealsBloc>().state.getCurrentMealId;
+      final mealId = context.read<MealsBloc>().state.data.getCurrentMealId;
 
       if (mealId == null) return;
 
@@ -88,7 +89,7 @@ class _RecipePageState extends State<RecipePage> {
     final isMealRecipe = widget.isMealRecipe ?? false;
 
     final recipeId = !isMealRecipe
-        ? mealState.currentFoodItems
+        ? mealState.data.currentFoodItems
             .firstWhere((element) =>
                 element.type == MealItemType.recipe && element.externalId == recipeState.externalRecipeId)
             .id
@@ -112,7 +113,7 @@ class _RecipePageState extends State<RecipePage> {
         event: EditDishEvent.createDishFromRecipe(
           recipeId,
           numberOfUnits,
-          _getSelectedMealCategories(mealState.currentMealCategory),
+          _getSelectedMealCategories(mealState.data.currentMealCategory),
         ),
       ),
     );
@@ -151,12 +152,8 @@ class _RecipePageState extends State<RecipePage> {
             listenWhen: _whenRecipeUpdated,
             listener: _recipeUpdatingListener,
           ),
-          BlocListener<MealsBloc, MealsState>(
-            listenWhen: _whenMealsUpdated,
-            listener: _mealsUpdatingListener,
-          )
         ],
-        child: CustomScaffold.greenLightest(
+        child: CustomScaffold.greenLighter(
           appBar: CustomAppBar.green(
             leading: CustomFilledIconButton.leadingGreenLighter(),
             title: widget.name,
@@ -194,20 +191,29 @@ class _RecipePageState extends State<RecipePage> {
                             children: [
                               ServingsAmount(
                                 inputController: _servingController,
-                                onValueChangeHandler: _onValueChangeHandler,
+                                onValueChangeHandler:
+                                    _onValueChangeHandler.withDebounce(const Duration(milliseconds: 500)),
                               ),
                               NutritionValuesBlock(
-                                  numberOfPortions: recipeState.data.recipe.numberOfServings,
-                                  selectedNutritionType: recipeState.data.currentNutritionType,
-                                  nutritionValuesList: recipeState.data.recipe.nutritionValues,
-                                  onNutritionFactSelect: _onNutritionFactSelect),
+                                numberOfPortions: recipeState.data.recipe.numberOfServings,
+                                selectedNutritionType: recipeState.data.currentNutritionType,
+                                nutritionValuesList: recipeState.data.recipe.nutritionValues,
+                                onNutritionFactSelect: _onNutritionFactSelect,
+                              ),
                               RecipeList(
-                                  nutritionKey: recipeState.data.currentNutritionType.name,
-                                  list: recipeState.data.recipe.ingredients,
-                                  isMealRecipe: widget.isMealRecipe ?? false),
-                              NutritionBlock(
+                                nutritionKey: recipeState.data.currentNutritionType.name,
+                                list: recipeState.data.recipe.ingredients,
+                                isMealRecipe: widget.isMealRecipe ?? false,
+                              ),
+                              const SizedBox(height: 20),
+                              NutritionSummary(
                                 proteinDegree: recipeState.data.recipe.proteinDegreeVal,
                                 calorieDensity: recipeState.data.recipe.calorieDensityVal,
+                                fiber: recipeState.data.recipe.fiberSum,
+                                carbFiberRatio: recipeState.data.recipe.carbFiberRatio,
+                                carbsPercent: recipeState.data.recipe.carbsPercent,
+                                totalCarbs: recipeState.data.recipe.totalCarbs,
+                                totalCalories: recipeState.data.recipe.totalCalories,
                               ),
                               const SizedBox(height: 15.0),
                               MainContainer(
@@ -285,7 +291,7 @@ class _RecipePageState extends State<RecipePage> {
 
   void _onValueChangeHandler(String val) {
     final mealState = context.read<MealsBloc>().state;
-    final mealId = mealState.getCurrentMealId;
+    final mealId = mealState.data.getCurrentMealId;
 
     final recipeId = _currentRecipeId;
 
@@ -295,19 +301,14 @@ class _RecipePageState extends State<RecipePage> {
     if (double.parse(val) == 0 || double.parse(val) < 0.1) return;
 
     context.read<RecipeBloc>().add(
-          RecipeEvent.servingChanged(
-            mealId: mealId,
-            servingAmount: double.parse(val),
-            recipeId: recipeId,
-          ),
-        );
+        RecipeEvent.servingChanged(mealId: mealId, servingAmount: double.parse(val), recipeId: recipeId));
   }
 
   void _recipeListener(BuildContext context, RecipeState state) {
     final recipe = state.mapOrNull(recipeInfo: (s) => s.data.recipe);
 
     if (recipe == null || _isLogRecipePressed) return;
-    final mealId = context.read<MealsBloc>().state.getCurrentMealId;
+    final mealId = context.read<MealsBloc>().state.data.getCurrentMealId;
 
     final isMealRecipe = widget.isMealRecipe ?? false;
 
@@ -324,7 +325,7 @@ class _RecipePageState extends State<RecipePage> {
   }
 
   void _recipeUpdatingListener(BuildContext context, RecipeState state) {
-    final mealId = context.read<MealsBloc>().state.getCurrentMealId;
+    final mealId = context.read<MealsBloc>().state.data.getCurrentMealId;
 
     if (mealId != null) {
       context.read<MealsBloc>().add(MealsEvent.fetchMealById(mealId));
@@ -370,11 +371,11 @@ class _RecipePageState extends State<RecipePage> {
         onItemTap: (SearchItem item) {
           final mealState = context.read<MealsBloc>().state;
           final recipeState = context.read<RecipeBloc>().state;
-          final mealId = mealState.getCurrentMealId;
+          final mealId = mealState.data.getCurrentMealId;
           final isMealRecipe = widget.isMealRecipe ?? false;
 
           final recipeId = !isMealRecipe
-              ? mealState.currentFoodItems
+              ? mealState.data.currentFoodItems
                   .firstWhere((element) =>
                       element.type == MealItemType.recipe &&
                       element.externalId == recipeState.externalRecipeId)
@@ -420,21 +421,4 @@ class _RecipePageState extends State<RecipePage> {
       ),
     );
   }
-
-  bool _whenMealsUpdated(MealsState previous, MealsState current) {
-    final externalRecipeId = context.read<RecipeBloc>().state.externalRecipeId;
-    final prevFoodItems = previous.currentFoodItems;
-    final curFoodItems = current.currentFoodItems;
-    if (curFoodItems.isNotEmpty) {
-      final newRecipeId = curFoodItems.firstWhere((element) => !prevFoodItems.contains(element));
-      if (newRecipeId.type == MealItemType.recipe && newRecipeId.externalId == externalRecipeId) {
-        setState(() {
-          internalRecipeId = newRecipeId.id;
-        });
-      }
-    }
-    return true;
-  }
-
-  void _mealsUpdatingListener(BuildContext context, MealsState state) {}
 }

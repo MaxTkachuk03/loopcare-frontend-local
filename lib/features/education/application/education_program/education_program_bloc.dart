@@ -18,7 +18,8 @@ part 'education_program_state.dart';
 class EducationProgramBloc extends Bloc<EducationProgramEvent, EducationProgramState> {
   final EducationService _educationService;
 
-  EducationProgramBloc(this._educationService) : super(const EducationProgramState.initial(EducationProgramData())) {
+  EducationProgramBloc(this._educationService)
+      : super(const EducationProgramState.initial(EducationProgramData())) {
     on<_GetLessons>(_onGetLessons);
     on<_ResetLessonWithCountdown>(_onResetLessonWithCountdown);
   }
@@ -32,8 +33,8 @@ class EducationProgramBloc extends Bloc<EducationProgramEvent, EducationProgramS
       (l) => emit(EducationProgramState.error(state.data.copyWith(isLoading: false, error: l))),
       (r) {
         final lessonWithCountdown = _onCalculateCountdown(currentNtpDate, r.lessons);
-        emit(EducationProgramState.educationProgram(
-            state.data.copyWith(isLoading: false, lessons: r.lessons, lessonWithCountdown: lessonWithCountdown)));
+        emit(EducationProgramState.educationProgram(state.data
+            .copyWith(isLoading: false, lessons: r.lessons, lessonWithCountdown: lessonWithCountdown)));
         emit(EducationProgramState.loaded(state.data.copyWith(isLoading: true, error: null)));
       },
     );
@@ -74,6 +75,7 @@ class EducationProgramBloc extends Bloc<EducationProgramEvent, EducationProgramS
   }
 
   FutureOr<void> _onResetLessonWithCountdown(event, Emitter<EducationProgramState> emit) async {
-    emit(EducationProgramState.educationProgram(state.data.copyWith(isLoading: false, lessonWithCountdown: null)));
+    emit(EducationProgramState.educationProgram(
+        state.data.copyWith(isLoading: false, lessonWithCountdown: null)));
   }
 }

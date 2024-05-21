@@ -27,22 +27,14 @@ class MealsList extends StatelessWidget {
       builder: (BuildContext context, state) {
         return state.maybeMap(
           mealsInfo: (mealsState) {
-            // --------------------------------------------- DO NOT REMOVE UNTIL USE OLD-STILE BLoC
-            var transactionTime = state.maybeMap(
-              mealsInfo: (s) {
-                return s.timeStamp;
-              },
-              orElse: () => null,
-            );
-            // --------------------------------------------- DO NOT REMOVE UNTIL USE OLD-STILE BLoC
-            return mealsState.currentFoodItems.isEmpty
+            return mealsState.data.currentFoodItems.isEmpty
                 ? const EmptyMeal()
                 : ListView.builder(
-                    itemCount: mealsState.currentFoodItems.length,
+                    itemCount: mealsState.data.currentFoodItems.length,
                     shrinkWrap: true,
                     physics: const NeverScrollableScrollPhysics(),
                     itemBuilder: (BuildContext context, int index) {
-                      final item = mealsState.currentFoodItems[index];
+                      final item = mealsState.data.currentFoodItems[index];
 
                       return FoodListItem(
                         foodItem: FoodItem(
@@ -54,7 +46,7 @@ class MealsList extends StatelessWidget {
                           serving: item.serving,
                         ),
                         excludedFromCalculations: item.excludedFromCalculations,
-                        nutritionKey: mealsState.currentNutritionType.name,
+                        nutritionKey: mealsState.data.currentNutritionType.name,
                         onDeletePressed: isActive ? _onDeletePressed : null,
                         onTap: isActive ? (BuildContext context) => _onTap(context, item) : null,
                       );
@@ -127,7 +119,7 @@ class MealsList extends StatelessWidget {
         initialCaloriesValue: item.serving.calories,
         foodItemName: item.name,
         onConfirm: (double numberOfUnits, String servingId) {
-          final mealId = context.read<MealsBloc>().state.mapOrNull(mealsInfo: (s) => s.currentMealId);
+          final mealId = context.read<MealsBloc>().state.data.currentMealId;
 
           if (mealId == null) return;
 

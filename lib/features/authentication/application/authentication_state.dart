@@ -70,9 +70,21 @@ class AuthenticationData with _$AuthenticationData {
 
   Buddy? get buddy => account?.buddy;
 
-  bool get isFoodLoggingUnlocked => unlockedFeatures.contains(UnlockedFeatureType.meals);
+  bool get isFoodLoggingUnlocked => unlockedFeatures.contains(UnlockedFeatureType.foodLogging);
 
-  bool get isGroupSessionsUnlocked => unlockedFeatures.contains(UnlockedFeatureType.grouping) && !disableGroupSessions;
+  bool get isCalorieDensityUnlocked => account?.isCalorieDensityUnlocked ?? false;
+
+  bool get isProteinDegreeUnlocked => account?.isProteinDegreeUnlocked ?? false;
+
+  bool get isCarbohydrateRatioUnlocked => account?.isCarbohydrateRatioUnlocked ?? false;
+
+  bool get isNutritionScalesLocked =>
+      !isCalorieDensityUnlocked && !isProteinDegreeUnlocked && !isCarbohydrateRatioUnlocked;
+
+  bool get isCalorieTrackerUnlocked => account?.isCalorieTrackerUnlocked ?? false;
+
+  bool get isGroupSessionsUnlocked =>
+      unlockedFeatures.contains(UnlockedFeatureType.grouping) && !disableGroupSessions;
 
   bool get isPhysicalActivitiesUnlocked => unlockedFeatures.contains(UnlockedFeatureType.physicalActivities);
 

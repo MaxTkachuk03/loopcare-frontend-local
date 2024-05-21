@@ -88,7 +88,7 @@ class NutritionValuesBlock extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
                     CustomText.w600(
-                      '$totalValue ${selectedNutritionType.unitLabel}',
+                      '$totalValue${selectedNutritionType.unitLabel}',
                       style: context.textTheme.bodySmall?.copyWith(
                         fontSize: ThemeConstants.fontSize12,
                       ),

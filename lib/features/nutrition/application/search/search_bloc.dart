@@ -63,7 +63,7 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
   List<String> _getRecentSearch({SearchMode? type}) {
     var list = <String>[];
     final userId = _authenticationBloc.state.data.id;
-    List<String> savedList = _sharedStorageService.searchValues(userId, type: type);
+    List<String> savedList = _sharedStorageService.searchValues(userId, type: type ?? SearchMode.food);
 
     list.add('header');
 

@@ -45,6 +45,30 @@ class MealsListItem with _$MealsListItem {
     return caloriesSum;
   }
 
+  double get fiberSum {
+    double fiberSum = 0;
+
+    for (var mealItem in mealItems) {
+      if (!mealItem.hasWeight || mealItem.excludedFromCalculations) continue;
+
+      fiberSum += mealItem.servingFiber;
+    }
+
+    return fiberSum;
+  }
+
+  double get carbohydratesSum {
+    double carbohydratesSum = 0;
+
+    for (var mealItem in mealItems) {
+      if (!mealItem.hasWeight || mealItem.excludedFromCalculations) continue;
+
+      carbohydratesSum += mealItem.servingCarbs;
+    }
+
+    return carbohydratesSum;
+  }
+
   double get weightSum {
     double weightSum = 0;
 
