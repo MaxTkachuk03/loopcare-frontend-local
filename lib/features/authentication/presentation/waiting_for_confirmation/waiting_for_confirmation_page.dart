@@ -103,8 +103,7 @@ class _WaitingForConfirmationPageState extends State<WaitingForConfirmationPage>
   @override
   Widget build(BuildContext context) {
     return BlocListener<AuthenticationBloc, AuthenticationState>(
-      listenWhen: (previous, current) =>
-          previous is WaitedConfirmationState && current is GuestAuthenticationState,
+      listenWhen: (previous, current) => current is GotAccountState,
       listener: _authenticatedListener,
       child: PopScope(
         canPop: false,

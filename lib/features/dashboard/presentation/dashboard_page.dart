@@ -71,13 +71,7 @@ class _DashboardPageState extends State<DashboardPage> with WidgetsBindingObserv
   }
 
   void _loadInitialData() {
-    context.read<AuthenticationBloc>().add(const AuthenticationEvent.getAccount());
-
     context.read<BmrBloc>().add(BmrEvent.getBmr(date: _selectedDay));
-
-    context
-        .read<DashboardWeightBloc>()
-        .add(DashboardWeightEvent.fetchWeights(_selectedDay.utsIsoStringWeekBeforeDateWithMidnightTime));
 
     context.read<MoodBloc>().add(
           MoodEvent.getMoods(
@@ -86,57 +80,38 @@ class _DashboardPageState extends State<DashboardPage> with WidgetsBindingObserv
           ),
         );
 
-    context
-        .read<DashboardEducationBloc>()
-        .add(DashboardEducationEvent.getDashboardLessons(currentDate: _selectedDay));
+    context.read<MealsBloc>().add(MealsEvent.setCurrentDate(_selectedDay));
 
-    context.read<EducationProgramBloc>().add(const EducationProgramEvent.getLessons());
-
-    context.read<MealsBloc>()
-      ..add(MealsEvent.setCurrentDate(_selectedDay))
-      ..add(MealsEvent.fetchMeals(
-          startDate: _selectedDay.subtract(const Duration(days: 8)), endDate: _selectedDay));
-
-    if (context.read<AuthenticationBloc>().state.data.isAssignmentsUnlocked) {
-      context.read<AssignmentsBloc>().add(
-            AssignmentsEvent.getAllLessonQuestions(
-              _selectedDay.firstDayOfPreviousWeek,
-              _selectedDay.lastDayOfCurrentWeek,
-            ),
-          );
-    }
-
-    if (context.read<AuthenticationBloc>().state.data.isSmartGoalUnlocked) {
-      context.read<SmartGoalsBloc>().add(const SmartGoalsEvent.getWeeklyGoals());
-    }
+    updateDashboardData(context.read<AuthenticationBloc>().state);
   }
 
   Future<void> _onRefresh() async {
     context.read<AuthenticationBloc>().add(const AuthenticationEvent.getAccount());
-    // TODO: /LOOPCARE-1893
-    //Need wait result this request
+  }
 
-    context
-        .read<DashboardWeightBloc>()
-        .add(DashboardWeightEvent.fetchWeights(_selectedDay.utsIsoStringWeekBeforeDateWithMidnightTime));
+  void updateDashboardData(AuthenticationState state) {
+    context.read<DashboardWeightBloc>().add(
+          DashboardWeightEvent.fetchWeights(_selectedDay.utsIsoStringWeekBeforeDateWithMidnightTime),
+        );
 
-    context
-        .read<DashboardEducationBloc>()
-        .add(DashboardEducationEvent.getDashboardLessons(currentDate: _selectedDay));
+    context.read<DashboardEducationBloc>().add(
+          DashboardEducationEvent.getDashboardLessons(currentDate: _selectedDay),
+        );
+
     context.read<EducationProgramBloc>().add(const EducationProgramEvent.getLessons());
 
-    if (context.read<AuthenticationBloc>().state.data.isFoodLoggingUnlocked) {
+    if (state.data.isFoodLoggingUnlocked) {
       context.read<MealsBloc>().add(MealsEvent.fetchMeals(
-            startDate: _selectedDay.subtract(const Duration(days: 8)),
-            endDate: _selectedDay,
-          ));
+          startDate: _selectedDay.subtract(const Duration(days: 8)),
+          endDate: _selectedDay,
+        ));
     }
 
-    if (context.read<AuthenticationBloc>().state.data.isGroupSessionsUnlocked) {
+    if (state.data.isGroupSessionsUnlocked) {
       context.read<TopicsBloc>().add(const TopicsEvent.fetchTopics());
     }
 
-    if (context.read<AuthenticationBloc>().state.data.isAssignmentsUnlocked) {
+    if (state.data.isAssignmentsUnlocked) {
       context.read<AssignmentsBloc>().add(
             AssignmentsEvent.getAllLessonQuestions(
               _selectedDay.firstDayOfPreviousWeek,
@@ -145,11 +120,17 @@ class _DashboardPageState extends State<DashboardPage> with WidgetsBindingObserv
           );
     }
 
-    if (context.read<AuthenticationBloc>().state.data.isSmartGoalUnlocked) {
+    if (state.data.isSmartGoalUnlocked) {
       context.read<SmartGoalsBloc>().add(
-            const SmartGoalsEvent.getWeeklyGoals(),
-          );
+        const SmartGoalsEvent.getWeeklyGoals(),
+      );
     }
+  }
+
+  void _accountListener(BuildContext context, AuthenticationState state) {
+    state.mapOrNull(
+      gotAccount: updateDashboardData,
+    );
   }
 
   void _onDaySelected(DateTime day) {
@@ -200,9 +181,17 @@ class _DashboardPageState extends State<DashboardPage> with WidgetsBindingObserv
 
   @override
   Widget build(BuildContext context) {
-    return BlocListener<DashboardWeightBloc, DashboardWeightState>(
-      listenWhen: (prev, cur) => prev is DashboardWeightStateLoading && cur is DashboardWeightStateUpdated,
-      listener: _weightLogChangedListener,
+    return MultiBlocListener(
+      listeners: [
+        BlocListener<AuthenticationBloc, AuthenticationState>(
+          listenWhen: (previous, current) => (ModalRoute.of(context)?.isCurrent ?? false),
+          listener: _accountListener,
+        ),
+        BlocListener<DashboardWeightBloc, DashboardWeightState>(
+          listenWhen: (prev, cur) => prev is DashboardWeightStateLoading && cur is DashboardWeightStateUpdated,
+          listener: _weightLogChangedListener,
+        ),
+      ],
       child: CustomScaffold.blue(
         body: CustomSafeArea(
           child: Column(

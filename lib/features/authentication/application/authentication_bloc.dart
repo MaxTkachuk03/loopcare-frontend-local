@@ -22,7 +22,6 @@ import 'package:loopcare_frontend/core/infrastructure/services/events.dart';
 import 'package:loopcare_frontend/core/infrastructure/services/firebase_event_service.dart';
 import 'package:loopcare_frontend/core/infrastructure/services/mixpanel_event_service.dart';
 import 'package:loopcare_frontend/core/infrastructure/services/shared_storage/shared_storage_service.dart';
-import 'package:loopcare_frontend/core/presentation/routes/app_router.dart';
 import 'package:loopcare_frontend/core/presentation/utils/string_extensions.dart';
 import 'package:loopcare_frontend/features/account/domain/user_grouping_state.dart';
 import 'package:loopcare_frontend/features/authentication/application/authentication_service.dart';
@@ -94,7 +93,7 @@ class AuthenticationBloc extends HydratedBloc<AuthenticationEvent, Authenticatio
     final data = AuthenticationData.fromJson(json);
 
     if (!data.accountId.isNegative) {
-      return AuthenticationState.authenticated(data);
+      return AuthenticationState.gotAccount(data);
     } else if (data.emailWasSend) {
       return AuthenticationState.waitedForConfirmation(data);
     } else {
@@ -142,22 +141,7 @@ class AuthenticationBloc extends HydratedBloc<AuthenticationEvent, Authenticatio
         emit(AuthenticationState.init(state.data));
         emit(AuthenticationState.guest(state.data.copyWith(error: error)));
       },
-      (response) {
-        //Todo hide subscription flow LOOPCARE-2197
-        // if (response.hasActiveSubscription) {
-        //   route = AppRoutes.home;
-        // } else {
-        //   route = AppRoutes.subscription;
-        // }
-        MixpanelEventService.instance.track(
-          AppMixpanelEvents.loginSuccess,
-          {
-            'userId': response.id,
-            'email': event.email,
-            'nextRoute': AppRoutes.home.toString(),
-          },
-        );
-
+      (response) async {
         final customerIoId = response.customerIoId ?? response.id.toString();
 
         CustomerIoService.userAuthenticated(
@@ -167,8 +151,8 @@ class AuthenticationBloc extends HydratedBloc<AuthenticationEvent, Authenticatio
           name: response.name,
         );
 
-        authTokenManager.setAccessToken(response.accessToken);
-        authTokenManager.setRefreshToken(response.refreshToken);
+        await authTokenManager.setAccessToken(response.accessToken);
+        await authTokenManager.setRefreshToken(response.refreshToken);
 
         _connectSockets();
 
@@ -184,6 +168,8 @@ class AuthenticationBloc extends HydratedBloc<AuthenticationEvent, Authenticatio
           subscription: response.subscription,
           createdAt: response.createdAt,
         );
+
+        add(const AuthenticationEvent.getAccount());
 
         emit(
           AuthenticationState.authenticated(
@@ -205,7 +191,9 @@ class AuthenticationBloc extends HydratedBloc<AuthenticationEvent, Authenticatio
     await _authenticationService.logout();
     await authTokenManager.removeAccessToken();
     await authTokenManager.removeRefreshToken();
+
     _sharedPref.removeAccount();
+
     emit(const AuthenticationState.guest(AuthenticationData()));
 
     _socketService.disconnect();
@@ -242,7 +230,7 @@ class AuthenticationBloc extends HydratedBloc<AuthenticationEvent, Authenticatio
           state.data.copyWith(error: error),
         ),
       ),
-      (response) {
+      (response) async {
         AnalyticsEventService.instance.logEvent(
           CIOEvents.onboardingNewUserCreated,
           parameters: {
@@ -257,8 +245,8 @@ class AuthenticationBloc extends HydratedBloc<AuthenticationEvent, Authenticatio
         CustomerIoService.setUserVerifiedState(verified: false);
         CustomerIoService.setUserId(id: response.id);
 
-        authTokenManager.setAccessToken(response.accessToken);
-        authTokenManager.setRefreshToken(response.refreshToken);
+        await authTokenManager.setAccessToken(response.accessToken);
+        await authTokenManager.setRefreshToken(response.refreshToken);
 
         final account = _sharedPref.account = Account(
           id: response.id,
@@ -272,6 +260,8 @@ class AuthenticationBloc extends HydratedBloc<AuthenticationEvent, Authenticatio
           subscription: response.subscription,
           createdAt: response.createdAt,
         );
+
+        add(const AuthenticationEvent.getAccount());
 
         emit(
           AuthenticationState.waitedForConfirmation(
@@ -615,7 +605,7 @@ class AuthenticationBloc extends HydratedBloc<AuthenticationEvent, Authenticatio
 
         _sharedPref.account = account;
 
-        emit(AuthenticationState.authenticated(state.data.copyWith(account: account)));
+        emit(AuthenticationState.gotAccount(state.data.copyWith(account: account)));
 
         add(const AuthenticationEvent.syncChatState());
       },

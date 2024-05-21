@@ -27,6 +27,10 @@ class SplashController {
     required this.legalStatementBloc,
   });
 
+  SharedStorageService get _storage => getIt<SharedStorageService>();
+
+  bool get isAuthorized => _storage.account != null;
+
   void initApp() {
     _getVersion();
     _connectSockets();
@@ -40,22 +44,14 @@ class SplashController {
   }
 
   Future<List<PageRouteInfo>> getRoute() async {
-    SharedStorageService storage = getIt<SharedStorageService>();
-
     authenticationBloc.add(const AuthenticationEvent.startTrackUser());
 
-    List<PageRouteInfo> routes = [];
-
-    if (storage.account != null) {
-      final authorisedRoute = await _getAuthorisedRoute(storage.account?.hasActiveSubscription ?? false);
-      routes = [authorisedRoute];
-    } else {
-      routes = _getOnboardingRoute();
-    }
+    final authorisedRoute = await _getAuthorisedRoute(_storage.account?.hasActiveSubscription ?? false);
+    final routes = [authorisedRoute];
 
     MixpanelEventService.instance.trackVisit(
       "${AppMixpanelEvents.appRote}: ${routes.last.routeName}",
-      userId: storage.account?.id ?? -1,
+      userId: _storage.account?.id ?? -1,
     );
 
     return routes;
@@ -65,6 +61,8 @@ class SplashController {
 
 
   void _connectSockets() => authenticationBloc.add(const AuthenticationEvent.connectSockets());
+
+  void getAccount() => authenticationBloc.add(const AuthenticationEvent.getAccount());
 
   Future<PageRouteInfo> _getAuthorisedRoute(bool hasActiveSubscription) async {
     AuthTokenManager authTokenManager = getIt<AuthTokenManager>();
@@ -81,7 +79,7 @@ class SplashController {
     }
   }
 
-  List<PageRouteInfo> _getOnboardingRoute() {
+  List<PageRouteInfo> getOnboardingRoute() {
     final authState = authenticationBloc.state;
     final onboardingState = onboardingBloc.state;
 
@@ -127,6 +125,11 @@ class SplashController {
     if (authState.data.emailWasSend) {
       needRoutes.add(const WaitingForConfirmationRoute());
     }
+
+    MixpanelEventService.instance.trackVisit(
+      "${AppMixpanelEvents.appRote}: ${needRoutes.last.routeName}",
+      userId: -1,
+    );
 
     return needRoutes;
   }

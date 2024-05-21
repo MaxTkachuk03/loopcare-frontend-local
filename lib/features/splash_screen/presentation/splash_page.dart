@@ -25,18 +25,29 @@ class SplashPage extends StatefulWidget {
 class _SplashPageState extends State<SplashPage> {
   late SplashController _controller;
 
-  Future<void> _initPackageInfo(BuildContext context, AppUpdateState state) async {
+  Future<void> _initPackageInfo(AppUpdateState state) async {
     FlutterNativeSplash.remove();
 
     if (state.data.needToUpdate) {
       AppUpdateBottomSheet.show();
+    } else if (_controller.isAuthorized) {
+      _controller.getAccount();
     } else {
-      final routes = await _controller.getRoute();
-
-      if (context.mounted) {
-        context.router.pushAll(routes);
-      }
+      _navigateUnauthorized();
     }
+  }
+
+  Future<void> _navigateAuthorized() async {
+    final routes = await _controller.getRoute();
+
+    if (context.mounted) {
+      context.router.pushAll(routes);
+    }
+  }
+
+  void _navigateUnauthorized() {
+    final routes = _controller.getOnboardingRoute();
+    context.router.pushAll(routes);
   }
 
   @override
@@ -64,12 +75,19 @@ class _SplashPageState extends State<SplashPage> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocListener<AppUpdateBloc, AppUpdateState>(
-      listener: (context, state) {
-        state.mapOrNull(
-          loaded: (state) => _initPackageInfo(context, state),
-        );
-      },
+    return MultiBlocListener(
+      listeners: [
+        BlocListener<AppUpdateBloc, AppUpdateState>(
+          listener: (context, state) => state.mapOrNull(
+              loaded: _initPackageInfo,
+            ),
+        ),
+        BlocListener<AuthenticationBloc, AuthenticationState>(
+          listener: (context, state) => state.mapOrNull(
+              gotAccount: (_) => _navigateAuthorized(),
+            ),
+        ),
+      ],
       child: CustomScaffold.green(),
     );
   }
