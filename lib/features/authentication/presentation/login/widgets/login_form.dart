@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loopcare_frontend/build_type.dart';
+import 'package:loopcare_frontend/core/infrastructure/services/events.dart';
+import 'package:loopcare_frontend/core/infrastructure/services/mixpanel_event_service.dart';
 import 'package:loopcare_frontend/core/presentation/alerting/show_app_snackbar.dart';
 import 'package:loopcare_frontend/core/presentation/buttons/custom_elevated_button.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
@@ -96,14 +98,22 @@ class _LoginFormState extends State<LoginForm> {
 
   void _navigationListener(BuildContext context, AuthenticationState state) {
     state.mapOrNull(
-      authenticated: (state) {
+      gotAccount: (value) {
         String route = AppRoutes.home;
-        //Todo hide subscription flow LOOPCARE-2197
         if ((state.data.account?.hasActiveSubscription ?? false) || !kIsProd) {
           route = AppRoutes.home;
         } else {
           route = AppRoutes.subscription;
         }
+
+        MixpanelEventService.instance.track(
+          AppMixpanelEvents.loginSuccess,
+          {
+            'userId': state.data.accountId,
+            'email': state.data.email,
+            'nextRoute': route,
+          },
+        );
 
         pushNamedAndClearStack(context, route);
       },
