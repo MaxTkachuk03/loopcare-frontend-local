@@ -76,7 +76,7 @@ class FoodLoggingDashboard extends StatelessWidget {
                   fiber: state.data.selectedDayMealFiber,
                   carbFiberRatio: state.data.selectedDayMealCarbFiberRatio,
                   carbsPercent: state.data.selectedDayMealCarbsPercent,
-                  totalCalories: state.data.selectedDayMealCalories,
+                  totalCalories: state.data.selectedDayMealTotalCaloriesWithDrinks,
                   totalCarbs: state.data.selectedDayMealTotalCarbs,
                   showCaloriesTracker: false,
                 ),

@@ -101,22 +101,6 @@ class MealsStateData with _$MealsStateData, NutritionUtils {
     return getCarbsPercent(carbsSum, calorieSum);
   }
 
-  double get totalCalories {
-    if (meals.isEmpty) return 0;
-
-    double calorieSum = 0;
-
-    final selectedDayMeals = meals[currentDateTime.isoStringWithoutTime] ?? <MealsListItem>[];
-
-    for (MealsListItem meal in selectedDayMeals) {
-      if (meal.loggingDate?.isSameDate(currentDateTime) ?? false) {
-        calorieSum += meal.caloriesSum;
-      }
-    }
-
-    return calorieSum;
-  }
-
   double get selectedDayMealTotalCarbs {
     if (meals.isEmpty) return 0;
 
@@ -151,7 +135,7 @@ class MealsStateData with _$MealsStateData, NutritionUtils {
     return getCarbsPercent(carbsSum, calorieSum);
   }
 
-  double get selectedDayMealCalories {
+  double get selectedDayMealTotalCaloriesWithDrinks {
     if (meals.isEmpty) return 0;
 
     double calorieSum = 0;
@@ -160,7 +144,7 @@ class MealsStateData with _$MealsStateData, NutritionUtils {
 
     for (MealsListItem meal in selectedDayMeals) {
       if (meal.loggingDate?.isSameDate(currentDateTime) ?? false) {
-        calorieSum += meal.caloriesSum;
+        calorieSum += meal.caloriesSumWithDrinks;
       }
     }
 
@@ -168,6 +152,7 @@ class MealsStateData with _$MealsStateData, NutritionUtils {
   }
 
   double get selectedDayMealProteinDegreeSum {
+    //
     if (meals.isEmpty) return 0;
 
     double caloriesSum = 0;
@@ -337,7 +322,7 @@ class MealsStateData with _$MealsStateData, NutritionUtils {
 
     if (currentMeal == null) return 0;
 
-    return currentMeal.caloriesSum;
+    return currentMeal.caloriesSumWithDrinks;
   }
 
   double get currentMealCarbsSum {

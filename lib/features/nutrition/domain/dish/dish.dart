@@ -26,8 +26,6 @@ class Dish with _$Dish, NutritionUtils {
     required ServingSize serving,
   }) = _Dish;
 
-  double get _servings => serving.numberOfUnits;
-
   double sumNutritionalProperty(double Function(DishFoodItem item) getProperty) {
     double sum = 0;
 
@@ -40,8 +38,7 @@ class Dish with _$Dish, NutritionUtils {
     return sum;
   }
 
-  double get caloriesSumWithDrinks =>
-      foodItems.fold<double>(0.0, (sum, i) => sum + (i.hasWeight ? i.servingCalories : 0.0));
+  double get caloriesSumWithDrinks => foodItems.fold<double>(0.0, (sum, i) => sum + (i.servingCalories));
 
   double get caloriesSum => sumNutritionalProperty((item) => item.servingCalories);
 
