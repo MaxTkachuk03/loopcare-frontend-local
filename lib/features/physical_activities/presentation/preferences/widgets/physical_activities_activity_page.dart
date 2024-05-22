@@ -17,7 +17,6 @@ import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 import 'package:loopcare_frontend/core/presentation/utils/build_context_extensions.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/main_container.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/scrollable_container.dart';
-import 'package:loopcare_frontend/features/education/application/education_lesson/education_lesson_bloc.dart';
 import 'package:loopcare_frontend/features/physical_activities/application/physical_activities_preferences/physical_activities_preferences_bloc.dart';
 import 'package:loopcare_frontend/features/physical_activities/presentation/preferences/widgets/activity_type_chips.dart';
 import 'package:loopcare_frontend/features/physical_activities/presentation/preferences/widgets/flexibility_chips.dart';
@@ -50,26 +49,14 @@ class _PhysicalActivitiesActivityTypePageState extends State<PhysicalActivitiesA
       return;
     }
 
-    final lessonBloc = context.read<EducationLessonBloc>();
-
-    if (lessonBloc.state.data.hasQuiz) {
-      context.router.push(QuizzesIntroRoute(lessonId: lessonBloc.state.data.lessonId));
-      return;
-    }
-
-    final isPhysicalActivitiesUnlocked =
-        getIt<SharedStorageService>().account?.isPhysicalActivitiesUnlocked ?? false;
-
-    if (lessonBloc.state.data.questions.isEmpty && isPhysicalActivitiesUnlocked) {
+    if (getIt<SharedStorageService>().account?.isPhysicalActivitiesUnlocked ?? false) {
       context.router.pushNamed(AppRoutes.physicalActivitiesComplete);
     }
   }
 
-  void _onNext() {
-    context
+  void _onNext() => context
         .read<PhysicalActivitiesPreferencesBloc>()
         .add(const PhysicalActivitiesPreferencesEvent.savePreferences());
-  }
 
   @override
   Widget build(BuildContext context) {

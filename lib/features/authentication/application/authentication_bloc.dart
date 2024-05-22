@@ -400,10 +400,30 @@ class AuthenticationBloc extends HydratedBloc<AuthenticationEvent, Authenticatio
     ChangeAccountGroupStatus event,
     Emitter<AuthenticationState> emit,
   ) {
-    state.whenOrNull(
-      authenticated: (data) {
+    final account = _sharedPref.account = _sharedPref.account?.copyWith(
+      groupingState: event.groupingState,
+    );
+
+    emit(
+      state.copyWith(
+        data: state.data.copyWith(
+          account: account,
+        ),
+      ),
+    );
+  }
+
+  FutureOr<void> _onUnlockFeature(
+    UnlockedFeature event,
+    Emitter<AuthenticationState> emit,
+  ) async {
+    final response = await _authenticationService.unlockFeature(event.feature);
+
+    response.fold(
+      (l) => null,
+      (r) {
         final account = _sharedPref.account = _sharedPref.account?.copyWith(
-          groupingState: event.groupingState,
+          features: r.features.where((feature) => feature.unlocked).toList(),
         );
 
         emit(
@@ -413,38 +433,10 @@ class AuthenticationBloc extends HydratedBloc<AuthenticationEvent, Authenticatio
             ),
           ),
         );
-      },
-    );
-  }
 
-  FutureOr<void> _onUnlockFeature(
-    UnlockedFeature event,
-    Emitter<AuthenticationState> emit,
-  ) async {
-    await state.whenOrNull(
-      authenticated: (data) async {
-        final response = await _authenticationService.unlockFeature(event.feature);
-
-        response.fold(
-          (l) => null,
-          (r) {
-            final account = _sharedPref.account = _sharedPref.account?.copyWith(
-              features: r.features.where((feature) => feature.unlocked).toList(),
-            );
-
-            emit(
-              state.copyWith(
-                data: state.data.copyWith(
-                  account: account,
-                ),
-              ),
-            );
-
-            if (event.feature.feature == UnlockedFeatureType.grouping.name) {
-              add(const AuthenticationEvent.changeAccountGroupStatus(UserGroupingState.unlockedPreferences));
-            }
-          },
-        );
+        if (event.feature.feature == UnlockedFeatureType.grouping.name) {
+          add(const AuthenticationEvent.changeAccountGroupStatus(UserGroupingState.unlockedPreferences));
+        }
       },
     );
   }

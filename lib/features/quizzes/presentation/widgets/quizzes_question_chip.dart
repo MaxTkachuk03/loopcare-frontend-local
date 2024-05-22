@@ -36,39 +36,29 @@ class QuizzesQuestionChip extends StatelessWidget {
   }
 
   _getBorderColor() {
-    final c = correct;
+    if (correct == null) return AppColors.blueRegular;
 
-    if (c == null) return AppColors.blueRegular;
+    if (correct!) return AppColors.greenRegular;
 
-    if (c) return AppColors.greenRegular;
-
-    if (!c) return AppColors.red;
+    if (!correct!) return AppColors.red;
   }
 
   @override
   Widget build(BuildContext context) {
-    return InkWell(
-      onTap: () => onSelected(label),
-      child: Container(
-        padding: const EdgeInsets.symmetric(horizontal: 25.0, vertical: 14.0),
-        decoration: BoxDecoration(
-          color: AppColors.transparent,
-          borderRadius: const BorderRadius.all(Radius.circular(25.0)),
-          border: Border.all(width: 2, color: _getBorderColor()),
+    return OutlinedButton.icon(
+      style: OutlinedButton.styleFrom(
+        padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 16.0),
+        side: BorderSide(width: 2, color: _getBorderColor()),
+        shape: const RoundedRectangleBorder(
+          borderRadius: BorderRadius.all(Radius.circular(26.0)),
         ),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            if (correct != null)
-              Padding(padding: const EdgeInsets.only(right: 8.0), child: _icon(correct ?? false)),
-            Expanded(
-              child: CustomText.w400(
-                label,
-                style: context.textTheme.bodyMedium,
-              ),
-            ),
-          ],
-        ),
+        alignment: Alignment.centerLeft
+      ),
+      onPressed: () => onSelected(label),
+      icon: correct != null ? _icon(correct ?? false) : const SizedBox.shrink(),
+      label: CustomText.w400(
+        label,
+        style: context.textTheme.bodyMedium,
       ),
     );
   }

@@ -37,7 +37,7 @@ class AnswerScale extends StatelessWidget {
   Widget build(BuildContext context) {
     return Form(
       key: controller.formKey,
-      onChanged: () => controller.isFormValid,
+      onChanged: controller.validateForm,
       child: Padding(
         padding: const EdgeInsets.symmetric(vertical: 30.0),
         child: Column(

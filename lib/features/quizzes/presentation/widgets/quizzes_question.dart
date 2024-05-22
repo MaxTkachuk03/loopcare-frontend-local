@@ -43,8 +43,8 @@ class _QuizzesQuestionState extends State<QuizzesQuestion> {
           physics: const NeverScrollableScrollPhysics(),
           shrinkWrap: true,
           itemCount: widget.question.lessonQuestionOptions.length,
-          separatorBuilder: (BuildContext context, int index) => const SizedBox(height: 8),
-          itemBuilder: (BuildContext context, int i) {
+          separatorBuilder: (context, index) => const SizedBox(height: 8),
+          itemBuilder: (context, i) {
             final el = widget.question.lessonQuestionOptions[i];
 
             return widget.mode.map(

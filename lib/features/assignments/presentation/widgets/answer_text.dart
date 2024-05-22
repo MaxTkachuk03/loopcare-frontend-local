@@ -33,7 +33,7 @@ class _AnswerTextState extends State<AnswerText> {
     super.initState();
 
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      widget.controller.isAnswerTextValid;
+      widget.controller.validateAnswer();
     });
   }
 
@@ -41,7 +41,7 @@ class _AnswerTextState extends State<AnswerText> {
   Widget build(BuildContext context) {
     return Form(
       key: widget.controller.formKey,
-      onChanged: () => widget.controller.isAnswerTextValid,
+      onChanged: widget.controller.validateAnswer,
       child: Padding(
         padding: const EdgeInsets.symmetric(vertical: 30.0),
         child: Column(

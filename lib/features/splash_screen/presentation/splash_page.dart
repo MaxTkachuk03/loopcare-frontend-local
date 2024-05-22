@@ -41,13 +41,13 @@ class _SplashPageState extends State<SplashPage> {
     final routes = await _controller.getRoute();
 
     if (context.mounted) {
-      context.router.pushAll(routes);
+      context.router.replaceAll(routes);
     }
   }
 
   void _navigateUnauthorized() {
     final routes = _controller.getOnboardingRoute();
-    context.router.pushAll(routes);
+    context.router.replaceAll(routes);
   }
 
   @override

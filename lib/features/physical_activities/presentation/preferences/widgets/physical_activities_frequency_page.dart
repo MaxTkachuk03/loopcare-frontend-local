@@ -17,8 +17,6 @@ import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 import 'package:loopcare_frontend/core/presentation/utils/build_context_extensions.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/main_container.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/scrollable_container.dart';
-import 'package:loopcare_frontend/features/authentication/application/authentication_bloc.dart';
-import 'package:loopcare_frontend/features/education/application/education_lesson/education_lesson_bloc.dart';
 import 'package:loopcare_frontend/features/physical_activities/application/physical_activities_preferences/physical_activities_preferences_bloc.dart';
 import 'package:loopcare_frontend/features/physical_activities/presentation/preferences/widgets/frequency_chips.dart';
 import 'package:loopcare_frontend/injection.dart';
@@ -51,7 +49,6 @@ class _PhysicalActivitiesFrequencyPageState extends State<PhysicalActivitiesFreq
   }
 
   void _onUpdateHandler(PhysicalActivitiesPreferencesState state) {
-    context.read<AuthenticationBloc>().add(const AuthenticationEvent.getAccount());
     if (widget.profileInvoke) {
       context.router.pop();
       return;
@@ -62,16 +59,7 @@ class _PhysicalActivitiesFrequencyPageState extends State<PhysicalActivitiesFreq
       return;
     }
 
-    final lessonBloc = context.read<EducationLessonBloc>();
-
-    if (lessonBloc.state.data.hasQuiz) {
-      context.router.push(QuizzesIntroRoute(lessonId: lessonBloc.state.data.lessonId));
-      return;
-    }
-
-    final isPhysicalActivitiesUnlocked = getIt<SharedStorageService>().account?.isPhysicalActivitiesUnlocked ?? false;
-
-    if (lessonBloc.state.data.questions.isEmpty && !isPhysicalActivitiesUnlocked) {
+    if (getIt<SharedStorageService>().account?.isPhysicalActivitiesUnlocked ?? false) {
       context.router.pushNamed(AppRoutes.physicalActivitiesComplete);
     }
   }

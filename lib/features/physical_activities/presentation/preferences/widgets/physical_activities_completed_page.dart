@@ -15,6 +15,8 @@ import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 import 'package:loopcare_frontend/core/presentation/utils/build_context_extensions.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/main_container.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/scrollable_container.dart';
+import 'package:loopcare_frontend/features/authentication/application/authentication_bloc.dart';
+import 'package:loopcare_frontend/features/education/application/education_lesson/education_lesson_bloc.dart';
 import 'package:loopcare_frontend/features/education/presentation/education_page/widgets/category_label.dart';
 import 'package:loopcare_frontend/features/education/presentation/lesson_complete_page/widgets/unlock_physical_activities_feature.dart';
 import 'package:loopcare_frontend/features/nutrition/application/dashboard_education/dashboard_education_bloc.dart';
@@ -28,7 +30,16 @@ class PhysicalActivitiesCompletePage extends StatefulWidget {
 
 class _PhysicalActivitiesCompletePageState extends State<PhysicalActivitiesCompletePage> {
 
+  @override
+  void initState() {
+    super.initState();
+    if (!context.read<EducationLessonBloc>().state.data.isLessonCompleted) {
+      context.read<EducationLessonBloc>().add(const EducationLessonEvent.completeLesson());
+    }
+  }
+
   _onPressHandler(BuildContext context) {
+    context.read<AuthenticationBloc>().add(const AuthenticationEvent.getAccount());
     context.read<DashboardEducationBloc>().add(const DashboardEducationEvent.getDashboardLessons());
     context.router.popUntilRouteWithName(HomeRoute.name);
   }
@@ -106,7 +117,7 @@ class _PhysicalActivitiesCompletePageState extends State<PhysicalActivitiesCompl
                   children: [
                     CustomElevatedButton.blueFullWidth(
                       onPressed: () => _onPressHandler(context),
-                      label: LocalizedTexts.backToToday.tr(),
+                      label: LocalizedTexts.backToEducation.tr(),
                     ),
                     const SizedBox(height: 30.0),
                   ],

@@ -70,9 +70,9 @@ class _QuizzesQuestionsPageState extends State<QuizzesQuestionsPage> {
     _onNextHandler();
   }
 
-  bool _nextStepListenWhen(QuizzesState previous, QuizzesState current) {
-    return previous is QuizzesStateLoading && current is QuizzesStateUpdated;
-  }
+  bool _nextStepListenWhen(QuizzesState previous, QuizzesState current) =>
+      (ModalRoute.of(context)?.isCurrent ?? false) &&
+          previous is QuizzesStateLoading && current is QuizzesStateUpdated;
 
   void _onStepChangeListener(BuildContext context, QuizzesState state) {
     state.maybeMap(
@@ -89,7 +89,7 @@ class _QuizzesQuestionsPageState extends State<QuizzesQuestionsPage> {
     });
 
     _controller.setLessonValue(item);
-    _controller.isFormValid;
+    _controller.validateForm();
   }
 
   void setStep(int currStep) {
@@ -172,17 +172,12 @@ class _QuizzesQuestionsPageState extends State<QuizzesQuestionsPage> {
                             loading: (_) => const Loader(),
                             orElse: () => Form(
                               key: _controller.formKey,
-                              onChanged: () => _controller.isFormValid,
-                              child: Column(
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                children: [
-                                  QuizzesQuestion(
-                                    selectedValue: _controller.selectLessonValue.value,
-                                    mode: mode,
-                                    question: state.data.questionForStep(widget.step),
-                                    onSelected: _onSelectedHandler,
-                                  ),
-                                ],
+                              onChanged: _controller.validateForm,
+                              child: QuizzesQuestion(
+                                selectedValue: _controller.selectLessonValue.value,
+                                mode: mode,
+                                question: state.data.questionForStep(widget.step),
+                                onSelected: _onSelectedHandler,
                               ),
                             ),
                           );
@@ -204,19 +199,18 @@ class _QuizzesQuestionsPageState extends State<QuizzesQuestionsPage> {
                               return Column(
                                 children: [
                                   ValueListenableBuilder<bool>(
-                                      valueListenable: _controller.isCorrect,
-                                      builder: (context, isCorrect, _) {
-                                        return CorrectIncorrectExplanation(
-                                          isCorrect: _controller.isFormValid,
-                                          text: _controller.isFormValid
-                                              ? state.data.questionForStep(widget.step).explanationCorrect ??
-                                                  LocalizedTexts.correct.tr()
-                                              : state.data
-                                                      .questionForStep(widget.step)
-                                                      .explanationIncorrect ??
-                                                  LocalizedTexts.incorrect.tr(),
-                                        );
-                                      }),
+                                    valueListenable: _controller.isCorrect,
+                                    builder: (context, isCorrect, _) {
+                                      return CorrectIncorrectExplanation(
+                                        isCorrect: isCorrect,
+                                        text: isCorrect
+                                            ? state.data.questionForStep(widget.step).explanationCorrect ??
+                                              LocalizedTexts.correct.tr()
+                                            : state.data.questionForStep(widget.step).explanationIncorrect ??
+                                              LocalizedTexts.incorrect.tr(),
+                                      );
+                                    },
+                                  ),
                                   const SizedBox(height: 24),
                                   CustomElevatedButton.blueFullWidth(
                                     onPressed: () => _saveOptionsField(state.data.lessonId),
