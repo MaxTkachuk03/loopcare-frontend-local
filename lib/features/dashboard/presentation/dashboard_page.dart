@@ -80,7 +80,10 @@ class _DashboardPageState extends State<DashboardPage> with WidgetsBindingObserv
           ),
         );
 
-    context.read<MealsBloc>().add(MealsEvent.setCurrentDate(_selectedDay));
+    context.read<MealsBloc>()
+      ..add(MealsEvent.setCurrentDate(_selectedDay))
+      ..add(MealsEvent.fetchMeals(
+          startDate: _selectedDay.subtract(const Duration(days: 8)), endDate: _selectedDay));
 
     updateDashboardData(context.read<AuthenticationBloc>().state);
   }
@@ -102,9 +105,9 @@ class _DashboardPageState extends State<DashboardPage> with WidgetsBindingObserv
 
     if (state.data.isFoodLoggingUnlocked) {
       context.read<MealsBloc>().add(MealsEvent.fetchMeals(
-          startDate: _selectedDay.subtract(const Duration(days: 8)),
-          endDate: _selectedDay,
-        ));
+            startDate: _selectedDay.subtract(const Duration(days: 8)),
+            endDate: _selectedDay,
+          ));
     }
 
     if (state.data.isGroupSessionsUnlocked) {
@@ -122,8 +125,8 @@ class _DashboardPageState extends State<DashboardPage> with WidgetsBindingObserv
 
     if (state.data.isSmartGoalUnlocked) {
       context.read<SmartGoalsBloc>().add(
-        const SmartGoalsEvent.getWeeklyGoals(),
-      );
+            const SmartGoalsEvent.getWeeklyGoals(),
+          );
     }
   }
 
@@ -188,7 +191,8 @@ class _DashboardPageState extends State<DashboardPage> with WidgetsBindingObserv
           listener: _accountListener,
         ),
         BlocListener<DashboardWeightBloc, DashboardWeightState>(
-          listenWhen: (prev, cur) => prev is DashboardWeightStateLoading && cur is DashboardWeightStateUpdated,
+          listenWhen: (prev, cur) =>
+              prev is DashboardWeightStateLoading && cur is DashboardWeightStateUpdated,
           listener: _weightLogChangedListener,
         ),
       ],

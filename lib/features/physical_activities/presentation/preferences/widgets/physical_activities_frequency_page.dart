@@ -34,9 +34,7 @@ class _PhysicalActivitiesFrequencyPageState extends State<PhysicalActivitiesFreq
   @override
   void initState() {
     super.initState();
-    context
-        .read<PhysicalActivitiesPreferencesBloc>()
-        .add(const PhysicalActivitiesPreferencesEvent.getPreferences());
+    context.read<PhysicalActivitiesPreferencesBloc>().add(const PhysicalActivitiesPreferencesEvent.getPreferences());
   }
 
   void _onErrorHandler(PhysicalActivitiesPreferencesState state) =>
@@ -67,16 +65,13 @@ class _PhysicalActivitiesFrequencyPageState extends State<PhysicalActivitiesFreq
   }
 
   void _onNext() {
-    context
-        .read<PhysicalActivitiesPreferencesBloc>()
-        .add(const PhysicalActivitiesPreferencesEvent.savePreferences());
+    context.read<PhysicalActivitiesPreferencesBloc>().add(const PhysicalActivitiesPreferencesEvent.savePreferences());
   }
 
   @override
   Widget build(BuildContext context) {
     return BlocListener<PhysicalActivitiesPreferencesBloc, PhysicalActivitiesPreferencesState>(
-      listenWhen: (prev, cur) =>
-          prev is Saving && context.router.current.name == PhysicalActivitiesFrequencyRoute.name,
+      listenWhen: (prev, cur) => prev is Saving && context.router.current.name == PhysicalActivitiesFrequencyRoute.name,
       listener: _onChangeListener,
       child: CustomScaffold(
         withBg: false,

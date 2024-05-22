@@ -19,7 +19,7 @@ class QuizzesQuestionChip extends StatelessWidget {
     this.correct,
     this.active,
     this.quiz,
-  });q
+  });
 
   Widget _icon(bool correct) {
     return correct
