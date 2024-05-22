@@ -9,6 +9,7 @@ class ScoringScale extends StatelessWidget {
   final List<String>? labels;
   final Color? borderColor;
   final Color? divColor;
+  final Color? textColor;
   final Color selectedColor;
 
   const ScoringScale({
@@ -17,6 +18,7 @@ class ScoringScale extends StatelessWidget {
     required this.onScoreTap,
     required this.selectedColor,
     this.scaleSize,
+    this.textColor,
     this.labels,
     this.borderColor,
     this.divColor,
@@ -31,6 +33,7 @@ class ScoringScale extends StatelessWidget {
         (index) => index == selectedScore
             ? Expanded(
                 child: SelectedCell(
+                  textColor: textColor,
                   selectedColor: selectedColor,
                   index: index,
                   label: labels?.elementAt(index),
@@ -39,6 +42,7 @@ class ScoringScale extends StatelessWidget {
             : Expanded(
                 child: RegularCell(
                   index: index,
+                  textColor: textColor,
                   onPress: onScoreTap,
                   scaleSize: scaleSize,
                   label: labels?.elementAt(index),

@@ -534,6 +534,7 @@ class LocalizedTexts {
   static const String completedIntroductionMessage2 = "completedIntroductionMessage2";
   static const String chooseTechnique = "chooseTechnique";
   static const String chooseExercise = "chooseExercise";
+  static const String startExercise = "startExercise";
   static const String selectedExercise = "selectedExercise";
 
   // Mood

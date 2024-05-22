@@ -13,7 +13,7 @@ class _VideoAppBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.fromLTRB(12.0, topPadding, 12.0, 0.0),
+      padding: EdgeInsets.fromLTRB(8.0, topPadding, 12.0, 0.0),
       color: Colors.black45,
       child: Row(
         children: [

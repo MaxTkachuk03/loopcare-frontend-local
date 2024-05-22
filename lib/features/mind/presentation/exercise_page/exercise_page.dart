@@ -35,13 +35,13 @@ class _ExercisePageState extends State<ExercisePage> with MindAnalyticsMixin {
   Widget build(BuildContext context) {
     final data = context.read<MindBloc>().state.data;
     final title = data.currentTechnique?.title ?? '';
-    final exercise = data.currentExercise!.exercise;
+    final steps = data.exerciseSteps;
     final exerciseTitle = data.currentExercise?.title ?? '';
     final difficulty = data.currentExercise?.difficulty;
 
     return MindContentScreen.exercise(
       title: title,
-      steps: [exercise],
+      steps: steps,
       contentTitle: exerciseTitle,
       difficulty: difficulty,
       onExerciseCompleted: () => _onExerciseCompleted(context),

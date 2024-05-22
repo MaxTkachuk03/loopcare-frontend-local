@@ -30,6 +30,8 @@ class MindStateData with _$MindStateData {
     @Default([]) List<MindTechniqueExercise> exercises,
     MindTechniqueExercise? currentExercise,
     @Default(false) bool isLoading,
+    int? scaleBeforeAnswer,
+    int? scaleAfterAnswer,
     RequestError? error,
   }) = _MindStateData;
 
@@ -46,4 +48,28 @@ class MindStateData with _$MindStateData {
   bool get isLastExercise => currentExercise?.id == exercises.last.id;
 
   bool get isConsecutiveUnlock => currentTechnique?.exerciseUnlockStyle == TechniqueExerciseUnlockStyle.consecutive;
+
+  List<MindExerciseStep> get exerciseSteps {
+    final List<MindExerciseStep> steps = [];
+
+    if (currentExercise?.scaleBeforeQuestion != null) {
+      steps.add(MindExerciseStep.rating(
+        src: currentExercise?.scaleBeforeQuestion ?? '',
+        lowestText: currentExercise?.scaleBeforeLowestText ?? '',
+        highestText: currentExercise?.scaleBeforeHighestText ?? '',
+      ));
+    }
+
+    steps.add(currentExercise!.exercise.toStep());
+
+    if (currentExercise?.scaleAfterQuestion != null) {
+      steps.add(MindExerciseStep.rating(
+        src: currentExercise?.scaleAfterQuestion ?? '',
+        lowestText: currentExercise?.scaleAfterLowestText ?? '',
+        highestText: currentExercise?.scaleAfterHighestText ?? '',
+      ));
+    }
+
+    return steps;
+  }
 }

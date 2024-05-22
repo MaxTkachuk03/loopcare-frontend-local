@@ -8,12 +8,14 @@ class SelectedCell extends StatelessWidget {
   final int index;
   final String? label;
   final Color selectedColor;
+  final Color? textColor;
 
   const SelectedCell({
     super.key,
     required this.index,
     required this.selectedColor,
     this.label,
+    this.textColor,
   });
 
   @override
@@ -27,7 +29,7 @@ class SelectedCell extends StatelessWidget {
       child: Center(
         child: CustomText.w700(
           label ?? '${index + 1}',
-          style: context.textTheme.bodyMedium,
+          style: context.textTheme.bodyMedium?.copyWith(color: textColor),
         ),
       ),
     );

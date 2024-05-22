@@ -20,9 +20,11 @@ import 'package:loopcare_frontend/features/mind/application/dto/mind_content.dar
 import 'package:loopcare_frontend/features/mind/application/dto/technique_exercise_difficulty.dart';
 import 'package:loopcare_frontend/features/mind/application/dto/technique_explanation_type.dart';
 import 'package:loopcare_frontend/features/mind/application/mind_bloc.dart';
+import 'package:loopcare_frontend/features/mind/application/ui_models/mind_exercise_step.dart';
 import 'package:loopcare_frontend/features/mind/domain/mind_utils.dart';
 import 'package:loopcare_frontend/features/mind/presentation/widgets/exercise_list_tile/exercise_list_tile.dart';
 import 'package:loopcare_frontend/features/mind/presentation/widgets/mind_difficulty_badge/mind_difficulty_badge.dart';
+import 'package:loopcare_frontend/features/mind/presentation/widgets/mind_rating_screen/mind_rating_screen.dart';
 import 'package:loopcare_frontend/features/mind/presentation/widgets/mind_text_screen/mind_text_screen.dart';
 import 'package:loopcare_frontend/features/mind/presentation/widgets/mind_video_screen/mind_video_screen.dart';
 
@@ -94,6 +96,16 @@ class _MindContentScreenState extends State<MindContentScreen> {
       _MindContentScreenType.intro => LocalizedTexts.start.tr(),
       _MindContentScreenType.explanation => LocalizedTexts.chooseExercise.tr(),
     };
+  }
+
+  void onPop() {
+    if (!_type.isExercise || currentStepIndex == 0) {
+      context.router.pop();
+    } else {
+      currentStepIndex--;
+
+      setState(() {});
+    }
   }
 
   void onStepComplete() {
@@ -205,8 +217,10 @@ class _MindContentScreenState extends State<MindContentScreen> {
     return switch (currentStep.type) {
       TechniqueExplanationType.video => MindVideoScreen(
         title: widget.title,
+        onPop: onPop,
         url: currentStep.src,
         onCompleted: onStepComplete,
+        videoOrientation: (currentStep.orientation?.isPortrait ?? false) ? Orientation.portrait : Orientation.landscape,
         onSkip: widget.onComplete,
         skipButtonLabel: skipButtonLabel,
         contentTitle: _getContentTitle(),
@@ -223,6 +237,15 @@ class _MindContentScreenState extends State<MindContentScreen> {
           type: _type,
           url: currentStep.image,
         ),
+      ),
+      TechniqueExplanationType.rating => MindRatingScreen(
+        title: widget.title,
+        onPop: onPop,
+        question: (currentStep as MindExerciseStep).src,
+        lowestText: currentStep.lowestText,
+        highestText: currentStep.highestText,
+        isFinish: currentStepIndex == steps.length - 1,
+        onCompleted: onStepComplete,
       ),
     };
   }

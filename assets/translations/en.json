@@ -505,6 +505,7 @@
   "unlocksAfterCompletionExercise": "Unlocks after completion of previous exercise",
   "intro": "Intro",
   "exercises": "Exercises",
+  "startExercise": "Start exercise",
   "countMins": "{} mins",
   "chooseAnExercise": "Choose an exercise",
   "completedExerciseMessage1": "Great! You completed",

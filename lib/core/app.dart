@@ -19,7 +19,6 @@ import 'package:loopcare_frontend/features/education/application/education_lesso
 import 'package:loopcare_frontend/injection.dart';
 import 'package:provider/provider.dart';
 
-
 final autoRouteObserver = AutoRouteObserver();
 
 class App extends StatelessWidget {
