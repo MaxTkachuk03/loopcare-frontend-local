@@ -1307,6 +1307,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.0.1"
+  license_generator:
+    dependency: "direct dev"
+    description:
+      name: license_generator
+      sha256: "147605cac9b1ca9ab7f52ed235498927fe7a9edaef56d1b4687f22b9b03f6bad"
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.0.5"
   linkify:
     dependency: transitive
     description:
