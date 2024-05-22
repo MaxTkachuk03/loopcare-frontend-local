@@ -17,6 +17,7 @@ import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 import 'package:loopcare_frontend/core/presentation/utils/build_context_extensions.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/main_container.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/scrollable_container.dart';
+import 'package:loopcare_frontend/features/authentication/application/authentication_bloc.dart';
 import 'package:loopcare_frontend/features/education/application/education_lesson/education_lesson_bloc.dart';
 import 'package:loopcare_frontend/features/physical_activities/application/physical_activities_preferences/physical_activities_preferences_bloc.dart';
 import 'package:loopcare_frontend/features/physical_activities/presentation/preferences/widgets/frequency_chips.dart';
@@ -35,9 +36,7 @@ class _PhysicalActivitiesFrequencyPageState extends State<PhysicalActivitiesFreq
   @override
   void initState() {
     super.initState();
-    context
-        .read<PhysicalActivitiesPreferencesBloc>()
-        .add(const PhysicalActivitiesPreferencesEvent.getPreferences());
+    context.read<PhysicalActivitiesPreferencesBloc>().add(const PhysicalActivitiesPreferencesEvent.getPreferences());
   }
 
   void _onErrorHandler(PhysicalActivitiesPreferencesState state) =>
@@ -52,6 +51,7 @@ class _PhysicalActivitiesFrequencyPageState extends State<PhysicalActivitiesFreq
   }
 
   void _onUpdateHandler(PhysicalActivitiesPreferencesState state) {
+    context.read<AuthenticationBloc>().add(const AuthenticationEvent.getAccount());
     if (widget.profileInvoke) {
       context.router.pop();
       return;
@@ -69,8 +69,7 @@ class _PhysicalActivitiesFrequencyPageState extends State<PhysicalActivitiesFreq
       return;
     }
 
-    final isPhysicalActivitiesUnlocked =
-        getIt<SharedStorageService>().account?.isPhysicalActivitiesUnlocked ?? false;
+    final isPhysicalActivitiesUnlocked = getIt<SharedStorageService>().account?.isPhysicalActivitiesUnlocked ?? false;
 
     if (lessonBloc.state.data.questions.isEmpty && !isPhysicalActivitiesUnlocked) {
       context.router.pushNamed(AppRoutes.physicalActivitiesComplete);
@@ -78,16 +77,13 @@ class _PhysicalActivitiesFrequencyPageState extends State<PhysicalActivitiesFreq
   }
 
   void _onNext() {
-    context
-        .read<PhysicalActivitiesPreferencesBloc>()
-        .add(const PhysicalActivitiesPreferencesEvent.savePreferences());
+    context.read<PhysicalActivitiesPreferencesBloc>().add(const PhysicalActivitiesPreferencesEvent.savePreferences());
   }
 
   @override
   Widget build(BuildContext context) {
     return BlocListener<PhysicalActivitiesPreferencesBloc, PhysicalActivitiesPreferencesState>(
-      listenWhen: (prev, cur) =>
-          prev is Saving && context.router.current.name == PhysicalActivitiesFrequencyRoute.name,
+      listenWhen: (prev, cur) => prev is Saving && context.router.current.name == PhysicalActivitiesFrequencyRoute.name,
       listener: _onChangeListener,
       child: CustomScaffold(
         withBg: false,
