@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:injectable/injectable.dart';
-import 'package:loopcare_frontend/core/presentation/localization/localization_constants.dart';
+import 'package:loopcare_frontend/core/infrastructure/services/country_code_service/country_code_service.dart';
 
 final GlobalKey<NavigatorState> kNavigatorKey = GlobalKey<NavigatorState>();
 
@@ -12,9 +12,9 @@ class AppConfig {
   String get projectName => 'LeanOnMe';
 
   String get baseUrl =>
-      LocalizationConstants.useUsServer ? dotenv.env['BASE_URL'] ?? "" : dotenv.env['BASE_URL_EU'] ?? "";
+      CountryCodeService.instance.useUsServer ? dotenv.env['BASE_URL'] ?? "" : dotenv.env['BASE_URL_EU'] ?? "";
 
-  String get region => LocalizationConstants.regionCode;
+  String get region => CountryCodeService.instance.countryCode;
 
   String get baseHost => Uri.parse(baseUrl).host;
 

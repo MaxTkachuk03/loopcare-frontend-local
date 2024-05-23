@@ -48,6 +48,10 @@ class SharedStorageService {
     }
   }
 
+  set countryCode(String? value) => _prefs.setValue('country_code', value);
+
+  String? get countryCode => _prefs.getValue<String?>('country_code');
+
   set storeVersion(int value) => _prefs.setValue('store_version', value);
 
   int get storeVersion => _prefs.getValue<int?>('store_version') ?? 1;
