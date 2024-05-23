@@ -8,6 +8,7 @@ import 'package:loopcare_frontend/core/application/app_update/app_update_bottom_
 import 'package:loopcare_frontend/core/infrastructure/services/network_service/network_service.dart';
 import 'package:loopcare_frontend/core/presentation/alerting/show_app_snackbar.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
+import 'package:loopcare_frontend/core/presentation/routes/app_router.dart';
 import 'package:loopcare_frontend/core/presentation/scaffold/custom_scaffold.dart';
 import 'package:loopcare_frontend/core/presentation/text/custom_text.dart';
 import 'package:loopcare_frontend/features/authentication/application/authentication_bloc.dart';
@@ -37,6 +38,16 @@ class _SplashPageState extends State<SplashPage> {
     }
   }
 
+  void _appUpdateErrorListener(AppUpdateState state) {
+    FlutterNativeSplash.remove();
+    _errorListener(state.data.error?.error);
+  }
+
+  void _errorListener(dynamic error) {
+    _navigateToIntro();
+    context.showError(content: CustomText(error?.toString() ?? LocalizedTexts.somethingWentWrong.tr()));
+  }
+
   Future<void> _navigateAuthorized() async {
     final routes = await _controller.getRoute();
 
@@ -49,6 +60,8 @@ class _SplashPageState extends State<SplashPage> {
     final routes = _controller.getOnboardingRoute();
     context.router.replaceAll(routes);
   }
+
+  void _navigateToIntro() => context.router.replaceNamed(AppRoutes.intro);
 
   @override
   void initState() {
@@ -80,11 +93,13 @@ class _SplashPageState extends State<SplashPage> {
         BlocListener<AppUpdateBloc, AppUpdateState>(
           listener: (context, state) => state.mapOrNull(
               loaded: _initPackageInfo,
+              error: _appUpdateErrorListener,
             ),
         ),
         BlocListener<AuthenticationBloc, AuthenticationState>(
           listener: (context, state) => state.mapOrNull(
               gotAccount: (_) => _navigateAuthorized(),
+              error: (state) => _errorListener(state.data.error?.error),
             ),
         ),
       ],

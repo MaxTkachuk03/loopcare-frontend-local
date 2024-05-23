@@ -8,7 +8,7 @@ extension SnackBarShortcuts on BuildContext {
   Future<T?> showError<T>({
     required Widget content,
     FlashPosition position = FlashPosition.top,
-    Duration duration = const Duration(seconds: 3),
+    Duration duration = const Duration(seconds: 5),
     Icon? icon = const Icon(Icons.error_outline),
     Color? indicatorColor = const Color(0xFFE57373),
     FlashBuilder<T>? primaryActionBuilder,
