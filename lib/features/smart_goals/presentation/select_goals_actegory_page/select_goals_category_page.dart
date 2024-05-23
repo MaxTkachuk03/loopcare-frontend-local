@@ -24,7 +24,7 @@ class SelectGoalsCategoryPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return CustomScaffold.greenLightest(
       appBar: CustomAppBar.green(
-        title: LocalizedTexts.addGoal.tr(),
+        title: LocalizedTexts.myGoals.tr(),
         leading: CustomFilledIconButton.leadingGreenLighter(),
       ),
       body: CustomSafeArea(
@@ -42,7 +42,7 @@ class SelectGoalsCategoryPage extends StatelessWidget {
                       LocalizedTexts.selectGoalsCategoryTitle.tr(),
                       style: context.textTheme.displayMedium,
                     ),
-                    const SizedBox(height: 21.0),
+                    const SizedBox(height: 28.0),
                     GoalsCategoriesList(
                       onPressed: (SmartGoalCategory value) => _onCategoryPressedHandler(context, value),
                     ),
