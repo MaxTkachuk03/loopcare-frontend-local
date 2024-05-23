@@ -563,7 +563,7 @@ class AuthenticationBloc extends HydratedBloc<AuthenticationEvent, Authenticatio
     final response = await _authenticationService.fetchAccount();
 
     response.fold(
-      (_) => null,
+      (l) => emit(AuthenticationState.error(state.data.copyWith(error: l))),
       (r) {
         final account = Account(
           id: r.id,
