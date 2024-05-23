@@ -9,6 +9,35 @@ class LocalizationConstants {
 
   static const Locale localeDutch = Locale('nl');
 
+  static const List<String> _usCodes = [
+    'US',
+    'CA',
+    'CU',
+    'MX',
+    'GT',
+    'NI',
+    'CR',
+    'PA',
+    'CO',
+    'VE',
+    'EC',
+    'GY',
+    'SR',
+    'GF',
+    'PE',
+    'BR',
+    'BO',
+    'PY',
+    'CL',
+    'AR',
+    'UY',
+  ];
+  static get regionCode => WidgetsBinding.instance.platformDispatcher.locale.countryCode;
+
+  static get useUsServer => _usCodes.contains(regionCode);
+
+  static String get serverCountryCode => useUsServer ? 'US' : 'EU';
+
   // TODO comment other languages before get translations
   static const List<Locale> supportedLocales = [
     localeEnglish,

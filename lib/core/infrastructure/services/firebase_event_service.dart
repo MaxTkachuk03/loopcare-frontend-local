@@ -3,7 +3,7 @@ import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:get_it/get_it.dart';
 import 'package:loopcare_frontend/core/domain/analytics/firebase_event_custom_definitions.dart';
 import 'package:loopcare_frontend/core/domain/analytics/firebase_event_list.dart';
-import 'package:loopcare_frontend/core/infrastructure/services/country_code_service/country_code_service.dart';
+import 'package:loopcare_frontend/core/presentation/localization/localization_constants.dart';
 import 'package:loopcare_frontend/features/authentication/application/authentication_bloc.dart';
 import 'package:loopcare_frontend/features/education/application/dto/lesson_page.dart';
 import 'package:loopcare_frontend/features/education/domain/education_lesson_page_type.dart';
@@ -24,7 +24,7 @@ class AnalyticsEventService {
   }) async {
     final userId = _authBloc?.state.data.accountId ?? -1;
 
-    final userIdPrefix = CountryCodeService.instance.serverCountryCode;
+    final userIdPrefix = LocalizationConstants.serverCountryCode;
 
     Map<String, dynamic> tmpParameters = Map.from(parameters ?? {});
     tmpParameters[CustomDefinitions.userId] = '$userId-$userIdPrefix';
