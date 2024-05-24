@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
+import 'package:loopcare_frontend/core/application/customer_io_service/customer_io_service.dart';
 import 'package:loopcare_frontend/core/domain/analytics/firebase_event_custom_definitions.dart';
 import 'package:loopcare_frontend/core/domain/analytics/firebase_event_list.dart';
 import 'package:loopcare_frontend/core/infrastructure/dio_client/request_error.dart';
@@ -177,6 +178,26 @@ class MindBloc extends Bloc<MindEvent, MindState> {
   ) async {
     final scaleAfterAnswer = event.isAfter ? event.value : state.data.scaleAfterAnswer;
     final scaleBeforeAnswer = !event.isAfter ? event.value : state.data.scaleBeforeAnswer;
+    final logEventName = event.isAfter ? FirebaseEvents.mindRatingBeforeExercise : FirebaseEvents.mindRatingAfterExercise;
+
+    AnalyticsEventService.instance.logEvent(
+      logEventName,
+      parameters: {
+        CustomDefinitions.techniqueId: state.data.currentTechnique?.id ?? 0,
+        CustomDefinitions.exerciseId: state.data.currentExercise?.id ?? 0,
+        CustomDefinitions.value: event.value,
+        CustomDefinitions.timestamp: DateTime.now().toIso8601String(),
+      },
+    );
+
+    CustomerIoService.track(
+      event: logEventName,
+      attributes: {
+        CustomDefinitions.techniqueId: state.data.currentTechnique?.id ?? 0,
+        CustomDefinitions.exerciseId: state.data.currentExercise?.id ?? 0,
+        CustomDefinitions.value: event.value,
+      }
+    );
 
     emit(
       MindState.exerciseSelected(
