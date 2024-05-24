@@ -29,13 +29,19 @@ class _ExercisePageState extends State<ExercisePage> with MindAnalyticsMixin {
     track(FirebaseEvents.mindOpenExercise);
   }
 
-  void _onExerciseCompleted(BuildContext context) {
+  void _onExerciseCompleted() {
     context.read<MindBloc>().add(const MindEvent.completeCurrentExercise());
 
     track(FirebaseEvents.mindCompletedExercise);
   }
 
-  void _onRepeat() => track(FirebaseEvents.mindRepeatedExercise);
+  void _onRepeat() {
+    final bloc = context.read<MindBloc>();
+
+    bloc.add(MindEvent.selectExercise(exercise: bloc.state.data.currentExercise!));
+
+    track(FirebaseEvents.mindRepeatedExercise);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -51,7 +57,7 @@ class _ExercisePageState extends State<ExercisePage> with MindAnalyticsMixin {
       stepIndex: widget.step,
       contentTitle: exerciseTitle,
       difficulty: difficulty,
-      onExerciseCompleted: () => _onExerciseCompleted(context),
+      onExerciseCompleted: _onExerciseCompleted,
       onRepeat: _onRepeat,
     );
   }
