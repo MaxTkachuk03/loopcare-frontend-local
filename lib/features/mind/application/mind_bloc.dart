@@ -93,8 +93,8 @@ class MindBloc extends Bloc<MindEvent, MindState> {
     final techniqueId = state.data.currentTechnique?.id;
     final exerciseId = state.data.currentExercise?.id;
     final data = CompleteExerciseData(
-      scaleBeforeAnswer: state.data.scaleBeforeAnswer ?? 1,
-      scaleAfterAnswer: state.data.scaleAfterAnswer ?? 1,
+      scaleBeforeAnswer: state.data.scaleBeforeAnswer,
+      scaleAfterAnswer: state.data.scaleAfterAnswer,
     );
 
     if (techniqueId == null || exerciseId == null) {
