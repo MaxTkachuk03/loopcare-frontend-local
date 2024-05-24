@@ -1,17 +1,17 @@
 import 'dart:io';
 
+import 'package:device_info_plus/device_info_plus.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:loopcare_frontend/build_type.dart';
-import 'package:mixpanel_analytics/mixpanel_analytics.dart' as analytic;
+import 'package:mixpanel_flutter/mixpanel_flutter.dart';
 import 'package:package_info_plus/package_info_plus.dart';
-import 'package:device_info_plus/device_info_plus.dart';
 import 'package:uuid/uuid.dart';
 
 String _kToken = '';
 
 class MixpanelManager {
-  late analytic.MixpanelAnalytics _mixpanel;
+  late Mixpanel _mixpanel;
   late PackageInfo packageInfo;
 
   String distinctId = const Uuid().v4();
@@ -20,26 +20,19 @@ class MixpanelManager {
 
   Future<void> init() async {
     _kToken = dotenv.env['MIXPANEL_TOKEN'] ?? "";
-
     if (!kIsWeb) {
       _initMobile();
     }
   }
 
-  Future<analytic.MixpanelAnalytics> _initMobile() async {
-    // ignore: join_return_with_assignment
-    _mixpanel = analytic.MixpanelAnalytics(
-      token: _kToken,
-      useIp: true,
-    );
+  Future<void> _initMobile() async {
+    _mixpanel = await Mixpanel.init(_kToken, trackAutomaticEvents: false);
     packageInfo = await PackageInfo.fromPlatform();
-
-    return _mixpanel;
   }
 
   void track(String eventName, Map<String, dynamic>? data) => _trackForMobile(eventName, data);
 
-  Future<bool> _trackForMobile(
+  void _trackForMobile(
     String eventName,
     Map<String, dynamic>? data,
   ) async {
@@ -63,8 +56,7 @@ class MixpanelManager {
 
     data.addAll(deviceData);
 
-    // ignore: unnecessary_await_in_return
-    return await _mixpanel.track(event: eventName, properties: data);
+    _mixpanel.track(eventName, properties: data);
   }
 
   Map<String, dynamic> _readAndroidBuildData(AndroidDeviceInfo build) {

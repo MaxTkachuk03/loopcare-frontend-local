@@ -1,5 +1,5 @@
 name: loopcare_frontend
-version: 1.2.6+192
+version: 1.2.7+193
 publish_to: none
 description: Lean on me
 environment:
@@ -53,7 +53,6 @@ dependencies:
   just_audio_background: ^0.0.1-beta.11
   lint: 2.0.1
   mime: ^1.0.4
-  mixpanel_analytics: 2.1.1
   mixpanel_flutter: ^2.2.0
   flutter_native_splash: ^2.4.0
   package_info_plus: ^3.1.0

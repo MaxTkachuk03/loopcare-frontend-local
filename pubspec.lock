@@ -1411,14 +1411,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.0.5"
-  mixpanel_analytics:
-    dependency: "direct main"
-    description:
-      name: mixpanel_analytics
-      sha256: "24820dd2ff40143da94d4efe8cfb7fa0124752dd5c07e8685a814ca09c2e8cf5"
-      url: "https://pub.dev"
-    source: hosted
-    version: "2.1.1"
   mixpanel_flutter:
     dependency: "direct main"
     description:
