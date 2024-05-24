@@ -116,7 +116,11 @@ class _MindContentScreenState extends State<MindContentScreen> {
   }
 
   void onRepeat() {
-    context.router.push(ExerciseRoute());
+    context.router.popUntil((route) {
+        final args = route.settings.arguments;
+        return args is ExerciseRouteArgs && args.step == null;
+      });
+
     widget.onRepeat?.call();
   }
 
