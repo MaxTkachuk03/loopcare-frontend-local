@@ -1,3 +1,4 @@
+import 'package:auto_route/annotations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loopcare_frontend/core/domain/analytics/firebase_event_list.dart';
@@ -6,7 +7,12 @@ import 'package:loopcare_frontend/features/mind/domain/mind_analytics_mixin/mind
 import 'package:loopcare_frontend/features/mind/presentation/widgets/mind_content_screen/mind_content_screen.dart';
 
 class ExercisePage extends StatefulWidget {
-  const ExercisePage({super.key});
+  const ExercisePage({
+    super.key,
+    @queryParam this.step = 1,
+  });
+
+  final int step;
 
   @override
   State<ExercisePage> createState() => _ExercisePageState();
@@ -42,6 +48,7 @@ class _ExercisePageState extends State<ExercisePage> with MindAnalyticsMixin {
     return MindContentScreen.exercise(
       title: title,
       steps: steps,
+      stepIndex: widget.step,
       contentTitle: exerciseTitle,
       difficulty: difficulty,
       onExerciseCompleted: () => _onExerciseCompleted(context),
