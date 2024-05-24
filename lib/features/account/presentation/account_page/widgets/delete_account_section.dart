@@ -70,12 +70,26 @@ class _DeleteAccountSectionState extends State<DeleteAccountSection> {
         ),
       );
 
+  void _confirmDelete() => ModalBottomSheet.deleteAccount(
+        context: context,
+        noActiveSubscription: true,
+        onDeleted: () {
+          context.read<AuthenticationBloc>().add(const AuthenticationEvent.deleteAccount());
+          AnalyticsEventService.instance.logEvent(
+            FirebaseEvents.deleteAccount,
+            parameters: {
+              CustomDefinitions.timestamp: DateTime.now().toIso8601String(),
+              CustomDefinitions.confirmed: true,
+            },
+          );
+        },
+        onSubscriptionPref: () {},
+      );
+
   @override
   Widget build(BuildContext context) {
     return AccountContainer(
-      child:
-          //Todo hide subscription flow LOOPCARE-2197
-          BlocListener<SubscriptionBloc, SubscriptionState>(
+      child: BlocListener<SubscriptionBloc, SubscriptionState>(
         listener: (context, state) => state.maybeMap(
           error: (state) => _errorListener,
           gotAccountSubscription: (state) => _onDeleteAccountPressed(context, !state.data.hasSubscription, state),
@@ -85,9 +99,8 @@ class _DeleteAccountSectionState extends State<DeleteAccountSection> {
           children: [
             CustomOutlinedButton.coralFullWidth(
               onPressed: () => kIsProd
-                  //Todo hide subscription flow LOOPCARE-2197
                   ? context.read<SubscriptionBloc>().add(const SubscriptionEvent.getAccountSubscription())
-                  : context.read<AuthenticationBloc>().add(const AuthenticationEvent.deleteAccount()),
+                  : _confirmDelete(),
               label: LocalizedTexts.deleteAccount.tr(),
             ),
           ],

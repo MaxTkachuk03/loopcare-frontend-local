@@ -608,17 +608,13 @@ class AuthenticationBloc extends HydratedBloc<AuthenticationEvent, Authenticatio
     DeleteAccount event,
     Emitter<AuthenticationState> emit,
   ) async {
-    await state.mapOrNull(
-      authenticated: (state) async {
-        final response = await _authenticationService.deleteAccount();
+    final response = await _authenticationService.deleteAccount();
 
-        response.fold(
-          (l) => null,
-          (r) {
-            _sharedPref.cleanStorage();
-            add(const AuthenticationEvent.logout());
-          },
-        );
+    response.fold(
+      (l) => null,
+      (r) {
+        _sharedPref.cleanStorage();
+        add(const AuthenticationEvent.logout());
       },
     );
   }
