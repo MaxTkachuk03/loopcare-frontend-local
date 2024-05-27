@@ -41,18 +41,6 @@ class MindRatingScreen extends StatefulWidget {
 class _MindRatingScreenState extends State<MindRatingScreen> {
   final ValueNotifier<int?> _scoreListener = ValueNotifier(null);
 
-  @override
-  void initState() {
-    super.initState();
-    final data = context.read<MindBloc>().state.data;
-
-    if (widget.isFinish) {
-      _scoreListener.value = data.scaleAfterAnswer;
-    } else {
-      _scoreListener.value = data.scaleBeforeAnswer;
-    }
-  }
-
   void _onNextPressed(int? value) {
     context.read<MindBloc>().add(
       MindEvent.addRating(
@@ -66,68 +54,77 @@ class _MindRatingScreenState extends State<MindRatingScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return CustomScaffold.petrol(
-      appBar: CustomAppBar.petrol(
-        title: widget.title,
-        leading: CustomFilledIconButton.leadingPetrolLighter(),
-      ),
-      body: BottomPlacedButton.petrol(
-        body: MainContainer(
-          child: Column(
-            children: [
-              const Spacer(flex: 4),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 20.0),
-                child: CustomText.bitter400(
-                  widget.question,
-                  style: context.textTheme.displayLarge?.copyWith(color: AppColors.white, height: 1.3),
-                  textAlign: TextAlign.center,
-                ),
-              ),
-              const SizedBox(height: 48),
-              Container(
-                height: 66,
-                alignment: Alignment.center,
-                child: ValueListenableBuilder<int?>(
-                  valueListenable: _scoreListener,
-                  builder: (context, value, _) => ScoringScale(
-                    selectedScore: value,
-                    selectedColor: AppColors.yellowOffRegular,
-                    textColor: AppColors.white,
-                    scaleSize: 11,
-                    labels: List.generate(11, (index) => index.toString()),
-                    borderColor: AppColors.white,
-                    divColor: AppColors.white,
-                    onScoreTap: (tabIndex) => _scoreListener.value = tabIndex,
-                  ),
-                ),
-              ),
-              const SizedBox(height: 12),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  CustomText.w600(
-                    widget.lowestText ?? '',
-                    style: context.textTheme.bodyMedium?.copyWith(color: AppColors.white),
-                  ),
-                  CustomText.w600(
-                    widget.highestText ?? '',
-                    style: context.textTheme.bodyMedium?.copyWith(color: AppColors.white),
-                  ),
-                ],
-              ),
-              const Spacer(flex: 5),
-            ],
-          ),
+    return BlocListener<MindBloc, MindState>(
+      listener: (context, state) {
+        if (widget.isFinish) {
+          _scoreListener.value = state.data.scaleAfterAnswer;
+        } else {
+          _scoreListener.value = state.data.scaleBeforeAnswer;
+        }
+      },
+      child: CustomScaffold.petrol(
+        appBar: CustomAppBar.petrol(
+          title: widget.title,
+          leading: CustomFilledIconButton.leadingPetrolLighter(),
         ),
-        button:  ValueListenableBuilder<int?>(
-          valueListenable: _scoreListener,
-          builder: (context, value, _) {
-            return CustomElevatedButton.yellowFullWidth(
-              onPressed: value != null ? () => _onNextPressed(value) : null,
-              label: widget.isFinish ? LocalizedTexts.next.tr() : LocalizedTexts.startExercise.tr(),
-            );
-          },
+        body: BottomPlacedButton.petrol(
+          body: MainContainer(
+            child: Column(
+              children: [
+                const Spacer(flex: 4),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                  child: CustomText.bitter400(
+                    widget.question,
+                    style: context.textTheme.displayLarge?.copyWith(color: AppColors.white, height: 1.3),
+                    textAlign: TextAlign.center,
+                  ),
+                ),
+                const SizedBox(height: 48),
+                Container(
+                  height: 66,
+                  alignment: Alignment.center,
+                  child: ValueListenableBuilder<int?>(
+                    valueListenable: _scoreListener,
+                    builder: (context, value, _) => ScoringScale(
+                      selectedScore: value,
+                      selectedColor: AppColors.yellowOffRegular,
+                      textColor: AppColors.white,
+                      scaleSize: 11,
+                      labels: List.generate(11, (index) => index.toString()),
+                      borderColor: AppColors.white,
+                      divColor: AppColors.white,
+                      onScoreTap: (tabIndex) => _scoreListener.value = tabIndex,
+                    ),
+                  ),
+                ),
+                const SizedBox(height: 12),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    CustomText.w600(
+                      widget.lowestText ?? '',
+                      style: context.textTheme.bodyMedium?.copyWith(color: AppColors.white),
+                    ),
+                    CustomText.w600(
+                      widget.highestText ?? '',
+                      style: context.textTheme.bodyMedium?.copyWith(color: AppColors.white),
+                    ),
+                  ],
+                ),
+                const Spacer(flex: 5),
+              ],
+            ),
+          ),
+          button:  ValueListenableBuilder<int?>(
+            valueListenable: _scoreListener,
+            builder: (context, value, _) {
+              return CustomElevatedButton.yellowFullWidth(
+                onPressed: value != null ? () => _onNextPressed(value) : null,
+                label: widget.isFinish ? LocalizedTexts.next.tr() : LocalizedTexts.startExercise.tr(),
+              );
+            },
+          ),
         ),
       ),
     );

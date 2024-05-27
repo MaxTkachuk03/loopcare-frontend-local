@@ -9,10 +9,10 @@ import 'package:loopcare_frontend/features/mind/presentation/widgets/mind_conten
 class ExercisePage extends StatefulWidget {
   const ExercisePage({
     super.key,
-    @queryParam this.step,
+    @queryParam this.step = 1,
   });
 
-  final int? step;
+  final int step;
 
   @override
   State<ExercisePage> createState() => _ExercisePageState();
@@ -54,7 +54,7 @@ class _ExercisePageState extends State<ExercisePage> with MindAnalyticsMixin {
     return MindContentScreen.exercise(
       title: title,
       steps: steps,
-      stepIndex: widget.step ?? 1,
+      stepIndex: widget.step,
       contentTitle: exerciseTitle,
       difficulty: difficulty,
       onExerciseCompleted: _onExerciseCompleted,
