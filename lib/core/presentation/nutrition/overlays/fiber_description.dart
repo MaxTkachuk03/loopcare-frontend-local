@@ -50,6 +50,9 @@ class FiberDescription extends StatelessWidget {
 
   String get _fiberDailyGoal => '${account?.fiberDailyGoal}';
 
+  String get _bottomLabel =>
+      (isFiberInsignificant ?? false) ? LocalizedTexts.notSignificant.tr() : fiberItem.label.tr();
+
   void _openLesson(BuildContext context) {
     context
         .read<EducationLessonBloc>()
@@ -85,7 +88,7 @@ class FiberDescription extends StatelessWidget {
                   NutritionIndicator.big(label: _indicatorLabel, color: _indicatorColor),
                   const SizedBox(height: 8),
                   CustomText.w600(
-                    fiberItem.label.tr(),
+                    _bottomLabel,
                     style: context.textTheme.bodyMedium,
                     textAlign: TextAlign.center,
                   ),
