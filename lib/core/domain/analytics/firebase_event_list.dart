@@ -66,6 +66,7 @@ class FirebaseEvents {
   static String get userOpenedChat => 'user_opened_chat';
   static String get userLeavesChat => 'user_leaves_chat';
 
+  // Mind
   static String get userConfirmedDoctorConsent => 'user_confirmed_doctor_consent';
   static String get mindOpen => 'mind_open_section';
   static String get mindClose => 'mind_close_section';
@@ -78,6 +79,8 @@ class FirebaseEvents {
   static String get mindRepeatedExercise => 'mind_repeated_exercise';
   static String get mindRatingBeforeExercise => 'mind_exercise_rating_before_assessment';
   static String get mindRatingAfterExercise => 'mind_exercise_rating_after_assessment';
+  static String get mindTechniqueExplanation => 'mind_open_technique_explanation';
+  static String get mindCloseTechniqueExplanation => 'mind_close_technique_explanation';
 
   // Smart goals
   static String get userSavedGoals => 'user_saved_goals';
