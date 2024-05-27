@@ -116,12 +116,12 @@ class _MindContentScreenState extends State<MindContentScreen> {
   }
 
   void onRepeat() {
-    context.router.popUntil((route) {
-        final args = route.settings.arguments;
-        return args is ExerciseRouteArgs && args.step == null;
-      });
-
     widget.onRepeat?.call();
+
+    context.router.popUntil((route) {
+      final args = route.settings.arguments;
+      return args is ExerciseRouteArgs && args.step == 1;
+    });
   }
 
   RichText _getContentTitle() {
