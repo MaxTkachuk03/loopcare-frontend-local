@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
+import 'package:loopcare_frontend/core/application/customer_io_service/customer_io_service.dart';
 import 'package:loopcare_frontend/core/domain/analytics/firebase_event_custom_definitions.dart';
 import 'package:loopcare_frontend/core/domain/analytics/firebase_event_list.dart';
 import 'package:loopcare_frontend/core/infrastructure/dio_client/request_error.dart';
@@ -25,12 +26,17 @@ class MindBloc extends Bloc<MindEvent, MindState> {
   final MindService _mindService;
 
   MindBloc(this._mindService) : super(const MindState.initial(MindStateData())) {
+    on<InitMind>(_onInitMind);
     on<GetTechniques>(_onGetTechniques);
     on<GetExercises>(_onGetExercises);
     on<CompleteCurrentExercise>(_onCompleteCurrentExercise);
     on<UnlockNextExercise>(_onUnlockNextExercise);
     on<SelectExercise>(_onSelectExercise);
     on<AddRating>(_onAddRating);
+  }
+
+  FutureOr<void> _onInitMind(InitMind event, Emitter<MindState> emit) async {
+    emit(const MindState.initial(MindStateData()));
   }
 
   FutureOr<void> _onGetTechniques(GetTechniques event, Emitter<MindState> emit) async {
@@ -93,8 +99,8 @@ class MindBloc extends Bloc<MindEvent, MindState> {
     final techniqueId = state.data.currentTechnique?.id;
     final exerciseId = state.data.currentExercise?.id;
     final data = CompleteExerciseData(
-      scaleBeforeAnswer: state.data.scaleBeforeAnswer ?? 1,
-      scaleAfterAnswer: state.data.scaleAfterAnswer ?? 1,
+      scaleBeforeAnswer: state.data.scaleBeforeAnswer,
+      scaleAfterAnswer: state.data.scaleAfterAnswer,
     );
 
     if (techniqueId == null || exerciseId == null) {
@@ -177,6 +183,26 @@ class MindBloc extends Bloc<MindEvent, MindState> {
   ) async {
     final scaleAfterAnswer = event.isAfter ? event.value : state.data.scaleAfterAnswer;
     final scaleBeforeAnswer = !event.isAfter ? event.value : state.data.scaleBeforeAnswer;
+    final logEventName = event.isAfter ? FirebaseEvents.mindRatingBeforeExercise : FirebaseEvents.mindRatingAfterExercise;
+
+    AnalyticsEventService.instance.logEvent(
+      logEventName,
+      parameters: {
+        CustomDefinitions.techniqueId: state.data.currentTechnique?.id ?? 0,
+        CustomDefinitions.exerciseId: state.data.currentExercise?.id ?? 0,
+        CustomDefinitions.value: event.value,
+        CustomDefinitions.timestamp: DateTime.now().toIso8601String(),
+      },
+    );
+
+    CustomerIoService.track(
+      event: logEventName,
+      attributes: {
+        CustomDefinitions.techniqueId: state.data.currentTechnique?.id ?? 0,
+        CustomDefinitions.exerciseId: state.data.currentExercise?.id ?? 0,
+        CustomDefinitions.value: event.value,
+      }
+    );
 
     emit(
       MindState.exerciseSelected(

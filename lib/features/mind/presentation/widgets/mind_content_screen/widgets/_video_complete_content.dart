@@ -33,6 +33,7 @@ class _VideoCompleteContent extends StatelessWidget {
         CustomText.bitter400(
           LocalizedTexts.completedExerciseMessage1.tr(),
           style: context.textTheme.displayMedium?.copyWith(color: AppColors.white),
+          textAlign: TextAlign.center,
         ),
         const SizedBox(height: 4),
         if (isExercise)
@@ -41,16 +42,19 @@ class _VideoCompleteContent extends StatelessWidget {
                 .tr(args: [techniqueTitle!])
                 .toLowerCase(),
             style: context.textTheme.displayMedium?.copyWith(color: AppColors.white),
+            textAlign: TextAlign.center,
           )
         else
           CustomText.bitter400(
             LocalizedTexts.completedIntroductionMessage2.tr(),
             style: context.textTheme.displayMedium?.copyWith(color: AppColors.white),
+            textAlign: TextAlign.center,
           ),
         const SizedBox(height: 4),
         CustomText.bitter600(
           contentTitle.tr(),
           style: context.textTheme.displayMedium?.copyWith(color: AppColors.white),
+          textAlign: TextAlign.center,
         ),
         const SizedBox(height: 30),
         if (isExercise) ...[
