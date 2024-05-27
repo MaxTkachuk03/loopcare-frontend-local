@@ -2,7 +2,6 @@ import 'package:auto_route/auto_route.dart';
 import 'package:collection/collection.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loopcare_frontend/core/presentation/app_bar/custom_app_bar.dart';
 import 'package:loopcare_frontend/core/presentation/buttons/custom_elevated_button.dart';
 import 'package:loopcare_frontend/core/presentation/buttons/custom_filled_icon_button.dart';
@@ -17,9 +16,9 @@ import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 import 'package:loopcare_frontend/core/presentation/utils/build_context_extensions.dart';
 import 'package:loopcare_frontend/core/presentation/utils/string_extensions.dart';
 import 'package:loopcare_frontend/features/mind/application/dto/mind_content.dart';
+import 'package:loopcare_frontend/features/mind/application/dto/mind_technique_exercise.dart';
 import 'package:loopcare_frontend/features/mind/application/dto/technique_exercise_difficulty.dart';
 import 'package:loopcare_frontend/features/mind/application/dto/technique_explanation_type.dart';
-import 'package:loopcare_frontend/features/mind/application/mind_bloc.dart';
 import 'package:loopcare_frontend/features/mind/application/ui_models/mind_exercise_step.dart';
 import 'package:loopcare_frontend/features/mind/domain/mind_utils.dart';
 import 'package:loopcare_frontend/features/mind/presentation/widgets/exercise_list_tile/exercise_list_tile.dart';
@@ -28,6 +27,7 @@ import 'package:loopcare_frontend/features/mind/presentation/widgets/mind_rating
 import 'package:loopcare_frontend/features/mind/presentation/widgets/mind_text_screen/mind_text_screen.dart';
 import 'package:loopcare_frontend/features/mind/presentation/widgets/mind_video_screen/mind_video_screen.dart';
 
+part 'widgets/_completed_exercise_screen.dart';
 part 'widgets/_mind_content_screen_type.dart';
 part 'widgets/_text_explanation_leading_widget.dart';
 part 'widgets/_video_complete_content.dart';
@@ -41,7 +41,9 @@ class MindContentScreen extends StatefulWidget {
     required this.difficulty,
     required this.onExerciseCompleted,
     required this.onRepeat,
+    required this.stepIndex,
   }) : onComplete = null,
+        exercise = null,
         _type = _MindContentScreenType.exercise;
 
   const MindContentScreen.intro({
@@ -49,8 +51,10 @@ class MindContentScreen extends StatefulWidget {
     required this.title,
     required this.steps,
     required this.contentTitle,
+    required this.exercise,
     required this.onComplete,
   }) : onExerciseCompleted = null,
+        stepIndex = 1,
         onRepeat = null,
         difficulty = null,
         _type = _MindContentScreenType.intro;
@@ -62,7 +66,9 @@ class MindContentScreen extends StatefulWidget {
     required this.onComplete,
     required this.contentTitle,
   }) : onExerciseCompleted = null,
+        stepIndex = 1,
         onRepeat = null,
+        exercise = null,
         difficulty = null,
         _type = _MindContentScreenType.explanation;
 
@@ -73,7 +79,9 @@ class MindContentScreen extends StatefulWidget {
   final void Function()? onComplete;
   final _MindContentScreenType _type;
   final String contentTitle;
+  final int stepIndex;
   final TechniqueExerciseDifficulty? difficulty;
+  final MindTechniqueExercise? exercise;
 
   @override
   State<MindContentScreen> createState() => _MindContentScreenState();
@@ -81,7 +89,6 @@ class MindContentScreen extends StatefulWidget {
 
 class _MindContentScreenState extends State<MindContentScreen> {
   late List<MindContent> steps;
-  int currentStepIndex = 0;
   bool isCompleted = false;
 
   _MindContentScreenType get _type => widget._type;
@@ -98,38 +105,23 @@ class _MindContentScreenState extends State<MindContentScreen> {
     };
   }
 
-  void onPop() {
-    if (!_type.isExercise || currentStepIndex == 0) {
-      context.router.pop();
-    } else {
-      currentStepIndex--;
-
-      setState(() {});
-    }
-  }
-
   void onStepComplete() {
     if (!_type.isExercise) {
       return;
     }
 
-    if ((currentStepIndex + 1) >= steps.length) {
-      isCompleted = true;
-      widget.onExerciseCompleted?.call();
-    } else {
-      currentStepIndex++;
-    }
+    context.router.push(ExerciseRoute(step: widget.stepIndex + 1));
 
     setState(() {});
   }
 
   void onRepeat() {
-    currentStepIndex = 0;
-    isCompleted = false;
+    context.router.popUntil((route) {
+        final args = route.settings.arguments;
+        return args is ExerciseRouteArgs && args.step == null;
+      });
 
     widget.onRepeat?.call();
-
-    setState(() {});
   }
 
   RichText _getContentTitle() {
@@ -169,15 +161,17 @@ class _MindContentScreenState extends State<MindContentScreen> {
   void initState() {
     super.initState();
     steps = widget.steps;
+
+    isCompleted = widget.stepIndex > steps.length;
+
+    if (isCompleted) {
+      widget.onExerciseCompleted?.call();
+    }
   }
 
   @override
   Widget build(BuildContext context) {
     final duration = steps.map((e) => e.duration ?? 0).sum;
-
-    final currentStep = steps[currentStepIndex];
-
-    final skipButtonLabel = _type.isIntro ? LocalizedTexts.skipIntro.tr() : LocalizedTexts.skipExplanation.tr();
 
     final completesWidget = _VideoCompleteContent(
       contentTitle: widget.contentTitle,
@@ -191,33 +185,19 @@ class _MindContentScreenState extends State<MindContentScreen> {
     );
 
     if (isCompleted) {
-      return CustomScaffold.petrol(
-        appBar: CustomAppBar.petrol(
-          title: widget.title,
-          leading: CustomFilledIconButton.leadingPetrolLighter(),
-        ),
-        body: DecoratedBox(
-          decoration: const BoxDecoration(
-            gradient: LinearGradient(
-              colors: [
-                Color(0xFF7CB5B9),
-                Color(0xFF115059),
-              ],
-              begin: Alignment.topCenter,
-              end: Alignment.bottomCenter,
-            ),
-          ),
-          child: CustomSafeArea(
-            child: completesWidget,
-          ),
-        ),
+      return _CompletedExerciseScreen(
+        key: const ValueKey('completed_exercise_screen'),
+        title: widget.title,
+        child: completesWidget,
       );
     }
+
+    final currentStep = steps[widget.stepIndex - 1];
+    final skipButtonLabel = _type.isIntro ? LocalizedTexts.skipIntro.tr() : LocalizedTexts.skipExplanation.tr();
 
     return switch (currentStep.type) {
       TechniqueExplanationType.video => MindVideoScreen(
         title: widget.title,
-        onPop: onPop,
         url: currentStep.src,
         onCompleted: onStepComplete,
         videoOrientation: (currentStep.orientation?.isPortrait ?? false) ? Orientation.portrait : Orientation.landscape,
@@ -236,15 +216,15 @@ class _MindContentScreenState extends State<MindContentScreen> {
           key: const ValueKey('headline_explanation_widget'),
           type: _type,
           url: currentStep.image,
+          exercise: widget.exercise,
         ),
       ),
       TechniqueExplanationType.rating => MindRatingScreen(
         title: widget.title,
-        onPop: onPop,
         question: (currentStep as MindExerciseStep).src,
         lowestText: currentStep.lowestText,
         highestText: currentStep.highestText,
-        isFinish: currentStepIndex == steps.length - 1,
+        isFinish: widget.stepIndex == steps.length,
         onCompleted: onStepComplete,
       ),
     };

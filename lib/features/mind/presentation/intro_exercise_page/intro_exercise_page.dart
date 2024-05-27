@@ -35,13 +35,15 @@ class _IntroExercisePageState extends State<IntroExercisePage> with MindAnalytic
   Widget build(BuildContext context) {
     final bloc = context.read<MindBloc>();
     final title = bloc.state.data.currentTechnique?.title ?? '';
-    final intro = bloc.state.data.currentExercise?.explanation;
-    final exerciseTitle = bloc.state.data.currentExercise?.title ?? '';
+    final exercise = bloc.state.data.currentExercise;
+    final intro = exercise?.explanation;
+    final exerciseTitle = exercise?.title ?? '';
 
     return MindContentScreen.intro(
       title: title,
       steps: [if (intro != null) intro],
       contentTitle: exerciseTitle,
+      exercise: exercise,
       onComplete: () => context.router.replaceNamed(AppRoutes.mindExercise),
     );
   }

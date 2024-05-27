@@ -76,6 +76,8 @@ class FirebaseEvents {
   static String get mindOpenExercise => 'mind_open_exercise';
   static String get mindCompletedExercise => 'mind_completed_exercise';
   static String get mindRepeatedExercise => 'mind_repeated_exercise';
+  static String get mindRatingBeforeExercise => 'mind_exercise_rating_before_assessment';
+  static String get mindRatingAfterExercise => 'mind_exercise_rating_after_assessment';
 
   // Smart goals
   static String get userSavedGoals => 'user_saved_goals';
