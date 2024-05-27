@@ -27,7 +27,7 @@ class _ExplanationTechniquePageState extends State<ExplanationTechniquePage> wit
     track(FirebaseEvents.mindCloseTechniqueExplanation);
     super.dispose();
   }
-  
+
   @override
   Widget build(BuildContext context) {
     final bloc = context.read<MindBloc>();
