@@ -2,6 +2,8 @@ part of 'mind_bloc.dart';
 
 @freezed
 class MindEvent with _$MindEvent {
+  const factory MindEvent.init() = InitMind;
+
   const factory MindEvent.getTechniques() = GetTechniques;
 
   const factory MindEvent.getExercises({required int techniqueId}) = GetExercises;

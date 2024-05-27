@@ -26,12 +26,17 @@ class MindBloc extends Bloc<MindEvent, MindState> {
   final MindService _mindService;
 
   MindBloc(this._mindService) : super(const MindState.initial(MindStateData())) {
+    on<InitMind>(_onInitMind);
     on<GetTechniques>(_onGetTechniques);
     on<GetExercises>(_onGetExercises);
     on<CompleteCurrentExercise>(_onCompleteCurrentExercise);
     on<UnlockNextExercise>(_onUnlockNextExercise);
     on<SelectExercise>(_onSelectExercise);
     on<AddRating>(_onAddRating);
+  }
+
+  FutureOr<void> _onInitMind(InitMind event, Emitter<MindState> emit) async {
+    emit(const MindState.initial(MindStateData()));
   }
 
   FutureOr<void> _onGetTechniques(GetTechniques event, Emitter<MindState> emit) async {
