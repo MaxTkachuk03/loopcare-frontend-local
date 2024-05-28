@@ -1,17 +1,23 @@
 import 'package:flutter/widgets.dart';
-import 'package:loopcare_frontend/core/infrastructure/services/shared_storage/shared_storage_service.dart';
-import 'package:loopcare_frontend/injection.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class CountryCodeService {
-  static final CountryCodeService _instance = CountryCodeService._internal();
+  CountryCodeService._();
 
-  CountryCodeService._internal() {
-    _countryCode = countryCode;
-    _serverCountryCode = serverCountryCode;
-  }
+  static final CountryCodeService _instance = CountryCodeService._();
 
-  static CountryCodeService get instance {
-    return _instance;
+  static CountryCodeService get instance => _instance;
+
+  Future<void> init() async {
+    final SharedPreferences storage = await SharedPreferences.getInstance();
+    String? storedCountryCode = storage.getString('country_code');
+
+    if (storedCountryCode == null) {
+      storedCountryCode = _localeCountryCode;
+      storage.setString('country_code', _localeCountryCode);
+    }
+
+    _countryCode = storedCountryCode;
   }
 
   static const List<String> _usCodes = [
@@ -43,10 +49,7 @@ class CountryCodeService {
 
   String? _serverCountryCode;
 
-  String get countryCode {
-    final storage = getIt<SharedStorageService>();
-    return _countryCode ??= storage.countryCode ??= _localeCountryCode;
-  }
+  String get countryCode => _countryCode ?? '';
 
   String get _localeCountryCode => WidgetsBinding.instance.platformDispatcher.locale.countryCode ?? 'US';
 

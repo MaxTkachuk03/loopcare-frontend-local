@@ -13,8 +13,8 @@ const int timeoutDuration = 30000;
 Map<String, String> headers = {
   contentType: applicationJson,
   accept: applicationJson,
-  defaultLanguage: "en",
-  region: appConfig.region,
+  // defaultLanguage: "en",
+  // region: appConfig.region,
 };
 
 final dioOptions = Dio(

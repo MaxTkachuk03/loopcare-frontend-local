@@ -10,7 +10,6 @@ import 'package:loopcare_frontend/core/application/customer_io_service/customer_
 import 'package:loopcare_frontend/core/application/firebase/mesaging/firebase_messaging.dart';
 import 'package:loopcare_frontend/core/application/permissions_service.dart';
 import 'package:loopcare_frontend/core/infrastructure/services/country_code_service/country_code_service.dart';
-import 'package:loopcare_frontend/core/presentation/localization/localization_constants.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 
 export 'customer_io_attributes.dart';
@@ -84,6 +83,11 @@ class CustomerIoService {
     final info = await PackageInfo.fromPlatform();
     final appVersion = '${info.version} (${info.buildNumber})';
     final userIdPrefix = CountryCodeService.instance.serverCountryCode;
+
+    print(userIdPrefix);
+    print(userIdPrefix);
+    print(userIdPrefix);
+    print(userIdPrefix);
 
     CustomerIO.identify(
       identifier: customerIoId,
