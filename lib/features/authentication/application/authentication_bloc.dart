@@ -230,7 +230,10 @@ class AuthenticationBloc extends HydratedBloc<AuthenticationEvent, Authenticatio
           state.data.copyWith(error: error),
         ),
       ),
-      (response) async {
+      (response) {
+        authTokenManager.setAccessToken(response.accessToken);
+        authTokenManager.setRefreshToken(response.refreshToken);
+
         AnalyticsEventService.instance.logEvent(
           CIOEvents.onboardingNewUserCreated,
           parameters: {
@@ -245,9 +248,6 @@ class AuthenticationBloc extends HydratedBloc<AuthenticationEvent, Authenticatio
         CustomerIoService.setUserVerifiedState(verified: false);
         CustomerIoService.setUserId(id: response.id);
 
-        await authTokenManager.setAccessToken(response.accessToken);
-        await authTokenManager.setRefreshToken(response.refreshToken);
-
         final account = _sharedPref.account = Account(
           id: response.id,
           customerIoId: response.customerIoId,
@@ -260,8 +260,6 @@ class AuthenticationBloc extends HydratedBloc<AuthenticationEvent, Authenticatio
           subscription: response.subscription,
           createdAt: response.createdAt,
         );
-
-        add(const AuthenticationEvent.getAccount());
 
         emit(
           AuthenticationState.waitedForConfirmation(
@@ -276,6 +274,8 @@ class AuthenticationBloc extends HydratedBloc<AuthenticationEvent, Authenticatio
             ),
           ),
         );
+
+        add(const AuthenticationEvent.getAccount());
       },
     );
   }
@@ -463,7 +463,8 @@ class AuthenticationBloc extends HydratedBloc<AuthenticationEvent, Authenticatio
           CustomerIoService.track(event: CIOEvents.onboardingNewUserVerified);
           CustomerIoService.setUserVerifiedState(verified: true);
 
-          emit(AuthenticationState.guest(state.data));
+          emit(AuthenticationState.gotEmailVerification(state.data));
+          emit(AuthenticationState.gotAccount(state.data));
         }
       },
     );
@@ -563,7 +564,7 @@ class AuthenticationBloc extends HydratedBloc<AuthenticationEvent, Authenticatio
     final response = await _authenticationService.fetchAccount();
 
     response.fold(
-      (_) => null,
+      (l) => emit(AuthenticationState.error(state.data.copyWith(error: l))),
       (r) {
         final account = Account(
           id: r.id,
@@ -608,17 +609,13 @@ class AuthenticationBloc extends HydratedBloc<AuthenticationEvent, Authenticatio
     DeleteAccount event,
     Emitter<AuthenticationState> emit,
   ) async {
-    await state.mapOrNull(
-      authenticated: (state) async {
-        final response = await _authenticationService.deleteAccount();
+    final response = await _authenticationService.deleteAccount();
 
-        response.fold(
-          (l) => null,
-          (r) {
-            _sharedPref.cleanStorage();
-            add(const AuthenticationEvent.logout());
-          },
-        );
+    response.fold(
+      (l) => null,
+      (r) {
+        _sharedPref.cleanStorage();
+        add(const AuthenticationEvent.logout());
       },
     );
   }

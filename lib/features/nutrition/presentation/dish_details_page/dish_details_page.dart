@@ -298,11 +298,15 @@ class _DishDetailsPageState extends State<DishDetailsPage> {
                               NutritionSummary(
                                 proteinDegree: dishState.selectedDish.proteinDegreeValue,
                                 calorieDensity: dishState.selectedDish.calorieDensityValue,
-                                fiber: dishState.selectedDish.fiberSum * _servingsAmount,
+                                fiber: (dishState.selectedDish.fiberSum * _servingsAmount) /
+                                    dishState.selectedDish.numberOfServings,
                                 carbFiberRatio: dishState.selectedDish.carbFiberRatio,
                                 carbsPercent: dishState.selectedDish.carbsPercent,
-                                totalCalories: dishState.selectedDish.caloriesSumWithDrinks * _servingsAmount,
-                                totalCarbs: dishState.selectedDish.carbsSum * _servingsAmount,
+                                totalCalories:
+                                    (dishState.selectedDish.caloriesSumWithDrinks * _servingsAmount) /
+                                        dishState.selectedDish.numberOfServings,
+                                totalCarbs: (dishState.selectedDish.carbsSum * _servingsAmount) /
+                                    dishState.selectedDish.numberOfServings,
                               ),
                               const SizedBox(height: 26.0),
                               if (!widget.isReadOnly)

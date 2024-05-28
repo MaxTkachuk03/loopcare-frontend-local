@@ -17,6 +17,8 @@ class AuthenticationState with _$AuthenticationState {
   const factory AuthenticationState.authenticated(AuthenticationData data) = AuthenticatedState;
 
   const factory AuthenticationState.gotAccount(AuthenticationData data) = GotAccountState;
+
+  const factory AuthenticationState.gotEmailVerification(AuthenticationData data) = GotEmailVerification;
 }
 
 @freezed

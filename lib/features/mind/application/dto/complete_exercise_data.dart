@@ -6,12 +6,12 @@ part 'complete_exercise_data.g.dart';
 @immutable
 @JsonSerializable()
 class CompleteExerciseData {
-  final int scaleAfterAnswer;
-  final int scaleBeforeAnswer;
+  final int? scaleAfterAnswer;
+  final int? scaleBeforeAnswer;
 
   const CompleteExerciseData({
-    required this.scaleAfterAnswer,
-    required this.scaleBeforeAnswer,
+    this.scaleAfterAnswer,
+    this.scaleBeforeAnswer,
   });
 
   factory CompleteExerciseData.fromJson(Map<String, dynamic> json) => _$CompleteExerciseDataFromJson(json);

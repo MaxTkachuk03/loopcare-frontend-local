@@ -70,6 +70,7 @@ class PreferencesSection extends StatelessWidget {
 
   Future<void> _physicalActivitiesUpdatingListener(
       BuildContext context, PhysicalActivitiesPreferencesState state) async {
+    context.read<AuthenticationBloc>().add(const AuthenticationEvent.getAccount());
     context.showCustomSuccessBar(
       content: CustomText.w600(
         LocalizedTexts.yourPreferencesUpdated.tr(
@@ -145,7 +146,8 @@ class PreferencesSection extends StatelessWidget {
                 SectionItem(
                   title: LocalizedTexts.groupSessions.tr(),
                   subTitle: _groupSessionsSubtitle(state),
-                  onPressHandler: state.data.isGroupSessionsUnlocked ? () => _onGroupSessionsHandler(context) : null,
+                  onPressHandler:
+                      state.data.isGroupSessionsUnlocked ? () => _onGroupSessionsHandler(context) : null,
                 ),
                 // Todo it's old part, need to check do we need it in future
                 // const SizedBox(height: 16.0),

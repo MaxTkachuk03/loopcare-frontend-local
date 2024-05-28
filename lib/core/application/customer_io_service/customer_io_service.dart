@@ -84,11 +84,6 @@ class CustomerIoService {
     final appVersion = '${info.version} (${info.buildNumber})';
     final userIdPrefix = CountryCodeService.instance.serverCountryCode;
 
-    print(userIdPrefix);
-    print(userIdPrefix);
-    print(userIdPrefix);
-    print(userIdPrefix);
-
     CustomerIO.identify(
       identifier: customerIoId,
       attributes: {

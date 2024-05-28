@@ -25,6 +25,7 @@ import 'package:loopcare_frontend/features/dashboard/presentation/widgets/suppor
 import 'package:loopcare_frontend/features/dashboard/presentation/widgets/weight/weight_block.dart';
 import 'package:loopcare_frontend/features/education/application/education_program/education_program_bloc.dart';
 import 'package:loopcare_frontend/features/group_sessions/application/topics_bloc.dart';
+import 'package:loopcare_frontend/features/mind/application/mind_bloc.dart';
 import 'package:loopcare_frontend/features/mood/application/mood_bloc.dart';
 import 'package:loopcare_frontend/features/nutrition/application/bmr/bmr_bloc.dart';
 import 'package:loopcare_frontend/features/nutrition/application/dashboard_education/dashboard_education_bloc.dart';
@@ -84,6 +85,8 @@ class _DashboardPageState extends State<DashboardPage> with WidgetsBindingObserv
       ..add(MealsEvent.setCurrentDate(_selectedDay))
       ..add(MealsEvent.fetchMeals(
           startDate: _selectedDay.subtract(const Duration(days: 8)), endDate: _selectedDay));
+
+    context.read<MindBloc>().add(const MindEvent.init());
 
     updateDashboardData(context.read<AuthenticationBloc>().state);
   }
