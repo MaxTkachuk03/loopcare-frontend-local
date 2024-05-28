@@ -22,7 +22,7 @@ class GoalCategoryCard extends StatelessWidget {
         SizedBox(
             height: 120, child: NetworkImageWithCache(url: category.image, imageBoxFit: BoxFit.fitHeight)),
         if (isNew) Positioned(top: 14, left: 15, child: CategoryLabel.smartGoalNew()),
-        if (!category.isUnlocked)
+        if (isNew)
           Container(
             width: double.infinity,
             height: 120,
@@ -54,7 +54,12 @@ class GoalCategoryCard extends StatelessWidget {
         enabled: category.isUnlocked,
         onTap: () => onPressed(category),
         title: getTitle(category),
-        subtitle: CustomText.w400(category.name, style: context.textTheme.bodySmall),
+        subtitle: CustomText.w400(
+          category.name,
+          style: context.textTheme.bodySmall,
+          maxLines: 2,
+          overflow: TextOverflow.ellipsis,
+        ),
       ),
     );
   }

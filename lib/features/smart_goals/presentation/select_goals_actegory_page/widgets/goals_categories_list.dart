@@ -29,32 +29,28 @@ class _GoalsCategoriesListState extends State<GoalsCategoriesList> {
 
   @override
   Widget build(BuildContext context) {
-    return LayoutBuilder(
-      builder: (BuildContext context, BoxConstraints constraints) {
-        final width = constraints.maxWidth / 2 - 5;
-
-        return BlocBuilder<SmartGoalsCategoriesBloc, SmartGoalsCategoriesState>(
-          builder: (context, state) {
-            return state.maybeMap(
-              goalsCategoriesLoading: (_) => const Loader(),
-              goalsCategoriesError: (s) => ErrorScreen(
-                error: s.data.error!,
-                onButtonPressed: _onErrorRetryHandler,
+    return BlocBuilder<SmartGoalsCategoriesBloc, SmartGoalsCategoriesState>(
+      builder: (context, state) {
+        return state.maybeMap(
+          goalsCategoriesLoading: (_) => const Loader(),
+          goalsCategoriesError: (s) => ErrorScreen(
+            error: s.data.error!,
+            onButtonPressed: _onErrorRetryHandler,
+          ),
+          orElse: () {
+            // TODO calc isNew prop when new backend will be available
+            return GridView.builder(
+              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: 2,
+                crossAxisSpacing: 10,
+                mainAxisSpacing: 10,
               ),
-              orElse: () {
-                // TODO calc isNew prop when new backend will be available
-                return Wrap(
-                  spacing: 10.0,
-                  runSpacing: 10.0,
-                  children: state.data.goalsCategories
-                      .map(
-                        (c) => SizedBox(
-                          width: width,
-                          child: GoalCategoryCard(onPressed: widget.onPressed, category: c, isNew: true),
-                        ),
-                      )
-                      .toList(),
-                );
+              itemCount: state.data.goalsCategories.length,
+              itemBuilder: (BuildContext context, int index) {
+                final item = state.data.goalsCategories[index];
+
+                return GoalCategoryCard(
+                    key: UniqueKey(), onPressed: widget.onPressed, category: item, isNew: true);
               },
             );
           },
