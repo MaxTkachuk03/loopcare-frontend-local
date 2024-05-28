@@ -11,7 +11,12 @@ class GoalsList extends StatefulWidget {
   final List<SmartGoal> selectedGoals;
   final void Function(SmartGoal goal, bool isSelected) onGoalSelect;
 
-  const GoalsList({super.key, required this.categoryId, required this.onGoalSelect, required this.selectedGoals});
+  const GoalsList({
+    super.key,
+    required this.categoryId,
+    required this.onGoalSelect,
+    required this.selectedGoals,
+  });
 
   @override
   State<GoalsList> createState() => _GoalsListState();
@@ -21,7 +26,6 @@ class _GoalsListState extends State<GoalsList> {
   @override
   void initState() {
     super.initState();
-
     context.read<SmartGoalsBloc>().add(SmartGoalsEvent.getGoals(categoryId: widget.categoryId));
   }
 
@@ -30,21 +34,34 @@ class _GoalsListState extends State<GoalsList> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<SmartGoalsBloc, SmartGoalsState>(builder: (context, state) {
-      return state.maybeMap(
-        loading: (_) => const Loader(),
-        error: (s) => ErrorScreen(error: s.data.error!, onButtonPressed: _onErrorRetryHandler),
-        orElse: () => ListView.separated(
-          itemCount: state.data.goals.length,
-          separatorBuilder: (_, __) => const SizedBox(height: 10.0),
-          itemBuilder: (BuildContext context, int index) {
-            final item = state.data.goals[index];
-            final isSelected = widget.selectedGoals.contains(item);
+    return BlocBuilder<SmartGoalsBloc, SmartGoalsState>(
+      builder: (context, state) {
+        return state.maybeMap(
+          loading: (_) => const SliverFillRemaining(
+              child: Loader(),
+            ),
+          error: (s) => SliverFillRemaining(
+              child: ErrorScreen(
+                error: s.data.error!,
+                onButtonPressed: _onErrorRetryHandler,
+              ),
+            ),
+          orElse: () => SliverList.separated(
+            itemCount: state.data.goals.length,
+            separatorBuilder:  (_, __) => const SizedBox(height: 12.0),
+            itemBuilder: (context, index) {
+              final item = state.data.goals[index];
+              final isSelected = widget.selectedGoals.contains(item);
 
-            return GoalsListItem(item: item, onItemPressed: widget.onGoalSelect, isSelected: isSelected);
-          },
-        ),
-      );
-    });
+              return GoalsListItem(
+                item: item,
+                onItemPressed: widget.onGoalSelect,
+                isSelected: isSelected,
+              );
+            },
+          ),
+        );
+      },
+    );
   }
 }

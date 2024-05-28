@@ -14,6 +14,7 @@ import 'package:loopcare_frontend/core/presentation/routes/app_router.gr.dart';
 import 'package:loopcare_frontend/core/presentation/scaffold/custom_scaffold.dart';
 import 'package:loopcare_frontend/core/presentation/text/custom_text.dart';
 import 'package:loopcare_frontend/core/presentation/utils/build_context_extensions.dart';
+import 'package:loopcare_frontend/core/presentation/utils/string_extensions.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/main_container.dart';
 import 'package:loopcare_frontend/features/smart_goals/application/smart_goals_bloc.dart';
 import 'package:loopcare_frontend/features/smart_goals/domain/smart_goal.dart';
@@ -61,33 +62,45 @@ class _SelectGoalsPageState extends State<SelectGoalsPage> {
   Widget build(BuildContext context) {
     return CustomScaffold.greenLightest(
       appBar: CustomAppBar.green(
-        title: LocalizedTexts.addGoal.tr(),
+        title: LocalizedTexts.calorieDensity.tr().capitalizeEachWordFirstLetter(),
         leading: CustomFilledIconButton.leadingGreenLighter(),
       ),
       body: CustomSafeArea(
         child: BottomPlacedButton.greenLightest(
           body: MainContainer(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                const SizedBox(height: 28.0),
-                CustomText.bitter600(
-                  LocalizedTexts.selectGoalsTitle.tr(args: [widget.category.name]),
-                  style: context.textTheme.displayMedium,
-                ),
-                const SizedBox(height: 26.0),
-                Expanded(
-                  child: GoalsList(
-                    categoryId: widget.category.id,
-                    onGoalSelect: _onGoalSelectHandler,
-                    selectedGoals: _selectedGoals,
+            child: CustomScrollView(
+              slivers: [
+                SliverPadding(
+                  padding: const EdgeInsets.only(top: 24.0),
+                  sliver: SliverToBoxAdapter(
+                    child: CustomText.bitter600(
+                      LocalizedTexts.selectGoalsTitle.tr(),
+                      style: context.textTheme.displayMedium,
+                    ),
                   ),
+                ),
+                SliverPadding(
+                  padding: const EdgeInsets.only(bottom: 32.0),
+                  sliver: SliverToBoxAdapter(
+                    child: CustomText.w400(
+                      LocalizedTexts.selectGoalsSubtitle.tr(),
+                      style: context.textTheme.bodyMedium,
+                    ),
+                  ),
+                ),
+                GoalsList(
+                  categoryId: widget.category.id,
+                  onGoalSelect: _onGoalSelectHandler,
+                  selectedGoals: _selectedGoals,
+                ),
+                const SliverPadding(
+                  padding: EdgeInsets.only(top: 20.0),
                 ),
               ],
             ),
           ),
           button: CustomElevatedButton.blueFullWidth(
-            label: LocalizedTexts.addGoal.tr(),
+            label: LocalizedTexts.setGoal.tr(),
             onPressed: _selectedGoals.isNotEmpty ? () => _onAddGoalHandler(context) : null,
           ),
         ),
