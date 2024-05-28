@@ -2,8 +2,8 @@ import 'package:fast_immutable_collections/fast_immutable_collections.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:loopcare_frontend/core/domain/analytics/firebase_event_custom_definitions.dart';
 import 'package:loopcare_frontend/core/domain/analytics/firebase_event_list.dart';
+import 'package:loopcare_frontend/core/infrastructure/services/country_code_service/country_code_service.dart';
 import 'package:loopcare_frontend/core/infrastructure/services/shared_storage/shared_storage_service.dart';
-import 'package:loopcare_frontend/core/presentation/localization/localization_constants.dart';
 import 'package:loopcare_frontend/features/education/application/dto/lesson_page.dart';
 import 'package:loopcare_frontend/features/education/domain/education_lesson_page_type.dart';
 import 'package:loopcare_frontend/features/physical_activities/domain/physical_program.dart';
@@ -22,7 +22,7 @@ class AnalyticsEventService {
   }) async {
     final userId = getIt<SharedStorageService>().account?.id ?? -1;
 
-    final userIdPrefix = LocalizationConstants.serverCountryCode;
+    final userIdPrefix = CountryCodeService.instance.serverCountryCode;
 
     Map<String, dynamic> tmpParameters = Map.from(parameters ?? {});
     tmpParameters[CustomDefinitions.userId] = '$userId-$userIdPrefix';
