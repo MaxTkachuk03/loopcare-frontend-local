@@ -9,7 +9,7 @@ import 'package:loopcare_frontend/core/application/customer_io_service/customer_
 import 'package:loopcare_frontend/core/application/customer_io_service/customer_io_events.dart';
 import 'package:loopcare_frontend/core/application/firebase/mesaging/firebase_messaging.dart';
 import 'package:loopcare_frontend/core/application/permissions_service.dart';
-import 'package:loopcare_frontend/core/presentation/localization/localization_constants.dart';
+import 'package:loopcare_frontend/core/infrastructure/services/country_code_service/country_code_service.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 
 export 'customer_io_attributes.dart';
@@ -82,11 +82,12 @@ class CustomerIoService {
   }) async {
     final info = await PackageInfo.fromPlatform();
     final appVersion = '${info.version} (${info.buildNumber})';
+    final userIdPrefix = CountryCodeService.instance.serverCountryCode;
 
     CustomerIO.identify(
       identifier: customerIoId,
       attributes: {
-        'user_id': '$id-${LocalizationConstants.serverCountryCode}',
+        'user_id': '$id-$userIdPrefix',
         'email': email,
         'name': name,
         'system_locale': Platform.localeName,
@@ -148,8 +149,10 @@ class CustomerIoService {
   static Future<void> setUserId({
     required int id,
   }) async {
+    final userIdPrefix = CountryCodeService.instance.serverCountryCode;
+
     CustomerIO.setProfileAttributes(
-      attributes: {'user_id': '$id-${LocalizationConstants.serverCountryCode}'},
+      attributes: {'user_id': '$id-$userIdPrefix'},
     );
   }
 

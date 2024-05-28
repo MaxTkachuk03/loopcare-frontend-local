@@ -183,7 +183,7 @@ class MindBloc extends Bloc<MindEvent, MindState> {
   ) async {
     final scaleAfterAnswer = event.isAfter ? event.value : state.data.scaleAfterAnswer;
     final scaleBeforeAnswer = !event.isAfter ? event.value : state.data.scaleBeforeAnswer;
-    final logEventName = event.isAfter ? FirebaseEvents.mindRatingBeforeExercise : FirebaseEvents.mindRatingAfterExercise;
+    final logEventName = event.isAfter ? FirebaseEvents.mindRatingAfterExercise : FirebaseEvents.mindRatingBeforeExercise;
 
     AnalyticsEventService.instance.logEvent(
       logEventName,

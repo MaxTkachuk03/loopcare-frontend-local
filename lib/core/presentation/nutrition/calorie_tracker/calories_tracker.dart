@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:loopcare_frontend/core/domain/account/account.dart';
 import 'package:loopcare_frontend/core/domain/constants.dart';
 import 'package:loopcare_frontend/core/domain/nutrition/calorie_budget.dart';
 import 'package:loopcare_frontend/core/infrastructure/services/shared_storage/shared_storage_service.dart';
@@ -15,14 +16,14 @@ import 'package:loopcare_frontend/core/presentation/utils/build_context_extensio
 import 'package:loopcare_frontend/features/nutrition/application/bmr/bmr_bloc.dart';
 import 'package:loopcare_frontend/injection.dart';
 
-final _account = getIt<SharedStorageService>().account;
-
 class CaloriesTracker extends StatelessWidget {
   final double totalCalories;
 
   const CaloriesTracker({super.key, required this.totalCalories});
 
   String get _caloriesValue => totalCalories.toStringAsFixed(0);
+
+  Account? get _account => getIt<SharedStorageService>().account;
 
   double get _caloriesMaintenanceIndex =>
       CalorieBudget.getNutritionActivityMultiplier(_account?.trainingFrequency ?? 0);

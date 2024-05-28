@@ -86,12 +86,7 @@ class _WaitingForConfirmationPageState extends State<WaitingForConfirmationPage>
       ..router.replaceAll([route]);
   }
 
-  void _onChangeAddress() {
-    timer?.cancel();
-    context.router.pushNamed(AppRoutes.changeEmail).whenComplete(setTimer);
-  }
-
-  void _authenticatedListener(BuildContext context, AuthenticationState state) {
+  void _showEmailConfirmedBottomSheet() {
     timer?.cancel();
 
     ModalBottomSheet.emailConfirmed(
@@ -100,11 +95,17 @@ class _WaitingForConfirmationPageState extends State<WaitingForConfirmationPage>
     );
   }
 
+  void _onChangeAddress() {
+    timer?.cancel();
+    context.router.pushNamed(AppRoutes.changeEmail).whenComplete(setTimer);
+  }
+
   @override
   Widget build(BuildContext context) {
     return BlocListener<AuthenticationBloc, AuthenticationState>(
-      listenWhen: (previous, current) => current is GotAccountState,
-      listener: _authenticatedListener,
+      listener: (context, state) => state.mapOrNull(
+          gotEmailVerification: (_) => _showEmailConfirmedBottomSheet(),
+        ),
       child: PopScope(
         canPop: false,
         child: CustomScaffold.green(
