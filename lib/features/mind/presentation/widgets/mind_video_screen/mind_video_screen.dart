@@ -77,23 +77,18 @@ class _MindVideoScreenState extends State<MindVideoScreen> {
     }
   }
 
-  void _onComplete() {
-    // WidgetsBinding - run too fast and crash with _videoController call after
-    // dispose() called is appeared. So that is why we use Future.delayed
-    Future.delayed(const Duration(milliseconds: 100), () {
-      if (!_isCompleted) {
-        widget.onCompleted();
-        _isCompleted = true;
-      }
+  void _onComplete() async {
+    if (!_isCompleted) {
+      _isCompleted = true;
+      widget.onCompleted();
+    }
 
-      if (widget.onCompleteOverlay != null) {
-        _videoController.pause();
-
-        // Add widget.onCompleteOverlay on screen. Set [_isCompleted]
-        // parameter for UI
-        setState(() {});
-      }
-    });
+    if (widget.onCompleteOverlay != null) {
+      await _videoController.pause();
+      // Add widget.onCompleteOverlay on screen. Set [_isCompleted]
+      // parameter for UI
+      setState(() {});
+    }
   }
 
   Future<void> _onlyPortraitOrientation() async {
@@ -104,9 +99,16 @@ class _MindVideoScreenState extends State<MindVideoScreen> {
   }
 
   void _togglePlay() {
-    if (!_isCompleted) {
+    if (_isCompleted && widget.onCompleteOverlay != null) {
+      return;
+    }
+
+    if (!_isCompleted || _videoController.value.position < _videoController.value.duration) {
+      _isCompleted = false;
       _playingNotifier.value = !_videoController.value.isPlaying;
       _videoController.value.isPlaying ? _videoController.pause() : _videoController.play();
+    } else {
+      _videoController.seekTo(Duration.zero).whenComplete(_togglePlay);
     }
   }
 
