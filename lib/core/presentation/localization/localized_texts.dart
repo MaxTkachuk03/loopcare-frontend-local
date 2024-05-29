@@ -926,6 +926,8 @@ class LocalizedTexts {
   static const String emailBody = 'emailBody';
   static const String termsAndConditions = 'termsAndConditions';
   static const String privacyPolicy = 'privacyPolicy';
+  static const String termsAndConditionsTitle = 'termsAndConditionsTitle';
+  static const String privacyPolicyTitle = 'privacyPolicyTitle';
   static const String iAcceptThe = 'iAcceptThe';
   static const String pleaseAcceptTOC = 'pleaseAcceptTOC';
   static const String pleaseAcceptPrivacyPolicy = 'pleaseAcceptPrivacyPolicy';
@@ -996,6 +998,9 @@ class LocalizedTexts {
   static const String updateRequired = 'updateRequired';
   static const String updateRequiredBodyText1 = 'updateRequiredBodyText1';
   static const String updateRequiredBodyText2 = 'updateRequiredBodyText2';
+  static const String updatePoliciesDocuments = 'updatePoliciesDocuments';
+  static const String updatePoliciesDocumentsBodyText1 = 'updatePoliciesDocumentsBodyText1';
+  static const String updatePoliciesDocumentsBodyText2 = 'updatePoliciesDocumentsBodyText2';
 
   // Buddy
   static const String buddyTitle = 'buddyTitle';

@@ -8,6 +8,7 @@ import 'package:loopcare_frontend/core/domain/emergency_numbers/emergency_number
 import 'package:loopcare_frontend/core/infrastructure/services/app_config.dart';
 import 'package:loopcare_frontend/core/infrastructure/services/firebase_event_service.dart';
 import 'package:loopcare_frontend/core/presentation/alerting/widgets/already_planned_card.dart';
+import 'package:loopcare_frontend/core/presentation/app_version/app_update_policies_documents.dart';
 import 'package:loopcare_frontend/core/presentation/buttons/custom_elevated_button.dart';
 import 'package:loopcare_frontend/core/presentation/buttons/custom_icon_button.dart';
 import 'package:loopcare_frontend/core/presentation/buttons/custom_outlined_button.dart';
@@ -1346,6 +1347,33 @@ class ModalBottomSheet {
               ],
             ),
           ),
+        );
+      },
+    );
+  }
+
+  static void showDocumentsUpdate({
+    required BuildContext context,
+    required bool updateTermsAndConditions,
+    required bool updatePrivacyPolicy,
+    required VoidCallback launchTermsAndConditions,
+    required VoidCallback launchPrivacyPolicy,
+    required VoidCallback launchEmail,
+    required VoidCallback onConfirmed,
+  }) {
+    showModalBottomSheet<void>(
+      context: context,
+      isDismissible: false,
+      isScrollControlled: true,
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12.0)),
+      builder: (BuildContext context) {
+        return AppUpdatePoliciesDocuments(
+          updateTermsAndConditions: updateTermsAndConditions,
+          updatePrivacyPolicy: updatePrivacyPolicy,
+          launchTermsAndConditions: launchTermsAndConditions,
+          launchPrivacyPolicy: launchPrivacyPolicy,
+          launchEmail: launchEmail,
+          onConfirmed: onConfirmed,
         );
       },
     );

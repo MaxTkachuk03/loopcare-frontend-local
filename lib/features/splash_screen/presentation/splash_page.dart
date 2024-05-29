@@ -30,7 +30,7 @@ class _SplashPageState extends State<SplashPage> {
     FlutterNativeSplash.remove();
 
     if (state.data.needToUpdate) {
-      AppUpdateBottomSheet.show();
+      AppUpdateBottomSheet.showAppUpdate();
     } else if (_controller.isAuthorized) {
       _controller.getAccount();
     } else {
@@ -46,6 +46,14 @@ class _SplashPageState extends State<SplashPage> {
   void _errorListener(dynamic error) {
     _navigateToIntro();
     context.showError(content: CustomText(error?.toString() ?? LocalizedTexts.somethingWentWrong.tr()));
+  }
+
+  void _updatePolicies() {
+    AppUpdateBottomSheet.showPoliciesUpdate(
+      updatePrivacyPolicy: _controller.needUpdatePrivacyPolicy,
+      updateTermsAndConditions: _controller.needUpdateTermsAndConditions,
+      onConfirmed: _controller.updatePolicy,
+    );
   }
 
   Future<void> _navigateAuthorized() async {
@@ -98,6 +106,7 @@ class _SplashPageState extends State<SplashPage> {
         ),
         BlocListener<AuthenticationBloc, AuthenticationState>(
           listener: (context, state) => state.mapOrNull(
+              needUpdatePolicies: (_) => _updatePolicies(),
               gotAccount: (_) => _navigateAuthorized(),
               error: (state) => _errorListener(state.data.error?.error),
             ),
