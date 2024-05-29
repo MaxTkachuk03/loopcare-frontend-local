@@ -67,37 +67,43 @@ class _SelectGoalsPageState extends State<SelectGoalsPage> {
       ),
       body: CustomSafeArea(
         child: BottomPlacedButton.greenLightest(
-          body: MainContainer(
-            child: CustomScrollView(
-              slivers: [
-                SliverPadding(
-                  padding: const EdgeInsets.only(top: 24.0),
-                  sliver: SliverToBoxAdapter(
-                    child: CustomText.bitter600(
-                      LocalizedTexts.selectGoalsTitle.tr(),
-                      style: context.textTheme.displayMedium,
-                    ),
+          body: CustomScrollView(
+            slivers: [
+              SliverPadding(
+                padding: const EdgeInsets.only(
+                  top: 24.0,
+                  left: 20.0,
+                  right: 20.0,
+                ),
+                sliver: SliverToBoxAdapter(
+                  child: CustomText.bitter600(
+                    LocalizedTexts.selectGoalsTitle.tr(),
+                    style: context.textTheme.displayMedium,
                   ),
                 ),
-                SliverPadding(
-                  padding: const EdgeInsets.only(bottom: 32.0),
-                  sliver: SliverToBoxAdapter(
-                    child: CustomText.w400(
-                      LocalizedTexts.selectGoalsSubtitle.tr(),
-                      style: context.textTheme.bodyMedium,
-                    ),
+              ),
+              SliverPadding(
+                padding: const EdgeInsets.only(
+                  bottom: 32.0,
+                  left: 20.0,
+                  right: 20.0,
+                ),
+                sliver: SliverToBoxAdapter(
+                  child: CustomText.w400(
+                    LocalizedTexts.selectGoalsSubtitle.tr(),
+                    style: context.textTheme.bodyMedium,
                   ),
                 ),
-                GoalsList(
-                  categoryId: widget.category.id,
-                  onGoalSelect: _onGoalSelectHandler,
-                  selectedGoals: _selectedGoals,
-                ),
-                const SliverPadding(
-                  padding: EdgeInsets.only(top: 20.0),
-                ),
-              ],
-            ),
+              ),
+              GoalsList(
+                categoryId: widget.category.id,
+                onGoalSelect: _onGoalSelectHandler,
+                selectedGoals: _selectedGoals,
+              ),
+              const SliverPadding(
+                padding: EdgeInsets.only(top: 20.0),
+              ),
+            ],
           ),
           button: CustomElevatedButton.blueFullWidth(
             label: LocalizedTexts.setGoal.tr(),

@@ -30,68 +30,71 @@ class GoalsListItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ElevatedButton.icon(
-      style: ElevatedButton.styleFrom(
-        padding: const EdgeInsets.only(left: 12.0, right: 4.0),
-        shape: const RoundedRectangleBorder(
-          borderRadius: BorderRadius.all(Radius.circular(12.0)),
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 20.0),
+      child: ElevatedButton.icon(
+        style: ElevatedButton.styleFrom(
+          padding: const EdgeInsets.only(left: 12.0, right: 4.0),
+          shape: const RoundedRectangleBorder(
+            borderRadius: BorderRadius.all(Radius.circular(12.0)),
+          ),
+          fixedSize: const Size.fromHeight(68.0),
+          backgroundColor: isSelected ? AppColors.greenRegular : AppColors.greenLightest,
+          surfaceTintColor: AppColors.transparent,
+          elevation: isSelected ? 0 : 4,
         ),
-        fixedSize: const Size.fromHeight(68.0),
-        backgroundColor: isSelected ? AppColors.greenRegular : AppColors.greenLightest,
-        surfaceTintColor: AppColors.transparent,
-        elevation: isSelected ? 0 : 4,
-      ),
-      icon: GoalProgressIndicator(
-        currentStep: 0,
-        steps: item.requiredCompletionDays,
-        isAchievedNotifier: false,
-      ),
-      onPressed: _onItemPressedHandler,
-      label: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Expanded(
-            child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 12.0),
-              child: CustomText.w400(
-                item.shortTitle,
-                style: context.textTheme.bodyMedium,
-              ),
-            ),
-          ),
-          IconButton(
-            isSelected: isSelected,
-            selectedIcon: const DecoratedBox(
-              decoration: BoxDecoration(
-                shape: BoxShape.circle,
-                color: AppColors.white,
-              ),
-              child: SizedBox.square(
-                dimension: 24,
-                child: Icon(
-                  Icons.emoji_objects_rounded,
-                  color: AppColors.greenRegular,
-                  size: 16,
+        icon: GoalProgressIndicator(
+          currentStep: 0,
+          steps: item.requiredCompletionDays,
+          isAchievedNotifier: false,
+        ),
+        onPressed: _onItemPressedHandler,
+        label: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Expanded(
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 12.0),
+                child: CustomText.w400(
+                  item.shortTitle,
+                  style: context.textTheme.bodyMedium,
                 ),
               ),
             ),
-            icon: const DecoratedBox(
-              decoration: BoxDecoration(
-                shape: BoxShape.circle,
-                color: AppColors.greenRegular,
-              ),
-              child: SizedBox.square(
-                dimension: 24,
-                child: Icon(
-                  Icons.emoji_objects_rounded,
+            IconButton(
+              isSelected: isSelected,
+              selectedIcon: const DecoratedBox(
+                decoration: BoxDecoration(
+                  shape: BoxShape.circle,
                   color: AppColors.white,
-                  size: 16,
+                ),
+                child: SizedBox.square(
+                  dimension: 24,
+                  child: Icon(
+                    Icons.emoji_objects_rounded,
+                    color: AppColors.greenRegular,
+                    size: 16,
+                  ),
                 ),
               ),
+              icon: const DecoratedBox(
+                decoration: BoxDecoration(
+                  shape: BoxShape.circle,
+                  color: AppColors.greenRegular,
+                ),
+                child: SizedBox.square(
+                  dimension: 24,
+                  child: Icon(
+                    Icons.emoji_objects_rounded,
+                    color: AppColors.white,
+                    size: 16,
+                  ),
+                ),
+              ),
+              onPressed: () => _onInfoHandler(context),
             ),
-            onPressed: () => _onInfoHandler(context),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
