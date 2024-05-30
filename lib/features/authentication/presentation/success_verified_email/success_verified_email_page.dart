@@ -16,6 +16,7 @@ import 'package:loopcare_frontend/core/presentation/utils/build_context_extensio
 import 'package:loopcare_frontend/core/presentation/widgets/main_container.dart';
 import 'package:loopcare_frontend/features/authentication/application/authentication_bloc.dart';
 
+@Deprecated('Not include in River Onboarding')
 class SuccessVerifiedEmailPage extends StatelessWidget {
   const SuccessVerifiedEmailPage({super.key});
 
@@ -25,13 +26,13 @@ class SuccessVerifiedEmailPage extends StatelessWidget {
   Widget build(BuildContext context) {
     final userName = context.read<AuthenticationBloc>().state.data.nameCapitalised;
 
-    return CustomScaffold.green(
+    return CustomScaffold.blueLightest(
       key: const ValueKey('success_verified_email_page'),
       appBar: CustomAppBar.transparent(
-        leading: CustomFilledIconButton.leadingGreenLighter(),
+        leading: CustomFilledIconButton.leadingWhite(),
       ),
       body: CustomSafeArea(
-        child: BottomPlacedButton.green(
+        child: BottomPlacedButton.blueLightest(
           body: MainContainer(
             child: ListView(
               key: const ValueKey('success_verified_email_body'),

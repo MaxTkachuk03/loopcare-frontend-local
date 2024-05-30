@@ -6,6 +6,7 @@ import 'package:loopcare_frontend/core/presentation/buttons/custom_elevated_butt
 import 'package:loopcare_frontend/core/presentation/icon_images/app_images.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/core/presentation/text/custom_text.dart';
+import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 import 'package:loopcare_frontend/core/presentation/utils/build_context_extensions.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/main_container.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/scrollable_container.dart';
@@ -20,7 +21,7 @@ class MentalHealthPreIntroContent extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BottomPlacedButton.orangeDarker(
+    return BottomPlacedButton.petrolDarker(
       body: MainContainer(
         child: ScrollableContainer(
           physics: const ClampingScrollPhysics(),
@@ -36,18 +37,18 @@ class MentalHealthPreIntroContent extends StatelessWidget {
                   const SizedBox(height: 20.0),
                   CustomText.bitter600(
                     LocalizedTexts.mentalHealth.tr(),
-                    style: context.textTheme.displayLarge,
+                    style: context.textTheme.displayLarge?.copyWith(color: AppColors.white),
                     textAlign: TextAlign.center,
                   ),
                   const SizedBox(height: 20.0),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      const Icon(Icons.watch_later_outlined),
+                      const Icon(Icons.watch_later_outlined, color: AppColors.white),
                       const SizedBox(width: 10),
                       CustomText.w600(
                         '15 ${LocalizedTexts.minutes.tr()}',
-                        style: context.textTheme.bodyMedium,
+                        style: context.textTheme.bodyMedium?.copyWith(color: AppColors.white),
                         textAlign: TextAlign.center,
                       ),
                     ],
@@ -55,13 +56,13 @@ class MentalHealthPreIntroContent extends StatelessWidget {
                   const SizedBox(height: 20.0),
                   CustomText.w400(
                     '${LocalizedTexts.mentalIntroBody1.tr()}.',
-                    style: context.textTheme.bodyMedium,
+                    style: context.textTheme.bodyMedium?.copyWith(color: AppColors.white),
                     textAlign: TextAlign.center,
                   ),
                   const SizedBox(height: 20.0),
                   CustomText.w400(
                     '${LocalizedTexts.mentalIntroBody2.tr()}.',
-                    style: context.textTheme.bodyMedium,
+                    style: context.textTheme.bodyMedium?.copyWith(color: AppColors.white),
                     textAlign: TextAlign.center,
                   ),
                   const SizedBox(height: 20.0),

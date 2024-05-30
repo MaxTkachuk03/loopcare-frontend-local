@@ -57,11 +57,11 @@ class _MentalCheckResultFinalContentState extends State<MentalCheckResultFinalCo
   Widget build(BuildContext context) {
     return BlocBuilder<MentalQuestionsBloc, MentalQuestionsState>(
       builder: (context, state) {
-        return BottomPlacedButton.orange(
+        return BottomPlacedButton.petrol(
           body: ListView(
             physics: const ClampingScrollPhysics(),
             children: [
-              UnderAppbar.orange(
+              UnderAppbar.petrol(
                 child: Center(
                   child: Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 80.0),
@@ -74,7 +74,7 @@ class _MentalCheckResultFinalContentState extends State<MentalCheckResultFinalCo
                 child: Container(
                   padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 30),
                   decoration: const BoxDecoration(
-                    color: AppColors.orangeLightest,
+                    color: AppColors.petrolLightest,
                     borderRadius: BorderRadius.all(Radius.circular(16)),
                   ),
                   child: FinalResultsText(onLinkPressed: _onUrlHandler),
@@ -112,7 +112,7 @@ class _MentalCheckResultFinalContentState extends State<MentalCheckResultFinalCo
         ],
         CustomText.bitter600(
           _getTitleText(isPhq8High),
-          style: context.textTheme.displayMedium,
+          style: context.textTheme.displayMedium?.copyWith(color: AppColors.white),
           textAlign: TextAlign.center,
         ),
       ],

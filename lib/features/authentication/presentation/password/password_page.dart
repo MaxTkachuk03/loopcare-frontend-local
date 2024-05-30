@@ -65,14 +65,14 @@ class _PasswordPageState extends State<PasswordPage> {
       listener: _navigationListener,
       child: GestureDetector(
         onTap: FocusScope.of(context).unfocus,
-        child: CustomScaffold.greenLightest(
+        child: CustomScaffold.blueLightest(
           key: const ValueKey('password_page'),
-          appBar: CustomAppBar.green(
+          appBar: CustomAppBar.blue(
             title: LocalizedTexts.createAccount.tr(),
-            leading: CustomFilledIconButton.leadingGreenLighter(),
+            leading: CustomFilledIconButton.leadingBlueLighter(),
           ),
           body: CustomSafeArea(
-            child: BottomPlacedButton.greenLightest(
+            child: BottomPlacedButton.blueLightest(
               body: MainContainer(
                 child: AutofillGroup(
                   child: ListView(

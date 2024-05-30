@@ -18,7 +18,7 @@ class MentalHealthIntroContent extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BottomPlacedButton.orangeLightest(
+    return BottomPlacedButton.petrolLightest(
       body: MainContainer(
         child: ListView(
           physics: const ClampingScrollPhysics(),
@@ -61,7 +61,7 @@ class MentalHealthIntroContent extends StatelessWidget {
             const SizedBox(height: 40.0),
             Align(
               alignment: Alignment.centerLeft,
-              child: CustomOutlinedButton.orangeSmall(
+              child: CustomOutlinedButton.petrolSmall(
                 label: LocalizedTexts.moreInfo.tr(),
                 onPressed: () => _onMoreInfoPressed(context),
               ),

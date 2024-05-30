@@ -21,7 +21,7 @@ class MedicalIntroContent extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BottomPlacedButton.blueDarker(
+    return BottomPlacedButton.coralDarker(
       body: ScrollableContainer(
         physics: const ClampingScrollPhysics(),
         child: MainContainer(
@@ -40,18 +40,18 @@ class MedicalIntroContent extends StatelessWidget {
                   const SizedBox(height: 20.0),
                   CustomText.bitter600(
                     LocalizedTexts.medicalIntroTitle.tr(),
-                    style: context.textTheme.displayLarge?.copyWith(color: AppColors.white),
+                    style: context.textTheme.displayLarge?.copyWith(color: AppColors.blueDarker),
                     textAlign: TextAlign.center,
                   ),
                   const SizedBox(height: 20.0),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      const Icon(Icons.watch_later_outlined, color: AppColors.white),
+                      const Icon(Icons.watch_later_outlined, color: AppColors.blueDarker),
                       const SizedBox(width: 10),
                       CustomText.w600(
                         '15 ${LocalizedTexts.minutes.tr()}',
-                        style: context.textTheme.bodyMedium?.copyWith(color: AppColors.white),
+                        style: context.textTheme.bodyMedium?.copyWith(color: AppColors.blueDarker),
                         textAlign: TextAlign.center,
                       ),
                     ],
@@ -59,7 +59,7 @@ class MedicalIntroContent extends StatelessWidget {
                   const SizedBox(height: 20.0),
                   CustomText.w400(
                     '${LocalizedTexts.medicalIntroBody.tr()}.',
-                    style: context.textTheme.bodyMedium?.copyWith(color: AppColors.white),
+                    style: context.textTheme.bodyMedium?.copyWith(color: AppColors.blueDarker),
                     textAlign: TextAlign.center,
                   ),
                   const SizedBox(height: 40.0),
@@ -69,7 +69,7 @@ class MedicalIntroContent extends StatelessWidget {
           ),
         ),
       ),
-      button: CustomElevatedButton.coralFullWidth(
+      button: CustomElevatedButton.blueFullWidth(
         label: LocalizedTexts.next.tr(),
         onPressed: () => _onPressedNext(context),
       ),

@@ -42,7 +42,7 @@ class _PregnancyContentState extends State<PregnancyContent> {
 
   @override
   Widget build(BuildContext context) {
-    return BottomPlacedButton.blueLightest(
+    return BottomPlacedButton.coralLightest(
       body: MainContainer(
         child: ListView(
           physics: const ClampingScrollPhysics(),
@@ -63,7 +63,7 @@ class _PregnancyContentState extends State<PregnancyContent> {
       button: ValueListenableBuilder<bool?>(
         valueListenable: _valueListener,
         builder: (context, value, _) {
-          return CustomElevatedButton.coralFullWidth(
+          return CustomElevatedButton.blueFullWidth(
             label: LocalizedTexts.next.tr(),
             onPressed: value != null ? () => _onPressedNext(value) : null,
           );

@@ -68,7 +68,7 @@ class MedicalQuestionsBloc extends HydratedBloc<MedicalQuestionsEvent, MedicalQu
     AnalyticsEventService.instance.logEvent(
       CIOEvents.onboardingPregnancy,
       parameters: {
-        CustomDefinitions.value: event.value,
+        CustomDefinitions.value: event.value.toString(),
       },
     );
 

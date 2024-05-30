@@ -39,7 +39,7 @@ class MentalHealthQuestionContent extends StatelessWidget {
               ...currentTest!.options.map(
                 (item) => Padding(
                   padding: const EdgeInsets.only(bottom: 8.0),
-                  child: CustomChoiceChip.orange(
+                  child: CustomChoiceChip.petrol(
                     label: item.title,
                     selected: currentAnswer?.optionId == item.id,
                     onSelected: (value) => _onSelected(context, state, value),

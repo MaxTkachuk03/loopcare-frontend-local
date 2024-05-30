@@ -74,7 +74,7 @@ class _OnboardingQuestionsPageState extends State<OnboardingQuestionsPage> with 
             appBar = CustomAppBar(
               title: state.generalStep.title.tr(),
               subtitle: subtitle,
-              textTheme: state.generalStep == GeneralOnboardingStep.medical
+              textTheme: state.generalStep == GeneralOnboardingStep.mental
                   ? CustomAppBarTextTheme.light
                   : CustomAppBarTextTheme.dark,
               backgroundColor: state.generalStep.primaryColor,

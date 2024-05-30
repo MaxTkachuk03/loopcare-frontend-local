@@ -25,11 +25,11 @@ class MedicalCheckFailedContent extends StatelessWidget {
   Widget build(BuildContext context) {
     final state = context.read<MedicalQuestionsBloc>().state;
 
-    return BottomPlacedButton.blue(
+    return BottomPlacedButton.coral(
       body: ListView(
         physics: const ClampingScrollPhysics(),
         children: [
-          UnderAppbar.blue(
+          UnderAppbar.coral(
             child: Center(
               child: Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 60.0),
@@ -44,7 +44,7 @@ class MedicalCheckFailedContent extends StatelessWidget {
                     const SizedBox(height: 22.0),
                     CustomText.bitter600(
                       '${LocalizedTexts.medicalCheckFailedTitle.tr()}!',
-                      style: context.textTheme.displayMedium?.copyWith(color: AppColors.white),
+                      style: context.textTheme.displayMedium?.copyWith(color: AppColors.blueDarker),
                       textAlign: TextAlign.center,
                     ),
                   ],
@@ -57,7 +57,7 @@ class MedicalCheckFailedContent extends StatelessWidget {
             child: Container(
               padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 30),
               decoration: const BoxDecoration(
-                color: AppColors.blueLightest,
+                color: AppColors.coralLightest,
                 borderRadius: BorderRadius.all(Radius.circular(16)),
               ),
               child: Column(
@@ -88,9 +88,10 @@ class MedicalCheckFailedContent extends StatelessWidget {
               ),
             ),
           ),
+          const SizedBox(height: 20),
         ],
       ),
-      button: CustomElevatedButton.coralFullWidth(
+      button: CustomElevatedButton.blueFullWidth(
         onPressed: () => _onNextPressed(context),
         label: LocalizedTexts.next.tr(),
       ),

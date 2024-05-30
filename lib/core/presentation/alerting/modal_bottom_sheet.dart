@@ -54,6 +54,7 @@ class ModalBottomSheet {
     showModalBottomSheet<void>(
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(24.0)),
       context: context,
+      backgroundColor: AppColors.blueLightest,
       builder: (context) {
         return MainContainer(
           child: Column(

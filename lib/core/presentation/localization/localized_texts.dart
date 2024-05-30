@@ -937,8 +937,8 @@ class LocalizedTexts {
   //Waiting for confirmation page
   static const String waitingForConfirmationTitle = 'waitingForConfirmationTitle';
   static const String resendConfirmationMessage = 'resendConfirmationMessage';
-  static const String waitingForConfirmationBody1 = 'waitingForConfirmationBody1';
-  static const String waitingForConfirmationBody2 = 'waitingForConfirmationBody2';
+  static const String waitingForConfirmationSubtitle = 'waitingForConfirmationSubtitle';
+  static const String waitingForConfirmationBody = 'waitingForConfirmationBody';
   static const String waitingForConfirmationBody3 = 'waitingForConfirmationBody3';
   static const String waitingForConfirmationBody4 = 'waitingForConfirmationBody4';
   static const String resend = 'resend';

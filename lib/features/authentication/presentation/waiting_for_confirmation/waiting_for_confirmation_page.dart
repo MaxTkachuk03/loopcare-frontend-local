@@ -108,19 +108,19 @@ class _WaitingForConfirmationPageState extends State<WaitingForConfirmationPage>
         ),
       child: PopScope(
         canPop: false,
-        child: CustomScaffold.green(
+        child: CustomScaffold.blueLightest(
           key: const ValueKey('waiting_for_confirmation_page'),
-          appBar: CustomAppBar.green(
+          appBar: CustomAppBar.blue(
             title: LocalizedTexts.createAccount.tr(),
             leading: const SizedBox.shrink(),
           ),
           body: CustomSafeArea(
-            child: BottomPlacedButton.green(
+            child: BottomPlacedButton.blueLightest(
               body: ListView(
                 key: const ValueKey('waiting_for_confirmation_page_body'),
                 physics: const ClampingScrollPhysics(),
                 children: [
-                  UnderAppbar.green(
+                  UnderAppbar.blue(
                     child: Center(
                       child: Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 60.0),
@@ -131,7 +131,7 @@ class _WaitingForConfirmationPageState extends State<WaitingForConfirmationPage>
                             const SizedBox(height: 22.0),
                             CustomText.bitter600(
                               '${LocalizedTexts.waitingForConfirmationTitle.tr()}!',
-                              style: context.textTheme.displayMedium,
+                              style: context.textTheme.displayMedium?.copyWith(color: AppColors.white),
                               textAlign: TextAlign.center,
                             ),
                           ],
@@ -139,38 +139,31 @@ class _WaitingForConfirmationPageState extends State<WaitingForConfirmationPage>
                       ),
                     ),
                   ),
-                  const SizedBox(height: 8.0),
                   MainContainer(
-                    child: Container(
-                      padding: const EdgeInsets.all(32),
-                      decoration: const BoxDecoration(
-                        color: AppColors.greenLightest,
-                        borderRadius: BorderRadius.all(Radius.circular(16)),
-                      ),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.stretch,
-                        children: [
-                          CustomText.w400(
-                            '${LocalizedTexts.waitingForConfirmationBody1.tr()}.',
-                            style: context.textTheme.bodyMedium,
-                          ),
-                          const SizedBox(height: 20.0),
-                          CustomText.w400(
-                            '${LocalizedTexts.waitingForConfirmationBody2.tr()}:',
-                            style: context.textTheme.bodyMedium,
-                          ),
-                          const SizedBox(height: 20.0),
-                          BlocBuilder<AuthenticationBloc, AuthenticationState>(
-                            key: const ValueKey('waiting_for_confirmation_email_line'),
-                            builder: (context, state) {
-                              return CustomText.w600(
-                                state.data.email,
-                                style: context.textTheme.bodyMedium,
-                              );
-                            },
-                          ),
-                        ],
-                      ),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.stretch,
+                      children: [
+                        const SizedBox(height: 32.0),
+                        CustomText.bitter600(
+                          '${LocalizedTexts.waitingForConfirmationSubtitle.tr()}!',
+                          style: context.textTheme.displayMedium,
+                        ),
+                        const SizedBox(height: 20.0),
+                        CustomText.w400(
+                          '${LocalizedTexts.waitingForConfirmationBody.tr()}.',
+                          style: context.textTheme.bodyMedium,
+                        ),
+                        const SizedBox(height: 20.0),
+                        BlocBuilder<AuthenticationBloc, AuthenticationState>(
+                          key: const ValueKey('waiting_for_confirmation_email_line'),
+                          builder: (context, state) {
+                            return CustomText.w600(
+                              state.data.email,
+                              style: context.textTheme.bodyMedium,
+                            );
+                          },
+                        ),
+                      ],
                     ),
                   ),
                 ],

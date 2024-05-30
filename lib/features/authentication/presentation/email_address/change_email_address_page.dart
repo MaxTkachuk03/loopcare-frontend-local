@@ -52,14 +52,14 @@ class _ChangeEmailAddressPageState extends State<ChangeEmailAddressPage> {
       ],
       child: GestureDetector(
         onTap: FocusScope.of(context).unfocus,
-        child: CustomScaffold.greenLightest(
+        child: CustomScaffold.blueLightest(
           key: const ValueKey('change_email_address_page'),
-          appBar: CustomAppBar.green(
+          appBar: CustomAppBar.blue(
             title: LocalizedTexts.changeEmail.tr(),
-            leading: CustomFilledIconButton.leadingGreenLighter(),
+            leading: CustomFilledIconButton.leadingBlueLighter(),
           ),
           body: CustomSafeArea(
-            child: BottomPlacedButton.greenLightest(
+            child: BottomPlacedButton.blueLightest(
               body: MainContainer(
                 child: Column(
                   key: const ValueKey('change_email_page_body'),

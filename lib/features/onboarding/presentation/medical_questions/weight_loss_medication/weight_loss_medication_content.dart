@@ -37,13 +37,13 @@ class _WeightLossMedicationContentState extends State<WeightLossMedicationConten
   void _onSelected(WeightLossMedicationAnswer value) => _valueListener.value = value;
 
   void _onNextPressed(WeightLossMedicationAnswer value) {
-    context.read<GeneralOnboardingBloc>().add(GeneralOnboardingEvent.nextStep(excluded: value.isUsed));
+    context.read<GeneralOnboardingBloc>().add(const GeneralOnboardingEvent.nextStep());
     context.read<MedicalQuestionsBloc>().add(MedicalQuestionsEvent.weightLossMedicationChanged(value));
   }
 
   @override
   Widget build(BuildContext context) {
-    return BottomPlacedButton.blueLightest(
+    return BottomPlacedButton.coralLightest(
       body: MainContainer(
         child: ListView(
           physics: const ClampingScrollPhysics(),
@@ -64,7 +64,7 @@ class _WeightLossMedicationContentState extends State<WeightLossMedicationConten
       button: ValueListenableBuilder<WeightLossMedicationAnswer?>(
         valueListenable: _valueListener,
         builder: (context, value, _) {
-          return CustomElevatedButton.coralFullWidth(
+          return CustomElevatedButton.blueFullWidth(
             label: LocalizedTexts.next.tr(),
             onPressed: value != null ? () => _onNextPressed(value) : null,
           );

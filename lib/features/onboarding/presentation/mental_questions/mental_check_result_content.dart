@@ -81,17 +81,17 @@ class _MentalCheckResultContentState extends State<MentalCheckResultContent> {
 
         final subText = _getSubText(currentTest);
 
-        return BottomPlacedButton.orange(
+        return BottomPlacedButton.petrol(
           body: ListView(
             physics: const ClampingScrollPhysics(),
             children: [
-              UnderAppbar.orange(
+              UnderAppbar.petrol(
                 child: Center(
                   child: Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 80.0),
                     child: CustomText.bitter600(
                       _getTitleText(currentTest),
-                      style: context.textTheme.displayMedium,
+                      style: context.textTheme.displayMedium?.copyWith(color: AppColors.white),
                       textAlign: TextAlign.center,
                     ),
                   ),
@@ -105,7 +105,7 @@ class _MentalCheckResultContentState extends State<MentalCheckResultContent> {
                     Container(
                       padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 30),
                       decoration: const BoxDecoration(
-                        color: AppColors.orangeLightest,
+                        color: AppColors.petrolLightest,
                         borderRadius: BorderRadius.all(Radius.circular(16)),
                       ),
                       child: Column(
@@ -125,7 +125,7 @@ class _MentalCheckResultContentState extends State<MentalCheckResultContent> {
                         margin: const EdgeInsets.only(bottom: 30.0),
                         padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 30),
                         decoration: const BoxDecoration(
-                          color: AppColors.orangeLightest,
+                          color: AppColors.petrolLightest,
                           borderRadius: BorderRadius.all(Radius.circular(16)),
                         ),
                         child: CustomText.w400(subText, style: context.textTheme.bodyMedium),

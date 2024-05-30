@@ -21,13 +21,13 @@ class SignUpWelcomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return CustomScaffold.green(
+    return CustomScaffold.blueLightest(
       key: const ValueKey('sign_up_welcome_page'),
       appBar: CustomAppBar.transparent(
-        leading: CustomFilledIconButton.leadingGreenLighter(),
+        leading: CustomFilledIconButton.leadingWhite(),
       ),
       body: CustomSafeArea(
-        child: BottomPlacedButton.green(
+        child: BottomPlacedButton.blueLightest(
           body: MainContainer(
             child: ListView(
               key: const ValueKey('sign_up_welcome_page_body'),

@@ -56,7 +56,7 @@ class _DiabetesDiseaseContentState extends State<DiabetesDiseaseContent> {
 
   @override
   Widget build(BuildContext context) {
-    return BottomPlacedButton.blueLightest(
+    return BottomPlacedButton.coralLightest(
       body: MainContainer(
         child: ListView(
           physics: const ClampingScrollPhysics(),
@@ -77,7 +77,7 @@ class _DiabetesDiseaseContentState extends State<DiabetesDiseaseContent> {
       button: ValueListenableBuilder<DiabetesTypes?>(
         valueListenable: _diabetesListener,
         builder: (context, value, _) {
-          return CustomElevatedButton.coralFullWidth(
+          return CustomElevatedButton.blueFullWidth(
             label: LocalizedTexts.next.tr(),
             onPressed: value != null ? () => _onNextPressed(value) : null,
           );

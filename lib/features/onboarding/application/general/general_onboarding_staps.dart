@@ -1,12 +1,9 @@
 part of 'general_onboarding_bloc.dart';
 
 enum GeneralOnboardingStep {
-  physical(AppColors.yellowRegular, AppColors.blueRegular, AppColors.yellowLightest, AppColors.yellowOffRegular,
-      AppColors.yellowLighter, LocalizedTexts.physicalIntroTitle),
-  medical(AppColors.blueRegular, AppColors.coralRegular, AppColors.blueLightest, AppColors.blueOffRegular,
-      AppColors.blueLighter, LocalizedTexts.medicalIntroTitle),
-  mental(AppColors.orangeRegular, AppColors.blueRegular, AppColors.orangeLightest, AppColors.orangeOffRegular,
-      AppColors.orangeLighter, LocalizedTexts.mentalHealth);
+  physical(AppColors.yellowRegular, AppColors.blueRegular, AppColors.yellowLightest, AppColors.yellowOffRegular, AppColors.yellowLighter, LocalizedTexts.physicalIntroTitle),
+  medical(AppColors.coralRegular, AppColors.blueRegular, AppColors.coralLightest, AppColors.coralOffRegular, AppColors.coralLighter, LocalizedTexts.medicalIntroTitle),
+  mental(AppColors.petrolRegular, AppColors.white, AppColors.petrolLightest, AppColors.petrolOffRegular, AppColors.petrolLighter, LocalizedTexts.mentalHealth);
 
   const GeneralOnboardingStep(
     this.primaryColor,
@@ -55,9 +52,14 @@ enum MedicalQuestionStep {
   pregnancyExclusion(PregnancyFailedContent(key: ValueKey('pregnancy_failed_content')), progress: 1),
   medicines(MedicinesContent(key: ValueKey('medicines_content')), progress: 2),
   semaglutide(WeightLossMedicationContent(key: ValueKey('semaglutide_content')), progress: 3),
+
+  @Deprecated('Not include in River Onboarding')
   semaglutideTakingPeriod(MedicationFuturePeriodContent(key: ValueKey('semaglutide_taking_period_content')), progress: 3),
+  @Deprecated('Not include in River Onboarding')
   semaglutideTreatmentPeriod(MedicationPastPeriodContent(key: ValueKey('semaglutide_treatment_period_content')), progress: 3),
+  @Deprecated('Not include in River Onboarding')
   semaglutideExplanation(MedicationExplanationContent(key: ValueKey('semaglutide_explanation_content')), progress: 3),
+
   secondaryForm(MedicalDiseaseContent(Diseases.obesity, key: ValueKey('obesity_content')), progress: 4),
   thyroidDisease(MedicalDiseaseContent(Diseases.thyroidDisease, key: ValueKey('thyroid_disease_content')), progress: 5),
   metabolicDisease(MedicalDiseaseContent(Diseases.metabolicDisease, key: ValueKey('metabolic_disease_content')), progress: 6),

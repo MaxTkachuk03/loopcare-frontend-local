@@ -11,6 +11,7 @@ import 'package:loopcare_frontend/core/presentation/utils/build_context_extensio
 import 'package:loopcare_frontend/core/presentation/widgets/main_container.dart';
 import 'package:loopcare_frontend/features/onboarding/application/general/general_onboarding_bloc.dart';
 
+@Deprecated('Not include in River Onboarding')
 class MedicationExplanationContent extends StatelessWidget {
   const MedicationExplanationContent({super.key});
 
@@ -20,11 +21,11 @@ class MedicationExplanationContent extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BottomPlacedButton.blue(
+    return BottomPlacedButton.coral(
       body: ListView(
         physics: const ClampingScrollPhysics(),
         children: [
-          UnderAppbar.blue(
+          UnderAppbar.coral(
             height: 100,
             child: const SizedBox.shrink(),
           ),
@@ -32,7 +33,7 @@ class MedicationExplanationContent extends StatelessWidget {
           MainContainer(
             child: CustomText.bitter600(
               LocalizedTexts.medicationExplanationTitle.tr(),
-              style: context.textTheme.displayMedium?.copyWith(color: AppColors.white),
+              style: context.textTheme.displayMedium?.copyWith(color: AppColors.blueDarker),
               textAlign: TextAlign.center,
             ),
           ),
@@ -41,7 +42,7 @@ class MedicationExplanationContent extends StatelessWidget {
             child: Container(
               padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 30),
               decoration: const BoxDecoration(
-                color: AppColors.blueLightest,
+                color: AppColors.coralLightest,
                 borderRadius: BorderRadius.all(Radius.circular(16)),
               ),
               child: RichText(
@@ -89,7 +90,7 @@ class MedicationExplanationContent extends StatelessWidget {
           const SizedBox(height: 30),
         ],
       ),
-      button: CustomElevatedButton.coralFullWidth(
+      button: CustomElevatedButton.blueFullWidth(
         label: LocalizedTexts.next.tr(),
         onPressed: () => _onNextPressed(context),
       ),

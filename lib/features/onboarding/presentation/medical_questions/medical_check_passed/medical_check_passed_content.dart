@@ -20,11 +20,11 @@ class MedicalCheckPassedContent extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BottomPlacedButton.blue(
+    return BottomPlacedButton.coral(
       body: ListView(
         physics: const ClampingScrollPhysics(),
         children: [
-          UnderAppbar.blue(
+          UnderAppbar.coral(
             child: Center(
               child: Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 120.0),
@@ -39,7 +39,7 @@ class MedicalCheckPassedContent extends StatelessWidget {
                     const SizedBox(height: 22.0),
                     CustomText.bitter600(
                       '${LocalizedTexts.medicalCheckPassedTitle.tr()}!',
-                      style: context.textTheme.displayMedium?.copyWith(color: AppColors.white),
+                      style: context.textTheme.displayMedium?.copyWith(color: AppColors.blueDarker),
                       textAlign: TextAlign.center,
                     ),
                   ],
@@ -53,7 +53,7 @@ class MedicalCheckPassedContent extends StatelessWidget {
               width: double.infinity,
               padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 30),
               decoration: const BoxDecoration(
-                color: AppColors.blueLightest,
+                color: AppColors.coralLightest,
                 borderRadius: BorderRadius.all(Radius.circular(16)),
               ),
               child: CustomText.w600(
@@ -64,7 +64,7 @@ class MedicalCheckPassedContent extends StatelessWidget {
           ),
         ],
       ),
-      button: CustomElevatedButton.coralFullWidth(
+      button: CustomElevatedButton.blueFullWidth(
         onPressed: () => _onNextPressed(context),
         label: LocalizedTexts.next.tr(),
       ),

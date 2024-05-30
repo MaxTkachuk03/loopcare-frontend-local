@@ -341,20 +341,6 @@ class GeneralOnboardingBloc extends HydratedBloc<GeneralOnboardingEvent, General
         medicalStack = [...medicalStack, MedicalQuestionStep.pregnancyExclusion];
 
         _trackExclusion(CIOEvents.onboardingPregnancyExclusion);
-      } else if (medicalStep == MedicalQuestionStep.semaglutide) {
-        medicalQuestions = medicalQuestions.insertAllAfter(
-          [
-            MedicalQuestionStep.semaglutideTakingPeriod,
-            MedicalQuestionStep.semaglutideTreatmentPeriod,
-            MedicalQuestionStep.semaglutideExplanation,
-          ],
-          medicalStep,
-        );
-
-        medicalStack = [
-          ...medicalStack,
-          MedicalQuestionStep.semaglutideTakingPeriod,
-        ];
       } else if (medicalStep == MedicalQuestionStep.treatmentByTheDoctor) {
         medicalQuestions = medicalQuestions.insertAfter(medicalStep, MedicalQuestionStep.completedDisease);
         medicalStack = [...medicalStack, MedicalQuestionStep.completedDisease];
@@ -478,11 +464,6 @@ class GeneralOnboardingBloc extends HydratedBloc<GeneralOnboardingEvent, General
 
     if (state.currentMedicalStep == MedicalQuestionStep.pregnancyExclusion) {
       medicalQuestions = List.from(state.medicalQuestions)..remove(MedicalQuestionStep.pregnancyExclusion);
-    } else if (state.currentMedicalStep == MedicalQuestionStep.semaglutideTakingPeriod) {
-      medicalQuestions = List.from(state.medicalQuestions)
-        ..remove(MedicalQuestionStep.semaglutideTakingPeriod)
-        ..remove(MedicalQuestionStep.semaglutideTreatmentPeriod)
-        ..remove(MedicalQuestionStep.semaglutideExplanation);
     } else if (state.currentMedicalStep == MedicalQuestionStep.completedDisease) {
       medicalQuestions = List.from(state.medicalQuestions)..remove(MedicalQuestionStep.completedDisease);
     }

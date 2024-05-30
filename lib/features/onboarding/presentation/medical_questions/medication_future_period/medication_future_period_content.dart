@@ -12,6 +12,7 @@ import 'package:loopcare_frontend/features/onboarding/application/medical_questi
 import 'package:loopcare_frontend/features/onboarding/domain/medication_future_period_answer.dart';
 import 'package:loopcare_frontend/features/onboarding/presentation/medical_questions/medication_future_period/widgets/medication_future_period_chips.dart';
 
+@Deprecated('Not include in River Onboarding')
 class MedicationFuturePeriodContent extends StatefulWidget {
   const MedicationFuturePeriodContent({super.key});
 
@@ -43,7 +44,7 @@ class _MedicationFuturePeriodContentState extends State<MedicationFuturePeriodCo
 
   @override
   Widget build(BuildContext context) {
-    return BottomPlacedButton.blueLightest(
+    return BottomPlacedButton.coralLightest(
       body: MainContainer(
         child: ListView(
           physics: const ClampingScrollPhysics(),
@@ -64,7 +65,7 @@ class _MedicationFuturePeriodContentState extends State<MedicationFuturePeriodCo
       button: ValueListenableBuilder(
         valueListenable: _valueListener,
         builder: (context, value, _) {
-          return CustomElevatedButton.coralFullWidth(
+          return CustomElevatedButton.blueFullWidth(
             label: LocalizedTexts.next.tr(),
             onPressed: value != null ? () => _onNextPressed(value) : null,
           );
