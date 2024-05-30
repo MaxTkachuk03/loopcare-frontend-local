@@ -1,6 +1,6 @@
-import 'package:loopcare_frontend/features/onboarding_new/utils/bmi_calculator.dart';
-import 'package:loopcare_frontend/features/onboarding_new/utils/height_conversion_utils.dart';
-import 'package:loopcare_frontend/features/onboarding_new/utils/weight_conversion_utils.dart';
+import 'package:loopcare_frontend/features/onboarding/utils/bmi_calculator.dart';
+import 'package:loopcare_frontend/features/onboarding/utils/height_conversion_utils.dart';
+import 'package:loopcare_frontend/features/onboarding/utils/weight_conversion_utils.dart';
 import 'package:test/test.dart';
 
 void main() {

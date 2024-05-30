@@ -21,9 +21,9 @@ import 'package:loopcare_frontend/core/presentation/widgets/checkbox_form_field.
 import 'package:loopcare_frontend/core/presentation/widgets/main_container.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/password_with_indicator/password_with_indicator.dart';
 import 'package:loopcare_frontend/features/authentication/application/authentication_bloc.dart';
-import 'package:loopcare_frontend/features/onboarding_new/application/medical_questions/medical_questions_bloc.dart';
-import 'package:loopcare_frontend/features/onboarding_new/application/mental_questions/mental_questions_bloc.dart';
-import 'package:loopcare_frontend/features/onboarding_new/application/physical_questions/physical_questions_bloc.dart';
+import 'package:loopcare_frontend/features/onboarding/application/medical_questions/medical_questions_bloc.dart';
+import 'package:loopcare_frontend/features/onboarding/application/mental_questions/mental_questions_bloc.dart';
+import 'package:loopcare_frontend/features/onboarding/application/physical_questions/physical_questions_bloc.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class PasswordPage extends StatefulWidget {

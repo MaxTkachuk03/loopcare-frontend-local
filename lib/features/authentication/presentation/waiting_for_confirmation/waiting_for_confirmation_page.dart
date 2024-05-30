@@ -21,10 +21,10 @@ import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 import 'package:loopcare_frontend/core/presentation/utils/build_context_extensions.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/main_container.dart';
 import 'package:loopcare_frontend/features/authentication/application/authentication_bloc.dart';
-import 'package:loopcare_frontend/features/onboarding_new/application/general/general_onboarding_bloc.dart';
-import 'package:loopcare_frontend/features/onboarding_new/application/medical_questions/medical_questions_bloc.dart';
-import 'package:loopcare_frontend/features/onboarding_new/application/mental_questions/mental_questions_bloc.dart';
-import 'package:loopcare_frontend/features/onboarding_new/application/physical_questions/physical_questions_bloc.dart';
+import 'package:loopcare_frontend/features/onboarding/application/general/general_onboarding_bloc.dart';
+import 'package:loopcare_frontend/features/onboarding/application/medical_questions/medical_questions_bloc.dart';
+import 'package:loopcare_frontend/features/onboarding/application/mental_questions/mental_questions_bloc.dart';
+import 'package:loopcare_frontend/features/onboarding/application/physical_questions/physical_questions_bloc.dart';
 
 class WaitingForConfirmationPage extends StatefulWidget {
   const WaitingForConfirmationPage({super.key});

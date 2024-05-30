@@ -10,7 +10,7 @@ import 'package:loopcare_frontend/core/infrastructure/services/shared_storage/sh
 import 'package:loopcare_frontend/core/presentation/routes/app_router.gr.dart';
 import 'package:loopcare_frontend/features/authentication/application/authentication_bloc.dart';
 import 'package:loopcare_frontend/features/legal_statement/application/legal_statement_bloc.dart';
-import 'package:loopcare_frontend/features/onboarding_new/application/general/general_onboarding_bloc.dart';
+import 'package:loopcare_frontend/features/onboarding/application/general/general_onboarding_bloc.dart';
 import 'package:loopcare_frontend/features/transparency/applictation/device_info_service.dart';
 import 'package:loopcare_frontend/injection.dart';
 

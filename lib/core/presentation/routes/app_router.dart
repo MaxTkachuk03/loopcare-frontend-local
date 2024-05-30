@@ -75,7 +75,7 @@ import 'package:loopcare_frontend/features/nutrition/presentation/recommendation
 import 'package:loopcare_frontend/features/nutrition/presentation/search/search_page.dart';
 import 'package:loopcare_frontend/features/nutrition/presentation/select_food/select_food_page.dart';
 import 'package:loopcare_frontend/features/nutrition/presentation/select_serving_page/select_serving_page.dart';
-import 'package:loopcare_frontend/features/onboarding_new/presentation/onboarding_questions.dart';
+import 'package:loopcare_frontend/features/onboarding/presentation/onboarding_questions.dart';
 import 'package:loopcare_frontend/features/physical_activities/presentation/physical_programs/physical_programs_page.dart';
 import 'package:loopcare_frontend/features/physical_activities/presentation/preferences/widgets/physical_activities_activity_page.dart';
 import 'package:loopcare_frontend/features/physical_activities/presentation/preferences/widgets/physical_activities_completed_page.dart';

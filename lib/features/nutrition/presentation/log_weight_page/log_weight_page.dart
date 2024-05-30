@@ -23,7 +23,7 @@ import 'package:loopcare_frontend/core/presentation/widgets/unit_tabs/get_measur
 import 'package:loopcare_frontend/core/presentation/widgets/unit_tabs/measurement_system_type.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/unit_tabs/unit_field.dart';
 import 'package:loopcare_frontend/features/nutrition/application/dashboard_weight/dashboard_weight_bloc.dart';
-import 'package:loopcare_frontend/features/onboarding_new/utils/weight_conversion_utils.dart';
+import 'package:loopcare_frontend/features/onboarding/utils/weight_conversion_utils.dart';
 
 class LogWeightPage extends StatefulWidget {
   final DateTime selectedDay;

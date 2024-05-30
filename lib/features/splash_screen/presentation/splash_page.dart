@@ -13,7 +13,7 @@ import 'package:loopcare_frontend/core/presentation/scaffold/custom_scaffold.dar
 import 'package:loopcare_frontend/core/presentation/text/custom_text.dart';
 import 'package:loopcare_frontend/features/authentication/application/authentication_bloc.dart';
 import 'package:loopcare_frontend/features/legal_statement/application/legal_statement_bloc.dart';
-import 'package:loopcare_frontend/features/onboarding_new/application/general/general_onboarding_bloc.dart';
+import 'package:loopcare_frontend/features/onboarding/application/general/general_onboarding_bloc.dart';
 import 'package:loopcare_frontend/features/splash_screen/infrastructure/splash_controller.dart';
 
 class SplashPage extends StatefulWidget {

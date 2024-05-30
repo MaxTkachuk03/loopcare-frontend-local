@@ -32,7 +32,7 @@ import 'package:loopcare_frontend/features/authentication/application/dto/sign_u
 import 'package:loopcare_frontend/features/authentication/application/dto/validate_email_data.dart';
 import 'package:loopcare_frontend/features/buddy/domain/buddy.dart';
 import 'package:loopcare_frontend/features/chat/application/chat_bloc/group_chat_bloc.dart';
-import 'package:loopcare_frontend/features/onboarding_new/application/dto/registration_physical_fitness_data.dart';
+import 'package:loopcare_frontend/features/onboarding/application/dto/registration_physical_fitness_data.dart';
 import 'package:uuid/uuid.dart';
 
 part 'authentication_bloc.freezed.dart';

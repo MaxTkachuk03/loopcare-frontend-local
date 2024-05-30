@@ -9,8 +9,8 @@ import 'package:loopcare_frontend/core/presentation/routes/app_router.gr.dart';
 import 'package:loopcare_frontend/features/authentication/application/authentication_bloc.dart';
 import 'package:loopcare_frontend/features/consent_confirmation/application/consent_confirmation_bloc.dart';
 import 'package:loopcare_frontend/features/legal_statement/application/legal_statement_bloc.dart';
-import 'package:loopcare_frontend/features/onboarding_new/application/general/general_onboarding_bloc.dart';
-import 'package:loopcare_frontend/features/onboarding_new/application/mental_questions/mental_questions_bloc.dart';
+import 'package:loopcare_frontend/features/onboarding/application/general/general_onboarding_bloc.dart';
+import 'package:loopcare_frontend/features/onboarding/application/mental_questions/mental_questions_bloc.dart';
 import 'package:loopcare_frontend/injection.dart';
 
 @Deprecated('Not used since 1.2.0')

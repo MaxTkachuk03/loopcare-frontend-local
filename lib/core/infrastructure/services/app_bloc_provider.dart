@@ -29,10 +29,10 @@ import 'package:loopcare_frontend/features/nutrition/application/recipe_details/
 import 'package:loopcare_frontend/features/nutrition/application/search/search_bloc.dart';
 import 'package:loopcare_frontend/features/nutrition/application/select_food/select_food_bloc.dart';
 import 'package:loopcare_frontend/features/nutrition/application/select_serving/food_item_servings_bloc.dart';
-import 'package:loopcare_frontend/features/onboarding_new/application/general/general_onboarding_bloc.dart';
-import 'package:loopcare_frontend/features/onboarding_new/application/medical_questions/medical_questions_bloc.dart';
-import 'package:loopcare_frontend/features/onboarding_new/application/mental_questions/mental_questions_bloc.dart';
-import 'package:loopcare_frontend/features/onboarding_new/application/physical_questions/physical_questions_bloc.dart';
+import 'package:loopcare_frontend/features/onboarding/application/general/general_onboarding_bloc.dart';
+import 'package:loopcare_frontend/features/onboarding/application/medical_questions/medical_questions_bloc.dart';
+import 'package:loopcare_frontend/features/onboarding/application/mental_questions/mental_questions_bloc.dart';
+import 'package:loopcare_frontend/features/onboarding/application/physical_questions/physical_questions_bloc.dart';
 import 'package:loopcare_frontend/features/physical_activities/application/physical_activities_preferences/physical_activities_preferences_bloc.dart';
 import 'package:loopcare_frontend/features/physical_activities/application/physical_programs_bloc.dart';
 import 'package:loopcare_frontend/features/quizzes/application/quizzes_bloc.dart';
