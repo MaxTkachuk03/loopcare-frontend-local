@@ -38,13 +38,14 @@ class _GoalsCategoriesListState extends State<GoalsCategoriesList> {
             onButtonPressed: _onErrorRetryHandler,
           ),
           orElse: () {
-            // TODO calc isNew prop when new backend will be available
+            // TODO isNew will be a field in the category model
             return GridView.builder(
               gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                 crossAxisCount: 2,
                 crossAxisSpacing: 10,
                 mainAxisSpacing: 10,
               ),
+              cacheExtent: 0,
               itemCount: state.data.goalsCategories.length,
               itemBuilder: (BuildContext context, int index) {
                 final item = state.data.goalsCategories[index];

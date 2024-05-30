@@ -34,10 +34,12 @@ class GoalCategoryCard extends StatelessWidget {
               child: CircleAvatar(
                 backgroundColor: AppColors.blueLightest,
                 radius: 24,
-                child: LottieAnimation.unlock(),
+                child: LottieAnimation.unlock(delay: 1000.ms),
               ),
             ),
-          ).animate().scaleXY(end: 0, delay: 1500.ms, duration: 600.ms, curve: Curves.easeInOutBack)
+          )
+              .animate(delay: 1000.ms)
+              .scaleXY(end: 0, delay: 1500.ms, duration: 600.ms, curve: Curves.easeInOutBack)
       ],
     );
   }

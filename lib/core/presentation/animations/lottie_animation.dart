@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 import 'package:loopcare_frontend/core/presentation/animations/app_animations.dart';
 import 'package:lottie/lottie.dart';
 
@@ -23,8 +24,13 @@ class LottieAnimation extends StatefulWidget {
     this.delay = Duration.zero,
   });
 
-  factory LottieAnimation.unlock({AnimationController? controller, OnLoadedCb onLoaded}) =>
-      LottieAnimation(animationUrl: AppAnimations.unlock, controller: controller, onLoaded: onLoaded);
+  factory LottieAnimation.unlock({AnimationController? controller, OnLoadedCb onLoaded, Duration? delay}) =>
+      LottieAnimation(
+        animationUrl: AppAnimations.unlock,
+        controller: controller,
+        onLoaded: onLoaded,
+        delay: delay ?? 0.ms,
+      );
 
   @override
   State<LottieAnimation> createState() => _LottieAnimationState();
@@ -49,6 +55,8 @@ class _LottieAnimationState extends State<LottieAnimation> with TickerProviderSt
     _controller.duration = composition.duration;
 
     await Future.delayed(widget.delay);
+
+    if (!mounted) return;
 
     _controller.forward();
   }
