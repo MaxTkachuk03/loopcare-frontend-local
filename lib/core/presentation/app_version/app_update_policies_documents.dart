@@ -76,6 +76,7 @@ class _AppUpdatePoliciesDocumentsState extends State<AppUpdatePoliciesDocuments>
         mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
+          const SizedBox(height: 40.0),
           const Center(
             child: CircleAvatar(
               radius: 22.0,
@@ -141,7 +142,7 @@ class _AppUpdatePoliciesDocumentsState extends State<AppUpdatePoliciesDocuments>
               launch: widget.launchPrivacyPolicy,
               onChanged: onPrivacyPolicyChanged,
             ),
-          const SizedBox(height: 24.0),
+          const SizedBox(height: 30.0),
           ValueListenableBuilder<bool>(
             valueListenable: validateListener,
             builder: (context, isValid, _) {

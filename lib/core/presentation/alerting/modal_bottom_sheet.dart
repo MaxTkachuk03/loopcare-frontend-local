@@ -1364,6 +1364,7 @@ class ModalBottomSheet {
     showModalBottomSheet<void>(
       context: context,
       isDismissible: false,
+      enableDrag: false,
       isScrollControlled: true,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12.0)),
       builder: (BuildContext context) {

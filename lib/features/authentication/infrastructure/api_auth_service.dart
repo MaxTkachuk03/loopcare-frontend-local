@@ -84,6 +84,6 @@ class APIAuthenticationService implements AuthenticationService {
 
   @override
   Future<Either<RequestError, dynamic>> updateDocumentVersion(AccountDocumentVersionData data) {
-    return client.post('/accounts/accept-document-version', data: data.toJson());
+    return client.patch('/accounts/accept-document-version', data: data.toJson());
   }
 }
