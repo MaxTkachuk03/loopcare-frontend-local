@@ -1051,10 +1051,12 @@ class LocalizedTexts {
   static const String upcomingGoalsTitle = 'upcomingGoalsTitle';
   static const String upcomingGoalsDescription = 'upcomingGoalsDescription';
   static const String addGoal = 'addGoal';
+  static const String setGoal = 'setGoal';
   static const String confirmGoals = 'confirmGoals';
   static const String selectGoalsCategoryTitle = 'selectGoalsCategoryTitle';
   static const String smartGoalNewLabel = 'smartGoalNewLabel';
   static const String selectGoalsTitle = 'selectGoalsTitle';
+  static const String selectGoalsSubtitle = 'selectGoalsSubtitle';
   static const String completeCounter = 'completeCounter';
   static const String saveWeeklyGoalsSuccessMessage = 'saveWeeklyGoalsSuccessMessage';
   static const String goalsStatisticsTitle = 'goalsStatisticsTitle';
