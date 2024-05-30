@@ -1,0 +1,71 @@
+# This file contains the fastlane.tools configuration
+# You can find the documentation at https://docs.fastlane.tools
+#
+# For a list of all available actions, check out
+#
+#     https://docs.fastlane.tools/actions
+#
+# For a list of all available plugins, check out
+#
+#     https://docs.fastlane.tools/plugins/available-plugins
+#
+
+# Uncomment the line if you want fastlane to automatically update itself
+# update_fastlane
+
+# default_platform(:android)
+
+env = lane_context[SharedValues::ENVIRONMENT]
+build_type = env == 'prod' ? "AAB" : "APK"
+build_folder = env == 'prod' ? "bundle/prodRelease" : "flutter-apk"
+
+desc "Send message to slack"
+private_lane :send_message_to_slack do
+  slack_url = "https://hooks.slack.com/services/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"   
+  release_hash= Actions.lane_context[SharedValues::FIREBASE_APP_DISTRO_RELEASE]
+
+  version = release_hash[:displayVersion]
+  build_version = release_hash[:buildVersion]
+  download_link = release_hash[:firebaseConsoleUri]
+
+  slack(
+    message: "New #{env} build version #{version}:#{build_version} is available by link #{download_link}",
+    slack_url: slack_url,
+    default_payloads: ["git_branch", "git_author"]
+  )
+end
+
+platform :ios do
+  desc "Submit ios build to Firebase AppDistribution"
+  lane :firebase_distribution do
+
+    firebase_app_distribution(
+      app: ENV["IOS_APP_ID"],
+      firebase_cli_token: ENV["FIREBASE_CLI_TOKEN"],
+      groups: "QA",
+      ipa_path: "build/ios/ipa/LeanOnMe.ipa",
+      release_notes_file: "fastlane/release_notes/#{env}.txt",
+    )
+
+  end
+end
+
+platform :android do
+  desc "Submit android build to Firebase AppDistribution"
+  lane :firebase_distribution do
+
+    firebase_app_distribution(
+      app: ENV["ANDROID_APP_ID"],
+      firebase_cli_token: ENV["FIREBASE_CLI_TOKEN"],
+      groups: "QA",
+      android_artifact_type: build_type,
+      android_artifact_path: "build/app/outputs/#{build_folder}/app-#{env}-release.#{build_type.downcase}",
+      release_notes_file: "fastlane/release_notes/#{env}.txt",
+    )
+
+  end
+end
+
+after_all do |lane|
+  send_message_to_slack
+end

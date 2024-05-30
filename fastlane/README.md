@@ -13,15 +13,20 @@ For _fastlane_ installation instructions, see [Installing _fastlane_](https://do
 
 # Available Actions
 
-## Android
+## iOS
 
-### android send_message_to_slack
+### ios firebase_distribution
 
 ```sh
-[bundle exec] fastlane android send_message_to_slack
+[bundle exec] fastlane ios firebase_distribution
 ```
 
-Send message to slack
+Submit ios build to Firebase AppDistribution
+
+----
+
+
+## Android
 
 ### android firebase_distribution
 
@@ -29,15 +34,7 @@ Send message to slack
 [bundle exec] fastlane android firebase_distribution
 ```
 
-Submit build to Firebase AppDistribution
-
-### android deploy
-
-```sh
-[bundle exec] fastlane android deploy
-```
-
-Deploy a new version to the Google Play
+Submit android build to Firebase AppDistribution
 
 ----
 

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites>
+  <testsuite name="fastlane.lanes">
+    
+    
+    
+      
+      <testcase classname="fastlane.lanes" name="0: firebase_app_distribution" time="20.728524">
+        
+      </testcase>
+    
+      
+      <testcase classname="fastlane.lanes" name="1: Switch to ios send_message_to_slack lane" time="0.000333">
+        
+      </testcase>
+    
+      
+      <testcase classname="fastlane.lanes" name="2: slack" time="0.7114">
+        
+      </testcase>
+    
+  </testsuite>
+</testsuites>
