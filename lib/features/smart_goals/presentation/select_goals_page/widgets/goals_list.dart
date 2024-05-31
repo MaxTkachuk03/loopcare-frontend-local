@@ -46,19 +46,22 @@ class _GoalsListState extends State<GoalsList> {
                 onButtonPressed: _onErrorRetryHandler,
               ),
             ),
-          orElse: () => SliverList.separated(
-            itemCount: state.data.goals.length,
-            separatorBuilder:  (_, __) => const SizedBox(height: 12.0),
-            itemBuilder: (context, index) {
-              final item = state.data.goals[index];
-              final isSelected = widget.selectedGoals.contains(item);
+          orElse: () => SliverPadding(
+            padding: const EdgeInsets.symmetric(horizontal: 20.0),
+            sliver: SliverList.separated(
+              itemCount: state.data.goals.length,
+              separatorBuilder:  (_, __) => const SizedBox(height: 12.0),
+              itemBuilder: (context, index) {
+                final item = state.data.goals[index];
+                final isSelected = widget.selectedGoals.contains(item);
 
-              return GoalsListItem(
-                item: item,
-                onItemPressed: widget.onGoalSelect,
-                isSelected: isSelected,
-              );
-            },
+                return GoalsListItem(
+                  item: item,
+                  onItemPressed: widget.onGoalSelect,
+                  isSelected: isSelected,
+                );
+              },
+            ),
           ),
         );
       },
