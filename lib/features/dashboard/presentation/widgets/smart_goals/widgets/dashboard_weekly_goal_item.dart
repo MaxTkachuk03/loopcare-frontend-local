@@ -158,7 +158,7 @@ class _SlideRemoveButton extends StatelessWidget {
               alignment: Alignment.center,
               decoration: BoxDecoration(color: AppColors.red, borderRadius: BorderRadius.circular(8)),
               child: const Icon(
-                Icons.delete,
+                Icons.delete_forever,
                 color: Colors.white,
               )),
         ),
