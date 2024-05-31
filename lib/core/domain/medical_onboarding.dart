@@ -10,10 +10,10 @@ abstract class MedicalOnboarding implements _$MedicalOnboarding {
   const factory MedicalOnboarding({
     @Default(false) bool pregnant,
     @Default([]) List<String> medicines,
-    @Default('') String useSemaglutideMedication,
     @Default('') String howLongTakeSemaglutideMedication,
     @Default('') String howLongSemaglutideTreatmentLast,
     @Default('') String diabetes,
+    @Default(false) bool useSemaglutideMedication,
     @Default(false) bool obesity,
     @Default(false) bool thyroidDesease,
     @Default(false) bool metabolicDesease,

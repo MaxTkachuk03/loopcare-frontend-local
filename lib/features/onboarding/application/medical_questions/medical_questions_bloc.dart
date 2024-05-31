@@ -12,7 +12,6 @@ import 'package:loopcare_frontend/core/presentation/localization/localized_texts
 import 'package:loopcare_frontend/features/onboarding/domain/diseases.dart';
 import 'package:loopcare_frontend/features/onboarding/domain/medication_future_period_answer.dart';
 import 'package:loopcare_frontend/features/onboarding/domain/medication_past_period_answer.dart';
-import 'package:loopcare_frontend/features/onboarding/domain/weight_loss_medication_answers.dart';
 import 'package:loopcare_frontend/features/onboarding/utils/date_helpers.dart';
 
 part 'medical_questions_bloc.freezed.dart';
@@ -173,14 +172,14 @@ class MedicalQuestionsBloc extends HydratedBloc<MedicalQuestionsEvent, MedicalQu
     AnalyticsEventService.instance.logEvent(
       CIOEvents.onboardingSemaglutide,
       parameters: {
-        CustomDefinitions.value: event.value.name,
+        CustomDefinitions.value: event.value.toString(),
       },
     );
 
     CustomerIoService.track(
       event: CIOEvents.onboardingSemaglutide,
       attributes: {
-        CIOAttributes.semaglutide: event.value.name,
+        CIOAttributes.semaglutide: event.value,
       },
     );
 

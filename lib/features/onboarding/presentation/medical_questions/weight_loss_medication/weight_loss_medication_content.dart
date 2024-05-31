@@ -9,8 +9,7 @@ import 'package:loopcare_frontend/core/presentation/utils/build_context_extensio
 import 'package:loopcare_frontend/core/presentation/widgets/main_container.dart';
 import 'package:loopcare_frontend/features/onboarding/application/general/general_onboarding_bloc.dart';
 import 'package:loopcare_frontend/features/onboarding/application/medical_questions/medical_questions_bloc.dart';
-import 'package:loopcare_frontend/features/onboarding/domain/weight_loss_medication_answers.dart';
-import 'package:loopcare_frontend/features/onboarding/presentation/medical_questions/weight_loss_medication/widgets/weight_loss_medication_chips.dart';
+import 'package:loopcare_frontend/features/onboarding/presentation/widgets/questions_chips.dart';
 
 class WeightLossMedicationContent extends StatefulWidget {
   const WeightLossMedicationContent({super.key});
@@ -20,7 +19,7 @@ class WeightLossMedicationContent extends StatefulWidget {
 }
 
 class _WeightLossMedicationContentState extends State<WeightLossMedicationContent> {
-  final _valueListener = ValueNotifier<WeightLossMedicationAnswer?>(null);
+  final _valueListener = ValueNotifier<bool?>(null);
 
   @override
   void initState() {
@@ -34,9 +33,9 @@ class _WeightLossMedicationContentState extends State<WeightLossMedicationConten
     super.dispose();
   }
 
-  void _onSelected(WeightLossMedicationAnswer value) => _valueListener.value = value;
+  void _onSelected(bool value) => _valueListener.value = value;
 
-  void _onNextPressed(WeightLossMedicationAnswer value) {
+  void _onNextPressed(bool value) {
     context.read<GeneralOnboardingBloc>().add(const GeneralOnboardingEvent.nextStep());
     context.read<MedicalQuestionsBloc>().add(MedicalQuestionsEvent.weightLossMedicationChanged(value));
   }
@@ -54,14 +53,14 @@ class _WeightLossMedicationContentState extends State<WeightLossMedicationConten
               style: context.textTheme.displayMedium,
             ),
             const SizedBox(height: 36.0),
-            WeightLossMedicationChips(
+            QuestionsChips(
               initialValue: _valueListener.value,
-              onChanged: _onSelected,
+              onSelected: _onSelected,
             ),
           ],
         ),
       ),
-      button: ValueListenableBuilder<WeightLossMedicationAnswer?>(
+      button: ValueListenableBuilder<bool?>(
         valueListenable: _valueListener,
         builder: (context, value, _) {
           return CustomElevatedButton.blueFullWidth(

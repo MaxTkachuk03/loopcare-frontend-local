@@ -13,13 +13,15 @@ class MedicalQuestionsEvent with _$MedicalQuestionsEvent {
   ) = TreatmentByTheDoctorChanged;
 
   const factory MedicalQuestionsEvent.weightLossMedicationChanged(
-    WeightLossMedicationAnswer value,
+    bool value,
   ) = WeightLossMedicationChanged;
 
+  @Deprecated('Not include in River Onboarding')
   const factory MedicalQuestionsEvent.medicationFuturePeriodChanged(
     MedicationFuturePeriodAnswer value,
   ) = MedicationFuturePeriodChanged;
 
+  @Deprecated('Not include in River Onboarding')
   const factory MedicalQuestionsEvent.medicationPastPeriodChanged(
     MedicationPastPeriodAnswer value,
   ) = MedicationPastPeriodChanged;

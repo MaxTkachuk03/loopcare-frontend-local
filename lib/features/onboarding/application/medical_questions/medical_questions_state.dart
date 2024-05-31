@@ -7,7 +7,7 @@ class MedicalQuestionsState with _$MedicalQuestionsState {
   const factory MedicalQuestionsState({
     @Default(false) bool isCompletedSuccessfully,
     @Default(null) bool? pregnancy,
-    @Default(null) WeightLossMedicationAnswer? weightLossMedication,
+    @Default(null) bool? weightLossMedication,
     @Default(null) MedicationPastPeriodAnswer? howLongTakeSemaglutideMedication,
     @Default(null) MedicationFuturePeriodAnswer? howLongSemaglutideTreatmentLast,
     @Default(null) bool? treatmentByTheDoctor,
@@ -55,10 +55,8 @@ class MedicalQuestionsState with _$MedicalQuestionsState {
   MedicalOnboarding get registrationData => MedicalOnboarding(
       pregnant: pregnancy ?? false,
       medicines: medicines,
-      useSemaglutideMedication: weightLossMedication?.label ?? '',
+      useSemaglutideMedication: weightLossMedication ?? false,
       treatedByPsychiatrist: treatmentByTheDoctor ?? false,
-      howLongTakeSemaglutideMedication: howLongTakeSemaglutideMedication?.label ?? '',
-      howLongSemaglutideTreatmentLast: howLongSemaglutideTreatmentLast?.label ?? '',
       diabetes: diabetesType,
       obesity: diseases[Diseases.obesity] ?? false,
       thyroidDesease: diseases[Diseases.thyroidDisease] ?? false,

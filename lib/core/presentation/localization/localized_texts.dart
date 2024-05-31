@@ -755,7 +755,9 @@ class LocalizedTexts {
 
   // Taking medication
   static const String weightLossMedicationQuestion = 'weightLossMedicationQuestion';
+  @Deprecated('Not include in River Onboarding')
   static const String medicationPastPeriodQuestion = 'medicationPastPeriodQuestion';
+  @Deprecated('Not include in River Onboarding')
   static const String medicationPastPeriodQuestion2 = 'medicationPastPeriodQuestion2';
   static const String mounjaro = 'mounjaro';
   static const String ozempic = 'ozempic';

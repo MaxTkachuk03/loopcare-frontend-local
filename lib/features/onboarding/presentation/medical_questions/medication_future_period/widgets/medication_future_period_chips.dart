@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:loopcare_frontend/core/presentation/choice_chip/custom_choice_chip.dart';
 import 'package:loopcare_frontend/features/onboarding/domain/medication_future_period_answer.dart';
 
+@Deprecated('Not include in River Onboarding')
 class MedicationFuturePeriodChips extends StatefulWidget {
   const MedicationFuturePeriodChips({
     super.key,
