@@ -11,6 +11,7 @@ import 'package:loopcare_frontend/core/infrastructure/dio_client/request_error.d
 import 'package:loopcare_frontend/core/infrastructure/services/firebase_event_service.dart';
 import 'package:loopcare_frontend/core/infrastructure/services/shared_storage/shared_storage_service.dart';
 import 'package:loopcare_frontend/core/presentation/utils/date_time_extensions.dart';
+import 'package:loopcare_frontend/features/smart_goals/application/cancel_goal_reason.dart';
 import 'package:loopcare_frontend/features/smart_goals/application/dto/goal_review_body.dart';
 import 'package:loopcare_frontend/features/smart_goals/application/dto/save_goals_body.dart';
 import 'package:loopcare_frontend/features/smart_goals/application/smart_goals_service.dart';
@@ -35,14 +36,21 @@ class SmartGoalsBloc extends Bloc<SmartGoalsEvent, SmartGoalsState> {
   SmartGoalsBloc(this._smartGoalsService) : super(const SmartGoalsState.initial(SmartGoalsStateData())) {
     on<GetGoals>(_onGetGoals);
     on<GetWeeklyGoals>(_onGetWeeklyGoals);
-    on<SaveGoals>(_onSaveGoals);
+    on<SetGoals>(_onSetGoals);
     on<AddReview>(_onAddReview);
-    on<AddGoals>(_onAddGoals);
-    on<RemoveGoal>(_onRemoveGoal);
-    on<ResetSelected>(_onResetSelected);
-    on<UpdateLoggerTimes>(_onUpdateLoggerTimes);
-    on<ResetLoggerTimes>(_onResetLoggerTimes);
     on<PostCompletions>(_onPostCompletions);
+    on<ResetCompletions>(_onResetCompletions);
+    on<DeleteSession>(_onDeleteSession);
+    on<SelectCancelGoalReason>(_onSelectCancelReason);
+    on<ResetCancelGoalReason>(_onResetCancelReason);
+    on<SelectDate>(_onSelectDate);
+  }
+
+  FutureOr<void> _onSelectDate(
+    SelectDate event,
+    Emitter<SmartGoalsState> emit,
+  ) async {
+    emit(SmartGoalsState.goalsLoaded(state.data.copyWith(selectedDate: event.selectedDate)));
   }
 
   FutureOr<void> _onGetGoals(
@@ -73,16 +81,13 @@ class SmartGoalsBloc extends Bloc<SmartGoalsEvent, SmartGoalsState> {
     );
   }
 
-  FutureOr<void> _onSaveGoals(
-    SaveGoals event,
+  FutureOr<void> _onSetGoals(
+    SetGoals event,
     Emitter<SmartGoalsState> emit,
   ) async {
     emit(SmartGoalsState.loading(state.data.copyWith(isLoading: true)));
 
-    final goals = state.data.selectedGoals.map((e) => SaveGoalsBody(smartGoalId: e.id)).toList();
-
-    final response = await _smartGoalsService.saveGoals(goals: goals);
-
+    final response = await _smartGoalsService.saveGoals(goals: [SaveGoalsBody(smartGoalId: event.goal.id)]);
     response.fold(
       (l) {
         emit(SmartGoalsState.errorSaveGoals(state.data.copyWith(error: l, isLoading: false)));
@@ -94,14 +99,60 @@ class SmartGoalsBloc extends Bloc<SmartGoalsEvent, SmartGoalsState> {
     );
   }
 
+  FutureOr<void> _onResetCancelReason(
+    ResetCancelGoalReason event,
+    Emitter<SmartGoalsState> emit,
+  ) async {
+    emit(SmartGoalsState.goalsLoaded(state.data.copyWith(reason: null)));
+  }
+
+  FutureOr<void> _onSelectCancelReason(
+    SelectCancelGoalReason event,
+    Emitter<SmartGoalsState> emit,
+  ) async {
+    emit(SmartGoalsState.goalsLoaded(state.data.copyWith(reason: event.reason)));
+  }
+
+  FutureOr<void> _onDeleteSession(
+    DeleteSession event,
+    Emitter<SmartGoalsState> emit,
+  ) async {
+    emit(SmartGoalsState.loading(state.data.copyWith(isLoading: true)));
+
+    final response = await _smartGoalsService.deleteSession(sessionId: event.sessionId, reason: state.data.reason!);
+
+    response.fold(
+      (l) {
+        emit(
+          SmartGoalsState.errorSaveGoals(
+            state.data.copyWith(
+              error: l,
+              isLoading: false,
+              reason: null,
+            ),
+          ),
+        );
+      },
+      (r) {
+        emit(
+          SmartGoalsState.sessionDeleted(
+            state.data.copyWith(weeklyGoalsSession: null, reason: null, isLoading: false),
+          ),
+        );
+      },
+    );
+    emit(SmartGoalsState.sessionDeleted(state.data.copyWith(isLoading: false, reason: null)));
+  }
+
   void _addGoalAnalyticEvent(WeeklyGoalsSession session) {
-    for (var goal in state.data.selectedGoals) {
+    if (session.sessionHasGoal) {
+      final goal = session.goals!.first;
       AnalyticsEventService.instance.logEvent(
         FirebaseEvents.userSavedGoals,
         parameters: {
           CustomDefinitions.userId: account?.id,
           CustomDefinitions.title: goal.title,
-          CustomDefinitions.goalCategoryTitle: goal.category.name,
+          CustomDefinitions.goalCategoryTitle: goal.smartGoal.category.name,
           //Discussed with Souni and Paul  limit custom dimensions
           CustomDefinitions.timestamp: session.startedAt!.toIso8601String(),
           if (session.finishedAt != null) CustomDefinitions.timePassed: session.finishedAt!.toIso8601String(),
@@ -113,7 +164,7 @@ class SmartGoalsBloc extends Bloc<SmartGoalsEvent, SmartGoalsState> {
         attributes: {
           CIOAttributes.userId: account?.id,
           CIOAttributes.goalTitle: goal.title,
-          CIOAttributes.goalCategoryTitle: goal.category.name,
+          CIOAttributes.goalCategoryTitle: goal.smartGoal.category.name,
           if (session.finishedAt != null) CIOAttributes.finishDate: session.finishedAt!.toIso8601String(),
           if (session.lastReviewDate != null) CIOAttributes.reviewLastDate: session.finishedAt!.toIso8601String(),
         },
@@ -161,104 +212,60 @@ class SmartGoalsBloc extends Bloc<SmartGoalsEvent, SmartGoalsState> {
     );
   }
 
-  FutureOr<void> _onAddGoals(
-    AddGoals event,
-    Emitter<SmartGoalsState> emit,
-  ) async {
-    emit(SmartGoalsState.goalsLoaded(state.data.copyWith(selectedGoals: [...event.goals])));
-  }
-
-  FutureOr<void> _onRemoveGoal(
-    RemoveGoal event,
-    Emitter<SmartGoalsState> emit,
-  ) async {
-    final goals = [...state.data.selectedGoals];
-    goals.remove(event.goal);
-    emit(SmartGoalsState.goalsLoaded(state.data.copyWith(selectedGoals: goals)));
-  }
-
-  FutureOr<void> _onResetSelected(
-    ResetSelected event,
-    Emitter<SmartGoalsState> emit,
-  ) async {
-    emit(SmartGoalsState.goalsLoaded(state.data.copyWith(selectedGoals: [])));
-  }
-
   FutureOr<void> _onPostCompletions(
     PostCompletions event,
     Emitter<SmartGoalsState> emit,
   ) async {
     emit(SmartGoalsState.loading(state.data.copyWith(isLoading: true)));
-
+    final date = state.data.selectedDate?.dateStringOnly ?? DateTime.now().dateStringOnly;
+    final logs = event.weeklySmartGoal.progressLogs;
+    ProgressSmartGoalLog smartGoalLog = ProgressSmartGoalLog(date: date, times: 1);
+    if (logs != null) {
+      final log = logs.firstWhereOrNull((log) {
+        return log.date.dateStringOnly == date;
+      });
+      smartGoalLog = ProgressSmartGoalLog(date: date, times: (log?.times ?? 0) + 1);
+    }
     final response = await _smartGoalsService.confirmProgress(
-        progress: ProgressGoalData(reviewId: event.reviewId, progress: state.data.logs));
+        progress: ProgressGoalData(reviewId: event.weeklySmartGoal.id, progress: [smartGoalLog]));
 
     response.fold((l) => emit(SmartGoalsState.error(state.data.copyWith(error: l, isLoading: false))), (r) {
-      _logGoalAnalyticEvent();
+      _logGoalAnalyticEvent(smartGoalLog);
       emit(SmartGoalsState.progressConfirmed(state.data.copyWith(weeklyGoalsSession: r, isLoading: false)));
     });
   }
 
-  void _logGoalAnalyticEvent() {
-    for (var log in state.data.logs) {
-      AnalyticsEventService.instance.logEvent(
-        FirebaseEvents.userLogGoal,
-        parameters: {
-          CustomDefinitions.userId: account?.id,
-          CustomDefinitions.value: log.times,
-          CustomDefinitions.timestamp: log.date,
-        },
-      );
-      CustomerIoService.track(
-        event: CIOEvents.userLogGoal,
-        attributes: {
-          CIOAttributes.userId: account?.id,
-          CIOAttributes.logValue: log.times,
-          CIOAttributes.dateLog: log.date,
-        },
-      );
-    }
-  }
-
-  FutureOr<void> _onUpdateLoggerTimes(
-    UpdateLoggerTimes event,
+  FutureOr<void> _onResetCompletions(
+    ResetCompletions event,
     Emitter<SmartGoalsState> emit,
   ) async {
-    final progressLogs = [...state.data.logs];
-    final index = progressLogs.indexWhere((log) => log.date == event.goalProgress.date);
-    progressLogs[index] = ProgressSmartGoalLog(date: event.goalProgress.date, times: event.goalProgress.times);
-    emit(SmartGoalsState.updatedLoggerTimes(state.data.copyWith(logs: progressLogs)));
+    final date = state.data.selectedDate?.dateStringOnly ?? DateTime.now().dateStringOnly;
+    emit(SmartGoalsState.loading(state.data.copyWith(isLoading: true)));
+    final response = await _smartGoalsService.confirmProgress(
+        progress: ProgressGoalData(
+            reviewId: event.weeklySmartGoal.id, progress: [ProgressSmartGoalLog(date: date, times: 0)]));
+
+    response.fold((l) => emit(SmartGoalsState.error(state.data.copyWith(error: l, isLoading: false))), (r) {
+      emit(SmartGoalsState.progressConfirmed(state.data.copyWith(weeklyGoalsSession: r, isLoading: false)));
+    });
   }
 
-  FutureOr<void> _onResetLoggerTimes(
-    ResetLoggerTimes event,
-    Emitter<SmartGoalsState> emit,
-  ) async {
-    emit(SmartGoalsState.updatedLoggerTimes(state.data.copyWith(logs: [])));
-    final progressLogs = _matchWithUserLogs(event);
-    emit(SmartGoalsState.resetedLoggerTimes(state.data.copyWith(logs: progressLogs)));
-  }
-
-  List<ProgressSmartGoalLog> _matchWithUserLogs(ResetLoggerTimes event) {
-    List<DateTime> dates = [];
-    List<ProgressSmartGoalLog> logs = [];
-    final startDay = state.data.weeklyGoalsSession?.startedAt;
-    if (startDay != null) {
-      dates = getDaysOnly(start: startDay, end: DateTime.now().add(const Duration(days: 1)));
-    }
-    if (event.weeklyGoal.progressLogs == null) {
-      for (var day in dates) {
-        logs.add(ProgressSmartGoalLog(date: day.dateStringOnly, times: 0));
-      }
-      return logs;
-    }
-    for (var day in dates) {
-      final log = event.weeklyGoal.progressLogs!.firstWhereOrNull((log) {
-        return log.date == day;
-      });
-
-      logs.add(ProgressSmartGoalLog(date: day.dateStringOnly, times: log?.times ?? 0));
-    }
-    return logs;
+  void _logGoalAnalyticEvent(ProgressSmartGoalLog log) {
+    AnalyticsEventService.instance.logEvent(
+      FirebaseEvents.userLogGoal,
+      parameters: {
+        CustomDefinitions.userId: account?.id,
+        CustomDefinitions.value: log.times,
+        CustomDefinitions.timestamp: log.date,
+      },
+    );
+    CustomerIoService.track(
+      event: CIOEvents.userLogGoal,
+      attributes: {
+        CIOAttributes.userId: account?.id,
+        CIOAttributes.logValue: log.times,
+        CIOAttributes.dateLog: log.date,
+      },
+    );
   }
 }

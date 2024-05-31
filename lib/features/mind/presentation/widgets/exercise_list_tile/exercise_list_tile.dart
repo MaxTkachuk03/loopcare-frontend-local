@@ -8,6 +8,7 @@ import 'package:loopcare_frontend/core/presentation/icon_images/app_icons.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/core/presentation/network_image_with_cache/network_image_with_cache.dart';
 import 'package:loopcare_frontend/core/presentation/routes/app_router.dart';
+import 'package:loopcare_frontend/core/presentation/routes/app_router.gr.dart';
 import 'package:loopcare_frontend/core/presentation/text/custom_text.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 import 'package:loopcare_frontend/core/presentation/utils/build_context_extensions.dart';
@@ -152,7 +153,7 @@ class _AccessExerciseLine extends StatelessWidget {
             label: LocalizedTexts.start.tr(),
             onPressed: () => context
               ..read<MindBloc>().add(MindEvent.selectExercise(exercise: exercise))
-              ..router.pushNamed(AppRoutes.mindExercise),
+              ..router.push(ExerciseRoute(step: 1)),
           ),
         ],
       );

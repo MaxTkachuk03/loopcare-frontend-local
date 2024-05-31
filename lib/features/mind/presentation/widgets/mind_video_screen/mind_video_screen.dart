@@ -21,7 +21,6 @@ class MindVideoScreen extends StatefulWidget {
   const MindVideoScreen({
     super.key,
     required this.title,
-    required this.onPop,
     required this.url,
     required this.videoOrientation,
     required this.onCompleted,
@@ -34,7 +33,6 @@ class MindVideoScreen extends StatefulWidget {
   final String title;
   final String url;
   final void Function() onCompleted;
-  final void Function() onPop;
   final void Function()? onSkip;
   final String skipButtonLabel;
   final Orientation videoOrientation;
@@ -79,23 +77,18 @@ class _MindVideoScreenState extends State<MindVideoScreen> {
     }
   }
 
-  void _onComplete() {
-    // WidgetsBinding - run too fast and crash with _videoController call after
-    // dispose() called is appeared. So that is why we use Future.delayed
-    Future.delayed(const Duration(milliseconds: 100), () {
-      if (!_isCompleted) {
-        widget.onCompleted();
-        _isCompleted = true;
-      }
+  void _onComplete() async {
+    if (!_isCompleted) {
+      _isCompleted = true;
+      widget.onCompleted();
+    }
 
-      if (widget.onCompleteOverlay != null) {
-        _videoController.pause();
-
-        // Add widget.onCompleteOverlay on screen. Set [_isCompleted]
-        // parameter for UI
-        setState(() {});
-      }
-    });
+    if (widget.onCompleteOverlay != null) {
+      await _videoController.pause();
+      // Add widget.onCompleteOverlay on screen. Set [_isCompleted]
+      // parameter for UI
+      setState(() {});
+    }
   }
 
   Future<void> _onlyPortraitOrientation() async {
@@ -106,9 +99,16 @@ class _MindVideoScreenState extends State<MindVideoScreen> {
   }
 
   void _togglePlay() {
-    if (!_isCompleted) {
+    if (_isCompleted && widget.onCompleteOverlay != null) {
+      return;
+    }
+
+    if (!_isCompleted || _videoController.value.position < _videoController.value.duration) {
+      _isCompleted = false;
       _playingNotifier.value = !_videoController.value.isPlaying;
       _videoController.value.isPlaying ? _videoController.pause() : _videoController.play();
+    } else {
+      _videoController.seekTo(Duration.zero).whenComplete(_togglePlay);
     }
   }
 
@@ -163,128 +163,124 @@ class _MindVideoScreenState extends State<MindVideoScreen> {
       topPadding: mediaQuery.viewPadding.top,
     );
 
-    return PopScope(
-      canPop: false,
-      onPopInvoked: (didPop) => widget.onPop(),
-      child: Scaffold(
-        backgroundColor: AppColors.blueDarker,
-        appBar: !_initialised
-            ? PreferredSize(
-                preferredSize: const Size.fromHeight(kToolbarHeight),
-                child: appBar,
-              )
-            : null,
-        body: Builder(
-          builder: (context) {
-            if (!_initialised) {
-              return const Loader();
-            }
+    return Scaffold(
+      backgroundColor: AppColors.blueDarker,
+      appBar: !_initialised
+          ? PreferredSize(
+              preferredSize: const Size.fromHeight(kToolbarHeight),
+              child: appBar,
+            )
+          : null,
+      body: Builder(
+        builder: (context) {
+          if (!_initialised) {
+            return const Loader();
+          }
 
-            final enableCompletedState = _isCompleted && widget.onCompleteOverlay != null;
-            return OrientationBuilder(builder: (context, orientation) {
-              final orientationState = _getOrientationState(orientation);
+          final enableCompletedState = _isCompleted && widget.onCompleteOverlay != null;
+          return OrientationBuilder(builder: (context, orientation) {
+            final orientationState = _getOrientationState(orientation);
 
-              _orientationChangeHandler(orientationState);
+            _orientationChangeHandler(orientationState);
 
-              return GestureDetector(
-                onTap: _togglePlay,
-                child: Stack(
-                  children: [
-                    _OrientationStateVideoWrapper(
-                      key: const ValueKey('video-container'),
-                      orientationsState: orientationState,
-                      screenSize: mediaQuery.size,
-                      child: AspectRatio(
-                        aspectRatio: _videoController.value.aspectRatio,
-                        child: VideoPlayer(_videoController),
-                      ),
+            return GestureDetector(
+              onTap: _togglePlay,
+              child: Stack(
+                children: [
+                  _OrientationStateVideoWrapper(
+                    key: const ValueKey('video-container'),
+                    orientationsState: orientationState,
+                    screenSize: mediaQuery.size,
+                    child: AspectRatio(
+                      aspectRatio: _videoController.value.aspectRatio,
+                      child: VideoPlayer(_videoController),
                     ),
-                    if (!enableCompletedState)
-                      Positioned(
-                        left: 0,
-                        right: 0,
-                        bottom: 0,
-                        child: ValueListenableBuilder<bool>(
-                          valueListenable: _playingNotifier,
-                          builder: (context, isPlaying, _) {
-                            return HidingBox(
-                              isPlay: isPlaying,
-                              child: _VideoProgressControl(
-                                key: const ValueKey('video_screen_progress_control'),
-                                controller: _videoController,
-                                contentTitle: widget.contentTitle,
-                                onPlayPressed: _togglePlay,
-                                playingListener: _playingNotifier,
-                                bottomPadding: mediaQuery.viewPadding.bottom + _bottomPadding,
-                              ),
-                            );
-                          },
-                        ),
-                      ),
-                    if (widget.onSkip != null && !enableCompletedState)
-                      Positioned(
-                        top: mediaQuery.viewPadding.top + kToolbarHeight + 30,
-                        right: 20,
-                        child: ValueListenableBuilder<bool>(
-                          valueListenable: _playingNotifier,
-                          builder: (context, isPlaying, _) {
-                            return IgnorePointer(
-                              ignoring: isPlaying,
-                              child: AnimatedOpacity(
-                                duration: const Duration(milliseconds: 300),
-                                opacity: isPlaying ? 0.0 : 1.0,
-                                child: CustomElevatedButton.yellowSmall(
-                                  label: widget.skipButtonLabel,
-                                  onPressed: widget.onSkip,
-                                ),
-                              ),
-                            );
-                          },
-                        ),
-                      ),
-                    ValueListenableBuilder<bool>(
-                      valueListenable: _playingNotifier,
-                      builder: (context, isPlaying, _) {
-                        return Center(
-                          child: _PlayPauseButton(
-                            key: const ValueKey('video_screen_play_pause_button'),
-                            isPlay: isPlaying,
-                          ),
-                        );
-                      },
-                    ),
-                    if (enableCompletedState)
-                      Positioned.fill(
-                        child: AnimatedOpacity(
-                          duration: const Duration(milliseconds: 300),
-                          opacity: _isCompleted ? 1 : 0,
-                          child: ColoredBox(
-                            color: Colors.black45,
-                            child: widget.onCompleteOverlay!,
-                          ),
-                        ),
-                      ),
+                  ),
+                  if (!enableCompletedState)
                     Positioned(
-                      height: mediaQuery.viewPadding.top + kToolbarHeight,
-                      top: 0,
                       left: 0,
                       right: 0,
+                      bottom: 0,
                       child: ValueListenableBuilder<bool>(
                         valueListenable: _playingNotifier,
                         builder: (context, isPlaying, _) {
                           return HidingBox(
                             isPlay: isPlaying,
-                            child: appBar,
+                            child: _VideoProgressControl(
+                              key: const ValueKey('video_screen_progress_control'),
+                              controller: _videoController,
+                              contentTitle: widget.contentTitle,
+                              onPlayPressed: _togglePlay,
+                              playingListener: _playingNotifier,
+                              bottomPadding: mediaQuery.viewPadding.bottom + _bottomPadding,
+                            ),
                           );
                         },
                       ),
                     ),
-                  ],
-                ),
-              );
-            });
-          },
-        ),
+                  if (widget.onSkip != null && !enableCompletedState)
+                    Positioned(
+                      top: mediaQuery.viewPadding.top + kToolbarHeight + 30,
+                      right: 20,
+                      child: ValueListenableBuilder<bool>(
+                        valueListenable: _playingNotifier,
+                        builder: (context, isPlaying, _) {
+                          return IgnorePointer(
+                            ignoring: isPlaying,
+                            child: AnimatedOpacity(
+                              duration: const Duration(milliseconds: 300),
+                              opacity: isPlaying ? 0.0 : 1.0,
+                              child: CustomElevatedButton.yellowSmall(
+                                label: widget.skipButtonLabel,
+                                onPressed: widget.onSkip,
+                              ),
+                            ),
+                          );
+                        },
+                      ),
+                    ),
+                  ValueListenableBuilder<bool>(
+                    valueListenable: _playingNotifier,
+                    builder: (context, isPlaying, _) {
+                      return Center(
+                        child: _PlayPauseButton(
+                          key: const ValueKey('video_screen_play_pause_button'),
+                          isPlay: isPlaying,
+                        ),
+                      );
+                    },
+                  ),
+                  if (enableCompletedState)
+                    Positioned.fill(
+                      child: AnimatedOpacity(
+                        duration: const Duration(milliseconds: 300),
+                        opacity: _isCompleted ? 1 : 0,
+                        child: ColoredBox(
+                          color: Colors.black45,
+                          child: widget.onCompleteOverlay!,
+                        ),
+                      ),
+                    ),
+                  Positioned(
+                    height: mediaQuery.viewPadding.top + kToolbarHeight,
+                    top: 0,
+                    left: 0,
+                    right: 0,
+                    child: ValueListenableBuilder<bool>(
+                      valueListenable: _playingNotifier,
+                      builder: (context, isPlaying, _) {
+                        return HidingBox(
+                          isPlay: isPlaying,
+                          child: appBar,
+                        );
+                      },
+                    ),
+                  ),
+                ],
+              ),
+            );
+          });
+        },
       ),
     );
   }

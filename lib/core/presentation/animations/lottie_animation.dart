@@ -32,6 +32,18 @@ class LottieAnimation extends StatefulWidget {
         delay: delay ?? 0.ms,
       );
 
+  factory LottieAnimation.achieved({AnimationController? controller, OnLoadedCb onLoaded}) => LottieAnimation(
+        animationUrl: AppAnimations.achieved,
+        controller: controller,
+        onLoaded: onLoaded,
+      );
+
+  factory LottieAnimation.noAchieved({AnimationController? controller, OnLoadedCb onLoaded}) => LottieAnimation(
+        animationUrl: AppAnimations.no_achieved,
+        controller: controller,
+        onLoaded: onLoaded,
+      );
+
   @override
   State<LottieAnimation> createState() => _LottieAnimationState();
 }
@@ -42,7 +54,6 @@ class _LottieAnimationState extends State<LottieAnimation> with TickerProviderSt
   @override
   void initState() {
     super.initState();
-
     _controller = widget.controller ?? AnimationController(vsync: this);
   }
 

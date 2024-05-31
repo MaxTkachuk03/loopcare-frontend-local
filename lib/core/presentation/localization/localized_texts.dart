@@ -586,8 +586,7 @@ class LocalizedTexts {
   static const String restoreSubscriptionFromSettings = "restoreSubscriptionFromSettings";
   static const String askRestoreSubscription = "askRestoreSubscription";
   static const String duplicateSubscriptionFromSettings = "duplicateSubscriptionFromSettings";
-  static const String otherPurchaseVendorCancelAccountSubscription =
-      "otherPurchaseVendorCancelAccountSubscription";
+  static const String otherPurchaseVendorCancelAccountSubscription = "otherPurchaseVendorCancelAccountSubscription";
 
   // Quizzes
   static const String quiz = "quiz";
@@ -1052,6 +1051,9 @@ class LocalizedTexts {
   static const String upcomingGoalsDescription = 'upcomingGoalsDescription';
   static const String addGoal = 'addGoal';
   static const String setGoal = 'setGoal';
+  static const String cancelGoal = 'cancelGoal';
+  static const String cancelGoalTitle = 'cancelGoalTitle';
+  static const String cancelGoalSubTitle = 'cancelGoalSubTitle';
   static const String confirmGoals = 'confirmGoals';
   static const String selectGoalsCategoryTitle = 'selectGoalsCategoryTitle';
   static const String smartGoalNewLabel = 'smartGoalNewLabel';
@@ -1065,12 +1067,19 @@ class LocalizedTexts {
   static const String goalsAccomplished = 'goalsAccomplished';
   static const String goal = 'goal';
   static const String yourCompletion = 'yourCompletion';
-  static const String timesInDays = 'timesInDays';
+  static const String goalLogged = 'goalLogged';
+  static const String goalLogDays = 'goalLogDays';
+  static const String goalTotalCompletions = 'goalTotalCompletions';
+  static const String goalCompleted = 'goalCompleted';
+  static const String goalNotCompleted = 'goalNotCompleted';
   static const String howHardWasTheGoal = 'howHardWasTheGoal';
   static const String wantToTryInFuture = 'wantToTryInFuture';
   static const String goalReview = 'goalReview';
   static const String weeklyQuickReview = 'weeklyQuickReview';
   static const String weeklyDaysLeft = 'weeklyDaysLeft';
+  static const String weeklyDayLeft = 'weeklyDayLeft';
+  static const String weeklyDaysReviewLeft = 'weeklyDaysReviewLeft';
+  static const String weeklyDayReviewLeft = 'weeklyDayReviewLeft';
   static const String weeklyCompleteTitle = 'weeklyCompleteTitle';
   static const String weeklyDate = 'weeklyDate';
   static const String weeklyCompletedFar = 'weeklyCompletedFar';
@@ -1081,4 +1090,9 @@ class LocalizedTexts {
   static const String weeklyShowGoalDetails = 'weeklyShowGoalDetails';
   static const String weeklyModalProgress = 'weeklyModalProgress';
   static const String weeklyModalInfo = 'weeklyModalInfo';
+  static const String reasonGoalNotLike = 'reasonGoalNotLike';
+  static const String reasonGoalChallenging = 'reasonGoalChallenging';
+  static const String reasonGoalMissing = 'reasonGoalMissing';
+  static const String reasonGoalHabit = 'reasonGoalHabit';
+  static const String reasonGoalSpecific = 'reasonGoalSpecific';
 }

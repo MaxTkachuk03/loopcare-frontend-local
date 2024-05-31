@@ -1317,10 +1317,10 @@ class ModalBottomSheet {
             mainAxisSize: MainAxisSize.min,
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              const CircleAvatar(
-                radius: 22.0,
-                backgroundColor: AppColors.greenRegular,
-                child: Icon(Icons.emoji_objects_rounded),
+              SizedBox(
+                height: 44.0,
+                width: 44,
+                child: AppIcons.lightbulbUnSelect,
               ),
               const SizedBox(height: 20.0),
               CustomText.bitter600(

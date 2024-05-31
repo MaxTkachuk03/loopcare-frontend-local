@@ -25,9 +25,8 @@ import 'package:loopcare_frontend/features/smart_goals/presentation/goal_review_
 
 class GoalReviewPage extends StatefulWidget {
   final WeeklySmartGoal goal;
-  final bool isLast;
 
-  const GoalReviewPage({super.key, required this.goal, required this.isLast});
+  const GoalReviewPage({super.key, required this.goal});
 
   @override
   State<GoalReviewPage> createState() => _GoalReviewPageState();
@@ -70,8 +69,6 @@ class _GoalReviewPageState extends State<GoalReviewPage> {
     context.read<SmartGoalsBloc>().add(SmartGoalsEvent.addReview(data));
   }
 
-  String get _btnLabel => widget.isLast ? LocalizedTexts.confirm.tr() : LocalizedTexts.next.tr();
-
   void _onReviewAddedListener(_, SmartGoalsState state) {
     state.mapOrNull(
       errorAddingReview: _onErrorAddingReview,
@@ -90,23 +87,9 @@ class _GoalReviewPageState extends State<GoalReviewPage> {
     context.showError(content: CustomText.w400(errorMessage ?? ''));
   }
 
-  void _onReviewAdded(SmartGoalsState state) {
-    if (widget.isLast) {
-      context
-        ..read<SmartGoalsBloc>().add(const SmartGoalsEvent.getWeeklyGoals())
-        ..router.popUntilRoot();
-
-      return;
-    }
-
-    final nextGoal = state.data.getNextGoalForReview(widget.goal);
-
-    if (nextGoal == null) return;
-
-    final isLast = state.data.isLastGoalInSession(nextGoal);
-
-    context.router.push(GoalReviewRoute(goal: nextGoal, isLast: isLast));
-  }
+  void _onReviewAdded(SmartGoalsState state) => context
+    ..read<SmartGoalsBloc>().add(const SmartGoalsEvent.getWeeklyGoals())
+    ..router.popUntilRouteWithName(HomeRoute.name);
 
   bool _listenWhen(prev, cur) {
     final isCurrentRoute = ModalRoute.of(context)?.isCurrent ?? false;
@@ -136,29 +119,9 @@ class _GoalReviewPageState extends State<GoalReviewPage> {
                     children: [
                       const SizedBox(height: 28.0),
                       GoalReviewCard(item: widget.goal),
-                      const SizedBox(height: 68.0),
-                      CustomText.bitter600(
-                        LocalizedTexts.howHardWasTheGoal.tr(),
-                        style: context.textTheme.bodyLarge,
-                      ),
-                      const SizedBox(height: 24.0),
-                      ValueListenableBuilder(
-                        valueListenable: _scoreValue,
-                        builder: (context, value, _) => ScoringScale(
-                          selectedScore: value,
-                          selectedColor: AppColors.greenRegular,
-                          scaleSize: 10,
-                          borderColor: AppColors.blueDarker,
-                          divColor: AppColors.blueLighter,
-                          onScoreTap: _onScorePressedHandler,
-                        ),
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          CustomText.w600(LocalizedTexts.veryEasy.tr(), style: context.textTheme.bodySmall),
-                          CustomText.w600(LocalizedTexts.veryHard.tr(), style: context.textTheme.bodySmall),
-                        ],
+                      _ScoreReviewWidget(
+                        scoreValue: _scoreValue,
+                        onScorePressedHandler: _onScorePressedHandler,
                       ),
                       const SizedBox(height: 25.0),
                       CustomText.bitter600(
@@ -185,7 +148,7 @@ class _GoalReviewPageState extends State<GoalReviewPage> {
                           final bool canSend = score != null && wantToTry != null;
 
                           return CustomElevatedButton.blueFullWidth(
-                            label: _btnLabel,
+                            label: LocalizedTexts.confirm.tr(),
                             onPressed: canSend ? _onPressedHandler : null,
                           );
                         },
@@ -205,7 +168,52 @@ class _GoalReviewPageState extends State<GoalReviewPage> {
   void dispose() {
     _scoreValue.dispose();
     _wantToTryValue.dispose();
-
     super.dispose();
+  }
+}
+
+class _ScoreReviewWidget extends StatelessWidget {
+  final Function(int tabIndex) onScorePressedHandler;
+  final ValueNotifier<int?> scoreValue;
+
+  const _ScoreReviewWidget({required this.scoreValue, required this.onScorePressedHandler});
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: const EdgeInsets.symmetric(vertical: 19.0),
+      decoration: const BoxDecoration(
+        border: Border.symmetric(horizontal: BorderSide(width: 1, color: AppColors.greenRegular)),
+      ),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          CustomText.bitter600(
+            LocalizedTexts.howHardWasTheGoal.tr(),
+            style: context.textTheme.bodyLarge,
+          ),
+          const SizedBox(height: 24.0),
+          ValueListenableBuilder(
+            valueListenable: scoreValue,
+            builder: (context, value, _) => ScoringScale(
+              selectedScore: value,
+              selectedColor: AppColors.greenRegular,
+              scaleSize: 10,
+              borderColor: AppColors.blueDarker,
+              divColor: AppColors.blueLighter,
+              onScoreTap: onScorePressedHandler,
+            ),
+          ),
+          const SizedBox(height: 14.0),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              CustomText.w600(LocalizedTexts.veryEasy.tr(), style: context.textTheme.bodySmall),
+              CustomText.w600(LocalizedTexts.veryHard.tr(), style: context.textTheme.bodySmall),
+            ],
+          ),
+        ],
+      ),
+    );
   }
 }
