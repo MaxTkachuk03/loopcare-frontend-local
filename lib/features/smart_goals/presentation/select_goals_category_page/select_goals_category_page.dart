@@ -10,9 +10,8 @@ import 'package:loopcare_frontend/core/presentation/routes/app_router.gr.dart';
 import 'package:loopcare_frontend/core/presentation/scaffold/custom_scaffold.dart';
 import 'package:loopcare_frontend/core/presentation/text/custom_text.dart';
 import 'package:loopcare_frontend/core/presentation/utils/build_context_extensions.dart';
-import 'package:loopcare_frontend/core/presentation/widgets/main_container.dart';
 import 'package:loopcare_frontend/features/smart_goals/domain/smart_goal_category.dart';
-import 'package:loopcare_frontend/features/smart_goals/presentation/select_goals_actegory_page/widgets/goals_categories_list.dart';
+import 'package:loopcare_frontend/features/smart_goals/presentation/select_goals_category_page/widgets/goals_categories_list.dart';
 
 class SelectGoalsCategoryPage extends StatelessWidget {
   const SelectGoalsCategoryPage({super.key});
@@ -28,24 +27,23 @@ class SelectGoalsCategoryPage extends StatelessWidget {
         leading: CustomFilledIconButton.leadingGreenLighter(),
       ),
       body: CustomSafeArea(
-        child: MainContainer(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: [
-              const SizedBox(height: 28.0),
-              CustomText.bitter600(
-                LocalizedTexts.selectGoalsCategoryTitle.tr(),
-                style: context.textTheme.displayMedium,
-              ),
-              const SizedBox(height: 21.0),
-              Expanded(
-                child: GoalsCategoriesList(
-                  onPressed: (SmartGoalCategory value) => _onCategoryPressedHandler(context, value),
+        child: CustomScrollView(
+          physics: const ClampingScrollPhysics(),
+          slivers: [
+            SliverToBoxAdapter(
+              child: Padding(
+                padding: const EdgeInsets.fromLTRB(20.0, 28.0, 20.0, 21.0),
+                child: CustomText.bitter600(
+                  LocalizedTexts.selectGoalsCategoryTitle.tr(),
+                  style: context.textTheme.displayMedium,
                 ),
               ),
-            ],
-          ),
+            ),
+            GoalsCategoriesList(
+              onPressed: (value) => _onCategoryPressedHandler(context, value),
+            ),
+            const SliverPadding(padding: EdgeInsets.only(top: 30)),
+          ],
         ),
       ),
     );
