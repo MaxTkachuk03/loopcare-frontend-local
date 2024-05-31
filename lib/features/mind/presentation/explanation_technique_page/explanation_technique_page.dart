@@ -1,11 +1,32 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:loopcare_frontend/core/domain/analytics/firebase_event_list.dart';
 import 'package:loopcare_frontend/features/mind/application/mind_bloc.dart';
+import 'package:loopcare_frontend/features/mind/domain/mind_analytics_mixin/mind_analytics_mixin.dart';
 import 'package:loopcare_frontend/features/mind/presentation/widgets/mind_content_screen/mind_content_screen.dart';
 
-class ExplanationTechniquePage extends StatelessWidget {
+class ExplanationTechniquePage extends StatefulWidget {
   const ExplanationTechniquePage({super.key});
+
+  @override
+  State<ExplanationTechniquePage> createState() => _ExplanationTechniquePageState();
+}
+
+class _ExplanationTechniquePageState extends State<ExplanationTechniquePage> with MindAnalyticsMixin {
+  @override
+  void initState() {
+    super.initState();
+    techniqueId = context.read<MindBloc>().state.data.currentTechnique!.id;
+
+    track(FirebaseEvents.mindTechniqueExplanation);
+  }
+
+  @override
+  void dispose() {
+    track(FirebaseEvents.mindCloseTechniqueExplanation);
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {

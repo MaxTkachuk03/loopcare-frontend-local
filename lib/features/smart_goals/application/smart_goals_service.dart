@@ -1,5 +1,6 @@
 import 'package:dartz/dartz.dart';
 import 'package:loopcare_frontend/core/infrastructure/dio_client/request_error.dart';
+import 'package:loopcare_frontend/features/smart_goals/application/cancel_goal_reason.dart';
 import 'package:loopcare_frontend/features/smart_goals/application/dto/get_goals_categories_response.dart';
 import 'package:loopcare_frontend/features/smart_goals/application/dto/get_goals_response.dart';
 import 'package:loopcare_frontend/features/smart_goals/application/dto/get_goals_statistics_response.dart';
@@ -12,6 +13,9 @@ abstract class SmartGoalsService {
   Future<Either<RequestError, GetGoalsResponse>> getGoals({required int categoryId});
 
   Future<Either<RequestError, WeeklyGoalsSession>> saveGoals({required List<SaveGoalsBody> goals});
+
+  Future<Either<RequestError, WeeklyGoalsSession>> deleteSession(
+      {required int sessionId, required CancelGoalReason reason});
 
   Future<Either<RequestError, WeeklyGoalsSession>> getWeeklyGoals();
 

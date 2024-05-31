@@ -5,15 +5,15 @@ class _TextExplanationLeadingWidget extends StatelessWidget {
     super.key,
     required this.type,
     required this.url,
+    this.exercise,
   });
 
   final _MindContentScreenType type;
   final String? url;
+  final MindTechniqueExercise? exercise;
 
   @override
   Widget build(BuildContext context) {
-    final mindData = context.read<MindBloc>().state.data;
-
     return switch(type) {
       _MindContentScreenType.exercise => const SizedBox.shrink(),
       _MindContentScreenType.intro => Column(
@@ -25,12 +25,12 @@ class _TextExplanationLeadingWidget extends StatelessWidget {
           ),
           const SizedBox(height: 20),
           ExerciseListTile(
-            exercise: mindData.currentExercise!,
+            exercise: exercise!,
             hideIntro: true,
           ),
           const SizedBox(height: 8),
           CustomText.bitter600(
-            mindData.currentExercise?.explanation?.title ?? '',
+            exercise?.explanation?.title ?? '',
             style: context.textTheme.bodyLarge?.copyWith(color: AppColors.white),
           ),
         ],

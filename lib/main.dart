@@ -13,6 +13,7 @@ import 'package:loopcare_frontend/core/app.dart';
 import 'package:loopcare_frontend/core/application/customer_io_service/customer_io_service.dart';
 import 'package:loopcare_frontend/core/application/system_service.dart';
 import 'package:loopcare_frontend/core/infrastructure/app_lifecycle_observer.dart';
+import 'package:loopcare_frontend/core/infrastructure/services/country_code_service/country_code_service.dart';
 import 'package:loopcare_frontend/core/infrastructure/services/events.dart';
 import 'package:loopcare_frontend/core/infrastructure/services/mixpanel_event_service.dart';
 import 'package:loopcare_frontend/core/infrastructure/services/mixpanel_manager.dart';
@@ -50,6 +51,8 @@ Future<void> main() async {
   tz.initializeTimeZones();
 
   SystemService.allowOnlyPortraitOrientation();
+
+  await CountryCodeService.instance.init();
 
   await CustomerIoService.initialize();
 

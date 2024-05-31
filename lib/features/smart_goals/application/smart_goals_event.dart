@@ -6,19 +6,19 @@ class SmartGoalsEvent with _$SmartGoalsEvent {
 
   const factory SmartGoalsEvent.getWeeklyGoals() = GetWeeklyGoals;
 
-  const factory SmartGoalsEvent.saveGoals() = SaveGoals;
+  const factory SmartGoalsEvent.setGoal(SmartGoal goal) = SetGoals;
 
   const factory SmartGoalsEvent.addReview(GoalReviewBody data) = AddReview;
 
-  const factory SmartGoalsEvent.addGoals({required List<SmartGoal> goals}) = AddGoals;
+  const factory SmartGoalsEvent.postCompletions({required WeeklySmartGoal weeklySmartGoal}) = PostCompletions;
 
-  const factory SmartGoalsEvent.removeGoal({required SmartGoal goal}) = RemoveGoal;
+  const factory SmartGoalsEvent.resetCompletions({required WeeklySmartGoal weeklySmartGoal}) = ResetCompletions;
 
-  const factory SmartGoalsEvent.resetSelected() = ResetSelected;
+  const factory SmartGoalsEvent.deleteSession({required int sessionId}) = DeleteSession;
 
-  const factory SmartGoalsEvent.updateLoggerTimes({required ProgressSmartGoalLog goalProgress}) = UpdateLoggerTimes;
+  const factory SmartGoalsEvent.selectCancelGoalReason({required CancelGoalReason reason}) = SelectCancelGoalReason;
 
-  const factory SmartGoalsEvent.resetLoggerTimes({required WeeklySmartGoal weeklyGoal}) = ResetLoggerTimes;
+  const factory SmartGoalsEvent.resetCancelGoalReason() = ResetCancelGoalReason;
 
-  const factory SmartGoalsEvent.postCompletions({required int reviewId}) = PostCompletions;
+  const factory SmartGoalsEvent.selectDate({required DateTime selectedDate}) = SelectDate;
 }

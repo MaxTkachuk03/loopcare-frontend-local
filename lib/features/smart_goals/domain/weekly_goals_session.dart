@@ -18,4 +18,6 @@ class WeeklyGoalsSession with _$WeeklyGoalsSession {
   }) = _WeeklyGoalsSession;
 
   factory WeeklyGoalsSession.fromJson(Map<String, dynamic> json) => _$WeeklyGoalsSessionFromJson(json);
+
+  bool get sessionHasGoal => goals != null ? goals!.isNotEmpty : false;
 }

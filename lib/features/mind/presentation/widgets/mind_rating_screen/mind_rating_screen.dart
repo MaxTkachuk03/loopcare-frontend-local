@@ -23,7 +23,6 @@ class MindRatingScreen extends StatefulWidget {
     required this.question,
     required this.isFinish,
     required this.onCompleted,
-    required this.onPop,
     this.highestText,
     this.lowestText,
   });
@@ -34,7 +33,6 @@ class MindRatingScreen extends StatefulWidget {
   final String? highestText;
   final bool isFinish;
   final void Function() onCompleted;
-  final void Function() onPop;
 
   @override
   State<MindRatingScreen> createState() => _MindRatingScreenState();
@@ -42,18 +40,6 @@ class MindRatingScreen extends StatefulWidget {
 
 class _MindRatingScreenState extends State<MindRatingScreen> {
   final ValueNotifier<int?> _scoreListener = ValueNotifier(null);
-
-  @override
-  void initState() {
-    super.initState();
-    final data = context.read<MindBloc>().state.data;
-
-    if (widget.isFinish) {
-      _scoreListener.value = data.scaleAfterAnswer;
-    } else {
-      _scoreListener.value = data.scaleBeforeAnswer;
-    }
-  }
 
   void _onNextPressed(int? value) {
     context.read<MindBloc>().add(
@@ -68,9 +54,14 @@ class _MindRatingScreenState extends State<MindRatingScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return PopScope(
-      canPop: !widget.isFinish,
-      onPopInvoked: (didPop) => widget.onPop(),
+    return BlocListener<MindBloc, MindState>(
+      listener: (context, state) {
+        if (widget.isFinish) {
+          _scoreListener.value = state.data.scaleAfterAnswer;
+        } else {
+          _scoreListener.value = state.data.scaleBeforeAnswer;
+        }
+      },
       child: CustomScaffold.petrol(
         appBar: CustomAppBar.petrol(
           title: widget.title,
@@ -99,7 +90,8 @@ class _MindRatingScreenState extends State<MindRatingScreen> {
                       selectedScore: value,
                       selectedColor: AppColors.yellowOffRegular,
                       textColor: AppColors.white,
-                      scaleSize: 10,
+                      scaleSize: 11,
+                      labels: List.generate(11, (index) => index.toString()),
                       borderColor: AppColors.white,
                       divColor: AppColors.white,
                       onScoreTap: (tabIndex) => _scoreListener.value = tabIndex,

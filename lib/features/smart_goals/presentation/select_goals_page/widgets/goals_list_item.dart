@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:loopcare_frontend/core/presentation/alerting/modal_bottom_sheet.dart';
 import 'package:loopcare_frontend/core/presentation/cards/custom_tappable_card.dart';
+import 'package:loopcare_frontend/core/presentation/icon_images/app_icons.dart';
 import 'package:loopcare_frontend/core/presentation/text/custom_text.dart';
-import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 import 'package:loopcare_frontend/core/presentation/utils/build_context_extensions.dart';
 import 'package:loopcare_frontend/features/smart_goals/domain/smart_goal.dart';
 import 'package:loopcare_frontend/features/smart_goals/presentation/widgets/goal_progress_indicator.dart';
@@ -27,7 +27,7 @@ class GoalsListItem extends StatelessWidget {
         subtitle: item.title,
         task: item.description,
         content: item.funFact,
-    );
+      );
 
   @override
   Widget build(BuildContext context) {
@@ -42,34 +42,8 @@ class GoalsListItem extends StatelessWidget {
       ),
       trailing: IconButton(
         isSelected: isSelected,
-        selectedIcon: const DecoratedBox(
-          decoration: BoxDecoration(
-            shape: BoxShape.circle,
-            color: AppColors.white,
-          ),
-          child: SizedBox.square(
-            dimension: 24,
-            child: Icon(
-              Icons.emoji_objects_rounded,
-              color: AppColors.greenRegular,
-              size: 16,
-            ),
-          ),
-        ),
-        icon: const DecoratedBox(
-          decoration: BoxDecoration(
-            shape: BoxShape.circle,
-            color: AppColors.greenRegular,
-          ),
-          child: SizedBox.square(
-            dimension: 24,
-            child: Icon(
-              Icons.emoji_objects_rounded,
-              color: AppColors.white,
-              size: 16,
-            ),
-          ),
-        ),
+        selectedIcon: AppIcons.lightbulbSelect,
+        icon: AppIcons.lightbulbUnSelect,
         onPressed: () => _onInfoHandler(context),
       ),
       child: Padding(

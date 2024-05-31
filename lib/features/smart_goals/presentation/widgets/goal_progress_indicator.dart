@@ -1,10 +1,8 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
-import 'package:loopcare_frontend/core/presentation/icon_images/app_icons.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 import 'package:loopcare_frontend/core/presentation/utils/build_context_extensions.dart';
 
-const achieveRadius = 14.0;
 const counterRadius = 20.0;
 
 class GoalProgressIndicator extends StatelessWidget {
@@ -29,7 +27,7 @@ class GoalProgressIndicator extends StatelessWidget {
   Widget build(BuildContext context) {
     return SizedBox(
       width: progressSize,
-      height: isAchievedNotifier ? progressSize + innerSize + achieveRadius : progressSize,
+      height: progressSize,
       child: Stack(
         alignment: Alignment.center,
         children: [
@@ -48,21 +46,10 @@ class GoalProgressIndicator extends StatelessWidget {
             right: 0,
             child: CircleAvatar(
               radius: innerSize,
-              backgroundColor: AppColors.blueDarkest,
+              backgroundColor: AppColors.blueRegular,
               child: _TextAccent(
                 currentStep: currentStep,
                 steps: steps,
-              ),
-            ),
-          ),
-          Positioned(
-            top: 0,
-            child: Visibility(
-              visible: isAchievedNotifier,
-              child: CircleAvatar(
-                radius: achieveRadius,
-                backgroundColor: AppColors.yellowRegular,
-                child: AppIcons.achieve,
               ),
             ),
           ),

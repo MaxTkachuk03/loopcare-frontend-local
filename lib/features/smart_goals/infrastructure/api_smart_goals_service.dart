@@ -3,6 +3,7 @@ import 'package:injectable/injectable.dart';
 import 'package:loopcare_frontend/core/infrastructure/dio_client/dio_client.dart';
 import 'package:loopcare_frontend/core/infrastructure/dio_client/parse_response.dart';
 import 'package:loopcare_frontend/core/infrastructure/dio_client/request_error.dart';
+import 'package:loopcare_frontend/features/smart_goals/application/cancel_goal_reason.dart';
 import 'package:loopcare_frontend/features/smart_goals/application/dto/get_goals_categories_response.dart';
 import 'package:loopcare_frontend/features/smart_goals/application/dto/get_goals_response.dart';
 import 'package:loopcare_frontend/features/smart_goals/application/dto/get_goals_statistics_response.dart';
@@ -78,5 +79,12 @@ class APISmartGoalsService implements SmartGoalsService {
     return client
         .post('/smart-goal/progress', data: progress.toJson())
         .then(parseResponse(WeeklyGoalsSession.fromJson));
+  }
+
+  @override
+  Future<Either<RequestError, WeeklyGoalsSession>> deleteSession(
+      {required int sessionId, required CancelGoalReason reason}) async {
+    return client.delete('/smart-goal/session/$sessionId').then(parseResponse(WeeklyGoalsSession.fromJson));
+    // data: {'reason': reason.name}
   }
 }

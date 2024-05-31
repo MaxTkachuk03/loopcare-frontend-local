@@ -25,6 +25,7 @@ import 'package:loopcare_frontend/features/dashboard/presentation/widgets/suppor
 import 'package:loopcare_frontend/features/dashboard/presentation/widgets/weight/weight_block.dart';
 import 'package:loopcare_frontend/features/education/application/education_program/education_program_bloc.dart';
 import 'package:loopcare_frontend/features/group_sessions/application/topics_bloc.dart';
+import 'package:loopcare_frontend/features/mind/application/mind_bloc.dart';
 import 'package:loopcare_frontend/features/mood/application/mood_bloc.dart';
 import 'package:loopcare_frontend/features/nutrition/application/bmr/bmr_bloc.dart';
 import 'package:loopcare_frontend/features/nutrition/application/dashboard_education/dashboard_education_bloc.dart';
@@ -82,8 +83,9 @@ class _DashboardPageState extends State<DashboardPage> with WidgetsBindingObserv
 
     context.read<MealsBloc>()
       ..add(MealsEvent.setCurrentDate(_selectedDay))
-      ..add(MealsEvent.fetchMeals(
-          startDate: _selectedDay.subtract(const Duration(days: 8)), endDate: _selectedDay));
+      ..add(MealsEvent.fetchMeals(startDate: _selectedDay.subtract(const Duration(days: 8)), endDate: _selectedDay));
+
+    context.read<MindBloc>().add(const MindEvent.init());
 
     updateDashboardData(context.read<AuthenticationBloc>().state);
   }
@@ -124,9 +126,7 @@ class _DashboardPageState extends State<DashboardPage> with WidgetsBindingObserv
     }
 
     if (state.data.isSmartGoalUnlocked) {
-      context.read<SmartGoalsBloc>().add(
-            const SmartGoalsEvent.getWeeklyGoals(),
-          );
+      context.read<SmartGoalsBloc>().add(const SmartGoalsEvent.getWeeklyGoals());
     }
   }
 
@@ -152,6 +152,9 @@ class _DashboardPageState extends State<DashboardPage> with WidgetsBindingObserv
               day.lastDayOfCurrentWeek,
             ),
           );
+    }
+    if (context.read<AuthenticationBloc>().state.data.isSmartGoalUnlocked) {
+      context.read<SmartGoalsBloc>().add(SmartGoalsEvent.selectDate(selectedDate: day));
     }
 
     setState(() {
@@ -191,8 +194,7 @@ class _DashboardPageState extends State<DashboardPage> with WidgetsBindingObserv
           listener: _accountListener,
         ),
         BlocListener<DashboardWeightBloc, DashboardWeightState>(
-          listenWhen: (prev, cur) =>
-              prev is DashboardWeightStateLoading && cur is DashboardWeightStateUpdated,
+          listenWhen: (prev, cur) => prev is DashboardWeightStateLoading && cur is DashboardWeightStateUpdated,
           listener: _weightLogChangedListener,
         ),
       ],
@@ -222,17 +224,26 @@ class _DashboardPageState extends State<DashboardPage> with WidgetsBindingObserv
                           const SizedBox(height: 26.0),
                           BlocBuilder<AuthenticationBloc, AuthenticationState>(
                             builder: (BuildContext context, state) {
-                              if (state.data.account?.isSmartGoalsUnlocked ?? false) {
-                                return const Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    DashboardSmartGoals(),
-                                    SizedBox(height: 19.0),
-                                  ],
-                                );
-                              } else {
-                                return const SizedBox.shrink();
-                              }
+                              final unlockedGoals = state.data.account?.isSmartGoalsUnlocked ?? false;
+                              return BlocBuilder<SmartGoalsBloc, SmartGoalsState>(
+                                builder: (context, state) {
+                                  var showSmartGoalsCard = unlockedGoals &&
+                                          (state.data.hasGoalActiveSessions &&
+                                              state.data.isDateHasActiveSession(_selectedDay) &&
+                                              !_selectedDay.isFuture) ||
+                                      _selectedDay.isToday;
+                                  if (showSmartGoalsCard) {
+                                    return const Column(
+                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      children: [
+                                        DashboardSmartGoals(),
+                                        SizedBox(height: 19.0),
+                                      ],
+                                    );
+                                  }
+                                  return const SizedBox.shrink();
+                                },
+                              );
                             },
                           ),
                           WeightBlock(date: _selectedDay),
