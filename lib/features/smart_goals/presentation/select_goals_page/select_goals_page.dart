@@ -42,15 +42,9 @@ class _SelectGoalsPageState extends State<SelectGoalsPage> {
     ..read<SmartGoalsBloc>().add(SmartGoalsEvent.setGoal(_selectedGoal!))
     ..router.popUntilRouteWithName(HomeRoute.name);
 
-  void _onGoalSelectHandler(SmartGoal goal, bool isSelected) {
-    if (_selectedGoal != null) return;
-    if (isSelected) {
-      _selectedGoal = null;
-    } else {
-      _selectedGoal = goal;
-    }
-    setState(() {});
-  }
+  void _onGoalSelectHandler(SmartGoal goal, bool isSelected) => setState(() {
+        _selectedGoal = goal;
+      });
 
   @override
   Widget build(BuildContext context) {
