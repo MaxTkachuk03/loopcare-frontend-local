@@ -25,6 +25,7 @@ import 'package:loopcare_frontend/core/infrastructure/services/shared_storage/sh
 import 'package:loopcare_frontend/core/presentation/utils/string_extensions.dart';
 import 'package:loopcare_frontend/features/account/domain/user_grouping_state.dart';
 import 'package:loopcare_frontend/features/authentication/application/authentication_service.dart';
+import 'package:loopcare_frontend/features/authentication/application/dto/account_document_version_data.dart';
 import 'package:loopcare_frontend/features/authentication/application/dto/forgot_password_data.dart';
 import 'package:loopcare_frontend/features/authentication/application/dto/login_data.dart';
 import 'package:loopcare_frontend/features/authentication/application/dto/mental_health_test_answers.dart';
@@ -73,6 +74,7 @@ class AuthenticationBloc extends HydratedBloc<AuthenticationEvent, Authenticatio
     on<SyncChatState>(_onSyncChatState);
     on<AuthenticatedCheck>(_onAuthenticatedCheck);
     on<StartTrackUser>(_onStartTrackUser);
+    on<UpdatePolicy>(_onUpdatePolicy);
 
     hydrate();
     _accessTokenSubscription = authTokenManager.addListener((token) {
@@ -598,7 +600,12 @@ class AuthenticationBloc extends HydratedBloc<AuthenticationEvent, Authenticatio
 
         _sharedPref.account = account;
 
-        emit(AuthenticationState.gotAccount(state.data.copyWith(account: account)));
+        if (_sharedPref.privacyPolicyVersion > account.privacyPolicyVersion ||
+            _sharedPref.termsAndConditionsVersion > account.termsAndConditionsVersion) {
+          emit(AuthenticationState.needUpdatePolicies(state.data.copyWith(account: account)));
+        } else {
+          emit(AuthenticationState.gotAccount(state.data.copyWith(account: account)));
+        }
 
         add(const AuthenticationEvent.syncChatState());
       },
@@ -612,10 +619,38 @@ class AuthenticationBloc extends HydratedBloc<AuthenticationEvent, Authenticatio
     final response = await _authenticationService.deleteAccount();
 
     response.fold(
-      (l) => null,
-      (r) {
+      (error) => emit(AuthenticationState.error(state.data.copyWith(error: error))),
+      (_) {
         _sharedPref.cleanStorage();
         add(const AuthenticationEvent.logout());
+      },
+    );
+  }
+
+  FutureOr<void> _onUpdatePolicy(
+    UpdatePolicy event,
+    Emitter<AuthenticationState> emit,
+  ) async {
+    final data = AccountDocumentVersionData(
+      termsAndConditionsVersion: event.termsAndConditionsVersion,
+      privacyPolicyVersion: event.privacyPolicyVersion,
+    );
+
+    final response = await _authenticationService.updateDocumentVersion(data);
+
+    response.fold(
+      (error) => emit(AuthenticationState.error(state.data.copyWith(error: error))),
+      (_) {
+        final account = _sharedPref.account = _sharedPref.account?.copyWith(
+          privacyPolicyVersion: event.privacyPolicyVersion,
+          termsAndConditionsVersion: event.termsAndConditionsVersion,
+        );
+
+        emit(
+          AuthenticationState.gotAccount(
+            state.data.copyWith(account: account),
+          ),
+        );
       },
     );
   }

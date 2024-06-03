@@ -4,6 +4,9 @@ const instructionsUrl = 'https://loopcare-pdf-instructions.s3.eu-central-1.amazo
 const leanOnMeWeb = 'https://lean-on.me/request-access';
 const psychologistConsultingLink = 'https://locator.apa.org/';
 
+const supportEmailUrl = 'support@lean-on.me';
+const supportEmailMailTo = 'mailto:$supportEmailUrl';
+
 const appStoreAppUrl = 'https://apps.apple.com/us/app/leanonme/id6465899080';
 const playStoreAppUrl = 'https://play.google.com/store/apps/details?id=com.loopcare.leanonme.app';
 

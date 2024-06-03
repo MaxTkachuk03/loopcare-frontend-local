@@ -22,7 +22,7 @@ class AppVersionInterceptor extends QueuedInterceptor {
     final showPopup = _checkHeaderVersion(headers.map);
 
     if (showPopup) {
-      AppUpdateBottomSheet.show();
+      AppUpdateBottomSheet.showAppUpdate();
     }
   }
 
