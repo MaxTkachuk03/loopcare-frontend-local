@@ -73,11 +73,11 @@ class SmartGoalsBloc extends Bloc<SmartGoalsEvent, SmartGoalsState> {
   ) async {
     emit(SmartGoalsState.loading(state.data.copyWith(isLoading: true)));
 
-    final response = await _smartGoalsService.getWeeklyGoals();
+    final response = await _smartGoalsService.getWeeklySessions();
 
     response.fold(
       (l) => emit(SmartGoalsState.error(state.data.copyWith(error: l, isLoading: false))),
-      (r) => emit(SmartGoalsState.gotWeeklySession(state.data.copyWith(weeklyGoalsSession: r, isLoading: false))),
+      (r) => emit(SmartGoalsState.gotWeeklySession(state.data.copyWith(weeklyGoalsSessions: r.data, isLoading: false))),
     );
   }
 
@@ -87,14 +87,15 @@ class SmartGoalsBloc extends Bloc<SmartGoalsEvent, SmartGoalsState> {
   ) async {
     emit(SmartGoalsState.loading(state.data.copyWith(isLoading: true)));
 
-    final response = await _smartGoalsService.saveGoals(goals: [SaveGoalsBody(smartGoalId: event.goal.id)]);
+    final response = await _smartGoalsService.saveGoals(goal: SaveGoalsBody(smartGoalId: event.goal.id));
     response.fold(
       (l) {
         emit(SmartGoalsState.errorSaveGoals(state.data.copyWith(error: l, isLoading: false)));
       },
       (r) {
         _addGoalAnalyticEvent(r);
-        emit(SmartGoalsState.weeklySessionSaved(state.data.copyWith(weeklyGoalsSession: r, isLoading: false)));
+        emit(SmartGoalsState.weeklySessionSaved(
+            state.data.copyWith(weeklyGoalsSessions: [...state.data.weeklyGoalsSessions, r], isLoading: false)));
       },
     );
   }
@@ -134,9 +135,11 @@ class SmartGoalsBloc extends Bloc<SmartGoalsEvent, SmartGoalsState> {
         );
       },
       (r) {
+        var sessions = [...state.data.weeklyGoalsSessions];
+        sessions.removeWhere((session) => session.id == r.id);
         emit(
           SmartGoalsState.sessionDeleted(
-            state.data.copyWith(weeklyGoalsSession: null, reason: null, isLoading: false),
+            state.data.copyWith(weeklyGoalsSessions: sessions, reason: null, isLoading: false),
           ),
         );
       },
@@ -146,7 +149,7 @@ class SmartGoalsBloc extends Bloc<SmartGoalsEvent, SmartGoalsState> {
 
   void _addGoalAnalyticEvent(WeeklyGoalsSession session) {
     if (session.sessionHasGoal) {
-      final goal = session.goals!.first;
+      final goal = session.goal!;
       AnalyticsEventService.instance.logEvent(
         FirebaseEvents.userSavedGoals,
         parameters: {
@@ -206,8 +209,9 @@ class SmartGoalsBloc extends Bloc<SmartGoalsEvent, SmartGoalsState> {
             CIOAttributes.wantsToRepeat: event.data.isTryAgain,
           },
         );
-
-        emit(SmartGoalsState.reviewAdded(state.data.copyWith(weeklyGoalsSession: r, isLoading: false)));
+        var sessions = [...state.data.weeklyGoalsSessions];
+        sessions.removeWhere((session) => session.id == r.id);
+        emit(SmartGoalsState.reviewAdded(state.data.copyWith(weeklyGoalsSessions: sessions, isLoading: false)));
       },
     );
   }
@@ -231,7 +235,11 @@ class SmartGoalsBloc extends Bloc<SmartGoalsEvent, SmartGoalsState> {
 
     response.fold((l) => emit(SmartGoalsState.error(state.data.copyWith(error: l, isLoading: false))), (r) {
       _logGoalAnalyticEvent(smartGoalLog);
-      emit(SmartGoalsState.progressConfirmed(state.data.copyWith(weeklyGoalsSession: r, isLoading: false)));
+      var sessions = [...state.data.weeklyGoalsSessions];
+      final index = sessions.indexWhere((session) => session.id == r.id);
+      sessions[index] = r;
+      emit(
+          SmartGoalsState.progressConfirmed(state.data.copyWith(weeklyGoalsSessions: [...sessions], isLoading: false)));
     });
   }
 
@@ -239,14 +247,14 @@ class SmartGoalsBloc extends Bloc<SmartGoalsEvent, SmartGoalsState> {
     ResetCompletions event,
     Emitter<SmartGoalsState> emit,
   ) async {
-    final date = state.data.selectedDate?.dateStringOnly ?? DateTime.now().dateStringOnly;
     emit(SmartGoalsState.loading(state.data.copyWith(isLoading: true)));
-    final response = await _smartGoalsService.confirmProgress(
-        progress: ProgressGoalData(
-            reviewId: event.weeklySmartGoal.id, progress: [ProgressSmartGoalLog(date: date, times: 0)]));
+    final response = await _smartGoalsService.resetProgress(sessionId: event.sessionId);
 
     response.fold((l) => emit(SmartGoalsState.error(state.data.copyWith(error: l, isLoading: false))), (r) {
-      emit(SmartGoalsState.progressConfirmed(state.data.copyWith(weeklyGoalsSession: r, isLoading: false)));
+      var sessions = [...state.data.weeklyGoalsSessions];
+      final index = sessions.indexWhere((session) => session.id == r.id);
+      sessions[index] = r;
+      emit(SmartGoalsState.progressReset(state.data.copyWith(weeklyGoalsSessions: [...sessions], isLoading: false)));
     });
   }
 

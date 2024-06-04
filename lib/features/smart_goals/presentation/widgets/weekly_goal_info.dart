@@ -23,11 +23,7 @@ class WeeklyGoalInfo extends StatelessWidget {
       shrinkWrap: true,
       physics: const BouncingScrollPhysics(),
       children: [
-        SizedBox(
-          height: 44.0,
-          width: 44,
-          child: AppIcons.lightbulbUnSelect,
-        ),
+        SizedBox(width: 44, height: 44, child: AppIcons.lightbulbUnSelect),
         const SizedBox(height: 16.0),
         CustomText.bitter600(
           weeklyGoal.title,

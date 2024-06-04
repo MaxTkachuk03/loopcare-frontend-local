@@ -20,9 +20,11 @@ class CustomTappableCard extends StatelessWidget {
     this.trailingExtend,
     this.color,
     this.selectedColor,
+    this.disabledColor,
     this.borderRadius,
     this.elevation,
     this.enabled = true,
+    this.disable = false,
   });
 
   /// A widget to display before the child.
@@ -75,6 +77,12 @@ class CustomTappableCard extends StatelessWidget {
   /// If this property is null then [ColorScheme.primary] is used.
   final Color? selectedColor;
 
+  /// Defines the background item color if card is disabled.
+  ///
+  /// If this property is null then
+  /// 'Theme.of(context).disabledColor.withOpacity(0.5)' is used.
+  final Color? disabledColor;
+
   /// The border radius of the containing rectangle.
   ///
   /// If this is null, it is interpreted as 'BorderRadius.all(Radius.circular(12))'.
@@ -91,10 +99,16 @@ class CustomTappableCard extends StatelessWidget {
   /// Defaults to 4.
   final double? elevation;
 
-  /// Whether this list tile is interactive.
+  /// Whether this card is interactive.
   ///
   /// If false, the [onPressed] callback is inoperative.
   final bool enabled;
+
+  /// Whether this card is interactive
+  ///
+  /// If false, the [onPressed] callback is inoperative, change [elevation]
+  /// to 0.0 and change [color] to disabled color.
+  final bool disable;
 
   const CustomTappableCard.greenLightest({
     super.key,
@@ -108,10 +122,11 @@ class CustomTappableCard extends StatelessWidget {
     this.trailingExtend,
     this.borderRadius,
     this.elevation,
+    this.disabledColor,
     this.enabled = true,
-  }) : color = AppColors.greenLightest,
+    this.disable = false,
+  })  : color = AppColors.greenLightest,
         selectedColor = AppColors.greenRegular;
-
 
   @override
   Widget build(BuildContext context) {
@@ -122,9 +137,18 @@ class CustomTappableCard extends StatelessWidget {
     final effectiveSelectedColor = selectedColor ?? Theme.of(context).colorScheme.primary;
     final effectiveBorderRadius = borderRadius ?? _defaultBorderRadius;
 
-    final elevationState = isSelected ? 0.0 : (elevation ?? _defaultElevation);
-    final colorState = isSelected ? effectiveSelectedColor : effectiveColor;
+
+    final elevationState = isSelected || disable ? 0.0 : (elevation ?? _defaultElevation);
     final highlightColor = isSelected ? effectiveColor.withOpacity(0.2) : effectiveSelectedColor.withOpacity(0.2);
+
+    Color colorState;
+    if (isSelected) {
+      colorState = effectiveSelectedColor;
+    } else if (disable) {
+      colorState = disabledColor ?? Theme.of(context).disabledColor.withOpacity(0.5);
+    } else {
+      colorState = effectiveColor;
+    }
 
     Widget content = child;
 
@@ -149,13 +173,19 @@ class CustomTappableCard extends StatelessWidget {
       color: colorState,
       borderRadius: effectiveBorderRadius,
       surfaceTintColor: Colors.transparent,
-      child: InkWell(
-        onTap: enabled ? onPressed : null,
-        highlightColor: highlightColor,
-        borderRadius: effectiveBorderRadius,
-        child: Padding(
-          padding: effectivePadding,
-          child: content,
+      child: IgnorePointer(
+        ignoring: disable || !enabled,
+        child: InkWell(
+          onTap: onPressed,
+          highlightColor: highlightColor,
+          borderRadius: effectiveBorderRadius,
+          child: Opacity(
+            opacity: disable ? 0.5 : 1,
+            child: Padding(
+              padding: effectivePadding,
+              child: content,
+            ),
+          ),
         ),
       ),
     );

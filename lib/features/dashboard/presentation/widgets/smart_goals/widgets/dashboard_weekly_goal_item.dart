@@ -48,7 +48,7 @@ class _DashboardWeeklyGoalItemState extends State<DashboardWeeklyGoalItem> {
 
   void _onResetProgressHandler(BuildContext context, WeeklySmartGoal item) {
     HapticFeedback.vibrate();
-    context.read<SmartGoalsBloc>().add(SmartGoalsEvent.resetCompletions(weeklySmartGoal: item));
+    context.read<SmartGoalsBloc>().add(SmartGoalsEvent.resetCompletions(sessionId: widget.sessionId));
   }
 
   void _onItemHandler(BuildContext context, WeeklySmartGoal item) => ModalBottomSheet.smartGoalComplete(
@@ -59,8 +59,10 @@ class _DashboardWeeklyGoalItemState extends State<DashboardWeeklyGoalItem> {
       );
 
   void _onQuickReviewHandler() {
-    final goal = context.read<SmartGoalsBloc>().state.data.weeklyGoals.first;
-    context.router.push(GoalReviewRoute(goal: goal));
+    final goal = context.read<SmartGoalsBloc>().state.data.getWeeklySession(widget.sessionId)?.goal;
+    if (goal != null) {
+      context.router.push(GoalReviewRoute(goal: goal));
+    }
   }
 
   void _onConfirmRemove(BuildContext context) {
@@ -116,7 +118,7 @@ class _DashboardWeeklyGoalItemState extends State<DashboardWeeklyGoalItem> {
                   isAchievedNotifier: widget.item.isAchieved,
                 ),
                 const SizedBox(width: 16.0),
-                _LeftDaysWidget(item: widget.item),
+                _LeftDaysWidget(item: widget.item, sessionId: widget.sessionId),
                 const SizedBox(width: 16.0),
               ],
             ),
@@ -169,8 +171,9 @@ class _SlideRemoveButton extends StatelessWidget {
 
 class _LeftDaysWidget extends StatelessWidget {
   final WeeklySmartGoal item;
+  final int sessionId;
 
-  const _LeftDaysWidget({required this.item});
+  const _LeftDaysWidget({required this.item, required this.sessionId});
 
   @override
   Widget build(BuildContext context) {
@@ -200,27 +203,28 @@ class _LeftDaysWidget extends StatelessWidget {
   }
 
   String _getSubTitle(SmartGoalsState state) {
-    if (!state.data.isWeeklySessionHasTimestamp) {
+    final session = state.data.getWeeklySession(sessionId);
+    if (session == null || !session.isWeeklySessionHasTimestamp) {
       return '';
     }
-    if (state.data.hasActiveSession) {
-      if (state.data.daysLeft > 1) {
+    if (session.hasActiveSession) {
+      if (session.daysLeft > 1) {
         return LocalizedTexts.weeklyDaysLeft.tr(
-          args: [state.data.daysLeft.toString()],
+          args: [session.daysLeft.toString()],
         );
       } else {
         return LocalizedTexts.weeklyDayLeft.tr(
-          args: [state.data.daysLeft.toString()],
+          args: [session.daysLeft.toString()],
         );
       }
-    } else if (state.data.hasQuickReviewWeeklyGoals) {
-      if (state.data.daysReviewLeft > 1) {
+    } else if (session.hasQuickReviewWeeklyGoals) {
+      if (session.daysReviewLeft > 1) {
         return LocalizedTexts.weeklyDaysReviewLeft.tr(
-          args: [state.data.daysReviewLeft.toString()],
+          args: [session.daysReviewLeft.toString()],
         );
       } else {
         return LocalizedTexts.weeklyDayReviewLeft.tr(
-          args: [state.data.daysReviewLeft.toString()],
+          args: [session.daysReviewLeft.toString()],
         );
       }
     }

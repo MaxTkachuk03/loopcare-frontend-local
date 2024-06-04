@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loopcare_frontend/core/presentation/buttons/custom_elevated_button.dart';
 import 'package:loopcare_frontend/core/presentation/buttons/custom_outlined_button.dart';
-import 'package:loopcare_frontend/core/presentation/icon_images/app_icons.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/core/presentation/text/custom_text.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
@@ -33,7 +32,7 @@ class WeeklyGoalCancelReason extends StatelessWidget {
           child: Icon(Icons.info_outline_rounded),
         ),
         const SizedBox(height: 14.0),
-        CustomText.w600(
+        CustomText.bitter600(
           LocalizedTexts.cancelGoalTitle.tr(),
           style: context.textTheme.displayMedium,
           textAlign: TextAlign.center,

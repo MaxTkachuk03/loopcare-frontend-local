@@ -34,7 +34,7 @@ class DashboardSmartGoals extends StatelessWidget {
                 onTap: () => onPressHandler(context),
                 highlightColor: AppColors.greenLightest,
                 leadingIcon: AppIcons.customDashboardSmartGoals,
-                editable: state.data.weeklyGoals.isEmpty || state.data.weeklyGoals.length < 2,
+                editable: state.data.weeklyGoalsSessions.length < 2,
                 title: Column(
                   mainAxisAlignment: MainAxisAlignment.start,
                   crossAxisAlignment: CrossAxisAlignment.start,

@@ -1,6 +1,5 @@
 import 'package:flutter/foundation.dart';
 import 'package:json_annotation/json_annotation.dart';
-import 'package:loopcare_frontend/features/mind/application/dto/mind_content.dart';
 import 'package:loopcare_frontend/features/mind/application/dto/mind_technique.dart';
 
 part 'mind_techniques_response.g.dart';

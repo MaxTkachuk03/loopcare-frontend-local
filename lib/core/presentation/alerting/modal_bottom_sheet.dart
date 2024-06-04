@@ -210,9 +210,8 @@ class ModalBottomSheet {
                   const SizedBox(height: 12.0),
                   CustomOutlinedButton.blueFullWidth(
                     onPressed: noActiveSubscription ? onDeleted : onSubscriptionPref,
-                    label: noActiveSubscription
-                        ? LocalizedTexts.yesDelete.tr()
-                        : LocalizedTexts.manageSubscription.tr(),
+                    label:
+                        noActiveSubscription ? LocalizedTexts.yesDelete.tr() : LocalizedTexts.manageSubscription.tr(),
                   )
                 ],
               ),
@@ -1317,11 +1316,7 @@ class ModalBottomSheet {
             mainAxisSize: MainAxisSize.min,
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              SizedBox(
-                height: 44.0,
-                width: 44,
-                child: AppIcons.lightbulbUnSelect,
-              ),
+              SizedBox(width: 44, height: 44, child: AppIcons.lightbulbUnSelect),
               const SizedBox(height: 20.0),
               CustomText.bitter600(
                 title,
