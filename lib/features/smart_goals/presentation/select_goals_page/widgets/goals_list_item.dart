@@ -3,6 +3,7 @@ import 'package:loopcare_frontend/core/presentation/alerting/modal_bottom_sheet.
 import 'package:loopcare_frontend/core/presentation/cards/custom_tappable_card.dart';
 import 'package:loopcare_frontend/core/presentation/icon_images/app_icons.dart';
 import 'package:loopcare_frontend/core/presentation/text/custom_text.dart';
+import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 import 'package:loopcare_frontend/core/presentation/utils/build_context_extensions.dart';
 import 'package:loopcare_frontend/features/smart_goals/domain/smart_goal.dart';
 import 'package:loopcare_frontend/features/smart_goals/presentation/widgets/goal_progress_indicator.dart';
@@ -11,12 +12,14 @@ class GoalsListItem extends StatelessWidget {
   final SmartGoal item;
   final void Function(SmartGoal item, bool isSelected) onItemPressed;
   final bool isSelected;
+  final bool disable;
 
   const GoalsListItem({
     super.key,
     required this.item,
     required this.onItemPressed,
     required this.isSelected,
+    this.disable = false,
   });
 
   void _onItemPressedHandler() => onItemPressed(item, isSelected);
@@ -35,6 +38,7 @@ class GoalsListItem extends StatelessWidget {
       contentPadding: const EdgeInsets.fromLTRB(12.0, 8.0, 4.0, 8.0),
       onPressed: _onItemPressedHandler,
       isSelected: isSelected,
+      disable: disable,
       leading: GoalProgressIndicator(
         currentStep: 0,
         steps: item.requiredCompletionDays,
@@ -43,14 +47,14 @@ class GoalsListItem extends StatelessWidget {
       trailing: IconButton(
         isSelected: isSelected,
         selectedIcon: AppIcons.lightbulbSelect,
-        icon: AppIcons.lightbulbUnSelect,
+        icon: disable ? AppIcons.lightbulbSelect : AppIcons.lightbulbUnSelect,
         onPressed: () => _onInfoHandler(context),
       ),
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 12.0),
         child: CustomText.w400(
           item.shortTitle,
-          style: context.textTheme.bodyMedium,
+          style: context.textTheme.bodyMedium?.copyWith(color: AppColors.blueDarkest),
         ),
       ),
     );

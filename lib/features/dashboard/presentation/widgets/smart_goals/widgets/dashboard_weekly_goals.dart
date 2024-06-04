@@ -4,7 +4,7 @@ import 'package:loopcare_frontend/core/presentation/error/error_screen.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 import 'package:loopcare_frontend/features/dashboard/presentation/widgets/smart_goals/widgets/dashboard_weekly_goal_item.dart';
 import 'package:loopcare_frontend/features/smart_goals/application/smart_goals_bloc.dart';
-import 'package:loopcare_frontend/features/smart_goals/domain/weekly_smart_goal.dart';
+import 'package:loopcare_frontend/features/smart_goals/domain/weekly_goals_session.dart';
 
 class DashboardWeeklyGoals extends StatefulWidget {
   const DashboardWeeklyGoals({super.key});
@@ -15,6 +15,7 @@ class DashboardWeeklyGoals extends StatefulWidget {
 
 class _DashboardWeeklyGoalsState extends State<DashboardWeeklyGoals> {
   int itemKey = 0;
+
   @override
   void initState() {
     super.initState();
@@ -29,11 +30,11 @@ class _DashboardWeeklyGoalsState extends State<DashboardWeeklyGoals> {
       return state.maybeMap(
           error: (s) => ErrorScreen(error: s.data.error!, onButtonPressed: _onErrorRetryHandler),
           orElse: () {
-            if (!state.data.hasWeeklyGoals || !state.data.hasReviewDelay) {
+            if (state.data.emptySessionState) {
               return const SizedBox.shrink();
             }
             itemKey = itemKey + 1;
-            List<WeeklySmartGoal> goals = [...state.data.weeklyGoals];
+            List<WeeklyGoalsSession> sessions = [...state.data.weeklyGoalsSessions];
             return Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
@@ -43,19 +44,20 @@ class _DashboardWeeklyGoalsState extends State<DashboardWeeklyGoals> {
                   endIndent: 8.0,
                 ),
                 const SizedBox(height: 4.0),
-                ...goals.map(
-                  (goal) => DashboardWeeklyGoalItem(
+                ...sessions.map(
+                  (session) => DashboardWeeklyGoalItem(
                     keyItem: itemKey,
-                    sessionId: state.data.weeklyGoalsSession!.id!,
+                    sessionId: session.id!,
                     onRemoveFromLocal: () {
                       setState(() {
-                        goals.remove(goal);
+                        sessions.remove(session);
                       });
                     },
-                    item: goal,
-                    editable: !goal.isAchieved || !state.data.hasQuickReviewWeeklyGoals && !goal.isAchieved,
+                    item: session.goal!,
+                    editable:
+                        !session.goal!.isAchieved || !session.hasQuickReviewWeeklyGoals && !session.goal!.isAchieved,
                   ),
-                ),
+                )
               ],
             );
           });

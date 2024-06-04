@@ -1,56 +1,69 @@
-var weeklyGoals = {
-  "id": 1,
-  // new session
-  // "startedAt": "2024-03-25",
-  // "finishedAt": "2024-04-01",
-  // "isActive": false,
-
-  // active session
-  "startedAt": "2024-04-10",
-  "finishedAt": "2024-04-19",
-  "lastReviewDate": "2024-04-23",
-  "isActive": true,
-
-  // inactive session delay
-  // "startedAt": "2024-04-01",
-  // "finishedAt": "2024-04-08",
-  // "isActive": false,
-
-  "goals": [
-    {
-      "id": 1,
+var weeklyGoals = [
+  {
+    "id": 55,
+    "startedAt": "2024-05-31",
+    "finishedAt": "2024-06-07",
+    "lastReviewDate": "2024-06-14",
+    "goal": {
+      "id": 76,
       "smartGoal": {
-        "id": 1,
-        "category": {"id": 1, "externalId": "1", "name": "Sleep", "image": "/images/icon.png"},
-        "title": "Sleep in a room that is between 66-72°.",
+        "id": 11,
+        "externalId": "11",
+        "category": {
+          "id": 2,
+          "externalId": "2",
+          "name": "Sleep",
+          "image": "https://dev.loopcare.xyz/smart-goal/download/Categories/2/images/icon.png"
+        },
+        "title": "Don't eat 2-3 hours before you go to bed.",
+        "shortTitle": "Don’t eat before bed",
+        "description": "For 5 days this week, don't eat 2-3 hours before you go to bed each night.",
         "funFact":
-            "Sleeping in a cooler room is important to maintain good sleep. This is likely because your internal clock drops your core body temperature as you sleep. This means a cool room is helpful to keep you comfortable in your sleep, which improves your sleep quality.",
-        "requiredCompletionDays": 7,
-        "lengthInDays": 7
-      },
-      "difficulty": 2,
-      "isTryAgain": true,
-      "progressLogs": [
-        {"date": "2024-04-04", "times": 1},
-        {"date": "2024-04-05", "times": 7}
-      ]
-    },
-    {
-      "id": 2,
-      "smartGoal": {
-        "id": 2,
-        "category": {"id": 1, "externalId": "1", "name": "Sleep", "image": "/images/icon.png"},
-        "title": "Sleep in a room that is between 66-72°.",
-        "funFact":
-            "Sleeping in a cooler room is important to maintain good sleep. This is likely because your internal clock drops your core body temperature as you sleep. This means a cool room is helpful to keep you comfortable in your sleep, which improves your sleep quality.",
+            "Digestion is not supposed to occur when you sleep. Your internal clock wants to do other important biological tasks. If you have to digest food, it confuses your internal clock, because that task typically happens during the daytime. As a result, you disrupt your sleep!",
         "requiredCompletionDays": 5,
         "lengthInDays": 7
       },
-      "difficulty": 2,
-      "isTryAgain": true,
+      "difficulty": null,
+      "isTryAgain": null,
       "progressLogs": [
-        {"date": "2024-04-05", "times": 8}
+        {"date": "2024-05-31", "times": 8}
       ]
-    }
-  ],
-};
+    },
+    "isActive": true
+  },
+  {
+    "id": 56,
+    "startedAt": "2024-05-31",
+    "finishedAt": "2024-06-07",
+    "lastReviewDate": "2024-06-14",
+    "goal": {
+      "id": 76,
+      "smartGoal": {
+        "id": 11,
+        "externalId": "11",
+        "category": {
+          "id": 2,
+          "externalId": "2",
+          "name": "Sleep",
+          "image": "https://dev.loopcare.xyz/smart-goal/download/Categories/2/images/icon.png"
+        },
+        "title": "Don't eat 2-3 hours before you go to bed.",
+        "shortTitle": "Don’t eat before bed",
+        "description": "For 5 days this week, don't eat 2-3 hours before you go to bed each night.",
+        "funFact":
+            "Digestion is not supposed to occur when you sleep. Your internal clock wants to do other important biological tasks. If you have to digest food, it confuses your internal clock, because that task typically happens during the daytime. As a result, you disrupt your sleep!",
+        "requiredCompletionDays": 3,
+        "lengthInDays": 7
+      },
+      "difficulty": null,
+      "isTryAgain": null,
+      "progressLogs": [
+        {"date": "2024-05-31", "times": 8},
+        {"date": "2024-06-01", "times": 8},
+        {"date": "2024-06-02", "times": 8},
+        {"date": "2024-06-03", "times": 8}
+      ]
+    },
+    "isActive": true
+  }
+];

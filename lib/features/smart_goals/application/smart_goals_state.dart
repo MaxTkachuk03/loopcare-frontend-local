@@ -20,11 +20,9 @@ class SmartGoalsState with _$SmartGoalsState {
 
   const factory SmartGoalsState.reviewAdded(SmartGoalsStateData data) = GotSmartGoalsStateReviewAdded;
 
-  const factory SmartGoalsState.updatedLoggerTimes(SmartGoalsStateData data) = UpdatedLoggerTimes;
-
-  const factory SmartGoalsState.resetedLoggerTimes(SmartGoalsStateData data) = ResetedLoggerTimes;
-
   const factory SmartGoalsState.progressConfirmed(SmartGoalsStateData data) = ProgressConfirmed;
+
+  const factory SmartGoalsState.progressReset(SmartGoalsStateData data) = ProgressReset;
 
   const factory SmartGoalsState.sessionDeleted(SmartGoalsStateData data) = SessionDeleted;
 }
@@ -38,43 +36,32 @@ class SmartGoalsStateData with _$SmartGoalsStateData {
     RequestError? error,
     @Default([]) List<SmartGoal> goals,
     @Default([]) List<ProgressSmartGoalLog> logs,
-    WeeklyGoalsSession? weeklyGoalsSession,
+    @Default([]) List<WeeklyGoalsSession> weeklyGoalsSessions,
     DateTime? selectedDate,
     CancelGoalReason? reason,
   }) = _SmartGoalsStateData;
 
-  bool get hasWeeklyGoals => weeklyGoals.isNotEmpty;
+  bool get hasGoalActiveSessions => weeklyGoalsSessions.isNotEmpty;
 
-  bool get isWeeklySessionHasTimestamp =>
-      weeklyGoalsSession?.finishedAt != null && weeklyGoalsSession?.startedAt != null;
+  WeeklyGoalsSession? getWeeklySession(int sessionId) =>
+      weeklyGoalsSessions.firstWhereOrNull((session) => session.id == sessionId);
 
-  bool get isWeeklySessionActive => weeklyGoalsSession?.isActive ?? false;
+  bool isDateHasActiveSession(DateTime selectedDay) =>
+      weeklyGoalsSessions.any((session) => _isDateHasActiveGoal(selectedDay, session));
 
-  bool get isWeeklySessionPeriodActive => isWeeklySessionHasTimestamp
-      ? (weeklyGoalsSession!.finishedAt!.isFuture || weeklyGoalsSession!.finishedAt!.isToday)
-      : false;
-
-  bool get hasActiveSession => isWeeklySessionActive && isWeeklySessionPeriodActive;
-
-  bool get hasQuickReviewWeeklyGoals => !isWeeklySessionPeriodActive && hasReviewDelay;
-
-  bool get hasReviewDelay => isWeeklySessionHasTimestamp
-      ? (weeklyGoalsSession!.lastReviewDate!.isFuture || weeklyGoalsSession!.lastReviewDate!.isToday)
-      : false;
-
-  int get daysLeft => weeklyGoalsSession!.finishedAt!.difference(DateTime.now().dateOnly).inDays;
-
-  int get daysReviewLeft => weeklyGoalsSession!.lastReviewDate!.difference(DateTime.now().dateOnly).inDays;
-
-  List<WeeklySmartGoal> get weeklyGoals => weeklyGoalsSession?.goals ?? [];
-
-  bool get hasGoalActiveSessions => weeklyGoals.isNotEmpty;
-
-  bool isDateHasActiveSession(DateTime selectedDay) {
-    final startDay = weeklyGoalsSession?.startedAt;
+  bool _isDateHasActiveGoal(DateTime selectedDay, WeeklyGoalsSession session) {
+    final startDay = session.startedAt;
     if (startDay == null) {
       return false;
     }
     return ((startDay.dateOnly.isBefore(selectedDay.dateOnly)) || startDay.dateOnly == selectedDay.dateOnly);
   }
+
+  bool get emptySessionState =>
+      weeklyGoalsSessions.every((session) => !session.sessionHasGoal || !session.hasReviewDelay);
+
+  bool goalWasAdded(List<int> relatedExternalIds, int externalId) => weeklyGoalsSessions.any((session) {
+        final id = session.goal?.smartGoal.externalId;
+        return relatedExternalIds.contains(id) || id == externalId;
+      });
 }

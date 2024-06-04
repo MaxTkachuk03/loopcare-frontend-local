@@ -4,6 +4,7 @@ import 'package:loopcare_frontend/core/presentation/error/error_screen.dart';
 import 'package:loopcare_frontend/core/presentation/loader/loader.dart';
 import 'package:loopcare_frontend/features/smart_goals/application/smart_goals_bloc.dart';
 import 'package:loopcare_frontend/features/smart_goals/domain/smart_goal.dart';
+import 'package:loopcare_frontend/features/smart_goals/domain/weekly_goals_session.dart';
 import 'package:loopcare_frontend/features/smart_goals/presentation/select_goals_page/widgets/goals_list_item.dart';
 
 class GoalsList extends StatefulWidget {
@@ -23,6 +24,8 @@ class GoalsList extends StatefulWidget {
 }
 
 class _GoalsListState extends State<GoalsList> {
+  List<WeeklyGoalsSession> activeSessions = [];
+
   @override
   void initState() {
     super.initState();
@@ -58,6 +61,7 @@ class _GoalsListState extends State<GoalsList> {
                   item: item,
                   onItemPressed: widget.onGoalSelect,
                   isSelected: isSelected,
+                  disable: state.data.goalWasAdded(item.relatedExternalGoalIds, item.externalId),
                 );
               },
             ),
