@@ -49,9 +49,12 @@ class _GoalCategoryCardState extends State<GoalCategoryCard>
   }
 
   Widget getTitle(SmartGoalCategory category) {
-    final image =  SizedBox(
-      height: _itemHeight,
-      child: NetworkImageWithCache(url: category.image, imageBoxFit: BoxFit.fitHeight),
+    final image = ClipRRect(
+      borderRadius: _borderRadius,
+      child: SizedBox(
+        height: _itemHeight,
+        child: NetworkImageWithCache(url: category.image, imageBoxFit: BoxFit.cover),
+      ),
     );
 
     if (widget.category.isUnlocked && !widget.category.isNew) {
