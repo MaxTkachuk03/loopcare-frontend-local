@@ -50,7 +50,7 @@ class _SelectGoalsPageState extends State<SelectGoalsPage> {
   Widget build(BuildContext context) {
     return CustomScaffold.greenLightest(
       appBar: CustomAppBar.green(
-        title: LocalizedTexts.calorieDensity.tr().capitalizeEachWordFirstLetter(),
+        title: widget.category.name,
         leading: CustomFilledIconButton.leadingGreenLighter(),
       ),
       body: CustomSafeArea(
