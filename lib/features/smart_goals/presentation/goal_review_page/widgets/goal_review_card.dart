@@ -22,7 +22,11 @@ class GoalReviewCard extends StatelessWidget {
         CategoryLabel.smartGoals(label: item.categoryName),
         Padding(
           padding: const EdgeInsets.symmetric(vertical: 14.0),
-          child: CustomText.bitter600(item.title, style: context.textTheme.displayMedium),
+          child: CustomText.bitter600(
+            item.title,
+            style: context.textTheme.displayMedium,
+            textAlign: TextAlign.center,
+          ),
         ),
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
