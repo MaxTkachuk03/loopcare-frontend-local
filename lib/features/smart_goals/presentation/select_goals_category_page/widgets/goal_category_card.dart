@@ -120,6 +120,7 @@ class _GoalCategoryCardState extends State<GoalCategoryCard>
       key: ValueKey(widget.category.hashCode),
       onVisibilityChanged: onVisibilityChanged,
       child: CustomTappableCard.greenLightest(
+        contentPadding: const EdgeInsets.fromLTRB(8.0, 8.0, 8.0, 0.0),
         enabled: widget.category.isUnlocked,
         borderRadius: _borderRadius,
         onPressed: () => widget.onPressed(widget.category),
