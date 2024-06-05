@@ -34,8 +34,7 @@ class _GoalCategoryCardState extends State<GoalCategoryCard>
     with SingleTickerProviderStateMixin, AutomaticKeepAliveClientMixin {
   late AnimationController controller;
 
-  // todo: isNew will be a field in the category model
-  bool get isNew => !widget.category.isUnlocked;
+  bool get isNew => widget.category.isNew && widget.category.isUnlocked;
 
   void animationListener() {
     if (controller.status == AnimationStatus.completed) {
@@ -55,28 +54,9 @@ class _GoalCategoryCardState extends State<GoalCategoryCard>
       child: NetworkImageWithCache(url: category.image, imageBoxFit: BoxFit.fitHeight),
     );
 
-    if (widget.category.isUnlocked) {
+    if (widget.category.isUnlocked && !widget.category.isNew) {
       return image;
     }
-
-    final item = Container(
-      width: double.infinity,
-      height: _itemHeight,
-      decoration: BoxDecoration(
-        borderRadius: _borderRadius,
-        color: AppColors.blueOffRegular.withOpacity(0.7),
-      ),
-      child: Center(
-        child: CircleAvatar(
-          backgroundColor: AppColors.blueLightest,
-          radius: 24,
-          child: LottieAnimation.unlock(
-            controller: controller,
-            onLoaded: (p0) {},
-          ),
-        ),
-      ),
-    );
 
     return Stack(
       children: [
@@ -86,8 +66,27 @@ class _GoalCategoryCardState extends State<GoalCategoryCard>
             top: 14,
             left: 15,
             child: CategoryLabel.smartGoalNew(),
+          )
+              .animate(controller: controller, autoPlay: false)
+              .scaleXY(begin: 0, delay: 2000.ms, duration: 600.ms, curve: Curves.easeInOutBack),
+        Container(
+          width: double.infinity,
+          height: _itemHeight,
+          decoration: BoxDecoration(
+            borderRadius: _borderRadius,
+            color: AppColors.blueOffRegular.withOpacity(0.7),
           ),
-        item
+          child: Center(
+            child: CircleAvatar(
+              backgroundColor: AppColors.blueLightest,
+              radius: 24,
+              child: LottieAnimation.unlock(
+                controller: controller,
+                onLoaded: (_) {},
+              ),
+            ),
+          ),
+        )
             .animate(controller: controller, autoPlay: false)
             .scaleXY(end: 0, delay: 1500.ms, duration: 600.ms, curve: Curves.easeInOutBack)
 

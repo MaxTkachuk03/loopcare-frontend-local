@@ -90,4 +90,9 @@ class APISmartGoalsService implements SmartGoalsService {
   Future<Either<RequestError, WeeklyGoalsSession>> resetProgress({required int sessionId}) async {
     return client.delete('/smart-goal/progress/$sessionId').then(parseResponse(WeeklyGoalsSession.fromJson));
   }
+
+  @override
+  Future<Either<RequestError, dynamic>> unlockCategory({required int id}) async {
+    return client.post('/smart-goal/category/$id/animation', data: {});
+  }
 }

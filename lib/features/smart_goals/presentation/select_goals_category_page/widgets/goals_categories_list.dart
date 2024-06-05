@@ -1,5 +1,3 @@
-import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loopcare_frontend/core/presentation/error/error_screen.dart';
@@ -29,6 +27,10 @@ class _GoalsCategoriesListState extends State<GoalsCategoriesList> {
     context.read<SmartGoalsCategoriesBloc>().add(const SmartGoalsCategoriesEvent.getCategories());
   }
 
+  void _onUnlockCategory(SmartGoalCategory category) {
+    context.read<SmartGoalsCategoriesBloc>().add(SmartGoalsCategoriesEvent.unlockCategory(id: category.id));
+  }
+
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<SmartGoalsCategoriesBloc, SmartGoalsCategoriesState>(
@@ -49,7 +51,7 @@ class _GoalsCategoriesListState extends State<GoalsCategoriesList> {
                   crossAxisCount: 2,
                   crossAxisSpacing: 10,
                   mainAxisSpacing: 10,
-                  mainAxisExtent: 170
+                  mainAxisExtent: 170.0,
                 ),
                 delegate: SliverChildBuilderDelegate(
                   (context, index) {
@@ -59,8 +61,7 @@ class _GoalsCategoriesListState extends State<GoalsCategoriesList> {
                       key: UniqueKey(),
                       onPressed: widget.onPressed,
                       category: item,
-                      // TODO: implement unlocking
-                      onUnlocked: () {},
+                      onUnlocked: () => _onUnlockCategory(item) ,
                     );
                   },
                   childCount: state.data.goalsCategories.length,

@@ -22,6 +22,8 @@ abstract class SmartGoalsService {
 
   Future<Either<RequestError, GetGoalsCategoriesResponse>> getGoalsCategories();
 
+  Future<Either<RequestError, dynamic>> unlockCategory({required int id});
+
   Future<Either<RequestError, GetGoalsStatisticsResponse>> getGoalsStatistics();
 
   Future<Either<RequestError, WeeklyGoalsSession>> addGoalReview(GoalReviewBody data);
