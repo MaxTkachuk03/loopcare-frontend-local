@@ -229,11 +229,12 @@ class _DashboardPageState extends State<DashboardPage> with WidgetsBindingObserv
                               final unlockedGoals = state.data.account?.isSmartGoalsUnlocked ?? false;
                               return BlocBuilder<SmartGoalsBloc, SmartGoalsState>(
                                 builder: (context, state) {
-                                  var showSmartGoalsCard = unlockedGoals &&
-                                          (state.data.hasGoalActiveSessions &&
+                                  final showSmartGoalsCard = unlockedGoals &&
+                                          ((state.data.hasGoalActiveSessions &&
                                               state.data.isDateHasActiveSession(_selectedDay) &&
                                               !_selectedDay.isFuture) ||
-                                      _selectedDay.isToday;
+                                      _selectedDay.isToday);
+
                                   if (showSmartGoalsCard) {
                                     return const Column(
                                       crossAxisAlignment: CrossAxisAlignment.start,
