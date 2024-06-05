@@ -15,49 +15,15 @@ class AppRoutes {
   static const String login = '/login'; //added
   static const String forgotPassword = '/forgot-password';
 
-  // Onboarding Physical
-  static const String onboardingIntro = '/physical-intro';
+  // Onboarding
+  static const String onboardingIntro = '/onboarding-intro';
+  static const String onboardingIntroMission = '/onboarding-intro-mission';
+  static const String onboardingPacing = '/onboarding-intro-pacing';
+  static const String onboardingQuestions = '/onboarding-questions';
+
+  // Subscription
   static const String subscription = '/subscription';
   static const String manageSubscription = '/manage-subscription';
-  static const String birthday = '/birthday'; // added
-  static const String checkFailedByAge = '/failed-age'; // added
-  static const String sex = '/sex'; // added
-  static const String biologicalGender = '/biological-gender'; // added
-  static const String height = '/height'; // added
-  static const String weight = '/weight'; // added
-  static const String physicalCheckResult = '/physical-check-result'; // added
-
-  // Onboarding Medical
-  static const String medicalIntro = '/medical-fitness-intro'; // added
-  static const String pregnancy = '/pregnancy'; // added
-  static const String pregnancyFailed = '/pregnancy-failed'; // added
-  static const String medicines = '/medicines';
-  static const String weightLossMedication = '/weight-loss-medication'; // added
-  static const String medicationPastPeriod = '/medication-past-period'; // added
-  static const String medicationFuturePeriod = '/medication-future-period'; // added
-  static const String obesity = '/obesity';
-  static const String thyroidDisease = '/thyroid-disease';
-  static const String metabolicDisease = '/metabolic-disease';
-  static const String hypertension = '/hypertension';
-  static const String cardiovascularDisease = '/cardiovascular-disease'; // added
-  static const String cardiovascularDiseaseFailed = '/cardiovascular-disease-failed'; // added
-  static const String stomachReduction = '/stomach-reduction'; // added
-  static const String stomachReductionFailed = '/stomach-reduction-failed'; // added
-  static const String diabetesDisease = '/diabetes-disease';
-  static const String renalFailure = '/renal-failure';
-  static const String asthma = '/asthma';
-  static const String liverDisease = '/liver-disease';
-  static const String sleepApneaSyndrome = '/sleep-apnea-syndrome';
-  static const String locomotorSystemDisease = '/locomotor-system-disease';
-  static const String treatmentByDoctor = '/treatment-by-doctor'; // added
-  static const String medicalCheckPassed = '/medical-check-passed'; // added
-  static const String medicalCheckFailed = '/medical-check-failed';
-
-  // Onboarding Mental
-  static const String mentalHealthPreIntro = '/mental-health-pre-intro';
-  static const String mentalHealthIntro = '/mental-health-intro'; // added
-  static const String mentalHealthQuestion = '/mental-health-question'; // added
-  static const String mentalCheckResult = '/mental-check-result'; // added
 
   // Create account
   static const String signUpWelcome = '/sign-up-welcome'; // added

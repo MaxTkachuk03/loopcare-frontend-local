@@ -46,5 +46,19 @@ class AppImages {
   static SvgPicture subscriptionTop = SvgPicture.asset('$imagesFilePath/konfetti.svg');
   static const AssetImage buddyIntro = AssetImage('$imagesFilePath/buddy_intro.png');
 
+  static const AssetImage onboardingIntro = AssetImage('$imagesFilePath/onboarding_intro_background.png');
+
+  static const AssetImage onboardingIntroPrograms = AssetImage('$imagesFilePath/onboarding_programs.png');
+
+  static const AssetImage onboardingIntro1 = AssetImage('$imagesFilePath/1.png');
+  static const AssetImage onboardingIntro2 = AssetImage('$imagesFilePath/2.png');
+  static const AssetImage onboardingIntro3 = AssetImage('$imagesFilePath/3.png');
+  static const AssetImage onboardingIntro4 = AssetImage('$imagesFilePath/4.png');
+  static const AssetImage onboardingIntro5 = AssetImage('$imagesFilePath/5.png');
+
+  static const AssetImage onboardingPacing = AssetImage('$imagesFilePath/onboarding_pacing.png');
+
+  static SvgPicture onboardingArrow = SvgPicture.asset('$imagesFilePath/onboarding_arrow.svg');
+
   AppImages._();
 }

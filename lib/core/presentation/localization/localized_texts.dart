@@ -665,6 +665,20 @@ class LocalizedTexts {
   //Log weight
   static const String logWeight = 'logWeight';
 
+  // Onboarding River
+  static const String onboardingIntroTitle = 'onboardingIntroTitle';
+  static const String onboardingIntroProgram1 = 'onboardingIntroProgram1';
+  static const String onboardingIntroProgram2 = 'onboardingIntroProgram2';
+  static const String onboardingIntroMissionTitle = 'onboardingIntroMissionTitle';
+  static const String onboardingIntroMissionAndrew = 'onboardingIntroMissionAndrew';
+  static const String onboardingIntroMissionMaria = 'onboardingIntroMissionMaria';
+  static const String onboardingIntroMissionShalu = 'onboardingIntroMissionShalu';
+  static const String onboardingIntroMissionJoshua = 'onboardingIntroMissionJoshua';
+  static const String onboardingIntroMissionDenise = 'onboardingIntroMissionDenise';
+  static const String onboardingPacingTitle = 'onboardingPacingTitle';
+  static const String onboardingPacingMessage = 'onboardingPacingMessage';
+  static const String iAmReady = 'iAmReady';
+
   // Onboarding Physical
   // Intro
   static const String physicalIntroTitle = 'physicalIntroTitle';

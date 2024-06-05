@@ -120,7 +120,7 @@ class _EmailAddressPageState extends State<EmailAddressPage> {
           current.data.emailVerified;
 
   void _navigationListener(BuildContext context, AuthenticationState state) =>
-      context.router.pushNamed(AppRoutes.onboardingIntro);
+      context.router.pushNamed(AppRoutes.onboardingQuestions);
 
   void _blockButtonListener(BuildContext context, AuthenticationState state) =>
       _formValidNotifier.value = false;
