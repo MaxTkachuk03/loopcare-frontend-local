@@ -87,6 +87,8 @@ class _DashboardPageState extends State<DashboardPage> with WidgetsBindingObserv
 
     context.read<MindBloc>().add(const MindEvent.init());
 
+    context.read<MindBloc>().add(const MindEvent.init());
+
     updateDashboardData(context.read<AuthenticationBloc>().state);
   }
 

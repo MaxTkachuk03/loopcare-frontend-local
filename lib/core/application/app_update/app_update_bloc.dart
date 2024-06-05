@@ -44,12 +44,17 @@ class AppUpdateBloc extends Bloc<AppUpdateEvent, AppUpdateState> {
         storage.localVersion = localVersion;
         storage.storeVersion = platformMinVersion;
 
+        storage.privacyPolicyVersion = r.privacyPolicyVersion;
+        storage.termsAndConditionsVersion = r.termsAndConditionsVersion;
+
         final needToUpdate = localVersion < platformMinVersion;
 
         emit(
           AppUpdateState.loaded(
             state.data.copyWith(
               needToUpdate: needToUpdate,
+              privacyPolicyVersion: r.privacyPolicyVersion,
+              termsAndConditionsVersion: r.termsAndConditionsVersion,
               isLoading: false,
               error: null,
             ),

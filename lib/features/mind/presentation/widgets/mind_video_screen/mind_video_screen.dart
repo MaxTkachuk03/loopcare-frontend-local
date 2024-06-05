@@ -178,108 +178,110 @@ class _MindVideoScreenState extends State<MindVideoScreen> {
           }
 
           final enableCompletedState = _isCompleted && widget.onCompleteOverlay != null;
-          return OrientationBuilder(builder: (context, orientation) {
-            final orientationState = _getOrientationState(orientation);
+          return OrientationBuilder(
+            builder: (context, orientation) {
+              final orientationState = _getOrientationState(orientation);
 
-            _orientationChangeHandler(orientationState);
+              _orientationChangeHandler(orientationState);
 
-            return GestureDetector(
-              onTap: _togglePlay,
-              child: Stack(
-                children: [
-                  _OrientationStateVideoWrapper(
-                    key: const ValueKey('video-container'),
-                    orientationsState: orientationState,
-                    screenSize: mediaQuery.size,
-                    child: AspectRatio(
-                      aspectRatio: _videoController.value.aspectRatio,
-                      child: VideoPlayer(_videoController),
+              return GestureDetector(
+                onTap: _togglePlay,
+                child: Stack(
+                  children: [
+                    _OrientationStateVideoWrapper(
+                      key: const ValueKey('video-container'),
+                      orientationsState: orientationState,
+                      screenSize: mediaQuery.size,
+                      child: AspectRatio(
+                        aspectRatio: _videoController.value.aspectRatio,
+                        child: VideoPlayer(_videoController),
+                      ),
                     ),
-                  ),
-                  if (!enableCompletedState)
+                    if (!enableCompletedState)
+                      Positioned(
+                        left: 0,
+                        right: 0,
+                        bottom: 0,
+                        child: ValueListenableBuilder<bool>(
+                          valueListenable: _playingNotifier,
+                          builder: (context, isPlaying, _) {
+                            return HidingBox(
+                              isPlay: isPlaying,
+                              child: _VideoProgressControl(
+                                key: const ValueKey('video_screen_progress_control'),
+                                controller: _videoController,
+                                contentTitle: widget.contentTitle,
+                                onPlayPressed: _togglePlay,
+                                playingListener: _playingNotifier,
+                                bottomPadding: mediaQuery.viewPadding.bottom + _bottomPadding,
+                              ),
+                            );
+                          },
+                        ),
+                      ),
+                    if (widget.onSkip != null && !enableCompletedState)
+                      Positioned(
+                        top: mediaQuery.viewPadding.top + kToolbarHeight + 30,
+                        right: 20,
+                        child: ValueListenableBuilder<bool>(
+                          valueListenable: _playingNotifier,
+                          builder: (context, isPlaying, _) {
+                            return IgnorePointer(
+                              ignoring: isPlaying,
+                              child: AnimatedOpacity(
+                                duration: const Duration(milliseconds: 300),
+                                opacity: isPlaying ? 0.0 : 1.0,
+                                child: CustomElevatedButton.yellowSmall(
+                                  label: widget.skipButtonLabel,
+                                  onPressed: widget.onSkip,
+                                ),
+                              ),
+                            );
+                          },
+                        ),
+                      ),
+                    ValueListenableBuilder<bool>(
+                      valueListenable: _playingNotifier,
+                      builder: (context, isPlaying, _) {
+                        return Center(
+                          child: _PlayPauseButton(
+                            key: const ValueKey('video_screen_play_pause_button'),
+                            isPlay: isPlaying,
+                          ),
+                        );
+                      },
+                    ),
+                    if (enableCompletedState)
+                      Positioned.fill(
+                        child: AnimatedOpacity(
+                          duration: const Duration(milliseconds: 300),
+                          opacity: _isCompleted ? 1 : 0,
+                          child: ColoredBox(
+                            color: Colors.black45,
+                            child: widget.onCompleteOverlay!,
+                          ),
+                        ),
+                      ),
                     Positioned(
+                      height: mediaQuery.viewPadding.top + kToolbarHeight,
+                      top: 0,
                       left: 0,
                       right: 0,
-                      bottom: 0,
                       child: ValueListenableBuilder<bool>(
                         valueListenable: _playingNotifier,
                         builder: (context, isPlaying, _) {
                           return HidingBox(
                             isPlay: isPlaying,
-                            child: _VideoProgressControl(
-                              key: const ValueKey('video_screen_progress_control'),
-                              controller: _videoController,
-                              contentTitle: widget.contentTitle,
-                              onPlayPressed: _togglePlay,
-                              playingListener: _playingNotifier,
-                              bottomPadding: mediaQuery.viewPadding.bottom + _bottomPadding,
-                            ),
+                            child: appBar,
                           );
                         },
                       ),
                     ),
-                  if (widget.onSkip != null && !enableCompletedState)
-                    Positioned(
-                      top: mediaQuery.viewPadding.top + kToolbarHeight + 30,
-                      right: 20,
-                      child: ValueListenableBuilder<bool>(
-                        valueListenable: _playingNotifier,
-                        builder: (context, isPlaying, _) {
-                          return IgnorePointer(
-                            ignoring: isPlaying,
-                            child: AnimatedOpacity(
-                              duration: const Duration(milliseconds: 300),
-                              opacity: isPlaying ? 0.0 : 1.0,
-                              child: CustomElevatedButton.yellowSmall(
-                                label: widget.skipButtonLabel,
-                                onPressed: widget.onSkip,
-                              ),
-                            ),
-                          );
-                        },
-                      ),
-                    ),
-                  ValueListenableBuilder<bool>(
-                    valueListenable: _playingNotifier,
-                    builder: (context, isPlaying, _) {
-                      return Center(
-                        child: _PlayPauseButton(
-                          key: const ValueKey('video_screen_play_pause_button'),
-                          isPlay: isPlaying,
-                        ),
-                      );
-                    },
-                  ),
-                  if (enableCompletedState)
-                    Positioned.fill(
-                      child: AnimatedOpacity(
-                        duration: const Duration(milliseconds: 300),
-                        opacity: _isCompleted ? 1 : 0,
-                        child: ColoredBox(
-                          color: Colors.black45,
-                          child: widget.onCompleteOverlay!,
-                        ),
-                      ),
-                    ),
-                  Positioned(
-                    height: mediaQuery.viewPadding.top + kToolbarHeight,
-                    top: 0,
-                    left: 0,
-                    right: 0,
-                    child: ValueListenableBuilder<bool>(
-                      valueListenable: _playingNotifier,
-                      builder: (context, isPlaying, _) {
-                        return HidingBox(
-                          isPlay: isPlaying,
-                          child: appBar,
-                        );
-                      },
-                    ),
-                  ),
-                ],
-              ),
-            );
-          });
+                  ],
+                ),
+              );
+            },
+          );
         },
       ),
     );

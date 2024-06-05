@@ -52,6 +52,14 @@ class SharedStorageService {
 
   int get storeVersion => _prefs.getValue<int?>('store_version') ?? 1;
 
+  set privacyPolicyVersion(int value) => _prefs.setValue('privacy_policy_version', value);
+
+  int get privacyPolicyVersion => _prefs.getValue<int?>('privacy_policy_version') ?? 1;
+
+  set termsAndConditionsVersion(int value) => _prefs.setValue('terms_and_conditions_version', value);
+
+  int get termsAndConditionsVersion => _prefs.getValue<int?>('terms_and_conditions_version') ?? 1;
+
   set localVersion(int value) => _prefs.setValue('local_version', value);
 
   int get localVersion => _prefs.getValue<int?>('local_version') ?? 1;
