@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loopcare_frontend/core/presentation/error/error_screen.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
+import 'package:loopcare_frontend/core/presentation/utils/date_time_extensions.dart';
 import 'package:loopcare_frontend/features/dashboard/presentation/widgets/smart_goals/widgets/dashboard_weekly_goal_item.dart';
 import 'package:loopcare_frontend/features/smart_goals/application/smart_goals_bloc.dart';
 import 'package:loopcare_frontend/features/smart_goals/domain/weekly_goals_session.dart';
@@ -35,6 +36,14 @@ class _DashboardWeeklyGoalsState extends State<DashboardWeeklyGoals> {
             }
             itemKey = itemKey + 1;
             List<WeeklyGoalsSession> sessions = [...state.data.weeklyGoalsSessions];
+            if (sessions.isNotEmpty && state.data.selectedDate != null) {
+              final selectedDate = state.data.selectedDate!.dateOnly;
+
+              sessions = sessions
+                  .where((session) =>
+                      selectedDate.isAfter(session.startedAt!.dateOnly) || selectedDate == session.startedAt!.dateOnly)
+                  .toList();
+            }
             return Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
@@ -54,8 +63,7 @@ class _DashboardWeeklyGoalsState extends State<DashboardWeeklyGoals> {
                       });
                     },
                     item: session.goal!,
-                    editable:
-                        !session.goal!.isAchieved || !session.hasQuickReviewWeeklyGoals && !session.goal!.isAchieved,
+                    editable: !session.goal!.isAchieved && !session.hasQuickReviewWeeklyGoals,
                   ),
                 )
               ],

@@ -23,6 +23,9 @@ import 'package:loopcare_frontend/features/smart_goals/domain/weekly_goals_sessi
 // TODO use to mock goals stats server response
 // import 'package:loopcare_frontend/features/smart_goals/infrastructure/get_goals_stats_mock.dart';
 
+// TODO use to mock goals stats server response
+// import 'package:loopcare_frontend/features/smart_goals/infrastructure/get_weekly_goals.dart';
+
 @Injectable(as: SmartGoalsService)
 class APISmartGoalsService implements SmartGoalsService {
   DioClient client;
@@ -54,7 +57,7 @@ class APISmartGoalsService implements SmartGoalsService {
   @override
   Future<Either<RequestError, GetWeeklySessionsResponse>> getWeeklySessions() async {
     // TODO use to mock weekly goals server response
-    // return right(GetWeeklySessionsResponse.fromJson({'data': weeklyGoals}));
+    //return right(GetWeeklySessionsResponse.fromJson(weeklyGoals));
 
     return client.get('/smart-goal/session/last').then(parseResponse(GetWeeklySessionsResponse.fromJson));
   }

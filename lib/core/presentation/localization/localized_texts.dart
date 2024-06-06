@@ -1083,8 +1083,7 @@ class LocalizedTexts {
   static const String weeklyQuickReview = 'weeklyQuickReview';
   static const String weeklyDaysLeft = 'weeklyDaysLeft';
   static const String weeklyDayLeft = 'weeklyDayLeft';
-  static const String weeklyDaysReviewLeft = 'weeklyDaysReviewLeft';
-  static const String weeklyDayReviewLeft = 'weeklyDayReviewLeft';
+  static const String weeklyDaysReview = 'weeklyDaysReview';
   static const String weeklyCompleteTitle = 'weeklyCompleteTitle';
   static const String weeklyDate = 'weeklyDate';
   static const String weeklyCompletedFar = 'weeklyCompletedFar';

@@ -118,7 +118,11 @@ class _DashboardWeeklyGoalItemState extends State<DashboardWeeklyGoalItem> {
                   isAchievedNotifier: widget.item.isAchieved,
                 ),
                 const SizedBox(width: 16.0),
-                _LeftDaysWidget(item: widget.item, sessionId: widget.sessionId),
+                _LeftDaysWidget(
+                  item: widget.item,
+                  sessionId: widget.sessionId,
+                  readyForReview: !widget.editable,
+                ),
                 const SizedBox(width: 16.0),
               ],
             ),
@@ -172,8 +176,9 @@ class _SlideRemoveButton extends StatelessWidget {
 class _LeftDaysWidget extends StatelessWidget {
   final WeeklySmartGoal item;
   final int sessionId;
+  final bool readyForReview;
 
-  const _LeftDaysWidget({required this.item, required this.sessionId});
+  const _LeftDaysWidget({required this.item, required this.sessionId, required this.readyForReview});
 
   @override
   Widget build(BuildContext context) {
@@ -187,7 +192,7 @@ class _LeftDaysWidget extends StatelessWidget {
           ),
           BlocBuilder<SmartGoalsBloc, SmartGoalsState>(
             builder: (context, state) {
-              final days = _getSubTitle(state);
+              final days = readyForReview ? LocalizedTexts.weeklyDaysReview.tr() : _getSubTitle(state);
               if (days.isNotEmpty) {
                 return CustomText.w400(
                   days,
@@ -212,19 +217,9 @@ class _LeftDaysWidget extends StatelessWidget {
         return LocalizedTexts.weeklyDaysLeft.tr(
           args: [session.daysLeft.toString()],
         );
-      } else {
+      } else if (session.daysLeft == 1 || session.daysLeft == 0) {
         return LocalizedTexts.weeklyDayLeft.tr(
-          args: [session.daysLeft.toString()],
-        );
-      }
-    } else if (session.hasQuickReviewWeeklyGoals) {
-      if (session.daysReviewLeft > 1) {
-        return LocalizedTexts.weeklyDaysReviewLeft.tr(
-          args: [session.daysReviewLeft.toString()],
-        );
-      } else {
-        return LocalizedTexts.weeklyDayReviewLeft.tr(
-          args: [session.daysReviewLeft.toString()],
+          args: ['1'],
         );
       }
     }
