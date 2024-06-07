@@ -53,7 +53,7 @@ class WeeklyGoalCancelReason extends StatelessWidget {
         const SizedBox(height: 16.0),
         BlocBuilder<SmartGoalsBloc, SmartGoalsState>(builder: (context, state) {
           return CustomElevatedButton.blueFullWidth(
-              label: LocalizedTexts.cancelGoal.tr().toLowerCase(),
+              label: LocalizedTexts.cancelGoal.tr(),
               onPressed: state.data.reason != null
                   ? () {
                       context.router.pop();
