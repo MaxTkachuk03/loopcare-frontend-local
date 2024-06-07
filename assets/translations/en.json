@@ -891,7 +891,7 @@
   "goalReview": "Goal review",
   "weeklyQuickReview": "Quick goal review",
   "weeklyDaysLeft": "{} days to complete",
-  "weeklyDayLeft": "{} day to complete",
+  "weeklyDayLeft": "1 day to complete",
   "weeklyDaysReview": "Finished",
   "weeklyCompleteTitle": "When did you complete this goal?",
   "weeklyDate": "Date",

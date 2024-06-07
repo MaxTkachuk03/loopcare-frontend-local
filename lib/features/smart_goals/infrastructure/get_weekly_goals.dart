@@ -2,9 +2,9 @@ var weeklyGoals = {
   "data": [
     {
       "id": 80,
-      "startedAt": "2024-05-30",
-      "finishedAt": "2024-06-06",
-      "lastReviewDate": "2024-06-16",
+      "startedAt": "2024-06-01",
+      "finishedAt": "2024-06-07",
+      "lastReviewDate": "2024-06-13",
       "goal": {
         "id": 101,
         "smartGoal": {
@@ -40,12 +40,12 @@ var weeklyGoals = {
           }
         ]
       },
-      "isActive": true
+      "isActive": false
     },
     {
       "id": 98,
       "startedAt": "2024-06-06",
-      "finishedAt": "2024-06-13",
+      "finishedAt": "2024-06-12",
       "lastReviewDate": "2024-06-20",
       "goal": {
         "id": 119,

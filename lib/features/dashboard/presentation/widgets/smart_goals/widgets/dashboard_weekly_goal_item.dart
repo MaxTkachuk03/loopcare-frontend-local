@@ -215,12 +215,10 @@ class _LeftDaysWidget extends StatelessWidget {
     if (session.hasActiveSession) {
       if (session.daysLeft > 1) {
         return LocalizedTexts.weeklyDaysLeft.tr(
-          args: [session.daysLeft.toString()],
+          args: [(session.daysLeft + 1).toString()],
         );
       } else if (session.daysLeft == 1 || session.daysLeft == 0) {
-        return LocalizedTexts.weeklyDayLeft.tr(
-          args: ['1'],
-        );
+        return LocalizedTexts.weeklyDayLeft.tr();
       }
     }
     return '';
