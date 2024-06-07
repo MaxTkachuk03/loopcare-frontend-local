@@ -17,6 +17,7 @@ class SmartGoalsCategoriesBloc extends Bloc<SmartGoalsCategoriesEvent, SmartGoal
   SmartGoalsCategoriesBloc(this._smartGoalsService)
       : super(const SmartGoalsCategoriesState.initial(SmartGoalsCategoriesStateData())) {
     on<GetCategories>(_onGetGoalsCategories);
+    on<UnlockCategory>(_onUnlockCategory);
   }
 
   FutureOr<void> _onGetGoalsCategories(
@@ -32,6 +33,18 @@ class SmartGoalsCategoriesBloc extends Bloc<SmartGoalsCategoriesEvent, SmartGoal
           SmartGoalsCategoriesState.goalsCategoriesError(state.data.copyWith(error: l, isLoading: false))),
       (r) => emit(SmartGoalsCategoriesState.goalsCategoriesLoaded(
           state.data.copyWith(goalsCategories: r.data, isLoading: false))),
+    );
+  }
+
+  FutureOr<void> _onUnlockCategory(
+    UnlockCategory event,
+    Emitter<SmartGoalsCategoriesState> emit,
+  ) async {
+    final response = await _smartGoalsService.unlockCategory(id: event.id);
+
+    response.fold(
+       (l) => emit(SmartGoalsCategoriesState.goalsCategoriesError(state.data.copyWith(error: l, isLoading: false))),
+       (r) => null,
     );
   }
 }

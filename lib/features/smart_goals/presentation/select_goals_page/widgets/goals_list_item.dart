@@ -1,78 +1,60 @@
-import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:loopcare_frontend/core/presentation/alerting/modal_bottom_sheet.dart';
-import 'package:loopcare_frontend/core/presentation/buttons/custom_icon_button.dart';
-import 'package:loopcare_frontend/core/presentation/checkbox/custom_checkbox.dart';
-import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
+import 'package:loopcare_frontend/core/presentation/cards/custom_tappable_card.dart';
+import 'package:loopcare_frontend/core/presentation/icon_images/app_icons.dart';
 import 'package:loopcare_frontend/core/presentation/text/custom_text.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 import 'package:loopcare_frontend/core/presentation/utils/build_context_extensions.dart';
 import 'package:loopcare_frontend/features/smart_goals/domain/smart_goal.dart';
+import 'package:loopcare_frontend/features/smart_goals/presentation/widgets/goal_progress_indicator.dart';
 
 class GoalsListItem extends StatelessWidget {
   final SmartGoal item;
   final void Function(SmartGoal item, bool isSelected) onItemPressed;
   final bool isSelected;
+  final bool disable;
 
-  const GoalsListItem({super.key, required this.item, required this.onItemPressed, required this.isSelected});
+  const GoalsListItem({
+    super.key,
+    required this.item,
+    required this.onItemPressed,
+    required this.isSelected,
+    this.disable = false,
+  });
 
   void _onItemPressedHandler() => onItemPressed(item, isSelected);
 
-  void _onInfoHandler(BuildContext context) =>
-      ModalBottomSheet.goalFunFact(context: context, title: item.title, content: item.funFact);
+  void _onInfoHandler(BuildContext context) => ModalBottomSheet.goalFunFact(
+        context: context,
+        title: item.shortTitle,
+        subtitle: item.title,
+        task: item.description,
+        content: item.funFact,
+      );
 
   @override
   Widget build(BuildContext context) {
-    return InkWell(
-      onTap: _onItemPressedHandler,
+    return CustomTappableCard.greenLightest(
+      contentPadding: const EdgeInsets.fromLTRB(12.0, 8.0, 4.0, 8.0),
+      onPressed: _onItemPressedHandler,
+      isSelected: isSelected,
+      disable: disable,
+      leading: GoalProgressIndicator(
+        currentStep: 0,
+        steps: item.requiredCompletionDays,
+        isAchievedNotifier: false,
+      ),
+      trailing: IconButton(
+        isSelected: isSelected,
+        selectedIcon: AppIcons.lightbulbSelect,
+        icon: disable ? AppIcons.lightbulbSelect : AppIcons.lightbulbUnSelect,
+        onPressed: () => _onInfoHandler(context),
+      ),
       child: Padding(
-        padding: const EdgeInsets.symmetric(vertical: 5.0),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            CustomCheckbox.green(value: isSelected),
-            Expanded(
-              child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 10.0),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
-                  children: [
-                    RichText(
-                      text: TextSpan(
-                        style: context.textTheme.bodyLarge,
-                        children: [
-                          TextSpan(
-                            text: '${item.shortTitle}: ',
-                            style: context.textTheme.bodyMedium?.copyWith(
-                              fontWeight: FontWeight.w600,
-                            ),
-                          ),
-                          TextSpan(
-                            text: item.description,
-                            style: context.textTheme.bodySmall?.copyWith(
-                              fontWeight: FontWeight.w400,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                    const SizedBox(height: 10.0),
-                    CustomText.w400(
-                      LocalizedTexts.completeCounter.tr(
-                        args: [item.requiredCompletionDays.toString(), item.lengthInDays.toString()],
-                      ),
-                      style: context.textTheme.bodyMedium,
-                    ),
-                  ],
-                ),
-              ),
-            ),
-            CustomIconButton(
-              icon: const Icon(Icons.info_outline_rounded, color: AppColors.blueDarker),
-              onPressed: () => _onInfoHandler(context),
-            ),
-          ],
+        padding: const EdgeInsets.symmetric(horizontal: 12.0),
+        child: CustomText.w400(
+          item.shortTitle,
+          style: context.textTheme.bodyMedium?.copyWith(color: AppColors.blueDarkest),
         ),
       ),
     );
