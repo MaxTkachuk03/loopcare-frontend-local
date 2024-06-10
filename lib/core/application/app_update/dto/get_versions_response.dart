@@ -10,11 +10,15 @@ class GetVersionsResponse {
   final bool isEnabled;
   final int androidMinVersion;
   final int iosMinVersion;
+  final int termsAndConditionsVersion;
+  final int privacyPolicyVersion;
 
   const GetVersionsResponse({
     required this.isEnabled,
     required this.androidMinVersion,
     required this.iosMinVersion,
+    this.termsAndConditionsVersion = 1,
+    this.privacyPolicyVersion = 1,
   });
 
   static GetVersionsResponse fromJson(Map<String, dynamic> json) => _$GetVersionsResponseFromJson(json);

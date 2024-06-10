@@ -19,6 +19,8 @@ class AuthenticationState with _$AuthenticationState {
   const factory AuthenticationState.gotAccount(AuthenticationData data) = GotAccountState;
 
   const factory AuthenticationState.gotEmailVerification(AuthenticationData data) = GotEmailVerification;
+
+  const factory AuthenticationState.needUpdatePolicies(AuthenticationData data) = NeedUpdatePolicies;
 }
 
 @freezed

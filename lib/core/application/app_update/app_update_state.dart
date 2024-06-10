@@ -17,6 +17,8 @@ class AppUpdateData with _$AppUpdateData {
 
   const factory AppUpdateData({
     @Default(false) bool needToUpdate,
+    @Default(1) int privacyPolicyVersion,
+    @Default(1) int termsAndConditionsVersion,
     @Default(false) bool isLoading,
     RequestError? error,
   }) = _AppUpdateData;

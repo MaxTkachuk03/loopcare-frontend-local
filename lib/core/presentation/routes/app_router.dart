@@ -90,9 +90,8 @@ import 'package:loopcare_frontend/features/quizzes/presentation/quizzes_intro_pa
 import 'package:loopcare_frontend/features/quizzes/presentation/quizzes_questions_page.dart';
 import 'package:loopcare_frontend/features/smart_goals/presentation/goal_review_page/goal_review_page.dart';
 import 'package:loopcare_frontend/features/smart_goals/presentation/goals_statistics_page/goals_statistics_page.dart';
-import 'package:loopcare_frontend/features/smart_goals/presentation/select_goals_actegory_page/select_goals_category_page.dart';
+import 'package:loopcare_frontend/features/smart_goals/presentation/select_goals_category_page/select_goals_category_page.dart';
 import 'package:loopcare_frontend/features/smart_goals/presentation/select_goals_page/select_goals_page.dart';
-import 'package:loopcare_frontend/features/smart_goals/presentation/set_weekly_goals_page/set_weekly_goals_page.dart';
 import 'package:loopcare_frontend/features/splash_screen/presentation/splash_page.dart';
 import 'package:loopcare_frontend/features/subscription/presentation/subscription_page.dart';
 import 'package:loopcare_frontend/features/video_player/presentation/video_page.dart';
@@ -524,10 +523,6 @@ const groupLessonRoutes = [
     ), // added
 
     // Smart goals
-    AutoRoute(
-      path: AppRoutes.setWeeklyGoals,
-      page: SetWeeklyGoalsPage,
-    ),
     AutoRoute(
       path: AppRoutes.selectGoalsCategory,
       page: SelectGoalsCategoryPage,

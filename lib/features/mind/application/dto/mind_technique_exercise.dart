@@ -1,4 +1,3 @@
-import 'package:collection/collection.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:loopcare_frontend/features/mind/application/dto/mind_content.dart';
 import 'package:loopcare_frontend/features/mind/application/dto/technique_exercise_difficulty.dart';
