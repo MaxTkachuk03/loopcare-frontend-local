@@ -70,3 +70,4 @@ app.*.map.json
 /ios/StoreKitTestCertificate.cer
 /env.stag
 /local_plugins/advertising_id/example/
+/fastlane/*.p8
