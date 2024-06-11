@@ -20,8 +20,8 @@ build_type = env == 'prod' ? "AAB" : "APK"
 build_folder = env == 'prod' ? "bundle/prodRelease" : "flutter-apk"
 
 desc "Send message to slack"
-private_lane :send_message_to_slack do
-  slack_url = "https://hooks.slack.com/services/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"   
+lane :send_message_to_slack do
+  
   release_hash= Actions.lane_context[SharedValues::FIREBASE_APP_DISTRO_RELEASE]
 
   version = release_hash[:displayVersion]
@@ -30,9 +30,10 @@ private_lane :send_message_to_slack do
 
   slack(
     message: "New #{env} build version #{version}:#{build_version} is available by link #{download_link}",
-    slack_url: slack_url,
+    slack_url: ENV["SLACK_URL"],
     default_payloads: ["git_branch", "git_author"]
   )
+  
 end
 
 desc "Build binary"
