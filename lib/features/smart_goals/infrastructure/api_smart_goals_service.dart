@@ -3,17 +3,16 @@ import 'package:injectable/injectable.dart';
 import 'package:loopcare_frontend/core/infrastructure/dio_client/dio_client.dart';
 import 'package:loopcare_frontend/core/infrastructure/dio_client/parse_response.dart';
 import 'package:loopcare_frontend/core/infrastructure/dio_client/request_error.dart';
+import 'package:loopcare_frontend/features/smart_goals/application/cancel_goal_reason.dart';
 import 'package:loopcare_frontend/features/smart_goals/application/dto/get_goals_categories_response.dart';
 import 'package:loopcare_frontend/features/smart_goals/application/dto/get_goals_response.dart';
 import 'package:loopcare_frontend/features/smart_goals/application/dto/get_goals_statistics_response.dart';
 import 'package:loopcare_frontend/features/smart_goals/application/dto/goal_review_body.dart';
 import 'package:loopcare_frontend/features/smart_goals/application/dto/save_goals_body.dart';
 import 'package:loopcare_frontend/features/smart_goals/application/smart_goals_service.dart';
+import 'package:loopcare_frontend/features/smart_goals/domain/get_weekly_sessions_response.dart';
 import 'package:loopcare_frontend/features/smart_goals/domain/progress_goal_data.dart';
 import 'package:loopcare_frontend/features/smart_goals/domain/weekly_goals_session.dart';
-
-// TODO use to mock weekly goals server response
-// import 'package:loopcare_frontend/features/smart_goals/infrastructure/get_weekly_goals.dart';
 
 // TODO use to mock goals categories server response
 // import 'package:loopcare_frontend/features/smart_goals/infrastructure/get_smart_goals_categories_mock.dart';
@@ -23,6 +22,9 @@ import 'package:loopcare_frontend/features/smart_goals/domain/weekly_goals_sessi
 
 // TODO use to mock goals stats server response
 // import 'package:loopcare_frontend/features/smart_goals/infrastructure/get_goals_stats_mock.dart';
+
+// TODO use to mock goals stats server response
+// import 'package:loopcare_frontend/features/smart_goals/infrastructure/get_weekly_goals.dart';
 
 @Injectable(as: SmartGoalsService)
 class APISmartGoalsService implements SmartGoalsService {
@@ -40,8 +42,8 @@ class APISmartGoalsService implements SmartGoalsService {
   }
 
   @override
-  Future<Either<RequestError, WeeklyGoalsSession>> saveGoals({required List<SaveGoalsBody> goals}) async {
-    return client.post('/smart-goal/session', data: {"goals": goals}).then(parseResponse(WeeklyGoalsSession.fromJson));
+  Future<Either<RequestError, WeeklyGoalsSession>> saveGoals({required SaveGoalsBody goal}) async {
+    return client.post('/smart-goal/session', data: goal).then(parseResponse(WeeklyGoalsSession.fromJson));
   }
 
   @override
@@ -53,11 +55,11 @@ class APISmartGoalsService implements SmartGoalsService {
   }
 
   @override
-  Future<Either<RequestError, WeeklyGoalsSession>> getWeeklyGoals() async {
+  Future<Either<RequestError, GetWeeklySessionsResponse>> getWeeklySessions() async {
     // TODO use to mock weekly goals server response
-    // return right(WeeklyGoalsSession.fromJson(weeklyGoals));
+    //return right(GetWeeklySessionsResponse.fromJson(weeklyGoals));
 
-    return client.get('/smart-goal/session/last').then(parseResponse(WeeklyGoalsSession.fromJson));
+    return client.get('/smart-goal/session/last').then(parseResponse(GetWeeklySessionsResponse.fromJson));
   }
 
   @override
@@ -78,5 +80,22 @@ class APISmartGoalsService implements SmartGoalsService {
     return client
         .post('/smart-goal/progress', data: progress.toJson())
         .then(parseResponse(WeeklyGoalsSession.fromJson));
+  }
+
+  @override
+  Future<Either<RequestError, WeeklyGoalsSession>> deleteSession(
+      {required int sessionId, required CancelGoalReason reason}) async {
+    return client.delete('/smart-goal/session/$sessionId',
+        data: {'reason': reason.name}).then(parseResponse(WeeklyGoalsSession.fromJson));
+  }
+
+  @override
+  Future<Either<RequestError, WeeklyGoalsSession>> resetProgress({required int sessionId}) async {
+    return client.delete('/smart-goal/progress/$sessionId').then(parseResponse(WeeklyGoalsSession.fromJson));
+  }
+
+  @override
+  Future<Either<RequestError, dynamic>> unlockCategory({required int id}) async {
+    return client.post('/smart-goal/category/$id/animation', data: {});
   }
 }

@@ -20,14 +20,38 @@ class AppUpdateBottomSheet {
     }
   }
 
-  static void show() {
+  static void showAppUpdate() {
     ModalBottomSheet.appUpdate(
       context: kOverlayContext,
-      onUpdatePressed: _launchInBrowser
+      onUpdatePressed: _onAppUpdatePressed
     );
   }
 
-  static Future<void> _launchInBrowser() async {
+  static void showPoliciesUpdate({
+    required bool updatePrivacyPolicy,
+    required bool updateTermsAndConditions,
+    required void Function() onConfirmed,
+  }) {
+    ModalBottomSheet.showDocumentsUpdate(
+      context: kOverlayContext,
+      updatePrivacyPolicy: updatePrivacyPolicy,
+      updateTermsAndConditions: updateTermsAndConditions,
+      launchPrivacyPolicy: _onTermsAndConditionsTap,
+      launchTermsAndConditions: _onPrivacyPolicyTap,
+      launchEmail: _onEmailTap,
+      onConfirmed: onConfirmed,
+    );
+  }
+
+  static Future<void> _onAppUpdatePressed() => _launchInBrowser(_storeLink);
+
+  static void _onTermsAndConditionsTap() => _launchInBrowser(termsAndConditionsUrl);
+
+  static void _onPrivacyPolicyTap() => _launchInBrowser(privacyPolicyUrl);
+
+  static void _onEmailTap() => _launchInBrowser(supportEmailMailTo);
+
+  static Future<void> _launchInBrowser(String url) async {
     final uri = Uri.parse(_storeLink);
 
     try {

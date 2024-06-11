@@ -40,7 +40,7 @@ import 'package:loopcare_frontend/features/video_session/presentation/widgets/se
 import 'package:loopcare_frontend/features/video_session/presentation/widgets/settings_dialog.dart';
 import 'package:loopcare_frontend/features/video_session/presentation/widgets/users_grid.dart';
 import 'package:loopcare_frontend/injection.dart';
-import 'package:wakelock/wakelock.dart';
+import 'package:wakelock_plus/wakelock_plus.dart';
 
 class SessionCallPage extends StatefulWidget {
   const SessionCallPage({super.key});
@@ -87,7 +87,7 @@ class _SessionCallPageState extends State<SessionCallPage> with WidgetsBindingOb
     context.read<SessionCallBloc>().add(const SessionCallEvent.resetTimerValue());
     WidgetsBinding.instance.addObserver(this);
 
-    Wakelock.enable();
+    WakelockPlus.enable();
 
     _initSessionListeners();
     _joinSession();
@@ -309,7 +309,10 @@ class _SessionCallPageState extends State<SessionCallPage> with WidgetsBindingOb
       var userListJson = jsonDecode(data['remoteUsers']) as List;
 
       setState(() {
-        _sessionParticipants = [mySelf!, ...userListJson.map((userJson) => ZoomVideoSdkUser.fromJson(userJson))];
+        _sessionParticipants = [
+          mySelf!,
+          ...userListJson.map((userJson) => ZoomVideoSdkUser.fromJson(userJson))
+        ];
       });
     });
 
@@ -649,9 +652,10 @@ class _SessionCallPageState extends State<SessionCallPage> with WidgetsBindingOb
                               builder: (context, state) {
                                 final textEvents = context.read<TopicsBloc>().state.data.textEvents;
 
-                                final text =
-                                    textEvents.lastWhereOrNull((e) => state.data.sessionTime >= e.timestamp)?.text ??
-                                        '';
+                                final text = textEvents
+                                        .lastWhereOrNull((e) => state.data.sessionTime >= e.timestamp)
+                                        ?.text ??
+                                    '';
 
                                 return PromptsContainer(text: text);
                               },
@@ -716,7 +720,7 @@ class _SessionCallPageState extends State<SessionCallPage> with WidgetsBindingOb
   void dispose() {
     WidgetsBinding.instance.removeObserver(this);
 
-    Wakelock.disable();
+    WakelockPlus.disable();
 
     _enablePortraitOrientation();
 

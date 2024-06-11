@@ -25,7 +25,7 @@ import 'package:loopcare_frontend/features/video_player/infrastructure/video_pag
 import 'package:loopcare_frontend/features/video_player/presentation/widgets/rotate_device_message.dart';
 import 'package:loopcare_frontend/features/video_player/presentation/widgets/video_player_widget.dart';
 import 'package:video_player/video_player.dart';
-import 'package:wakelock/wakelock.dart';
+import 'package:wakelock_plus/wakelock_plus.dart';
 
 class VideoPage extends StatefulWidget {
   final PhysicalProgram program;
@@ -46,14 +46,14 @@ class _VideoPageState extends State<VideoPage> {
   bool get _isLastExercise => _videoIndex + 1 == widget.program.exercises.length;
 
   Future _allowLandscapeOrientation() async {
-    await Wakelock.enable();
+    await WakelockPlus.enable();
 
     SystemService.hideSystemOverlays();
     SystemService.allowBothOrientations();
   }
 
   Future _onlyPortraitOrientation() async {
-    await Wakelock.disable();
+    await WakelockPlus.disable();
 
     SystemService.showSystemOverlays();
     SystemService.allowOnlyPortraitOrientation();
