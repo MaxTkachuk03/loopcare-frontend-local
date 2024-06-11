@@ -5,17 +5,32 @@
     
     
       
-      <testcase classname="fastlane.lanes" name="0: firebase_app_distribution" time="20.728524">
+      <testcase classname="fastlane.lanes" name="0: Switch to ios build_binary lane" time="0.000234">
         
       </testcase>
     
       
-      <testcase classname="fastlane.lanes" name="1: Switch to ios send_message_to_slack lane" time="0.000333">
+      <testcase classname="fastlane.lanes" name="1: say" time="4.129928">
         
       </testcase>
     
       
-      <testcase classname="fastlane.lanes" name="2: slack" time="0.7114">
+      <testcase classname="fastlane.lanes" name="2: ./actions/build_script.sh uat ios" time="179.704976">
+        
+      </testcase>
+    
+      
+      <testcase classname="fastlane.lanes" name="3: app_store_connect_api_key" time="0.025003">
+        
+      </testcase>
+    
+      
+      <testcase classname="fastlane.lanes" name="4: pilot" time="62.437273">
+        
+      </testcase>
+    
+      
+      <testcase classname="fastlane.lanes" name="5: Switch to ios send_message_to_slack lane" time="0.000258">
         
       </testcase>
     
