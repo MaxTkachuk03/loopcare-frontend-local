@@ -5,6 +5,7 @@ import 'package:loopcare_frontend/core/infrastructure/dio_client/dio_client.dart
 import 'package:loopcare_frontend/core/infrastructure/dio_client/parse_response.dart';
 import 'package:loopcare_frontend/core/infrastructure/dio_client/request_error.dart';
 import 'package:loopcare_frontend/features/authentication/application/authentication_service.dart';
+import 'package:loopcare_frontend/features/authentication/application/dto/account_document_version_data.dart';
 import 'package:loopcare_frontend/features/authentication/application/dto/account_response.dart';
 import 'package:loopcare_frontend/features/authentication/application/dto/email_approve_date_response.dart';
 import 'package:loopcare_frontend/features/authentication/application/dto/forgot_password_data.dart';
@@ -79,5 +80,10 @@ class APIAuthenticationService implements AuthenticationService {
   @override
   Future<Either<RequestError, dynamic>> checkEmail(ValidateEmailData data) async {
     return client.post('/accounts/validate-email', data: data.toJson()).then(parseResponse((json) => json.isEmpty));
+  }
+
+  @override
+  Future<Either<RequestError, dynamic>> updateDocumentVersion(AccountDocumentVersionData data) {
+    return client.patch('/accounts/accept-document-version', data: data.toJson());
   }
 }

@@ -71,8 +71,6 @@ class MixpanelManager {
       'system.Model': build.model,
       'system.SupportedAbis': build.supportedAbis,
       'isPhysicalDevice': build.isPhysicalDevice,
-      'system.DisplayWidth': build.displayMetrics.widthPx,
-      'system.DisplayHeight': build.displayMetrics.heightPx,
     };
   }
 

@@ -48,4 +48,9 @@ class AuthenticationEvent with _$AuthenticationEvent {
   const factory AuthenticationEvent.syncChatState() = SyncChatState;
 
   const factory AuthenticationEvent.authenticatedCheck() = AuthenticatedCheck;
+
+  const factory AuthenticationEvent.updatePolicy({
+    required int termsAndConditionsVersion,
+    required int privacyPolicyVersion,
+  }) = UpdatePolicy;
 }

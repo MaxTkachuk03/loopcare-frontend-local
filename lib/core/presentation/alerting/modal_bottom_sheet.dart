@@ -8,6 +8,7 @@ import 'package:loopcare_frontend/core/domain/emergency_numbers/emergency_number
 import 'package:loopcare_frontend/core/infrastructure/services/app_config.dart';
 import 'package:loopcare_frontend/core/infrastructure/services/firebase_event_service.dart';
 import 'package:loopcare_frontend/core/presentation/alerting/widgets/already_planned_card.dart';
+import 'package:loopcare_frontend/core/presentation/app_version/app_update_policies_documents.dart';
 import 'package:loopcare_frontend/core/presentation/buttons/custom_elevated_button.dart';
 import 'package:loopcare_frontend/core/presentation/buttons/custom_icon_button.dart';
 import 'package:loopcare_frontend/core/presentation/buttons/custom_outlined_button.dart';
@@ -210,9 +211,8 @@ class ModalBottomSheet {
                   const SizedBox(height: 12.0),
                   CustomOutlinedButton.blueFullWidth(
                     onPressed: noActiveSubscription ? onDeleted : onSubscriptionPref,
-                    label: noActiveSubscription
-                        ? LocalizedTexts.yesDelete.tr()
-                        : LocalizedTexts.manageSubscription.tr(),
+                    label:
+                        noActiveSubscription ? LocalizedTexts.yesDelete.tr() : LocalizedTexts.manageSubscription.tr(),
                   )
                 ],
               ),
@@ -1301,51 +1301,83 @@ class ModalBottomSheet {
   static void goalFunFact({
     required BuildContext context,
     required String title,
+    required String subtitle,
+    required String task,
     required String content,
   }) {
-    // TODO all showModalBottomSheets should be refactored with such approach
     showModalBottomSheet<void>(
       context: context,
       showDragHandle: true,
+      isScrollControlled: true,
+      backgroundColor: AppColors.greenLightest,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12.0)),
       builder: (BuildContext context) {
-        return ScrollableContainer(
-          child: MainContainer(
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: [
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
-                  children: [
-                    CustomText.bitter600(title, style: context.textTheme.displayMedium),
-                    const SizedBox(height: 45),
-                    Row(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        const CircleAvatar(
-                          radius: 22.0,
-                          backgroundColor: AppColors.greenRegular,
-                          child: Icon(Icons.emoji_objects_rounded),
-                        ),
-                        const SizedBox(width: 16.0),
-                        Expanded(child: CustomText.w400(content, style: context.textTheme.bodyMedium)),
-                      ],
-                    ),
-                    const SizedBox(height: 45),
-                  ],
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(bottom: 30.0),
-                  child: CustomElevatedButton.blueFullWidth(
-                    label: LocalizedTexts.ok.tr().toUpperCase(),
-                    onPressed: context.router.pop,
-                  ),
-                ),
-              ],
-            ),
+        return MainContainer(
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              SizedBox(width: 44, height: 44, child: AppIcons.lightbulbUnSelect),
+              const SizedBox(height: 20.0),
+              CustomText.bitter600(
+                title,
+                style: context.textTheme.displayMedium,
+                textAlign: TextAlign.center,
+              ),
+              const SizedBox(height: 32.0),
+              CustomText.w600(
+                subtitle,
+                style: context.textTheme.bodyMedium,
+                textAlign: TextAlign.center,
+              ),
+              const SizedBox(height: 20.0),
+              CustomText.w400(
+                task,
+                style: context.textTheme.bodyMedium,
+                textAlign: TextAlign.center,
+              ),
+              const SizedBox(height: 20.0),
+              CustomText.w400(
+                content,
+                style: context.textTheme.bodyMedium,
+                textAlign: TextAlign.center,
+              ),
+              const SizedBox(height: 40.0),
+              CustomElevatedButton.blueFullWidth(
+                label: LocalizedTexts.ok.tr().toUpperCase(),
+                onPressed: context.router.pop,
+              ),
+              const SizedBox(height: 30.0),
+            ],
           ),
+        );
+      },
+    );
+  }
+
+  static void showDocumentsUpdate({
+    required BuildContext context,
+    required bool updateTermsAndConditions,
+    required bool updatePrivacyPolicy,
+    required VoidCallback launchTermsAndConditions,
+    required VoidCallback launchPrivacyPolicy,
+    required VoidCallback launchEmail,
+    required VoidCallback onConfirmed,
+  }) {
+    showModalBottomSheet<void>(
+      context: context,
+      isDismissible: false,
+      enableDrag: false,
+      isScrollControlled: true,
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12.0)),
+      builder: (BuildContext context) {
+        return AppUpdatePoliciesDocuments(
+          updateTermsAndConditions: updateTermsAndConditions,
+          updatePrivacyPolicy: updatePrivacyPolicy,
+          launchTermsAndConditions: launchTermsAndConditions,
+          launchPrivacyPolicy: launchPrivacyPolicy,
+          launchEmail: launchEmail,
+          onConfirmed: onConfirmed,
         );
       },
     );

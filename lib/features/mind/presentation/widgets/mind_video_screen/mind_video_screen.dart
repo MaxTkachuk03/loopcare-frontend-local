@@ -10,7 +10,7 @@ import 'package:loopcare_frontend/core/presentation/utils/build_context_extensio
 import 'package:loopcare_frontend/features/mind/presentation/widgets/mind_video_screen/widgets/hiding_box.dart';
 import 'package:loopcare_frontend/features/video_player/presentation/widgets/rotate_device_message.dart';
 import 'package:video_player/video_player.dart';
-import 'package:wakelock/wakelock.dart';
+import 'package:wakelock_plus/wakelock_plus.dart';
 
 part 'widgets/_orientation_state_video_wrapper.dart';
 part 'widgets/_play_pause_button.dart';
@@ -51,7 +51,7 @@ class _MindVideoScreenState extends State<MindVideoScreen> {
   bool _isCompleted = false;
 
   Future<void> _initVideoPlayerController() async {
-    await Wakelock.enable();
+    await WakelockPlus.enable();
 
     final url = Uri.parse(widget.url);
     _videoController = VideoPlayerController.networkUrl(url);
@@ -92,7 +92,7 @@ class _MindVideoScreenState extends State<MindVideoScreen> {
   }
 
   Future<void> _onlyPortraitOrientation() async {
-    await Wakelock.disable();
+    await WakelockPlus.disable();
 
     SystemService.allowOnlyPortraitOrientation();
     SystemService.showSystemOverlays();
@@ -173,7 +173,6 @@ class _MindVideoScreenState extends State<MindVideoScreen> {
           : null,
       body: Builder(
         builder: (context) {
-
           if (!_initialised) {
             return const Loader();
           }
@@ -281,7 +280,7 @@ class _MindVideoScreenState extends State<MindVideoScreen> {
                   ],
                 ),
               );
-            }
+            },
           );
         },
       ),
