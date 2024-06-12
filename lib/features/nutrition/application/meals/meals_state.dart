@@ -152,7 +152,6 @@ class MealsStateData with _$MealsStateData, NutritionUtils {
   }
 
   double get selectedDayMealProteinDegreeSum {
-    //
     if (meals.isEmpty) return 0;
 
     double caloriesSum = 0;
