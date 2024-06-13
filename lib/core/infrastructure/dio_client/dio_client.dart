@@ -244,6 +244,7 @@ Future<Either<RequestError, T>> fetchResponse<T>(
 }) async {
   Response<dynamic> response;
   final bool connected = await getIt<NetworkStatusService>().checkInternetConnection();
+  dio.options.headers = headers;
   try {
     switch (type) {
       case FetchType.get:

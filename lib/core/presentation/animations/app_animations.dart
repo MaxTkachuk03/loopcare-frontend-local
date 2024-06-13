@@ -5,5 +5,5 @@ class AppAnimations {
 
   static const String unlock = '$_animationsPath/unlock.json';
   static const String achieved = '$_animationsPath/achieved.json';
-  static const String no_achieved = '$_animationsPath/no_achieved.json';
+  static const String noAchieved = '$_animationsPath/no_achieved.json';
 }
