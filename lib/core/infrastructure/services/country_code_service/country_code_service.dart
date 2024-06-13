@@ -49,9 +49,13 @@ class CountryCodeService {
 
   String? _serverCountryCode;
 
+  String? _localRegion;
+
   String get countryCode => _countryCode ?? '';
 
   String get _localeCountryCode => WidgetsBinding.instance.platformDispatcher.locale.countryCode ?? 'US';
+
+  String get localRegion => _localRegion ??= _localeCountryCode;
 
   bool get useUsServer => _usCodes.contains(_countryCode);
 
