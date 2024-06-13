@@ -115,48 +115,48 @@ class ToggleSwitch extends StatefulWidget {
   /// Set the long on Two Lines
   final bool multiLineText;
 
-  ToggleSwitch(
-      {Key? key,
-      this.totalSwitches,
-      this.labels,
-      this.borderColor,
-      this.borderWidth,
-      this.dividerColor = Colors.white30,
-      this.activeBgColor,
-      this.activeFgColor,
-      this.inactiveBgColor,
-      this.inactiveFgColor,
-      this.onToggle,
-      this.cancelToggle,
-      this.cornerRadius = 8.0,
-      this.initialLabelIndex = 0,
-      this.minWidth = 72.0,
-      this.minHeight = 40.0,
-      this.changeOnTap = true,
-      this.icons,
-      this.activeBgColors,
-      this.customTextStyles,
-      this.customActiveTextStyles,
-      this.customIcons,
-      this.customWidths,
-      this.customHeights,
-      this.animate = false,
-      this.animationDuration = 800,
-      this.curve = Curves.easeIn,
-      this.radiusStyle = false,
-      this.textDirectionRTL = false,
-      this.fontSize = 14.0,
-      this.iconSize = 17.0,
-      this.dividerMargin = 8.0,
-      this.doubleTapDisable = false,
-      this.isVertical = false,
-      this.activeBorders,
-      this.centerText = false,
-      this.multiLineText = false})
-      : super(key: key);
+  ToggleSwitch({
+    super.key,
+    this.totalSwitches,
+    this.labels,
+    this.borderColor,
+    this.borderWidth,
+    this.dividerColor = Colors.white30,
+    this.activeBgColor,
+    this.activeFgColor,
+    this.inactiveBgColor,
+    this.inactiveFgColor,
+    this.onToggle,
+    this.cancelToggle,
+    this.cornerRadius = 8.0,
+    this.initialLabelIndex = 0,
+    this.minWidth = 72.0,
+    this.minHeight = 40.0,
+    this.changeOnTap = true,
+    this.icons,
+    this.activeBgColors,
+    this.customTextStyles,
+    this.customActiveTextStyles,
+    this.customIcons,
+    this.customWidths,
+    this.customHeights,
+    this.animate = false,
+    this.animationDuration = 800,
+    this.curve = Curves.easeIn,
+    this.radiusStyle = false,
+    this.textDirectionRTL = false,
+    this.fontSize = 14.0,
+    this.iconSize = 17.0,
+    this.dividerMargin = 8.0,
+    this.doubleTapDisable = false,
+    this.isVertical = false,
+    this.activeBorders,
+    this.centerText = false,
+    this.multiLineText = false,
+  });
 
   @override
-  _ToggleSwitchState createState() => _ToggleSwitchState();
+  State<ToggleSwitch> createState() => _ToggleSwitchState();
 }
 
 class _ToggleSwitchState extends State<ToggleSwitch> with AutomaticKeepAliveClientMixin<ToggleSwitch> {
@@ -266,7 +266,7 @@ class _ToggleSwitchState extends State<ToggleSwitch> with AutomaticKeepAliveClie
                 );
               } else {
                 /// Matches corner radius of active switch to that of border
-                var cornerRadius;
+                BorderRadius? cornerRadius;
                 if (index == 0 && !widget.isVertical) {
                   /// Checks if text direction is set right-to-left and
                   /// assigns corner radius accordingly.
@@ -364,7 +364,7 @@ class _ToggleSwitchState extends State<ToggleSwitch> with AutomaticKeepAliveClie
                 /// Assigns active border if available.
                 /// If only one active border is passed then we assume that we wanna
                 /// apply that active border to all the switches.
-                var activeBorder;
+                BoxBorder? activeBorder;
                 if (widget.activeBorders != null) {
                   activeBorder = widget.activeBorders!.length == 1
                       ? widget.activeBorders![0]
@@ -494,15 +494,15 @@ class RowToColumn extends StatelessWidget {
   final MainAxisSize? mainAxisSize;
   final CrossAxisAlignment? crossAxisAlignment;
 
-  const RowToColumn(
-      {Key? key,
-      required this.children,
-      required this.isVertical,
-      this.isColumnToRow,
-      this.mainAxisAlignment,
-      this.mainAxisSize,
-      this.crossAxisAlignment})
-      : super(key: key);
+  const RowToColumn({
+    super.key,
+    required this.children,
+    required this.isVertical,
+    this.isColumnToRow,
+    this.mainAxisAlignment,
+    this.mainAxisSize,
+    this.crossAxisAlignment,
+  });
 
   @override
   Widget build(BuildContext context) {

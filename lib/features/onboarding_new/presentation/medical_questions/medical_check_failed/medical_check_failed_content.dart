@@ -71,7 +71,7 @@ class MedicalCheckFailedContent extends StatelessWidget {
                     children: state.listDiseasesEnabled
                         .map((e) => BulletListItem(
                               text: CustomText.w600(
-                                e.label,
+                                e.label.tr(),
                                 style: context.textTheme.bodyMedium,
                               ),
                               bulletSize: 18,

@@ -5,6 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loopcare_frontend/core/domain/analytics/firebase_event_custom_definitions.dart';
 import 'package:loopcare_frontend/core/domain/analytics/firebase_event_list.dart';
 import 'package:loopcare_frontend/core/infrastructure/services/firebase_event_service.dart';
+import 'package:loopcare_frontend/core/infrastructure/services/logger/logger.dart';
 import 'package:loopcare_frontend/core/presentation/alerting/show_app_snackbar.dart';
 import 'package:loopcare_frontend/core/presentation/app_bar/custom_app_bar.dart';
 import 'package:loopcare_frontend/core/presentation/buttons/custom_elevated_button.dart';
@@ -35,6 +36,7 @@ import 'package:loopcare_frontend/features/nutrition/presentation/edit_dish/edit
 import 'package:loopcare_frontend/features/nutrition/presentation/widgets/meal_portions/nutrition_values_block.dart';
 import 'package:loopcare_frontend/features/nutrition/presentation/widgets/servings_amount/servings_amount.dart';
 
+@RoutePage()
 class DishDetailsPage extends StatefulWidget {
   final int dishId;
   final bool canEditDish;
@@ -141,7 +143,11 @@ class _DishDetailsPageState extends State<DishDetailsPage> {
           final mealId = mealBloc.state.data.getCurrentMealId;
 
           if (mealId == null) {
-            debugPrint('Search item click freezed DishDetailsPage mealId == null');
+            log.e(
+              'Search item click freezed DishDetailsPage mealId == null',
+              error: LogTitle.noItem,
+              stackTrace: StackTrace.current,
+            );
             return;
           }
 

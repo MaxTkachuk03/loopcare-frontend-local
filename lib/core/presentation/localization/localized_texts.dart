@@ -24,7 +24,6 @@ class LocalizedTexts {
   static const String pleaseEnterValidEmailAddress = 'pleaseEnterValidEmailAddress';
   static const String pleaseEnterYourName = 'pleaseEnterYourName';
   static const String enterYourHeight = 'enterYourHeight';
-  static const String emailOrPasswordAreIncorrect = 'emailOrPasswordAreIncorrect';
   static const String forgotEmailSuccessMessage = 'forgotEmailSuccessMessage';
   static const String pleaseEnterRegistrationCode = 'pleaseEnterRegistrationCode';
   static const String pleaseEnterValidRegistrationCode = 'pleaseEnterValidRegistrationCode';
@@ -320,7 +319,6 @@ class LocalizedTexts {
   static const String backToTodayNotLogged = 'backToTodayNotLogged';
   static const String notReally = 'notReally';
   static const String yesYes = 'yesYes';
-  static const String physicalProgramAlreadyLogged = 'physicalProgramAlreadyLogged';
   static const String inProgress = 'inProgress';
 
   // User profile
@@ -369,14 +367,6 @@ class LocalizedTexts {
   static const String repeat = 'repeat';
   static const String exerciseCompleteMessage = 'exerciseCompleteMessage';
   static const String breakBetweenExercises = 'breakBetweenExercises';
-
-  // Error Screen
-  static const String retry = 'retry';
-  static const String noConnectionTitle = 'noConnectionTitle';
-  static const String noConnectionText = 'noConnectionText';
-  static const String invalidIngredientText = 'invalidIngredientText';
-  static const String oeps = 'oeps';
-  static const String somethingWentWrong = 'somethingWentWrong';
 
   //Empty screen
   static const String youHaveNo = 'youHaveNo';
@@ -931,7 +921,6 @@ class LocalizedTexts {
   static const String pleaseAcceptTOC = 'pleaseAcceptTOC';
   static const String pleaseAcceptPrivacyPolicy = 'pleaseAcceptPrivacyPolicy';
   static const String register = 'register';
-  static const String emailAlreadyTaken = 'emailAlreadyTaken';
   static const String somethingIsIncorrect = 'somethingIsIncorrect';
   static const String receiveEmailCheckboxLabel = 'receiveEmailCheckboxLabel';
 
@@ -1099,4 +1088,43 @@ class LocalizedTexts {
   static const String reasonGoalMissing = 'reasonGoalMissing';
   static const String reasonGoalHabit = 'reasonGoalHabit';
   static const String reasonGoalSpecific = 'reasonGoalSpecific';
+
+  // Error Screen
+  static const String retry = 'retry';
+  static const String noConnectionTitle = 'noConnectionTitle';
+  static const String noConnectionText = 'noConnectionText';
+  static const String invalidIngredientText = 'invalidIngredientText';
+  static const String oeps = 'oeps';
+  static const String somethingWentWrong = 'somethingWentWrong';
+
+  static const String accountAlreadyExists = 'account_with_this_email_already_exists';
+  static const String accountNotFound = 'account_not_found';
+  static const String emailOrPasswordAreIncorrect = 'account_with_this_email_already_exists';
+  static const String physicalProgramAlreadyLogged = 'physical_program_already_logged';
+  static const String servingIdIsNotFound = 'serving_id_is_not_found';
+
+  //Error localization
+  static const String subscriptionServiceUnavailable = 'subscription_service_unavailable';
+  static const String purchaseStreamError = 'purchase_stream_error';
+  static const String purchaseErrorMessage = 'purchase_error_message';
+
+  //DioException
+  static const String requestCancelledDio = 'requestCancelledDio';
+  static const String connectionDio = 'connectionDio';
+  static const String timeoutDio = 'timeoutDio';
+  static const String badRequestDio = 'badRequestDio';
+  static const String unauthorizedDio = 'unauthorizedDio';
+  static const String forbiddenDio = 'forbiddenDio';
+  static const String notFoundDio = 'notFoundDio';
+  static const String conflictDio = 'conflictDio';
+  static const String serverErrorDio = 'serverErrorDio';
+  static const String unprocessableEntityDio = 'unprocessableEntityDio';
+  static const String unhandledResponseDio = 'unhandledResponseDio';
+  static const String unhandledErrorDio = 'unhandledErrorDio';
+  static const String otherDio = 'otherDio';
+
+  //SocketException
+  static const String socketException = 'socketException';
+  //Parsing Exception
+  static const String parsingException = 'parsingException';
 }

@@ -24,8 +24,7 @@ import 'package:loopcare_frontend/features/subscription/application/subscription
 import 'package:loopcare_frontend/injection.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-AppConfig appConfig = getIt<AppConfig>();
-
+@RoutePage()
 class ManageSubscriptionPage extends StatefulWidget {
   const ManageSubscriptionPage({super.key});
 
@@ -35,6 +34,8 @@ class ManageSubscriptionPage extends StatefulWidget {
 
 class _ManageSubscriptionPageState extends State<ManageSubscriptionPage> {
   final AppSubscriptionService inAppPurchaseService = getIt<AppSubscriptionService>();
+
+  AppConfig get appConfig => getIt<AppConfig>();
 
   @override
   void didChangeDependencies() {
@@ -141,7 +142,7 @@ class _ManageSubscriptionPageState extends State<ManageSubscriptionPage> {
           content: CustomText(LocalizedTexts.otherPurchaseVendor.tr()),
           actions: [
             TextButton(
-              onPressed: () => context.router.pop(),
+              onPressed: () => context.router.maybePop(),
               child: Text(LocalizedTexts.ok.tr().toUpperCase()),
             ),
           ],
@@ -157,12 +158,12 @@ class _ManageSubscriptionPageState extends State<ManageSubscriptionPage> {
   }
 
   _errorListener(BuildContext context, SubscriptionState state) {
-    final errorMessage = state.data.errorMessage ?? LocalizedTexts.somethingWentWrong.tr();
+    final errorMessage = state.data.errorMessage ?? LocalizedTexts.somethingWentWrong;
     context.showErrorBar(
-      content: Text(errorMessage),
+      content: Text(errorMessage.tr()),
       position: FlashPosition.top,
     );
-    context.router.pop();
+    context.router.maybePop();
   }
 }
 
@@ -170,7 +171,7 @@ class _DetailsSection extends StatelessWidget {
   final String title;
   final String? value;
 
-  const _DetailsSection({super.key, required this.title, this.value});
+  const _DetailsSection({required this.title, this.value});
 
   @override
   Widget build(BuildContext context) {

@@ -21,6 +21,7 @@ import 'package:loopcare_frontend/features/consent_confirmation/application/cons
 import 'package:loopcare_frontend/features/legal_statement/application/legal_statement_bloc.dart';
 import 'package:loopcare_frontend/features/legal_statement/presentation/widgets/legal_statement_confirmation_box.dart';
 
+@RoutePage()
 class LegalStatementPage extends StatefulWidget {
   const LegalStatementPage({super.key});
 

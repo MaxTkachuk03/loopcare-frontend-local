@@ -6,6 +6,7 @@ import 'package:loopcare_frontend/features/mind/application/mind_bloc.dart';
 import 'package:loopcare_frontend/features/mind/domain/mind_analytics_mixin/mind_analytics_mixin.dart';
 import 'package:loopcare_frontend/features/mind/presentation/widgets/mind_content_screen/mind_content_screen.dart';
 
+@RoutePage()
 class ExercisePage extends StatefulWidget {
   const ExercisePage({
     super.key,

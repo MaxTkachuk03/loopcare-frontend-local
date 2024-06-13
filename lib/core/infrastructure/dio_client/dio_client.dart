@@ -11,31 +11,19 @@ import 'package:loopcare_frontend/core/infrastructure/dio_client/app_version_int
 import 'package:loopcare_frontend/core/infrastructure/dio_client/auth_token_interceptor.dart';
 import 'package:loopcare_frontend/core/infrastructure/dio_client/dio_options.dart';
 import 'package:loopcare_frontend/core/infrastructure/dio_client/parse_request_error.dart';
+import 'package:loopcare_frontend/core/infrastructure/dio_client/parse_response.dart';
 import 'package:loopcare_frontend/core/infrastructure/dio_client/request_error.dart';
 import 'package:loopcare_frontend/core/infrastructure/dio_client/retry.dart';
+import 'package:loopcare_frontend/core/infrastructure/services/logger/logger.dart';
 import 'package:loopcare_frontend/core/infrastructure/services/network_service/network_service.dart';
 import 'package:loopcare_frontend/core/infrastructure/services/shared_storage/shared_storage_service.dart';
 import 'package:loopcare_frontend/injection.dart';
 import 'package:pretty_dio_logger/pretty_dio_logger.dart';
 
+enum FetchType { get, post, put, delete, patch, downloading }
+
 enum DioRequestCancellationReason {
   searchManualCancel,
-}
-
-Future<Either<RequestError, Response<dynamic>>> handleProcess(Future<Response<dynamic>> response) async {
-  final bool connected = await getIt<NetworkStatusService>().checkInternetConnection();
-  try {
-    return Task(() => response)
-        .attempt() // Attempt to run the above code, and catch every exceptions
-        .map((value) => value.leftMap(parseRequestError)) // this returns Task<Either<Failure, dynamic>>
-        .run();
-  } on DioException catch (e) {
-    if (!connected) {
-      throw RequestError.connection(e);
-    } else {
-      throw RequestError.dioOther(e);
-    }
-  }
 }
 
 @lazySingleton
@@ -61,10 +49,10 @@ class DioClient {
 
     if (kDebugMode) {
       dio.interceptors.add(PrettyDioLogger(
-        responseBody: false,
+        responseBody: true,
         requestHeader: false,
-        responseHeader: false,
-        requestBody: false,
+        responseHeader: true,
+        requestBody: true,
         error: true,
         compact: true,
       ));
@@ -112,114 +100,235 @@ class DioClient {
     }
   }
 
-  Future<Either<RequestError, Response<dynamic>>> get(
+  Future<Either<RequestError, T>> get<T>(
     String path, {
     dynamic data,
     Map<String, dynamic>? queryParameters,
+    required T Function(Map<String, dynamic>) fromJson,
+    CancelToken? cancelToken,
     Options? options,
-    String? baseUrl,
+    ProgressCallback? onReceiveProgress,
+  }) =>
+      fetchResponse(
+        dio,
+        path,
+        FetchType.get,
+        data: data,
+        fromJson: fromJson,
+        queryParameters: queryParameters,
+        cancelToken: cancelToken,
+        options: options,
+        onReceiveProgress: onReceiveProgress,
+      );
+
+  Future<Either<RequestError, T>> post<T>(
+    String path, {
+    dynamic data = const {},
+    Map<String, dynamic>? queryParameters,
+    T Function(Map<String, dynamic>)? fromJson,
+    Options? options,
     CancelToken? cancelToken,
     ProgressCallback? onSendProgress,
     ProgressCallback? onReceiveProgress,
-  }) async {
-    final response = dio.get(
-      path,
-      queryParameters: queryParameters,
-      options: options,
-      cancelToken: cancelToken,
-      onReceiveProgress: onReceiveProgress,
-    );
-    return handleProcess(response);
-  }
+  }) =>
+      fetchResponse(
+        dio,
+        path,
+        FetchType.post,
+        data: data,
+        fromJson: fromJson,
+        queryParameters: queryParameters,
+        options: options,
+        cancelToken: cancelToken,
+        onSendProgress: onSendProgress,
+        onReceiveProgress: onReceiveProgress,
+      );
 
-  Future<Either<RequestError, Response<dynamic>>> post(
+  Future<Either<RequestError, T>> put<T>(
+    String path, {
+    dynamic data = const {},
+    Map<String, dynamic>? queryParameters,
+    required T Function(Map<String, dynamic>) fromJson,
+    Options? options,
+    ProgressCallback? onSendProgress,
+    ProgressCallback? onReceiveProgress,
+  }) =>
+      fetchResponse(
+        dio,
+        path,
+        FetchType.put,
+        data: data,
+        fromJson: fromJson,
+        queryParameters: queryParameters,
+        options: options,
+        onSendProgress: onSendProgress,
+        onReceiveProgress: onReceiveProgress,
+      );
+
+  Future<Either<RequestError, T>> patch<T>(
     String path, {
     dynamic data,
     Map<String, dynamic>? queryParameters,
+    T Function(Map<String, dynamic>)? fromJson,
     Options? options,
-    String? baseUrl,
     CancelToken? cancelToken,
     ProgressCallback? onSendProgress,
     ProgressCallback? onReceiveProgress,
-  }) async {
-    final response = dio.post(
-      path,
-      data: data,
-      queryParameters: queryParameters,
-      options: options,
-      cancelToken: cancelToken,
-      onSendProgress: onSendProgress,
-      onReceiveProgress: onReceiveProgress,
-    );
-    return handleProcess(response);
-  }
+  }) =>
+      fetchResponse(
+        dio,
+        path,
+        FetchType.patch,
+        data: data = const {},
+        fromJson: fromJson,
+        queryParameters: queryParameters,
+        options: options,
+        cancelToken: cancelToken,
+        onSendProgress: onSendProgress,
+        onReceiveProgress: onReceiveProgress,
+      );
 
-  Future<Either<RequestError, Response<dynamic>>> delete(
+  Future<Either<RequestError, T>> delete<T>(
     String path, {
-    dynamic data,
+    dynamic data = const {},
     Map<String, dynamic>? queryParameters,
+    T Function(Map<String, dynamic>)? fromJson,
     Options? options,
-    String? baseUrl,
     CancelToken? cancelToken,
-  }) async {
-    final response = dio.delete(
-      path,
-      data: data,
-      queryParameters: queryParameters,
-      options: options,
-      cancelToken: cancelToken,
-    );
-    return handleProcess(response);
-  }
+  }) =>
+      fetchResponse(
+        dio,
+        path,
+        FetchType.delete,
+        data: data,
+        fromJson: fromJson,
+        queryParameters: queryParameters,
+        options: options,
+        cancelToken: cancelToken,
+      );
 
-  Future<Either<RequestError, Response<dynamic>>> patch(
+  Future<Either<RequestError, T>> downloading<T>(
     String path, {
-    dynamic data,
+    dynamic data = const {},
     Map<String, dynamic>? queryParameters,
+    T Function(Map<String, dynamic>)? fromJson,
     Options? options,
-    String? baseUrl,
-    CancelToken? cancelToken,
-  }) async {
-    final response = dio.patch(
-      path,
-      data: data,
-      queryParameters: queryParameters,
-      options: options,
-      cancelToken: cancelToken,
-    );
-    return handleProcess(response);
+    ProgressCallback? onReceiveProgress,
+    String? savePath,
+  }) =>
+      fetchResponse(
+        dio,
+        path,
+        FetchType.downloading,
+        data: data,
+        fromJson: fromJson,
+        queryParameters: queryParameters,
+        options: options,
+        onReceiveProgress: onReceiveProgress,
+        savePath: savePath,
+      );
+}
+
+Future<Either<RequestError, T>> fetchResponse<T>(
+  Dio dio,
+  String path,
+  FetchType type, {
+  T Function(Map<String, dynamic>)? fromJson,
+  dynamic data,
+  Map<String, dynamic>? queryParameters,
+  Options? options,
+  CancelToken? cancelToken,
+  ProgressCallback? onSendProgress,
+  ProgressCallback? onReceiveProgress,
+  String? savePath,
+}) async {
+  Response<dynamic> response;
+  final bool connected = await getIt<NetworkStatusService>().checkInternetConnection();
+  try {
+    switch (type) {
+      case FetchType.get:
+        response = await dio.get(
+          path,
+          queryParameters: queryParameters,
+          options: options,
+          cancelToken: cancelToken,
+          onReceiveProgress: onReceiveProgress,
+        );
+        break;
+      case FetchType.post:
+        response = await dio.post(
+          path,
+          data: data,
+          queryParameters: queryParameters,
+          options: options,
+          cancelToken: cancelToken,
+          onSendProgress: onSendProgress,
+          onReceiveProgress: onReceiveProgress,
+        );
+        break;
+      case FetchType.put:
+        response = await dio.put(
+          path,
+          data: data,
+          queryParameters: queryParameters,
+          options: options,
+          onSendProgress: onSendProgress,
+          onReceiveProgress: onReceiveProgress,
+        );
+        break;
+      case FetchType.delete:
+        response = await dio.delete(
+          path,
+          data: data,
+          queryParameters: queryParameters,
+          options: options,
+          cancelToken: cancelToken,
+        );
+        break;
+      case FetchType.patch:
+        response = await dio.patch(
+          path,
+          data: data,
+          queryParameters: queryParameters,
+          options: options,
+          cancelToken: cancelToken,
+          onSendProgress: onSendProgress,
+          onReceiveProgress: onReceiveProgress,
+        );
+        break;
+      case FetchType.downloading:
+        response = await dio.download(
+          path,
+          savePath,
+          queryParameters: queryParameters,
+          onReceiveProgress: onReceiveProgress,
+        );
+        break;
+    }
+  } on DioException catch (error) {
+    log.e(error.toString(), error: error.runtimeType);
+
+    if (!connected) {
+      throw Left(RequestError.connection(error));
+    } else {
+      return handleDioException(error);
+    }
   }
 
-  Future<Either<RequestError, Response<dynamic>>> put(
-    String path, {
-    dynamic data,
-    Map<String, dynamic>? queryParameters,
-    Options? options,
-    String? baseUrl,
-    CancelToken? cancelToken,
-  }) async {
-    final response = dio.put(
-      path,
-      data: data,
-      queryParameters: queryParameters,
-      options: options,
-      cancelToken: cancelToken,
+  final handledResponse = handleResponse(response);
+
+  if (handledResponse.isLeft()) {
+    final requestError = handledResponse.swap().toOption().toNullable();
+
+    log.e(
+      requestError?.message,
+      error: requestError?.runtimeType,
     );
-    return handleProcess(response);
   }
 
-  Future<Either<RequestError, Response<dynamic>>> downloading(
-    String path,
-    String savePath, {
-    Map<String, dynamic>? queryParameters,
-    bool withInterceptor = true,
-    bool withRetryInterceptor = false,
-  }) async {
-    final response = dio.download(
-      path,
-      savePath,
-      queryParameters: queryParameters,
-    );
-    return handleProcess(response);
-  }
+  return parseResponse(
+    stackTrace: StackTrace.current,
+    response: handledResponse,
+    fromJson: fromJson?.call ?? (_) => (Object as T),
+  );
 }

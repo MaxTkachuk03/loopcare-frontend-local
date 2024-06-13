@@ -3,6 +3,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:just_audio/just_audio.dart';
 import 'package:just_audio_background/just_audio_background.dart';
+import 'package:loopcare_frontend/core/infrastructure/services/logger/logger.dart';
 import 'package:loopcare_frontend/features/education/domain/subtitle/image_subtitle_controller.dart';
 import 'package:loopcare_frontend/features/education/presentation/lesson/widgets/player_widget.dart';
 
@@ -114,25 +115,9 @@ class _AudioBlockState extends State<AudioBlock> with AutoRouteAware {
         initialPosition: Duration.zero,
         preload: true,
       );
-    } on PlayerException catch (e) {
-      // iOS/macOS: maps to NSError.code
-      // Android: maps to ExoPlayerException.type
-      // Web: maps to MediaError.code
-      // Linux/Windows: maps to PlayerErrorCode.index
-      debugPrint('devcpp Error code: ${e.code}');
-      // iOS/macOS: maps to NSError.localizedDescription
-      // Android: maps to ExoPlaybackException.getMessage()
-      // Web/Linux: a generic message
-      // Windows: MediaPlayerError.message
-      debugPrint('devcpp Error message: ${e.message}');
-    } on PlayerInterruptedException catch (e) {
-      // This call was interrupted since another audio source was loaded or the
-      // player was stopped or disposed before this audio source could complete
-      // loading.
-      debugPrint('devcpp Connection aborted: ${e.message}');
     } catch (e) {
       // Fallback for all errors
-      debugPrint('devcpp $e');
+      log.e(e.toString(), error: e.runtimeType);
     }
   }
 

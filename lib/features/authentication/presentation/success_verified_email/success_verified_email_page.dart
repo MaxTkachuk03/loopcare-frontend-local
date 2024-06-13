@@ -16,6 +16,7 @@ import 'package:loopcare_frontend/core/presentation/utils/build_context_extensio
 import 'package:loopcare_frontend/core/presentation/widgets/main_container.dart';
 import 'package:loopcare_frontend/features/authentication/application/authentication_bloc.dart';
 
+@RoutePage()
 class SuccessVerifiedEmailPage extends StatelessWidget {
   const SuccessVerifiedEmailPage({super.key});
 

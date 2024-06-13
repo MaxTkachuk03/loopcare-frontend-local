@@ -84,7 +84,7 @@ class EducationLessonData with _$EducationLessonData {
 
   bool get hasQuiz => questions.first.type == LessonQuestionType.quiz;
 
-  String? get errorMessage => error?.maybeMap(conflict: (s) => s.error.message, orElse: () => null);
+  String? get errorMessage => error?.message;
 
   List<LessonQuestion> get assignmentsQuestions =>
       questions.where((element) => element.type == LessonQuestionType.assignment).toList();

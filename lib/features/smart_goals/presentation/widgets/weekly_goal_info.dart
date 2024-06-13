@@ -9,13 +9,12 @@ import 'package:loopcare_frontend/core/presentation/utils/build_context_extensio
 import 'package:loopcare_frontend/features/smart_goals/domain/weekly_smart_goal.dart';
 
 class WeeklyGoalInfo extends StatelessWidget {
-  final Key? key;
   final WeeklySmartGoal weeklyGoal;
 
   const WeeklyGoalInfo({
-    this.key,
+    super.key,
     required this.weeklyGoal,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -44,7 +43,7 @@ class WeeklyGoalInfo extends StatelessWidget {
           padding: const EdgeInsets.symmetric(vertical: 16.0),
           child: CustomElevatedButton.blueFullWidth(
             label: LocalizedTexts.ok.tr().toUpperCase(),
-            onPressed: () => context.router.pop(),
+            onPressed: context.router.maybePop,
           ),
         ),
       ],

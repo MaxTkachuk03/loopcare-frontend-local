@@ -16,6 +16,7 @@ import 'package:loopcare_frontend/features/nutrition/application/recipe/recipe_b
 import 'package:loopcare_frontend/features/nutrition/presentation/recommendations/recommendations_carousel.dart';
 import 'package:loopcare_frontend/features/nutrition/presentation/widgets/back_button_hexagon/back_button_hexagon.dart';
 
+@RoutePage()
 class RecommendationsPage extends StatelessWidget {
   final String mealCategory;
   final DateTime date;
@@ -34,7 +35,7 @@ class RecommendationsPage extends StatelessWidget {
 
   _onSkipPressed(BuildContext context) {
     if (fromMealPage) {
-      context.router.pop();
+      context.router.maybePop();
     } else {
       context.router.push(SelectFoodRoute(mealCategory: mealCategory));
     }

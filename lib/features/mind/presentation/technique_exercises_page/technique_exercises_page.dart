@@ -15,6 +15,7 @@ import 'package:loopcare_frontend/features/mind/domain/mind_analytics_mixin/mind
 import 'package:loopcare_frontend/features/mind/presentation/widgets/exercise_list_tile/exercise_list_tile.dart';
 import 'package:loopcare_frontend/features/mind/presentation/widgets/mind_list_content/mind_list_content.dart';
 
+@RoutePage()
 class TechniqueExercisesPage extends StatefulWidget {
   const TechniqueExercisesPage({super.key});
 

@@ -1,3 +1,4 @@
+import 'package:auto_route/annotations.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -16,9 +17,7 @@ import 'package:loopcare_frontend/features/physical_activities/presentation/phys
 import 'package:loopcare_frontend/features/physical_activities/presentation/program_details/widgets/exercise_card.dart';
 import 'package:loopcare_frontend/features/physical_activities/presentation/program_details/widgets/program_footer_overlay.dart';
 
-const cardWidth = 166;
-const cardHeight = 214;
-
+@RoutePage()
 class ProgramDetailsPage extends StatelessWidget {
   final PhysicalProgram program;
 
@@ -88,14 +87,15 @@ class ProgramDetailsPage extends StatelessWidget {
                         ),
                         color: AppColors.white,
                         child: ListView.builder(
-                            padding: EdgeInsets.zero,
-                            itemCount: exercisesLength,
-                            shrinkWrap: true,
-                            physics: const NeverScrollableScrollPhysics(),
-                            itemBuilder: (BuildContext context, index) => ExerciseCard(
-                                  index: index,
-                                  exercise: program.exercises[index],
-                                )),
+                          padding: EdgeInsets.zero,
+                          itemCount: exercisesLength,
+                          shrinkWrap: true,
+                          physics: const NeverScrollableScrollPhysics(),
+                          itemBuilder: (context, index) => ExerciseCard(
+                              index: index,
+                              exercise: program.exercises[index],
+                            ),
+                        ),
                       ),
                       const SizedBox(height: 8.0),
                     ],

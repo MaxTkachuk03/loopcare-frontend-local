@@ -1,3 +1,4 @@
+import 'package:auto_route/annotations.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -19,6 +20,7 @@ import 'package:loopcare_frontend/features/account/presentation/group_preference
 import 'package:loopcare_frontend/features/account/presentation/group_preferences/widgets/waiting_in_pool.dart';
 import 'package:loopcare_frontend/features/authentication/application/authentication_bloc.dart';
 
+@RoutePage()
 class GroupPreferencesPage extends StatefulWidget {
   const GroupPreferencesPage({super.key});
 

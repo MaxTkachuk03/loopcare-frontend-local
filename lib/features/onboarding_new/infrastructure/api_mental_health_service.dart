@@ -1,7 +1,6 @@
 import 'package:dartz/dartz.dart';
 import 'package:injectable/injectable.dart';
 import 'package:loopcare_frontend/core/infrastructure/dio_client/dio_client.dart';
-import 'package:loopcare_frontend/core/infrastructure/dio_client/parse_response.dart';
 import 'package:loopcare_frontend/core/infrastructure/dio_client/request_error.dart';
 import 'package:loopcare_frontend/features/onboarding_new/application/dto/answers_body.dart';
 import 'package:loopcare_frontend/features/onboarding_new/application/dto/mental_health_tests_response.dart';
@@ -16,15 +15,18 @@ class APIMentalHealthService implements MentalHealthService {
 
   @override
   Future<Either<RequestError, MentalHealthTestsResponse>> mentalHealthQuestions() async {
-    return client
-        .get('/mental-health/tests')
-        .then(parseResponse(MentalHealthTestsResponse.fromJson));
+    return await client.get(
+      '/mental-health/tests',
+      fromJson: MentalHealthTestsResponse.fromJson,
+    );
   }
 
   @override
   Future<Either<RequestError, TestResultsResponse>> getTestResults(AnswersBody answers) async {
-    return client
-        .post('/mental-health/test/interpretation', data: answers)
-        .then(parseResponse(TestResultsResponse.fromJson));
+    return await client.post(
+      '/mental-health/test/interpretation',
+      data: answers,
+      fromJson: TestResultsResponse.fromJson,
+    );
   }
 }

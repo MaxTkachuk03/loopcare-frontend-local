@@ -5,7 +5,6 @@ import 'package:loopcare_frontend/core/application/app_update/app_version_servic
 import 'package:loopcare_frontend/core/application/app_update/dto/get_versions_response.dart';
 import 'package:loopcare_frontend/core/infrastructure/dio_client/dio_client.dart';
 import 'package:loopcare_frontend/core/infrastructure/dio_client/dio_options.dart';
-import 'package:loopcare_frontend/core/infrastructure/dio_client/parse_response.dart';
 import 'package:loopcare_frontend/core/infrastructure/dio_client/request_error.dart';
 
 @Injectable(as: AppVersionService)
@@ -17,7 +16,12 @@ class APIAppVersionService implements AppVersionService {
   }
 
   @override
-  Future<Either<RequestError, GetVersionsResponse>> getVersions() {
-    return handleProcess(dio.get('/versions')).then(parseResponse(GetVersionsResponse.fromJson));
+  Future<Either<RequestError, GetVersionsResponse>> getVersions() async {
+    return await fetchResponse(
+      dio,
+      '/versions',
+      FetchType.get,
+      fromJson: (r) => GetVersionsResponse.fromJson(r),
+    );
   }
 }

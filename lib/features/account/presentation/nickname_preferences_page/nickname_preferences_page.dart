@@ -22,6 +22,7 @@ import 'package:loopcare_frontend/features/account/presentation/widgets/group_le
 import 'package:loopcare_frontend/features/account/presentation/widgets/group_prefs_page_wrap.dart';
 import 'package:loopcare_frontend/features/education/application/education_lesson/education_lesson_bloc.dart';
 
+@RoutePage()
 class NicknamePreferencesPage extends StatefulWidget {
   final bool fromLessonComplete;
 
@@ -66,7 +67,7 @@ class _NicknamePreferencesPageState extends State<NicknamePreferencesPage> {
   }
 
   void _onErrorHandler(GroupPreferencesState state) =>
-      context.showError(content: Text(state.data.error?.error.toString() ?? ''));
+      context.showError(content: Text(state.data.error?.message.tr() ?? ''));
 
   void _onUpdateHandler(GroupPreferencesState state) {
     final groupPrefsMode = context.read<GroupPreferencesBloc>().state.data.groupPrefsMode;
@@ -84,7 +85,7 @@ class _NicknamePreferencesPageState extends State<NicknamePreferencesPage> {
     );
 
     if (groupPrefsMode == GroupPrefsMode.singlePage) {
-      context.router.pop();
+      context.router.maybePop();
     } else {
       context.router.push(GroupRulesOneRoute(fromLessonComplete: widget.fromLessonComplete));
     }
@@ -126,9 +127,7 @@ class _NicknamePreferencesPageState extends State<NicknamePreferencesPage> {
                         children: [
                           CustomElevatedButton.blueFullWidth(
                             onPressed: _nicknameController.text.isEmpty ? null : _onNextPressedHandler,
-                            label: widget.fromLessonComplete
-                                ? LocalizedTexts.next.tr()
-                                : LocalizedTexts.save.tr(),
+                            label: widget.fromLessonComplete ? LocalizedTexts.next.tr() : LocalizedTexts.save.tr(),
                           ),
                           const SizedBox(height: 30.0),
                         ],

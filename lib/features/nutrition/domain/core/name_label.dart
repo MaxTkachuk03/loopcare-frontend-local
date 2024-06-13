@@ -15,7 +15,7 @@ abstract class NameLabel implements _$NameLabel {
     required String name,
     required String label,
     required String shortValue,
-    @JsonKey(ignore: true) SvgPicture? icon,
+    @JsonKey(includeFromJson: false, includeToJson: false) SvgPicture? icon,
   }) = _NameLabel;
 
   factory NameLabel.fromJson(Map<String, dynamic> json) => _$NameLabelFromJson(json);

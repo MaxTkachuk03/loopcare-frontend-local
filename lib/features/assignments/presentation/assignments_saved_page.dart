@@ -21,6 +21,7 @@ import 'package:loopcare_frontend/features/education/application/education_lesso
 import 'package:loopcare_frontend/features/education/presentation/education_page/widgets/category_label.dart';
 import 'package:loopcare_frontend/features/nutrition/application/dashboard_education/dashboard_education_bloc.dart';
 
+@RoutePage()
 class AssignmentsSavedPage extends StatelessWidget {
   const AssignmentsSavedPage({super.key});
 
@@ -30,8 +31,8 @@ class AssignmentsSavedPage extends StatelessWidget {
   }
 
   _onErrorListener(BuildContext context, EducationLessonState state) {
-    final errorMessage = state.data.errorMessage ?? LocalizedTexts.somethingWentWrong.tr();
-    context.showError(content: CustomText(errorMessage));
+    final errorMessage = state.data.errorMessage ?? LocalizedTexts.somethingWentWrong;
+    context.showError(content: CustomText(errorMessage.tr()));
   }
 
   @override

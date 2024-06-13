@@ -1,7 +1,7 @@
 part of 'app_router.dart';
 
 class AppRoutes {
-  static const String splash = '/';
+  static const String splash = '/splash';
   static const String proxy = '/proxy'; // added
   static const String intro = '/intro'; // added
   static const String accessCode = '/access-code'; // added
@@ -69,7 +69,7 @@ class AppRoutes {
   static const String barcodeScanner = '/barcode-scanner'; // added
 
   // Nutrition
-  static const String recommendations = 'recommendations'; //added
+  static const String recommendations = '/recommendations'; //added
   static const String dashboard = 'dashboard'; // added
   static const String selectFood = '/select-food'; // added
   static const String selectServing = '/select-serving'; // added
@@ -82,8 +82,7 @@ class AppRoutes {
   static const String logWeight = '/log-weight'; // added
   static const String home = '/home'; // added
   static const String account = 'account'; // added
-  static const String chooseDate = 'choose-date'; // added
-  static const String weekPlanner = 'week-lanner'; // added
+  static const String chooseDate = '/choose-date'; // added
 
   // Dish
   static const String dishDetails = '/dish-details'; // added
@@ -159,7 +158,8 @@ class AppRoutes {
   static const String theme = '/theme';
 
   // Group chat
-  static const String groupChat = 'chat';
+  static const String groupChat = '/chat';
+  static const String groupChatTab = 'chat';
   static const String groupChatUsers = '/chat_users';
 
   // Buddy

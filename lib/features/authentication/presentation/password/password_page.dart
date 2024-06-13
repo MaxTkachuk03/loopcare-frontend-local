@@ -26,6 +26,7 @@ import 'package:loopcare_frontend/features/onboarding_new/application/mental_que
 import 'package:loopcare_frontend/features/onboarding_new/application/physical_questions/physical_questions_bloc.dart';
 import 'package:url_launcher/url_launcher.dart';
 
+@RoutePage()
 class PasswordPage extends StatefulWidget {
   const PasswordPage({super.key});
 
@@ -60,8 +61,6 @@ class _PasswordPageState extends State<PasswordPage> {
   @override
   Widget build(BuildContext context) {
     return BlocListener<AuthenticationBloc, AuthenticationState>(
-      listenWhen: (previous, current) =>
-          previous is GuestAuthenticationState && current is WaitedConfirmationState,
       listener: _navigationListener,
       child: GestureDetector(
         onTap: FocusScope.of(context).unfocus,
@@ -206,6 +205,7 @@ class _PasswordPageState extends State<PasswordPage> {
       await launchUrl(launchUri, mode: LaunchMode.externalApplication);
     } catch (e) {
       if (context.mounted) {
+        // ignore: use_build_context_synchronously
         _showError(context);
       }
     }
@@ -222,6 +222,8 @@ class _PasswordPageState extends State<PasswordPage> {
   }
 
   void _navigationListener(BuildContext context, AuthenticationState state) {
-    context.router.pushNamed(AppRoutes.waitingForConfirmation);
+    state.mapOrNull(
+      waitedForConfirmation: (_) =>  context.router.pushNamed(AppRoutes.waitingForConfirmation),
+    );
   }
 }

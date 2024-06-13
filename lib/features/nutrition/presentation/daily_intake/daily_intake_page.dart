@@ -1,3 +1,4 @@
+import 'package:auto_route/annotations.dart';
 import 'package:collection/collection.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
@@ -15,6 +16,7 @@ import 'package:loopcare_frontend/features/nutrition/application/meals/meals_blo
 import 'package:loopcare_frontend/features/nutrition/domain/select_serving/meal_category.dart';
 import 'package:loopcare_frontend/features/nutrition/presentation/daily_intake/widgets/meal_card.dart';
 
+@RoutePage()
 class DailyIntakePage extends StatelessWidget {
   const DailyIntakePage({super.key});
 

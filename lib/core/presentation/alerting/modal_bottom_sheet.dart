@@ -81,7 +81,7 @@ class ModalBottomSheet {
               const SizedBox(height: 40.0),
               CustomElevatedButton.blueFullWidth(
                 label: LocalizedTexts.continueBtn.tr(),
-                onPressed: context.router.pop,
+                onPressed: context.router.maybePop,
               ),
               const SizedBox(height: 30.0),
             ],
@@ -113,7 +113,7 @@ class ModalBottomSheet {
               ),
               const SizedBox(height: 32.0),
               CustomElevatedButton.blueFullWidth(
-                onPressed: context.router.pop,
+                onPressed: context.router.maybePop,
                 label: LocalizedTexts.changeYourHeight.tr(),
               ),
             ],
@@ -149,7 +149,7 @@ class ModalBottomSheet {
                   ),
                   const SizedBox(height: 32.0),
                   CustomElevatedButton.blueFullWidth(
-                    onPressed: context.router.pop,
+                    onPressed: context.router.maybePop,
                     label: LocalizedTexts.cancel.tr(),
                   ),
                   const SizedBox(height: 12.0),
@@ -204,7 +204,7 @@ class ModalBottomSheet {
                         },
                       );
 
-                      context.router.pop();
+                      context.router.maybePop();
                     },
                     label: LocalizedTexts.cancel.tr(),
                   ),
@@ -292,7 +292,7 @@ class ModalBottomSheet {
                   child: Padding(
                     padding: const EdgeInsets.only(right: 8.0, top: 12.0),
                     child: IconButton(
-                      onPressed: () => context.router.pop(),
+                      onPressed: () => context.router.maybePop(),
                       icon: const Icon(
                         Icons.close,
                         size: 30,
@@ -346,7 +346,7 @@ class ModalBottomSheet {
                             OutlinedButton(
                               onPressed: onCanceled,
                               style: Theme.of(context).outlinedButtonTheme.style?.copyWith(
-                                    side: MaterialStateProperty.all(
+                                    side: WidgetStateProperty.all(
                                       const BorderSide(
                                         width: 1.0,
                                         color: AppColors.blueDark,
@@ -407,7 +407,7 @@ class ModalBottomSheet {
                   child: Padding(
                     padding: const EdgeInsets.only(right: 8.0, top: 12.0),
                     child: IconButton(
-                      onPressed: () => context.router.pop(),
+                      onPressed: () => context.router.maybePop(),
                       icon: const Icon(
                         Icons.close,
                         size: 30,
@@ -435,9 +435,9 @@ class ModalBottomSheet {
                         Column(
                           children: [
                             OutlinedButton(
-                              onPressed: () => context.router.pop(),
+                              onPressed: () => context.router.maybePop(),
                               style: Theme.of(context).outlinedButtonTheme.style?.copyWith(
-                                    side: MaterialStateProperty.all(
+                                    side: WidgetStateProperty.all(
                                       const BorderSide(
                                         width: 1.0,
                                         color: AppColors.blueDark,
@@ -491,7 +491,7 @@ class ModalBottomSheet {
                 Align(
                   alignment: Alignment.centerRight,
                   child: CustomIconButton.close(
-                    onPressed: () => context.router.pop(),
+                    onPressed: () => context.router.maybePop(),
                   ),
                 ),
                 MainContainer(
@@ -536,7 +536,7 @@ class ModalBottomSheet {
                   child: Padding(
                     padding: const EdgeInsets.only(right: 8.0, top: 12.0),
                     child: IconButton(
-                      onPressed: () => context.router.pop(),
+                      onPressed: () => context.router.maybePop(),
                       icon: const Icon(Icons.close),
                     ),
                   ),
@@ -571,7 +571,7 @@ class ModalBottomSheet {
 
                         return InkWell(
                           onTap: () {
-                            context.router.pop();
+                            context.router.maybePop();
                             final selectedNutritionType =
                                 NutritionValuesTypes.values.firstWhere((element) => element.name == item.key);
                             onSelect(selectedNutritionType);
@@ -626,7 +626,7 @@ class ModalBottomSheet {
                           child: IconButton(
                             iconSize: 30,
                             padding: EdgeInsets.zero,
-                            onPressed: () => context.router.pop(),
+                            onPressed: () => context.router.maybePop(),
                             icon: const Icon(Icons.close),
                           ),
                         ),
@@ -680,7 +680,7 @@ class ModalBottomSheet {
                   child: Padding(
                     padding: const EdgeInsets.only(right: 8, top: 12),
                     child: IconButton(
-                      onPressed: () => context.router.pop(),
+                      onPressed: () => context.router.maybePop(),
                       icon: const Icon(Icons.close),
                     ),
                   ),
@@ -748,7 +748,7 @@ class ModalBottomSheet {
                       const SizedBox(height: 26.0),
                       CustomElevatedButton.blueFullWidth(
                         onPressed: () {
-                          context.router.pop();
+                          context.router.maybePop();
                           onConfirmed?.call(updatedList);
                         },
                         label: LocalizedTexts.continueBtn.tr(),
@@ -795,7 +795,7 @@ class ModalBottomSheet {
                       width: 16.0,
                       height: 16.0,
                       child: CustomIconButton.close(
-                        onPressed: () => context.router.pop(),
+                        onPressed: () => context.router.maybePop(),
                       ),
                     ),
                   ),
@@ -877,7 +877,7 @@ class ModalBottomSheet {
                         width: 16.0,
                         height: 16.0,
                         child: CustomIconButton.close(
-                          onPressed: () => context.router.pop(),
+                          onPressed: () => context.router.maybePop(),
                         ),
                       ),
                     ),
@@ -896,7 +896,7 @@ class ModalBottomSheet {
 
                           return InkWell(
                             onTap: () {
-                              context.router.pop();
+                              context.router.maybePop();
                               onSelect(item);
                             },
                             child: Row(
@@ -978,7 +978,7 @@ class ModalBottomSheet {
                         MainContainer(
                           child: CustomElevatedButton.blueFullWidth(
                             onPressed: () {
-                              context.router.pop();
+                              context.router.maybePop();
                               onBtnPress();
                             },
                             label: LocalizedTexts.next.tr(),
@@ -1019,7 +1019,7 @@ class ModalBottomSheet {
                     child: ReportAbuseWidget(
                       groupSession: groupSession,
                       chatReport: chatReport,
-                      close: () => context.router.pop(),
+                      close: () => context.router.maybePop(),
                     ),
                   ),
                 ),
@@ -1095,7 +1095,7 @@ class ModalBottomSheet {
               const SizedBox(height: 48.0),
               CustomElevatedButton.blueFullWidth(
                 onPressed: () {
-                  context.router.pop();
+                  context.router.maybePop();
                   onLeavePressed();
                 },
                 label: LocalizedTexts.leaveSession.tr(),
@@ -1147,7 +1147,7 @@ class ModalBottomSheet {
                       padding: EdgeInsets.zero,
                       onPressed: () {
                         onClose();
-                        context.router.pop();
+                        context.router.maybePop();
                       },
                       icon: const Icon(Icons.close),
                     ),
@@ -1278,14 +1278,14 @@ class ModalBottomSheet {
                   const SizedBox(height: 12.0),
                   CustomElevatedButton.blueFullWidth(
                     onPressed: () {
-                      context.router.pop.call();
+                      context.router.maybePop.call();
                       onInvite.call();
                     },
                     label: LocalizedTexts.buddyFindAnotherBuddy.tr(),
                   ),
                   const SizedBox(height: 12.0),
                   CustomOutlinedButton.blueFullWidth(
-                    onPressed: () => context.router.pop.call(),
+                    onPressed: () => context.router.maybePop.call(),
                     label: LocalizedTexts.buddyNotNeedAnotherBuddy.tr(),
                   ),
                   const SizedBox(height: 12.0),
@@ -1345,7 +1345,7 @@ class ModalBottomSheet {
               const SizedBox(height: 40.0),
               CustomElevatedButton.blueFullWidth(
                 label: LocalizedTexts.ok.tr().toUpperCase(),
-                onPressed: context.router.pop,
+                onPressed: context.router.maybePop,
               ),
               const SizedBox(height: 30.0),
             ],

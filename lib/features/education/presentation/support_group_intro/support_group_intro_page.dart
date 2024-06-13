@@ -27,6 +27,7 @@ import 'package:loopcare_frontend/features/education/domain/extra_action_page_mo
 import 'package:loopcare_frontend/features/education/presentation/education_page/widgets/category_label.dart';
 import 'package:loopcare_frontend/injection.dart';
 
+@RoutePage()
 class SupportGroupIntroPage extends StatelessWidget {
   const SupportGroupIntroPage({super.key});
 
@@ -105,7 +106,7 @@ class SupportGroupIntroPage extends StatelessWidget {
     );
   }
 
-  _onJoinPressed(BuildContext context) {
+  void _onJoinPressed(BuildContext context) {
     final account = getIt<SharedStorageService>().account;
 
     AnalyticsEventService.instance.logEvent(
@@ -132,7 +133,7 @@ class SupportGroupIntroPage extends StatelessWidget {
       ..router.push(GenderPreferencesRoute(fromLessonComplete: true));
   }
 
-  _onDoNotJoinPressed(BuildContext context) {
+  void _onDoNotJoinPressed(BuildContext context) {
     AnalyticsEventService.instance.logEvent(
       FirebaseEvents.iWantToJoinToGroup,
       parameters: {
