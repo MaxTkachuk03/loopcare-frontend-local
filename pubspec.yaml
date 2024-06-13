@@ -144,3 +144,20 @@ flutter_native_splash:
 
 license_generator:
   output_path: ./license_dependencies.dart
+
+
+scripts:
+  testflight:
+    uat: "bundle exec fastlane ios testflight_distribution --env uat"
+    prod: "bundle exec fastlane ios testflight_distribution --env prod"
+  firebase:
+    ios:
+      dev: "bundle exec fastlane ios firebase_distribution --env dev"
+      stag: "bundle exec fastlane ios firebase_distribution --env stag"
+      uat: "bundle exec fastlane ios firebase_distribution --env uat"
+      prod: "bundle exec fastlane ios firebase_distribution --env prod"
+    android:
+      dev: "bundle exec fastlane android firebase_distribution --env dev"
+      stag: "bundle exec fastlane android firebase_distribution --env stag"
+      uat: "bundle exec fastlane android firebase_distribution --env uat"
+      prod: "bundle exec fastlane android firebase_distribution --env prod"

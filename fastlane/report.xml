@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites>
+  <testsuite name="fastlane.lanes">
+    
+    
+    
+      
+      <testcase classname="fastlane.lanes" name="0: Switch to ios build_binary lane" time="0.012607">
+        
+      </testcase>
+    
+      
+      <testcase classname="fastlane.lanes" name="1: ./actions/build_script.sh uat ios" time="177.395005">
+        
+      </testcase>
+    
+      
+      <testcase classname="fastlane.lanes" name="2: app_store_connect_api_key" time="0.042928">
+        
+      </testcase>
+    
+      
+      <testcase classname="fastlane.lanes" name="3: pilot" time="57.00316">
+        
+      </testcase>
+    
+  </testsuite>
+</testsuites>
