@@ -16,7 +16,6 @@ mixin NutritionUtils {
 
   double getCarbsPercent(double carbs, double calories) {
     final result = ((carbs * 4) / calories) * 100;
-    print(result);
     return (result.isNaN || result.isInfinite) ? 0 : result;
   }
 }
