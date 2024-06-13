@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:easy_localization/easy_localization.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:get_it/get_it.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
@@ -137,7 +138,7 @@ class AuthenticationBloc extends HydratedBloc<AuthenticationEvent, Authenticatio
           AppMixpanelEvents.loginFail,
           {
             'email': event.email,
-            'message': error.error.toString(),
+            'message': error.message.tr(),
           },
         );
         emit(AuthenticationState.init(state.data));
@@ -296,26 +297,24 @@ class AuthenticationBloc extends HydratedBloc<AuthenticationEvent, Authenticatio
             ),
           ),
         );
-
-        final data = ForgotPasswordData(email: event.email.toLowerCase());
-
-        final response = await _authenticationService.forgotPassword(data);
-
-        response.fold(
-          (error) => emit(
-            state.copyWith(data: state.data.copyWith(error: error)),
-          ),
-          (response) => emit(
-            state.copyWith(
-              data: state.data.copyWith(
-                emailWasSend: true,
-                email: data.email,
-                error: null,
-              ),
-            ),
-          ),
-        );
       },
+    );
+    final data = ForgotPasswordData(email: event.email.toLowerCase());
+
+    final response = await _authenticationService.forgotPassword(data);
+    response.fold(
+      (error) => emit(
+        state.copyWith(data: state.data.copyWith(error: error)),
+      ),
+      (response) => emit(
+        state.copyWith(
+          data: state.data.copyWith(
+            emailWasSend: true,
+            email: data.email,
+            error: null,
+          ),
+        ),
+      ),
     );
   }
 

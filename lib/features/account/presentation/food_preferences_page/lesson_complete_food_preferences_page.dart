@@ -22,6 +22,7 @@ import 'package:loopcare_frontend/features/education/application/education_lesso
 import 'package:loopcare_frontend/features/education/presentation/education_page/widgets/category_label.dart';
 import 'package:loopcare_frontend/features/you_and_food/application/you_and_food_bloc.dart';
 
+@RoutePage()
 class LessonCompleteFoodPreferencesPage extends StatefulWidget {
   const LessonCompleteFoodPreferencesPage({super.key});
 
@@ -42,6 +43,7 @@ class _LessonCompleteFoodPreferencesPageState extends State<LessonCompleteFoodPr
     );
   }
 
+  @override
   Widget build(BuildContext context) {
     return WillPopScope(
       onWillPop: () => _onWillPop(context),

@@ -17,7 +17,6 @@ class AppLimitTextField extends CustomTextField {
   final MaxLengthEnforcement enforcedLimitCount;
   final AutovalidateMode? autovalidateMode;
   final void Function(String)? onSubmitted;
-  final bool readOnly;
   final Key? fieldKey;
   final String? errorCallback;
   final TextInputAction? textInputAction;
@@ -47,7 +46,7 @@ class AppLimitTextField extends CustomTextField {
     this.onSubmitted,
     this.contentPadding,
     super.obscureText = false,
-    this.readOnly = false,
+    super.readOnly = false,
     this.limitCount = 1,
     this.linesCount = 1,
     this.enforcedLimitCount = MaxLengthEnforcement.enforced,

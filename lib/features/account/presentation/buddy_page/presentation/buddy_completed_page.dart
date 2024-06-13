@@ -18,6 +18,7 @@ import 'package:loopcare_frontend/features/account/presentation/account_page/wid
 import 'package:loopcare_frontend/features/account/presentation/buddy_page/application/buddy_bloc.dart';
 import 'package:provider/provider.dart';
 
+@RoutePage()
 class BuddyCompletedPage extends StatelessWidget {
   const BuddyCompletedPage({super.key});
 

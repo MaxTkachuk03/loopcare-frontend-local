@@ -22,6 +22,7 @@ import 'package:loopcare_frontend/features/physical_activities/application/physi
 import 'package:loopcare_frontend/features/physical_activities/presentation/preferences/widgets/frequency_chips.dart';
 import 'package:loopcare_frontend/injection.dart';
 
+@RoutePage()
 class PhysicalActivitiesFrequencyPage extends StatefulWidget {
   final bool profileInvoke;
 
@@ -52,7 +53,7 @@ class _PhysicalActivitiesFrequencyPageState extends State<PhysicalActivitiesFreq
   void _onUpdateHandler(PhysicalActivitiesPreferencesState state) {
     if (widget.profileInvoke) {
       context.read<AuthenticationBloc>().add(const AuthenticationEvent.getAccount());
-      context.router.pop();
+      context.router.maybePop();
       return;
     }
 

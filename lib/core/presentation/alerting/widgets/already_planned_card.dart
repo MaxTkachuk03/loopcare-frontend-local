@@ -62,7 +62,7 @@ class AlreadyPlannedCard extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.only(right: 12.0, bottom: 30.0),
             child: GestureDetector(
-              onTap: () => context.router.pop(),
+              onTap: () => context.router.maybePop(),
               child: const ImageIcon(
                 AppIcons.arrow,
                 color: AppColors.anotherBlue,

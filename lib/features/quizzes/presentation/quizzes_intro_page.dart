@@ -18,6 +18,7 @@ import 'package:loopcare_frontend/core/presentation/widgets/scrollable_container
 import 'package:loopcare_frontend/core/presentation/widgets/simple_progress_bar.dart';
 import 'package:loopcare_frontend/features/quizzes/application/quizzes_bloc.dart';
 
+@RoutePage()
 class QuizzesIntroPage extends StatefulWidget {
   final int lessonId;
 

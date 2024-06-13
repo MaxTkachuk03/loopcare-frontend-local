@@ -1,3 +1,5 @@
+// ignore_for_file: depend_on_referenced_packages
+
 import 'package:flutter_chat_types/flutter_chat_types.dart' as types;
 import 'package:loopcare_frontend/features/chat/domain/group_member.dart';
 import 'package:loopcare_frontend/features/chat/domain/group_message.dart';

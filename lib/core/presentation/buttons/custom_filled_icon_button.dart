@@ -75,7 +75,7 @@ class CustomFilledIconButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return IconButton.filled(
       alignment: Alignment.center,
-      onPressed: onPressed ?? context.router.pop,
+      onPressed: onPressed ?? context.router.maybePop,
       icon: icon,
       iconSize: iconSize,
       color: color,

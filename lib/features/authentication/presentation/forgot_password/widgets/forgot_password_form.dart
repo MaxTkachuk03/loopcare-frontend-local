@@ -46,23 +46,30 @@ class _ForgotPasswordFormState extends State<ForgotPasswordForm> {
   void _onChangedForm() => widget.onFormChanged(_emailController.text);
 
   void _redirectListener(BuildContext context, AuthenticationState state) {
-    state.mapOrNull(guest: (state) {
-      context.showSuccessBar(
-        content: Text(
-          LocalizedTexts.forgotEmailSuccessMessage.tr(
-            namedArgs: {
-              'email': state.maybeWhen(
-                guest: (data) => data.email,
-                orElse: () => '',
-              ),
-            },
+    state.mapOrNull(
+      guest: (state) {
+        context.showSuccessBar(
+          content: Text(
+            LocalizedTexts.forgotEmailSuccessMessage.tr(
+              namedArgs: {
+                'email': state.maybeWhen(
+                  guest: (data) => data.email,
+                  orElse: () => '',
+                ),
+              },
+            ),
           ),
-        ),
-        actions: [TextButton(onPressed: () => context.router.pop(), child: const Text('Ok'))],
-      );
+          actions: [
+            TextButton(
+              onPressed: context.router.maybePop,
+              child: const Text('Ok'),
+            ),
+          ],
+        );
 
-      context.router.pushNamed(AppRoutes.login);
-    });
+        context.router.pushNamed(AppRoutes.login);
+      },
+    );
   }
 
   bool _redirectListenWhen(AuthenticationState previous, AuthenticationState current) {

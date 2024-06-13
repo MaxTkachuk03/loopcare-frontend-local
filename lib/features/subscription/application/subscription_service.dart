@@ -1,9 +1,11 @@
+// ignore_for_file: depend_on_referenced_packages
+
 import 'dart:io';
 
-import 'package:flutter/material.dart';
 import 'package:in_app_purchase/in_app_purchase.dart';
 import 'package:in_app_purchase_storekit/store_kit_wrappers.dart';
 import 'package:injectable/injectable.dart';
+import 'package:loopcare_frontend/core/infrastructure/services/logger/logger.dart';
 import 'package:loopcare_frontend/core/infrastructure/services/shared_storage/shared_storage_service.dart';
 import 'package:loopcare_frontend/injection.dart';
 
@@ -50,7 +52,11 @@ class AppSubscriptionService {
       try {
         await instance.completePurchase(purchaseDetails);
       } catch (e) {
-        debugPrint('devcpp completePurchase: ${e.toString()} ');
+        log.e(
+          e.toString(),
+          error: e.runtimeType,
+          stackTrace: StackTrace.current
+        );
         return;
       }
     }

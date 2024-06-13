@@ -1,10 +1,10 @@
 import 'dart:async';
 
-import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
 import 'package:loopcare_frontend/core/infrastructure/dio_client/request_error.dart';
+import 'package:loopcare_frontend/core/infrastructure/dio_client/server_error_data.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/core/presentation/routes/app_router.dart';
 import 'package:loopcare_frontend/features/education/application/dto/lesson_page.dart';
@@ -24,10 +24,10 @@ part 'education_lesson_state.dart';
 class EducationLessonBloc extends Bloc<EducationLessonEvent, EducationLessonState> {
   final EducationService _educationService;
 
-  final _defaultError = RequestError.unhandledError(LocalizedTexts.somethingWentWrong.tr());
+  final _defaultError =
+      const RequestError.unhandledResponse(ServerErrorData(message: LocalizedTexts.somethingWentWrong));
 
-  EducationLessonBloc(this._educationService)
-      : super(const EducationLessonState.initial(EducationLessonData())) {
+  EducationLessonBloc(this._educationService) : super(const EducationLessonState.initial(EducationLessonData())) {
     on<GetLessonContent>(_onGetLessonContent);
     on<NextPage>(_onNextPage);
     on<PrevPage>(_onPrevPage);
@@ -70,8 +70,8 @@ class EducationLessonBloc extends Bloc<EducationLessonEvent, EducationLessonStat
 
     response.fold(
       (l) {
-        emit(EducationLessonState.contentLoaded(
-            state.data.copyWith(error: l, isAudioLoading: false, isLoading: false)));
+        emit(
+            EducationLessonState.contentLoaded(state.data.copyWith(error: l, isAudioLoading: false, isLoading: false)));
       },
       (r) {
         emit(
@@ -133,8 +133,7 @@ class EducationLessonBloc extends Bloc<EducationLessonEvent, EducationLessonStat
         r.pages.sort((a, b) => a.order.compareTo(b.order));
 
         if (r.pages.isEmpty) {
-          emit(EducationLessonState.errorGettingContent(
-              state.data.copyWith(error: _defaultError, isLoading: false)));
+          emit(EducationLessonState.errorGettingContent(state.data.copyWith(error: _defaultError, isLoading: false)));
 
           return;
         }
@@ -172,8 +171,7 @@ class EducationLessonBloc extends Bloc<EducationLessonEvent, EducationLessonStat
   ) async {
     if (state.data.isLastPage) return;
 
-    emit(EducationLessonState.contentLoaded(
-        state.data.copyWith(currentPageIndex: state.data.currentPageIndex + 1)));
+    emit(EducationLessonState.contentLoaded(state.data.copyWith(currentPageIndex: state.data.currentPageIndex + 1)));
   }
 
   Future<void> _onPrevPage(
@@ -182,8 +180,7 @@ class EducationLessonBloc extends Bloc<EducationLessonEvent, EducationLessonStat
   ) async {
     if (state.data.currentPageIndex == 0) return;
 
-    emit(EducationLessonState.contentLoaded(
-        state.data.copyWith(currentPageIndex: state.data.currentPageIndex - 1)));
+    emit(EducationLessonState.contentLoaded(state.data.copyWith(currentPageIndex: state.data.currentPageIndex - 1)));
   }
 
   Future<void> _onCompleteLesson(
@@ -269,8 +266,7 @@ class EducationLessonBloc extends Bloc<EducationLessonEvent, EducationLessonStat
   List<LessonPage> _updateLessonPageAudioFilePath(String newValue) {
     final List<LessonPage> pages = [...state.data.pages];
 
-    pages[state.data.currentPageIndex] =
-        pages[state.data.currentPageIndex].copyWith.content(audioFilePath: newValue);
+    pages[state.data.currentPageIndex] = pages[state.data.currentPageIndex].copyWith.content(audioFilePath: newValue);
 
     return pages;
   }

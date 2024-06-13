@@ -14,6 +14,7 @@ import 'package:loopcare_frontend/core/presentation/widgets/main_container.dart'
 import 'package:loopcare_frontend/core/presentation/widgets/scrollable_container.dart';
 import 'package:loopcare_frontend/features/education/domain/extra_action_page_mode.dart';
 
+@RoutePage()
 class NeedPaidSubscriptionPage extends StatelessWidget {
   final ExtraActionPageMode mode;
 
@@ -24,7 +25,7 @@ class NeedPaidSubscriptionPage extends StatelessWidget {
         userProfile: (_) => null,
       );
 
-  _getScaffold(Widget body) => mode.map(
+  Widget _getScaffold(Widget body) => mode.map(
         afterLesson: (_) => CustomScaffold.petrolLightest(
           appBar: CustomAppBar.petrol(
             title: LocalizedTexts.preferences.tr(),

@@ -26,8 +26,7 @@ import 'package:loopcare_frontend/features/physical_activities/presentation/phys
 import 'package:loopcare_frontend/features/physical_activities/presentation/program_assesment/widgets/assesment_block.dart';
 import 'package:loopcare_frontend/features/physical_activities/presentation/program_assesment/widgets/like_unlike_block.dart';
 
-const physicalProgramAlreadyLogged = 'physical_program_already_logged';
-
+@RoutePage()
 class ProgramAssessmentPage extends StatefulWidget {
   final VoidCallback onDisposeCb;
 
@@ -196,17 +195,16 @@ class _ProgramAssessmentPageState extends State<ProgramAssessmentPage> {
 
   void _physicalProgramErrorListener(BuildContext context, PhysicalProgramsState state) {
     final error = state.data.error;
-
     if (error != null) {
       final errorMessage = error.maybeMap(
         conflict: (error) {
-          return error.error.message == physicalProgramAlreadyLogged
-              ? LocalizedTexts.physicalProgramAlreadyLogged.tr()
-              : LocalizedTexts.somethingIsIncorrect.tr();
+          return error.message == LocalizedTexts.physicalProgramAlreadyLogged
+              ? error.message
+              : LocalizedTexts.somethingIsIncorrect;
         },
-        orElse: () => LocalizedTexts.somethingIsIncorrect.tr(),
+        orElse: () => LocalizedTexts.somethingIsIncorrect,
       );
-      context.showError(content: Text(errorMessage));
+      context.showError(content: Text(errorMessage.tr()));
     }
   }
 

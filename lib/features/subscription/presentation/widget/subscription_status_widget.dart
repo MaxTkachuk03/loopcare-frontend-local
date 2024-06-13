@@ -159,7 +159,7 @@ class _SubscriptionStatusWidget extends _ScrollColumn {
 class _ScrollColumn extends StatelessWidget {
   final List<Widget> widgets;
 
-  const _ScrollColumn({super.key, required this.widgets});
+  const _ScrollColumn({required this.widgets});
 
   @override
   Widget build(BuildContext context) {

@@ -18,9 +18,6 @@ import 'package:loopcare_frontend/features/authentication/domain/email/email.dar
 import 'package:loopcare_frontend/features/authentication/domain/login_password/login_password.dart';
 import 'package:loopcare_frontend/injection.dart';
 
-const accountNotFound = 'account_not_found';
-const emailOrPasswordAreIncorrect = 'email_or_password_are_incorrect';
-
 class LoginForm extends StatefulWidget {
   const LoginForm({super.key});
 
@@ -82,8 +79,8 @@ class _LoginFormState extends State<LoginForm> {
   }
 
   _onChangedForm() {
-    final isValidForm = Email.create(_emailController.text).isRight() &&
-        LoginPassword.create(_passwordController.text).isRight();
+    final isValidForm =
+        Email.create(_emailController.text).isRight() && LoginPassword.create(_passwordController.text).isRight();
 
     _formValidationNotifier.value = isValidForm;
   }
@@ -148,27 +145,22 @@ class _LoginFormState extends State<LoginForm> {
     final error = state.data.error;
     if (error != null) {
       final errorMessage = error.maybeMap(
-        notFound: (error) {
-          return error.maybeMap(
-            notFound: (e) {
-              final message = e.error.message;
-              return message == accountNotFound
-                  ? LocalizedTexts.emailOrPasswordAreIncorrect.tr()
-                  : LocalizedTexts.somethingIsIncorrect.tr();
-            },
-            orElse: () => LocalizedTexts.somethingIsIncorrect.tr(),
-          );
+        notFound: (e) {
+          final message = e.message;
+          return message == LocalizedTexts.accountNotFound
+              ? message
+              : LocalizedTexts.somethingIsIncorrect.tr();
         },
         badRequest: (error) {
-          final message = error.error.message;
-
-          return message == emailOrPasswordAreIncorrect
-              ? LocalizedTexts.emailOrPasswordAreIncorrect.tr()
-              : LocalizedTexts.somethingIsIncorrect.tr();
+          final message = error.message;
+          return message == LocalizedTexts.emailOrPasswordAreIncorrect
+              ? message
+              : LocalizedTexts.somethingIsIncorrect;
         },
         orElse: () => LocalizedTexts.somethingIsIncorrect.tr(),
       );
-      context.showError(content: Text(errorMessage));
+
+      context.showError(content: Text(errorMessage.tr()));
     }
   }
 

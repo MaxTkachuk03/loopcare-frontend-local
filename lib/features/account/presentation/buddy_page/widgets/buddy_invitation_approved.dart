@@ -62,19 +62,19 @@ String? _getDate(DateTime? timeStamp) {
 }
 
 _errorListener(BuildContext context, SubscriptionState state) {
-  final errorMessage = state.data.errorMessage ?? LocalizedTexts.somethingWentWrong.tr();
+  final errorMessage = state.data.errorMessage ?? LocalizedTexts.somethingWentWrong;
   context.showErrorBar(
-    content: Text(errorMessage),
+    content: Text(errorMessage.tr()),
     position: FlashPosition.top,
   );
-  context.router.pop();
+  context.router.maybePop();
 }
 
 class _DetailsSection extends StatelessWidget {
   final String title;
   final String? value;
 
-  const _DetailsSection({super.key, required this.title, this.value});
+  const _DetailsSection({required this.title, this.value});
 
   @override
   Widget build(BuildContext context) {

@@ -206,10 +206,10 @@ class CustomChoiceChip<T> extends StatelessWidget {
         selectedColor: selectedColor,
         disabledColor: AppColors.greyLight,
         side: ChipTheme.of(context).side?.copyWith(color: onSelected == null ? AppColors.greyLight : borderColor),
-        color: MaterialStateProperty.resolveWith((states) {
-          const Set<MaterialState> interactiveStates = <MaterialState>{
-            MaterialState.pressed,
-            MaterialState.selected,
+        color: WidgetStateProperty.resolveWith((states) {
+          const Set<WidgetState> interactiveStates = <WidgetState>{
+            WidgetState.pressed,
+            WidgetState.selected,
           };
 
           if (states.any(interactiveStates.contains)) {

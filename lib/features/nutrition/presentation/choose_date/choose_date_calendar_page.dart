@@ -19,6 +19,7 @@ import 'package:loopcare_frontend/features/nutrition/application/meals/meals_blo
 import 'package:loopcare_frontend/features/nutrition/presentation/choose_date/widgets/week_calendar.dart';
 import 'package:loopcare_frontend/features/nutrition/presentation/widgets/back_button_hexagon/back_button_hexagon.dart';
 
+@RoutePage()
 class ChooseDateCalendarPage extends StatefulWidget {
   final String mealCategory;
   final List<DateTime>? dates;
@@ -104,7 +105,7 @@ class _ChooseDateCalendarPageState extends State<ChooseDateCalendarPage> {
           confirmed: true,
         ),
       )
-      ..router.pop();
+      ..router.maybePop();
   }
 
   @override
@@ -151,8 +152,8 @@ class _ChooseDateCalendarPageState extends State<ChooseDateCalendarPage> {
                               child: ElevatedButton(
                                 onPressed: () => state.data.canSave ? _onSaveChangesPressed(context) : null,
                                 style: Theme.of(context).elevatedButtonTheme.style?.copyWith(
-                                  backgroundColor: MaterialStateProperty.resolveWith<Color?>(
-                                    (Set<MaterialState> states) {
+                                  backgroundColor: WidgetStateProperty.resolveWith<Color?>(
+                                    (Set<WidgetState> states) {
                                       if (state.data.canSave) {
                                         return AppColors.blueDark;
                                       }
@@ -192,7 +193,7 @@ class _ChooseDateCalendarPageState extends State<ChooseDateCalendarPage> {
     //   ),
     // );
 
-    context.router.pop();
+    context.router.maybePop();
     context.showSuccessBar(
       content: Text(LocalizedTexts.changesSaved.tr()),
     );

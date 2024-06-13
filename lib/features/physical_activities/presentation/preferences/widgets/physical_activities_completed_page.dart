@@ -21,6 +21,7 @@ import 'package:loopcare_frontend/features/education/presentation/education_page
 import 'package:loopcare_frontend/features/education/presentation/lesson_complete_page/widgets/unlock_physical_activities_feature.dart';
 import 'package:loopcare_frontend/features/nutrition/application/dashboard_education/dashboard_education_bloc.dart';
 
+@RoutePage()
 class PhysicalActivitiesCompletePage extends StatefulWidget {
   const PhysicalActivitiesCompletePage({super.key});
 

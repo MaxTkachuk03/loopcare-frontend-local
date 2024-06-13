@@ -1,7 +1,6 @@
 import 'package:dartz/dartz.dart';
 import 'package:injectable/injectable.dart';
 import 'package:loopcare_frontend/core/infrastructure/dio_client/dio_client.dart';
-import 'package:loopcare_frontend/core/infrastructure/dio_client/parse_response.dart';
 import 'package:loopcare_frontend/core/infrastructure/dio_client/request_error.dart';
 import 'package:loopcare_frontend/features/smart_goals/application/cancel_goal_reason.dart';
 import 'package:loopcare_frontend/features/smart_goals/application/dto/get_goals_categories_response.dart';
@@ -37,13 +36,20 @@ class APISmartGoalsService implements SmartGoalsService {
     // TODO use to mock goals server response
     // return right(GetGoalsResponse.fromJson({'data': goals}));
 
-    return client.get('/smart-goal/list',
-        queryParameters: {"categoryId": categoryId}).then(parseResponse(GetGoalsResponse.fromJson));
+    return await client.get(
+      '/smart-goal/list',
+      queryParameters: {"categoryId": categoryId},
+      fromJson: GetGoalsResponse.fromJson,
+    );
   }
 
   @override
   Future<Either<RequestError, WeeklyGoalsSession>> saveGoals({required SaveGoalsBody goal}) async {
-    return client.post('/smart-goal/session', data: goal).then(parseResponse(WeeklyGoalsSession.fromJson));
+    return await client.post(
+      '/smart-goal/session',
+      data: goal,
+      fromJson: WeeklyGoalsSession.fromJson,
+    );
   }
 
   @override
@@ -51,7 +57,10 @@ class APISmartGoalsService implements SmartGoalsService {
     // TODO use to mock goals categories server response
     // return right(GetGoalsCategoriesResponse.fromJson({'data': goalsCategories}));
 
-    return client.get('/smart-goal/categories').then(parseResponse(GetGoalsCategoriesResponse.fromJson));
+    return await client.get(
+      '/smart-goal/categories',
+      fromJson: GetGoalsCategoriesResponse.fromJson,
+    );
   }
 
   @override
@@ -59,7 +68,10 @@ class APISmartGoalsService implements SmartGoalsService {
     // TODO use to mock weekly goals server response
     //return right(GetWeeklySessionsResponse.fromJson(weeklyGoals));
 
-    return client.get('/smart-goal/session/last').then(parseResponse(GetWeeklySessionsResponse.fromJson));
+    return await client.get(
+      '/smart-goal/session/last',
+      fromJson: GetWeeklySessionsResponse.fromJson,
+    );
   }
 
   @override
@@ -67,35 +79,49 @@ class APISmartGoalsService implements SmartGoalsService {
     // TODO use to mock goals stats server response
     // return right(GetGoalsStatisticsResponse.fromJson({'data': goalsStats}));
 
-    return client.get('/smart-goal/stats').then(parseResponse(GetGoalsStatisticsResponse.fromJson));
+    return await client.get(
+      '/smart-goal/stats',
+      fromJson: GetGoalsStatisticsResponse.fromJson,
+    );
   }
 
   @override
   Future<Either<RequestError, WeeklyGoalsSession>> addGoalReview(GoalReviewBody data) async {
-    return client.patch('/smart-goal/review', data: data).then(parseResponse(WeeklyGoalsSession.fromJson));
+    return await client.patch(
+      '/smart-goal/review',
+      data: data,
+      fromJson: WeeklyGoalsSession.fromJson,
+    );
   }
 
   @override
   Future<Either<RequestError, WeeklyGoalsSession>> confirmProgress({required ProgressGoalData progress}) async {
-    return client
-        .post('/smart-goal/progress', data: progress.toJson())
-        .then(parseResponse(WeeklyGoalsSession.fromJson));
+    return await client.post(
+      '/smart-goal/progress',
+      data: progress.toJson(),
+      fromJson: WeeklyGoalsSession.fromJson,
+    );
   }
 
   @override
-  Future<Either<RequestError, WeeklyGoalsSession>> deleteSession(
-      {required int sessionId, required CancelGoalReason reason}) async {
-    return client.delete('/smart-goal/session/$sessionId',
-        data: {'reason': reason.name}).then(parseResponse(WeeklyGoalsSession.fromJson));
+  Future<Either<RequestError, WeeklyGoalsSession>> deleteSession({
+    required int sessionId,
+    required CancelGoalReason reason,
+  }) async {
+    return await client.delete(
+      '/smart-goal/session/$sessionId',
+      data: {'reason': reason.name},
+      fromJson: WeeklyGoalsSession.fromJson,
+    );
   }
 
   @override
   Future<Either<RequestError, WeeklyGoalsSession>> resetProgress({required int sessionId}) async {
-    return client.delete('/smart-goal/progress/$sessionId').then(parseResponse(WeeklyGoalsSession.fromJson));
+    return await client.delete('/smart-goal/progress/$sessionId', fromJson: WeeklyGoalsSession.fromJson);
   }
 
   @override
   Future<Either<RequestError, dynamic>> unlockCategory({required int id}) async {
-    return client.post('/smart-goal/category/$id/animation', data: {});
+    return await client.post('/smart-goal/category/$id/animation');
   }
 }

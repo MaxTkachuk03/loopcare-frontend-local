@@ -29,6 +29,7 @@ import 'package:loopcare_frontend/features/quizzes/infrastructure/questions_page
 import 'package:loopcare_frontend/features/quizzes/infrastructure/quizzes_controller.dart';
 import 'package:loopcare_frontend/injection.dart';
 
+@RoutePage()
 class AssignmentsQuestionsPage extends StatefulWidget {
   final int step;
   final bool fromDashboard;
@@ -67,8 +68,7 @@ class _AssignmentsQuestionsPageState extends State<AssignmentsQuestionsPage> {
     super.initState();
   }
 
-  String get _title =>
-      LocalizedTexts.stepCounter.tr(args: [(widget.step + 1).toString(), _totalSteps.toString()]);
+  String get _title => LocalizedTexts.stepCounter.tr(args: [(widget.step + 1).toString(), _totalSteps.toString()]);
 
   void _onSelectOptionHandler(int id) {
     setState(() {
@@ -94,11 +94,10 @@ class _AssignmentsQuestionsPageState extends State<AssignmentsQuestionsPage> {
       final accountCreatedDate = getIt<SharedStorageService>().account?.createdAt ?? DateTime.now();
 
       context.read<AssignmentsBloc>().add(
-        AssignmentsEvent.getAllLessonQuestions(accountCreatedDate, DateTime.now()),
-      );
+            AssignmentsEvent.getAllLessonQuestions(accountCreatedDate, DateTime.now()),
+          );
 
       context.router.pushNamed(AppRoutes.assignmentsSaved);
-
     } else {
       context.router.push(
         AssignmentsQuestionsRoute(step: widget.step + 1, fromDashboard: widget.fromDashboard),
@@ -107,7 +106,7 @@ class _AssignmentsQuestionsPageState extends State<AssignmentsQuestionsPage> {
   }
 
   void _onPrevHandler() {
-    context.router.pop();
+    context.router.maybePop();
   }
 
   void _saveTextField(int lessonId) {
@@ -250,8 +249,7 @@ class _AssignmentsQuestionsPageState extends State<AssignmentsQuestionsPage> {
             question.answerType == LessonQuestionAnswerType.multipleChoiceSingle) {
           _controller.setOptionValue(question.lessonQuestionAnswersId);
         } else if (question.answerType == LessonQuestionAnswerType.scale) {
-          _controller
-              .setScaleValue(question.lessonQuestionOptionIndexById(question.lessonQuestionAnswersId.first));
+          _controller.setScaleValue(question.lessonQuestionOptionIndexById(question.lessonQuestionAnswersId.first));
         }
       }
 
@@ -270,23 +268,21 @@ class _AssignmentsQuestionsPageState extends State<AssignmentsQuestionsPage> {
           onNextPressed: () => _controller.isScaleChoiceValid ? _saveScaleField(state.data.lessonId) : null,
           onSelectValue: _onSelectScaleHandler,
           selectedScore: _controller.selectScaleValue.value,
-          feedbackText: _feedbackText(
-              _controller.selectScaleValue.value, state.data.questionForStep(lessonId, widget.step)),
+          feedbackText:
+              _feedbackText(_controller.selectScaleValue.value, state.data.questionForStep(lessonId, widget.step)),
         ),
         multipleChoiceMultiple: (_) => AnswerOption(
           isEditable: state.data.questionForStep(lessonId, widget.step).isEditable,
           controller: _controller,
           question: state.data.questionForStep(lessonId, widget.step),
-          onNextPressed: () =>
-              _controller.isOptionChoiceValid ? _saveOptionsField(state.data.lessonId) : null,
+          onNextPressed: () => _controller.isOptionChoiceValid ? _saveOptionsField(state.data.lessonId) : null,
           onSelectOptionValue: _onSelectOptionHandler,
         ),
         multipleChoiceSingle: (_) => AnswerOption(
           isEditable: state.data.questionForStep(lessonId, widget.step).isEditable,
           controller: _controller,
           question: state.data.questionForStep(lessonId, widget.step),
-          onNextPressed: () =>
-              _controller.isOptionChoiceValid ? _saveOptionsField(state.data.lessonId) : null,
+          onNextPressed: () => _controller.isOptionChoiceValid ? _saveOptionsField(state.data.lessonId) : null,
           onSelectOptionValue: _onSelectOptionHandler,
         ),
         text: (_) => AnswerText(
@@ -302,7 +298,6 @@ class _AssignmentsQuestionsPageState extends State<AssignmentsQuestionsPage> {
 
   @override
   Widget build(BuildContext context) {
-
     return CustomScaffold.petrolLightest(
       appBar: CustomAppBar.petrol(
         title: LocalizedTexts.assignment.tr(),

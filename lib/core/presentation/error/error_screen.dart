@@ -21,7 +21,7 @@ class ErrorScreen extends StatelessWidget {
 
   Widget _getIcon() {
     return error.maybeWhen(
-      requestCancelled: (error) => AppImages.noConnectionSmall,
+      requestCancelled: (_) => AppImages.noConnectionSmall,
       socketException: (_) => AppImages.noConnectionSmall,
       orElse: () => AppImages.oepsSmall,
     );
@@ -29,7 +29,7 @@ class ErrorScreen extends StatelessWidget {
 
   String _getTitle() {
     return error.maybeWhen(
-      requestCancelled: (error) => LocalizedTexts.noConnectionTitle.tr(),
+      requestCancelled: (_) => LocalizedTexts.noConnectionTitle.tr(),
       orElse: () => LocalizedTexts.oeps.tr(),
       socketException: (_) => LocalizedTexts.noConnectionTitle.tr(),
     );
@@ -37,12 +37,12 @@ class ErrorScreen extends StatelessWidget {
 
   String _getDescription() {
     return error.maybeWhen(
-      requestCancelled: (error) => LocalizedTexts.noConnectionText.tr(),
+      requestCancelled: (_) => LocalizedTexts.noConnectionText.tr(),
       orElse: () => LocalizedTexts.somethingWentWrong.tr(),
       socketException: (_) => LocalizedTexts.noConnectionText.tr(),
       notFound: (error) {
-        if (error.message == 'serving_id_is_not_found') {
-          return LocalizedTexts.invalidIngredientText.tr();
+        if (error.message == LocalizedTexts.servingIdIsNotFound) {
+          return error.message?.tr() ?? LocalizedTexts.invalidIngredientText.tr();
         }
         return LocalizedTexts.somethingWentWrong.tr();
       },
@@ -62,7 +62,7 @@ class ErrorScreen extends StatelessWidget {
   Widget _getButton() {
     return error.maybeWhen(
       notFound: (error) {
-        if (error.message == 'serving_id_is_not_found') {
+        if (error.message == LocalizedTexts.servingIdIsNotFound) {
           return const SizedBox.shrink();
         }
         return _getRetryButton();
@@ -76,7 +76,7 @@ class ErrorScreen extends StatelessWidget {
     ErrorTypes errorType;
 
     errorType = error.maybeWhen(
-      requestCancelled: (error) => ErrorTypes.requestCancelled,
+      requestCancelled: (_) => ErrorTypes.requestCancelled,
       orElse: () => ErrorTypes.somethingWentWrong,
     );
 

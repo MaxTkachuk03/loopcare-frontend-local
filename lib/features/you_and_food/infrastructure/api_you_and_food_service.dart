@@ -1,7 +1,6 @@
 import 'package:dartz/dartz.dart';
 import 'package:injectable/injectable.dart';
 import 'package:loopcare_frontend/core/infrastructure/dio_client/dio_client.dart';
-import 'package:loopcare_frontend/core/infrastructure/dio_client/parse_response.dart';
 import 'package:loopcare_frontend/core/infrastructure/dio_client/request_error.dart';
 import 'package:loopcare_frontend/features/you_and_food/application/dto/food_preference_response.dart';
 import 'package:loopcare_frontend/features/you_and_food/application/dto/food_preferences_response.dart';
@@ -16,43 +15,46 @@ class APIYouAndFoodService implements YouAndFoodService {
 
   @override
   Future<Either<RequestError, FoodPreferenceResponse>> foodPrefsHates() async {
-    return client
-        .get('/food-preferences/hates')
-        .then(parseResponse(FoodPreferenceResponse.fromJson));
+    return await client.get(
+      '/food-preferences/hates',
+      fromJson: FoodPreferenceResponse.fromJson,
+    );
   }
 
   @override
-  Future<Either<RequestError, FoodPreferenceResponse>>
-      foodPrefsPeriods() async {
-    return client
-        .get('/food-preferences/periods')
-        .then(parseResponse(FoodPreferenceResponse.fromJson));
+  Future<Either<RequestError, FoodPreferenceResponse>> foodPrefsPeriods() async {
+    return await client.get(
+      '/food-preferences/periods',
+      fromJson: FoodPreferenceResponse.fromJson,
+    );
   }
 
   @override
   Future<Either<RequestError, FoodPreferenceResponse>> foodPrefsAllergens() async {
-    return client
-        .get('/food-preferences/allergens')
-        .then(parseResponse(FoodPreferenceResponse.fromJson));
+    return await client.get(
+      '/food-preferences/allergens',
+      fromJson: FoodPreferenceResponse.fromJson,
+    );
   }
 
   @override
   Future<Either<RequestError, FoodPreferenceResponse>> foodPrefsDislikes() async {
-    return client
-        .get('/food-preferences/dislikes')
-        .then(parseResponse(FoodPreferenceResponse.fromJson));
+    return await client.get(
+      '/food-preferences/dislikes',
+      fromJson: FoodPreferenceResponse.fromJson,
+    );
   }
 
   @override
   Future<Either<RequestError, FoodPreferencesResponse>> foodPrefsFetch() async {
-    return client
-        .get('/food-preferences')
-        .then(parseResponse(FoodPreferencesResponse.fromJson));
+    return await client.get(
+      '/food-preferences',
+      fromJson: FoodPreferencesResponse.fromJson,
+    );
   }
 
   @override
-  Future<Either<RequestError, dynamic>> foodPrefsSave(
-      FoodPrefsData data) async {
-    return client.post('/food-preferences', data: data);
+  Future<Either<RequestError, dynamic>> foodPrefsSave(FoodPrefsData data) async {
+    return await client.post('/food-preferences', data: data);
   }
 }

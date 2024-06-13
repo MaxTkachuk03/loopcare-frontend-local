@@ -21,13 +21,9 @@ class NoInformation extends StatelessWidget {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
-              Expanded(
-                child: Container(),
-              ),
+              const Spacer(),
               IconButton(
-                onPressed: () => {
-                  context.router.pop(),
-                },
+                onPressed: context.router.maybePop,
                 icon: const Icon(Icons.close),
               )
             ],
@@ -51,7 +47,7 @@ class NoInformation extends StatelessWidget {
         ),
         const SizedBox(height: 14),
         CustomOutlinedButton.blueFullWidth(
-          onPressed: () => context.router.pop(),
+          onPressed: context.router.maybePop,
           label: LocalizedTexts.scanOtherProduct.tr(),
         ),
       ],

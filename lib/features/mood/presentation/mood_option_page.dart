@@ -23,6 +23,7 @@ import 'package:loopcare_frontend/features/mood/presentation/widgets/mood_time_o
 import 'package:loopcare_frontend/features/mood/presentation/widgets/mood_where_options.dart';
 import 'package:loopcare_frontend/features/mood/presentation/widgets/mood_with_who_option.dart';
 
+@RoutePage()
 class MoodOptionPage extends StatefulWidget {
   final MoodOptionPageMode mode;
   final MoodController controller;
@@ -121,7 +122,7 @@ class _MoodOptionPageState extends State<MoodOptionPage> {
 
     widget.controller.isFormValid;
 
-    context.router.pop();
+    context.router.maybePop();
   }
 
   @override

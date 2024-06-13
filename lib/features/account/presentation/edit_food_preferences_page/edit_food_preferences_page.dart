@@ -31,6 +31,7 @@ class EditFoodPreferencesPageMode with _$EditFoodPreferencesPageMode {
   const factory EditFoodPreferencesPageMode.dislikes() = Dislikes;
 }
 
+@RoutePage()
 class EditFoodPreferencesPage extends StatelessWidget {
   final EditFoodPreferencesPageMode mode;
   final bool fromLessonComplete;
@@ -67,7 +68,7 @@ class EditFoodPreferencesPage extends StatelessWidget {
   _onOkHandler(BuildContext context) {
     context.read<YouAndFoodBloc>().add(const YouAndFoodEvent.saveFoodPreferences());
 
-    context.router.pop();
+    context.router.maybePop();
   }
 
   _onNextHandler(BuildContext context) {

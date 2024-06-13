@@ -18,6 +18,7 @@ import 'package:loopcare_frontend/features/assignments/presentation/widgets/dash
 import 'package:loopcare_frontend/features/assignments/presentation/widgets/my_assignments/past_assignments.dart';
 import 'package:loopcare_frontend/injection.dart';
 
+@RoutePage()
 class MyAssignmentsPage extends StatefulWidget {
   const MyAssignmentsPage({super.key});
 

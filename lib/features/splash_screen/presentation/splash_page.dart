@@ -16,6 +16,7 @@ import 'package:loopcare_frontend/features/legal_statement/application/legal_sta
 import 'package:loopcare_frontend/features/onboarding_new/application/general/general_onboarding_bloc.dart';
 import 'package:loopcare_frontend/features/splash_screen/infrastructure/splash_controller.dart';
 
+@RoutePage()
 class SplashPage extends StatefulWidget {
   const SplashPage({super.key});
 
@@ -60,6 +61,7 @@ class _SplashPageState extends State<SplashPage> {
     final routes = await _controller.getRoute();
 
     if (context.mounted) {
+      // ignore: use_build_context_synchronously
       context.router.replaceAll(routes);
     }
   }

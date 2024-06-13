@@ -1,7 +1,6 @@
 import 'package:dartz/dartz.dart';
 import 'package:injectable/injectable.dart';
 import 'package:loopcare_frontend/core/infrastructure/dio_client/dio_client.dart';
-import 'package:loopcare_frontend/core/infrastructure/dio_client/parse_response.dart';
 import 'package:loopcare_frontend/core/infrastructure/dio_client/request_error.dart';
 import 'package:loopcare_frontend/features/authentication/domain/subscription/subscription.dart';
 import 'package:loopcare_frontend/features/subscription/application/purchase_service.dart';
@@ -17,32 +16,58 @@ class APIPurchaseService implements PurchaseService {
   APIPurchaseService(this.client);
 
   @override
-  Future<Either<RequestError, Subscription>> purchaseIOS(VerifyIOSPurchaseData data, String vendor) async {
-    return client.post('/subscription/purchase/$vendor', data: data).then(parseResponse(Subscription.fromJson));
+  Future<Either<RequestError, Subscription>> purchaseIOS(
+    VerifyIOSPurchaseData data,
+    String vendor
+  ) async {
+    return await client.post(
+      '/subscription/purchase/$vendor',
+      data: data,
+      fromJson: Subscription.fromJson,
+    );
   }
 
   @override
-  Future<Either<RequestError, Subscription>> purchaseAndroid(VerifyAndroidPurchaseData data, String vendor) async {
-    return client.post('/subscription/purchase/$vendor', data: data).then(parseResponse(Subscription.fromJson));
+  Future<Either<RequestError, Subscription>> purchaseAndroid(
+    VerifyAndroidPurchaseData data,
+    String vendor,
+  ) async {
+    return await client.post(
+      '/subscription/purchase/$vendor',
+      data: data,
+      fromJson: Subscription.fromJson,
+    );
   }
 
   @override
-  Future<Either<RequestError, ValidStatus>> verifyPurchaseIOS(VerifyIOSPurchaseData? data, String vendor) async {
-    return client
-        .post('/subscription/purchase/$vendor/validate', data: data ?? {})
-        .then(parseResponse(ValidStatus.fromJson));
+  Future<Either<RequestError, ValidStatus>> verifyPurchaseIOS(
+    VerifyIOSPurchaseData? data,
+    String vendor,
+  ) async {
+    return await client.post(
+      '/subscription/purchase/$vendor/validate',
+      data: data ?? {},
+      fromJson: ValidStatus.fromJson,
+    );
   }
 
   @override
   Future<Either<RequestError, ValidStatus>> verifyPurchaseAndroid(
-      VerifyAndroidPurchaseData? data, String vendor) async {
-    return client
-        .post('/subscription/purchase/$vendor/validate', data: data ?? {})
-        .then(parseResponse(ValidStatus.fromJson));
+    VerifyAndroidPurchaseData? data,
+    String vendor,
+  ) async {
+    return await client.post(
+      '/subscription/purchase/$vendor/validate',
+      data: data ?? {},
+      fromJson: ValidStatus.fromJson,
+    );
   }
 
   @override
   Future<Either<RequestError, ServerProductData>> getProductList(String vendor) async {
-    return client.get('/subscription/products/$vendor').then(parseResponse(ServerProductData.fromJson));
+    return await client.get(
+      '/subscription/products/$vendor',
+      fromJson: ServerProductData.fromJson,
+    );
   }
 }

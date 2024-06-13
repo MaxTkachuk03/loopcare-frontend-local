@@ -17,6 +17,7 @@ import 'package:loopcare_frontend/features/account/presentation/widgets/group_le
 import 'package:loopcare_frontend/features/account/presentation/widgets/group_prefs_page_wrap.dart';
 import 'package:loopcare_frontend/features/education/application/education_lesson/education_lesson_bloc.dart';
 
+@RoutePage()
 class GroupRulesFivePage extends StatelessWidget {
   final bool fromLessonComplete;
 

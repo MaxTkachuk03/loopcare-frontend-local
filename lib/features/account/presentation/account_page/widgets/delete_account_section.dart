@@ -63,7 +63,7 @@ class _DeleteAccountSectionState extends State<DeleteAccountSection> {
           content: CustomText(LocalizedTexts.otherPurchaseVendorCancelAccountSubscription.tr()),
           actions: [
             TextButton(
-              onPressed: () => context.router.pop(),
+              onPressed: () => context.router.maybePop(),
               child: Text(LocalizedTexts.ok.tr().toUpperCase()),
             ),
           ],
@@ -110,11 +110,11 @@ class _DeleteAccountSectionState extends State<DeleteAccountSection> {
   }
 
   _errorListener(BuildContext context, SubscriptionState state) {
-    final errorMessage = state.data.errorMessage ?? LocalizedTexts.somethingWentWrong.tr();
+    final errorMessage = state.data.errorMessage ?? LocalizedTexts.somethingWentWrong;
     context.showErrorBar(
-      content: Text(errorMessage),
+      content: Text(errorMessage.tr()),
       position: FlashPosition.top,
     );
-    context.router.pop();
+    context.router.maybePop();
   }
 }

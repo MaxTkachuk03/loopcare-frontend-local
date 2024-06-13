@@ -27,6 +27,7 @@ import 'package:loopcare_frontend/features/video_player/presentation/widgets/vid
 import 'package:video_player/video_player.dart';
 import 'package:wakelock_plus/wakelock_plus.dart';
 
+@RoutePage()
 class VideoPage extends StatefulWidget {
   final PhysicalProgram program;
 

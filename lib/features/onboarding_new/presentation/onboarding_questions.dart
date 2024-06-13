@@ -6,6 +6,7 @@ import 'package:loopcare_frontend/core/domain/account/sex_type.dart';
 import 'package:loopcare_frontend/core/presentation/alerting/modal_bottom_sheet.dart';
 import 'package:loopcare_frontend/core/presentation/app_bar/custom_app_bar.dart';
 import 'package:loopcare_frontend/core/presentation/buttons/custom_filled_icon_button.dart';
+import 'package:loopcare_frontend/core/presentation/custom_error_widget/error_invoker.dart';
 import 'package:loopcare_frontend/core/presentation/custom_safe_area.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/core/presentation/scaffold/custom_scaffold.dart';
@@ -15,6 +16,7 @@ import 'package:loopcare_frontend/features/onboarding_new/application/mental_que
 import 'package:loopcare_frontend/features/onboarding_new/domain/timer_state.dart';
 import 'package:loopcare_frontend/features/onboarding_new/presentation/widgets/progress_bar.dart';
 
+@RoutePage()
 class OnboardingQuestionsPage extends StatefulWidget {
   const OnboardingQuestionsPage({super.key});
 
@@ -33,7 +35,7 @@ class _OnboardingQuestionsPageState extends State<OnboardingQuestionsPage> with 
 
   void _onPop(BuildContext context, isPhysicalIntro) {
     if (isPhysicalIntro) {
-      context.router.pop();
+      context.router.maybePop();
     } else {
       context.read<GeneralOnboardingBloc>().add(const GeneralOnboardingEvent.previousStep());
     }
@@ -83,6 +85,9 @@ class _OnboardingQuestionsPageState extends State<OnboardingQuestionsPage> with 
                 color: state.generalStep.appBarComponentsColor,
                 onPressed: () => _onPop(context, state.currentPhysicalStep.isIntro),
               ),
+              actions: const [
+                ErrorInvokeButton(),
+              ],
               bottom: state.showProgressBar
                   ? ProgressBar(
                       backgroundColor: state.generalStep.primaryColor,
@@ -109,9 +114,11 @@ class _OnboardingQuestionsPageState extends State<OnboardingQuestionsPage> with 
               withBg: false,
               color: state.backgroundColor,
               appBar: appBar,
-              body: CustomSafeArea(
-                bottom: false,
-                child: state.currentStepContent,
+              body: ErrorInvoker(
+                child: CustomSafeArea(
+                  bottom: false,
+                  child: state.currentStepContent,
+                ),
               ),
             ),
           );
@@ -138,7 +145,7 @@ class _OnboardingQuestionsPageState extends State<OnboardingQuestionsPage> with 
         context
             .read<GeneralOnboardingBloc>()
             .add(const GeneralOnboardingEvent.startMentalTestFromBeginning());
-        context.router.pop();
+        context.router.maybePop();
       },
     );
   }

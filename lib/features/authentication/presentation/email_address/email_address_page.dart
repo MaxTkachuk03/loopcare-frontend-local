@@ -17,6 +17,7 @@ import 'package:loopcare_frontend/features/authentication/application/authentica
 import 'package:loopcare_frontend/features/authentication/domain/email/email.dart';
 import 'package:loopcare_frontend/features/authentication/presentation/email_address/widgets/email_address_form.dart';
 
+@RoutePage()
 class EmailAddressPage extends StatefulWidget {
   const EmailAddressPage({super.key});
 

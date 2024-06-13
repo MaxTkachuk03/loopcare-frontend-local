@@ -26,6 +26,7 @@ import 'package:loopcare_frontend/features/onboarding_new/application/medical_qu
 import 'package:loopcare_frontend/features/onboarding_new/application/mental_questions/mental_questions_bloc.dart';
 import 'package:loopcare_frontend/features/onboarding_new/application/physical_questions/physical_questions_bloc.dart';
 
+@RoutePage()
 class WaitingForConfirmationPage extends StatefulWidget {
   const WaitingForConfirmationPage({super.key});
 

@@ -20,6 +20,7 @@ import 'package:loopcare_frontend/features/onboarding_new/application/medical_qu
 import 'package:loopcare_frontend/features/onboarding_new/application/mental_questions/mental_questions_bloc.dart';
 import 'package:loopcare_frontend/features/onboarding_new/application/physical_questions/physical_questions_bloc.dart';
 
+@RoutePage()
 class ChangeEmailAddressPage extends StatefulWidget {
   const ChangeEmailAddressPage({super.key});
 
@@ -134,6 +135,6 @@ class _ChangeEmailAddressPageState extends State<ChangeEmailAddressPage> {
 
   void _navigationListener(BuildContext context, AuthenticationState state) {
     _formValidNotifier.value = false;
-    context.router.pop();
+    context.router.maybePop();
   }
 }

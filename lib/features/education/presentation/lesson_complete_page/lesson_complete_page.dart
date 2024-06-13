@@ -9,6 +9,7 @@ import 'package:loopcare_frontend/core/presentation/alerting/show_app_snackbar.d
 import 'package:loopcare_frontend/core/presentation/app_bar/custom_app_bar.dart';
 import 'package:loopcare_frontend/core/presentation/buttons/custom_elevated_button.dart';
 import 'package:loopcare_frontend/core/presentation/buttons/custom_filled_icon_button.dart';
+import 'package:loopcare_frontend/core/presentation/custom_error_widget/error_invoker.dart';
 import 'package:loopcare_frontend/core/presentation/custom_safe_area.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/core/presentation/routes/app_router.gr.dart';
@@ -32,6 +33,7 @@ import 'package:loopcare_frontend/features/education/presentation/lesson_complet
 import 'package:loopcare_frontend/features/nutrition/application/dashboard_education/dashboard_education_bloc.dart';
 import 'package:loopcare_frontend/injection.dart';
 
+@RoutePage()
 class LessonCompletePage extends StatefulWidget {
   final bool joinSupportGroupLater;
 
@@ -59,8 +61,8 @@ class _LessonCompletePageState extends State<LessonCompletePage> {
   }
 
   _onErrorListener(BuildContext context, EducationLessonState state) {
-    final errorMessage = state.data.errorMessage ?? LocalizedTexts.somethingWentWrong.tr();
-    context.showError(content: Text(errorMessage));
+    final errorMessage = state.data.errorMessage ?? LocalizedTexts.somethingWentWrong;
+    context.showError(content: Text(errorMessage.tr()));
   }
 
   _startLessonQuestion(int lessonId) {
@@ -106,134 +108,139 @@ class _LessonCompletePageState extends State<LessonCompletePage> {
         appBar: CustomAppBar.petrol(
           title: LocalizedTexts.lesson.tr(),
           leading: CustomFilledIconButton.leadingPetrolLighter(),
+          actions: const [
+            ErrorInvokeButton(),
+          ],
         ),
         body: CustomSafeArea(
-          child: ScrollableContainer(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Column(
-                  children: [
-                    UnderAppbar.petrol(
-                      child: Center(
-                        child: Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 120.0),
+          child: ErrorInvoker(
+            child: ScrollableContainer(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Column(
+                    children: [
+                      UnderAppbar.petrol(
+                        child: Center(
+                          child: Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 120.0),
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                const CircleAvatar(
+                                  radius: 22.0,
+                                  backgroundColor: AppColors.greenRegular,
+                                  child: Icon(Icons.check, size: 24, color: AppColors.white),
+                                ),
+                                const SizedBox(height: 22.0),
+                                CustomText.bitter600(
+                                  '${LocalizedTexts.lessonCompleted.tr()}!',
+                                  style: context.textTheme.displayMedium?.copyWith(color: AppColors.white),
+                                  textAlign: TextAlign.center,
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                      ),
+                      const SizedBox(height: 24.0),
+                      MainContainer(
+                        child: Container(
+                          width: double.infinity,
+                          padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 30),
+                          decoration: const BoxDecoration(
+                            color: AppColors.petrolLightest,
+                            borderRadius: BorderRadius.all(Radius.circular(16)),
+                          ),
                           child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              const CircleAvatar(
-                                radius: 22.0,
-                                backgroundColor: AppColors.greenRegular,
-                                child: Icon(Icons.check, size: 24, color: AppColors.white),
-                              ),
-                              const SizedBox(height: 22.0),
-                              CustomText.bitter600(
-                                '${LocalizedTexts.lessonCompleted.tr()}!',
-                                style: context.textTheme.displayMedium?.copyWith(color: AppColors.white),
-                                textAlign: TextAlign.center,
+                              BlocBuilder<EducationLessonBloc, EducationLessonState>(
+                                builder: (context, state) {
+                                  final lesson = state.data;
+                                  if (state.data.isLessonCompleted) {
+                                    AnalyticsEventService.instance.logLessonCompletedEvent(
+                                      FirebaseEvents.lessonCompletedScreen,
+                                      context.read<EducationLessonBloc>().state.data.lessonId,
+                                    );
+                                  }
+                                  return Column(
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    children: [
+                                      getLabelByCategory(lesson.lessonCategory),
+                                      const SizedBox(height: 10.0),
+                                      CustomText.bitter600(
+                                        lesson.lessonTitle,
+                                        style: context.textTheme.displayLarge,
+                                      ),
+                                      const SizedBox(height: 10.0),
+                                      if (state.data.extraAction != ExtraActionTypes.unlockBuddy)
+                                        CustomText.w400(_subText(state), style: context.textTheme.bodyMedium),
+                                    ],
+                                  );
+                                },
                               ),
                             ],
                           ),
                         ),
                       ),
-                    ),
-                    const SizedBox(height: 24.0),
-                    MainContainer(
-                      child: Container(
-                        width: double.infinity,
-                        padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 30),
-                        decoration: const BoxDecoration(
-                          color: AppColors.petrolLightest,
-                          borderRadius: BorderRadius.all(Radius.circular(16)),
-                        ),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            BlocBuilder<EducationLessonBloc, EducationLessonState>(
-                              builder: (context, state) {
-                                final lesson = state.data;
-                                if (state.data.isLessonCompleted) {
-                                  AnalyticsEventService.instance.logLessonCompletedEvent(
-                                    FirebaseEvents.lessonCompletedScreen,
-                                    context.read<EducationLessonBloc>().state.data.lessonId,
-                                  );
-                                }
-                                return Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    getLabelByCategory(lesson.lessonCategory),
-                                    const SizedBox(height: 10.0),
-                                    CustomText.bitter600(
-                                      lesson.lessonTitle,
-                                      style: context.textTheme.displayLarge,
+                      const SizedBox(height: 20),
+                      MainContainer(
+                        child: BlocBuilder<EducationLessonBloc, EducationLessonState>(
+                          builder: (BuildContext context, state) {
+                            if (state.data.isFoodLoggingUnlocked) {
+                              return const UnlockFoodLoggingFeature();
+                            }
+
+                            if (state.data.isBuddyUnlocked) {
+                              return const UnlockBuddyFeature();
+                            }
+
+                            if (state.data.extraAction == ExtraActionTypes.setupGroupingPreferences &&
+                                !_isGroupSessionsDisabled) {
+                              return UnlockGroupSessionFeature(wantJoinLater: widget.joinSupportGroupLater);
+                            }
+
+                            if (state.data.assignmentsQuestions.isNotEmpty &&
+                                state.data.assignmentsQuestionsWithAnswers.isEmpty) {
+                              final accountCreatedDate =
+                                  getIt<SharedStorageService>().account?.createdAt ?? DateTime.now();
+
+                              context.read<AssignmentsBloc>().add(
+                                    AssignmentsEvent.getAllLessonQuestions(
+                                      accountCreatedDate,
+                                      DateTime.now(),
                                     ),
-                                    const SizedBox(height: 10.0),
-                                    if (state.data.extraAction != ExtraActionTypes.unlockBuddy)
-                                      CustomText.w400(_subText(state), style: context.textTheme.bodyMedium),
-                                  ],
-                                );
-                              },
-                            ),
-                          ],
+                                  );
+
+                              return showedAssignment
+                                  ? const SavedAssignment()
+                                  : UnlockAssignment(
+                                      completedAt: state.data.lessonCompletedDate ?? DateTime.now(),
+                                      onBtnPressed: () => _startLessonQuestion(state.data.lessonId),
+                                    );
+                            }
+
+                            return const SizedBox.shrink();
+                          },
                         ),
                       ),
-                    ),
-                    const SizedBox(height: 20),
-                    MainContainer(
-                      child: BlocBuilder<EducationLessonBloc, EducationLessonState>(
-                        builder: (BuildContext context, state) {
-                          if (state.data.isFoodLoggingUnlocked) {
-                            return const UnlockFoodLoggingFeature();
-                          }
-
-                          if (state.data.isBuddyUnlocked) {
-                            return const UnlockBuddyFeature();
-                          }
-
-                          if (state.data.extraAction == ExtraActionTypes.setupGroupingPreferences &&
-                              !_isGroupSessionsDisabled) {
-                            return UnlockGroupSessionFeature(wantJoinLater: widget.joinSupportGroupLater);
-                          }
-
-                          if (state.data.assignmentsQuestions.isNotEmpty &&
-                              state.data.assignmentsQuestionsWithAnswers.isEmpty) {
-                            final accountCreatedDate =
-                                getIt<SharedStorageService>().account?.createdAt ?? DateTime.now();
-
-                            context.read<AssignmentsBloc>().add(
-                                  AssignmentsEvent.getAllLessonQuestions(
-                                    accountCreatedDate,
-                                    DateTime.now(),
-                                  ),
-                                );
-
-                            return showedAssignment
-                                ? const SavedAssignment()
-                                : UnlockAssignment(
-                                    completedAt: state.data.lessonCompletedDate ?? DateTime.now(),
-                                    onBtnPressed: () => _startLessonQuestion(state.data.lessonId),
-                                  );
-                          }
-
-                          return const SizedBox.shrink();
-                        },
-                      ),
-                    ),
-                  ],
-                ),
-                MainContainer(
-                  child: Column(
-                    children: [
-                      const SizedBox(height: 30),
-                      CustomElevatedButton.blueFullWidth(
-                        onPressed: () => _onPressHandler(context),
-                        label: LocalizedTexts.backToEducation.tr(),
-                      ),
-                      const SizedBox(height: 30.0),
                     ],
                   ),
-                ),
-              ],
+                  MainContainer(
+                    child: Column(
+                      children: [
+                        const SizedBox(height: 30),
+                        CustomElevatedButton.blueFullWidth(
+                          onPressed: () => _onPressHandler(context),
+                          label: LocalizedTexts.backToEducation.tr(),
+                        ),
+                        const SizedBox(height: 30.0),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
             ),
           ),
         ),

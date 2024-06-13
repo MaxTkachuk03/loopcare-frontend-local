@@ -19,6 +19,7 @@ import 'package:loopcare_frontend/features/nutrition/presentation/widgets/servin
 
 const double _kBottomPreferredHeight = 72;
 
+@RoutePage()
 class SelectServingPage extends StatefulWidget {
   final String foodItemId;
   final String? initialServingId;
@@ -130,7 +131,7 @@ class _SelectServingPageState extends State<SelectServingPage> {
     if (id != null) {
       widget.onConfirm.call(amount, id);
     }
-    context.router.pop();
+    context.router.maybePop();
   }
 
   String _getSnackBarText(bool isFavorite, bool hasActiveFilters) {
@@ -187,7 +188,7 @@ class _SelectServingPageState extends State<SelectServingPage> {
 
     _showSnackBar();
 
-    context.router.pop();
+    context.router.maybePop();
   }
 
   void _onFavouriteFilterPressed(
