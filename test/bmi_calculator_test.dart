@@ -1,7 +1,7 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:loopcare_frontend/features/onboarding_new/utils/bmi_calculator.dart';
-import 'package:loopcare_frontend/features/onboarding_new/utils/height_conversion_utils.dart';
-import 'package:loopcare_frontend/features/onboarding_new/utils/weight_conversion_utils.dart';
+import 'package:loopcare_frontend/features/onboarding/utils/bmi_calculator.dart';
+import 'package:loopcare_frontend/features/onboarding/utils/height_conversion_utils.dart';
+import 'package:loopcare_frontend/features/onboarding/utils/weight_conversion_utils.dart';
 
 void main() {
   test('5 ft 9 inches', () {
