@@ -79,7 +79,7 @@ class _DeleteAccountSectionState extends State<DeleteAccountSection> {
             FirebaseEvents.deleteAccount,
             parameters: {
               CustomDefinitions.timestamp: DateTime.now().toIso8601String(),
-              CustomDefinitions.confirmed: true,
+              CustomDefinitions.confirmed: 'true',
             },
           );
         },

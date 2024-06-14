@@ -14,7 +14,7 @@ class AppConfig {
   String get baseUrl =>
       CountryCodeService.instance.useUsServer ? dotenv.env['BASE_URL'] ?? "" : dotenv.env['BASE_URL_EU'] ?? "";
 
-  String get region => CountryCodeService.instance.countryCode;
+  String get region => CountryCodeService.instance.localRegion;
 
   String get baseHost => Uri.parse(baseUrl).host;
 
