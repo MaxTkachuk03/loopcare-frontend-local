@@ -4,8 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:loopcare_frontend/core/presentation/river_module_item/river_module_item_utils.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 
-const sizeIcon = 40.0;
-const sizeBadge = 22.0;
+const circleRadius = 25.0;
+const sizeBadge = 15.0;
+const sizeIcon = 36.0;
 
 class RiverModuleItem extends StatelessWidget {
   final RiverModuleItemState state;
@@ -23,18 +24,30 @@ class RiverModuleItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final child = InkWell(
-      onTap: onTap,
-      child: Container(
-        decoration: BoxDecoration(
-          color: state.getBackgroundColor(contentColor),
-          shape: BoxShape.circle,
-        ),
-        width: sizeIcon,
-        height: sizeIcon,
-        child:  Icon(
-          iconType.getIcon(),
-          color: state.getIconColor(contentColor),
+    final child = Material(
+      elevation: state.getIconShadow(),
+      borderRadius: const BorderRadius.all(Radius.circular(circleRadius)),
+      child: InkWell(
+        onTap: onTap,
+        child: Container(
+          decoration: BoxDecoration(
+            color: state.getBackgroundColor(contentColor),
+            shape: BoxShape.circle,
+            // boxShadow:  [
+            //   BoxShadow(
+            //     color: state.getBackgroundColor(contentColor),
+            //     spreadRadius: 1.5,
+            //     blurRadius: 1,
+            //   ),
+            // ],
+          ),
+          width: 2* circleRadius,
+          height: 2* circleRadius,
+          child:  Icon(
+            iconType.getIcon(),
+            color: state.getIconColor(contentColor),
+            size: sizeIcon,
+          ),
         ),
       ),
     );
@@ -63,3 +76,9 @@ class RiverModuleItem extends StatelessWidget {
     }
   }
 }
+
+// RiverModuleItem(
+// state: RiverModuleItemState.read,
+// contentColor: AppColors.greenRegular,
+// iconType: RiverModuleItemType.nutrition,
+// ),

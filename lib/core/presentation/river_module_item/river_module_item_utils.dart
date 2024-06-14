@@ -10,18 +10,19 @@ extension RiverModuleItemStateExt on RiverModuleItemState {
       return contentColor;
     }
     return AppColors.white;
+
   }
 
   Color getBackgroundColor(Color contentColor) {
     if (this == RiverModuleItemState.unlock) {
-      return contentColor.withOpacity(0.5);
+      return contentColor.withOpacity(0.1);
     } else if (this == RiverModuleItemState.read || this == RiverModuleItemState.completed) {
       return contentColor;
     }
     return AppColors.blueLighter;
   }
 
-  int getIconShadow() {
+  double getIconShadow() {
     if (this == RiverModuleItemState.unlock) {
       return 4;
     } else if (this == RiverModuleItemState.read) {
@@ -57,25 +58,25 @@ extension RiverModuleItemTypeExt on RiverModuleItemType {
     } else if (this == RiverModuleItemType.assignment) {
       return AppIconsData.iAssignment;
     } else if (this == RiverModuleItemType.buddy) {
-      return AppIconsData.iAssignment;
+      return AppIconsData.iBuddy;
     } else if (this == RiverModuleItemType.community) {
-      return AppIconsData.iAssignment;
+      return AppIconsData.iCommunity;
     } else if (this == RiverModuleItemType.education) {
-      return AppIconsData.iAssignment;
+      return AppIconsData.iEducation;
     } else if (this == RiverModuleItemType.goal) {
-      return AppIconsData.iAssignment;
+      return AppIconsData.iGoal;
     } else if (this == RiverModuleItemType.medical) {
-      return AppIconsData.iAssignment;
+      return AppIconsData.iMedical;
     } else if (this == RiverModuleItemType.mind) {
-      return AppIconsData.iAssignment;
+      return AppIconsData.iMind;
     } else if (this == RiverModuleItemType.mood) {
-      return AppIconsData.iAssignment;
+      return AppIconsData.iMood;
     } else if (this == RiverModuleItemType.nutrition) {
-      return AppIconsData.iAssignment;
+      return AppIconsData.iNutrition;
     } else if (this == RiverModuleItemType.weight) {
-      return AppIconsData.iAssignment;
+      return AppIconsData.iWeight;
     } else if (this == RiverModuleItemType.profile) {
-      return AppIconsData.iAssignment;
+      return AppIconsData.iProfile;
     } else {
       return AppIconsData.iPractice;
     }
