@@ -10,7 +10,6 @@ extension RiverModuleItemStateExt on RiverModuleItemState {
       return contentColor;
     }
     return AppColors.white;
-
   }
 
   Color getBackgroundColor(Color contentColor) {
@@ -22,14 +21,11 @@ extension RiverModuleItemStateExt on RiverModuleItemState {
     return AppColors.blueLighter;
   }
 
-  double getIconShadow() {
-    if (this == RiverModuleItemState.unlock) {
+  double getIconElevation() {
+    if (this == RiverModuleItemState.unlock || this == RiverModuleItemState.read) {
       return 4;
-    } else if (this == RiverModuleItemState.read) {
-      return 4;
-    } else {
-      return 0;
     }
+    return 0;
   }
 }
 

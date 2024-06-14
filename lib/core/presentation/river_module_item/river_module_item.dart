@@ -25,7 +25,7 @@ class RiverModuleItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final child = Material(
-      elevation: state.getIconShadow(),
+      elevation: state.getIconElevation(),
       borderRadius: const BorderRadius.all(Radius.circular(circleRadius)),
       child: InkWell(
         onTap: onTap,
