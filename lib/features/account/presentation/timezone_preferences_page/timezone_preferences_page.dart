@@ -25,6 +25,7 @@ import 'package:loopcare_frontend/features/education/application/education_lesso
 import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 import 'package:timezone/timezone.dart';
 
+@RoutePage()
 class TimezonePreferencesPage extends StatefulWidget {
   final bool fromLessonComplete;
 
@@ -80,7 +81,7 @@ class _TimezonePreferencesPageState extends State<TimezonePreferencesPage> {
   }
 
   void _onErrorHandler(GroupPreferencesState state) =>
-      context.showError(content: Text(state.data.error?.error.toString() ?? ''));
+      context.showError(content: Text(state.data.error?.message.tr() ?? ''));
 
   void _onUpdateHandler(GroupPreferencesState state) {
     final groupPrefsMode = context.read<GroupPreferencesBloc>().state.data.groupPrefsMode;
@@ -97,7 +98,7 @@ class _TimezonePreferencesPageState extends State<TimezonePreferencesPage> {
     );
 
     if (groupPrefsMode == GroupPrefsMode.singlePage) {
-      context.router.pop();
+      context.router.maybePop();
     } else {
       context.router.push(NicknamePreferencesRoute(fromLessonComplete: widget.fromLessonComplete));
     }
@@ -157,13 +158,14 @@ class _TimezonePreferencesPageState extends State<TimezonePreferencesPage> {
                       ),
                       const SizedBox(height: 20.0),
                       SearchField(
-                          hintText: LocalizedTexts.searchTimezone.tr(),
-                          contentPadding: const EdgeInsets.symmetric(vertical: 0, horizontal: 16.0),
-                          prefixIcon: const Icon(
-                            Icons.search,
-                            color: AppColors.greyLabel,
-                          ),
-                          onChanged: _onSearch),
+                        hintText: LocalizedTexts.searchTimezone.tr(),
+                        contentPadding: const EdgeInsets.symmetric(vertical: 0, horizontal: 16.0),
+                        prefixIcon: const Icon(
+                          Icons.search,
+                          color: AppColors.greyLabel,
+                        ),
+                        onChanged: _onSearch,
+                      ),
                     ],
                   ),
                 ),
@@ -195,8 +197,7 @@ class _TimezonePreferencesPageState extends State<TimezonePreferencesPage> {
                       const SizedBox(height: 24.0),
                       CustomElevatedButton.blueFullWidth(
                         onPressed: _selectedLocation == null ? null : _onNextPressedHandler,
-                        label:
-                            widget.fromLessonComplete ? LocalizedTexts.next.tr() : LocalizedTexts.save.tr(),
+                        label: widget.fromLessonComplete ? LocalizedTexts.next.tr() : LocalizedTexts.save.tr(),
                       ),
                       const SizedBox(height: 30.0),
                     ],

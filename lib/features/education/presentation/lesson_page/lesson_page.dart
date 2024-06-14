@@ -22,6 +22,7 @@ import 'package:loopcare_frontend/features/education/presentation/lesson/widgets
 import 'package:loopcare_frontend/features/quizzes/domain/lesson_question_type.dart';
 import 'package:loopcare_frontend/injection.dart';
 
+@RoutePage()
 class LessonPage extends StatefulWidget {
   final int lessonId;
   final int pageIndex;
@@ -69,7 +70,7 @@ class _LessonPageState extends State<LessonPage> {
     context.read<EducationLessonBloc>().add(const EducationLessonEvent.prevPage());
     context.read<EducationLessonBloc>().add(const EducationLessonEvent.progressBack());
 
-    context.router.pop();
+    context.router.maybePop();
   }
 
   Future<bool> _onWillPop() {
@@ -126,16 +127,17 @@ class _LessonPageState extends State<LessonPage> {
           child: BlocConsumer<EducationLessonBloc, EducationLessonState>(
             listener: _onContentLoaded,
             listenWhen: (prev, cur) => cur is ContentLoaded,
-            builder: (BuildContext context, state) {
+            builder: (context, state) {
               return state.maybeMap(
                 initial: (_) => const Loader(),
                 contentIsLoading: (_) => const Loader(),
-                errorGettingContent: (s) =>
-                    ErrorScreen(error: s.data.error!, onButtonPressed: _onRetryHandler),
+                errorGettingContent: (s) => ErrorScreen(error: s.data.error!, onButtonPressed: _onRetryHandler),
                 orElse: () {
                   if (state.data.isArticlePage) {
                     return LessonTextBody(
-                        onNextPressed: _onNextPressed, content: state.data.currentPage.content);
+                      onNextPressed: _onNextPressed,
+                      content: state.data.currentPage.content,
+                    );
                   }
 
                   if (state.data.isAudioPage) {

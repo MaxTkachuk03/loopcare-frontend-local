@@ -4,9 +4,8 @@ import 'package:loopcare_frontend/core/application/auth_token_manager.dart';
 import 'package:loopcare_frontend/core/application/dto/updated_access_token_response.dart';
 import 'package:loopcare_frontend/core/application/socket_service/socket_service.dart';
 import 'package:loopcare_frontend/core/application/socket_service_chat/chat_socket_service.dart';
-import 'package:loopcare_frontend/core/infrastructure/dio_client/dio_client.dart' as dioClient;
+import 'package:loopcare_frontend/core/infrastructure/dio_client/dio_client.dart';
 import 'package:loopcare_frontend/core/infrastructure/dio_client/dio_options.dart';
-import 'package:loopcare_frontend/core/infrastructure/dio_client/parse_response.dart';
 import 'package:loopcare_frontend/features/authentication/application/authentication_bloc.dart';
 
 class AppLifeCycleStateListener extends StatefulWidget {
@@ -21,6 +20,7 @@ class AppLifeCycleStateListener extends StatefulWidget {
 class _AppLifeCycleStateListenerState extends State<AppLifeCycleStateListener> {
   late final AppLifecycleListener lifeCycleListener;
   late AuthTokenManager authTokenManager;
+
   AuthenticationBloc? get _authenticationBloc => GetIt.instance<AuthenticationBloc>();
 
   @override
@@ -67,9 +67,9 @@ class _AppLifeCycleStateListenerState extends State<AppLifeCycleStateListener> {
   Future<bool> updateAccessToken() async {
     final token = await authTokenManager.getRefreshToken();
     if (token == null) return false;
-    final request = await dioClient
-        .handleProcess(dioOptions.post('/auth/accessToken', data: {'refreshToken': token}))
-        .then(parseResponse(UpdatedAccessTokenResponse.fromJson));
+
+    final request = await fetchResponse(dioOptions, '/auth/accessToken', FetchType.post,
+        data: {'refreshToken': token}, fromJson: (r) => UpdatedAccessTokenResponse.fromJson(r));
 
     request.fold(
       (error) => _authenticationBloc?.add(const AuthenticationEvent.logout()),

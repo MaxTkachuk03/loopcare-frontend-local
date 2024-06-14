@@ -4,8 +4,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loopcare_frontend/build_type.dart';
+import 'package:loopcare_frontend/core/application/app_update/app_update_bottom_sheet.dart';
 import 'package:loopcare_frontend/core/infrastructure/services/events.dart';
 import 'package:loopcare_frontend/core/infrastructure/services/mixpanel_event_service.dart';
+import 'package:loopcare_frontend/core/infrastructure/services/shared_storage/shared_storage_service.dart';
 import 'package:loopcare_frontend/core/presentation/alerting/show_app_snackbar.dart';
 import 'package:loopcare_frontend/core/presentation/buttons/custom_elevated_button.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
@@ -14,9 +16,7 @@ import 'package:loopcare_frontend/core/presentation/text_field/custom_text_field
 import 'package:loopcare_frontend/features/authentication/application/authentication_bloc.dart';
 import 'package:loopcare_frontend/features/authentication/domain/email/email.dart';
 import 'package:loopcare_frontend/features/authentication/domain/login_password/login_password.dart';
-
-const accountNotFound = 'account_not_found';
-const emailOrPasswordAreIncorrect = 'email_or_password_are_incorrect';
+import 'package:loopcare_frontend/injection.dart';
 
 class LoginForm extends StatefulWidget {
   const LoginForm({super.key});
@@ -79,8 +79,8 @@ class _LoginFormState extends State<LoginForm> {
   }
 
   _onChangedForm() {
-    final isValidForm = Email.create(_emailController.text).isRight() &&
-        LoginPassword.create(_passwordController.text).isRight();
+    final isValidForm =
+        Email.create(_emailController.text).isRight() && LoginPassword.create(_passwordController.text).isRight();
 
     _formValidationNotifier.value = isValidForm;
   }
@@ -98,53 +98,70 @@ class _LoginFormState extends State<LoginForm> {
 
   void _navigationListener(BuildContext context, AuthenticationState state) {
     state.mapOrNull(
-      gotAccount: (value) {
-        String route = AppRoutes.home;
-        if ((state.data.account?.hasActiveSubscription ?? false) || !kIsProd) {
-          route = AppRoutes.home;
-        } else {
-          route = AppRoutes.subscription;
-        }
+      needUpdatePolicies: _updatePolicies,
+      gotAccount: _onAuthorized,
+      guest: _onGuest,
+    );
+  }
 
-        MixpanelEventService.instance.track(
-          AppMixpanelEvents.loginSuccess,
-          {
-            'userId': state.data.accountId,
-            'email': state.data.email,
-            'nextRoute': route,
-          },
-        );
+  void _updatePolicies(NeedUpdatePolicies state) {
+    final storage = getIt<SharedStorageService>();
+    final updatePrivacyPolicy = storage.privacyPolicyVersion > (state.data.account?.privacyPolicyVersion ?? 1);
+    final updateTermsAndConditions = storage.termsAndConditionsVersion > (state.data.account?.termsAndConditionsVersion ?? 1);
 
-        pushNamedAndClearStack(context, route);
-      },
-      guest: (state) {
-        final error = state.data.error;
-        if (error != null) {
-          final errorMessage = error.maybeMap(
-            notFound: (error) {
-              return error.maybeMap(
-                notFound: (e) {
-                  final message = e.error.message;
-                  return message == accountNotFound
-                      ? LocalizedTexts.emailOrPasswordAreIncorrect.tr()
-                      : LocalizedTexts.somethingIsIncorrect.tr();
-                },
-                orElse: () => LocalizedTexts.somethingIsIncorrect.tr(),
-              );
-            },
-            badRequest: (error) {
-              final message = error.error.message;
+    AppUpdateBottomSheet.showPoliciesUpdate(
+      updatePrivacyPolicy: updatePrivacyPolicy,
+      updateTermsAndConditions: updateTermsAndConditions,
+      onConfirmed: () => context.read<AuthenticationBloc>().add(
+        AuthenticationEvent.updatePolicy(
+          privacyPolicyVersion: storage.privacyPolicyVersion,
+          termsAndConditionsVersion: storage.termsAndConditionsVersion,
+        ),
+      ),
+    );
+  }
 
-              return message == emailOrPasswordAreIncorrect
-                  ? LocalizedTexts.emailOrPasswordAreIncorrect.tr()
-                  : LocalizedTexts.somethingIsIncorrect.tr();
-            },
-            orElse: () => LocalizedTexts.somethingIsIncorrect.tr(),
-          );
-          context.showError(content: Text(errorMessage));
-        }
+  void _onAuthorized(GotAccountState state) {
+    String route = AppRoutes.home;
+    if ((state.data.account?.hasActiveSubscription ?? false) || !kIsProd) {
+      route = AppRoutes.home;
+    } else {
+      route = AppRoutes.subscription;
+    }
+
+    MixpanelEventService.instance.track(
+      AppMixpanelEvents.loginSuccess,
+      {
+        'userId': state.data.accountId,
+        'email': state.data.email,
+        'nextRoute': route,
       },
     );
+
+    pushNamedAndClearStack(context, route);
+  }
+
+  void _onGuest(GuestAuthenticationState state) {
+    final error = state.data.error;
+    if (error != null) {
+      final errorMessage = error.maybeMap(
+        notFound: (e) {
+          final message = e.message;
+          return message == LocalizedTexts.accountNotFound
+              ? message
+              : LocalizedTexts.somethingIsIncorrect.tr();
+        },
+        badRequest: (error) {
+          final message = error.message;
+          return message == LocalizedTexts.emailOrPasswordAreIncorrect
+              ? message
+              : LocalizedTexts.somethingIsIncorrect;
+        },
+        orElse: () => LocalizedTexts.somethingIsIncorrect.tr(),
+      );
+
+      context.showError(content: Text(errorMessage.tr()));
+    }
   }
 
   Future<dynamic> pushNamedAndClearStack(BuildContext context, String path) {

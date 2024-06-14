@@ -10,7 +10,8 @@ class MentalQuestionsState with _$MentalQuestionsState {
     @Default(false) bool isLoading,
     @Default(false) bool isCompleted,
     @Default(false) bool isFailed,
-    @JsonKey(ignore: true) RequestError? error,
+    // ignore: invalid_annotation_target
+    @JsonKey(includeFromJson: false, includeToJson: false) RequestError? error,
     DateTime? startTestTime,
   }) = _MentalQuestionsState;
 

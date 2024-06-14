@@ -21,6 +21,7 @@ import 'package:loopcare_frontend/core/presentation/widgets/scrollable_container
 import 'package:loopcare_frontend/features/education/domain/extra_action_page_mode.dart';
 import 'package:loopcare_frontend/injection.dart';
 
+@RoutePage()
 class ConsultDoctorPage extends StatefulWidget {
   final ExtraActionPageMode mode;
 

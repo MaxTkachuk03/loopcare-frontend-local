@@ -8,6 +8,7 @@ import 'package:loopcare_frontend/core/domain/emergency_numbers/emergency_number
 import 'package:loopcare_frontend/core/infrastructure/services/app_config.dart';
 import 'package:loopcare_frontend/core/infrastructure/services/firebase_event_service.dart';
 import 'package:loopcare_frontend/core/presentation/alerting/widgets/already_planned_card.dart';
+import 'package:loopcare_frontend/core/presentation/app_version/app_update_policies_documents.dart';
 import 'package:loopcare_frontend/core/presentation/buttons/custom_elevated_button.dart';
 import 'package:loopcare_frontend/core/presentation/buttons/custom_icon_button.dart';
 import 'package:loopcare_frontend/core/presentation/buttons/custom_outlined_button.dart';
@@ -81,7 +82,7 @@ class ModalBottomSheet {
               const SizedBox(height: 40.0),
               CustomElevatedButton.blueFullWidth(
                 label: LocalizedTexts.continueBtn.tr(),
-                onPressed: context.router.pop,
+                onPressed: context.router.maybePop,
               ),
               const SizedBox(height: 30.0),
             ],
@@ -113,7 +114,7 @@ class ModalBottomSheet {
               ),
               const SizedBox(height: 32.0),
               CustomElevatedButton.blueFullWidth(
-                onPressed: context.router.pop,
+                onPressed: context.router.maybePop,
                 label: LocalizedTexts.changeYourHeight.tr(),
               ),
             ],
@@ -149,7 +150,7 @@ class ModalBottomSheet {
                   ),
                   const SizedBox(height: 32.0),
                   CustomElevatedButton.blueFullWidth(
-                    onPressed: context.router.pop,
+                    onPressed: context.router.maybePop,
                     label: LocalizedTexts.cancel.tr(),
                   ),
                   const SizedBox(height: 12.0),
@@ -204,16 +205,15 @@ class ModalBottomSheet {
                         },
                       );
 
-                      context.router.pop();
+                      context.router.maybePop();
                     },
                     label: LocalizedTexts.cancel.tr(),
                   ),
                   const SizedBox(height: 12.0),
                   CustomOutlinedButton.blueFullWidth(
                     onPressed: noActiveSubscription ? onDeleted : onSubscriptionPref,
-                    label: noActiveSubscription
-                        ? LocalizedTexts.yesDelete.tr()
-                        : LocalizedTexts.manageSubscription.tr(),
+                    label:
+                        noActiveSubscription ? LocalizedTexts.yesDelete.tr() : LocalizedTexts.manageSubscription.tr(),
                   )
                 ],
               ),
@@ -293,7 +293,7 @@ class ModalBottomSheet {
                   child: Padding(
                     padding: const EdgeInsets.only(right: 8.0, top: 12.0),
                     child: IconButton(
-                      onPressed: () => context.router.pop(),
+                      onPressed: () => context.router.maybePop(),
                       icon: const Icon(
                         Icons.close,
                         size: 30,
@@ -347,7 +347,7 @@ class ModalBottomSheet {
                             OutlinedButton(
                               onPressed: onCanceled,
                               style: Theme.of(context).outlinedButtonTheme.style?.copyWith(
-                                    side: MaterialStateProperty.all(
+                                    side: WidgetStateProperty.all(
                                       const BorderSide(
                                         width: 1.0,
                                         color: AppColors.blueDark,
@@ -408,7 +408,7 @@ class ModalBottomSheet {
                   child: Padding(
                     padding: const EdgeInsets.only(right: 8.0, top: 12.0),
                     child: IconButton(
-                      onPressed: () => context.router.pop(),
+                      onPressed: () => context.router.maybePop(),
                       icon: const Icon(
                         Icons.close,
                         size: 30,
@@ -436,9 +436,9 @@ class ModalBottomSheet {
                         Column(
                           children: [
                             OutlinedButton(
-                              onPressed: () => context.router.pop(),
+                              onPressed: () => context.router.maybePop(),
                               style: Theme.of(context).outlinedButtonTheme.style?.copyWith(
-                                    side: MaterialStateProperty.all(
+                                    side: WidgetStateProperty.all(
                                       const BorderSide(
                                         width: 1.0,
                                         color: AppColors.blueDark,
@@ -492,7 +492,7 @@ class ModalBottomSheet {
                 Align(
                   alignment: Alignment.centerRight,
                   child: CustomIconButton.close(
-                    onPressed: () => context.router.pop(),
+                    onPressed: () => context.router.maybePop(),
                   ),
                 ),
                 MainContainer(
@@ -537,7 +537,7 @@ class ModalBottomSheet {
                   child: Padding(
                     padding: const EdgeInsets.only(right: 8.0, top: 12.0),
                     child: IconButton(
-                      onPressed: () => context.router.pop(),
+                      onPressed: () => context.router.maybePop(),
                       icon: const Icon(Icons.close),
                     ),
                   ),
@@ -572,7 +572,7 @@ class ModalBottomSheet {
 
                         return InkWell(
                           onTap: () {
-                            context.router.pop();
+                            context.router.maybePop();
                             final selectedNutritionType =
                                 NutritionValuesTypes.values.firstWhere((element) => element.name == item.key);
                             onSelect(selectedNutritionType);
@@ -627,7 +627,7 @@ class ModalBottomSheet {
                           child: IconButton(
                             iconSize: 30,
                             padding: EdgeInsets.zero,
-                            onPressed: () => context.router.pop(),
+                            onPressed: () => context.router.maybePop(),
                             icon: const Icon(Icons.close),
                           ),
                         ),
@@ -681,7 +681,7 @@ class ModalBottomSheet {
                   child: Padding(
                     padding: const EdgeInsets.only(right: 8, top: 12),
                     child: IconButton(
-                      onPressed: () => context.router.pop(),
+                      onPressed: () => context.router.maybePop(),
                       icon: const Icon(Icons.close),
                     ),
                   ),
@@ -749,7 +749,7 @@ class ModalBottomSheet {
                       const SizedBox(height: 26.0),
                       CustomElevatedButton.blueFullWidth(
                         onPressed: () {
-                          context.router.pop();
+                          context.router.maybePop();
                           onConfirmed?.call(updatedList);
                         },
                         label: LocalizedTexts.continueBtn.tr(),
@@ -796,7 +796,7 @@ class ModalBottomSheet {
                       width: 16.0,
                       height: 16.0,
                       child: CustomIconButton.close(
-                        onPressed: () => context.router.pop(),
+                        onPressed: () => context.router.maybePop(),
                       ),
                     ),
                   ),
@@ -878,7 +878,7 @@ class ModalBottomSheet {
                         width: 16.0,
                         height: 16.0,
                         child: CustomIconButton.close(
-                          onPressed: () => context.router.pop(),
+                          onPressed: () => context.router.maybePop(),
                         ),
                       ),
                     ),
@@ -897,7 +897,7 @@ class ModalBottomSheet {
 
                           return InkWell(
                             onTap: () {
-                              context.router.pop();
+                              context.router.maybePop();
                               onSelect(item);
                             },
                             child: Row(
@@ -979,7 +979,7 @@ class ModalBottomSheet {
                         MainContainer(
                           child: CustomElevatedButton.blueFullWidth(
                             onPressed: () {
-                              context.router.pop();
+                              context.router.maybePop();
                               onBtnPress();
                             },
                             label: LocalizedTexts.next.tr(),
@@ -1020,7 +1020,7 @@ class ModalBottomSheet {
                     child: ReportAbuseWidget(
                       groupSession: groupSession,
                       chatReport: chatReport,
-                      close: () => context.router.pop(),
+                      close: () => context.router.maybePop(),
                     ),
                   ),
                 ),
@@ -1096,7 +1096,7 @@ class ModalBottomSheet {
               const SizedBox(height: 48.0),
               CustomElevatedButton.blueFullWidth(
                 onPressed: () {
-                  context.router.pop();
+                  context.router.maybePop();
                   onLeavePressed();
                 },
                 label: LocalizedTexts.leaveSession.tr(),
@@ -1148,7 +1148,7 @@ class ModalBottomSheet {
                       padding: EdgeInsets.zero,
                       onPressed: () {
                         onClose();
-                        context.router.pop();
+                        context.router.maybePop();
                       },
                       icon: const Icon(Icons.close),
                     ),
@@ -1279,14 +1279,14 @@ class ModalBottomSheet {
                   const SizedBox(height: 12.0),
                   CustomElevatedButton.blueFullWidth(
                     onPressed: () {
-                      context.router.pop.call();
+                      context.router.maybePop.call();
                       onInvite.call();
                     },
                     label: LocalizedTexts.buddyFindAnotherBuddy.tr(),
                   ),
                   const SizedBox(height: 12.0),
                   CustomOutlinedButton.blueFullWidth(
-                    onPressed: () => context.router.pop.call(),
+                    onPressed: () => context.router.maybePop.call(),
                     label: LocalizedTexts.buddyNotNeedAnotherBuddy.tr(),
                   ),
                   const SizedBox(height: 12.0),
@@ -1302,51 +1302,83 @@ class ModalBottomSheet {
   static void goalFunFact({
     required BuildContext context,
     required String title,
+    required String subtitle,
+    required String task,
     required String content,
   }) {
-    // TODO all showModalBottomSheets should be refactored with such approach
     showModalBottomSheet<void>(
       context: context,
       showDragHandle: true,
+      isScrollControlled: true,
+      backgroundColor: AppColors.greenLightest,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12.0)),
       builder: (BuildContext context) {
-        return ScrollableContainer(
-          child: MainContainer(
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: [
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
-                  children: [
-                    CustomText.bitter600(title, style: context.textTheme.displayMedium),
-                    const SizedBox(height: 45),
-                    Row(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        const CircleAvatar(
-                          radius: 22.0,
-                          backgroundColor: AppColors.greenRegular,
-                          child: Icon(Icons.emoji_objects_rounded),
-                        ),
-                        const SizedBox(width: 16.0),
-                        Expanded(child: CustomText.w400(content, style: context.textTheme.bodyMedium)),
-                      ],
-                    ),
-                    const SizedBox(height: 45),
-                  ],
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(bottom: 30.0),
-                  child: CustomElevatedButton.blueFullWidth(
-                    label: LocalizedTexts.ok.tr().toUpperCase(),
-                    onPressed: context.router.pop,
-                  ),
-                ),
-              ],
-            ),
+        return MainContainer(
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              SizedBox(width: 44, height: 44, child: AppIcons.lightbulbUnSelect),
+              const SizedBox(height: 20.0),
+              CustomText.bitter600(
+                title,
+                style: context.textTheme.displayMedium,
+                textAlign: TextAlign.center,
+              ),
+              const SizedBox(height: 32.0),
+              CustomText.w600(
+                subtitle,
+                style: context.textTheme.bodyMedium,
+                textAlign: TextAlign.center,
+              ),
+              const SizedBox(height: 20.0),
+              CustomText.w400(
+                task,
+                style: context.textTheme.bodyMedium,
+                textAlign: TextAlign.center,
+              ),
+              const SizedBox(height: 20.0),
+              CustomText.w400(
+                content,
+                style: context.textTheme.bodyMedium,
+                textAlign: TextAlign.center,
+              ),
+              const SizedBox(height: 40.0),
+              CustomElevatedButton.blueFullWidth(
+                label: LocalizedTexts.ok.tr().toUpperCase(),
+                onPressed: context.router.maybePop,
+              ),
+              const SizedBox(height: 30.0),
+            ],
           ),
+        );
+      },
+    );
+  }
+
+  static void showDocumentsUpdate({
+    required BuildContext context,
+    required bool updateTermsAndConditions,
+    required bool updatePrivacyPolicy,
+    required VoidCallback launchTermsAndConditions,
+    required VoidCallback launchPrivacyPolicy,
+    required VoidCallback launchEmail,
+    required VoidCallback onConfirmed,
+  }) {
+    showModalBottomSheet<void>(
+      context: context,
+      isDismissible: false,
+      enableDrag: false,
+      isScrollControlled: true,
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12.0)),
+      builder: (BuildContext context) {
+        return AppUpdatePoliciesDocuments(
+          updateTermsAndConditions: updateTermsAndConditions,
+          updatePrivacyPolicy: updatePrivacyPolicy,
+          launchTermsAndConditions: launchTermsAndConditions,
+          launchPrivacyPolicy: launchPrivacyPolicy,
+          launchEmail: launchEmail,
+          onConfirmed: onConfirmed,
         );
       },
     );

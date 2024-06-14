@@ -25,7 +25,7 @@ class CustomOutlinedButton extends StatelessWidget {
         onPressed: onPressed,
         label: label,
         styles: ButtonStyle(
-          minimumSize: MaterialStateProperty.all(ButtonStyles.fullWidthSize),
+          minimumSize: WidgetStateProperty.all(ButtonStyles.fullWidthSize),
           side: ButtonStyles.getButtonBorder(ButtonStyles.borderCoral),
         ),
       );
@@ -54,7 +54,7 @@ class CustomOutlinedButton extends StatelessWidget {
         onPressed: onPressed,
         label: label,
         styles: ButtonStyle(
-          minimumSize: MaterialStateProperty.all(ButtonStyles.smallSize),
+          minimumSize: WidgetStateProperty.all(ButtonStyles.smallSize),
           side: ButtonStyles.getButtonBorder(ButtonStyles.borderCoral),
         ),
       );
@@ -69,7 +69,7 @@ class CustomOutlinedButton extends StatelessWidget {
         onPressed: onPressed,
         label: label,
         styles: ButtonStyle(
-          minimumSize: MaterialStateProperty.all(ButtonStyles.fullWidthSize),
+          minimumSize: WidgetStateProperty.all(ButtonStyles.fullWidthSize),
           side: ButtonStyles.getButtonBorder(ButtonStyles.borderOrange),
         ),
       );
@@ -98,7 +98,7 @@ class CustomOutlinedButton extends StatelessWidget {
         onPressed: onPressed,
         label: label,
         styles: ButtonStyle(
-          minimumSize: MaterialStateProperty.all(ButtonStyles.smallSize),
+          minimumSize: WidgetStateProperty.all(ButtonStyles.smallSize),
           side: ButtonStyles.getButtonBorder(ButtonStyles.borderOrange),
         ),
       );
@@ -114,7 +114,7 @@ class CustomOutlinedButton extends StatelessWidget {
         color: AppColors.blueDarker,
         label: label,
         styles: ButtonStyle(
-          minimumSize: MaterialStateProperty.all(ButtonStyles.fullWidthSize),
+          minimumSize: WidgetStateProperty.all(ButtonStyles.fullWidthSize),
           side: ButtonStyles.getButtonBorder(ButtonStyles.borderYellow),
         ),
       );
@@ -147,7 +147,7 @@ class CustomOutlinedButton extends StatelessWidget {
         color: AppColors.blueDarker,
         label: label,
         styles: ButtonStyle(
-          minimumSize: MaterialStateProperty.all(ButtonStyles.smallSize),
+          minimumSize: WidgetStateProperty.all(ButtonStyles.smallSize),
           side: ButtonStyles.getButtonBorder(ButtonStyles.borderYellow),
         ),
       );
@@ -162,7 +162,7 @@ class CustomOutlinedButton extends StatelessWidget {
         onPressed: onPressed,
         label: label,
         styles: ButtonStyle(
-          minimumSize: MaterialStateProperty.all(ButtonStyles.fullWidthSize),
+          minimumSize: WidgetStateProperty.all(ButtonStyles.fullWidthSize),
           side: ButtonStyles.getButtonBorder(ButtonStyles.borderGreen),
         ),
       );
@@ -191,7 +191,7 @@ class CustomOutlinedButton extends StatelessWidget {
         onPressed: onPressed,
         label: label,
         styles: ButtonStyle(
-          minimumSize: MaterialStateProperty.all(ButtonStyles.smallSize),
+          minimumSize: WidgetStateProperty.all(ButtonStyles.smallSize),
           side: ButtonStyles.getButtonBorder(ButtonStyles.borderGreen),
         ),
       );
@@ -206,7 +206,7 @@ class CustomOutlinedButton extends StatelessWidget {
         onPressed: onPressed,
         label: label,
         styles: ButtonStyle(
-          minimumSize: MaterialStateProperty.all(ButtonStyles.fullWidthSize),
+          minimumSize: WidgetStateProperty.all(ButtonStyles.fullWidthSize),
           side: ButtonStyles.getButtonBorder(ButtonStyles.borderPetrol),
         ),
       );
@@ -235,7 +235,7 @@ class CustomOutlinedButton extends StatelessWidget {
         onPressed: onPressed,
         label: label,
         styles: ButtonStyle(
-          minimumSize: MaterialStateProperty.all(ButtonStyles.smallSize),
+          minimumSize: WidgetStateProperty.all(ButtonStyles.smallSize),
           side: ButtonStyles.getButtonBorder(ButtonStyles.borderPetrol),
         ),
       );
@@ -250,7 +250,7 @@ class CustomOutlinedButton extends StatelessWidget {
         onPressed: onPressed,
         label: label,
         styles: ButtonStyle(
-          minimumSize: MaterialStateProperty.all(ButtonStyles.fullWidthSize),
+          minimumSize: WidgetStateProperty.all(ButtonStyles.fullWidthSize),
           side: ButtonStyles.getButtonBorder(ButtonStyles.borderBlue),
         ),
       );
@@ -279,7 +279,7 @@ class CustomOutlinedButton extends StatelessWidget {
         onPressed: onPressed,
         label: label,
         styles: ButtonStyle(
-          minimumSize: MaterialStateProperty.all(ButtonStyles.smallSize),
+          minimumSize: WidgetStateProperty.all(ButtonStyles.smallSize),
           side: ButtonStyles.getButtonBorder(ButtonStyles.borderBlue),
         ),
       );

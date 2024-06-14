@@ -39,12 +39,15 @@ class FoodItemServingsState with _$FoodItemServingsState {
         if (state.selectedServing == null) return 0;
         final calories = state.selectedServing?.calories ?? 0;
         final units = state.selectedServing?.numberOfUnits ?? 1;
+        final numSelectedServingAmount = double.parse(state.selectedServingAmount);
+        final result = calories * numSelectedServingAmount / units;
 
-        debugPrint("-- selectedServingCalories: ($calories * " +
-            double.parse(state.selectedServingAmount).toString() +
-            " / $units) = " +
-            (calories * double.parse(state.selectedServingAmount) / units).toString());
-        return (calories * double.parse(state.selectedServingAmount) / units);
+        log.i(
+          '$calories (calories) * $numSelectedServingAmount (selectedServingAmount) / $units (units) = result',
+          error: 'Get Selected Serving Calories',
+        );
+
+        return result;
       },
       orElse: () => 0,
     );

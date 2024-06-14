@@ -6,6 +6,7 @@ import 'package:loopcare_frontend/core/presentation/widgets/main_container.dart'
 
 import 'package:loopcare_frontend/core/presentation/widgets/scrollable_container.dart';
 
+// TODO remove
 class ThemeComponentsPage extends StatefulWidget {
   const ThemeComponentsPage({super.key});
 

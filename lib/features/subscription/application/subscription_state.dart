@@ -58,7 +58,7 @@ class SubscriptionStateData with _$SubscriptionStateData {
     Subscription? subscription,
   }) = _SubscriptionStateData;
 
-  String? get errorMessage => error?.maybeMap(conflict: (s) => s.error.error, orElse: () => null);
+  String? get errorMessage => error?.message;
 
   bool get hasSubscription => (subscription?.isActive ?? false) && subscription?.state != SubscriptionStatus.cancelled;
 }

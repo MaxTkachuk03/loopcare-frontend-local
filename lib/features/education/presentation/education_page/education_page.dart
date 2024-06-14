@@ -1,3 +1,4 @@
+import 'package:auto_route/annotations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loopcare_frontend/core/presentation/custom_safe_area.dart';
@@ -14,6 +15,7 @@ import 'package:loopcare_frontend/features/nutrition/application/meals/meals_blo
 
 const double _lessonCardHeight = 184;
 
+@RoutePage()
 class EducationPage extends StatefulWidget {
   const EducationPage({super.key});
 
@@ -66,7 +68,7 @@ class _EducationPageState extends State<EducationPage> with SingleTickerProvider
     return MultiBlocListener(
       listeners: [
         BlocListener<EducationLessonBloc, EducationLessonState>(
-          listenWhen: (prev, cur) => cur is LessonCompleted, //TODO: Probably incorrect
+          listenWhen: (prev, cur) => cur is LessonCompleted,
           listener: _lessonCompleteListener,
         ),
         BlocListener<EducationProgramBloc, EducationProgramState>(

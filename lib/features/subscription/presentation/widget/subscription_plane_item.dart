@@ -100,7 +100,7 @@ class _BadgeWrapper extends StatelessWidget {
   final Widget child;
   final bool recommended;
 
-  const _BadgeWrapper({super.key, required this.child, this.recommended = false});
+  const _BadgeWrapper({required this.child, this.recommended = false});
 
   @override
   Widget build(BuildContext context) {
@@ -135,7 +135,7 @@ class _BadgeWrapper extends StatelessWidget {
 class _DescriptionWrapper extends StatelessWidget {
   final String description;
 
-  const _DescriptionWrapper({super.key, required this.description});
+  const _DescriptionWrapper({required this.description});
 
   String _getDescription() {
     final startIndex = description.indexOf('(');

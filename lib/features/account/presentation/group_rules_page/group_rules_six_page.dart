@@ -20,6 +20,7 @@ import 'package:loopcare_frontend/features/account/domain/group_prefs_mode.dart'
 import 'package:loopcare_frontend/features/account/presentation/widgets/group_lesson_wrap.dart';
 import 'package:loopcare_frontend/features/account/presentation/widgets/group_prefs_page_wrap.dart';
 
+@RoutePage()
 class GroupRulesSixPage extends StatelessWidget {
   final bool fromLessonComplete;
 

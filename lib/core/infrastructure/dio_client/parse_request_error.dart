@@ -1,87 +1,73 @@
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
 import 'package:loopcare_frontend/core/infrastructure/dio_client/request_error.dart';
 import 'package:loopcare_frontend/core/infrastructure/dio_client/server_error_data.dart';
+import 'package:loopcare_frontend/core/infrastructure/services/logger/logger.dart';
+import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 
-RequestError parseRequestError(dynamic error) {
+RequestError createParsingError(dynamic e, StackTrace stackTrace) {
+  log.e(e.toString(), error: LogTitle.parsingError, stackTrace: stackTrace);
+  return RequestError.parsingError(e);
+}
+
+Either<RequestError, T> handleDioException<T>(dynamic error) {
   if (error is Exception) {
     if (error is DioException) {
       switch (error.type) {
         case DioExceptionType.cancel:
-          return RequestError.requestCancelled(error);
+          return Left(RequestError.requestCancelled(error));
         case DioExceptionType.connectionError:
-          return RequestError.connection(error);
+          return Left(RequestError.connection(error));
         case DioExceptionType.connectionTimeout:
         case DioExceptionType.receiveTimeout:
         case DioExceptionType.sendTimeout:
-          return RequestError.timeout(error);
+          return Left(RequestError.timeout(error));
         case DioExceptionType.badResponse:
-          return _handleError(error);
+          return Left(_handleError(error));
         case DioExceptionType.unknown:
           if (error.message?.contains('SocketException') ?? false) {
-            return const RequestError.socketException(
-              SocketException('Dio SocketException'),
+            return const Left(
+              RequestError.socketException(
+                SocketException('Dio SocketException'),
+              ),
             );
           }
-          return RequestError.dioOther(error);
+          return Left(RequestError.dioOther(error));
         default:
-          return RequestError.unhandledError(error);
+          return Left(RequestError.unhandledError(error));
       }
     }
 
     if (error is SocketException) {
-      return RequestError.socketException(error);
+      return Left(RequestError.socketException(error));
     }
   }
-  return RequestError.unhandledError(error);
-}
-
-RequestError handleResponseError(int? statusCode, dynamic json) {
-  final ServerErrorData serverError = ServerErrorData.fromJson(json);
-  switch (serverError.statusCode) {
-    case HttpStatus.badRequest:
-      return RequestError.badRequest(serverError);
-    case HttpStatus.unauthorized:
-      return RequestError.unauthorized(serverError);
-    case HttpStatus.forbidden:
-      return RequestError.forbidden(serverError);
-    case HttpStatus.notFound:
-      return RequestError.notFound(serverError);
-    case HttpStatus.conflict:
-      return RequestError.conflict(serverError);
-    case HttpStatus.internalServerError:
-    case HttpStatus.badGateway:
-    case HttpStatus.serviceUnavailable:
-      return RequestError.serverError(serverError);
-    case HttpStatus.unprocessableEntity:
-      return RequestError.unprocessableEntity(serverError);
-    default:
-      return RequestError.unhandledResponse(serverError);
-  }
+  return Left(RequestError.unhandledError(error));
 }
 
 RequestError _handleError(DioException error) {
   final ServerErrorData serverError = ServerErrorData.fromJson(jsonDecode(error.response.toString()));
   switch (serverError.statusCode) {
     case HttpStatus.badRequest:
-      return RequestError.badRequest(serverError);
+      return const RequestError.badRequest(ServerErrorData(message: LocalizedTexts.badRequestDio));
     case HttpStatus.unauthorized:
-      return RequestError.unauthorized(serverError);
+      return const RequestError.unauthorized(ServerErrorData(message: LocalizedTexts.unauthorizedDio));
     case HttpStatus.forbidden:
-      return RequestError.forbidden(serverError);
+      return const RequestError.forbidden(ServerErrorData(message: LocalizedTexts.forbiddenDio));
     case HttpStatus.notFound:
-      return RequestError.notFound(serverError);
+      return const RequestError.notFound(ServerErrorData(message: LocalizedTexts.notFoundDio));
     case HttpStatus.conflict:
-      return RequestError.conflict(serverError);
+      return const RequestError.conflict(ServerErrorData(message: LocalizedTexts.conflictDio));
     case HttpStatus.internalServerError:
     case HttpStatus.badGateway:
     case HttpStatus.serviceUnavailable:
-      return RequestError.serverError(serverError);
+      return const RequestError.serverError(ServerErrorData(message: LocalizedTexts.serverErrorDio));
     case HttpStatus.unprocessableEntity:
-      return RequestError.unprocessableEntity(serverError);
+      return const RequestError.unprocessableEntity(ServerErrorData(message: LocalizedTexts.unprocessableEntityDio));
     default:
-      return RequestError.unhandledResponse(serverError);
+      return const RequestError.unhandledResponse(ServerErrorData(message: LocalizedTexts.unhandledResponseDio));
   }
 }

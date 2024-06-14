@@ -17,6 +17,7 @@ import 'package:loopcare_frontend/features/account/presentation/account_page/wid
 import 'package:loopcare_frontend/features/account/presentation/account_page/widgets/section_item.dart';
 import 'package:loopcare_frontend/features/physical_activities/application/physical_activities_preferences/physical_activities_preferences_bloc.dart';
 
+@RoutePage()
 class PhysicalPreferencesPage extends StatefulWidget {
   const PhysicalPreferencesPage({super.key});
 

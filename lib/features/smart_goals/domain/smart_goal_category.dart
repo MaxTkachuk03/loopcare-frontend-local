@@ -13,6 +13,7 @@ class SmartGoalCategory with _$SmartGoalCategory {
     @Default('') String image,
     @Default('') String name,
     @Default(false) bool isUnlocked,
+    @Default(false) bool isNew,
   }) = _SmartGoalCategory;
 
   factory SmartGoalCategory.fromJson(Map<String, dynamic> json) => _$SmartGoalCategoryFromJson(json);

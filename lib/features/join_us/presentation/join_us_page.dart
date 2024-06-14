@@ -14,7 +14,7 @@ import 'package:loopcare_frontend/core/presentation/text/custom_text.dart';
 import 'package:loopcare_frontend/core/presentation/utils/build_context_extensions.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/main_container.dart';
 
-@Deprecated('Not include in River Onboarding')
+@RoutePage()
 class JoinUsPage extends StatelessWidget {
   const JoinUsPage({super.key});
 
@@ -22,13 +22,13 @@ class JoinUsPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return CustomScaffold.blueLightest(
+    return CustomScaffold.green(
       key: const ValueKey('join_us_page'),
       appBar: CustomAppBar.transparent(
-        leading: CustomFilledIconButton.leadingWhite(),
+        leading: CustomFilledIconButton.leadingGreenLighter(),
       ),
       body: CustomSafeArea(
-        child: BottomPlacedButton.blueLightest(
+        child: BottomPlacedButton.green(
           body: MainContainer(
             child: ListView(
               key: const ValueKey('join_us_body'),

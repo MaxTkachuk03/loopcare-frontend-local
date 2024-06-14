@@ -38,6 +38,8 @@ class WeeklySmartGoal with _$WeeklySmartGoal {
     return times;
   }
 
+  bool get hasCompletions => completionsAmount > 0;
+
   bool get isAchieved {
     if (progressLogs == null) {
       return false;

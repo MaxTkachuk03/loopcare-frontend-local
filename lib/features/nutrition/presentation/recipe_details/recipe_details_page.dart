@@ -24,6 +24,7 @@ import 'package:loopcare_frontend/features/nutrition/presentation/recipe_details
 import 'package:loopcare_frontend/features/nutrition/presentation/recipe_details/widgets/instructions.dart';
 import 'package:loopcare_frontend/features/nutrition/presentation/recipe_details/widgets/summary.dart';
 
+@RoutePage()
 class RecipeDetailsPage extends StatefulWidget {
   final bool fromRecommendation;
 

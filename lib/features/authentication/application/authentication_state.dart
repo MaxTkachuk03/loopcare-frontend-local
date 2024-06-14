@@ -19,6 +19,8 @@ class AuthenticationState with _$AuthenticationState {
   const factory AuthenticationState.gotAccount(AuthenticationData data) = GotAccountState;
 
   const factory AuthenticationState.gotEmailVerification(AuthenticationData data) = GotEmailVerification;
+
+  const factory AuthenticationState.needUpdatePolicies(AuthenticationData data) = NeedUpdatePolicies;
 }
 
 @freezed
@@ -34,6 +36,7 @@ class AuthenticationData with _$AuthenticationData {
     @Default(false) bool emailVerified,
     @Default(-1) int accountId,
     Account? account,
+    // ignore: invalid_annotation_target
     @JsonKey(includeFromJson: false, includeToJson: false) RequestError? error,
   }) = _AuthenticationData;
 

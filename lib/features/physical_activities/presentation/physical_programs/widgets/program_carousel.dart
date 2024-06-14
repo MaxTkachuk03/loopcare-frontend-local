@@ -15,6 +15,7 @@ class ProgramCarousel extends StatefulWidget {
   State<ProgramCarousel> createState() => _ProgramCarouselState();
 }
 
+@Deprecated("Not used")
 class _ProgramCarouselState extends State<ProgramCarousel> {
   int currentPage = 0;
 

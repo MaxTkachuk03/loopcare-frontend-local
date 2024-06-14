@@ -24,7 +24,7 @@ class AnalyticsEventService {
 
     final userIdPrefix = CountryCodeService.instance.serverCountryCode;
 
-    Map<String, dynamic> tmpParameters = Map.from(parameters ?? {});
+    Map<String, Object> tmpParameters = Map.from(parameters ?? {});
     tmpParameters[CustomDefinitions.userId] = '$userId-$userIdPrefix';
 
     await FirebaseAnalytics.instance.logEvent(

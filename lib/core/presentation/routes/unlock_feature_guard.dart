@@ -11,22 +11,18 @@ import 'package:loopcare_frontend/features/education/domain/extra_action_types.d
 import 'package:loopcare_frontend/injection.dart';
 
 class UnlockFeatureGuard extends AutoRouteGuard {
-  UnlockFeatureGuard(this.lessonBloc, this.authBloc, this.groupPreferencesBloc);
-
-  final EducationLessonBloc lessonBloc;
-  final GroupPreferencesBloc groupPreferencesBloc;
-  final AuthenticationBloc authBloc;
+  const UnlockFeatureGuard();
 
   @override
   Future<void> onNavigation(NavigationResolver resolver, StackRouter router) async {
     final account = getIt<SharedStorageService>().account;
-    final extraAction = lessonBloc.state.data.extraAction;
+    final extraAction = getIt<EducationLessonBloc>().state.data.extraAction;
 
     if (extraAction == ExtraActionTypes.setupGroupingPreferences &&
         !(account?.isGroupSessionsUnlocked ?? false)) {
       _unlockFeature(UnlockedFeatureType.grouping);
 
-      groupPreferencesBloc
+      getIt<GroupPreferencesBloc>()
           .add(const GroupPreferencesEvent.changeGroupPrefsMode(GroupPrefsMode.groupingLesson));
 
       router.pushNamed(AppRoutes.supportGroupIntro);
@@ -52,7 +48,7 @@ class UnlockFeatureGuard extends AutoRouteGuard {
   }
 
   void _unlockFeature(UnlockedFeatureType feature) {
-    authBloc.add(
+    getIt<AuthenticationBloc>().add(
       AuthenticationEvent.unlockFeature(
         UnlockFeature(
           feature: feature.name,

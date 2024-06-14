@@ -21,6 +21,7 @@ import 'package:loopcare_frontend/core/presentation/widgets/scrollable_container
 import 'package:loopcare_frontend/features/authentication/domain/registration_code/registration_code.dart';
 import 'package:url_launcher/url_launcher.dart';
 
+// TODO remove
 class AccessCodePage extends StatefulWidget {
   const AccessCodePage({super.key});
 
@@ -146,7 +147,9 @@ class _AccessCodePageState extends State<AccessCodePage> {
     try {
       await launchUrl(launchUri, mode: LaunchMode.externalApplication);
     } catch (e) {
-      context.showError(content: Text(LocalizedTexts.openLinkErrorMessage.tr()));
+      if (mounted) {
+        context.showError(content: Text(LocalizedTexts.openLinkErrorMessage.tr()));
+      }
     }
   }
 

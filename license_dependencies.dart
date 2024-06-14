@@ -26,7 +26,7 @@ class LicenseUtil {
 
   static List<License> getLicenses() {
     return [
-      License(
+      const License(
         name: r'advertising_id',
         license: r'''
                                  Apache License
@@ -234,7 +234,7 @@ class LicenseUtil {
         homepage: r'https://github.com/operando/advertising_id',
         repository: r'https://github.com/operando/advertising_id',
       ),
-      License(
+      const License(
         name: r'analyzer',
         license: r'''Copyright 2013, the Dart project authors.
 
@@ -268,7 +268,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
         homepage: null,
         repository: r'https://github.com/dart-lang/sdk/tree/main/pkg/analyzer',
       ),
-      License(
+      const License(
         name: r'app_tracking_transparency',
         license: r'''MIT License
 
@@ -296,7 +296,7 @@ SOFTWARE.
         homepage: r'https://github.com/deniza/app_tracking_transparency',
         repository: null,
       ),
-      License(
+      const License(
         name: r'appsflyer_sdk',
         license: r'''MIT License
 
@@ -324,7 +324,7 @@ SOFTWARE.
         homepage: r'https://github.com/AppsFlyerSDK/flutter_appsflyer_sdk',
         repository: null,
       ),
-      License(
+      const License(
         name: r'auto_route',
         license: r'''MIT License
 
@@ -351,7 +351,7 @@ SOFTWARE.''',
         homepage: r'https://github.com/Milad-Akarie/auto_route_library',
         repository: null,
       ),
-      License(
+      const License(
         name: r'auto_route_generator',
         license: r'''MIT License
 
@@ -378,7 +378,7 @@ SOFTWARE.''',
         homepage: r'https://github.com/Milad-Akarie/auto_route_library',
         repository: null,
       ),
-      License(
+      const License(
         name: r'auto_size_text',
         license: r'''MIT License
 
@@ -406,7 +406,7 @@ SOFTWARE.
         homepage: r'https://github.com/leisim/auto_size_text',
         repository: null,
       ),
-      License(
+      const License(
         name: r'autoscale_tabbarview',
         license: r'''MIT License
 
@@ -432,7 +432,7 @@ SOFTWARE.
         homepage: r'https://github.com/shubhamhackz/autoscale_tabbarview',
         repository: r'https://github.com/shubhamhackz/autoscale_tabbarview',
       ),
-      License(
+      const License(
         name: r'badges',
         license: r'''MIT License
 
@@ -459,7 +459,7 @@ SOFTWARE.''',
         homepage: null,
         repository: r'https://github.com/yako-dev/flutter_badges',
       ),
-      License(
+      const License(
         name: r'bloc_concurrency',
         license: r'''The MIT License (MIT)
 Copyright (c) 2023 Felix Angelov
@@ -486,7 +486,7 @@ USE OR OTHER DEALINGS IN THE SOFTWARE.''',
         homepage: r'https://github.com/felangel/bloc',
         repository: r'https://github.com/felangel/bloc/tree/master/packages/bloc_concurrency',
       ),
-      License(
+      const License(
         name: r'bubble',
         license: r'''Copyright 2019 Dunaev Victor (nashol)
 
@@ -515,7 +515,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
         homepage: r'https://github.com/vi-k/bubble',
         repository: null,
       ),
-      License(
+      const License(
         name: r'build_runner',
         license: r'''Copyright 2016, the Dart project authors. 
 
@@ -549,7 +549,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
         homepage: null,
         repository: r'https://github.com/dart-lang/build/tree/master/build_runner',
       ),
-      License(
+      const License(
         name: r'cached_network_image',
         license: r'''
 The MIT License (MIT)
@@ -578,7 +578,7 @@ SOFTWARE.
         homepage: r'https://github.com/Baseflow/flutter_cached_network_image',
         repository: null,
       ),
-      License(
+      const License(
         name: r'circular_countdown_timer',
         license: r'''MIT License
 
@@ -605,7 +605,7 @@ SOFTWARE.''',
         homepage: r'https://github.com/MuhammadUsamaSiddiqui/circular_countdown_timer',
         repository: null,
       ),
-      License(
+      const License(
         name: r'collection',
         license: r'''Copyright 2015, the Dart project authors. 
 
@@ -639,7 +639,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
         homepage: null,
         repository: r'https://github.com/dart-lang/collection',
       ),
-      License(
+      const License(
         name: r'connectivity_plus',
         license: r'''Copyright 2017 The Chromium Authors. All rights reserved.
 
@@ -673,7 +673,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
         homepage: r'https://plus.fluttercommunity.dev/',
         repository: r'https://github.com/fluttercommunity/plus_plugins/tree/main/packages/connectivity_plus/connectivity_plus',
       ),
-      License(
+      const License(
         name: r'cupertino_icons',
         license: r'''The MIT License (MIT)
 
@@ -699,7 +699,7 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.''',
         homepage: null,
         repository: r'https://github.com/flutter/packages/tree/main/third_party/packages/cupertino_icons',
       ),
-      License(
+      const License(
         name: r'customer_io',
         license: r'''MIT License
 
@@ -726,125 +726,7 @@ SOFTWARE.''',
         homepage: r'https://customer.io',
         repository: r'https://github.com/customerio/customerio-flutter',
       ),
-      License(
-        name: r'dart_code_metrics',
-        license: r'''Business Source License 1.1
-
-Parameters
-
-Licensor:             Dart Code Checker team
-Licensed Work:        Dart Code Metrics
-                      The Licensed Work is (c) 2023 Dart Code Checker team.
-Additional Use Grant: You may make production use of the Licensed Work, provided you comply with the following conditions:
-
-(i) You may not prepare a derivative work based upon the Licensed Work and
-distribute or otherwise offer such derivative work, whether on a standalone
-basis or in combination with other products, applications, or services
-(including in any "as-a-service" offering, such as, by way of example, a
-software-as-a-service, database-as-a-service, or infrastructure-as-a-service
-offering, or any other offering based on a cloud computing or other type of
-hosted distribution model (collectively, "Hosted Offerings")), for a fee or
-otherwise on a commercial or other for-profit basis.
-
-(ii) You may not link the Licensed Work to, or otherwise include the Licensed
-Work in or with, any product, application, or service (including in any Hosted
-Offering) that is distributed or otherwise offered, whether on a standalone
-basis or in combination with other products, applications, or services for a fee
-or otherwise on a commercial or other for-profit basis. Condition (ii) shall not
-limit the generality of condition (i) above.
-
-Change Date:          2026-07-16
-
-Change License:       MIT
-
-For information about alternative licensing arrangements for the Software,
-please visit: <https://dcm.dev/pricing/>
-
-Notice
-
-The Business Source License (this document, or the "License") is not an Open
-Source license. However, the Licensed Work will eventually be made available
-under an Open Source License, as stated in this License.
-
-License text copyright (c) 2017 MariaDB Corporation Ab, All Rights Reserved.
-"Business Source License" is a trademark of MariaDB Corporation Ab.
-
------------------------------------------------------------------------------
-
-Business Source License 1.1
-
-Terms
-
-The Licensor hereby grants you the right to copy, modify, create derivative
-works, redistribute, and make non-production use of the Licensed Work. The
-Licensor may make an Additional Use Grant, above, permitting limited
-production use.
-
-Effective on the Change Date, or the fourth anniversary of the first publicly
-available distribution of a specific version of the Licensed Work under this
-License, whichever comes first, the Licensor hereby grants you rights under
-the terms of the Change License, and the rights granted in the paragraph
-above terminate.
-
-If your use of the Licensed Work does not comply with the requirements
-currently in effect as described in this License, you must purchase a
-commercial license from the Licensor, its affiliated entities, or authorized
-resellers, or you must refrain from using the Licensed Work.
-
-All copies of the original and modified Licensed Work, and derivative works
-of the Licensed Work, are subject to this License. This License applies
-separately for each version of the Licensed Work and the Change Date may vary
-for each version of the Licensed Work released by Licensor.
-
-You must conspicuously display this License on each original or modified copy
-of the Licensed Work. If you receive the Licensed Work in original or
-modified form from a third party, the terms and conditions set forth in this
-License apply to your use of that work.
-
-Any use of the Licensed Work in violation of this License will automatically
-terminate your rights under this License for the current and all other
-versions of the Licensed Work.
-
-This License does not grant you any right in any trademark or logo of
-Licensor or its affiliates (provided that you may use a trademark or logo of
-Licensor as expressly required by this License).
-
-TO THE EXTENT PERMITTED BY APPLICABLE LAW, THE LICENSED WORK IS PROVIDED ON
-AN "AS IS" BASIS. LICENSOR HEREBY DISCLAIMS ALL WARRANTIES AND CONDITIONS,
-EXPRESS OR IMPLIED, INCLUDING (WITHOUT LIMITATION) WARRANTIES OF
-MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE, NON-INFRINGEMENT, AND
-TITLE.
-
-MariaDB hereby grants you permission to use this License’s text to license
-your works, and to refer to it using the trademark "Business Source License",
-as long as you comply with the Covenants of Licensor below.
-
-Covenants of Licensor
-
-In consideration of the right to use this License’s text and the "Business
-Source License" name and trademark, Licensor covenants to MariaDB, and to all
-other recipients of the licensed work to be provided by Licensor:
-
-1. To specify as the Change License the GPL Version 2.0 or any later version,
-   or a license that is compatible with GPL Version 2.0 or a later version,
-   where "compatible" means that software provided under the Change License can
-   be included in a program with software provided under GPL Version 2.0 or a
-   later version. Licensor may specify additional Change Licenses without
-   limitation.
-
-2. To either: (a) specify an additional grant of rights to use that does not
-   impose any additional restriction on the right granted in this License, as
-   the Additional Use Grant; or (b) insert the text "None".
-
-3. To specify a Change Date.
-
-4. Not to modify this License in any other way.
-''',
-        version: r'^5.7.6',
-        homepage: r'https://dcm.dev/',
-        repository: r'https://github.com/dart-code-checker/dart-code-metrics',
-      ),
-      License(
+      const License(
         name: r'dart_code_metrics_presets',
         license: r'''MIT License
 
@@ -872,7 +754,7 @@ SOFTWARE.
         homepage: null,
         repository: r'https://github.com/CQLabs/dart-code-metrics-presets',
       ),
-      License(
+      const License(
         name: r'dart_jsonwebtoken',
         license: r'''MIT License
 
@@ -900,7 +782,7 @@ SOFTWARE.
         homepage: r'https://github.com/jonasroussel/dart_jsonwebtoken#readme',
         repository: r'https://github.com/jonasroussel/dart_jsonwebtoken',
       ),
-      License(
+      const License(
         name: r'dartz',
         license: r'''The MIT License (MIT)
 
@@ -928,41 +810,41 @@ SOFTWARE.
         homepage: r'https://github.com/spebbe/dartz',
         repository: null,
       ),
-      License(
+      const License(
         name: r'device_info_plus',
-        license: r'''// Copyright 2017 The Chromium Authors. All rights reserved.
-//
-// Redistribution and use in source and binary forms, with or without
-// modification, are permitted provided that the following conditions are
-// met:
-//
-//    * Redistributions of source code must retain the above copyright
-// notice, this list of conditions and the following disclaimer.
-//    * Redistributions in binary form must reproduce the above
-// copyright notice, this list of conditions and the following disclaimer
-// in the documentation and/or other materials provided with the
-// distribution.
-//    * Neither the name of Google Inc. nor the names of its
-// contributors may be used to endorse or promote products derived from
-// this software without specific prior written permission.
-//
-// THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
-// "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
-// LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
-// A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT
-// OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
-// SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
-// LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
-// DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
-// THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
-// (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
-// OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+        license: r'''Copyright 2017 The Chromium Authors. All rights reserved.
+
+Redistribution and use in source and binary forms, with or without
+modification, are permitted provided that the following conditions are
+met:
+
+   * Redistributions of source code must retain the above copyright
+notice, this list of conditions and the following disclaimer.
+   * Redistributions in binary form must reproduce the above
+copyright notice, this list of conditions and the following disclaimer
+in the documentation and/or other materials provided with the
+distribution.
+   * Neither the name of Google Inc. nor the names of its
+contributors may be used to endorse or promote products derived from
+this software without specific prior written permission.
+
+THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
+"AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
+LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
+A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT
+OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
+LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
+DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
+THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+(INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 ''',
-        version: r'8.1.0',
+        version: r'10.1.0',
         homepage: r'https://plus.fluttercommunity.dev/',
-        repository: r'https://github.com/fluttercommunity/plus_plugins/tree/main/packages/device_info_plus',
+        repository: r'https://github.com/fluttercommunity/plus_plugins/tree/main/packages/device_info_plus/device_info_plus',
       ),
-      License(
+      const License(
         name: r'dio',
         license: r'''MIT License
 
@@ -990,7 +872,7 @@ SOFTWARE.''',
         homepage: r'https://github.com/cfug/dio',
         repository: r'https://github.com/cfug/dio/blob/main/dio',
       ),
-      License(
+      const License(
         name: r'easy_localization',
         license: r'''MIT License
 
@@ -1017,7 +899,7 @@ SOFTWARE.''',
         homepage: r'https://github.com/aissat/easy_localization',
         repository: null,
       ),
-      License(
+      const License(
         name: r'email_validator',
         license: r'''MIT License
 
@@ -1045,7 +927,7 @@ SOFTWARE.
         homepage: r'https://github.com/fredeil/email-validator.dart',
         repository: null,
       ),
-      License(
+      const License(
         name: r'fast_immutable_collections',
         license: r'''Copyright 2020 by Marcelo Glasberg and Philippe Fanaro
 
@@ -1072,7 +954,7 @@ ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSI
         homepage: r'https://github.com/marcglasberg/fast_immutable_collections',
         repository: null,
       ),
-      License(
+      const License(
         name: r'firebase_analytics',
         license: r'''Copyright 2017, the Chromium project authors. All rights reserved.
 Redistribution and use in source and binary forms, with or without
@@ -1104,7 +986,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.''',
         homepage: r'https://firebase.google.com/docs/analytics',
         repository: r'https://github.com/firebase/flutterfire/tree/master/packages/firebase_analytics/firebase_analytics',
       ),
-      License(
+      const License(
         name: r'firebase_core',
         license: r'''// Copyright 2017 The Chromium Authors. All rights reserved.
 //
@@ -1137,7 +1019,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.''',
         homepage: r'https://firebase.google.com/docs/flutter/setup',
         repository: r'https://github.com/firebase/flutterfire/tree/master/packages/firebase_core/firebase_core',
       ),
-      License(
+      const License(
         name: r'firebase_crashlytics',
         license: r'''// Copyright 2019 The Chromium Authors. All rights reserved.
 //
@@ -1170,7 +1052,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.''',
         homepage: r'https://firebase.google.com/docs/crashlytics',
         repository: r'https://github.com/firebase/flutterfire/tree/master/packages/firebase_crashlytics/firebase_crashlytics',
       ),
-      License(
+      const License(
         name: r'firebase_messaging',
         license: r'''// Copyright 2017 The Chromium Authors. All rights reserved.
 //
@@ -1203,7 +1085,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.''',
         homepage: r'https://firebase.google.com/docs/cloud-messaging',
         repository: r'https://github.com/firebase/flutterfire/tree/master/packages/firebase_messaging/firebase_messaging',
       ),
-      License(
+      const License(
         name: r'firebase_performance',
         license: r'''// Copyright 2018 The Chromium Authors. All rights reserved.
 //
@@ -1237,7 +1119,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.''',
         homepage: r'https://firebase.google.com/docs/perf-mon',
         repository: r'https://github.com/firebase/flutterfire/tree/master/packages/firebase_performance/firebase_performance',
       ),
-      License(
+      const License(
         name: r'flash',
         license: r'''                                 Apache License
                            Version 2.0, January 2004
@@ -1444,7 +1326,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.''',
         homepage: r'https://github.com/sososdk/flash',
         repository: null,
       ),
-      License(
+      const License(
         name: r'flutter',
         license: r'''Copyright 2014 The Flutter Authors. All rights reserved.
 
@@ -1476,7 +1358,43 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
         homepage: r'https://flutter.dev/',
         repository: r'https://github.com/flutter/flutter',
       ),
-      License(
+      const License(
+        name: r'flutter_animate',
+        license: r'''BSD 3-Clause License
+
+Copyright (c) 2022, Grant Skinner
+All rights reserved.
+
+Redistribution and use in source and binary forms, with or without
+modification, are permitted provided that the following conditions are met:
+
+1. Redistributions of source code must retain the above copyright notice, this
+   list of conditions and the following disclaimer.
+
+2. Redistributions in binary form must reproduce the above copyright notice,
+   this list of conditions and the following disclaimer in the documentation
+   and/or other materials provided with the distribution.
+
+3. Neither the name of the copyright holder nor the names of its
+   contributors may be used to endorse or promote products derived from
+   this software without specific prior written permission.
+
+THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE
+FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
+CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
+OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+''',
+        version: r'^4.5.0',
+        homepage: null,
+        repository: r'https://github.com/gskinner/flutter_animate',
+      ),
+      const License(
         name: r'flutter_bloc',
         license: r'''The MIT License (MIT)
 Copyright (c) 2018 Felix Angelov
@@ -1503,7 +1421,7 @@ USE OR OTHER DEALINGS IN THE SOFTWARE.''',
         homepage: r'https://bloclibrary.dev',
         repository: r'https://github.com/felangel/bloc/tree/master/packages/flutter_bloc',
       ),
-      License(
+      const License(
         name: r'flutter_chat_ui',
         license: r'''                                 Apache License
                            Version 2.0, January 2004
@@ -1711,7 +1629,7 @@ USE OR OTHER DEALINGS IN THE SOFTWARE.''',
         homepage: r'https://flyer.chat',
         repository: r'https://github.com/flyerhq/flutter_chat_ui',
       ),
-      License(
+      const License(
         name: r'flutter_dotenv',
         license: r'''The MIT License (MIT)
 
@@ -1739,7 +1657,7 @@ SOFTWARE.
         homepage: r'https://github.com/java-james/flutter_dotenv',
         repository: null,
       ),
-      License(
+      const License(
         name: r'flutter_lints',
         license: r'''Copyright 2013 The Flutter Authors. All rights reserved.
 
@@ -1771,7 +1689,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
         homepage: null,
         repository: r'https://github.com/flutter/packages/tree/main/packages/flutter_lints',
       ),
-      License(
+      const License(
         name: r'flutter_native_splash',
         license: r'''MIT License
 
@@ -1799,7 +1717,7 @@ SOFTWARE.
         homepage: null,
         repository: r'https://github.com/jonbhanson/flutter_native_splash',
       ),
-      License(
+      const License(
         name: r'flutter_polygon',
         license: r'''                    GNU GENERAL PUBLIC LICENSE
                        Version 3, 29 June 2007
@@ -2479,7 +2397,7 @@ Public License instead of this License.  But first, please read
         homepage: r'https://github.com/wietsebuseyne/flutter_polygon',
         repository: null,
       ),
-      License(
+      const License(
         name: r'flutter_secure_storage',
         license: r'''BSD 3-Clause License
 
@@ -2514,7 +2432,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.''',
         homepage: null,
         repository: r'https://github.com/mogol/flutter_secure_storage/tree/develop/flutter_secure_storage',
       ),
-      License(
+      const License(
         name: r'flutter_svg',
         license: r'''Copyright (c) 2018 Dan Field
 
@@ -2539,7 +2457,7 @@ SOFTWARE.''',
         homepage: null,
         repository: r'https://github.com/dnfield/flutter_svg/tree/master/packages/flutter_svg',
       ),
-      License(
+      const License(
         name: r'flutter_test',
         license: r'''Copyright 2014 The Flutter Authors. All rights reserved.
 
@@ -2571,7 +2489,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
         homepage: r'https://flutter.dev/',
         repository: r'https://github.com/flutter/flutter',
       ),
-      License(
+      const License(
         name: r'flutter_udid',
         license: r'''MIT License
 
@@ -2599,7 +2517,7 @@ SOFTWARE.
         homepage: r'https://github.com/GigaDroid/flutter_udid',
         repository: null,
       ),
-      License(
+      const License(
         name: r'flutter_widget_from_html',
         license: r'''MIT License
 
@@ -2627,7 +2545,7 @@ SOFTWARE.
         homepage: r'https://github.com/daohoangson/flutter_widget_from_html',
         repository: null,
       ),
-      License(
+      const License(
         name: r'flutter_zoom_videosdk',
         license: r'''## License
 
@@ -2636,7 +2554,7 @@ Use of this SDK is subject to our [License and Terms of Use](https://explore.zoo
         homepage: r'https://developers.zoom.us/docs/video-sdk/flutter/',
         repository: null,
       ),
-      License(
+      const License(
         name: r'freezed',
         license: r'''MIT License
 
@@ -2663,7 +2581,7 @@ SOFTWARE.''',
         homepage: null,
         repository: r'https://github.com/rrousselGit/freezed',
       ),
-      License(
+      const License(
         name: r'freezed_annotation',
         license: r'''MIT License
 
@@ -2690,7 +2608,7 @@ SOFTWARE.''',
         homepage: null,
         repository: r'https://github.com/rrousselGit/freezed',
       ),
-      License(
+      const License(
         name: r'get_it',
         license: r'''MIT License
 
@@ -2717,7 +2635,7 @@ SOFTWARE.''',
         homepage: r'https://github.com/fluttercommunity/get_it',
         repository: null,
       ),
-      License(
+      const License(
         name: r'hydrated_bloc',
         license: r'''The MIT License (MIT)
 Copyright (c) 2023 Felix Angelov
@@ -2744,7 +2662,7 @@ USE OR OTHER DEALINGS IN THE SOFTWARE.''',
         homepage: r'https://bloclibrary.dev',
         repository: r'https://github.com/felangel/bloc/tree/master/packages/hydrated_bloc',
       ),
-      License(
+      const License(
         name: r'image_picker',
         license: r'''image_picker
 
@@ -2982,7 +2900,7 @@ aFileChooser
         homepage: null,
         repository: r'https://github.com/flutter/packages/tree/main/packages/image_picker/image_picker',
       ),
-      License(
+      const License(
         name: r'in_app_purchase',
         license: r'''Copyright 2013 The Flutter Authors. All rights reserved.
 
@@ -3014,7 +2932,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
         homepage: null,
         repository: r'https://github.com/flutter/packages/tree/main/packages/in_app_purchase/in_app_purchase',
       ),
-      License(
+      const License(
         name: r'injectable',
         license: r'''MIT License
 
@@ -3041,7 +2959,7 @@ SOFTWARE.''',
         homepage: r'https://github.com/Milad-Akarie/injectable',
         repository: null,
       ),
-      License(
+      const License(
         name: r'injectable_generator',
         license: r'''MIT License
 
@@ -3068,7 +2986,7 @@ SOFTWARE.''',
         homepage: r'https://github.com/Milad-Akarie/injectable',
         repository: null,
       ),
-      License(
+      const License(
         name: r'intl',
         license: r'''Copyright 2013, the Dart project authors.
 
@@ -3102,7 +3020,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
         homepage: null,
         repository: r'https://github.com/dart-lang/i18n/tree/main/pkgs/intl',
       ),
-      License(
+      const License(
         name: r'json_annotation',
         license: r'''Copyright 2017, the Dart project authors. All rights reserved.
 Redistribution and use in source and binary forms, with or without
@@ -3135,7 +3053,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
         homepage: null,
         repository: r'https://github.com/google/json_serializable.dart/tree/master/json_annotation',
       ),
-      License(
+      const License(
         name: r'json_serializable',
         license: r'''Copyright 2017, the Dart project authors. All rights reserved.
 Redistribution and use in source and binary forms, with or without
@@ -3168,7 +3086,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
         homepage: null,
         repository: r'https://github.com/google/json_serializable.dart/tree/master/json_serializable',
       ),
-      License(
+      const License(
         name: r'just_audio',
         license: r'''MIT License
 
@@ -3404,7 +3322,7 @@ License, Version 2.0.
         homepage: null,
         repository: r'https://github.com/ryanheise/just_audio/tree/minor/just_audio',
       ),
-      License(
+      const License(
         name: r'just_audio_background',
         license: r'''MIT License
 
@@ -3432,7 +3350,7 @@ SOFTWARE.
         homepage: r'https://github.com/ryanheise/just_audio/tree/master/just_audio_background',
         repository: null,
       ),
-      License(
+      const License(
         name: r'license_generator',
         license: r'''MIT License
 
@@ -3456,11 +3374,11 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 ''',
-        version: r'^1.0.5',
+        version: r'^2.0.0',
         homepage: r'https://github.com/icapps/flutter-icapps-license',
         repository: null,
       ),
-      License(
+      const License(
         name: r'lint',
         license: r'''
                                  Apache License
@@ -3668,7 +3586,35 @@ SOFTWARE.
         homepage: null,
         repository: r'https://github.com/passsy/dart-lint',
       ),
-      License(
+      const License(
+        name: r'lottie',
+        license: r'''MIT License
+
+Copyright (c) [year] [fullname]
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+''',
+        version: r'^3.1.2',
+        homepage: null,
+        repository: r'https://github.com/xvrh/lottie-flutter',
+      ),
+      const License(
         name: r'mime',
         license: r'''Copyright 2015, the Dart project authors. 
 
@@ -3702,21 +3648,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
         homepage: null,
         repository: r'https://github.com/dart-lang/mime',
       ),
-      License(
-        name: r'mixpanel_analytics',
-        license: r'''Copyright 2019 Alpha Innovation
-
-Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
-''',
-        version: r'2.1.1',
-        homepage: r'https://github.com/Alpha-health/mixpanel_analytics',
-        repository: r'https://github.com/Alpha-health/mixpanel_analytics',
-      ),
-      License(
+      const License(
         name: r'mixpanel_flutter',
         license: r'''Copyright 2022 Mixpanel, Inc.
 
@@ -3902,7 +3834,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
         homepage: r'https://mixpanel.com',
         repository: r'https://github.com/mixpanel/mixpanel-flutter',
       ),
-      License(
+      const License(
         name: r'moment_dart',
         license: r'''MIT License
 
@@ -3930,7 +3862,7 @@ SOFTWARE.
         homepage: r'https://github.com/sadespresso/moment_dart',
         repository: null,
       ),
-      License(
+      const License(
         name: r'ntp',
         license: r'''Copyright (c) 2018, Luka Knezic.
 All rights reserved.
@@ -3961,7 +3893,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
         homepage: r'https://github.com/knezzz/ntp',
         repository: null,
       ),
-      License(
+      const License(
         name: r'open_filex',
         license: r'''Copyright 2018 crazecoder. All rights reserved.
 
@@ -3994,7 +3926,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.''',
         homepage: r'https://github.com/javaherisaber/open_file',
         repository: null,
       ),
-      License(
+      const License(
         name: r'package_info_plus',
         license: r'''Copyright 2017 The Chromium Authors. All rights reserved.
 
@@ -4024,11 +3956,11 @@ THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
 (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 ''',
-        version: r'^3.1.0',
+        version: r'^8.0.0',
         homepage: r'https://plus.fluttercommunity.dev/',
-        repository: r'https://github.com/fluttercommunity/plus_plugins/tree/main/packages/',
+        repository: r'https://github.com/fluttercommunity/plus_plugins/tree/main/packages/package_info_plus/package_info_plus',
       ),
-      License(
+      const License(
         name: r'path_provider',
         license: r'''Copyright 2013 The Flutter Authors. All rights reserved.
 
@@ -4060,7 +3992,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
         homepage: null,
         repository: r'https://github.com/flutter/packages/tree/main/packages/path_provider/path_provider',
       ),
-      License(
+      const License(
         name: r'permission_handler',
         license: r'''MIT License
 
@@ -4088,7 +4020,7 @@ SOFTWARE.
         homepage: null,
         repository: r'https://github.com/baseflow/flutter-permission-handler',
       ),
-      License(
+      const License(
         name: r'pretty_dio_logger',
         license: r'''
 MIT License
@@ -4117,7 +4049,7 @@ SOFTWARE.
         homepage: r'https://github.com/Milad-Akarie/pretty_dio_logger',
         repository: null,
       ),
-      License(
+      const License(
         name: r'provider',
         license: r'''MIT License
 
@@ -4144,7 +4076,7 @@ SOFTWARE.''',
         homepage: null,
         repository: r'https://github.com/rrousselGit/provider',
       ),
-      License(
+      const License(
         name: r'pubspec_dependency_sorter',
         license: r'''Copyright (c) 2022, Danche Ng'ang'a.
 All rights reserved.
@@ -4175,7 +4107,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
         homepage: r'https://github.com/danchengash/pubspec-dependency-sorter',
         repository: null,
       ),
-      License(
+      const License(
         name: r'qr_code_scanner',
         license: r'''Copyright 2018 Julius Canute
 
@@ -4190,7 +4122,7 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
         homepage: r'https://juliuscanute.com',
         repository: r'https://github.com/juliuscanute/qr_code_scanner',
       ),
-      License(
+      const License(
         name: r'rive',
         license: r'''MIT License
 
@@ -4217,7 +4149,7 @@ SOFTWARE.''',
         homepage: r'https://rive.app',
         repository: r'https://github.com/rive-app/rive-flutter',
       ),
-      License(
+      const License(
         name: r'rxdart',
         license: r'''Licensed under the Apache License, Version 2.0 (the "License"); you
 may not use this file except in compliance with the License. You may
@@ -4234,7 +4166,7 @@ and limitations under the License.''',
         homepage: null,
         repository: r'https://github.com/ReactiveX/rxdart',
       ),
-      License(
+      const License(
         name: r'scrollable_positioned_list',
         license: r'''Copyright 2018 the Dart project authors, Inc. All rights reserved.
 Redistribution and use in source and binary forms, with or without
@@ -4266,7 +4198,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.''',
         homepage: r'https://github.com/google/flutter.widgets/tree/master/packages/scrollable_positioned_list',
         repository: null,
       ),
-      License(
+      const License(
         name: r'shared_preferences',
         license: r'''Copyright 2013 The Flutter Authors. All rights reserved.
 
@@ -4298,7 +4230,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
         homepage: null,
         repository: r'https://github.com/flutter/packages/tree/main/packages/shared_preferences/shared_preferences',
       ),
-      License(
+      const License(
         name: r'shimmer',
         license: r'''Copyright 2013, the Dart project authors. All rights reserved.
 Redistribution and use in source and binary forms, with or without
@@ -4331,7 +4263,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
         homepage: r'https://github.com/hnvn/flutter_shimmer',
         repository: r'https://github.com/hnvn/flutter_shimmer',
       ),
-      License(
+      const License(
         name: r'socket_io_client',
         license: r'''MIT License
 -----------
@@ -4361,7 +4293,7 @@ OTHER DEALINGS IN THE SOFTWARE.''',
         homepage: r'https://www.zkoss.org',
         repository: r'https://github.com/rikulo/socket.io-client-dart',
       ),
-      License(
+      const License(
         name: r'test',
         license: r'''Copyright 2014, the Dart project authors. 
 
@@ -4395,7 +4327,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
         homepage: null,
         repository: r'https://github.com/dart-lang/test/tree/master/pkgs/test',
       ),
-      License(
+      const License(
         name: r'timezone',
         license: r'''Copyright (c) 2014, timezone project authors.
 All rights reserved.
@@ -4423,7 +4355,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.''',
         homepage: null,
         repository: r'https://github.com/srawlins/timezone',
       ),
-      License(
+      const License(
         name: r'url_launcher',
         license: r'''Copyright 2013 The Flutter Authors. All rights reserved.
 
@@ -4455,7 +4387,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
         homepage: null,
         repository: r'https://github.com/flutter/packages/tree/main/packages/url_launcher/url_launcher',
       ),
-      License(
+      const License(
         name: r'uuid',
         license: r'''Copyright (c) 2021 Yulian Kuncheff
 
@@ -4468,7 +4400,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
         homepage: r'https://github.com/Daegalus/dart-uuid',
         repository: null,
       ),
-      License(
+      const License(
         name: r'video_player',
         license: r'''Copyright 2013 The Flutter Authors. All rights reserved.
 
@@ -4500,11 +4432,11 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
         homepage: null,
         repository: r'https://github.com/flutter/packages/tree/main/packages/video_player/video_player',
       ),
-      License(
-        name: r'wakelock',
+      const License(
+        name: r'wakelock_plus',
         license: r'''BSD 3-Clause License
 
-Copyright (c) 2020-2022, creativecreatorormaybenot
+Copyright (c) 2020-2023, creativecreatorormaybenot
 All rights reserved.
 
 Redistribution and use in source and binary forms, with or without
@@ -4530,11 +4462,10 @@ DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
 SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
 CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
 OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
-OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
-''',
-        version: r'^0.6.2',
+OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.''',
+        version: r'^1.2.5',
         homepage: null,
-        repository: r'https://github.com/creativecreatorormaybenot/wakelock/tree/main/wakelock',
+        repository: r'https://github.com/fluttercommunity/wakelock_plus/tree/main/wakelock_plus',
       ),
     ];
   }

@@ -22,7 +22,6 @@ class FoodItem with _$FoodItem {
 
   double get calorieDensity {
     num? servingAmount = serving.metricServingAmount;
-    if (servingAmount == null) return 1.0;
 
     servingAmount = serving.metricServingUnit == 'g' || serving.metricServingUnit == 'ml'
         ? servingAmount

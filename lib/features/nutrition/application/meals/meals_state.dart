@@ -152,7 +152,6 @@ class MealsStateData with _$MealsStateData, NutritionUtils {
   }
 
   double get selectedDayMealProteinDegreeSum {
-    //
     if (meals.isEmpty) return 0;
 
     double caloriesSum = 0;
@@ -238,7 +237,7 @@ class MealsStateData with _$MealsStateData, NutritionUtils {
 
     if (currentMeal == null) return false;
 
-    return currentMeal.mealItems.any((e) => e.type == 'recipe' || e.type == 'dish');
+    return currentMeal.mealItems.any((e) => e.type == MealItemType.recipe || e.type == MealItemType.dish);
   }
 
   double get currentMealProteinDegree {

@@ -22,6 +22,7 @@ import 'package:loopcare_frontend/features/physical_activities/presentation/pref
 import 'package:loopcare_frontend/features/physical_activities/presentation/preferences/widgets/flexibility_chips.dart';
 import 'package:loopcare_frontend/injection.dart';
 
+@RoutePage()
 class PhysicalActivitiesActivityTypePage extends StatefulWidget {
   final bool profileInvoke;
 
@@ -45,7 +46,7 @@ class _PhysicalActivitiesActivityTypePageState extends State<PhysicalActivitiesA
 
   void _onUpdateHandler(PhysicalActivitiesPreferencesState state) {
     if (widget.profileInvoke) {
-      context.router.pop();
+      context.router.maybePop();
       return;
     }
 
@@ -54,9 +55,8 @@ class _PhysicalActivitiesActivityTypePageState extends State<PhysicalActivitiesA
     }
   }
 
-  void _onNext() => context
-        .read<PhysicalActivitiesPreferencesBloc>()
-        .add(const PhysicalActivitiesPreferencesEvent.savePreferences());
+  void _onNext() =>
+      context.read<PhysicalActivitiesPreferencesBloc>().add(const PhysicalActivitiesPreferencesEvent.savePreferences());
 
   @override
   Widget build(BuildContext context) {
@@ -88,9 +88,7 @@ class _PhysicalActivitiesActivityTypePageState extends State<PhysicalActivitiesA
                         style: context.textTheme.displayMedium,
                       ),
                       const SizedBox(height: 28.0),
-                      widget.profileInvoke
-                          ? const ActivityTypeChips.coral()
-                          : const ActivityTypeChips.green(),
+                      widget.profileInvoke ? const ActivityTypeChips.coral() : const ActivityTypeChips.green(),
                       const SizedBox(height: 28.0),
                       CustomText.w400(
                         LocalizedTexts.youCanAlsoOptionally.tr(),

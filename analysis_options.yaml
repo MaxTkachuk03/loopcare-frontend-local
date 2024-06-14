@@ -9,7 +9,13 @@
 # packages, and plugins designed to encourage good coding practices.
 include: package:flutter_lints/flutter.yaml
 analyzer:
-  exclude: [build/**, lib/**.freezed.dart, lib/**.g.dart, local_plugins]
+  exclude: [
+    build/**,
+    lib/**.freezed.dart,
+    lib/**.g.dart,
+    local_plugins,
+    license_dependencies.dart
+  ]
 
 linter:
   # The lint rules applied to this project can be customized in the
@@ -24,21 +30,10 @@ linter:
   # `// ignore_for_file: name_of_lint` syntax on the line or in the file
   # producing the lint.
   rules:
-    # avoid_print: false  # Uncomment to disable the `avoid_print` rule
-    # prefer_single_quotes: true  # Uncomment to enable the `prefer_single_quotes` rule
-
-# Additional information about this file can be found at
-# https://dart.dev/guides/language/analysis-options
-
-
+    sort_pub_dependencies: true
+    directives_ordering: false
 
 # include: package:lint/analysis_options.yaml
-
-# linter:
-#   rules:
-#     sort_pub_dependencies: true
-#     directives_ordering: false
-
 
 # analyzer:
 #   strong-mode:

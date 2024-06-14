@@ -25,6 +25,7 @@ import 'package:loopcare_frontend/core/presentation/widgets/unit_tabs/unit_field
 import 'package:loopcare_frontend/features/nutrition/application/dashboard_weight/dashboard_weight_bloc.dart';
 import 'package:loopcare_frontend/features/onboarding/utils/weight_conversion_utils.dart';
 
+@RoutePage()
 class LogWeightPage extends StatefulWidget {
   final DateTime selectedDay;
 
@@ -106,7 +107,7 @@ class _LogWeightPageState extends State<LogWeightPage> {
       },
     );
 
-    context.router.pop();
+    context.router.maybePop();
   }
 
   bool get _isToday => widget.selectedDay.midnightTime == DateTime.now().midnightTime;

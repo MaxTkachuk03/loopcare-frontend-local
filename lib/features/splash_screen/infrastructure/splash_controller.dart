@@ -31,6 +31,14 @@ class SplashController {
 
   bool get isAuthorized => _storage.account != null;
 
+  bool get needUpdatePrivacyPolicy =>
+      (authenticationBloc.state.data.account?.privacyPolicyVersion ?? 1)
+          < appUpdateBloc.state.data.privacyPolicyVersion;
+
+  bool get needUpdateTermsAndConditions =>
+      (authenticationBloc.state.data.account?.termsAndConditionsVersion ?? 1)
+          < appUpdateBloc.state.data.termsAndConditionsVersion;
+
   void initApp() {
     _getVersion();
     _connectSockets();
@@ -59,8 +67,14 @@ class SplashController {
 
   void _getVersion() => appUpdateBloc.add(const AppUpdateEvent.getVersion());
 
-
   void _connectSockets() => authenticationBloc.add(const AuthenticationEvent.connectSockets());
+
+  void updatePolicy() => authenticationBloc.add(
+        AuthenticationEvent.updatePolicy(
+          privacyPolicyVersion: appUpdateBloc.state.data.privacyPolicyVersion,
+          termsAndConditionsVersion: appUpdateBloc.state.data.termsAndConditionsVersion,
+        ),
+      );
 
   void getAccount() => authenticationBloc.add(const AuthenticationEvent.getAccount());
 

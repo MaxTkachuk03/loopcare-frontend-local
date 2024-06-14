@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:auto_route/annotations.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -15,6 +16,7 @@ import 'package:loopcare_frontend/core/presentation/widgets/bullet_list_item.dar
 import 'package:loopcare_frontend/features/nutrition/presentation/barcode_scanner/widgets/info/info_widget.dart';
 import 'package:qr_code_scanner/qr_code_scanner.dart';
 
+@RoutePage()
 class BarcodeScannerPage extends StatefulWidget {
   const BarcodeScannerPage({super.key});
 
