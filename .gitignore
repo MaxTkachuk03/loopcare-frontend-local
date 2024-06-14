@@ -71,3 +71,4 @@ app.*.map.json
 /env.stag
 /local_plugins/advertising_id/example/
 /fastlane/*.p8
+/fastlane/report.xml
