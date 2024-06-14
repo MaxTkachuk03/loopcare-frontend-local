@@ -79,6 +79,16 @@ platform :ios do
 end
 
 platform :android do
+
+  desc "Submit build to play store"
+  lane :play_store_distribution do
+    upload_to_play_store(
+      json_key: File.join(Dir.pwd, "leanonme-prod-d047bc57140e.json" ),
+      package_name: "com.loopcare.leanonme.app",
+      aab: "build/app/outputs/bundle/prodRelease/app-prod-release.aab"
+    )
+  end
+
   desc "Submit android build to Firebase AppDistribution"
   lane :firebase_distribution do
 

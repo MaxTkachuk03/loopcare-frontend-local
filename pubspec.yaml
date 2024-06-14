@@ -150,6 +150,8 @@ scripts:
   testflight:
     uat: "bundle exec fastlane ios testflight_distribution --env uat"
     prod: "bundle exec fastlane ios testflight_distribution --env prod"
+  playstore:
+    prod: "bundle exec fastlane android play_store_distribution --env prod"
   firebase:
     ios:
       dev: "bundle exec fastlane ios firebase_distribution --env dev"

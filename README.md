@@ -27,8 +27,9 @@ Follow these steps to set up a project:
 1. Install fastlane to your local machine, the simplest way to do it - homebrew command `brew install fastlane`. For another possible ways check the official installation guide [fastlane getting started](https://docs.fastlane.tools/getting-started/ios/setup/)
 2. Setup environment variables. Go to `fastlane` folder in the project root directory and create files `.env.dev`, `.env.stag`, `.env.uat` and `.env.prod`.You can find env file variable values in the project [fastlane variables](https://loopcare.atlassian.net/wiki/spaces/LOOPCARE/pages/455147521/Fastlane+environment+variables). To get `FIREBASE_CLI_TOKEN` variable, you need to login to firebase account, check the [link](https://firebase.google.com/docs/cli#cli-ci-systems)
 3. For testflight app distribution with script you need an App Store Connect API key [download key](https://loopcare.atlassian.net/wiki/spaces/LOOPCARE/pages/454230019/App+Store+Connect+API+key)
-4. Put the key to the fastlane folder
-5. You're ready to run fastlane scripts
+4. For google play store you need google developer API key [download](https://loopcare.atlassian.net/wiki/spaces/LOOPCARE/pages/463929345/Google+play+store+developer+key)
+5. Put both keys to the fastlane root folder
+6. You're ready to run fastlane scripts
 
 ## Setup RPS(Run Pubspec Script)
 You can run fastlane deploy scripts from the `pubspec.yaml` scripts section, to do so first install rps:
@@ -48,6 +49,8 @@ You can run fastlane deploy scripts from the `pubspec.yaml` scripts section, to 
 
 - `rps testflight uat`
 - `rps testflight prod`
+
+- `rps playstore prod`
 
 ### Application architecture
 

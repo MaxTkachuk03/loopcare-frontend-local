@@ -13,17 +13,6 @@ For _fastlane_ installation instructions, see [Installing _fastlane_](https://do
 
 # Available Actions
 
-### send_message_to_slack
-
-```sh
-[bundle exec] fastlane send_message_to_slack
-```
-
-Send message to slack
-
-----
-
-
 ## iOS
 
 ### ios testflight_distribution
@@ -46,6 +35,14 @@ Submit ios build to Firebase AppDistribution
 
 
 ## Android
+
+### android play_store_distribution
+
+```sh
+[bundle exec] fastlane android play_store_distribution
+```
+
+Submit build to play store
 
 ### android firebase_distribution
 
