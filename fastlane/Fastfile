@@ -20,7 +20,7 @@ build_type = env == 'prod' ? "AAB" : "APK"
 build_folder = env == 'prod' ? "bundle/prodRelease" : "flutter-apk"
 
 desc "Send message to slack"
-lane :send_message_to_slack do
+private_lane :send_message_to_slack do
   
   release_hash= Actions.lane_context[SharedValues::FIREBASE_APP_DISTRO_RELEASE]
 
@@ -29,7 +29,7 @@ lane :send_message_to_slack do
   download_link = release_hash[:firebaseConsoleUri]
 
   slack(
-    message: "New #{env} build version #{version}:#{build_version} is available by link #{download_link}",
+    message: "<@U04NE4SPK71> <@U062QDH31TK> new #{env} build version #{version}:#{build_version} is available by link #{download_link}",
     slack_url: ENV["SLACK_URL"],
     default_payloads: ["git_branch", "git_author"]
   )
@@ -96,7 +96,7 @@ end
 
 after_all do |lane|
   if lane == :firebase_distribution
-    send_message_to_slack  
+    send_message_to_slack
   end
 end
 
