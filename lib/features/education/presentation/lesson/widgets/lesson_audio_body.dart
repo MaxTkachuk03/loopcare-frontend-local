@@ -148,7 +148,11 @@ class _LessonAudioBodyState extends State<LessonAudioBody> {
                             if (state.data.currentPage.content.audioFilePath.isNotEmpty)
                               AudioBlock(
                                 url: state.data.currentPage.content.audioFilePath,
-                                audioPreviewImage: context.read<EducationProgramBloc>().state.data.getLessonCardImage(state.data.lessonId),
+                                audioPreviewImage: context
+                                    .read<EducationProgramBloc>()
+                                    .state
+                                    .data
+                                    .getLessonCardImage(state.data.lessonId),
                                 duration: state.data.lessonDuration,
                                 title: state.data.lessonTitle,
                                 controller: _subtitleController,
