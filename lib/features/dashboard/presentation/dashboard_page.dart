@@ -79,13 +79,14 @@ class _DashboardPageState extends State<DashboardPage> with WidgetsBindingObserv
     context.read<MoodBloc>().add(
           MoodEvent.getMoods(
             _selectedDay.utsIsoStringWeekBeforeDateWithMidnightTime,
-            DateTime.now().utcIsoStringFormat,
+            DateTime.now().toIso8601String(),
           ),
         );
 
     context.read<MealsBloc>()
       ..add(MealsEvent.setCurrentDate(_selectedDay))
-      ..add(MealsEvent.fetchMeals(startDate: _selectedDay.subtract(const Duration(days: 8)), endDate: _selectedDay));
+      ..add(MealsEvent.fetchMeals(
+          startDate: _selectedDay.subtract(const Duration(days: 8)), endDate: _selectedDay));
 
     context.read<MindBloc>().add(const MindEvent.init());
 
@@ -100,7 +101,8 @@ class _DashboardPageState extends State<DashboardPage> with WidgetsBindingObserv
 
   void updateDashboardData(AuthenticationState state) {
     context.read<DashboardWeightBloc>().add(
-          DashboardWeightEvent.fetchWeights(_selectedDay.utsIsoStringWeekBeforeDateWithMidnightTime),
+          DashboardWeightEvent.fetchWeights(
+              _selectedDay.utsIsoStringWeekBeforeDateWithMidnightTime),
         );
 
     context.read<DashboardEducationBloc>().add(
@@ -146,7 +148,9 @@ class _DashboardPageState extends State<DashboardPage> with WidgetsBindingObserv
       ..add(MealsEvent.setCurrentDate(day))
       ..add(MealsEvent.fetchMeals(startDate: day, endDate: day));
     context.read<MoodBloc>().add(MoodEvent.setDate(day));
-    context.read<DashboardEducationBloc>().add(DashboardEducationEvent.getDashboardLessons(currentDate: day));
+    context
+        .read<DashboardEducationBloc>()
+        .add(DashboardEducationEvent.getDashboardLessons(currentDate: day));
     context.read<BmrBloc>().add(BmrEvent.getBmr(date: day));
 
     if (context.read<AuthenticationBloc>().state.data.isAssignmentsUnlocked) {
@@ -198,7 +202,8 @@ class _DashboardPageState extends State<DashboardPage> with WidgetsBindingObserv
           listener: _accountListener,
         ),
         BlocListener<DashboardWeightBloc, DashboardWeightState>(
-          listenWhen: (prev, cur) => prev is DashboardWeightStateLoading && cur is DashboardWeightStateUpdated,
+          listenWhen: (prev, cur) =>
+              prev is DashboardWeightStateLoading && cur is DashboardWeightStateUpdated,
           listener: _weightLogChangedListener,
         ),
       ],
@@ -221,21 +226,23 @@ class _DashboardPageState extends State<DashboardPage> with WidgetsBindingObserv
                             builder: (context, state) {
                               return CustomText.bitter600(
                                 _getHelloMessage(state.data.nameCapitalised),
-                                style: context.textTheme.displayMedium?.copyWith(color: AppColors.white),
+                                style: context.textTheme.displayMedium
+                                    ?.copyWith(color: AppColors.white),
                               );
                             },
                           ),
                           const SizedBox(height: 26.0),
                           BlocBuilder<AuthenticationBloc, AuthenticationState>(
                             builder: (BuildContext context, state) {
-                              final unlockedGoals = state.data.account?.isSmartGoalsUnlocked ?? false;
+                              final unlockedGoals =
+                                  state.data.account?.isSmartGoalsUnlocked ?? false;
                               return BlocBuilder<SmartGoalsBloc, SmartGoalsState>(
                                 builder: (context, state) {
                                   final showSmartGoalsCard = unlockedGoals &&
-                                          ((state.data.hasGoalActiveSessions &&
+                                      ((state.data.hasGoalActiveSessions &&
                                               state.data.isDateHasActiveSession(_selectedDay) &&
                                               !_selectedDay.isFuture) ||
-                                      _selectedDay.isToday);
+                                          _selectedDay.isToday);
 
                                   if (showSmartGoalsCard) {
                                     return const Column(
