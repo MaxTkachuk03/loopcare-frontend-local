@@ -14,6 +14,7 @@ import 'package:loopcare_frontend/core/presentation/text/custom_text.dart';
 import 'package:loopcare_frontend/core/presentation/utils/build_context_extensions.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/main_container.dart';
 
+@RoutePage()
 class OnboardingPacingPage extends StatelessWidget {
   const OnboardingPacingPage({super.key});
 

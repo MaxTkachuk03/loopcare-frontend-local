@@ -69,7 +69,23 @@ class AppRouter extends $AppRouter {
     // Onboarding
     AutoRoute(
       path: AppRoutes.onboardingIntro,
+<<<<<<<<< Temporary merge branch 1
+      page: OnboardingIntroPage,
+    ),
+    AutoRoute(
+      path: AppRoutes.onboardingIntroMission,
+      page: OnboardingIntroOurMissionPage,
+    ),
+    AutoRoute(
+      path: AppRoutes.onboardingPacing,
+      page: OnboardingPacingPage,
+    ),
+    AutoRoute(
+      path: AppRoutes.onboardingQuestions,
+      page: OnboardingQuestionsPage,
+=========
       page: OnboardingQuestionsRoute.page,
+>>>>>>>>> Temporary merge branch 2
     ),
 
     // Legal statement
