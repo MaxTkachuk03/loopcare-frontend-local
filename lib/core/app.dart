@@ -8,14 +8,8 @@ import 'package:loopcare_frontend/core/infrastructure/services/app_bloc_provider
 import 'package:loopcare_frontend/core/infrastructure/services/app_config.dart';
 import 'package:loopcare_frontend/core/infrastructure/services/firebase_navigator_observer.dart';
 import 'package:loopcare_frontend/core/infrastructure/services/network_service/network_service.dart';
-import 'package:loopcare_frontend/core/presentation/routes/app_router.gr.dart';
-import 'package:loopcare_frontend/core/presentation/routes/gender_prefs_guard.dart';
-import 'package:loopcare_frontend/core/presentation/routes/proxy_guard.dart';
-import 'package:loopcare_frontend/core/presentation/routes/unlock_feature_guard.dart';
+import 'package:loopcare_frontend/core/presentation/routes/app_router.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
-import 'package:loopcare_frontend/features/account/application/group_preferences_bloc.dart';
-import 'package:loopcare_frontend/features/authentication/application/authentication_bloc.dart';
-import 'package:loopcare_frontend/features/education/application/education_lesson/education_lesson_bloc.dart';
 import 'package:loopcare_frontend/injection.dart';
 import 'package:provider/provider.dart';
 
@@ -50,27 +44,13 @@ class _App extends StatefulWidget {
 
 class _AppState extends State<_App> {
   late final AppRouter _appRouter;
-  static FirebaseAnalytics analytics = FirebaseAnalytics.instance;
-  static final FirebaseAnalyticsObserver _analyticsObserver = FirebaseAnalyticsObserver(analytics: analytics);
+  final FirebaseAnalytics _analytics = FirebaseAnalytics.instance;
 
   @override
   void initState() {
     super.initState();
-
-    final lessonBloc = context.read<EducationLessonBloc>();
-    final groupPreferencesBloc = context.read<GroupPreferencesBloc>();
-    final authBloc = context.read<AuthenticationBloc>();
-
-    _appRouter = AppRouter(
-      navigatorKey: kNavigatorKey,
-      proxyGuard: ProxyGuard(),
-      genderPrefsGuard: GenderPrefsGuard(),
-      unlockFeatureGuard: UnlockFeatureGuard(
-        lessonBloc,
-        authBloc,
-        groupPreferencesBloc,
-      ),
-    );
+    _appRouter = AppRouter();
+    kNavigatorKey = _appRouter.navigatorKey;
   }
 
   @override
@@ -83,8 +63,7 @@ class _AppState extends State<_App> {
         navigatorObservers: () => [
           RouteObserverUtils(),
           FirebaseNavigatorObserver(
-            analytics: analytics,
-            userId: context.read<AuthenticationBloc>().state.data.accountId,
+            analytics: _analytics,
           ),
         ],
       ),

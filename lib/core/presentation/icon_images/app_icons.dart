@@ -195,7 +195,10 @@ class AppIcons {
   static SvgPicture customInfo = SvgPicture.asset('$iconsFilePath/custom_icon_info.svg', width: 44, height: 44);
 
   static SvgPicture locked = SvgPicture.asset('$iconsFilePath/lock.svg');
-  static SvgPicture achieve = SvgPicture.asset('$iconsFilePath/achieve.svg', width: 14, height: 14);
+  static SvgPicture achieve = SvgPicture.asset('$iconsFilePath/achieve.svg', width: 22, height: 22);
 
+  static SvgPicture lightbulbSelect = SvgPicture.asset('$iconsFilePath/lightbulb_select.svg', width: 22, height: 22);
+  static SvgPicture lightbulbUnSelect =
+      SvgPicture.asset('$iconsFilePath/lightbulb_unselect.svg', width: 22, height: 22);
   AppIcons._();
 }

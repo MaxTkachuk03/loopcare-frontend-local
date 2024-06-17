@@ -1,5 +1,5 @@
+import 'package:flutter_test/flutter_test.dart';
 import 'package:loopcare_frontend/features/onboarding/utils/weight_conversion_utils.dart';
-import 'package:test/test.dart';
 
 void main() {
   num convertedWeight(double weightLbs) {

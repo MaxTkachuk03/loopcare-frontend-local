@@ -24,7 +24,6 @@ class LocalizedTexts {
   static const String pleaseEnterValidEmailAddress = 'pleaseEnterValidEmailAddress';
   static const String pleaseEnterYourName = 'pleaseEnterYourName';
   static const String enterYourHeight = 'enterYourHeight';
-  static const String emailOrPasswordAreIncorrect = 'emailOrPasswordAreIncorrect';
   static const String forgotEmailSuccessMessage = 'forgotEmailSuccessMessage';
   static const String pleaseEnterRegistrationCode = 'pleaseEnterRegistrationCode';
   static const String pleaseEnterValidRegistrationCode = 'pleaseEnterValidRegistrationCode';
@@ -320,7 +319,6 @@ class LocalizedTexts {
   static const String backToTodayNotLogged = 'backToTodayNotLogged';
   static const String notReally = 'notReally';
   static const String yesYes = 'yesYes';
-  static const String physicalProgramAlreadyLogged = 'physicalProgramAlreadyLogged';
   static const String inProgress = 'inProgress';
 
   // User profile
@@ -369,14 +367,6 @@ class LocalizedTexts {
   static const String repeat = 'repeat';
   static const String exerciseCompleteMessage = 'exerciseCompleteMessage';
   static const String breakBetweenExercises = 'breakBetweenExercises';
-
-  // Error Screen
-  static const String retry = 'retry';
-  static const String noConnectionTitle = 'noConnectionTitle';
-  static const String noConnectionText = 'noConnectionText';
-  static const String invalidIngredientText = 'invalidIngredientText';
-  static const String oeps = 'oeps';
-  static const String somethingWentWrong = 'somethingWentWrong';
 
   //Empty screen
   static const String youHaveNo = 'youHaveNo';
@@ -586,8 +576,7 @@ class LocalizedTexts {
   static const String restoreSubscriptionFromSettings = "restoreSubscriptionFromSettings";
   static const String askRestoreSubscription = "askRestoreSubscription";
   static const String duplicateSubscriptionFromSettings = "duplicateSubscriptionFromSettings";
-  static const String otherPurchaseVendorCancelAccountSubscription =
-      "otherPurchaseVendorCancelAccountSubscription";
+  static const String otherPurchaseVendorCancelAccountSubscription = "otherPurchaseVendorCancelAccountSubscription";
 
   // Quizzes
   static const String quiz = "quiz";
@@ -942,11 +931,12 @@ class LocalizedTexts {
   static const String emailBody = 'emailBody';
   static const String termsAndConditions = 'termsAndConditions';
   static const String privacyPolicy = 'privacyPolicy';
+  static const String termsAndConditionsTitle = 'termsAndConditionsTitle';
+  static const String privacyPolicyTitle = 'privacyPolicyTitle';
   static const String iAcceptThe = 'iAcceptThe';
   static const String pleaseAcceptTOC = 'pleaseAcceptTOC';
   static const String pleaseAcceptPrivacyPolicy = 'pleaseAcceptPrivacyPolicy';
   static const String register = 'register';
-  static const String emailAlreadyTaken = 'emailAlreadyTaken';
   static const String somethingIsIncorrect = 'somethingIsIncorrect';
   static const String receiveEmailCheckboxLabel = 'receiveEmailCheckboxLabel';
 
@@ -1012,6 +1002,9 @@ class LocalizedTexts {
   static const String updateRequired = 'updateRequired';
   static const String updateRequiredBodyText1 = 'updateRequiredBodyText1';
   static const String updateRequiredBodyText2 = 'updateRequiredBodyText2';
+  static const String updatePoliciesDocuments = 'updatePoliciesDocuments';
+  static const String updatePoliciesDocumentsBodyText1 = 'updatePoliciesDocumentsBodyText1';
+  static const String updatePoliciesDocumentsBodyText2 = 'updatePoliciesDocumentsBodyText2';
 
   // Buddy
   static const String buddyTitle = 'buddyTitle';
@@ -1067,9 +1060,15 @@ class LocalizedTexts {
   static const String upcomingGoalsTitle = 'upcomingGoalsTitle';
   static const String upcomingGoalsDescription = 'upcomingGoalsDescription';
   static const String addGoal = 'addGoal';
+  static const String setGoal = 'setGoal';
+  static const String cancelGoal = 'cancelGoal';
+  static const String cancelGoalTitle = 'cancelGoalTitle';
+  static const String cancelGoalSubTitle = 'cancelGoalSubTitle';
   static const String confirmGoals = 'confirmGoals';
   static const String selectGoalsCategoryTitle = 'selectGoalsCategoryTitle';
+  static const String smartGoalNewLabel = 'smartGoalNewLabel';
   static const String selectGoalsTitle = 'selectGoalsTitle';
+  static const String selectGoalsSubtitle = 'selectGoalsSubtitle';
   static const String completeCounter = 'completeCounter';
   static const String saveWeeklyGoalsSuccessMessage = 'saveWeeklyGoalsSuccessMessage';
   static const String goalsStatisticsTitle = 'goalsStatisticsTitle';
@@ -1078,12 +1077,18 @@ class LocalizedTexts {
   static const String goalsAccomplished = 'goalsAccomplished';
   static const String goal = 'goal';
   static const String yourCompletion = 'yourCompletion';
-  static const String timesInDays = 'timesInDays';
+  static const String goalLogged = 'goalLogged';
+  static const String goalLogDays = 'goalLogDays';
+  static const String goalTotalCompletions = 'goalTotalCompletions';
+  static const String goalCompleted = 'goalCompleted';
+  static const String goalNotCompleted = 'goalNotCompleted';
   static const String howHardWasTheGoal = 'howHardWasTheGoal';
   static const String wantToTryInFuture = 'wantToTryInFuture';
   static const String goalReview = 'goalReview';
   static const String weeklyQuickReview = 'weeklyQuickReview';
   static const String weeklyDaysLeft = 'weeklyDaysLeft';
+  static const String weeklyDayLeft = 'weeklyDayLeft';
+  static const String weeklyDaysReview = 'weeklyDaysReview';
   static const String weeklyCompleteTitle = 'weeklyCompleteTitle';
   static const String weeklyDate = 'weeklyDate';
   static const String weeklyCompletedFar = 'weeklyCompletedFar';
@@ -1094,4 +1099,48 @@ class LocalizedTexts {
   static const String weeklyShowGoalDetails = 'weeklyShowGoalDetails';
   static const String weeklyModalProgress = 'weeklyModalProgress';
   static const String weeklyModalInfo = 'weeklyModalInfo';
+  static const String reasonGoalNotLike = 'reasonGoalNotLike';
+  static const String reasonGoalChallenging = 'reasonGoalChallenging';
+  static const String reasonGoalMissing = 'reasonGoalMissing';
+  static const String reasonGoalHabit = 'reasonGoalHabit';
+  static const String reasonGoalSpecific = 'reasonGoalSpecific';
+
+  // Error Screen
+  static const String retry = 'retry';
+  static const String noConnectionTitle = 'noConnectionTitle';
+  static const String noConnectionText = 'noConnectionText';
+  static const String invalidIngredientText = 'invalidIngredientText';
+  static const String oeps = 'oeps';
+  static const String somethingWentWrong = 'somethingWentWrong';
+
+  static const String accountAlreadyExists = 'account_with_this_email_already_exists';
+  static const String accountNotFound = 'account_not_found';
+  static const String emailOrPasswordAreIncorrect = 'account_with_this_email_already_exists';
+  static const String physicalProgramAlreadyLogged = 'physical_program_already_logged';
+  static const String servingIdIsNotFound = 'serving_id_is_not_found';
+
+  //Error localization
+  static const String subscriptionServiceUnavailable = 'subscription_service_unavailable';
+  static const String purchaseStreamError = 'purchase_stream_error';
+  static const String purchaseErrorMessage = 'purchase_error_message';
+
+  //DioException
+  static const String requestCancelledDio = 'requestCancelledDio';
+  static const String connectionDio = 'connectionDio';
+  static const String timeoutDio = 'timeoutDio';
+  static const String badRequestDio = 'badRequestDio';
+  static const String unauthorizedDio = 'unauthorizedDio';
+  static const String forbiddenDio = 'forbiddenDio';
+  static const String notFoundDio = 'notFoundDio';
+  static const String conflictDio = 'conflictDio';
+  static const String serverErrorDio = 'serverErrorDio';
+  static const String unprocessableEntityDio = 'unprocessableEntityDio';
+  static const String unhandledResponseDio = 'unhandledResponseDio';
+  static const String unhandledErrorDio = 'unhandledErrorDio';
+  static const String otherDio = 'otherDio';
+
+  //SocketException
+  static const String socketException = 'socketException';
+  //Parsing Exception
+  static const String parsingException = 'parsingException';
 }

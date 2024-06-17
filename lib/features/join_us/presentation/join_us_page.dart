@@ -15,6 +15,7 @@ import 'package:loopcare_frontend/core/presentation/utils/build_context_extensio
 import 'package:loopcare_frontend/core/presentation/widgets/main_container.dart';
 
 @Deprecated('Not include in River Onboarding')
+@RoutePage()
 class JoinUsPage extends StatelessWidget {
   const JoinUsPage({super.key});
 

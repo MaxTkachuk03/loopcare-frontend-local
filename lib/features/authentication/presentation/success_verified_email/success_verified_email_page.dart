@@ -17,6 +17,7 @@ import 'package:loopcare_frontend/core/presentation/widgets/main_container.dart'
 import 'package:loopcare_frontend/features/authentication/application/authentication_bloc.dart';
 
 @Deprecated('Not include in River Onboarding')
+@RoutePage()
 class SuccessVerifiedEmailPage extends StatelessWidget {
   const SuccessVerifiedEmailPage({super.key});
 

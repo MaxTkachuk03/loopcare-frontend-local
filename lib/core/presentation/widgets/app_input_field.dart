@@ -15,12 +15,10 @@ class AppInputTextField extends CustomTextField {
   final IconButton? suffixIcon;
 
   final void Function(String)? onSubmitted;
-  final bool readOnly;
   final Key? fieldKey;
   final AutovalidateMode? autovalidateMode;
   final String? errorCallback;
   final Color focusColor;
-  final Iterable<String>? autofillHints;
   final MaxLengthEnforcement enforcedLimitCount;
   final TextInputAction? textInputAction;
   final int? linesCount;
@@ -47,11 +45,11 @@ class AppInputTextField extends CustomTextField {
     super.onChanged,
     this.onSubmitted,
     super.obscureText = false,
-    this.readOnly = false,
+    super.readOnly = false,
     this.errorCallback,
     this.focusColor = AppColors.grey,
     super.inputFormatters = const [],
-    this.autofillHints,
+    super.autofillHints,
     super.maxLength,
     this.linesCount = 1,
     this.enforcedLimitCount = MaxLengthEnforcement.enforced,

@@ -1,3 +1,4 @@
+import 'package:auto_route/annotations.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -33,6 +34,7 @@ import 'package:loopcare_frontend/features/nutrition/application/dashboard_weigh
 import 'package:loopcare_frontend/features/nutrition/application/meals/meals_bloc.dart';
 import 'package:loopcare_frontend/features/smart_goals/application/smart_goals_bloc.dart';
 
+@RoutePage()
 class DashboardPage extends StatefulWidget {
   const DashboardPage({super.key});
 
@@ -83,8 +85,9 @@ class _DashboardPageState extends State<DashboardPage> with WidgetsBindingObserv
 
     context.read<MealsBloc>()
       ..add(MealsEvent.setCurrentDate(_selectedDay))
-      ..add(MealsEvent.fetchMeals(
-          startDate: _selectedDay.subtract(const Duration(days: 8)), endDate: _selectedDay));
+      ..add(MealsEvent.fetchMeals(startDate: _selectedDay.subtract(const Duration(days: 8)), endDate: _selectedDay));
+
+    context.read<MindBloc>().add(const MindEvent.init());
 
     context.read<MindBloc>().add(const MindEvent.init());
 
@@ -127,9 +130,7 @@ class _DashboardPageState extends State<DashboardPage> with WidgetsBindingObserv
     }
 
     if (state.data.isSmartGoalUnlocked) {
-      context.read<SmartGoalsBloc>().add(
-            const SmartGoalsEvent.getWeeklyGoals(),
-          );
+      context.read<SmartGoalsBloc>().add(const SmartGoalsEvent.getWeeklyGoals());
     }
   }
 
@@ -155,6 +156,9 @@ class _DashboardPageState extends State<DashboardPage> with WidgetsBindingObserv
               day.lastDayOfCurrentWeek,
             ),
           );
+    }
+    if (context.read<AuthenticationBloc>().state.data.isSmartGoalUnlocked) {
+      context.read<SmartGoalsBloc>().add(SmartGoalsEvent.selectDate(selectedDate: day));
     }
 
     setState(() {
@@ -194,8 +198,7 @@ class _DashboardPageState extends State<DashboardPage> with WidgetsBindingObserv
           listener: _accountListener,
         ),
         BlocListener<DashboardWeightBloc, DashboardWeightState>(
-          listenWhen: (prev, cur) =>
-              prev is DashboardWeightStateLoading && cur is DashboardWeightStateUpdated,
+          listenWhen: (prev, cur) => prev is DashboardWeightStateLoading && cur is DashboardWeightStateUpdated,
           listener: _weightLogChangedListener,
         ),
       ],
@@ -225,17 +228,27 @@ class _DashboardPageState extends State<DashboardPage> with WidgetsBindingObserv
                           const SizedBox(height: 26.0),
                           BlocBuilder<AuthenticationBloc, AuthenticationState>(
                             builder: (BuildContext context, state) {
-                              if (state.data.account?.isSmartGoalsUnlocked ?? false) {
-                                return const Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    DashboardSmartGoals(),
-                                    SizedBox(height: 19.0),
-                                  ],
-                                );
-                              } else {
-                                return const SizedBox.shrink();
-                              }
+                              final unlockedGoals = state.data.account?.isSmartGoalsUnlocked ?? false;
+                              return BlocBuilder<SmartGoalsBloc, SmartGoalsState>(
+                                builder: (context, state) {
+                                  final showSmartGoalsCard = unlockedGoals &&
+                                          ((state.data.hasGoalActiveSessions &&
+                                              state.data.isDateHasActiveSession(_selectedDay) &&
+                                              !_selectedDay.isFuture) ||
+                                      _selectedDay.isToday);
+
+                                  if (showSmartGoalsCard) {
+                                    return const Column(
+                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      children: [
+                                        DashboardSmartGoals(),
+                                        SizedBox(height: 19.0),
+                                      ],
+                                    );
+                                  }
+                                  return const SizedBox.shrink();
+                                },
+                              );
                             },
                           ),
                           WeightBlock(date: _selectedDay),

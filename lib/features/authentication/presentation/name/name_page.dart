@@ -18,6 +18,7 @@ import 'package:loopcare_frontend/core/presentation/widgets/main_container.dart'
 import 'package:loopcare_frontend/features/authentication/application/authentication_bloc.dart';
 import 'package:loopcare_frontend/features/authentication/domain/name/name.dart';
 
+@RoutePage()
 class NamePage extends StatefulWidget {
   const NamePage({super.key});
 

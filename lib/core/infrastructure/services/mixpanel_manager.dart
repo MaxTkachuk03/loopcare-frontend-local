@@ -19,7 +19,7 @@ class MixpanelManager {
   static final DeviceInfoPlugin deviceInfoPlugin = DeviceInfoPlugin();
 
   Future<void> init() async {
-    _kToken = dotenv.env['MIXPANEL_TOKEN'] ?? "";
+    _kToken = dotenv.env['MIXPANEL_TOKEN'] ?? '';
     if (!kIsWeb) {
       _initMobile();
     }
@@ -71,8 +71,6 @@ class MixpanelManager {
       'system.Model': build.model,
       'system.SupportedAbis': build.supportedAbis,
       'isPhysicalDevice': build.isPhysicalDevice,
-      'system.DisplayWidth': build.displayMetrics.widthPx,
-      'system.DisplayHeight': build.displayMetrics.heightPx,
     };
   }
 

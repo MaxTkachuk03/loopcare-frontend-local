@@ -1,3 +1,4 @@
+// ignore_for_file: use_build_context_synchronously
 import 'dart:async';
 import 'dart:convert';
 import 'dart:developer';
@@ -40,8 +41,9 @@ import 'package:loopcare_frontend/features/video_session/presentation/widgets/se
 import 'package:loopcare_frontend/features/video_session/presentation/widgets/settings_dialog.dart';
 import 'package:loopcare_frontend/features/video_session/presentation/widgets/users_grid.dart';
 import 'package:loopcare_frontend/injection.dart';
-import 'package:wakelock/wakelock.dart';
+import 'package:wakelock_plus/wakelock_plus.dart';
 
+@RoutePage()
 class SessionCallPage extends StatefulWidget {
   const SessionCallPage({super.key});
 
@@ -87,7 +89,7 @@ class _SessionCallPageState extends State<SessionCallPage> with WidgetsBindingOb
     context.read<SessionCallBloc>().add(const SessionCallEvent.resetTimerValue());
     WidgetsBinding.instance.addObserver(this);
 
-    Wakelock.enable();
+    WakelockPlus.enable();
 
     _initSessionListeners();
     _joinSession();
@@ -309,7 +311,10 @@ class _SessionCallPageState extends State<SessionCallPage> with WidgetsBindingOb
       var userListJson = jsonDecode(data['remoteUsers']) as List;
 
       setState(() {
-        _sessionParticipants = [mySelf!, ...userListJson.map((userJson) => ZoomVideoSdkUser.fromJson(userJson))];
+        _sessionParticipants = [
+          mySelf!,
+          ...userListJson.map((userJson) => ZoomVideoSdkUser.fromJson(userJson))
+        ];
       });
     });
 
@@ -323,7 +328,7 @@ class _SessionCallPageState extends State<SessionCallPage> with WidgetsBindingOb
         setState(() {
           _sessionParticipants = [
             mySelf!,
-            ...remoteUserListJson.map((userJson) => ZoomVideoSdkUser.fromJson(userJson)).toList()
+            ...remoteUserListJson.map((userJson) => ZoomVideoSdkUser.fromJson(userJson)),
           ];
         });
       }
@@ -455,7 +460,7 @@ class _SessionCallPageState extends State<SessionCallPage> with WidgetsBindingOb
         builder: (BuildContext context) => ErrorDialog(
           errorText: errorType,
           onErrorHandler: () {
-            context.router.pop();
+            context.router.maybePop();
             if (!isInSession) _onErrorHandler(errorType);
           },
         ),
@@ -491,7 +496,7 @@ class _SessionCallPageState extends State<SessionCallPage> with WidgetsBindingOb
     ModalBottomSheet.leaveSessionCall(
       context: context,
       onLeavePressed: _leaveSessionHandler,
-      onStayPressed: context.router.pop,
+      onStayPressed: context.router.maybePop,
     );
   }
 
@@ -500,7 +505,7 @@ class _SessionCallPageState extends State<SessionCallPage> with WidgetsBindingOb
 
     await zoom.leaveSession(false);
     if (context.mounted) {
-      context.router.pop();
+      context.router.maybePop();
     }
   }
 
@@ -649,9 +654,10 @@ class _SessionCallPageState extends State<SessionCallPage> with WidgetsBindingOb
                               builder: (context, state) {
                                 final textEvents = context.read<TopicsBloc>().state.data.textEvents;
 
-                                final text =
-                                    textEvents.lastWhereOrNull((e) => state.data.sessionTime >= e.timestamp)?.text ??
-                                        '';
+                                final text = textEvents
+                                        .lastWhereOrNull((e) => state.data.sessionTime >= e.timestamp)
+                                        ?.text ??
+                                    '';
 
                                 return PromptsContainer(text: text);
                               },
@@ -716,7 +722,7 @@ class _SessionCallPageState extends State<SessionCallPage> with WidgetsBindingOb
   void dispose() {
     WidgetsBinding.instance.removeObserver(this);
 
-    Wakelock.disable();
+    WakelockPlus.disable();
 
     _enablePortraitOrientation();
 

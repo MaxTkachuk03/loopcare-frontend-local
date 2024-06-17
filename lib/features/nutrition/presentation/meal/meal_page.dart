@@ -1,8 +1,6 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:easy_localization/easy_localization.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loopcare_frontend/core/infrastructure/services/firebase_event_service.dart';
 import 'package:loopcare_frontend/core/presentation/alerting/modal_bottom_sheet.dart';
@@ -33,6 +31,7 @@ import 'package:loopcare_frontend/features/nutrition/presentation/meal/widgets/m
 import 'package:loopcare_frontend/features/nutrition/presentation/widgets/circle_plus_button/circle_plus_button.dart';
 import 'package:loopcare_frontend/features/nutrition/presentation/widgets/meal_portions/nutrition_values_block.dart';
 
+@RoutePage()
 class MealPage extends StatefulWidget {
   const MealPage({super.key});
 
@@ -158,7 +157,7 @@ class _MealPageState extends State<MealPage> {
       ModalBottomSheet.deleteMultiDateMeal(
         context: context,
         onCanceled: () {
-          context.router.pop();
+          context.router.maybePop();
           _onChooseDates(context);
         },
         onDeleted: () {

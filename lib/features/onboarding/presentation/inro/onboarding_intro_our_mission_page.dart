@@ -22,6 +22,7 @@ import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 part 'widgets/_members.dart';
 part 'widgets/_team_view.dart';
 
+@RoutePage()
 class OnboardingIntroOurMissionPage extends StatefulWidget {
   const OnboardingIntroOurMissionPage({super.key});
 

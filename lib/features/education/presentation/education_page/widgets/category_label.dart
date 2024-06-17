@@ -55,6 +55,12 @@ class CategoryLabel extends StatelessWidget {
   factory CategoryLabel.smartGoals({required String label}) =>
       CategoryLabel(label: label, color: AppColors.greenRegular, textColor: AppColors.blueDarker);
 
+  factory CategoryLabel.smartGoalNew() => CategoryLabel(
+        label: LocalizedTexts.smartGoalNewLabel.tr(),
+        color: AppColors.blueRegular,
+        textColor: AppColors.blueLightest,
+      );
+
   @override
   Widget build(BuildContext context) {
     return Container(

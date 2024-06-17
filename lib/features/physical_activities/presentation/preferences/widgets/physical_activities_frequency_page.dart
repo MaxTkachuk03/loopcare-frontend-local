@@ -17,10 +17,12 @@ import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 import 'package:loopcare_frontend/core/presentation/utils/build_context_extensions.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/main_container.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/scrollable_container.dart';
+import 'package:loopcare_frontend/features/authentication/application/authentication_bloc.dart';
 import 'package:loopcare_frontend/features/physical_activities/application/physical_activities_preferences/physical_activities_preferences_bloc.dart';
 import 'package:loopcare_frontend/features/physical_activities/presentation/preferences/widgets/frequency_chips.dart';
 import 'package:loopcare_frontend/injection.dart';
 
+@RoutePage()
 class PhysicalActivitiesFrequencyPage extends StatefulWidget {
   final bool profileInvoke;
 
@@ -50,7 +52,8 @@ class _PhysicalActivitiesFrequencyPageState extends State<PhysicalActivitiesFreq
 
   void _onUpdateHandler(PhysicalActivitiesPreferencesState state) {
     if (widget.profileInvoke) {
-      context.router.pop();
+      context.read<AuthenticationBloc>().add(const AuthenticationEvent.getAccount());
+      context.router.maybePop();
       return;
     }
 

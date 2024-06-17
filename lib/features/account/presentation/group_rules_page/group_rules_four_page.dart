@@ -17,6 +17,7 @@ import 'package:loopcare_frontend/features/account/presentation/widgets/group_le
 import 'package:loopcare_frontend/features/account/presentation/widgets/group_prefs_page_wrap.dart';
 import 'package:loopcare_frontend/features/education/application/education_lesson/education_lesson_bloc.dart';
 
+@RoutePage()
 class GroupRulesFourPage extends StatelessWidget {
   final bool fromLessonComplete;
 
@@ -60,8 +61,7 @@ class GroupRulesFourPage extends StatelessWidget {
                       const SizedBox(height: 32.0),
                       BulletListItem(
                         text: RichText(
-                          // TODO used to scale properly when user change font size in settings
-                          textScaleFactor: MediaQuery.of(context).textScaleFactor,
+                          textScaler: MediaQuery.of(context).textScaler,
                           text: TextSpan(
                             style: context.textTheme.bodyLarge,
                             children: [

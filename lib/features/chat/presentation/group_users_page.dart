@@ -1,7 +1,8 @@
+import 'package:auto_route/annotations.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flash/flash.dart';
 import 'package:flash/flash_helper.dart';
-import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loopcare_frontend/core/presentation/app_bar/custom_app_bar.dart';
 import 'package:loopcare_frontend/core/presentation/buttons/custom_filled_icon_button.dart';
@@ -11,12 +12,12 @@ import 'package:loopcare_frontend/core/presentation/text/custom_text.dart';
 import 'package:loopcare_frontend/core/presentation/utils/build_context_extensions.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/app_list/app_list.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/keyboard_listener_container.dart';
+import 'package:loopcare_frontend/features/chat/application/chat_bloc/group_chat_bloc.dart';
 import 'package:loopcare_frontend/features/chat/domain/group_member.dart';
 import 'package:loopcare_frontend/features/chat/presentation/group_chat_controller.dart';
 import 'package:loopcare_frontend/features/chat/presentation/widget/group_member_holder.dart';
 
-import '../application/chat_bloc/group_chat_bloc.dart';
-
+@RoutePage()
 class GroupUsersPage extends StatefulWidget {
   final GroupChatController controller;
 
@@ -111,8 +112,7 @@ class _GroupUsersPageState extends State<GroupUsersPage> with WidgetsBindingObse
     );
   }
 
-  String _getNames(GroupChatState state) =>
-      state.data.members.map((item) => item.nickname).toList().join(", ");
+  String _getNames(GroupChatState state) => state.data.members.map((item) => item.nickname).toList().join(", ");
 
   void _onChangeListener(BuildContext context, GroupChatState state) {
     state.maybeMap(
@@ -122,13 +122,13 @@ class _GroupUsersPageState extends State<GroupUsersPage> with WidgetsBindingObse
   }
 
   void _onErrorHandler(GroupChatState state) {
-    final String? errorMessage = state.data.error?.maybeMap(
-      unprocessableEntity: (s) => s.error.message,
-      orElse: () => LocalizedTexts.somethingWentWrong.tr(),
+    final errorMessage = state.data.error?.maybeMap(
+      unprocessableEntity: (s) => s.message,
+      orElse: () => LocalizedTexts.somethingWentWrong,
     );
 
     context.showErrorBar(
-      content: CustomText(errorMessage ?? ''),
+      content: CustomText(errorMessage?.tr() ?? LocalizedTexts.somethingWentWrong.tr()),
       position: FlashPosition.top,
     );
   }

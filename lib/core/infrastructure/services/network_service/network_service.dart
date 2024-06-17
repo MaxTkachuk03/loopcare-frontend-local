@@ -12,15 +12,15 @@ class NetworkStatusService {
   final StreamController<NetworkStatus> networkStatusController = StreamController<NetworkStatus>();
 
   NetworkStatusService() {
-    _connectivity.onConnectivityChanged.listen((status) {
+    _connectivity.onConnectivityChanged.listen((statuses) {
       if (!networkStatusController.isClosed) {
-        networkStatusController.add(_getNetworkStatus(status));
+        networkStatusController.add(_getNetworkStatus(statuses));
       }
     });
   }
 
-  NetworkStatus _getNetworkStatus(ConnectivityResult status) {
-    return status == ConnectivityResult.mobile || status == ConnectivityResult.wifi
+  NetworkStatus _getNetworkStatus(List<ConnectivityResult> statuses) {
+    return statuses.contains(ConnectivityResult.mobile) || statuses.contains(ConnectivityResult.wifi)
         ? NetworkStatus.online
         : NetworkStatus.offline;
   }

@@ -22,7 +22,7 @@ class BackButtonHexagon extends StatelessWidget {
             color: AppColors.white,
             size: 18,
           ),
-          onPressed: () => context.router.pop(),
+          onPressed: context.router.maybePop,
         ),
       ),
     );

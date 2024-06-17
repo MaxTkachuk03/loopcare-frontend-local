@@ -2,7 +2,7 @@
 
 ## Getting Started
 
-Project was set up and developed with flutter version 3.19.1
+Project was set up and developed with flutter version 3.22.1
 We are using 110 line length in project, so before starting make sure you changed default line length in your IDE
 
 Follow these steps to set up a project:
@@ -23,37 +23,34 @@ Follow these steps to set up a project:
 14. File `.env.example` contains needed variable names, copy it to the `.env.dev`, `.env.stag`, `.env.uat` and `.env.prod`.You can find env file variable values in the project [documentation](https://loopcare.atlassian.net/wiki/spaces/LOOPCARE/pages/53739539/Environment+variables). Also firebase variables you can get from the `google-services.json` and `GoogleService-Info.plist` respectively.
 15. Add [keystore.properties](https://loopcare.atlassian.net/wiki/spaces/LOOPCARE/pages/285540355/Keystore.properties) into `android/` folder and [loopcare_cert.jks](https://loopcare.atlassian.net/wiki/spaces/LOOPCARE/pages/285605897/loopcare+cert.jks) into `android/app` folder.
 
-## Application development
+## Setup fastlane
+1. Install fastlane to your local machine, the simplest way to do it - homebrew command `brew install fastlane`. For another possible ways check the official installation guide [fastlane getting started](https://docs.fastlane.tools/getting-started/ios/setup/)
+2. Setup environment variables. Go to `fastlane` folder in the project root directory and create files `.env.dev`, `.env.stag`, `.env.uat` and `.env.prod`.You can find env file variable values in the project [fastlane variables](https://loopcare.atlassian.net/wiki/spaces/LOOPCARE/pages/455147521/Fastlane+environment+variables). To get `FIREBASE_CLI_TOKEN` variable, you need to login to firebase account, check the [link](https://firebase.google.com/docs/cli#cli-ci-systems)
+3. For testflight app distribution with script you need an App Store Connect API key [download key](https://loopcare.atlassian.net/wiki/spaces/LOOPCARE/pages/454230019/App+Store+Connect+API+key)
+4. For google play store you need google developer API key [download](https://loopcare.atlassian.net/wiki/spaces/LOOPCARE/pages/463929345/Google+play+store+developer+key)
+5. Put both keys to the fastlane root folder
+6. You're ready to run fastlane scripts
 
-## Application delivery
+## Setup RPS(Run Pubspec Script)
+You can run fastlane deploy scripts from the `pubspec.yaml` scripts section, to do so first install rps:
+1. Run `dart pub global activate rps` in the console
+2. Now you can run scripts from the `pubspec.yaml`
 
-There is a build_script.sh file in the root project folder.
+### Supported rps scripts
+- `rps firebase ios dev`
+- `rps firebase ios stag`
+- `rps firebase ios uat`
+- `rps firebase ios prod`
 
-To build app run
-`./build_script.sh <environment> <platform_name>`
+- `rps firebase android dev`
+- `rps firebase android stag`
+- `rps firebase android uat`
+- `rps firebase android prod`
 
-Android build command example
+- `rps testflight uat`
+- `rps testflight prod`
 
-- `./build_script.sh dev android`
-- `./build_script.sh stag android`
-- `./build_script.sh uat android`
-- `./build_script.sh prod android`
-
-You can find APK file in `build/app/outputs/flutter-apk` folder
-
-IOS build command example
-
-- `./build_script.sh dev ios`
-- `./build_script.sh stag ios`
-- `./build_script.sh uat ios`
-- `./build_script.sh prod ios`
-
-You can find IPA file in `build/ios/ipa` folder
-
-- `environment` - could be `dev`, `stag`, `uat` or `prod`
-- `platform_name` - could be `android` or `ios`
-
-Also check troubleshooting section on order to figure out with the most general bugs
+- `rps playstore prod`
 
 ### Application architecture
 
@@ -100,7 +97,6 @@ To add new language:
    - Rerun build command
 
 ### GIT Tags
-
 
 1. Update build version, push
 2. git tag 1.0.30+116 afc7d988         - where “1.0.30+116” - new tag with new version, and “afc7d988" commit ID 

@@ -71,7 +71,7 @@ abstract class ServingSize implements _$ServingSize {
   }
 
   String get servingSizeLabel {
-    return '${numberOfUnits.removeDecimalZeroFormat()} ${measurementDescription ?? 'serving'}';
+    return '${numberOfUnits.removeDecimalZeroFormat()} $measurementDescription';
   }
 
   factory ServingSize.fromJson(Map<String, dynamic> json) => _$ServingSizeFromJson(json);

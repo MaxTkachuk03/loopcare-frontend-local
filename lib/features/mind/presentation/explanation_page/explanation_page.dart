@@ -6,6 +6,7 @@ import 'package:loopcare_frontend/core/presentation/localization/localized_texts
 import 'package:loopcare_frontend/features/mind/application/mind_bloc.dart';
 import 'package:loopcare_frontend/features/mind/presentation/widgets/mind_content_screen/mind_content_screen.dart';
 
+@RoutePage()
 class ExplanationPage extends StatelessWidget {
   const ExplanationPage({super.key});
 
@@ -19,7 +20,7 @@ class ExplanationPage extends StatelessWidget {
       title: title,
       steps: [explanation],
       contentTitle: title,
-      onComplete: context.router.pop,
+      onComplete: context.router.maybePop,
     );
   }
 }

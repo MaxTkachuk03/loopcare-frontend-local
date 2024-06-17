@@ -15,10 +15,11 @@ import 'package:loopcare_frontend/core/presentation/utils/build_context_extensio
 import 'package:loopcare_frontend/core/presentation/widgets/main_container.dart';
 import 'package:loopcare_frontend/injection.dart';
 
-AppConfig appConfig = getIt<AppConfig>();
-
+@RoutePage()
 class IntroPage extends StatelessWidget {
   const IntroPage({super.key});
+
+  AppConfig get _appConfig => getIt<AppConfig>();
 
   void _onGetStarted(BuildContext context) {
     context.router.pushNamed(AppRoutes.onboardingIntro);
@@ -45,7 +46,7 @@ class IntroPage extends StatelessWidget {
                 ),
                 const SizedBox(height: 28.0),
                 CustomText.bitter600(
-                  '${LocalizedTexts.introTitle.tr(namedArgs: {'projectName': appConfig.projectName})}!',
+                  '${LocalizedTexts.introTitle.tr(namedArgs: {'projectName': _appConfig.projectName})}!',
                   style: context.textTheme.displayLarge,
                   textAlign: TextAlign.center,
                 ),

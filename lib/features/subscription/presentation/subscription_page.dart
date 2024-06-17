@@ -22,6 +22,7 @@ import 'package:loopcare_frontend/features/subscription/application/subscription
 import 'package:loopcare_frontend/features/subscription/presentation/widget/subscription_status_widget.dart';
 import 'package:url_launcher/url_launcher.dart';
 
+@RoutePage()
 class SubscriptionPage extends StatefulWidget {
   const SubscriptionPage({super.key});
 
@@ -162,7 +163,7 @@ class _SubscriptionPageState extends State<SubscriptionPage> {
           content: CustomText(LocalizedTexts.otherPurchaseVendorCancelAccountSubscription.tr()),
           actions: [
             TextButton(
-              onPressed: () => context.router.pop(),
+              onPressed: context.router.maybePop,
               child: Text(LocalizedTexts.ok.tr().toUpperCase()),
             ),
           ],
@@ -177,7 +178,7 @@ class _SubscriptionPageState extends State<SubscriptionPage> {
         content: CustomText(LocalizedTexts.askRestoreSubscription.tr()),
         actions: [
           TextButton(
-            onPressed: () => context.router.pop(),
+            onPressed: context.router.maybePop,
             child: Text(LocalizedTexts.ok.tr().toUpperCase()),
           ),
         ],
@@ -196,13 +197,10 @@ class _SubscriptionPageState extends State<SubscriptionPage> {
       cur is LogoutState;
 
   _errorListener(BuildContext context, SubscriptionState state) {
-    var errorMessage = state.data.error?.error ?? LocalizedTexts.somethingWentWrong.tr();
-    if (errorMessage is! String) {
-      errorMessage = LocalizedTexts.somethingWentWrong.tr();
-    }
+    var errorMessage = state.data.error?.message ?? LocalizedTexts.somethingWentWrong;
     controller.resetState();
     context.showErrorBar(
-      content: Text(errorMessage),
+      content: Text(errorMessage.tr()),
       position: FlashPosition.top,
     );
   }

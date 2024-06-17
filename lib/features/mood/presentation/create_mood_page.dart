@@ -28,6 +28,7 @@ import 'package:loopcare_frontend/features/mood/presentation/widgets/mood_note_f
 import 'package:loopcare_frontend/features/mood/presentation/widgets/mood_options.dart';
 import 'package:loopcare_frontend/features/mood/presentation/widgets/mood_picker.dart';
 
+@RoutePage()
 class CreateMoodPage extends StatefulWidget {
   final MoodPageMode mode;
   final DateTime date;
@@ -106,8 +107,7 @@ class _CreateMoodPageState extends State<CreateMoodPage> {
   }
 
   void _onChangeListener(BuildContext context, MoodState state) {
-    state.maybeMap(
-      orElse: () => {},
+    state.mapOrNull(
       error: _onErrorHandler,
       updated: _onUpdateHandler,
     );
@@ -116,9 +116,7 @@ class _CreateMoodPageState extends State<CreateMoodPage> {
   _onErrorHandler(MoodState s) =>
       context.showError(content: Text(s.data.errorMessage ?? LocalizedTexts.somethingWentWrong.tr()));
 
-  _onUpdateHandler(MoodState s) {
-    context.router.pop();
-  }
+  _onUpdateHandler(MoodState s) => context.router.maybePop();
 
   @override
   Widget build(BuildContext context) {

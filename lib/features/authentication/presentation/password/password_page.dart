@@ -1,5 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:easy_localization/easy_localization.dart';
+import 'package:flash/flash.dart';
+import 'package:flash/flash_helper.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -26,6 +28,7 @@ import 'package:loopcare_frontend/features/onboarding/application/mental_questio
 import 'package:loopcare_frontend/features/onboarding/application/physical_questions/physical_questions_bloc.dart';
 import 'package:url_launcher/url_launcher.dart';
 
+@RoutePage()
 class PasswordPage extends StatefulWidget {
   const PasswordPage({super.key});
 
@@ -60,9 +63,11 @@ class _PasswordPageState extends State<PasswordPage> {
   @override
   Widget build(BuildContext context) {
     return BlocListener<AuthenticationBloc, AuthenticationState>(
-      listenWhen: (previous, current) =>
-          previous is GuestAuthenticationState && current is WaitedConfirmationState,
-      listener: _navigationListener,
+      listenWhen: (previous, current) => (ModalRoute.of(context)?.isCurrent ?? false),
+      listener: (_, state) => state.mapOrNull(
+        error: _errorListener,
+        waitedForConfirmation: _navigationListener,
+      ),
       child: GestureDetector(
         onTap: FocusScope.of(context).unfocus,
         child: CustomScaffold.blueLightest(
@@ -167,6 +172,14 @@ class _PasswordPageState extends State<PasswordPage> {
     );
   }
 
+  _errorListener(AuthenticationState state) {
+    final errorMessage = state.data.error?.message ?? LocalizedTexts.somethingWentWrong;
+    context.showErrorBar(
+      content: CustomText(errorMessage.tr()),
+      position: FlashPosition.top,
+    );
+  }
+
   void _onNextPressed() {
     TextInput.finishAutofillContext();
 
@@ -206,6 +219,7 @@ class _PasswordPageState extends State<PasswordPage> {
       await launchUrl(launchUri, mode: LaunchMode.externalApplication);
     } catch (e) {
       if (context.mounted) {
+        // ignore: use_build_context_synchronously
         _showError(context);
       }
     }
@@ -221,7 +235,5 @@ class _PasswordPageState extends State<PasswordPage> {
     _validateForm();
   }
 
-  void _navigationListener(BuildContext context, AuthenticationState state) {
-    context.router.pushNamed(AppRoutes.waitingForConfirmation);
-  }
+  void _navigationListener(AuthenticationState state) => context.router.pushNamed(AppRoutes.waitingForConfirmation);
 }

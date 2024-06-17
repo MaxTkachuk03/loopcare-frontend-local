@@ -9,6 +9,7 @@ import 'package:loopcare_frontend/features/home/presentation/widget/app_navigati
 import 'package:loopcare_frontend/features/nutrition/domain/dashboard/dashboard_navbar_items.dart';
 import 'package:loopcare_frontend/injection.dart';
 
+@RoutePage()
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
 

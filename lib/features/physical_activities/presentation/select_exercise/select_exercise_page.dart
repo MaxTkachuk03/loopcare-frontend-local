@@ -1,3 +1,4 @@
+import 'package:auto_route/annotations.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -19,8 +20,7 @@ import 'package:loopcare_frontend/features/physical_activities/presentation/sele
 import 'package:loopcare_frontend/features/physical_activities/presentation/select_exercise/widgets/program_tab.dart';
 import 'package:loopcare_frontend/injection.dart';
 
-AppConfig appConfig = getIt<AppConfig>();
-
+@RoutePage()
 class SelectExercisePage extends StatefulWidget {
   const SelectExercisePage({super.key});
 
@@ -33,7 +33,7 @@ class _SelectExercisePageState extends State<SelectExercisePage> with TickerProv
 
   final List<ExerciseTypeTab> tabs = [
     ExerciseTypeTab(
-      text: '${appConfig.projectName} ${LocalizedTexts.program.tr()}',
+      text: '${getIt<AppConfig>().projectName} ${LocalizedTexts.program.tr()}',
       type: ExerciseType.program,
     ),
     ExerciseTypeTab(

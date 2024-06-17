@@ -26,6 +26,7 @@ import 'package:loopcare_frontend/features/account/presentation/widgets/group_pr
 import 'package:loopcare_frontend/features/education/application/education_lesson/education_lesson_bloc.dart';
 import 'package:loopcare_frontend/injection.dart';
 
+@RoutePage()
 class GenderPreferencesPage extends StatefulWidget {
   final bool fromLessonComplete;
 
@@ -68,11 +69,11 @@ class _GenderPreferencesPageState extends State<GenderPreferencesPage> {
   void _onErrorHandler(GroupPreferencesState state) {
     final String? errorMessage = state.data.error?.maybeMap(
       unprocessableEntity: (s) => s.error.message,
-      orElse: () => LocalizedTexts.somethingWentWrong.tr(),
+      orElse: () => LocalizedTexts.somethingWentWrong,
     );
 
     context.showErrorBar(
-      content: CustomText(errorMessage ?? ''),
+      content: CustomText(errorMessage?.tr() ?? LocalizedTexts.somethingWentWrong.tr()),
       position: FlashPosition.top,
     );
   }
@@ -93,7 +94,7 @@ class _GenderPreferencesPageState extends State<GenderPreferencesPage> {
     );
 
     if (groupPrefsMode == GroupPrefsMode.singlePage) {
-      context.router.pop();
+      context.router.maybePop();
     } else {
       context.router.push(TimezonePreferencesRoute(fromLessonComplete: widget.fromLessonComplete));
     }
@@ -175,8 +176,7 @@ class _GenderPreferencesPageState extends State<GenderPreferencesPage> {
                       children: [
                         CustomElevatedButton.blueFullWidth(
                           onPressed: _selectedValue == null ? null : _onNextPressedHandler,
-                          label:
-                              widget.fromLessonComplete ? LocalizedTexts.next.tr() : LocalizedTexts.save.tr(),
+                          label: widget.fromLessonComplete ? LocalizedTexts.next.tr() : LocalizedTexts.save.tr(),
                         ),
                         const SizedBox(height: 30.0),
                       ],

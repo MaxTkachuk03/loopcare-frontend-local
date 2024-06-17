@@ -16,6 +16,7 @@ import 'package:loopcare_frontend/features/legal_statement/application/legal_sta
 import 'package:loopcare_frontend/features/onboarding/application/general/general_onboarding_bloc.dart';
 import 'package:loopcare_frontend/features/splash_screen/infrastructure/splash_controller.dart';
 
+@RoutePage()
 class SplashPage extends StatefulWidget {
   const SplashPage({super.key});
 
@@ -30,7 +31,7 @@ class _SplashPageState extends State<SplashPage> {
     FlutterNativeSplash.remove();
 
     if (state.data.needToUpdate) {
-      AppUpdateBottomSheet.show();
+      AppUpdateBottomSheet.showAppUpdate();
     } else if (_controller.isAuthorized) {
       _controller.getAccount();
     } else {
@@ -48,10 +49,19 @@ class _SplashPageState extends State<SplashPage> {
     context.showError(content: CustomText(error?.toString() ?? LocalizedTexts.somethingWentWrong.tr()));
   }
 
+  void _updatePolicies() {
+    AppUpdateBottomSheet.showPoliciesUpdate(
+      updatePrivacyPolicy: _controller.needUpdatePrivacyPolicy,
+      updateTermsAndConditions: _controller.needUpdateTermsAndConditions,
+      onConfirmed: _controller.updatePolicy,
+    );
+  }
+
   Future<void> _navigateAuthorized() async {
     final routes = await _controller.getRoute();
 
     if (context.mounted) {
+      // ignore: use_build_context_synchronously
       context.router.replaceAll(routes);
     }
   }
@@ -98,6 +108,7 @@ class _SplashPageState extends State<SplashPage> {
         ),
         BlocListener<AuthenticationBloc, AuthenticationState>(
           listener: (context, state) => state.mapOrNull(
+              needUpdatePolicies: (_) => _updatePolicies(),
               gotAccount: (_) => _navigateAuthorized(),
               error: (state) => _errorListener(state.data.error?.error),
             ),

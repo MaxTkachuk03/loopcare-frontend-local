@@ -5,6 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loopcare_frontend/core/domain/analytics/firebase_event_custom_definitions.dart';
 import 'package:loopcare_frontend/core/domain/analytics/firebase_event_list.dart';
 import 'package:loopcare_frontend/core/infrastructure/services/firebase_event_service.dart';
+import 'package:loopcare_frontend/core/infrastructure/services/logger/logger.dart';
 import 'package:loopcare_frontend/core/presentation/app_bar/custom_app_bar.dart';
 import 'package:loopcare_frontend/core/presentation/buttons/custom_elevated_button.dart';
 import 'package:loopcare_frontend/core/presentation/buttons/custom_filled_icon_button.dart';
@@ -33,6 +34,7 @@ import 'package:loopcare_frontend/features/nutrition/presentation/recipe/widgets
 import 'package:loopcare_frontend/features/nutrition/presentation/widgets/meal_portions/nutrition_values_block.dart';
 import 'package:loopcare_frontend/features/nutrition/presentation/widgets/servings_amount/servings_amount.dart';
 
+@RoutePage()
 class RecipePage extends StatefulWidget {
   final bool? isMealRecipe;
   final bool isReadOnly;
@@ -387,7 +389,11 @@ class _RecipePageState extends State<RecipePage> {
               : recipeState.recipeId;
 
           if (mealId == null || recipeId == null) {
-            debugPrint('Search item click freezed RecipePage mealId == null || recipeId == null');
+            log.e(
+              'Search item click freezed RecipePage mealId == null || recipeId == null',
+              error: LogTitle.noItem,
+              stackTrace: StackTrace.current,
+            );
             return;
           }
 

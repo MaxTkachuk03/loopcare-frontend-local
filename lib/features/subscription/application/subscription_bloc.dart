@@ -1,9 +1,10 @@
+// ignore_for_file: depend_on_referenced_packages
+
 import 'dart:async';
 import 'dart:io';
 
-import 'package:bloc/bloc.dart';
 import 'package:dartz/dartz.dart';
-import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:in_app_purchase/in_app_purchase.dart';
 import 'package:in_app_purchase_android/in_app_purchase_android.dart';
@@ -13,11 +14,13 @@ import 'package:loopcare_frontend/core/application/auth_token_manager.dart';
 import 'package:loopcare_frontend/core/application/customer_io_service/customer_io_service.dart';
 import 'package:loopcare_frontend/core/application/socket_service/socket_service.dart';
 import 'package:loopcare_frontend/core/infrastructure/dio_client/request_error.dart';
+import 'package:loopcare_frontend/core/infrastructure/dio_client/server_error_data.dart';
+import 'package:loopcare_frontend/core/infrastructure/services/logger/logger.dart';
+import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/features/authentication/application/authentication_service.dart';
 import 'package:loopcare_frontend/features/authentication/domain/subscription/subscription.dart';
 import 'package:loopcare_frontend/features/subscription/application/purchase_details_subscriptions.dart';
 import 'package:loopcare_frontend/features/subscription/application/purchase_service.dart';
-import 'package:loopcare_frontend/features/subscription/application/subscription_error.dart';
 import 'package:loopcare_frontend/features/subscription/application/subscription_service.dart';
 import 'package:loopcare_frontend/features/subscription/donain/purchased_product.dart';
 import 'package:loopcare_frontend/features/subscription/donain/server_product.dart';
@@ -61,6 +64,7 @@ class SubscriptionBloc extends Bloc<SubscriptionEvent, SubscriptionState> {
     on<GetActiveSubscription>(_onGetActiveSubscription);
     on<GetAccountSubscription>(_onGetAccountSubscription);
     on<GetSubscriptionPlans>(_onGetSubscriptionPlans);
+
     purchaseDetailsStreamSubscription = PurchaseDetailsStreamSubscription(
       onError: (error) => isValidatePastIOSPurchase
           ? _verifyOldPurchase(null, buyingProduct!)
@@ -119,7 +123,8 @@ class SubscriptionBloc extends Bloc<SubscriptionEvent, SubscriptionState> {
     }, (r) async {
       r.valid ?? true
           ? add(SubscriptionEvent.buySubscription(product))
-          : add(const SubscriptionEvent.errorVerifyPurchase(RequestError.streamSubscription(generalMessage)));
+          : add(const SubscriptionEvent.errorVerifyPurchase(RequestError.streamSubscription(
+              ServerErrorData(message: LocalizedTexts.subscriptionServiceUnavailable))));
     });
   }
 
@@ -140,7 +145,8 @@ class SubscriptionBloc extends Bloc<SubscriptionEvent, SubscriptionState> {
         emit(
           SubscriptionState.error(
             state.data.copyWith(
-              error: const RequestError.streamSubscription(purchaseErrorMessage),
+              error: const RequestError.streamSubscription(
+                  ServerErrorData(message: LocalizedTexts.subscriptionServiceUnavailable)),
               isLoading: false,
             ),
           ),
@@ -158,7 +164,7 @@ class SubscriptionBloc extends Bloc<SubscriptionEvent, SubscriptionState> {
       emit(
         SubscriptionState.purchaseDuplicateSubscription(
           state.data.copyWith(
-            error: const RequestError.streamSubscription(purchaseErrorMessage),
+            error: const RequestError.streamSubscription(ServerErrorData(message: LocalizedTexts.purchaseErrorMessage)),
             isLoading: false,
           ),
         ),
@@ -181,6 +187,8 @@ class SubscriptionBloc extends Bloc<SubscriptionEvent, SubscriptionState> {
   }
 
   Future<void> _handlePurchase(PurchaseDetails purchaseDetails) async {
+    // todo: resolve using regular event-state flow
+    // ignore: invalid_use_of_visible_for_testing_member
     emit(
       SubscriptionState.loading(state.data.copyWith(isLoading: true, isWaitTimeout: false)),
     );
@@ -217,7 +225,8 @@ class SubscriptionBloc extends Bloc<SubscriptionEvent, SubscriptionState> {
             ),
           );
         } else {
-          add(const SubscriptionEvent.errorVerifyPurchase(RequestError.streamSubscription(generalMessage)));
+          add(const SubscriptionEvent.errorVerifyPurchase(RequestError.streamSubscription(
+              ServerErrorData(message: LocalizedTexts.subscriptionServiceUnavailable))));
         }
       },
     );
@@ -284,6 +293,8 @@ class SubscriptionBloc extends Bloc<SubscriptionEvent, SubscriptionState> {
     } else if (purchaseDetails is GooglePlayPurchaseDetails) {
       final originalBilling = purchaseDetails.billingClientPurchase;
       return originalBilling.purchaseToken;
+    } else {
+      return null;
     }
   }
 
@@ -353,7 +364,10 @@ class SubscriptionBloc extends Bloc<SubscriptionEvent, SubscriptionState> {
     Set<String> products = {};
     for (final product in state.data.serverPlans) {
       products.add(product.productId!);
-      debugPrint('devcpp PRODUCT: ${product.productId}');
+      log.i(
+        'PRODUCT: ${product.productId}',
+        error: LogTitle.subscription,
+      );
     }
 
     final inAppPurchaseService = getIt<AppSubscriptionService>();

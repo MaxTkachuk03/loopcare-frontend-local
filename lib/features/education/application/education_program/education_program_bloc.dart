@@ -48,10 +48,6 @@ class EducationProgramBloc extends Bloc<EducationProgramEvent, EducationProgramS
 
     final currentActiveStep = lastCompletedLesson.step;
 
-    if (currentActiveStep == null) {
-      return null;
-    }
-
     final lessonsWithSameStep = lessons.where((l) => l.step == currentActiveStep);
 
     final startDate = lessonsWithSameStep.first.completedAt?.toLocal();
