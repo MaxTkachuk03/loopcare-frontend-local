@@ -200,5 +200,8 @@ class AppIcons {
   static SvgPicture lightbulbSelect = SvgPicture.asset('$iconsFilePath/lightbulb_select.svg', width: 22, height: 22);
   static SvgPicture lightbulbUnSelect =
       SvgPicture.asset('$iconsFilePath/lightbulb_unselect.svg', width: 22, height: 22);
+  static SvgPicture iReflectionDisable = SvgPicture.asset('$iconsFilePath/icon_reflection_disable.svg');
+  static SvgPicture iReflectionUnlock = SvgPicture.asset('$iconsFilePath/icon_reflection_unlock.svg');
+  static SvgPicture iReflectionCompleted = SvgPicture.asset('$iconsFilePath/icon_reflection_completed.svg');
   AppIcons._();
 }
