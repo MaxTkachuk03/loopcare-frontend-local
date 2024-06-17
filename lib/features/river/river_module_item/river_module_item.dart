@@ -48,7 +48,7 @@ class _RiverModuleItemState extends State<RiverModuleItem> with SingleTickerProv
     _controller = AnimationController(
       duration: duration,
       vsync: this,
-    );
+    )..forward();
     _bgTween = ColorTween(begin: bgColor, end: widget.mode.contentColor);
 
     _fgTween = ColorTween(begin: widget.mode.contentColor, end: AppColors.white);
@@ -105,26 +105,33 @@ class _RiverModuleItemState extends State<RiverModuleItem> with SingleTickerProv
             child: _InnerWidget(
               elevation: iconElevation,
               onTap: widget.onTap,
-              child: Container(
-                decoration: BoxDecoration(
-                  color: widget.mode.state.name == RiverModuleItemState.read.name &&
-                          _bgAnimation?.value != null
-                      ? _bgAnimation!.value!
-                      : RiverModuleItemState.unlock.getBackgroundColor(widget.mode.contentColor),
-                  shape: BoxShape.circle,
-                ),
-                width: 2 * circleRadius,
-                height: 2 * circleRadius,
-                child: widget.mode.contentType.isActivity
-                    ? activityIcon
-                    : Icon(
-                        icon,
-                        color: widget.mode.state.name == RiverModuleItemState.read.name &&
-                                _fgAnimation?.value != null
-                            ? _fgAnimation!.value!
-                            : RiverModuleItemState.unlock.getIconColor(widget.mode.contentColor),
-                        size: sizeIcon,
-                      ),
+              child: AnimatedBuilder(
+                animation: _controller,
+                builder: (context, child) {
+                  return Container(
+                    decoration: BoxDecoration(
+                      color: widget.mode.state.name == RiverModuleItemState.read.name &&
+                              _bgAnimation?.value != null
+                          ? _bgAnimation!.value!
+                          : RiverModuleItemState.unlock
+                              .getBackgroundColor(widget.mode.contentColor),
+                      shape: BoxShape.circle,
+                    ),
+                    width: 2 * circleRadius,
+                    height: 2 * circleRadius,
+                    child: widget.mode.contentType.isActivity
+                        ? activityIcon
+                        : Icon(
+                            icon,
+                            color: widget.mode.state.name == RiverModuleItemState.read.name &&
+                                    _fgAnimation?.value != null
+                                ? _fgAnimation!.value!
+                                : RiverModuleItemState.unlock
+                                    .getIconColor(widget.mode.contentColor),
+                            size: sizeIcon,
+                          ),
+                  );
+                },
               ),
             ),
           ),

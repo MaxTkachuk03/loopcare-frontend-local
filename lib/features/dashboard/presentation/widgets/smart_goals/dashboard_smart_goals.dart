@@ -60,7 +60,7 @@ class DashboardSmartGoals extends StatelessWidget {
                     RiverModuleItem(
                       mode: ModuleItemMode.completed(
                         contentColor: AppColors.yellowRegular,
-                        contentType: RiverModuleItemType.community,
+                        contentType: RiverModuleItemType.activity,
                       ),
                     ),
                     SizedBox(width: 8,),
