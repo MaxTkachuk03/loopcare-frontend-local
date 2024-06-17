@@ -46,7 +46,8 @@ class PhysicalPreferencesIntroPage extends StatelessWidget {
                       builder: (context, state) {
                         final lesson = state.data;
 
-                        return SizedBox(height: 265, child: NetworkImageWithCache(url: lesson.lessonImage));
+                        return SizedBox(
+                            height: 265, child: NetworkImageWithCache(url: lesson.lessonImage));
                       },
                     ),
                     const SizedBox(height: 28.0),

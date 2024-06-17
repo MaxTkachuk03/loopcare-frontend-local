@@ -167,7 +167,7 @@ class DioClient {
 
   Future<Either<RequestError, T>> patch<T>(
     String path, {
-    dynamic data,
+    dynamic data = const {},
     Map<String, dynamic>? queryParameters,
     T Function(Map<String, dynamic>)? fromJson,
     Options? options,
@@ -179,7 +179,7 @@ class DioClient {
         dio,
         path,
         FetchType.patch,
-        data: data = const {},
+        data: data,
         fromJson: fromJson,
         queryParameters: queryParameters,
         options: options,
