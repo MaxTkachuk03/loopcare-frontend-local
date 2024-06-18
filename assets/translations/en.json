@@ -261,6 +261,7 @@
   "connectionLost": "Internet connection lost, please check your internet connection or try later",
   "pleaseEnterYourEmailAddress": "Please enter your email address",
   "pleaseEnterYourName": "Please enter your name",
+  "nameRegexValidationError": "Only . + - ' special characters are allowed",
   "pleaseEnterValidEmailAddress": "Please enter a valid email address",
   "pleaseEnterYourPassword": "Please enter your password",
   "enterYourHeight": "Please enter your height",

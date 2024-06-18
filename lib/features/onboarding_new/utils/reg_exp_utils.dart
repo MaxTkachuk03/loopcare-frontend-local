@@ -15,5 +15,7 @@ class RegExpUtils {
 
   static const digitsWithDotOrComma = r"^\d+([.,]\d*)?$";
 
+  static const userName = r"^([^\x00-\x7F]|[\w_\ \.\+\-\']){1,64}$";
+
   RegExpUtils._();
 }

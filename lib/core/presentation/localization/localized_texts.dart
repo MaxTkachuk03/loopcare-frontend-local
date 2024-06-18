@@ -23,6 +23,7 @@ class LocalizedTexts {
   static const String pleaseEnterYourEmailAddress = 'pleaseEnterYourEmailAddress';
   static const String pleaseEnterValidEmailAddress = 'pleaseEnterValidEmailAddress';
   static const String pleaseEnterYourName = 'pleaseEnterYourName';
+  static const String nameRegexValidationError = 'nameRegexValidationError';
   static const String enterYourHeight = 'enterYourHeight';
   static const String forgotEmailSuccessMessage = 'forgotEmailSuccessMessage';
   static const String pleaseEnterRegistrationCode = 'pleaseEnterRegistrationCode';
@@ -183,7 +184,8 @@ class LocalizedTexts {
   static const String physicalActivitiesPreferencesDesc = 'physicalActivitiesPreferencesDesc';
   static const String physicalActivitiesPreferencesItemOne = 'physicalActivitiesPreferencesItemOne';
   static const String physicalActivitiesPreferencesItemTwo = 'physicalActivitiesPreferencesItemTwo';
-  static const String physicalActivitiesPreferencesItemThree = 'physicalActivitiesPreferencesItemThree';
+  static const String physicalActivitiesPreferencesItemThree =
+      'physicalActivitiesPreferencesItemThree';
   static const String physicalActivitiesFrequencyTitle = 'physicalActivitiesFrequencyTitle';
   static const String physicalActivitiesFrequencyItemOne = 'physicalActivitiesFrequencyItemOne';
   static const String physicalActivitiesFrequencyItemTwo = 'physicalActivitiesFrequencyItemTwo';
@@ -229,7 +231,8 @@ class LocalizedTexts {
   static const String calorieDensityLowQualityLabel = 'calorieDensityLowQualityLabel';
   static const String proteinDegreeLowQualityDescription = 'proteinDegreeLowQualityDescription';
   static const String proteinDegreeLowQualityLabel = 'proteinDegreeLowQualityLabel';
-  static const String proteinDegreeLowMidQualityDescription = 'proteinDegreeLowMidQualityDescription';
+  static const String proteinDegreeLowMidQualityDescription =
+      'proteinDegreeLowMidQualityDescription';
   static const String proteinDegreeLowMidQualityLabel = 'proteinDegreeLowMidQualityLabel';
   static const String proteinDegreeMidQualityDescription = 'proteinDegreeMidQualityDescription';
   static const String proteinDegreeMidQualityLabel = 'proteinDegreeMidQualityLabel';
@@ -451,7 +454,8 @@ class LocalizedTexts {
   static const String groupRulesFourParagraphOnePartThree = "groupRulesFourParagraphOnePartThree";
   static const String groupRulesFourParagraphOneItalicOne = "groupRulesFourParagraphOneItalicOne";
   static const String groupRulesFourParagraphOneItalicTwo = "groupRulesFourParagraphOneItalicTwo";
-  static const String groupRulesFourParagraphOneItalicThree = "groupRulesFourParagraphOneItalicThree";
+  static const String groupRulesFourParagraphOneItalicThree =
+      "groupRulesFourParagraphOneItalicThree";
   static const String groupRulesFourParagraphTwo = "groupRulesFourParagraphTwo";
   static const String groupRulesFiveParagraphOne = "groupRulesFiveParagraphOne";
   static const String groupRulesFiveParagraphTwo = "groupRulesFiveParagraphTwo";
@@ -576,7 +580,8 @@ class LocalizedTexts {
   static const String restoreSubscriptionFromSettings = "restoreSubscriptionFromSettings";
   static const String askRestoreSubscription = "askRestoreSubscription";
   static const String duplicateSubscriptionFromSettings = "duplicateSubscriptionFromSettings";
-  static const String otherPurchaseVendorCancelAccountSubscription = "otherPurchaseVendorCancelAccountSubscription";
+  static const String otherPurchaseVendorCancelAccountSubscription =
+      "otherPurchaseVendorCancelAccountSubscription";
 
   // Quizzes
   static const String quiz = "quiz";
@@ -978,8 +983,10 @@ class LocalizedTexts {
   // Group session
   static const String groupSession = 'groupSession';
   static const String notEnrolledInGroup = 'notEnrolledInGroup';
-  static const String supportGroupPaidSubscriptionNotGrouped = 'supportGroupPaidSubscriptionNotGrouped';
-  static const String supportGroupTrialSubscriptionNotGrouped = 'supportGroupTrialSubscriptionNotGrouped';
+  static const String supportGroupPaidSubscriptionNotGrouped =
+      'supportGroupPaidSubscriptionNotGrouped';
+  static const String supportGroupTrialSubscriptionNotGrouped =
+      'supportGroupTrialSubscriptionNotGrouped';
   static const String nextWeekTopic = 'nextWeekTopic';
 
   // Update bottom sheet
