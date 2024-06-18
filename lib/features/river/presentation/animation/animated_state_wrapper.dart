@@ -1,18 +1,16 @@
-import 'dart:async';
 import 'dart:math' as math;
 
 import 'package:flutter/material.dart';
-import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 
 class AnimatedStateWrapper extends StatefulWidget {
   final Widget child;
 
-  final Function() animate;
 
   const AnimatedStateWrapper({
     super.key,
     required this.child,
-    required this.animate,
+
   });
 
   @override
@@ -24,7 +22,7 @@ class _AnimatedStateWrapperState extends State<AnimatedStateWrapper>
   late AnimationController _controller;
   late Animation<double> _rotateAnimation;
 
-  final duration = const Duration(seconds: 2);
+  final duration = const Duration(seconds:2);
 
   @override
   void initState() {
@@ -33,13 +31,8 @@ class _AnimatedStateWrapperState extends State<AnimatedStateWrapper>
       duration: duration,
       vsync: this,
     )
-      ..forward()
-      ..addStatusListener((status) {
-        if (status == AnimationStatus.completed) {
-          widget.animate.call();
-        }
-      });
-    _rotateAnimation = Tween<double>(begin: 0.0, end: 5.0)
+      ..forward();
+    _rotateAnimation = Tween<double>(begin: 0.0, end: 6.0)
         .chain(CurveTween(curve: Curves.easeOutQuart))
         .animate(_controller);
   }
@@ -60,7 +53,8 @@ class _AnimatedStateWrapperState extends State<AnimatedStateWrapper>
           transform: Matrix4.identity()
             ..setEntry(3, 2, 0.001)
             ..rotateY(math.pi * _rotateAnimation.value),
-          child: widget.child,
+          child: widget.child.animate()
+              .shimmer(delay: 600.ms, duration: 1800.ms),
         );
       },
     );

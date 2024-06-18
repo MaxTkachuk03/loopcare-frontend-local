@@ -1,15 +1,18 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loopcare_frontend/core/presentation/icon_images/app_icons.dart';
+import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/core/presentation/routes/app_router.dart';
+import 'package:loopcare_frontend/core/presentation/text/custom_text.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
+import 'package:loopcare_frontend/core/presentation/utils/build_context_extensions.dart';
 import 'package:loopcare_frontend/features/dashboard/presentation/widgets/dashboard_card_title/dashboard_card_title.dart';
 import 'package:loopcare_frontend/features/dashboard/presentation/widgets/smart_goals/widgets/dashboard_weekly_goals.dart';
-import 'package:loopcare_frontend/features/river/animation/animated_state_wrapper.dart';
-import 'package:loopcare_frontend/features/river/river_module_item/module_item_state.dart';
-import 'package:loopcare_frontend/features/river/river_module_item/river_module_item.dart';
-import 'package:loopcare_frontend/features/river/river_module_item/river_module_item_utils.dart';
+import 'package:loopcare_frontend/features/river/domain/module_item/module_item.dart';
+import 'package:loopcare_frontend/features/river/presentation/river_module_item/river_module_item.dart';
+import 'package:loopcare_frontend/features/river/presentation/river_module_item/river_module_item_utils.dart';
 import 'package:loopcare_frontend/features/smart_goals/application/smart_goals_bloc.dart';
 
 class DashboardSmartGoals extends StatelessWidget {
@@ -34,58 +37,18 @@ class DashboardSmartGoals extends StatelessWidget {
               return DashboardCardTitle(
                 onTap: () => onPressHandler(context),
                 highlightColor: AppColors.greenLightest,
-                leadingIcon: const Row(
+                leadingIcon: AppIcons.customDashboardSmartGoals,
+                editable: state.data.weeklyGoalsSessions.length < 2,
+                title: Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    RiverModuleItem(
-                      mode: ModuleItemMode.read(
-                        contentColor: AppColors.greenRegular,
-                        contentType: RiverModuleItemType.nutrition,
-                      ),
-                    ),
-                    SizedBox(width: 8,),
-                    RiverModuleItem(
-                      mode: ModuleItemMode.disable(
-                        contentColor: AppColors.petrolRegular,
-                        contentType: RiverModuleItemType.mind,
-                      ),
-                    ),
-                    SizedBox(width: 8,),
-                    RiverModuleItem(
-                      mode: ModuleItemMode.read(
-                        contentColor: AppColors.orangeRegular,
-                        contentType: RiverModuleItemType.community,
-                      ),
-                    ),
-                    SizedBox(width: 8,),
-                    RiverModuleItem(
-                      mode: ModuleItemMode.completed(
-                        contentColor: AppColors.yellowRegular,
-                        contentType: RiverModuleItemType.activity,
-                      ),
-                    ),
-                    SizedBox(width: 8,),
-                    RiverModuleItem(
-                      mode: ModuleItemMode.read(
-                        contentColor: AppColors.blueRegular,
-                        contentType: RiverModuleItemType.activity,
-                      ),
+                    CustomText.bitter600(
+                      LocalizedTexts.myGoals.tr(),
+                      style: context.textTheme.headlineSmall,
                     ),
                   ],
                 ),
-
-                // AppIcons.customDashboardSmartGoals,
-                editable: state.data.weeklyGoalsSessions.length < 2,
-                title: SizedBox.shrink(),
-                // Column(
-                //   mainAxisAlignment: MainAxisAlignment.start,
-                //   crossAxisAlignment: CrossAxisAlignment.start,
-                //   children: [
-                //     CustomText.bitter600(
-                //       LocalizedTexts.myGoals.tr(),
-                //       style: context.textTheme.headlineSmall,
-                //     ),
-                //   ],
-                // ),
                 actionIcon: AppIcons.plus,
               );
             },
