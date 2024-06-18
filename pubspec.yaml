@@ -133,6 +133,9 @@ flutter:
         - asset: assets/fonts/Bitter-SemiBoldItalic.ttf
           style: italic
           weight: 600
+    - family: AppIcons
+      fonts:
+      - asset: assets/fonts/AppIcons.ttf
   uses-material-design: true
 
 flutter_native_splash:
