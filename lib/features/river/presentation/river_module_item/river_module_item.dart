@@ -8,18 +8,22 @@ import 'package:loopcare_frontend/features/river/presentation/animation/animated
 import 'package:loopcare_frontend/features/river/presentation/animation/animated_state_wrapper.dart';
 import 'package:loopcare_frontend/features/river/presentation/river_module_item/river_module_item_utils.dart';
 
-const circleRadius = 25.0;
-const sizeBadge = 15.0;
-const sizeIcon = 36.0;
+const radius = 25.0;
 
 class RiverModuleItem extends StatefulWidget {
   final ModuleItem item;
+  final double circleRadius;
+  final double sizeBadge;
+  final double sizeIcon;
 
   final Function()? onTap;
 
   const RiverModuleItem({
     super.key,
     required this.item,
+    this.circleRadius = radius,
+    this.sizeBadge = 15,
+    this.sizeIcon = 36,
     this.onTap,
   });
 
@@ -28,7 +32,6 @@ class RiverModuleItem extends StatefulWidget {
 }
 
 class _RiverModuleItemState extends State<RiverModuleItem> with SingleTickerProviderStateMixin {
-
   @override
   Widget build(BuildContext context) {
     final iconWidget = widget.item.isReflection
