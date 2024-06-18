@@ -39,21 +39,22 @@ class _RiverModuleItemState extends State<RiverModuleItem> with SingleTickerProv
         : Icon(
             widget.item.icon,
             color: widget.item.iconColor,
-            size: sizeIcon,
+            size: widget.sizeIcon,
           );
     final circleWidget = Container(
       decoration: BoxDecoration(
-        color: widget.item.bgColor,
+        color: widget.item.isReflection ? AppColors.transparent : widget.item.bgColor,
         shape: BoxShape.circle,
       ),
-      width: 2 * circleRadius,
-      height: 2 * circleRadius,
+      width: 2 * widget.circleRadius,
+      height: 2 * widget.circleRadius,
       child: iconWidget,
     );
 
     final wrapWidget = _InnerWidget(
       elevation: widget.item.iconElevation,
       onTap: widget.onTap,
+      circleRadius: widget.circleRadius,
       child: circleWidget,
     );
     Widget? child;
@@ -76,12 +77,12 @@ class _RiverModuleItemState extends State<RiverModuleItem> with SingleTickerProv
         ),
         badgeAnimation: const badge.BadgeAnimation.slide(toAnimate: false),
         position: badge.BadgePosition.topEnd(top: -8, end: -4),
-        badgeContent: const Padding(
-          padding: EdgeInsets.only(bottom: 2.0),
+        badgeContent: Padding(
+          padding: const EdgeInsets.only(bottom: 2.0),
           child: Icon(
             Icons.check,
             color: AppColors.white,
-            size: sizeBadge,
+            size: widget.sizeBadge,
           ),
         ),
         child: child,
@@ -107,20 +108,21 @@ class _RiverModuleItemState extends State<RiverModuleItem> with SingleTickerProv
 class _InnerWidget extends StatelessWidget {
   final Widget child;
   final double elevation;
+  final double circleRadius;
   final Function()? onTap;
 
   const _InnerWidget({
-    super.key,
     required this.child,
     required this.elevation,
     this.onTap,
+    this.circleRadius = radius,
   });
 
   @override
   Widget build(BuildContext context) {
     return Material(
       elevation: elevation,
-      borderRadius: const BorderRadius.all(Radius.circular(circleRadius)),
+      borderRadius: BorderRadius.all(Radius.circular(circleRadius)),
       child: InkWell(
         onTap: onTap,
         child: child,
