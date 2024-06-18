@@ -74,7 +74,8 @@ class _QuizzesQuestionsPageState extends State<QuizzesQuestionsPage> {
 
   bool _nextStepListenWhen(QuizzesState previous, QuizzesState current) =>
       (ModalRoute.of(context)?.isCurrent ?? false) &&
-          previous is QuizzesStateLoading && current is QuizzesStateUpdated;
+      previous is QuizzesStateLoading &&
+      current is QuizzesStateUpdated;
 
   void _onStepChangeListener(BuildContext context, QuizzesState state) {
     state.maybeMap(
@@ -105,7 +106,12 @@ class _QuizzesQuestionsPageState extends State<QuizzesQuestionsPage> {
           : const QuestionsPageMode.askQuestion();
 
       if (question.questionAnswer != null) {
-        _controller.setLessonValue(question.lessonQuestionOptionById(question.lessonQuestionAnswersId.first));
+        final userAnswer =
+            question.lessonQuestionOptionById(question.lessonQuestionAnswersId.first);
+
+        _controller
+          ..setLessonValue(userAnswer)
+          ..validateForm();
       }
     });
   }
@@ -210,10 +216,14 @@ class _QuizzesQuestionsPageState extends State<QuizzesQuestionsPage> {
                                         return CorrectIncorrectExplanation(
                                           isCorrect: isCorrect,
                                           text: isCorrect
-                                              ? state.data.questionForStep(widget.step).explanationCorrect ??
-                                                LocalizedTexts.correct.tr()
-                                              : state.data.questionForStep(widget.step).explanationIncorrect ??
-                                                LocalizedTexts.incorrect.tr(),
+                                              ? state.data
+                                                      .questionForStep(widget.step)
+                                                      .explanationCorrect ??
+                                                  LocalizedTexts.correct.tr()
+                                              : state.data
+                                                      .questionForStep(widget.step)
+                                                      .explanationIncorrect ??
+                                                  LocalizedTexts.incorrect.tr(),
                                         );
                                       },
                                     ),
