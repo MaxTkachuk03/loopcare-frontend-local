@@ -69,6 +69,18 @@ class AppRouter extends $AppRouter {
     // Onboarding
     AutoRoute(
       path: AppRoutes.onboardingIntro,
+      page: OnboardingIntroRoute.page,
+    ),
+    AutoRoute(
+      path: AppRoutes.onboardingIntroMission,
+      page: OnboardingIntroOurMissionRoute.page,
+    ),
+    AutoRoute(
+      path: AppRoutes.onboardingPacing,
+      page: OnboardingPacingRoute.page,
+    ),
+    AutoRoute(
+      path: AppRoutes.onboardingQuestions,
       page: OnboardingQuestionsRoute.page,
     ),
 

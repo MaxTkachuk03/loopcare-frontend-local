@@ -16,9 +16,10 @@ enum RiverIconType {
   nutrition,
   weight,
   profile,
-  practice;
+  practice,
+  reflection;
 
-  bool get isActivity => this == activity;
+  bool get isReflection => this == reflection;
 
   IconData get icon {
     switch (this) {
@@ -75,16 +76,16 @@ enum RiverModuleStreamType {
   }
 
   Color get lighterColor {
-    switch (streamColor) {
-      case AppColors.petrolRegular:
+    switch (this) {
+      case RiverModuleStreamType.psychology:
         return AppColors.petrolLightest;
-      case AppColors.greenRegular:
+      case RiverModuleStreamType.nutrition:
         return AppColors.greenLightest;
-      case AppColors.yellowRegular:
+      case RiverModuleStreamType.activity:
         return AppColors.yellowLightest;
-      case AppColors.coralRegular:
+      case RiverModuleStreamType.medical:
         return AppColors.coralLightest;
-      default:
+      case RiverModuleStreamType.community:
         return AppColors.orangeLightest;
     }
   }
@@ -117,6 +118,7 @@ enum RiverModuleItemState {
       case RiverModuleItemState.unlock:
         return streamType.streamColor;
       case RiverModuleItemState.disable:
+        return AppColors.blueLightest;
       case RiverModuleItemState.read:
       case RiverModuleItemState.completed:
         return streamType.lighterColor;
@@ -131,18 +133,6 @@ enum RiverModuleItemState {
         return 4;
       case RiverModuleItemState.disable:
         return 0;
-    }
-  }
-
-  Widget get activityIcon {
-    switch (this) {
-      case RiverModuleItemState.unlock:
-        return AppIcons.iReflectionUnlock;
-      case RiverModuleItemState.disable:
-        return AppIcons.iReflectionDisable;
-      case RiverModuleItemState.completed:
-      case RiverModuleItemState.read:
-        return AppIcons.iReflectionCompleted;
     }
   }
 }

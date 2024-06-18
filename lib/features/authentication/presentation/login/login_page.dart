@@ -25,7 +25,7 @@ class LoginPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: FocusScope.of(context).unfocus,
-      child: CustomScaffold.green(
+      child: CustomScaffold.blueLightest(
         key: const ValueKey('login_page'),
         appBar: CustomAppBar.transparent(
           leading: context.router.canPop()

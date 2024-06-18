@@ -16,9 +16,9 @@ class ModuleItem {
 
   double get iconElevation => state.elevation;
 
-  bool get isActivity => iconType.isActivity;
+  bool get isReflection => iconType.isReflection;
 
   bool get isCompleted => state.isCompleted;
 
-  Widget get activityIcon => state.activityIcon;
+
 }

@@ -139,12 +139,12 @@ flutter:
   uses-material-design: true
 
 flutter_native_splash:
-  color: "#aeca5f"
+  color: "#ecf5ff"
   image: assets/images/app_logo.png
 
   android_12:
     image: assets/images/android_splash_logo.png
-    color: "#aeca5f"
+    color: "#ecf5ff"
 
 license_generator:
   output_path: ./license_dependencies.dart

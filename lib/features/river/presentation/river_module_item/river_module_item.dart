@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:badges/badges.dart' as badge;
 import 'package:flutter/material.dart';
+import 'package:loopcare_frontend/core/presentation/icon_images/app_icons.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 import 'package:loopcare_frontend/features/river/domain/module_item/module_item.dart';
 import 'package:loopcare_frontend/features/river/presentation/animation/animated_scale_wrapper.dart';
@@ -27,29 +28,11 @@ class RiverModuleItem extends StatefulWidget {
 }
 
 class _RiverModuleItemState extends State<RiverModuleItem> with SingleTickerProviderStateMixin {
-  late AnimationController _controller;
-
-  final duration = const Duration(seconds: 2);
-
-  @override
-  void initState() {
-    super.initState();
-    _controller = AnimationController(
-      duration: duration,
-      vsync: this,
-    )..forward();
-  }
-
-  @override
-  void dispose() {
-    _controller.dispose();
-    super.dispose();
-  }
 
   @override
   Widget build(BuildContext context) {
-    final iconWidget = widget.item.isActivity
-        ? widget.item.activityIcon
+    final iconWidget = widget.item.isReflection
+        ? reflectionIcon
         : Icon(
             widget.item.icon,
             color: widget.item.iconColor,
@@ -102,6 +85,18 @@ class _RiverModuleItemState extends State<RiverModuleItem> with SingleTickerProv
       );
     } else {
       return child;
+    }
+  }
+
+  Widget get reflectionIcon {
+    switch (widget.item.state) {
+      case RiverModuleItemState.unlock:
+        return AppIcons.iReflectionUnlock;
+      case RiverModuleItemState.disable:
+        return AppIcons.iReflectionDisable;
+      case RiverModuleItemState.completed:
+      case RiverModuleItemState.read:
+        return AppIcons.iReflectionCompleted;
     }
   }
 }
