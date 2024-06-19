@@ -10,6 +10,9 @@ import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 import 'package:loopcare_frontend/core/presentation/utils/build_context_extensions.dart';
 import 'package:loopcare_frontend/features/dashboard/presentation/widgets/dashboard_card_title/dashboard_card_title.dart';
 import 'package:loopcare_frontend/features/dashboard/presentation/widgets/smart_goals/widgets/dashboard_weekly_goals.dart';
+import 'package:loopcare_frontend/features/river/domain/module_item/module_item.dart';
+import 'package:loopcare_frontend/features/river/presentation/river_module_item/river_module_item.dart';
+import 'package:loopcare_frontend/features/river/presentation/river_module_item/river_module_item_utils.dart';
 import 'package:loopcare_frontend/features/smart_goals/application/smart_goals_bloc.dart';
 
 class DashboardSmartGoals extends StatelessWidget {
@@ -36,16 +39,50 @@ class DashboardSmartGoals extends StatelessWidget {
                 highlightColor: AppColors.greenLightest,
                 leadingIcon: AppIcons.customDashboardSmartGoals,
                 editable: state.data.weeklyGoalsSessions.length < 2,
-                title: Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  crossAxisAlignment: CrossAxisAlignment.start,
+                title:  Row(
                   children: [
-                    CustomText.bitter600(
-                      LocalizedTexts.myGoals.tr(),
-                      style: context.textTheme.headlineSmall,
+                    RiverModuleItem(
+                        item: ModuleItem(
+                            state: RiverModuleItemState.completed,
+                            iconType: RiverIconType.reflection,
+                            stream: RiverModuleStreamType.activity)
                     ),
+                    SizedBox(width: 8,),
+                    RiverModuleItem(
+                        item: ModuleItem(
+                            state: RiverModuleItemState.completed,
+                            iconType: RiverIconType.weight,
+                            stream: RiverModuleStreamType.nutrition)
+                    ),
+                    SizedBox(width: 8,),
+                    RiverModuleItem(
+                        item: ModuleItem(
+                            state: RiverModuleItemState.unlock,
+                            iconType: RiverIconType.community,
+                            stream: RiverModuleStreamType.community)
+                    ),
+                    SizedBox(width: 8,),
+                    RiverModuleItem(
+                        item: ModuleItem(
+                            state: RiverModuleItemState.read,
+                            iconType: RiverIconType.mind,
+                            stream: RiverModuleStreamType.medical)
+                    ),
+
+                    SizedBox(width: 8,),
+
                   ],
                 ),
+                // Column(
+                //   mainAxisAlignment: MainAxisAlignment.start,
+                //   crossAxisAlignment: CrossAxisAlignment.start,
+                //   children: [
+                //     CustomText.bitter600(
+                //       LocalizedTexts.myGoals.tr(),
+                //       style: context.textTheme.headlineSmall,
+                //     ),
+                //   ],
+                // ),
                 actionIcon: AppIcons.plus,
               );
             },

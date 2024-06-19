@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_animate/flutter_animate.dart';
+
+const duration = Duration(seconds: 2);
 
 class AnimatedScaleWrapper extends StatefulWidget {
   final Widget child;
@@ -16,14 +17,36 @@ class AnimatedScaleWrapper extends StatefulWidget {
 class _AnimatedScaleWrapperState extends State<AnimatedScaleWrapper>
     with SingleTickerProviderStateMixin {
   late AnimationController _controller;
+  late Animation<double> _animation;
+
+  double _squareScale = 1;
 
   @override
   void initState() {
     super.initState();
-    _controller = AnimationController(
-      duration: 600.ms,
-      vsync: this,
-    );
+
+    final scaleTween = Tween(begin: 1.0, end: 1.1);
+    _controller = AnimationController(duration: duration, vsync: this);
+    _animation = scaleTween.animate(
+      CurvedAnimation(
+        parent: _controller,
+        curve: Curves.fastOutSlowIn,
+      ),
+    )..addListener(() {
+        setState(() => _squareScale = _animation.value);
+      });
+    _animate();
+  }
+
+  void _animate() {
+    _animation.addStatusListener((AnimationStatus status) {
+      if (_squareScale == 1.1) {
+        _controller.reverse();
+      } else if (_squareScale == 1) {
+        _controller.forward();
+      }
+    });
+    _controller.forward();
   }
 
   @override
@@ -34,9 +57,9 @@ class _AnimatedScaleWrapperState extends State<AnimatedScaleWrapper>
 
   @override
   Widget build(BuildContext context) {
-    return widget.child
-        .animate(onPlay: (controller) => controller.repeat())
-        // .shimmer(delay: 600.ms, duration: 1800.ms) // shimmer +
-        .scaleXY(begin: 1.0, end: 1.1, delay: 300.ms, duration: 1000.ms, curve: Curves.easeInQuint);
+    return Transform.scale(
+      scale: _squareScale,
+      child: widget.child,
+    );
   }
 }

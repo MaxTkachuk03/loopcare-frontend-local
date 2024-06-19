@@ -4,8 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:loopcare_frontend/core/presentation/icon_images/app_icons.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 import 'package:loopcare_frontend/features/river/domain/module_item/module_item.dart';
+import 'package:loopcare_frontend/features/river/presentation/animation/animated_change_state_wrapper.dart';
 import 'package:loopcare_frontend/features/river/presentation/animation/animated_scale_wrapper.dart';
-import 'package:loopcare_frontend/features/river/presentation/animation/animated_state_wrapper.dart';
+import 'package:loopcare_frontend/features/river/presentation/animation/animated_transition_wrapper.dart';
 import 'package:loopcare_frontend/features/river/presentation/river_module_item/river_module_item_utils.dart';
 
 const radius = 25.0;
@@ -45,6 +46,13 @@ class _RiverModuleItemState extends State<RiverModuleItem> with SingleTickerProv
       decoration: BoxDecoration(
         color: widget.item.isReflection ? AppColors.transparent : widget.item.bgColor,
         shape: BoxShape.circle,
+        boxShadow: [
+          BoxShadow(
+            color: AppColors.greyLight.withOpacity(0.1),
+            spreadRadius: 1.5,
+            blurRadius: 1,
+          ),
+        ],
       ),
       width: 2 * widget.circleRadius,
       height: 2 * widget.circleRadius,
@@ -64,7 +72,7 @@ class _RiverModuleItemState extends State<RiverModuleItem> with SingleTickerProv
       case RiverModuleItemState.disable:
         child = wrapWidget;
       case RiverModuleItemState.read:
-        child = AnimatedStateWrapper(child: wrapWidget);
+        child = AnimatedChangeStateWrapper(child: wrapWidget);
       case RiverModuleItemState.completed:
         child = wrapWidget;
     }

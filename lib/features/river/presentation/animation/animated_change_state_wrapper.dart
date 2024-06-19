@@ -3,21 +3,21 @@ import 'dart:math' as math;
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 
-class AnimatedStateWrapper extends StatefulWidget {
+class AnimatedChangeStateWrapper extends StatefulWidget {
   final Widget child;
 
 
-  const AnimatedStateWrapper({
+  const AnimatedChangeStateWrapper({
     super.key,
     required this.child,
 
   });
 
   @override
-  State<AnimatedStateWrapper> createState() => _AnimatedStateWrapperState();
+  State<AnimatedChangeStateWrapper> createState() => _AnimatedChangeStateWrapperState();
 }
 
-class _AnimatedStateWrapperState extends State<AnimatedStateWrapper>
+class _AnimatedChangeStateWrapperState extends State<AnimatedChangeStateWrapper>
     with SingleTickerProviderStateMixin {
   late AnimationController _controller;
   late Animation<double> _rotateAnimation;
