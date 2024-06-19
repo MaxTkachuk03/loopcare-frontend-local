@@ -28,7 +28,6 @@ class SelectGoalsCategoryPage extends StatelessWidget {
       ),
       body: CustomSafeArea(
         child: CustomScrollView(
-          physics: const ClampingScrollPhysics(),
           slivers: [
             SliverToBoxAdapter(
               child: Padding(

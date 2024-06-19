@@ -29,7 +29,8 @@ class PhysicalActivitiesActivityTypePage extends StatefulWidget {
   const PhysicalActivitiesActivityTypePage({super.key, this.profileInvoke = false});
 
   @override
-  State<PhysicalActivitiesActivityTypePage> createState() => _PhysicalActivitiesActivityTypePageState();
+  State<PhysicalActivitiesActivityTypePage> createState() =>
+      _PhysicalActivitiesActivityTypePageState();
 }
 
 class _PhysicalActivitiesActivityTypePageState extends State<PhysicalActivitiesActivityTypePage> {
@@ -55,8 +56,9 @@ class _PhysicalActivitiesActivityTypePageState extends State<PhysicalActivitiesA
     }
   }
 
-  void _onNext() =>
-      context.read<PhysicalActivitiesPreferencesBloc>().add(const PhysicalActivitiesPreferencesEvent.savePreferences());
+  void _onNext() => context
+      .read<PhysicalActivitiesPreferencesBloc>()
+      .add(const PhysicalActivitiesPreferencesEvent.savePreferences());
 
   @override
   Widget build(BuildContext context) {
@@ -88,14 +90,17 @@ class _PhysicalActivitiesActivityTypePageState extends State<PhysicalActivitiesA
                         style: context.textTheme.displayMedium,
                       ),
                       const SizedBox(height: 28.0),
-                      widget.profileInvoke ? const ActivityTypeChips.coral() : const ActivityTypeChips.green(),
+                      widget.profileInvoke
+                          ? const ActivityTypeChips.coral()
+                          : const ActivityTypeChips.green(),
                       const SizedBox(height: 28.0),
                       CustomText.w400(
                         LocalizedTexts.youCanAlsoOptionally.tr(),
                         style: context.textTheme.bodyMedium,
                       ),
                       const SizedBox(height: 28.0),
-                      BlocBuilder<PhysicalActivitiesPreferencesBloc, PhysicalActivitiesPreferencesState>(
+                      BlocBuilder<PhysicalActivitiesPreferencesBloc,
+                          PhysicalActivitiesPreferencesState>(
                         builder: (context, state) {
                           return state.data.needFlexibility
                               ? widget.profileInvoke
@@ -108,7 +113,8 @@ class _PhysicalActivitiesActivityTypePageState extends State<PhysicalActivitiesA
                   ),
                   Column(
                     children: [
-                      BlocBuilder<PhysicalActivitiesPreferencesBloc, PhysicalActivitiesPreferencesState>(
+                      BlocBuilder<PhysicalActivitiesPreferencesBloc,
+                          PhysicalActivitiesPreferencesState>(
                         builder: (context, state) {
                           return CustomElevatedButton.blueFullWidth(
                             onPressed: state.data.isTargetsSet ? _onNext : null,
