@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:loopcare_frontend/core/presentation/icon_images/app_icons.dart';
 import 'package:loopcare_frontend/core/presentation/icon_images/app_icons_data.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
+import 'package:loopcare_frontend/features/river/presentation/widgets/river_module_view.dart';
 
 enum RiverIconType {
   activity,
@@ -55,46 +55,8 @@ enum RiverIconType {
   }
 }
 
-enum RiverModuleStreamType {
-  psychology,
-  nutrition,
-  activity,
-  medical,
-  community;
-
-  Color get streamColor {
-    switch (this) {
-      case RiverModuleStreamType.psychology:
-        return AppColors.petrolRegular;
-      case RiverModuleStreamType.nutrition:
-        return AppColors.greenRegular;
-      case RiverModuleStreamType.activity:
-        return AppColors.yellowRegular;
-      case RiverModuleStreamType.medical:
-        return AppColors.coralRegular;
-      case RiverModuleStreamType.community:
-        return AppColors.orangeRegular;
-    }
-  }
-
-  Color get lighterColor {
-    switch (this) {
-      case RiverModuleStreamType.psychology:
-        return AppColors.petrolLightest;
-      case RiverModuleStreamType.nutrition:
-        return AppColors.greenLightest;
-      case RiverModuleStreamType.activity:
-        return AppColors.yellowLightest;
-      case RiverModuleStreamType.medical:
-        return AppColors.coralLightest;
-      case RiverModuleStreamType.community:
-        return AppColors.orangeLightest;
-    }
-  }
-}
-
 enum RiverModuleItemState {
-  disable,
+  lock,
   unlock,
   read,
   completed;
@@ -103,9 +65,15 @@ enum RiverModuleItemState {
 
   bool get isCompleted => this == completed;
 
-  Color bgColor(RiverModuleStreamType streamType) {
+  bool get isUnlock => this == unlock;
+
+  bool get isRead => this == read;
+
+  bool get isLock => this == lock;
+
+  Color bgColor(RiverStreamType streamType) {
     switch (this) {
-      case RiverModuleItemState.disable:
+      case RiverModuleItemState.lock:
         return AppColors.blueLighter;
       case RiverModuleItemState.unlock:
         return streamType.lighterColor;
@@ -115,11 +83,11 @@ enum RiverModuleItemState {
     }
   }
 
-  Color iconColor(RiverModuleStreamType streamType) {
+  Color iconColor(RiverStreamType streamType) {
     switch (this) {
       case RiverModuleItemState.unlock:
         return streamType.streamColor;
-      case RiverModuleItemState.disable:
+      case RiverModuleItemState.lock:
         return AppColors.blueLightest;
       case RiverModuleItemState.read:
       case RiverModuleItemState.completed:
@@ -133,7 +101,7 @@ enum RiverModuleItemState {
       case RiverModuleItemState.read:
       case RiverModuleItemState.completed:
         return 4;
-      case RiverModuleItemState.disable:
+      case RiverModuleItemState.lock:
         return 0;
     }
   }

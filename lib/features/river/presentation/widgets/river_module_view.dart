@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:loopcare_frontend/core/presentation/text/custom_text.dart';
+import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 import 'package:loopcare_frontend/core/presentation/utils/build_context_extensions.dart';
+import 'package:loopcare_frontend/features/river/domain/module_item/module_item.dart';
+import 'package:loopcare_frontend/features/river/presentation/river_module_item/river_module_item.dart';
+import 'package:loopcare_frontend/features/river/presentation/river_module_item/river_module_item_utils.dart';
 
 import '../utils/module_items_utils.dart';
 import 'animated_river_streams.dart';
@@ -80,10 +84,18 @@ class _RiverScreenState extends State<RiverScreen> {
       (index) => Positioned(
         left: dimension * _positionedItems[index].offset.dx - 22,
         top: itemTopPositionOffset + dimension * _positionedItems[index].offset.dy - 22,
-        child: CircleAvatar(
-          radius: 22,
-          child: Text(_positionedItems[index].item.stream.streamIndex.toString()),
-        ),
+        //Todo ModuleItem widget
+        child: RiverModuleItem(
+            item: ModuleItem(
+                state: RiverModuleItemState.completed,
+                iconType: RiverIconType.community,
+                stream: _positionedItems[index].item.stream,
+            offset: Offset(_positionedItems[index].offset.dx , _positionedItems[index].offset.dy ))
+        )
+        // CircleAvatar(
+        //   radius: 22,
+        //   child: Text(_positionedItems[index].item.stream.streamIndex.toString()),
+        // ),
       ),
     );
 
@@ -162,6 +174,37 @@ enum RiverStreamType {
     medical => 3,
     nutrition => 4,
   };
+
+
+  Color get streamColor {
+    switch (this) {
+      case RiverStreamType.psychology:
+        return AppColors.petrolRegular;
+      case RiverStreamType.nutrition:
+        return AppColors.greenRegular;
+      case RiverStreamType.activity:
+        return AppColors.yellowRegular;
+      case RiverStreamType.medical:
+        return AppColors.coralRegular;
+      case RiverStreamType.community:
+        return AppColors.orangeRegular;
+    }
+  }
+
+  Color get lighterColor {
+    switch (this) {
+      case RiverStreamType.psychology:
+        return AppColors.petrolLightest;
+      case RiverStreamType.nutrition:
+        return AppColors.greenLightest;
+      case RiverStreamType.activity:
+        return AppColors.yellowLightest;
+      case RiverStreamType.medical:
+        return AppColors.coralLightest;
+      case RiverStreamType.community:
+        return AppColors.orangeLightest;
+    }
+  }
 }
 
 class ModelItem {

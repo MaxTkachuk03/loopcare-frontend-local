@@ -39,50 +39,16 @@ class DashboardSmartGoals extends StatelessWidget {
                 highlightColor: AppColors.greenLightest,
                 leadingIcon: AppIcons.customDashboardSmartGoals,
                 editable: state.data.weeklyGoalsSessions.length < 2,
-                title:  Row(
+                title: Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    RiverModuleItem(
-                        item: ModuleItem(
-                            state: RiverModuleItemState.completed,
-                            iconType: RiverIconType.reflection,
-                            stream: RiverModuleStreamType.activity)
+                    CustomText.bitter600(
+                      LocalizedTexts.myGoals.tr(),
+                      style: context.textTheme.headlineSmall,
                     ),
-                    SizedBox(width: 8,),
-                    RiverModuleItem(
-                        item: ModuleItem(
-                            state: RiverModuleItemState.completed,
-                            iconType: RiverIconType.weight,
-                            stream: RiverModuleStreamType.nutrition)
-                    ),
-                    SizedBox(width: 8,),
-                    RiverModuleItem(
-                        item: ModuleItem(
-                            state: RiverModuleItemState.unlock,
-                            iconType: RiverIconType.community,
-                            stream: RiverModuleStreamType.community)
-                    ),
-                    SizedBox(width: 8,),
-                    RiverModuleItem(
-                        item: ModuleItem(
-                            state: RiverModuleItemState.read,
-                            iconType: RiverIconType.mind,
-                            stream: RiverModuleStreamType.medical)
-                    ),
-
-                    SizedBox(width: 8,),
-
                   ],
                 ),
-                // Column(
-                //   mainAxisAlignment: MainAxisAlignment.start,
-                //   crossAxisAlignment: CrossAxisAlignment.start,
-                //   children: [
-                //     CustomText.bitter600(
-                //       LocalizedTexts.myGoals.tr(),
-                //       style: context.textTheme.headlineSmall,
-                //     ),
-                //   ],
-                // ),
                 actionIcon: AppIcons.plus,
               );
             },

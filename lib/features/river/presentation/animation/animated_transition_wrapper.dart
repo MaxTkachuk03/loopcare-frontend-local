@@ -1,13 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:badges/badges.dart' as badge;
-import 'package:flutter_animate/flutter_animate.dart';
-import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 
 class AnimatedTransitionWrapper extends StatefulWidget {
   final Widget child;
-  final double sizeBadge;
+  final Offset offset;
 
-  const AnimatedTransitionWrapper({super.key, required this.child, this.sizeBadge = 15});
+  const AnimatedTransitionWrapper({super.key, required this.child, required this.offset});
 
   @override
   State<AnimatedTransitionWrapper> createState() => _AnimatedTransitionWrapperState();
@@ -17,19 +14,26 @@ class AnimatedTransitionWrapper extends StatefulWidget {
 /// [TickerProviderStateMixin].
 class _AnimatedTransitionWrapperState extends State<AnimatedTransitionWrapper>
     with TickerProviderStateMixin {
+  final ValueNotifier<bool> opacityController = ValueNotifier(false);
   late final AnimationController _controller = AnimationController(
-    duration: const Duration(seconds: 2),
+    duration: const Duration(seconds: 5),
     vsync: this,
-  )..repeat(reverse: true);
-  late final Animation<AlignmentGeometry> _animation = Tween<AlignmentGeometry>(
-    begin: Alignment.topRight,
-    end: Alignment.bottomLeft,
-  ).animate(
-    CurvedAnimation(
-      parent: _controller,
-      curve: Curves.decelerate,
-    ),
-  );
+  )..forward();
+  late final Animation<Offset> _animation = Tween<Offset>(
+    begin: widget.offset,
+    //offset navigation bar item
+    end: Offset(widget.offset.dx, widget.offset.dy + 100),
+  ).animate(_controller);
+
+  @override
+  void initState() {
+    super.initState();
+    _controller.addStatusListener((status) {
+      if (status == AnimationStatus.completed) {
+        opacityController.value = true;
+      }
+    });
+  }
 
   @override
   void dispose() {
@@ -39,36 +43,18 @@ class _AnimatedTransitionWrapperState extends State<AnimatedTransitionWrapper>
 
   @override
   Widget build(BuildContext context) {
-    return
-        //   AnimatedPositioned(
-        //   width:  200.0 ,
-        //   height: 200.0,
-        //   top:  150.0,
-        //   duration: const Duration(seconds: 2),
-        //   curve: Curves.fastOutSlowIn,
-        //   child: widget.child,
-        // );
-
-        AlignTransition(
-      alignment: _animation,
-      child: badge.Badge(
-        badgeStyle: const badge.BadgeStyle(
-          padding: EdgeInsets.all(5),
-          badgeColor: AppColors.blueRegular,
-          elevation: 0,
-        ),
-        badgeAnimation: const badge.BadgeAnimation.slide(toAnimate: false),
-        position: badge.BadgePosition.topEnd(top: -8, end: -4),
-        badgeContent: Padding(
-          padding: const EdgeInsets.only(bottom: 2.0),
-          child: Icon(
-            Icons.check,
-            color: AppColors.white,
-            size: widget.sizeBadge,
-          ),
-        ),
-        child: widget.child,
-      ),
+    return SlideTransition(
+      position: _animation,
+      child: TweenAnimationBuilder<double>(
+          tween: Tween<double>(begin: 1.0, end: 0.0),
+          curve: Curves.ease,
+          duration: const Duration(seconds: 4),
+          builder: (BuildContext context, double opacity, Widget? child) {
+            return Opacity(
+              opacity: opacity,
+              child: widget.child,
+            );
+          }),
     );
   }
 }
