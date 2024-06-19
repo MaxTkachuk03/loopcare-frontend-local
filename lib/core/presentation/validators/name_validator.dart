@@ -1,6 +1,6 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
-import 'package:loopcare_frontend/features/onboarding_new/utils/reg_exp_utils.dart';
+import 'package:loopcare_frontend/core/presentation/utils/reg_exp_utils.dart';
 
 class NameValidator {
   NameValidator._();
