@@ -49,10 +49,10 @@ class DioClient {
 
     if (kDebugMode) {
       dio.interceptors.add(PrettyDioLogger(
-        responseBody: true,
-        requestHeader: false,
-        responseHeader: true,
+        requestHeader: true,
         requestBody: true,
+        responseHeader: false,
+        responseBody: false,
         error: true,
         compact: true,
       ));
@@ -167,7 +167,7 @@ class DioClient {
 
   Future<Either<RequestError, T>> patch<T>(
     String path, {
-    dynamic data,
+    dynamic data = const {},
     Map<String, dynamic>? queryParameters,
     T Function(Map<String, dynamic>)? fromJson,
     Options? options,
@@ -179,7 +179,7 @@ class DioClient {
         dio,
         path,
         FetchType.patch,
-        data: data = const {},
+        data: data,
         fromJson: fromJson,
         queryParameters: queryParameters,
         options: options,

@@ -436,7 +436,8 @@ class AuthenticationBloc extends HydratedBloc<AuthenticationEvent, Authenticatio
         );
 
         if (event.feature.feature == UnlockedFeatureType.grouping.name) {
-          add(const AuthenticationEvent.changeAccountGroupStatus(UserGroupingState.unlockedPreferences));
+          add(const AuthenticationEvent.changeAccountGroupStatus(
+              UserGroupingState.unlockedPreferences));
         }
       },
     );

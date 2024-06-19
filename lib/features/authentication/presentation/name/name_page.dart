@@ -16,7 +16,6 @@ import 'package:loopcare_frontend/core/presentation/utils/build_context_extensio
 import 'package:loopcare_frontend/core/presentation/validators/name_validator.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/main_container.dart';
 import 'package:loopcare_frontend/features/authentication/application/authentication_bloc.dart';
-import 'package:loopcare_frontend/features/authentication/domain/name/name.dart';
 
 @RoutePage()
 class NamePage extends StatefulWidget {
@@ -31,17 +30,7 @@ class _NamePageState extends State<NamePage> {
   final _formValidationNotifier = ValueNotifier<bool>(false);
   final _formKey = GlobalKey<FormState>();
 
-  @override
-  void dispose() {
-    _nameController.dispose();
-    _formValidationNotifier.dispose();
-    super.dispose();
-  }
-
-  _onChangedForm() {
-    final isValidForm = Name.create(_nameController.text).isRight();
-    _formValidationNotifier.value = isValidForm;
-  }
+  _onChangedForm() => _formValidationNotifier.value = _formKey.currentState!.validate();
 
   void _onNextPressed() {
     context
@@ -79,7 +68,7 @@ class _NamePageState extends State<NamePage> {
                       key: const ValueKey('name_page_text_field'),
                       controller: _nameController,
                       hintText: LocalizedTexts.yourName.tr(),
-                      validator: nameValidator(),
+                      validator: NameValidator.validate,
                       maxLength: 64,
                     ),
                   ),
@@ -101,5 +90,13 @@ class _NamePageState extends State<NamePage> {
         ),
       ),
     );
+  }
+
+  @override
+  void dispose() {
+    _nameController.dispose();
+    _formValidationNotifier.dispose();
+
+    super.dispose();
   }
 }

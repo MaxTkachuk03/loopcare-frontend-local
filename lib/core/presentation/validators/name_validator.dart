@@ -1,11 +1,19 @@
 import 'package:easy_localization/easy_localization.dart';
-import 'package:flutter/material.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
-import 'package:loopcare_frontend/features/authentication/domain/name/name.dart';
+import 'package:loopcare_frontend/features/onboarding_new/utils/reg_exp_utils.dart';
 
-FormFieldValidator<String>? nameValidator() {
-  return (String? value) =>
-      Name.create(value ?? '').swap().toOption().toNullable()?.map(
-        empty: (_) => LocalizedTexts.pleaseEnterYourName.tr(),
-      );
+class NameValidator {
+  NameValidator._();
+
+  static String? validate(String? value) {
+    if (value == null || value.isEmpty || value.trim().isEmpty) {
+      return LocalizedTexts.pleaseEnterYourName.tr();
+    }
+
+    if (!RegExp(RegExpUtils.userName).hasMatch(value)) {
+      return LocalizedTexts.nameRegexValidationError.tr();
+    }
+
+    return null;
+  }
 }

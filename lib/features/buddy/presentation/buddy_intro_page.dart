@@ -20,9 +20,11 @@ import 'package:loopcare_frontend/features/education/presentation/education_page
 class BuddyIntroPage extends StatelessWidget {
   const BuddyIntroPage({super.key});
 
-  void _onYesPressed(BuildContext context) => context.router.pushNamed(AppRoutes.buddyDescription);
+  void _onYesPressed(BuildContext context) =>
+      context.router.pushNamed(AppRoutes.buddyDescription);
 
-  void _onLaterPressed(BuildContext context) => context.router.pushNamed(AppRoutes.lessonComplete);
+  void _onLaterPressed(BuildContext context) =>
+      context.router.pushNamed(AppRoutes.lessonComplete);
 
   @override
   Widget build(BuildContext context) {

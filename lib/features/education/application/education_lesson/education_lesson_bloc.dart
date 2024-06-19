@@ -24,10 +24,11 @@ part 'education_lesson_state.dart';
 class EducationLessonBloc extends Bloc<EducationLessonEvent, EducationLessonState> {
   final EducationService _educationService;
 
-  final _defaultError =
-      const RequestError.unhandledResponse(ServerErrorData(message: LocalizedTexts.somethingWentWrong));
+  final _defaultError = const RequestError.unhandledResponse(
+      ServerErrorData(message: LocalizedTexts.somethingWentWrong));
 
-  EducationLessonBloc(this._educationService) : super(const EducationLessonState.initial(EducationLessonData())) {
+  EducationLessonBloc(this._educationService)
+      : super(const EducationLessonState.initial(EducationLessonData())) {
     on<GetLessonContent>(_onGetLessonContent);
     on<NextPage>(_onNextPage);
     on<PrevPage>(_onPrevPage);
@@ -66,12 +67,13 @@ class EducationLessonBloc extends Bloc<EducationLessonEvent, EducationLessonStat
       return;
     }
 
-    final response = await _educationService.downloadFile(event.url, state.data.filePath(event.url));
+    final response =
+        await _educationService.downloadFile(event.url, state.data.filePath(event.url));
 
     response.fold(
       (l) {
-        emit(
-            EducationLessonState.contentLoaded(state.data.copyWith(error: l, isAudioLoading: false, isLoading: false)));
+        emit(EducationLessonState.contentLoaded(
+            state.data.copyWith(error: l, isAudioLoading: false, isLoading: false)));
       },
       (r) {
         emit(
@@ -90,7 +92,8 @@ class EducationLessonBloc extends Bloc<EducationLessonEvent, EducationLessonStat
     DownloadSubtitlesFile event,
     Emitter<EducationLessonState> emit,
   ) async {
-    emit(EducationLessonState.loading(state.data.copyWith(isSubtitleLoading: true, isLoading: true)));
+    emit(EducationLessonState.loading(
+        state.data.copyWith(isSubtitleLoading: true, isLoading: true)));
 
     if (state.data.isSubtitlesAlreadyInCache) {
       emit(
@@ -103,7 +106,8 @@ class EducationLessonBloc extends Bloc<EducationLessonEvent, EducationLessonStat
       return;
     }
 
-    final response = await _educationService.downloadFile(event.url, state.data.filePath(event.url));
+    final response =
+        await _educationService.downloadFile(event.url, state.data.filePath(event.url));
 
     response.fold(
         (l) => emit(EducationLessonState.contentLoaded(
@@ -128,12 +132,14 @@ class EducationLessonBloc extends Bloc<EducationLessonEvent, EducationLessonStat
     final response = await _educationService.getLessonContent(event.lessonId);
 
     response.fold(
-      (l) => emit(EducationLessonState.errorGettingContent(state.data.copyWith(error: l, isLoading: false))),
+      (l) => emit(EducationLessonState.errorGettingContent(
+          state.data.copyWith(error: l, isLoading: false))),
       (r) async {
         r.pages.sort((a, b) => a.order.compareTo(b.order));
 
         if (r.pages.isEmpty) {
-          emit(EducationLessonState.errorGettingContent(state.data.copyWith(error: _defaultError, isLoading: false)));
+          emit(EducationLessonState.errorGettingContent(
+              state.data.copyWith(error: _defaultError, isLoading: false)));
 
           return;
         }
@@ -143,9 +149,10 @@ class EducationLessonBloc extends Bloc<EducationLessonEvent, EducationLessonStat
             state.data.copyWith(
               extraAction: r.unlockingConfig.extraAction,
               pages: r.pages,
-              totalPagesLength: r.unlockingConfig.extraAction == ExtraActionTypes.setupGroupingPreferences
-                  ? r.pages.length + groupLessonRoutes.length
-                  : r.pages.length,
+              totalPagesLength:
+                  r.unlockingConfig.extraAction == ExtraActionTypes.setupGroupingPreferences
+                      ? r.pages.length + groupLessonRoutes.length
+                      : r.pages.length,
               currentPageIndex: event.pageIndex,
               currentProgressPageIndex: event.pageIndex,
               lessonProgress: 0,
@@ -171,7 +178,8 @@ class EducationLessonBloc extends Bloc<EducationLessonEvent, EducationLessonStat
   ) async {
     if (state.data.isLastPage) return;
 
-    emit(EducationLessonState.contentLoaded(state.data.copyWith(currentPageIndex: state.data.currentPageIndex + 1)));
+    emit(EducationLessonState.contentLoaded(
+        state.data.copyWith(currentPageIndex: state.data.currentPageIndex + 1)));
   }
 
   Future<void> _onPrevPage(
@@ -180,7 +188,8 @@ class EducationLessonBloc extends Bloc<EducationLessonEvent, EducationLessonStat
   ) async {
     if (state.data.currentPageIndex == 0) return;
 
-    emit(EducationLessonState.contentLoaded(state.data.copyWith(currentPageIndex: state.data.currentPageIndex - 1)));
+    emit(EducationLessonState.contentLoaded(
+        state.data.copyWith(currentPageIndex: state.data.currentPageIndex - 1)));
   }
 
   Future<void> _onCompleteLesson(
@@ -192,28 +201,29 @@ class EducationLessonBloc extends Bloc<EducationLessonEvent, EducationLessonStat
     final response = await _educationService.completeLesson(state.data.lessonId);
 
     response.fold(
-      (l) => emit(EducationLessonState.errorCompleteLesson(state.data.copyWith(error: l, isLoading: false))),
+      (l) => emit(EducationLessonState.errorCompleteLesson(
+          state.data.copyWith(error: l, isLoading: false))),
       (r) => emit(
-          EducationLessonState.lessonCompleted(
-            state.data.copyWith(
-              extraAction: r.unlockingConfig.extraAction,
-              pages: r.pages,
-              totalPagesLength: r.unlockingConfig.extraAction == ExtraActionTypes.setupGroupingPreferences
-                  ? r.pages.length + groupLessonRoutes.length
-                  : r.pages.length,
-              lessonProgress: 0,
-              lessonId: r.id,
-              lessonCompletedDate: r.completedAt,
-              lessonCategory: r.category,
-              lessonDuration: r.duration,
-              lessonImage: r.image,
-              lessonTitle: r.title,
-              isLoading: false,
-              error: null,
-              questions: r.questions,
-            ),
+        EducationLessonState.lessonCompleted(
+          state.data.copyWith(
+            extraAction: r.unlockingConfig.extraAction,
+            totalPagesLength:
+                r.unlockingConfig.extraAction == ExtraActionTypes.setupGroupingPreferences
+                    ? r.pages.length + groupLessonRoutes.length
+                    : r.pages.length,
+            lessonProgress: 0,
+            lessonId: r.id,
+            lessonCompletedDate: r.completedAt,
+            lessonCategory: r.category,
+            lessonDuration: r.duration,
+            lessonImage: r.image,
+            lessonTitle: r.title,
+            isLoading: false,
+            error: null,
+            questions: r.questions,
           ),
         ),
+      ),
     );
   }
 
@@ -266,7 +276,8 @@ class EducationLessonBloc extends Bloc<EducationLessonEvent, EducationLessonStat
   List<LessonPage> _updateLessonPageAudioFilePath(String newValue) {
     final List<LessonPage> pages = [...state.data.pages];
 
-    pages[state.data.currentPageIndex] = pages[state.data.currentPageIndex].copyWith.content(audioFilePath: newValue);
+    pages[state.data.currentPageIndex] =
+        pages[state.data.currentPageIndex].copyWith.content(audioFilePath: newValue);
 
     return pages;
   }

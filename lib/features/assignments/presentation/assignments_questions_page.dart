@@ -68,7 +68,8 @@ class _AssignmentsQuestionsPageState extends State<AssignmentsQuestionsPage> {
     super.initState();
   }
 
-  String get _title => LocalizedTexts.stepCounter.tr(args: [(widget.step + 1).toString(), _totalSteps.toString()]);
+  String get _title =>
+      LocalizedTexts.stepCounter.tr(args: [(widget.step + 1).toString(), _totalSteps.toString()]);
 
   void _onSelectOptionHandler(int id) {
     setState(() {
@@ -210,7 +211,9 @@ class _AssignmentsQuestionsPageState extends State<AssignmentsQuestionsPage> {
   }
 
   bool _nextStepListenWhen(AssignmentsState previous, AssignmentsState current) {
-    return previous is AssignmentsStateLoading && current is AssignmentsStateUpdated && isAnswerNotSaved;
+    return previous is AssignmentsStateLoading &&
+        current is AssignmentsStateUpdated &&
+        isAnswerNotSaved;
   }
 
   void _onStepChangeListener(BuildContext context, AssignmentsState state) {
@@ -229,7 +232,8 @@ class _AssignmentsQuestionsPageState extends State<AssignmentsQuestionsPage> {
 
   String? _feedbackText(int? value, LessonQuestion question) {
     if (value == null) return null;
-    int label = int.tryParse(question.lessonQuestionOptionsLabels[value]) ?? int.parse('${value + 1}');
+    int label =
+        int.tryParse(question.lessonQuestionOptionsLabels[value]) ?? int.parse('${value + 1}');
     return question.lessonQuestionFeedback(question.id, label)?.text;
   }
 
@@ -249,7 +253,8 @@ class _AssignmentsQuestionsPageState extends State<AssignmentsQuestionsPage> {
             question.answerType == LessonQuestionAnswerType.multipleChoiceSingle) {
           _controller.setOptionValue(question.lessonQuestionAnswersId);
         } else if (question.answerType == LessonQuestionAnswerType.scale) {
-          _controller.setScaleValue(question.lessonQuestionOptionIndexById(question.lessonQuestionAnswersId.first));
+          _controller.setScaleValue(
+              question.lessonQuestionOptionIndexById(question.lessonQuestionAnswersId.first));
         }
       }
 
@@ -265,24 +270,27 @@ class _AssignmentsQuestionsPageState extends State<AssignmentsQuestionsPage> {
           isEditable: state.data.questionForStep(lessonId, widget.step).isEditable,
           controller: _controller,
           question: state.data.questionForStep(lessonId, widget.step),
-          onNextPressed: () => _controller.isScaleChoiceValid ? _saveScaleField(state.data.lessonId) : null,
+          onNextPressed: () =>
+              _controller.isScaleChoiceValid ? _saveScaleField(state.data.lessonId) : null,
           onSelectValue: _onSelectScaleHandler,
           selectedScore: _controller.selectScaleValue.value,
-          feedbackText:
-              _feedbackText(_controller.selectScaleValue.value, state.data.questionForStep(lessonId, widget.step)),
+          feedbackText: _feedbackText(_controller.selectScaleValue.value,
+              state.data.questionForStep(lessonId, widget.step)),
         ),
         multipleChoiceMultiple: (_) => AnswerOption(
           isEditable: state.data.questionForStep(lessonId, widget.step).isEditable,
           controller: _controller,
           question: state.data.questionForStep(lessonId, widget.step),
-          onNextPressed: () => _controller.isOptionChoiceValid ? _saveOptionsField(state.data.lessonId) : null,
+          onNextPressed: () =>
+              _controller.isOptionChoiceValid ? _saveOptionsField(state.data.lessonId) : null,
           onSelectOptionValue: _onSelectOptionHandler,
         ),
         multipleChoiceSingle: (_) => AnswerOption(
           isEditable: state.data.questionForStep(lessonId, widget.step).isEditable,
           controller: _controller,
           question: state.data.questionForStep(lessonId, widget.step),
-          onNextPressed: () => _controller.isOptionChoiceValid ? _saveOptionsField(state.data.lessonId) : null,
+          onNextPressed: () =>
+              _controller.isOptionChoiceValid ? _saveOptionsField(state.data.lessonId) : null,
           onSelectOptionValue: _onSelectOptionHandler,
         ),
         text: (_) => AnswerText(
