@@ -55,7 +55,7 @@ class MedicalQuestionsState with _$MedicalQuestionsState {
   MedicalOnboarding get registrationData => MedicalOnboarding(
       pregnant: pregnancy ?? false,
       medicines: medicines,
-      useSemaglutideMedication: weightLossMedication ?? false,
+      isUseSemaglutideMedication: weightLossMedication ?? false,
       treatedByPsychiatrist: treatmentByTheDoctor ?? false,
       diabetes: diabetesType,
       obesity: diseases[Diseases.obesity] ?? false,
