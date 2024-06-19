@@ -39,9 +39,14 @@ class AppRoutes {
   // Barcode Scanner
   static const String barcodeScanner = '/barcode-scanner'; // added
 
+  // Home
+  static const String dashboard = 'dashboard'; // added
+  static const String river = 'river'; // added
+  static const String home = '/home'; // added
+  static const String account = 'account'; // added
+
   // Nutrition
   static const String recommendations = '/recommendations'; //added
-  static const String dashboard = 'dashboard'; // added
   static const String selectFood = '/select-food'; // added
   static const String selectServing = '/select-serving'; // added
   static const String search = '/search'; // added
@@ -51,8 +56,6 @@ class AppRoutes {
   static const String recipeDetails = '/recipe-details'; // added
   static const String meal = '/meal'; // added
   static const String logWeight = '/log-weight'; // added
-  static const String home = '/home'; // added
-  static const String account = 'account'; // added
   static const String chooseDate = '/choose-date'; // added
 
   // Dish
