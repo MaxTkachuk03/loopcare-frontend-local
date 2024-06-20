@@ -1,16 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:loopcare_frontend/features/river/domain/module_item/module_item.dart';
-import 'package:loopcare_frontend/features/river/domain/river_module_item.dart';
 
 const duration = Duration(seconds: 1);
 
-class AnimatedColorWrapper extends StatefulWidget {
+class AnimatedIconColorWrapper extends StatefulWidget {
   final Color newIconColor;
   final Color oldIconColor;
   final double sizeIcon;
   final IconData icon;
 
-  const AnimatedColorWrapper({
+  const AnimatedIconColorWrapper({
     super.key,
     required this.icon,
     required this.newIconColor,
@@ -19,10 +17,10 @@ class AnimatedColorWrapper extends StatefulWidget {
   });
 
   @override
-  State<StatefulWidget> createState() => _AnimatedColorWrapperState();
+  State<StatefulWidget> createState() => _AnimatedIconColorWrapperState();
 }
 
-class _AnimatedColorWrapperState extends State<AnimatedColorWrapper>
+class _AnimatedIconColorWrapperState extends State<AnimatedIconColorWrapper>
     with SingleTickerProviderStateMixin {
   late AnimationController _controller;
   late Animation _animation;

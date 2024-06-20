@@ -22,6 +22,7 @@ class RiverModuleItemWidget extends StatelessWidget {
       elevation: elevation,
       borderRadius: BorderRadius.all(Radius.circular(circleRadius)),
       child: InkWell(
+        borderRadius: BorderRadius.all(Radius.circular(circleRadius)),
         onTap: onTap,
         child: child,
       ),

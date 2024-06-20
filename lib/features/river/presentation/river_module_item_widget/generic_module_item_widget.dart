@@ -3,7 +3,7 @@ import 'package:loopcare_frontend/features/river/domain/river_module_item.dart';
 import 'package:loopcare_frontend/features/river/infrastructure/river_module_item_state.dart';
 import 'package:loopcare_frontend/features/river/presentation/river_module_item_widget/completed_module_item_widget.dart';
 import 'package:loopcare_frontend/features/river/presentation/river_module_item_widget/locked_module_item_widget.dart';
-import 'package:loopcare_frontend/features/river/presentation/river_module_item_widget/read_module_irem_widget.dart';
+import 'package:loopcare_frontend/features/river/presentation/river_module_item_widget/read_module_item_widget.dart';
 import 'package:loopcare_frontend/features/river/presentation/river_module_item_widget/unlocked_module_item_widget.dart';
 
 class GenericModuleItemWidget extends StatefulWidget {
@@ -32,6 +32,10 @@ class _GenericModuleItemWidgetState extends State<GenericModuleItemWidget> {
     super.didUpdateWidget(oldWidget);
     isAnimated = false;
     oldModuleItem = oldWidget.item;
+    if (oldModuleItem == null) {
+      isAnimated = false;
+      return;
+    }
     if (oldWidget.item.isLocked && widget.item.isUnLocked) {
       isAnimated = true;
     } else if (oldWidget.item.isUnLocked && widget.item.isCompleted) {
@@ -58,6 +62,7 @@ class _GenericModuleItemWidgetState extends State<GenericModuleItemWidget> {
           bgColor: widget.item.bgColor,
           iconColor: widget.item.iconColor,
           isAnimated: isAnimated,
+          oldModuleItem: oldModuleItem,
           onTap: widget.onTap,
         );
       case RiverModuleItemState.read:
@@ -65,6 +70,7 @@ class _GenericModuleItemWidgetState extends State<GenericModuleItemWidget> {
           icon: widget.item.icon,
           bgColor: widget.item.bgColor,
           iconColor: widget.item.iconColor,
+          oldModuleItem: oldModuleItem,
           isAnimated: isAnimated,
           onTap: widget.onTap,
         );
@@ -74,6 +80,7 @@ class _GenericModuleItemWidgetState extends State<GenericModuleItemWidget> {
           icon: widget.item.icon,
           bgColor: widget.item.bgColor,
           iconColor: widget.item.iconColor,
+          oldModuleItem: oldModuleItem,
           isAnimated: isAnimated,
           offset: widget.offset,
           onTap: widget.onTap,

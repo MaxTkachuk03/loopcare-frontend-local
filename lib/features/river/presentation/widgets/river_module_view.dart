@@ -11,6 +11,7 @@ import 'package:loopcare_frontend/features/river/infrastructure/river_module_ite
 import 'package:loopcare_frontend/features/river/infrastructure/river_module_stream_type.dart';
 import 'package:loopcare_frontend/features/river/presentation/river_module_item_widget/generic_module_item_widget.dart';
 
+import '../utils/mock_module_items.dart';
 import '../utils/module_items_utils.dart';
 import 'animated_river_streams.dart';
 
@@ -70,6 +71,7 @@ class _RiverScreenState extends State<RiverScreen> {
         if (!item.isRootItem) {
           final position = ModuleItemsUtils.getOffset(_page, i, item.streamType.streamIndex);
           list.add((offset: position, item: item));
+
         } else {
           final position = ModuleItemsUtils.getRootOffset(_page);
           list.add((offset: position, item: item));
@@ -84,37 +86,15 @@ class _RiverScreenState extends State<RiverScreen> {
   void initState() {
     super.initState();
     _positionedItems = _offsets(widget.items);
+    //Todo mocked values
+    // _positionedItems = _offsets(items);
   }
 
   @override
   void didUpdateWidget(covariant RiverScreen oldWidget) {
     super.didUpdateWidget(oldWidget);
-    _positionedItems = _offsets(const [
-      RiverModuleItem(
-        itemState: RiverModuleItemState.completed,
-        iconType: RiverIconType.reflection,
-        streamType: RiverModuleStreamType.nutrition,
-        featurePlacement: null,
-      ),
-      RiverModuleItem(
-        itemState: RiverModuleItemState.locked,
-        iconType: RiverIconType.medical,
-        streamType: RiverModuleStreamType.medical,
-        featurePlacement: null,
-      ),
-      RiverModuleItem(
-        itemState: RiverModuleItemState.locked,
-        iconType: RiverIconType.buddy,
-        streamType: RiverModuleStreamType.community,
-        featurePlacement: null,
-      ),
-      RiverModuleItem(
-        itemState: RiverModuleItemState.locked,
-        iconType: RiverIconType.community,
-        streamType: RiverModuleStreamType.community,
-        featurePlacement: null,
-      ),
-    ]);
+    //Todo mocked values
+    _positionedItems = _offsets(items);
   }
 
   @override

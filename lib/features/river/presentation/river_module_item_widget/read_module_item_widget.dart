@@ -1,8 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 import 'package:loopcare_frontend/features/river/domain/river_module_item.dart';
-import 'package:loopcare_frontend/features/river/presentation/animation/animated_color_wrapper.dart';
+import 'package:loopcare_frontend/features/river/presentation/animation/animated_circle_color_wrapper.dart';
+import 'package:loopcare_frontend/features/river/presentation/animation/animated_icon_color_wrapper.dart';
 import 'package:loopcare_frontend/features/river/presentation/animation/animated_rotation_wrapper.dart';
+import 'package:loopcare_frontend/features/river/presentation/river_module_item_widget/module_circle_icon_widget.dart';
 import 'package:loopcare_frontend/features/river/presentation/river_module_item_widget/river_module_item_widget.dart';
 
 class ReadModuleItemWidget extends StatelessWidget {
@@ -32,7 +34,7 @@ class ReadModuleItemWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final iconWidget = isAnimated && oldModuleItem != null
-        ? AnimatedColorWrapper(
+        ? AnimatedIconColorWrapper(
             icon: icon,
             newIconColor: iconColor,
             oldIconColor: oldModuleItem?.iconColor ?? AppColors.blueLight,
@@ -42,22 +44,16 @@ class ReadModuleItemWidget extends StatelessWidget {
             color: iconColor,
             size: sizeIcon,
           );
-    final circleWidget = Container(
-      decoration: BoxDecoration(
-        color: bgColor,
-        shape: BoxShape.circle,
-        boxShadow: [
-          BoxShadow(
-            color: AppColors.greyLight.withOpacity(0.1),
-            spreadRadius: 1.5,
-            blurRadius: 1,
-          ),
-        ],
-      ),
-      width: 2 * circleRadius,
-      height: 2 * circleRadius,
-      child: iconWidget,
-    );
+    final circleWidget = isAnimated
+        ? AnimatedCircleColorWrapper(
+            newBgColor: bgColor,
+            oldBgColor: oldModuleItem?.bgColor ?? AppColors.blueLight,
+            icon: iconWidget,
+          )
+        : ModuleCircleIconWidget(
+            bgColor: bgColor,
+            iconWidget: iconWidget,
+          );
     final child = RiverModuleItemWidget(
       elevation: elevation,
       onTap: onTap,
