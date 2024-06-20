@@ -1,12 +1,11 @@
-import 'package:flutter/cupertino.dart';
 import 'package:badges/badges.dart' as badge;
 import 'package:flutter/material.dart';
 import 'package:loopcare_frontend/core/presentation/icon_images/app_icons.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 import 'package:loopcare_frontend/features/river/domain/module_item/module_item.dart';
+import 'package:loopcare_frontend/features/river/infrastructure/river_module_item_state.dart';
 import 'package:loopcare_frontend/features/river/presentation/animation/animated_scale_wrapper.dart';
 import 'package:loopcare_frontend/features/river/presentation/animation/animated_state_wrapper.dart';
-import 'package:loopcare_frontend/features/river/presentation/river_module_item/river_module_item_utils.dart';
 
 const radius = 25.0;
 
@@ -59,9 +58,9 @@ class _RiverModuleItemState extends State<RiverModuleItem> with SingleTickerProv
     );
     Widget? child;
     switch (widget.item.state) {
-      case RiverModuleItemState.unlock:
+      case RiverModuleItemState.unlocked:
         child = AnimatedScaleWrapper(child: wrapWidget);
-      case RiverModuleItemState.disable:
+      case RiverModuleItemState.locked:
         child = wrapWidget;
       case RiverModuleItemState.read:
         child = AnimatedStateWrapper(child: wrapWidget);
@@ -94,9 +93,9 @@ class _RiverModuleItemState extends State<RiverModuleItem> with SingleTickerProv
 
   Widget get reflectionIcon {
     switch (widget.item.state) {
-      case RiverModuleItemState.unlock:
+      case RiverModuleItemState.unlocked:
         return AppIcons.iReflectionUnlock;
-      case RiverModuleItemState.disable:
+      case RiverModuleItemState.locked:
         return AppIcons.iReflectionDisable;
       case RiverModuleItemState.completed:
       case RiverModuleItemState.read:
