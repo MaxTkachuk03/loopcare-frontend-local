@@ -2,6 +2,7 @@ import 'package:badges/badges.dart' as badge;
 import 'package:flutter/material.dart';
 import 'package:loopcare_frontend/core/presentation/icon_images/app_icons.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
+import 'package:loopcare_frontend/features/river/domain/river_module_item.dart' as model;
 import 'package:loopcare_frontend/features/river/infrastructure/river_module_item_state.dart';
 import 'package:loopcare_frontend/features/river/presentation/animation/animated_scale_wrapper.dart';
 import 'package:loopcare_frontend/features/river/presentation/animation/animated_state_wrapper.dart';
@@ -9,7 +10,7 @@ import 'package:loopcare_frontend/features/river/presentation/animation/animated
 const radius = 25.0;
 
 class RiverModuleItem extends StatefulWidget {
-  final ModuleItem item;
+  final model.RiverModuleItem item;
   final double circleRadius;
   final double sizeBadge;
   final double sizeIcon;
@@ -56,7 +57,7 @@ class _RiverModuleItemState extends State<RiverModuleItem> with SingleTickerProv
       child: circleWidget,
     );
     Widget? child;
-    switch (widget.item.state) {
+    switch (widget.item.itemState) {
       case RiverModuleItemState.unlocked:
         child = AnimatedScaleWrapper(child: wrapWidget);
       case RiverModuleItemState.locked:
@@ -91,7 +92,7 @@ class _RiverModuleItemState extends State<RiverModuleItem> with SingleTickerProv
   }
 
   Widget get reflectionIcon {
-    switch (widget.item.state) {
+    switch (widget.item.itemState) {
       case RiverModuleItemState.unlocked:
         return AppIcons.iReflectionUnlock;
       case RiverModuleItemState.locked:
