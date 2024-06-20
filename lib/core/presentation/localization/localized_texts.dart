@@ -672,6 +672,7 @@ class LocalizedTexts {
   static const String onboardingPacingTitle = 'onboardingPacingTitle';
   static const String onboardingPacingMessage = 'onboardingPacingMessage';
   static const String iAmReady = 'iAmReady';
+  static const String riverOverviewTitle = 'riverOverviewTitle';
 
   // Onboarding Physical
   // Intro
