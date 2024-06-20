@@ -5,8 +5,11 @@ import 'package:loopcare_frontend/core/presentation/text/custom_text.dart';
 import 'package:loopcare_frontend/core/presentation/utils/build_context_extensions.dart';
 import 'package:loopcare_frontend/features/home/application/navigation_bar_bloc.dart';
 import 'package:loopcare_frontend/features/river/domain/river_module_item.dart' as model;
+import 'package:loopcare_frontend/features/river/domain/river_module_item.dart';
 import 'package:loopcare_frontend/features/river/infrastructure/river_icon_type.dart';
-import 'package:loopcare_frontend/features/river/presentation/river_module_item/river_module_item.dart';
+import 'package:loopcare_frontend/features/river/infrastructure/river_module_item_state.dart';
+import 'package:loopcare_frontend/features/river/infrastructure/river_module_stream_type.dart';
+import 'package:loopcare_frontend/features/river/presentation/river_module_item_widget/generic_module_item_widget.dart';
 
 import '../utils/module_items_utils.dart';
 import 'animated_river_streams.dart';
@@ -36,7 +39,7 @@ class RiverScreen extends StatefulWidget {
 class _RiverScreenState extends State<RiverScreen> {
   late List<({Offset offset, model.RiverModuleItem item})> _positionedItems;
   final GlobalKey<AnimatedRiverStreamsState> _riverKey = GlobalKey<AnimatedRiverStreamsState>();
-  
+
   int get _page => _getIndex(widget.page);
 
   int _getIndex(int i) => i <= 5 ? i : _getIndex(i - 5);
@@ -67,7 +70,6 @@ class _RiverScreenState extends State<RiverScreen> {
         if (!item.isRootItem) {
           final position = ModuleItemsUtils.getOffset(_page, i, item.streamType.streamIndex);
           list.add((offset: position, item: item));
-
         } else {
           final position = ModuleItemsUtils.getRootOffset(_page);
           list.add((offset: position, item: item));
@@ -85,6 +87,37 @@ class _RiverScreenState extends State<RiverScreen> {
   }
 
   @override
+  void didUpdateWidget(covariant RiverScreen oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    _positionedItems = _offsets(const [
+      RiverModuleItem(
+        itemState: RiverModuleItemState.completed,
+        iconType: RiverIconType.reflection,
+        streamType: RiverModuleStreamType.nutrition,
+        featurePlacement: null,
+      ),
+      RiverModuleItem(
+        itemState: RiverModuleItemState.locked,
+        iconType: RiverIconType.medical,
+        streamType: RiverModuleStreamType.medical,
+        featurePlacement: null,
+      ),
+      RiverModuleItem(
+        itemState: RiverModuleItemState.locked,
+        iconType: RiverIconType.buddy,
+        streamType: RiverModuleStreamType.community,
+        featurePlacement: null,
+      ),
+      RiverModuleItem(
+        itemState: RiverModuleItemState.locked,
+        iconType: RiverIconType.community,
+        streamType: RiverModuleStreamType.community,
+        featurePlacement: null,
+      ),
+    ]);
+  }
+
+  @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
     final dimension = size.width;
@@ -99,10 +132,10 @@ class _RiverScreenState extends State<RiverScreen> {
         return Positioned(
           left: dimension * offset.dx - radius,
           top: itemTopPositionOffset + dimension * offset.dy - radius,
-          child: RiverModuleItem(
+          child: GenericModuleItemWidget(
             item: item,
-            circleRadius: radius,
             onTap: () => _onItemPressed(item),
+            offset: Offset(_positionedItems[index].offset.dx, _positionedItems[index].offset.dy),
           ),
         );
       },

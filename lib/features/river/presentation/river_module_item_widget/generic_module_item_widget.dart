@@ -50,6 +50,7 @@ class _GenericModuleItemWidgetState extends State<GenericModuleItemWidget> {
           icon: widget.item.icon,
           bgColor: widget.item.bgColor,
           iconColor: widget.item.iconColor,
+          onTap: widget.onTap,
         );
       case RiverModuleItemState.unlocked:
         child = UnlockedModuleItemWidget(
