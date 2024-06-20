@@ -13,6 +13,7 @@ import 'package:loopcare_frontend/features/dashboard/application/programs_in_pro
 import 'package:loopcare_frontend/features/education/application/education_lesson/education_lesson_bloc.dart';
 import 'package:loopcare_frontend/features/education/application/education_program/education_program_bloc.dart';
 import 'package:loopcare_frontend/features/group_sessions/application/topics_bloc.dart';
+import 'package:loopcare_frontend/features/home/application/navigation_bar_bloc.dart';
 import 'package:loopcare_frontend/features/legal_statement/application/legal_statement_bloc.dart';
 import 'package:loopcare_frontend/features/mind/application/mind_bloc.dart';
 import 'package:loopcare_frontend/features/mood/application/mood_bloc.dart';
@@ -51,6 +52,9 @@ class AppBlocProvider {
   AppBlocProvider._();
 
   static List<BlocProvider> get providers => [
+        BlocProvider<NavigationBarBloc>(
+          create: (_) => getIt<NavigationBarBloc>(),
+        ),
         BlocProvider<GeneralOnboardingBloc>(
           create: (_) => getIt<GeneralOnboardingBloc>(),
         ),

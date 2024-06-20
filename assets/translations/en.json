@@ -961,6 +961,12 @@
   "unhandledErrorDio": "Something went wrong.",
   "otherDio": "Something went wrong",
   "riverOverviewTitle":"The River Overview",
+  "guidancePracticeTitle": "Practice makes progression.",
+  "guidancePracticeDescription": "The calendar will be your daily entry point to practice what you’ve learned.",
+  "guidanceProfileTitle": "Your profile and account settings.",
+  "guidanceProfileDescription": "In the profile, you can customize your account settings, change personal preferences and access past assignments and features.",
+  "guidanceCompletedTitle": "Congratulation, you finished the Beginning.",
+  "guidanceCompletedDescription": "You can now move on to the first Practice session: What’s your why?.",
 
   "//comment": "mental tests final results",
   "phq8FinalResultHigh1": "The questionnaire results indicate that you are currently experiencing notable mental distress.",

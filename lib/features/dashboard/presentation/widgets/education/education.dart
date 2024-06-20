@@ -14,7 +14,6 @@ import 'package:loopcare_frontend/features/dashboard/presentation/widgets/dashbo
 import 'package:loopcare_frontend/features/dashboard/presentation/widgets/education/widgets/completed_lesson.dart';
 import 'package:loopcare_frontend/features/dashboard/presentation/widgets/education/widgets/next_lesson.dart';
 import 'package:loopcare_frontend/features/nutrition/application/dashboard_education/dashboard_education_bloc.dart';
-import 'package:loopcare_frontend/features/nutrition/domain/dashboard/dashboard_navbar_items.dart';
 
 class Education extends StatelessWidget {
   final DateTime date;
@@ -22,8 +21,8 @@ class Education extends StatelessWidget {
   const Education({super.key, required this.date});
 
   void onPressHandler(BuildContext context) {
-    var tabsRouter = AutoTabsRouter.of(context);
-    tabsRouter.setActiveIndex(DashboardNavbarItems.education.index);
+    // var tabsRouter = AutoTabsRouter.of(context);
+    // tabsRouter.setActiveIndex(DashboardNavbarItems.education.index);
   }
 
   @override

@@ -105,16 +105,16 @@ class RiverStreamsStartPainter extends RenderRiverStreamPainter {
   @override
   Path green(Size size) {
     return Path()
-      ..moveTo(size.width, size.height * 0.9)
+      ..moveTo(size.width, size.height * 0.905)
       ..cubicTo(size.width * 0.81, size.height * 1.03, size.width * 0.55, size.height * 0.7, size.width * 0.47, size.height * 0.59)
       ..cubicTo(size.width * 0.44, size.height * 0.55, size.width * 0.37, size.height * 0.46, size.width * 0.29, size.height * 0.37)
       ..cubicTo(size.width * 0.18, size.height * 0.24, size.width * 0.06, size.height * 0.1, size.width * 0.02, 0)
       ..lineTo(0, size.height * 0.01)
       ..cubicTo(size.width * 0.02, size.height * 0.04, size.width * 0.06, size.height * 0.09, size.width * 0.1, size.height * 0.15)
       ..cubicTo(size.width * 0.18, size.height * 0.26, size.width * 0.29, size.height * 0.41, size.width / 3, size.height * 0.48)
-      ..cubicTo(size.width * 0.48, size.height * 0.76, size.width * 0.78, size.height * 1.12, size.width, size.height * 0.96)
-      ..cubicTo(size.width, size.height * 0.96, size.width, size.height * 0.9, size.width, size.height * 0.9)
-      ..lineTo(size.width, size.height * 0.9);
+      ..cubicTo(size.width * 0.48, size.height * 0.76, size.width * 0.77, size.height * 1.12, size.width, size.height * 0.965)
+      ..cubicTo(size.width, size.height * 0.965, size.width, size.height * 0.9, size.width, size.height * 0.905)
+      ..lineTo(size.width, size.height * 0.905);
   }
 
   @override
@@ -127,7 +127,7 @@ class RiverStreamsStartPainter extends RenderRiverStreamPainter {
         ..cubicTo(size.width * 0.04, size.height * 0.12, size.width * 0.16, size.height * 0.27, size.width * 0.27, size.height * 0.4)
         ..cubicTo(size.width * 0.35, size.height / 2, size.width * 0.43, size.height * 0.59, size.width * 0.46, size.height * 0.65)
         ..cubicTo(size.width * 0.54, size.height * 0.8, size.width * 0.8, size.height * 1.1, size.width, size.height * 0.97)
-        ..lineTo(size.width, size.height * 0.84)
+        ..lineTo(size.width, size.height * 0.85)
         ..cubicTo(size.width * 0.86, size.height * 0.9, size.width * 0.72, size.height * 0.77, size.width * 0.59, size.height * 0.64)
       ..lineTo(size.width * 0.59, size.height * 0.64);
   }
@@ -141,7 +141,7 @@ class RiverStreamsStartPainter extends RenderRiverStreamPainter {
       ..lineTo(0, size.height * 0.02)
       ..cubicTo(size.width * 0.1, size.height * 0.23, size.width * 0.29, size.height / 2, size.width * 0.43, size.height * 0.62)
       ..cubicTo(size.width * 0.48, size.height * 0.65, size.width * 0.53, size.height * 0.71, size.width * 0.58, size.height * 0.76)
-      ..cubicTo(size.width * 0.72, size.height * 0.9, size.width * 0.86, size.height * 1.05, size.width, size.height * 0.98)
+      ..cubicTo(size.width * 0.72, size.height * 0.9, size.width * 0.86, size.height * 1.05, size.width, size.height * 0.99)
       ..lineTo(size.width, size.height * 0.84)
       ..cubicTo(size.width * 0.91, size.height * 0.91, size.width * 0.79, size.height * 0.8, size.width * 0.65, size.height * 0.66)
       ..lineTo(size.width * 0.65, size.height * 0.66);
@@ -152,8 +152,8 @@ class RiverStreamsStartPainter extends RenderRiverStreamPainter {
     return Path()
       ..moveTo(size.width * 0.55, size.height * 0.69)
       ..cubicTo(size.width * 0.72, size.height * 0.86, size.width * 0.89, size.height * 1.08, size.width, size.height * 0.98)
-      ..lineTo(size.width, size.height * 0.75)
-      ..cubicTo(size.width * 0.79, size.height * 0.75, size.width * 0.74, size.height * 0.7, size.width * 0.55, size.height * 0.55)
+      ..lineTo(size.width, size.height * 0.772)
+      ..cubicTo(size.width * 0.82, size.height * 0.82, size.width * 0.74, size.height * 0.7, size.width * 0.55, size.height * 0.55)
       ..cubicTo(size.width * 0.37, size.height * 0.39, size.width * 0.13, size.height * 0.12, size.width * 0.03, size.height * 0.01)
       ..lineTo(0, size.height * 0.03)
       ..cubicTo(size.width * 0.04, size.height * 0.15, size.width * 0.37, size.height * 0.52, size.width * 0.55, size.height * 0.69)
@@ -165,7 +165,7 @@ class RiverStreamsStartPainter extends RenderRiverStreamPainter {
     return Path()
       ..moveTo(size.width * 0.44, size.height * 0.6)
       ..cubicTo(size.width * 0.58, size.height * 0.8, size.width * 0.7, size.height * 1.14, size.width, size.height * 0.94)
-      ..cubicTo(size.width, size.height * 0.94, size.width, size.height * 0.76, size.width, size.height * 0.76)
+      ..cubicTo(size.width, size.height * 0.94, size.width, size.height * 0.76, size.width, size.height * 0.77)
       ..lineTo(size.width, size.height * 0.57)
       ..cubicTo(size.width * 0.78, size.height * 0.63, size.width * 0.66, size.height * 0.59, size.width * 0.55, size.height * 0.51)
       ..cubicTo(size.width / 3, size.height * 0.34, size.width * 0.07, size.height * 0.09, size.width * 0.01, 0)
@@ -177,7 +177,7 @@ class RiverStreamsStartPainter extends RenderRiverStreamPainter {
   @override
   Path coralDark(Size size) {
     return Path()
-      ..moveTo(size.width, size.height * 0.94)
+      ..moveTo(size.width, size.height * 0.95)
       ..cubicTo(size.width * 0.7, size.height * 1.14, size.width * 0.58, size.height * 0.79, size.width * 0.44, size.height * 0.59)
       ..cubicTo(size.width * 0.36, size.height * 0.46, size.width * 0.24, size.height * 0.31, size.width * 0.14, size.height * 0.19)
       ..cubicTo(size.width * 0.1, size.height * 0.14, size.width * 0.08, size.height * 0.11, size.width * 0.06, size.height * 0.08)
@@ -185,7 +185,7 @@ class RiverStreamsStartPainter extends RenderRiverStreamPainter {
       ..lineTo( size.width * 0.06, size.height * 0.08)
       ..cubicTo(size.width * 0.08, size.height * 0.11, size.width * 0.11, size.height * 0.15, size.width * 0.14, size.height * 0.19)
       ..cubicTo(size.width * 0.22, size.height * 0.28, size.width * 0.34, size.height * 0.42, size.width * 0.51, size.height * 0.57)
-      ..cubicTo(size.width * 0.61, size.height * 0.66, size.width * 0.79, size.height * 0.84, size.width, size.height * 0.71)
+      ..cubicTo(size.width * 0.61, size.height * 0.66, size.width * 0.79, size.height * 0.84, size.width, size.height * 0.72)
       ..lineTo(size.width, size.height * 0.94);
   }
 
@@ -220,7 +220,7 @@ class RiverStreamsStartPainter extends RenderRiverStreamPainter {
   Path yellow(Size size) {
     return Path()
       ..moveTo(size.width * 0.53, size.height)
-      ..cubicTo(size.width * 0.69, size.height * 0.96, size.width * 0.86, size.height * 0.85, size.width, size.height * 0.56)
+      ..cubicTo(size.width * 0.69, size.height * 0.96, size.width * 0.86, size.height * 0.85, size.width, size.height * 0.57)
       ..lineTo(size.width, size.height * 0.01)
       ..cubicTo(size.width * 0.78, size.height * 0.42, size.width * 0.66, size.height * 0.64, size.width * 0.58, size.height * 0.69)
       ..cubicTo(size.width * 0.4, size.height * 0.78, size.width * 0.13, size.height * 0.55, 0, size.height * 0.32)
@@ -237,8 +237,8 @@ class RiverStreamsStartPainter extends RenderRiverStreamPainter {
       ..lineTo(0, size.height * 0.05)
       ..cubicTo(0, size.height * 0.05, size.width / 3, size.height * 1.12, size.width * 0.59, size.height)
       ..cubicTo(size.width * 0.85, size.height * 0.88, size.width * 0.87, size.height * 0.81, size.width, size.height * 0.57)
-      ..lineTo(size.width, size.height * 0.02)
-      ..cubicTo(size.width, size.height * 0.02, size.width * 0.68, size.height * 0.6, size.width * 0.56, size.height * 0.79)
+      ..lineTo(size.width, size.height * 0.31)
+      ..cubicTo(size.width, size.height * 0.32, size.width * 0.68, size.height * 0.74, size.width * 0.56, size.height * 0.79)
       ..lineTo(size.width * 0.56, size.height * 0.79);
   }
 }

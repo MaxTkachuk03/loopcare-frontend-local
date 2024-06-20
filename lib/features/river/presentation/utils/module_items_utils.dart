@@ -4,11 +4,10 @@ import 'dart:ui';
 import 'function_coefficients.dart';
 
 const List<Offset> _zeroPagePositions = [
+  Offset(0.39, 0.31),
   Offset(0.76, 0.62),
   Offset(0.88, 0.45),
 ];
-
-const Offset _zeroPageRootPosition = Offset(0.38, 0.32);
 
 class ModuleItemsUtils {
   static get zeroPagePositions => _zeroPagePositions;
@@ -19,10 +18,6 @@ class ModuleItemsUtils {
   }
 
   static Offset getRootOffset(int page) {
-    if (page == 0) {
-      return _zeroPageRootPosition;
-    }
-
     const dx = 0.5;
     return _getOffset(dx, page, 2);
   }

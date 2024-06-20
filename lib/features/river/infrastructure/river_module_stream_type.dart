@@ -8,6 +8,24 @@ enum RiverModuleStreamType {
   medical,
   community;
 
+  bool get isPsychology => this == psychology;
+
+  bool get isNutrition => this == nutrition;
+
+  bool get isPhysicalActivity => this == physicalActivity;
+
+  bool get isMedical => this == medical;
+
+  bool get isCommunity => this == community;
+
+  int get streamIndex => switch (this) {
+        physicalActivity => 0,
+        community => 1,
+        medical => 2,
+        psychology => 3,
+        nutrition => 4,
+      };
+
   Color get streamColor {
     switch (this) {
       case RiverModuleStreamType.psychology:

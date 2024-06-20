@@ -17,6 +17,10 @@ enum NavigationBarItems {
 
   static SystemUiOverlayStyle getOverlayStyleByIndex(int index) => values.elementAt(index).systemOverlayStyle;
 
+  bool get isPractice => this == practice;
+
+  bool get isProfile => this == account;
+
   Color get color => switch (this) {
         practice => AppColors.blueRegular,
         river => AppColors.blueLightest,
