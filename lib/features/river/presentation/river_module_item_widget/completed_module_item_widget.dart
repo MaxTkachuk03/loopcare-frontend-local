@@ -40,21 +40,21 @@ class CompletedModuleItemWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final iconWidget = isAnimated
+    final iconWidget = isAnimated && oldModuleItem != null
         ? AnimatedIconColorWrapper(
             icon: icon,
             newIconColor: iconColor,
-            oldIconColor: oldModuleItem?.iconColor ?? AppColors.blueLight,
+            oldIconColor: oldModuleItem?.iconColor ?? AppColors.transparent,
             sizeIcon: sizeIcon)
         : Icon(
             icon,
             color: iconColor,
             size: sizeIcon,
           );
-    final circleWidget = isAnimated
+    final circleWidget = isAnimated && oldModuleItem != null
         ? AnimatedCircleColorWrapper(
             newBgColor: bgColor,
-            oldBgColor: oldModuleItem?.bgColor ?? AppColors.blueLight,
+            oldBgColor: oldModuleItem?.bgColor ?? AppColors.transparent,
             icon: iconWidget,
           )
         : ModuleCircleIconWidget(
@@ -67,12 +67,7 @@ class CompletedModuleItemWidget extends StatelessWidget {
       circleRadius: circleRadius,
       child: circleWidget,
     );
-    final animatedWidget = RiverModuleItemWidget(
-      elevation: elevation,
-      onTap: onTap,
-      circleRadius: circleRadius,
-      child: circleWidget,
-    );
+    final animatedWidget = circleWidget;
     if (isAnimated) {
       return Stack(
         clipBehavior: Clip.none,

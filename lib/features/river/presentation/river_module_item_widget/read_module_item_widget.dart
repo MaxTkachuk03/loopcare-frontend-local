@@ -37,17 +37,17 @@ class ReadModuleItemWidget extends StatelessWidget {
         ? AnimatedIconColorWrapper(
             icon: icon,
             newIconColor: iconColor,
-            oldIconColor: oldModuleItem?.iconColor ?? AppColors.blueLight,
+            oldIconColor: oldModuleItem?.iconColor ?? AppColors.transparent,
             sizeIcon: sizeIcon)
         : Icon(
             icon,
             color: iconColor,
             size: sizeIcon,
           );
-    final circleWidget = isAnimated
+    final circleWidget = isAnimated && oldModuleItem != null
         ? AnimatedCircleColorWrapper(
             newBgColor: bgColor,
-            oldBgColor: oldModuleItem?.bgColor ?? AppColors.blueLight,
+            oldBgColor: oldModuleItem?.bgColor ?? AppColors.transparent,
             icon: iconWidget,
           )
         : ModuleCircleIconWidget(

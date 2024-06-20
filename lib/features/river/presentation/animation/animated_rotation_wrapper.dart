@@ -6,11 +6,9 @@ import 'package:flutter_animate/flutter_animate.dart';
 class AnimatedRotationWrapper extends StatefulWidget {
   final Widget child;
 
-
   const AnimatedRotationWrapper({
     super.key,
     required this.child,
-
   });
 
   @override
@@ -22,7 +20,7 @@ class _AnimatedRotationWrapperState extends State<AnimatedRotationWrapper>
   late AnimationController _controller;
   late Animation<double> _rotateAnimation;
 
-  final duration = const Duration(seconds:2);
+  final duration = const Duration(seconds: 2);
 
   @override
   void initState() {
@@ -30,8 +28,7 @@ class _AnimatedRotationWrapperState extends State<AnimatedRotationWrapper>
     _controller = AnimationController(
       duration: duration,
       vsync: this,
-    )
-      ..forward();
+    )..forward();
     _rotateAnimation = Tween<double>(begin: 0.0, end: 6.0)
         .chain(CurveTween(curve: Curves.ease))
         .animate(_controller);

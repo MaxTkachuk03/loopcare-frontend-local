@@ -5,13 +5,13 @@ import 'package:loopcare_frontend/features/river/infrastructure/river_module_str
 
 const items =  [
   RiverModuleItem(
-    itemState: RiverModuleItemState.read,
+    itemState: RiverModuleItemState.locked,
     iconType: RiverIconType.reflection,
-    streamType: RiverModuleStreamType.nutrition,
+    streamType: RiverModuleStreamType.psychology,
     featurePlacement: null,
   ),
   RiverModuleItem(
-    itemState: RiverModuleItemState.unlocked,
+    itemState: RiverModuleItemState.locked,
     iconType: RiverIconType.medical,
     streamType: RiverModuleStreamType.medical,
     featurePlacement: null,

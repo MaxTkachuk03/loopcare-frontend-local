@@ -1,5 +1,5 @@
 import 'package:flutter/cupertino.dart';
-import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
+import 'package:flutter/material.dart';
 
 class ModuleCircleIconWidget extends StatelessWidget {
   final Color bgColor;
@@ -15,21 +15,6 @@ class ModuleCircleIconWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      decoration: BoxDecoration(
-        color: bgColor,
-        shape: BoxShape.circle,
-        boxShadow: [
-          BoxShadow(
-            color: AppColors.greyLight.withOpacity(0.1),
-            spreadRadius: 1.5,
-            blurRadius: 1,
-          ),
-        ],
-      ),
-      width: 2 * circleRadius,
-      height: 2 * circleRadius,
-      child: iconWidget,
-    );
+    return CircleAvatar(backgroundColor: bgColor, radius: circleRadius, child: iconWidget);
   }
 }

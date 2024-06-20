@@ -5,13 +5,10 @@ import 'package:loopcare_frontend/core/presentation/text/custom_text.dart';
 import 'package:loopcare_frontend/core/presentation/utils/build_context_extensions.dart';
 import 'package:loopcare_frontend/features/home/application/navigation_bar_bloc.dart';
 import 'package:loopcare_frontend/features/river/domain/river_module_item.dart' as model;
-import 'package:loopcare_frontend/features/river/domain/river_module_item.dart';
 import 'package:loopcare_frontend/features/river/infrastructure/river_icon_type.dart';
-import 'package:loopcare_frontend/features/river/infrastructure/river_module_item_state.dart';
-import 'package:loopcare_frontend/features/river/infrastructure/river_module_stream_type.dart';
 import 'package:loopcare_frontend/features/river/presentation/river_module_item_widget/generic_module_item_widget.dart';
 
-import '../utils/mock_module_items.dart';
+
 import '../utils/module_items_utils.dart';
 import 'animated_river_streams.dart';
 
@@ -86,15 +83,6 @@ class _RiverScreenState extends State<RiverScreen> {
   void initState() {
     super.initState();
     _positionedItems = _offsets(widget.items);
-    //Todo mocked values
-    // _positionedItems = _offsets(items);
-  }
-
-  @override
-  void didUpdateWidget(covariant RiverScreen oldWidget) {
-    super.didUpdateWidget(oldWidget);
-    //Todo mocked values
-    _positionedItems = _offsets(items);
   }
 
   @override

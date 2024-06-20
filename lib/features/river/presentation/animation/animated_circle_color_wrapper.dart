@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_animate/flutter_animate.dart';
-import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 
-const duration = Duration(milliseconds: 360);
+const duration = Duration(seconds: 1);
 
 class AnimatedCircleColorWrapper extends StatefulWidget {
   final Color newBgColor;
@@ -49,22 +47,7 @@ class _AnimatedColorWrapperState extends State<AnimatedCircleColorWrapper>
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      decoration: BoxDecoration(
-        color: _animation.value,
-        shape: BoxShape.circle,
-        boxShadow: [
-          BoxShadow(
-            color: AppColors.greyLight.withOpacity(0.1),
-            spreadRadius: 1.5,
-            blurRadius: 1,
-          ),
-        ],
-      ),
-      width: 2 * widget.circleRadius,
-      height: 2 * widget.circleRadius,
-      child: widget.icon,
-    ).animate()
-        .shimmer(delay: 600.ms, duration: 1800.ms);
+    return CircleAvatar(
+            backgroundColor: _animation.value, radius: widget.circleRadius, child: widget.icon);
   }
 }

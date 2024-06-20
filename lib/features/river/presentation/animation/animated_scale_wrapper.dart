@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 
 const duration = Duration(seconds: 2);
 
@@ -59,7 +60,8 @@ class _AnimatedScaleWrapperState extends State<AnimatedScaleWrapper>
   Widget build(BuildContext context) {
     return Transform.scale(
       scale: _squareScale,
-      child: widget.child,
+      child: widget.child.animate()
+          .shimmer(delay: 600.ms, duration: 1800.ms),
     );
   }
 }
