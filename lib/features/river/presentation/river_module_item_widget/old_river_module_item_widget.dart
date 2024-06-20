@@ -1,72 +1,98 @@
+import 'package:flutter/cupertino.dart';
 import 'package:badges/badges.dart' as badge;
 import 'package:flutter/material.dart';
 import 'package:loopcare_frontend/core/presentation/icon_images/app_icons.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
-import 'package:loopcare_frontend/features/river/domain/module_item/module_item.dart';
+import 'package:loopcare_frontend/features/river/domain/river_module_item.dart';
 import 'package:loopcare_frontend/features/river/infrastructure/river_module_item_state.dart';
+import 'package:loopcare_frontend/features/river/presentation/animation/animated_completed_badge.dart';
+import 'package:loopcare_frontend/features/river/presentation/animation/animated_rotation_wrapper.dart';
 import 'package:loopcare_frontend/features/river/presentation/animation/animated_scale_wrapper.dart';
-import 'package:loopcare_frontend/features/river/presentation/animation/animated_state_wrapper.dart';
+import 'package:loopcare_frontend/features/river/presentation/animation/animated_transition_wrapper.dart';
 
 const radius = 25.0;
 
-class RiverModuleItem extends StatefulWidget {
-  final ModuleItem item;
+class OldRiverModuleItemWidget extends StatefulWidget {
+  final RiverModuleItem item;
+  final Color _iconColor;
+  final Color _bgColor;
   final double circleRadius;
   final double sizeBadge;
   final double sizeIcon;
+  final Offset offset;
 
   final Function()? onTap;
 
-  const RiverModuleItem({
+  OldRiverModuleItemWidget.activity({
     super.key,
     required this.item,
-    this.circleRadius = radius,
+    this.circleRadius = 25,
     this.sizeBadge = 15,
-    this.sizeIcon = 36,
+    this.sizeIcon = 50,
+    required this.offset,
     this.onTap,
-  });
+  })  : _iconColor = item.iconColor,
+        _bgColor = item.bgColor;
+
+  OldRiverModuleItemWidget.reflection({
+    super.key,
+    required this.item,
+    required this.offset,
+    this.onTap,
+    this.circleRadius = 25,
+    this.sizeBadge = 15,
+    this.sizeIcon = 50,
+  })  : _iconColor = item.iconColor,
+        _bgColor = item.bgColor;
+
+  OldRiverModuleItemWidget.practice({
+    super.key,
+    required this.item,
+    required this.offset,
+    this.onTap,
+    this.circleRadius = 25,
+    this.sizeBadge = 15,
+    this.sizeIcon = 50,
+  })  : _iconColor = item.iconColor,
+        _bgColor = item.bgColor;
 
   @override
-  State<RiverModuleItem> createState() => _RiverModuleItemState();
+  State<OldRiverModuleItemWidget> createState() => _OldRiverModuleItemWidgetState();
 }
 
-class _RiverModuleItemState extends State<RiverModuleItem> with SingleTickerProviderStateMixin {
+class _OldRiverModuleItemWidgetState extends State<OldRiverModuleItemWidget>
+    with SingleTickerProviderStateMixin {
   bool isMoveToReadState = false;
   bool isMoveToCompletedState = false;
   bool isMoveToUnlockState = false;
+  RiverModuleItem? oldModuleItem;
 
   @override
-  void didUpdateWidget(covariant RiverModuleItem oldWidget) {
+  void didUpdateWidget(covariant OldRiverModuleItemWidget oldWidget) {
     super.didUpdateWidget(oldWidget);
-    if (oldWidget.item.isLock && widget.item.isUnlock) {
+    isMoveToReadState = false;
+    isMoveToCompletedState = false;
+    isMoveToUnlockState = false;
+    oldModuleItem = oldWidget.item;
+    if (oldWidget.item.isLocked && widget.item.isUnLocked) {
       isMoveToUnlockState = true;
-    } else if (oldWidget.item.isRead && widget.item.isCompleted) {
+    } else if (oldWidget.item.isUnLocked && widget.item.isCompleted) {
       isMoveToCompletedState = true;
-    } else if (oldWidget.item.isUnlock && widget.item.isRead) {
+    } else if (oldWidget.item.isUnLocked && widget.item.isRead) {
       isMoveToReadState = true;
     }
   }
 
   @override
   Widget build(BuildContext context) {
-    final iconLockWidget = widget.item.isReflection
-        ? AppIcons.iReflectionDisable
-        : Icon(
+    final iconWidget = Icon(
       widget.item.icon,
-      color: AppColors.blueLightest,
+      color: widget._iconColor,
       size: widget.sizeIcon,
     );
-
-    final iconWidget = widget.item.isReflection
-        ? reflectionIcon
-        : Icon(
-            widget.item.icon,
-            color: widget.item.iconColor,
-            size: widget.sizeIcon,
-          );
     final circleWidget = Container(
       decoration: BoxDecoration(
-        color: widget.item.isReflection ? AppColors.transparent : widget.item.bgColor,
+        color: widget.item.bgColor,
         shape: BoxShape.circle,
         boxShadow: [
           BoxShadow(
@@ -78,44 +104,47 @@ class _RiverModuleItemState extends State<RiverModuleItem> with SingleTickerProv
       ),
       width: 2 * widget.circleRadius,
       height: 2 * widget.circleRadius,
-      child:  iconWidget,
+      child: iconWidget,
     );
 
     final moduleIconWidget = _InnerModuleItemWidget(
       elevation: widget.item.iconElevation,
       onTap: widget.onTap,
       circleRadius: widget.circleRadius,
-      child:  circleWidget,
+      child: circleWidget,
     );
     Widget child = const SizedBox.shrink();
-    switch (widget.item.state) {
+    switch (widget.item.itemState) {
       case RiverModuleItemState.unlocked:
-        child = isMoveToUnlockState?
-    AnimatedScaleWrapper(child: moduleIconWidget)
-        : AnimatedScaleWrapper(child: moduleIconWidget);
+        child = isMoveToUnlockState
+            ? AnimatedScaleWrapper(child: moduleIconWidget)
+            : AnimatedScaleWrapper(child: moduleIconWidget);
       case RiverModuleItemState.locked:
         child = moduleIconWidget;
       case RiverModuleItemState.read:
-        child = isMoveToReadState ? AnimatedRotationWrapper(child: moduleIconWidget) : moduleIconWidget;
+        child =
+            isMoveToReadState ? AnimatedRotationWrapper(child: moduleIconWidget) : moduleIconWidget;
       case RiverModuleItemState.completed:
+        final animatedIcon = _InnerModuleItemWidget(
+          elevation: widget.item.iconElevation,
+          onTap: widget.onTap,
+          circleRadius: widget.circleRadius,
+          child: circleWidget,
+        );
         child = isMoveToCompletedState
             ? Stack(
                 clipBehavior: Clip.none,
                 children: [
                   AnimatedTransitionWrapper(
-                    offset: widget.item.offset,
-                    child: _InnerModuleItemWidget(
-                      elevation: widget.item.iconElevation,
-                      onTap: widget.onTap,
-                      circleRadius: widget.circleRadius,
-                      child: circleWidget,
-                    ),
+                    offset: widget.offset,
+                    child: animatedIcon,
                   ),
                   moduleIconWidget,
                   Positioned(
-                      right: -5,
-                      top: -10,
-                      child: _AnimatedCompletedBadge(sizeBadge: widget.sizeBadge)),
+                    right: -5,
+                    top: -10,
+                    child: AnimatedCompletedBadge(sizeBadge: widget.sizeBadge),
+                  ),
                 ],
               )
             : badge.Badge(
@@ -142,7 +171,7 @@ class _RiverModuleItemState extends State<RiverModuleItem> with SingleTickerProv
   }
 
   Widget get reflectionIcon {
-    switch (widget.item.state) {
+    switch (widget.item.itemState) {
       case RiverModuleItemState.unlocked:
         return AppIcons.iReflectionUnlock;
       case RiverModuleItemState.locked:
@@ -151,43 +180,6 @@ class _RiverModuleItemState extends State<RiverModuleItem> with SingleTickerProv
       case RiverModuleItemState.read:
         return AppIcons.iReflectionCompleted;
     }
-  }
-}
-
-class _AnimatedCompletedBadge extends StatelessWidget {
-  final double sizeBadge;
-
-  const _AnimatedCompletedBadge({super.key, required this.sizeBadge});
-
-  @override
-  Widget build(BuildContext context) {
-    return TweenAnimationBuilder<double>(
-      tween: Tween<double>(begin: 0.0, end: 1.0),
-      curve: Curves.ease,
-      duration: const Duration(seconds: 4),
-      builder: (BuildContext context, double opacity, Widget? child) {
-        return Opacity(
-          opacity: opacity,
-          child: badge.Badge(
-            badgeStyle: const badge.BadgeStyle(
-              padding: EdgeInsets.all(5),
-              badgeColor: AppColors.blueRegular,
-              elevation: 0,
-            ),
-            badgeAnimation: const badge.BadgeAnimation.slide(toAnimate: false),
-            position: badge.BadgePosition.topEnd(top: -8, end: -4),
-            badgeContent: Padding(
-              padding: const EdgeInsets.only(bottom: 2.0),
-              child: Icon(
-                Icons.check,
-                color: AppColors.white,
-                size: sizeBadge,
-              ),
-            ),
-          ),
-        );
-      },
-    );
   }
 }
 

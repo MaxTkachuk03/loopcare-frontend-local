@@ -4,7 +4,8 @@ class AnimatedTransitionWrapper extends StatefulWidget {
   final Widget child;
   final Offset offset;
 
-  const AnimatedTransitionWrapper({super.key, required this.child, required this.offset});
+  const AnimatedTransitionWrapper(
+      {super.key, required this.child, required this.offset});
 
   @override
   State<AnimatedTransitionWrapper> createState() => _AnimatedTransitionWrapperState();
@@ -47,7 +48,7 @@ class _AnimatedTransitionWrapperState extends State<AnimatedTransitionWrapper>
       position: _animation,
       child: TweenAnimationBuilder<double>(
           tween: Tween<double>(begin: 1.0, end: 0.0),
-          curve: Curves.ease,
+          curve: Curves.easeInOut,
           duration: const Duration(seconds: 4),
           builder: (BuildContext context, double opacity, Widget? child) {
             return Opacity(

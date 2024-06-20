@@ -1,0 +1,70 @@
+import 'package:flutter/cupertino.dart';
+import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
+import 'package:loopcare_frontend/features/river/domain/river_module_item.dart';
+import 'package:loopcare_frontend/features/river/presentation/animation/animated_color_wrapper.dart';
+import 'package:loopcare_frontend/features/river/presentation/animation/animated_scale_wrapper.dart';
+import 'package:loopcare_frontend/features/river/presentation/river_module_item_widget/river_module_item_widget.dart';
+
+class UnlockedModuleItemWidget extends StatelessWidget {
+  final Color iconColor;
+  final Color bgColor;
+  final double circleRadius;
+  final double sizeIcon;
+  final IconData icon;
+  final bool isAnimated;
+  final RiverModuleItem? oldModuleItem;
+  final double elevation;
+  final Function()? onTap;
+
+  const UnlockedModuleItemWidget({
+    super.key,
+    required this.iconColor,
+    required this.bgColor,
+    required this.icon,
+    this.isAnimated = false,
+    this.circleRadius = 25,
+    this.sizeIcon = 36,
+    this.elevation = 4,
+    this.onTap,
+    this.oldModuleItem,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    final iconWidget = isAnimated
+        ? AnimatedColorWrapper(
+            icon: icon,
+            newIconColor: iconColor,
+            oldIconColor: oldModuleItem?.iconColor ?? AppColors.blueLight,
+            sizeIcon: sizeIcon)
+        : Icon(
+            icon,
+            color: iconColor,
+            size: sizeIcon,
+          );
+    final circleWidget = Container(
+      decoration: BoxDecoration(
+        color: bgColor,
+        shape: BoxShape.circle,
+        boxShadow: [
+          BoxShadow(
+            color: AppColors.greyLight.withOpacity(0.1),
+            spreadRadius: 1.5,
+            blurRadius: 1,
+          ),
+        ],
+      ),
+      width: 2 * circleRadius,
+      height: 2 * circleRadius,
+      child: iconWidget,
+    );
+    return AnimatedScaleWrapper(
+      child: RiverModuleItemWidget(
+        elevation: elevation,
+        onTap: onTap,
+        circleRadius: circleRadius,
+        child: circleWidget,
+      ),
+    );
+  }
+}

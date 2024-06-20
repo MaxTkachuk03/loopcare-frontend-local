@@ -2,9 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:loopcare_frontend/core/presentation/text/custom_text.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 import 'package:loopcare_frontend/core/presentation/utils/build_context_extensions.dart';
-import 'package:loopcare_frontend/features/river/domain/module_item/module_item.dart';
-import 'package:loopcare_frontend/features/river/presentation/river_module_item/river_module_item.dart';
-import 'package:loopcare_frontend/features/river/presentation/river_module_item/river_module_item_utils.dart';
+import 'package:loopcare_frontend/features/river/domain/river_module_item.dart';
+import 'package:loopcare_frontend/features/river/infrastructure/river_icon_type.dart';
+import 'package:loopcare_frontend/features/river/infrastructure/river_module_item_state.dart';
+import 'package:loopcare_frontend/features/river/infrastructure/river_module_stream_type.dart';
+import 'package:loopcare_frontend/features/river/presentation/river_module_item_widget/generic_module_item_widget.dart';
 
 import '../utils/module_items_utils.dart';
 import 'animated_river_streams.dart';
@@ -34,7 +36,7 @@ class RiverScreen extends StatefulWidget {
 class _RiverScreenState extends State<RiverScreen> {
   late List<({Offset offset, ModelItem item})> _positionedItems;
   final GlobalKey<AnimatedRiverStreamsState> _riverKey = GlobalKey<AnimatedRiverStreamsState>();
-  
+
   int get _page => _getIndex(widget.page);
 
   int _getIndex(int i) => i <= 5 ? i : _getIndex(i - 5);
@@ -56,7 +58,6 @@ class _RiverScreenState extends State<RiverScreen> {
         if (!item.isRoot) {
           final position = ModuleItemsUtils.getOffset(_page, i, item.stream.streamIndex);
           list.add((offset: position, item: item));
-
         } else {
           final position = ModuleItemsUtils.getRootOffset(_page);
           list.add((offset: position, item: item));
@@ -82,21 +83,22 @@ class _RiverScreenState extends State<RiverScreen> {
     final positions = List.generate(
       _positionedItems.length,
       (index) => Positioned(
-        left: dimension * _positionedItems[index].offset.dx - 22,
-        top: itemTopPositionOffset + dimension * _positionedItems[index].offset.dy - 22,
-        //Todo ModuleItem widget
-        child: RiverModuleItem(
-            item: ModuleItem(
-                state: RiverModuleItemState.completed,
-                iconType: RiverIconType.community,
-                stream: _positionedItems[index].item.stream,
-            offset: Offset(_positionedItems[index].offset.dx , _positionedItems[index].offset.dy ))
-        )
-        // CircleAvatar(
-        //   radius: 22,
-        //   child: Text(_positionedItems[index].item.stream.streamIndex.toString()),
-        // ),
-      ),
+          left: dimension * _positionedItems[index].offset.dx - 22,
+          top: itemTopPositionOffset + dimension * _positionedItems[index].offset.dy - 22,
+          //Todo ModuleItem widget
+          child: GenericModuleItemWidget(
+              item: const RiverModuleItem(
+                itemState: RiverModuleItemState.completed,
+                iconType: RiverIconType.reflection,
+                streamType: RiverModuleStreamType.nutrition,
+                featurePlacement: null,
+              ),
+              offset: Offset(_positionedItems[index].offset.dx, _positionedItems[index].offset.dy))
+          // CircleAvatar(
+          //   radius: 22,
+          //   child: Text(_positionedItems[index].item.stream.streamIndex.toString()),
+          // ),
+          ),
     );
 
     return Stack(
@@ -167,14 +169,13 @@ enum RiverStreamType {
 
   bool get isNutrition => this == nutrition;
 
-  int get streamIndex => switch(this) {
-    activity => 0,
-    community => 1,
-    psychology => 2,
-    medical => 3,
-    nutrition => 4,
-  };
-
+  int get streamIndex => switch (this) {
+        activity => 0,
+        community => 1,
+        psychology => 2,
+        medical => 3,
+        nutrition => 4,
+      };
 
   Color get streamColor {
     switch (this) {
@@ -221,11 +222,11 @@ class ModelItem {
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-          other is ModelItem &&
-              runtimeType == other.runtimeType &&
-              id == other.id &&
-              stream == other.stream &&
-              isRoot == other.isRoot;
+      other is ModelItem &&
+          runtimeType == other.runtimeType &&
+          id == other.id &&
+          stream == other.stream &&
+          isRoot == other.isRoot;
 
   @override
   int get hashCode => id.hashCode ^ stream.hashCode ^ isRoot.hashCode;

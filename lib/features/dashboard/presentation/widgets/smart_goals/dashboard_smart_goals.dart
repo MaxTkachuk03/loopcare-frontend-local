@@ -10,9 +10,6 @@ import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 import 'package:loopcare_frontend/core/presentation/utils/build_context_extensions.dart';
 import 'package:loopcare_frontend/features/dashboard/presentation/widgets/dashboard_card_title/dashboard_card_title.dart';
 import 'package:loopcare_frontend/features/dashboard/presentation/widgets/smart_goals/widgets/dashboard_weekly_goals.dart';
-import 'package:loopcare_frontend/features/river/domain/module_item/module_item.dart';
-import 'package:loopcare_frontend/features/river/presentation/river_module_item/river_module_item.dart';
-import 'package:loopcare_frontend/features/river/presentation/river_module_item/river_module_item_utils.dart';
 import 'package:loopcare_frontend/features/smart_goals/application/smart_goals_bloc.dart';
 
 class DashboardSmartGoals extends StatelessWidget {
