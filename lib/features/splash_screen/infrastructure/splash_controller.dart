@@ -32,12 +32,12 @@ class SplashController {
   bool get isAuthorized => _storage.account != null;
 
   bool get needUpdatePrivacyPolicy =>
-      (authenticationBloc.state.data.account?.privacyPolicyVersion ?? 1)
-          < appUpdateBloc.state.data.privacyPolicyVersion;
+      (authenticationBloc.state.data.account?.privacyPolicyVersion ?? 1) <
+      appUpdateBloc.state.data.privacyPolicyVersion;
 
   bool get needUpdateTermsAndConditions =>
-      (authenticationBloc.state.data.account?.termsAndConditionsVersion ?? 1)
-          < appUpdateBloc.state.data.termsAndConditionsVersion;
+      (authenticationBloc.state.data.account?.termsAndConditionsVersion ?? 1) <
+      appUpdateBloc.state.data.termsAndConditionsVersion;
 
   void initApp() {
     _getVersion();
@@ -54,7 +54,8 @@ class SplashController {
   Future<List<PageRouteInfo>> getRoute() async {
     authenticationBloc.add(const AuthenticationEvent.startTrackUser());
 
-    final authorisedRoute = await _getAuthorisedRoute(_storage.account?.hasActiveSubscription ?? false);
+    final authorisedRoute =
+        await _getAuthorisedRoute(_storage.account?.hasActiveSubscription ?? false);
     final routes = [authorisedRoute];
 
     MixpanelEventService.instance.trackVisit(
@@ -87,7 +88,7 @@ class SplashController {
     if (accessToken.isEmpty || refreshToken.isEmpty) {
       return const LoginRoute();
     } else if (hasActiveSubscription || !kIsProd) {
-      return const HomeRoute();
+      return const RiverOverviewRoute();
     } else {
       return const SubscriptionRoute();
     }

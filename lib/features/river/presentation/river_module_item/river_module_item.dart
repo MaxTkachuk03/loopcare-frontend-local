@@ -1,13 +1,11 @@
-import 'package:flutter/cupertino.dart';
 import 'package:badges/badges.dart' as badge;
 import 'package:flutter/material.dart';
 import 'package:loopcare_frontend/core/presentation/icon_images/app_icons.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 import 'package:loopcare_frontend/features/river/domain/module_item/module_item.dart';
-import 'package:loopcare_frontend/features/river/presentation/animation/animated_rotation_wrapper.dart';
+import 'package:loopcare_frontend/features/river/infrastructure/river_module_item_state.dart';
 import 'package:loopcare_frontend/features/river/presentation/animation/animated_scale_wrapper.dart';
-import 'package:loopcare_frontend/features/river/presentation/animation/animated_transition_wrapper.dart';
-import 'package:loopcare_frontend/features/river/presentation/river_module_item/river_module_item_utils.dart';
+import 'package:loopcare_frontend/features/river/presentation/animation/animated_state_wrapper.dart';
 
 const radius = 25.0;
 
@@ -91,11 +89,11 @@ class _RiverModuleItemState extends State<RiverModuleItem> with SingleTickerProv
     );
     Widget child = const SizedBox.shrink();
     switch (widget.item.state) {
-      case RiverModuleItemState.unlock:
+      case RiverModuleItemState.unlocked:
         child = isMoveToUnlockState?
     AnimatedScaleWrapper(child: moduleIconWidget)
         : AnimatedScaleWrapper(child: moduleIconWidget);
-      case RiverModuleItemState.lock:
+      case RiverModuleItemState.locked:
         child = moduleIconWidget;
       case RiverModuleItemState.read:
         child = isMoveToReadState ? AnimatedRotationWrapper(child: moduleIconWidget) : moduleIconWidget;
@@ -145,9 +143,9 @@ class _RiverModuleItemState extends State<RiverModuleItem> with SingleTickerProv
 
   Widget get reflectionIcon {
     switch (widget.item.state) {
-      case RiverModuleItemState.unlock:
+      case RiverModuleItemState.unlocked:
         return AppIcons.iReflectionUnlock;
-      case RiverModuleItemState.lock:
+      case RiverModuleItemState.locked:
         return AppIcons.iReflectionDisable;
       case RiverModuleItemState.completed:
       case RiverModuleItemState.read:
