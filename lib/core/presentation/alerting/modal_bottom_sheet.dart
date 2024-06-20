@@ -16,6 +16,7 @@ import 'package:loopcare_frontend/core/presentation/checkbox/custom_checkbox.dar
 import 'package:loopcare_frontend/core/presentation/custom_safe_area.dart';
 import 'package:loopcare_frontend/core/presentation/html_renderer/html_renderer.dart';
 import 'package:loopcare_frontend/core/presentation/icon_images/app_icons.dart';
+import 'package:loopcare_frontend/core/presentation/icon_images/app_icons_data.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/core/presentation/network_image_with_cache/network_image_with_cache.dart';
 import 'package:loopcare_frontend/core/presentation/text/custom_text.dart';
@@ -1412,6 +1413,178 @@ class ModalBottomSheet {
       builder: (BuildContext context) {
         return FractionallySizedBox(
             heightFactor: 0.95, child: ScrollableContainer(child: MainContainer(child: content)));
+      },
+    );
+  }
+
+  static void guidancePractice({
+    required BuildContext context,
+    required void Function() onConfirm,
+  }) {
+    showModalBottomSheet(
+      context: context,
+      showDragHandle: false,
+      backgroundColor: AppColors.blueLightest,
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12.0)),
+      builder: (BuildContext context) {
+        return MainContainer(
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const SizedBox(height: 32.0),
+              const Center(
+                child: Material(
+                  elevation: 6,
+                  surfaceTintColor: AppColors.transparent,
+                  color: AppColors.blueRegular,
+                  borderRadius: BorderRadius.all(Radius.circular(25)),
+                  child: SizedBox.square(
+                    dimension: 50.0,
+                    child: Center(
+                      child: Icon(
+                        AppIconsData.iPractice,
+                        color: AppColors.blueLightest,
+                        size: 36.0,
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+              const SizedBox(height: 24.0),
+              CustomText.w600(
+                LocalizedTexts.guidancePracticeTitle.tr(),
+                style: context.textTheme.bodyMedium,
+              ),
+              const SizedBox(height: 20.0),
+              CustomText.w400(
+                LocalizedTexts.guidancePracticeDescription.tr(),
+                style: context.textTheme.bodyMedium,
+              ),
+              const SizedBox(height: 20.0),
+              CustomElevatedButton.blueFullWidth(
+                label: LocalizedTexts.ok.tr().toUpperCase(),
+                onPressed: () {
+                  context.router.maybePop();
+                  onConfirm();
+                },
+              ),
+              const SizedBox(height: 30.0),
+            ],
+          ),
+        );
+      },
+    );
+  }
+
+  static void guidanceProfile({
+    required BuildContext context,
+    required void Function() onConfirm,
+  }) {
+    showModalBottomSheet(
+      context: context,
+      showDragHandle: false,
+      backgroundColor: AppColors.blueLightest,
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12.0)),
+      builder: (BuildContext context) {
+        return MainContainer(
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const SizedBox(height: 32.0),
+              const Center(
+                child: Material(
+                  elevation: 6,
+                  surfaceTintColor: AppColors.transparent,
+                  color: AppColors.blueRegular,
+                  borderRadius: BorderRadius.all(Radius.circular(25)),
+                  child: SizedBox.square(
+                    dimension: 50.0,
+                    child: Center(
+                      child: Icon(
+                        AppIconsData.iProfile,
+                        color: AppColors.blueLightest,
+                        size: 36.0,
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+              const SizedBox(height: 24.0),
+              CustomText.w600(
+                LocalizedTexts.guidanceProfileTitle.tr(),
+                style: context.textTheme.bodyMedium,
+              ),
+              const SizedBox(height: 20.0),
+              CustomText.w400(
+                LocalizedTexts.guidanceProfileDescription.tr(),
+                style: context.textTheme.bodyMedium,
+              ),
+              const SizedBox(height: 20.0),
+              CustomElevatedButton.blueFullWidth(
+                label: LocalizedTexts.ok.tr().toUpperCase(),
+                onPressed: () {
+                  context.router.maybePop();
+                  onConfirm();
+                },
+              ),
+              const SizedBox(height: 30.0),
+            ],
+          ),
+        );
+      },
+    );
+  }
+
+  static void guidanceCompleted({
+    required BuildContext context,
+    required void Function() onConfirm,
+  }) {
+    showModalBottomSheet(
+      context: context,
+      showDragHandle: false,
+      backgroundColor: AppColors.blueLightest,
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12.0)),
+      builder: (BuildContext context) {
+        return MainContainer(
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              const SizedBox(height: 32.0),
+              const Center(
+                child: CircleAvatar(
+                  radius: 25,
+                  backgroundColor: AppColors.blueRegular,
+                  child: Icon(
+                    Icons.check_rounded,
+                    color: AppColors.blueLightest,
+                    size: 36.0,
+                  ),
+                ),
+              ),
+              const SizedBox(height: 24.0),
+              CustomText.w600(
+                LocalizedTexts.guidanceCompletedTitle.tr(),
+                style: context.textTheme.bodyMedium,
+              ),
+              const SizedBox(height: 20.0),
+              CustomText.w400(
+                LocalizedTexts.guidanceCompletedDescription.tr(),
+                style: context.textTheme.bodyMedium,
+              ),
+              const SizedBox(height: 20.0),
+              CustomElevatedButton.blueFullWidth(
+                label: LocalizedTexts.ok.tr().toUpperCase(),
+                onPressed: () {
+                  context.router.maybePop();
+                  onConfirm();
+                },
+              ),
+              const SizedBox(height: 30.0),
+            ],
+          ),
+        );
       },
     );
   }

@@ -16,19 +16,30 @@ class _RiverPageState extends State<RiverPage> {
 
   @override
   Widget build(BuildContext context) {
+    double scale = 1;
     return CustomScaffold.blueLightest(
-      body: CustomSafeArea(
-        child: PageView.builder(
-          itemCount: 5,
-          itemBuilder: (context, index) {
-            return RiverScreen(
-              completedDate: null,
-              isCompleted: false,
-              totalDays: 7,
-              title: 'Title',
-              page: index + 1,
-            );
-          },
+      body: GestureDetector(
+        // onScaleEnd: (details) {
+        //   if (scale < 1) {
+        //     navigate
+        //   }
+        // },
+        // onScaleUpdate: (details) {
+        //   scale = details.scale;
+        // },
+        child: CustomSafeArea(
+          child: PageView.builder(
+            itemCount: 5,
+            itemBuilder: (context, index) {
+              return RiverScreen(
+                completedDate: null,
+                isCompleted: false,
+                totalDays: 7,
+                title: 'Title',
+                page: index,
+              );
+            },
+          ),
         ),
       ),
     );

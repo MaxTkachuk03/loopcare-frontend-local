@@ -1,6 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:loopcare_frontend/core/presentation/alerting/modal_bottom_sheet.dart';
 import 'package:loopcare_frontend/core/presentation/text/custom_text.dart';
 import 'package:loopcare_frontend/core/presentation/utils/build_context_extensions.dart';
+import 'package:loopcare_frontend/features/home/application/navigation_bar_bloc.dart';
+import 'package:loopcare_frontend/features/river/domain/module_item/module_item.dart';
+import 'package:loopcare_frontend/features/river/presentation/river_module_item/river_module_item.dart';
+import 'package:loopcare_frontend/features/river/presentation/river_module_item/river_module_item_utils.dart';
 
 import '../utils/module_items_utils.dart';
 import 'animated_river_streams.dart';
@@ -28,15 +34,24 @@ class RiverScreen extends StatefulWidget {
 }
 
 class _RiverScreenState extends State<RiverScreen> {
-  late List<({Offset offset, ModelItem item})> _positionedItems;
+  late List<({Offset offset, ModuleItem item})> _positionedItems;
   final GlobalKey<AnimatedRiverStreamsState> _riverKey = GlobalKey<AnimatedRiverStreamsState>();
   
   int get _page => _getIndex(widget.page);
 
   int _getIndex(int i) => i <= 5 ? i : _getIndex(i - 5);
 
-  List<({Offset offset, ModelItem item})> _offsets(List<ModelItem> items) {
-    final List<({Offset offset, ModelItem item})> list = [];
+  List<({Offset offset, ModuleItem item})> _offsets(List<ModuleItem> items) {
+    final List<({Offset offset, ModuleItem item})> list = [];
+
+    if (_page == 0) {
+      for (int i = 0; i < items.length; i++) {
+        final item = items[i];
+        list.add((offset: ModuleItemsUtils.zeroPagePositions[i], item: item));
+      }
+
+      return list;
+    }
 
     final activity = items.where((element) => element.stream.isActivity).toList();
     final community = items.where((element) => element.stream.isCommunity).toList();
@@ -66,7 +81,7 @@ class _RiverScreenState extends State<RiverScreen> {
   @override
   void initState() {
     super.initState();
-    _positionedItems = _offsets(items);
+    _positionedItems = _offsets(zeroItems);
   }
 
   @override
@@ -75,16 +90,22 @@ class _RiverScreenState extends State<RiverScreen> {
     final dimension = size.width;
     final itemTopPositionOffset = (size.height - dimension) / 2.5;
 
-    final positions = List.generate(
+    final positionedModuleItems = List.generate(
       _positionedItems.length,
-      (index) => Positioned(
-        left: dimension * _positionedItems[index].offset.dx - 22,
-        top: itemTopPositionOffset + dimension * _positionedItems[index].offset.dy - 22,
-        child: CircleAvatar(
-          radius: 22,
-          child: Text(_positionedItems[index].item.stream.streamIndex.toString()),
-        ),
-      ),
+      (index) {
+        final offset = _positionedItems[index].offset;
+        final item = _positionedItems[index].item;
+        final radius = item.isRoot ? 36.0 : 25.0;
+        return Positioned(
+          left: dimension * offset.dx - radius,
+          top: itemTopPositionOffset + dimension * offset.dy - radius,
+          child: RiverModuleItem(
+            item: item,
+            circleRadius: radius,
+            onTap: () => _onItemPressed(item),
+          ),
+        );
+      },
     );
 
     return Stack(
@@ -110,16 +131,59 @@ class _RiverScreenState extends State<RiverScreen> {
             isCompleted: widget.isCompleted,
           ),
         ),
-        ...positions,
+        ...positionedModuleItems,
       ],
     );
   }
+
+  void _onItemPressed(ModuleItem item) {
+    if (_page == 0) {
+      _beginningUnlockAction(item);
+    } else {
+      // todo: callback for regular items
+    }
+  }
+
+  void _beginningUnlockAction(ModuleItem item) {
+    if (item.state.isCompleted) {
+      return;
+    }
+
+    final bloc = context.read<NavigationBarBloc>();
+
+    if (item.iconType == RiverIconType.practice) {
+      ModalBottomSheet.guidancePractice(
+        context: context,
+        onConfirm: () => bloc.add(const NavigationBarEvent.unlockPractise()),
+      );
+    }
+
+    if (item.iconType == RiverIconType.profile) {
+      ModalBottomSheet.guidanceProfile(
+        context: context,
+        onConfirm: () => bloc.add(const NavigationBarEvent.unlockProfile()),
+      );
+    }
+  }
 }
 
-const List<ModelItem> zeroItems = [
-  ModelItem(id: 1, stream: RiverStreamType.psychology, isRoot: true),
-  ModelItem(id: 2, stream: RiverStreamType.psychology),
-  ModelItem(id: 3, stream: RiverStreamType.psychology),
+List<ModuleItem> zeroItems = [
+  ModuleItem(
+    state: RiverModuleItemState.unlock,
+    iconType: RiverIconType.reflection,
+    stream: RiverModuleStreamType.beginning,
+    isRoot: true,
+  ),
+  ModuleItem(
+    state: RiverModuleItemState.unlock,
+    iconType: RiverIconType.practice,
+    stream: RiverModuleStreamType.beginning,
+  ),
+  ModuleItem(
+    state: RiverModuleItemState.unlock,
+    iconType: RiverIconType.profile,
+    stream: RiverModuleStreamType.beginning,
+  ),
 ];
 
 const List<ModelItem> items = [

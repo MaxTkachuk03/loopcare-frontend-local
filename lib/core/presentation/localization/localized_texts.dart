@@ -1150,4 +1150,12 @@ class LocalizedTexts {
   static const String socketException = 'socketException';
   //Parsing Exception
   static const String parsingException = 'parsingException';
+
+  // River
+  static const String guidancePracticeTitle = 'guidancePracticeTitle';
+  static const String guidancePracticeDescription = 'guidancePracticeDescription';
+  static const String guidanceProfileTitle = 'guidanceProfileTitle';
+  static const String guidanceProfileDescription = 'guidanceProfileDescription';
+  static const String guidanceCompletedTitle = 'guidanceCompletedTitle';
+  static const String guidanceCompletedDescription = 'guidanceCompletedDescription';
 }

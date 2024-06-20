@@ -5,8 +5,14 @@ class ModuleItem {
   final RiverModuleItemState state;
   final RiverIconType iconType;
   final RiverModuleStreamType stream;
+  final bool isRoot;
 
-  ModuleItem({required this.state, required this.iconType, required this.stream});
+  ModuleItem({
+    required this.state,
+    required this.iconType,
+    required this.stream,
+    this.isRoot = false,
+  });
 
   Color get bgColor => state.bgColor(stream);
 
@@ -19,6 +25,4 @@ class ModuleItem {
   bool get isReflection => iconType.isReflection;
 
   bool get isCompleted => state.isCompleted;
-
-
 }

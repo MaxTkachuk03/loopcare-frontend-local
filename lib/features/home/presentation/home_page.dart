@@ -1,6 +1,5 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loopcare_frontend/core/presentation/routes/app_router.gr.dart';
 import 'package:loopcare_frontend/features/authentication/application/authentication_bloc.dart';
@@ -29,6 +28,7 @@ class _HomePageState extends State<HomePage> {
           AccountRoute(),
         ],
         appBarBuilder: (_, tabsRouter) => AppBar(
+          surfaceTintColor: NavigationBarItems.getColorByIndex(tabsRouter.activeIndex),
           systemOverlayStyle: NavigationBarItems.getOverlayStyleByIndex(tabsRouter.activeIndex),
           toolbarHeight: 0.0,
           backgroundColor: NavigationBarItems.getColorByIndex(tabsRouter.activeIndex),

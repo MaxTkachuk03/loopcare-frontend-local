@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:loopcare_frontend/core/presentation/icon_images/app_icons.dart';
 import 'package:loopcare_frontend/core/presentation/icon_images/app_icons_data.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 
@@ -56,14 +55,36 @@ enum RiverIconType {
 }
 
 enum RiverModuleStreamType {
+  beginning,
   psychology,
   nutrition,
   activity,
   medical,
   community;
 
+  bool get isActivity => this == activity;
+
+  bool get isCommunity => this == community;
+
+  bool get isPsychology => this == psychology;
+
+  bool get isMedical => this == medical;
+
+  bool get isNutrition => this == nutrition;
+
+  int get streamIndex => switch(this) {
+    activity => 0,
+    community => 1,
+    psychology => 2,
+    medical => 3,
+    nutrition => 4,
+    _ => -1,
+  };
+
   Color get streamColor {
     switch (this) {
+      case RiverModuleStreamType.beginning:
+        return AppColors.blueRegular;
       case RiverModuleStreamType.psychology:
         return AppColors.petrolRegular;
       case RiverModuleStreamType.nutrition:
@@ -79,6 +100,8 @@ enum RiverModuleStreamType {
 
   Color get lighterColor {
     switch (this) {
+      case RiverModuleStreamType.beginning:
+        return AppColors.blueLightest;
       case RiverModuleStreamType.psychology:
         return AppColors.petrolLightest;
       case RiverModuleStreamType.nutrition:
