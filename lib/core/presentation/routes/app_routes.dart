@@ -41,6 +41,7 @@ class AppRoutes {
 
   // Home
   static const String dashboard = 'dashboard'; // added
+  static const String riverOverview = '/river-overview';
   static const String river = 'river'; // added
   static const String home = '/home'; // added
   static const String account = 'account'; // added
@@ -77,7 +78,8 @@ class AppRoutes {
   static const String programDetails = '/program-details'; // added
   static const String physicalPreferencesIntro = '/physical-preferences-intro'; // added
   static const String physicalActivitiesFrequency = '/physical-activities-frequency'; // added
-  static const String physicalActivitiesActivityType = '/physical-activities-activity-type'; // added
+  static const String physicalActivitiesActivityType =
+      '/physical-activities-activity-type'; // added
   static const String physicalActivitiesComplete = '/physical-activities-complete'; // added
 
   // User profile
