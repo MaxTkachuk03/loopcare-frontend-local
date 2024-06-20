@@ -7,7 +7,7 @@ import 'package:loopcare_frontend/features/home/application/navigation_bar_bloc.
 import 'package:loopcare_frontend/features/river/domain/river_module_item.dart' as model;
 import 'package:loopcare_frontend/features/river/infrastructure/river_icon_type.dart';
 import 'package:loopcare_frontend/features/river/presentation/river_module_item_widget/generic_module_item_widget.dart';
-
+import 'package:loopcare_frontend/features/river/presentation/utils/mock_module_items.dart';
 
 import '../utils/module_items_utils.dart';
 import 'animated_river_streams.dart';
