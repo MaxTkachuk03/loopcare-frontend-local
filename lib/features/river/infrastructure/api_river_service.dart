@@ -51,7 +51,8 @@ class APIRiverService implements RiverService {
     required RiverModule data,
   }) async {
     // TODO river modules response mock
-    return right(RiverModule.fromJson(modules.first).copyWith(isCompleted: true));
+
+    return right(RiverModule.fromJson(modules.last).copyWith(isCompleted: true));
     // TODO replace with correct url
     // return await client.patch(
     //   '/moods/$id',
