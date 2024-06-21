@@ -47,11 +47,13 @@ class APIRiverService implements RiverService {
     required int moduleId,
     required RiverModule data,
   }) async {
+    // TODO river modules response mock
+    return right(RiverModule.fromJson(modules.first).copyWith(isCompleted: true));
     // TODO replace with correct url
-    return await client.patch(
-      '/moods/$id',
-      data: data,
-      fromJson: RiverModule.fromJson,
-    );
+    // return await client.patch(
+    //   '/moods/$id',
+    //   data: data,
+    //   fromJson: RiverModule.fromJson,
+    // );
   }
 }

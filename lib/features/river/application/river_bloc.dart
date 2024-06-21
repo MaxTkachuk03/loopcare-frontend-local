@@ -81,9 +81,8 @@ class RiverBloc extends Bloc<RiverEvent, RiverState> {
 
     response.fold(
       (l) => emit(RiverState.moduleLoadingError(state.data.copyWith(error: l, isLoading: false))),
-      (r) {
-        // TODO write logic
-      },
+      (r) => emit(RiverState.moduleLoaded(
+          state.data.copyWith(modules: {...state.data.modules, r.id: r}, isLoading: false))),
     );
   }
 }
