@@ -2,7 +2,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:badges/badges.dart' as badge;
 import 'package:flutter/material.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
-import 'package:loopcare_frontend/features/river/domain/river_module_item.dart';
 import 'package:loopcare_frontend/features/river/presentation/animation/animated_circle_color_wrapper.dart';
 import 'package:loopcare_frontend/features/river/presentation/animation/animated_completed_badge.dart';
 import 'package:loopcare_frontend/features/river/presentation/animation/animated_icon_color_wrapper.dart';
@@ -17,7 +16,7 @@ class CompletedModuleItemWidget extends StatelessWidget {
   final double sizeIcon;
   final IconData icon;
   final bool isAnimated;
-  final RiverModuleItem? oldModuleItem;
+  final Color? oldBgColor;
   final double elevation;
   final double sizeBadge;
   final Offset offset;
@@ -35,26 +34,26 @@ class CompletedModuleItemWidget extends StatelessWidget {
     this.elevation = 4,
     this.sizeBadge = 15,
     this.onTap,
-    this.oldModuleItem,
+    this.oldBgColor,
   });
 
   @override
   Widget build(BuildContext context) {
-    final iconWidget = isAnimated && oldModuleItem != null
+    final iconWidget = isAnimated && oldBgColor != null
         ? AnimatedIconColorWrapper(
             icon: icon,
             newIconColor: iconColor,
-            oldIconColor: oldModuleItem?.iconColor ?? AppColors.transparent,
+            oldIconColor: oldBgColor ?? AppColors.transparent,
             sizeIcon: sizeIcon)
         : Icon(
             icon,
             color: iconColor,
             size: sizeIcon,
           );
-    final circleWidget = isAnimated && oldModuleItem != null
+    final circleWidget = isAnimated && oldBgColor != null
         ? AnimatedCircleColorWrapper(
             newBgColor: bgColor,
-            oldBgColor: oldModuleItem?.bgColor ?? AppColors.transparent,
+            oldBgColor: oldBgColor ?? AppColors.transparent,
             icon: iconWidget,
           )
         : ModuleCircleIconWidget(
