@@ -9,6 +9,7 @@ import 'package:loopcare_frontend/features/river/domain/river_module_item.dart';
 
 // TODO river modules response mock
 import 'package:loopcare_frontend/features/river/infrastructure/river_modules_mock.dart';
+import 'package:loopcare_frontend/features/river/infrastructure/river_module_item_mock.dart';
 
 @Injectable(as: RiverService)
 class APIRiverService implements RiverService {
@@ -38,8 +39,10 @@ class APIRiverService implements RiverService {
     required int moduleItemId,
     required RiverModuleItem data,
   }) async {
+    // TODO river modules response mock
+    return right(RiverModuleItem.fromJson(moduleItem));
     // TODO replace with correct url
-    return await client.patch('/moods/$id', fromJson: RiverModuleItem.fromJson);
+    // return await client.patch('/moods/$id', fromJson: RiverModuleItem.fromJson);
   }
 
   @override

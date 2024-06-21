@@ -65,9 +65,8 @@ class RiverBloc extends Bloc<RiverEvent, RiverState> {
     response.fold(
       (l) =>
           emit(RiverState.moduleItemLoadingError(state.data.copyWith(error: l, isLoading: false))),
-      (r) {
-        // TODO write logic
-      },
+      (r) => emit(RiverState.moduleItemLoaded(
+          state.data.copyWith(modules: _updateModuleItem(event.moduleId, r), isLoading: false))),
     );
   }
 
@@ -84,5 +83,15 @@ class RiverBloc extends Bloc<RiverEvent, RiverState> {
       (r) => emit(RiverState.moduleLoaded(
           state.data.copyWith(modules: {...state.data.modules, r.id: r}, isLoading: false))),
     );
+  }
+
+  Map<int, RiverModule> _updateModuleItem(int moduleId, RiverModuleItem moduleItem) {
+    final moduleToUpdate = state.data.modules[moduleId];
+
+    if (moduleToUpdate == null) return state.data.modules;
+
+    moduleToUpdate.moduleItems.map((i) => i.id == moduleItem.id ? moduleItem : i);
+
+    return {...state.data.modules, moduleId: moduleToUpdate};
   }
 }
