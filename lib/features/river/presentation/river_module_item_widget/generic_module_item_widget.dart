@@ -62,7 +62,7 @@ class _GenericModuleItemWidgetState extends State<GenericModuleItemWidget> {
           bgColor: widget.item.bgColor,
           iconColor: widget.item.iconColor,
           isAnimated: isAnimated,
-          oldModuleItem: oldModuleItem,
+          oldBgColor: oldModuleItem?.bgColor,
           onTap: widget.onTap,
         );
       case RiverModuleItemState.read:
@@ -70,7 +70,7 @@ class _GenericModuleItemWidgetState extends State<GenericModuleItemWidget> {
           icon: widget.item.icon,
           bgColor: widget.item.bgColor,
           iconColor: widget.item.iconColor,
-          oldModuleItem: oldModuleItem,
+          oldBgColor: oldModuleItem?.bgColor,
           isAnimated: isAnimated,
           onTap: widget.onTap,
         );

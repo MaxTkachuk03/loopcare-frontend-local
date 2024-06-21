@@ -14,7 +14,7 @@ class ReadModuleItemWidget extends StatelessWidget {
   final double sizeIcon;
   final IconData icon;
   final bool isAnimated;
-  final RiverModuleItem? oldModuleItem;
+  final Color? oldBgColor;
   final double elevation;
   final Function()? onTap;
 
@@ -28,26 +28,26 @@ class ReadModuleItemWidget extends StatelessWidget {
     this.sizeIcon = 36,
     this.elevation = 4,
     this.onTap,
-    this.oldModuleItem,
+    this.oldBgColor,
   });
 
   @override
   Widget build(BuildContext context) {
-    final iconWidget = isAnimated && oldModuleItem != null
+    final iconWidget = isAnimated && oldBgColor != null
         ? AnimatedIconColorWrapper(
             icon: icon,
             newIconColor: iconColor,
-            oldIconColor: oldModuleItem?.iconColor ?? AppColors.transparent,
+            oldIconColor: oldBgColor ?? AppColors.transparent,
             sizeIcon: sizeIcon)
         : Icon(
             icon,
             color: iconColor,
             size: sizeIcon,
           );
-    final circleWidget = isAnimated && oldModuleItem != null
+    final circleWidget = isAnimated && oldBgColor != null
         ? AnimatedCircleColorWrapper(
             newBgColor: bgColor,
-            oldBgColor: oldModuleItem?.bgColor ?? AppColors.transparent,
+            oldBgColor: oldBgColor ?? AppColors.transparent,
             icon: iconWidget,
           )
         : ModuleCircleIconWidget(
