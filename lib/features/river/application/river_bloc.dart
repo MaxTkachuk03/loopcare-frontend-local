@@ -7,10 +7,7 @@ import 'package:loopcare_frontend/core/presentation/utils/list_extensions.dart';
 import 'package:loopcare_frontend/features/river/application/river_service.dart';
 import 'package:loopcare_frontend/features/river/domain/river_module.dart';
 import 'package:loopcare_frontend/features/river/domain/river_module_item.dart';
-import 'package:loopcare_frontend/features/river/infrastructure/feature_placement.dart';
-import 'package:loopcare_frontend/features/river/infrastructure/river_icon_type.dart';
 import 'package:loopcare_frontend/features/river/infrastructure/river_module_item_state.dart';
-import 'package:loopcare_frontend/features/river/infrastructure/river_module_stream_type.dart';
 
 part 'river_event.dart';
 part 'river_state.dart';
@@ -34,7 +31,15 @@ class RiverBloc extends Bloc<RiverEvent, RiverState> {
 
     response.fold(
       (l) => emit(RiverState.moduleLoadingError(state.data.copyWith(error: l, isLoading: false))),
-      (r) => emit(RiverState.moduleLoaded(state.data.copyWith(modules: r.data, isLoading: false))),
+      (r) => emit(
+        RiverState.moduleLoaded(
+          state.data.copyWith(
+            modules: r.data,
+            activeModule: r.data.firstWhere((module) => !module.isCompleted),
+            isLoading: false,
+          ),
+        ),
+      ),
     );
   }
 
@@ -52,37 +57,105 @@ class RiverBloc extends Bloc<RiverEvent, RiverState> {
   FutureOr<void> _onUpdateModule(UpdateModule event, Emitter<RiverState> emit) async {
     emit(RiverState.moduleLoading(state.data.copyWith(isLoading: true)));
 
+    if (state.data.modules.indexWhere((m) => m.id == event.moduleId) == 0) {
+      final List<RiverModule> modules = [];
+      var activeModule = state.data.activeModule;
+
+      for (int i = 0; i < state.data.modules.length; i++) {
+        final module = state.data.modules[i];
+
+        if (i == state.data.currentPage) {
+          modules.add(module.copyWith(isCompleted: true));
+        } else if (i == state.data.currentPage + 1) {
+          final moduleItems = module.moduleItems
+              .map((e) => e.isRootItem ? e.copyWith(itemState: RiverModuleItemState.unlocked) : e)
+              .toList();
+
+          activeModule = module.copyWith(moduleItems: moduleItems);
+          modules.add(activeModule);
+        } else {
+          modules.add(module);
+        }
+      }
+
+
+      emit(
+        RiverState.moduleLoaded(
+          state.data.copyWith(
+            modules: modules,
+            activeModule: activeModule,
+            isLoading: false,
+          ),
+        ),
+      );
+    }
+
     // TODO create instance of RiverModule with data you want to update
-    final data = RiverModule(nextModuleUnlocksAt: DateTime.now());
-
-    final response = await _riverService.updateModule(moduleId: event.moduleId, data: data);
-
-    response.fold(
-      (l) => emit(RiverState.moduleLoadingError(state.data.copyWith(error: l, isLoading: false))),
-      (r) => emit(RiverState.moduleLoaded(
-          state.data.copyWith(modules: _updateModule(r), isLoading: false))),
-    );
+    // final data = RiverModule(nextModuleUnlocksAt: DateTime.now());
+    //
+    // final response = await _riverService.updateModule(moduleId: event.moduleId, data: data);
+    //
+    // response.fold(
+    //   (l) => emit(RiverState.moduleLoadingError(state.data.copyWith(error: l, isLoading: false))),
+    //   (r) => emit(
+    //     RiverState.moduleLoaded(
+    //       state.data.copyWith(
+    //         modules: _updateModule(r),
+    //         isLoading: false,
+    //       ),
+    //     ),
+    //   ),
+    // );
   }
 
   FutureOr<void> _onUpdateModuleItem(UpdateModuleItem event, Emitter<RiverState> emit) async {
     emit(RiverState.moduleItemLoading(state.data.copyWith(isLoading: true)));
 
-    // TODO create instance of RiverModuleItem with data you want to update
-    const data = RiverModuleItem(
-      streamType: RiverModuleStreamType.community,
-      iconType: RiverIconType.activity,
-      featurePlacement: FeaturePlacement.dashboard,
-      itemState: RiverModuleItemState.completed,
-    );
-    final response =
-        await _riverService.updateModuleItem(moduleItemId: event.moduleItemId, data: data);
+    // TODO: check next status
+    final data = state.data
+        .modules.firstWhere((module) => module.id == event.moduleId)
+        .moduleItems.firstWhere((item) => item.id == event.moduleItemId)
+        .copyWith(itemState: RiverModuleItemState.completed);
 
-    response.fold(
-      (l) =>
-          emit(RiverState.moduleItemLoadingError(state.data.copyWith(error: l, isLoading: false))),
-      (r) => emit(RiverState.moduleItemLoaded(
-          state.data.copyWith(modules: _updateModuleItem(event.moduleId, r), isLoading: false))),
+    final modules = _updateModuleItem(event.moduleId, data);
+
+    final activeModule = state.data.activeModule?.id == event.moduleId
+        ? modules.firstWhere((module) => module.id == event.moduleId)
+        : state.data.activeModule;
+
+    emit(
+      RiverState.moduleItemLoaded(
+        state.data.copyWith(
+          modules: modules,
+          activeModule: activeModule,
+          isLoading: false,
+        ),
+      ),
     );
+
+    // TODO create instance of RiverModuleItem with data you want to update
+    // const data = RiverModuleItem(
+    //   streamType: RiverModuleStreamType.community,
+    //   iconType: RiverIconType.activity,
+    //   featurePlacement: FeaturePlacement.dashboard,
+    //   itemState: RiverModuleItemState.completed,
+    // );
+    // final response =
+    //     await _riverService.updateModuleItem(moduleItemId: event.moduleItemId, data: data);
+    //
+    // response.fold(
+    //   (l) => emit(
+    //     RiverState.moduleItemLoadingError(state.data.copyWith(error: l, isLoading: false)),
+    //   ),
+    //   (r) => emit(
+    //     RiverState.moduleItemLoaded(
+    //       state.data.copyWith(
+    //         modules: _updateModuleItem(event.moduleId, r),
+    //         isLoading: false,
+    //       ),
+    //     ),
+    //   ),
+    // );
   }
 
   List<RiverModule> _updateModule(RiverModule module) {

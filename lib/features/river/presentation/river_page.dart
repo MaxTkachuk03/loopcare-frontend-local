@@ -1,7 +1,12 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loopcare_frontend/core/presentation/custom_safe_area.dart';
+import 'package:loopcare_frontend/core/presentation/error/error_screen.dart';
+import 'package:loopcare_frontend/core/presentation/routes/app_router.dart';
 import 'package:loopcare_frontend/core/presentation/scaffold/custom_scaffold.dart';
+import 'package:loopcare_frontend/core/presentation/scale_gesture_detector/scale_gesture_detector.dart';
+import 'package:loopcare_frontend/features/river/application/river_bloc.dart';
 import 'package:loopcare_frontend/features/river/presentation/widgets/river_module_view.dart';
 
 @RoutePage()
@@ -13,30 +18,55 @@ class RiverPage extends StatefulWidget {
 }
 
 class _RiverPageState extends State<RiverPage> {
+  late PageController _controller;
+
+  @override
+  void initState() {
+    super.initState();
+    _controller = PageController(
+      initialPage: context.read<RiverBloc>().state.data.currentPage,
+    );
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
+
+  void _navigationHandler() => context.router.pushNamed(AppRoutes.riverOverview);
 
   @override
   Widget build(BuildContext context) {
-    double scale = 1;
     return CustomScaffold.blueLightest(
-      body: GestureDetector(
-        // onScaleEnd: (details) {
-        //   if (scale < 1) {
-        //     navigate
-        //   }
-        // },
-        // onScaleUpdate: (details) {
-        //   scale = details.scale;
-        // },
+      body: ScaleGestureDetector(
+        onZoomOut: _navigationHandler,
         child: CustomSafeArea(
-          child: PageView.builder(
-            itemCount: 5,
-            itemBuilder: (context, index) {
-              return RiverScreen(
-                completedDate: null,
-                isCompleted: false,
-                totalDays: 7,
-                title: 'Title',
-                page: index,
+          child: BlocConsumer<RiverBloc, RiverState>(
+            listener: (context, state) {
+              state.mapOrNull(
+                moduleItemLoaded: (_) {
+                  final isAllModuleItemsCompleted = state.data.activeModule?.moduleItems
+                      .every((element) => element.isCompleted) ?? false;
+                  final isModuleCompleted = state.data.activeModule?.isCompleted ?? false;
+
+                  if (isAllModuleItemsCompleted && !isModuleCompleted)  {
+                    context.read<RiverBloc>().add(RiverEvent.updateModule(moduleId: state.data.activeModule?.id ?? -1));
+                  }
+                }
+              );
+            },
+            builder: (context, state) {
+              return state.maybeMap(
+                moduleLoadingError: (state) => ErrorScreen(error: state.data.error!),
+                orElse: () => PageView.builder(
+                  controller: _controller,
+                  itemCount: state.data.modules.length,
+                  itemBuilder: (context, index) => RiverScreen(
+                    module: state.data.modules[index],
+                    page: index,
+                  ),
+                ),
               );
             },
           ),

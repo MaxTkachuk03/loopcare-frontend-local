@@ -1,8 +1,56 @@
 var modules = [
   {
+    "id": 0,
+    "title": "The Beginning",
+    "nextModuleUnlocksAt": null,
+    "nextModuleUnlockDelay": 0,
+    "isCompleted": false,
+    "moduleItems": [
+      {
+        "id": 1,
+        "streamType": "psychology",
+        "iconType": "reflection",
+        "lessonId": null,
+        "isRootItem": true,
+        "unlocksItems": [],
+        "unlocksAssignmentId": null,
+        "unlocksSmartGoalCategoryId": null,
+        "crossModule": false,
+        "featurePlacement": null,
+        "itemState": "completed"
+      },
+      {
+        "id": 2,
+        "streamType": "psychology",
+        "iconType": "profile",
+        "lessonId": null,
+        "isRootItem": false,
+        "unlocksItems": [],
+        "unlocksAssignmentId": null,
+        "unlocksSmartGoalCategoryId": null,
+        "crossModule": false,
+        "featurePlacement": "profile",
+        "itemState": "unlocked"
+      },
+      {
+        "id": 3,
+        "streamType": "psychology",
+        "iconType": "practice",
+        "lessonId": null,
+        "isRootItem": false,
+        "unlocksItems": [],
+        "unlocksAssignmentId": null,
+        "unlocksSmartGoalCategoryId": null,
+        "crossModule": false,
+        "featurePlacement": "dashboard",
+        "itemState": "unlocked"
+      },
+    ]
+  },
+  {
     "id": 1,
     "title": "What's your why",
-    "nextModuleUnlocksAt": "2024-06-26T10:57:34.455Z",
+    "nextModuleUnlocksAt": null,
     "nextModuleUnlockDelay": 604800,
     "isCompleted": false,
     "moduleItems": [
@@ -76,7 +124,7 @@ var modules = [
   {
     "id": 3,
     "title": "Module title",
-    "nextModuleUnlocksAt": "2024-06-26T10:57:34.455Z",
+    "nextModuleUnlocksAt": null,
     "nextModuleUnlockDelay": 604800,
     "isCompleted": false,
     "moduleItems": [
