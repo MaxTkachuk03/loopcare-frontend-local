@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
 import 'package:loopcare_frontend/core/infrastructure/dio_client/request_error.dart';
+import 'package:loopcare_frontend/core/presentation/utils/list_extensions.dart';
 import 'package:loopcare_frontend/features/river/application/river_service.dart';
 import 'package:loopcare_frontend/features/river/domain/river_module.dart';
 import 'package:loopcare_frontend/features/river/domain/river_module_item.dart';
@@ -33,8 +34,7 @@ class RiverBloc extends Bloc<RiverEvent, RiverState> {
 
     response.fold(
       (l) => emit(RiverState.moduleLoadingError(state.data.copyWith(error: l, isLoading: false))),
-      (r) => emit(RiverState.moduleLoaded(
-          state.data.copyWith(modules: {for (var i in r.data) i.id: i}, isLoading: false))),
+      (r) => emit(RiverState.moduleLoaded(state.data.copyWith(modules: r.data, isLoading: false))),
     );
   }
 
@@ -46,6 +46,21 @@ class RiverBloc extends Bloc<RiverEvent, RiverState> {
     response.fold(
       (l) => emit(RiverState.moduleLoadingError(state.data.copyWith(error: l, isLoading: false))),
       (r) => emit(RiverState.moduleLoaded(state.data.copyWith(activeModule: r, isLoading: false))),
+    );
+  }
+
+  FutureOr<void> _onUpdateModule(UpdateModule event, Emitter<RiverState> emit) async {
+    emit(RiverState.moduleLoading(state.data.copyWith(isLoading: true)));
+
+    // TODO create instance of RiverModule with data you want to update
+    final data = RiverModule(nextModuleUnlocksAt: DateTime.now());
+
+    final response = await _riverService.updateModule(moduleId: event.moduleId, data: data);
+
+    response.fold(
+      (l) => emit(RiverState.moduleLoadingError(state.data.copyWith(error: l, isLoading: false))),
+      (r) => emit(RiverState.moduleLoaded(
+          state.data.copyWith(modules: _updateModule(r), isLoading: false))),
     );
   }
 
@@ -65,25 +80,23 @@ class RiverBloc extends Bloc<RiverEvent, RiverState> {
     response.fold(
       (l) =>
           emit(RiverState.moduleItemLoadingError(state.data.copyWith(error: l, isLoading: false))),
-      (r) {
-        // TODO write logic
-      },
+      (r) => emit(RiverState.moduleItemLoaded(
+          state.data.copyWith(modules: _updateModuleItem(event.moduleId, r), isLoading: false))),
     );
   }
 
-  FutureOr<void> _onUpdateModule(UpdateModule event, Emitter<RiverState> emit) async {
-    emit(RiverState.moduleLoading(state.data.copyWith(isLoading: true)));
+  List<RiverModule> _updateModule(RiverModule module) {
+    final index = state.data.modules.indexWhere((m) => m.id == module.id);
+    return [...state.data.modules].update(index, module);
+  }
 
-    // TODO create instance of RiverModule with data you want to update
-    final data = RiverModule(nextModuleUnlocksAt: DateTime.now());
-
-    final response = await _riverService.updateModule(moduleId: event.moduleId, data: data);
-
-    response.fold(
-      (l) => emit(RiverState.moduleLoadingError(state.data.copyWith(error: l, isLoading: false))),
-      (r) {
-        // TODO write logic
-      },
-    );
+  List<RiverModule> _updateModuleItem(int moduleId, RiverModuleItem moduleItem) {
+    return state.data.modules
+        .map((m) => m.id == moduleId
+            ? m.copyWith(
+                moduleItems:
+                    m.moduleItems.map((i) => i.id == moduleItem.id ? moduleItem : i).toList())
+            : m)
+        .toList();
   }
 }

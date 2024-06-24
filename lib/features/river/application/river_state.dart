@@ -23,7 +23,7 @@ class RiverStateData with _$RiverStateData {
   const RiverStateData._();
 
   const factory RiverStateData({
-    @Default({}) Map<int, RiverModule> modules,
+    @Default([]) List<RiverModule> modules,
     @Default(null) RiverModule? activeModule,
     @Default(false) bool isLoading,
     @Default(null) RequestError? error,
