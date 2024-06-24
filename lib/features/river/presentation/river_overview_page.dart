@@ -40,7 +40,7 @@ class _RiverOverviewPageState extends State<RiverOverviewPage> {
     context.read<RiverBloc>().add(const RiverEvent.getModules());
   }
 
-  void _navigationHandler() {
+  Future<void> _navigationHandler() async {
     if (context.router.canPop()) {
       context.router.maybePop();
     } else {

@@ -34,7 +34,7 @@ class _RiverPageState extends State<RiverPage> {
     super.dispose();
   }
 
-  void _navigationHandler() => context.router.pushNamed(AppRoutes.riverOverview);
+  Future<void> _navigationHandler() => context.router.pushNamed(AppRoutes.riverOverview);
 
   @override
   Widget build(BuildContext context) {
