@@ -76,7 +76,7 @@ class _WaitingForConfirmationPageState extends State<WaitingForConfirmationPage>
     if (kIsProd) {
       route = const SubscriptionRoute();
     } else {
-      route = const HomeRoute();
+      route = const RiverOverviewRoute();
     }
 
     context

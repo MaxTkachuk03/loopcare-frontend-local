@@ -7,6 +7,7 @@ import 'package:loopcare_frontend/core/presentation/icon_images/app_images.dart'
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/core/presentation/routes/app_router.dart';
 import 'package:loopcare_frontend/core/presentation/scaffold/custom_scaffold.dart';
+import 'package:loopcare_frontend/core/presentation/scale_gesture_detector/scale_gesture_detector.dart';
 import 'package:loopcare_frontend/core/presentation/text/custom_text.dart';
 import 'package:loopcare_frontend/core/presentation/utils/build_context_extensions.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/scrollable_container.dart';
@@ -39,15 +40,21 @@ class _RiverOverviewPageState extends State<RiverOverviewPage> {
     context.read<RiverBloc>().add(const RiverEvent.getModules());
   }
 
-  _onGestureHandler(BuildContext context) => context.router.pushNamed(AppRoutes.home);
+  Future<void> _navigationHandler() async {
+    if (context.router.canPop()) {
+      context.router.maybePop();
+    } else {
+      context.router.replaceNamed(AppRoutes.home);
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
     return CustomScaffold.blueLightest(
       body: CustomSafeArea(
-        child: GestureDetector(
-          onTap: () => _onGestureHandler(context),
-          onScaleUpdate: (_) => _onGestureHandler(context),
+        child: ScaleGestureDetector(
+          onTap: _navigationHandler,
+          onZoomIn: _navigationHandler,
           child: ScrollableContainer(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,

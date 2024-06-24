@@ -28,4 +28,6 @@ class RiverStateData with _$RiverStateData {
     @Default(false) bool isLoading,
     @Default(null) RequestError? error,
   }) = _RiverStateData;
+
+  int get currentPage => activeModule != null ? modules.indexOf(activeModule!) : 0;
 }

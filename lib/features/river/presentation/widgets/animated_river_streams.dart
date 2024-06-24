@@ -13,7 +13,6 @@ const Duration _waveDuration = Duration(milliseconds: 1500);
 const Duration _updatePositionDuration = Duration(seconds: 60);
 const Duration _completeDuration = Duration(milliseconds: 50);
 
-const double _notCompletedGradientPosition = 0.9;
 const double _completedGradientPosition = 1.0;
 const double _spawnedGradientPosition = 0.0;
 const double _startGradientPosition = -0.12;
@@ -25,15 +24,17 @@ class AnimatedRiverStreams extends StatefulWidget {
   const AnimatedRiverStreams({
     super.key,
     required this.page,
-    required this.totalDays,
+    required this.totalDelay,
     required this.isCompleted,
     required this.completedDate,
+    required this.onCompleted,
   });
 
   final int page;
   final DateTime? completedDate;
-  final int totalDays;
+  final int totalDelay;
   final bool isCompleted;
+  final void Function() onCompleted;
 
   @override
   State<AnimatedRiverStreams> createState() => AnimatedRiverStreamsState();
@@ -107,7 +108,7 @@ class AnimatedRiverStreamsState extends State<AnimatedRiverStreams> with SingleT
     } else if (widget.completedDate == null) {
       _position = _startGradientPosition;
     } else if (widget.completedDate!.isBefore(now)) {
-      _position = _notCompletedGradientPosition;
+      _position = _completedGradientPosition;
     } else {
       _position = _definePosition(now);
     }
@@ -116,10 +117,9 @@ class AnimatedRiverStreamsState extends State<AnimatedRiverStreams> with SingleT
   }
 
   double _definePosition(DateTime dateTime) {
-    final fullDuration = Duration(days: widget.totalDays);
     final leftDuration = widget.completedDate!.difference(dateTime);
 
-    return _notCompletedGradientPosition * (1- leftDuration.inSeconds / fullDuration.inSeconds);
+    return 1- leftDuration.inSeconds.safeDivide(widget.totalDelay);
   }
 
   void _startTimer() {
@@ -159,6 +159,10 @@ class AnimatedRiverStreamsState extends State<AnimatedRiverStreams> with SingleT
   }
 
   void _forceCompleteModule() {
+    if (!_controller.isAnimating) {
+      _controller.forward();
+    }
+
     _timer?.cancel();
     final step = isBeginning ? _completeBeginningPageStep : _defaultStep;
     _timer = Timer.periodic(_completeDuration, (_) => _position += step);
@@ -181,6 +185,7 @@ class AnimatedRiverStreamsState extends State<AnimatedRiverStreams> with SingleT
   void _stopAnimation() {
     _timer?.cancel();
     _controller.stop();
+    widget.onCompleted();
   }
 }
 
@@ -257,4 +262,8 @@ class _RiverStreamsPainter extends StatelessWidget {
       ),
     };
   }
+}
+
+extension _SafeDivideDouble on num {
+  double  safeDivide(num other) => other == 0 ? 0 : this / other;
 }

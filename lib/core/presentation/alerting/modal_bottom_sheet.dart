@@ -1539,7 +1539,7 @@ class ModalBottomSheet {
 
   static void guidanceCompleted({
     required BuildContext context,
-    required void Function() onConfirm,
+    void Function()? onConfirm,
   }) {
     showModalBottomSheet(
       context: context,
@@ -1578,7 +1578,7 @@ class ModalBottomSheet {
                 label: LocalizedTexts.ok.tr().toUpperCase(),
                 onPressed: () {
                   context.router.maybePop();
-                  onConfirm();
+                  onConfirm?.call();
                 },
               ),
               const SizedBox(height: 30.0),

@@ -1,9 +1,12 @@
+import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loopcare_frontend/core/presentation/alerting/modal_bottom_sheet.dart';
 import 'package:loopcare_frontend/core/presentation/text/custom_text.dart';
 import 'package:loopcare_frontend/core/presentation/utils/build_context_extensions.dart';
 import 'package:loopcare_frontend/features/home/application/navigation_bar_bloc.dart';
+import 'package:loopcare_frontend/features/river/application/river_bloc.dart';
+import 'package:loopcare_frontend/features/river/domain/river_module.dart';
 import 'package:loopcare_frontend/features/river/domain/river_module_item.dart' as model;
 import 'package:loopcare_frontend/features/river/infrastructure/river_icon_type.dart';
 import 'package:loopcare_frontend/features/river/presentation/river_module_item/river_module_item.dart';
@@ -14,20 +17,12 @@ import 'animated_river_streams.dart';
 class RiverScreen extends StatefulWidget {
   const RiverScreen({
     super.key,
-    required this.title,
+    required this.module,
     required this.page,
-    this.completedDate,
-    required this.totalDays,
-    required this.isCompleted,
-    this.items = const [],
   });
 
-  final String title;
+  final RiverModule module;
   final int page;
-  final DateTime? completedDate;
-  final int totalDays;
-  final bool isCompleted;
-  final List<model.RiverModuleItem> items;
 
   @override
   State<RiverScreen> createState() => _RiverScreenState();
@@ -35,16 +30,16 @@ class RiverScreen extends StatefulWidget {
 
 class _RiverScreenState extends State<RiverScreen> {
   late List<({Offset offset, model.RiverModuleItem item})> _positionedItems;
-  final GlobalKey<AnimatedRiverStreamsState> _riverKey = GlobalKey<AnimatedRiverStreamsState>();
-  
-  int get _page => _getIndex(widget.page);
+  late int _page;
+
+  bool get _isTheBeginningModule => _page == 0;
 
   int _getIndex(int i) => i <= 5 ? i : _getIndex(i - 5);
 
   List<({Offset offset, model.RiverModuleItem item})> _offsets(List<model.RiverModuleItem> items) {
     final List<({Offset offset, model.RiverModuleItem item})> list = [];
 
-    if (_page == 0) {
+    if (_isTheBeginningModule) {
       for (int i = 0; i < items.length; i++) {
         final item = items[i];
         list.add((offset: ModuleItemsUtils.zeroPagePositions[i], item: item));
@@ -81,7 +76,16 @@ class _RiverScreenState extends State<RiverScreen> {
   @override
   void initState() {
     super.initState();
-    _positionedItems = _offsets(widget.items);
+    _page = _getIndex(widget.page);
+    _positionedItems = _offsets(widget.module.moduleItems);
+  }
+
+  @override
+  void didUpdateWidget(covariant RiverScreen oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if (!widget.module.moduleItems.equals(oldWidget.module.moduleItems)) {
+      _positionedItems = _offsets(widget.module.moduleItems);
+    }
   }
 
   @override
@@ -114,7 +118,7 @@ class _RiverScreenState extends State<RiverScreen> {
         Positioned(
           top: 20.0,
           child: CustomText.bitter600(
-            widget.title,
+            widget.module.title,
             style: context.textTheme.displayLarge,
             textAlign: TextAlign.center,
           ),
@@ -124,11 +128,11 @@ class _RiverScreenState extends State<RiverScreen> {
           height: dimension,
           width: dimension,
           child: AnimatedRiverStreams(
-            key: _riverKey,
             page: _page,
-            completedDate: widget.completedDate,
-            totalDays: widget.totalDays,
-            isCompleted: widget.isCompleted,
+            completedDate: widget.module.nextModuleUnlocksAt,
+            totalDelay: widget.module.nextModuleUnlockDelay,
+            isCompleted: widget.module.isCompleted,
+            onCompleted: _onCompleteTime
           ),
         ),
         ...positionedModuleItems,
@@ -137,7 +141,7 @@ class _RiverScreenState extends State<RiverScreen> {
   }
 
   void _onItemPressed(model.RiverModuleItem item) {
-    if (_page == 0) {
+    if (_isTheBeginningModule) {
       _beginningUnlockAction(item);
     } else {
       // todo: callback for regular items
@@ -149,20 +153,51 @@ class _RiverScreenState extends State<RiverScreen> {
       return;
     }
 
-    final bloc = context.read<NavigationBarBloc>();
+    final barBloc = context.read<NavigationBarBloc>();
+    final riverBloc = context.read<RiverBloc>();
 
     if (item.iconType == RiverIconType.practice) {
       ModalBottomSheet.guidancePractice(
         context: context,
-        onConfirm: () => bloc.add(const NavigationBarEvent.unlockPractise()),
+        onConfirm: () {
+          barBloc.add(const NavigationBarEvent.unlockPractise());
+          riverBloc.add(
+            RiverEvent.updateModuleItem(
+              moduleId: widget.module.id,
+              moduleItemId: item.id,
+            ),
+          );
+        },
       );
     }
 
     if (item.iconType == RiverIconType.profile) {
       ModalBottomSheet.guidanceProfile(
         context: context,
-        onConfirm: () => bloc.add(const NavigationBarEvent.unlockProfile()),
+        onConfirm: () {
+          barBloc.add(const NavigationBarEvent.unlockProfile());
+          riverBloc.add(
+            RiverEvent.updateModuleItem(
+              moduleId: widget.module.id,
+              moduleItemId: item.id,
+            ),
+          );
+        },
       );
     }
+  }
+
+  void _onCompleteTime() {
+    if (_isTheBeginningModule) {
+      ModalBottomSheet.guidanceCompleted(context: context);
+    } else {
+      _onComplete();
+    }
+  }
+
+  void _onComplete() {
+    context.read<RiverBloc>().add(
+      RiverEvent.updateModule(moduleId: widget.module.id),
+    );
   }
 }
