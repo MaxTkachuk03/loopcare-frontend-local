@@ -12,10 +12,10 @@ class RiverModule with _$RiverModule {
   const factory RiverModule({
     @Default(0) int id,
     @Default('') String title,
-    required DateTime nextModuleUnlocksAt,
     @Default(0) int nextModuleUnlockDelay,
     @Default(false) bool isCompleted,
     @Default([]) List<RiverModuleItem> moduleItems,
+    DateTime? nextModuleUnlocksAt,
   }) = _RiverModule;
 
   factory RiverModule.fromJson(Map<String, dynamic> json) => _$RiverModuleFromJson(json);

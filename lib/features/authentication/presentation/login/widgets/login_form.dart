@@ -16,6 +16,7 @@ import 'package:loopcare_frontend/core/presentation/text_field/custom_text_field
 import 'package:loopcare_frontend/features/authentication/application/authentication_bloc.dart';
 import 'package:loopcare_frontend/features/authentication/domain/email/email.dart';
 import 'package:loopcare_frontend/features/authentication/domain/login_password/login_password.dart';
+import 'package:loopcare_frontend/features/river/application/river_bloc.dart';
 import 'package:loopcare_frontend/injection.dart';
 
 class LoginForm extends StatefulWidget {
@@ -122,6 +123,8 @@ class _LoginFormState extends State<LoginForm> {
   }
 
   void _onAuthorized(GotAccountState state) {
+    context.read<RiverBloc>().add(const RiverEvent.getModules());
+
     String route = AppRoutes.home;
     if ((state.data.account?.hasActiveSubscription ?? false) || !kIsProd) {
       route = AppRoutes.home;

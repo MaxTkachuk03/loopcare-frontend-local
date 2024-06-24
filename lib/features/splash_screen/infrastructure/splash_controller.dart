@@ -88,7 +88,7 @@ class SplashController {
     if (accessToken.isEmpty || refreshToken.isEmpty) {
       return const LoginRoute();
     } else if (hasActiveSubscription || !kIsProd) {
-      return const RiverOverviewRoute();
+      return const HomeRoute();
     } else {
       return const SubscriptionRoute();
     }

@@ -14,6 +14,7 @@ import 'package:loopcare_frontend/core/presentation/text/custom_text.dart';
 import 'package:loopcare_frontend/features/authentication/application/authentication_bloc.dart';
 import 'package:loopcare_frontend/features/legal_statement/application/legal_statement_bloc.dart';
 import 'package:loopcare_frontend/features/onboarding/application/general/general_onboarding_bloc.dart';
+import 'package:loopcare_frontend/features/river/application/river_bloc.dart';
 import 'package:loopcare_frontend/features/splash_screen/infrastructure/splash_controller.dart';
 
 @RoutePage()
@@ -58,6 +59,8 @@ class _SplashPageState extends State<SplashPage> {
   }
 
   Future<void> _navigateAuthorized() async {
+    context.read<RiverBloc>().add(const RiverEvent.getModules());
+
     final routes = await _controller.getRoute();
 
     if (context.mounted) {
