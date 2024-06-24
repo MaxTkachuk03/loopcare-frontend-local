@@ -17,23 +17,23 @@ enum RiverModuleItemState {
       case RiverModuleItemState.locked:
         return AppColors.blueLighter;
       case RiverModuleItemState.unlocked:
-        return streamType.lighterColor;
+        return streamType.lightestColor;
       case RiverModuleItemState.read:
       case RiverModuleItemState.completed:
-        return streamType.streamColor;
+        return streamType.regularColor;
     }
   }
 
   Color iconColor(RiverModuleStreamType streamType) {
     switch (this) {
       case RiverModuleItemState.unlocked:
-        return streamType.streamColor;
+        return streamType.regularColor;
 
       case RiverModuleItemState.locked:
         return AppColors.blueLightest;
       case RiverModuleItemState.read:
       case RiverModuleItemState.completed:
-        return streamType.lighterColor;
+        return streamType.lightestColor;
     }
   }
 

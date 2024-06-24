@@ -49,9 +49,8 @@ class _LessonAudioBodyState extends State<LessonAudioBody> {
         .add(EducationLessonEvent.downloadAudioFile(state.currentPage.content.url));
 
     if (state.currentPage.content.subtitlesImages != null) {
-      context
-          .read<EducationLessonBloc>()
-          .add(EducationLessonEvent.downloadSubtitlesFile(state.currentPage.content.subtitlesImages!));
+      context.read<EducationLessonBloc>().add(
+          EducationLessonEvent.downloadSubtitlesFile(state.currentPage.content.subtitlesImages!));
     }
   }
 

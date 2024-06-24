@@ -31,13 +31,19 @@ import 'package:loopcare_frontend/features/education/presentation/lesson_complet
 import 'package:loopcare_frontend/features/education/presentation/lesson_complete_page/widgets/unlock_food_logging_feature.dart';
 import 'package:loopcare_frontend/features/education/presentation/lesson_complete_page/widgets/unlock_group_session_feature.dart';
 import 'package:loopcare_frontend/features/nutrition/application/dashboard_education/dashboard_education_bloc.dart';
+import 'package:loopcare_frontend/features/river/infrastructure/river_module_stream_type.dart';
 import 'package:loopcare_frontend/injection.dart';
 
 @RoutePage()
 class LessonCompletePage extends StatefulWidget {
   final bool joinSupportGroupLater;
+  final RiverModuleStreamType streamType;
 
-  const LessonCompletePage({super.key, this.joinSupportGroupLater = false});
+  const LessonCompletePage({
+    super.key,
+    this.joinSupportGroupLater = false,
+    this.streamType = RiverModuleStreamType.community,
+  });
 
   @override
   State<LessonCompletePage> createState() => _LessonCompletePageState();
@@ -76,12 +82,14 @@ class _LessonCompletePageState extends State<LessonCompletePage> {
   bool get _isGroupSessionsDisabled => getIt<SharedStorageService>().account!.disableGroupSessions;
 
   String _subText(EducationLessonState state) {
-    if (state.data.extraAction == ExtraActionTypes.setupGroupingPreferences && !_isGroupSessionsDisabled) {
+    if (state.data.extraAction == ExtraActionTypes.setupGroupingPreferences &&
+        !_isGroupSessionsDisabled) {
       return LocalizedTexts.lessonCompleteDescription.tr();
     }
 
     if (state.data.extraAction == ExtraActionTypes.unlockFoodLogging ||
-        (state.data.extraAction == ExtraActionTypes.setupGroupingPreferences && !_isGroupSessionsDisabled)) {
+        (state.data.extraAction == ExtraActionTypes.setupGroupingPreferences &&
+            !_isGroupSessionsDisabled)) {
       return LocalizedTexts.unlockFeatureDescription.tr();
     } else {
       return LocalizedTexts.lessonCompleteDescription.tr();
@@ -90,6 +98,11 @@ class _LessonCompletePageState extends State<LessonCompletePage> {
 
   _lessonCompleteListener(BuildContext context, EducationLessonState state) =>
       context.read<AuthenticationBloc>().add(const AuthenticationEvent.getAccount());
+
+  CustomAppBarTextTheme get _textTheme => switch (widget.streamType) {
+        (RiverModuleStreamType t) when t.isPsychology => CustomAppBarTextTheme.light,
+        (_) => CustomAppBarTextTheme.dark,
+      };
 
   @override
   Widget build(BuildContext context) {
@@ -104,13 +117,14 @@ class _LessonCompletePageState extends State<LessonCompletePage> {
           listener: _lessonCompleteListener,
         ),
       ],
-      child: CustomScaffold.petrol(
-        appBar: CustomAppBar.petrol(
+      child: CustomScaffold(
+        color: widget.streamType.offRegularColor,
+        appBar: CustomAppBar(
+          backgroundColor: widget.streamType.regularColor,
+          textTheme: _textTheme,
           title: LocalizedTexts.lesson.tr(),
-          leading: CustomFilledIconButton.leadingPetrolLighter(),
-          actions: const [
-            ErrorInvokeButton(),
-          ],
+          leading: CustomFilledIconButton.fromColor(color: widget.streamType.lighterColor),
+          actions: const [ErrorInvokeButton()],
         ),
         body: CustomSafeArea(
           child: ErrorInvoker(
@@ -120,7 +134,8 @@ class _LessonCompletePageState extends State<LessonCompletePage> {
                 children: [
                   Column(
                     children: [
-                      UnderAppbar.petrol(
+                      UnderAppbar(
+                        fillColor: widget.streamType.regularColor,
                         child: Center(
                           child: Padding(
                             padding: const EdgeInsets.symmetric(horizontal: 120.0),
@@ -135,7 +150,8 @@ class _LessonCompletePageState extends State<LessonCompletePage> {
                                 const SizedBox(height: 22.0),
                                 CustomText.bitter600(
                                   '${LocalizedTexts.lessonCompleted.tr()}!',
-                                  style: context.textTheme.displayMedium?.copyWith(color: AppColors.white),
+                                  style: context.textTheme.displayMedium
+                                      ?.copyWith(color: AppColors.white),
                                   textAlign: TextAlign.center,
                                 ),
                               ],
@@ -175,7 +191,8 @@ class _LessonCompletePageState extends State<LessonCompletePage> {
                                       ),
                                       const SizedBox(height: 10.0),
                                       if (state.data.extraAction != ExtraActionTypes.unlockBuddy)
-                                        CustomText.w400(_subText(state), style: context.textTheme.bodyMedium),
+                                        CustomText.w400(_subText(state),
+                                            style: context.textTheme.bodyMedium),
                                     ],
                                   );
                                 },
@@ -196,15 +213,18 @@ class _LessonCompletePageState extends State<LessonCompletePage> {
                               return const UnlockBuddyFeature();
                             }
 
-                            if (state.data.extraAction == ExtraActionTypes.setupGroupingPreferences &&
+                            if (state.data.extraAction ==
+                                    ExtraActionTypes.setupGroupingPreferences &&
                                 !_isGroupSessionsDisabled) {
-                              return UnlockGroupSessionFeature(wantJoinLater: widget.joinSupportGroupLater);
+                              return UnlockGroupSessionFeature(
+                                  wantJoinLater: widget.joinSupportGroupLater);
                             }
 
                             if (state.data.assignmentsQuestions.isNotEmpty &&
                                 state.data.assignmentsQuestionsWithAnswers.isEmpty) {
                               final accountCreatedDate =
-                                  getIt<SharedStorageService>().account?.createdAt ?? DateTime.now();
+                                  getIt<SharedStorageService>().account?.createdAt ??
+                                      DateTime.now();
 
                               context.read<AssignmentsBloc>().add(
                                     AssignmentsEvent.getAllLessonQuestions(

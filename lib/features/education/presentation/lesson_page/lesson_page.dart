@@ -20,17 +20,20 @@ import 'package:loopcare_frontend/features/education/application/education_lesso
 import 'package:loopcare_frontend/features/education/presentation/lesson/widgets/lesson_audio_body.dart';
 import 'package:loopcare_frontend/features/education/presentation/lesson/widgets/lesson_text_body.dart';
 import 'package:loopcare_frontend/features/quizzes/domain/lesson_question_type.dart';
+import 'package:loopcare_frontend/features/river/infrastructure/river_module_stream_type.dart';
 import 'package:loopcare_frontend/injection.dart';
 
 @RoutePage()
 class LessonPage extends StatefulWidget {
   final int lessonId;
   final int pageIndex;
+  final RiverModuleStreamType streamType;
 
   const LessonPage({
     super.key,
     @PathParam('lessonId') required this.lessonId,
     @PathParam('pageIndex') required this.pageIndex,
+    this.streamType = RiverModuleStreamType.community,
   });
 
   @override
@@ -50,7 +53,7 @@ class _LessonPageState extends State<LessonPage> {
 
       if (lessonBloc.state.data.questions.isEmpty ||
           lessonBloc.state.data.questions.first.type != LessonQuestionType.quiz) {
-        context.router.pushNamed(AppRoutes.lessonComplete);
+        context.router.push(LessonCompleteRoute(streamType: widget.streamType));
       } else {
         context.router.push(QuizzesIntroRoute(lessonId: widget.lessonId));
       }
@@ -98,9 +101,9 @@ class _LessonPageState extends State<LessonPage> {
     return Future.value(true);
   }
 
-  void _onRetryHandler() => context
-      .read<EducationLessonBloc>()
-      .add(EducationLessonEvent.getLessonContent(lessonId: widget.lessonId, pageIndex: widget.pageIndex));
+  void _onRetryHandler() =>
+      context.read<EducationLessonBloc>().add(EducationLessonEvent.getLessonContent(
+          lessonId: widget.lessonId, pageIndex: widget.pageIndex));
 
   void _onContentLoaded(BuildContext context, EducationLessonState s) {
     final state = s.data;
@@ -114,14 +117,25 @@ class _LessonPageState extends State<LessonPage> {
     );
   }
 
+  CustomAppBarTextTheme get _textTheme => switch (widget.streamType) {
+        (RiverModuleStreamType t) when t.isPsychology => CustomAppBarTextTheme.light,
+        (_) => CustomAppBarTextTheme.dark,
+      };
+
   @override
   Widget build(BuildContext context) {
     return WillPopScope(
       onWillPop: _onWillPop,
-      child: CustomScaffold.petrolLightest(
-        appBar: CustomAppBar.petrol(
+      child: CustomScaffold(
+        color: widget.streamType.lightestColor,
+        appBar: CustomAppBar(
+          backgroundColor: widget.streamType.regularColor,
           title: LocalizedTexts.lesson.tr(),
-          leading: CustomFilledIconButton.leadingPetrolLighter(onPressed: _onPrevPressed),
+          textTheme: _textTheme,
+          leading: CustomFilledIconButton.fromColor(
+            onPressed: _onPrevPressed,
+            color: widget.streamType.lighterColor,
+          ),
         ),
         body: CustomSafeArea(
           child: BlocConsumer<EducationLessonBloc, EducationLessonState>(
@@ -131,7 +145,8 @@ class _LessonPageState extends State<LessonPage> {
               return state.maybeMap(
                 initial: (_) => const Loader(),
                 contentIsLoading: (_) => const Loader(),
-                errorGettingContent: (s) => ErrorScreen(error: s.data.error!, onButtonPressed: _onRetryHandler),
+                errorGettingContent: (s) =>
+                    ErrorScreen(error: s.data.error!, onButtonPressed: _onRetryHandler),
                 orElse: () {
                   if (state.data.isArticlePage) {
                     return LessonTextBody(
