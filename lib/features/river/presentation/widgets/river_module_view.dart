@@ -9,7 +9,7 @@ import 'package:loopcare_frontend/features/river/application/river_bloc.dart';
 import 'package:loopcare_frontend/features/river/domain/river_module.dart';
 import 'package:loopcare_frontend/features/river/domain/river_module_item.dart' as model;
 import 'package:loopcare_frontend/features/river/infrastructure/river_icon_type.dart';
-import 'package:loopcare_frontend/features/river/presentation/river_module_item/river_module_item.dart';
+import 'package:loopcare_frontend/features/river/presentation/river_module_item_widget/river_animation_module_item_widget.dart';
 
 import '../utils/module_items_utils.dart';
 import 'animated_river_streams.dart';
@@ -62,7 +62,6 @@ class _RiverScreenState extends State<RiverScreen> {
         if (!item.isRootItem) {
           final position = ModuleItemsUtils.getOffset(_page, i, item.streamType.streamIndex);
           list.add((offset: position, item: item));
-
         } else {
           final position = ModuleItemsUtils.getRootOffset(_page);
           list.add((offset: position, item: item));
@@ -103,10 +102,11 @@ class _RiverScreenState extends State<RiverScreen> {
         return Positioned(
           left: dimension * offset.dx - radius,
           top: itemTopPositionOffset + dimension * offset.dy - radius,
-          child: RiverModuleItem(
+          child: RiverAnimationModuleItemWidget(
             item: item,
-            circleRadius: radius,
+            radius: radius,
             onTap: () => _onItemPressed(item),
+            offset: Offset(offset.dx, offset.dy),
           ),
         );
       },
@@ -128,12 +128,11 @@ class _RiverScreenState extends State<RiverScreen> {
           height: dimension,
           width: dimension,
           child: AnimatedRiverStreams(
-            page: _page,
-            completedDate: widget.module.nextModuleUnlocksAt,
-            totalDelay: widget.module.nextModuleUnlockDelay,
-            isCompleted: widget.module.isCompleted,
-            onCompleted: _onCompleteTime
-          ),
+              page: _page,
+              completedDate: widget.module.nextModuleUnlocksAt,
+              totalDelay: widget.module.nextModuleUnlockDelay,
+              isCompleted: widget.module.isCompleted,
+              onCompleted: _onCompleteTime),
         ),
         ...positionedModuleItems,
       ],
@@ -197,7 +196,7 @@ class _RiverScreenState extends State<RiverScreen> {
 
   void _onComplete() {
     context.read<RiverBloc>().add(
-      RiverEvent.updateModule(moduleId: widget.module.id),
-    );
+          RiverEvent.updateModule(moduleId: widget.module.id),
+        );
   }
 }
