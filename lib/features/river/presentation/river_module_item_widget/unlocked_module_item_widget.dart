@@ -54,13 +54,11 @@ class UnlockedModuleItemWidget extends StatelessWidget {
             bgColor: bgColor,
             iconWidget: iconWidget,
           );
-    return AnimatedScaleWrapper(
-      child: RiverModuleItemWidget(
-        elevation: elevation,
-        onTap: onTap,
-        circleRadius: circleRadius,
-        child: circleWidget,
-      ),
+    return  RiverModuleItemWidget(
+      elevation: elevation,
+      onTap: onTap,
+      circleRadius: circleRadius,
+      child: circleWidget,
     );
   }
 }
