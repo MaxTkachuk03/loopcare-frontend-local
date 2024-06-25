@@ -12,17 +12,20 @@ import 'package:loopcare_frontend/core/presentation/network_image_with_cache/net
 import 'package:loopcare_frontend/core/presentation/routes/app_router.gr.dart';
 import 'package:loopcare_frontend/core/presentation/scaffold/custom_scaffold.dart';
 import 'package:loopcare_frontend/core/presentation/text/custom_text.dart';
+import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 import 'package:loopcare_frontend/core/presentation/utils/build_context_extensions.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/main_container.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/scrollable_container.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/simple_progress_bar.dart';
 import 'package:loopcare_frontend/features/quizzes/application/quizzes_bloc.dart';
+import 'package:loopcare_frontend/features/river/infrastructure/river_module_stream_type.dart';
 
 @RoutePage()
 class QuizzesIntroPage extends StatefulWidget {
   final int lessonId;
+  final RiverModuleStreamType streamType;
 
-  const QuizzesIntroPage({super.key, required this.lessonId});
+  const QuizzesIntroPage({super.key, required this.lessonId, required this.streamType});
 
   @override
   State<QuizzesIntroPage> createState() => _QuizzesIntroPageState();
@@ -37,19 +40,27 @@ class _QuizzesIntroPageState extends State<QuizzesIntroPage> {
   }
 
   void _onStart() {
-    context.router.push(QuizzesQuestionsRoute(step: 0));
+    context.router.push(QuizzesQuestionsRoute(step: 0, streamType: widget.streamType));
   }
 
   @override
   Widget build(BuildContext context) {
-    return CustomScaffold.petrolLightest(
-      appBar: CustomAppBar.petrol(
+    return CustomScaffold(
+      color: widget.streamType.lightestColor,
+      appBar: CustomAppBar(
+        backgroundColor: widget.streamType.regularColor,
+        textTheme: widget.streamType.appBarTextTheme,
         title: LocalizedTexts.quiz.tr(),
         subtitle: LocalizedTexts.introduction.tr(),
-        leading: CustomFilledIconButton.leadingPetrolLighter(),
+        leading: CustomFilledIconButton.fromColor(color: widget.streamType.lighterColor),
         bottom: PreferredSize(
           preferredSize: const Size.fromHeight(72),
-          child: SimpleProgressBar.petrol(progress: 33),
+          child: SimpleProgressBar(
+            backgroundColor: widget.streamType.regularColor,
+            progressFillColor: widget.streamType.lightestColor,
+            progressEmptyColor: AppColors.white.withOpacity(0.45),
+            progress: 33,
+          ),
         ),
       ),
       body: CustomSafeArea(

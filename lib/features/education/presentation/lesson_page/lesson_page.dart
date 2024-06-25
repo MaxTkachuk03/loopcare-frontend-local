@@ -55,7 +55,8 @@ class _LessonPageState extends State<LessonPage> {
           lessonBloc.state.data.questions.first.type != LessonQuestionType.quiz) {
         context.router.push(LessonCompleteRoute(streamType: widget.streamType));
       } else {
-        context.router.push(QuizzesIntroRoute(lessonId: widget.lessonId));
+        context.router
+            .push(QuizzesIntroRoute(lessonId: widget.lessonId, streamType: widget.streamType));
       }
       return;
     }
@@ -117,11 +118,6 @@ class _LessonPageState extends State<LessonPage> {
     );
   }
 
-  CustomAppBarTextTheme get _textTheme => switch (widget.streamType) {
-        (RiverModuleStreamType t) when t.isPsychology => CustomAppBarTextTheme.light,
-        (_) => CustomAppBarTextTheme.dark,
-      };
-
   @override
   Widget build(BuildContext context) {
     return WillPopScope(
@@ -131,7 +127,7 @@ class _LessonPageState extends State<LessonPage> {
         appBar: CustomAppBar(
           backgroundColor: widget.streamType.regularColor,
           title: LocalizedTexts.lesson.tr(),
-          textTheme: _textTheme,
+          textTheme: widget.streamType.appBarTextTheme,
           leading: CustomFilledIconButton.fromColor(
             onPressed: _onPrevPressed,
             color: widget.streamType.lighterColor,

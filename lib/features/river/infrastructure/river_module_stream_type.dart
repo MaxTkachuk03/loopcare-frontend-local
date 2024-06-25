@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:loopcare_frontend/core/presentation/app_bar/custom_app_bar.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 
 mixin StreamColorMapper {
@@ -54,6 +55,11 @@ enum RiverModuleStreamType with StreamColorMapper {
   bool get isMedical => this == medical;
 
   bool get isCommunity => this == community;
+
+  CustomAppBarTextTheme get appBarTextTheme => switch (this) {
+        (RiverModuleStreamType t) when t.isPsychology => CustomAppBarTextTheme.light,
+        (_) => CustomAppBarTextTheme.dark,
+      };
 
   int get streamIndex => switch (this) {
         physicalActivity => 0,

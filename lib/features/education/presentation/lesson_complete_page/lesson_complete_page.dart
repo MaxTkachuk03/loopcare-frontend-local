@@ -99,10 +99,9 @@ class _LessonCompletePageState extends State<LessonCompletePage> {
   _lessonCompleteListener(BuildContext context, EducationLessonState state) =>
       context.read<AuthenticationBloc>().add(const AuthenticationEvent.getAccount());
 
-  CustomAppBarTextTheme get _textTheme => switch (widget.streamType) {
-        (RiverModuleStreamType t) when t.isPsychology => CustomAppBarTextTheme.light,
-        (_) => CustomAppBarTextTheme.dark,
-      };
+  CustomAppBarTextTheme get _theme => widget.streamType.appBarTextTheme;
+
+  bool get _isLightTheme => _theme == CustomAppBarTextTheme.light;
 
   @override
   Widget build(BuildContext context) {
@@ -121,7 +120,7 @@ class _LessonCompletePageState extends State<LessonCompletePage> {
         color: widget.streamType.offRegularColor,
         appBar: CustomAppBar(
           backgroundColor: widget.streamType.regularColor,
-          textTheme: _textTheme,
+          textTheme: _theme,
           title: LocalizedTexts.lesson.tr(),
           leading: CustomFilledIconButton.fromColor(color: widget.streamType.lighterColor),
           actions: const [ErrorInvokeButton()],
@@ -142,16 +141,19 @@ class _LessonCompletePageState extends State<LessonCompletePage> {
                             child: Column(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
-                                const CircleAvatar(
+                                CircleAvatar(
                                   radius: 22.0,
-                                  backgroundColor: AppColors.greenRegular,
-                                  child: Icon(Icons.check, size: 24, color: AppColors.white),
+                                  backgroundColor: _isLightTheme
+                                      ? AppColors.greenRegular
+                                      : AppColors.blueRegular,
+                                  child: const Icon(Icons.check, size: 24, color: AppColors.white),
                                 ),
                                 const SizedBox(height: 22.0),
                                 CustomText.bitter600(
                                   '${LocalizedTexts.lessonCompleted.tr()}!',
-                                  style: context.textTheme.displayMedium
-                                      ?.copyWith(color: AppColors.white),
+                                  style: context.textTheme.displayMedium?.copyWith(
+                                      color:
+                                          _isLightTheme ? AppColors.white : AppColors.blueDarker),
                                   textAlign: TextAlign.center,
                                 ),
                               ],
