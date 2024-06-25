@@ -4,7 +4,6 @@ class RiverModuleButton extends StatelessWidget {
   final IconData icon;
   final double elevation;
   final double radius;
-  final double sizeIcon;
   final Color? bgColor;
   final Color? iconColor;
   final VoidCallback? onPressed;
@@ -13,7 +12,6 @@ class RiverModuleButton extends StatelessWidget {
     super.key,
     required this.icon,
     this.radius = 25,
-    this.sizeIcon = 36,
     this.elevation = 4,
     this.bgColor,
     this.iconColor,
@@ -34,7 +32,7 @@ class RiverModuleButton extends StatelessWidget {
           child: Icon(
             icon,
             color: iconColor,
-            size: sizeIcon,
+            size: radius * 1.44,
           ),
         ),
       ),

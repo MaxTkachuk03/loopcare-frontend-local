@@ -106,7 +106,6 @@ class _RiverScreenState extends State<RiverScreen> {
             item: item,
             radius: radius,
             onTap: () => _onItemPressed(item),
-            offset: Offset(offset.dx, offset.dy),
           ),
         );
       },
