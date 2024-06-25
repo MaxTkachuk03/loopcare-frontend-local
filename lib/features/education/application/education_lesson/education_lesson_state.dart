@@ -8,13 +8,15 @@ class EducationLessonState with _$EducationLessonState {
 
   const factory EducationLessonState.contentIsLoading(EducationLessonData data) = ContentIsLoading;
 
-  const factory EducationLessonState.errorGettingContent(EducationLessonData data) = ErrorGettingContent;
+  const factory EducationLessonState.errorGettingContent(EducationLessonData data) =
+      ErrorGettingContent;
 
   const factory EducationLessonState.contentLoaded(EducationLessonData data) = ContentLoaded;
 
   const factory EducationLessonState.lessonCompleted(EducationLessonData data) = LessonCompleted;
 
-  const factory EducationLessonState.errorCompleteLesson(EducationLessonData data) = ErrorCompleteLesson;
+  const factory EducationLessonState.errorCompleteLesson(EducationLessonData data) =
+      ErrorCompleteLesson;
 }
 
 @freezed
@@ -48,6 +50,8 @@ class EducationLessonData with _$EducationLessonData {
   bool get isArticlePage => currentPage.type == EducationLessonPageType.text;
 
   bool get isAudioPage => currentPage.type == EducationLessonPageType.audio;
+
+  bool get isAudioLoaded => currentPage.content.audioFilePath.isNotEmpty;
 
   String filePath(String url) {
     var urlArr = url.split('/');
