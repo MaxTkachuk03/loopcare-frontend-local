@@ -3,10 +3,10 @@ import 'package:loopcare_frontend/core/presentation/icon_images/app_icons.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 import 'package:loopcare_frontend/features/smart_goals/domain/weekly_smart_goal.dart';
 
-class GoalProgressWidget extends StatelessWidget {
+class GoalAchievedWidget extends StatelessWidget {
   final WeeklySmartGoal item;
 
-  const GoalProgressWidget({super.key, required this.item});
+  const GoalAchievedWidget({super.key, required this.item});
 
   Color get bgColor => item.isAchieved ? AppColors.greenRegular : AppColors.blueLightest;
 
