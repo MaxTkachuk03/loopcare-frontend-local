@@ -10,6 +10,12 @@ enum RiverModuleItemState {
 
   const RiverModuleItemState();
 
+  bool get isLocked => this == locked;
+
+  bool get isUnLocked => this == unlocked;
+
+  bool get isRead => this == read;
+
   bool get isCompleted => this == completed;
 
   Color bgColor(RiverModuleStreamType streamType) {

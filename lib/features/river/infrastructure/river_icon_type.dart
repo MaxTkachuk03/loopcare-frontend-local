@@ -48,7 +48,7 @@ enum RiverIconType {
       case RiverIconType.practice:
         return AppIconsData.iPractice;
       case RiverIconType.reflection:
-        return AppIconsData.iPractice;
+        return AppIconsData.iReflection;
     }
   }
 }
