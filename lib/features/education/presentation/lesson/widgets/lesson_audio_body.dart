@@ -1,5 +1,6 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loopcare_frontend/core/application/analytics_bloc.dart';
 import 'package:loopcare_frontend/core/domain/analytics/firebase_event_custom_definitions.dart';
@@ -19,6 +20,7 @@ import 'package:loopcare_frontend/features/education/domain/subtitle/image_subti
 import 'package:loopcare_frontend/features/education/presentation/education_page/utils/get_label_by_category.dart';
 import 'package:loopcare_frontend/features/education/presentation/lesson/widgets/audio_block.dart';
 import 'package:loopcare_frontend/features/education/presentation/lesson/widgets/image_container.dart';
+import 'package:loopcare_frontend/features/education/presentation/lesson/widgets/player_loading_state.dart';
 
 const kHeightPadding = 20.0;
 
@@ -49,9 +51,8 @@ class _LessonAudioBodyState extends State<LessonAudioBody> {
         .add(EducationLessonEvent.downloadAudioFile(state.currentPage.content.url));
 
     if (state.currentPage.content.subtitlesImages != null) {
-      context
-          .read<EducationLessonBloc>()
-          .add(EducationLessonEvent.downloadSubtitlesFile(state.currentPage.content.subtitlesImages!));
+      context.read<EducationLessonBloc>().add(
+          EducationLessonEvent.downloadSubtitlesFile(state.currentPage.content.subtitlesImages!));
     }
   }
 
@@ -145,19 +146,24 @@ class _LessonAudioBodyState extends State<LessonAudioBody> {
                               onPressed: _onReadText,
                               label: LocalizedTexts.readText.tr(),
                             ),
-                            if (state.data.currentPage.content.audioFilePath.isNotEmpty)
-                              AudioBlock(
-                                url: state.data.currentPage.content.audioFilePath,
-                                audioPreviewImage: context
-                                    .read<EducationProgramBloc>()
-                                    .state
-                                    .data
-                                    .getLessonCardImage(state.data.lessonId),
-                                duration: state.data.lessonDuration,
-                                title: state.data.lessonTitle,
-                                controller: _subtitleController,
-                                onPlayerComplete: _setIsComplete,
-                              ),
+                            const PlayerLoadingState()
+                                .animate(target: state.data.isAudioLoaded ? 1 : 0)
+                                .fadeOut(duration: 300.ms)
+                                .swap(
+                                  duration: 300.ms,
+                                  builder: (_, __) => AudioBlock(
+                                    url: state.data.currentPage.content.audioFilePath,
+                                    audioPreviewImage: context
+                                        .read<EducationProgramBloc>()
+                                        .state
+                                        .data
+                                        .getLessonCardImage(state.data.lessonId),
+                                    duration: state.data.lessonDuration,
+                                    title: state.data.lessonTitle,
+                                    controller: _subtitleController,
+                                    onPlayerComplete: _setIsComplete,
+                                  ).animate().fadeIn(duration: 300.ms),
+                                ),
                             const SizedBox(height: 14),
                           ],
                         );
