@@ -45,15 +45,7 @@ class _RiverPageState extends State<RiverPage> {
           child: BlocConsumer<RiverBloc, RiverState>(
             listener: (context, state) {
               state.mapOrNull(
-                moduleItemLoaded: (_) {
-                  final isAllModuleItemsCompleted = state.data.activeModule?.moduleItems
-                      .every((element) => element.isCompleted) ?? false;
-                  final isModuleCompleted = state.data.activeModule?.isCompleted ?? false;
-
-                  if (isAllModuleItemsCompleted && !isModuleCompleted)  {
-                    context.read<RiverBloc>().add(RiverEvent.updateModule(moduleId: state.data.activeModule?.id ?? -1));
-                  }
-                }
+                moduleItemLoaded: (_) => context.read<RiverBloc>().add(const RiverEvent.checkCompletion())
               );
             },
             builder: (context, state) {

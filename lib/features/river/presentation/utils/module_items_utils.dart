@@ -4,13 +4,16 @@ import 'dart:ui';
 import 'function_coefficients.dart';
 
 const List<Offset> _zeroPagePositions = [
-  Offset(0.39, 0.31),
   Offset(0.76, 0.62),
   Offset(0.88, 0.45),
 ];
 
+const Offset _startButtonPosition = Offset(0.39, 0.31);
+
 class ModuleItemsUtils {
   static get zeroPagePositions => _zeroPagePositions;
+
+  static get startButtonPosition => _startButtonPosition;
 
   static Offset getOffset(int page, int itemIndex, int stream) {
     final dx = ItemsPositions(page).values.elementAt(stream, itemIndex);

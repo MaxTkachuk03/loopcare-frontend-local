@@ -27,7 +27,7 @@ class CustomNavigationBar extends StatelessWidget {
           iconSize: 36.0,
           unselectedIconTheme: const IconThemeData(color: AppColors.blueLighter),
           selectedIconTheme: const IconThemeData(color: AppColors.blueLightest),
-          onTap: state.data.isBeginningCompleted ? _navigateTo : null,
+          onTap: state.data.isBeginningCompleted ? (index) => _navigateTo(context, index) : null,
           items: bottomTabs.map((tab) => BottomNavigationBarItem(
             icon: Padding(
               padding: const EdgeInsets.only(top: 6.0, bottom: 4.0),
@@ -63,5 +63,13 @@ class CustomNavigationBar extends StatelessWidget {
     );
   }
 
-  void _navigateTo(int index) => tabsRouter.setActiveIndex(index);
+  void _navigateTo(BuildContext context, int index) {
+    tabsRouter.setActiveIndex(index);
+
+    if (index == 0) {
+      context.read<NavigationBarBloc>().add(const NavigationBarEvent.removePractiseNotification());
+    } else if (index == 2) {
+      context.read<NavigationBarBloc>().add(const NavigationBarEvent.removeProfileNotification());
+    }
+  }
 }

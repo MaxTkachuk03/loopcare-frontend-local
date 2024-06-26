@@ -34,5 +34,5 @@ class AppIconsData {
   static const IconData iMood = IconData(0xe80a, fontFamily: _kFontFam, fontPackage: _kFontPkg);
   static const IconData iWeight = IconData(0xe80b, fontFamily: _kFontFam, fontPackage: _kFontPkg);
   static const IconData iProfile = IconData(0xe80c, fontFamily: _kFontFam, fontPackage: _kFontPkg);
-  static const IconData iReflection = IconData(0xe80d, fontFamily: _kFontFam, fontPackage: _kFontPkg);
+  static const IconData iReflection = IconData(0xe80e, fontFamily: _kFontFam, fontPackage: _kFontPkg);
 }

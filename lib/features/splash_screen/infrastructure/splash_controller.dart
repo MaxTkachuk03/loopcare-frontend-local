@@ -9,8 +9,11 @@ import 'package:loopcare_frontend/core/infrastructure/services/mixpanel_event_se
 import 'package:loopcare_frontend/core/infrastructure/services/shared_storage/shared_storage_service.dart';
 import 'package:loopcare_frontend/core/presentation/routes/app_router.gr.dart';
 import 'package:loopcare_frontend/features/authentication/application/authentication_bloc.dart';
+import 'package:loopcare_frontend/features/home/application/navigation_bar_bloc.dart';
 import 'package:loopcare_frontend/features/legal_statement/application/legal_statement_bloc.dart';
 import 'package:loopcare_frontend/features/onboarding/application/general/general_onboarding_bloc.dart';
+import 'package:loopcare_frontend/features/river/application/river_bloc.dart';
+import 'package:loopcare_frontend/features/river/infrastructure/river_icon_type.dart';
 import 'package:loopcare_frontend/features/transparency/applictation/device_info_service.dart';
 import 'package:loopcare_frontend/injection.dart';
 
@@ -19,12 +22,16 @@ class SplashController {
   final AppUpdateBloc appUpdateBloc;
   final GeneralOnboardingBloc onboardingBloc;
   final LegalStatementBloc legalStatementBloc;
+  final RiverBloc riverBloc;
+  final NavigationBarBloc navigationBarBloc;
 
   const SplashController({
     required this.authenticationBloc,
     required this.appUpdateBloc,
     required this.onboardingBloc,
     required this.legalStatementBloc,
+    required this.riverBloc,
+    required this.navigationBarBloc,
   });
 
   SharedStorageService get _storage => getIt<SharedStorageService>();
@@ -87,12 +94,40 @@ class SplashController {
 
     if (accessToken.isEmpty || refreshToken.isEmpty) {
       return const LoginRoute();
-    } else if (hasActiveSubscription || !kIsProd) {
-      return const HomeRoute();
-    } else {
+    } else if (!hasActiveSubscription && kIsProd) {
       return const SubscriptionRoute();
+    } else if (!riverBloc.state.data.isBeginningStarted) {
+      return const RiverOverviewRoute();
+    } else {
+      return const HomeRoute();
     }
   }
+
+  void setUpBottomNavigationBar() {
+    if (riverBloc.state.data.isBeginningComplete) {
+      return;
+    }
+    navigationBarBloc.add(const NavigationBarEvent.setBeginningUncompleted());
+
+    final isProfileOpened = riverBloc.state.data.activeModule!
+        .moduleItems
+        .firstWhere((item) => item.iconType == RiverIconType.profile)
+        .isCompleted;
+
+    final isPracticeOpened = riverBloc.state.data.activeModule!
+        .moduleItems
+        .firstWhere((item) => item.iconType == RiverIconType.practice)
+        .isCompleted;
+
+    if (isProfileOpened) {
+      navigationBarBloc.add(const NavigationBarEvent.unlockProfile());
+    }
+
+    if (isPracticeOpened) {
+      navigationBarBloc.add(const NavigationBarEvent.unlockPractise());
+    }
+  }
+
 
   List<PageRouteInfo> getOnboardingRoute() {
     final authState = authenticationBloc.state;

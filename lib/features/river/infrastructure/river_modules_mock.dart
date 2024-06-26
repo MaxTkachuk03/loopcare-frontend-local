@@ -9,19 +9,6 @@ var modules = [
       {
         "id": 1,
         "streamType": "psychology",
-        "iconType": "reflection",
-        "lessonId": null,
-        "isRootItem": true,
-        "unlocksItems": [],
-        "unlocksAssignmentId": null,
-        "unlocksSmartGoalCategoryId": null,
-        "crossModule": false,
-        "featurePlacement": null,
-        "itemState": "completed"
-      },
-      {
-        "id": 2,
-        "streamType": "psychology",
         "iconType": "profile",
         "lessonId": null,
         "isRootItem": false,
@@ -33,7 +20,7 @@ var modules = [
         "itemState": "unlocked"
       },
       {
-        "id": 3,
+        "id": 2,
         "streamType": "psychology",
         "iconType": "practice",
         "lessonId": null,
@@ -51,7 +38,7 @@ var modules = [
     "id": 1,
     "title": "What's your why",
     "nextModuleUnlocksAt": null,
-    "nextModuleUnlockDelay": 604800,
+    "nextModuleUnlockDelay": 540, //604800,
     "isCompleted": false,
     "moduleItems": [
       {

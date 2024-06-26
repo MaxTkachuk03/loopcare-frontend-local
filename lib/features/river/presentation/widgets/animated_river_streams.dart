@@ -10,14 +10,14 @@ import '../painters/river_streams_three_painter.dart';
 import '../painters/river_streams_two_painter.dart';
 
 const Duration _waveDuration = Duration(milliseconds: 1500);
-const Duration _updatePositionDuration = Duration(seconds: 60);
+const Duration _updatePositionDuration = Duration(milliseconds: 60000);
 const Duration _completeDuration = Duration(milliseconds: 50);
 
 const double _completedGradientPosition = 1.0;
 const double _spawnedGradientPosition = 0.0;
 const double _startGradientPosition = -0.12;
 
-const double _completeBeginningPageStep = 1/30;
+const double _completeBeginningPageStep = 1/50;
 const double _defaultStep = 1/100;
 
 class AnimatedRiverStreams extends StatefulWidget {
