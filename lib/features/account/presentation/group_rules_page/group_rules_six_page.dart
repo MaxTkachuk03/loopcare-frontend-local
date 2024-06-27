@@ -8,7 +8,6 @@ import 'package:loopcare_frontend/core/infrastructure/services/firebase_event_se
 import 'package:loopcare_frontend/core/presentation/buttons/custom_elevated_button.dart';
 import 'package:loopcare_frontend/core/presentation/custom_safe_area.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
-import 'package:loopcare_frontend/core/presentation/routes/app_router.dart';
 import 'package:loopcare_frontend/core/presentation/routes/app_router.gr.dart';
 import 'package:loopcare_frontend/core/presentation/text/custom_text.dart';
 import 'package:loopcare_frontend/core/presentation/utils/build_context_extensions.dart';
@@ -19,14 +18,17 @@ import 'package:loopcare_frontend/features/account/application/group_preferences
 import 'package:loopcare_frontend/features/account/domain/group_prefs_mode.dart';
 import 'package:loopcare_frontend/features/account/presentation/widgets/group_lesson_wrap.dart';
 import 'package:loopcare_frontend/features/account/presentation/widgets/group_prefs_page_wrap.dart';
+import 'package:loopcare_frontend/features/river/infrastructure/river_module_stream_type.dart';
 
 @RoutePage()
 class GroupRulesSixPage extends StatelessWidget {
+  final RiverModuleStreamType streamType;
   final bool fromLessonComplete;
 
   const GroupRulesSixPage({
     super.key,
     required this.fromLessonComplete,
+    this.streamType = RiverModuleStreamType.psychology,
   });
 
   void _onIAgreePressHandler(BuildContext context) {
@@ -46,7 +48,7 @@ class GroupRulesSixPage extends StatelessWidget {
     }
 
     if (groupPrefsMode == GroupPrefsMode.groupingLesson) {
-      context.router.pushNamed(AppRoutes.lessonComplete);
+      context.router.push(LessonCompleteRoute(streamType: streamType));
     }
   }
 
@@ -55,6 +57,7 @@ class GroupRulesSixPage extends StatelessWidget {
     return GroupLessonWrap(
       fromLessonComplete: fromLessonComplete,
       child: GroupPrefsPageWrap(
+        streamType: streamType,
         fromLessonComplete: fromLessonComplete,
         child: CustomSafeArea(
           child: MainContainer(

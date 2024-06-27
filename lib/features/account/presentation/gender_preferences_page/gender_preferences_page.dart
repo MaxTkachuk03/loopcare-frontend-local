@@ -24,15 +24,18 @@ import 'package:loopcare_frontend/features/account/domain/group_prefs_mode.dart'
 import 'package:loopcare_frontend/features/account/presentation/widgets/group_lesson_wrap.dart';
 import 'package:loopcare_frontend/features/account/presentation/widgets/group_prefs_page_wrap.dart';
 import 'package:loopcare_frontend/features/education/application/education_lesson/education_lesson_bloc.dart';
+import 'package:loopcare_frontend/features/river/infrastructure/river_module_stream_type.dart';
 import 'package:loopcare_frontend/injection.dart';
 
 @RoutePage()
 class GenderPreferencesPage extends StatefulWidget {
+  final RiverModuleStreamType streamType;
   final bool fromLessonComplete;
 
   const GenderPreferencesPage({
     super.key,
     required this.fromLessonComplete,
+    this.streamType = RiverModuleStreamType.psychology,
   });
 
   @override
@@ -55,7 +58,9 @@ class _GenderPreferencesPageState extends State<GenderPreferencesPage> {
   }
 
   void _onNextPressedHandler() {
-    context.read<GroupPreferencesBloc>().add(GroupPreferencesEvent.setGenderPreferences(_selectedValue!));
+    context
+        .read<GroupPreferencesBloc>()
+        .add(GroupPreferencesEvent.setGenderPreferences(_selectedValue!));
   }
 
   void _onChangeListener(BuildContext context, GroupPreferencesState state) {
@@ -88,7 +93,8 @@ class _GenderPreferencesPageState extends State<GenderPreferencesPage> {
     AnalyticsEventService.instance.logEvent(
       FirebaseEvents.userFillsOutGenderPreferences,
       parameters: {
-        CustomDefinitions.navigatedFrom: widget.fromLessonComplete ? 'Lesson content' : 'User profile',
+        CustomDefinitions.navigatedFrom:
+            widget.fromLessonComplete ? 'Lesson content' : 'User profile',
         CustomDefinitions.value: _selectedValue?.name,
       },
     );
@@ -96,7 +102,10 @@ class _GenderPreferencesPageState extends State<GenderPreferencesPage> {
     if (groupPrefsMode == GroupPrefsMode.singlePage) {
       context.router.maybePop();
     } else {
-      context.router.push(TimezonePreferencesRoute(fromLessonComplete: widget.fromLessonComplete));
+      context.router.push(TimezonePreferencesRoute(
+        fromLessonComplete: widget.fromLessonComplete,
+        streamType: widget.streamType,
+      ));
     }
   }
 
@@ -129,6 +138,7 @@ class _GenderPreferencesPageState extends State<GenderPreferencesPage> {
       child: GroupLessonWrap(
         fromLessonComplete: widget.fromLessonComplete,
         child: GroupPrefsPageWrap(
+          streamType: widget.streamType,
           fromLessonComplete: widget.fromLessonComplete,
           child: CustomSafeArea(
             child: MainContainer(
@@ -155,7 +165,9 @@ class _GenderPreferencesPageState extends State<GenderPreferencesPage> {
                               final shouldRemoveFemale =
                                   gender == GenderType.woman && value == GenderPreferences.maleOnly;
 
-                              if (shouldRemoveMale || shouldRemoveFemale) return const SizedBox.shrink();
+                              if (shouldRemoveMale || shouldRemoveFemale) {
+                                return const SizedBox.shrink();
+                              }
 
                               return Column(
                                 children: [
@@ -176,7 +188,9 @@ class _GenderPreferencesPageState extends State<GenderPreferencesPage> {
                       children: [
                         CustomElevatedButton.blueFullWidth(
                           onPressed: _selectedValue == null ? null : _onNextPressedHandler,
-                          label: widget.fromLessonComplete ? LocalizedTexts.next.tr() : LocalizedTexts.save.tr(),
+                          label: widget.fromLessonComplete
+                              ? LocalizedTexts.next.tr()
+                              : LocalizedTexts.save.tr(),
                         ),
                         const SizedBox(height: 30.0),
                       ],

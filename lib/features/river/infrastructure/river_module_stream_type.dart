@@ -9,7 +9,7 @@ mixin StreamColorMapper {
         RiverModuleStreamType.physicalActivity => AppColors.yellowRegular,
         RiverModuleStreamType.medical => AppColors.coralRegular,
         RiverModuleStreamType.community => AppColors.orangeRegular,
-        StreamColorMapper() => AppColors.orangeRegular,
+        StreamColorMapper() => AppColors.blueRegular,
       };
 
   Color get lightestColor => switch (this) {
@@ -18,7 +18,7 @@ mixin StreamColorMapper {
         RiverModuleStreamType.physicalActivity => AppColors.yellowLightest,
         RiverModuleStreamType.medical => AppColors.coralLightest,
         RiverModuleStreamType.community => AppColors.orangeLightest,
-        StreamColorMapper() => AppColors.orangeLightest,
+        StreamColorMapper() => AppColors.blueLightest,
       };
   Color get lighterColor => switch (this) {
         RiverModuleStreamType.psychology => AppColors.petrolLighter,
@@ -26,7 +26,7 @@ mixin StreamColorMapper {
         RiverModuleStreamType.physicalActivity => AppColors.yellowLighter,
         RiverModuleStreamType.medical => AppColors.coralLighter,
         RiverModuleStreamType.community => AppColors.orangeLighter,
-        StreamColorMapper() => AppColors.orangeLighter,
+        StreamColorMapper() => AppColors.blueLighter,
       };
 
   Color get offRegularColor => switch (this) {
@@ -35,7 +35,7 @@ mixin StreamColorMapper {
         RiverModuleStreamType.physicalActivity => AppColors.yellowOffRegular,
         RiverModuleStreamType.medical => AppColors.coralOffRegular,
         RiverModuleStreamType.community => AppColors.orangeOffRegular,
-        StreamColorMapper() => AppColors.orangeOffRegular,
+        StreamColorMapper() => AppColors.blueOffRegular,
       };
 }
 

@@ -17,6 +17,7 @@ import 'package:loopcare_frontend/core/presentation/network_image_with_cache/net
 import 'package:loopcare_frontend/core/presentation/routes/app_router.gr.dart';
 import 'package:loopcare_frontend/core/presentation/scaffold/custom_scaffold.dart';
 import 'package:loopcare_frontend/core/presentation/text/custom_text.dart';
+import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 import 'package:loopcare_frontend/core/presentation/utils/build_context_extensions.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/main_container.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/scrollable_container.dart';
@@ -25,24 +26,36 @@ import 'package:loopcare_frontend/features/account/application/group_preferences
 import 'package:loopcare_frontend/features/education/application/education_lesson/education_lesson_bloc.dart';
 import 'package:loopcare_frontend/features/education/domain/extra_action_page_mode.dart';
 import 'package:loopcare_frontend/features/education/presentation/education_page/widgets/category_label.dart';
+import 'package:loopcare_frontend/features/river/infrastructure/river_module_stream_type.dart';
 import 'package:loopcare_frontend/injection.dart';
 
 @RoutePage()
 class SupportGroupIntroPage extends StatelessWidget {
-  const SupportGroupIntroPage({super.key});
+  final RiverModuleStreamType streamType;
+
+  const SupportGroupIntroPage({
+    super.key,
+    this.streamType = RiverModuleStreamType.psychology,
+  });
 
   @override
   Widget build(BuildContext context) {
     return WillPopScope(
       onWillPop: () => _onWillPop(context),
-      child: CustomScaffold.petrolLightest(
-        appBar: CustomAppBar.petrol(
+      child: CustomScaffold(
+        color: streamType.lightestColor,
+        appBar: CustomAppBar(
+          backgroundColor: streamType.regularColor,
+          textTheme: streamType.appBarTextTheme,
           title: LocalizedTexts.theSupportGroup.tr(),
           subtitle: LocalizedTexts.introduction.tr(),
-          leading: CustomFilledIconButton.leadingPetrolLighter(),
+          leading: CustomFilledIconButton.fromColor(color: streamType.lighterColor),
           bottom: PreferredSize(
             preferredSize: const Size.fromHeight(60),
-            child: SimpleProgressBar.petrol(
+            child: SimpleProgressBar(
+              backgroundColor: streamType.regularColor,
+              progressFillColor: streamType.lightestColor,
+              progressEmptyColor: AppColors.white.withOpacity(0.45),
               progress: context.read<EducationLessonBloc>().state.data.lessonProgress,
             ),
           ),
@@ -60,7 +73,8 @@ class SupportGroupIntroPage extends StatelessWidget {
                         builder: (context, state) {
                           final lesson = state.data;
 
-                          return SizedBox(height: 265, child: NetworkImageWithCache(url: lesson.lessonImage));
+                          return SizedBox(
+                              height: 265, child: NetworkImageWithCache(url: lesson.lessonImage));
                         },
                       ),
                       const SizedBox(height: 28.0),
@@ -118,19 +132,29 @@ class SupportGroupIntroPage extends StatelessWidget {
     );
 
     if (account!.isOnTrial) {
-      context.router.push(NeedPaidSubscriptionRoute(mode: const ExtraActionPageMode.afterLesson()));
+      context.router.push(NeedPaidSubscriptionRoute(
+        mode: const ExtraActionPageMode.afterLesson(),
+        streamType: streamType,
+      ));
       return;
     }
 
     if (account.medicalOnboarding!.treatedByPsychiatrist) {
-      context.router.push(ConsultDoctorRoute(mode: const ExtraActionPageMode.afterLesson()));
+      context.router.push(ConsultDoctorRoute(
+        mode: const ExtraActionPageMode.afterLesson(),
+        streamType: streamType,
+      ));
       return;
     }
 
     context
-      ..read<GroupPreferencesBloc>().add(const GroupPreferencesEvent.setWouldLikeJoinGroup(YesNoAnswer.yes))
+      ..read<GroupPreferencesBloc>()
+          .add(const GroupPreferencesEvent.setWouldLikeJoinGroup(YesNoAnswer.yes))
       ..read<EducationLessonBloc>().add(const EducationLessonEvent.progressForward())
-      ..router.push(GenderPreferencesRoute(fromLessonComplete: true));
+      ..router.push(GenderPreferencesRoute(
+        fromLessonComplete: true,
+        streamType: streamType,
+      ));
   }
 
   void _onDoNotJoinPressed(BuildContext context) {
@@ -142,7 +166,7 @@ class SupportGroupIntroPage extends StatelessWidget {
       },
     );
 
-    context.router.push(LessonCompleteRoute(joinSupportGroupLater: true));
+    context.router.push(LessonCompleteRoute(joinSupportGroupLater: true, streamType: streamType));
   }
 
   Future<bool> _onWillPop(BuildContext context) {

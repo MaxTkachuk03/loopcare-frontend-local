@@ -22,16 +22,19 @@ import 'package:loopcare_frontend/features/account/domain/group_prefs_mode.dart'
 import 'package:loopcare_frontend/features/account/presentation/widgets/group_lesson_wrap.dart';
 import 'package:loopcare_frontend/features/account/presentation/widgets/group_prefs_page_wrap.dart';
 import 'package:loopcare_frontend/features/education/application/education_lesson/education_lesson_bloc.dart';
+import 'package:loopcare_frontend/features/river/infrastructure/river_module_stream_type.dart';
 import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 import 'package:timezone/timezone.dart';
 
 @RoutePage()
 class TimezonePreferencesPage extends StatefulWidget {
+  final RiverModuleStreamType streamType;
   final bool fromLessonComplete;
 
   const TimezonePreferencesPage({
     super.key,
     required this.fromLessonComplete,
+    this.streamType = RiverModuleStreamType.psychology,
   });
 
   @override
@@ -93,14 +96,18 @@ class _TimezonePreferencesPageState extends State<TimezonePreferencesPage> {
     AnalyticsEventService.instance.logEvent(
       FirebaseEvents.userFillsOutTimezonePreferences,
       parameters: {
-        CustomDefinitions.navigatedFrom: widget.fromLessonComplete ? 'Lesson content' : 'User profile',
+        CustomDefinitions.navigatedFrom:
+            widget.fromLessonComplete ? 'Lesson content' : 'User profile',
       },
     );
 
     if (groupPrefsMode == GroupPrefsMode.singlePage) {
       context.router.maybePop();
     } else {
-      context.router.push(NicknamePreferencesRoute(fromLessonComplete: widget.fromLessonComplete));
+      context.router.push(NicknamePreferencesRoute(
+        fromLessonComplete: widget.fromLessonComplete,
+        streamType: widget.streamType,
+      ));
     }
   }
 
@@ -141,6 +148,7 @@ class _TimezonePreferencesPageState extends State<TimezonePreferencesPage> {
       child: GroupLessonWrap(
         fromLessonComplete: widget.fromLessonComplete,
         child: GroupPrefsPageWrap(
+          streamType: widget.streamType,
           fromLessonComplete: widget.fromLessonComplete,
           child: CustomSafeArea(
             child: Column(
@@ -197,7 +205,9 @@ class _TimezonePreferencesPageState extends State<TimezonePreferencesPage> {
                       const SizedBox(height: 24.0),
                       CustomElevatedButton.blueFullWidth(
                         onPressed: _selectedLocation == null ? null : _onNextPressedHandler,
-                        label: widget.fromLessonComplete ? LocalizedTexts.next.tr() : LocalizedTexts.save.tr(),
+                        label: widget.fromLessonComplete
+                            ? LocalizedTexts.next.tr()
+                            : LocalizedTexts.save.tr(),
                       ),
                       const SizedBox(height: 30.0),
                     ],

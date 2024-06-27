@@ -8,13 +8,14 @@ import 'package:loopcare_frontend/core/presentation/buttons/custom_elevated_butt
 import 'package:loopcare_frontend/core/presentation/buttons/custom_filled_icon_button.dart';
 import 'package:loopcare_frontend/core/presentation/custom_safe_area.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
-import 'package:loopcare_frontend/core/presentation/routes/app_router.dart';
 import 'package:loopcare_frontend/core/presentation/routes/app_router.gr.dart';
 import 'package:loopcare_frontend/core/presentation/scaffold/custom_scaffold.dart';
 import 'package:loopcare_frontend/core/presentation/text/custom_text.dart';
+import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 import 'package:loopcare_frontend/core/presentation/utils/build_context_extensions.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/main_container.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/scrollable_container.dart';
+import 'package:loopcare_frontend/features/river/infrastructure/river_module_stream_type.dart';
 import 'package:loopcare_frontend/features/you_and_food/application/you_and_food_bloc.dart';
 import 'package:loopcare_frontend/features/account/presentation/edit_food_preferences_page/widgets/allergic_chips.dart';
 import 'package:loopcare_frontend/features/account/presentation/edit_food_preferences_page/widgets/do_not_like_chips.dart';
@@ -33,6 +34,7 @@ class EditFoodPreferencesPageMode with _$EditFoodPreferencesPageMode {
 
 @RoutePage()
 class EditFoodPreferencesPage extends StatelessWidget {
+  final RiverModuleStreamType? streamType;
   final EditFoodPreferencesPageMode mode;
   final bool fromLessonComplete;
 
@@ -40,6 +42,7 @@ class EditFoodPreferencesPage extends StatelessWidget {
     super.key,
     required this.mode,
     required this.fromLessonComplete,
+    this.streamType,
   });
 
   get _title {
@@ -80,6 +83,7 @@ class EditFoodPreferencesPage extends StatelessWidget {
           EditFoodPreferencesRoute(
             mode: const EditFoodPreferencesPageMode.hates(),
             fromLessonComplete: true,
+            streamType: streamType,
           ),
         );
       },
@@ -88,60 +92,40 @@ class EditFoodPreferencesPage extends StatelessWidget {
           EditFoodPreferencesRoute(
             mode: const EditFoodPreferencesPageMode.dislikes(),
             fromLessonComplete: true,
+            streamType: streamType,
           ),
         );
       },
       dislikes: (_) {
-        context.router.pushNamed(AppRoutes.lessonComplete);
+        context.router
+            .push(LessonCompleteRoute(streamType: streamType ?? RiverModuleStreamType.community));
       },
     );
   }
 
-  Widget _getCustomButton(BuildContext context) {
-    if (fromLessonComplete) {
-      return CustomElevatedButton.blueFullWidth(
-        onPressed: () => _onNextHandler(context),
-        label: LocalizedTexts.next.tr(),
-      );
-    }
+  get _label => fromLessonComplete ? LocalizedTexts.next.tr() : LocalizedTexts.confirm.tr();
 
-    return CustomElevatedButton.blueFullWidth(
-      onPressed: () => _onOkHandler(context),
-      label: LocalizedTexts.confirm.tr(),
-    );
-  }
+  get _onPressed => fromLessonComplete ? _onNextHandler : _onOkHandler;
 
-  CustomAppBar _getCustomAppBar() {
-    if (fromLessonComplete) {
-      return CustomAppBar.petrol(
-        title: _title,
-        leading: CustomFilledIconButton.leadingPetrolLighter(),
-      );
-    }
-    return CustomAppBar.blue(
-      title: _title,
-      leading: CustomFilledIconButton.leadingBlueLighter(),
-    );
-  }
+  get _scaffoldColor => fromLessonComplete ? streamType?.lightestColor : AppColors.blueLightest;
 
-  CustomScaffold _getCustomScaffold({
-    Widget? body,
-  }) {
-    if (fromLessonComplete) {
-      return CustomScaffold.petrolLightest(
-        appBar: _getCustomAppBar(),
-        body: body,
-      );
-    }
-    return CustomScaffold.blueLightest(
-      appBar: _getCustomAppBar(),
-      body: body,
-    );
-  }
+  get _appBarColor => fromLessonComplete ? streamType?.regularColor : AppColors.blueRegular;
+
+  get _appBarTextTheme =>
+      fromLessonComplete ? streamType?.appBarTextTheme : CustomAppBarTextTheme.light;
+
+  get _leadingButtonColor => fromLessonComplete ? streamType?.lighterColor : AppColors.blueLighter;
 
   @override
   Widget build(BuildContext context) {
-    return _getCustomScaffold(
+    return CustomScaffold(
+      color: _scaffoldColor,
+      appBar: CustomAppBar(
+        backgroundColor: _appBarColor,
+        textTheme: _appBarTextTheme,
+        title: _title,
+        leading: CustomFilledIconButton.fromColor(color: _leadingButtonColor),
+      ),
       body: CustomSafeArea(
         child: MainContainer(
           child: Column(
@@ -162,7 +146,10 @@ class EditFoodPreferencesPage extends StatelessWidget {
               Column(
                 children: [
                   const SizedBox(height: 22.0),
-                  _getCustomButton(context),
+                  CustomElevatedButton.blueFullWidth(
+                    onPressed: () => _onPressed(context),
+                    label: _label,
+                  ),
                   const SizedBox(height: 30.0),
                 ],
               ),
