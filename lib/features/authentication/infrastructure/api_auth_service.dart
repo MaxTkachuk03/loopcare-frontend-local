@@ -58,14 +58,14 @@ class APIAuthenticationService implements AuthenticationService {
     return await client.post('/auth/logout');
   }
 
-  @override
-  Future<Either<RequestError, UnlockFeatureResponse>> unlockFeature(UnlockFeature data) async {
-    return await client.patch(
-      '/accounts/set-feature',
-      data: data.toJson(),
-      fromJson: UnlockFeatureResponse.fromJson,
-    );
-  }
+  // @override
+  // Future<Either<RequestError, UnlockFeatureResponse>> unlockFeature(UnlockFeature data) async {
+  //   return await client.patch(
+  //     '/accounts/set-feature',
+  //     data: data.toJson(),
+  //     fromJson: UnlockFeatureResponse.fromJson,
+  //   );
+  // }
 
   @override
   Future<Either<RequestError, dynamic>> forgotPassword(ForgotPasswordData data) async {

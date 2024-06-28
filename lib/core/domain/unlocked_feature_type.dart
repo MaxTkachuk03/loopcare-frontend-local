@@ -1,12 +1,17 @@
 enum UnlockedFeatureType {
-  grouping,
-  physicalActivities,
-  foodLogging,
-  meals,
-  assignments,
   allowGroupSessions,
-  buddy,
+  assignments,
+  foodLogging,
+  calorieDensity,
   smartGoals,
+  weightLogging,
+  physicalActivity,
+  buddy,
+  grouping,
+  proteinDegree,
   mind,
-  unknown,
+  fiberindicator,
+  calorieTracker;
+
+  bool get isGrouping => this == grouping;
 }

@@ -1,5 +1,4 @@
 import 'package:auto_route/auto_route.dart';
-import 'package:loopcare_frontend/core/domain/unlock_config/unlock_feature/unlock_feature.dart';
 import 'package:loopcare_frontend/core/domain/unlocked_feature_type.dart';
 import 'package:loopcare_frontend/core/infrastructure/services/shared_storage/shared_storage_service.dart';
 import 'package:loopcare_frontend/core/presentation/routes/app_router.dart';
@@ -39,7 +38,7 @@ class UnlockFeatureGuard extends AutoRouteGuard {
 
     if (extraAction == ExtraActionTypes.unlockPhysicalActivities &&
         !(account?.isPhysicalActivitiesUnlocked ?? false)) {
-      _unlockFeature(UnlockedFeatureType.physicalActivities);
+      _unlockFeature(UnlockedFeatureType.physicalActivity);
 
       router.pushNamed(AppRoutes.physicalPreferencesIntro);
       return;
@@ -49,14 +48,6 @@ class UnlockFeatureGuard extends AutoRouteGuard {
   }
 
   void _unlockFeature(UnlockedFeatureType feature) {
-    getIt<AuthenticationBloc>().add(
-      AuthenticationEvent.unlockFeature(
-        UnlockFeature(
-          feature: feature.name,
-          unlocked: true,
-          subFeatures: null,
-        ),
-      ),
-    );
+    getIt<AuthenticationBloc>().add(AuthenticationEvent.unlockFeature(feature));
   }
 }
