@@ -6,7 +6,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loopcare_frontend/core/application/customer_io_service/customer_io_service.dart';
 import 'package:loopcare_frontend/core/presentation/alerting/modal_bottom_sheet.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
-import 'package:loopcare_frontend/core/presentation/routes/app_router.dart';
+import 'package:loopcare_frontend/core/presentation/routes/app_router.gr.dart';
 import 'package:loopcare_frontend/core/presentation/text/custom_text.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 import 'package:loopcare_frontend/core/presentation/utils/build_context_extensions.dart';
@@ -133,7 +133,7 @@ class _RiverScreenState extends State<RiverScreen> {
     if (_isTheBeginningModule) {
       _beginningUnlockAction(item);
     } else {
-      _navigateToLesson(item.lessonId, item.id);
+      _navigateToLesson(item);
     }
   }
 
@@ -148,11 +148,11 @@ class _RiverScreenState extends State<RiverScreen> {
       ModalBottomSheet.guidancePractice(
         context: context,
         onConfirm: () => riverBloc.add(
-            RiverEvent.updateModuleItem(
-              moduleId: widget.module.id,
-              moduleItemId: item.id,
-            ),
+          RiverEvent.updateModuleItem(
+            moduleId: widget.module.id,
+            moduleItemId: item.id,
           ),
+        ),
       );
     }
 
@@ -160,31 +160,27 @@ class _RiverScreenState extends State<RiverScreen> {
       ModalBottomSheet.guidanceProfile(
         context: context,
         onConfirm: () => riverBloc.add(
-            RiverEvent.updateModuleItem(
-              moduleId: widget.module.id,
-              moduleItemId: item.id,
-            ),
+          RiverEvent.updateModuleItem(
+            moduleId: widget.module.id,
+            moduleItemId: item.id,
           ),
+        ),
       );
     }
   }
 
-  void _navigateToLesson(int lessonId, int id) {
+  void _navigateToLesson(model.RiverModuleItem item) {
     CustomerIoService.track(
       event: CIOEvents.educationWidget,
-      attributes: {
-        CIOAttributes.articleId: lessonId,
-      },
+      attributes: {CIOAttributes.articleId: item.lessonId},
     );
 
     context.read<EducationLessonBloc>().add(
-      EducationLessonEvent.getLessonContent(
-        lessonId: lessonId,
-        pageIndex: 0,
-      ),
-    );
+          EducationLessonEvent.getLessonContent(lessonId: item.lessonId, pageIndex: 0),
+        );
 
-    context.router.pushNamed(AppRoutes.createLessonPath(lessonId));
+    context.router
+        .push(LessonRoute(lessonId: item.lessonId, pageIndex: 0, streamType: item.streamType));
   }
 
   void _onTransitionItemCompleted(FeaturePlacement placement) {
@@ -201,11 +197,12 @@ class _RiverScreenState extends State<RiverScreen> {
   }
 
   void _onCompleteTime() {
-    if (_isTheBeginningModule && !context.read<NavigationBarBloc>().state.data.isBeginningCompleted) {
+    if (_isTheBeginningModule &&
+        !context.read<NavigationBarBloc>().state.data.isBeginningCompleted) {
       ModalBottomSheet.guidanceCompleted(
         context: context,
-        onConfirm: () => context.read<NavigationBarBloc>()
-            .add(const NavigationBarEvent.completeBeginning()),
+        onConfirm: () =>
+            context.read<NavigationBarBloc>().add(const NavigationBarEvent.completeBeginning()),
       );
     } else {
       _onComplete();
