@@ -29,7 +29,7 @@ class LoginPage extends StatelessWidget {
         key: const ValueKey('login_page'),
         appBar: CustomAppBar.transparent(
           leading: context.router.canPop()
-                  ? CustomFilledIconButton.leadingGreenLighter()
+                  ? CustomFilledIconButton.leadingWhite()
                   : const SizedBox.shrink(),
         ),
         body: CustomSafeArea(

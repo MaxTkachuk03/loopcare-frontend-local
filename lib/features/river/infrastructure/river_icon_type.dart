@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:loopcare_frontend/core/presentation/icon_images/app_icons_data.dart';
 
 enum RiverIconType {
-  activity,
+  physicalActivity,
   assignment,
   buddy,
   community,
@@ -21,7 +21,7 @@ enum RiverIconType {
 
   IconData get icon {
     switch (this) {
-      case RiverIconType.activity:
+      case RiverIconType.physicalActivity:
         return AppIconsData.iActivity;
       case RiverIconType.assignment:
         return AppIconsData.iAssignment;

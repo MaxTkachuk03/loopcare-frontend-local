@@ -41,8 +41,8 @@ class ItemsPositionsOne extends ItemsPositionValues {
 
 class RiverStreamsOnePainter extends RenderRiverStreamPainter {
   const RiverStreamsOnePainter({
-    super.gradientPositionStart = 0,
-    super.gradientPositionEnd = 0,
+    super.gradientPosition = 0,
+    super.time = 0,
     super.enableGradient = false,
     super.fillColor = false,
   });

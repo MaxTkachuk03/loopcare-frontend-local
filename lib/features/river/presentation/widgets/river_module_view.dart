@@ -47,14 +47,14 @@ class _RiverScreenState extends State<RiverScreen> {
   void initState() {
     super.initState();
     _page = _getIndex(widget.page);
-    _positionedItems = _offsets(widget.module.moduleItems);
+    _positionedItems = ModuleItemsUtils.getItemsOffsets(_page, widget.module.moduleItems);
   }
 
   @override
   void didUpdateWidget(covariant RiverScreen oldWidget) {
     super.didUpdateWidget(oldWidget);
     if (!widget.module.moduleItems.equals(oldWidget.module.moduleItems)) {
-      _positionedItems = _offsets(widget.module.moduleItems);
+      _positionedItems = ModuleItemsUtils.getItemsOffsets(_page, widget.module.moduleItems);
     }
   }
 
@@ -128,42 +128,6 @@ class _RiverScreenState extends State<RiverScreen> {
   }
 
   int _getIndex(int i) => i <= 5 ? i : _getIndex(i - 5);
-
-  List<({Offset offset, model.RiverModuleItem item})> _offsets(List<model.RiverModuleItem> items) {
-    final List<({Offset offset, model.RiverModuleItem item})> list = [];
-
-    if (_isTheBeginningModule) {
-      for (int i = 0; i < items.length; i++) {
-        final item = items[i];
-        list.add((offset: ModuleItemsUtils.zeroPagePositions[i], item: item));
-      }
-
-      return list;
-    }
-
-    final activity = items.where((element) => element.streamType.isPhysicalActivity).toList();
-    final community = items.where((element) => element.streamType.isCommunity).toList();
-    final psychology = items.where((element) => element.streamType.isPsychology).toList();
-    final medical = items.where((element) => element.streamType.isMedical).toList();
-    final nutrition = items.where((element) => element.streamType.isNutrition).toList();
-
-    final streams = [psychology, community, medical, activity, nutrition];
-
-    for (final listItems in streams) {
-      for (int i = 0; i < listItems.length; i++) {
-        final item = listItems[i];
-        if (!item.isRootItem) {
-          final position = ModuleItemsUtils.getOffset(_page, i, item.streamType.streamIndex);
-          list.add((offset: position, item: item));
-        } else {
-          final position = ModuleItemsUtils.getRootOffset(_page);
-          list.add((offset: position, item: item));
-        }
-      }
-    }
-
-    return list;
-  }
 
   void _onItemPressed(model.RiverModuleItem item) {
     if (_isTheBeginningModule) {

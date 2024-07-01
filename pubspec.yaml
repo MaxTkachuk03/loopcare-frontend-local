@@ -137,6 +137,8 @@ flutter:
       fonts:
       - asset: assets/fonts/AppIcons.ttf
   uses-material-design: true
+  shaders:
+    - shaders/river_stream_shader.glsl
 
 flutter_native_splash:
   color: "#ecf5ff"

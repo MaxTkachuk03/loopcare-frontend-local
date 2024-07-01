@@ -24,13 +24,13 @@ class ItemsPositionsTwo extends ItemsPositionValues {
   const ItemsPositionsTwo();
 
   @override
-  List<double> get green => [0.1, 0.68];
+  List<double> get green => [0.1, 0.68, 0.48];
 
   @override
-  List<double> get blue => [0.28, 0.92];
+  List<double> get blue => [0.28, 0.92, 0.6];
 
   @override
-  List<double> get red => [0.79, 0.14];
+  List<double> get red => [0.79, 0.14, 0.98];
 
   @override
   List<double> get orange => [0.64, 0.16, 0.91];
@@ -41,8 +41,8 @@ class ItemsPositionsTwo extends ItemsPositionValues {
 
 class RiverStreamsTwoPainter extends RenderRiverStreamPainter {
   const RiverStreamsTwoPainter({
-    super.gradientPositionStart = 0,
-    super.gradientPositionEnd = 0,
+    super.gradientPosition = 0,
+    super.time = 0,
     super.enableGradient = false,
     super.fillColor = false,
   });
