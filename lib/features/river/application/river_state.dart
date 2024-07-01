@@ -30,4 +30,9 @@ class RiverStateData with _$RiverStateData {
   }) = _RiverStateData;
 
   int get currentPage => activeModule != null ? modules.indexOf(activeModule!) : 0;
+
+  bool get isBeginningComplete => currentPage > 0;
+
+  bool get isBeginningStarted =>
+      currentPage == 0 && activeModule!.moduleItems.any((item) => item.isCompleted);
 }

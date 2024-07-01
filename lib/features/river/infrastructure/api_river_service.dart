@@ -3,6 +3,7 @@ import 'package:injectable/injectable.dart';
 import 'package:loopcare_frontend/core/infrastructure/dio_client/dio_client.dart';
 import 'package:loopcare_frontend/core/infrastructure/dio_client/request_error.dart';
 import 'package:loopcare_frontend/features/river/application/dto/get_modules_response.dart';
+import 'package:loopcare_frontend/features/river/application/dto/river_module_item_state_data.dart';
 import 'package:loopcare_frontend/features/river/application/river_service.dart';
 import 'package:loopcare_frontend/features/river/domain/river_module.dart';
 import 'package:loopcare_frontend/features/river/domain/river_module_item.dart';
@@ -20,44 +21,38 @@ class APIRiverService implements RiverService {
   @override
   Future<Either<RequestError, GetModulesResponse>> getModules() async {
     // TODO river modules response mock
-    return right(GetModulesResponse.fromJson({'data': modules}));
-    // TODO replace with correct url
-    // return await client.get('/moods', fromJson: GetModulesResponse.fromJson);
+    // return right(GetModulesResponse.fromJson({'data': modules}));
+    return await client.get('/river/modules', fromJson: GetModulesResponse.fromJson);
   }
 
   @override
   Future<Either<RequestError, RiverModule>> getModuleById({required int moduleId}) async {
     // TODO river modules response mock
-    return right(RiverModule.fromJson({'data': modules.first}));
+    return right(RiverModule.fromJson({'data': modules[1]}));
 
     // TODO replace with correct url
-    // return await client.get('/moods', fromJson: RiverModule.fromJson);
+    // return await client.get('//river/modules/$moduleId', fromJson: RiverModule.fromJson);
   }
 
   @override
-  Future<Either<RequestError, RiverModuleItem>> updateModuleItem({
-    required int moduleItemId,
-    required RiverModuleItem data,
-  }) async {
-    // TODO river modules response mock
-    return right(RiverModuleItem.fromJson(moduleItem));
-    // TODO replace with correct url
-    // return await client.patch('/moods/$id', fromJson: RiverModuleItem.fromJson);
-  }
-
-  @override
-  Future<Either<RequestError, RiverModule>> updateModule({
+  Future<Either<RequestError, RiverModuleItem>> updateModuleItemState({
     required int moduleId,
-    required RiverModule data,
+    required int moduleItemId,
+    // todo remove
+    required int lessonId,
+    required RiverModuleItemStateData data,
   }) async {
     // TODO river modules response mock
+    // return right(RiverModuleItem.fromJson(moduleItem));
+    await client.post(
+      '/education/lessons/$lessonId/complete',
+      data: {"completedAt": DateTime.now().toUtc().toIso8601String()},
+    );
 
-    return right(RiverModule.fromJson(modules.last).copyWith(isCompleted: true));
-    // TODO replace with correct url
-    // return await client.patch(
-    //   '/moods/$id',
-    //   data: data,
-    //   fromJson: RiverModule.fromJson,
-    // );
+    return await client.put(
+      '/river/modules/$moduleId/module-items/$moduleItemId/progress',
+      data: data,
+      fromJson: RiverModuleItem.fromJson,
+    );
   }
 }

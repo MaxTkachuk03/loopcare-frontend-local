@@ -20,21 +20,21 @@ class RiverModuleButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Material(
-      elevation: elevation,
-      borderRadius: BorderRadius.all(Radius.circular(radius)),
-      child: InkWell(
-        borderRadius: BorderRadius.all(Radius.circular(radius)),
-        onTap: onPressed,
-        child: CircleAvatar(
-          backgroundColor: bgColor,
-          radius: radius,
-          child: Icon(
-            icon,
-            color: iconColor,
-            size: radius * 1.44,
-          ),
-        ),
+    return IconButton.filled(
+      style: IconButton.styleFrom(
+        backgroundColor: bgColor,
+        fixedSize: Size.square(radius * 2),
+        padding: EdgeInsets.zero,
+        elevation: elevation,
+        shadowColor: Colors.black,
+        highlightColor: iconColor?.withOpacity(0.16),
+        disabledBackgroundColor: bgColor,
+      ),
+      onPressed: onPressed,
+      icon: Icon(
+        icon,
+        color: iconColor,
+        size: radius * 1.44,
       ),
     );
   }

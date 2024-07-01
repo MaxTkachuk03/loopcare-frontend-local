@@ -3,8 +3,8 @@ import 'package:loopcare_frontend/features/river/presentation/painters/river_str
 
 class RiverStreamsStartPainter extends RenderRiverStreamPainter {
   const RiverStreamsStartPainter({
-    super.gradientPositionStart = 0,
-    super.gradientPositionEnd = 0,
+    super.gradientPosition = 0,
+    super.time = 0,
     super.enableGradient = false,
     super.fillColor = false,
   });

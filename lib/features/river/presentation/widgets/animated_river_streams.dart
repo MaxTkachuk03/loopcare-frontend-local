@@ -9,15 +9,15 @@ import '../painters/river_streams_start_painter.dart';
 import '../painters/river_streams_three_painter.dart';
 import '../painters/river_streams_two_painter.dart';
 
-const Duration _waveDuration = Duration(milliseconds: 1500);
-const Duration _updatePositionDuration = Duration(seconds: 60);
+const Duration _waveDuration = Duration(milliseconds: 3000);
+const Duration _updatePositionDuration = Duration(milliseconds: 60000);
 const Duration _completeDuration = Duration(milliseconds: 50);
 
 const double _completedGradientPosition = 1.0;
 const double _spawnedGradientPosition = 0.0;
 const double _startGradientPosition = -0.12;
 
-const double _completeBeginningPageStep = 1/30;
+const double _completeBeginningPageStep = 1/50;
 const double _defaultStep = 1/100;
 
 class AnimatedRiverStreams extends StatefulWidget {
@@ -42,8 +42,7 @@ class AnimatedRiverStreams extends StatefulWidget {
 
 class AnimatedRiverStreamsState extends State<AnimatedRiverStreams> with SingleTickerProviderStateMixin {
   late AnimationController _controller;
-  late Animation<double> _startAnimation;
-  late Animation<double> _endAnimation;
+  late Animation<double> _animation;
 
   late bool _fillColor;
   late bool _enableGradient;
@@ -89,8 +88,8 @@ class AnimatedRiverStreamsState extends State<AnimatedRiverStreams> with SingleT
         return _RiverStreamsPainter(
           key: const Key('river_streams_painter'),
           index: widget.page,
-          gradientPositionStart: _position + _startAnimation.value,
-          gradientPositionEnd: _position + _endAnimation.value,
+          gradientPosition: _position,
+          time: _animation.value,
           enableGradient: _enableGradient,
           fillColor: _fillColor,
         );
@@ -136,25 +135,19 @@ class AnimatedRiverStreamsState extends State<AnimatedRiverStreams> with SingleT
       vsync: this,
     );
 
-    _startAnimation = Tween<double>(begin: -0.001, end: 0.003).animate(_controller);
-    _endAnimation = Tween<double>(begin: 0.096, end: 0.11).animate(_controller);
-    _controller.addListener(() {
-      if (_controller.status == AnimationStatus.dismissed) {
-        _controller.forward();
-      }
+    _animation = Tween<double>(begin: 0.0, end: 1.0)
+        .chain(CurveTween(curve: Curves.easeInOut))
+        .animate(_controller);
 
-      if (_controller.status == AnimationStatus.completed) {
-        _controller.reverse();
-      }
-
+     _controller.addListener(() {
       if (_position >= 1) {
         _fillColor = true;
         _stopAnimation();
       }
     });
 
-    if (!widget.isCompleted && widget.completedDate != null) {
-      _controller.forward();
+    if ((!widget.isCompleted && widget.completedDate != null) || isBeginning) {
+      _controller.repeat(reverse: true);
     }
   }
 
@@ -194,15 +187,15 @@ class _RiverStreamsPainter extends StatelessWidget {
     super.key,
     required this.enableGradient,
     required this.fillColor,
-    required this.gradientPositionStart,
-    required this.gradientPositionEnd,
+    required this.gradientPosition,
+    required this.time,
     required this.index,
   });
 
   final bool enableGradient;
   final bool fillColor;
-  final double gradientPositionStart;
-  final double gradientPositionEnd;
+  final double gradientPosition;
+  final double time;
   final int index;
 
   int _getIndex(int i) => i <= 5 ? i : _getIndex(i - 5);
@@ -214,48 +207,48 @@ class _RiverStreamsPainter extends StatelessWidget {
     return switch (i) {
       1 => CustomPaint(
         painter: RiverStreamsOnePainter(
-          gradientPositionStart: gradientPositionStart,
-          gradientPositionEnd: gradientPositionEnd,
+          gradientPosition: gradientPosition,
+          time: time,
           enableGradient: enableGradient,
           fillColor: fillColor,
         ),
       ),
       2 => CustomPaint(
         painter: RiverStreamsTwoPainter(
-          gradientPositionStart: gradientPositionStart,
-          gradientPositionEnd: gradientPositionEnd,
+          gradientPosition: gradientPosition,
+          time: time,
           enableGradient: enableGradient,
           fillColor: fillColor,
         ),
       ),
       3 => CustomPaint(
         painter: RiverStreamsThreePainter(
-          gradientPositionStart: gradientPositionStart,
-          gradientPositionEnd: gradientPositionEnd,
+          gradientPosition: gradientPosition,
+          time: time,
           enableGradient: enableGradient,
           fillColor: fillColor,
         ),
       ),
       4 => CustomPaint(
         painter: RiverStreamsFourPainter(
-          gradientPositionStart: gradientPositionStart,
-          gradientPositionEnd: gradientPositionEnd,
+          gradientPosition: gradientPosition,
+          time: time,
           enableGradient: enableGradient,
           fillColor: fillColor,
         ),
       ),
       5 => CustomPaint(
         painter: RiverStreamsFivePainter(
-          gradientPositionStart: gradientPositionStart,
-          gradientPositionEnd: gradientPositionEnd,
+          gradientPosition: gradientPosition,
+          time: time,
           enableGradient: enableGradient,
           fillColor: fillColor,
         ),
       ),
       _ => CustomPaint(
         painter: RiverStreamsStartPainter(
-          gradientPositionStart: gradientPositionStart,
-          gradientPositionEnd: gradientPositionEnd,
+          gradientPosition: gradientPosition,
+          time: time,
           enableGradient: enableGradient,
           fillColor: fillColor,
         ),

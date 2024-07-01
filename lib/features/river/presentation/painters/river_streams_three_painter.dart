@@ -27,7 +27,7 @@ class ItemsPositionsThree extends ItemsPositionValues {
   List<double> get green => [0.83, 0.41, 0.11];
 
   @override
-  List<double> get blue => [0.27, 0.67];
+  List<double> get blue => [0.27, 0.67, 0.93];
 
   @override
   List<double> get red => [0.17, 0.88];
@@ -41,8 +41,8 @@ class ItemsPositionsThree extends ItemsPositionValues {
 
 class RiverStreamsThreePainter extends RenderRiverStreamPainter {
   const RiverStreamsThreePainter({
-    super.gradientPositionStart = 0,
-    super.gradientPositionEnd = 0,
+    super.gradientPosition = 0,
+    super.time = 0,
     super.enableGradient = false,
     super.fillColor = false,
   });

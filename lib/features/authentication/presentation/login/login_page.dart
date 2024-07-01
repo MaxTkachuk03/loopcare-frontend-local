@@ -10,7 +10,6 @@ import 'package:loopcare_frontend/core/presentation/localization/localized_texts
 import 'package:loopcare_frontend/core/presentation/routes/app_router.dart';
 import 'package:loopcare_frontend/core/presentation/scaffold/custom_scaffold.dart';
 import 'package:loopcare_frontend/core/presentation/text/custom_text.dart';
-import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 import 'package:loopcare_frontend/core/presentation/utils/build_context_extensions.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/main_container.dart';
 import 'package:loopcare_frontend/features/authentication/presentation/login/widgets/login_form.dart';
@@ -31,8 +30,8 @@ class LoginPage extends StatelessWidget {
         key: const ValueKey('login_page'),
         appBar: CustomAppBar.transparent(
           leading: context.router.canPop()
-              ? CustomFilledIconButton.fromColor(color: AppColors.blueLightest)
-              : const SizedBox.shrink(),
+                  ? CustomFilledIconButton.leadingBlueLighter()
+                  : const SizedBox.shrink(),
         ),
         body: CustomSafeArea(
           child: MainContainer(
