@@ -10,7 +10,8 @@ class AuthenticationState with _$AuthenticationState {
 
   const factory AuthenticationState.logout(AuthenticationData data) = LogoutState;
 
-  const factory AuthenticationState.waitedForConfirmation(AuthenticationData data) = WaitedConfirmationState;
+  const factory AuthenticationState.waitedForConfirmation(AuthenticationData data) =
+      WaitedConfirmationState;
 
   const factory AuthenticationState.guest(AuthenticationData data) = GuestAuthenticationState;
 
@@ -18,9 +19,11 @@ class AuthenticationState with _$AuthenticationState {
 
   const factory AuthenticationState.gotAccount(AuthenticationData data) = GotAccountState;
 
-  const factory AuthenticationState.gotEmailVerification(AuthenticationData data) = GotEmailVerification;
+  const factory AuthenticationState.gotEmailVerification(AuthenticationData data) =
+      GotEmailVerification;
 
-  const factory AuthenticationState.needUpdatePolicies(AuthenticationData data) = NeedUpdatePolicies;
+  const factory AuthenticationState.needUpdatePolicies(AuthenticationData data) =
+      NeedUpdatePolicies;
 }
 
 @freezed
@@ -40,10 +43,8 @@ class AuthenticationData with _$AuthenticationData {
     @JsonKey(includeFromJson: false, includeToJson: false) RequestError? error,
   }) = _AuthenticationData;
 
-  factory AuthenticationData.fromJson(Map<String, dynamic> json) => _$AuthenticationDataFromJson(json);
-
-  List<UnlockedFeatureType> get unlockedFeatures =>
-      (account?.features.where((e) => e.unlocked).toList() ?? []).map((e) => e.feature).toList();
+  factory AuthenticationData.fromJson(Map<String, dynamic> json) =>
+      _$AuthenticationDataFromJson(json);
 
   bool get hasActiveSubscription => (account?.hasActiveSubscription ?? false);
 
@@ -77,7 +78,7 @@ class AuthenticationData with _$AuthenticationData {
 
   Buddy? get buddy => account?.buddy;
 
-  bool get isFoodLoggingUnlocked => unlockedFeatures.contains(UnlockedFeatureType.foodLogging);
+  bool get isFoodLoggingUnlocked => account?.isFoodLoggingUnlocked ?? false;
 
   bool get isCalorieDensityUnlocked => account?.isCalorieDensityUnlocked ?? false;
 
@@ -91,15 +92,15 @@ class AuthenticationData with _$AuthenticationData {
   bool get isCalorieTrackerUnlocked => account?.isCalorieTrackerUnlocked ?? false;
 
   bool get isGroupSessionsUnlocked =>
-      unlockedFeatures.contains(UnlockedFeatureType.grouping) && !disableGroupSessions;
+      (account?.isGroupSessionsUnlocked ?? false) && !disableGroupSessions;
 
-  bool get isPhysicalActivitiesUnlocked => unlockedFeatures.contains(UnlockedFeatureType.physicalActivities);
+  bool get isPhysicalActivitiesUnlocked => account?.isPhysicalActivitiesUnlocked ?? false;
 
-  bool get isAssignmentsUnlocked => unlockedFeatures.contains(UnlockedFeatureType.assignments);
+  bool get isAssignmentsUnlocked => account?.isAssignmentsUnlocked ?? false;
 
-  bool get isBuddyUnlocked => unlockedFeatures.contains(UnlockedFeatureType.buddy);
+  bool get isBuddyUnlocked => account?.isBuddyUnlocked ?? false;
 
-  bool get isSmartGoalUnlocked => unlockedFeatures.contains(UnlockedFeatureType.smartGoals);
+  bool get isSmartGoalUnlocked => account?.isSmartGoalsUnlocked ?? false;
 
   bool get isUserGrouped => groupingState == UserGroupingState.grouped;
 
