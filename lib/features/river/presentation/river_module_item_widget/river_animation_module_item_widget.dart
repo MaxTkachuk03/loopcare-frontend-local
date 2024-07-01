@@ -7,6 +7,7 @@ import 'package:loopcare_frontend/features/river/domain/river_module_item.dart';
 import 'package:loopcare_frontend/features/river/infrastructure/blue_river_module_item_state.dart';
 import 'package:loopcare_frontend/features/river/infrastructure/feature_placement.dart';
 import 'package:loopcare_frontend/features/river/presentation/river_module_item_widget/river_module_button.dart';
+import 'package:visibility_detector/visibility_detector.dart';
 
 const _idleDuration = Duration(milliseconds: 2000);
 const _colorDuration = Duration(milliseconds: 1000);
@@ -53,6 +54,9 @@ class _RiverAnimationModuleItemWidgetState extends State<RiverAnimationModuleIte
   late Animation<double> _badgeAnimation;
 
   bool _enableFootprint = false;
+  bool _isOnViewport = false;
+
+  _ItemAnimation? _itemAnimation;
 
   @override
   void initState() {
@@ -88,84 +92,90 @@ class _RiverAnimationModuleItemWidgetState extends State<RiverAnimationModuleIte
     _setUpItemColorAnimation(oldWidget.item, widget.item);
 
     if (oldWidget.item.isLocked && widget.item.isUnLocked) {
-      _runUnlock();
+      _itemAnimation = _ItemAnimation.unlock;
     } else if (oldWidget.item.isUnLocked && (widget.item.isRead || widget.item.isCompleted)) {
-      _runRead();
+      _itemAnimation = _ItemAnimation.readAndComplete;
     } else if (oldWidget.item.isRead && widget.item.isCompleted) {
-      _runComplete();
+      _itemAnimation = _ItemAnimation.complete;
     }
+
+    _startAnimation();
   }
 
   @override
   Widget build(BuildContext context) {
-    return Stack(
-      alignment: Alignment.center,
-      clipBehavior: Clip.none,
-      children: [
-        if (_enableFootprint)
-          SlideTransition(
-            position: _unlockAnimation,
-            child: RiverModuleButton(
-              icon: widget.item.icon,
-              radius: widget.radius,
-              bgColor: _getBackgroundColor(widget.item),
-              iconColor: _getIconColor(widget.item),
-            ),
-          ),
-        AnimatedBuilder(
-          animation: _colorController,
-          builder: (context, _) => AnimatedBuilder(
-            animation: _idleController,
-            builder: (context, _) => AnimatedBuilder(
-              animation: _rotationController,
-              builder: (context, child) => Transform(
-                alignment: Alignment.center,
-                transform: Matrix4.identity()
-                  ..setEntry(3, 2, 0.001)
-                  ..rotateY(math.pi * _rotateAnimation.value)
-                  ..scale(_idleAnimation.value, _idleAnimation.value,),
-                child: child,
-              ),
+    return VisibilityDetector(
+      key: Key('animated_module_item_${widget.item.id}'),
+      onVisibilityChanged: onViewPortChanged,
+      child: Stack(
+        alignment: Alignment.center,
+        clipBehavior: Clip.none,
+        children: [
+          if (_enableFootprint)
+            SlideTransition(
+              position: _unlockAnimation,
               child: RiverModuleButton(
-                key: _buttonKey,
                 icon: widget.item.icon,
                 radius: widget.radius,
-                bgColor: _colorBgAnimation.value,
-                iconColor: _colorIconAnimation.value,
-                onPressed: widget.item.isLocked ? null : widget.onTap,
+                bgColor: _getBackgroundColor(widget.item),
+                iconColor: _getIconColor(widget.item),
               ),
             ),
-          ),
-        ),
-        Positioned(
-          right: -5,
-          top: -10,
-          child: AnimatedBuilder(
-            animation: _badgeController,
-            builder: (context, child) => Transform.scale(
-              scale: _badgeAnimation.value,
-              child: child,
-            ),
-            child: badge.Badge(
-              badgeStyle: const badge.BadgeStyle(
-                padding: EdgeInsets.all(5),
-                badgeColor: AppColors.blueRegular,
-                elevation: 0,
-              ),
-              badgeAnimation: const badge.BadgeAnimation.slide(toAnimate: false),
-              position: badge.BadgePosition.topEnd(top: -8, end: -4),
-              badgeContent: Padding(
-                padding: const EdgeInsets.only(bottom: 2.0),
-                child: Icon(
-                  Icons.check,
-                  color: AppColors.white,
-                  size: widget.radius * 0.44,
+          AnimatedBuilder(
+            animation: _colorController,
+            builder: (context, _) => AnimatedBuilder(
+              animation: _idleController,
+              builder: (context, _) => AnimatedBuilder(
+                animation: _rotationController,
+                builder: (context, child) => Transform(
+                  alignment: Alignment.center,
+                  transform: Matrix4.identity()
+                    ..setEntry(3, 2, 0.001)
+                    ..rotateY(math.pi * _rotateAnimation.value)
+                    ..scale(_idleAnimation.value, _idleAnimation.value),
+                  child: child,
+                ),
+                child: RiverModuleButton(
+                  key: _buttonKey,
+                  icon: widget.item.icon,
+                  radius: widget.radius,
+                  bgColor: _colorBgAnimation.value,
+                  iconColor: _colorIconAnimation.value,
+                  onPressed: widget.item.isLocked ? null : widget.onTap,
                 ),
               ),
             ),
           ),
-        ),
-      ],
+          Positioned(
+            right: -5,
+            top: -10,
+            child: AnimatedBuilder(
+              animation: _badgeController,
+              builder: (context, child) => Transform.scale(
+                scale: _badgeAnimation.value,
+                child: child,
+              ),
+              child: badge.Badge(
+                badgeStyle: const badge.BadgeStyle(
+                  padding: EdgeInsets.all(5),
+                  badgeColor: AppColors.blueRegular,
+                  elevation: 0,
+                ),
+                badgeAnimation: const badge.BadgeAnimation.slide(toAnimate: false),
+                position: badge.BadgePosition.topEnd(top: -8, end: -4),
+                badgeContent: Padding(
+                  padding: const EdgeInsets.only(bottom: 2.0),
+                  child: Icon(
+                    Icons.check,
+                    color: AppColors.white,
+                    size: widget.radius * 0.44,
+                  ),
+                ),
+              ),
+            ),
+          ),
+        ],
+      ),
     );
   }
 
@@ -184,6 +194,8 @@ class _RiverAnimationModuleItemWidgetState extends State<RiverAnimationModuleIte
     _idleAnimation = Tween<double>(begin: 1.0, end: 1.1).animate(_idleController);
     _badgeAnimation = Tween<double>(begin: 0.0, end: 1.0).animate(_badgeController);
   }
+
+  void _clearItemAnimation() => _itemAnimation = null;
 
   Color _getIconColor(RiverModuleItem item) {
     if (widget.isBeginning) {
@@ -223,6 +235,10 @@ class _RiverAnimationModuleItemWidgetState extends State<RiverAnimationModuleIte
   void _colorListener(AnimationStatus state) {
     if (state == AnimationStatus.completed) {
       _startIdling();
+
+      if (widget.item.isUnLocked) {
+        _clearItemAnimation();
+      }
     }
   }
 
@@ -233,6 +249,8 @@ class _RiverAnimationModuleItemWidgetState extends State<RiverAnimationModuleIte
         _unlockController.forward();
       } else if (widget.item.isCompleted) {
         _runComplete();
+      } else {
+        _clearItemAnimation();
       }
     }
   }
@@ -242,6 +260,8 @@ class _RiverAnimationModuleItemWidgetState extends State<RiverAnimationModuleIte
       widget.onTransitionComplete?.call(widget.item.featurePlacement!);
       if (widget.item.isCompleted) {
         _runComplete();
+      } else {
+        _clearItemAnimation();
       }
     }
   }
@@ -249,6 +269,22 @@ class _RiverAnimationModuleItemWidgetState extends State<RiverAnimationModuleIte
   void _badgeListener(AnimationStatus state) {
     if (state == AnimationStatus.completed) {
       widget.onStatusChanged?.call();
+      _clearItemAnimation();
+    }
+  }
+
+  void _startAnimation() {
+    if (_isOnViewport && _itemAnimation != null) {
+      switch (_itemAnimation) {
+        case _ItemAnimation.unlock:
+          _runUnlock();
+        case _ItemAnimation.readAndComplete:
+          _runRead();
+        case _ItemAnimation.complete:
+          _runComplete();
+        default:
+          return;
+      }
     }
   }
 
@@ -274,6 +310,11 @@ class _RiverAnimationModuleItemWidgetState extends State<RiverAnimationModuleIte
 
   void _runComplete() {
     _badgeController.forward();
+  }
+
+  void onViewPortChanged(VisibilityInfo info) {
+    _isOnViewport = info.visibleFraction > 0;
+    _startAnimation();
   }
 
   void _updateUnlockAnimation() {
@@ -305,4 +346,10 @@ class _RiverAnimationModuleItemWidgetState extends State<RiverAnimationModuleIte
 
     return button.localToGlobal(Offset.zero, ancestor: overlay).translate(widget.radius, 0);
   }
+}
+
+enum _ItemAnimation {
+  unlock,
+  readAndComplete,
+  complete,
 }
