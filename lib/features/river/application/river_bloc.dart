@@ -62,16 +62,17 @@ class RiverBloc extends Bloc<RiverEvent, RiverState> {
     // todo: check if required action is exist iteration 2
     final itemState = RiverModuleItemState.completed;
 
-    // final r = state.data
-    //     .modules.firstWhere((module) => module.id == event.moduleId)
-    //     .moduleItems.firstWhere((item) => item.id == event.moduleItemId)
-    //     .copyWith(itemState: itemState);
+    final r = state.data
+        .modules.firstWhere((module) => module.id == event.moduleId)
+        .moduleItems.firstWhere((item) => item.id == event.moduleItemId)
+        .copyWith(itemState: itemState);
 
     final data = RiverModuleItemStateData(itemState: itemState);
 
     final response = await _riverService.updateModuleItemState(
       moduleId: event.moduleId,
       moduleItemId: event.moduleItemId,
+      lessonId: r.lessonId,
       data: data,
     );
 
@@ -79,37 +80,36 @@ class RiverBloc extends Bloc<RiverEvent, RiverState> {
       (l) => emit(
         RiverState.moduleItemLoadingError(state.data.copyWith(error: l, isLoading: false)),
       ),
-      (r) {
-        var modules = _updateModuleItem(event.moduleId, r);
+      (res) {
+        // var modules = _updateModuleItem(event.moduleId, r);
 
         var activeModule = state.data.activeModule?.id == event.moduleId
             ? state.data.activeModule
-            : modules.firstWhere((module) => module.id == event.moduleId);
+            : state.data.modules.firstWhere((module) => module.id == event.moduleId);
 
-        if (r.unlocksItems.isNotEmpty) {
-          final moduleItems = activeModule!.moduleItems;
-          final updatedModuleItems = <RiverModuleItem>[];
+        final updatedModuleItems = <RiverModuleItem>[];
 
-          for (int i = 0; i < moduleItems.length; i++) {
-            final item = moduleItems[i];
-            if (r.unlocksItems.contains(item.id) && item.isLocked) {
-              updatedModuleItems.add(item.copyWith(itemState: RiverModuleItemState.unlocked));
-            } else {
-              updatedModuleItems.add(item);
-            }
+        for (int i = 0; i < activeModule!.moduleItems.length; i++) {
+          final item = activeModule.moduleItems[i];
+          if (item.id == r.id) {
+            updatedModuleItems.add(r);
+          } else if (r.unlocksItems.contains(item.id) && item.isLocked) {
+            updatedModuleItems.add(item.copyWith(itemState: RiverModuleItemState.unlocked));
+          } else {
+            updatedModuleItems.add(item);
           }
-
-          activeModule = activeModule.copyWith(moduleItems: updatedModuleItems);
         }
 
+        activeModule = activeModule.copyWith(moduleItems: updatedModuleItems);
+
         if (r.isRootItem) {
-          activeModule = activeModule?.copyWith(
+          activeModule = activeModule.copyWith(
             nextModuleUnlocksAt:
             DateTime.timestamp().add(Duration(seconds: activeModule.nextModuleUnlockDelay)),
           );
         }
 
-        modules = _updateModule(activeModule!);
+        var modules = _updateModule(activeModule!);
 
         emit(
           RiverState.moduleItemLoaded(

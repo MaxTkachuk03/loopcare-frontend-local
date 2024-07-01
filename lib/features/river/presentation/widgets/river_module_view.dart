@@ -201,7 +201,7 @@ class _RiverScreenState extends State<RiverScreen> {
   }
 
   void _onCompleteTime() {
-    if (_isTheBeginningModule) {
+    if (_isTheBeginningModule && !context.read<NavigationBarBloc>().state.data.isBeginningCompleted) {
       ModalBottomSheet.guidanceCompleted(
         context: context,
         onConfirm: () => context.read<NavigationBarBloc>()
