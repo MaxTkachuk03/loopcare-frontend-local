@@ -1,24 +1,19 @@
-import 'package:collection/collection.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:loopcare_frontend/core/domain/account/account_features.dart';
 import 'package:loopcare_frontend/core/domain/account/gender_preferences.dart';
+import 'package:loopcare_frontend/core/domain/account/gender_type.dart';
 import 'package:loopcare_frontend/core/domain/account/sex_type.dart';
 import 'package:loopcare_frontend/core/domain/constants.dart';
 import 'package:loopcare_frontend/core/domain/medical_onboarding.dart';
 import 'package:loopcare_frontend/core/domain/mental_health_tests.dart';
-import 'package:loopcare_frontend/core/domain/nutrition/food_logging_sub_feature_type.dart';
-import 'package:loopcare_frontend/core/domain/unlock_config/feature/feature.dart';
-import 'package:loopcare_frontend/core/domain/unlocked_feature_type.dart';
 import 'package:loopcare_frontend/core/presentation/utils/string_extensions.dart';
 import 'package:loopcare_frontend/features/account/domain/user_grouping_state.dart';
 import 'package:loopcare_frontend/features/authentication/domain/subscription/subscription.dart';
 import 'package:loopcare_frontend/features/buddy/domain/buddy.dart';
 import 'package:loopcare_frontend/features/onboarding/domain/interpretation_type.dart';
-
 import 'package:loopcare_frontend/features/physical_activities/domain/physical_activities_preferences.dart';
 import 'package:loopcare_frontend/features/subscription/donain/subscription_state.dart';
 import 'package:loopcare_frontend/features/you_and_food/application/dto/food_preference.dart';
-
-import 'gender_type.dart';
 
 part 'account.freezed.dart';
 part 'account.g.dart';
@@ -36,6 +31,7 @@ abstract class Account implements _$Account {
     required GenderType gender,
     required SexType sex,
     required Subscription subscription,
+    required AccountFeatures features,
     Buddy? buddy,
     @Default(null) UserGroupingState? groupingState,
     @Default(null) int? groupId,
@@ -53,7 +49,6 @@ abstract class Account implements _$Account {
     @Default([]) List<FoodPreference>? foodPreferencesHates,
     @Default([]) List<FoodPreference>? foodPreferencesDislikes,
     @Default([]) List<FoodPreference>? foodPreferencesAllergic,
-    @Default([]) List<Feature> features,
     PhysicalActivitiesPreferences? physicalActivitiesPreferences,
     MedicalOnboarding? medicalOnboarding,
     @Default(null) MentalHealthTests? mentalHealthTests,
@@ -70,61 +65,27 @@ abstract class Account implements _$Account {
     return match != null ? int.parse(match[0] ?? '0') : 0;
   }
 
-  bool get isPhysicalActivitiesUnlocked =>
-      features
-          .firstWhereOrNull((feature) => feature.feature == UnlockedFeatureType.physicalActivities)
-          ?.unlocked ??
-      false;
+  bool get isPhysicalActivitiesUnlocked => features.physicalActivity;
 
-  bool get isFoodLoggingUnlocked =>
-      features.firstWhereOrNull((feature) => feature.feature == UnlockedFeatureType.foodLogging)?.unlocked ??
-      false;
+  bool get isFoodLoggingUnlocked => features.foodLogging;
 
-  bool get isGroupSessionsUnlocked =>
-      features.firstWhereOrNull((feature) => feature.feature == UnlockedFeatureType.grouping)?.unlocked ??
-      false;
+  bool get isGroupSessionsUnlocked => features.grouping;
 
-  bool get isAssignmentsUnlocked =>
-      features
-          .firstWhereOrNull(
-            (feature) => feature.feature == UnlockedFeatureType.assignments,
-          )
-          ?.unlocked ??
-      false;
+  bool get isAssignmentsUnlocked => features.assignments;
 
-  bool get isBuddyUnlocked =>
-      features.firstWhereOrNull((feature) => feature.feature == UnlockedFeatureType.buddy)?.unlocked ?? false;
+  bool get isBuddyUnlocked => features.buddy;
 
-  bool get isSmartGoalsUnlocked =>
-      features.firstWhereOrNull((feature) => feature.feature == UnlockedFeatureType.smartGoals)?.unlocked ??
-      false;
+  bool get isSmartGoalsUnlocked => features.smartGoals;
 
-  bool get isMindUnlocked =>
-      features.firstWhereOrNull((feature) => feature.feature == UnlockedFeatureType.mind)?.unlocked ?? false;
+  bool get isMindUnlocked => features.mind;
 
-  bool get isCalorieDensityUnlocked =>
-      _isFoodLoggingSubFeatureUnlocked(FoodLoggingSubFeatureType.calorieDensity);
+  bool get isCalorieDensityUnlocked => features.calorieDensity;
 
-  bool get isProteinDegreeUnlocked =>
-      _isFoodLoggingSubFeatureUnlocked(FoodLoggingSubFeatureType.proteinDegree);
+  bool get isProteinDegreeUnlocked => features.proteinDegree;
 
-  bool get isCalorieTrackerUnlocked =>
-      _isFoodLoggingSubFeatureUnlocked(FoodLoggingSubFeatureType.calorieTracker);
+  bool get isCalorieTrackerUnlocked => features.calorieTracker;
 
-  bool get isCarbohydrateRatioUnlocked =>
-      _isFoodLoggingSubFeatureUnlocked(FoodLoggingSubFeatureType.carbohydrateRatio);
-
-  bool _isFoodLoggingSubFeatureUnlocked(FoodLoggingSubFeatureType subFeature) {
-    final foodLoggingFeature = features.firstWhereOrNull((f) => f.feature == UnlockedFeatureType.foodLogging);
-
-    if (foodLoggingFeature == null) return false;
-
-    final subFeatures = foodLoggingFeature.subFeatures;
-
-    if (!foodLoggingFeature.unlocked || subFeatures == null) return false;
-
-    return subFeatures.contains(subFeature.name);
-  }
+  bool get isCarbohydrateRatioUnlocked => features.fiberIndicator;
 
   bool get disableGroupSessions => mentalHealthTests != null && _isPhq8High ? true : false;
 
@@ -141,8 +102,9 @@ abstract class Account implements _$Account {
   int get fiberDailyGoal =>
       sex == SexType.male ? Constants.maleFiberDailyGoal : Constants.femaleFiberDailyGoal;
 
-  int get minCalorieRangeValue =>
-      sex == SexType.male ? Constants.maleMinCaloriesRangeValue : Constants.femaleMinCaloriesRangeValue;
+  int get minCalorieRangeValue => sex == SexType.male
+      ? Constants.maleMinCaloriesRangeValue
+      : Constants.femaleMinCaloriesRangeValue;
 
   factory Account.fromJson(Map<String, dynamic> json) => _$AccountFromJson(json);
 }

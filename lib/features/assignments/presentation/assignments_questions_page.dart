@@ -11,7 +11,6 @@ import 'package:loopcare_frontend/core/presentation/buttons/custom_filled_icon_b
 import 'package:loopcare_frontend/core/presentation/custom_safe_area.dart';
 import 'package:loopcare_frontend/core/presentation/loader/loader.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
-import 'package:loopcare_frontend/core/presentation/routes/app_router.dart';
 import 'package:loopcare_frontend/core/presentation/routes/app_router.gr.dart';
 import 'package:loopcare_frontend/core/presentation/scaffold/custom_scaffold.dart';
 import 'package:loopcare_frontend/core/presentation/text/custom_text.dart';
@@ -27,10 +26,12 @@ import 'package:loopcare_frontend/features/quizzes/domain/lesson_question.dart';
 import 'package:loopcare_frontend/features/quizzes/domain/lesson_question_answer_type.dart';
 import 'package:loopcare_frontend/features/quizzes/infrastructure/questions_page_mode.dart';
 import 'package:loopcare_frontend/features/quizzes/infrastructure/quizzes_controller.dart';
+import 'package:loopcare_frontend/features/river/infrastructure/river_module_stream_type.dart';
 import 'package:loopcare_frontend/injection.dart';
 
 @RoutePage()
 class AssignmentsQuestionsPage extends StatefulWidget {
+  final RiverModuleStreamType streamType;
   final int step;
   final bool fromDashboard;
 
@@ -38,6 +39,7 @@ class AssignmentsQuestionsPage extends StatefulWidget {
     super.key,
     required this.step,
     required this.fromDashboard,
+    this.streamType = RiverModuleStreamType.psychology,
   });
 
   @override
@@ -98,10 +100,14 @@ class _AssignmentsQuestionsPageState extends State<AssignmentsQuestionsPage> {
             AssignmentsEvent.getAllLessonQuestions(accountCreatedDate, DateTime.now()),
           );
 
-      context.router.pushNamed(AppRoutes.assignmentsSaved);
+      context.router.push(AssignmentsSavedRoute(streamType: widget.streamType));
     } else {
       context.router.push(
-        AssignmentsQuestionsRoute(step: widget.step + 1, fromDashboard: widget.fromDashboard),
+        AssignmentsQuestionsRoute(
+          step: widget.step + 1,
+          fromDashboard: widget.fromDashboard,
+          streamType: widget.streamType,
+        ),
       );
     }
   }
@@ -306,11 +312,15 @@ class _AssignmentsQuestionsPageState extends State<AssignmentsQuestionsPage> {
 
   @override
   Widget build(BuildContext context) {
-    return CustomScaffold.petrolLightest(
-      appBar: CustomAppBar.petrol(
+    return CustomScaffold(
+      color: widget.streamType.lightestColor,
+      appBar: CustomAppBar(
+        backgroundColor: widget.streamType.regularColor,
+        textTheme: widget.streamType.appBarTextTheme,
         title: LocalizedTexts.assignment.tr(),
         subtitle: _title,
-        leading: CustomFilledIconButton.leadingPetrolLighter(onPressed: _onPrevHandler),
+        leading: CustomFilledIconButton.fromColor(
+            color: widget.streamType.lighterColor, onPressed: _onPrevHandler),
         bottom: PreferredSize(
           preferredSize: const Size.fromHeight(72),
           child: SimpleProgressBar.petrol(progress: _percent),

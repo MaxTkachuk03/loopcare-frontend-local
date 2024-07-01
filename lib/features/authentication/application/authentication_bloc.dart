@@ -15,7 +15,6 @@ import 'package:loopcare_frontend/core/domain/account/gender_type.dart';
 import 'package:loopcare_frontend/core/domain/analytics/firebase_event_custom_definitions.dart';
 import 'package:loopcare_frontend/core/domain/analytics/firebase_event_list.dart';
 import 'package:loopcare_frontend/core/domain/medical_onboarding.dart';
-import 'package:loopcare_frontend/core/domain/unlock_config/unlock_feature/unlock_feature.dart';
 import 'package:loopcare_frontend/core/domain/unlocked_feature_type.dart';
 import 'package:loopcare_frontend/core/infrastructure/dio_client/dio_client.dart';
 import 'package:loopcare_frontend/core/infrastructure/dio_client/request_error.dart';
@@ -170,6 +169,7 @@ class AuthenticationBloc extends HydratedBloc<AuthenticationEvent, Authenticatio
           emailApproveDate: response.emailApproveDate,
           subscription: response.subscription,
           createdAt: response.createdAt,
+          features: response.features,
         );
 
         add(const AuthenticationEvent.getAccount());
@@ -262,6 +262,7 @@ class AuthenticationBloc extends HydratedBloc<AuthenticationEvent, Authenticatio
           emailApproveDate: response.emailApproveDate,
           subscription: response.subscription,
           createdAt: response.createdAt,
+          features: response.features,
         );
 
         emit(
@@ -405,42 +406,30 @@ class AuthenticationBloc extends HydratedBloc<AuthenticationEvent, Authenticatio
       groupingState: event.groupingState,
     );
 
-    emit(
-      state.copyWith(
-        data: state.data.copyWith(
-          account: account,
-        ),
-      ),
-    );
+    emit(state.copyWith(data: state.data.copyWith(account: account)));
   }
 
   FutureOr<void> _onUnlockFeature(
     UnlockedFeature event,
     Emitter<AuthenticationState> emit,
   ) async {
-    final response = await _authenticationService.unlockFeature(event.feature);
+    // TODO check new unlock feature logic
+    // final response = await _authenticationService.unlockFeature(event.feature);
 
-    response.fold(
-      (l) => null,
-      (r) {
-        final account = _sharedPref.account = _sharedPref.account?.copyWith(
-          features: r.features.where((feature) => feature.unlocked).toList(),
-        );
+    final account = _sharedPref.account;
+    final accountFeatures = _sharedPref.account?.features;
 
-        emit(
-          state.copyWith(
-            data: state.data.copyWith(
-              account: account,
-            ),
-          ),
-        );
+    if (account == null || accountFeatures == null) return;
 
-        if (event.feature.feature == UnlockedFeatureType.grouping.name) {
-          add(const AuthenticationEvent.changeAccountGroupStatus(
-              UserGroupingState.unlockedPreferences));
-        }
-      },
-    );
+    final updatedAccount = _sharedPref.account =
+        account.copyWith(features: accountFeatures.unlockFeature(event.feature));
+
+    emit(state.copyWith(data: state.data.copyWith(account: updatedAccount)));
+
+    if (event.feature.isGrouping) {
+      add(const AuthenticationEvent.changeAccountGroupStatus(
+          UserGroupingState.unlockedPreferences));
+    }
   }
 
   FutureOr<void> _onAuthenticatedCheck(
@@ -589,7 +578,7 @@ class AuthenticationBloc extends HydratedBloc<AuthenticationEvent, Authenticatio
           foodPreferencesHates: r.foodPreferences?.hates,
           foodPreferencesDislikes: r.foodPreferences?.dislike,
           foodPreferencesAllergic: r.foodPreferences?.allergic,
-          features: r.features.where((feature) => feature.unlocked).toList(),
+          features: r.features,
           physicalActivitiesPreferences: r.physicalActivitiesPreferences,
           emailApproveDate: r.emailApproveDate,
           mentalHealthTests: r.mentalHealthTests,

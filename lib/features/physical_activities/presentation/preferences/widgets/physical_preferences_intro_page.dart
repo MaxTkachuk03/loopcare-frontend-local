@@ -8,7 +8,7 @@ import 'package:loopcare_frontend/core/presentation/buttons/custom_filled_icon_b
 import 'package:loopcare_frontend/core/presentation/custom_safe_area.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/core/presentation/network_image_with_cache/network_image_with_cache.dart';
-import 'package:loopcare_frontend/core/presentation/routes/app_router.dart';
+import 'package:loopcare_frontend/core/presentation/routes/app_router.gr.dart';
 import 'package:loopcare_frontend/core/presentation/scaffold/custom_scaffold.dart';
 import 'package:loopcare_frontend/core/presentation/text/custom_text.dart';
 import 'package:loopcare_frontend/core/presentation/utils/build_context_extensions.dart';
@@ -17,21 +17,26 @@ import 'package:loopcare_frontend/core/presentation/widgets/main_container.dart'
 import 'package:loopcare_frontend/core/presentation/widgets/scrollable_container.dart';
 import 'package:loopcare_frontend/features/education/application/education_lesson/education_lesson_bloc.dart';
 import 'package:loopcare_frontend/features/education/presentation/education_page/widgets/category_label.dart';
+import 'package:loopcare_frontend/features/river/infrastructure/river_module_stream_type.dart';
 
 @RoutePage()
 class PhysicalPreferencesIntroPage extends StatelessWidget {
-  const PhysicalPreferencesIntroPage({super.key});
+  final RiverModuleStreamType streamType;
 
-  void _onStart(BuildContext context) {
-    context.router.pushNamed(AppRoutes.physicalActivitiesFrequency);
-  }
+  const PhysicalPreferencesIntroPage({super.key, required this.streamType});
+
+  void _onStart(BuildContext context) =>
+      context.router.push(PhysicalActivitiesFrequencyRoute(streamType: streamType));
 
   @override
   Widget build(BuildContext context) {
-    return CustomScaffold.petrolLightest(
-      appBar: CustomAppBar.petrol(
+    return CustomScaffold(
+      color: streamType.lightestColor,
+      appBar: CustomAppBar(
+        backgroundColor: streamType.regularColor,
+        textTheme: streamType.appBarTextTheme,
         title: LocalizedTexts.preferences.tr(),
-        leading: CustomFilledIconButton.leadingPetrolLighter(),
+        leading: CustomFilledIconButton.fromColor(color: streamType.lighterColor),
       ),
       body: CustomSafeArea(
         child: ScrollableContainer(

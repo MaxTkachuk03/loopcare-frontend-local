@@ -1,5 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:json_annotation/json_annotation.dart';
+import 'package:loopcare_frontend/core/domain/account/account_features.dart';
 import 'package:loopcare_frontend/core/domain/account/gender_type.dart';
 import 'package:loopcare_frontend/core/domain/account/sex_type.dart';
 import 'package:loopcare_frontend/core/domain/food_preferences/food_preferences.dart';
@@ -7,7 +8,6 @@ import 'package:loopcare_frontend/core/domain/grouping_preferences.dart';
 import 'package:loopcare_frontend/core/domain/medical_onboarding.dart';
 import 'package:loopcare_frontend/core/domain/mental_health_tests.dart';
 import 'package:loopcare_frontend/core/domain/physical_fitness/physical_fitness.dart';
-import 'package:loopcare_frontend/core/domain/unlock_config/feature/feature.dart';
 import 'package:loopcare_frontend/features/account/domain/user_grouping_state.dart';
 import 'package:loopcare_frontend/features/authentication/domain/subscription/subscription.dart';
 import 'package:loopcare_frontend/features/buddy/domain/buddy.dart';
@@ -40,7 +40,7 @@ class AccountResponse {
   final Subscription subscription;
   final Buddy? buddy;
   final String? buddyState;
-  final List<Feature> features;
+  final AccountFeatures features;
   final MentalHealthTests? mentalHealthTests;
   final PhysicalActivitiesPreferences? physicalActivitiesPreferences;
   final MedicalOnboarding medicalOnboarding;
