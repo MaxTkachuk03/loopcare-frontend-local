@@ -109,7 +109,7 @@ class RiverBloc extends Bloc<RiverEvent, RiverState> {
           );
         }
 
-        var modules = _updateModule(activeModule!);
+        var modules = _updateModule(activeModule);
 
         emit(
           RiverState.moduleItemLoaded(
