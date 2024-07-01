@@ -33,6 +33,7 @@ class EducationLessonData with _$EducationLessonData {
     @Default('') String lessonCategory,
     @Default(0) int lessonDuration,
     @Default('') String lessonImage,
+    @Default('') String lessonCardImage,
     @Default('') String lessonTitle,
     @Default(false) bool isLoading,
     @Default(false) bool isAudioLoading,

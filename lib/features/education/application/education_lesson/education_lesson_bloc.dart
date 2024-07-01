@@ -6,7 +6,6 @@ import 'package:injectable/injectable.dart';
 import 'package:loopcare_frontend/core/infrastructure/dio_client/request_error.dart';
 import 'package:loopcare_frontend/core/infrastructure/dio_client/server_error_data.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
-import 'package:loopcare_frontend/core/presentation/routes/app_router.dart';
 import 'package:loopcare_frontend/features/education/application/dto/lesson_page.dart';
 import 'package:loopcare_frontend/features/education/application/education_service.dart';
 import 'package:loopcare_frontend/features/education/domain/audio_lesson_content_type.dart';
@@ -147,12 +146,8 @@ class EducationLessonBloc extends Bloc<EducationLessonEvent, EducationLessonStat
         emit(
           EducationLessonState.contentLoaded(
             state.data.copyWith(
-              extraAction: r.unlockingConfig.extraAction,
               pages: r.pages,
-              totalPagesLength:
-                  r.unlockingConfig.extraAction == ExtraActionTypes.setupGroupingPreferences
-                      ? r.pages.length + groupLessonRoutes.length
-                      : r.pages.length,
+              totalPagesLength: r.pages.length,
               currentPageIndex: event.pageIndex,
               currentProgressPageIndex: event.pageIndex,
               lessonProgress: 0,
@@ -161,6 +156,7 @@ class EducationLessonBloc extends Bloc<EducationLessonEvent, EducationLessonStat
               lessonCategory: r.category,
               lessonDuration: r.duration,
               lessonImage: r.image,
+              lessonCardImage: r.cardImage,
               lessonTitle: r.title,
               isLoading: false,
               error: null,
@@ -206,11 +202,7 @@ class EducationLessonBloc extends Bloc<EducationLessonEvent, EducationLessonStat
       (r) => emit(
         EducationLessonState.lessonCompleted(
           state.data.copyWith(
-            extraAction: r.unlockingConfig.extraAction,
-            totalPagesLength:
-                r.unlockingConfig.extraAction == ExtraActionTypes.setupGroupingPreferences
-                    ? r.pages.length + groupLessonRoutes.length
-                    : r.pages.length,
+            totalPagesLength: r.pages.length,
             lessonProgress: 0,
             lessonId: r.id,
             lessonCompletedDate: r.completedAt,

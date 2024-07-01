@@ -15,7 +15,6 @@ import 'package:loopcare_frontend/core/presentation/utils/build_context_extensio
 import 'package:loopcare_frontend/core/presentation/widgets/main_container.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/scrollable_container.dart';
 import 'package:loopcare_frontend/features/education/application/education_lesson/education_lesson_bloc.dart';
-import 'package:loopcare_frontend/features/education/application/education_program/education_program_bloc.dart';
 import 'package:loopcare_frontend/features/education/domain/subtitle/image_subtitle_controller.dart';
 import 'package:loopcare_frontend/features/education/presentation/education_page/utils/get_label_by_category.dart';
 import 'package:loopcare_frontend/features/education/presentation/lesson/widgets/audio_block.dart';
@@ -153,11 +152,7 @@ class _LessonAudioBodyState extends State<LessonAudioBody> {
                                   duration: 300.ms,
                                   builder: (_, __) => AudioBlock(
                                     url: state.data.currentPage.content.audioFilePath,
-                                    audioPreviewImage: context
-                                        .read<EducationProgramBloc>()
-                                        .state
-                                        .data
-                                        .getLessonCardImage(state.data.lessonId),
+                                    audioPreviewImage: state.data.lessonCardImage,
                                     duration: state.data.lessonDuration,
                                     title: state.data.lessonTitle,
                                     controller: _subtitleController,
