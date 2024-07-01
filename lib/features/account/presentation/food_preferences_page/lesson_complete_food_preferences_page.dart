@@ -20,14 +20,18 @@ import 'package:loopcare_frontend/core/presentation/widgets/scrollable_container
 import 'package:loopcare_frontend/features/account/presentation/edit_food_preferences_page/edit_food_preferences_page.dart';
 import 'package:loopcare_frontend/features/education/application/education_lesson/education_lesson_bloc.dart';
 import 'package:loopcare_frontend/features/education/presentation/education_page/widgets/category_label.dart';
+import 'package:loopcare_frontend/features/river/infrastructure/river_module_stream_type.dart';
 import 'package:loopcare_frontend/features/you_and_food/application/you_and_food_bloc.dart';
 
 @RoutePage()
 class LessonCompleteFoodPreferencesPage extends StatefulWidget {
-  const LessonCompleteFoodPreferencesPage({super.key});
+  final RiverModuleStreamType streamType;
+
+  const LessonCompleteFoodPreferencesPage({super.key, required this.streamType});
 
   @override
-  State<LessonCompleteFoodPreferencesPage> createState() => _LessonCompleteFoodPreferencesPageState();
+  State<LessonCompleteFoodPreferencesPage> createState() =>
+      _LessonCompleteFoodPreferencesPageState();
 }
 
 class _LessonCompleteFoodPreferencesPageState extends State<LessonCompleteFoodPreferencesPage> {
@@ -47,10 +51,13 @@ class _LessonCompleteFoodPreferencesPageState extends State<LessonCompleteFoodPr
   Widget build(BuildContext context) {
     return WillPopScope(
       onWillPop: () => _onWillPop(context),
-      child: CustomScaffold.petrolLightest(
-        appBar: CustomAppBar.petrol(
+      child: CustomScaffold(
+        color: widget.streamType.lightestColor,
+        appBar: CustomAppBar(
+          backgroundColor: widget.streamType.regularColor,
+          textTheme: widget.streamType.appBarTextTheme,
           title: LocalizedTexts.preferences.tr(),
-          leading: CustomFilledIconButton.leadingPetrolLighter(),
+          leading: CustomFilledIconButton.fromColor(color: widget.streamType.lighterColor),
         ),
         body: CustomSafeArea(
           child: ScrollableContainer(
@@ -62,7 +69,8 @@ class _LessonCompleteFoodPreferencesPageState extends State<LessonCompleteFoodPr
                     children: [
                       const SizedBox(height: 8.0),
                       Container(
-                          alignment: Alignment.center, child: const Image(image: AppImages.foodPreferences)),
+                          alignment: Alignment.center,
+                          child: const Image(image: AppImages.foodPreferences)),
                     ],
                   ),
                   Column(
@@ -136,6 +144,7 @@ class _LessonCompleteFoodPreferencesPageState extends State<LessonCompleteFoodPr
         EditFoodPreferencesRoute(
           mode: const EditFoodPreferencesPageMode.allergies(),
           fromLessonComplete: true,
+          streamType: widget.streamType,
         ),
       );
   }

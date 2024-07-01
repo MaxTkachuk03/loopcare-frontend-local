@@ -19,13 +19,19 @@ import 'package:loopcare_frontend/core/presentation/utils/build_context_extensio
 import 'package:loopcare_frontend/core/presentation/widgets/main_container.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/scrollable_container.dart';
 import 'package:loopcare_frontend/features/education/domain/extra_action_page_mode.dart';
+import 'package:loopcare_frontend/features/river/infrastructure/river_module_stream_type.dart';
 import 'package:loopcare_frontend/injection.dart';
 
 @RoutePage()
 class ConsultDoctorPage extends StatefulWidget {
+  final RiverModuleStreamType streamType;
   final ExtraActionPageMode mode;
 
-  const ConsultDoctorPage({super.key, required this.mode});
+  const ConsultDoctorPage({
+    super.key,
+    required this.mode,
+    this.streamType = RiverModuleStreamType.psychology,
+  });
 
   @override
   State<ConsultDoctorPage> createState() => _ConsultDoctorPageState();
@@ -104,10 +110,13 @@ class _ConsultDoctorPageState extends State<ConsultDoctorPage> {
   }
 
   _getScaffold(Widget body) => widget.mode.map(
-        afterLesson: (_) => CustomScaffold.petrolLightest(
-          appBar: CustomAppBar.petrol(
+        afterLesson: (_) => CustomScaffold(
+          color: widget.streamType.lightestColor,
+          appBar: CustomAppBar(
+            backgroundColor: widget.streamType.regularColor,
+            textTheme: widget.streamType.appBarTextTheme,
             title: LocalizedTexts.preferences.tr(),
-            leading: CustomFilledIconButton.leadingPetrolLighter(),
+            leading: CustomFilledIconButton.fromColor(color: widget.streamType.lighterColor),
           ),
           body: body,
         ),

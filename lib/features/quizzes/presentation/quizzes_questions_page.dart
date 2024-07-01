@@ -12,7 +12,6 @@ import 'package:loopcare_frontend/core/presentation/buttons/custom_filled_icon_b
 import 'package:loopcare_frontend/core/presentation/custom_error_widget/error_invoker.dart';
 import 'package:loopcare_frontend/core/presentation/custom_safe_area.dart';
 import 'package:loopcare_frontend/core/presentation/loader/loader.dart';
-import 'package:loopcare_frontend/core/presentation/routes/app_router.dart';
 import 'package:loopcare_frontend/core/presentation/routes/app_router.gr.dart';
 import 'package:loopcare_frontend/core/presentation/scaffold/custom_scaffold.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/main_container.dart';
@@ -26,14 +25,14 @@ import 'package:loopcare_frontend/features/quizzes/infrastructure/questions_page
 import 'package:loopcare_frontend/features/quizzes/infrastructure/quizzes_controller.dart';
 import 'package:loopcare_frontend/features/quizzes/presentation/widgets/correct_incorrect_explanation.dart';
 import 'package:loopcare_frontend/features/quizzes/presentation/widgets/quizzes_question.dart';
+import 'package:loopcare_frontend/features/river/infrastructure/river_module_stream_type.dart';
 
 @RoutePage()
 class QuizzesQuestionsPage extends StatefulWidget {
   final int step;
-  const QuizzesQuestionsPage({
-    super.key,
-    required this.step,
-  });
+  final RiverModuleStreamType streamType;
+
+  const QuizzesQuestionsPage({super.key, required this.step, required this.streamType});
 
   @override
   State<QuizzesQuestionsPage> createState() => _QuizzesQuestionsPageState();
@@ -118,9 +117,10 @@ class _QuizzesQuestionsPageState extends State<QuizzesQuestionsPage> {
 
   void _onNextHandler() {
     if (widget.step == (_totalSteps - 1)) {
-      context.router.pushNamed(AppRoutes.lessonComplete);
+      context.router.push(LessonCompleteRoute(streamType: widget.streamType));
     } else {
-      context.router.push(QuizzesQuestionsRoute(step: widget.step + 1));
+      context.router
+          .push(QuizzesQuestionsRoute(step: widget.step + 1, streamType: widget.streamType));
     }
   }
 
@@ -155,14 +155,24 @@ class _QuizzesQuestionsPageState extends State<QuizzesQuestionsPage> {
 
   @override
   Widget build(BuildContext context) {
-    return CustomScaffold.petrolLightest(
-      appBar: CustomAppBar.petrol(
+    return CustomScaffold(
+      color: widget.streamType.lightestColor,
+      appBar: CustomAppBar(
+        backgroundColor: widget.streamType.regularColor,
+        textTheme: widget.streamType.appBarTextTheme,
         title: LocalizedTexts.quiz.tr(),
         subtitle: _title,
-        leading: CustomFilledIconButton.leadingPetrolLighter(),
-        actions: const [
-          ErrorInvokeButton(),
-        ],
+        leading: CustomFilledIconButton.fromColor(color: widget.streamType.lighterColor),
+        actions: const [ErrorInvokeButton()],
+        bottom: PreferredSize(
+          preferredSize: const Size.fromHeight(72),
+          child: SimpleProgressBar(
+            backgroundColor: widget.streamType.regularColor,
+            progressFillColor: widget.streamType.lightestColor,
+            progressEmptyColor: AppColors.white.withOpacity(0.45),
+            progress: _percent,
+          ),
+        ),
       ),
       body: CustomSafeArea(
         child: ErrorInvoker(
@@ -175,7 +185,6 @@ class _QuizzesQuestionsPageState extends State<QuizzesQuestionsPage> {
                 children: [
                   Column(
                     children: [
-                      SimpleProgressBar.petrol(progress: _percent),
                       const SizedBox(height: 32),
                       MainContainer(
                         child: BlocBuilder<QuizzesBloc, QuizzesState>(

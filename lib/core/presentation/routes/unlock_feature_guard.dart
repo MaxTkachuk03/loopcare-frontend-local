@@ -1,12 +1,13 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:loopcare_frontend/core/domain/unlocked_feature_type.dart';
 import 'package:loopcare_frontend/core/infrastructure/services/shared_storage/shared_storage_service.dart';
-import 'package:loopcare_frontend/core/presentation/routes/app_router.dart';
+import 'package:loopcare_frontend/core/presentation/routes/app_router.gr.dart';
 import 'package:loopcare_frontend/features/account/application/group_preferences_bloc.dart';
 import 'package:loopcare_frontend/features/account/domain/group_prefs_mode.dart';
 import 'package:loopcare_frontend/features/authentication/application/authentication_bloc.dart';
 import 'package:loopcare_frontend/features/education/application/education_lesson/education_lesson_bloc.dart';
 import 'package:loopcare_frontend/features/education/domain/extra_action_types.dart';
+import 'package:loopcare_frontend/features/river/infrastructure/river_module_stream_type.dart';
 import 'package:loopcare_frontend/injection.dart';
 
 class UnlockFeatureGuard extends AutoRouteGuard {
@@ -14,6 +15,9 @@ class UnlockFeatureGuard extends AutoRouteGuard {
 
   @override
   Future<void> onNavigation(NavigationResolver resolver, StackRouter router) async {
+    final args = router.current.args as dynamic;
+    final streamType = args.streamType as RiverModuleStreamType;
+
     final account = getIt<SharedStorageService>().account;
     final extraAction = getIt<EducationLessonBloc>().state.data.extraAction;
 
@@ -24,7 +28,7 @@ class UnlockFeatureGuard extends AutoRouteGuard {
       getIt<GroupPreferencesBloc>()
           .add(const GroupPreferencesEvent.changeGroupPrefsMode(GroupPrefsMode.groupingLesson));
 
-      router.pushNamed(AppRoutes.supportGroupIntro);
+      router.push(SupportGroupIntroRoute(streamType: streamType));
       return;
     }
 
@@ -32,7 +36,7 @@ class UnlockFeatureGuard extends AutoRouteGuard {
         !(account?.isFoodLoggingUnlocked ?? false)) {
       _unlockFeature(UnlockedFeatureType.foodLogging);
 
-      router.pushNamed(AppRoutes.lessonCompleteFoodPreferences);
+      router.push(LessonCompleteFoodPreferencesRoute(streamType: streamType));
       return;
     }
 
@@ -40,7 +44,7 @@ class UnlockFeatureGuard extends AutoRouteGuard {
         !(account?.isPhysicalActivitiesUnlocked ?? false)) {
       _unlockFeature(UnlockedFeatureType.physicalActivity);
 
-      router.pushNamed(AppRoutes.physicalPreferencesIntro);
+      router.push(PhysicalPreferencesIntroRoute(streamType: streamType));
       return;
     }
 

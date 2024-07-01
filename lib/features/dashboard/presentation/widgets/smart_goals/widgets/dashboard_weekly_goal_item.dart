@@ -41,6 +41,9 @@ class DashboardWeeklyGoalItem extends StatefulWidget {
 }
 
 class _DashboardWeeklyGoalItemState extends State<DashboardWeeklyGoalItem> {
+  int get times =>
+      widget.item.progressForDate(context.read<SmartGoalsBloc>().state.data.selectedDate);
+
   void _onProgressHandler(BuildContext context, WeeklySmartGoal item) {
     HapticFeedback.vibrate();
     context.read<SmartGoalsBloc>().add(SmartGoalsEvent.postCompletions(weeklySmartGoal: item));
@@ -129,11 +132,13 @@ class _DashboardWeeklyGoalItemState extends State<DashboardWeeklyGoalItem> {
             trailing: (widget.editable)
                 ? GoalProgressButton(
                     item: widget.item,
-                    onPressed: widget.item.completionsAmount < maxCompletions
+                    times: times,
+                    onPressed: times < maxCompletions
                         ? () => _onProgressHandler(context, widget.item)
                         : null,
-                    onResetProgress:
-                        widget.item.completionsAmount > 0 ? () => _onResetProgressHandler(context, widget.item) : null,
+                    onResetProgress: times > 0
+                        ? () => _onResetProgressHandler(context, widget.item)
+                        : null,
                   )
                 : GoalAchieveButton(
                     item: widget.item,
@@ -192,7 +197,8 @@ class _LeftDaysWidget extends StatelessWidget {
           ),
           BlocBuilder<SmartGoalsBloc, SmartGoalsState>(
             builder: (context, state) {
-              final days = readyForReview ? LocalizedTexts.weeklyDaysReview.tr() : _getSubTitle(state);
+              final days =
+                  readyForReview ? LocalizedTexts.weeklyDaysReview.tr() : _getSubTitle(state);
               if (days.isNotEmpty) {
                 return CustomText.w400(
                   days,
