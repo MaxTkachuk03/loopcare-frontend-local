@@ -35,8 +35,6 @@ class RiverModuleItem with _$RiverModuleItem {
 
   double get iconElevation => itemState.elevation;
 
-  bool get isReflection => iconType.isReflection;
-
   bool get isLocked => itemState.isLocked;
 
   bool get isUnLocked => itemState.isUnLocked;
@@ -44,6 +42,10 @@ class RiverModuleItem with _$RiverModuleItem {
   bool get isCompleted => itemState.isCompleted;
 
   bool get isRead => itemState.isRead;
+
+  bool get isProfile => iconType == RiverIconType.profile;
+
+  bool get isPractice => iconType == RiverIconType.practise;
 
   factory RiverModuleItem.fromJson(Map<String, dynamic> json) => _$RiverModuleItemFromJson(json);
 }

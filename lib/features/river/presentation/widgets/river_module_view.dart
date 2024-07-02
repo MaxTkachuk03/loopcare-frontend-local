@@ -14,9 +14,8 @@ import 'package:loopcare_frontend/features/education/application/education_lesso
 import 'package:loopcare_frontend/features/home/application/navigation_bar_bloc.dart';
 import 'package:loopcare_frontend/features/river/application/river_bloc.dart';
 import 'package:loopcare_frontend/features/river/domain/river_module.dart';
-import 'package:loopcare_frontend/features/river/domain/river_module_item.dart' as model;
+import 'package:loopcare_frontend/features/river/domain/river_module_item.dart';
 import 'package:loopcare_frontend/features/river/infrastructure/feature_placement.dart';
-import 'package:loopcare_frontend/features/river/infrastructure/river_icon_type.dart';
 import 'package:loopcare_frontend/features/river/presentation/river_module_item_widget/river_animation_module_item_widget.dart';
 import 'package:loopcare_frontend/features/river/presentation/utils/module_items_utils.dart';
 import 'package:loopcare_frontend/features/river/presentation/widgets/animated_river_streams.dart';
@@ -38,7 +37,7 @@ class RiverScreen extends StatefulWidget {
 }
 
 class _RiverScreenState extends State<RiverScreen> {
-  late List<({Offset offset, model.RiverModuleItem item})> _positionedItems;
+  late List<({Offset offset, RiverModuleItem item})> _positionedItems;
   late int _page;
 
   bool get _isTheBeginningModule => _page == 0;
@@ -129,7 +128,7 @@ class _RiverScreenState extends State<RiverScreen> {
 
   int _getIndex(int i) => i <= 5 ? i : _getIndex(i - 5);
 
-  void _onItemPressed(model.RiverModuleItem item) {
+  void _onItemPressed(RiverModuleItem item) {
     if (_isTheBeginningModule) {
       _beginningUnlockAction(item);
     } else {
@@ -137,14 +136,14 @@ class _RiverScreenState extends State<RiverScreen> {
     }
   }
 
-  void _beginningUnlockAction(model.RiverModuleItem item) {
+  void _beginningUnlockAction(RiverModuleItem item) {
     if (item.itemState.isCompleted) {
       return;
     }
 
     final riverBloc = context.read<RiverBloc>();
 
-    if (item.iconType == RiverIconType.practice) {
+    if (item.isPractice) {
       ModalBottomSheet.guidancePractice(
         context: context,
         onConfirm: () => riverBloc.add(
@@ -156,7 +155,7 @@ class _RiverScreenState extends State<RiverScreen> {
       );
     }
 
-    if (item.iconType == RiverIconType.profile) {
+    if (item.isProfile) {
       ModalBottomSheet.guidanceProfile(
         context: context,
         onConfirm: () => riverBloc.add(
@@ -169,11 +168,13 @@ class _RiverScreenState extends State<RiverScreen> {
     }
   }
 
-  void _navigateToLesson(model.RiverModuleItem item) {
+  void _navigateToLesson(RiverModuleItem item) {
     CustomerIoService.track(
       event: CIOEvents.educationWidget,
       attributes: {CIOAttributes.articleId: item.lessonId},
     );
+
+    context.read<RiverBloc>().add(RiverEvent.selectModuleItem(item: item));
 
     context.read<EducationLessonBloc>().add(
           EducationLessonEvent.getLessonContent(lessonId: item.lessonId, pageIndex: 0),

@@ -13,7 +13,6 @@ abstract class RiverService {
   Future<Either<RequestError, RiverModuleItem>> updateModuleItemState({
     required int moduleId,
     required int moduleItemId,
-    required int lessonId,
     required RiverModuleItemStateData data,
   });
 }
