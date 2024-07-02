@@ -46,6 +46,7 @@ class _SexChipsState extends State<SexChips> {
               selected: item == _selectedValue,
               onSelected: _onSelectedSexHandler,
               value: item,
+              textAlign: TextAlign.center,
             ),
           ),
         ).toList(),

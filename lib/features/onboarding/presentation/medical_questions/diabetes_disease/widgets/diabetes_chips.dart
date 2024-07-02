@@ -54,6 +54,7 @@ class _DiabetesChipsState extends State<DiabetesChips> {
                 selected: item == _selectedValue,
                 onSelected: _onSelected,
                 value: item,
+                textAlign: TextAlign.center,
               ),
             ))
           .toList(),

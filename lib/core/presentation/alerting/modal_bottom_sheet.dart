@@ -232,6 +232,7 @@ class ModalBottomSheet {
     showModalBottomSheet<void>(
       isScrollControlled: true,
       isDismissible: false,
+      backgroundColor: AppColors.petrolLightest,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(24.0)),
       context: context,
       builder: (BuildContext context) {
@@ -246,7 +247,7 @@ class ModalBottomSheet {
                   padding: const EdgeInsets.symmetric(horizontal: 20.0),
                   child: CustomText.w600(
                     LocalizedTexts.youExceededTimeMessage.tr(),
-                    style: context.textTheme.bodyMedium?.copyWith(color: AppColors.orangeRegular),
+                    style: context.textTheme.bodyMedium,
                   ),
                 ),
                 const SizedBox(height: 26.0),
@@ -481,6 +482,7 @@ class ModalBottomSheet {
     required BuildContext context,
   }) {
     showModalBottomSheet<void>(
+      backgroundColor: AppColors.petrolLightest,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(24.0)),
       context: context,
       builder: (BuildContext context) {

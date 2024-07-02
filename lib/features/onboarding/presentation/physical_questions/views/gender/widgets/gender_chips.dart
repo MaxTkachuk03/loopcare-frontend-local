@@ -45,6 +45,7 @@ class _GenderChipsState extends State<GenderChips> {
               selected: item == _selectedGender,
               onSelected: _onSelected,
               value: item,
+              textAlign: TextAlign.center,
             ),
           ),
         ).toList(),

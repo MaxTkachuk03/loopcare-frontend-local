@@ -55,7 +55,7 @@ class OnboardingIntroPage extends StatelessWidget {
             ),
           ),
           button: CustomElevatedButton.blueFullWidth(
-            label: LocalizedTexts.next.tr(),
+            label: LocalizedTexts.start.tr(),
             onPressed: () => _onNextPressed(context),
           ),
         ),

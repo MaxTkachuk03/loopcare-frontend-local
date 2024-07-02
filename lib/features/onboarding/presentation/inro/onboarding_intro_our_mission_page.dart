@@ -84,7 +84,7 @@ class _OnboardingIntroOurMissionPageState extends State<OnboardingIntroOurMissio
                           child: child!,
                         );
                       },
-                      child: CustomText.w400(
+                      child: CustomText.w600(
                         _Member.values[index].description.tr(),
                         style: context.textTheme.bodyMedium,
                         textAlign: TextAlign.center,

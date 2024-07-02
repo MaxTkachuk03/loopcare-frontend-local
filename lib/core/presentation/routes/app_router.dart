@@ -51,14 +51,8 @@ class AppRouter extends $AppRouter {
             AutoRoute(path: AppRoutes.account, page: AccountRoute.page),
           ],
         ),
-        AutoRoute(
-          path: AppRoutes.joinUs,
-          page: JoinUsRoute.page,
-        ),
-        AutoRoute(
-          path: AppRoutes.successVerifiedEmail,
-          page: SuccessVerifiedEmailRoute.page,
-        ), // added
+
+        // Auth
         AutoRoute(
           path: AppRoutes.login,
           page: LoginRoute.page,
