@@ -57,6 +57,7 @@ class _QuestionsChipsState extends State<QuestionsChips> {
               selected: item == _selectedValue,
               onSelected: _onSelected,
               value: item,
+              textAlign: TextAlign.center,
             ),
           ))
           .toList(),

@@ -44,6 +44,7 @@ class MentalHealthQuestionContent extends StatelessWidget {
                     selected: currentAnswer?.optionId == item.id,
                     onSelected: (value) => _onSelected(context, state, value),
                     value: item.id,
+                    textAlign: TextAlign.center,
                   ),
                 ),
               ),
