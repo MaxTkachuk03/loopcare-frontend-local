@@ -6,12 +6,6 @@ class AppRoutes {
   static const String intro = '/intro'; // added
   static const String accessCode = '/access-code'; // added
 
-  @Deprecated('Not include in River Onboarding')
-  static const String joinUs = '/join-us'; // added
-
-  @Deprecated('Not include in River Onboarding')
-  static const String successVerifiedEmail = '/success-verified-email'; // added
-
   static const String login = '/login'; //added
   static const String forgotPassword = '/forgot-password';
 

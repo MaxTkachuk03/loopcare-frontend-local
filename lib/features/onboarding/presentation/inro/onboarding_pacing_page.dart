@@ -20,7 +20,6 @@ class OnboardingPacingPage extends StatelessWidget {
 
   void _onNextPressed(BuildContext context) => context.router.pushNamed(AppRoutes.name);
 
-
   @override
   Widget build(BuildContext context) {
     return CustomScaffold.blueLightest(
@@ -40,7 +39,7 @@ class OnboardingPacingPage extends StatelessWidget {
               const Image(image: AppImages.onboardingPacing),
               const Spacer(),
               MainContainer(
-                child: CustomText.w400(
+                child: CustomText.w600(
                   LocalizedTexts.onboardingPacingMessage.tr(),
                   style: context.textTheme.bodyMedium,
                   textAlign: TextAlign.center,

@@ -49,7 +49,7 @@ class _WeightLossMedicationContentState extends State<WeightLossMedicationConten
           children: [
             const SizedBox(height: 50.0),
             CustomText.bitter600(
-              '${LocalizedTexts.weightLossMedicationQuestion.tr()}?',
+              LocalizedTexts.weightLossMedicationQuestion.tr(),
               style: context.textTheme.displayMedium,
             ),
             const SizedBox(height: 36.0),

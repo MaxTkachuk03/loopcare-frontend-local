@@ -146,14 +146,9 @@ class SplashController {
 
     if (authState.data.name.isNotEmpty) {
       needRoutes.addAll([
-        const JoinUsRoute(),
         const NameRoute(),
         const EmailAddressRoute(),
       ]);
-    }
-
-    if (authState.data.email.isNotEmpty) {
-      needRoutes.add(const SuccessVerifiedEmailRoute());
     }
 
     if (onboardingState.isStarted) {
