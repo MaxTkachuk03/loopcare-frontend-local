@@ -13,7 +13,6 @@ import 'package:loopcare_frontend/features/home/application/navigation_bar_bloc.
 import 'package:loopcare_frontend/features/legal_statement/application/legal_statement_bloc.dart';
 import 'package:loopcare_frontend/features/onboarding/application/general/general_onboarding_bloc.dart';
 import 'package:loopcare_frontend/features/river/application/river_bloc.dart';
-import 'package:loopcare_frontend/features/river/infrastructure/river_icon_type.dart';
 import 'package:loopcare_frontend/features/transparency/applictation/device_info_service.dart';
 import 'package:loopcare_frontend/injection.dart';
 
@@ -111,12 +110,12 @@ class SplashController {
 
     final isProfileOpened = riverBloc.state.data.activeModule!
         .moduleItems
-        .firstWhere((item) => item.iconType == RiverIconType.profile)
+        .firstWhere((item) => item.isProfile)
         .isCompleted;
 
     final isPracticeOpened = riverBloc.state.data.activeModule!
         .moduleItems
-        .firstWhere((item) => item.iconType == RiverIconType.practice)
+        .firstWhere((item) => item.isPractice)
         .isCompleted;
 
     if (isProfileOpened) {

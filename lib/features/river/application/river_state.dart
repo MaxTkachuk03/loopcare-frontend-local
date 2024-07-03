@@ -16,6 +16,8 @@ class RiverState with _$RiverState {
       RiverStateModuleItemLoadingError;
 
   const factory RiverState.moduleItemLoaded(RiverStateData data) = RiverStateModuleItemLoaded;
+
+  const factory RiverState.moduleItemSelected(RiverStateData data) = RiverStateModuleItemSelected;
 }
 
 @freezed
@@ -24,9 +26,10 @@ class RiverStateData with _$RiverStateData {
 
   const factory RiverStateData({
     @Default([]) List<RiverModule> modules,
-    @Default(null) RiverModule? activeModule,
     @Default(false) bool isLoading,
-    @Default(null) RequestError? error,
+    RiverModule? activeModule,
+    RiverModuleItem? activeModuleItem,
+    RequestError? error,
   }) = _RiverStateData;
 
   int get currentPage => activeModule != null ? modules.indexOf(activeModule!) : 0;

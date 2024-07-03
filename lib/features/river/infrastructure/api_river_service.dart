@@ -28,27 +28,20 @@ class APIRiverService implements RiverService {
   @override
   Future<Either<RequestError, RiverModule>> getModuleById({required int moduleId}) async {
     // TODO river modules response mock
-    return right(RiverModule.fromJson({'data': modules[1]}));
+    // return right(RiverModule.fromJson({'data': modules[1]}));
 
     // TODO replace with correct url
-    // return await client.get('//river/modules/$moduleId', fromJson: RiverModule.fromJson);
+    return await client.get('/river/modules/$moduleId', fromJson: RiverModule.fromJson);
   }
 
   @override
   Future<Either<RequestError, RiverModuleItem>> updateModuleItemState({
     required int moduleId,
     required int moduleItemId,
-    // todo remove
-    required int lessonId,
     required RiverModuleItemStateData data,
   }) async {
     // TODO river modules response mock
     // return right(RiverModuleItem.fromJson(moduleItem));
-    await client.post(
-      '/education/lessons/$lessonId/complete',
-      data: {"completedAt": DateTime.now().toUtc().toIso8601String()},
-    );
-
     return await client.put(
       '/river/modules/$moduleId/module-items/$moduleItemId/progress',
       data: data,
