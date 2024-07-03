@@ -91,6 +91,56 @@ class ModalBottomSheet {
     ).whenComplete(onContinuePressed);
   }
 
+  static void emailChangeConfirmed({
+    required BuildContext context,
+    required void Function() onCloseCallback,
+  }) {
+    showModalBottomSheet<void>(
+      showDragHandle: true,
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(24.0)),
+      context: context,
+      builder: (context) {
+        return MainContainer(
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              const SizedBox(height: 25.0),
+              const CircleAvatar(
+                radius: 22.0,
+                backgroundColor: AppColors.greenRegular,
+                child: Icon(Icons.check, size: 30),
+              ),
+              const SizedBox(height: 20.0),
+              CustomText.bitter500(
+                LocalizedTexts.emailChangeConfirmedTitle.tr(),
+                style: context.textTheme.displayMedium,
+                textAlign: TextAlign.center,
+              ),
+              const SizedBox(height: 32.0),
+              CustomText.w600(
+                LocalizedTexts.emailChangeConfirmedBody1.tr(),
+                style: context.textTheme.bodyMedium,
+                textAlign: TextAlign.center,
+              ),
+              const SizedBox(height: 32.0),
+              CustomText.w400(
+                LocalizedTexts.emailChangeConfirmedBody2.tr(),
+                style: context.textTheme.bodyMedium,
+                textAlign: TextAlign.center,
+              ),
+              const SizedBox(height: 32.0),
+              CustomElevatedButton.blueFullWidth(
+                label: LocalizedTexts.done.tr(),
+                onPressed: context.router.maybePop,
+              ),
+              const SizedBox(height: 30.0),
+            ],
+          ),
+        );
+      },
+    ).whenComplete(onCloseCallback);
+  }
+
   static void physicalInvalidMessage({required BuildContext context, required String message}) {
     showModalBottomSheet<void>(
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(24.0)),
@@ -211,8 +261,9 @@ class ModalBottomSheet {
                   const SizedBox(height: 12.0),
                   CustomOutlinedButton.blueFullWidth(
                     onPressed: noActiveSubscription ? onDeleted : onSubscriptionPref,
-                    label:
-                        noActiveSubscription ? LocalizedTexts.yesDelete.tr() : LocalizedTexts.manageSubscription.tr(),
+                    label: noActiveSubscription
+                        ? LocalizedTexts.yesDelete.tr()
+                        : LocalizedTexts.manageSubscription.tr(),
                   )
                 ],
               ),
@@ -572,8 +623,8 @@ class ModalBottomSheet {
                         return InkWell(
                           onTap: () {
                             context.router.maybePop();
-                            final selectedNutritionType =
-                                NutritionValuesTypes.values.firstWhere((element) => element.name == item.key);
+                            final selectedNutritionType = NutritionValuesTypes.values
+                                .firstWhere((element) => element.name == item.key);
                             onSelect(selectedNutritionType);
                           },
                           child: Container(
@@ -727,7 +778,8 @@ class ModalBottomSheet {
 
                                     setState(
                                       () {
-                                        updatedList[index] = item.copyWith(selected: value ?? false);
+                                        updatedList[index] =
+                                            item.copyWith(selected: value ?? false);
                                       },
                                     );
                                   },
@@ -902,7 +954,9 @@ class ModalBottomSheet {
                             child: Row(
                               children: [
                                 IconButton(
-                                  icon: isFilled ? AppIcons.checkmarkSVG : item.icon ?? AppIcons.checkmarkSVG,
+                                  icon: isFilled
+                                      ? AppIcons.checkmarkSVG
+                                      : item.icon ?? AppIcons.checkmarkSVG,
                                   color: isFilled ? AppColors.blueDarker : AppColors.darkGreen,
                                   onPressed: () => {},
                                   iconSize: 14.0,
@@ -1048,15 +1102,18 @@ class ModalBottomSheet {
                     style: context.textTheme.displayMedium,
                   ),
                   const SizedBox(height: 12),
-                  CustomText.w400(LocalizedTexts.emergencySubtitle.tr(), style: context.textTheme.bodyMedium),
+                  CustomText.w400(LocalizedTexts.emergencySubtitle.tr(),
+                      style: context.textTheme.bodyMedium),
                   const SizedBox(height: 12),
                   ListView.separated(
                     physics: const NeverScrollableScrollPhysics(),
                     shrinkWrap: true,
                     itemCount: emergencyNumbersList.length,
-                    itemBuilder: (context, index) => EmergencyNumberCard(number: emergencyNumbersList[index]),
+                    itemBuilder: (context, index) =>
+                        EmergencyNumberCard(number: emergencyNumbersList[index]),
                     separatorBuilder: (_, __) {
-                      return const Divider(thickness: 1.0, height: 1.0, color: AppColors.greyRegular);
+                      return const Divider(
+                          thickness: 1.0, height: 1.0, color: AppColors.greyRegular);
                     },
                   ),
                 ],

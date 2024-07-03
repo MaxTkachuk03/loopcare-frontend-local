@@ -32,6 +32,11 @@ class AuthenticationEvent with _$AuthenticationEvent {
     bool? receiveAnEmails,
   }) = UpdateEmail;
 
+  const factory AuthenticationEvent.updateUserEmail({
+    required String email,
+    required String password,
+  }) = UpdateUserEmail;
+
   const factory AuthenticationEvent.startTrackUser() = StartTrackUser;
 
   const factory AuthenticationEvent.getAccount() = GetAccount;

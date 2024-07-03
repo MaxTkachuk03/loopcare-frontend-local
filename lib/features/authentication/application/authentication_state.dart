@@ -6,11 +6,15 @@ class AuthenticationState with _$AuthenticationState {
 
   const factory AuthenticationState.init(AuthenticationData data) = InitialAuthenticationState;
 
+  const factory AuthenticationState.isLoading(AuthenticationData data) =
+      AuthenticationStateIsLoading;
+
   const factory AuthenticationState.error(AuthenticationData data) = ErrorAuthenticationState;
 
   const factory AuthenticationState.logout(AuthenticationData data) = LogoutState;
 
-  const factory AuthenticationState.waitedForConfirmation(AuthenticationData data) = WaitedConfirmationState;
+  const factory AuthenticationState.waitedForConfirmation(AuthenticationData data) =
+      WaitedConfirmationState;
 
   const factory AuthenticationState.guest(AuthenticationData data) = GuestAuthenticationState;
 
@@ -18,9 +22,17 @@ class AuthenticationState with _$AuthenticationState {
 
   const factory AuthenticationState.gotAccount(AuthenticationData data) = GotAccountState;
 
-  const factory AuthenticationState.gotEmailVerification(AuthenticationData data) = GotEmailVerification;
+  const factory AuthenticationState.gotEmailVerification(AuthenticationData data) =
+      GotEmailVerification;
 
-  const factory AuthenticationState.needUpdatePolicies(AuthenticationData data) = NeedUpdatePolicies;
+  const factory AuthenticationState.needUpdatePolicies(AuthenticationData data) =
+      NeedUpdatePolicies;
+
+  const factory AuthenticationState.emailWasUpdated(AuthenticationData data) =
+      AuthenticationStateEmailWasUpdated;
+
+  const factory AuthenticationState.errorUpdateEmail(AuthenticationData data) =
+      AuthenticationStateErrorUpdateEmail;
 }
 
 @freezed
@@ -36,11 +48,13 @@ class AuthenticationData with _$AuthenticationData {
     @Default(false) bool emailVerified,
     @Default(-1) int accountId,
     Account? account,
+    @Default(false) bool isLoading,
     // ignore: invalid_annotation_target
     @JsonKey(includeFromJson: false, includeToJson: false) RequestError? error,
   }) = _AuthenticationData;
 
-  factory AuthenticationData.fromJson(Map<String, dynamic> json) => _$AuthenticationDataFromJson(json);
+  factory AuthenticationData.fromJson(Map<String, dynamic> json) =>
+      _$AuthenticationDataFromJson(json);
 
   List<UnlockedFeatureType> get unlockedFeatures =>
       (account?.features.where((e) => e.unlocked).toList() ?? []).map((e) => e.feature).toList();
@@ -93,7 +107,8 @@ class AuthenticationData with _$AuthenticationData {
   bool get isGroupSessionsUnlocked =>
       unlockedFeatures.contains(UnlockedFeatureType.grouping) && !disableGroupSessions;
 
-  bool get isPhysicalActivitiesUnlocked => unlockedFeatures.contains(UnlockedFeatureType.physicalActivities);
+  bool get isPhysicalActivitiesUnlocked =>
+      unlockedFeatures.contains(UnlockedFeatureType.physicalActivities);
 
   bool get isAssignmentsUnlocked => unlockedFeatures.contains(UnlockedFeatureType.assignments);
 

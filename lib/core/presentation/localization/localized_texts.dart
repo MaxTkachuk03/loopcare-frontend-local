@@ -359,6 +359,12 @@ class LocalizedTexts {
   static const String errorSubjectMessage = 'errorSubjectMessage';
   static const String requiredField = 'requiredField';
   static const String send = 'send';
+  static const String changeYourEmail = 'changeYourEmail';
+  static const String changeYourEmailDescription = 'changeYourEmailDescription';
+  static const String submit = 'submit';
+  static const String emailChangeConfirmedTitle = 'emailChangeConfirmedTitle';
+  static const String emailChangeConfirmedBody1 = 'emailChangeConfirmedBody1';
+  static const String emailChangeConfirmedBody2 = 'emailChangeConfirmedBody2';
 
   // Emergency Numbers
   static const String emergencySubtitle = 'emergencySubtitle';

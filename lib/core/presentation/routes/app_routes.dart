@@ -103,7 +103,8 @@ class AppRoutes {
   static const String programDetails = '/program-details'; // added
   static const String physicalPreferencesIntro = '/physical-preferences-intro'; // added
   static const String physicalActivitiesFrequency = '/physical-activities-frequency'; // added
-  static const String physicalActivitiesActivityType = '/physical-activities-activity-type'; // added
+  static const String physicalActivitiesActivityType =
+      '/physical-activities-activity-type'; // added
   static const String physicalActivitiesComplete = '/physical-activities-complete'; // added
 
   // User profile
@@ -115,6 +116,7 @@ class AppRoutes {
   static const String joinGroupPreferences = '/join-group-preferences'; // added
   static const String genderPreferences = '/gender-preferences'; // added
   static const String nicknamePreferences = '/nickname-preferences'; // added
+  static const String updateEmail = '/update-email';
 
   // Video
   static const String video = '/video'; // added
