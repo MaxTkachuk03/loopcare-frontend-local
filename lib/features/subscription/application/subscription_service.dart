@@ -55,7 +55,6 @@ class AppSubscriptionService {
         log.e(
           e.toString(),
           error: e.runtimeType,
-          stackTrace: StackTrace.current
         );
         return;
       }

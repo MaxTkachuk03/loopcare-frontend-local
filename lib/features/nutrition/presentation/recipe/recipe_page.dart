@@ -392,7 +392,6 @@ class _RecipePageState extends State<RecipePage> {
             log.e(
               'Search item click freezed RecipePage mealId == null || recipeId == null',
               error: LogTitle.noItem,
-              stackTrace: StackTrace.current,
             );
             return;
           }
