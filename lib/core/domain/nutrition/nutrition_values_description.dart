@@ -86,7 +86,10 @@ class NutritionValuesDescription {
     if (value < calorieDensityItems.first.minValue) return calorieDensityItems.first;
     if (value > calorieDensityItems.last.maxValue) return calorieDensityItems.last;
 
-    return calorieDensityItems.firstWhere((e) => e.minValue <= value && value <= e.maxValue);
+    final roundedValue = double.parse((value).toStringAsFixed(2));
+
+    return calorieDensityItems
+        .firstWhere((e) => e.minValue <= roundedValue && roundedValue <= e.maxValue);
   }
 
   static NutritionValueDescriptionItem getProteinDegreeItemByValue(double value) {

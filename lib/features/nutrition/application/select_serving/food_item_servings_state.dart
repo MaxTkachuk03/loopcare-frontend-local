@@ -33,23 +33,16 @@ class FoodItemServingsState with _$FoodItemServingsState {
     );
   }
 
-  num get selectedServingCalories {
+  String get selectedServingCalories {
     return maybeMap(
       foodItemServings: (state) {
-        if (state.selectedServing == null) return 0;
+        if (state.selectedServing == null) return '0';
         final calories = state.selectedServing?.calories ?? 0;
         final units = state.selectedServing?.numberOfUnits ?? 1;
-        final numSelectedServingAmount = double.parse(state.selectedServingAmount);
-        final result = calories * numSelectedServingAmount / units;
 
-        log.i(
-          '$calories (calories) * $numSelectedServingAmount (selectedServingAmount) / $units (units) = result',
-          error: 'Get Selected Serving Calories',
-        );
-
-        return result;
+        return (calories * double.parse(state.selectedServingAmount) / units).toStringWithRounded(2);
       },
-      orElse: () => 0,
+      orElse: () => '0',
     );
   }
 
