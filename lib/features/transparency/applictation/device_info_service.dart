@@ -22,7 +22,7 @@ class DeviceInfoService {
 
   FutureOr<void> onRequestTrackingAuthorization() async {
     TrackingStatus status = await AppTrackingTransparency.trackingAuthorizationStatus;
-    log.i('IDFA status : $status', error: runtimeType, stackTrace: StackTrace.empty);
+    log.i('IDFA status : $status', error: runtimeType);
 
     if (status == TrackingStatus.notDetermined) {
       status = await AppTrackingTransparency.requestTrackingAuthorization();
@@ -34,19 +34,19 @@ class DeviceInfoService {
   FutureOr<void> _getAdvertisingIdentifier() async {
     if (Platform.isIOS) {
       advertisingId = await AppTrackingTransparency.getAdvertisingIdentifier();
-      log.i('IDFA : $advertisingId', error: runtimeType, stackTrace: StackTrace.empty);
+      log.i('IDFA : $advertisingId', error: runtimeType);
     } else {
       try {
         advertisingId = await AdvertisingId.id(true);
-        log.i('AAID : $advertisingId', error: runtimeType, stackTrace: StackTrace.empty);
+        log.i('AAID : $advertisingId', error: runtimeType);
       } on PlatformException catch (e) {
         //handle if needed
-        log.e(e.toString(), error: e.runtimeType, stackTrace: StackTrace.current);
+        log.e(e.toString(), error: e.runtimeType);
       }
     }
     try {
       isLimitAdTrackingEnabled = await AdvertisingId.isLimitAdTrackingEnabled ?? false;
-      log.i('isLimitAdTrackingEnabled : $isLimitAdTrackingEnabled', error: runtimeType, stackTrace: StackTrace.empty);
+      log.i('isLimitAdTrackingEnabled : $isLimitAdTrackingEnabled', error: runtimeType);
     } on PlatformException {
       isLimitAdTrackingEnabled = true;
     }
@@ -59,7 +59,7 @@ class DeviceInfoService {
   FutureOr<void> _onRequestDeviceId() async {
     try {
       deviceId = await FlutterUdid.udid;
-      log.i('FlutterUdid DeviceId : $deviceId', error: runtimeType, stackTrace: StackTrace.empty);
+      log.i('FlutterUdid DeviceId : $deviceId', error: runtimeType);
     } on PlatformException {
       deviceId = null;
     }
