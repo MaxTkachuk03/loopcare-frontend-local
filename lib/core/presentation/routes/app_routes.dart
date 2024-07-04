@@ -59,7 +59,7 @@ class AppRoutes {
 
   // Education
   static const String education = 'education'; // added
-  static const String lesson = '/lesson/:lessonId/page/:pageIndex'; // added
+  static const String lesson = '/lesson/:lessonId'; // added
   static const String supportGroupIntro = '/support-group-intro'; // added
   static const String consultDoctor = '/consult-doctor'; // added
   static const String needPaidSubscription = '/need-paid-subscription'; // added

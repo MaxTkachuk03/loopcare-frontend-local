@@ -16,17 +16,19 @@ import 'package:loopcare_frontend/core/presentation/widgets/main_container.dart'
 import 'package:loopcare_frontend/core/presentation/widgets/scrollable_container.dart';
 import 'package:loopcare_frontend/features/education/application/education_lesson/education_lesson_bloc.dart';
 import 'package:loopcare_frontend/features/education/domain/subtitle/image_subtitle_controller.dart';
-import 'package:loopcare_frontend/features/education/presentation/education_page/utils/get_label_by_category.dart';
+import 'package:loopcare_frontend/features/education/presentation/education_page/utils/get_label_by_stream_type.dart';
 import 'package:loopcare_frontend/features/education/presentation/lesson/widgets/audio_block.dart';
 import 'package:loopcare_frontend/features/education/presentation/lesson/widgets/image_container.dart';
 import 'package:loopcare_frontend/features/education/presentation/lesson/widgets/player_loading_state.dart';
+import 'package:loopcare_frontend/features/river/infrastructure/river_module_stream_type.dart';
 
 const kHeightPadding = 20.0;
 
 class LessonAudioBody extends StatefulWidget {
+  final RiverModuleStreamType streamType;
   final void Function() onNextPressed;
 
-  const LessonAudioBody({super.key, required this.onNextPressed});
+  const LessonAudioBody({super.key, required this.onNextPressed, required this.streamType});
 
   @override
   State<LessonAudioBody> createState() => _LessonAudioBodyState();
@@ -43,15 +45,14 @@ class _LessonAudioBodyState extends State<LessonAudioBody> {
 
     final state = context.read<EducationLessonBloc>().state.data;
 
-    lessonId = state.lessonId;
+    lessonId = state.id;
 
-    context
-        .read<EducationLessonBloc>()
-        .add(EducationLessonEvent.downloadAudioFile(state.currentPage.content.url));
+    context.read<EducationLessonBloc>().add(EducationLessonEvent.downloadAudioFile(state.audioUrl));
 
-    if (state.currentPage.content.subtitlesImages != null) {
-      context.read<EducationLessonBloc>().add(
-          EducationLessonEvent.downloadSubtitlesFile(state.currentPage.content.subtitlesImages!));
+    if (state.subtitleImages != null) {
+      context
+          .read<EducationLessonBloc>()
+          .add(EducationLessonEvent.downloadSubtitlesFile(state.subtitleFilePath));
     }
   }
 
@@ -99,6 +100,7 @@ class _LessonAudioBodyState extends State<LessonAudioBody> {
 
     ModalBottomSheet.readTextVersion(
       context: context,
+      streamType: widget.streamType,
       onBtnPress: widget.onNextPressed,
       onCompleteModal: onCompleteModalHandler,
     );
@@ -134,10 +136,10 @@ class _LessonAudioBodyState extends State<LessonAudioBody> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             const SizedBox(height: 17),
-                            getLabelByCategory(state.data.lessonCategory),
+                            getLabelByStreamType(widget.streamType),
                             const SizedBox(height: 17),
                             CustomText.bitter600(
-                              state.data.lessonTitle,
+                              state.data.title,
                               style: context.textTheme.displayLarge,
                             ),
                             const SizedBox(height: 17),
@@ -151,10 +153,10 @@ class _LessonAudioBodyState extends State<LessonAudioBody> {
                                 .swap(
                                   duration: 300.ms,
                                   builder: (_, __) => AudioBlock(
-                                    url: state.data.currentPage.content.audioFilePath,
-                                    audioPreviewImage: state.data.lessonCardImage,
-                                    duration: state.data.lessonDuration,
-                                    title: state.data.lessonTitle,
+                                    url: state.data.audioFilePath,
+                                    audioPreviewImage: state.data.cardImageUrl,
+                                    duration: state.data.duration,
+                                    title: state.data.title,
                                     controller: _subtitleController,
                                     onPlayerComplete: _setIsComplete,
                                   ).animate().fadeIn(duration: 300.ms),

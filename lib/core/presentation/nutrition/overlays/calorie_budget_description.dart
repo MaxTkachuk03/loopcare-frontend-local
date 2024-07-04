@@ -18,9 +18,9 @@ class CalorieBudgetDescription extends StatelessWidget {
   void _openLesson(BuildContext context) {
     context
         .read<EducationLessonBloc>()
-        .add(const EducationLessonEvent.getLessonContent(lessonId: 32, pageIndex: 0));
+        .add(const EducationLessonEvent.getLessonContent(lessonId: 32));
 
-    context.router.pushNamed('/lesson/32/page/0');
+    context.router.pushNamed('/lesson/32');
   }
 
   @override

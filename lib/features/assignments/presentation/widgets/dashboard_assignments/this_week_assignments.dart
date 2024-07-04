@@ -4,11 +4,10 @@ import 'package:loopcare_frontend/core/presentation/routes/app_router.gr.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 import 'package:loopcare_frontend/features/assignments/presentation/widgets/dashboard_assignments/this_week_assignments_done.dart';
 import 'package:loopcare_frontend/features/assignments/presentation/widgets/dashboard_assignments/this_week_assignments_open.dart';
-import 'package:loopcare_frontend/features/quizzes/domain/lesson_question.dart';
 
 class ThisWeekAssignments extends StatelessWidget {
-  final List<LessonQuestion> weekQuestions;
-  final List<LessonQuestion> todayQuestions;
+  final List<dynamic> weekQuestions;
+  final List<dynamic> todayQuestions;
 
   const ThisWeekAssignments({
     super.key,

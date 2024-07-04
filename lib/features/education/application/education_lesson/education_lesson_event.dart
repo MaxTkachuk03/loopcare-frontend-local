@@ -2,10 +2,7 @@ part of 'education_lesson_bloc.dart';
 
 @freezed
 class EducationLessonEvent with _$EducationLessonEvent {
-  const factory EducationLessonEvent.getLessonContent({
-    required int lessonId,
-    required int pageIndex,
-  }) = GetLessonContent;
+  const factory EducationLessonEvent.getLessonContent({required int lessonId}) = GetLessonContent;
 
   const factory EducationLessonEvent.nextPage() = NextPage;
 

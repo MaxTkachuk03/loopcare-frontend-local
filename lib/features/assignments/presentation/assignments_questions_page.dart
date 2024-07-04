@@ -22,8 +22,8 @@ import 'package:loopcare_frontend/features/assignments/infrastructure/answer_wid
 import 'package:loopcare_frontend/features/assignments/presentation/widgets/answer_option.dart';
 import 'package:loopcare_frontend/features/assignments/presentation/widgets/answer_scale.dart';
 import 'package:loopcare_frontend/features/assignments/presentation/widgets/answer_text.dart';
-import 'package:loopcare_frontend/features/quizzes/domain/lesson_question.dart';
-import 'package:loopcare_frontend/features/quizzes/domain/lesson_question_answer_type.dart';
+// import 'package:loopcare_frontend/features/quizzes/domain/lesson_question.dart';
+// import 'package:loopcare_frontend/features/quizzes/domain/lesson_question_answer_type.dart';
 import 'package:loopcare_frontend/features/quizzes/infrastructure/questions_page_mode.dart';
 import 'package:loopcare_frontend/features/quizzes/infrastructure/quizzes_controller.dart';
 import 'package:loopcare_frontend/features/river/infrastructure/river_module_stream_type.dart';
@@ -59,7 +59,7 @@ class _AssignmentsQuestionsPageState extends State<AssignmentsQuestionsPage> {
     final questionsState = context.read<AssignmentsBloc>().state;
     lessonId = questionsState.data.lessonId;
 
-    _totalSteps = questionsState.data.questionsForLesson(lessonId).length;
+    _totalSteps = 1; //questionsState.data.questionsForLesson(lessonId).length;
 
     _controller = mode.map(
       askQuestion: (_) => QuizzesController()..addFocusNodeListeners(),
@@ -84,23 +84,23 @@ class _AssignmentsQuestionsPageState extends State<AssignmentsQuestionsPage> {
 
   void _onNextHandler() {
     if (widget.step == (_totalSteps - 1)) {
-      var questionsBloc = context.read<AssignmentsBloc>();
-      var question = questionsBloc.state.data.questionForStep(lessonId, widget.step);
-
-      AnalyticsEventService.instance.finalizeAssignment(
-        FirebaseEvents.userCompleteAssignment,
-        question.id.toString(),
-        question.title,
-        widget.fromDashboard,
-      );
-
-      final accountCreatedDate = getIt<SharedStorageService>().account?.createdAt ?? DateTime.now();
-
-      context.read<AssignmentsBloc>().add(
-            AssignmentsEvent.getAllLessonQuestions(accountCreatedDate, DateTime.now()),
-          );
-
-      context.router.push(AssignmentsSavedRoute(streamType: widget.streamType));
+      // var questionsBloc = context.read<AssignmentsBloc>();
+      // var question = questionsBloc.state.data.questionForStep(lessonId, widget.step);
+      //
+      // AnalyticsEventService.instance.finalizeAssignment(
+      //   FirebaseEvents.userCompleteAssignment,
+      //   question.id.toString(),
+      //   question.title,
+      //   widget.fromDashboard,
+      // );
+      //
+      // final accountCreatedDate = getIt<SharedStorageService>().account?.createdAt ?? DateTime.now();
+      //
+      // context.read<AssignmentsBloc>().add(
+      //       AssignmentsEvent.getAllLessonQuestions(accountCreatedDate, DateTime.now()),
+      //     );
+      //
+      // context.router.push(AssignmentsSavedRoute(streamType: widget.streamType));
     } else {
       context.router.push(
         AssignmentsQuestionsRoute(
@@ -118,87 +118,87 @@ class _AssignmentsQuestionsPageState extends State<AssignmentsQuestionsPage> {
 
   void _saveTextField(int lessonId) {
     var questionsBloc = context.read<AssignmentsBloc>();
-    var question = questionsBloc.state.data.questionForStep(lessonId, widget.step);
-
-    _controller.isEnableSend.value = false;
-
-    if (question.questionAnswer != null) {
-      questionsBloc.add(
-        AssignmentsEvent.updateLessonAnswerText(
-          question.id,
-          text: _controller.answerTextController.value.text,
-        ),
-      );
-    } else {
-      questionsBloc.add(
-        AssignmentsEvent.saveLessonAnswerText(
-          question.id,
-          text: _controller.answerTextController.value.text,
-        ),
-      );
-    }
+    // var question = questionsBloc.state.data.questionForStep(lessonId, widget.step);
+    //
+    // _controller.isEnableSend.value = false;
+    //
+    // if (question.questionAnswer != null) {
+    //   questionsBloc.add(
+    //     AssignmentsEvent.updateLessonAnswerText(
+    //       question.id,
+    //       text: _controller.answerTextController.value.text,
+    //     ),
+    //   );
+    // } else {
+    //   questionsBloc.add(
+    //     AssignmentsEvent.saveLessonAnswerText(
+    //       question.id,
+    //       text: _controller.answerTextController.value.text,
+    //     ),
+    //   );
+    // }
     _onNextHandler();
   }
 
   void _saveOptionsField(int lessonId) {
-    var questionsBloc = context.read<AssignmentsBloc>();
-    var question = questionsBloc.state.data.questionForStep(lessonId, widget.step);
-
-    _controller.isEnableSend.value = false;
-
-    if (question.questionAnswer != null) {
-      questionsBloc.add(
-        AssignmentsEvent.updateLessonAnswerOption(
-          question.id,
-          lessonQuestionOptionIds: _controller.selectOptionValues.value,
-        ),
-      );
-    } else {
-      questionsBloc.add(
-        AssignmentsEvent.saveLessonAnswerOption(
-          question.id,
-          lessonQuestionOptionIds: _controller.selectOptionValues.value,
-        ),
-      );
-    }
+    // var questionsBloc = context.read<AssignmentsBloc>();
+    // var question = questionsBloc.state.data.questionForStep(lessonId, widget.step);
+    //
+    // _controller.isEnableSend.value = false;
+    //
+    // if (question.questionAnswer != null) {
+    //   questionsBloc.add(
+    //     AssignmentsEvent.updateLessonAnswerOption(
+    //       question.id,
+    //       lessonQuestionOptionIds: _controller.selectOptionValues.value,
+    //     ),
+    //   );
+    // } else {
+    //   questionsBloc.add(
+    //     AssignmentsEvent.saveLessonAnswerOption(
+    //       question.id,
+    //       lessonQuestionOptionIds: _controller.selectOptionValues.value,
+    //     ),
+    //   );
+    // }
 
     _onNextHandler();
   }
 
   void _saveScaleField(int lessonId) {
-    var questionsBloc = context.read<AssignmentsBloc>();
-    var question = questionsBloc.state.data.questionForStep(lessonId, widget.step);
-
-    _controller.isEnableSend.value = false;
-
-    var selectScaleIndex = _controller.selectScaleValue.value;
-
-    if (selectScaleIndex != null) {
-      var lessonQuestionOptionId = question.lessonQuestionOptions.elementAt(selectScaleIndex).id;
-
-      AnalyticsEventService.instance.assignmentMotivationScale(
-        lessonQuestionOptionId.toString(),
-        question.id.toString(),
-        question.title,
-        widget.fromDashboard,
-      );
-
-      if (question.questionAnswer != null) {
-        questionsBloc.add(
-          AssignmentsEvent.updateLessonAnswerOption(
-            question.id,
-            lessonQuestionOptionIds: [lessonQuestionOptionId],
-          ),
-        );
-      } else {
-        questionsBloc.add(
-          AssignmentsEvent.saveLessonAnswerOption(
-            question.id,
-            lessonQuestionOptionIds: [lessonQuestionOptionId],
-          ),
-        );
-      }
-    }
+    // var questionsBloc = context.read<AssignmentsBloc>();
+    // var question = questionsBloc.state.data.questionForStep(lessonId, widget.step);
+    //
+    // _controller.isEnableSend.value = false;
+    //
+    // var selectScaleIndex = _controller.selectScaleValue.value;
+    //
+    // if (selectScaleIndex != null) {
+    //   var lessonQuestionOptionId = question.lessonQuestionOptions.elementAt(selectScaleIndex).id;
+    //
+    //   AnalyticsEventService.instance.assignmentMotivationScale(
+    //     lessonQuestionOptionId.toString(),
+    //     question.id.toString(),
+    //     question.title,
+    //     widget.fromDashboard,
+    //   );
+    //
+    //   if (question.questionAnswer != null) {
+    //     questionsBloc.add(
+    //       AssignmentsEvent.updateLessonAnswerOption(
+    //         question.id,
+    //         lessonQuestionOptionIds: [lessonQuestionOptionId],
+    //       ),
+    //     );
+    //   } else {
+    //     questionsBloc.add(
+    //       AssignmentsEvent.saveLessonAnswerOption(
+    //         question.id,
+    //         lessonQuestionOptionIds: [lessonQuestionOptionId],
+    //       ),
+    //     );
+    //   }
+    // }
 
     _onNextHandler();
   }
@@ -236,35 +236,36 @@ class _AssignmentsQuestionsPageState extends State<AssignmentsQuestionsPage> {
     });
   }
 
-  String? _feedbackText(int? value, LessonQuestion question) {
-    if (value == null) return null;
-    int label =
-        int.tryParse(question.lessonQuestionOptionsLabels[value]) ?? int.parse('${value + 1}');
-    return question.lessonQuestionFeedback(question.id, label)?.text;
+  String? _feedbackText(int? value, dynamic question) {
+    return 'asdf';
+    // if (value == null) return null;
+    // int label =
+    //     int.tryParse(question.lessonQuestionOptionsLabels[value]) ?? int.parse('${value + 1}');
+    // return question.lessonQuestionFeedback(question.id, label)?.text;
   }
 
   void setStep(int currStep) {
     setState(() {
-      var questionsBloc = context.read<AssignmentsBloc>();
-      var question = questionsBloc.state.data.questionForStep(lessonId, widget.step);
-
-      mode = question.questionAnswer != null
-          ? const QuestionsPageMode.showAnswer()
-          : const QuestionsPageMode.askQuestion();
-
-      if (question.questionAnswer != null) {
-        if (question.answerType == LessonQuestionAnswerType.text) {
-          _controller.answerTextController.text = question.questionAnswer?.text ?? '';
-        } else if (question.answerType == LessonQuestionAnswerType.multipleChoiceMultiple ||
-            question.answerType == LessonQuestionAnswerType.multipleChoiceSingle) {
-          _controller.setOptionValue(question.lessonQuestionAnswersId);
-        } else if (question.answerType == LessonQuestionAnswerType.scale) {
-          _controller.setScaleValue(
-              question.lessonQuestionOptionIndexById(question.lessonQuestionAnswersId.first));
-        }
-      }
-
-      widgetType = question.answerType.widgetType;
+      // var questionsBloc = context.read<AssignmentsBloc>();
+      // var question = questionsBloc.state.data.questionForStep(lessonId, widget.step);
+      //
+      // mode = question.questionAnswer != null
+      //     ? const QuestionsPageMode.showAnswer()
+      //     : const QuestionsPageMode.askQuestion();
+      //
+      // if (question.questionAnswer != null) {
+      //   if (question.answerType == LessonQuestionAnswerType.text) {
+      //     _controller.answerTextController.text = question.questionAnswer?.text ?? '';
+      //   } else if (question.answerType == LessonQuestionAnswerType.multipleChoiceMultiple ||
+      //       question.answerType == LessonQuestionAnswerType.multipleChoiceSingle) {
+      //     _controller.setOptionValue(question.lessonQuestionAnswersId);
+      //   } else if (question.answerType == LessonQuestionAnswerType.scale) {
+      //     _controller.setScaleValue(
+      //         question.lessonQuestionOptionIndexById(question.lessonQuestionAnswersId.first));
+      //   }
+      // }
+      //
+      // widgetType = question.answerType.widgetType;
     });
   }
 
@@ -273,35 +274,34 @@ class _AssignmentsQuestionsPageState extends State<AssignmentsQuestionsPage> {
           child: CustomText('multipleChoiceValidation'),
         ),
         scale: (_) => AnswerScale(
-          isEditable: state.data.questionForStep(lessonId, widget.step).isEditable,
+          isEditable: false, //state.data.questionForStep(lessonId, widget.step).isEditable,
           controller: _controller,
-          question: state.data.questionForStep(lessonId, widget.step),
+          question: null, // state.data.questionForStep(lessonId, widget.step),
           onNextPressed: () =>
               _controller.isScaleChoiceValid ? _saveScaleField(state.data.lessonId) : null,
           onSelectValue: _onSelectScaleHandler,
           selectedScore: _controller.selectScaleValue.value,
-          feedbackText: _feedbackText(_controller.selectScaleValue.value,
-              state.data.questionForStep(lessonId, widget.step)),
+          feedbackText: _feedbackText(_controller.selectScaleValue.value, null),
         ),
         multipleChoiceMultiple: (_) => AnswerOption(
-          isEditable: state.data.questionForStep(lessonId, widget.step).isEditable,
+          isEditable: false, //state.data.questionForStep(lessonId, widget.step).isEditable,
           controller: _controller,
-          question: state.data.questionForStep(lessonId, widget.step),
+          question: null, // state.data.questionForStep(lessonId, widget.step),
           onNextPressed: () =>
               _controller.isOptionChoiceValid ? _saveOptionsField(state.data.lessonId) : null,
           onSelectOptionValue: _onSelectOptionHandler,
         ),
         multipleChoiceSingle: (_) => AnswerOption(
-          isEditable: state.data.questionForStep(lessonId, widget.step).isEditable,
+          isEditable: false, // state.data.questionForStep(lessonId, widget.step).isEditable,
           controller: _controller,
-          question: state.data.questionForStep(lessonId, widget.step),
+          question: null, // state.data.questionForStep(lessonId, widget.step),
           onNextPressed: () =>
               _controller.isOptionChoiceValid ? _saveOptionsField(state.data.lessonId) : null,
           onSelectOptionValue: _onSelectOptionHandler,
         ),
         text: (_) => AnswerText(
           controller: _controller,
-          question: state.data.questionForStep(lessonId, widget.step),
+          question: null, // state.data.questionForStep(lessonId, widget.step),
           onNextPressed: (int lessonId) {
             return _controller.isOpenTextValid ? _saveTextField(state.data.lessonId) : null;
           },
@@ -337,7 +337,6 @@ class _AssignmentsQuestionsPageState extends State<AssignmentsQuestionsPage> {
                   return state.maybeMap(
                     loading: (_) => const Loader(),
                     orElse: () {
-                      state.data.questionForStep(lessonId, widget.step).isEditable;
                       return content(state);
                     },
                   );

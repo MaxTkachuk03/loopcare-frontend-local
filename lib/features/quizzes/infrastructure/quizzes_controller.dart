@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:loopcare_frontend/features/quizzes/domain/lesson_question_option.dart';
 
 class QuizzesController {
   QuizzesController();
@@ -15,7 +14,7 @@ class QuizzesController {
 
   ValueNotifier<bool> isCorrect = ValueNotifier(false);
   ValueNotifier<bool> isEnableSend = ValueNotifier(false);
-  ValueNotifier<LessonQuestionOption?> selectLessonValue = ValueNotifier(null);
+  ValueNotifier<dynamic> selectLessonValue = ValueNotifier(null);
   ValueNotifier<List<int>> selectOptionValues = ValueNotifier([]);
   ValueNotifier<int?> selectScaleValue = ValueNotifier(null);
 
@@ -32,7 +31,7 @@ class QuizzesController {
 
   void validateForm() => isCorrect.value = (selectLessonValue.value?.isCorrect ?? false);
 
-  void setLessonValue(LessonQuestionOption item) => selectLessonValue.value = item;
+  void setLessonValue(dynamic item) => selectLessonValue.value = item;
 
   void setOptionValue(List<int> items) => selectOptionValues.value = items;
 

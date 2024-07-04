@@ -17,7 +17,7 @@ class QuizzesStateData with _$QuizzesStateData {
 
   const factory QuizzesStateData({
     @Default(0) int lessonId,
-    @Default([]) List<LessonQuestion> quizzes,
+    @Default([]) List<dynamic> quizzes,
     @Default(false) bool isLoading,
     @Default(null) RequestError? error,
   }) = _QuizzesStateData;
@@ -28,5 +28,5 @@ class QuizzesStateData with _$QuizzesStateData {
         orElse: () => null,
       );
 
-  LessonQuestion questionForStep(int step) => quizzes.get(step);
+  dynamic questionForStep(int step) => quizzes.get(step);
 }

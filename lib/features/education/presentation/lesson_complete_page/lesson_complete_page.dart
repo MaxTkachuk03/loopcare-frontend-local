@@ -24,7 +24,7 @@ import 'package:loopcare_frontend/features/assignments/application/assignments_b
 import 'package:loopcare_frontend/features/authentication/application/authentication_bloc.dart';
 import 'package:loopcare_frontend/features/education/application/education_lesson/education_lesson_bloc.dart';
 import 'package:loopcare_frontend/features/education/domain/extra_action_types.dart';
-import 'package:loopcare_frontend/features/education/presentation/education_page/utils/get_label_by_category.dart';
+import 'package:loopcare_frontend/features/education/presentation/education_page/utils/get_label_by_stream_type.dart';
 import 'package:loopcare_frontend/features/education/presentation/lesson_complete_page/widgets/save_assignment.dart';
 import 'package:loopcare_frontend/features/education/presentation/lesson_complete_page/widgets/unlock_assignment.dart';
 import 'package:loopcare_frontend/features/education/presentation/lesson_complete_page/widgets/unlock_buddy_feature.dart';
@@ -179,16 +179,17 @@ class _LessonCompletePageState extends State<LessonCompletePage> {
                                   if (state.data.isLessonCompleted) {
                                     AnalyticsEventService.instance.logLessonCompletedEvent(
                                       FirebaseEvents.lessonCompletedScreen,
-                                      context.read<EducationLessonBloc>().state.data.lessonId,
+                                      context.read<EducationLessonBloc>().state.data.id,
                                     );
                                   }
                                   return Column(
                                     crossAxisAlignment: CrossAxisAlignment.start,
                                     children: [
-                                      getLabelByCategory(lesson.lessonCategory),
+                                      // TODO dont have category now
+                                      // getLabelByStreamType(lesson.lessonCategory),
                                       const SizedBox(height: 10.0),
                                       CustomText.bitter600(
-                                        lesson.lessonTitle,
+                                        lesson.title,
                                         style: context.textTheme.displayLarge,
                                       ),
                                       const SizedBox(height: 10.0),
@@ -221,27 +222,28 @@ class _LessonCompletePageState extends State<LessonCompletePage> {
                               return UnlockGroupSessionFeature(
                                   wantJoinLater: widget.joinSupportGroupLater);
                             }
+                            // TODO check how to fix
 
-                            if (state.data.assignmentsQuestions.isNotEmpty &&
-                                state.data.assignmentsQuestionsWithAnswers.isEmpty) {
-                              final accountCreatedDate =
-                                  getIt<SharedStorageService>().account?.createdAt ??
-                                      DateTime.now();
-
-                              context.read<AssignmentsBloc>().add(
-                                    AssignmentsEvent.getAllLessonQuestions(
-                                      accountCreatedDate,
-                                      DateTime.now(),
-                                    ),
-                                  );
-
-                              return showedAssignment
-                                  ? const SavedAssignment()
-                                  : UnlockAssignment(
-                                      completedAt: state.data.lessonCompletedDate ?? DateTime.now(),
-                                      onBtnPressed: () => _startLessonQuestion(state.data.lessonId),
-                                    );
-                            }
+                            // if (state.data.assignmentsQuestions.isNotEmpty &&
+                            //     state.data.assignmentsQuestionsWithAnswers.isEmpty) {
+                            //   final accountCreatedDate =
+                            //       getIt<SharedStorageService>().account?.createdAt ??
+                            //           DateTime.now();
+                            //
+                            //   context.read<AssignmentsBloc>().add(
+                            //         AssignmentsEvent.getAllLessonQuestions(
+                            //           accountCreatedDate,
+                            //           DateTime.now(),
+                            //         ),
+                            //       );
+                            //
+                            //   return showedAssignment
+                            //       ? const SavedAssignment()
+                            //       : UnlockAssignment(
+                            //           completedAt: state.data.lessonCompletedDate ?? DateTime.now(),
+                            //           onBtnPressed: () => _startLessonQuestion(state.data.lessonId),
+                            //         );
+                            // }
 
                             return const SizedBox.shrink();
                           },

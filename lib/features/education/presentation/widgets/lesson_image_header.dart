@@ -12,7 +12,7 @@ class LessonImageHeader extends StatelessWidget {
       builder: (context, state) {
         final lesson = state.data;
 
-        return SizedBox(height: 365, child: NetworkImageWithCache(url: lesson.lessonImage));
+        return SizedBox(height: 365, child: NetworkImageWithCache(url: lesson.imageUrl));
       },
     );
   }

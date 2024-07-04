@@ -95,10 +95,10 @@ class AssignmentsSavedPage extends StatelessWidget {
                           children: [
                             BlocBuilder<AssignmentsBloc, AssignmentsState>(
                               builder: (context, state) {
-                                final questions =
-                                    state.data.questionsForLesson(state.data.lessonId);
-
-                                final questionTitle = questions.first.title;
+                                // final questions =
+                                //     state.data.questionsForLesson(state.data.lessonId);
+                                //
+                                // final questionTitle = questions.first.title;
 
                                 return Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -106,7 +106,7 @@ class AssignmentsSavedPage extends StatelessWidget {
                                     CategoryLabel.assignment(),
                                     const SizedBox(height: 20.0),
                                     CustomText.bitter600(
-                                      questionTitle,
+                                      'asd',
                                       style: context.textTheme.displayLarge,
                                     ),
                                     const SizedBox(height: 20.0),

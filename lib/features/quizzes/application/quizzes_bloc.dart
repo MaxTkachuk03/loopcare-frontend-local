@@ -8,7 +8,6 @@ import 'package:loopcare_frontend/core/infrastructure/dio_client/request_error.d
 import 'package:loopcare_frontend/core/presentation/utils/list_extensions.dart';
 import 'package:loopcare_frontend/features/education/application/education_service.dart';
 import 'package:loopcare_frontend/features/education/domain/questions/lesson_answer_body.dart';
-import 'package:loopcare_frontend/features/quizzes/domain/lesson_question.dart';
 
 part 'quizzes_bloc.freezed.dart';
 part 'quizzes_event.dart';
@@ -35,36 +34,36 @@ class QuizzesBloc extends Bloc<QuizzesEvent, QuizzesState> {
     LessonAnswerOptionBody data = LessonAnswerOptionBody(
       lessonQuestionOptionIds: event.lessonQuestionOptionIds,
     );
-    final response = await _educationService.saveLessonAnswerOption(event.lessonQuestionId, data);
-
-    response.fold(
-      (l) => emit(QuizzesState.error(state.data.copyWith(
-        error: l,
-        isLoading: false,
-      ))),
-      (r) {
-        emit(
-          QuizzesState.updated(
-            state.data.copyWith(
-              isLoading: false,
-              quizzes: _updatedQuestions(r),
-            ),
-          ),
-        );
-      },
-    );
+    // final response = await _educationService.saveLessonAnswerOption(event.lessonQuestionId, data);
+    //
+    // response.fold(
+    //   (l) => emit(QuizzesState.error(state.data.copyWith(
+    //     error: l,
+    //     isLoading: false,
+    //   ))),
+    //   (r) {
+    //     emit(
+    //       QuizzesState.updated(
+    //         state.data.copyWith(
+    //           isLoading: false,
+    //           quizzes: _updatedQuestions(r),
+    //         ),
+    //       ),
+    //     );
+    //   },
+    // );
   }
 
-  List<LessonQuestion> _updatedQuestions(
-    LessonQuestion data,
-  ) {
-    List<LessonQuestion> retData = List<LessonQuestion>.from(state.data.quizzes);
-
-    final int index = retData.indexWhere((el) => el.id == data.id);
-    if (index >= 0) retData.update(index, data);
-
-    return retData;
-  }
+  // List<LessonQuestion> _updatedQuestions(
+  //   LessonQuestion data,
+  // ) {
+  //   List<LessonQuestion> retData = List<LessonQuestion>.from(state.data.quizzes);
+  //
+  //   final int index = retData.indexWhere((el) => el.id == data.id);
+  //   if (index >= 0) retData.update(index, data);
+  //
+  //   return retData;
+  // }
 
   FutureOr<void> _onGetLessonQuizzes(
     GetLessonQuizzes event,
@@ -72,17 +71,17 @@ class QuizzesBloc extends Bloc<QuizzesEvent, QuizzesState> {
   ) async {
     emit(QuizzesState.loading(state.data.copyWith(isLoading: true)));
 
-    final response = await _educationService.getLessonContent(event.lessonId);
-
-    response.fold(
-      (l) => emit(QuizzesState.error(state.data.copyWith(
-        error: l,
-        isLoading: false,
-      ))),
-      (r) => emit(QuizzesState.updated(state.data.copyWith(
-        lessonId: event.lessonId,
-        quizzes: r.questions,
-      ))),
-    );
+    // final response = await _educationService.getLessonContent(event.lessonId);
+    //
+    // response.fold(
+    //   (l) => emit(QuizzesState.error(state.data.copyWith(
+    //     error: l,
+    //     isLoading: false,
+    //   ))),
+    //   (r) => emit(QuizzesState.updated(state.data.copyWith(
+    //     lessonId: event.lessonId,
+    //     quizzes: r.questions,
+    //   ))),
+    // );
   }
 }

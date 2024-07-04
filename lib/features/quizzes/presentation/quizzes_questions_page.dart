@@ -20,7 +20,6 @@ import 'package:loopcare_frontend/core/presentation/localization/localized_texts
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/scrollable_container.dart';
 import 'package:loopcare_frontend/features/quizzes/application/quizzes_bloc.dart';
-import 'package:loopcare_frontend/features/quizzes/domain/lesson_question_option.dart';
 import 'package:loopcare_frontend/features/quizzes/infrastructure/questions_page_mode.dart';
 import 'package:loopcare_frontend/features/quizzes/infrastructure/quizzes_controller.dart';
 import 'package:loopcare_frontend/features/quizzes/presentation/widgets/correct_incorrect_explanation.dart';
@@ -84,7 +83,7 @@ class _QuizzesQuestionsPageState extends State<QuizzesQuestionsPage> {
     );
   }
 
-  void _onSelectedHandler(LessonQuestionOption item) {
+  void _onSelectedHandler(dynamic item) {
     setState(() {
       mode = const QuestionsPageMode.showAnswer();
       selectedValue = item.id;

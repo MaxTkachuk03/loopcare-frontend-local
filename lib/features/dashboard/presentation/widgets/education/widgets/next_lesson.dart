@@ -16,7 +16,7 @@ import 'package:loopcare_frontend/core/presentation/utils/date_time_utils.dart';
 import 'package:loopcare_frontend/features/education/application/education_lesson/education_lesson_bloc.dart';
 import 'package:loopcare_frontend/features/education/application/education_program/education_program_bloc.dart';
 import 'package:loopcare_frontend/features/education/domain/education_lesson.dart';
-import 'package:loopcare_frontend/features/education/presentation/education_page/utils/get_label_by_category.dart';
+import 'package:loopcare_frontend/features/education/presentation/education_page/utils/get_label_by_stream_type.dart';
 import 'package:loopcare_frontend/features/education/presentation/education_page/widgets/education_countdown.dart';
 import 'package:loopcare_frontend/features/education/presentation/education_page/widgets/lesson_state.dart';
 
@@ -72,7 +72,7 @@ class NextLesson extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         const SizedBox(height: 10.0),
-                        getLabelByCategory(lesson.category),
+                        getLabelByStreamType(lesson.category),
                         const SizedBox(height: 10.0),
                         CustomText.bitter700(
                           lesson.title,
@@ -84,7 +84,8 @@ class NextLesson extends StatelessWidget {
                             AppIcons.clock,
                             const SizedBox(width: 6.0),
                             CustomText.w600(
-                              formatSecondsToDurationString(lesson.duration, alwaysShowSeconds: true),
+                              formatSecondsToDurationString(lesson.duration,
+                                  alwaysShowSeconds: true),
                               style: context.textTheme.bodySmall,
                             )
                           ],
@@ -144,13 +145,10 @@ class NextLesson extends StatelessWidget {
         CIOAttributes.articleTitle: lesson.title,
       },
     );
-    context.read<EducationLessonBloc>().add(
-          EducationLessonEvent.getLessonContent(
-            lessonId: lesson.id,
-            pageIndex: 0,
-          ),
-        );
+    context
+        .read<EducationLessonBloc>()
+        .add(EducationLessonEvent.getLessonContent(lessonId: lesson.id));
 
-    context.router.pushNamed('/lesson/${lesson.id}/page/0');
+    context.router.pushNamed('/lesson/${lesson.id}');
   }
 }
