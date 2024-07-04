@@ -96,7 +96,10 @@ class _TeamMemberAvatar extends StatelessWidget {
       child: CircleAvatar(
         radius: radius,
         backgroundColor: member.color,
-        foregroundImage: member.image,
+        child: CircleAvatar(
+          radius: radius * 0.8,
+          foregroundImage: member.image,
+        ),
       ),
     );
   }
