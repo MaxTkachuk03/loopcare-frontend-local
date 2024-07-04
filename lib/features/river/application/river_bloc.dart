@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:collection/collection.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
@@ -19,12 +20,18 @@ class RiverBloc extends Bloc<RiverEvent, RiverState> {
   final RiverService _riverService;
 
   RiverBloc(this._riverService) : super(const RiverState.initial(RiverStateData())) {
+    on<InitRiver>(_onInitRiver);
     on<GetModules>(_onGetModules);
     on<GetActualModule>(_onGetActualModule);
     on<UpdateModuleItem>(_onUpdateModuleItem);
+    on<UpdateActiveModuleItemStatus>(_onUpdateActiveModuleItemStatus);
     on<CheckCompletion>(_onCheckCompletion);
     on<CompleteActiveModule>(_onCompleteActiveModule);
     on<SelectModuleItem>(_onSelectModuleItem);
+  }
+
+  FutureOr<void> _onInitRiver(InitRiver event, Emitter<RiverState> emit) async {
+    emit(const RiverState.moduleLoaded(RiverStateData()));
   }
 
   FutureOr<void> _onGetModules(GetModules event, Emitter<RiverState> emit) async {
@@ -47,43 +54,51 @@ class RiverBloc extends Bloc<RiverEvent, RiverState> {
   }
 
   FutureOr<void> _onGetActualModule(GetActualModule event, Emitter<RiverState> emit) async {
-    emit(RiverState.moduleLoading(state.data.copyWith(isLoading: true)));
-
     final response = await _riverService.getModuleById(moduleId: state.data.activeModule!.id);
 
     response.fold(
       (l) => emit(RiverState.moduleLoadingError(state.data.copyWith(error: l, isLoading: false))),
       (r) => emit(
         RiverState.moduleLoaded(
-          state.data.copyWith(
+          RiverStateData(
             activeModule: r,
             modules: _updateModule(r),
-            isLoading: false,
           ),
         ),
       ),
     );
   }
 
-  FutureOr<void> _onUpdateModuleItem(UpdateModuleItem event, Emitter<RiverState> emit) async {
-    final moduleItem = state.data
-        .modules.firstWhere((module) => module.id == event.moduleId)
-        .moduleItems.firstWhere((item) => item.id == event.moduleItemId);
+  FutureOr<void> _onUpdateActiveModuleItemStatus(UpdateActiveModuleItemStatus event, Emitter<RiverState> emit) async {
+    final moduleItem = state.data.activeModuleItem!;
+    var activeModule = state.data.activeModule;
 
     RiverModuleItemState itemState;
-    if (moduleItem.isCompleted) {
+    if (moduleItem.isCompleted || activeModule == null) {
+      final module = state.data.modules.firstWhere((m) => !m.isCompleted);
+
+      emit(
+        RiverState.moduleItemLoaded(
+          RiverStateData(
+            activeModule: module,
+            isLoading: false,
+          ),
+        ),
+      );
+
       return;
     } else {
       // todo: check if required action is exist iteration 2
       itemState = RiverModuleItemState.completed;
     }
+
     emit(RiverState.moduleItemLoading(state.data.copyWith(isLoading: true)));
 
     final data = RiverModuleItemStateData(itemState: itemState);
 
     final response = await _riverService.updateModuleItemState(
-      moduleId: event.moduleId,
-      moduleItemId: event.moduleItemId,
+      moduleId: activeModule.id,
+      moduleItemId: moduleItem.id,
       data: data,
     );
 
@@ -92,30 +107,64 @@ class RiverBloc extends Bloc<RiverEvent, RiverState> {
         RiverState.moduleItemLoadingError(state.data.copyWith(error: l, isLoading: false)),
       ),
       (r) {
-        var activeModule = state.data.activeModule?.id == event.moduleId
-            ? state.data.activeModule
-            : state.data.modules.firstWhere((module) => module.id == event.moduleId);
+        final isRootPassed = r.isRootItem && state.data.activeModule?.nextModuleUnlocksAt == null;
+        final isAllModuleItemsCompleted = activeModule!.moduleItems.every((i) => i.isCompleted);
 
-        final updatedModuleItems = <RiverModuleItem>[];
+        if (isRootPassed) {
+          add(const RiverEvent.getActualModule());
+        } else if (isAllModuleItemsCompleted) {
+          add(const RiverEvent.checkCompletion());
+        } else {
+          final updatedModuleItems = <RiverModuleItem>[];
 
-        for (int i = 0; i < activeModule!.moduleItems.length; i++) {
-          final item = activeModule.moduleItems[i];
-          if (item.id == r.id) {
-            updatedModuleItems.add(r);
-          } else if (r.unlocksItems.contains(item.id) && item.isLocked) {
-            updatedModuleItems.add(item.copyWith(itemState: RiverModuleItemState.unlocked));
-          } else {
-            updatedModuleItems.add(item);
+          for (int i = 0; i < activeModule!.moduleItems.length; i++) {
+            final item = activeModule!.moduleItems[i];
+            if (item.id == r.id) {
+              updatedModuleItems.add(r);
+            } else if (r.unlocksItems.contains(item.id) && item.isLocked) {
+              updatedModuleItems.add(item.copyWith(itemState: RiverModuleItemState.unlocked));
+            } else {
+              updatedModuleItems.add(item);
+            }
           }
-        }
 
-        activeModule = activeModule.copyWith(moduleItems: updatedModuleItems);
+          activeModule = activeModule!.copyWith(moduleItems: updatedModuleItems);
+
+          var modules = _updateModule(activeModule!);
+
+          emit(
+            RiverState.moduleItemLoaded(
+              RiverStateData(
+                modules: modules,
+                activeModule: activeModule,
+                isLoading: false,
+              ),
+            ),
+          );
+        }
+      },
+    );
+  }
+
+  FutureOr<void> _onUpdateModuleItem(UpdateModuleItem event, Emitter<RiverState> emit) async {
+    final response = await _riverService.updateModuleItemState(
+      moduleId: event.moduleId,
+      moduleItemId: event.moduleItemId,
+      data: const RiverModuleItemStateData(itemState: RiverModuleItemState.completed),
+    );
+
+    response.fold(
+      (l) => emit(
+        RiverState.moduleItemLoadingError(state.data.copyWith(error: l, isLoading: false)),
+      ),
+      (r) {
+        final activeModule = _updateModuleItem(event.moduleId, r);
 
         var modules = _updateModule(activeModule);
 
         emit(
           RiverState.moduleItemLoaded(
-            RiverStateData(
+            state.data.copyWith(
               modules: modules,
               activeModule: activeModule,
               isLoading: false,
@@ -123,12 +172,9 @@ class RiverBloc extends Bloc<RiverEvent, RiverState> {
           ),
         );
 
-        final isRootPassed = r.isRootItem && state.data.activeModule?.nextModuleUnlocksAt == null;
         final isAllModuleItemsCompleted = activeModule.moduleItems.every((i) => i.isCompleted);
 
-        if (isRootPassed) {
-          add(const RiverEvent.getActualModule());
-        } else if (isAllModuleItemsCompleted) {
+        if (isAllModuleItemsCompleted) {
           add(const RiverEvent.checkCompletion());
         }
       },
@@ -136,13 +182,7 @@ class RiverBloc extends Bloc<RiverEvent, RiverState> {
   }
 
   FutureOr<void> _onCheckCompletion(CheckCompletion event, Emitter<RiverState> emit) async {
-    final activeModule = state.data.activeModule;
-    final isActiveModuleNotCompleted = !(activeModule?.isCompleted ?? true);
-    final isTimePassed = state.data.currentPage == 0 ||
-        (activeModule?.nextModuleUnlocksAt?.isBefore(DateTime.timestamp()) ?? false);
-    final isEveryModuleItemsCompleted = activeModule?.moduleItems.every((item) => item.isCompleted) ?? false;
-
-    if (isActiveModuleNotCompleted && isTimePassed && isEveryModuleItemsCompleted) {
+    if (_isActiveModuleCompleted) {
       add(const RiverEvent.completeActiveModule());
     }
   }
@@ -154,7 +194,7 @@ class RiverBloc extends Bloc<RiverEvent, RiverState> {
 
     emit(
       RiverState.moduleLoaded(
-        state.data.copyWith(
+        RiverStateData(
           activeModule: activeModule,
           modules: _updateModule(activeModule),
         ),
@@ -211,13 +251,18 @@ class RiverBloc extends Bloc<RiverEvent, RiverState> {
     return [...state.data.modules].update(index, module);
   }
 
-  List<RiverModule> _updateModuleItem(int moduleId, RiverModuleItem moduleItem) {
-    return state.data.modules
-        .map((m) => m.id == moduleId
-            ? m.copyWith(
-                moduleItems:
-                    m.moduleItems.map((i) => i.id == moduleItem.id ? moduleItem : i).toList())
-            : m)
-        .toList();
+  RiverModule _updateModuleItem(int moduleId, RiverModuleItem moduleItem) {
+    final module = state.data.modules.firstWhere((m) => m.id == moduleId);
+    return module.copyWith(moduleItems: module.moduleItems.map((i) => i.id == moduleItem.id ? moduleItem : i).toList());
+  }
+
+  bool get _isActiveModuleCompleted {
+    final activeModule = state.data.activeModule;
+    final isActiveModuleNotCompleted = !(activeModule?.isCompleted ?? true);
+    final isTimePassed = state.data.currentPage == 0 ||
+        (activeModule?.nextModuleUnlocksAt?.isBefore(DateTime.timestamp()) ?? false);
+    final isEveryModuleItemsCompleted = activeModule?.moduleItems.every((item) => item.isCompleted) ?? false;
+
+    return isActiveModuleNotCompleted && isTimePassed && isEveryModuleItemsCompleted;
   }
 }

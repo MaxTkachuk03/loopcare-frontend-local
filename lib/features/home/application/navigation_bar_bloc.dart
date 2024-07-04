@@ -72,11 +72,11 @@ class NavigationBarBloc extends HydratedBloc<NavigationBarEvent, NavigationBarSt
     Emitter<NavigationBarState> emit,
   ) async {
     emit(
-      const NavigationBarState.beginningUncompleted(
+      NavigationBarState.beginningUncompleted(
         NavigationBarStateData(
           isBeginningCompleted: false,
-          isPracticeOpen: false,
-          isProfileOpen: false,
+          isPracticeOpen: event.isPracticeOpened,
+          isProfileOpen: event.isProfileOpened,
         ),
       ),
     );

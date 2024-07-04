@@ -95,7 +95,7 @@ class SplashController {
       return const LoginRoute();
     } else if (!hasActiveSubscription && kIsProd) {
       return const SubscriptionRoute();
-    } else if (!riverBloc.state.data.isBeginningStarted) {
+    } else if (!riverBloc.state.data.isBeginningStarted && !riverBloc.state.data.isBeginningComplete) {
       return const RiverOverviewRoute();
     } else {
       return const HomeRoute();
@@ -103,27 +103,13 @@ class SplashController {
   }
 
   void setUpBottomNavigationBar() {
-    if (riverBloc.state.data.isBeginningComplete) {
-      return;
-    }
-    navigationBarBloc.add(const NavigationBarEvent.setBeginningUncompleted());
-
-    final isProfileOpened = riverBloc.state.data.activeModule!
-        .moduleItems
-        .firstWhere((item) => item.isProfile)
-        .isCompleted;
-
-    final isPracticeOpened = riverBloc.state.data.activeModule!
-        .moduleItems
-        .firstWhere((item) => item.isPractice)
-        .isCompleted;
-
-    if (isProfileOpened) {
-      navigationBarBloc.add(const NavigationBarEvent.unlockProfile());
-    }
-
-    if (isPracticeOpened) {
-      navigationBarBloc.add(const NavigationBarEvent.unlockPractise());
+    if (!riverBloc.state.data.isBeginningComplete) {
+      navigationBarBloc.add(
+        NavigationBarEvent.setBeginningUncompleted(
+          isPracticeOpened: riverBloc.state.data.isPracticeCompleted,
+          isProfileOpened: riverBloc.state.data.isProfileCompleted,
+        ),
+      );
     }
   }
 
@@ -177,4 +163,6 @@ class SplashController {
 
     return needRoutes;
   }
+
+  void getRiverModules() => riverBloc.add(const RiverEvent.getModules());
 }
