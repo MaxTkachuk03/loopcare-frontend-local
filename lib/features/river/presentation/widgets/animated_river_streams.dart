@@ -163,7 +163,7 @@ class AnimatedRiverStreamsState extends State<AnimatedRiverStreams> with SingleT
 
   void _spawnGradient() {
     _enableGradient = true;
-    _controller.forward();
+    _controller.repeat(reverse: true);
 
     _timer?.cancel();
     _timer = Timer.periodic(_completeDuration, (_) {

@@ -59,12 +59,11 @@ class _SplashPageState extends State<SplashPage> {
     );
   }
 
-  void _onAuthorized() {
-    context.read<RiverBloc>().add(const RiverEvent.getModules());
-  }
+  void _onAuthorized() => _controller.getRiverModules();
 
   Future<void> _navigateAuthorized() async {
     _controller.setUpBottomNavigationBar();
+
     final routes = await _controller.getRoute();
 
     if (context.mounted) {

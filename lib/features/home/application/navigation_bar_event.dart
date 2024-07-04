@@ -4,7 +4,10 @@ part of 'navigation_bar_bloc.dart';
 class NavigationBarEvent with _$NavigationBarEvent {
   const factory NavigationBarEvent.init() = InitNavigationBar;
 
-  const factory NavigationBarEvent.setBeginningUncompleted() = SetBeginningUncompleted;
+  const factory NavigationBarEvent.setBeginningUncompleted({
+    @Default(false) bool isProfileOpened,
+    @Default(false) bool isPracticeOpened,
+}) = SetBeginningUncompleted;
 
   const factory NavigationBarEvent.unlockPractise() = UnlockPractise;
 

@@ -38,4 +38,10 @@ class RiverStateData with _$RiverStateData {
 
   bool get isBeginningStarted =>
       currentPage == 0 && activeModule!.moduleItems.any((item) => item.isCompleted);
+
+  bool get isProfileCompleted =>
+      activeModule?.moduleItems.firstWhereOrNull((item) => item.isProfile)?.isCompleted ?? true;
+
+  bool get isPracticeCompleted =>
+      activeModule?.moduleItems.firstWhereOrNull((item) => item.isPractice)?.isCompleted ?? true;
 }

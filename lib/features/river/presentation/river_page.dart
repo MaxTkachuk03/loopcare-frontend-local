@@ -6,6 +6,7 @@ import 'package:loopcare_frontend/core/presentation/error/error_screen.dart';
 import 'package:loopcare_frontend/core/presentation/routes/app_router.dart';
 import 'package:loopcare_frontend/core/presentation/scaffold/custom_scaffold.dart';
 import 'package:loopcare_frontend/core/presentation/scale_gesture_detector/scale_gesture_detector.dart';
+import 'package:loopcare_frontend/features/home/application/navigation_bar_bloc.dart';
 import 'package:loopcare_frontend/features/river/application/river_bloc.dart';
 import 'package:loopcare_frontend/features/river/presentation/widgets/river_module_view.dart';
 
@@ -43,11 +44,7 @@ class _RiverPageState extends State<RiverPage> {
         onZoomOut: _navigationHandler,
         child: CustomSafeArea(
           child: BlocConsumer<RiverBloc, RiverState>(
-            listener: (context, state) {
-              state.mapOrNull(
-                moduleItemLoaded: (_) => context.read<RiverBloc>().add(const RiverEvent.checkCompletion())
-              );
-            },
+            listener: (context, state) {},
             builder: (context, state) {
               return state.maybeMap(
                 moduleLoadingError: (state) => ErrorScreen(error: state.data.error!),

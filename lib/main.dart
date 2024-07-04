@@ -43,7 +43,9 @@ Future<void> main() async {
 
   FlutterError.onError = _onFlutterError;
 
-  ErrorWidget.builder = _onFlutterErrorWidget;
+  if (!kDebugMode) {
+    ErrorWidget.builder = _onFlutterErrorWidget;
+  }
 
   // Pass all uncaught asynchronous errors that aren't handled by the Flutter framework to Crashlytics
   PlatformDispatcher.instance.onError = _onPlatformDispatcherError;

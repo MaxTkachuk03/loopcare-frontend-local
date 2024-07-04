@@ -24,7 +24,7 @@ class ItemsPositionsOne extends ItemsPositionValues {
   const ItemsPositionsOne();
 
   @override
-  List<double> get green => [0.19, 0.79, 0.46];
+  List<double> get green => [0.79, 0.19, 0.46];
 
   @override
   List<double> get blue => [0.68, 0.29];
