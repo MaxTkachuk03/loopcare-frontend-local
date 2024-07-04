@@ -36,7 +36,7 @@ class ItemsPositionsTwo extends ItemsPositionValues {
   List<double> get orange => [0.64, 0.16, 0.91];
 
   @override
-  List<double> get yellow => [0.3, 0.77];
+  List<double> get yellow => [0.32, 0.77];
 }
 
 class RiverStreamsTwoPainter extends RenderRiverStreamPainter {

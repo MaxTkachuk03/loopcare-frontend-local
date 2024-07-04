@@ -147,7 +147,7 @@ class _RiverScreenState extends State<RiverScreen> {
       ModalBottomSheet.guidancePractice(
         context: context,
         onConfirm: () => riverBloc.add(
-          RiverEvent.updateModuleItem(
+          RiverEvent.updateGuidanceModuleItem(
             moduleId: widget.module.id,
             moduleItemId: item.id,
           ),
@@ -159,7 +159,7 @@ class _RiverScreenState extends State<RiverScreen> {
       ModalBottomSheet.guidanceProfile(
         context: context,
         onConfirm: () => riverBloc.add(
-          RiverEvent.updateModuleItem(
+          RiverEvent.updateGuidanceModuleItem(
             moduleId: widget.module.id,
             moduleItemId: item.id,
           ),

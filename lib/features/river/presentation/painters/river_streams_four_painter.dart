@@ -27,7 +27,7 @@ class ItemsPositionsFour extends ItemsPositionValues {
   List<double> get green => [0.21, 0.91, 0.55];
 
   @override
-  List<double> get blue => [0.35, 0.67];
+  List<double> get blue => [0.67, 0.35];
 
   @override
   List<double> get red => [0.89, 0.11];

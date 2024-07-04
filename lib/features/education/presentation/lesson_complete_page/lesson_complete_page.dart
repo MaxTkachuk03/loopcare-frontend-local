@@ -31,6 +31,7 @@ import 'package:loopcare_frontend/features/education/presentation/lesson_complet
 import 'package:loopcare_frontend/features/education/presentation/lesson_complete_page/widgets/unlock_food_logging_feature.dart';
 import 'package:loopcare_frontend/features/education/presentation/lesson_complete_page/widgets/unlock_group_session_feature.dart';
 import 'package:loopcare_frontend/features/nutrition/application/dashboard_education/dashboard_education_bloc.dart';
+import 'package:loopcare_frontend/features/river/application/river_bloc.dart';
 import 'package:loopcare_frontend/features/river/infrastructure/river_module_stream_type.dart';
 import 'package:loopcare_frontend/injection.dart';
 
@@ -55,10 +56,7 @@ class _LessonCompletePageState extends State<LessonCompletePage> {
   @override
   void initState() {
     super.initState();
-    if (context.read<EducationLessonBloc>().state.data.isLessonCompleted) {
-      return;
-    }
-    context.read<EducationLessonBloc>().add(const EducationLessonEvent.completeLesson());
+    context.read<RiverBloc>().add(const RiverEvent.updateActiveModuleItemStatus());
   }
 
   _onPressHandler(BuildContext context) {

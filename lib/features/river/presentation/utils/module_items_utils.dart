@@ -67,13 +67,14 @@ class ModuleItemsUtils {
   static List<({Offset offset, RiverModuleItem item})> _getItemsOffsetForPage(int page, List<RiverModuleItem> items) {
     final List<({Offset offset, RiverModuleItem item})> list = [];
 
-    final activity = items.where((element) => element.streamType.isPhysicalActivity).toList();
-    final community = items.where((element) => element.streamType.isCommunity).toList();
-    final psychology = items.where((element) => element.streamType.isPsychology).toList();
-    final medical = items.where((element) => element.streamType.isMedical).toList();
-    final nutrition = items.where((element) => element.streamType.isNutrition).toList();
+    final root = items.where((i) => i.isRootItem).toList();
+    final activity = items.where((i) => i.streamType.isPhysicalActivity && !i.isRootItem).toList();
+    final community = items.where((i) => i.streamType.isCommunity && !i.isRootItem).toList();
+    final psychology = items.where((i) => i.streamType.isPsychology && !i.isRootItem).toList();
+    final medical = items.where((i) => i.streamType.isMedical && !i.isRootItem).toList();
+    final nutrition = items.where((i) => i.streamType.isNutrition && !i.isRootItem).toList();
 
-    final streams = [psychology, community, medical, activity, nutrition];
+    final streams = [root, psychology, community, medical, activity, nutrition];
 
     for (final listItems in streams) {
       for (int i = 0; i < listItems.length; i++) {
