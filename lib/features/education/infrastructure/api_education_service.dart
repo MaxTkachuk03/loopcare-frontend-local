@@ -5,8 +5,9 @@ import 'package:loopcare_frontend/core/infrastructure/dio_client/request_error.d
 import 'package:loopcare_frontend/features/education/application/dto/calendar_lessons_response.dart';
 import 'package:loopcare_frontend/features/education/application/dto/get_lesson_content_response.dart';
 import 'package:loopcare_frontend/features/education/application/dto/get_lessons_response.dart';
+import 'package:loopcare_frontend/features/education/application/dto/save_lesson_quiz_question_answer_body.dart';
 import 'package:loopcare_frontend/features/education/application/education_service.dart';
-import 'package:loopcare_frontend/features/education/domain/questions/lesson_answer_body.dart';
+import 'package:loopcare_frontend/features/quizzes/domain/quiz.dart';
 // import 'package:loopcare_frontend/features/education/infrastructure/lesson_mock.dart';
 // import 'package:loopcare_frontend/features/education/infrastructure/lessons_mock.dart';
 
@@ -111,6 +112,18 @@ class APIEducationService implements EducationService {
     return await client.get(
       '/education/lessons/$lessonId',
       fromJson: GetLessonContentResponse.fromJson,
+    );
+  }
+
+  @override
+  Future<Either<RequestError, Quiz>> saveLessonQuizQuestionAnswer(
+    int quizId,
+    SaveLessonQuizQuestionAnswerBody data,
+  ) async {
+    return await client.post(
+      '/education/lesson-quiz/$quizId/submit',
+      data: data,
+      fromJson: Quiz.fromJson,
     );
   }
 

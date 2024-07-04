@@ -48,8 +48,7 @@ class _LessonPageState extends State<LessonPage> {
     }
 
     if (lessonBlocData.hasQuiz) {
-      context.router
-          .push(QuizzesIntroRoute(lessonId: widget.lessonId, streamType: widget.streamType));
+      context.router.push(QuizIntroRoute(lessonId: widget.lessonId, streamType: widget.streamType));
     } else {
       context.router.push(LessonCompleteRoute(streamType: widget.streamType));
     }

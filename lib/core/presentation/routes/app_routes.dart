@@ -117,8 +117,8 @@ class AppRoutes {
   static const String moodOption = '/mood-option';
 
   // Quizzes & Assignments
-  static const String quizzes = '/quizzes';
-  static const String quizesQuestions = '/quizzes-questions';
+  static const String quizIntro = '/quiz-intro';
+  static const String quizQuestion = '/quiz-question';
   static const String assignmentsIntro = '/assignments-intro';
   static const String assignmentsQuestions = '/assignments-questions';
   static const String myAssignments = '/my-assignments';

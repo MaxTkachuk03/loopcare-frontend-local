@@ -352,12 +352,12 @@ class AppRouter extends $AppRouter {
 
         // Quizzes
         AutoRoute(
-          path: AppRoutes.quizzes,
-          page: QuizzesIntroRoute.page,
+          path: AppRoutes.quizIntro,
+          page: QuizIntroRoute.page,
         ), // added
         AutoRoute(
-          path: AppRoutes.quizesQuestions,
-          page: QuizzesQuestionsRoute.page,
+          path: AppRoutes.quizQuestion,
+          page: QuizQuestionRoute.page,
         ), // added
         AutoRoute(
           path: AppRoutes.assignmentsIntro,

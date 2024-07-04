@@ -1,31 +1,32 @@
 import 'package:flutter/material.dart';
 import 'package:loopcare_frontend/core/presentation/text/custom_text.dart';
 import 'package:loopcare_frontend/core/presentation/utils/build_context_extensions.dart';
+import 'package:loopcare_frontend/features/quizzes/domain/quiz_question.dart';
+import 'package:loopcare_frontend/features/quizzes/domain/quiz_question_option.dart';
 import 'package:loopcare_frontend/features/quizzes/infrastructure/questions_page_mode.dart';
 import 'package:loopcare_frontend/features/quizzes/presentation/widgets/quizzes_question_chip.dart';
 
-class QuizzesQuestion extends StatefulWidget {
+class QuizQuestionOptionsList extends StatefulWidget {
   final QuestionsPageMode mode;
-  final dynamic question;
-  final void Function(dynamic value) onSelected;
-  final dynamic? selectedValue;
+  final QuizQuestion question;
+  final void Function(QuizQuestionOption value) onSelected;
+  final int selectedValue;
 
-  const QuizzesQuestion({
+  const QuizQuestionOptionsList({
     super.key,
     required this.mode,
     required this.question,
     required this.onSelected,
-    this.selectedValue,
+    required this.selectedValue,
   });
 
   @override
-  State<QuizzesQuestion> createState() => _QuizzesQuestionState();
+  State<QuizQuestionOptionsList> createState() => _QuizQuestionOptionsListState();
 }
 
-class _QuizzesQuestionState extends State<QuizzesQuestion> {
-  void _onSelectedHandler(String label) {
-    widget.onSelected(
-        widget.question.lessonQuestionOptions.firstWhere((element) => element.label == label));
+class _QuizQuestionOptionsListState extends State<QuizQuestionOptionsList> {
+  void _onSelectedHandler(QuizQuestionOption value) {
+    widget.onSelected(widget.question.options.firstWhere((o) => o.id == value.id));
   }
 
   @override
@@ -41,28 +42,26 @@ class _QuizzesQuestionState extends State<QuizzesQuestion> {
         ListView.separated(
           physics: const NeverScrollableScrollPhysics(),
           shrinkWrap: true,
-          itemCount: widget.question.lessonQuestionOptions.length,
+          itemCount: widget.question.options.length,
           separatorBuilder: (context, index) => const SizedBox(height: 8),
           itemBuilder: (context, i) {
-            final el = widget.question.lessonQuestionOptions[i];
+            final el = widget.question.options[i];
 
             return widget.mode.map(
               askQuestion: (_) => QuizzesQuestionChip(
-                label: el.label,
-                selected: widget.selectedValue?.id == el.id,
+                value: el,
+                selected: widget.selectedValue == el.id,
                 onSelected: _onSelectedHandler,
               ),
               showAnswer: (_) {
                 var isCorrect = el.isCorrect ?? false;
                 return QuizzesQuestionChip(
-                  label: el.label,
-                  selected: widget.selectedValue?.id == el.id,
-                  onSelected: (String value) {},
-                  correct: (!isCorrect && widget.selectedValue?.id == el.id) || isCorrect
-                      ? isCorrect
-                      : null,
-                  active:
-                      (!isCorrect && widget.selectedValue?.id == el.id) || isCorrect ? true : false,
+                  value: el,
+                  selected: widget.selectedValue == el.id,
+                  onSelected: (_) {},
+                  correct:
+                      (!isCorrect && widget.selectedValue == el.id) || isCorrect ? isCorrect : null,
+                  active: (!isCorrect && widget.selectedValue == el.id) || isCorrect ? true : false,
                 );
               },
             );

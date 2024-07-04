@@ -3,15 +3,12 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
 import 'package:loopcare_frontend/core/infrastructure/dio_client/request_error.dart';
-import 'package:loopcare_frontend/core/infrastructure/dio_client/server_error_data.dart';
-import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
-import 'package:loopcare_frontend/features/education/application/dto/lesson_page.dart';
+import 'package:loopcare_frontend/features/education/application/dto/save_lesson_quiz_question_answer_body.dart';
 import 'package:loopcare_frontend/features/education/application/education_service.dart';
 import 'package:loopcare_frontend/features/education/domain/audio_lesson_content_type.dart';
 import 'package:loopcare_frontend/features/education/domain/extra_action_types.dart';
 import 'package:loopcare_frontend/features/education/domain/lesson_content_type.dart';
 import 'package:loopcare_frontend/features/quizzes/domain/quiz.dart';
-import 'package:loopcare_frontend/features/quizzes/domain/quiz_question.dart';
 import 'package:path_provider/path_provider.dart';
 
 part 'education_lesson_bloc.freezed.dart';
@@ -22,16 +19,10 @@ part 'education_lesson_state.dart';
 class EducationLessonBloc extends Bloc<EducationLessonEvent, EducationLessonState> {
   final EducationService _educationService;
 
-  final _defaultError = const RequestError.unhandledResponse(
-      ServerErrorData(message: LocalizedTexts.somethingWentWrong));
-
   EducationLessonBloc(this._educationService)
       : super(const EducationLessonState.initial(EducationLessonData())) {
     on<GetLessonContent>(_onGetLessonContent);
-    // on<NextPage>(_onNextPage);
-    // on<PrevPage>(_onPrevPage);
-    // on<ProgressForward>(_onProgressForward);
-    // on<ProgressBack>(_onProgressBack);
+    on<AnswerQuizQuestion>(_onAnswerQuizQuestion);
     on<CompleteLesson>(_onCompleteLesson);
     on<DownloadAudioFile>(_onDownloadAudioFile);
     on<DownloadSubtitlesFile>(_onDownloadSubtitlesFile);
@@ -161,25 +152,30 @@ class EducationLessonBloc extends Bloc<EducationLessonEvent, EducationLessonStat
     );
   }
 
-  // Future<void> _onNextPage(
-  //   NextPage event,
-  //   Emitter<EducationLessonState> emit,
-  // ) async {
-  //   // if (state.data.isLastPage) return;
-  //
-  //   emit(EducationLessonState.contentLoaded(
-  //       state.data.copyWith(currentPageIndex: state.data.currentPageIndex + 1)));
-  // }
-  //
-  // Future<void> _onPrevPage(
-  //   PrevPage event,
-  //   Emitter<EducationLessonState> emit,
-  // ) async {
-  //   if (state.data.currentPageIndex == 0) return;
-  //
-  //   emit(EducationLessonState.contentLoaded(
-  //       state.data.copyWith(currentPageIndex: state.data.currentPageIndex - 1)));
-  // }
+  Future<void> _onAnswerQuizQuestion(
+    AnswerQuizQuestion event,
+    Emitter<EducationLessonState> emit,
+  ) async {
+    emit(EducationLessonState.contentIsLoading(state.data.copyWith(isLoading: true, error: null)));
+
+    final quizId = state.data.quiz?.id;
+
+    if (quizId == null) return;
+
+    final data = SaveLessonQuizQuestionAnswerBody(
+      lessonQuizQuestionOptionIds: [event.questionOptionId],
+      lessonQuizQuestionId: event.questionId,
+    );
+
+    final response = await _educationService.saveLessonQuizQuestionAnswer(quizId, data);
+
+    response.fold(
+      (l) =>
+          emit(EducationLessonState.contentLoaded(state.data.copyWith(error: l, isLoading: false))),
+      (r) =>
+          emit(EducationLessonState.contentLoaded(state.data.copyWith(quiz: r, isLoading: false))),
+    );
+  }
 
   Future<void> _onCompleteLesson(
     CompleteLesson event,
@@ -211,24 +207,6 @@ class EducationLessonBloc extends Bloc<EducationLessonEvent, EducationLessonStat
       ),
     );
   }
-
-  // FutureOr<void> _onProgressForward(ProgressForward event, Emitter<EducationLessonState> emit) {
-  //   final newProgressIndexPage = state.data.currentProgressPageIndex + 1;
-  //
-  //   emit(EducationLessonState.contentLoaded(state.data.copyWith(
-  //       currentProgressPageIndex: newProgressIndexPage,
-  //       lessonProgress: (100 * newProgressIndexPage) ~/ state.data.totalPagesLength)));
-  // }
-  //
-  // FutureOr<void> _onProgressBack(ProgressBack event, Emitter<EducationLessonState> emit) {
-  //   if (state.data.currentProgressPageIndex == 0) return null;
-  //
-  //   final newProgressIndexPage = state.data.currentProgressPageIndex - 1;
-  //
-  //   emit(EducationLessonState.contentLoaded(state.data.copyWith(
-  //       currentProgressPageIndex: newProgressIndexPage,
-  //       lessonProgress: (100 * newProgressIndexPage) ~/ state.data.totalPagesLength)));
-  // }
 
   // FIXME cache to prevent multiple download request, the root of the issue wrong bloc structure and logic, could be fixed during education refactoring with chapters
   Map<String, Set<AudioLessonContentType>> _updateAudioCacheValue(AudioLessonContentType newValue) {

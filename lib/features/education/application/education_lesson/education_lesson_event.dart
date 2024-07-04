@@ -4,6 +4,11 @@ part of 'education_lesson_bloc.dart';
 class EducationLessonEvent with _$EducationLessonEvent {
   const factory EducationLessonEvent.getLessonContent({required int lessonId}) = GetLessonContent;
 
+  const factory EducationLessonEvent.answerQuizQuestion({
+    required int questionOptionId,
+    required int questionId,
+  }) = AnswerQuizQuestion;
+
   const factory EducationLessonEvent.nextPage() = NextPage;
 
   const factory EducationLessonEvent.prevPage() = PrevPage;

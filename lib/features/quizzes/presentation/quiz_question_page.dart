@@ -1,5 +1,6 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:easy_localization/easy_localization.dart';
+import 'package:fast_immutable_collections/fast_immutable_collections.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loopcare_frontend/core/domain/analytics/firebase_event_custom_definitions.dart';
@@ -11,7 +12,6 @@ import 'package:loopcare_frontend/core/presentation/buttons/custom_elevated_butt
 import 'package:loopcare_frontend/core/presentation/buttons/custom_filled_icon_button.dart';
 import 'package:loopcare_frontend/core/presentation/custom_error_widget/error_invoker.dart';
 import 'package:loopcare_frontend/core/presentation/custom_safe_area.dart';
-import 'package:loopcare_frontend/core/presentation/loader/loader.dart';
 import 'package:loopcare_frontend/core/presentation/routes/app_router.gr.dart';
 import 'package:loopcare_frontend/core/presentation/scaffold/custom_scaffold.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/main_container.dart';
@@ -19,42 +19,61 @@ import 'package:loopcare_frontend/core/presentation/widgets/simple_progress_bar.
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/scrollable_container.dart';
+import 'package:loopcare_frontend/features/education/application/education_lesson/education_lesson_bloc.dart';
 import 'package:loopcare_frontend/features/quizzes/application/quizzes_bloc.dart';
+import 'package:loopcare_frontend/features/quizzes/domain/quiz_question.dart';
+import 'package:loopcare_frontend/features/quizzes/domain/quiz_question_option.dart';
 import 'package:loopcare_frontend/features/quizzes/infrastructure/questions_page_mode.dart';
-import 'package:loopcare_frontend/features/quizzes/infrastructure/quizzes_controller.dart';
 import 'package:loopcare_frontend/features/quizzes/presentation/widgets/correct_incorrect_explanation.dart';
-import 'package:loopcare_frontend/features/quizzes/presentation/widgets/quizzes_question.dart';
+import 'package:loopcare_frontend/features/quizzes/presentation/widgets/quiz_question_options_list.dart';
 import 'package:loopcare_frontend/features/river/infrastructure/river_module_stream_type.dart';
 
 @RoutePage()
-class QuizzesQuestionsPage extends StatefulWidget {
+class QuizQuestionPage extends StatefulWidget {
   final int step;
   final RiverModuleStreamType streamType;
 
-  const QuizzesQuestionsPage({super.key, required this.step, required this.streamType});
+  const QuizQuestionPage({super.key, required this.step, required this.streamType});
 
   @override
-  State<QuizzesQuestionsPage> createState() => _QuizzesQuestionsPageState();
+  State<QuizQuestionPage> createState() => _QuizQuestionPageState();
 }
 
-class _QuizzesQuestionsPageState extends State<QuizzesQuestionsPage> {
-  late QuizzesController _controller;
-  QuestionsPageMode mode = const QuestionsPageMode.askQuestion();
+class _QuizQuestionPageState extends State<QuizQuestionPage> {
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  late QuestionsPageMode _mode;
+  late QuizQuestion _currentQuestion;
+  bool _isAnswerCorrect = false;
+  bool _hasAnswer = false;
+
   int _totalSteps = 1;
-  int selectedValue = 0;
+  int _selectedAnswer = 0;
 
   @override
   void initState() {
-    final quizzesState = context.read<QuizzesBloc>().state;
-    _totalSteps = quizzesState.data.quizzes.isNotEmpty ? quizzesState.data.quizzes.length : 1;
-
-    _controller = mode.map(
-      askQuestion: (_) => QuizzesController()..addFocusNodeListeners(),
-      showAnswer: (s) => QuizzesController()..addFocusNodeListeners(),
-    );
-
-    setStep(widget.step);
     super.initState();
+
+    final lessonStateData = context.read<EducationLessonBloc>().state.data;
+    final quiz = lessonStateData.quiz;
+
+    if (quiz == null) return;
+
+    _totalSteps = lessonStateData.quizQuestionsAmount;
+
+    _currentQuestion = quiz.questions.get(widget.step);
+
+    _selectedAnswer =
+        _currentQuestion.answers.isEmpty ? 0 : _currentQuestion.answers.first.optionId;
+
+    final correctAnswer = _currentQuestion.options.firstWhere((o) => o.isCorrect ?? false);
+
+    _isAnswerCorrect = correctAnswer.id == _selectedAnswer;
+
+    _hasAnswer = _currentQuestion.answers.isNotEmpty;
+
+    _mode = _selectedAnswer != 0
+        ? const QuestionsPageMode.showAnswer()
+        : const QuestionsPageMode.askQuestion();
   }
 
   String get _title =>
@@ -83,34 +102,10 @@ class _QuizzesQuestionsPageState extends State<QuizzesQuestionsPage> {
     );
   }
 
-  void _onSelectedHandler(dynamic item) {
+  void _onSelectedHandler(QuizQuestionOption item) {
     setState(() {
-      mode = const QuestionsPageMode.showAnswer();
-      selectedValue = item.id;
-    });
-
-    _controller.setLessonValue(item);
-    _controller.validateForm();
-  }
-
-  void setStep(int currStep) {
-    setState(() {
-      var quizzesBloc = context.read<QuizzesBloc>();
-
-      var question = quizzesBloc.state.data.questionForStep(currStep);
-
-      mode = question.questionAnswer != null
-          ? const QuestionsPageMode.showAnswer()
-          : const QuestionsPageMode.askQuestion();
-
-      if (question.questionAnswer != null) {
-        final userAnswer =
-            question.lessonQuestionOptionById(question.lessonQuestionAnswersId.first);
-
-        _controller
-          ..setLessonValue(userAnswer)
-          ..validateForm();
-      }
+      _mode = const QuestionsPageMode.showAnswer();
+      _selectedAnswer = item.id;
     });
   }
 
@@ -118,39 +113,36 @@ class _QuizzesQuestionsPageState extends State<QuizzesQuestionsPage> {
     if (widget.step == (_totalSteps - 1)) {
       context.router.push(LessonCompleteRoute(streamType: widget.streamType));
     } else {
-      context.router
-          .push(QuizzesQuestionsRoute(step: widget.step + 1, streamType: widget.streamType));
+      context.router.push(QuizQuestionRoute(step: widget.step + 1, streamType: widget.streamType));
     }
   }
 
-  void _saveOptionsField(int lessonId) {
-    _controller.isEnableSend.value = false;
-    var quizzesBloc = context.read<QuizzesBloc>();
+  void _saveOptionsField() {
+    if (_hasAnswer) {
+      _onNextHandler();
+    } else {
+      final educationBloc = context.read<EducationLessonBloc>();
 
-    var question = quizzesBloc.state.data.questionForStep(widget.step);
-    var selectLessonValueId = _controller.selectLessonValue.value?.id;
-
-    if (question.questionAnswer == null) {
-      quizzesBloc.add(
-        QuizzesEvent.saveLessonAnswer(
-          question.id,
-          lessonQuestionOptionIds: selectLessonValueId != null ? [selectLessonValueId] : [],
-        ),
-      );
+      educationBloc.add(EducationLessonEvent.answerQuizQuestion(
+        questionOptionId: _selectedAnswer,
+        questionId: _currentQuestion.id,
+      ));
 
       AnalyticsEventService.instance.logEvent(
         FirebaseEvents.userCompleteQuiz,
         parameters: {
-          CustomDefinitions.lessonId: lessonId,
-          CustomDefinitions.title: question.title,
-          CustomDefinitions.questionId: question.id.toString(),
-          CustomDefinitions.value: selectLessonValueId?.toString() ?? '',
+          CustomDefinitions.lessonId: educationBloc.state.data.id,
+          CustomDefinitions.title: _currentQuestion.question,
+          CustomDefinitions.questionId: _currentQuestion.id.toString(),
+          CustomDefinitions.value: _selectedAnswer.toString(),
         },
       );
-    } else {
-      _onNextHandler();
     }
   }
+
+  get _answerText => _isAnswerCorrect
+      ? _currentQuestion.explanationCorrect ?? LocalizedTexts.correct.tr()
+      : _currentQuestion.explanationIncorrect ?? LocalizedTexts.incorrect.tr();
 
   @override
   Widget build(BuildContext context) {
@@ -186,19 +178,15 @@ class _QuizzesQuestionsPageState extends State<QuizzesQuestionsPage> {
                     children: [
                       const SizedBox(height: 32),
                       MainContainer(
-                        child: BlocBuilder<QuizzesBloc, QuizzesState>(
-                          builder: (context, state) {
-                            return state.maybeMap(
-                              loading: (_) => const Loader(),
-                              orElse: () => Form(
-                                key: _controller.formKey,
-                                onChanged: _controller.validateForm,
-                                child: QuizzesQuestion(
-                                  selectedValue: _controller.selectLessonValue.value,
-                                  mode: mode,
-                                  question: state.data.questionForStep(widget.step),
-                                  onSelected: _onSelectedHandler,
-                                ),
+                        child: BlocBuilder<EducationLessonBloc, EducationLessonState>(
+                          builder: (context, EducationLessonState state) {
+                            return Form(
+                              key: _formKey,
+                              child: QuizQuestionOptionsList(
+                                selectedValue: _selectedAnswer,
+                                mode: _mode,
+                                question: _currentQuestion,
+                                onSelected: _onSelectedHandler,
                               ),
                             );
                           },
@@ -208,41 +196,24 @@ class _QuizzesQuestionsPageState extends State<QuizzesQuestionsPage> {
                   ),
                   Column(
                     children: [
-                      mode.map(
+                      _mode.map(
                         askQuestion: (_) => const SizedBox.shrink(),
                         showAnswer: (_) => Container(
                           color: AppColors.white,
                           child: Padding(
                             padding: const EdgeInsets.symmetric(vertical: 30.0, horizontal: 24.0),
-                            child: BlocBuilder<QuizzesBloc, QuizzesState>(
-                              builder: (context, state) {
-                                return Column(
-                                  children: [
-                                    ValueListenableBuilder<bool>(
-                                      valueListenable: _controller.isCorrect,
-                                      builder: (context, isCorrect, _) {
-                                        return CorrectIncorrectExplanation(
-                                          isCorrect: isCorrect,
-                                          text: isCorrect
-                                              ? state.data
-                                                      .questionForStep(widget.step)
-                                                      .explanationCorrect ??
-                                                  LocalizedTexts.correct.tr()
-                                              : state.data
-                                                      .questionForStep(widget.step)
-                                                      .explanationIncorrect ??
-                                                  LocalizedTexts.incorrect.tr(),
-                                        );
-                                      },
-                                    ),
-                                    const SizedBox(height: 24),
-                                    CustomElevatedButton.blueFullWidth(
-                                      onPressed: () => _saveOptionsField(state.data.lessonId),
-                                      label: LocalizedTexts.next.tr(),
-                                    ),
-                                  ],
-                                );
-                              },
+                            child: Column(
+                              children: [
+                                CorrectIncorrectExplanation(
+                                  isCorrect: _isAnswerCorrect,
+                                  text: _answerText,
+                                ),
+                                const SizedBox(height: 24),
+                                CustomElevatedButton.blueFullWidth(
+                                  onPressed: _saveOptionsField,
+                                  label: LocalizedTexts.next.tr(),
+                                ),
+                              ],
                             ),
                           ),
                         ),

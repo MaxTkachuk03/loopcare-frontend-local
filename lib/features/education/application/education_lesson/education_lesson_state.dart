@@ -67,6 +67,10 @@ class EducationLessonData with _$EducationLessonData {
 
   bool get isLessonCompleted => true; //lessonCompletedDate != null;
 
+  String get quizInstruction => quiz?.instruction ?? '';
+
+  int get quizQuestionsAmount => quiz?.questions.length ?? 0;
+
   bool get isAudioAlreadyInCache {
     final cacheVal = audioFilesCache[id.toString()];
 

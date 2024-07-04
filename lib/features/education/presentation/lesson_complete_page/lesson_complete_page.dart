@@ -20,16 +20,11 @@ import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 import 'package:loopcare_frontend/core/presentation/utils/build_context_extensions.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/main_container.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/scrollable_container.dart';
-import 'package:loopcare_frontend/features/assignments/application/assignments_bloc.dart';
 import 'package:loopcare_frontend/features/authentication/application/authentication_bloc.dart';
 import 'package:loopcare_frontend/features/education/application/education_lesson/education_lesson_bloc.dart';
 import 'package:loopcare_frontend/features/education/domain/extra_action_types.dart';
 import 'package:loopcare_frontend/features/education/presentation/education_page/utils/get_label_by_stream_type.dart';
 import 'package:loopcare_frontend/features/education/presentation/lesson_complete_page/widgets/feature_unlock.dart';
-import 'package:loopcare_frontend/features/education/presentation/lesson_complete_page/widgets/save_assignment.dart';
-import 'package:loopcare_frontend/features/education/presentation/lesson_complete_page/widgets/unlock_assignment.dart';
-import 'package:loopcare_frontend/features/education/presentation/lesson_complete_page/widgets/unlock_buddy_feature.dart';
-import 'package:loopcare_frontend/features/education/presentation/lesson_complete_page/widgets/unlock_food_logging_feature.dart';
 import 'package:loopcare_frontend/features/education/presentation/lesson_complete_page/widgets/unlock_group_session_feature.dart';
 import 'package:loopcare_frontend/features/nutrition/application/dashboard_education/dashboard_education_bloc.dart';
 import 'package:loopcare_frontend/features/river/application/river_bloc.dart';
@@ -69,31 +64,32 @@ class _LessonCompletePageState extends State<LessonCompletePage> {
     final errorMessage = state.data.errorMessage ?? LocalizedTexts.somethingWentWrong;
     context.showError(content: Text(errorMessage.tr()));
   }
-
-  _startLessonQuestion(int lessonId) {
-    context.router.push(AssignmentsIntroRoute(lessonId: lessonId, fromDashboard: false));
-
-    setState(() {
-      showedAssignment = true;
-    });
-  }
+  // TODO after sync with Diana decided remove for now 04.07.2024
+  // _startLessonQuestion(int lessonId) {
+  //   context.router.push(AssignmentsIntroRoute(lessonId: lessonId, fromDashboard: false));
+  //
+  //   setState(() {
+  //     showedAssignment = true;
+  //   });
+  // }
 
   bool get _isGroupSessionsDisabled => getIt<SharedStorageService>().account!.disableGroupSessions;
 
-  String _subText(EducationLessonState state) {
-    if (state.data.extraAction == ExtraActionTypes.setupGroupingPreferences &&
-        !_isGroupSessionsDisabled) {
-      return LocalizedTexts.lessonCompleteDescription.tr();
-    }
-
-    if (state.data.extraAction == ExtraActionTypes.unlockFoodLogging ||
-        (state.data.extraAction == ExtraActionTypes.setupGroupingPreferences &&
-            !_isGroupSessionsDisabled)) {
-      return LocalizedTexts.unlockFeatureDescription.tr();
-    } else {
-      return LocalizedTexts.lessonCompleteDescription.tr();
-    }
-  }
+  // TODO delete when river will be finilized
+  // String _subText(EducationLessonState state) {
+  //   if (state.data.extraAction == ExtraActionTypes.setupGroupingPreferences &&
+  //       !_isGroupSessionsDisabled) {
+  //     return LocalizedTexts.lessonCompleteDescription.tr();
+  //   }
+  //
+  //   if (state.data.extraAction == ExtraActionTypes.unlockFoodLogging ||
+  //       (state.data.extraAction == ExtraActionTypes.setupGroupingPreferences &&
+  //           !_isGroupSessionsDisabled)) {
+  //     return LocalizedTexts.unlockFeatureDescription.tr();
+  //   } else {
+  //     return LocalizedTexts.lessonCompleteDescription.tr();
+  //   }
+  // }
 
   _lessonCompleteListener(BuildContext context, EducationLessonState state) {
     AnalyticsEventService.instance.logLessonCompletedEvent(
@@ -197,27 +193,6 @@ class _LessonCompletePageState extends State<LessonCompletePage> {
                                   ],
                                 );
                               }),
-                              // BlocBuilder<EducationLessonBloc, EducationLessonState>(
-                              //   builder: (context, state) {
-                              //     final lesson = state.data;
-                              //
-                              //     return Column(
-                              //       crossAxisAlignment: CrossAxisAlignment.start,
-                              //       children: [
-                              //         getLabelByStreamType(widget.streamType),
-                              //         const SizedBox(height: 10.0),
-                              //         CustomText.bitter600(
-                              //           lesson.title,
-                              //           style: context.textTheme.displayLarge,
-                              //         ),
-                              //         const SizedBox(height: 10.0),
-                              //         if (state.data.extraAction != ExtraActionTypes.unlockBuddy)
-                              //           CustomText.w400(_subText(state),
-                              //               style: context.textTheme.bodyMedium),
-                              //       ],
-                              //     );
-                              //   },
-                              // ),
                             ],
                           ),
                         ),
@@ -228,55 +203,22 @@ class _LessonCompletePageState extends State<LessonCompletePage> {
                           builder: (BuildContext context, state) {
                             return BlocBuilder<RiverBloc, RiverState>(
                               builder: (context, s) {
-                                print(s.data.activeModuleItem?.toJson());
-                                print(s.data.activeModule?.toJson());
+                                final isUnlockGroupSessions = state.data.extraAction ==
+                                        ExtraActionTypes.setupGroupingPreferences &&
+                                    !_isGroupSessionsDisabled;
+
+                                if (isUnlockGroupSessions) {
+                                  return UnlockGroupSessionFeature(
+                                    wantJoinLater: widget.joinSupportGroupLater,
+                                  );
+                                }
+
                                 return FeatureUnlock(
                                   title: state.data.unlockTitle,
                                   body: state.data.unlockDescription,
                                 );
                               },
                             );
-
-                            // TODO don't need additional unlock feature blocks
-                            // if (state.data.isFoodLoggingUnlocked) {
-                            //   return const UnlockFoodLoggingFeature();
-                            // }
-
-                            // TODO has redirect to the buddy screen
-                            // if (state.data.isBuddyUnlocked) {
-                            //   return const UnlockBuddyFeature();
-                            // }
-
-                            // if (state.data.extraAction ==
-                            //         ExtraActionTypes.setupGroupingPreferences &&
-                            //     !_isGroupSessionsDisabled) {
-                            //   return UnlockGroupSessionFeature(
-                            //       wantJoinLater: widget.joinSupportGroupLater);
-                            // }
-
-                            // TODO check how to fix
-                            // if (state.data.assignmentsQuestions.isNotEmpty &&
-                            //     state.data.assignmentsQuestionsWithAnswers.isEmpty) {
-                            //   final accountCreatedDate =
-                            //       getIt<SharedStorageService>().account?.createdAt ??
-                            //           DateTime.now();
-                            //
-                            //   context.read<AssignmentsBloc>().add(
-                            //         AssignmentsEvent.getAllLessonQuestions(
-                            //           accountCreatedDate,
-                            //           DateTime.now(),
-                            //         ),
-                            //       );
-                            //
-                            //   return showedAssignment
-                            //       ? const SavedAssignment()
-                            //       : UnlockAssignment(
-                            //           completedAt: state.data.lessonCompletedDate ?? DateTime.now(),
-                            //           onBtnPressed: () => _startLessonQuestion(state.data.lessonId),
-                            //         );
-                            // }
-
-                            return const SizedBox.shrink();
                           },
                         ),
                       ),

@@ -9,12 +9,7 @@ class QuizQuestionAnswer with _$QuizQuestionAnswer {
   const QuizQuestionAnswer._();
 
   const factory QuizQuestionAnswer({
-    required int id,
-    required int accountId,
-    required int lessonQuestionId,
-    required int? lessonQuestionOptionId,
-    required String? text,
-    required int? lessonQuestionFeedbackId,
+    required int optionId,
   }) = _QuizQuestionAnswer;
 
   factory QuizQuestionAnswer.fromJson(Map<String, dynamic> json) =>
