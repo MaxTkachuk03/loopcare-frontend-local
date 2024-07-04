@@ -72,7 +72,7 @@ class NextLesson extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         const SizedBox(height: 10.0),
-                        getLabelByStreamType(lesson.category),
+                        // getLabelByStreamType(lesson.category),
                         const SizedBox(height: 10.0),
                         CustomText.bitter700(
                           lesson.title,

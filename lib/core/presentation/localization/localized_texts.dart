@@ -287,6 +287,7 @@ class LocalizedTexts {
   // Education
   static const String backToToday = 'backToToday';
   static const String backToEducation = 'backToEducation';
+  static const String backToThePool = 'backToThePool';
   static const String completed = 'completed';
   static const String complete = 'complete';
 

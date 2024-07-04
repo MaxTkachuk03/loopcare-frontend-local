@@ -53,10 +53,12 @@ class EducationLessonBloc extends Bloc<EducationLessonEvent, EducationLessonStat
   ) async {
     emit(EducationLessonState.loading(state.data.copyWith(isAudioLoading: true, isLoading: true)));
 
+    final safeUrl = state.data.filePath(event.url.split('?')[0]);
+
     if (state.data.isAudioAlreadyInCache) {
       emit(
         EducationLessonState.contentLoaded(state.data.copyWith(
-          audioFilePath: state.data.filePath(event.url),
+          audioFilePath: safeUrl,
           isAudioLoading: false,
           isLoading: false,
         )),
@@ -65,8 +67,7 @@ class EducationLessonBloc extends Bloc<EducationLessonEvent, EducationLessonStat
       return;
     }
 
-    final response =
-        await _educationService.downloadFile(event.url, state.data.filePath(event.url));
+    final response = await _educationService.downloadFile(event.url, safeUrl);
 
     response.fold(
       (l) {
@@ -78,7 +79,7 @@ class EducationLessonBloc extends Bloc<EducationLessonEvent, EducationLessonStat
           EducationLessonState.contentLoaded(state.data.copyWith(
             isAudioLoading: false,
             isLoading: false,
-            audioFilePath: state.data.filePath(event.url),
+            audioFilePath: safeUrl,
             audioFilesCache: _updateAudioCacheValue(AudioLessonContentType.audio),
           )),
         );

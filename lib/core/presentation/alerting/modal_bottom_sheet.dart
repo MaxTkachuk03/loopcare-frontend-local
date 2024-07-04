@@ -14,7 +14,7 @@ import 'package:loopcare_frontend/core/presentation/buttons/custom_icon_button.d
 import 'package:loopcare_frontend/core/presentation/buttons/custom_outlined_button.dart';
 import 'package:loopcare_frontend/core/presentation/checkbox/custom_checkbox.dart';
 import 'package:loopcare_frontend/core/presentation/custom_safe_area.dart';
-import 'package:loopcare_frontend/core/presentation/html_renderer/html_renderer.dart';
+import 'package:loopcare_frontend/core/presentation/html_renderer/html_linc_content_render.dart';
 import 'package:loopcare_frontend/core/presentation/icon_images/app_icons.dart';
 import 'package:loopcare_frontend/core/presentation/icon_images/app_icons_data.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
@@ -983,7 +983,7 @@ class ModalBottomSheet {
                           ),
                         ),
                         const SizedBox(height: 18.0),
-                        HtmlRenderer(content: state.data.htmlUrl),
+                        HtmlLaunchContentRender(url: state.data.htmlUrl),
                         const SizedBox(height: 18.0),
                         MainContainer(
                           child: CustomElevatedButton.blueFullWidth(

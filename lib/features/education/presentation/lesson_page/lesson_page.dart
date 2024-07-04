@@ -55,13 +55,6 @@ class _LessonPageState extends State<LessonPage> {
     }
   }
 
-  _onPrevPressed() {
-    // context.read<EducationLessonBloc>().add(const EducationLessonEvent.prevPage());
-    // context.read<EducationLessonBloc>().add(const EducationLessonEvent.progressBack());
-
-    context.router.maybePop();
-  }
-
   Future<bool> _onWillPop() {
     final stateData = context.read<EducationLessonBloc>().state.data;
 

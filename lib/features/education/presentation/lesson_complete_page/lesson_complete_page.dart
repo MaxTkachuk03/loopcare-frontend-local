@@ -25,6 +25,7 @@ import 'package:loopcare_frontend/features/authentication/application/authentica
 import 'package:loopcare_frontend/features/education/application/education_lesson/education_lesson_bloc.dart';
 import 'package:loopcare_frontend/features/education/domain/extra_action_types.dart';
 import 'package:loopcare_frontend/features/education/presentation/education_page/utils/get_label_by_stream_type.dart';
+import 'package:loopcare_frontend/features/education/presentation/lesson_complete_page/widgets/feature_unlock.dart';
 import 'package:loopcare_frontend/features/education/presentation/lesson_complete_page/widgets/save_assignment.dart';
 import 'package:loopcare_frontend/features/education/presentation/lesson_complete_page/widgets/unlock_assignment.dart';
 import 'package:loopcare_frontend/features/education/presentation/lesson_complete_page/widgets/unlock_buddy_feature.dart';
@@ -94,8 +95,14 @@ class _LessonCompletePageState extends State<LessonCompletePage> {
     }
   }
 
-  _lessonCompleteListener(BuildContext context, EducationLessonState state) =>
-      context.read<AuthenticationBloc>().add(const AuthenticationEvent.getAccount());
+  _lessonCompleteListener(BuildContext context, EducationLessonState state) {
+    AnalyticsEventService.instance.logLessonCompletedEvent(
+      FirebaseEvents.lessonCompletedScreen,
+      context.read<EducationLessonBloc>().state.data.id,
+    );
+
+    context.read<AuthenticationBloc>().add(const AuthenticationEvent.getAccount());
+  }
 
   CustomAppBarTextTheme get _theme => widget.streamType.appBarTextTheme;
 
@@ -172,32 +179,45 @@ class _LessonCompletePageState extends State<LessonCompletePage> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               BlocBuilder<EducationLessonBloc, EducationLessonState>(
-                                builder: (context, state) {
-                                  final lesson = state.data;
-                                  if (state.data.isLessonCompleted) {
-                                    AnalyticsEventService.instance.logLessonCompletedEvent(
-                                      FirebaseEvents.lessonCompletedScreen,
-                                      context.read<EducationLessonBloc>().state.data.id,
-                                    );
-                                  }
-                                  return Column(
-                                    crossAxisAlignment: CrossAxisAlignment.start,
-                                    children: [
-                                      // TODO dont have category now
-                                      // getLabelByStreamType(lesson.lessonCategory),
-                                      const SizedBox(height: 10.0),
-                                      CustomText.bitter600(
-                                        lesson.title,
-                                        style: context.textTheme.displayLarge,
-                                      ),
-                                      const SizedBox(height: 10.0),
-                                      if (state.data.extraAction != ExtraActionTypes.unlockBuddy)
-                                        CustomText.w400(_subText(state),
-                                            style: context.textTheme.bodyMedium),
-                                    ],
-                                  );
-                                },
-                              ),
+                                  builder: (context, state) {
+                                return Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    getLabelByStreamType(widget.streamType),
+                                    const SizedBox(height: 10.0),
+                                    CustomText.bitter600(
+                                      state.data.title,
+                                      style: context.textTheme.displayLarge,
+                                    ),
+                                    const SizedBox(height: 10.0),
+                                    CustomText.w400(
+                                      state.data.conclusion,
+                                      style: context.textTheme.bodyMedium,
+                                    ),
+                                  ],
+                                );
+                              }),
+                              // BlocBuilder<EducationLessonBloc, EducationLessonState>(
+                              //   builder: (context, state) {
+                              //     final lesson = state.data;
+                              //
+                              //     return Column(
+                              //       crossAxisAlignment: CrossAxisAlignment.start,
+                              //       children: [
+                              //         getLabelByStreamType(widget.streamType),
+                              //         const SizedBox(height: 10.0),
+                              //         CustomText.bitter600(
+                              //           lesson.title,
+                              //           style: context.textTheme.displayLarge,
+                              //         ),
+                              //         const SizedBox(height: 10.0),
+                              //         if (state.data.extraAction != ExtraActionTypes.unlockBuddy)
+                              //           CustomText.w400(_subText(state),
+                              //               style: context.textTheme.bodyMedium),
+                              //       ],
+                              //     );
+                              //   },
+                              // ),
                             ],
                           ),
                         ),
@@ -206,22 +226,35 @@ class _LessonCompletePageState extends State<LessonCompletePage> {
                       MainContainer(
                         child: BlocBuilder<EducationLessonBloc, EducationLessonState>(
                           builder: (BuildContext context, state) {
-                            if (state.data.isFoodLoggingUnlocked) {
-                              return const UnlockFoodLoggingFeature();
-                            }
+                            return BlocBuilder<RiverBloc, RiverState>(
+                              builder: (context, s) {
+                                print(s.data.activeModuleItem?.toJson());
+                                print(s.data.activeModule?.toJson());
+                                return FeatureUnlock(
+                                  title: state.data.unlockTitle,
+                                  body: state.data.unlockDescription,
+                                );
+                              },
+                            );
 
-                            if (state.data.isBuddyUnlocked) {
-                              return const UnlockBuddyFeature();
-                            }
+                            // TODO don't need additional unlock feature blocks
+                            // if (state.data.isFoodLoggingUnlocked) {
+                            //   return const UnlockFoodLoggingFeature();
+                            // }
 
-                            if (state.data.extraAction ==
-                                    ExtraActionTypes.setupGroupingPreferences &&
-                                !_isGroupSessionsDisabled) {
-                              return UnlockGroupSessionFeature(
-                                  wantJoinLater: widget.joinSupportGroupLater);
-                            }
+                            // TODO has redirect to the buddy screen
+                            // if (state.data.isBuddyUnlocked) {
+                            //   return const UnlockBuddyFeature();
+                            // }
+
+                            // if (state.data.extraAction ==
+                            //         ExtraActionTypes.setupGroupingPreferences &&
+                            //     !_isGroupSessionsDisabled) {
+                            //   return UnlockGroupSessionFeature(
+                            //       wantJoinLater: widget.joinSupportGroupLater);
+                            // }
+
                             // TODO check how to fix
-
                             // if (state.data.assignmentsQuestions.isNotEmpty &&
                             //     state.data.assignmentsQuestionsWithAnswers.isEmpty) {
                             //   final accountCreatedDate =
@@ -255,7 +288,7 @@ class _LessonCompletePageState extends State<LessonCompletePage> {
                         const SizedBox(height: 30),
                         CustomElevatedButton.blueFullWidth(
                           onPressed: () => _onPressHandler(context),
-                          label: LocalizedTexts.backToEducation.tr(),
+                          label: LocalizedTexts.backToThePool.tr(),
                         ),
                         const SizedBox(height: 30.0),
                       ],
