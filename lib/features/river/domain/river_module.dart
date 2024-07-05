@@ -19,4 +19,12 @@ class RiverModule with _$RiverModule {
   }) = _RiverModule;
 
   factory RiverModule.fromJson(Map<String, dynamic> json) => _$RiverModuleFromJson(json);
+
+  bool get isAllComplete {
+    final isActiveModuleNotCompleted = !isCompleted;
+    final isTimePassed = nextModuleUnlocksAt?.isBefore(DateTime.timestamp()) ?? false;
+    final isEveryModuleItemsCompleted = moduleItems.every((item) => item.isCompleted);
+
+    return isActiveModuleNotCompleted && isTimePassed && isEveryModuleItemsCompleted;
+  }
 }

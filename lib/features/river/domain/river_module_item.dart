@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:loopcare_frontend/core/domain/unlocked_feature_type.dart';
 import 'package:loopcare_frontend/features/river/infrastructure/feature_placement.dart';
 import 'package:loopcare_frontend/features/river/infrastructure/river_icon_type.dart';
 import 'package:loopcare_frontend/features/river/infrastructure/river_module_item_state.dart';
@@ -20,6 +21,7 @@ class RiverModuleItem with _$RiverModuleItem {
     @Default(0) int lessonId,
     @Default(false) bool isRootItem,
     @Default([]) List<int> unlocksItems,
+    @Default([]) List<UnlockedFeatureType> unlocksFeature,
     @Default(null) int? unlocksAssignmentId,
     @Default(null) int? unlocksSmartGoalCategoryId,
     @Default(false) bool crossModule,

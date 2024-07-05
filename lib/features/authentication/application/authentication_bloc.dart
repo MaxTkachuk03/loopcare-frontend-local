@@ -427,8 +427,11 @@ class AuthenticationBloc extends HydratedBloc<AuthenticationEvent, Authenticatio
     emit(state.copyWith(data: state.data.copyWith(account: updatedAccount)));
 
     if (event.feature.isGrouping) {
-      add(const AuthenticationEvent.changeAccountGroupStatus(
-          UserGroupingState.unlockedPreferences));
+      add(
+        const AuthenticationEvent.changeAccountGroupStatus(
+          UserGroupingState.unlockedPreferences,
+        ),
+      );
     }
   }
 

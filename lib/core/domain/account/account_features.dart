@@ -49,4 +49,20 @@ class AccountFeatures with _$AccountFeatures {
   }
 
   factory AccountFeatures.fromJson(Map<String, dynamic> json) => _$AccountFeaturesFromJson(json);
+
+  bool isFeatureUnlocked(UnlockedFeatureType feature) => switch (feature) {
+    UnlockedFeatureType.allowGroupSessions => allowGroupSessions,
+    UnlockedFeatureType.assignments => assignments,
+    UnlockedFeatureType.foodLogging => foodLogging,
+    UnlockedFeatureType.calorieDensity => calorieDensity,
+    UnlockedFeatureType.smartGoals => smartGoals,
+    UnlockedFeatureType.weightLogging => weightLogging,
+    UnlockedFeatureType.physicalActivity => physicalActivity,
+    UnlockedFeatureType.buddy => buddy,
+    UnlockedFeatureType.grouping => grouping,
+    UnlockedFeatureType.proteinDegree => proteinDegree,
+    UnlockedFeatureType.mind => mind,
+    UnlockedFeatureType.fiberIndicator => fiberIndicator,
+    UnlockedFeatureType.calorieTracker => calorieTracker,
+  };
 }

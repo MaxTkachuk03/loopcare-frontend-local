@@ -227,15 +227,28 @@ class _DashboardPageState extends State<DashboardPage> with WidgetsBindingObserv
                               );
                             },
                           ),
-                          WeightBlock(date: _selectedDay),
+                          BlocBuilder<AuthenticationBloc, AuthenticationState>(
+                            builder: (BuildContext context, state) {
+                              if (state.data.account?.isWeightLoggingUnlocked ?? false) {
+                                return Column(
+                                  children: [
+                                    WeightBlock(date: _selectedDay),
+                                    const SizedBox(height: 19.0),
+                                  ],
+                                );
+                              } else {
+                                return const SizedBox.shrink();
+                              }
+                            },
+                          ),
                           BlocBuilder<AuthenticationBloc, AuthenticationState>(
                             builder: (BuildContext context, state) {
                               if (state.data.account?.isMindUnlocked ?? false) {
                                 return const Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    SizedBox(height: 19.0),
                                     DashboardMindWidget(),
+                                    SizedBox(height: 19.0),
                                   ],
                                 );
                               } else {
@@ -249,8 +262,8 @@ class _DashboardPageState extends State<DashboardPage> with WidgetsBindingObserv
                                 return Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    const SizedBox(height: 19.0),
                                     FoodLoggingDashboard(selectedDay: _selectedDay),
+                                    const SizedBox(height: 19.0),
                                   ],
                                 );
                               } else {
@@ -258,16 +271,16 @@ class _DashboardPageState extends State<DashboardPage> with WidgetsBindingObserv
                               }
                             },
                           ),
-                          const SizedBox(height: 19.0),
                           PersonMood(date: _selectedDay),
+                          const SizedBox(height: 19.0),
                           BlocBuilder<AuthenticationBloc, AuthenticationState>(
                             builder: (context, state) {
                               if (state.data.isPhysicalActivitiesUnlocked) {
                                 return Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
+                                    PhysicalActivities(selectedDay: _selectedDay),
                                     const SizedBox(height: 19.0),
-                                    PhysicalActivities(selectedDay: _selectedDay)
                                   ],
                                 );
                               } else {
@@ -281,8 +294,8 @@ class _DashboardPageState extends State<DashboardPage> with WidgetsBindingObserv
                                 return const Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    SizedBox(height: 19.0),
                                     SupportGroup(),
+                                    SizedBox(height: 19.0),
                                   ],
                                 );
                               } else {
@@ -296,8 +309,8 @@ class _DashboardPageState extends State<DashboardPage> with WidgetsBindingObserv
                                 return Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    const SizedBox(height: 19.0),
                                     DashboardAssignments(date: _selectedDay),
+                                    const SizedBox(height: 19.0),
                                   ],
                                 );
                               } else {
@@ -305,7 +318,6 @@ class _DashboardPageState extends State<DashboardPage> with WidgetsBindingObserv
                               }
                             },
                           ),
-                          const SizedBox(height: 19.0),
                           const EmergencyBtn(needBackgroundColor: true),
                           const SizedBox(height: 19.0),
                         ],

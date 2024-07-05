@@ -87,6 +87,8 @@ abstract class Account implements _$Account {
 
   bool get isCarbohydrateRatioUnlocked => features.fiberIndicator;
 
+  bool get isWeightLoggingUnlocked => features.weightLogging;
+
   bool get disableGroupSessions => mentalHealthTests != null && _isPhq8High ? true : false;
 
   bool get _isPhq8High => mentalHealthTests?.phq8 == InterpretationType.high.name;
