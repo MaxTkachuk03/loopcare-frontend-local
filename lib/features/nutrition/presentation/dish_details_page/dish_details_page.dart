@@ -146,7 +146,6 @@ class _DishDetailsPageState extends State<DishDetailsPage> {
             log.e(
               'Search item click freezed DishDetailsPage mealId == null',
               error: LogTitle.noItem,
-              stackTrace: StackTrace.current,
             );
             return;
           }

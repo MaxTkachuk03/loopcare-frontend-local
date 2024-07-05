@@ -1,3 +1,4 @@
+import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 
 class LocalizationConstants {
@@ -15,6 +16,22 @@ class LocalizationConstants {
     // localeGermany,
     // localeDutch,
   ];
+
+  // TODO remove after get translations
+  static const List<Locale> _supportedLocales = [
+    localeEnglish,
+    localeGermany,
+    localeDutch,
+  ];
+
+
+  static String localeLanguageCode() {
+    final deviceLanguage = WidgetsBinding.instance.platformDispatcher.locale.languageCode;
+
+    return _supportedLocales
+        .firstWhereOrNull((l) => l.languageCode.toLowerCase() == deviceLanguage.toLowerCase())
+        ?.languageCode ?? 'en';
+  }
 
   LocalizationConstants._();
 }
