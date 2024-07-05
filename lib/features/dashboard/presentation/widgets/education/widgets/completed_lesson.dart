@@ -46,13 +46,10 @@ class CompletedLesson extends StatelessWidget {
   }
 
   _onTapHandler(BuildContext context) {
-    context.read<EducationLessonBloc>().add(
-          EducationLessonEvent.getLessonContent(
-            lessonId: lesson.id,
-            pageIndex: 0,
-          ),
-        );
+    context
+        .read<EducationLessonBloc>()
+        .add(EducationLessonEvent.getLessonContent(lessonId: lesson.id));
 
-    context.router.pushNamed('/lesson/${lesson.id}/page/0');
+    context.router.pushNamed('/lesson/${lesson.id}');
   }
 }

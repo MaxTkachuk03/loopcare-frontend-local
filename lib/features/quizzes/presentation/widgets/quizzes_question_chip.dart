@@ -2,37 +2,30 @@ import 'package:flutter/material.dart';
 import 'package:loopcare_frontend/core/presentation/text/custom_text.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 import 'package:loopcare_frontend/core/presentation/utils/build_context_extensions.dart';
+import 'package:loopcare_frontend/features/quizzes/domain/quiz_question_option.dart';
 
 class QuizzesQuestionChip extends StatelessWidget {
-  final String label;
+  final QuizQuestionOption value;
   final bool selected;
-  final void Function(String value) onSelected;
+  final void Function(QuizQuestionOption value) onSelected;
   final bool? correct;
   final bool? active;
-  final bool? quiz;
 
   const QuizzesQuestionChip({
     super.key,
-    required this.label,
     required this.selected,
     required this.onSelected,
     this.correct,
     this.active,
-    this.quiz,
+    required this.value,
   });
 
   Widget _icon(bool correct) {
-    return correct
-        ? const CircleAvatar(
-            radius: 13,
-            backgroundColor: AppColors.greenRegular,
-            child: Icon(Icons.check, color: AppColors.white, size: 16),
-          )
-        : const CircleAvatar(
-            radius: 13,
-            backgroundColor: AppColors.red,
-            child: Icon(Icons.close, color: AppColors.white, size: 16),
-          );
+    return CircleAvatar(
+      radius: 13,
+      backgroundColor: correct ? AppColors.greenRegular : AppColors.red,
+      child: Icon(correct ? Icons.check : Icons.close, color: AppColors.white, size: 16),
+    );
   }
 
   _getBorderColor() {
@@ -52,14 +45,11 @@ class QuizzesQuestionChip extends StatelessWidget {
         shape: const RoundedRectangleBorder(
           borderRadius: BorderRadius.all(Radius.circular(26.0)),
         ),
-        alignment: Alignment.centerLeft
+        alignment: Alignment.centerLeft,
       ),
-      onPressed: () => onSelected(label),
+      onPressed: () => onSelected(value),
       icon: correct != null ? _icon(correct ?? false) : const SizedBox.shrink(),
-      label: CustomText.w400(
-        label,
-        style: context.textTheme.bodyMedium,
-      ),
+      label: CustomText.w400(value.label, style: context.textTheme.bodyMedium),
     );
   }
 }

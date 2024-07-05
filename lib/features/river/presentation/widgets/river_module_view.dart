@@ -177,11 +177,10 @@ class _RiverScreenState extends State<RiverScreen> {
     context.read<RiverBloc>().add(RiverEvent.selectModuleItem(item: item));
 
     context.read<EducationLessonBloc>().add(
-          EducationLessonEvent.getLessonContent(lessonId: item.lessonId, pageIndex: 0),
+          EducationLessonEvent.getLessonContent(lessonId: item.lessonId),
         );
 
-    context.router
-        .push(LessonRoute(lessonId: item.lessonId, pageIndex: 0, streamType: item.streamType));
+    context.router.push(LessonRoute(lessonId: item.lessonId, streamType: item.streamType));
   }
 
   void _onTransitionItemCompleted(FeaturePlacement placement) {

@@ -19,6 +19,7 @@ import 'package:loopcare_frontend/core/presentation/widgets/main_container.dart'
 import 'package:loopcare_frontend/core/presentation/widgets/scrollable_container.dart';
 import 'package:loopcare_frontend/features/account/presentation/edit_food_preferences_page/edit_food_preferences_page.dart';
 import 'package:loopcare_frontend/features/education/application/education_lesson/education_lesson_bloc.dart';
+import 'package:loopcare_frontend/features/education/presentation/education_page/utils/get_label_by_stream_type.dart';
 import 'package:loopcare_frontend/features/education/presentation/education_page/widgets/category_label.dart';
 import 'package:loopcare_frontend/features/river/infrastructure/river_module_stream_type.dart';
 import 'package:loopcare_frontend/features/you_and_food/application/you_and_food_bloc.dart';
@@ -76,7 +77,7 @@ class _LessonCompleteFoodPreferencesPageState extends State<LessonCompleteFoodPr
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      CategoryLabel.nutrition(),
+                      getLabelByStreamType(widget.streamType),
                       const SizedBox(height: 18.0),
                       CustomText.bitter600(
                         LocalizedTexts.foodPreferences.tr(),

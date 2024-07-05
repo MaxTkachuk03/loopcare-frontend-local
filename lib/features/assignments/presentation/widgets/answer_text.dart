@@ -8,12 +8,11 @@ import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 import 'package:loopcare_frontend/core/presentation/utils/build_context_extensions.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/app_input_limit_field.dart';
 import 'package:loopcare_frontend/features/assignments/presentation/validators/answer_text_field_validator.dart';
-import 'package:loopcare_frontend/features/quizzes/domain/lesson_question.dart';
 import 'package:loopcare_frontend/features/quizzes/infrastructure/quizzes_controller.dart';
 
 class AnswerText extends StatefulWidget {
   final QuizzesController controller;
-  final LessonQuestion question;
+  final dynamic question;
   final Function(int lessonId) onNextPressed;
 
   const AnswerText({
@@ -50,9 +49,11 @@ class _AnswerTextState extends State<AnswerText> {
             Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
-                CustomText.bitter600(widget.question.question ?? '', style: context.textTheme.displayMedium),
+                CustomText.bitter600(widget.question.question ?? '',
+                    style: context.textTheme.displayMedium),
                 const SizedBox(height: 28.0),
-                CustomText.w400(widget.question.extraInstruction, style: context.textTheme.bodyMedium),
+                CustomText.w400(widget.question.extraInstruction,
+                    style: context.textTheme.bodyMedium),
                 const SizedBox(height: 28.0),
                 SizedBox(
                   height: 200,
@@ -66,7 +67,8 @@ class _AnswerTextState extends State<AnswerText> {
                 ValueListenableBuilder<bool>(
                   valueListenable: widget.controller.isEnableSend,
                   builder: (context, isValid, _) => CustomElevatedButton.blueFullWidth(
-                    onPressed: isValid ? () => widget.onNextPressed(widget.question.lessonId) : null,
+                    onPressed:
+                        isValid ? () => widget.onNextPressed(widget.question.lessonId) : null,
                     label: LocalizedTexts.next.tr(),
                   ),
                 ),

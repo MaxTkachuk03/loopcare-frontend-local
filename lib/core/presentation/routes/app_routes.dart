@@ -59,7 +59,7 @@ class AppRoutes {
 
   // Education
   static const String education = 'education'; // added
-  static const String lesson = '/lesson/:lessonId/page/:pageIndex'; // added
+  static const String lesson = '/lesson/:lessonId'; // added
   static const String supportGroupIntro = '/support-group-intro'; // added
   static const String consultDoctor = '/consult-doctor'; // added
   static const String needPaidSubscription = '/need-paid-subscription'; // added
@@ -117,8 +117,8 @@ class AppRoutes {
   static const String moodOption = '/mood-option';
 
   // Quizzes & Assignments
-  static const String quizzes = '/quizzes';
-  static const String quizesQuestions = '/quizzes-questions';
+  static const String quizIntro = '/quiz-intro';
+  static const String quizQuestion = '/quiz-question';
   static const String assignmentsIntro = '/assignments-intro';
   static const String assignmentsQuestions = '/assignments-questions';
   static const String myAssignments = '/my-assignments';

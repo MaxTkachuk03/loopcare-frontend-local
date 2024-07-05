@@ -247,10 +247,13 @@ class LocalizedTexts {
   // Education
   static const String all = 'all';
   static const String general = 'general';
-  static const String nutrition = 'nutrition';
   static const String mind = 'mind';
   static const String activity = 'activity';
   static const String availableIn = 'availableIn';
+  static const String psychology = 'psychology';
+  static const String nutrition = 'nutrition';
+  static const String medical = 'medical';
+  static const String community = 'community';
 
   static const String noMealsLogged = 'noMealsLogged';
   static const String noMealsLoggedYet = 'noMealsLoggedYet';
@@ -284,6 +287,7 @@ class LocalizedTexts {
   // Education
   static const String backToToday = 'backToToday';
   static const String backToEducation = 'backToEducation';
+  static const String backToThePool = 'backToThePool';
   static const String completed = 'completed';
   static const String complete = 'complete';
 

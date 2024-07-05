@@ -42,7 +42,8 @@ class FiberDescription extends StatelessWidget {
     } else if (isFiberInsignificant ?? false) {
       return AppColors.greyLight;
     } else {
-      return NutritionIndicatorColorPicker.getIndicatorColor(NutritionIndicatorType.fiber, carbsFiberRatio);
+      return NutritionIndicatorColorPicker.getIndicatorColor(
+          NutritionIndicatorType.fiber, carbsFiberRatio);
     }
   }
 
@@ -56,9 +57,9 @@ class FiberDescription extends StatelessWidget {
   void _openLesson(BuildContext context) {
     context
         .read<EducationLessonBloc>()
-        .add(const EducationLessonEvent.getLessonContent(lessonId: 49, pageIndex: 0));
+        .add(const EducationLessonEvent.getLessonContent(lessonId: 49));
 
-    context.router.pushNamed('/lesson/49/page/0');
+    context.router.pushNamed('/lesson/49');
   }
 
   NutritionValueDescriptionItem get fiberItem =>

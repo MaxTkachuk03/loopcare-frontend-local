@@ -28,9 +28,10 @@ class ImageContainer extends StatelessWidget {
                 AnimatedOpacity(
                   opacity: isPlaying ? 0.0 : 1.0,
                   duration: const Duration(milliseconds: 300),
-                  child: SizedBox(height: height, child: NetworkImageWithCache(url: state.data.lessonImage)),
+                  child: SizedBox(
+                      height: height, child: NetworkImageWithCache(url: state.data.imageUrl)),
                 ),
-                if (state.data.currentPage.content.subtitleFilePath.isNotEmpty)
+                if (state.data.subtitleFilePath.isNotEmpty)
                   AnimatedOpacity(
                     opacity: isPlaying ? 1.0 : 0.0,
                     duration: const Duration(milliseconds: 300),

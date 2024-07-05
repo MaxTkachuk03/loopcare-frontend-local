@@ -54,9 +54,9 @@ class _AssignmentsIntroPageState extends State<AssignmentsIntroPage> {
   _seeLessonBtnPressed(BuildContext context) {
     context
         .read<EducationLessonBloc>()
-        .add(EducationLessonEvent.getLessonContent(lessonId: widget.lessonId, pageIndex: 0));
+        .add(EducationLessonEvent.getLessonContent(lessonId: widget.lessonId));
 
-    context.router.pushNamed('/lesson/${widget.lessonId}/page/0');
+    context.router.pushNamed('/lesson/${widget.lessonId}');
   }
 
   void _onStart() {
@@ -96,7 +96,7 @@ class _AssignmentsIntroPageState extends State<AssignmentsIntroPage> {
                   loading: (_) => const Loader(),
                   orElse: () => const SizedBox.shrink(),
                   updated: (s) {
-                    final questions = s.data.questionsForLesson(widget.lessonId);
+                    final questions = []; // s.data.questionsForLesson(widget.lessonId);
                     questionId = questions.first.id.toString();
                     questionTitle = questions.first.title;
 

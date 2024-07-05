@@ -1,6 +1,6 @@
 import 'package:loopcare_frontend/features/assignments/infrastructure/answer_widget_type.dart';
 
-enum LessonQuestionAnswerType {
+enum QuizQuestionAnswerType {
   scale,
   multipleChoiceMultiple,
   multipleChoiceSingle,
@@ -8,18 +8,18 @@ enum LessonQuestionAnswerType {
   multipleChoiceValidation
 }
 
-extension LessonQuestionAnswerTypeX on LessonQuestionAnswerType {
+extension LessonQuestionAnswerTypeX on QuizQuestionAnswerType {
   AnswerWidgetType get widgetType {
     switch (this) {
-      case LessonQuestionAnswerType.scale:
+      case QuizQuestionAnswerType.scale:
         return const AnswerWidgetType.scale();
-      case LessonQuestionAnswerType.multipleChoiceMultiple:
+      case QuizQuestionAnswerType.multipleChoiceMultiple:
         return const AnswerWidgetType.multipleChoiceMultiple();
-      case LessonQuestionAnswerType.multipleChoiceSingle:
+      case QuizQuestionAnswerType.multipleChoiceSingle:
         return const AnswerWidgetType.multipleChoiceSingle();
-      case LessonQuestionAnswerType.text:
+      case QuizQuestionAnswerType.text:
         return const AnswerWidgetType.text();
-      case LessonQuestionAnswerType.multipleChoiceValidation:
+      case QuizQuestionAnswerType.multipleChoiceValidation:
         return const AnswerWidgetType.multipleChoiceValidation();
     }
   }

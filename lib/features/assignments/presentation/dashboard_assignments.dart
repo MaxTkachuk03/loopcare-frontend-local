@@ -67,7 +67,7 @@ class _DashboardAssignmentsState extends State<DashboardAssignments> {
             ),
             BlocBuilder<AssignmentsBloc, AssignmentsState>(
               builder: (context, state) {
-                final hasQuestions = state.data.hasQuestionsForCurrentWeek(widget.date);
+                final hasQuestions = false; // state.data.hasQuestionsForCurrentWeek(widget.date);
 
                 return state.maybeMap(
                   loading: (_) => const SizedBox(height: 100, child: Loader()),
@@ -85,17 +85,12 @@ class _DashboardAssignmentsState extends State<DashboardAssignments> {
                     );
                   },
                   orElse: () => Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                      child: hasQuestions
-                          ? ThisWeekAssignments(
-                              weekQuestions: state.data.currentWeekAssignments(widget.date),
-                              todayQuestions: state.data.todayDoneAssignments(widget.date),
-                            )
-                          : CustomText.w400(
-                              LocalizedTexts.allAssignmentsCompleted.tr(),
-                              style: context.textTheme.bodyMedium,
-                            ),
+                    padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                    child: CustomText.w400(
+                      LocalizedTexts.allAssignmentsCompleted.tr(),
+                      style: context.textTheme.bodyMedium,
                     ),
+                  ),
                 );
               },
             ),

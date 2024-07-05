@@ -9,7 +9,6 @@ import 'package:loopcare_frontend/core/presentation/utils/list_extensions.dart';
 import 'package:loopcare_frontend/core/infrastructure/dio_client/request_error.dart';
 import 'package:loopcare_frontend/features/education/application/education_service.dart';
 import 'package:loopcare_frontend/features/education/domain/questions/lesson_answer_body.dart';
-import 'package:loopcare_frontend/features/quizzes/domain/lesson_question.dart';
 import 'package:loopcare_frontend/core/presentation/utils/date_time_extensions.dart';
 
 part 'assignments_bloc.freezed.dart';
@@ -37,32 +36,32 @@ class AssignmentsBloc extends Bloc<AssignmentsEvent, AssignmentsState> {
   ) async {
     emit(AssignmentsState.loading(state.data.copyWith(isLoading: true)));
 
-    final response = await _educationService.getAllLessonQuestions(
-      event.startDate.toIso8601String(),
-      event.endDate.toIso8601String(),
-    );
-
-    response.fold(
-      (l) => emit(
-        AssignmentsState.error(state.data.copyWith(
-          error: l,
-          isLoading: false,
-        )),
-      ),
-      (r) {
-        final questions = r.data;
-        questions.sort((a, b) => a.id.compareTo(b.id));
-
-        emit(
-          AssignmentsState.updated(
-            state.data.copyWith(
-              questions: questions,
-              isLoading: false,
-            ),
-          ),
-        );
-      },
-    );
+    // final response = await _educationService.getAllLessonQuestions(
+    //   event.startDate.toIso8601String(),
+    //   event.endDate.toIso8601String(),
+    // );
+    //
+    // response.fold(
+    //   (l) => emit(
+    //     AssignmentsState.error(state.data.copyWith(
+    //       error: l,
+    //       isLoading: false,
+    //     )),
+    //   ),
+    //   (r) {
+    //     final questions = r.data;
+    //     questions.sort((a, b) => a.id.compareTo(b.id));
+    //
+    //     emit(
+    //       AssignmentsState.updated(
+    //         state.data.copyWith(
+    //           questions: questions,
+    //           isLoading: false,
+    //         ),
+    //       ),
+    //     );
+    //   },
+    // );
   }
 
   FutureOr<void> _onSaveLessonAnswerOption(
@@ -75,26 +74,26 @@ class AssignmentsBloc extends Bloc<AssignmentsEvent, AssignmentsState> {
       lessonQuestionOptionIds: event.lessonQuestionOptionIds,
     );
 
-    final response = await _educationService.saveLessonAnswerOption(event.lessonQuestionId, data);
-
-    response.fold(
-      (l) => emit(
-        AssignmentsState.error(state.data.copyWith(
-          error: l,
-          isLoading: false,
-        )),
-      ),
-      (r) {
-        emit(
-          AssignmentsState.updated(
-            state.data.copyWith(
-              isLoading: false,
-              questions: _updatedQuestions(r),
-            ),
-          ),
-        );
-      },
-    );
+    // final response = await _educationService.saveLessonAnswerOption(event.lessonQuestionId, data);
+    //
+    // response.fold(
+    //   (l) => emit(
+    //     AssignmentsState.error(state.data.copyWith(
+    //       error: l,
+    //       isLoading: false,
+    //     )),
+    //   ),
+    //   (r) {
+    //     emit(
+    //       AssignmentsState.updated(
+    //         state.data.copyWith(
+    //           isLoading: false,
+    //           questions: _updatedQuestions(r),
+    //         ),
+    //       ),
+    //     );
+    //   },
+    // );
   }
 
   FutureOr<void> _onUpdateLessonAnswerOption(
@@ -107,26 +106,26 @@ class AssignmentsBloc extends Bloc<AssignmentsEvent, AssignmentsState> {
       lessonQuestionOptionIds: event.lessonQuestionOptionIds,
     );
 
-    final response = await _educationService.updateLessonAnswerOption(event.lessonQuestionId, data);
-
-    response.fold(
-      (l) => emit(
-        AssignmentsState.error(state.data.copyWith(
-          error: l,
-          isLoading: false,
-        )),
-      ),
-      (r) {
-        emit(
-          AssignmentsState.updated(
-            state.data.copyWith(
-              isLoading: false,
-              questions: _updatedQuestions(r),
-            ),
-          ),
-        );
-      },
-    );
+    // final response = await _educationService.updateLessonAnswerOption(event.lessonQuestionId, data);
+    //
+    // response.fold(
+    //   (l) => emit(
+    //     AssignmentsState.error(state.data.copyWith(
+    //       error: l,
+    //       isLoading: false,
+    //     )),
+    //   ),
+    //   (r) {
+    //     emit(
+    //       AssignmentsState.updated(
+    //         state.data.copyWith(
+    //           isLoading: false,
+    //           questions: _updatedQuestions(r),
+    //         ),
+    //       ),
+    //     );
+    //   },
+    // );
   }
 
   FutureOr<void> _onSaveLessonAnswerText(
@@ -139,26 +138,26 @@ class AssignmentsBloc extends Bloc<AssignmentsEvent, AssignmentsState> {
       text: event.text,
     );
 
-    final response = await _educationService.saveLessonAnswerText(event.lessonQuestionId, data);
-
-    response.fold(
-      (l) => emit(
-        AssignmentsState.error(state.data.copyWith(
-          error: l,
-          isLoading: false,
-        )),
-      ),
-      (r) {
-        emit(
-          AssignmentsState.updated(
-            state.data.copyWith(
-              isLoading: false,
-              questions: _updatedQuestions(r),
-            ),
-          ),
-        );
-      },
-    );
+    // final response = await _educationService.saveLessonAnswerText(event.lessonQuestionId, data);
+    //
+    // response.fold(
+    //   (l) => emit(
+    //     AssignmentsState.error(state.data.copyWith(
+    //       error: l,
+    //       isLoading: false,
+    //     )),
+    //   ),
+    //   (r) {
+    //     emit(
+    //       AssignmentsState.updated(
+    //         state.data.copyWith(
+    //           isLoading: false,
+    //           questions: _updatedQuestions(r),
+    //         ),
+    //       ),
+    //     );
+    //   },
+    // );
   }
 
   FutureOr<void> _onUpdateLessonAnswerText(
@@ -169,30 +168,30 @@ class AssignmentsBloc extends Bloc<AssignmentsEvent, AssignmentsState> {
 
     LessonAnswerTextBody data = LessonAnswerTextBody(text: event.text);
 
-    final response = await _educationService.updateLessonAnswerText(event.lessonQuestionId, data);
-
-    response.fold(
-      (l) => emit(
-        AssignmentsState.error(state.data.copyWith(error: l, isLoading: false)),
-      ),
-      (r) {
-        emit(
-          AssignmentsState.updated(state.data.copyWith(isLoading: false, questions: _updatedQuestions(r))),
-        );
-      },
-    );
+    // final response = await _educationService.updateLessonAnswerText(event.lessonQuestionId, data);
+    //
+    // response.fold(
+    //   (l) => emit(
+    //     AssignmentsState.error(state.data.copyWith(error: l, isLoading: false)),
+    //   ),
+    //   (r) {
+    //     emit(
+    //       AssignmentsState.updated(state.data.copyWith(isLoading: false, questions: _updatedQuestions(r))),
+    //     );
+    //   },
+    // );
   }
 
-  List<LessonQuestion> _updatedQuestions(
-    LessonQuestion data,
-  ) {
-    List<LessonQuestion> retData = List<LessonQuestion>.from(state.data.questions);
-
-    final int index = retData.indexWhere((el) => el.id == data.id);
-    if (index >= 0) retData.update(index, data);
-
-    return retData;
-  }
+  // List<LessonQuestion> _updatedQuestions(
+  //   LessonQuestion data,
+  // ) {
+  //   List<LessonQuestion> retData = List<LessonQuestion>.from(state.data.questions);
+  //
+  //   final int index = retData.indexWhere((el) => el.id == data.id);
+  //   if (index >= 0) retData.update(index, data);
+  //
+  //   return retData;
+  // }
 
   FutureOr<void> _onGetLessonQuestions(
     GetLessonQuestions event,

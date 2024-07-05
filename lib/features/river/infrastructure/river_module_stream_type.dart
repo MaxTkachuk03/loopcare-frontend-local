@@ -1,6 +1,9 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:loopcare_frontend/core/presentation/app_bar/custom_app_bar.dart';
+import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
+import 'package:loopcare_frontend/core/presentation/utils/string_extensions.dart';
 
 mixin StreamColorMapper {
   Color get regularColor => switch (this) {
@@ -45,6 +48,21 @@ enum RiverModuleStreamType with StreamColorMapper {
   physicalActivity,
   medical,
   community;
+
+  String get label {
+    switch (this) {
+      case RiverModuleStreamType.psychology:
+        return LocalizedTexts.psychology.tr().capitalize();
+      case RiverModuleStreamType.nutrition:
+        return LocalizedTexts.nutrition.tr().capitalize();
+      case RiverModuleStreamType.physicalActivity:
+        return LocalizedTexts.physicalActivity.tr().capitalize();
+      case RiverModuleStreamType.medical:
+        return LocalizedTexts.medical.tr().capitalize();
+      case RiverModuleStreamType.community:
+        return LocalizedTexts.community.tr().capitalize();
+    }
+  }
 
   bool get isPsychology => this == psychology;
 

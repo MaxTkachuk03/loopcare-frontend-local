@@ -4,11 +4,9 @@ import 'package:loopcare_frontend/core/domain/analytics/firebase_event_custom_de
 import 'package:loopcare_frontend/core/domain/analytics/firebase_event_list.dart';
 import 'package:loopcare_frontend/core/infrastructure/services/country_code_service/country_code_service.dart';
 import 'package:loopcare_frontend/core/infrastructure/services/shared_storage/shared_storage_service.dart';
-import 'package:loopcare_frontend/features/education/application/dto/lesson_page.dart';
-import 'package:loopcare_frontend/features/education/domain/education_lesson_page_type.dart';
+import 'package:loopcare_frontend/features/education/domain/lesson_content_type.dart';
 import 'package:loopcare_frontend/features/physical_activities/domain/physical_program.dart';
 import 'package:loopcare_frontend/features/physical_activities/domain/physical_program_exercise.dart';
-import 'package:loopcare_frontend/features/quizzes/domain/lesson_question.dart';
 import 'package:loopcare_frontend/injection.dart';
 
 class AnalyticsEventService {
@@ -101,7 +99,7 @@ class AnalyticsEventService {
   void logLessonEvent(
     String eventName,
     int lessonId,
-    LessonPage lesson,
+    LessonContentType contentType,
     String lessonTitle,
     bool withQuiz,
   ) async {
@@ -109,9 +107,9 @@ class AnalyticsEventService {
       eventName,
       parameters: {
         CustomDefinitions.lessonId: lessonId.toString(),
-        CustomDefinitions.lessonType: lesson.type.name,
+        CustomDefinitions.lessonType: contentType.name,
         CustomDefinitions.title: lessonTitle,
-        CustomDefinitions.withAudio: lesson.type == EducationLessonPageType.audio ? 'true' : 'false',
+        // CustomDefinitions.withAudio: lesson.type == LessonContentType.audio ? 'true' : 'false',
         CustomDefinitions.withQuiz: withQuiz ? 'true' : 'false',
         CustomDefinitions.timestamp: DateTime.now().toIso8601String(),
       },
@@ -240,7 +238,7 @@ class AnalyticsEventService {
     );
   }
 
-  void userOpenedAssignment(LessonQuestion question) async {
+  void userOpenedAssignment(question) async {
     logEvent(
       FirebaseEvents.userOpenedAssignment,
       parameters: {

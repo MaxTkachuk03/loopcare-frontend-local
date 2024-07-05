@@ -56,7 +56,7 @@ class SupportGroupIntroPage extends StatelessWidget {
               backgroundColor: streamType.regularColor,
               progressFillColor: streamType.lightestColor,
               progressEmptyColor: AppColors.white.withOpacity(0.45),
-              progress: context.read<EducationLessonBloc>().state.data.lessonProgress,
+              progress: context.read<EducationLessonBloc>().state.data.progress,
             ),
           ),
         ),
@@ -74,7 +74,7 @@ class SupportGroupIntroPage extends StatelessWidget {
                           final lesson = state.data;
 
                           return SizedBox(
-                              height: 265, child: NetworkImageWithCache(url: lesson.lessonImage));
+                              height: 265, child: NetworkImageWithCache(url: lesson.imageUrl));
                         },
                       ),
                       const SizedBox(height: 28.0),
