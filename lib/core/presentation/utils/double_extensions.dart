@@ -4,9 +4,5 @@ extension DoubleExtension on double {
 
     return toString().replaceAll(regex, '');
   }
-
-  String toStringWithRounded(int fractionDigits) {
-    return double.parse(toStringAsFixed(fractionDigits)).removeDecimalZeroFormat();
-  }
 }
 

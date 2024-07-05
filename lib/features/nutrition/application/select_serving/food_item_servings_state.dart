@@ -40,7 +40,7 @@ class FoodItemServingsState with _$FoodItemServingsState {
         final calories = state.selectedServing?.calories ?? 0;
         final units = state.selectedServing?.numberOfUnits ?? 1;
 
-        return (calories * double.parse(state.selectedServingAmount) / units).toStringWithRounded(2);
+        return (calories * double.parse(state.selectedServingAmount) / units).round().toString();
       },
       orElse: () => '0',
     );
