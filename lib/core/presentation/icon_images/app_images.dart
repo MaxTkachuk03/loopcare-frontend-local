@@ -59,11 +59,11 @@ class AppImages {
   static const AssetImage onboardingIntroPrograms =
       AssetImage('$imagesFilePath/onboarding_programs.png');
 
-  static const AssetImage onboardingIntro1 = AssetImage('$imagesFilePath/1.png');
-  static const AssetImage onboardingIntro2 = AssetImage('$imagesFilePath/2.png');
-  static const AssetImage onboardingIntro3 = AssetImage('$imagesFilePath/3.png');
-  static const AssetImage onboardingIntro4 = AssetImage('$imagesFilePath/4.png');
-  static const AssetImage onboardingIntro5 = AssetImage('$imagesFilePath/5.png');
+  static const AssetImage onboardingIntro1 = AssetImage('$imagesFilePath/onboarding_community_denise.png');
+  static const AssetImage onboardingIntro2 = AssetImage('$imagesFilePath/onboarding_medical_shalu.png');
+  static const AssetImage onboardingIntro3 = AssetImage('$imagesFilePath/onboarding_activity_joshua.png');
+  static const AssetImage onboardingIntro4 = AssetImage('$imagesFilePath/onboarding_nutrition_andrew.png');
+  static const AssetImage onboardingIntro5 = AssetImage('$imagesFilePath/onboarding_mind_maria.png');
 
   static const AssetImage onboardingPacing = AssetImage('$imagesFilePath/onboarding_pacing.png');
 

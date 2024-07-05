@@ -15,6 +15,7 @@ import 'package:loopcare_frontend/core/presentation/scaffold/custom_scaffold.dar
 import 'package:loopcare_frontend/core/presentation/text/custom_text.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 import 'package:loopcare_frontend/core/presentation/utils/build_context_extensions.dart';
+import 'package:loopcare_frontend/core/presentation/utils/text_size_util.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/animated_fade_holder/animated_fade_holder.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/main_container.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
@@ -57,7 +58,7 @@ class _OnboardingIntroOurMissionPageState extends State<OnboardingIntroOurMissio
       appBar: CustomAppBar.transparent(leading: CustomFilledIconButton.leadingWhite()),
       body: CustomSafeArea(
         child: BottomPlacedButton.blueLightest(
-          body: Column(
+          body: ListView(
             children: [
               MainContainer(
                 child: CustomText.bitter600(
@@ -69,7 +70,12 @@ class _OnboardingIntroOurMissionPageState extends State<OnboardingIntroOurMissio
               _TeamView(
                 controller: controller,
               ),
-              Expanded(
+              SizedBox(
+                height: textHeight(
+                  _longestMemberDescription.tr(),
+                  MediaQuery.of(context).size.width - 40.0,
+                  context.textTheme.bodyMedium,
+                ),
                 child: PageView.builder(
                   controller: controller,
                   itemCount: _Member.values.length,
@@ -84,26 +90,30 @@ class _OnboardingIntroOurMissionPageState extends State<OnboardingIntroOurMissio
                           child: child!,
                         );
                       },
-                      child: CustomText.w600(
-                        _Member.values[index].description.tr(),
-                        style: context.textTheme.bodyMedium,
-                        textAlign: TextAlign.center,
+                      child: MainContainer(
+                        child: CustomText.w600(
+                          _Member.values[index].description.tr(),
+                          style: context.textTheme.bodyMedium,
+                          textAlign: TextAlign.center,
+                        ),
                       ),
                     );
                   },
                 ),
               ),
               const SizedBox(height: 20),
-              SmoothPageIndicator(
-                controller: controller,  // PageController
-                count: 5,
-                effect: const ColorTransitionEffect(
-                  activeDotColor: AppColors.blueDarker,
-                  dotColor: AppColors.blueLighter,
-                  dotHeight: 12.0,
-                  dotWidth: 12.0,
-                ),  // your preferred effect
-                onDotClicked: controller.jumpToPage,
+              Center(
+                child: SmoothPageIndicator(
+                  controller: controller,
+                  count: 5,
+                  effect: const ColorTransitionEffect(
+                    activeDotColor: AppColors.blueDarker,
+                    dotColor: AppColors.blueLighter,
+                    dotHeight: 12.0,
+                    dotWidth: 12.0,
+                  ),
+                  onDotClicked: controller.jumpToPage,
+                ),
               ),
               const SizedBox(height: 20),
             ],

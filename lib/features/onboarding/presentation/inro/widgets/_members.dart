@@ -63,3 +63,10 @@ enum _Member {
     denise => math.pi,
   };
 }
+
+String get _longestMemberDescription {
+  final members = _Member.values.map((e) => e.description.tr()).toList()
+    ..sort((a, b) => a.length.compareTo(b.length));
+
+  return members.last;
+}

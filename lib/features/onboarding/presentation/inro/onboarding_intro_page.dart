@@ -50,6 +50,7 @@ class OnboardingIntroPage extends StatelessWidget {
                     style: context.textTheme.bodyMedium,
                     textAlign: TextAlign.center,
                   ),
+                  const SizedBox(height: 20),
                 ],
               ),
             ),
