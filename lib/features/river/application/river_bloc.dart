@@ -45,7 +45,10 @@ class RiverBloc extends Bloc<RiverEvent, RiverState> {
         RiverState.moduleLoaded(
           state.data.copyWith(
             modules: r.data,
-            activeModule: r.data.firstWhere((module) => !module.isCompleted),
+            activeModule: r.data.firstWhere(
+              (module) => !module.isCompleted,
+              orElse: () => r.data.last,
+            ),
             isLoading: false,
           ),
         ),
@@ -75,7 +78,10 @@ class RiverBloc extends Bloc<RiverEvent, RiverState> {
 
     RiverModuleItemState itemState;
     if (moduleItem == null || moduleItem.isCompleted || activeModule == null) {
-      final module = state.data.modules.firstWhere((m) => !m.isCompleted);
+      final module = state.data.modules.firstWhere(
+        (m) => !m.isCompleted,
+        orElse: () => state.data.modules.last,
+      );
 
       emit(
         RiverState.moduleItemLoaded(
