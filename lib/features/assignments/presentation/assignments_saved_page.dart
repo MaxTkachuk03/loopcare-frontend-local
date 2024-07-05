@@ -19,7 +19,6 @@ import 'package:loopcare_frontend/core/presentation/widgets/scrollable_container
 import 'package:loopcare_frontend/features/assignments/application/assignments_bloc.dart';
 import 'package:loopcare_frontend/features/education/application/education_lesson/education_lesson_bloc.dart';
 import 'package:loopcare_frontend/features/education/presentation/education_page/widgets/category_label.dart';
-import 'package:loopcare_frontend/features/nutrition/application/dashboard_education/dashboard_education_bloc.dart';
 import 'package:loopcare_frontend/features/river/infrastructure/river_module_stream_type.dart';
 
 @RoutePage()
@@ -29,7 +28,6 @@ class AssignmentsSavedPage extends StatelessWidget {
   const AssignmentsSavedPage({super.key, this.streamType = RiverModuleStreamType.psychology});
 
   _onPressHandler(BuildContext context) {
-    context.read<DashboardEducationBloc>().add(const DashboardEducationEvent.getDashboardLessons());
     context.router.popUntilRouteWithName(HomeRoute.name);
   }
 

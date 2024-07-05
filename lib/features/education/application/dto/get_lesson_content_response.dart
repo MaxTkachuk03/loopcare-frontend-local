@@ -1,7 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:json_annotation/json_annotation.dart';
 import 'package:loopcare_frontend/features/education/domain/lesson_content_type.dart';
-import 'package:loopcare_frontend/features/quizzes/domain/quiz.dart';
+import 'package:loopcare_frontend/features/lesson_quiz/domain/quiz.dart';
 
 part 'get_lesson_content_response.g.dart';
 

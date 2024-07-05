@@ -150,7 +150,6 @@ class SupportGroupIntroPage extends StatelessWidget {
     context
       ..read<GroupPreferencesBloc>()
           .add(const GroupPreferencesEvent.setWouldLikeJoinGroup(YesNoAnswer.yes))
-      ..read<EducationLessonBloc>().add(const EducationLessonEvent.progressForward())
       ..router.push(GenderPreferencesRoute(
         fromLessonComplete: true,
         streamType: streamType,
@@ -166,12 +165,10 @@ class SupportGroupIntroPage extends StatelessWidget {
       },
     );
 
-    context.router.push(LessonCompleteRoute(joinSupportGroupLater: true, streamType: streamType));
+    context.router.push(LessonCompleteRoute(streamType: streamType));
   }
 
   Future<bool> _onWillPop(BuildContext context) {
-    context.read<EducationLessonBloc>().add(const EducationLessonEvent.progressBack());
-
     return Future.value(true);
   }
 }

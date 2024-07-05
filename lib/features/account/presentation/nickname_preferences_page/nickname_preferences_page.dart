@@ -20,7 +20,6 @@ import 'package:loopcare_frontend/features/account/application/group_preferences
 import 'package:loopcare_frontend/features/account/domain/group_prefs_mode.dart';
 import 'package:loopcare_frontend/features/account/presentation/widgets/group_lesson_wrap.dart';
 import 'package:loopcare_frontend/features/account/presentation/widgets/group_prefs_page_wrap.dart';
-import 'package:loopcare_frontend/features/education/application/education_lesson/education_lesson_bloc.dart';
 import 'package:loopcare_frontend/features/river/infrastructure/river_module_stream_type.dart';
 
 @RoutePage()
@@ -78,7 +77,7 @@ class _NicknamePreferencesPageState extends State<NicknamePreferencesPage> {
     final groupPrefsMode = context.read<GroupPreferencesBloc>().state.data.groupPrefsMode;
 
     if (groupPrefsMode == GroupPrefsMode.groupingLesson) {
-      context.read<EducationLessonBloc>().add(const EducationLessonEvent.progressForward());
+      // context.read<EducationLessonBloc>().add(const EducationLessonEvent.progressForward());
     }
 
     AnalyticsEventService.instance.logEvent(

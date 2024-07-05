@@ -2,9 +2,6 @@ import 'package:auto_route/auto_route.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:loopcare_frontend/core/domain/analytics/firebase_event_list.dart';
-import 'package:loopcare_frontend/core/infrastructure/services/firebase_event_service.dart';
-import 'package:loopcare_frontend/core/infrastructure/services/shared_storage/shared_storage_service.dart';
 import 'package:loopcare_frontend/core/presentation/alerting/show_app_snackbar.dart';
 import 'package:loopcare_frontend/core/presentation/app_bar/custom_app_bar.dart';
 import 'package:loopcare_frontend/core/presentation/buttons/custom_filled_icon_button.dart';
@@ -24,10 +21,9 @@ import 'package:loopcare_frontend/features/assignments/presentation/widgets/answ
 import 'package:loopcare_frontend/features/assignments/presentation/widgets/answer_text.dart';
 // import 'package:loopcare_frontend/features/quizzes/domain/lesson_question.dart';
 // import 'package:loopcare_frontend/features/quizzes/domain/lesson_question_answer_type.dart';
-import 'package:loopcare_frontend/features/quizzes/infrastructure/questions_page_mode.dart';
-import 'package:loopcare_frontend/features/quizzes/infrastructure/quizzes_controller.dart';
+import 'package:loopcare_frontend/features/lesson_quiz/infrastructure/questions_page_mode.dart';
+import 'package:loopcare_frontend/features/lesson_quiz/infrastructure/quizzes_controller.dart';
 import 'package:loopcare_frontend/features/river/infrastructure/river_module_stream_type.dart';
-import 'package:loopcare_frontend/injection.dart';
 
 @RoutePage()
 class AssignmentsQuestionsPage extends StatefulWidget {
@@ -117,7 +113,7 @@ class _AssignmentsQuestionsPageState extends State<AssignmentsQuestionsPage> {
   }
 
   void _saveTextField(int lessonId) {
-    var questionsBloc = context.read<AssignmentsBloc>();
+    // var questionsBloc = context.read<AssignmentsBloc>();
     // var question = questionsBloc.state.data.questionForStep(lessonId, widget.step);
     //
     // _controller.isEnableSend.value = false;

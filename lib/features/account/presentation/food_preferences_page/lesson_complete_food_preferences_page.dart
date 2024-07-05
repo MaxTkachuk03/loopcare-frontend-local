@@ -18,12 +18,11 @@ import 'package:loopcare_frontend/core/presentation/widgets/bullet_list_item.dar
 import 'package:loopcare_frontend/core/presentation/widgets/main_container.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/scrollable_container.dart';
 import 'package:loopcare_frontend/features/account/presentation/edit_food_preferences_page/edit_food_preferences_page.dart';
-import 'package:loopcare_frontend/features/education/application/education_lesson/education_lesson_bloc.dart';
 import 'package:loopcare_frontend/features/education/presentation/education_page/utils/get_label_by_stream_type.dart';
-import 'package:loopcare_frontend/features/education/presentation/education_page/widgets/category_label.dart';
 import 'package:loopcare_frontend/features/river/infrastructure/river_module_stream_type.dart';
 import 'package:loopcare_frontend/features/you_and_food/application/you_and_food_bloc.dart';
 
+// TODO could be deleted, check requirements with Diana
 @RoutePage()
 class LessonCompleteFoodPreferencesPage extends StatefulWidget {
   final RiverModuleStreamType streamType;
@@ -139,20 +138,16 @@ class _LessonCompleteFoodPreferencesPageState extends State<LessonCompleteFoodPr
   }
 
   _onStartPressed(BuildContext context) {
-    context
-      ..read<EducationLessonBloc>().add(const EducationLessonEvent.progressForward())
-      ..router.push(
-        EditFoodPreferencesRoute(
-          mode: const EditFoodPreferencesPageMode.allergies(),
-          fromLessonComplete: true,
-          streamType: widget.streamType,
-        ),
-      );
+    context.router.push(
+      EditFoodPreferencesRoute(
+        mode: const EditFoodPreferencesPageMode.allergies(),
+        fromLessonComplete: true,
+        streamType: widget.streamType,
+      ),
+    );
   }
 
   Future<bool> _onWillPop(BuildContext context) {
-    context.read<EducationLessonBloc>().add(const EducationLessonEvent.progressBack());
-
     return Future.value(true);
   }
 }

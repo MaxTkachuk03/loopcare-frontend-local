@@ -1,5 +1,5 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:loopcare_frontend/features/quizzes/domain/quiz_question.dart';
+import 'package:loopcare_frontend/features/lesson_quiz/domain/quiz_question.dart';
 
 part 'quiz.freezed.dart';
 

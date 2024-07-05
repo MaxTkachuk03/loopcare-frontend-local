@@ -1,7 +1,7 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:loopcare_frontend/features/quizzes/domain/quiz_question_answer.dart';
-import 'package:loopcare_frontend/features/quizzes/domain/quiz_question_answer_type.dart';
-import 'package:loopcare_frontend/features/quizzes/domain/quiz_question_option.dart';
+import 'package:loopcare_frontend/features/lesson_quiz/domain/quiz_question_answer.dart';
+import 'package:loopcare_frontend/features/lesson_quiz/domain/quiz_question_answer_type.dart';
+import 'package:loopcare_frontend/features/lesson_quiz/domain/quiz_question_option.dart';
 
 part 'quiz_question.freezed.dart';
 

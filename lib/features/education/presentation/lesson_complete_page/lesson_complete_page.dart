@@ -26,19 +26,16 @@ import 'package:loopcare_frontend/features/education/domain/extra_action_types.d
 import 'package:loopcare_frontend/features/education/presentation/education_page/utils/get_label_by_stream_type.dart';
 import 'package:loopcare_frontend/features/education/presentation/lesson_complete_page/widgets/feature_unlock.dart';
 import 'package:loopcare_frontend/features/education/presentation/lesson_complete_page/widgets/unlock_group_session_feature.dart';
-import 'package:loopcare_frontend/features/nutrition/application/dashboard_education/dashboard_education_bloc.dart';
 import 'package:loopcare_frontend/features/river/application/river_bloc.dart';
 import 'package:loopcare_frontend/features/river/infrastructure/river_module_stream_type.dart';
 import 'package:loopcare_frontend/injection.dart';
 
 @RoutePage()
 class LessonCompletePage extends StatefulWidget {
-  final bool joinSupportGroupLater;
   final RiverModuleStreamType streamType;
 
   const LessonCompletePage({
     super.key,
-    this.joinSupportGroupLater = false,
     this.streamType = RiverModuleStreamType.community,
   });
 
@@ -55,43 +52,16 @@ class _LessonCompletePageState extends State<LessonCompletePage> {
     context.read<RiverBloc>().add(const RiverEvent.updateActiveModuleItemStatus());
   }
 
-  _onPressHandler(BuildContext context) {
-    context.read<DashboardEducationBloc>().add(const DashboardEducationEvent.getDashboardLessons());
+  void _onPressHandler(BuildContext context) {
     context.router.popUntilRouteWithName(HomeRoute.name);
   }
 
-  _onErrorListener(BuildContext context, EducationLessonState state) {
+  void _onErrorListener(BuildContext context, EducationLessonState state) {
     final errorMessage = state.data.errorMessage ?? LocalizedTexts.somethingWentWrong;
     context.showError(content: Text(errorMessage.tr()));
   }
-  // TODO after sync with Diana decided remove for now 04.07.2024
-  // _startLessonQuestion(int lessonId) {
-  //   context.router.push(AssignmentsIntroRoute(lessonId: lessonId, fromDashboard: false));
-  //
-  //   setState(() {
-  //     showedAssignment = true;
-  //   });
-  // }
 
-  bool get _isGroupSessionsDisabled => getIt<SharedStorageService>().account!.disableGroupSessions;
-
-  // TODO delete when river will be finilized
-  // String _subText(EducationLessonState state) {
-  //   if (state.data.extraAction == ExtraActionTypes.setupGroupingPreferences &&
-  //       !_isGroupSessionsDisabled) {
-  //     return LocalizedTexts.lessonCompleteDescription.tr();
-  //   }
-  //
-  //   if (state.data.extraAction == ExtraActionTypes.unlockFoodLogging ||
-  //       (state.data.extraAction == ExtraActionTypes.setupGroupingPreferences &&
-  //           !_isGroupSessionsDisabled)) {
-  //     return LocalizedTexts.unlockFeatureDescription.tr();
-  //   } else {
-  //     return LocalizedTexts.lessonCompleteDescription.tr();
-  //   }
-  // }
-
-  _lessonCompleteListener(BuildContext context, EducationLessonState state) {
+  void _lessonCompleteListener(BuildContext context, EducationLessonState state) {
     AnalyticsEventService.instance.logLessonCompletedEvent(
       FirebaseEvents.lessonCompletedScreen,
       context.read<EducationLessonBloc>().state.data.id,
@@ -103,6 +73,8 @@ class _LessonCompletePageState extends State<LessonCompletePage> {
   CustomAppBarTextTheme get _theme => widget.streamType.appBarTextTheme;
 
   bool get _isLightTheme => _theme == CustomAppBarTextTheme.light;
+
+  bool get _isGroupSessionsDisabled => getIt<SharedStorageService>().account!.disableGroupSessions;
 
   @override
   Widget build(BuildContext context) {
@@ -213,9 +185,7 @@ class _LessonCompletePageState extends State<LessonCompletePage> {
                                     !_isGroupSessionsDisabled;
 
                                 if (isUnlockGroupSessions) {
-                                  return UnlockGroupSessionFeature(
-                                    wantJoinLater: widget.joinSupportGroupLater,
-                                  );
+                                  return const UnlockGroupSessionFeature();
                                 }
 
                                 return FeatureUnlock(
