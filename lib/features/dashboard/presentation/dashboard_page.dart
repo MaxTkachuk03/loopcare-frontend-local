@@ -303,21 +303,21 @@ class _DashboardPageState extends State<DashboardPage> with WidgetsBindingObserv
                               }
                             },
                           ),
-                          BlocBuilder<AuthenticationBloc, AuthenticationState>(
-                            builder: (context, state) {
-                              if (state.data.isAssignmentsUnlocked) {
-                                return Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    DashboardAssignments(date: _selectedDay),
-                                    const SizedBox(height: 19.0),
-                                  ],
-                                );
-                              } else {
-                                return const SizedBox.shrink();
-                              }
-                            },
-                          ),
+                          // BlocBuilder<AuthenticationBloc, AuthenticationState>(
+                          //   builder: (context, state) {
+                          //     if (state.data.isAssignmentsUnlocked) {
+                          //       return Column(
+                          //         crossAxisAlignment: CrossAxisAlignment.start,
+                          //         children: [
+                          //           DashboardAssignments(date: _selectedDay),
+                          //           const SizedBox(height: 19.0),
+                          //         ],
+                          //       );
+                          //     } else {
+                          //       return const SizedBox.shrink();
+                          //     }
+                          //   },
+                          // ),
                           const EmergencyBtn(needBackgroundColor: true),
                           const SizedBox(height: 19.0),
                         ],
