@@ -8,7 +8,7 @@ import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 import 'package:loopcare_frontend/core/presentation/utils/build_context_extensions.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/app_input_limit_field.dart';
 import 'package:loopcare_frontend/features/assignments/presentation/validators/answer_text_field_validator.dart';
-import 'package:loopcare_frontend/features/quizzes/infrastructure/quizzes_controller.dart';
+import 'package:loopcare_frontend/features/lesson_quiz/infrastructure/quizzes_controller.dart';
 
 class AnswerText extends StatefulWidget {
   final QuizzesController controller;

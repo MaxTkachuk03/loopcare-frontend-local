@@ -2,16 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:loopcare_frontend/core/presentation/text/custom_text.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 import 'package:loopcare_frontend/core/presentation/utils/build_context_extensions.dart';
-import 'package:loopcare_frontend/features/quizzes/domain/quiz_question_option.dart';
+import 'package:loopcare_frontend/features/lesson_quiz/domain/quiz_question_option.dart';
 
-class QuizzesQuestionChip extends StatelessWidget {
+class QuizQuestionChip extends StatelessWidget {
   final QuizQuestionOption value;
   final bool selected;
   final void Function(QuizQuestionOption value) onSelected;
   final bool? correct;
   final bool? active;
 
-  const QuizzesQuestionChip({
+  const QuizQuestionChip({
     super.key,
     required this.selected,
     required this.onSelected,

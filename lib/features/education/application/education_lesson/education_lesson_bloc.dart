@@ -8,7 +8,7 @@ import 'package:loopcare_frontend/features/education/application/education_servi
 import 'package:loopcare_frontend/features/education/domain/audio_lesson_content_type.dart';
 import 'package:loopcare_frontend/features/education/domain/extra_action_types.dart';
 import 'package:loopcare_frontend/features/education/domain/lesson_content_type.dart';
-import 'package:loopcare_frontend/features/quizzes/domain/quiz.dart';
+import 'package:loopcare_frontend/features/lesson_quiz/domain/quiz.dart';
 import 'package:path_provider/path_provider.dart';
 
 part 'education_lesson_bloc.freezed.dart';
@@ -21,12 +21,11 @@ class EducationLessonBloc extends Bloc<EducationLessonEvent, EducationLessonStat
 
   EducationLessonBloc(this._educationService)
       : super(const EducationLessonState.initial(EducationLessonData())) {
+    on<Init>(_onInit);
     on<GetLessonContent>(_onGetLessonContent);
     on<AnswerQuizQuestion>(_onAnswerQuizQuestion);
-    on<CompleteLesson>(_onCompleteLesson);
     on<DownloadAudioFile>(_onDownloadAudioFile);
     on<DownloadSubtitlesFile>(_onDownloadSubtitlesFile);
-    on<Init>(_onInit);
   }
 
   Future<void> _onInit(
@@ -36,6 +35,69 @@ class EducationLessonBloc extends Bloc<EducationLessonEvent, EducationLessonStat
     var tempDir = await getTemporaryDirectory();
 
     emit(EducationLessonState.initial(state.data.copyWith(temporaryDirectory: tempDir.path)));
+  }
+
+  Future<void> _onGetLessonContent(
+    GetLessonContent event,
+    Emitter<EducationLessonState> emit,
+  ) async {
+    emit(EducationLessonState.contentIsLoading(state.data.copyWith(isLoading: true, error: null)));
+
+    final response = await _educationService.getLessonContent(event.lessonId);
+
+    response.fold(
+      (l) => emit(EducationLessonState.errorGettingContent(
+          state.data.copyWith(error: l, isLoading: false))),
+      (r) async {
+        emit(
+          EducationLessonState.contentLoaded(
+            state.data.copyWith(
+              id: r.id,
+              title: r.title,
+              duration: r.duration,
+              contentType: r.contentType,
+              imageUrl: r.imageUrl,
+              cardImageUrl: r.cardImageUrl,
+              audioUrl: r.audioUrl,
+              htmlUrl: r.htmlUrl,
+              subtitleImages: r.subtitleImages,
+              quiz: r.quiz,
+              conclusion: r.conclusion ?? '',
+              unlockTitle: r.unlockTitle ?? '',
+              unlockDescription: r.unlockDescription ?? '',
+              progress: 0,
+              isLoading: false,
+              error: null,
+            ),
+          ),
+        );
+      },
+    );
+  }
+
+  Future<void> _onAnswerQuizQuestion(
+    AnswerQuizQuestion event,
+    Emitter<EducationLessonState> emit,
+  ) async {
+    emit(EducationLessonState.contentIsLoading(state.data.copyWith(isLoading: true, error: null)));
+
+    final quizId = state.data.quiz?.id;
+
+    if (quizId == null) return;
+
+    final data = SaveLessonQuizQuestionAnswerBody(
+      lessonQuizQuestionOptionIds: [event.questionOptionId],
+      lessonQuizQuestionId: event.questionId,
+    );
+
+    final response = await _educationService.saveLessonQuizQuestionAnswer(quizId, data);
+
+    response.fold(
+      (l) =>
+          emit(EducationLessonState.contentLoaded(state.data.copyWith(error: l, isLoading: false))),
+      (r) =>
+          emit(EducationLessonState.contentLoaded(state.data.copyWith(quiz: r, isLoading: false))),
+    );
   }
 
   Future<void> _onDownloadAudioFile(
@@ -114,101 +176,6 @@ class EducationLessonBloc extends Bloc<EducationLessonEvent, EducationLessonStat
     });
   }
 
-  Future<void> _onGetLessonContent(
-    GetLessonContent event,
-    Emitter<EducationLessonState> emit,
-  ) async {
-    emit(EducationLessonState.contentIsLoading(state.data.copyWith(isLoading: true, error: null)));
-
-    final response = await _educationService.getLessonContent(event.lessonId);
-
-    response.fold(
-      (l) => emit(EducationLessonState.errorGettingContent(
-          state.data.copyWith(error: l, isLoading: false))),
-      (r) async {
-        emit(
-          EducationLessonState.contentLoaded(
-            state.data.copyWith(
-              id: r.id,
-              title: r.title,
-              duration: r.duration,
-              contentType: r.contentType,
-              imageUrl: r.imageUrl,
-              cardImageUrl: r.cardImageUrl,
-              audioUrl: r.audioUrl,
-              htmlUrl: r.htmlUrl,
-              subtitleImages: r.subtitleImages,
-              quiz: r.quiz,
-              conclusion: r.conclusion ?? '',
-              unlockTitle: r.unlockTitle ?? '',
-              unlockDescription: r.unlockDescription ?? '',
-              progress: 0,
-              isLoading: false,
-              error: null,
-            ),
-          ),
-        );
-      },
-    );
-  }
-
-  Future<void> _onAnswerQuizQuestion(
-    AnswerQuizQuestion event,
-    Emitter<EducationLessonState> emit,
-  ) async {
-    emit(EducationLessonState.contentIsLoading(state.data.copyWith(isLoading: true, error: null)));
-
-    final quizId = state.data.quiz?.id;
-
-    if (quizId == null) return;
-
-    final data = SaveLessonQuizQuestionAnswerBody(
-      lessonQuizQuestionOptionIds: [event.questionOptionId],
-      lessonQuizQuestionId: event.questionId,
-    );
-
-    final response = await _educationService.saveLessonQuizQuestionAnswer(quizId, data);
-
-    response.fold(
-      (l) =>
-          emit(EducationLessonState.contentLoaded(state.data.copyWith(error: l, isLoading: false))),
-      (r) =>
-          emit(EducationLessonState.contentLoaded(state.data.copyWith(quiz: r, isLoading: false))),
-    );
-  }
-
-  Future<void> _onCompleteLesson(
-    CompleteLesson event,
-    Emitter<EducationLessonState> emit,
-  ) async {
-    emit(EducationLessonState.loading(state.data.copyWith(isLoading: true, error: null)));
-
-    final response = await _educationService.completeLesson(state.data.id);
-
-    response.fold(
-      (l) => emit(EducationLessonState.errorCompleteLesson(
-          state.data.copyWith(error: l, isLoading: false))),
-      (r) => emit(
-        EducationLessonState.lessonCompleted(
-          state.data.copyWith(
-              // totalPagesLength: r.pages.length,
-              // lessonProgress: 0,
-              // lessonId: r.id,
-              // lessonCompletedDate: r.completedAt,
-              // lessonCategory: r.category,
-              // lessonDuration: r.duration,
-              // lessonImage: r.image,
-              // lessonTitle: r.title,
-              // isLoading: false,
-              // error: null,
-              // questions: r.questions,
-              ),
-        ),
-      ),
-    );
-  }
-
-  // FIXME cache to prevent multiple download request, the root of the issue wrong bloc structure and logic, could be fixed during education refactoring with chapters
   Map<String, Set<AudioLessonContentType>> _updateAudioCacheValue(AudioLessonContentType newValue) {
     final Map<String, Set<AudioLessonContentType>> cache = {...state.data.audioFilesCache};
 

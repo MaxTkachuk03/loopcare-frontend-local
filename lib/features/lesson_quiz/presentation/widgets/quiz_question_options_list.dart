@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:loopcare_frontend/core/presentation/text/custom_text.dart';
 import 'package:loopcare_frontend/core/presentation/utils/build_context_extensions.dart';
-import 'package:loopcare_frontend/features/quizzes/domain/quiz_question.dart';
-import 'package:loopcare_frontend/features/quizzes/domain/quiz_question_option.dart';
-import 'package:loopcare_frontend/features/quizzes/infrastructure/questions_page_mode.dart';
-import 'package:loopcare_frontend/features/quizzes/presentation/widgets/quizzes_question_chip.dart';
+import 'package:loopcare_frontend/features/lesson_quiz/domain/quiz_question.dart';
+import 'package:loopcare_frontend/features/lesson_quiz/domain/quiz_question_option.dart';
+import 'package:loopcare_frontend/features/lesson_quiz/infrastructure/questions_page_mode.dart';
+import 'package:loopcare_frontend/features/lesson_quiz/presentation/widgets/quiz_question_chip.dart';
 
 class QuizQuestionOptionsList extends StatefulWidget {
   final QuestionsPageMode mode;
@@ -48,14 +48,14 @@ class _QuizQuestionOptionsListState extends State<QuizQuestionOptionsList> {
             final el = widget.question.options[i];
 
             return widget.mode.map(
-              askQuestion: (_) => QuizzesQuestionChip(
+              askQuestion: (_) => QuizQuestionChip(
                 value: el,
                 selected: widget.selectedValue == el.id,
                 onSelected: _onSelectedHandler,
               ),
               showAnswer: (_) {
                 var isCorrect = el.isCorrect ?? false;
-                return QuizzesQuestionChip(
+                return QuizQuestionChip(
                   value: el,
                   selected: widget.selectedValue == el.id,
                   onSelected: (_) {},

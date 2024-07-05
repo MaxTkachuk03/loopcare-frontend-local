@@ -19,11 +19,11 @@ import 'package:loopcare_frontend/core/presentation/localization/localized_texts
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/scrollable_container.dart';
 import 'package:loopcare_frontend/features/education/application/education_lesson/education_lesson_bloc.dart';
-import 'package:loopcare_frontend/features/quizzes/domain/quiz_question.dart';
-import 'package:loopcare_frontend/features/quizzes/domain/quiz_question_option.dart';
-import 'package:loopcare_frontend/features/quizzes/infrastructure/questions_page_mode.dart';
-import 'package:loopcare_frontend/features/quizzes/presentation/widgets/correct_incorrect_explanation.dart';
-import 'package:loopcare_frontend/features/quizzes/presentation/widgets/quiz_question_options_list.dart';
+import 'package:loopcare_frontend/features/lesson_quiz/domain/quiz_question.dart';
+import 'package:loopcare_frontend/features/lesson_quiz/domain/quiz_question_option.dart';
+import 'package:loopcare_frontend/features/lesson_quiz/infrastructure/questions_page_mode.dart';
+import 'package:loopcare_frontend/features/lesson_quiz/presentation/widgets/answer_explanation.dart';
+import 'package:loopcare_frontend/features/lesson_quiz/presentation/widgets/quiz_question_options_list.dart';
 import 'package:loopcare_frontend/features/river/infrastructure/river_module_stream_type.dart';
 
 @RoutePage()
@@ -173,10 +173,7 @@ class _QuizQuestionPageState extends State<QuizQuestionPage> {
                       padding: const EdgeInsets.symmetric(vertical: 30.0, horizontal: 20),
                       child: Column(
                         children: [
-                          CorrectIncorrectExplanation(
-                            isCorrect: _isAnswerCorrect,
-                            text: _answerText,
-                          ),
+                          AnswerExplanation(isCorrect: _isAnswerCorrect, text: _answerText),
                           const SizedBox(height: 24),
                           CustomElevatedButton.blueFullWidth(
                             onPressed: _saveOptionsField,

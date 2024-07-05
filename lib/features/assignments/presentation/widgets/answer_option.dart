@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:loopcare_frontend/core/presentation/buttons/custom_elevated_button.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/features/assignments/presentation/widgets/answer_options_block.dart';
-import 'package:loopcare_frontend/features/quizzes/infrastructure/quizzes_controller.dart';
+import 'package:loopcare_frontend/features/lesson_quiz/infrastructure/quizzes_controller.dart';
 
 class AnswerOption extends StatelessWidget {
   final QuizzesController controller;

@@ -19,8 +19,9 @@ class CategoryLabel extends StatelessWidget {
     this.textColor = AppColors.white,
   });
 
+  // TODO want to use RiverModuleStreamType.psychology.label for label, but should be mind for now
   factory CategoryLabel.psychology() =>
-      CategoryLabel(label: RiverModuleStreamType.psychology.label, color: AppColors.petrolRegular);
+      CategoryLabel(label: LocalizedTexts.mind.tr(), color: AppColors.petrolRegular);
 
   factory CategoryLabel.nutrition() =>
       CategoryLabel(label: RiverModuleStreamType.nutrition.label, color: AppColors.greenRegular);

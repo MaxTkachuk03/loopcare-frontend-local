@@ -19,7 +19,6 @@ import 'package:loopcare_frontend/features/authentication/application/authentica
 import 'package:loopcare_frontend/features/education/application/education_lesson/education_lesson_bloc.dart';
 import 'package:loopcare_frontend/features/education/presentation/education_page/widgets/category_label.dart';
 import 'package:loopcare_frontend/features/education/presentation/lesson_complete_page/widgets/unlock_physical_activities_feature.dart';
-import 'package:loopcare_frontend/features/nutrition/application/dashboard_education/dashboard_education_bloc.dart';
 import 'package:loopcare_frontend/features/river/infrastructure/river_module_stream_type.dart';
 
 @RoutePage()
@@ -37,13 +36,13 @@ class _PhysicalActivitiesCompletePageState extends State<PhysicalActivitiesCompl
   void initState() {
     super.initState();
     if (!context.read<EducationLessonBloc>().state.data.isLessonCompleted) {
-      context.read<EducationLessonBloc>().add(const EducationLessonEvent.completeLesson());
+      // TODO check this flow and why we need to complete lesson here
+      // context.read<EducationLessonBloc>().add(const EducationLessonEvent.completeLesson());
     }
   }
 
   _onPressHandler(BuildContext context) {
     context.read<AuthenticationBloc>().add(const AuthenticationEvent.getAccount());
-    context.read<DashboardEducationBloc>().add(const DashboardEducationEvent.getDashboardLessons());
     context.router.popUntilRouteWithName(HomeRoute.name);
   }
 

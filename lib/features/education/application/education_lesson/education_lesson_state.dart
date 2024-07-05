@@ -91,10 +91,4 @@ class EducationLessonData with _$EducationLessonData {
     var urlArr = url.split('/');
     return "$temporaryDirectory/$id/${urlArr.last}";
   }
-
-  // List<LessonQuestion> get assignmentsQuestions =>
-  //     questions.where((element) => element.type == LessonQuestionType.assignment).toList();
-  //
-  // List<LessonQuestion> get assignmentsQuestionsWithAnswers =>
-  //     assignmentsQuestions.where((element) => element.lessonQuestionAnswers.isNotEmpty).toList();
 }

@@ -5,11 +5,11 @@ import 'package:loopcare_frontend/core/presentation/text/custom_text.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 import 'package:loopcare_frontend/core/presentation/utils/build_context_extensions.dart';
 
-class CorrectIncorrectExplanation extends StatelessWidget {
+class AnswerExplanation extends StatelessWidget {
   final bool isCorrect;
   final String text;
 
-  const CorrectIncorrectExplanation({super.key, required this.isCorrect, required this.text});
+  const AnswerExplanation({super.key, required this.isCorrect, required this.text});
 
   String get description => isCorrect ? LocalizedTexts.correct.tr() : LocalizedTexts.incorrect.tr();
 
