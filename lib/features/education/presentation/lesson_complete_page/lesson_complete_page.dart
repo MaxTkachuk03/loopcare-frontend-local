@@ -44,8 +44,6 @@ class LessonCompletePage extends StatefulWidget {
 }
 
 class _LessonCompletePageState extends State<LessonCompletePage> {
-  bool showedAssignment = false;
-
   @override
   void initState() {
     super.initState();
