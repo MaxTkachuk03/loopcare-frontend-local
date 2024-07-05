@@ -6,7 +6,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loopcare_frontend/core/domain/analytics/firebase_event_custom_definitions.dart';
 import 'package:loopcare_frontend/core/domain/analytics/firebase_event_list.dart';
 import 'package:loopcare_frontend/core/infrastructure/services/firebase_event_service.dart';
-import 'package:loopcare_frontend/core/presentation/alerting/show_app_snackbar.dart';
 import 'package:loopcare_frontend/core/presentation/app_bar/custom_app_bar.dart';
 import 'package:loopcare_frontend/core/presentation/buttons/custom_elevated_button.dart';
 import 'package:loopcare_frontend/core/presentation/buttons/custom_filled_icon_button.dart';
@@ -20,7 +19,6 @@ import 'package:loopcare_frontend/core/presentation/localization/localized_texts
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/scrollable_container.dart';
 import 'package:loopcare_frontend/features/education/application/education_lesson/education_lesson_bloc.dart';
-import 'package:loopcare_frontend/features/quizzes/application/quizzes_bloc.dart';
 import 'package:loopcare_frontend/features/quizzes/domain/quiz_question.dart';
 import 'package:loopcare_frontend/features/quizzes/domain/quiz_question_option.dart';
 import 'package:loopcare_frontend/features/quizzes/infrastructure/questions_page_mode.dart';
@@ -40,7 +38,6 @@ class QuizQuestionPage extends StatefulWidget {
 }
 
 class _QuizQuestionPageState extends State<QuizQuestionPage> {
-  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   late QuestionsPageMode _mode;
   late QuizQuestion _currentQuestion;
   bool _isAnswerCorrect = false;
@@ -81,31 +78,11 @@ class _QuizQuestionPageState extends State<QuizQuestionPage> {
 
   int get _percent => ((widget.step + 1) * 100 / _totalSteps).round();
 
-  _onErrorHandler(QuizzesState s) {
-    context.showError(content: Text(s.data.errorMessage ?? LocalizedTexts.somethingWentWrong.tr()));
-  }
-
-  void _onUpdateHandler(QuizzesState state) {
-    _onNextHandler();
-  }
-
-  bool _nextStepListenWhen(QuizzesState previous, QuizzesState current) =>
-      (ModalRoute.of(context)?.isCurrent ?? false) &&
-      previous is QuizzesStateLoading &&
-      current is QuizzesStateUpdated;
-
-  void _onStepChangeListener(BuildContext context, QuizzesState state) {
-    state.maybeMap(
-      orElse: () => {},
-      error: _onErrorHandler,
-      updated: _onUpdateHandler,
-    );
-  }
-
   void _onSelectedHandler(QuizQuestionOption item) {
     setState(() {
       _mode = const QuestionsPageMode.showAnswer();
       _selectedAnswer = item.id;
+      _isAnswerCorrect = item.isCorrect ?? false;
     });
   }
 
@@ -118,9 +95,7 @@ class _QuizQuestionPageState extends State<QuizQuestionPage> {
   }
 
   void _saveOptionsField() {
-    if (_hasAnswer) {
-      _onNextHandler();
-    } else {
+    if (!_hasAnswer) {
       final educationBloc = context.read<EducationLessonBloc>();
 
       educationBloc.add(EducationLessonEvent.answerQuizQuestion(
@@ -138,6 +113,8 @@ class _QuizQuestionPageState extends State<QuizQuestionPage> {
         },
       );
     }
+
+    _onNextHandler();
   }
 
   get _answerText => _isAnswerCorrect
@@ -168,60 +145,49 @@ class _QuizQuestionPageState extends State<QuizQuestionPage> {
       body: CustomSafeArea(
         child: ErrorInvoker(
           child: ScrollableContainer(
-            child: BlocListener<QuizzesBloc, QuizzesState>(
-              listenWhen: _nextStepListenWhen,
-              listener: _onStepChangeListener,
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Column(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                MainContainer(
+                  child: Column(
                     children: [
                       const SizedBox(height: 32),
-                      MainContainer(
-                        child: BlocBuilder<EducationLessonBloc, EducationLessonState>(
-                          builder: (context, EducationLessonState state) {
-                            return Form(
-                              key: _formKey,
-                              child: QuizQuestionOptionsList(
-                                selectedValue: _selectedAnswer,
-                                mode: _mode,
-                                question: _currentQuestion,
-                                onSelected: _onSelectedHandler,
-                              ),
-                            );
-                          },
-                        ),
+                      BlocBuilder<EducationLessonBloc, EducationLessonState>(
+                        builder: (context, EducationLessonState state) {
+                          return QuizQuestionOptionsList(
+                            selectedValue: _selectedAnswer,
+                            mode: _mode,
+                            question: _currentQuestion,
+                            onSelected: _onSelectedHandler,
+                          );
+                        },
                       )
                     ],
                   ),
-                  Column(
-                    children: [
-                      _mode.map(
-                        askQuestion: (_) => const SizedBox.shrink(),
-                        showAnswer: (_) => Container(
-                          color: AppColors.white,
-                          child: Padding(
-                            padding: const EdgeInsets.symmetric(vertical: 30.0, horizontal: 24.0),
-                            child: Column(
-                              children: [
-                                CorrectIncorrectExplanation(
-                                  isCorrect: _isAnswerCorrect,
-                                  text: _answerText,
-                                ),
-                                const SizedBox(height: 24),
-                                CustomElevatedButton.blueFullWidth(
-                                  onPressed: _saveOptionsField,
-                                  label: LocalizedTexts.next.tr(),
-                                ),
-                              ],
-                            ),
+                ),
+                _mode.map(
+                  askQuestion: (_) => const SizedBox.shrink(),
+                  showAnswer: (_) => Container(
+                    color: AppColors.white,
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 30.0, horizontal: 20),
+                      child: Column(
+                        children: [
+                          CorrectIncorrectExplanation(
+                            isCorrect: _isAnswerCorrect,
+                            text: _answerText,
                           ),
-                        ),
-                      )
-                    ],
+                          const SizedBox(height: 24),
+                          CustomElevatedButton.blueFullWidth(
+                            onPressed: _saveOptionsField,
+                            label: LocalizedTexts.next.tr(),
+                          ),
+                        ],
+                      ),
+                    ),
                   ),
-                ],
-              ),
+                ),
+              ],
             ),
           ),
         ),

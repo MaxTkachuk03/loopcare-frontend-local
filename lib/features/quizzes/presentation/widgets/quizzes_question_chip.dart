@@ -21,17 +21,11 @@ class QuizzesQuestionChip extends StatelessWidget {
   });
 
   Widget _icon(bool correct) {
-    return correct
-        ? const CircleAvatar(
-            radius: 13,
-            backgroundColor: AppColors.greenRegular,
-            child: Icon(Icons.check, color: AppColors.white, size: 16),
-          )
-        : const CircleAvatar(
-            radius: 13,
-            backgroundColor: AppColors.red,
-            child: Icon(Icons.close, color: AppColors.white, size: 16),
-          );
+    return CircleAvatar(
+      radius: 13,
+      backgroundColor: correct ? AppColors.greenRegular : AppColors.red,
+      child: Icon(correct ? Icons.check : Icons.close, color: AppColors.white, size: 16),
+    );
   }
 
   _getBorderColor() {
@@ -46,18 +40,16 @@ class QuizzesQuestionChip extends StatelessWidget {
   Widget build(BuildContext context) {
     return OutlinedButton.icon(
       style: OutlinedButton.styleFrom(
-          padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 16.0),
-          side: BorderSide(width: 2, color: _getBorderColor()),
-          shape: const RoundedRectangleBorder(
-            borderRadius: BorderRadius.all(Radius.circular(26.0)),
-          ),
-          alignment: Alignment.centerLeft),
+        padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 16.0),
+        side: BorderSide(width: 2, color: _getBorderColor()),
+        shape: const RoundedRectangleBorder(
+          borderRadius: BorderRadius.all(Radius.circular(26.0)),
+        ),
+        alignment: Alignment.centerLeft,
+      ),
       onPressed: () => onSelected(value),
       icon: correct != null ? _icon(correct ?? false) : const SizedBox.shrink(),
-      label: CustomText.w400(
-        value.label,
-        style: context.textTheme.bodyMedium,
-      ),
+      label: CustomText.w400(value.label, style: context.textTheme.bodyMedium),
     );
   }
 }

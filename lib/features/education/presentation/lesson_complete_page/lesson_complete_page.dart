@@ -203,6 +203,11 @@ class _LessonCompletePageState extends State<LessonCompletePage> {
                           builder: (BuildContext context, state) {
                             return BlocBuilder<RiverBloc, RiverState>(
                               builder: (context, s) {
+                                if (state.data.unlockTitle.isEmpty ||
+                                    state.data.unlockDescription.isEmpty) {
+                                  return const SizedBox.shrink();
+                                }
+
                                 final isUnlockGroupSessions = state.data.extraAction ==
                                         ExtraActionTypes.setupGroupingPreferences &&
                                     !_isGroupSessionsDisabled;
