@@ -16,7 +16,6 @@ import 'package:loopcare_frontend/core/presentation/utils/build_context_extensio
 import 'package:loopcare_frontend/core/presentation/widgets/main_container.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/scrollable_container.dart';
 import 'package:loopcare_frontend/features/authentication/application/authentication_bloc.dart';
-import 'package:loopcare_frontend/features/education/application/education_lesson/education_lesson_bloc.dart';
 import 'package:loopcare_frontend/features/education/presentation/education_page/widgets/category_label.dart';
 import 'package:loopcare_frontend/features/education/presentation/lesson_complete_page/widgets/unlock_physical_activities_feature.dart';
 import 'package:loopcare_frontend/features/river/infrastructure/river_module_stream_type.dart';
@@ -32,15 +31,6 @@ class PhysicalActivitiesCompletePage extends StatefulWidget {
 }
 
 class _PhysicalActivitiesCompletePageState extends State<PhysicalActivitiesCompletePage> {
-  @override
-  void initState() {
-    super.initState();
-    if (!context.read<EducationLessonBloc>().state.data.isLessonCompleted) {
-      // TODO check this flow and why we need to complete lesson here
-      // context.read<EducationLessonBloc>().add(const EducationLessonEvent.completeLesson());
-    }
-  }
-
   _onPressHandler(BuildContext context) {
     context.read<AuthenticationBloc>().add(const AuthenticationEvent.getAccount());
     context.router.popUntilRouteWithName(HomeRoute.name);
