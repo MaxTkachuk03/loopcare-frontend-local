@@ -6,7 +6,7 @@ import 'package:loopcare_frontend/core/application/auth_token_manager.dart';
 import 'package:loopcare_frontend/core/application/permissions_service.dart';
 import 'package:loopcare_frontend/core/infrastructure/services/events.dart';
 import 'package:loopcare_frontend/core/infrastructure/services/mixpanel_event_service.dart';
-import 'package:loopcare_frontend/core/infrastructure/services/shared_storage/shared_storage_service.dart';
+import 'package:loopcare_frontend/core/infrastructure/services/stored_account_service/stored_account_service.dart';
 import 'package:loopcare_frontend/core/presentation/routes/app_router.gr.dart';
 import 'package:loopcare_frontend/features/authentication/application/authentication_bloc.dart';
 import 'package:loopcare_frontend/features/home/application/navigation_bar_bloc.dart';
@@ -33,9 +33,7 @@ class SplashController {
     required this.navigationBarBloc,
   });
 
-  SharedStorageService get _storage => getIt<SharedStorageService>();
-
-  bool get isAuthorized => _storage.account != null;
+  bool get isAuthorized => StoredAccountService.getAccount() != null;
 
   bool get needUpdatePrivacyPolicy =>
       (authenticationBloc.state.data.account?.privacyPolicyVersion ?? 1) <
@@ -59,14 +57,15 @@ class SplashController {
 
   Future<List<PageRouteInfo>> getRoute() async {
     authenticationBloc.add(const AuthenticationEvent.startTrackUser());
+    final account = StoredAccountService.getAccount();
 
     final authorisedRoute =
-        await _getAuthorisedRoute(_storage.account?.hasActiveSubscription ?? false);
+        await _getAuthorisedRoute(account?.hasActiveSubscription ?? false);
     final routes = [authorisedRoute];
 
     MixpanelEventService.instance.trackVisit(
       "${AppMixpanelEvents.appRote}: ${routes.last.routeName}",
-      userId: _storage.account?.id ?? -1,
+      userId: account?.id ?? -1,
     );
 
     return routes;
