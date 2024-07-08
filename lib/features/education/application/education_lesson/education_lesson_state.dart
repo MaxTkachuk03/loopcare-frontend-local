@@ -53,8 +53,6 @@ class EducationLessonData with _$EducationLessonData {
 
   bool get isAudioPage => contentType.name == LessonContentType.audio.name;
 
-  bool get isAudioLoaded => audioFilePath.isNotEmpty;
-
   bool get isBuddyUnlocked => extraAction == ExtraActionTypes.unlockBuddy;
 
   bool get isFoodLoggingUnlocked => extraAction == ExtraActionTypes.unlockFoodLogging;
@@ -64,8 +62,6 @@ class EducationLessonData with _$EducationLessonData {
   bool get isAssignmentsUnlocked => extraAction == ExtraActionTypes.unlockAssignments;
 
   bool get isGroupPreferencesUnlocked => extraAction == ExtraActionTypes.setupGroupingPreferences;
-
-  bool get isLessonCompleted => true; //lessonCompletedDate != null;
 
   String get quizInstruction => quiz?.instruction ?? '';
 

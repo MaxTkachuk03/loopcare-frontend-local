@@ -58,7 +58,8 @@ class _LogWeightPageState extends State<LogWeightPage> {
   String _getInputInitialValue() {
     final state = context.read<DashboardWeightBloc>().state;
 
-    double? selectedDayWeightValue = state.data.getSelectedDayWeight(widget.selectedDay.isoStringWithoutTime);
+    double? selectedDayWeightValue =
+        state.data.getSelectedDayWeight(widget.selectedDay.isoStringWithoutTime);
 
     if (selectedDayWeightValue == null) return '';
 
@@ -84,7 +85,8 @@ class _LogWeightPageState extends State<LogWeightPage> {
     String formattedWeight = weight.replaceAll(',', '.');
 
     if (!_isMetricSystem) {
-      formattedWeight = WeightConversionUtils.convertLbsToKg(double.parse(formattedWeight)).toString();
+      formattedWeight =
+          WeightConversionUtils.convertLbsToKg(double.parse(formattedWeight)).toString();
     }
 
     context
@@ -102,8 +104,9 @@ class _LogWeightPageState extends State<LogWeightPage> {
       name: CIOEvents.weightLogged,
       attributes: {
         CIOAttributes.weightLogged: formattedWeight,
-        CIOAttributes.measurementSystem:
-            _isMetricSystem ? MeasurementSystemType.metric.name : MeasurementSystemType.imperial.name,
+        CIOAttributes.measurementSystem: _isMetricSystem
+            ? MeasurementSystemType.metric.name
+            : MeasurementSystemType.imperial.name,
       },
     );
 
@@ -121,7 +124,9 @@ class _LogWeightPageState extends State<LogWeightPage> {
   @override
   Widget build(BuildContext context) {
     final title = _isToday ? LocalizedTexts.todaysWeight.tr() : LocalizedTexts.yourWeight.tr();
-    final yourWeight = _isToday ? LocalizedTexts.yourWeight.tr() : '${LocalizedTexts.yourWeight.tr()} ${LocalizedTexts.on.tr()}';
+    final yourWeight = _isToday
+        ? LocalizedTexts.yourWeight.tr()
+        : '${LocalizedTexts.yourWeight.tr()} ${LocalizedTexts.on.tr()}';
 
     return CustomScaffold.coralLightest(
       appBar: CustomAppBar.coral(
