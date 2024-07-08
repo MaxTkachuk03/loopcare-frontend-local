@@ -58,7 +58,7 @@ class EducationLessonBloc extends Bloc<EducationLessonEvent, EducationLessonStat
               contentType: r.contentType,
               imageUrl: r.imageUrl,
               cardImageUrl: r.cardImageUrl,
-              audioUrl: r.audioUrl,
+              audioUrl: r.audioUrl ?? '',
               htmlUrl: r.htmlUrl,
               subtitleImages: r.subtitleImages,
               quiz: r.quiz,

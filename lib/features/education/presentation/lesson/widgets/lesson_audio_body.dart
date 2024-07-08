@@ -148,7 +148,7 @@ class _LessonAudioBodyState extends State<LessonAudioBody> {
                               label: LocalizedTexts.readText.tr(),
                             ),
                             const PlayerLoadingState()
-                                .animate(target: state.data.isAudioLoaded ? 1 : 0)
+                                .animate(target: state.data.isAudioLoading ? 0 : 1)
                                 .fadeOut(duration: 300.ms)
                                 .swap(
                                   duration: 300.ms,

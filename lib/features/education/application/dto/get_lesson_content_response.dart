@@ -14,7 +14,7 @@ class GetLessonContentResponse {
   final LessonContentType contentType;
   final String imageUrl;
   final String cardImageUrl;
-  final String audioUrl;
+  final String? audioUrl;
   final String htmlUrl;
   final String? subtitleImages;
   final Quiz? quiz;

@@ -109,6 +109,8 @@ class DashboardWeightBloc extends Bloc<DashboardWeightEvent, DashboardWeightStat
     LogWeight event,
     Emitter<DashboardWeightState> emit,
   ) async {
+    emit(DashboardWeightState.loading(state.data.copyWith(isLoading: true)));
+
     final Map<String, DashboardWeightItem> weights = Map.from(state.data.weights);
 
     final date = event.date.isToday
@@ -116,8 +118,6 @@ class DashboardWeightBloc extends Bloc<DashboardWeightEvent, DashboardWeightStat
         : event.date.withCurrentTime.toIso8601String();
 
     final data = LogWeightBody(date: date, weight: event.weight);
-
-    emit(DashboardWeightState.loading(state.data.copyWith(isLoading: false)));
 
     final response = await nutritionService.logWeight(data);
 
