@@ -37,6 +37,13 @@ class _OnboardingIntroOurMissionPageState extends State<OnboardingIntroOurMissio
 
   void _onNextPressed() => context.router.pushNamed(AppRoutes.onboardingPacing);
 
+  double get _textHeight => textHeight(
+    _longestMemberDescription.tr(),
+    MediaQuery.of(context).size.width - 80.0,
+    context.textTheme.bodyMedium,
+    MediaQuery.of(context).textScaler,
+  );
+
   @override
   void initState() {
     super.initState();
@@ -71,11 +78,7 @@ class _OnboardingIntroOurMissionPageState extends State<OnboardingIntroOurMissio
                 controller: controller,
               ),
               SizedBox(
-                height: textHeight(
-                  _longestMemberDescription.tr(),
-                  MediaQuery.of(context).size.width - 40.0,
-                  context.textTheme.bodyMedium,
-                ),
+                height: _textHeight,
                 child: PageView.builder(
                   controller: controller,
                   itemCount: _Member.values.length,
