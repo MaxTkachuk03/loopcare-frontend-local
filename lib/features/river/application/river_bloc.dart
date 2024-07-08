@@ -86,6 +86,7 @@ class RiverBloc extends Bloc<RiverEvent, RiverState> {
       emit(
         RiverState.moduleItemLoaded(
           RiverStateData(
+            modules: state.data.modules,
             activeModule: module,
             isLoading: false,
           ),
