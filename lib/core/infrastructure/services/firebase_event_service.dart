@@ -3,11 +3,10 @@ import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:loopcare_frontend/core/domain/analytics/firebase_event_custom_definitions.dart';
 import 'package:loopcare_frontend/core/domain/analytics/firebase_event_list.dart';
 import 'package:loopcare_frontend/core/infrastructure/services/country_code_service/country_code_service.dart';
-import 'package:loopcare_frontend/core/infrastructure/services/shared_storage/shared_storage_service.dart';
+import 'package:loopcare_frontend/core/infrastructure/services/stored_account_service/stored_account_service.dart';
 import 'package:loopcare_frontend/features/education/domain/lesson_content_type.dart';
 import 'package:loopcare_frontend/features/physical_activities/domain/physical_program.dart';
 import 'package:loopcare_frontend/features/physical_activities/domain/physical_program_exercise.dart';
-import 'package:loopcare_frontend/injection.dart';
 
 class AnalyticsEventService {
   static final instance = AnalyticsEventService._();
@@ -18,7 +17,7 @@ class AnalyticsEventService {
     String eventName, {
     Map<String, dynamic>? parameters,
   }) async {
-    final userId = getIt<SharedStorageService>().account?.id ?? -1;
+    final userId = StoredAccountService.getAccount()?.id ?? -1;
 
     final userIdPrefix = CountryCodeService.instance.serverCountryCode;
 

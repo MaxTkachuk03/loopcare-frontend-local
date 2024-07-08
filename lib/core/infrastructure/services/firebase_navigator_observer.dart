@@ -4,8 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:loopcare_frontend/core/infrastructure/services/logger/logger.dart';
 import 'package:loopcare_frontend/core/infrastructure/services/screen_name_mapper.dart';
-import 'package:loopcare_frontend/core/infrastructure/services/shared_storage/shared_storage_service.dart';
-import 'package:loopcare_frontend/injection.dart';
+import 'package:loopcare_frontend/core/infrastructure/services/stored_account_service/stored_account_service.dart';
 
 /// Override [FirebaseAnalyticsObserver]
 class FirebaseNavigatorObserver extends AutoRouterObserver {
@@ -23,7 +22,7 @@ class FirebaseNavigatorObserver extends AutoRouterObserver {
 
   void _sendScreenView(RouteSettings settings) {
     final screenName = screenNames[nameExtractor(settings)] ?? nameExtractor(settings);
-    final userId =  getIt<SharedStorageService>().account?.id ?? -1;
+    final userId = StoredAccountService.getAccount()?.id ?? -1;
 
     if (screenName != null) {
       analytics.logEvent(
