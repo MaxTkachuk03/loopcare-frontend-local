@@ -9,26 +9,26 @@ enum _Member {
 
   Color get color => switch(this) {
     andrew => AppColors.greenRegular,
-    maria => AppColors.petrolRegular,
+    maria => AppColors.orangeRegular,
     shalu => AppColors.coralRegular,
     joshua => AppColors.yellowRegular,
-    denise => AppColors.orangeRegular,
+    denise => AppColors.petrolRegular,
   };
 
   ImageProvider get image => switch(this) {
     andrew => AppImages.onboardingIntro4,
-    maria => AppImages.onboardingIntro5,
+    maria => AppImages.onboardingIntro1,
     shalu => AppImages.onboardingIntro2,
     joshua => AppImages.onboardingIntro3,
-    denise => AppImages.onboardingIntro1,
+    denise => AppImages.onboardingIntro5,
   };
 
   Offset get position => switch(this) {
     andrew => const Offset(0.6, 0.55),
-    maria => const Offset(0.04, 0.42),
+    maria => const Offset(0.65, 0.16),
     shalu => const Offset(0.36, 0.32),
     joshua => const Offset(0.13, 0.08),
-    denise => const Offset(0.65, 0.16),
+    denise => const Offset(0.04, 0.42),
   };
 
   String get description => switch(this) {
@@ -41,26 +41,26 @@ enum _Member {
 
   Offset get arrowPosition => switch(this) {
     andrew => const Offset(0.46, 0.68),
-    maria => const Offset(0.44, 0.66),
+    maria => const Offset(0.7, 0.04),
     shalu => const Offset(0.57, 0.72),
     joshua => const Offset(0.45, 0.01),
-    denise => const Offset(0.7, 0.04),
+    denise => const Offset(0.44, 0.66),
   };
 
   double get arrowRotation => switch(this) {
     andrew => -1.32,
-    maria => 1.57,
+    maria => 0.0,
     shalu => 2.4,
     joshua => 0.3,
-    denise => 0.0,
+    denise => 1.57,
   };
 
   double get mirrorArrowRotation => switch(this) {
     andrew => math.pi,
-    maria => 0.0,
+    maria => math.pi,
     shalu => 0.0,
     joshua => 0.0,
-    denise => math.pi,
+    denise =>0.0,
   };
 }
 
