@@ -14,6 +14,7 @@ class CustomChoiceChip<T> extends StatelessWidget {
   final void Function(T val)? onSelected;
   final Color? selectedColor;
   final Color? borderColor;
+  final Color? selectedTextColor;
   final Widget? avatar;
   final Widget? action;
   final bool? showCheckmark;
@@ -32,6 +33,7 @@ class CustomChoiceChip<T> extends StatelessWidget {
     this.accent,
     this.selectedColor,
     this.borderColor,
+    this.selectedTextColor,
     this.avatar,
     this.showCheckmark,
     this.action,
@@ -49,6 +51,7 @@ class CustomChoiceChip<T> extends StatelessWidget {
     required OnSelected<T>? onSelected,
     required T value,
     required String label,
+    TextAlign? textAlign,
     Widget? action,
   }) =>
       CustomChoiceChip<T>(
@@ -59,6 +62,7 @@ class CustomChoiceChip<T> extends StatelessWidget {
         selectedColor: AppColors.coralRegular,
         borderColor: AppColors.coralRegular,
         action: action,
+        textAlign: textAlign,
       );
 
   factory CustomChoiceChip.orange({
@@ -68,8 +72,8 @@ class CustomChoiceChip<T> extends StatelessWidget {
     required String label,
     Widget? avatar,
     bool? available,
-    final EdgeInsetsGeometry? padding,
-    final TextAlign? textAlign,
+    EdgeInsetsGeometry? padding,
+    TextAlign? textAlign,
   }) =>
       CustomChoiceChip<T>(
         label: label,
@@ -111,8 +115,8 @@ class CustomChoiceChip<T> extends StatelessWidget {
     required OnSelected<T>? onSelected,
     required T value,
     required String label,
-    final EdgeInsetsGeometry? padding,
-    final TextAlign? textAlign,
+    EdgeInsetsGeometry? padding,
+    TextAlign? textAlign,
   }) =>
       CustomChoiceChip<T>(
         label: label,
@@ -149,14 +153,17 @@ class CustomChoiceChip<T> extends StatelessWidget {
     required OnSelected<T>? onSelected,
     required T value,
     required String label,
+    TextAlign? textAlign,
   }) =>
       CustomChoiceChip<T>(
         label: label,
         selected: selected,
         onSelected: onSelected,
         value: value,
+        selectedTextColor: AppColors.white,
         selectedColor: AppColors.petrolRegular,
         borderColor: AppColors.petrolRegular,
+        textAlign: textAlign,
       );
 
   factory CustomChoiceChip.blue({
@@ -193,7 +200,7 @@ class CustomChoiceChip<T> extends StatelessWidget {
                         label ?? '',
                         textAlign: textAlign ?? TextAlign.start,
                         style: selected
-                            ? context.textTheme.bodySmall?.copyWith(fontWeight: FontWeight.w600)
+                            ? context.textTheme.bodySmall?.copyWith(fontWeight: FontWeight.w600, color: selectedTextColor)
                             : context.textTheme.bodySmall?.copyWith(fontWeight: FontWeight.w400),
                       ),
               ),
@@ -206,10 +213,10 @@ class CustomChoiceChip<T> extends StatelessWidget {
         selectedColor: selectedColor,
         disabledColor: AppColors.greyLight,
         side: ChipTheme.of(context).side?.copyWith(color: onSelected == null ? AppColors.greyLight : borderColor),
-        color: MaterialStateProperty.resolveWith((states) {
-          const Set<MaterialState> interactiveStates = <MaterialState>{
-            MaterialState.pressed,
-            MaterialState.selected,
+        color: WidgetStateProperty.resolveWith((states) {
+          const Set<WidgetState> interactiveStates = <WidgetState>{
+            WidgetState.pressed,
+            WidgetState.selected,
           };
 
           if (states.any(interactiveStates.contains)) {

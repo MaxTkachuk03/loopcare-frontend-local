@@ -38,7 +38,9 @@ class _AccountSectionState extends State<AccountSection> {
   _onLogOutPressed() {
     context.read<GroupPreferencesBloc>().add(const GroupPreferencesEvent.initClear());
     context.read<PhysicalProgramsBloc>().add(const PhysicalProgramsEvent.init());
-    context.read<PhysicalActivitiesPreferencesBloc>().add(const PhysicalActivitiesPreferencesEvent.init());
+    context
+        .read<PhysicalActivitiesPreferencesBloc>()
+        .add(const PhysicalActivitiesPreferencesEvent.init());
     context.read<AuthenticationBloc>().add(const AuthenticationEvent.logout());
   }
 

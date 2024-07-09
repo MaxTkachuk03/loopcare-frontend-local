@@ -51,7 +51,7 @@ class _AppUpdatePoliciesDocumentsState extends State<AppUpdatePoliciesDocuments>
 
   void onConfirmed() {
     widget.onConfirmed();
-    context.router.pop();
+    context.router.maybePop();
   }
 
   void validate() => validateListener.value = termsAndConditionsAgreed && privacyPolicyAgreed;

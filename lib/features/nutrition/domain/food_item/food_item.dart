@@ -1,7 +1,7 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:loopcare_frontend/features/nutrition/domain/meal_item_type/meal_item_type.dart';
 import 'package:loopcare_frontend/features/nutrition/domain/serving_size/serving_size.dart';
-import 'package:loopcare_frontend/features/onboarding_new/utils/weight_conversion_utils.dart';
+import 'package:loopcare_frontend/features/onboarding/utils/weight_conversion_utils.dart';
 
 part 'food_item.freezed.dart';
 
@@ -22,7 +22,6 @@ class FoodItem with _$FoodItem {
 
   double get calorieDensity {
     num? servingAmount = serving.metricServingAmount;
-    if (servingAmount == null) return 1.0;
 
     servingAmount = serving.metricServingUnit == 'g' || serving.metricServingUnit == 'ml'
         ? servingAmount

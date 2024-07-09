@@ -2,11 +2,12 @@ import 'package:auto_route/auto_route.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:loopcare_frontend/core/infrastructure/services/logger/logger.dart';
 import 'package:loopcare_frontend/core/infrastructure/services/screen_name_mapper.dart';
+import 'package:loopcare_frontend/core/infrastructure/services/stored_account_service/stored_account_service.dart';
 
 /// Override [FirebaseAnalyticsObserver]
 class FirebaseNavigatorObserver extends AutoRouterObserver {
-  final int userId;
   final FirebaseAnalytics analytics;
   final ScreenNameExtractor nameExtractor;
   final RouteFilter routeFilter;
@@ -14,14 +15,14 @@ class FirebaseNavigatorObserver extends AutoRouterObserver {
 
   FirebaseNavigatorObserver({
     required this.analytics,
-    required this.userId,
     this.nameExtractor = defaultNameExtractor,
     this.routeFilter = defaultRouteFilter,
     Function(PlatformException error)? onError,
   }) : _onError = onError;
 
   void _sendScreenView(RouteSettings settings) {
-    final String? screenName = screenNames[nameExtractor(settings)] ?? nameExtractor(settings);
+    final screenName = screenNames[nameExtractor(settings)] ?? nameExtractor(settings);
+    final userId = StoredAccountService.getAccount()?.id ?? -1;
 
     if (screenName != null) {
       analytics.logEvent(
@@ -34,12 +35,12 @@ class FirebaseNavigatorObserver extends AutoRouterObserver {
     }
   }
 
-  catchErrorOnErrorCb(Object error) {
-    final error = _onError;
-    if (error == null) {
-      debugPrint('$FirebaseAnalyticsObserver: $error');
+  void catchErrorOnErrorCb(Object error) {
+    final onError = _onError;
+    if (onError == null) {
+      log.e(error.toString(), error: error.runtimeType);
     } else {
-      error(error as PlatformException);
+      onError(error as PlatformException);
     }
   }
 

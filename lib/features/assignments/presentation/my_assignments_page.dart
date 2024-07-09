@@ -18,6 +18,7 @@ import 'package:loopcare_frontend/features/assignments/presentation/widgets/dash
 import 'package:loopcare_frontend/features/assignments/presentation/widgets/my_assignments/past_assignments.dart';
 import 'package:loopcare_frontend/injection.dart';
 
+@RoutePage()
 class MyAssignmentsPage extends StatefulWidget {
   const MyAssignmentsPage({super.key});
 
@@ -26,7 +27,8 @@ class MyAssignmentsPage extends StatefulWidget {
 }
 
 class _MyAssignmentsPageState extends State<MyAssignmentsPage> {
-  DateTime get accountCreatedDate => getIt<SharedStorageService>().account?.createdAt ?? DateTime.now();
+  DateTime get accountCreatedDate =>
+      getIt<SharedStorageService>().account?.createdAt ?? DateTime.now();
 
   @override
   void initState() {
@@ -55,8 +57,8 @@ class _MyAssignmentsPageState extends State<MyAssignmentsPage> {
       ),
       body: BlocBuilder<AssignmentsBloc, AssignmentsState>(
         builder: (context, state) {
-          final thisWeekAssignments = state.data.currentWeekAssignments(DateTime.now());
-          final pastAssignments = state.data.pastAssignments(accountCreatedDate);
+          final thisWeekAssignments = []; //state.data.currentWeekAssignments(DateTime.now());
+          final pastAssignments = []; // state.data.pastAssignments(accountCreatedDate);
 
           return state.maybeMap(
             loading: (_) => const Loader(),
@@ -70,7 +72,8 @@ class _MyAssignmentsPageState extends State<MyAssignmentsPage> {
                             children: [
                               const SizedBox(height: 28.0),
                               Container(
-                                padding: const EdgeInsets.symmetric(vertical: 24.0, horizontal: 22.0),
+                                padding:
+                                    const EdgeInsets.symmetric(vertical: 24.0, horizontal: 22.0),
                                 decoration: const BoxDecoration(
                                   color: AppColors.white,
                                   borderRadius: BorderRadius.all(Radius.circular(16)),
@@ -85,9 +88,13 @@ class _MyAssignmentsPageState extends State<MyAssignmentsPage> {
                                         onBtnPressed: (int lessonId) =>
                                             _startLessonQuestion(context, lessonId),
                                       ),
-                                    if (thisWeekAssignments.isNotEmpty && pastAssignments.isNotEmpty)
+                                    if (thisWeekAssignments.isNotEmpty &&
+                                        pastAssignments.isNotEmpty)
                                       const Column(
-                                        children: [Divider(color: AppColors.ff404040), SizedBox(height: 18)],
+                                        children: [
+                                          Divider(color: AppColors.ff404040),
+                                          SizedBox(height: 18)
+                                        ],
                                       ),
                                     if (pastAssignments.isNotEmpty)
                                       PastAssignments(

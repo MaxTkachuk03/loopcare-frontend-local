@@ -1,5 +1,6 @@
+import 'package:auto_route/annotations.dart';
 import 'package:easy_localization/easy_localization.dart';
-import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loopcare_frontend/core/presentation/app_bar/custom_app_bar.dart';
 import 'package:loopcare_frontend/core/presentation/buttons/custom_filled_icon_button.dart';
@@ -17,6 +18,7 @@ import 'package:loopcare_frontend/features/account/presentation/buddy_page/widge
 import 'package:loopcare_frontend/features/account/presentation/buddy_page/widgets/buddy_progress_bar.dart';
 import 'package:loopcare_frontend/features/account/presentation/buddy_page/widgets/buddy_relation_chips.dart';
 
+@RoutePage()
 class BuddyRelationPage extends StatelessWidget {
   const BuddyRelationPage({super.key});
 
@@ -55,7 +57,7 @@ class BuddyRelationPage extends StatelessWidget {
                     ],
                   ),
                   BlocBuilder<BuddyBloc, BuddyState>(
-                    builder: (BuildContext context, state) {
+                    builder: (context, state) {
                       return BuddyContinueWidget(
                         enable: state.data.relation != null,
                       );

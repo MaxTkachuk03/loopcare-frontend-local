@@ -1,3 +1,4 @@
+// ignore_for_file: use_build_context_synchronously
 import 'dart:async';
 import 'dart:convert';
 import 'dart:developer';
@@ -42,6 +43,7 @@ import 'package:loopcare_frontend/features/video_session/presentation/widgets/us
 import 'package:loopcare_frontend/injection.dart';
 import 'package:wakelock_plus/wakelock_plus.dart';
 
+@RoutePage()
 class SessionCallPage extends StatefulWidget {
   const SessionCallPage({super.key});
 
@@ -326,7 +328,7 @@ class _SessionCallPageState extends State<SessionCallPage> with WidgetsBindingOb
         setState(() {
           _sessionParticipants = [
             mySelf!,
-            ...remoteUserListJson.map((userJson) => ZoomVideoSdkUser.fromJson(userJson)).toList()
+            ...remoteUserListJson.map((userJson) => ZoomVideoSdkUser.fromJson(userJson)),
           ];
         });
       }
@@ -458,7 +460,7 @@ class _SessionCallPageState extends State<SessionCallPage> with WidgetsBindingOb
         builder: (BuildContext context) => ErrorDialog(
           errorText: errorType,
           onErrorHandler: () {
-            context.router.pop();
+            context.router.maybePop();
             if (!isInSession) _onErrorHandler(errorType);
           },
         ),
@@ -494,7 +496,7 @@ class _SessionCallPageState extends State<SessionCallPage> with WidgetsBindingOb
     ModalBottomSheet.leaveSessionCall(
       context: context,
       onLeavePressed: _leaveSessionHandler,
-      onStayPressed: context.router.pop,
+      onStayPressed: context.router.maybePop,
     );
   }
 
@@ -503,7 +505,7 @@ class _SessionCallPageState extends State<SessionCallPage> with WidgetsBindingOb
 
     await zoom.leaveSession(false);
     if (context.mounted) {
-      context.router.pop();
+      context.router.maybePop();
     }
   }
 

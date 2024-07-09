@@ -3,13 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:loopcare_frontend/core/presentation/buttons/custom_elevated_button.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/features/assignments/presentation/widgets/answer_options_block.dart';
-import 'package:loopcare_frontend/features/quizzes/domain/lesson_question.dart';
-import 'package:loopcare_frontend/features/quizzes/domain/lesson_question_option.dart';
-import 'package:loopcare_frontend/features/quizzes/infrastructure/quizzes_controller.dart';
+import 'package:loopcare_frontend/features/lesson_quiz/infrastructure/quizzes_controller.dart';
 
 class AnswerOption extends StatelessWidget {
   final QuizzesController controller;
-  final LessonQuestion question;
+  final dynamic question;
   final VoidCallback onNextPressed;
   final void Function(int id) onSelectOptionValue;
   final bool isEditable;
@@ -36,7 +34,7 @@ class AnswerOption extends StatelessWidget {
             AnswerOptionsBlock(
               selectedValues: controller.selectOptionValues.value,
               question: question,
-              onSelected: (LessonQuestionOption value) => isEditable ? onSelectOptionValue(value.id) : null,
+              onSelected: (dynamic value) => isEditable ? onSelectOptionValue(value.id) : null,
             ),
             Column(
               children: [

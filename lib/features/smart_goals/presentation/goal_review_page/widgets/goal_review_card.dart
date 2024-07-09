@@ -40,10 +40,11 @@ class GoalReviewCard extends StatelessWidget {
               padding: const EdgeInsets.symmetric(horizontal: 12.0),
               child: GoalProgressButton(
                 item: item,
+                times: item.completionsAmount,
                 onPressed: () {},
               ),
             ),
-            GoalProgressWidget(
+            GoalAchievedWidget(
               item: item,
             ),
           ],

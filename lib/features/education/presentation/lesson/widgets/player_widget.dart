@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -101,7 +100,7 @@ class ControlButtons extends StatelessWidget {
   const ControlButtons(this.player, this.muteNotifier, {super.key});
 
   _onPlayPressed(BuildContext context) {
-    final lessonId = context.read<EducationLessonBloc>().state.data.lessonId;
+    final lessonId = context.read<EducationLessonBloc>().state.data.id;
 
     AnalyticsEventService.instance.lessonAudioPlayEvent(lessonId);
 
@@ -119,7 +118,7 @@ class ControlButtons extends StatelessWidget {
   }
 
   _onPlayPaused(BuildContext context) {
-    final lessonId = context.read<EducationLessonBloc>().state.data.lessonId;
+    final lessonId = context.read<EducationLessonBloc>().state.data.id;
 
     AnalyticsEventService.instance.lessonAudioStopEvent(lessonId);
 

@@ -39,7 +39,7 @@ class LottieAnimation extends StatefulWidget {
       );
 
   factory LottieAnimation.noAchieved({AnimationController? controller, OnLoadedCb onLoaded}) => LottieAnimation(
-        animationUrl: AppAnimations.no_achieved,
+        animationUrl: AppAnimations.noAchieved,
         controller: controller,
         onLoaded: onLoaded,
       );

@@ -9,6 +9,7 @@ import 'package:loopcare_frontend/core/presentation/app_bar/custom_app_bar.dart'
 import 'package:loopcare_frontend/core/presentation/buttons/custom_elevated_button.dart';
 import 'package:loopcare_frontend/core/presentation/buttons/custom_filled_icon_button.dart';
 import 'package:loopcare_frontend/core/presentation/custom_safe_area.dart';
+import 'package:loopcare_frontend/core/presentation/loader/loader.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/core/presentation/routes/app_router.dart';
 import 'package:loopcare_frontend/core/presentation/scaffold/custom_scaffold.dart';
@@ -21,8 +22,7 @@ import 'package:loopcare_frontend/features/account/presentation/buddy_page/widge
 import 'package:loopcare_frontend/features/account/presentation/buddy_page/widgets/buddy_not_available.dart';
 import 'package:loopcare_frontend/features/account/presentation/buddy_page/widgets/profile_buddy_no_state.dart';
 
-import '../../../../core/presentation/loader/loader.dart';
-
+@RoutePage()
 class BuddyPreferencesPage extends StatefulWidget {
   const BuddyPreferencesPage({super.key});
 
@@ -130,11 +130,11 @@ class _BuddyPreferencesPageState extends State<BuddyPreferencesPage> {
   }
 
   _errorListener(BuildContext context, BuddyState state) {
-    final errorMessage = state.data.errorMessage ?? LocalizedTexts.somethingWentWrong.tr();
+    final errorMessage = state.data.errorMessage ?? LocalizedTexts.somethingWentWrong;
     context.showErrorBar(
-      content: Text(errorMessage),
+      content: Text(errorMessage.tr()),
       position: FlashPosition.top,
     );
-    context.router.pop();
+    context.router.maybePop();
   }
 }

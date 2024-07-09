@@ -1,7 +1,6 @@
 import 'package:dartz/dartz.dart';
 import 'package:injectable/injectable.dart';
 import 'package:loopcare_frontend/core/infrastructure/dio_client/dio_client.dart';
-import 'package:loopcare_frontend/core/infrastructure/dio_client/parse_response.dart';
 import 'package:loopcare_frontend/core/infrastructure/dio_client/request_error.dart';
 import 'package:loopcare_frontend/features/chat/application/chat_service.dart';
 import 'package:loopcare_frontend/features/chat/domain/chat_counter.dart';
@@ -17,53 +16,51 @@ class APIChatService implements ChatService {
   APIChatService(this.client);
 
   @override
-  Future<Either<RequestError, ListChatMessages>> getMessages(
-      {String? fromMessageId, required int limit, String order = 'DESC'}) {
-    return client.get('/chats/messages', queryParameters: {
-      ..._qpSL(fromMessageId, limit, order),
-    }).then(parseResponse(ListChatMessages.fromJson));
+  Future<Either<RequestError, ListChatMessages>> getMessages({
+    String? fromMessageId,
+    required int limit,
+    String order = 'DESC',
+  }) async {
+    return await client.get(
+      '/chats/messages',
+      queryParameters: _qpSL(fromMessageId, limit, order),
+      fromJson: ListChatMessages.fromJson,
+    );
   }
 
   @override
-  Future<Either<RequestError, ListGroupMembers>> getMembers() {
-    return client.get('/chats/members').then(parseResponse(ListGroupMembers.fromJson));
+  Future<Either<RequestError, ListGroupMembers>> getMembers() async {
+    return await client.get('/chats/members', fromJson: ListGroupMembers.fromJson);
   }
 
   @override
-  Future<Either<RequestError, GroupMessage>> sendMessages(GroupMessage message) {
-    return client.post('/chats/messages', data: message).then(parseResponse(GroupMessage.fromJson));
+  Future<Either<RequestError, GroupMessage>> sendMessages(GroupMessage message) async {
+    return await client.post('/chats/messages', data: message, fromJson: GroupMessage.fromJson);
   }
 
   @override
-  Future<Either<RequestError, GroupMessage>> removeMessage({required String fromMessageId}) {
-    return client.delete('/chats/messages/$fromMessageId').then(parseResponse(GroupMessage.fromJson));
+  Future<Either<RequestError, GroupMessage>> removeMessage({required String fromMessageId}) async {
+    return await client.delete('/chats/messages/$fromMessageId', fromJson: GroupMessage.fromJson);
   }
 
   @override
-  Future<Either<RequestError, ChatReadPointer>> readPointer({required String fromMessageId}) {
-    return client
-        .post('/chats/messages/read-pointer/$fromMessageId', data: {}).then(parseResponse(ChatReadPointer.fromJson));
+  Future<Either<RequestError, ChatReadPointer>> readPointer({required String fromMessageId}) async {
+    return await client.post(
+      '/chats/messages/read-pointer/$fromMessageId',
+      fromJson: ChatReadPointer.fromJson,
+    );
   }
 
   @override
-  Future<Either<RequestError, ChatCounter>> unreadCount() {
-    return client.get('/chats/messages/count/unread').then(parseResponse(ChatCounter.fromJson));
+  Future<Either<RequestError, ChatCounter>> unreadCount() async {
+    return await client.get('/chats/messages/count/unread', fromJson: ChatCounter.fromJson);
   }
 
-  @override
   static Map<String, dynamic> _qpSL(String? fromMessageId, int limit, String order) {
     return {
       if (fromMessageId != null) 'fromMessageId': fromMessageId,
       'limit': limit,
       'order': order,
-    };
-  }
-
-  @override
-  static Map<String, dynamic> _qpPg(int? id, int? limit) {
-    return {
-      if (id != null) 'id': id,
-      if (id != null) 'limit': limit,
     };
   }
 }

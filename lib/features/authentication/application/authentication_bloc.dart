@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:easy_localization/easy_localization.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:get_it/get_it.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
@@ -14,7 +15,6 @@ import 'package:loopcare_frontend/core/domain/account/gender_type.dart';
 import 'package:loopcare_frontend/core/domain/analytics/firebase_event_custom_definitions.dart';
 import 'package:loopcare_frontend/core/domain/analytics/firebase_event_list.dart';
 import 'package:loopcare_frontend/core/domain/medical_onboarding.dart';
-import 'package:loopcare_frontend/core/domain/unlock_config/unlock_feature/unlock_feature.dart';
 import 'package:loopcare_frontend/core/domain/unlocked_feature_type.dart';
 import 'package:loopcare_frontend/core/infrastructure/dio_client/dio_client.dart';
 import 'package:loopcare_frontend/core/infrastructure/dio_client/request_error.dart';
@@ -33,7 +33,7 @@ import 'package:loopcare_frontend/features/authentication/application/dto/sign_u
 import 'package:loopcare_frontend/features/authentication/application/dto/validate_email_data.dart';
 import 'package:loopcare_frontend/features/buddy/domain/buddy.dart';
 import 'package:loopcare_frontend/features/chat/application/chat_bloc/group_chat_bloc.dart';
-import 'package:loopcare_frontend/features/onboarding_new/application/dto/registration_physical_fitness_data.dart';
+import 'package:loopcare_frontend/features/onboarding/application/dto/registration_physical_fitness_data.dart';
 import 'package:uuid/uuid.dart';
 
 part 'authentication_bloc.freezed.dart';
@@ -137,7 +137,7 @@ class AuthenticationBloc extends HydratedBloc<AuthenticationEvent, Authenticatio
           AppMixpanelEvents.loginFail,
           {
             'email': event.email,
-            'message': error.error.toString(),
+            'message': error.message.tr(),
           },
         );
         emit(AuthenticationState.init(state.data));
@@ -169,6 +169,7 @@ class AuthenticationBloc extends HydratedBloc<AuthenticationEvent, Authenticatio
           emailApproveDate: response.emailApproveDate,
           subscription: response.subscription,
           createdAt: response.createdAt,
+          features: response.features,
         );
 
         add(const AuthenticationEvent.getAccount());
@@ -261,6 +262,7 @@ class AuthenticationBloc extends HydratedBloc<AuthenticationEvent, Authenticatio
           emailApproveDate: response.emailApproveDate,
           subscription: response.subscription,
           createdAt: response.createdAt,
+          features: response.features,
         );
 
         emit(
@@ -296,26 +298,24 @@ class AuthenticationBloc extends HydratedBloc<AuthenticationEvent, Authenticatio
             ),
           ),
         );
-
-        final data = ForgotPasswordData(email: event.email.toLowerCase());
-
-        final response = await _authenticationService.forgotPassword(data);
-
-        response.fold(
-          (error) => emit(
-            state.copyWith(data: state.data.copyWith(error: error)),
-          ),
-          (response) => emit(
-            state.copyWith(
-              data: state.data.copyWith(
-                emailWasSend: true,
-                email: data.email,
-                error: null,
-              ),
-            ),
-          ),
-        );
       },
+    );
+    final data = ForgotPasswordData(email: event.email.toLowerCase());
+
+    final response = await _authenticationService.forgotPassword(data);
+    response.fold(
+      (error) => emit(
+        state.copyWith(data: state.data.copyWith(error: error)),
+      ),
+      (response) => emit(
+        state.copyWith(
+          data: state.data.copyWith(
+            emailWasSend: true,
+            email: data.email,
+            error: null,
+          ),
+        ),
+      ),
     );
   }
 
@@ -406,41 +406,33 @@ class AuthenticationBloc extends HydratedBloc<AuthenticationEvent, Authenticatio
       groupingState: event.groupingState,
     );
 
-    emit(
-      state.copyWith(
-        data: state.data.copyWith(
-          account: account,
-        ),
-      ),
-    );
+    emit(state.copyWith(data: state.data.copyWith(account: account)));
   }
 
   FutureOr<void> _onUnlockFeature(
     UnlockedFeature event,
     Emitter<AuthenticationState> emit,
   ) async {
-    final response = await _authenticationService.unlockFeature(event.feature);
+    // TODO check new unlock feature logic
+    // final response = await _authenticationService.unlockFeature(event.feature);
 
-    response.fold(
-      (l) => null,
-      (r) {
-        final account = _sharedPref.account = _sharedPref.account?.copyWith(
-          features: r.features.where((feature) => feature.unlocked).toList(),
-        );
+    final account = _sharedPref.account;
+    final accountFeatures = _sharedPref.account?.features;
 
-        emit(
-          state.copyWith(
-            data: state.data.copyWith(
-              account: account,
-            ),
-          ),
-        );
+    if (account == null || accountFeatures == null) return;
 
-        if (event.feature.feature == UnlockedFeatureType.grouping.name) {
-          add(const AuthenticationEvent.changeAccountGroupStatus(UserGroupingState.unlockedPreferences));
-        }
-      },
-    );
+    final updatedAccount = _sharedPref.account =
+        account.copyWith(features: accountFeatures.unlockFeature(event.feature));
+
+    emit(state.copyWith(data: state.data.copyWith(account: updatedAccount)));
+
+    if (event.feature.isGrouping) {
+      add(
+        const AuthenticationEvent.changeAccountGroupStatus(
+          UserGroupingState.unlockedPreferences,
+        ),
+      );
+    }
   }
 
   FutureOr<void> _onAuthenticatedCheck(
@@ -589,7 +581,7 @@ class AuthenticationBloc extends HydratedBloc<AuthenticationEvent, Authenticatio
           foodPreferencesHates: r.foodPreferences?.hates,
           foodPreferencesDislikes: r.foodPreferences?.dislike,
           foodPreferencesAllergic: r.foodPreferences?.allergic,
-          features: r.features.where((feature) => feature.unlocked).toList(),
+          features: r.features,
           physicalActivitiesPreferences: r.physicalActivitiesPreferences,
           emailApproveDate: r.emailApproveDate,
           mentalHealthTests: r.mentalHealthTests,

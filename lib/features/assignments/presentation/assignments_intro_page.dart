@@ -21,12 +21,20 @@ import 'package:loopcare_frontend/core/presentation/widgets/scrollable_container
 import 'package:loopcare_frontend/features/assignments/application/assignments_bloc.dart';
 import 'package:loopcare_frontend/features/education/application/education_lesson/education_lesson_bloc.dart';
 import 'package:loopcare_frontend/features/education/presentation/education_page/widgets/category_label.dart';
+import 'package:loopcare_frontend/features/river/infrastructure/river_module_stream_type.dart';
 
+@RoutePage()
 class AssignmentsIntroPage extends StatefulWidget {
+  final RiverModuleStreamType streamType;
   final int lessonId;
   final bool fromDashboard;
 
-  const AssignmentsIntroPage({super.key, required this.lessonId, required this.fromDashboard});
+  const AssignmentsIntroPage({
+    super.key,
+    required this.lessonId,
+    required this.fromDashboard,
+    this.streamType = RiverModuleStreamType.psychology,
+  });
 
   @override
   State<AssignmentsIntroPage> createState() => _AssignmentsIntroPageState();
@@ -46,13 +54,14 @@ class _AssignmentsIntroPageState extends State<AssignmentsIntroPage> {
   _seeLessonBtnPressed(BuildContext context) {
     context
         .read<EducationLessonBloc>()
-        .add(EducationLessonEvent.getLessonContent(lessonId: widget.lessonId, pageIndex: 0));
+        .add(EducationLessonEvent.getLessonContent(lessonId: widget.lessonId));
 
-    context.router.pushNamed('/lesson/${widget.lessonId}/page/0');
+    context.router.pushNamed('/lesson/${widget.lessonId}');
   }
 
   void _onStart() {
-    context.router.push(AssignmentsQuestionsRoute(step: 0, fromDashboard: widget.fromDashboard));
+    context.router.push(AssignmentsQuestionsRoute(
+        step: 0, fromDashboard: widget.fromDashboard, streamType: widget.streamType));
   }
 
   Future<bool> _onPreviousPage(BuildContext context) {
@@ -70,11 +79,14 @@ class _AssignmentsIntroPageState extends State<AssignmentsIntroPage> {
   Widget build(BuildContext context) {
     return WillPopScope(
       onWillPop: () => _onPreviousPage(context),
-      child: CustomScaffold.petrolLightest(
-        appBar: CustomAppBar.petrol(
+      child: CustomScaffold(
+        color: widget.streamType.lightestColor,
+        appBar: CustomAppBar(
+          backgroundColor: widget.streamType.regularColor,
+          textTheme: widget.streamType.appBarTextTheme,
           title: LocalizedTexts.assignment.tr(),
           subtitle: LocalizedTexts.introduction.tr(),
-          leading: CustomFilledIconButton.leadingPetrolLighter(),
+          leading: CustomFilledIconButton.fromColor(color: widget.streamType.lighterColor),
         ),
         body: CustomSafeArea(
           child: ScrollableContainer(
@@ -84,7 +96,7 @@ class _AssignmentsIntroPageState extends State<AssignmentsIntroPage> {
                   loading: (_) => const Loader(),
                   orElse: () => const SizedBox.shrink(),
                   updated: (s) {
-                    final questions = s.data.questionsForLesson(widget.lessonId);
+                    final questions = []; // s.data.questionsForLesson(widget.lessonId);
                     questionId = questions.first.id.toString();
                     questionTitle = questions.first.title;
 

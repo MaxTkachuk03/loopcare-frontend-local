@@ -21,6 +21,7 @@ import 'package:loopcare_frontend/features/account/presentation/widgets/group_pr
 import 'package:loopcare_frontend/features/education/domain/extra_action_page_mode.dart';
 import 'package:loopcare_frontend/injection.dart';
 
+@RoutePage()
 class JoinGroupPreferencesPage extends StatefulWidget {
   // TODO route is called only from one place with false value, so we don't need it as a param cause it always the same
   final bool fromLessonComplete;
@@ -53,7 +54,7 @@ class _JoinGroupPreferencesPageState extends State<JoinGroupPreferencesPage> {
 
   void _onNextPressedHandler() {
     if (_selectedValue == YesNoAnswer.no) {
-      context.router.pop();
+      context.router.maybePop();
     } else {
       AnalyticsEventService.instance.logEvent(
         FirebaseEvents.iWantToJoinToGroup,

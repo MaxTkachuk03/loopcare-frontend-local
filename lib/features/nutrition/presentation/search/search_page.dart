@@ -1,3 +1,4 @@
+import 'package:auto_route/annotations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loopcare_frontend/core/domain/analytics/firebase_event_list.dart';
@@ -10,6 +11,7 @@ import 'package:loopcare_frontend/features/nutrition/application/search/search_b
 import 'package:loopcare_frontend/features/nutrition/presentation/search/widgets/search_app_bar.dart';
 import 'package:loopcare_frontend/features/nutrition/presentation/search/widgets/search_result_list.dart';
 
+@RoutePage()
 class SearchPage extends StatefulWidget {
   final void Function(SearchItem item) onItemTap;
   final SearchMode? mode;

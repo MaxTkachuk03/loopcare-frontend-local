@@ -7,14 +7,15 @@ import 'package:loopcare_frontend/features/smart_goals/domain/weekly_smart_goal.
 
 class GoalProgressButton extends StatelessWidget {
   final WeeklySmartGoal item;
+  final int times;
   final VoidCallback? onPressed;
   final VoidCallback? onResetProgress;
 
-  const GoalProgressButton({super.key, required this.item, this.onPressed, this.onResetProgress});
+  const GoalProgressButton({super.key, required this.item, required this.times, this.onPressed, this.onResetProgress});
 
-  Color get bgColor => item.hasCompletions ? AppColors.greenRegular : AppColors.blueLightest;
+  Color get bgColor => times > 0 ? AppColors.greenRegular : AppColors.blueLightest;
 
-  Color get fgColor => item.hasCompletions ? AppColors.white : AppColors.blueDarkest;
+  Color get fgColor => times > 0 ? AppColors.white : AppColors.blueDarkest;
 
   @override
   Widget build(BuildContext context) {
@@ -36,7 +37,7 @@ class GoalProgressButton extends StatelessWidget {
       ),
     );
 
-    if (item.hasCompletions) {
+    if (times > 0) {
       return badge.Badge(
         badgeStyle: const badge.BadgeStyle(
           padding: EdgeInsets.all(5),
@@ -48,7 +49,7 @@ class GoalProgressButton extends StatelessWidget {
         badgeContent: Padding(
           padding: const EdgeInsets.only(bottom: 2.0),
           child: CustomText.w600(
-            item.completionsAmount.toString(),
+            times.toString(),
             textAlign: TextAlign.center,
             style: context.textTheme.bodySmall?.copyWith(
               fontSize: ThemeConstants.fontSize10,

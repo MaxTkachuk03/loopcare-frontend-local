@@ -2,12 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:loopcare_frontend/core/presentation/text/custom_text.dart';
 import 'package:loopcare_frontend/core/presentation/utils/build_context_extensions.dart';
 import 'package:loopcare_frontend/features/assignments/presentation/widgets/assignments_question_chip.dart';
-import 'package:loopcare_frontend/features/quizzes/domain/lesson_question.dart';
-import 'package:loopcare_frontend/features/quizzes/domain/lesson_question_option.dart';
 
 class AnswerOptionsBlock extends StatelessWidget {
-  final LessonQuestion question;
-  final void Function(LessonQuestionOption value) onSelected;
+  final dynamic question;
+  final void Function(dynamic value) onSelected;
   final List<int> selectedValues;
 
   const AnswerOptionsBlock({

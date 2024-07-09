@@ -5,10 +5,9 @@ import 'package:loopcare_frontend/core/presentation/text/custom_text.dart';
 import 'package:loopcare_frontend/core/presentation/utils/build_context_extensions.dart';
 import 'package:loopcare_frontend/core/presentation/utils/string_extensions.dart';
 import 'package:loopcare_frontend/features/assignments/presentation/widgets/dashboard_assignments/assignment_list_item.dart';
-import 'package:loopcare_frontend/features/quizzes/domain/lesson_question.dart';
 
 class PastAssignments extends StatelessWidget {
-  final List<LessonQuestion> questions;
+  final List<dynamic> questions;
   final Function(int lessonId) onBtnPressed;
 
   const PastAssignments({

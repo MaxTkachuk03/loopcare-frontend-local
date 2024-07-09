@@ -3,10 +3,10 @@ import 'dart:io';
 
 import 'package:advertising_id/advertising_id.dart';
 import 'package:app_tracking_transparency/app_tracking_transparency.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_udid/flutter_udid.dart';
 import 'package:injectable/injectable.dart';
+import 'package:loopcare_frontend/core/infrastructure/services/logger/logger.dart';
 import 'package:loopcare_frontend/features/transparency/applictation/transparency_service.dart';
 import 'package:loopcare_frontend/features/transparency/domain/device_info.dart';
 
@@ -22,7 +22,8 @@ class DeviceInfoService {
 
   FutureOr<void> onRequestTrackingAuthorization() async {
     TrackingStatus status = await AppTrackingTransparency.trackingAuthorizationStatus;
-    debugPrint("devcpp IDFA status : $status");
+    log.i('IDFA status : $status', error: runtimeType);
+
     if (status == TrackingStatus.notDetermined) {
       status = await AppTrackingTransparency.requestTrackingAuthorization();
     }
@@ -33,18 +34,19 @@ class DeviceInfoService {
   FutureOr<void> _getAdvertisingIdentifier() async {
     if (Platform.isIOS) {
       advertisingId = await AppTrackingTransparency.getAdvertisingIdentifier();
-      debugPrint("devcpp IDFA : $advertisingId");
+      log.i('IDFA : $advertisingId', error: runtimeType);
     } else {
       try {
         advertisingId = await AdvertisingId.id(true);
-        debugPrint('devcpp AAID: $advertisingId');
-      } on PlatformException {
+        log.i('AAID : $advertisingId', error: runtimeType);
+      } on PlatformException catch (e) {
         //handle if needed
+        log.e(e.toString(), error: e.runtimeType);
       }
     }
     try {
       isLimitAdTrackingEnabled = await AdvertisingId.isLimitAdTrackingEnabled ?? false;
-      debugPrint('devcpp isLimitAdTrackingEnabled: $isLimitAdTrackingEnabled');
+      log.i('isLimitAdTrackingEnabled : $isLimitAdTrackingEnabled', error: runtimeType);
     } on PlatformException {
       isLimitAdTrackingEnabled = true;
     }
@@ -57,13 +59,16 @@ class DeviceInfoService {
   FutureOr<void> _onRequestDeviceId() async {
     try {
       deviceId = await FlutterUdid.udid;
-      debugPrint("devcpp  FlutterUdid DeviceId : $deviceId");
+      log.i('FlutterUdid DeviceId : $deviceId', error: runtimeType);
     } on PlatformException {
       deviceId = null;
     }
     if (approvedTrackingDeviceId) {
       final response =
-          await apiTransparencyService.saveDeviceInfo(DeviceInfo(advertisingId: advertisingId!, deviceId: deviceId!));
+      await apiTransparencyService.saveDeviceInfo(
+        DeviceInfo(advertisingId: advertisingId!, deviceId: deviceId!),
+      );
+
       response.fold(
         (error) {
           //handle if needed

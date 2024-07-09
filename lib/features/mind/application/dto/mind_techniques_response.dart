@@ -7,13 +7,11 @@ part 'mind_techniques_response.g.dart';
 @immutable
 @JsonSerializable()
 class MindTechniquesResponse {
-
   final List<MindTechnique> data;
 
   const MindTechniquesResponse(this.data);
 
-  static MindTechniquesResponse fromJson(Map<String, dynamic> json) =>
-      _$MindTechniquesResponseFromJson(json);
+  static MindTechniquesResponse fromJson(Map<String, dynamic> json) => _$MindTechniquesResponseFromJson(json);
 
   Map<String, dynamic> toJson() => _$MindTechniquesResponseToJson(this);
 }

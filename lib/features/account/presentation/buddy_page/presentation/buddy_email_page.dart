@@ -1,3 +1,4 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -18,6 +19,7 @@ import 'package:loopcare_frontend/features/account/presentation/buddy_page/widge
 import 'package:loopcare_frontend/features/account/presentation/buddy_page/widgets/buddy_email_widget.dart';
 import 'package:loopcare_frontend/features/account/presentation/buddy_page/widgets/buddy_progress_bar.dart';
 
+@RoutePage()
 class BuddyEmailPage extends StatefulWidget {
   const BuddyEmailPage({super.key});
 

@@ -69,7 +69,7 @@ class CustomTappableCard extends StatelessWidget {
 
   /// Defines the background card color.
   ///
-  /// If this property is null then [ColorScheme.background] is used.
+  /// If this property is null then [ColorScheme.surface] is used.
   final Color? color;
 
   /// Defines the background item color if card is selected.
@@ -133,7 +133,7 @@ class CustomTappableCard extends StatelessWidget {
     final effectiveLeadingExtend = leadingExtend ?? _defaultLeadingExtend;
     final effectiveTrailingExtend = trailingExtend ?? _defaultTrailingExtend;
     final effectivePadding = contentPadding ?? _defaultContentPadding;
-    final effectiveColor = color ?? Theme.of(context).colorScheme.background;
+    final effectiveColor = color ?? Theme.of(context).colorScheme.surface;
     final effectiveSelectedColor = selectedColor ?? Theme.of(context).colorScheme.primary;
     final effectiveBorderRadius = borderRadius ?? _defaultBorderRadius;
 

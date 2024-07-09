@@ -1,3 +1,4 @@
+import 'package:auto_route/annotations.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -11,10 +12,7 @@ import 'package:loopcare_frontend/core/presentation/utils/date_time_extensions.d
 import 'package:loopcare_frontend/core/presentation/widgets/main_container.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/scrollable_container.dart';
 import 'package:loopcare_frontend/features/account/presentation/account_page/widgets/emergency_btn.dart';
-import 'package:loopcare_frontend/features/assignments/application/assignments_bloc.dart';
-import 'package:loopcare_frontend/features/assignments/presentation/dashboard_assignments.dart';
 import 'package:loopcare_frontend/features/authentication/application/authentication_bloc.dart';
-import 'package:loopcare_frontend/features/dashboard/presentation/widgets/education/education.dart';
 import 'package:loopcare_frontend/features/dashboard/presentation/widgets/food_logging_dashboard/food_logging_dashboard.dart';
 import 'package:loopcare_frontend/features/dashboard/presentation/widgets/mind/dashboard_mind_widget.dart';
 import 'package:loopcare_frontend/features/dashboard/presentation/widgets/person_mood/person_mood.dart';
@@ -23,16 +21,15 @@ import 'package:loopcare_frontend/features/dashboard/presentation/widgets/slider
 import 'package:loopcare_frontend/features/dashboard/presentation/widgets/smart_goals/dashboard_smart_goals.dart';
 import 'package:loopcare_frontend/features/dashboard/presentation/widgets/support_group/support_group.dart';
 import 'package:loopcare_frontend/features/dashboard/presentation/widgets/weight/weight_block.dart';
-import 'package:loopcare_frontend/features/education/application/education_program/education_program_bloc.dart';
 import 'package:loopcare_frontend/features/group_sessions/application/topics_bloc.dart';
 import 'package:loopcare_frontend/features/mind/application/mind_bloc.dart';
 import 'package:loopcare_frontend/features/mood/application/mood_bloc.dart';
 import 'package:loopcare_frontend/features/nutrition/application/bmr/bmr_bloc.dart';
-import 'package:loopcare_frontend/features/nutrition/application/dashboard_education/dashboard_education_bloc.dart';
 import 'package:loopcare_frontend/features/nutrition/application/dashboard_weight/dashboard_weight_bloc.dart';
 import 'package:loopcare_frontend/features/nutrition/application/meals/meals_bloc.dart';
 import 'package:loopcare_frontend/features/smart_goals/application/smart_goals_bloc.dart';
 
+@RoutePage()
 class DashboardPage extends StatefulWidget {
   const DashboardPage({super.key});
 
@@ -42,11 +39,6 @@ class DashboardPage extends StatefulWidget {
 
 class _DashboardPageState extends State<DashboardPage> with WidgetsBindingObserver {
   DateTime _selectedDay = DateTime.now();
-
-  bool get _showEducationWidget {
-    final now = DateTime.now();
-    return _selectedDay.isBefore(now) || _selectedDay.isAtSameMomentAs(now);
-  }
 
   @override
   void initState() {
@@ -77,15 +69,14 @@ class _DashboardPageState extends State<DashboardPage> with WidgetsBindingObserv
     context.read<MoodBloc>().add(
           MoodEvent.getMoods(
             _selectedDay.utsIsoStringWeekBeforeDateWithMidnightTime,
-            DateTime.now().utcIsoStringFormat,
+            DateTime.now().toIso8601String(),
           ),
         );
 
     context.read<MealsBloc>()
       ..add(MealsEvent.setCurrentDate(_selectedDay))
-      ..add(MealsEvent.fetchMeals(startDate: _selectedDay.subtract(const Duration(days: 8)), endDate: _selectedDay));
-
-    context.read<MindBloc>().add(const MindEvent.init());
+      ..add(MealsEvent.fetchMeals(
+          startDate: _selectedDay.subtract(const Duration(days: 8)), endDate: _selectedDay));
 
     context.read<MindBloc>().add(const MindEvent.init());
 
@@ -98,14 +89,9 @@ class _DashboardPageState extends State<DashboardPage> with WidgetsBindingObserv
 
   void updateDashboardData(AuthenticationState state) {
     context.read<DashboardWeightBloc>().add(
-          DashboardWeightEvent.fetchWeights(_selectedDay.utsIsoStringWeekBeforeDateWithMidnightTime),
+          DashboardWeightEvent.fetchWeights(
+              _selectedDay.utsIsoStringWeekBeforeDateWithMidnightTime),
         );
-
-    context.read<DashboardEducationBloc>().add(
-          DashboardEducationEvent.getDashboardLessons(currentDate: _selectedDay),
-        );
-
-    context.read<EducationProgramBloc>().add(const EducationProgramEvent.getLessons());
 
     if (state.data.isFoodLoggingUnlocked) {
       context.read<MealsBloc>().add(MealsEvent.fetchMeals(
@@ -119,12 +105,7 @@ class _DashboardPageState extends State<DashboardPage> with WidgetsBindingObserv
     }
 
     if (state.data.isAssignmentsUnlocked) {
-      context.read<AssignmentsBloc>().add(
-            AssignmentsEvent.getAllLessonQuestions(
-              _selectedDay.firstDayOfPreviousWeek,
-              _selectedDay.lastDayOfCurrentWeek,
-            ),
-          );
+      // TODO need new logic
     }
 
     if (state.data.isSmartGoalUnlocked) {
@@ -133,9 +114,7 @@ class _DashboardPageState extends State<DashboardPage> with WidgetsBindingObserv
   }
 
   void _accountListener(BuildContext context, AuthenticationState state) {
-    state.mapOrNull(
-      gotAccount: updateDashboardData,
-    );
+    state.mapOrNull(gotAccount: updateDashboardData);
   }
 
   void _onDaySelected(DateTime day) {
@@ -144,17 +123,12 @@ class _DashboardPageState extends State<DashboardPage> with WidgetsBindingObserv
       ..add(MealsEvent.setCurrentDate(day))
       ..add(MealsEvent.fetchMeals(startDate: day, endDate: day));
     context.read<MoodBloc>().add(MoodEvent.setDate(day));
-    context.read<DashboardEducationBloc>().add(DashboardEducationEvent.getDashboardLessons(currentDate: day));
     context.read<BmrBloc>().add(BmrEvent.getBmr(date: day));
 
     if (context.read<AuthenticationBloc>().state.data.isAssignmentsUnlocked) {
-      context.read<AssignmentsBloc>().add(
-            AssignmentsEvent.getAllLessonQuestions(
-              day.firstDayOfPreviousWeek,
-              day.lastDayOfCurrentWeek,
-            ),
-          );
+      // TODO need new logic
     }
+
     if (context.read<AuthenticationBloc>().state.data.isSmartGoalUnlocked) {
       context.read<SmartGoalsBloc>().add(SmartGoalsEvent.selectDate(selectedDate: day));
     }
@@ -196,7 +170,8 @@ class _DashboardPageState extends State<DashboardPage> with WidgetsBindingObserv
           listener: _accountListener,
         ),
         BlocListener<DashboardWeightBloc, DashboardWeightState>(
-          listenWhen: (prev, cur) => prev is DashboardWeightStateLoading && cur is DashboardWeightStateUpdated,
+          listenWhen: (prev, cur) =>
+              prev is DashboardWeightStateLoading && cur is DashboardWeightStateUpdated,
           listener: _weightLogChangedListener,
         ),
       ],
@@ -219,21 +194,23 @@ class _DashboardPageState extends State<DashboardPage> with WidgetsBindingObserv
                             builder: (context, state) {
                               return CustomText.bitter600(
                                 _getHelloMessage(state.data.nameCapitalised),
-                                style: context.textTheme.displayMedium?.copyWith(color: AppColors.white),
+                                style: context.textTheme.displayMedium
+                                    ?.copyWith(color: AppColors.white),
                               );
                             },
                           ),
                           const SizedBox(height: 26.0),
                           BlocBuilder<AuthenticationBloc, AuthenticationState>(
                             builder: (BuildContext context, state) {
-                              final unlockedGoals = state.data.account?.isSmartGoalsUnlocked ?? false;
+                              final unlockedGoals =
+                                  state.data.account?.isSmartGoalsUnlocked ?? false;
                               return BlocBuilder<SmartGoalsBloc, SmartGoalsState>(
                                 builder: (context, state) {
                                   final showSmartGoalsCard = unlockedGoals &&
-                                          ((state.data.hasGoalActiveSessions &&
+                                      ((state.data.hasGoalActiveSessions &&
                                               state.data.isDateHasActiveSession(_selectedDay) &&
                                               !_selectedDay.isFuture) ||
-                                      _selectedDay.isToday);
+                                          _selectedDay.isToday);
 
                                   if (showSmartGoalsCard) {
                                     return const Column(
@@ -249,15 +226,28 @@ class _DashboardPageState extends State<DashboardPage> with WidgetsBindingObserv
                               );
                             },
                           ),
-                          WeightBlock(date: _selectedDay),
+                          BlocBuilder<AuthenticationBloc, AuthenticationState>(
+                            builder: (BuildContext context, state) {
+                              if (state.data.account?.isWeightLoggingUnlocked ?? false) {
+                                return Column(
+                                  children: [
+                                    WeightBlock(date: _selectedDay),
+                                    const SizedBox(height: 19.0),
+                                  ],
+                                );
+                              } else {
+                                return const SizedBox.shrink();
+                              }
+                            },
+                          ),
                           BlocBuilder<AuthenticationBloc, AuthenticationState>(
                             builder: (BuildContext context, state) {
                               if (state.data.account?.isMindUnlocked ?? false) {
                                 return const Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    SizedBox(height: 19.0),
                                     DashboardMindWidget(),
+                                    SizedBox(height: 19.0),
                                   ],
                                 );
                               } else {
@@ -271,8 +261,8 @@ class _DashboardPageState extends State<DashboardPage> with WidgetsBindingObserv
                                 return Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    const SizedBox(height: 19.0),
                                     FoodLoggingDashboard(selectedDay: _selectedDay),
+                                    const SizedBox(height: 19.0),
                                   ],
                                 );
                               } else {
@@ -280,16 +270,16 @@ class _DashboardPageState extends State<DashboardPage> with WidgetsBindingObserv
                               }
                             },
                           ),
-                          const SizedBox(height: 19.0),
                           PersonMood(date: _selectedDay),
+                          const SizedBox(height: 19.0),
                           BlocBuilder<AuthenticationBloc, AuthenticationState>(
                             builder: (context, state) {
                               if (state.data.isPhysicalActivitiesUnlocked) {
                                 return Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
+                                    PhysicalActivities(selectedDay: _selectedDay),
                                     const SizedBox(height: 19.0),
-                                    PhysicalActivities(selectedDay: _selectedDay)
                                   ],
                                 );
                               } else {
@@ -303,8 +293,8 @@ class _DashboardPageState extends State<DashboardPage> with WidgetsBindingObserv
                                 return const Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    SizedBox(height: 19.0),
                                     SupportGroup(),
+                                    SizedBox(height: 19.0),
                                   ],
                                 );
                               } else {
@@ -312,26 +302,21 @@ class _DashboardPageState extends State<DashboardPage> with WidgetsBindingObserv
                               }
                             },
                           ),
-                          if (_showEducationWidget) ...[
-                            const SizedBox(height: 19.0),
-                            Education(date: _selectedDay),
-                          ],
-                          BlocBuilder<AuthenticationBloc, AuthenticationState>(
-                            builder: (context, state) {
-                              if (state.data.isAssignmentsUnlocked) {
-                                return Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    const SizedBox(height: 19.0),
-                                    DashboardAssignments(date: _selectedDay),
-                                  ],
-                                );
-                              } else {
-                                return const SizedBox.shrink();
-                              }
-                            },
-                          ),
-                          const SizedBox(height: 19.0),
+                          // BlocBuilder<AuthenticationBloc, AuthenticationState>(
+                          //   builder: (context, state) {
+                          //     if (state.data.isAssignmentsUnlocked) {
+                          //       return Column(
+                          //         crossAxisAlignment: CrossAxisAlignment.start,
+                          //         children: [
+                          //           DashboardAssignments(date: _selectedDay),
+                          //           const SizedBox(height: 19.0),
+                          //         ],
+                          //       );
+                          //     } else {
+                          //       return const SizedBox.shrink();
+                          //     }
+                          //   },
+                          // ),
                           const EmergencyBtn(needBackgroundColor: true),
                           const SizedBox(height: 19.0),
                         ],

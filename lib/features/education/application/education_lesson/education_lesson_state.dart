@@ -8,13 +8,15 @@ class EducationLessonState with _$EducationLessonState {
 
   const factory EducationLessonState.contentIsLoading(EducationLessonData data) = ContentIsLoading;
 
-  const factory EducationLessonState.errorGettingContent(EducationLessonData data) = ErrorGettingContent;
+  const factory EducationLessonState.errorGettingContent(EducationLessonData data) =
+      ErrorGettingContent;
 
   const factory EducationLessonState.contentLoaded(EducationLessonData data) = ContentLoaded;
 
   const factory EducationLessonState.lessonCompleted(EducationLessonData data) = LessonCompleted;
 
-  const factory EducationLessonState.errorCompleteLesson(EducationLessonData data) = ErrorCompleteLesson;
+  const factory EducationLessonState.errorCompleteLesson(EducationLessonData data) =
+      ErrorCompleteLesson;
 }
 
 @freezed
@@ -22,37 +24,34 @@ class EducationLessonData with _$EducationLessonData {
   const EducationLessonData._();
 
   const factory EducationLessonData({
+    @Default(0) int id,
+    @Default('') String title,
+    @Default(0) int duration,
+    @Default(LessonContentType.text) LessonContentType contentType,
+    @Default('') String imageUrl,
+    @Default('') String cardImageUrl,
+    @Default('') String audioUrl,
+    @Default('') String htmlUrl,
+    @Default(null) String? subtitleImages,
+    @Default(null) Quiz? quiz,
+    @Default('') String conclusion,
+    @Default('') String unlockTitle,
+    @Default('') String unlockDescription,
     @Default('') String temporaryDirectory,
-    @Default([]) List<LessonPage> pages,
-    @Default(0) int totalPagesLength,
-    @Default(0) int lessonId,
     ExtraActionTypes? extraAction,
-    @Default(null) DateTime? lessonCompletedDate,
-    @Default('') String lessonCategory,
-    @Default(0) int lessonDuration,
-    @Default('') String lessonImage,
-    @Default('') String lessonTitle,
-    @Default(false) bool isLoading,
+    @Default(0) int progress,
+    @Default({}) Map<String, Set<AudioLessonContentType>> audioFilesCache,
+    @Default('') String audioFilePath,
+    @Default('') String subtitleFilePath,
     @Default(false) bool isAudioLoading,
     @Default(false) bool isSubtitleLoading,
-    @Default(0) int lessonProgress,
-    @Default(0) int currentProgressPageIndex,
-    @Default(0) int currentPageIndex,
-    @Default({}) Map<String, Set<AudioLessonContentType>> audioFilesCache,
+    @Default(false) bool isLoading,
     RequestError? error,
-    @Default([]) List<LessonQuestion> questions,
   }) = _EducationLessonData;
 
-  LessonPage get currentPage => pages[currentPageIndex];
+  bool get isArticlePage => contentType.name == LessonContentType.text.name;
 
-  bool get isArticlePage => currentPage.type == EducationLessonPageType.text;
-
-  bool get isAudioPage => currentPage.type == EducationLessonPageType.audio;
-
-  String filePath(String url) {
-    var urlArr = url.split('/');
-    return "$temporaryDirectory/${urlArr[urlArr.length - 2]}/${urlArr.last}";
-  }
+  bool get isAudioPage => contentType.name == LessonContentType.audio.name;
 
   bool get isBuddyUnlocked => extraAction == ExtraActionTypes.unlockBuddy;
 
@@ -64,31 +63,28 @@ class EducationLessonData with _$EducationLessonData {
 
   bool get isGroupPreferencesUnlocked => extraAction == ExtraActionTypes.setupGroupingPreferences;
 
-  bool get isLessonCompleted => lessonCompletedDate != null;
+  String get quizInstruction => quiz?.instruction ?? '';
+
+  int get quizQuestionsAmount => quiz?.questions.length ?? 0;
 
   bool get isAudioAlreadyInCache {
-    final cacheVal = audioFilesCache[lessonId.toString()];
+    final cacheVal = audioFilesCache[id.toString()];
 
     return cacheVal != null ? cacheVal.contains(AudioLessonContentType.audio) : false;
   }
 
   bool get isSubtitlesAlreadyInCache {
-    final cacheVal = audioFilesCache[lessonId.toString()];
+    final cacheVal = audioFilesCache[id.toString()];
 
     return cacheVal != null ? cacheVal.contains(AudioLessonContentType.subtitles) : false;
   }
 
-  bool get isLastPage => currentPageIndex == pages.length - 1;
+  bool get hasQuiz => quiz != null;
 
-  bool get isFirstPage => currentPageIndex == 0;
+  String? get errorMessage => error?.message;
 
-  bool get hasQuiz => questions.first.type == LessonQuestionType.quiz;
-
-  String? get errorMessage => error?.maybeMap(conflict: (s) => s.error.message, orElse: () => null);
-
-  List<LessonQuestion> get assignmentsQuestions =>
-      questions.where((element) => element.type == LessonQuestionType.assignment).toList();
-
-  List<LessonQuestion> get assignmentsQuestionsWithAnswers =>
-      assignmentsQuestions.where((element) => element.lessonQuestionAnswers.isNotEmpty).toList();
+  String filePath(String url) {
+    var urlArr = url.split('/');
+    return "$temporaryDirectory/$id/${urlArr.last}";
+  }
 }

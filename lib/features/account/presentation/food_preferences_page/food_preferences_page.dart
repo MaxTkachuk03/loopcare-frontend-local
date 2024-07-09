@@ -18,6 +18,7 @@ import 'package:loopcare_frontend/features/account/presentation/edit_food_prefer
 import 'package:loopcare_frontend/features/account/presentation/food_preferences_page/widgets/section_item.dart';
 import 'package:loopcare_frontend/features/you_and_food/application/you_and_food_bloc.dart';
 
+@RoutePage()
 class FoodPreferencesPage extends StatefulWidget {
   final bool fromLessonComplete;
   const FoodPreferencesPage({

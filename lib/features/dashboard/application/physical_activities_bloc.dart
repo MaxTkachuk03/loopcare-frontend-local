@@ -5,7 +5,7 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
 import 'package:loopcare_frontend/core/infrastructure/dio_client/request_error.dart';
 import 'package:loopcare_frontend/core/presentation/utils/date_time_extensions.dart';
-import 'package:loopcare_frontend/features/onboarding_new/utils/date_helpers.dart';
+import 'package:loopcare_frontend/features/onboarding/utils/date_helpers.dart';
 import 'package:loopcare_frontend/features/physical_activities/application/physical_activities_service.dart';
 import 'package:loopcare_frontend/features/physical_activities/domain/physical_program.dart';
 

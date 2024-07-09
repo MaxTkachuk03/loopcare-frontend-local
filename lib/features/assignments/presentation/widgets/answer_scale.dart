@@ -6,12 +6,11 @@ import 'package:loopcare_frontend/core/presentation/text/custom_text.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 import 'package:loopcare_frontend/core/presentation/utils/build_context_extensions.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/scoring_scale.dart';
-import 'package:loopcare_frontend/features/quizzes/domain/lesson_question.dart';
-import 'package:loopcare_frontend/features/quizzes/infrastructure/quizzes_controller.dart';
+import 'package:loopcare_frontend/features/lesson_quiz/infrastructure/quizzes_controller.dart';
 
 class AnswerScale extends StatelessWidget {
   final QuizzesController controller;
-  final LessonQuestion question;
+  final dynamic question;
   final VoidCallback onNextPressed;
   final void Function(int id) onSelectValue;
   final int? selectedScore;
@@ -49,9 +48,11 @@ class AnswerScale extends StatelessWidget {
               children: [
                 CustomText.w400(question.introduction ?? '', style: context.textTheme.bodyLarge),
                 const SizedBox(height: 28.0),
-                CustomText.bitter600(question.question ?? '', style: context.textTheme.displayMedium),
+                CustomText.bitter600(question.question ?? '',
+                    style: context.textTheme.displayMedium),
                 const SizedBox(height: 28.0),
-                CustomText.bitter600(question.extraInstruction, style: context.textTheme.bodyMedium),
+                CustomText.bitter600(question.extraInstruction,
+                    style: context.textTheme.bodyMedium),
                 if (question.extraInstruction.isNotEmpty) const SizedBox(height: 28.0),
                 ScoringScale(
                   selectedColor: AppColors.greenRegular,

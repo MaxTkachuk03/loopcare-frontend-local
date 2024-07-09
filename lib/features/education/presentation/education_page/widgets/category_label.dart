@@ -4,8 +4,8 @@ import 'package:loopcare_frontend/core/presentation/localization/localized_texts
 import 'package:loopcare_frontend/core/presentation/text/custom_text.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 import 'package:loopcare_frontend/core/presentation/utils/build_context_extensions.dart';
-import 'package:loopcare_frontend/features/education/domain/lesson_category.dart';
 import 'package:loopcare_frontend/features/physical_activities/domain/program_difficulty.dart';
+import 'package:loopcare_frontend/features/river/infrastructure/river_module_stream_type.dart';
 
 class CategoryLabel extends StatelessWidget {
   final String label;
@@ -19,17 +19,21 @@ class CategoryLabel extends StatelessWidget {
     this.textColor = AppColors.white,
   });
 
-  factory CategoryLabel.general() =>
-      CategoryLabel(label: LessonCategory.general.label, color: AppColors.petrolRegular);
+  // TODO want to use RiverModuleStreamType.psychology.label for label, but should be mind for now
+  factory CategoryLabel.psychology() =>
+      CategoryLabel(label: LocalizedTexts.mind.tr(), color: AppColors.petrolRegular);
 
   factory CategoryLabel.nutrition() =>
-      CategoryLabel(label: LessonCategory.nutrition.label, color: AppColors.greenRegular);
+      CategoryLabel(label: RiverModuleStreamType.nutrition.label, color: AppColors.greenRegular);
 
-  factory CategoryLabel.mind() =>
-      CategoryLabel(label: LessonCategory.mind.label, color: AppColors.petrolRegular);
+  factory CategoryLabel.physicalActivity() => CategoryLabel(
+      label: RiverModuleStreamType.physicalActivity.label, color: AppColors.yellowRegular);
 
-  factory CategoryLabel.activity() =>
-      CategoryLabel(label: LessonCategory.activity.label, color: AppColors.yellowRegular);
+  factory CategoryLabel.medical() =>
+      CategoryLabel(label: RiverModuleStreamType.medical.label, color: AppColors.coralRegular);
+
+  factory CategoryLabel.community() =>
+      CategoryLabel(label: RiverModuleStreamType.community.label, color: AppColors.orangeRegular);
 
   factory CategoryLabel.assignment() =>
       CategoryLabel(label: LocalizedTexts.assignment.tr(), color: AppColors.petrolRegular);
@@ -45,9 +49,6 @@ class CategoryLabel extends StatelessWidget {
 
   factory CategoryLabel.groupSession() =>
       CategoryLabel(label: LocalizedTexts.groupSession.tr(), color: AppColors.petrolRegular);
-
-  factory CategoryLabel.physicalActivity() =>
-      CategoryLabel(label: LocalizedTexts.physicalActivity.tr(), color: AppColors.yellowRegular);
 
   factory CategoryLabel.buddy() =>
       CategoryLabel(label: LocalizedTexts.buddy.tr(), color: AppColors.coralRegular);

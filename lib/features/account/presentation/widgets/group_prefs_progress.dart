@@ -21,7 +21,7 @@ class GroupPrefsProgress extends StatelessWidget {
                     const SizedBox(height: 14.0),
                     SizedBox(
                       width: 96.0,
-                      child: SimpleProgressBar(progress: state.data.lessonProgress),
+                      child: SimpleProgressBar(progress: state.data.progress),
                     ),
                   ],
                 ),

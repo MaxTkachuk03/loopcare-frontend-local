@@ -1,3 +1,5 @@
+// ignore_for_file: depend_on_referenced_packages
+
 import 'package:auto_route/auto_route.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flash/flash.dart';
@@ -37,6 +39,7 @@ import 'package:loopcare_frontend/injection.dart';
 
 const int _maxMessageLength = 1024;
 
+@RoutePage()
 class GroupChatPage extends StatefulWidget {
   const GroupChatPage({super.key});
 
@@ -156,32 +159,30 @@ class _GroupChatPageState extends State<GroupChatPage> with WidgetsBindingObserv
                     ? _showPopover()
                     : _controller.handleSendPressed(message);
               },
-              onMessageLongPress: (BuildContext context, dynamic message) =>
-                  serviceLocator.get<OverlayService>().show(
-                        OverlayEvent.chatPopCard(
-                          context: context,
-                          needOffset: _controller.user.id == message.author.id,
-                          mode: OverlayServiceMode.chat(
-                            canRemove: _controller.user.id == message.author.id,
-                            onCopy: () => _copy(context, message.text),
-                            onReport: () => _onPressHandler(
-                                context,
-                                GroupChatReport(
-                                  accountId: int.parse(message.author.id),
-                                  groupId: _groupId,
-                                  messageId: int.parse(message.id),
-                                  text: message.text,
-                                )),
-                            onRemove: () => _controller.removedMessage(fromMessageId: message.id),
-                          ),
-                        ),
+              onMessageLongPress: (BuildContext context, dynamic message) => serviceLocator.get<OverlayService>().show(
+                    OverlayEvent.chatPopCard(
+                      context: context,
+                      needOffset: _controller.user.id == message.author.id,
+                      mode: OverlayServiceMode.chat(
+                        canRemove: _controller.user.id == message.author.id,
+                        onCopy: () => _copy(context, message.text),
+                        onReport: () => _onPressHandler(
+                            context,
+                            GroupChatReport(
+                              accountId: int.parse(message.author.id),
+                              groupId: _groupId,
+                              messageId: int.parse(message.id),
+                              text: message.text,
+                            )),
+                        onRemove: () => _controller.removedMessage(fromMessageId: message.id),
                       ),
+                    ),
+                  ),
               onEndReached: !state.data.isLoading ? _controller.handleEndReached : null,
               showUserAvatars: true,
               showUserNames: true,
               user: _controller.user,
-              customDateHeaderText: (date) =>
-                  date.isToday ? LocalizedTexts.today.tr().capitalize() : date.dayWithMonth,
+              customDateHeaderText: (date) => date.isToday ? LocalizedTexts.today.tr().capitalize() : date.dayWithMonth,
               theme: _chatTheme,
             ),
           );
@@ -196,7 +197,7 @@ class _GroupChatPageState extends State<GroupChatPage> with WidgetsBindingObserv
           content: CustomText('${LocalizedTexts.messageLengthRestriction.tr()}.'),
           actions: [
             TextButton(
-              onPressed: () => context.router.pop(),
+              onPressed: context.router.maybePop,
               child: Text(LocalizedTexts.ok.tr().toUpperCase()),
             ),
           ],
@@ -240,11 +241,11 @@ class _GroupChatPageState extends State<GroupChatPage> with WidgetsBindingObserv
 
   void _onErrorHandler(GroupChatState state) {
     final String? errorMessage = state.data.error?.maybeMap(
-      unprocessableEntity: (s) => s.error.message,
-      orElse: () => LocalizedTexts.somethingWentWrong.tr(),
+      unprocessableEntity: (s) => s.message,
+      orElse: () => LocalizedTexts.somethingWentWrong,
     );
     context.showErrorBar(
-      content: CustomText(errorMessage ?? ''),
+      content: CustomText(errorMessage?.tr() ?? LocalizedTexts.somethingWentWrong.tr()),
       position: FlashPosition.top,
     );
   }
@@ -257,8 +258,7 @@ class _GroupChatPageState extends State<GroupChatPage> with WidgetsBindingObserv
       message.text.isEmpty
           ? Container(
               height: avatarSize,
-              alignment:
-                  _controller.user.id != message.author.id ? Alignment.centerLeft : Alignment.centerRight,
+              alignment: _controller.user.id != message.author.id ? Alignment.centerLeft : Alignment.centerRight,
               padding: const EdgeInsets.symmetric(horizontal: 4.0),
               child: CustomText.w400(
                 LocalizedTexts.messageRemoved.tr(),

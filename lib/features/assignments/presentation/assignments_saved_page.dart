@@ -19,19 +19,21 @@ import 'package:loopcare_frontend/core/presentation/widgets/scrollable_container
 import 'package:loopcare_frontend/features/assignments/application/assignments_bloc.dart';
 import 'package:loopcare_frontend/features/education/application/education_lesson/education_lesson_bloc.dart';
 import 'package:loopcare_frontend/features/education/presentation/education_page/widgets/category_label.dart';
-import 'package:loopcare_frontend/features/nutrition/application/dashboard_education/dashboard_education_bloc.dart';
+import 'package:loopcare_frontend/features/river/infrastructure/river_module_stream_type.dart';
 
+@RoutePage()
 class AssignmentsSavedPage extends StatelessWidget {
-  const AssignmentsSavedPage({super.key});
+  final RiverModuleStreamType streamType;
+
+  const AssignmentsSavedPage({super.key, this.streamType = RiverModuleStreamType.psychology});
 
   _onPressHandler(BuildContext context) {
-    context.read<DashboardEducationBloc>().add(const DashboardEducationEvent.getDashboardLessons());
     context.router.popUntilRouteWithName(HomeRoute.name);
   }
 
   _onErrorListener(BuildContext context, EducationLessonState state) {
-    final errorMessage = state.data.errorMessage ?? LocalizedTexts.somethingWentWrong.tr();
-    context.showError(content: CustomText(errorMessage));
+    final errorMessage = state.data.errorMessage ?? LocalizedTexts.somethingWentWrong;
+    context.showError(content: CustomText(errorMessage.tr()));
   }
 
   @override
@@ -39,10 +41,13 @@ class AssignmentsSavedPage extends StatelessWidget {
     return BlocListener<EducationLessonBloc, EducationLessonState>(
       listenWhen: (prev, cur) => cur is ErrorCompleteLesson,
       listener: _onErrorListener,
-      child: CustomScaffold.petrol(
-        appBar: CustomAppBar.petrol(
+      child: CustomScaffold(
+        color: streamType.offRegularColor,
+        appBar: CustomAppBar(
+          backgroundColor: streamType.regularColor,
+          textTheme: streamType.appBarTextTheme,
           title: LocalizedTexts.lesson.tr(),
-          leading: CustomFilledIconButton.leadingPetrolLighter(),
+          leading: CustomFilledIconButton.fromColor(color: streamType.lighterColor),
         ),
         body: CustomSafeArea(
           child: ScrollableContainer(
@@ -66,7 +71,8 @@ class AssignmentsSavedPage extends StatelessWidget {
                               const SizedBox(height: 22.0),
                               CustomText.bitter600(
                                 '${LocalizedTexts.assignmentCompleted.tr()}!',
-                                style: context.textTheme.displayMedium?.copyWith(color: AppColors.white),
+                                style: context.textTheme.displayMedium
+                                    ?.copyWith(color: AppColors.white),
                                 textAlign: TextAlign.center,
                               ),
                             ],
@@ -87,9 +93,10 @@ class AssignmentsSavedPage extends StatelessWidget {
                           children: [
                             BlocBuilder<AssignmentsBloc, AssignmentsState>(
                               builder: (context, state) {
-                                final questions = state.data.questionsForLesson(state.data.lessonId);
-
-                                final questionTitle = questions.first.title;
+                                // final questions =
+                                //     state.data.questionsForLesson(state.data.lessonId);
+                                //
+                                // final questionTitle = questions.first.title;
 
                                 return Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -97,7 +104,7 @@ class AssignmentsSavedPage extends StatelessWidget {
                                     CategoryLabel.assignment(),
                                     const SizedBox(height: 20.0),
                                     CustomText.bitter600(
-                                      questionTitle,
+                                      'asd',
                                       style: context.textTheme.displayLarge,
                                     ),
                                     const SizedBox(height: 20.0),

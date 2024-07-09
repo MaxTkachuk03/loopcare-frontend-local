@@ -44,7 +44,7 @@ class ProductInformation extends StatelessWidget {
               Expanded(
                 child: Container(),
               ),
-              CustomIconButton.close(onPressed: () => context.router.pop())
+              CustomIconButton.close(onPressed: context.router.maybePop)
             ],
           ),
         ),
@@ -73,7 +73,7 @@ class ProductInformation extends StatelessWidget {
           ),
         ),
         CustomOutlinedButton.blueFullWidth(
-          onPressed: () => context.router.pop(),
+          onPressed: context.router.maybePop,
           label: LocalizedTexts.scanOtherProduct.tr(),
         ),
         const SizedBox(height: 14),

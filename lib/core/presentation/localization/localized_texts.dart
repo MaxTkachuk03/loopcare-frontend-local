@@ -23,8 +23,8 @@ class LocalizedTexts {
   static const String pleaseEnterYourEmailAddress = 'pleaseEnterYourEmailAddress';
   static const String pleaseEnterValidEmailAddress = 'pleaseEnterValidEmailAddress';
   static const String pleaseEnterYourName = 'pleaseEnterYourName';
+  static const String nameRegexValidationError = 'nameRegexValidationError';
   static const String enterYourHeight = 'enterYourHeight';
-  static const String emailOrPasswordAreIncorrect = 'emailOrPasswordAreIncorrect';
   static const String forgotEmailSuccessMessage = 'forgotEmailSuccessMessage';
   static const String pleaseEnterRegistrationCode = 'pleaseEnterRegistrationCode';
   static const String pleaseEnterValidRegistrationCode = 'pleaseEnterValidRegistrationCode';
@@ -184,7 +184,8 @@ class LocalizedTexts {
   static const String physicalActivitiesPreferencesDesc = 'physicalActivitiesPreferencesDesc';
   static const String physicalActivitiesPreferencesItemOne = 'physicalActivitiesPreferencesItemOne';
   static const String physicalActivitiesPreferencesItemTwo = 'physicalActivitiesPreferencesItemTwo';
-  static const String physicalActivitiesPreferencesItemThree = 'physicalActivitiesPreferencesItemThree';
+  static const String physicalActivitiesPreferencesItemThree =
+      'physicalActivitiesPreferencesItemThree';
   static const String physicalActivitiesFrequencyTitle = 'physicalActivitiesFrequencyTitle';
   static const String physicalActivitiesFrequencyItemOne = 'physicalActivitiesFrequencyItemOne';
   static const String physicalActivitiesFrequencyItemTwo = 'physicalActivitiesFrequencyItemTwo';
@@ -230,7 +231,8 @@ class LocalizedTexts {
   static const String calorieDensityLowQualityLabel = 'calorieDensityLowQualityLabel';
   static const String proteinDegreeLowQualityDescription = 'proteinDegreeLowQualityDescription';
   static const String proteinDegreeLowQualityLabel = 'proteinDegreeLowQualityLabel';
-  static const String proteinDegreeLowMidQualityDescription = 'proteinDegreeLowMidQualityDescription';
+  static const String proteinDegreeLowMidQualityDescription =
+      'proteinDegreeLowMidQualityDescription';
   static const String proteinDegreeLowMidQualityLabel = 'proteinDegreeLowMidQualityLabel';
   static const String proteinDegreeMidQualityDescription = 'proteinDegreeMidQualityDescription';
   static const String proteinDegreeMidQualityLabel = 'proteinDegreeMidQualityLabel';
@@ -245,10 +247,13 @@ class LocalizedTexts {
   // Education
   static const String all = 'all';
   static const String general = 'general';
-  static const String nutrition = 'nutrition';
   static const String mind = 'mind';
   static const String activity = 'activity';
   static const String availableIn = 'availableIn';
+  static const String psychology = 'psychology';
+  static const String nutrition = 'nutrition';
+  static const String medical = 'medical';
+  static const String community = 'community';
 
   static const String noMealsLogged = 'noMealsLogged';
   static const String noMealsLoggedYet = 'noMealsLoggedYet';
@@ -282,6 +287,7 @@ class LocalizedTexts {
   // Education
   static const String backToToday = 'backToToday';
   static const String backToEducation = 'backToEducation';
+  static const String backToThePool = 'backToThePool';
   static const String completed = 'completed';
   static const String complete = 'complete';
 
@@ -320,7 +326,6 @@ class LocalizedTexts {
   static const String backToTodayNotLogged = 'backToTodayNotLogged';
   static const String notReally = 'notReally';
   static const String yesYes = 'yesYes';
-  static const String physicalProgramAlreadyLogged = 'physicalProgramAlreadyLogged';
   static const String inProgress = 'inProgress';
 
   // User profile
@@ -369,14 +374,6 @@ class LocalizedTexts {
   static const String repeat = 'repeat';
   static const String exerciseCompleteMessage = 'exerciseCompleteMessage';
   static const String breakBetweenExercises = 'breakBetweenExercises';
-
-  // Error Screen
-  static const String retry = 'retry';
-  static const String noConnectionTitle = 'noConnectionTitle';
-  static const String noConnectionText = 'noConnectionText';
-  static const String invalidIngredientText = 'invalidIngredientText';
-  static const String oeps = 'oeps';
-  static const String somethingWentWrong = 'somethingWentWrong';
 
   //Empty screen
   static const String youHaveNo = 'youHaveNo';
@@ -461,7 +458,8 @@ class LocalizedTexts {
   static const String groupRulesFourParagraphOnePartThree = "groupRulesFourParagraphOnePartThree";
   static const String groupRulesFourParagraphOneItalicOne = "groupRulesFourParagraphOneItalicOne";
   static const String groupRulesFourParagraphOneItalicTwo = "groupRulesFourParagraphOneItalicTwo";
-  static const String groupRulesFourParagraphOneItalicThree = "groupRulesFourParagraphOneItalicThree";
+  static const String groupRulesFourParagraphOneItalicThree =
+      "groupRulesFourParagraphOneItalicThree";
   static const String groupRulesFourParagraphTwo = "groupRulesFourParagraphTwo";
   static const String groupRulesFiveParagraphOne = "groupRulesFiveParagraphOne";
   static const String groupRulesFiveParagraphTwo = "groupRulesFiveParagraphTwo";
@@ -586,7 +584,8 @@ class LocalizedTexts {
   static const String restoreSubscriptionFromSettings = "restoreSubscriptionFromSettings";
   static const String askRestoreSubscription = "askRestoreSubscription";
   static const String duplicateSubscriptionFromSettings = "duplicateSubscriptionFromSettings";
-  static const String otherPurchaseVendorCancelAccountSubscription = "otherPurchaseVendorCancelAccountSubscription";
+  static const String otherPurchaseVendorCancelAccountSubscription =
+      "otherPurchaseVendorCancelAccountSubscription";
 
   // Quizzes
   static const String quiz = "quiz";
@@ -663,6 +662,21 @@ class LocalizedTexts {
 
   //Log weight
   static const String logWeight = 'logWeight';
+
+  // Onboarding River
+  static const String onboardingIntroTitle = 'onboardingIntroTitle';
+  static const String onboardingIntroProgram1 = 'onboardingIntroProgram1';
+  static const String onboardingIntroProgram2 = 'onboardingIntroProgram2';
+  static const String onboardingIntroMissionTitle = 'onboardingIntroMissionTitle';
+  static const String onboardingIntroMissionAndrew = 'onboardingIntroMissionAndrew';
+  static const String onboardingIntroMissionMaria = 'onboardingIntroMissionMaria';
+  static const String onboardingIntroMissionShalu = 'onboardingIntroMissionShalu';
+  static const String onboardingIntroMissionJoshua = 'onboardingIntroMissionJoshua';
+  static const String onboardingIntroMissionDenise = 'onboardingIntroMissionDenise';
+  static const String onboardingPacingTitle = 'onboardingPacingTitle';
+  static const String onboardingPacingMessage = 'onboardingPacingMessage';
+  static const String iAmReady = 'iAmReady';
+  static const String riverOverviewTitle = 'riverOverviewTitle';
 
   // Onboarding Physical
   // Intro
@@ -754,7 +768,9 @@ class LocalizedTexts {
 
   // Taking medication
   static const String weightLossMedicationQuestion = 'weightLossMedicationQuestion';
+  @Deprecated('Not include in River Onboarding')
   static const String medicationPastPeriodQuestion = 'medicationPastPeriodQuestion';
+  @Deprecated('Not include in River Onboarding')
   static const String medicationPastPeriodQuestion2 = 'medicationPastPeriodQuestion2';
   static const String mounjaro = 'mounjaro';
   static const String ozempic = 'ozempic';
@@ -931,15 +947,14 @@ class LocalizedTexts {
   static const String pleaseAcceptTOC = 'pleaseAcceptTOC';
   static const String pleaseAcceptPrivacyPolicy = 'pleaseAcceptPrivacyPolicy';
   static const String register = 'register';
-  static const String emailAlreadyTaken = 'emailAlreadyTaken';
   static const String somethingIsIncorrect = 'somethingIsIncorrect';
   static const String receiveEmailCheckboxLabel = 'receiveEmailCheckboxLabel';
 
   //Waiting for confirmation page
   static const String waitingForConfirmationTitle = 'waitingForConfirmationTitle';
   static const String resendConfirmationMessage = 'resendConfirmationMessage';
-  static const String waitingForConfirmationBody1 = 'waitingForConfirmationBody1';
-  static const String waitingForConfirmationBody2 = 'waitingForConfirmationBody2';
+  static const String waitingForConfirmationSubtitle = 'waitingForConfirmationSubtitle';
+  static const String waitingForConfirmationBody = 'waitingForConfirmationBody';
   static const String waitingForConfirmationBody3 = 'waitingForConfirmationBody3';
   static const String waitingForConfirmationBody4 = 'waitingForConfirmationBody4';
   static const String resend = 'resend';
@@ -989,8 +1004,10 @@ class LocalizedTexts {
   // Group session
   static const String groupSession = 'groupSession';
   static const String notEnrolledInGroup = 'notEnrolledInGroup';
-  static const String supportGroupPaidSubscriptionNotGrouped = 'supportGroupPaidSubscriptionNotGrouped';
-  static const String supportGroupTrialSubscriptionNotGrouped = 'supportGroupTrialSubscriptionNotGrouped';
+  static const String supportGroupPaidSubscriptionNotGrouped =
+      'supportGroupPaidSubscriptionNotGrouped';
+  static const String supportGroupTrialSubscriptionNotGrouped =
+      'supportGroupTrialSubscriptionNotGrouped';
   static const String nextWeekTopic = 'nextWeekTopic';
 
   // Update bottom sheet
@@ -1099,4 +1116,51 @@ class LocalizedTexts {
   static const String reasonGoalMissing = 'reasonGoalMissing';
   static const String reasonGoalHabit = 'reasonGoalHabit';
   static const String reasonGoalSpecific = 'reasonGoalSpecific';
+
+  // Error Screen
+  static const String retry = 'retry';
+  static const String noConnectionTitle = 'noConnectionTitle';
+  static const String noConnectionText = 'noConnectionText';
+  static const String invalidIngredientText = 'invalidIngredientText';
+  static const String oeps = 'oeps';
+  static const String somethingWentWrong = 'somethingWentWrong';
+
+  static const String accountAlreadyExists = 'account_with_this_email_already_exists';
+  static const String accountNotFound = 'account_not_found';
+  static const String emailOrPasswordAreIncorrect = 'account_with_this_email_already_exists';
+  static const String physicalProgramAlreadyLogged = 'physical_program_already_logged';
+  static const String servingIdIsNotFound = 'serving_id_is_not_found';
+
+  //Error localization
+  static const String subscriptionServiceUnavailable = 'subscription_service_unavailable';
+  static const String purchaseStreamError = 'purchase_stream_error';
+  static const String purchaseErrorMessage = 'purchase_error_message';
+
+  //DioException
+  static const String requestCancelledDio = 'requestCancelledDio';
+  static const String connectionDio = 'connectionDio';
+  static const String timeoutDio = 'timeoutDio';
+  static const String badRequestDio = 'badRequestDio';
+  static const String unauthorizedDio = 'unauthorizedDio';
+  static const String forbiddenDio = 'forbiddenDio';
+  static const String notFoundDio = 'notFoundDio';
+  static const String conflictDio = 'conflictDio';
+  static const String serverErrorDio = 'serverErrorDio';
+  static const String unprocessableEntityDio = 'unprocessableEntityDio';
+  static const String unhandledResponseDio = 'unhandledResponseDio';
+  static const String unhandledErrorDio = 'unhandledErrorDio';
+  static const String otherDio = 'otherDio';
+
+  //SocketException
+  static const String socketException = 'socketException';
+  //Parsing Exception
+  static const String parsingException = 'parsingException';
+
+  // River
+  static const String guidancePracticeTitle = 'guidancePracticeTitle';
+  static const String guidancePracticeDescription = 'guidancePracticeDescription';
+  static const String guidanceProfileTitle = 'guidanceProfileTitle';
+  static const String guidanceProfileDescription = 'guidanceProfileDescription';
+  static const String guidanceCompletedTitle = 'guidanceCompletedTitle';
+  static const String guidanceCompletedDescription = 'guidanceCompletedDescription';
 }

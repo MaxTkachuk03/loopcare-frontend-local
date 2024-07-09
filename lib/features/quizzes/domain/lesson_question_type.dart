@@ -1,4 +1,0 @@
-enum LessonQuestionType {
-  assignment,
-  quiz,
-}

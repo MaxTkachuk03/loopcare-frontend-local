@@ -6,6 +6,7 @@ import 'package:loopcare_frontend/core/presentation/widgets/main_container.dart'
 import 'package:loopcare_frontend/core/presentation/widgets/scrollable_container.dart';
 import 'package:loopcare_frontend/injection.dart';
 
+@RoutePage()
 class ProxyPage extends StatefulWidget {
   const ProxyPage({super.key});
 
@@ -30,7 +31,7 @@ class _ProxyPageState extends State<ProxyPage> {
     prefs.setString('_ip', _ipController.text);
     prefs.setString('_port', _portController.text);
 
-    context.router.pop();
+    context.router.maybePop();
   }
 
   @override

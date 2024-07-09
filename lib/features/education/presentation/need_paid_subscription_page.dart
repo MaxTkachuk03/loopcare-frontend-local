@@ -13,22 +13,32 @@ import 'package:loopcare_frontend/core/presentation/utils/build_context_extensio
 import 'package:loopcare_frontend/core/presentation/widgets/main_container.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/scrollable_container.dart';
 import 'package:loopcare_frontend/features/education/domain/extra_action_page_mode.dart';
+import 'package:loopcare_frontend/features/river/infrastructure/river_module_stream_type.dart';
 
+@RoutePage()
 class NeedPaidSubscriptionPage extends StatelessWidget {
+  final RiverModuleStreamType streamType;
   final ExtraActionPageMode mode;
 
-  const NeedPaidSubscriptionPage({super.key, required this.mode});
+  const NeedPaidSubscriptionPage({
+    super.key,
+    required this.mode,
+    this.streamType = RiverModuleStreamType.psychology,
+  });
 
   void _onCompleteHandler(BuildContext context) => mode.map(
         afterLesson: (_) => context.router.pushNamed(AppRoutes.lessonComplete),
         userProfile: (_) => null,
       );
 
-  _getScaffold(Widget body) => mode.map(
-        afterLesson: (_) => CustomScaffold.petrolLightest(
-          appBar: CustomAppBar.petrol(
+  Widget _getScaffold(Widget body) => mode.map(
+        afterLesson: (_) => CustomScaffold(
+          color: streamType.lightestColor,
+          appBar: CustomAppBar(
+            backgroundColor: streamType.regularColor,
+            textTheme: streamType.appBarTextTheme,
             title: LocalizedTexts.preferences.tr(),
-            leading: CustomFilledIconButton.leadingPetrolLighter(),
+            leading: CustomFilledIconButton.fromColor(color: streamType.lighterColor),
           ),
           body: body,
         ),

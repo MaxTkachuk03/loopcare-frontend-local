@@ -23,8 +23,9 @@ import 'package:loopcare_frontend/core/presentation/widgets/unit_tabs/get_measur
 import 'package:loopcare_frontend/core/presentation/widgets/unit_tabs/measurement_system_type.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/unit_tabs/unit_field.dart';
 import 'package:loopcare_frontend/features/nutrition/application/dashboard_weight/dashboard_weight_bloc.dart';
-import 'package:loopcare_frontend/features/onboarding_new/utils/weight_conversion_utils.dart';
+import 'package:loopcare_frontend/features/onboarding/utils/weight_conversion_utils.dart';
 
+@RoutePage()
 class LogWeightPage extends StatefulWidget {
   final DateTime selectedDay;
 
@@ -57,7 +58,8 @@ class _LogWeightPageState extends State<LogWeightPage> {
   String _getInputInitialValue() {
     final state = context.read<DashboardWeightBloc>().state;
 
-    double? selectedDayWeightValue = state.data.getSelectedDayWeight(widget.selectedDay.isoStringWithoutTime);
+    double? selectedDayWeightValue =
+        state.data.getSelectedDayWeight(widget.selectedDay.isoStringWithoutTime);
 
     if (selectedDayWeightValue == null) return '';
 
@@ -83,7 +85,8 @@ class _LogWeightPageState extends State<LogWeightPage> {
     String formattedWeight = weight.replaceAll(',', '.');
 
     if (!_isMetricSystem) {
-      formattedWeight = WeightConversionUtils.convertLbsToKg(double.parse(formattedWeight)).toString();
+      formattedWeight =
+          WeightConversionUtils.convertLbsToKg(double.parse(formattedWeight)).toString();
     }
 
     context
@@ -101,12 +104,13 @@ class _LogWeightPageState extends State<LogWeightPage> {
       name: CIOEvents.weightLogged,
       attributes: {
         CIOAttributes.weightLogged: formattedWeight,
-        CIOAttributes.measurementSystem:
-            _isMetricSystem ? MeasurementSystemType.metric.name : MeasurementSystemType.imperial.name,
+        CIOAttributes.measurementSystem: _isMetricSystem
+            ? MeasurementSystemType.metric.name
+            : MeasurementSystemType.imperial.name,
       },
     );
 
-    context.router.pop();
+    context.router.maybePop();
   }
 
   bool get _isToday => widget.selectedDay.midnightTime == DateTime.now().midnightTime;
@@ -120,7 +124,9 @@ class _LogWeightPageState extends State<LogWeightPage> {
   @override
   Widget build(BuildContext context) {
     final title = _isToday ? LocalizedTexts.todaysWeight.tr() : LocalizedTexts.yourWeight.tr();
-    final yourWeight = _isToday ? LocalizedTexts.yourWeight.tr() : '${LocalizedTexts.yourWeight.tr()} ${LocalizedTexts.on.tr()}';
+    final yourWeight = _isToday
+        ? LocalizedTexts.yourWeight.tr()
+        : '${LocalizedTexts.yourWeight.tr()} ${LocalizedTexts.on.tr()}';
 
     return CustomScaffold.coralLightest(
       appBar: CustomAppBar.coral(

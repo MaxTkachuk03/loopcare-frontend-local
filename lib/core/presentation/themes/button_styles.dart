@@ -34,9 +34,9 @@ class ButtonStyles {
       BorderSide(width: ThemeConstants.outlinedButtonBorderWidth, color: AppColors.greyLight);
 
   static getButtonBorder(defaultBorder) {
-    return MaterialStateProperty.resolveWith<BorderSide?>(
-      (Set<MaterialState> states) =>
-          states.contains(MaterialState.disabled) ? ButtonStyles.borderDisabled : defaultBorder,
+    return WidgetStateProperty.resolveWith<BorderSide?>(
+      (Set<WidgetState> states) =>
+          states.contains(WidgetState.disabled) ? ButtonStyles.borderDisabled : defaultBorder,
     );
   }
 }

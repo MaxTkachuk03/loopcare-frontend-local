@@ -68,7 +68,6 @@ class _TextAccent extends StatelessWidget {
   final int steps;
 
   const _TextAccent({
-    super.key,
     required this.currentStep,
     required this.steps,
   });
