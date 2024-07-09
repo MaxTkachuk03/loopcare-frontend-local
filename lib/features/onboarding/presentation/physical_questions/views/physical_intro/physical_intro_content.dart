@@ -54,7 +54,7 @@ class PhysicalIntroContent extends StatelessWidget {
                 ),
                 const SizedBox(height: 20.0),
                 CustomText.w400(
-                  '${LocalizedTexts.physicalIntroBody.tr()}.',
+                  LocalizedTexts.physicalIntroBody.tr(),
                   style: context.textTheme.bodyMedium,
                   textAlign: TextAlign.center,
                 ),
