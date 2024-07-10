@@ -6,6 +6,7 @@ import 'package:loopcare_frontend/core/application/auth_token_manager.dart';
 import 'package:loopcare_frontend/core/application/permissions_service.dart';
 import 'package:loopcare_frontend/core/infrastructure/services/events.dart';
 import 'package:loopcare_frontend/core/infrastructure/services/mixpanel_event_service.dart';
+import 'package:loopcare_frontend/core/infrastructure/services/shared_storage/shared_storage_service.dart';
 import 'package:loopcare_frontend/core/infrastructure/services/stored_account_service/stored_account_service.dart';
 import 'package:loopcare_frontend/core/presentation/routes/app_router.gr.dart';
 import 'package:loopcare_frontend/features/authentication/application/authentication_bloc.dart';
@@ -85,7 +86,8 @@ class SplashController {
   void getAccount() => authenticationBloc.add(const AuthenticationEvent.getAccount());
 
   Future<PageRouteInfo> _getAuthorisedRoute(bool hasActiveSubscription) async {
-    AuthTokenManager authTokenManager = getIt<AuthTokenManager>();
+    final authTokenManager = getIt<AuthTokenManager>();
+    final storage = getIt<SharedStorageService>();
 
     final accessToken = await authTokenManager.getAccessToken() ?? '';
     final refreshToken = await authTokenManager.getRefreshToken() ?? '';
@@ -94,7 +96,9 @@ class SplashController {
       return const LoginRoute();
     } else if (!hasActiveSubscription && kIsProd) {
       return const SubscriptionRoute();
-    } else if (!riverBloc.state.data.isBeginningStarted && !riverBloc.state.data.isBeginningComplete) {
+    } else if (!riverBloc.state.data.isBeginningStarted &&
+        !riverBloc.state.data.isBeginningComplete &&
+        !storage.isRiverOverviewVisited) {
       return const RiverOverviewRoute();
     } else {
       return const HomeRoute();

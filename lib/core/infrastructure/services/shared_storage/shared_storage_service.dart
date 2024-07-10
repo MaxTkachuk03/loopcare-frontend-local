@@ -66,6 +66,14 @@ class SharedStorageService {
 
   set account(Account? account) => setString('account', json.encode(account));
 
+  bool get isRiverOverviewVisited => _prefs.getValue<bool?>('river_overview_visited') ?? false;
+
+  void riverOverviewVisited() {
+    if (!_prefs.containsKey('river_overview_visited')) {
+      _prefs.setValue<bool>('river_overview_visited', true);
+    }
+  }
+
   Account? get account =>
       containsKey('account') ? Account.fromJson(json.decode(getString('account') ?? '') as Map<String, dynamic>) : null;
 
