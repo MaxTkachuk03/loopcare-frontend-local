@@ -25,7 +25,6 @@ import 'package:loopcare_frontend/features/onboarding/application/general/genera
 import 'package:loopcare_frontend/features/onboarding/application/medical_questions/medical_questions_bloc.dart';
 import 'package:loopcare_frontend/features/onboarding/application/mental_questions/mental_questions_bloc.dart';
 import 'package:loopcare_frontend/features/onboarding/application/physical_questions/physical_questions_bloc.dart';
-import 'package:loopcare_frontend/features/river/application/river_bloc.dart';
 
 @RoutePage()
 class WaitingForConfirmationPage extends StatefulWidget {
@@ -81,8 +80,6 @@ class _WaitingForConfirmationPageState extends State<WaitingForConfirmationPage>
     }
 
     context
-      ..read<RiverBloc>().add(const RiverEvent.init())
-      ..read<RiverBloc>().add(const RiverEvent.getModules())
       ..read<GeneralOnboardingBloc>().add(const GeneralOnboardingEvent.resetData())
       ..read<MedicalQuestionsBloc>().add(const MedicalQuestionsEvent.resetData())
       ..read<PhysicalQuestionsBloc>().add(const PhysicalQuestionsEvent.resetData())
