@@ -1163,4 +1163,10 @@ class LocalizedTexts {
   static const String guidanceProfileDescription = 'guidanceProfileDescription';
   static const String guidanceCompletedTitle = 'guidanceCompletedTitle';
   static const String guidanceCompletedDescription = 'guidanceCompletedDescription';
+
+  // Maintenance
+  static const String maintenanceLabel = 'maintenanceLabel';
+  static const String maintenancePageTitle = 'maintenancePageTitle';
+  static const String maintenancePageDescription = 'maintenancePageDescription';
+
 }
