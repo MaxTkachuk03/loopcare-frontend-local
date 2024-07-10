@@ -10,6 +10,7 @@ import 'package:loopcare_frontend/build_type.dart';
 import 'package:loopcare_frontend/core/infrastructure/dio_client/app_version_interceptor.dart';
 import 'package:loopcare_frontend/core/infrastructure/dio_client/auth_token_interceptor.dart';
 import 'package:loopcare_frontend/core/infrastructure/dio_client/dio_options.dart';
+import 'package:loopcare_frontend/core/infrastructure/dio_client/error_interceptor.dart';
 import 'package:loopcare_frontend/core/infrastructure/dio_client/parse_request_error.dart';
 import 'package:loopcare_frontend/core/infrastructure/dio_client/parse_response.dart';
 import 'package:loopcare_frontend/core/infrastructure/dio_client/request_error.dart';
@@ -31,11 +32,13 @@ class DioClient {
   late final Dio dio;
   final AppVersionInterceptor _appVersionInterceptor;
   final AuthTokenInterceptor _authTokenInterceptor;
+  final ErrorInterceptor _errorInterceptor;
   final SharedStorageService sharedPreferences;
 
   DioClient(
     this._appVersionInterceptor,
     this._authTokenInterceptor,
+    this._errorInterceptor,
     this.sharedPreferences,
   ) {
     dio = dioOptions;
@@ -43,6 +46,7 @@ class DioClient {
     dio.interceptors.addAll([
       _authTokenInterceptor,
       _appVersionInterceptor,
+      _errorInterceptor,
     ]);
 
     _configureRetryConnection();

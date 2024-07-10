@@ -971,6 +971,9 @@
   "guidanceProfileDescription": "In the profile, you can customize your account settings, change personal preferences and access past assignments and features.",
   "guidanceCompletedTitle": "Congratulation, you finished the Beginning.",
   "guidanceCompletedDescription": "You can now move on to the first Practice session: What’s your why?.",
+  "maintenanceLabel": "Maintenance",
+  "maintenancePageTitle": "We’ll be back soon!",
+  "maintenancePageDescription": "We’re currently releasing exciting new content, if you’ve opted in, you’ll receive a push notification when we’re back online.\n\nSubscribe to our newsletter to get a sneak peak at what’s coming up!",
 
   "//comment": "mental tests final results",
   "phq8FinalResultHigh1": "The questionnaire results indicate that you are currently experiencing notable mental distress.",
