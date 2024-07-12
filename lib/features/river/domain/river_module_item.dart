@@ -22,7 +22,7 @@ class RiverModuleItem with _$RiverModuleItem {
     @Default(false) bool isRootItem,
     @Default([]) List<int> unlocksItems,
     @Default([]) List<UnlockedFeatureType> unlocksFeature,
-    @Default(null) int? unlocksAssignmentId,
+    @Default(null) int? unlocksReflectionId,
     @Default(null) int? unlocksSmartGoalCategoryId,
     @Default(false) bool crossModule,
     required FeaturePlacement? featurePlacement,

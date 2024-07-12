@@ -13,7 +13,7 @@ var modules = [
         "lessonId": null,
         "isRootItem": false,
         "unlocksItems": [],
-        "unlocksAssignmentId": null,
+        "unlocksReflectionId": null,
         "unlocksSmartGoalCategoryId": null,
         "crossModule": false,
         "featurePlacement": "profile",
@@ -26,7 +26,7 @@ var modules = [
         "lessonId": null,
         "isRootItem": false,
         "unlocksItems": [],
-        "unlocksAssignmentId": null,
+        "unlocksReflectionId": null,
         "unlocksSmartGoalCategoryId": null,
         "crossModule": false,
         "featurePlacement": "dashboard",
@@ -48,7 +48,7 @@ var modules = [
         "lessonId": 5,
         "isRootItem": true,
         "unlocksItems": [2, 4, 5, 6],
-        "unlocksAssignmentId": 91,
+        "unlocksReflectionId": 91,
         "unlocksSmartGoalCategoryId": null,
         "crossModule": false,
         "featurePlacement": "dashboard",
@@ -61,7 +61,7 @@ var modules = [
         "lessonId": 7,
         "isRootItem": false,
         "unlocksItems": [3],
-        "unlocksAssignmentId": null,
+        "unlocksReflectionId": null,
         "unlocksSmartGoalCategoryId": null,
         "crossModule": false,
         "featurePlacement": "dashboard",
@@ -74,7 +74,7 @@ var modules = [
         "lessonId": 6,
         "isRootItem": false,
         "unlocksItems": [],
-        "unlocksAssignmentId": null,
+        "unlocksReflectionId": null,
         "unlocksSmartGoalCategoryId": 1,
         "crossModule": false,
         "featurePlacement": "dashboard",
@@ -87,7 +87,7 @@ var modules = [
         "lessonId": 4,
         "isRootItem": false,
         "unlocksItems": [],
-        "unlocksAssignmentId": null,
+        "unlocksReflectionId": null,
         "unlocksSmartGoalCategoryId": null,
         "crossModule": false,
         "featurePlacement": "dashboard",
@@ -100,7 +100,7 @@ var modules = [
         "lessonId": 2,
         "isRootItem": false,
         "unlocksItems": [],
-        "unlocksAssignmentId": null,
+        "unlocksReflectionId": null,
         "unlocksSmartGoalCategoryId": null,
         "crossModule": false,
         "featurePlacement": null,
@@ -122,7 +122,7 @@ var modules = [
         "lessonId": 5,
         "isRootItem": true,
         "unlocksItems": [2, 4, 5, 6],
-        "unlocksAssignmentId": 91,
+        "unlocksReflectionId": 91,
         "unlocksSmartGoalCategoryId": null,
         "crossModule": false,
         "featurePlacement": "dashboard",
@@ -135,7 +135,7 @@ var modules = [
         "lessonId": 7,
         "isRootItem": false,
         "unlocksItems": [3],
-        "unlocksAssignmentId": null,
+        "unlocksReflectionId": null,
         "unlocksSmartGoalCategoryId": null,
         "crossModule": false,
         "featurePlacement": "dashboard",
@@ -148,7 +148,7 @@ var modules = [
         "lessonId": 6,
         "isRootItem": false,
         "unlocksItems": [],
-        "unlocksAssignmentId": null,
+        "unlocksReflectionId": null,
         "unlocksSmartGoalCategoryId": 1,
         "crossModule": false,
         "featurePlacement": "dashboard",
@@ -161,7 +161,7 @@ var modules = [
         "lessonId": 4,
         "isRootItem": false,
         "unlocksItems": [],
-        "unlocksAssignmentId": null,
+        "unlocksReflectionId": null,
         "unlocksSmartGoalCategoryId": null,
         "crossModule": false,
         "featurePlacement": "dashboard",
@@ -174,7 +174,7 @@ var modules = [
         "lessonId": 2,
         "isRootItem": false,
         "unlocksItems": [],
-        "unlocksAssignmentId": null,
+        "unlocksReflectionId": null,
         "unlocksSmartGoalCategoryId": null,
         "crossModule": false,
         "featurePlacement": null,
@@ -186,869 +186,677 @@ var modules = [
 
 var riverModules = [
   {
-    "moduleItems":[
+    "moduleItems": [
       {
-        "lessonId":1,
-        "isRootItem":false,
-        "unlocksItems":[
-
-        ],
-        "unlocksFeature":[
-
-        ],
-        "unlocksAssignmentId":null,
-        "unlocksSmartGoalCategoryId":null,
-        "crossModule":false,
-        "featurePlacement":"profile",
-        "itemState":"completed",
-        "id":1,
-        "streamType":"psychology",
-        "iconType":"profile"
+        "lessonId": 1,
+        "isRootItem": false,
+        "unlocksItems": [],
+        "unlocksFeature": [],
+        "unlocksReflectionId": null,
+        "unlocksSmartGoalCategoryId": null,
+        "crossModule": false,
+        "featurePlacement": "profile",
+        "itemState": "completed",
+        "id": 1,
+        "streamType": "psychology",
+        "iconType": "profile"
       },
       {
-        "lessonId":2,
-        "isRootItem":false,
-        "unlocksItems":[
-
-        ],
-        "unlocksFeature":[
-
-        ],
-        "unlocksAssignmentId":null,
-        "unlocksSmartGoalCategoryId":null,
-        "crossModule":false,
-        "featurePlacement":"dashboard",
-        "itemState":"completed",
-        "id":2,
-        "streamType":"psychology",
-        "iconType":"practise"
+        "lessonId": 2,
+        "isRootItem": false,
+        "unlocksItems": [],
+        "unlocksFeature": [],
+        "unlocksReflectionId": null,
+        "unlocksSmartGoalCategoryId": null,
+        "crossModule": false,
+        "featurePlacement": "dashboard",
+        "itemState": "completed",
+        "id": 2,
+        "streamType": "psychology",
+        "iconType": "practise"
       }
     ],
-    "nextModuleUnlocksAt":null,
-    "isCompleted":true,
-    "id":1,
-    "title":"The Beginning",
-    "nextModuleUnlockDelay":0
+    "nextModuleUnlocksAt": null,
+    "isCompleted": true,
+    "id": 1,
+    "title": "The Beginning",
+    "nextModuleUnlockDelay": 0
   },
   {
-    "moduleItems":[
+    "moduleItems": [
       {
-        "lessonId":5,
-        "isRootItem":true,
-        "unlocksItems":[
-          4,
-          6,
-          7
-        ],
-        "unlocksFeature":[
-          "assignments"
-        ],
-        "unlocksAssignmentId":null,
-        "unlocksSmartGoalCategoryId":null,
-        "crossModule":false,
-        "featurePlacement":"dashboard",
-        "itemState":"unlocked",
-        "id":3,
-        "streamType":"psychology",
-        "iconType":"reflection"
+        "lessonId": 5,
+        "isRootItem": true,
+        "unlocksItems": [4, 6, 7],
+        "unlocksFeature": ["assignments"],
+        "unlocksReflectionId": null,
+        "unlocksSmartGoalCategoryId": null,
+        "crossModule": false,
+        "featurePlacement": "dashboard",
+        "itemState": "unlocked",
+        "id": 3,
+        "streamType": "psychology",
+        "iconType": "reflection"
       },
       {
-        "lessonId":7,
-        "isRootItem":false,
-        "unlocksItems":[
-          5
-        ],
-        "unlocksFeature":[
-          "foodLogging",
-          "calorieDensity"
-        ],
-        "unlocksAssignmentId":null,
-        "unlocksSmartGoalCategoryId":null,
-        "crossModule":false,
-        "featurePlacement":"dashboard",
-        "itemState":"locked",
-        "id":4,
-        "streamType":"nutrition",
-        "iconType":"nutrition"
+        "lessonId": 7,
+        "isRootItem": false,
+        "unlocksItems": [5],
+        "unlocksFeature": ["foodLogging", "calorieDensity"],
+        "unlocksReflectionId": null,
+        "unlocksSmartGoalCategoryId": null,
+        "crossModule": false,
+        "featurePlacement": "dashboard",
+        "itemState": "locked",
+        "id": 4,
+        "streamType": "nutrition",
+        "iconType": "nutrition"
       },
       {
-        "lessonId":6,
-        "isRootItem":false,
-        "unlocksItems":[
-
-        ],
-        "unlocksFeature":[
-          "smartGoals"
-        ],
-        "unlocksAssignmentId":null,
-        "unlocksSmartGoalCategoryId":null,
-        "crossModule":false,
-        "featurePlacement":"dashboard",
-        "itemState":"locked",
-        "id":5,
-        "streamType":"nutrition",
-        "iconType":"goal"
+        "lessonId": 6,
+        "isRootItem": false,
+        "unlocksItems": [],
+        "unlocksFeature": ["smartGoals"],
+        "unlocksReflectionId": null,
+        "unlocksSmartGoalCategoryId": null,
+        "crossModule": false,
+        "featurePlacement": "dashboard",
+        "itemState": "locked",
+        "id": 5,
+        "streamType": "nutrition",
+        "iconType": "goal"
       },
       {
-        "lessonId":4,
-        "isRootItem":false,
-        "unlocksItems":[
-
-        ],
-        "unlocksFeature":[
-          "weightLogging"
-        ],
-        "unlocksAssignmentId":null,
-        "unlocksSmartGoalCategoryId":null,
-        "crossModule":false,
-        "featurePlacement":"dashboard",
-        "itemState":"locked",
-        "id":6,
-        "streamType":"physicalActivity",
-        "iconType":"weight"
+        "lessonId": 4,
+        "isRootItem": false,
+        "unlocksItems": [],
+        "unlocksFeature": ["weightLogging"],
+        "unlocksReflectionId": null,
+        "unlocksSmartGoalCategoryId": null,
+        "crossModule": false,
+        "featurePlacement": "dashboard",
+        "itemState": "locked",
+        "id": 6,
+        "streamType": "physicalActivity",
+        "iconType": "weight"
       },
       {
-        "lessonId":2,
-        "isRootItem":false,
-        "unlocksItems":[
-
-        ],
-        "unlocksFeature":[
-
-        ],
-        "unlocksAssignmentId":null,
-        "unlocksSmartGoalCategoryId":null,
-        "crossModule":false,
-        "featurePlacement":null,
-        "itemState":"locked",
-        "id":7,
-        "streamType":"medical",
-        "iconType":"education"
+        "lessonId": 2,
+        "isRootItem": false,
+        "unlocksItems": [],
+        "unlocksFeature": [],
+        "unlocksReflectionId": null,
+        "unlocksSmartGoalCategoryId": null,
+        "crossModule": false,
+        "featurePlacement": null,
+        "itemState": "locked",
+        "id": 7,
+        "streamType": "medical",
+        "iconType": "education"
       }
     ],
-    "nextModuleUnlocksAt":null,
-    "isCompleted":false,
-    "id":2,
-    "title":"What's your why?",
-    "nextModuleUnlockDelay":604800
+    "nextModuleUnlocksAt": null,
+    "isCompleted": false,
+    "id": 2,
+    "title": "What's your why?",
+    "nextModuleUnlockDelay": 604800
   },
   {
-    "moduleItems":[
+    "moduleItems": [
       {
-        "lessonId":9,
-        "isRootItem":true,
-        "unlocksItems":[
-          9,
-          10,
-          11,
-          14
-        ],
-        "unlocksFeature":[
-
-        ],
-        "unlocksAssignmentId":null,
-        "unlocksSmartGoalCategoryId":null,
-        "crossModule":false,
-        "featurePlacement":null,
-        "itemState":"locked",
-        "id":8,
-        "streamType":"psychology",
-        "iconType":"reflection"
+        "lessonId": 9,
+        "isRootItem": true,
+        "unlocksItems": [9, 10, 11, 14],
+        "unlocksFeature": [],
+        "unlocksReflectionId": null,
+        "unlocksSmartGoalCategoryId": null,
+        "crossModule": false,
+        "featurePlacement": null,
+        "itemState": "locked",
+        "id": 8,
+        "streamType": "psychology",
+        "iconType": "reflection"
       },
       {
-        "lessonId":20,
-        "isRootItem":false,
-        "unlocksItems":[
-
-        ],
-        "unlocksFeature":[
-
-        ],
-        "unlocksAssignmentId":null,
-        "unlocksSmartGoalCategoryId":null,
-        "crossModule":false,
-        "featurePlacement":"dashboard",
-        "itemState":"locked",
-        "id":9,
-        "streamType":"nutrition",
-        "iconType":"goal"
+        "lessonId": 20,
+        "isRootItem": false,
+        "unlocksItems": [],
+        "unlocksFeature": [],
+        "unlocksReflectionId": null,
+        "unlocksSmartGoalCategoryId": null,
+        "crossModule": false,
+        "featurePlacement": "dashboard",
+        "itemState": "locked",
+        "id": 9,
+        "streamType": "nutrition",
+        "iconType": "goal"
       },
       {
-        "lessonId":16,
-        "isRootItem":false,
-        "unlocksItems":[
-
-        ],
-        "unlocksFeature":[
-          "physicalActivity"
-        ],
-        "unlocksAssignmentId":null,
-        "unlocksSmartGoalCategoryId":null,
-        "crossModule":false,
-        "featurePlacement":"dashboard",
-        "itemState":"locked",
-        "id":10,
-        "streamType":"physicalActivity",
-        "iconType":"physicalActivity"
+        "lessonId": 16,
+        "isRootItem": false,
+        "unlocksItems": [],
+        "unlocksFeature": ["physicalActivity"],
+        "unlocksReflectionId": null,
+        "unlocksSmartGoalCategoryId": null,
+        "crossModule": false,
+        "featurePlacement": "dashboard",
+        "itemState": "locked",
+        "id": 10,
+        "streamType": "physicalActivity",
+        "iconType": "physicalActivity"
       },
       {
-        "lessonId":10,
-        "isRootItem":false,
-        "unlocksItems":[
-          12
-        ],
-        "unlocksFeature":[
-
-        ],
-        "unlocksAssignmentId":null,
-        "unlocksSmartGoalCategoryId":null,
-        "crossModule":false,
-        "featurePlacement":null,
-        "itemState":"locked",
-        "id":11,
-        "streamType":"community",
-        "iconType":"education"
+        "lessonId": 10,
+        "isRootItem": false,
+        "unlocksItems": [12],
+        "unlocksFeature": [],
+        "unlocksReflectionId": null,
+        "unlocksSmartGoalCategoryId": null,
+        "crossModule": false,
+        "featurePlacement": null,
+        "itemState": "locked",
+        "id": 11,
+        "streamType": "community",
+        "iconType": "education"
       },
       {
-        "lessonId":11,
-        "isRootItem":false,
-        "unlocksItems":[
-          13
-        ],
-        "unlocksFeature":[
-          "buddy"
-        ],
-        "unlocksAssignmentId":null,
-        "unlocksSmartGoalCategoryId":null,
-        "crossModule":false,
-        "featurePlacement":"profile",
-        "itemState":"locked",
-        "id":12,
-        "streamType":"community",
-        "iconType":"buddy"
+        "lessonId": 11,
+        "isRootItem": false,
+        "unlocksItems": [13],
+        "unlocksFeature": ["buddy"],
+        "unlocksReflectionId": null,
+        "unlocksSmartGoalCategoryId": null,
+        "crossModule": false,
+        "featurePlacement": "profile",
+        "itemState": "locked",
+        "id": 12,
+        "streamType": "community",
+        "iconType": "buddy"
       },
       {
-        "lessonId":12,
-        "isRootItem":false,
-        "unlocksItems":[
-
-        ],
-        "unlocksFeature":[
-          "grouping"
-        ],
-        "unlocksAssignmentId":null,
-        "unlocksSmartGoalCategoryId":null,
-        "crossModule":false,
-        "featurePlacement":"profile",
-        "itemState":"locked",
-        "id":13,
-        "streamType":"community",
-        "iconType":"community"
+        "lessonId": 12,
+        "isRootItem": false,
+        "unlocksItems": [],
+        "unlocksFeature": ["grouping"],
+        "unlocksReflectionId": null,
+        "unlocksSmartGoalCategoryId": null,
+        "crossModule": false,
+        "featurePlacement": "profile",
+        "itemState": "locked",
+        "id": 13,
+        "streamType": "community",
+        "iconType": "community"
       },
       {
-        "lessonId":3,
-        "isRootItem":false,
-        "unlocksItems":[
-
-        ],
-        "unlocksFeature":[
-
-        ],
-        "unlocksAssignmentId":null,
-        "unlocksSmartGoalCategoryId":null,
-        "crossModule":false,
-        "featurePlacement":null,
-        "itemState":"locked",
-        "id":14,
-        "streamType":"medical",
-        "iconType":"education"
+        "lessonId": 3,
+        "isRootItem": false,
+        "unlocksItems": [],
+        "unlocksFeature": [],
+        "unlocksReflectionId": null,
+        "unlocksSmartGoalCategoryId": null,
+        "crossModule": false,
+        "featurePlacement": null,
+        "itemState": "locked",
+        "id": 14,
+        "streamType": "medical",
+        "iconType": "education"
       }
     ],
-    "nextModuleUnlocksAt":null,
-    "isCompleted":false,
-    "id":3,
-    "title":"Don't go it alone",
-    "nextModuleUnlockDelay":604800
+    "nextModuleUnlocksAt": null,
+    "isCompleted": false,
+    "id": 3,
+    "title": "Don't go it alone",
+    "nextModuleUnlockDelay": 604800
   },
   {
-    "moduleItems":[
+    "moduleItems": [
       {
-        "lessonId":19,
-        "isRootItem":true,
-        "unlocksItems":[
-          16,
-          18,
-          20,
-          21
-        ],
-        "unlocksFeature":[
-
-        ],
-        "unlocksAssignmentId":null,
-        "unlocksSmartGoalCategoryId":null,
-        "crossModule":false,
-        "featurePlacement":"dashboard",
-        "itemState":"locked",
-        "id":15,
-        "streamType":"psychology",
-        "iconType":"reflection"
+        "lessonId": 19,
+        "isRootItem": true,
+        "unlocksItems": [16, 18, 20, 21],
+        "unlocksFeature": [],
+        "unlocksReflectionId": null,
+        "unlocksSmartGoalCategoryId": null,
+        "crossModule": false,
+        "featurePlacement": "dashboard",
+        "itemState": "locked",
+        "id": 15,
+        "streamType": "psychology",
+        "iconType": "reflection"
       },
       {
-        "lessonId":27,
-        "isRootItem":false,
-        "unlocksItems":[
-          17
-        ],
-        "unlocksFeature":[
-
-        ],
-        "unlocksAssignmentId":null,
-        "unlocksSmartGoalCategoryId":null,
-        "crossModule":false,
-        "featurePlacement":"dashboard",
-        "itemState":"locked",
-        "id":16,
-        "streamType":"nutrition",
-        "iconType":"goal"
+        "lessonId": 27,
+        "isRootItem": false,
+        "unlocksItems": [17],
+        "unlocksFeature": [],
+        "unlocksReflectionId": null,
+        "unlocksSmartGoalCategoryId": null,
+        "crossModule": false,
+        "featurePlacement": "dashboard",
+        "itemState": "locked",
+        "id": 16,
+        "streamType": "nutrition",
+        "iconType": "goal"
       },
       {
-        "lessonId":8,
-        "isRootItem":false,
-        "unlocksItems":[
-
-        ],
-        "unlocksFeature":[
-          "proteinDegree"
-        ],
-        "unlocksAssignmentId":null,
-        "unlocksSmartGoalCategoryId":null,
-        "crossModule":false,
-        "featurePlacement":"dashboard",
-        "itemState":"locked",
-        "id":17,
-        "streamType":"nutrition",
-        "iconType":"nutrition"
+        "lessonId": 8,
+        "isRootItem": false,
+        "unlocksItems": [],
+        "unlocksFeature": ["proteinDegree"],
+        "unlocksReflectionId": null,
+        "unlocksSmartGoalCategoryId": null,
+        "crossModule": false,
+        "featurePlacement": "dashboard",
+        "itemState": "locked",
+        "id": 17,
+        "streamType": "nutrition",
+        "iconType": "nutrition"
       },
       {
-        "lessonId":15,
-        "isRootItem":false,
-        "unlocksItems":[
-          19
-        ],
-        "unlocksFeature":[
-
-        ],
-        "unlocksAssignmentId":null,
-        "unlocksSmartGoalCategoryId":null,
-        "crossModule":false,
-        "featurePlacement":null,
-        "itemState":"locked",
-        "id":18,
-        "streamType":"physicalActivity",
-        "iconType":"education"
+        "lessonId": 15,
+        "isRootItem": false,
+        "unlocksItems": [19],
+        "unlocksFeature": [],
+        "unlocksReflectionId": null,
+        "unlocksSmartGoalCategoryId": null,
+        "crossModule": false,
+        "featurePlacement": null,
+        "itemState": "locked",
+        "id": 18,
+        "streamType": "physicalActivity",
+        "iconType": "education"
       },
       {
-        "lessonId":21,
-        "isRootItem":false,
-        "unlocksItems":[
-
-        ],
-        "unlocksFeature":[
-
-        ],
-        "unlocksAssignmentId":null,
-        "unlocksSmartGoalCategoryId":null,
-        "crossModule":false,
-        "featurePlacement":"dashboard",
-        "itemState":"locked",
-        "id":19,
-        "streamType":"physicalActivity",
-        "iconType":"education"
+        "lessonId": 21,
+        "isRootItem": false,
+        "unlocksItems": [],
+        "unlocksFeature": [],
+        "unlocksReflectionId": null,
+        "unlocksSmartGoalCategoryId": null,
+        "crossModule": false,
+        "featurePlacement": "dashboard",
+        "itemState": "locked",
+        "id": 19,
+        "streamType": "physicalActivity",
+        "iconType": "education"
       },
       {
-        "lessonId":18,
-        "isRootItem":false,
-        "unlocksItems":[
-
-        ],
-        "unlocksFeature":[
-
-        ],
-        "unlocksAssignmentId":null,
-        "unlocksSmartGoalCategoryId":null,
-        "crossModule":false,
-        "featurePlacement":null,
-        "itemState":"locked",
-        "id":20,
-        "streamType":"psychology",
-        "iconType":"education"
+        "lessonId": 18,
+        "isRootItem": false,
+        "unlocksItems": [],
+        "unlocksFeature": [],
+        "unlocksReflectionId": null,
+        "unlocksSmartGoalCategoryId": null,
+        "crossModule": false,
+        "featurePlacement": null,
+        "itemState": "locked",
+        "id": 20,
+        "streamType": "psychology",
+        "iconType": "education"
       },
       {
-        "lessonId":17,
-        "isRootItem":false,
-        "unlocksItems":[
-
-        ],
-        "unlocksFeature":[
-          "mind"
-        ],
-        "unlocksAssignmentId":null,
-        "unlocksSmartGoalCategoryId":null,
-        "crossModule":false,
-        "featurePlacement":"dashboard",
-        "itemState":"locked",
-        "id":21,
-        "streamType":"psychology",
-        "iconType":"mind"
+        "lessonId": 17,
+        "isRootItem": false,
+        "unlocksItems": [],
+        "unlocksFeature": ["mind"],
+        "unlocksReflectionId": null,
+        "unlocksSmartGoalCategoryId": null,
+        "crossModule": false,
+        "featurePlacement": "dashboard",
+        "itemState": "locked",
+        "id": 21,
+        "streamType": "psychology",
+        "iconType": "mind"
       }
     ],
-    "nextModuleUnlocksAt":null,
-    "isCompleted":false,
-    "id":4,
-    "title":"Digging Deeper",
-    "nextModuleUnlockDelay":604800
+    "nextModuleUnlocksAt": null,
+    "isCompleted": false,
+    "id": 4,
+    "title": "Digging Deeper",
+    "nextModuleUnlockDelay": 604800
   },
   {
-    "moduleItems":[
+    "moduleItems": [
       {
-        "lessonId":24,
-        "isRootItem":true,
-        "unlocksItems":[
-          23,
-          25,
-          26
-        ],
-        "unlocksFeature":[
-
-        ],
-        "unlocksAssignmentId":null,
-        "unlocksSmartGoalCategoryId":null,
-        "crossModule":false,
-        "featurePlacement":"dashboard",
-        "itemState":"locked",
-        "id":22,
-        "streamType":"psychology",
-        "iconType":"reflection"
+        "lessonId": 24,
+        "isRootItem": true,
+        "unlocksItems": [23, 25, 26],
+        "unlocksFeature": [],
+        "unlocksReflectionId": null,
+        "unlocksSmartGoalCategoryId": null,
+        "crossModule": false,
+        "featurePlacement": "dashboard",
+        "itemState": "locked",
+        "id": 22,
+        "streamType": "psychology",
+        "iconType": "reflection"
       },
       {
-        "lessonId":48,
-        "isRootItem":false,
-        "unlocksItems":[
-          24
-        ],
-        "unlocksFeature":[
-
-        ],
-        "unlocksAssignmentId":null,
-        "unlocksSmartGoalCategoryId":null,
-        "crossModule":false,
-        "featurePlacement":"dashboard",
-        "itemState":"locked",
-        "id":23,
-        "streamType":"nutrition",
-        "iconType":"goal"
+        "lessonId": 48,
+        "isRootItem": false,
+        "unlocksItems": [24],
+        "unlocksFeature": [],
+        "unlocksReflectionId": null,
+        "unlocksSmartGoalCategoryId": null,
+        "crossModule": false,
+        "featurePlacement": "dashboard",
+        "itemState": "locked",
+        "id": 23,
+        "streamType": "nutrition",
+        "iconType": "goal"
       },
       {
-        "lessonId":49,
-        "isRootItem":false,
-        "unlocksItems":[
-
-        ],
-        "unlocksFeature":[
-          "fiberIndicator"
-        ],
-        "unlocksAssignmentId":null,
-        "unlocksSmartGoalCategoryId":null,
-        "crossModule":false,
-        "featurePlacement":"dashboard",
-        "itemState":"locked",
-        "id":24,
-        "streamType":"nutrition",
-        "iconType":"nutrition"
+        "lessonId": 49,
+        "isRootItem": false,
+        "unlocksItems": [],
+        "unlocksFeature": ["fiberIndicator"],
+        "unlocksReflectionId": null,
+        "unlocksSmartGoalCategoryId": null,
+        "crossModule": false,
+        "featurePlacement": "dashboard",
+        "itemState": "locked",
+        "id": 24,
+        "streamType": "nutrition",
+        "iconType": "nutrition"
       },
       {
-        "lessonId":50,
-        "isRootItem":false,
-        "unlocksItems":[
-
-        ],
-        "unlocksFeature":[
-
-        ],
-        "unlocksAssignmentId":null,
-        "unlocksSmartGoalCategoryId":null,
-        "crossModule":false,
-        "featurePlacement":null,
-        "itemState":"locked",
-        "id":25,
-        "streamType":"physicalActivity",
-        "iconType":"education"
+        "lessonId": 50,
+        "isRootItem": false,
+        "unlocksItems": [],
+        "unlocksFeature": [],
+        "unlocksReflectionId": null,
+        "unlocksSmartGoalCategoryId": null,
+        "crossModule": false,
+        "featurePlacement": null,
+        "itemState": "locked",
+        "id": 25,
+        "streamType": "physicalActivity",
+        "iconType": "education"
       },
       {
-        "lessonId":26,
-        "isRootItem":false,
-        "unlocksItems":[
-
-        ],
-        "unlocksFeature":[
-
-        ],
-        "unlocksAssignmentId":null,
-        "unlocksSmartGoalCategoryId":null,
-        "crossModule":false,
-        "featurePlacement":"dashboard",
-        "itemState":"locked",
-        "id":26,
-        "streamType":"psychology",
-        "iconType":"reflection"
+        "lessonId": 26,
+        "isRootItem": false,
+        "unlocksItems": [],
+        "unlocksFeature": [],
+        "unlocksReflectionId": null,
+        "unlocksSmartGoalCategoryId": null,
+        "crossModule": false,
+        "featurePlacement": "dashboard",
+        "itemState": "locked",
+        "id": 26,
+        "streamType": "psychology",
+        "iconType": "reflection"
       }
     ],
-    "nextModuleUnlocksAt":null,
-    "isCompleted":false,
-    "id":5,
-    "title":"Eating Habits",
-    "nextModuleUnlockDelay":604800
+    "nextModuleUnlocksAt": null,
+    "isCompleted": false,
+    "id": 5,
+    "title": "Eating Habits",
+    "nextModuleUnlockDelay": 604800
   },
   {
-    "moduleItems":[
+    "moduleItems": [
       {
-        "lessonId":30,
-        "isRootItem":true,
-        "unlocksItems":[
-          28,
-          29,
-          31,
-          33
-        ],
-        "unlocksFeature":[
-
-        ],
-        "unlocksAssignmentId":null,
-        "unlocksSmartGoalCategoryId":null,
-        "crossModule":false,
-        "featurePlacement":"dashboard",
-        "itemState":"locked",
-        "id":27,
-        "streamType":"psychology",
-        "iconType":"reflection"
+        "lessonId": 30,
+        "isRootItem": true,
+        "unlocksItems": [28, 29, 31, 33],
+        "unlocksFeature": [],
+        "unlocksReflectionId": null,
+        "unlocksSmartGoalCategoryId": null,
+        "crossModule": false,
+        "featurePlacement": "dashboard",
+        "itemState": "locked",
+        "id": 27,
+        "streamType": "psychology",
+        "iconType": "reflection"
       },
       {
-        "lessonId":32,
-        "isRootItem":false,
-        "unlocksItems":[
-
-        ],
-        "unlocksFeature":[
-          "calorieTracker"
-        ],
-        "unlocksAssignmentId":null,
-        "unlocksSmartGoalCategoryId":null,
-        "crossModule":false,
-        "featurePlacement":"dashboard",
-        "itemState":"locked",
-        "id":28,
-        "streamType":"nutrition",
-        "iconType":"weight"
+        "lessonId": 32,
+        "isRootItem": false,
+        "unlocksItems": [],
+        "unlocksFeature": ["calorieTracker"],
+        "unlocksReflectionId": null,
+        "unlocksSmartGoalCategoryId": null,
+        "crossModule": false,
+        "featurePlacement": "dashboard",
+        "itemState": "locked",
+        "id": 28,
+        "streamType": "nutrition",
+        "iconType": "weight"
       },
       {
-        "lessonId":40,
-        "isRootItem":false,
-        "unlocksItems":[
-          30
-        ],
-        "unlocksFeature":[
-
-        ],
-        "unlocksAssignmentId":null,
-        "unlocksSmartGoalCategoryId":null,
-        "crossModule":false,
-        "featurePlacement":null,
-        "itemState":"locked",
-        "id":29,
-        "streamType":"physicalActivity",
-        "iconType":"education"
+        "lessonId": 40,
+        "isRootItem": false,
+        "unlocksItems": [30],
+        "unlocksFeature": [],
+        "unlocksReflectionId": null,
+        "unlocksSmartGoalCategoryId": null,
+        "crossModule": false,
+        "featurePlacement": null,
+        "itemState": "locked",
+        "id": 29,
+        "streamType": "physicalActivity",
+        "iconType": "education"
       },
       {
-        "lessonId":41,
-        "isRootItem":false,
-        "unlocksItems":[
-
-        ],
-        "unlocksFeature":[
-
-        ],
-        "unlocksAssignmentId":null,
-        "unlocksSmartGoalCategoryId":null,
-        "crossModule":false,
-        "featurePlacement":null,
-        "itemState":"locked",
-        "id":30,
-        "streamType":"physicalActivity",
-        "iconType":"education"
+        "lessonId": 41,
+        "isRootItem": false,
+        "unlocksItems": [],
+        "unlocksFeature": [],
+        "unlocksReflectionId": null,
+        "unlocksSmartGoalCategoryId": null,
+        "crossModule": false,
+        "featurePlacement": null,
+        "itemState": "locked",
+        "id": 30,
+        "streamType": "physicalActivity",
+        "iconType": "education"
       },
       {
-        "lessonId":13,
-        "isRootItem":false,
-        "unlocksItems":[
-          32
-        ],
-        "unlocksFeature":[
-
-        ],
-        "unlocksAssignmentId":null,
-        "unlocksSmartGoalCategoryId":null,
-        "crossModule":false,
-        "featurePlacement":null,
-        "itemState":"locked",
-        "id":31,
-        "streamType":"medical",
-        "iconType":"education"
+        "lessonId": 13,
+        "isRootItem": false,
+        "unlocksItems": [32],
+        "unlocksFeature": [],
+        "unlocksReflectionId": null,
+        "unlocksSmartGoalCategoryId": null,
+        "crossModule": false,
+        "featurePlacement": null,
+        "itemState": "locked",
+        "id": 31,
+        "streamType": "medical",
+        "iconType": "education"
       },
       {
-        "lessonId":14,
-        "isRootItem":false,
-        "unlocksItems":[
-
-        ],
-        "unlocksFeature":[
-
-        ],
-        "unlocksAssignmentId":null,
-        "unlocksSmartGoalCategoryId":null,
-        "crossModule":false,
-        "featurePlacement":"dashboard",
-        "itemState":"locked",
-        "id":32,
-        "streamType":"medical",
-        "iconType":"goal"
+        "lessonId": 14,
+        "isRootItem": false,
+        "unlocksItems": [],
+        "unlocksFeature": [],
+        "unlocksReflectionId": null,
+        "unlocksSmartGoalCategoryId": null,
+        "crossModule": false,
+        "featurePlacement": "dashboard",
+        "itemState": "locked",
+        "id": 32,
+        "streamType": "medical",
+        "iconType": "goal"
       },
       {
-        "lessonId":31,
-        "isRootItem":false,
-        "unlocksItems":[
-
-        ],
-        "unlocksFeature":[
-
-        ],
-        "unlocksAssignmentId":null,
-        "unlocksSmartGoalCategoryId":null,
-        "crossModule":false,
-        "featurePlacement":null,
-        "itemState":"locked",
-        "id":33,
-        "streamType":"psychology",
-        "iconType":"mood"
+        "lessonId": 31,
+        "isRootItem": false,
+        "unlocksItems": [],
+        "unlocksFeature": [],
+        "unlocksReflectionId": null,
+        "unlocksSmartGoalCategoryId": null,
+        "crossModule": false,
+        "featurePlacement": null,
+        "itemState": "locked",
+        "id": 33,
+        "streamType": "psychology",
+        "iconType": "mood"
       }
     ],
-    "nextModuleUnlocksAt":null,
-    "isCompleted":false,
-    "id":6,
-    "title":"Back to Basics",
-    "nextModuleUnlockDelay":604800
+    "nextModuleUnlocksAt": null,
+    "isCompleted": false,
+    "id": 6,
+    "title": "Back to Basics",
+    "nextModuleUnlockDelay": 604800
   },
   {
-    "moduleItems":[
+    "moduleItems": [
       {
-        "lessonId":36,
-        "isRootItem":true,
-        "unlocksItems":[
-          35,
-          36,
-          37,
-          38
-        ],
-        "unlocksFeature":[
-
-        ],
-        "unlocksAssignmentId":null,
-        "unlocksSmartGoalCategoryId":null,
-        "crossModule":false,
-        "featurePlacement":"dashboard",
-        "itemState":"locked",
-        "id":34,
-        "streamType":"psychology",
-        "iconType":"reflection"
+        "lessonId": 36,
+        "isRootItem": true,
+        "unlocksItems": [35, 36, 37, 38],
+        "unlocksFeature": [],
+        "unlocksReflectionId": null,
+        "unlocksSmartGoalCategoryId": null,
+        "crossModule": false,
+        "featurePlacement": "dashboard",
+        "itemState": "locked",
+        "id": 34,
+        "streamType": "psychology",
+        "iconType": "reflection"
       },
       {
-        "lessonId":35,
-        "isRootItem":false,
-        "unlocksItems":[
-
-        ],
-        "unlocksFeature":[
-
-        ],
-        "unlocksAssignmentId":null,
-        "unlocksSmartGoalCategoryId":null,
-        "crossModule":false,
-        "featurePlacement":"dashboard",
-        "itemState":"locked",
-        "id":35,
-        "streamType":"nutrition",
-        "iconType":"goal"
+        "lessonId": 35,
+        "isRootItem": false,
+        "unlocksItems": [],
+        "unlocksFeature": [],
+        "unlocksReflectionId": null,
+        "unlocksSmartGoalCategoryId": null,
+        "crossModule": false,
+        "featurePlacement": "dashboard",
+        "itemState": "locked",
+        "id": 35,
+        "streamType": "nutrition",
+        "iconType": "goal"
       },
       {
-        "lessonId":46,
-        "isRootItem":false,
-        "unlocksItems":[
-
-        ],
-        "unlocksFeature":[
-
-        ],
-        "unlocksAssignmentId":null,
-        "unlocksSmartGoalCategoryId":null,
-        "crossModule":false,
-        "featurePlacement":null,
-        "itemState":"locked",
-        "id":36,
-        "streamType":"physicalActivity",
-        "iconType":"education"
+        "lessonId": 46,
+        "isRootItem": false,
+        "unlocksItems": [],
+        "unlocksFeature": [],
+        "unlocksReflectionId": null,
+        "unlocksSmartGoalCategoryId": null,
+        "crossModule": false,
+        "featurePlacement": null,
+        "itemState": "locked",
+        "id": 36,
+        "streamType": "physicalActivity",
+        "iconType": "education"
       },
       {
-        "lessonId":38,
-        "isRootItem":false,
-        "unlocksItems":[
-
-        ],
-        "unlocksFeature":[
-
-        ],
-        "unlocksAssignmentId":null,
-        "unlocksSmartGoalCategoryId":null,
-        "crossModule":false,
-        "featurePlacement":"dashboard",
-        "itemState":"locked",
-        "id":37,
-        "streamType":"psychology",
-        "iconType":"reflection"
+        "lessonId": 38,
+        "isRootItem": false,
+        "unlocksItems": [],
+        "unlocksFeature": [],
+        "unlocksReflectionId": null,
+        "unlocksSmartGoalCategoryId": null,
+        "crossModule": false,
+        "featurePlacement": "dashboard",
+        "itemState": "locked",
+        "id": 37,
+        "streamType": "psychology",
+        "iconType": "reflection"
       },
       {
-        "lessonId":37,
-        "isRootItem":false,
-        "unlocksItems":[
-
-        ],
-        "unlocksFeature":[
-
-        ],
-        "unlocksAssignmentId":null,
-        "unlocksSmartGoalCategoryId":null,
-        "crossModule":false,
-        "featurePlacement":null,
-        "itemState":"locked",
-        "id":38,
-        "streamType":"psychology",
-        "iconType":"education"
+        "lessonId": 37,
+        "isRootItem": false,
+        "unlocksItems": [],
+        "unlocksFeature": [],
+        "unlocksReflectionId": null,
+        "unlocksSmartGoalCategoryId": null,
+        "crossModule": false,
+        "featurePlacement": null,
+        "itemState": "locked",
+        "id": 38,
+        "streamType": "psychology",
+        "iconType": "education"
       }
     ],
-    "nextModuleUnlocksAt":null,
-    "isCompleted":false,
-    "id":7,
-    "title":"Let's talk about stress",
-    "nextModuleUnlockDelay":604800
+    "nextModuleUnlocksAt": null,
+    "isCompleted": false,
+    "id": 7,
+    "title": "Let's talk about stress",
+    "nextModuleUnlockDelay": 604800
   },
   {
-    "moduleItems":[
+    "moduleItems": [
       {
-        "lessonId":43,
-        "isRootItem":true,
-        "unlocksItems":[
-          40,
-          41,
-          42,
-          43
-        ],
-        "unlocksFeature":[
-
-        ],
-        "unlocksAssignmentId":null,
-        "unlocksSmartGoalCategoryId":null,
-        "crossModule":false,
-        "featurePlacement":"dashboard",
-        "itemState":"locked",
-        "id":39,
-        "streamType":"psychology",
-        "iconType":"reflection"
+        "lessonId": 43,
+        "isRootItem": true,
+        "unlocksItems": [40, 41, 42, 43],
+        "unlocksFeature": [],
+        "unlocksReflectionId": null,
+        "unlocksSmartGoalCategoryId": null,
+        "crossModule": false,
+        "featurePlacement": "dashboard",
+        "itemState": "locked",
+        "id": 39,
+        "streamType": "psychology",
+        "iconType": "reflection"
       },
       {
-        "lessonId":45,
-        "isRootItem":false,
-        "unlocksItems":[
-
-        ],
-        "unlocksFeature":[
-
-        ],
-        "unlocksAssignmentId":null,
-        "unlocksSmartGoalCategoryId":null,
-        "crossModule":false,
-        "featurePlacement":"dashboard",
-        "itemState":"locked",
-        "id":40,
-        "streamType":"nutrition",
-        "iconType":"goal"
+        "lessonId": 45,
+        "isRootItem": false,
+        "unlocksItems": [],
+        "unlocksFeature": [],
+        "unlocksReflectionId": null,
+        "unlocksSmartGoalCategoryId": null,
+        "crossModule": false,
+        "featurePlacement": "dashboard",
+        "itemState": "locked",
+        "id": 40,
+        "streamType": "nutrition",
+        "iconType": "goal"
       },
       {
-        "lessonId":69,
-        "isRootItem":false,
-        "unlocksItems":[
-
-        ],
-        "unlocksFeature":[
-
-        ],
-        "unlocksAssignmentId":null,
-        "unlocksSmartGoalCategoryId":null,
-        "crossModule":false,
-        "featurePlacement":null,
-        "itemState":"locked",
-        "id":41,
-        "streamType":"physicalActivity",
-        "iconType":"education"
+        "lessonId": 69,
+        "isRootItem": false,
+        "unlocksItems": [],
+        "unlocksFeature": [],
+        "unlocksReflectionId": null,
+        "unlocksSmartGoalCategoryId": null,
+        "crossModule": false,
+        "featurePlacement": null,
+        "itemState": "locked",
+        "id": 41,
+        "streamType": "physicalActivity",
+        "iconType": "education"
       },
       {
-        "lessonId":42,
-        "isRootItem":false,
-        "unlocksItems":[
-
-        ],
-        "unlocksFeature":[
-
-        ],
-        "unlocksAssignmentId":null,
-        "unlocksSmartGoalCategoryId":null,
-        "crossModule":false,
-        "featurePlacement":null,
-        "itemState":"locked",
-        "id":42,
-        "streamType":"psychology",
-        "iconType":"education"
+        "lessonId": 42,
+        "isRootItem": false,
+        "unlocksItems": [],
+        "unlocksFeature": [],
+        "unlocksReflectionId": null,
+        "unlocksSmartGoalCategoryId": null,
+        "crossModule": false,
+        "featurePlacement": null,
+        "itemState": "locked",
+        "id": 42,
+        "streamType": "psychology",
+        "iconType": "education"
       },
       {
-        "lessonId":44,
-        "isRootItem":false,
-        "unlocksItems":[
-
-        ],
-        "unlocksFeature":[
-
-        ],
-        "unlocksAssignmentId":null,
-        "unlocksSmartGoalCategoryId":null,
-        "crossModule":false,
-        "featurePlacement":null,
-        "itemState":"locked",
-        "id":43,
-        "streamType":"psychology",
-        "iconType":"education"
+        "lessonId": 44,
+        "isRootItem": false,
+        "unlocksItems": [],
+        "unlocksFeature": [],
+        "unlocksReflectionId": null,
+        "unlocksSmartGoalCategoryId": null,
+        "crossModule": false,
+        "featurePlacement": null,
+        "itemState": "locked",
+        "id": 43,
+        "streamType": "psychology",
+        "iconType": "education"
       }
     ],
-    "nextModuleUnlocksAt":null,
-    "isCompleted":false,
-    "id":8,
-    "title":"Know your limits",
-    "nextModuleUnlockDelay":604800
+    "nextModuleUnlocksAt": null,
+    "isCompleted": false,
+    "id": 8,
+    "title": "Know your limits",
+    "nextModuleUnlockDelay": 604800
   }
 ];

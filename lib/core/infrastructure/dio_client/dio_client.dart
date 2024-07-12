@@ -243,7 +243,7 @@ Future<Either<RequestError, T>> fetchResponse<T>(
   String? savePath,
 }) async {
   Response<dynamic> response;
-  final bool connected = await getIt<NetworkStatusService>().checkInternetConnection();
+
   dio.options.headers = headers;
   try {
     switch (type) {
@@ -307,6 +307,8 @@ Future<Either<RequestError, T>> fetchResponse<T>(
         break;
     }
   } on DioException catch (error) {
+    final bool connected = await getIt<NetworkStatusService>().checkInternetConnection();
+
     log.e(error.toString(), error: error.runtimeType);
 
     if (!connected) {

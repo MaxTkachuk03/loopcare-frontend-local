@@ -35,8 +35,8 @@ class CategoryLabel extends StatelessWidget {
   factory CategoryLabel.community() =>
       CategoryLabel(label: RiverModuleStreamType.community.label, color: AppColors.orangeRegular);
 
-  factory CategoryLabel.assignment() =>
-      CategoryLabel(label: LocalizedTexts.assignment.tr(), color: AppColors.petrolRegular);
+  factory CategoryLabel.reflection() =>
+      CategoryLabel(label: LocalizedTexts.reflection.tr(), color: AppColors.petrolRegular);
 
   factory CategoryLabel.difficultyEasy() =>
       CategoryLabel(label: ProgramDifficulty.easy.label, color: AppColors.petrolRegular);

@@ -71,7 +71,7 @@ abstract class Account implements _$Account {
 
   bool get isGroupSessionsUnlocked => features.grouping;
 
-  bool get isAssignmentsUnlocked => features.assignments;
+  bool get isReflectionsUnlocked => features.assignments;
 
   bool get isBuddyUnlocked => features.buddy;
 
