@@ -443,5 +443,9 @@ class AppRouter extends $AppRouter {
           path: AppRoutes.goalReview,
           page: GoalReviewRoute.page,
         ),
+        AutoRoute(
+          path: AppRoutes.maintenance,
+          page: MaintenanceRoute.page,
+        ),
       ];
 }

@@ -150,8 +150,8 @@ class AppRoutes {
   static const String goalsStatistics = '/goals-statistics';
   static const String goalReview = '/goal-review';
 
-  // Create Path methods
-  static String createLessonPath(int id, [int page = 0]) => '/lesson/$id/page/$page';
+  // Maintenance
+  static const String maintenance = '/maintenance';
 
   AppRoutes._();
 }
