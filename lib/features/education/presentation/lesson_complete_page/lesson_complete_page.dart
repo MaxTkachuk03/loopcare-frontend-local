@@ -25,6 +25,7 @@ import 'package:loopcare_frontend/features/education/domain/extra_action_types.d
 import 'package:loopcare_frontend/features/education/presentation/education_page/utils/get_label_by_stream_type.dart';
 import 'package:loopcare_frontend/features/education/presentation/lesson_complete_page/widgets/feature_unlock.dart';
 import 'package:loopcare_frontend/features/education/presentation/lesson_complete_page/widgets/unlock_group_session_feature.dart';
+import 'package:loopcare_frontend/features/reflections/application/reflections_bloc.dart';
 import 'package:loopcare_frontend/features/river/application/river_bloc.dart';
 import 'package:loopcare_frontend/features/river/infrastructure/river_module_stream_type.dart';
 import 'package:loopcare_frontend/injection.dart';
@@ -43,10 +44,16 @@ class LessonCompletePage extends StatefulWidget {
 }
 
 class _LessonCompletePageState extends State<LessonCompletePage> {
-
   @override
   void initState() {
     super.initState();
+
+    final riverState = context.read<RiverBloc>().state.data;
+
+    if (riverState.activeModuleItem?.unlocksReflectionId != null) {
+      context.read<ReflectionsBloc>().add(const ReflectionsEvent.getReflections());
+    }
+
     context.read<RiverBloc>().add(const RiverEvent.updateActiveModuleItemStatus());
   }
 

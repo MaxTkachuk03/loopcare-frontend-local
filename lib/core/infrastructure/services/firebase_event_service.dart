@@ -7,6 +7,7 @@ import 'package:loopcare_frontend/core/infrastructure/services/stored_account_se
 import 'package:loopcare_frontend/features/education/domain/lesson_content_type.dart';
 import 'package:loopcare_frontend/features/physical_activities/domain/physical_program.dart';
 import 'package:loopcare_frontend/features/physical_activities/domain/physical_program_exercise.dart';
+import 'package:loopcare_frontend/features/reflections/domain/reflection.dart';
 
 class AnalyticsEventService {
   static final instance = AnalyticsEventService._();
@@ -237,7 +238,7 @@ class AnalyticsEventService {
     );
   }
 
-  void userOpenedAssignment(question) async {
+  void userOpenedAssignment(Reflection question) async {
     logEvent(
       FirebaseEvents.userOpenedAssignment,
       parameters: {
@@ -250,15 +251,14 @@ class AnalyticsEventService {
 
   void finalizeAssignment(
     String event,
-    String assignmentId,
-    String assignmentTitle,
+    Reflection reflection,
     bool fromDashboard,
   ) async {
     logEvent(
       event,
       parameters: {
-        CustomDefinitions.assignmentId: assignmentId,
-        CustomDefinitions.assignmentTitle: assignmentTitle,
+        CustomDefinitions.assignmentId: reflection.id,
+        CustomDefinitions.assignmentTitle: reflection.title,
         CustomDefinitions.timestamp: DateTime.now().toIso8601String(),
         CustomDefinitions.navigatedFrom: fromDashboard ? 'Dashboard' : 'My assignments',
       },
@@ -267,16 +267,15 @@ class AnalyticsEventService {
 
   void assignmentMotivationScale(
     String value,
-    String assignmentId,
-    String assignmentTitle,
+    Reflection reflection,
     bool fromDashboard,
   ) async {
     logEvent(
       FirebaseEvents.assignmentMotivationScale,
       parameters: {
         CustomDefinitions.value: value,
-        CustomDefinitions.assignmentId: assignmentId,
-        CustomDefinitions.assignmentTitle: assignmentTitle,
+        CustomDefinitions.assignmentId: reflection.id,
+        CustomDefinitions.assignmentTitle: reflection.title,
         CustomDefinitions.timestamp: DateTime.now().toIso8601String(),
         CustomDefinitions.navigatedFrom: fromDashboard ? 'Dashboard' : 'My assignments',
       },

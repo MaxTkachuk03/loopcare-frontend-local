@@ -595,8 +595,8 @@ class LocalizedTexts {
   static const String assignmentAddedTitle = "assignmentAddedTitle";
   static const String assignmentAddedText = "assignmentAddedText";
   static const String startNow = "startNow";
-  static const String assignment = "assignment";
-  static const String assignments = "assignments";
+  static const String reflection = "reflection";
+  static const String reflections = "reflections";
   static const String seeLesson = "seeLesson";
   static const String allAssignmentsCompleted = "allAssignmentsCompleted";
   static const String errorOpenTextMessage = "errorOpenTextMessage";
@@ -604,7 +604,7 @@ class LocalizedTexts {
   static const String doneToday = "doneToday";
   static const String completeBefore = "completeBefore";
   static const String completedOn = "completedOn";
-  static const String pastAssignments = "pastAssignments";
+  static const String pastReflections = "pastReflections";
 
   //Group chat
   static const String groupChat = 'groupChat';

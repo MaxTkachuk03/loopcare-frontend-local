@@ -96,7 +96,7 @@ class AuthenticationData with _$AuthenticationData {
 
   bool get isPhysicalActivitiesUnlocked => account?.isPhysicalActivitiesUnlocked ?? false;
 
-  bool get isAssignmentsUnlocked => account?.isAssignmentsUnlocked ?? false;
+  bool get isReflectionsUnlocked => account?.isReflectionsUnlocked ?? false;
 
   bool get isBuddyUnlocked => account?.isBuddyUnlocked ?? false;
 

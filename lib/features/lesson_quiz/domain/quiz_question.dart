@@ -1,6 +1,6 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:loopcare_frontend/features/lesson_quiz/domain/question_answer_type.dart';
 import 'package:loopcare_frontend/features/lesson_quiz/domain/quiz_question_answer.dart';
-import 'package:loopcare_frontend/features/lesson_quiz/domain/quiz_question_answer_type.dart';
 import 'package:loopcare_frontend/features/lesson_quiz/domain/quiz_question_option.dart';
 
 part 'quiz_question.freezed.dart';
@@ -18,7 +18,7 @@ class QuizQuestion with _$QuizQuestion {
     required List<QuizQuestionOption> options,
     required List<QuizQuestionAnswer> answers,
     required String? question,
-    required QuizQuestionAnswerType answerType,
+    required QuestionAnswerType answerType,
   }) = _QuizQuestion;
 
   factory QuizQuestion.fromJson(Map<String, dynamic> json) => _$QuizQuestionFromJson(json);

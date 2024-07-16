@@ -6,6 +6,7 @@ class CustomElevatedButton extends StatelessWidget {
   final Color? color;
   final ButtonStyle? styles;
   final String label;
+  final bool isLoading;
 
   const CustomElevatedButton({
     super.key,
@@ -13,17 +14,20 @@ class CustomElevatedButton extends StatelessWidget {
     this.onPressed,
     this.color,
     this.styles,
+    this.isLoading = false,
   });
 
   factory CustomElevatedButton.coralFullWidth({
     Key? key,
     VoidCallback? onPressed,
     required String label,
+    bool isLoading = false,
   }) =>
       CustomElevatedButton(
         key: key,
-        onPressed: onPressed,
         label: label,
+        isLoading: isLoading,
+        onPressed: onPressed,
         styles: ElevatedButton.styleFrom(
           backgroundColor: AppColors.coralRegular,
           minimumSize: ButtonStyles.fullWidthSize,
@@ -36,11 +40,13 @@ class CustomElevatedButton extends StatelessWidget {
     Key? key,
     VoidCallback? onPressed,
     required String label,
+    bool isLoading = false,
   }) =>
       CustomElevatedButton(
         key: key,
         onPressed: onPressed,
         label: label,
+        isLoading: isLoading,
         styles: ElevatedButton.styleFrom(
           backgroundColor: AppColors.coralRegular,
           foregroundColor: AppColors.blueDarker,
@@ -51,11 +57,13 @@ class CustomElevatedButton extends StatelessWidget {
     Key? key,
     VoidCallback? onPressed,
     required String label,
+    bool isLoading = false,
   }) =>
       CustomElevatedButton(
         key: key,
         onPressed: onPressed,
         label: label,
+        isLoading: isLoading,
         styles: ElevatedButton.styleFrom(
           backgroundColor: AppColors.coralRegular,
           minimumSize: ButtonStyles.smallSize,
@@ -67,12 +75,13 @@ class CustomElevatedButton extends StatelessWidget {
     Key? key,
     VoidCallback? onPressed,
     required String label,
-    bool fullWidth = false,
+    bool isLoading = false,
   }) =>
       CustomElevatedButton(
         key: key,
         onPressed: onPressed,
         label: label,
+        isLoading: isLoading,
         styles: ElevatedButton.styleFrom(
           minimumSize: ButtonStyles.fullWidthSize,
           backgroundColor: AppColors.orangeRegular,
@@ -85,12 +94,13 @@ class CustomElevatedButton extends StatelessWidget {
     Key? key,
     VoidCallback? onPressed,
     required String label,
-    bool fullWidth = false,
+    bool isLoading = false,
   }) =>
       CustomElevatedButton(
         key: key,
         onPressed: onPressed,
         label: label,
+        isLoading: isLoading,
         styles: ElevatedButton.styleFrom(
           backgroundColor: AppColors.orangeRegular,
           foregroundColor: AppColors.blueDarker,
@@ -101,12 +111,13 @@ class CustomElevatedButton extends StatelessWidget {
     Key? key,
     VoidCallback? onPressed,
     required String label,
-    bool fullWidth = false,
+    bool isLoading = false,
   }) =>
       CustomElevatedButton(
         key: key,
         onPressed: onPressed,
         label: label,
+        isLoading: isLoading,
         styles: ElevatedButton.styleFrom(
           backgroundColor: AppColors.orangeRegular,
           foregroundColor: AppColors.blueDarker,
@@ -118,13 +129,14 @@ class CustomElevatedButton extends StatelessWidget {
     Key? key,
     VoidCallback? onPressed,
     required String label,
-    bool fullWidth = false,
+    bool isLoading = false,
   }) =>
       CustomElevatedButton(
         key: key,
         onPressed: onPressed,
         color: AppColors.blueDarker,
         label: label,
+        isLoading: isLoading,
         styles: ElevatedButton.styleFrom(
           backgroundColor: AppColors.yellowRegular,
           minimumSize: ButtonStyles.fullWidthSize,
@@ -137,13 +149,14 @@ class CustomElevatedButton extends StatelessWidget {
     Key? key,
     VoidCallback? onPressed,
     required String label,
-    bool fullWidth = false,
+    bool isLoading = false,
   }) =>
       CustomElevatedButton(
         key: key,
         onPressed: onPressed,
         color: AppColors.blueDarker,
         label: label,
+        isLoading: isLoading,
         styles: ElevatedButton.styleFrom(
           backgroundColor: AppColors.yellowRegular,
           foregroundColor: AppColors.blueDarker,
@@ -154,13 +167,14 @@ class CustomElevatedButton extends StatelessWidget {
     Key? key,
     VoidCallback? onPressed,
     required String label,
-    bool fullWidth = false,
+    bool isLoading = false,
   }) =>
       CustomElevatedButton(
         key: key,
         onPressed: onPressed,
         color: AppColors.blueDarker,
         label: label,
+        isLoading: isLoading,
         styles: ElevatedButton.styleFrom(
           backgroundColor: AppColors.yellowRegular,
           foregroundColor: AppColors.blueDarker,
@@ -173,13 +187,14 @@ class CustomElevatedButton extends StatelessWidget {
     VoidCallback? onPressed,
     required String label,
     EdgeInsetsGeometry? contentPadding,
-    bool fullWidth = false,
+    bool isLoading = false,
   }) =>
       CustomElevatedButton(
         key: key,
         onPressed: onPressed,
         color: AppColors.blueDarker,
         label: label,
+        isLoading: isLoading,
         styles: ElevatedButton.styleFrom(
           padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
           backgroundColor: AppColors.yellowRegular,
@@ -188,17 +203,17 @@ class CustomElevatedButton extends StatelessWidget {
         ),
       );
 
-
   factory CustomElevatedButton.greenFullWidth({
     Key? key,
     VoidCallback? onPressed,
     required String label,
-    bool fullWidth = false,
+    bool isLoading = false,
   }) =>
       CustomElevatedButton(
         key: key,
         onPressed: onPressed,
         label: label,
+        isLoading: isLoading,
         styles: ElevatedButton.styleFrom(
           minimumSize: ButtonStyles.fullWidthSize,
           backgroundColor: AppColors.greenRegular,
@@ -211,12 +226,13 @@ class CustomElevatedButton extends StatelessWidget {
     Key? key,
     VoidCallback? onPressed,
     required String label,
-    bool fullWidth = false,
+    bool isLoading = false,
   }) =>
       CustomElevatedButton(
         key: key,
         onPressed: onPressed,
         label: label,
+        isLoading: isLoading,
         styles: ElevatedButton.styleFrom(
           backgroundColor: AppColors.greenRegular,
           foregroundColor: AppColors.blueDarker,
@@ -227,12 +243,13 @@ class CustomElevatedButton extends StatelessWidget {
     Key? key,
     VoidCallback? onPressed,
     required String label,
-    bool fullWidth = false,
+    bool isLoading = false,
   }) =>
       CustomElevatedButton(
         key: key,
         onPressed: onPressed,
         label: label,
+        isLoading: isLoading,
         styles: ElevatedButton.styleFrom(
           backgroundColor: AppColors.greenRegular,
           foregroundColor: AppColors.blueDarker,
@@ -244,12 +261,13 @@ class CustomElevatedButton extends StatelessWidget {
     Key? key,
     VoidCallback? onPressed,
     required String label,
-    bool fullWidth = false,
+    bool isLoading = false,
   }) =>
       CustomElevatedButton(
         key: key,
         onPressed: onPressed,
         label: label,
+        isLoading: isLoading,
         styles: ElevatedButton.styleFrom(
           minimumSize: ButtonStyles.fullWidthSize,
           backgroundColor: AppColors.petrolRegular,
@@ -262,12 +280,13 @@ class CustomElevatedButton extends StatelessWidget {
     Key? key,
     VoidCallback? onPressed,
     required String label,
-    bool fullWidth = false,
+    bool isLoading = false,
   }) =>
       CustomElevatedButton(
         key: key,
         onPressed: onPressed,
         label: label,
+        isLoading: isLoading,
         styles: ElevatedButton.styleFrom(
           backgroundColor: AppColors.petrolRegular,
           foregroundColor: AppColors.white,
@@ -278,12 +297,13 @@ class CustomElevatedButton extends StatelessWidget {
     Key? key,
     VoidCallback? onPressed,
     required String label,
-    bool fullWidth = false,
+    bool isLoading = false,
   }) =>
       CustomElevatedButton(
         key: key,
         onPressed: onPressed,
         label: label,
+        isLoading: isLoading,
         styles: ElevatedButton.styleFrom(
           backgroundColor: AppColors.petrolRegular,
           foregroundColor: AppColors.white,
@@ -295,12 +315,13 @@ class CustomElevatedButton extends StatelessWidget {
     Key? key,
     VoidCallback? onPressed,
     required String label,
-    bool fullWidth = false,
+    bool isLoading = false,
   }) =>
       CustomElevatedButton(
         key: key,
         onPressed: onPressed,
         label: label,
+        isLoading: isLoading,
         styles: ElevatedButton.styleFrom(
           backgroundColor: AppColors.blueRegular,
           minimumSize: ButtonStyles.fullWidthSize,
@@ -313,12 +334,13 @@ class CustomElevatedButton extends StatelessWidget {
     Key? key,
     VoidCallback? onPressed,
     required String label,
-    bool fullWidth = false,
+    bool isLoading = false,
   }) =>
       CustomElevatedButton(
         key: key,
         onPressed: onPressed,
         label: label,
+        isLoading: isLoading,
         styles: ElevatedButton.styleFrom(
           backgroundColor: AppColors.blueRegular,
           foregroundColor: AppColors.white,
@@ -329,12 +351,13 @@ class CustomElevatedButton extends StatelessWidget {
     Key? key,
     VoidCallback? onPressed,
     required String label,
-    bool fullWidth = false,
+    bool isLoading = false,
   }) =>
       CustomElevatedButton(
         key: key,
         onPressed: onPressed,
         label: label,
+        isLoading: isLoading,
         styles: ElevatedButton.styleFrom(
           backgroundColor: AppColors.blueRegular,
           foregroundColor: AppColors.white,
@@ -344,10 +367,20 @@ class CustomElevatedButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ElevatedButton(
-      onPressed: onPressed,
-      style: styles,
-      child: Text(label),
-    );
+    return isLoading
+        ? ElevatedButton.icon(
+            onPressed: null,
+            style: styles,
+            label: Text(label),
+            icon: const SizedBox(
+                width: 20,
+                height: 20,
+                child: CircularProgressIndicator(color: AppColors.white, strokeWidth: 3)),
+          )
+        : ElevatedButton(
+            onPressed: onPressed,
+            style: styles,
+            child: Text(label),
+          );
   }
 }

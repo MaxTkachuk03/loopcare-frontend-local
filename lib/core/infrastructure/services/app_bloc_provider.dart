@@ -3,7 +3,6 @@ import 'package:loopcare_frontend/core/application/analytics_bloc.dart';
 import 'package:loopcare_frontend/core/application/app_update/app_update_bloc.dart';
 import 'package:loopcare_frontend/features/account/application/group_preferences_bloc.dart';
 import 'package:loopcare_frontend/features/account/presentation/buddy_page/application/buddy_bloc.dart';
-import 'package:loopcare_frontend/features/assignments/application/assignments_bloc.dart';
 import 'package:loopcare_frontend/features/authentication/application/authentication_bloc.dart';
 import 'package:loopcare_frontend/features/chat/application/chat_bloc/group_chat_bloc.dart';
 import 'package:loopcare_frontend/features/chat/application/chat_watcher_bloc/chat_watcher_bloc.dart';
@@ -36,6 +35,7 @@ import 'package:loopcare_frontend/features/onboarding/application/mental_questio
 import 'package:loopcare_frontend/features/onboarding/application/physical_questions/physical_questions_bloc.dart';
 import 'package:loopcare_frontend/features/physical_activities/application/physical_activities_preferences/physical_activities_preferences_bloc.dart';
 import 'package:loopcare_frontend/features/physical_activities/application/physical_programs_bloc.dart';
+import 'package:loopcare_frontend/features/reflections/application/reflections_bloc.dart';
 import 'package:loopcare_frontend/features/report_abuse/application/report_abuse_bloc.dart';
 import 'package:loopcare_frontend/features/river/application/river_bloc.dart';
 import 'package:loopcare_frontend/features/smart_goals/application/smart_goals_bloc.dart';
@@ -159,8 +159,8 @@ class AppBlocProvider {
         BlocProvider<QuizzesBloc>(
           create: (_) => getIt<QuizzesBloc>(),
         ),
-        BlocProvider<AssignmentsBloc>(
-          create: (_) => getIt<AssignmentsBloc>(),
+        BlocProvider<ReflectionsBloc>(
+          create: (_) => getIt<ReflectionsBloc>(),
         ),
         BlocProvider<ChatWatcherBloc>(
           create: (_) => getIt<ChatWatcherBloc>(),
