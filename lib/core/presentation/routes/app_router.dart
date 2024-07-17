@@ -111,6 +111,10 @@ class AppRouter extends $AppRouter {
           path: AppRoutes.changeEmail,
           page: ChangeEmailAddressRoute.page,
         ), // added
+        AutoRoute(
+          path: AppRoutes.selectAvatar,
+          page: SelectAvatarRoute.page,
+        ),
 
         // Barcode scanner
         AutoRoute(

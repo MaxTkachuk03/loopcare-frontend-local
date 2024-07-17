@@ -364,6 +364,13 @@ class LocalizedTexts {
   static const String requiredField = 'requiredField';
   static const String send = 'send';
 
+  // User profile avatar
+  static const String avatar = 'avatar';
+  static const String selectProfilePicture = 'selectProfilePicture';
+  static const String moveToResize = 'moveToResize';
+  static const String chooseYourAvatar = 'chooseYourAvatar';
+  static const String addPhoto = 'addPhoto';
+
   // Emergency Numbers
   static const String emergencySubtitle = 'emergencySubtitle';
 
@@ -1168,5 +1175,4 @@ class LocalizedTexts {
   static const String maintenanceLabel = 'maintenanceLabel';
   static const String maintenancePageTitle = 'maintenancePageTitle';
   static const String maintenancePageDescription = 'maintenancePageDescription';
-
 }

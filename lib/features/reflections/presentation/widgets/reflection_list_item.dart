@@ -25,9 +25,7 @@ class ReflectionListItem extends StatelessWidget {
           namedArgs: {'date': item.completedAt?.dayWithMonthWithoutLeadingZero ?? ''},
         )
       : LocalizedTexts.completeBefore.tr(
-          namedArgs: {
-            'date': item.completedAt?.plusWeekShortVersion ?? ''
-          }, // TODO change completedAt => unlockedAt when back end will be ready
+          namedArgs: {'date': item.unlockedAt?.plusWeekShortVersion ?? ''},
         );
 
   @override

@@ -15,7 +15,7 @@ class AccountContainer extends StatelessWidget {
       ),
       elevation: 3,
       child: Padding(
-        padding: const EdgeInsets.all(24.0),
+        padding: const EdgeInsets.symmetric(horizontal: 26.0, vertical: 34.0),
         child: child,
       ),
     );
