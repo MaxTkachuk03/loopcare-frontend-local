@@ -72,7 +72,8 @@ class RiverBloc extends Bloc<RiverEvent, RiverState> {
     );
   }
 
-  FutureOr<void> _onUpdateActiveModuleItemStatus(UpdateActiveModuleItemStatus event, Emitter<RiverState> emit) async {
+  FutureOr<void> _onUpdateActiveModuleItemStatus(
+      UpdateActiveModuleItemStatus event, Emitter<RiverState> emit) async {
     final moduleItem = state.data.activeModuleItem;
     var activeModule = state.data.activeModule;
 
@@ -195,7 +196,8 @@ class RiverBloc extends Bloc<RiverEvent, RiverState> {
     }
   }
 
-  FutureOr<void> _onCompleteActiveModule(CompleteActiveModule event, Emitter<RiverState> emit) async {
+  FutureOr<void> _onCompleteActiveModule(
+      CompleteActiveModule event, Emitter<RiverState> emit) async {
     final activeModule = state.data.activeModule!.copyWith(
       isCompleted: true,
     );
@@ -261,7 +263,9 @@ class RiverBloc extends Bloc<RiverEvent, RiverState> {
 
   RiverModule _updateModuleItem(int moduleId, RiverModuleItem moduleItem) {
     final module = state.data.modules.firstWhere((m) => m.id == moduleId);
-    return module.copyWith(moduleItems: module.moduleItems.map((i) => i.id == moduleItem.id ? moduleItem : i).toList());
+    return module.copyWith(
+        moduleItems:
+            module.moduleItems.map((i) => i.id == moduleItem.id ? moduleItem : i).toList());
   }
 
   bool get _isActiveModuleCompleted {
@@ -269,7 +273,8 @@ class RiverBloc extends Bloc<RiverEvent, RiverState> {
     final isActiveModuleNotCompleted = !(activeModule?.isCompleted ?? true);
     final isTimePassed = state.data.currentPage == 0 ||
         (activeModule?.nextModuleUnlocksAt?.isBefore(DateTime.timestamp()) ?? false);
-    final isEveryModuleItemsCompleted = activeModule?.moduleItems.every((item) => item.isCompleted) ?? false;
+    final isEveryModuleItemsCompleted =
+        activeModule?.moduleItems.every((item) => item.isCompleted) ?? false;
 
     return isActiveModuleNotCompleted && isTimePassed && isEveryModuleItemsCompleted;
   }

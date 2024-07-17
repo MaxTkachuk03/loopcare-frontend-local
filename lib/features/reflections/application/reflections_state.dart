@@ -40,6 +40,19 @@ class ReflectionsStateData with _$ReflectionsStateData {
     }).toList();
   }
 
+  List<Reflection> getSelectedWeekUndoneReflections(DateTime selectedDay) {
+    final startDate = selectedDay.firstDayOfCurrentWeek;
+    final endDate = selectedDay.lastDayOfCurrentWeek;
+
+    return reflections.where((r) {
+      final unlockedDate = r.unlockedAt;
+
+      if (unlockedDate == null) return false;
+
+      return unlockedDate.inRange(startDate, endDate) && r.completedAt == null;
+    }).toList();
+  }
+
   List<Reflection> getSelectedDayDoneReflections(DateTime selectedDay) =>
       reflections.where((r) => r.completedAt?.dateOnly == selectedDay.dateOnly).toList();
 
@@ -51,7 +64,7 @@ class ReflectionsStateData with _$ReflectionsStateData {
 
       if (unlockedDate == null) return false;
 
-      return unlockedDate.isBefore(endDate) && !r.isComplete;
+      return r.completedAt != null || unlockedDate.isBefore(endDate) && !r.isComplete;
     }).toList();
   }
 }

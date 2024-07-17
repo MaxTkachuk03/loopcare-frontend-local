@@ -32,7 +32,7 @@ class MyReflectionsPage extends StatelessWidget {
             child: BlocBuilder<ReflectionsBloc, ReflectionsState>(
               builder: (context, state) {
                 final currentWeekReflections =
-                    state.data.getSelectedWeekReflections(DateTime.now());
+                    state.data.getSelectedWeekUndoneReflections(DateTime.now());
 
                 final pastReflections = state.data.getPastReflections(DateTime.now());
 

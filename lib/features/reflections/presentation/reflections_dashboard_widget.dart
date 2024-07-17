@@ -51,9 +51,12 @@ class ReflectionsDashboardWidget extends StatelessWidget {
               builder: (context, state) {
                 final hasReflections = state.data.hasReflectionsForCurrentWeek(date);
 
-                final selectedWeekReflections = state.data.getSelectedWeekReflections(date);
+                final selectedWeekReflections = state.data.getSelectedWeekUndoneReflections(date);
 
                 final doneTodayReflections = state.data.getSelectedDayDoneReflections(date);
+
+                final showDivider =
+                    doneTodayReflections.isNotEmpty && selectedWeekReflections.isNotEmpty;
 
                 return state.maybeMap(
                   loading: (_) => const SizedBox(height: 100, child: Loader()),
@@ -76,14 +79,13 @@ class ReflectionsDashboardWidget extends StatelessWidget {
                                   title: LocalizedTexts.thisWeek.tr().capitalize(),
                                   fromDashboard: true,
                                 ),
-                              if (doneTodayReflections.isNotEmpty) ...[
-                                const Divider(color: AppColors.blueLighter),
+                              if (showDivider) const Divider(color: AppColors.blueLighter),
+                              if (doneTodayReflections.isNotEmpty)
                                 ReflectionsList(
                                   list: doneTodayReflections,
                                   title: LocalizedTexts.todo.tr().capitalize(),
                                   fromDashboard: true,
                                 ),
-                              ]
                             ],
                           )
                         : CustomText.w400(

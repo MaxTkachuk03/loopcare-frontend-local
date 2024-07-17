@@ -1,6 +1,6 @@
 enum UnlockedFeatureType {
   allowGroupSessions,
-  assignments,
+  reflections,
   foodLogging,
   calorieDensity,
   smartGoals,
