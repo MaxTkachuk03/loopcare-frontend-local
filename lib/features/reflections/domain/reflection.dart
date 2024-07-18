@@ -1,5 +1,6 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:loopcare_frontend/features/reflections/domain/reflection_question.dart';
+import 'package:loopcare_frontend/features/river/infrastructure/river_module_stream_type.dart';
 
 part 'reflection.freezed.dart';
 
@@ -17,6 +18,7 @@ class Reflection with _$Reflection {
     required DateTime? completedAt,
     required DateTime? unlockedAt,
     required int lessonId,
+    required RiverModuleStreamType riverStreamType,
     required List<ReflectionQuestion> questions,
   }) = _Reflection;
 

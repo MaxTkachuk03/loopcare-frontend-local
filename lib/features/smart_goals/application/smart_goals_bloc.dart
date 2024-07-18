@@ -248,7 +248,7 @@ class SmartGoalsBloc extends Bloc<SmartGoalsEvent, SmartGoalsState> {
     Emitter<SmartGoalsState> emit,
   ) async {
     emit(SmartGoalsState.loading(state.data.copyWith(isLoading: true)));
-    final response = await _smartGoalsService.resetProgress(sessionId: event.sessionId);
+    final response = await _smartGoalsService.resetProgress(progressId: event.progressId);
 
     response.fold((l) => emit(SmartGoalsState.error(state.data.copyWith(error: l, isLoading: false))), (r) {
       var sessions = [...state.data.weeklyGoalsSessions];

@@ -12,7 +12,7 @@ class SmartGoalsEvent with _$SmartGoalsEvent {
 
   const factory SmartGoalsEvent.postCompletions({required WeeklySmartGoal weeklySmartGoal}) = PostCompletions;
 
-  const factory SmartGoalsEvent.resetCompletions({required int sessionId}) = ResetCompletions;
+  const factory SmartGoalsEvent.resetCompletions({required int progressId}) = ResetCompletions;
 
   const factory SmartGoalsEvent.deleteSession({required int sessionId}) = DeleteSession;
 
