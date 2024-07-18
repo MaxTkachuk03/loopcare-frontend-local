@@ -49,10 +49,14 @@ class _LessonCompletePageState extends State<LessonCompletePage> {
   @override
   void initState() {
     super.initState();
-    _hasReflection =
-        context.read<RiverBloc>().state.data.activeModuleItem?.unlocksReflectionId != null;
+
+    final activeModuleItem = context.read<RiverBloc>().state.data.activeModuleItem;
 
     context.read<RiverBloc>().add(const RiverEvent.updateActiveModuleItemStatus());
+
+    if (activeModuleItem == null) return;
+
+    _hasReflection = activeModuleItem.unlocksReflectionId != null && activeModuleItem.isUnLocked;
   }
 
   void _onPressHandler(BuildContext context) {
@@ -91,7 +95,8 @@ class _LessonCompletePageState extends State<LessonCompletePage> {
         ),
         BlocListener<RiverBloc, RiverState>(
           listenWhen: (prev, cur) =>
-              prev is RiverStateModuleItemLoading && cur is RiverStateModuleItemLoaded,
+              prev is RiverStateModuleItemLoading &&
+              (cur is RiverStateModuleItemLoaded || cur is RiverStateModuleLoaded),
           listener: _onModuleItemCompleteListener,
         ),
       ],

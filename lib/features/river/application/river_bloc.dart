@@ -73,9 +73,13 @@ class RiverBloc extends Bloc<RiverEvent, RiverState> {
   }
 
   FutureOr<void> _onUpdateActiveModuleItemStatus(
-      UpdateActiveModuleItemStatus event, Emitter<RiverState> emit) async {
+    UpdateActiveModuleItemStatus event,
+    Emitter<RiverState> emit,
+  ) async {
     final moduleItem = state.data.activeModuleItem;
     var activeModule = state.data.activeModule;
+
+    emit(RiverState.moduleItemLoading(state.data.copyWith(isLoading: true)));
 
     RiverModuleItemState itemState;
     if (moduleItem == null || moduleItem.isCompleted || activeModule == null) {
@@ -99,8 +103,6 @@ class RiverBloc extends Bloc<RiverEvent, RiverState> {
       // todo: check if required action is exist iteration 2
       itemState = RiverModuleItemState.completed;
     }
-
-    emit(RiverState.moduleItemLoading(state.data.copyWith(isLoading: true)));
 
     final data = RiverModuleItemStateData(itemState: itemState);
 
