@@ -4,9 +4,9 @@ import 'package:badges/badges.dart' as badge;
 import 'package:flutter/material.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 import 'package:loopcare_frontend/features/river/domain/river_module_item.dart';
-import 'package:loopcare_frontend/features/river/infrastructure/blue_river_module_item_state.dart';
 import 'package:loopcare_frontend/features/river/infrastructure/feature_placement.dart';
 import 'package:loopcare_frontend/features/river/presentation/river_module_item_widget/river_module_button.dart';
+import 'package:loopcare_frontend/features/river/presentation/utils/river_utils.dart';
 import 'package:visibility_detector/visibility_detector.dart';
 
 const _idleDuration = Duration(milliseconds: 2000);
@@ -37,7 +37,8 @@ class RiverAnimationModuleItemWidget extends StatefulWidget {
   State<RiverAnimationModuleItemWidget> createState() => _RiverAnimationModuleItemWidgetState();
 }
 
-class _RiverAnimationModuleItemWidgetState extends State<RiverAnimationModuleItemWidget> with TickerProviderStateMixin {
+class _RiverAnimationModuleItemWidgetState extends State<RiverAnimationModuleItemWidget>
+    with TickerProviderStateMixin, RiverUtils {
   final GlobalKey _buttonKey = GlobalKey();
 
   late AnimationController _idleController;
@@ -57,6 +58,9 @@ class _RiverAnimationModuleItemWidgetState extends State<RiverAnimationModuleIte
   bool _isOnViewport = false;
 
   _ItemAnimation? _itemAnimation;
+
+  @override
+  bool get isBeginning => widget.isBeginning;
 
   @override
   void initState() {
@@ -117,8 +121,8 @@ class _RiverAnimationModuleItemWidgetState extends State<RiverAnimationModuleIte
               child: RiverModuleButton(
                 icon: widget.item.icon,
                 radius: widget.radius,
-                bgColor: _getBackgroundColor(widget.item),
-                iconColor: _getIconColor(widget.item),
+                bgColor: getBackgroundColor(widget.item),
+                iconColor: getIconColor(widget.item),
               ),
             ),
           AnimatedBuilder(
@@ -197,31 +201,15 @@ class _RiverAnimationModuleItemWidgetState extends State<RiverAnimationModuleIte
 
   void _clearItemAnimation() => _itemAnimation = null;
 
-  Color _getIconColor(RiverModuleItem item) {
-    if (widget.isBeginning) {
-      return BlueRiverModuleItemState.iconColor(item.itemState);
-    } else {
-      return item.iconColor;
-    }
-  }
-
-  Color _getBackgroundColor(RiverModuleItem item) {
-    if (widget.isBeginning) {
-      return BlueRiverModuleItemState.backgroundColor(item.itemState);
-    } else {
-      return item.bgColor;
-    }
-  }
-
   void _setUpItemColorAnimation(RiverModuleItem begin, RiverModuleItem end) {
     _colorIconAnimation = ColorTween(
-      begin: _getIconColor(begin),
-      end: _getIconColor(end),
+      begin: getIconColor(begin),
+      end: getIconColor(end),
     ).animate(_colorController);
 
     _colorBgAnimation = ColorTween(
-      begin: _getBackgroundColor(begin),
-      end: _getBackgroundColor(end),
+      begin: getBackgroundColor(begin),
+      end: getBackgroundColor(end),
     ).animate(_colorController);
   }
 
