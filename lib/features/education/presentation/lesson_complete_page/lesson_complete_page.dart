@@ -44,15 +44,13 @@ class LessonCompletePage extends StatefulWidget {
 }
 
 class _LessonCompletePageState extends State<LessonCompletePage> {
+  bool _hasReflection = false;
+
   @override
   void initState() {
     super.initState();
-
-    final riverState = context.read<RiverBloc>().state.data;
-
-    if (riverState.activeModuleItem?.unlocksReflectionId != null) {
-      context.read<ReflectionsBloc>().add(const ReflectionsEvent.getReflections());
-    }
+    _hasReflection =
+        context.read<RiverBloc>().state.data.activeModuleItem?.unlocksReflectionId != null;
 
     context.read<RiverBloc>().add(const RiverEvent.updateActiveModuleItemStatus());
   }
@@ -66,7 +64,11 @@ class _LessonCompletePageState extends State<LessonCompletePage> {
     context.showError(content: Text(errorMessage.tr()));
   }
 
-  void _lessonCompleteListener(BuildContext context, EducationLessonState state) {
+  void _onModuleItemCompleteListener(BuildContext context, RiverState state) {
+    if (_hasReflection) {
+      context.read<ReflectionsBloc>().add(const ReflectionsEvent.getReflections());
+    }
+
     AnalyticsEventService.instance.logLessonCompletedEvent(
       FirebaseEvents.lessonCompletedScreen,
       context.read<EducationLessonBloc>().state.data.id,
@@ -87,9 +89,10 @@ class _LessonCompletePageState extends State<LessonCompletePage> {
           listenWhen: (prev, cur) => cur is ErrorCompleteLesson,
           listener: _onErrorListener,
         ),
-        BlocListener<EducationLessonBloc, EducationLessonState>(
-          listenWhen: (prev, cur) => prev is Loading && cur is LessonCompleted,
-          listener: _lessonCompleteListener,
+        BlocListener<RiverBloc, RiverState>(
+          listenWhen: (prev, cur) =>
+              prev is RiverStateModuleItemLoading && cur is RiverStateModuleItemLoaded,
+          listener: _onModuleItemCompleteListener,
         ),
       ],
       child: CustomScaffold(

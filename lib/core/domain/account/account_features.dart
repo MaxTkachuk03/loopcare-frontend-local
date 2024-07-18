@@ -10,7 +10,7 @@ class AccountFeatures with _$AccountFeatures {
 
   const factory AccountFeatures({
     @Default(false) bool allowGroupSessions,
-    @Default(false) bool assignments,
+    @Default(false) bool reflections,
     @Default(false) bool foodLogging,
     @Default(false) bool calorieDensity,
     @Default(false) bool smartGoals,
@@ -27,7 +27,7 @@ class AccountFeatures with _$AccountFeatures {
   AccountFeatures unlockFeature(UnlockedFeatureType key) {
     final Map<String, AccountFeatures> featureUpdateMap = {
       'allowGroupSessions': copyWith(allowGroupSessions: true),
-      'assignments': copyWith(assignments: true),
+      'reflections': copyWith(reflections: true),
       'foodLogging': copyWith(foodLogging: true),
       'calorieDensity': copyWith(calorieDensity: true),
       'smartGoals': copyWith(smartGoals: true),
@@ -51,18 +51,18 @@ class AccountFeatures with _$AccountFeatures {
   factory AccountFeatures.fromJson(Map<String, dynamic> json) => _$AccountFeaturesFromJson(json);
 
   bool isFeatureUnlocked(UnlockedFeatureType feature) => switch (feature) {
-    UnlockedFeatureType.allowGroupSessions => allowGroupSessions,
-    UnlockedFeatureType.assignments => assignments,
-    UnlockedFeatureType.foodLogging => foodLogging,
-    UnlockedFeatureType.calorieDensity => calorieDensity,
-    UnlockedFeatureType.smartGoals => smartGoals,
-    UnlockedFeatureType.weightLogging => weightLogging,
-    UnlockedFeatureType.physicalActivity => physicalActivity,
-    UnlockedFeatureType.buddy => buddy,
-    UnlockedFeatureType.grouping => grouping,
-    UnlockedFeatureType.proteinDegree => proteinDegree,
-    UnlockedFeatureType.mind => mind,
-    UnlockedFeatureType.fiberIndicator => fiberIndicator,
-    UnlockedFeatureType.calorieTracker => calorieTracker,
-  };
+        UnlockedFeatureType.allowGroupSessions => allowGroupSessions,
+        UnlockedFeatureType.reflections => reflections,
+        UnlockedFeatureType.foodLogging => foodLogging,
+        UnlockedFeatureType.calorieDensity => calorieDensity,
+        UnlockedFeatureType.smartGoals => smartGoals,
+        UnlockedFeatureType.weightLogging => weightLogging,
+        UnlockedFeatureType.physicalActivity => physicalActivity,
+        UnlockedFeatureType.buddy => buddy,
+        UnlockedFeatureType.grouping => grouping,
+        UnlockedFeatureType.proteinDegree => proteinDegree,
+        UnlockedFeatureType.mind => mind,
+        UnlockedFeatureType.fiberIndicator => fiberIndicator,
+        UnlockedFeatureType.calorieTracker => calorieTracker,
+      };
 }
