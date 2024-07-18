@@ -69,8 +69,5 @@ class AppImages {
 
   static SvgPicture onboardingArrow = SvgPicture.asset('$imagesFilePath/onboarding_arrow.svg');
 
-  static const AssetImage riverOverviewMockPng =
-      AssetImage('$imagesFilePath/river_overview_mock.png');
-
   AppImages._();
 }
