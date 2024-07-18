@@ -65,7 +65,10 @@ class _ReflectionsIntroPageState extends State<ReflectionsIntroPage> {
         .read<EducationLessonBloc>()
         .add(EducationLessonEvent.getLessonContent(lessonId: widget.reflectionItem.lessonId));
 
-    context.router.pushNamed('/lesson/${widget.reflectionItem.lessonId}');
+    context.router.push(LessonRoute(
+      lessonId: widget.reflectionItem.lessonId,
+      streamType: widget.reflectionItem.riverStreamType,
+    ));
   }
 
   void _onStart() {
