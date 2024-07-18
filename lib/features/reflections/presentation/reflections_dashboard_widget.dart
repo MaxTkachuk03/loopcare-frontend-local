@@ -83,7 +83,7 @@ class ReflectionsDashboardWidget extends StatelessWidget {
                               if (doneTodayReflections.isNotEmpty)
                                 ReflectionsList(
                                   list: doneTodayReflections,
-                                  title: LocalizedTexts.todo.tr().capitalize(),
+                                  title: LocalizedTexts.doneToday.tr().capitalize(),
                                   fromDashboard: true,
                                 ),
                             ],
