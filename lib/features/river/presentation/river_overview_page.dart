@@ -41,21 +41,31 @@ class _RiverOverviewPageState extends State<RiverOverviewPage> {
 
   @override
   Widget build(BuildContext context) {
-    return CustomScaffold.blueLightest(
-      body: ScaleGestureDetector(
-        onTap: _navigationHandler,
-        onZoomIn: _navigationHandler,
-        child: BlocBuilder<RiverBloc, RiverState>(
-          builder: (context, state) {
-            return ListView.builder(
-              itemCount: state.data.modules.length,
-              itemBuilder: (context, index) =>
-                  RiverModulePreview(module: state.data.modules[index], page: index)
-            );
-          }
-        )
+    return MediaQuery(
+      data: MediaQuery.of(context).removePadding(removeBottom: true),
+      child: CustomScaffold.blueLightest(
+        body: ScaleGestureDetector(
+          onTap: _navigationHandler,
+          onZoomIn: _navigationHandler,
+          child: BlocBuilder<RiverBloc, RiverState>(
+            builder: (context, state) {
+              return ListView.builder(
+                itemCount: state.data.modules.length + 1,
+                itemBuilder: (context, index) => index == 0
+                    ? Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 30),
+                      child: CustomText.bitter600(
+                          LocalizedTexts.riverOverviewTitle.tr(),
+                          style: context.textTheme.displayLarge,
+                          textAlign: TextAlign.center,
+                        ),
+                    )
+                    : RiverModulePreview(module: state.data.modules[index - 1], page: index - 1),
+              );
+            },
+          ),
+        ),
       ),
     );
   }
 }
-
