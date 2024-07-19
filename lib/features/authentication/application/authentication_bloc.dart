@@ -493,26 +493,25 @@ class AuthenticationBloc extends HydratedBloc<AuthenticationEvent, Authenticatio
     emit(AuthenticationState.isLoading(state.data.copyWith(isLoading: true)));
 
     final UpdateUserEmailData data = UpdateUserEmailData(event.email, event.password);
-    // TODO uncomment request code when back end will be ready
-    emit(AuthenticationState.emailWasUpdated(state.data.copyWith(
-      email: event.email,
-      isLoading: false,
-    )));
 
-    // final response = await _authenticationService.updateUserEmail(data);
-    //
-    // response.fold(
-    //   (l) => emit(
-    //       AuthenticationState.errorUpdateEmail(state.data.copyWith(error: l, isLoading: false))),
-    //   (r) {
-    //     CustomerIoService.changeUserEmail(email: event.email);
-    //
-    //     emit(AuthenticationState.emailWasUpdated(state.data.copyWith(
-    //       email: event.email,
-    //       isLoading: false,
-    //     )));
-    //   },
-    // );
+    final response = await _authenticationService.updateUserEmail(data);
+
+    response.fold(
+      (l) => emit(
+          AuthenticationState.errorUpdateEmail(state.data.copyWith(error: l, isLoading: false))),
+      (r) {
+        CustomerIoService.changeUserEmail(email: event.email);
+
+        final updatedAccount =
+            _sharedPref.account = state.data.account?.copyWith(email: event.email);
+
+        emit(AuthenticationState.emailWasUpdated(state.data.copyWith(
+          email: event.email,
+          account: updatedAccount,
+          isLoading: false,
+        )));
+      },
+    );
   }
 
   FutureOr<void> _onUpdateEmail(
