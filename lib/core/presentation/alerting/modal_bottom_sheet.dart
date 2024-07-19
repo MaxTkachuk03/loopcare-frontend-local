@@ -2,11 +2,12 @@ import 'package:auto_route/auto_route.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:loopcare_frontend/core/domain/analytics/firebase_event_custom_definitions.dart';
-import 'package:loopcare_frontend/core/domain/analytics/firebase_event_list.dart';
+
+import 'package:loopcare_frontend/core/domain/analytics/analytics_events.dart';
+import 'package:loopcare_frontend/core/domain/analytics/analytics_parameters.dart';
 import 'package:loopcare_frontend/core/domain/emergency_numbers/emergency_numbers.dart';
+import 'package:loopcare_frontend/core/infrastructure/services/analytics_service.dart';
 import 'package:loopcare_frontend/core/infrastructure/services/app_config.dart';
-import 'package:loopcare_frontend/core/infrastructure/services/firebase_event_service.dart';
 import 'package:loopcare_frontend/core/presentation/alerting/widgets/already_planned_card.dart';
 import 'package:loopcare_frontend/core/presentation/app_version/app_update_policies_documents.dart';
 import 'package:loopcare_frontend/core/presentation/buttons/custom_elevated_button.dart';
@@ -249,13 +250,15 @@ class ModalBottomSheet {
                   CustomElevatedButton.blueFullWidth(
                     onPressed: () {
                       //12.02.2024 Discussed with Diana
-                      AnalyticsEventService.instance.logEvent(
-                        FirebaseEvents.deleteAccount,
+                      AnalyticsEventService().logEvent(
+                        eventName:
+                        AnalyticsEvents.deleteAccount,
                         parameters: {
-                          CustomDefinitions.timestamp: DateTime.now().toIso8601String(),
-                          CustomDefinitions.confirmed: false,
+                          AnalyticsParameters.timestamp: DateTime.now().toIso8601String(),
+                          AnalyticsParameters.confirmed: false,
                         },
                       );
+
 
                       context.router.maybePop();
                     },

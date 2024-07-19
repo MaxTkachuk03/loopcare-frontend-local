@@ -3,8 +3,8 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:loopcare_frontend/core/domain/analytics/firebase_event_list.dart';
-import 'package:loopcare_frontend/core/infrastructure/services/firebase_event_service.dart';
+import 'package:loopcare_frontend/core/domain/analytics/analytics_events.dart';
+import 'package:loopcare_frontend/core/infrastructure/services/analytics_service.dart';
 import 'package:loopcare_frontend/core/presentation/clippers/education_clipper.dart';
 import 'package:loopcare_frontend/core/presentation/icon_images/app_icons.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
@@ -140,7 +140,8 @@ class ProgramCard extends StatelessWidget {
                         const SizedBox(width: 4.0),
                         CustomText.w600(
                           formatSecondsToDurationString(program.duration, alwaysShowSeconds: true),
-                          style: context.textTheme.bodySmall?.copyWith(fontSize: ThemeConstants.fontSize10),
+                          style: context.textTheme.bodySmall
+                              ?.copyWith(fontSize: ThemeConstants.fontSize10),
                         )
                       ],
                     ),
@@ -152,7 +153,8 @@ class ProgramCard extends StatelessWidget {
                         children: [
                           CustomText.w700(
                             program.placeName.toUpperCase(),
-                            style: context.textTheme.bodySmall?.copyWith(fontSize: ThemeConstants.fontSize12),
+                            style: context.textTheme.bodySmall
+                                ?.copyWith(fontSize: ThemeConstants.fontSize12),
                           ),
                           const VerticalDivider(
                             color: AppColors.blueDarker,
@@ -160,7 +162,8 @@ class ProgramCard extends StatelessWidget {
                           ),
                           CustomText.w700(
                             program.typeName.toUpperCase(),
-                            style: context.textTheme.bodySmall?.copyWith(fontSize: ThemeConstants.fontSize12),
+                            style: context.textTheme.bodySmall
+                                ?.copyWith(fontSize: ThemeConstants.fontSize12),
                           ),
                         ],
                       ),
@@ -171,7 +174,8 @@ class ProgramCard extends StatelessWidget {
                       }),
                       maxLines: 2,
                       overflow: TextOverflow.ellipsis,
-                      style: context.textTheme.bodySmall?.copyWith(fontSize: ThemeConstants.fontSize12),
+                      style: context.textTheme.bodySmall
+                          ?.copyWith(fontSize: ThemeConstants.fontSize12),
                     ),
                     CustomText.w400(
                       LocalizedTexts.targetMuscles.tr(namedArgs: {
@@ -179,7 +183,8 @@ class ProgramCard extends StatelessWidget {
                       }),
                       overflow: TextOverflow.ellipsis,
                       maxLines: 1,
-                      style: context.textTheme.bodySmall?.copyWith(fontSize: ThemeConstants.fontSize12),
+                      style: context.textTheme.bodySmall
+                          ?.copyWith(fontSize: ThemeConstants.fontSize12),
                     ),
                   ],
                 ),
@@ -196,8 +201,8 @@ class ProgramCard extends StatelessWidget {
       ..router.push(ProgramDetailsRoute(program: program))
       ..read<PhysicalProgramsBloc>().add(PhysicalProgramsEvent.setCurrentProgram(program));
 
-    AnalyticsEventService.instance.logPhysicalProgramEvent(
-      FirebaseEvents.physicalProgramsScreen,
+    AnalyticsEventService().logPhysicalProgramEvent(
+      AnalyticsEvents.physicalProgramsScreen,
       program,
     );
   }

@@ -1,7 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:loopcare_frontend/core/domain/analytics/firebase_event_list.dart';
+import 'package:loopcare_frontend/core/domain/analytics/analytics_events.dart';
 import 'package:loopcare_frontend/core/presentation/routes/app_router.gr.dart';
 import 'package:loopcare_frontend/features/mind/application/mind_bloc.dart';
 import 'package:loopcare_frontend/features/mind/domain/mind_analytics_mixin/mind_analytics_mixin.dart';
@@ -16,19 +16,18 @@ class IntroExercisePage extends StatefulWidget {
 }
 
 class _IntroExercisePageState extends State<IntroExercisePage> with MindAnalyticsMixin {
-
   @override
   void initState() {
     super.initState();
     techniqueId = context.read<MindBloc>().state.data.currentTechnique!.id;
     exerciseId = context.read<MindBloc>().state.data.currentExercise!.id;
 
-    track(FirebaseEvents.mindExerciseIntro);
+    track(AnalyticsEvents.mindExerciseIntro);
   }
 
   @override
   void dispose() {
-    track(FirebaseEvents.mindCloseExerciseIntro);
+    track(AnalyticsEvents.mindCloseExerciseIntro);
     super.dispose();
   }
 

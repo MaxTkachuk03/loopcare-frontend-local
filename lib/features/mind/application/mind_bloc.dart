@@ -4,10 +4,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
 import 'package:loopcare_frontend/core/application/customer_io_service/customer_io_service.dart';
-import 'package:loopcare_frontend/core/domain/analytics/firebase_event_custom_definitions.dart';
-import 'package:loopcare_frontend/core/domain/analytics/firebase_event_list.dart';
+import 'package:loopcare_frontend/core/domain/analytics/analytics_events.dart';
+import 'package:loopcare_frontend/core/domain/analytics/analytics_parameters.dart';
 import 'package:loopcare_frontend/core/infrastructure/dio_client/request_error.dart';
-import 'package:loopcare_frontend/core/infrastructure/services/firebase_event_service.dart';
+import 'package:loopcare_frontend/core/infrastructure/services/analytics_service.dart';
 import 'package:loopcare_frontend/features/mind/application/dto/complete_exercise_data.dart';
 import 'package:loopcare_frontend/features/mind/application/dto/mind_info_response.dart';
 import 'package:loopcare_frontend/features/mind/application/dto/mind_technique.dart';
@@ -18,7 +18,9 @@ import 'package:loopcare_frontend/features/mind/application/mind_service.dart';
 import 'package:loopcare_frontend/features/mind/application/ui_models/mind_exercise_step.dart';
 
 part 'mind_bloc.freezed.dart';
+
 part 'mind_event.dart';
+
 part 'mind_state.dart';
 
 @singleton
@@ -51,9 +53,9 @@ class MindBloc extends Bloc<MindEvent, MindState> {
 
     if (failedResponses.isNotEmpty) {
       failedResponses.first.fold(
-            (l) => emit(MindState.error(state.data.copyWith(error: l, isLoading: false))),
-            (r) => null,
-          );
+        (l) => emit(MindState.error(state.data.copyWith(error: l, isLoading: false))),
+        (r) => null,
+      );
     } else {
       emit(
         MindState.gotTechniques(
@@ -71,7 +73,8 @@ class MindBloc extends Bloc<MindEvent, MindState> {
     emit(
       MindState.loading(
         state.data.copyWith(
-          currentTechnique: state.data.techniques.firstWhere((technique) => technique.id == event.techniqueId),
+          currentTechnique:
+              state.data.techniques.firstWhere((technique) => technique.id == event.techniqueId),
           isLoading: true,
         ),
       ),
@@ -82,13 +85,13 @@ class MindBloc extends Bloc<MindEvent, MindState> {
     response.fold(
       (l) => emit(MindState.error(state.data.copyWith(error: l, isLoading: false))),
       (r) => emit(
-          MindState.gotExercises(
-            state.data.copyWith(
-              exercises: r.data,
-              isLoading: false,
-            ),
+        MindState.gotExercises(
+          state.data.copyWith(
+            exercises: r.data,
+            isLoading: false,
           ),
         ),
+      ),
     );
   }
 
@@ -112,12 +115,12 @@ class MindBloc extends Bloc<MindEvent, MindState> {
     response.fold(
       (l) => emit(MindState.error(state.data.copyWith(error: l, isLoading: false))),
       (r) {
-        AnalyticsEventService.instance.logEvent(
-          FirebaseEvents.mindCompletedExercise,
+        AnalyticsEventService().logEvent(
+          eventName: AnalyticsEvents.mindCompletedExercise,
           parameters: {
-            CustomDefinitions.techniqueId: techniqueId,
-            CustomDefinitions.exerciseId: exerciseId,
-            CustomDefinitions.timestamp: DateTime.now().toIso8601String(),
+            AnalyticsParameters.techniqueId: techniqueId,
+            AnalyticsParameters.exerciseId: exerciseId,
+            AnalyticsParameters.timestamp: DateTime.now().toIso8601String(),
           },
         );
 
@@ -127,9 +130,8 @@ class MindBloc extends Bloc<MindEvent, MindState> {
 
         final updatedExercise = state.data.currentExercise!.copyWith(completedAt: r.completedAt);
 
-        final exercises = state.data.exercises
-            .map((e) => e.id == exerciseId ? updatedExercise : e)
-            .toList();
+        final exercises =
+            state.data.exercises.map((e) => e.id == exerciseId ? updatedExercise : e).toList();
 
         emit(
           MindState.exerciseCompleted(
@@ -183,26 +185,25 @@ class MindBloc extends Bloc<MindEvent, MindState> {
   ) async {
     final scaleAfterAnswer = event.isAfter ? event.value : state.data.scaleAfterAnswer;
     final scaleBeforeAnswer = !event.isAfter ? event.value : state.data.scaleBeforeAnswer;
-    final logEventName = event.isAfter ? FirebaseEvents.mindRatingAfterExercise : FirebaseEvents.mindRatingBeforeExercise;
+    final logEventName = event.isAfter
+        ? AnalyticsEvents.mindRatingAfterExercise
+        : AnalyticsEvents.mindRatingBeforeExercise;
 
-    AnalyticsEventService.instance.logEvent(
-      logEventName,
+    AnalyticsEventService().logEvent(
+      eventName: logEventName,
       parameters: {
-        CustomDefinitions.techniqueId: state.data.currentTechnique?.id ?? 0,
-        CustomDefinitions.exerciseId: state.data.currentExercise?.id ?? 0,
-        CustomDefinitions.value: event.value,
-        CustomDefinitions.timestamp: DateTime.now().toIso8601String(),
+        AnalyticsParameters.techniqueId: state.data.currentTechnique?.id ?? 0,
+        AnalyticsParameters.exerciseId: state.data.currentExercise?.id ?? 0,
+        AnalyticsParameters.value: event.value,
+        AnalyticsParameters.timestamp: DateTime.now().toIso8601String(),
       },
     );
 
-    CustomerIoService.track(
-      event: logEventName,
-      attributes: {
-        CustomDefinitions.techniqueId: state.data.currentTechnique?.id ?? 0,
-        CustomDefinitions.exerciseId: state.data.currentExercise?.id ?? 0,
-        CustomDefinitions.value: event.value,
-      }
-    );
+    CustomerIoService.track(event: logEventName, attributes: {
+      AnalyticsParameters.techniqueId: state.data.currentTechnique?.id ?? 0,
+      AnalyticsParameters.exerciseId: state.data.currentExercise?.id ?? 0,
+      AnalyticsParameters.value: event.value,
+    });
 
     emit(
       MindState.exerciseSelected(

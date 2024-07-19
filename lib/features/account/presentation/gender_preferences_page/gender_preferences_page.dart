@@ -6,9 +6,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loopcare_frontend/core/domain/account/gender_preferences.dart';
 import 'package:loopcare_frontend/core/domain/account/gender_type.dart';
-import 'package:loopcare_frontend/core/domain/analytics/firebase_event_custom_definitions.dart';
-import 'package:loopcare_frontend/core/domain/analytics/firebase_event_list.dart';
-import 'package:loopcare_frontend/core/infrastructure/services/firebase_event_service.dart';
+import 'package:loopcare_frontend/core/domain/analytics/analytics_events.dart';
+import 'package:loopcare_frontend/core/domain/analytics/analytics_parameters.dart';
+import 'package:loopcare_frontend/core/infrastructure/services/analytics_service.dart';
 import 'package:loopcare_frontend/core/infrastructure/services/shared_storage/shared_storage_service.dart';
 import 'package:loopcare_frontend/core/presentation/buttons/custom_elevated_button.dart';
 import 'package:loopcare_frontend/core/presentation/choice_chip/custom_choice_chip.dart';
@@ -89,12 +89,12 @@ class _GenderPreferencesPageState extends State<GenderPreferencesPage> {
       // context.read<EducationLessonBloc>().add(const EducationLessonEvent.progressForward());
     }
 
-    AnalyticsEventService.instance.logEvent(
-      FirebaseEvents.userFillsOutGenderPreferences,
+    AnalyticsEventService().logEvent(
+      eventName: AnalyticsEvents.userFillsOutGenderPreferences,
       parameters: {
-        CustomDefinitions.navigatedFrom:
+        AnalyticsParameters.navigatedFrom:
             widget.fromLessonComplete ? 'Lesson content' : 'User profile',
-        CustomDefinitions.value: _selectedValue?.name,
+        AnalyticsParameters.value: _selectedValue?.name,
       },
     );
 

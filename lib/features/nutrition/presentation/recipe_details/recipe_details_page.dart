@@ -2,8 +2,8 @@ import 'package:auto_route/auto_route.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:loopcare_frontend/core/domain/analytics/firebase_event_list.dart';
-import 'package:loopcare_frontend/core/infrastructure/services/firebase_event_service.dart';
+import 'package:loopcare_frontend/core/domain/analytics/analytics_events.dart';
+import 'package:loopcare_frontend/core/infrastructure/services/analytics_service.dart';
 import 'package:loopcare_frontend/core/presentation/alerting/show_app_snackbar.dart';
 import 'package:loopcare_frontend/core/presentation/app_bar/custom_app_bar.dart';
 import 'package:loopcare_frontend/core/presentation/buttons/custom_filled_icon_button.dart';
@@ -143,10 +143,11 @@ class _RecipeDetailsPageState extends State<RecipeDetailsPage> {
   void _onSaveToMyDishesHandler() {
     final state = context.read<MealsBloc>().state;
 
-    final mealCategory =
-        DishFavoritesCategory.values.asNameMap().containsKey(state.data.currentMealCategory?.toLowerCase())
-            ? state.data.currentMealCategory
-            : MealCategory.breakfast.originalValue;
+    final mealCategory = DishFavoritesCategory.values
+            .asNameMap()
+            .containsKey(state.data.currentMealCategory?.toLowerCase())
+        ? state.data.currentMealCategory
+        : MealCategory.breakfast.originalValue;
 
     if (mealCategory == null) return;
 
@@ -188,13 +189,15 @@ class _RecipeDetailsPageState extends State<RecipeDetailsPage> {
   void _logAnalytics(TabController tabController) {
     switch (tabController.index) {
       case 1:
-        AnalyticsEventService.instance.logEvent(FirebaseEvents.recipeDetailsScreenInstructions);
+        AnalyticsEventService()
+            .logEvent(eventName: AnalyticsEvents.recipeDetailsScreenInstructions);
         break;
       case 2:
-        AnalyticsEventService.instance.logEvent(FirebaseEvents.recipeDetailsScreenIngredients);
+        AnalyticsEventService()
+            .logEvent(eventName: AnalyticsEvents.recipeDetailsScreenIngredients);
         break;
       default:
-        AnalyticsEventService.instance.logEvent(FirebaseEvents.recipeDetailsScreenSummary);
+        AnalyticsEventService().logEvent(eventName: AnalyticsEvents.recipeDetailsScreenSummary);
         break;
     }
   }

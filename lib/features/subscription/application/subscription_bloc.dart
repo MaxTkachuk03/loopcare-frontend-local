@@ -13,8 +13,11 @@ import 'package:injectable/injectable.dart';
 import 'package:loopcare_frontend/core/application/auth_token_manager.dart';
 import 'package:loopcare_frontend/core/application/customer_io_service/customer_io_service.dart';
 import 'package:loopcare_frontend/core/application/socket_service/socket_service.dart';
+import 'package:loopcare_frontend/core/domain/analytics/analytics_events.dart';
+import 'package:loopcare_frontend/core/domain/analytics/analytics_parameters.dart';
 import 'package:loopcare_frontend/core/infrastructure/dio_client/request_error.dart';
 import 'package:loopcare_frontend/core/infrastructure/dio_client/server_error_data.dart';
+import 'package:loopcare_frontend/core/infrastructure/services/analytics_service.dart';
 import 'package:loopcare_frontend/core/infrastructure/services/logger/logger.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/features/authentication/application/authentication_service.dart';
@@ -33,7 +36,9 @@ import 'package:loopcare_frontend/features/subscription/utils/date_utils.dart';
 import '../../../injection.dart';
 
 part 'subscription_bloc.freezed.dart';
+
 part 'subscription_event.dart';
+
 part 'subscription_state.dart';
 
 const delayDuration = 60;
@@ -49,7 +54,8 @@ class SubscriptionBloc extends Bloc<SubscriptionEvent, SubscriptionState> {
   bool isValidatePastIOSPurchase = false;
   ProductDetails? buyingProduct;
 
-  SubscriptionBloc(this._authenticationService, this._purchaseService, this.authTokenManager, this.inAppPurchaseService)
+  SubscriptionBloc(this._authenticationService, this._purchaseService, this.authTokenManager,
+      this.inAppPurchaseService)
       : super(const SubscriptionState.initial(SubscriptionStateData())) {
     on<SubscriptionInit>(_onInitSubscription);
     on<SubscriptionDispose>(_onSubscriptionDispose);
@@ -94,9 +100,10 @@ class SubscriptionBloc extends Bloc<SubscriptionEvent, SubscriptionState> {
     PurchaseDetails? oldPurchaseDetails;
     if (Platform.isAndroid) {
       {
-        final InAppPurchaseAndroidPlatformAddition androidAddition =
-            inAppPurchaseService.instance.getPlatformAddition<InAppPurchaseAndroidPlatformAddition>();
-        final QueryPurchaseDetailsResponse oldPurchases = await androidAddition.queryPastPurchases();
+        final InAppPurchaseAndroidPlatformAddition androidAddition = inAppPurchaseService.instance
+            .getPlatformAddition<InAppPurchaseAndroidPlatformAddition>();
+        final QueryPurchaseDetailsResponse oldPurchases =
+            await androidAddition.queryPastPurchases();
         if (oldPurchases.pastPurchases.isNotEmpty) {
           oldPurchaseDetails = oldPurchases.pastPurchases.last;
         }
@@ -110,7 +117,8 @@ class SubscriptionBloc extends Bloc<SubscriptionEvent, SubscriptionState> {
   }
 
 // 3
-  Future<void> _verifyOldPurchase(PurchaseDetails? oldPurchaseDetails, ProductDetails product) async {
+  Future<void> _verifyOldPurchase(
+      PurchaseDetails? oldPurchaseDetails, ProductDetails product) async {
     isValidatePastIOSPurchase = false;
     late Either<RequestError, ValidStatus> response;
     if (oldPurchaseDetails == null) {
@@ -164,7 +172,8 @@ class SubscriptionBloc extends Bloc<SubscriptionEvent, SubscriptionState> {
       emit(
         SubscriptionState.purchaseDuplicateSubscription(
           state.data.copyWith(
-            error: const RequestError.streamSubscription(ServerErrorData(message: LocalizedTexts.purchaseErrorMessage)),
+            error: const RequestError.streamSubscription(
+                ServerErrorData(message: LocalizedTexts.purchaseErrorMessage)),
             isLoading: false,
           ),
         ),
@@ -180,7 +189,8 @@ class SubscriptionBloc extends Bloc<SubscriptionEvent, SubscriptionState> {
       const Duration(seconds: delayDuration),
       () {
         if (state.data.isWaitTimeout) {
-          emit(SubscriptionState.askRestoredSubscription(state.data.copyWith(isLoading: false, isWaitTimeout: false)));
+          emit(SubscriptionState.askRestoredSubscription(
+              state.data.copyWith(isLoading: false, isWaitTimeout: false)));
         }
       },
     );
@@ -215,6 +225,16 @@ class SubscriptionBloc extends Bloc<SubscriptionEvent, SubscriptionState> {
               CIOAttributes.subscriptionExpirationDate: r.expiresAt,
             },
           );
+          final identifier = _getTransactionId(purchaseDetails) ?? '';
+          AnalyticsEventService.appsFlyer().logEvent(
+            eventName: AnalyticsEvents.subscriptionBought,
+            parameters: {
+              AnalyticsParameters.subscriptionContentId: purchaseDetails.purchaseID,
+              AnalyticsParameters.subscriptionTransactionId: identifier,
+              AnalyticsParameters.subscriptionContentType: purchaseDetails.productID,
+              AnalyticsParameters.subscriptionEventTime: r.purchasedAt,
+            },
+          );
           add(
             SubscriptionEvent.purchasedSubscription(
               r,
@@ -232,18 +252,21 @@ class SubscriptionBloc extends Bloc<SubscriptionEvent, SubscriptionState> {
     );
   }
 
-  Future<Either<RequestError, Subscription>> _apiPurchaseOrRestore(PurchaseDetails purchaseDetails) async {
+  Future<Either<RequestError, Subscription>> _apiPurchaseOrRestore(
+      PurchaseDetails purchaseDetails) async {
     var isIOS = purchaseDetails is AppStorePurchaseDetails;
     final vendor = isIOS ? 'ios' : 'android';
     final identifier = _getTransactionId(purchaseDetails) ?? '';
     var response = isIOS
         ? await _purchaseService.purchaseIOS(
             VerifyIOSPurchaseData(
-                receipt: purchaseDetails.verificationData.serverVerificationData, transactionId: identifier),
+                receipt: purchaseDetails.verificationData.serverVerificationData,
+                transactionId: identifier),
             vendor)
         : await _purchaseService.purchaseAndroid(
             VerifyAndroidPurchaseData(
-                receipt: purchaseDetails.verificationData.serverVerificationData, purchaseToken: identifier),
+                receipt: purchaseDetails.verificationData.serverVerificationData,
+                purchaseToken: identifier),
             vendor);
     return response;
   }
@@ -263,11 +286,13 @@ class SubscriptionBloc extends Bloc<SubscriptionEvent, SubscriptionState> {
     var response = isIOS
         ? await _purchaseService.verifyPurchaseIOS(
             VerifyIOSPurchaseData(
-                receipt: purchaseDetails.verificationData.serverVerificationData, transactionId: identifier),
+                receipt: purchaseDetails.verificationData.serverVerificationData,
+                transactionId: identifier),
             vendor)
         : await _purchaseService.verifyPurchaseAndroid(
             VerifyAndroidPurchaseData(
-                receipt: purchaseDetails.verificationData.serverVerificationData, purchaseToken: identifier),
+                receipt: purchaseDetails.verificationData.serverVerificationData,
+                purchaseToken: identifier),
             vendor);
     return response;
   }
@@ -396,7 +421,8 @@ class SubscriptionBloc extends Bloc<SubscriptionEvent, SubscriptionState> {
     response.fold(
       (error) => emit(SubscriptionState.error(state.data.copyWith(error: error, isLoading: false))),
       (r) => emit(
-        SubscriptionState.gotAccountSubscription(state.data.copyWith(isLoading: false, subscription: r.subscription)),
+        SubscriptionState.gotAccountSubscription(
+            state.data.copyWith(isLoading: false, subscription: r.subscription)),
       ),
     );
   }
@@ -421,39 +447,51 @@ class SubscriptionBloc extends Bloc<SubscriptionEvent, SubscriptionState> {
         switch (subscription.state) {
           case SubscriptionStatus.trialPeriod:
             if (subscription.isActive) {
-              emit(SubscriptionState.subscriptionActive(state.data.copyWith(subscription: subscription)));
-            } else if (!subscription.isActive && SubscriptionDateUtils.isPassDate(subscription.expiresAt)) {
-              emit(SubscriptionState.subscriptionEnded(state.data.copyWith(subscription: subscription)));
+              emit(SubscriptionState.subscriptionActive(
+                  state.data.copyWith(subscription: subscription)));
+            } else if (!subscription.isActive &&
+                SubscriptionDateUtils.isPassDate(subscription.expiresAt)) {
+              emit(SubscriptionState.subscriptionEnded(
+                  state.data.copyWith(subscription: subscription)));
             } else {
               emit(SubscriptionState.trial(state.data.copyWith(subscription: subscription)));
             }
             break;
           case SubscriptionStatus.common:
-            if (!subscription.isActive && SubscriptionDateUtils.isPassDate(subscription.expiresAt)) {
-              emit(SubscriptionState.subscriptionEnded(state.data.copyWith(subscription: subscription)));
+            if (!subscription.isActive &&
+                SubscriptionDateUtils.isPassDate(subscription.expiresAt)) {
+              emit(SubscriptionState.subscriptionEnded(
+                  state.data.copyWith(subscription: subscription)));
             } else if (subscription.isActive) {
-              emit(SubscriptionState.subscriptionActive(state.data.copyWith(subscription: subscription)));
+              emit(SubscriptionState.subscriptionActive(
+                  state.data.copyWith(subscription: subscription)));
             } else {
               emit(SubscriptionState.trialExpired(state.data.copyWith(subscription: subscription)));
             }
             break;
           case SubscriptionStatus.cancelled:
-            if (SubscriptionDateUtils.isPassDate(subscription.expiresAt) || !subscription.isActive) {
+            if (SubscriptionDateUtils.isPassDate(subscription.expiresAt) ||
+                !subscription.isActive) {
               // if cancelled by user  and expired time => status: Ended
-              emit(SubscriptionState.subscriptionEnded(state.data.copyWith(subscription: subscription)));
+              emit(SubscriptionState.subscriptionEnded(
+                  state.data.copyWith(subscription: subscription)));
             } else if (subscription.isActive) {
-              emit(SubscriptionState.subscriptionActive(state.data.copyWith(subscription: subscription)));
+              emit(SubscriptionState.subscriptionActive(
+                  state.data.copyWith(subscription: subscription)));
             }
             break;
           case SubscriptionStatus.refunded:
-            emit(SubscriptionState.subscriptionCancelled(state.data.copyWith(subscription: subscription)));
+            emit(SubscriptionState.subscriptionCancelled(
+                state.data.copyWith(subscription: subscription)));
             break;
 
           case SubscriptionStatus.gracePeriod:
             if (subscription.isActive) {
-              emit(SubscriptionState.subscriptionUnRenewed(state.data.copyWith(subscription: subscription)));
+              emit(SubscriptionState.subscriptionUnRenewed(
+                  state.data.copyWith(subscription: subscription)));
             } else {
-              emit(SubscriptionState.subscriptionEnded(state.data.copyWith(subscription: subscription)));
+              emit(SubscriptionState.subscriptionEnded(
+                  state.data.copyWith(subscription: subscription)));
             }
             break;
           default:

@@ -58,4 +58,6 @@ class AuthenticationEvent with _$AuthenticationEvent {
     required int termsAndConditionsVersion,
     required int privacyPolicyVersion,
   }) = UpdatePolicy;
+
+  const factory AuthenticationEvent.sendApsFlyerData() = SendAppsFlyerData;
 }

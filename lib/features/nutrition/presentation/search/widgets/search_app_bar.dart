@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:loopcare_frontend/core/domain/analytics/firebase_event_custom_definitions.dart';
-import 'package:loopcare_frontend/core/domain/analytics/firebase_event_list.dart';
-import 'package:loopcare_frontend/core/infrastructure/services/firebase_event_service.dart';
+import 'package:loopcare_frontend/core/domain/analytics/analytics_events.dart';
+import 'package:loopcare_frontend/core/domain/analytics/analytics_parameters.dart';
+import 'package:loopcare_frontend/core/infrastructure/services/analytics_service.dart';
 import 'package:loopcare_frontend/core/presentation/buttons/custom_filled_icon_button.dart';
 import 'package:loopcare_frontend/core/presentation/tab_bar/custom_underlined_tab_bar.dart';
 import 'package:loopcare_frontend/core/presentation/text_field/custom_text_field.dart';
@@ -41,11 +41,14 @@ class _SearchAppBarState extends State<SearchAppBar> with TickerProviderStateMix
     if (mode != null) {
       tabs = <String>[mode.label];
     } else {
-      tabs =
-          SearchMode.values.where((e) => e.label != SearchMode.favorite.label).map((e) => e.label).toList();
+      tabs = SearchMode.values
+          .where((e) => e.label != SearchMode.favorite.label)
+          .map((e) => e.label)
+          .toList();
     }
 
-    _tabController = TabController(length: tabs.length, vsync: this)..addListener(_tabsChangeListener);
+    _tabController = TabController(length: tabs.length, vsync: this)
+      ..addListener(_tabsChangeListener);
 
     if (mode == null) searchMode = searchType.searchModeValue;
 
@@ -109,11 +112,11 @@ class _SearchAppBarState extends State<SearchAppBar> with TickerProviderStateMix
       }
 
       final filters = [searchMode, widget.mode?.searchModeValue].toString();
-      AnalyticsEventService.instance.logEvent(
-        FirebaseEvents.performedSearch,
+      AnalyticsEventService().logEvent(
+        eventName: AnalyticsEvents.performedSearch,
         parameters: {
-          CustomDefinitions.value: widget.searchController.text,
-          CustomDefinitions.filters: widget.mode == null ? searchMode : filters,
+          AnalyticsParameters.value: widget.searchController.text,
+          AnalyticsParameters.filters: widget.mode == null ? searchMode : filters,
         },
       );
 
@@ -134,11 +137,11 @@ class _SearchAppBarState extends State<SearchAppBar> with TickerProviderStateMix
     }
 
     final filters = [searchMode, widget.mode?.searchModeValue].toString();
-    AnalyticsEventService.instance.logEvent(
-      FirebaseEvents.performedSearch,
+    AnalyticsEventService().logEvent(
+      eventName: AnalyticsEvents.performedSearch,
       parameters: {
-        CustomDefinitions.value: widget.searchController.text,
-        CustomDefinitions.filters: widget.mode == null ? searchMode : filters,
+        AnalyticsParameters.value: widget.searchController.text,
+        AnalyticsParameters.filters: widget.mode == null ? searchMode : filters,
       },
     );
 

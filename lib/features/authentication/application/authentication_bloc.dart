@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:io';
 
 import 'package:easy_localization/easy_localization.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
@@ -12,20 +13,22 @@ import 'package:loopcare_frontend/core/application/socket_service_chat/chat_sock
 import 'package:loopcare_frontend/core/domain/account/account.dart';
 import 'package:loopcare_frontend/core/domain/account/gender_preferences.dart';
 import 'package:loopcare_frontend/core/domain/account/gender_type.dart';
-import 'package:loopcare_frontend/core/domain/analytics/firebase_event_custom_definitions.dart';
-import 'package:loopcare_frontend/core/domain/analytics/firebase_event_list.dart';
+import 'package:loopcare_frontend/core/domain/analytics/analytics_events.dart';
+import 'package:loopcare_frontend/core/domain/analytics/analytics_parameters.dart';
 import 'package:loopcare_frontend/core/domain/medical_onboarding.dart';
 import 'package:loopcare_frontend/core/domain/unlocked_feature_type.dart';
 import 'package:loopcare_frontend/core/infrastructure/dio_client/dio_client.dart';
 import 'package:loopcare_frontend/core/infrastructure/dio_client/request_error.dart';
+import 'package:loopcare_frontend/core/infrastructure/services/analytics_service.dart';
+import 'package:loopcare_frontend/core/infrastructure/services/apps_flyer_service.dart';
 import 'package:loopcare_frontend/core/infrastructure/services/events.dart';
-import 'package:loopcare_frontend/core/infrastructure/services/firebase_event_service.dart';
 import 'package:loopcare_frontend/core/infrastructure/services/mixpanel_event_service.dart';
 import 'package:loopcare_frontend/core/infrastructure/services/shared_storage/shared_storage_service.dart';
 import 'package:loopcare_frontend/core/presentation/utils/string_extensions.dart';
 import 'package:loopcare_frontend/features/account/domain/user_grouping_state.dart';
 import 'package:loopcare_frontend/features/authentication/application/authentication_service.dart';
 import 'package:loopcare_frontend/features/authentication/application/dto/account_document_version_data.dart';
+import 'package:loopcare_frontend/features/authentication/application/dto/device_data.dart';
 import 'package:loopcare_frontend/features/authentication/application/dto/forgot_password_data.dart';
 import 'package:loopcare_frontend/features/authentication/application/dto/login_data.dart';
 import 'package:loopcare_frontend/features/authentication/application/dto/mental_health_test_answers.dart';
@@ -38,8 +41,11 @@ import 'package:loopcare_frontend/features/onboarding/application/dto/registrati
 import 'package:uuid/uuid.dart';
 
 part 'authentication_bloc.freezed.dart';
+
 part 'authentication_bloc.g.dart';
+
 part 'authentication_event.dart';
+
 part 'authentication_state.dart';
 
 @singleton
@@ -77,6 +83,7 @@ class AuthenticationBloc extends HydratedBloc<AuthenticationEvent, Authenticatio
     on<AuthenticatedCheck>(_onAuthenticatedCheck);
     on<StartTrackUser>(_onStartTrackUser);
     on<UpdatePolicy>(_onUpdatePolicy);
+    on<SendAppsFlyerData>(_onSendAppsFlyerDate);
 
     hydrate();
     _accessTokenSubscription = authTokenManager.addListener((token) {
@@ -175,6 +182,7 @@ class AuthenticationBloc extends HydratedBloc<AuthenticationEvent, Authenticatio
         );
 
         add(const AuthenticationEvent.getAccount());
+        add(const AuthenticationEvent.sendApsFlyerData());
 
         emit(
           AuthenticationState.authenticated(
@@ -239,11 +247,11 @@ class AuthenticationBloc extends HydratedBloc<AuthenticationEvent, Authenticatio
         authTokenManager.setAccessToken(response.accessToken);
         authTokenManager.setRefreshToken(response.refreshToken);
 
-        AnalyticsEventService.instance.logEvent(
-          CIOEvents.onboardingNewUserCreated,
+        AnalyticsEventService().logEvent(
+          eventName: AnalyticsEvents.onboardingNewUserCreated,
           parameters: {
-            CustomDefinitions.value: state.data.email,
-            CustomDefinitions.confirmed: 'false',
+            AnalyticsParameters.value: state.data.email,
+            AnalyticsParameters.confirmed: 'false',
           },
         );
 
@@ -280,7 +288,7 @@ class AuthenticationBloc extends HydratedBloc<AuthenticationEvent, Authenticatio
             ),
           ),
         );
-
+        add(const AuthenticationEvent.sendApsFlyerData());
         add(const AuthenticationEvent.getAccount());
       },
     );
@@ -447,11 +455,11 @@ class AuthenticationBloc extends HydratedBloc<AuthenticationEvent, Authenticatio
       (l) => null,
       (r) {
         if (r.emailApproveDate != null) {
-          AnalyticsEventService.instance.logEvent(
-            FirebaseEvents.userEmail,
+          AnalyticsEventService().logEvent(
+            eventName: AnalyticsEvents.userEmail,
             parameters: {
-              CustomDefinitions.value: state.data.email,
-              CustomDefinitions.confirmed: 'true',
+              AnalyticsParameters.value: state.data.email,
+              AnalyticsParameters.confirmed: 'true',
             },
           );
 
@@ -470,10 +478,10 @@ class AuthenticationBloc extends HydratedBloc<AuthenticationEvent, Authenticatio
     UpdateName event,
     Emitter<AuthenticationState> emit,
   ) async {
-    AnalyticsEventService.instance.logEvent(
-      FirebaseEvents.userName,
+    AnalyticsEventService().logEvent(
+      eventName: AnalyticsEvents.userName,
       parameters: {
-        CustomDefinitions.value: event.name,
+        AnalyticsParameters.value: event.name,
       },
     );
 
@@ -680,5 +688,22 @@ class AuthenticationBloc extends HydratedBloc<AuthenticationEvent, Authenticatio
   void _connectSockets() {
     _socketService.startListen();
     _chatSocketService.startListen();
+  }
+
+  FutureOr<void> _onSendAppsFlyerDate(
+    SendAppsFlyerData data,
+    Emitter<AuthenticationState> emit,
+  ) async {
+    final appsId = await AppsFlyerService.getAppsFlyerId();
+    if (appsId == null) {
+      return;
+    }
+    final data = DeviceData(uid: appsId, platform: Platform.isIOS ? 'ios' : 'android');
+    final response = await _authenticationService.sendAppsFlyerDeviceData(data);
+
+    response.fold(
+      (error) => emit(AuthenticationState.error(state.data.copyWith(error: error))),
+      (_) {},
+    );
   }
 }

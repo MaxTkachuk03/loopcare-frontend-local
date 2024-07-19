@@ -3,9 +3,9 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loopcare_frontend/core/application/analytics_bloc.dart';
-import 'package:loopcare_frontend/core/domain/analytics/firebase_event_custom_definitions.dart';
-import 'package:loopcare_frontend/core/domain/analytics/firebase_event_list.dart';
-import 'package:loopcare_frontend/core/infrastructure/services/firebase_event_service.dart';
+import 'package:loopcare_frontend/core/domain/analytics/analytics_events.dart';
+import 'package:loopcare_frontend/core/domain/analytics/analytics_parameters.dart';
+import 'package:loopcare_frontend/core/infrastructure/services/analytics_service.dart';
 import 'package:loopcare_frontend/core/infrastructure/services/shared_storage/shared_storage_service.dart';
 import 'package:loopcare_frontend/core/presentation/app_bar/custom_app_bar.dart';
 import 'package:loopcare_frontend/core/presentation/buttons/custom_filled_icon_button.dart';
@@ -59,17 +59,17 @@ class _LessonPageState extends State<LessonPage> {
 
     context.read<AnalyticsBloc>().add(
           AnalyticsEvent.sendAnalytics(
-            FirebaseEvents.leaveLessonScreen,
+            AnalyticsEvents.leaveLessonScreen,
             {
-              CustomDefinitions.lessonId: widget.lessonId.toString(),
-              CustomDefinitions.lessonType: stateData.contentType.name,
-              CustomDefinitions.timestamp: DateTime.now().toIso8601String(),
+              AnalyticsParameters.lessonId: widget.lessonId.toString(),
+              AnalyticsParameters.lessonType: stateData.contentType.name,
+              AnalyticsParameters.timestamp: DateTime.now().toIso8601String(),
             },
           ),
         );
 
-    AnalyticsEventService.instance.logLessonEvent(
-      FirebaseEvents.leaveLessonScreen,
+    AnalyticsEventService().logLessonEvent(
+      AnalyticsEvents.leaveLessonScreen,
       widget.lessonId,
       stateData.contentType,
       stateData.title,
@@ -86,8 +86,8 @@ class _LessonPageState extends State<LessonPage> {
   void _onContentLoaded(BuildContext context, EducationLessonState s) {
     final state = s.data;
 
-    AnalyticsEventService.instance.logLessonEvent(
-      FirebaseEvents.lessonScreen,
+    AnalyticsEventService().logLessonEvent(
+      AnalyticsEvents.lessonScreen,
       widget.lessonId,
       state.contentType,
       state.title,
