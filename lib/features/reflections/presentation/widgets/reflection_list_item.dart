@@ -48,7 +48,8 @@ class ReflectionListItem extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           CustomText.w600(item.title, style: context.textTheme.bodySmall),
-                          CustomText.w400(_subTitle, style: context.textTheme.bodySmall),
+                          if (!item.isCompletedMoreThanWeekAgo)
+                            CustomText.w400(_subTitle, style: context.textTheme.bodySmall),
                         ],
                       ),
                     ),
