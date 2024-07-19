@@ -30,6 +30,7 @@ import 'package:loopcare_frontend/features/authentication/application/dto/forgot
 import 'package:loopcare_frontend/features/authentication/application/dto/login_data.dart';
 import 'package:loopcare_frontend/features/authentication/application/dto/mental_health_test_answers.dart';
 import 'package:loopcare_frontend/features/authentication/application/dto/sign_up_data.dart';
+import 'package:loopcare_frontend/features/authentication/application/dto/update_user_email_data.dart';
 import 'package:loopcare_frontend/features/authentication/application/dto/validate_email_data.dart';
 import 'package:loopcare_frontend/features/buddy/domain/buddy.dart';
 import 'package:loopcare_frontend/features/chat/application/chat_bloc/group_chat_bloc.dart';
@@ -66,6 +67,7 @@ class AuthenticationBloc extends HydratedBloc<AuthenticationEvent, Authenticatio
     on<ForgotPassword>(_onForgotPassword);
     on<UpdateName>(_onUpdateName);
     on<UpdateEmail>(_onUpdateEmail);
+    on<UpdateUserEmail>(_onUpdateUserEmail);
     on<GetAccount>(_onGetAccount);
     on<DeleteAccount>(_onDeleteAccount);
     on<ConnectSockets>(_onConnectSockets);
@@ -481,6 +483,34 @@ class AuthenticationBloc extends HydratedBloc<AuthenticationEvent, Authenticatio
           name: event.name,
         ),
       ),
+    );
+  }
+
+  FutureOr<void> _onUpdateUserEmail(
+    UpdateUserEmail event,
+    Emitter<AuthenticationState> emit,
+  ) async {
+    emit(AuthenticationState.isLoading(state.data.copyWith(isLoading: true)));
+
+    final UpdateUserEmailData data = UpdateUserEmailData(event.email, event.password);
+
+    final response = await _authenticationService.updateUserEmail(data);
+
+    response.fold(
+      (l) => emit(
+          AuthenticationState.errorUpdateEmail(state.data.copyWith(error: l, isLoading: false))),
+      (r) {
+        CustomerIoService.changeUserEmail(email: event.email);
+
+        final updatedAccount =
+            _sharedPref.account = state.data.account?.copyWith(email: event.email);
+
+        emit(AuthenticationState.emailWasUpdated(state.data.copyWith(
+          email: event.email,
+          account: updatedAccount,
+          isLoading: false,
+        )));
+      },
     );
   }
 

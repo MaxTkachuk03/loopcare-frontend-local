@@ -94,6 +94,56 @@ class ModalBottomSheet {
     ).whenComplete(onContinuePressed);
   }
 
+  static void emailChangeConfirmed({
+    required BuildContext context,
+    required void Function() onCloseCallback,
+  }) {
+    showModalBottomSheet<void>(
+      showDragHandle: true,
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(24.0)),
+      context: context,
+      builder: (context) {
+        return MainContainer(
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              const SizedBox(height: 25.0),
+              const CircleAvatar(
+                radius: 22.0,
+                backgroundColor: AppColors.greenRegular,
+                child: Icon(Icons.check, size: 30),
+              ),
+              const SizedBox(height: 20.0),
+              CustomText.bitter500(
+                LocalizedTexts.emailChangeConfirmedTitle.tr(),
+                style: context.textTheme.displayMedium,
+                textAlign: TextAlign.center,
+              ),
+              const SizedBox(height: 32.0),
+              CustomText.w600(
+                LocalizedTexts.emailChangeConfirmedBody1.tr(),
+                style: context.textTheme.bodyMedium,
+                textAlign: TextAlign.center,
+              ),
+              const SizedBox(height: 32.0),
+              CustomText.w400(
+                LocalizedTexts.emailChangeConfirmedBody2.tr(),
+                style: context.textTheme.bodyMedium,
+                textAlign: TextAlign.center,
+              ),
+              const SizedBox(height: 32.0),
+              CustomElevatedButton.blueFullWidth(
+                label: LocalizedTexts.done.tr(),
+                onPressed: context.router.maybePop,
+              ),
+              const SizedBox(height: 30.0),
+            ],
+          ),
+        );
+      },
+    ).whenComplete(onCloseCallback);
+  }
+
   static void physicalInvalidMessage({required BuildContext context, required String message}) {
     showModalBottomSheet<void>(
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(24.0)),

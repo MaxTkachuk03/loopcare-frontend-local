@@ -8,6 +8,7 @@ import 'package:loopcare_frontend/features/authentication/application/dto/login_
 import 'package:loopcare_frontend/features/authentication/application/dto/login_response.dart';
 import 'package:loopcare_frontend/features/authentication/application/dto/report_abuse_data.dart';
 import 'package:loopcare_frontend/features/authentication/application/dto/sign_up_data.dart';
+import 'package:loopcare_frontend/features/authentication/application/dto/update_user_email_data.dart';
 import 'package:loopcare_frontend/features/authentication/application/dto/validate_email_data.dart';
 
 abstract class AuthenticationService {
@@ -25,13 +26,13 @@ abstract class AuthenticationService {
 
   Future<Either<RequestError, dynamic>> logout();
 
-  // Future<Either<RequestError, UnlockFeatureResponse>> unlockFeature(UnlockFeature feature);
-
   Future<Either<RequestError, dynamic>> forgotPassword(ForgotPasswordData email);
 
   Future<Either<RequestError, dynamic>> reportAbuse(ReportAbuseData data);
 
   Future<Either<RequestError, dynamic>> checkEmail(ValidateEmailData data);
+
+  Future<Either<RequestError, dynamic>> updateUserEmail(UpdateUserEmailData data);
 
   Future<Either<RequestError, dynamic>> updateDocumentVersion(AccountDocumentVersionData data);
 }
