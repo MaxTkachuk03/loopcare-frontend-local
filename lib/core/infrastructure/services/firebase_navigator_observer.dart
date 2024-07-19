@@ -21,7 +21,7 @@ class FirebaseNavigatorObserver extends AutoRouterObserver {
   }) : _onError = onError;
 
   void _sendScreenView(RouteSettings settings) {
-    final screenName = screenNames[nameExtractor(settings)] ?? nameExtractor(settings);
+    final screenName = getScreenName(settings.name) ?? nameExtractor(settings);
     final userId = StoredAccountService.getAccount()?.id ?? -1;
 
     if (screenName != null) {
