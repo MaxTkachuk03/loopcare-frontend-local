@@ -2,6 +2,7 @@ import 'package:dartz/dartz.dart';
 import 'package:loopcare_frontend/core/infrastructure/dio_client/request_error.dart';
 import 'package:loopcare_frontend/features/authentication/application/dto/account_document_version_data.dart';
 import 'package:loopcare_frontend/features/authentication/application/dto/account_response.dart';
+import 'package:loopcare_frontend/features/authentication/application/dto/device_data.dart';
 import 'package:loopcare_frontend/features/authentication/application/dto/email_approve_date_response.dart';
 import 'package:loopcare_frontend/features/authentication/application/dto/forgot_password_data.dart';
 import 'package:loopcare_frontend/features/authentication/application/dto/login_data.dart';
@@ -35,4 +36,6 @@ abstract class AuthenticationService {
   Future<Either<RequestError, dynamic>> updateUserEmail(UpdateUserEmailData data);
 
   Future<Either<RequestError, dynamic>> updateDocumentVersion(AccountDocumentVersionData data);
+
+  Future<Either<RequestError, dynamic>> sendAppsFlyerDeviceData(DeviceData data);
 }

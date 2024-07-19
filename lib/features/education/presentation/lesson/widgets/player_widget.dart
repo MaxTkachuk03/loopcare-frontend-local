@@ -4,9 +4,9 @@ import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:just_audio/just_audio.dart';
 import 'package:loopcare_frontend/core/application/analytics_bloc.dart';
-import 'package:loopcare_frontend/core/domain/analytics/firebase_event_custom_definitions.dart';
-import 'package:loopcare_frontend/core/domain/analytics/firebase_event_list.dart';
-import 'package:loopcare_frontend/core/infrastructure/services/firebase_event_service.dart';
+import 'package:loopcare_frontend/core/domain/analytics/analytics_events.dart';
+import 'package:loopcare_frontend/core/domain/analytics/analytics_parameters.dart';
+import 'package:loopcare_frontend/core/infrastructure/services/analytics_service.dart';
 import 'package:loopcare_frontend/core/presentation/buttons/custom_icon_button.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 import 'package:loopcare_frontend/features/education/application/education_lesson/education_lesson_bloc.dart';
@@ -102,14 +102,14 @@ class ControlButtons extends StatelessWidget {
   _onPlayPressed(BuildContext context) {
     final lessonId = context.read<EducationLessonBloc>().state.data.id;
 
-    AnalyticsEventService.instance.lessonAudioPlayEvent(lessonId);
+    AnalyticsEventService().lessonAudioPlayEvent(lessonId);
 
     context.read<AnalyticsBloc>().add(
           AnalyticsEvent.sendAnalytics(
-            FirebaseEvents.lessonAudioPlay,
+            AnalyticsEvents.lessonAudioPlay,
             {
-              CustomDefinitions.lessonId: lessonId.toString(),
-              CustomDefinitions.timestamp: DateTime.now().toIso8601String(),
+              AnalyticsParameters.lessonId: lessonId.toString(),
+              AnalyticsParameters.timestamp: DateTime.now().toIso8601String(),
             },
           ),
         );
@@ -120,14 +120,14 @@ class ControlButtons extends StatelessWidget {
   _onPlayPaused(BuildContext context) {
     final lessonId = context.read<EducationLessonBloc>().state.data.id;
 
-    AnalyticsEventService.instance.lessonAudioStopEvent(lessonId);
+   AnalyticsEventService().lessonAudioStopEvent(lessonId);
 
     context.read<AnalyticsBloc>().add(
           AnalyticsEvent.sendAnalytics(
-            FirebaseEvents.lessonAudioStop,
+            AnalyticsEvents.lessonAudioStop,
             {
-              CustomDefinitions.lessonId: lessonId.toString(),
-              CustomDefinitions.timestamp: DateTime.now().toIso8601String(),
+              AnalyticsParameters.lessonId: lessonId.toString(),
+              AnalyticsParameters.timestamp: DateTime.now().toIso8601String(),
             },
           ),
         );

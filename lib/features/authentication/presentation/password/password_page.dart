@@ -201,7 +201,7 @@ class _PasswordPageState extends State<PasswordPage> {
     final physicalData = context.read<PhysicalQuestionsBloc>().state.registrationPhysicalQuestionsData;
     final medicalData = context.read<MedicalQuestionsBloc>().state.registrationData;
     final mentalData = context.read<MentalQuestionsBloc>().state.registrationData;
-
+    //Todo put appFlyer ID
     context.read<AuthenticationBloc>().add(
           AuthenticationEvent.signUp(
             password: _passwordController.text,

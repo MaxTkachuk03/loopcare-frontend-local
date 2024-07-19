@@ -2,8 +2,8 @@ import 'package:auto_route/auto_route.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:loopcare_frontend/core/domain/analytics/firebase_event_list.dart';
-import 'package:loopcare_frontend/core/infrastructure/services/firebase_event_service.dart';
+import 'package:loopcare_frontend/core/domain/analytics/analytics_events.dart';
+import 'package:loopcare_frontend/core/infrastructure/services/analytics_service.dart';
 import 'package:loopcare_frontend/core/presentation/alerting/show_app_snackbar.dart';
 import 'package:loopcare_frontend/core/presentation/app_bar/custom_app_bar.dart';
 import 'package:loopcare_frontend/core/presentation/buttons/custom_filled_icon_button.dart';
@@ -63,7 +63,7 @@ class _ReflectionQuestionPageState extends State<ReflectionQuestionPage> {
     final activeReflection = context.read<ReflectionsBloc>().state.data.activeReflection;
 
     if (activeReflection != null) {
-      AnalyticsEventService.instance.assignmentMotivationScale(
+      AnalyticsEventService().assignmentMotivationScale(
           _currentQuestion.id.toString(), activeReflection, widget.fromDashboard);
     }
 
@@ -104,8 +104,8 @@ class _ReflectionQuestionPageState extends State<ReflectionQuestionPage> {
       final activeReflection = context.read<ReflectionsBloc>().state.data.activeReflection;
 
       if (activeReflection != null) {
-        AnalyticsEventService.instance.finalizeAssignment(
-            FirebaseEvents.userCompleteAssignment, activeReflection, widget.fromDashboard);
+       AnalyticsEventService().finalizeAssignment(
+           AnalyticsEvents.userCompleteReflection, activeReflection, widget.fromDashboard);
       }
 
       context.router.push(ReflectionCompleteRoute(streamType: widget.streamType));
