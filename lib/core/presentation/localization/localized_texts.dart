@@ -148,6 +148,8 @@ class LocalizedTexts {
   static const String scanYourProduct = 'scanYourProduct';
   static const String barCodeResultCalories = 'barCodeResultCalories';
   static const String barCodeResultPerServing = 'barCodeResultPerServing';
+  static const String openSettings = 'openSettings';
+  static const String allowCameraMessage = 'allowCameraMessage';
 
   //Search
   static const String searchHint = 'searchHint';
@@ -1168,5 +1170,4 @@ class LocalizedTexts {
   static const String maintenanceLabel = 'maintenanceLabel';
   static const String maintenancePageTitle = 'maintenancePageTitle';
   static const String maintenancePageDescription = 'maintenancePageDescription';
-
 }

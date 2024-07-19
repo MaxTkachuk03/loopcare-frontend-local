@@ -86,7 +86,7 @@ class ProductInformation extends StatelessWidget {
   }
 
   void _onContinue(BuildContext context) {
-    final foodItem = context.read<BarcodeScannerBloc>().state.mapOrNull(success: (state) => state.foodItem);
+    final foodItem = context.read<BarcodeScannerBloc>().state.data.foodItem;
 
     if (foodItem == null) return;
 

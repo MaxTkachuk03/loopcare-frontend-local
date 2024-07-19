@@ -325,6 +325,8 @@
   "scanYourProduct": "Scan your barcode",
   "barCodeResultCalories": "Calories: ",
   "barCodeResultPerServing": "Per serving : ",
+  "openSettings": "Open settings",
+  "allowCameraMessage": "To use the barcode scanner, please allow Camera usage in settings",
   "item": "item",
   "items": "items",
   "selected": "selected",

@@ -4,16 +4,13 @@ import 'package:loopcare_frontend/core/domain/analytics/firebase_event_custom_de
 import 'package:loopcare_frontend/core/domain/analytics/firebase_event_list.dart';
 import 'package:loopcare_frontend/core/infrastructure/services/firebase_event_service.dart';
 import 'package:loopcare_frontend/features/nutrition/application/barcode_scanner/barcode_scanner_bloc.dart';
-import 'package:loopcare_frontend/features/nutrition/presentation/barcode_scanner/widgets/info/no_information.dart';
-import 'package:loopcare_frontend/features/nutrition/presentation/barcode_scanner/widgets/info/product_information.dart';
+import 'package:loopcare_frontend/features/nutrition/presentation/barcode_scanner/widgets/no_information.dart';
+import 'package:loopcare_frontend/features/nutrition/presentation/barcode_scanner/widgets/product_information.dart';
 
 class QRCodeInfoWidget extends StatefulWidget {
   final String code;
 
-  const QRCodeInfoWidget({
-    super.key,
-    required this.code,
-  });
+  const QRCodeInfoWidget({super.key, required this.code});
 
   @override
   State<QRCodeInfoWidget> createState() => _QRCodeInfoWidgetState();
@@ -22,9 +19,9 @@ class QRCodeInfoWidget extends StatefulWidget {
 class _QRCodeInfoWidgetState extends State<QRCodeInfoWidget> {
   @override
   void initState() {
-    context.read<BarcodeScannerBloc>().add(
-          (BarcodeScannerEvent.getInformation(widget.code)),
-        );
+    super.initState();
+
+    context.read<BarcodeScannerBloc>().add((BarcodeScannerEvent.getInformation(widget.code)));
 
     AnalyticsEventService.instance.logEvent(
       FirebaseEvents.barcodeScanned,
@@ -33,15 +30,13 @@ class _QRCodeInfoWidgetState extends State<QRCodeInfoWidget> {
         CustomDefinitions.failedAttempt: widget.code.isEmpty ? 'true' : 'false',
       },
     );
-
-    super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<BarcodeScannerBloc, BarcodeScannerState>(
       builder: (context, state) {
-        return state.map(
+        return state.maybeMap(
           error: (errorState) {
             return Container(
               height: 400,
@@ -58,7 +53,7 @@ class _QRCodeInfoWidgetState extends State<QRCodeInfoWidget> {
               ),
             );
           },
-          success: (successState) {
+          loaded: (successState) {
             return Container(
               height: 400,
               decoration: const BoxDecoration(
@@ -71,11 +66,12 @@ class _QRCodeInfoWidgetState extends State<QRCodeInfoWidget> {
               child: Padding(
                 padding: const EdgeInsets.only(left: 44, right: 44, bottom: 44, top: 16),
                 child: ProductInformation(
-                  isReady: successState.foodItem != null,
-                  title: '${successState.foodItem?.brandName} ${successState.foodItem?.foodName}',
-                  calories: successState.foodItem?.servings.first.calories.toString() ?? '0',
+                  isReady: successState.data.foodItem != null,
+                  title:
+                      '${successState.data.foodItem?.brandName} ${successState.data.foodItem?.foodName}',
+                  calories: successState.data.foodItem?.servings.first.calories.toString() ?? '0',
                   perServing:
-                      '${successState.foodItem?.servings.first.metricServingAmount} ${successState.foodItem?.servings.first.metricServingUnit}',
+                      '${successState.data.foodItem?.servings.first.metricServingAmount} ${successState.data.foodItem?.servings.first.metricServingUnit}',
                 ),
               ),
             );
@@ -96,6 +92,7 @@ class _QRCodeInfoWidgetState extends State<QRCodeInfoWidget> {
               ),
             );
           },
+          orElse: () => const SizedBox.shrink(),
         );
       },
     );
