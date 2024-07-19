@@ -140,44 +140,38 @@ class ControlButtons extends StatelessWidget {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        const SizedBox(width: 50),
-        SizedBox(
-          height: 50,
-          width: 50,
-          child: StreamBuilder<PlayerState>(
-            stream: player.playerStateStream,
-            builder: (context, snapshot) {
-              final playerState = snapshot.data;
-              final processingState = playerState?.processingState;
-              final playing = playerState?.playing;
-              if (processingState == ProcessingState.loading ||
-                  processingState == ProcessingState.buffering) {
-                return Container(
-                  margin: const EdgeInsets.symmetric(vertical: 10.0),
-                  width: 30.0,
-                  height: 30.0,
-                  child: const CircularProgressIndicator(
-                    color: AppColors.darkGreen,
-                  ),
-                );
-              } else if (playing != true) {
-                return CustomIconButton(
-                  icon: const Icon(Icons.play_arrow, size: 35, color: AppColors.blueRegular),
-                  onPressed: () => _onPlayPressed(context),
-                );
-              } else if (processingState != ProcessingState.completed) {
-                return CustomIconButton(
-                  icon: const Icon(Icons.pause, size: 35, color: AppColors.blueRegular),
-                  onPressed: () => _onPlayPaused(context),
-                );
-              } else {
-                return CustomIconButton(
-                  icon: const Icon(Icons.replay, size: 35, color: AppColors.blueRegular),
-                  onPressed: () => player.seek(Duration.zero),
-                );
-              }
-            },
-          ),
+        const SizedBox(width: 35),
+        StreamBuilder<PlayerState>(
+          stream: player.playerStateStream,
+          builder: (context, snapshot) {
+            final playerState = snapshot.data;
+            final processingState = playerState?.processingState;
+            final playing = playerState?.playing;
+
+            if (processingState == ProcessingState.loading ||
+                processingState == ProcessingState.buffering) {
+              return const SizedBox(
+                width: 30,
+                height: 30,
+                child: CircularProgressIndicator(color: AppColors.darkGreen),
+              );
+            } else if (playing != true) {
+              return CustomIconButton(
+                icon: const Icon(Icons.play_arrow, size: 35, color: AppColors.blueRegular),
+                onPressed: () => _onPlayPressed(context),
+              );
+            } else if (processingState != ProcessingState.completed) {
+              return CustomIconButton(
+                icon: const Icon(Icons.pause, size: 35, color: AppColors.blueRegular),
+                onPressed: () => _onPlayPaused(context),
+              );
+            } else {
+              return CustomIconButton(
+                icon: const Icon(Icons.replay, size: 35, color: AppColors.blueRegular),
+                onPressed: () => player.seek(Duration.zero),
+              );
+            }
+          },
         ),
 
         ValueListenableBuilder<bool>(
@@ -188,7 +182,7 @@ class ControlButtons extends StatelessWidget {
               onPressed: _handleMute,
               icon: Icon(
                 isMute ? Icons.volume_off : Icons.volume_up,
-                size: 30,
+                size: 35,
                 color: AppColors.blueRegular,
               ),
             );
