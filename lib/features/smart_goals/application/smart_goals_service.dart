@@ -30,5 +30,5 @@ abstract class SmartGoalsService {
 
   Future<Either<RequestError, dynamic>> confirmProgress({required ProgressGoalData progress});
 
-  Future<Either<RequestError, dynamic>> resetProgress({required int sessionId});
+  Future<Either<RequestError, dynamic>> resetProgress({required int progressId});
 }

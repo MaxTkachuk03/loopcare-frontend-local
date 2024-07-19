@@ -56,9 +56,7 @@ ColorScheme _getColorScheme() {
   return const ColorScheme(
     primary: AppColors.darkGreen,
     secondary: AppColors.black,
-    background: AppColors.bgGreen,
     surface: AppColors.white,
-    onBackground: AppColors.darkGreen,
     error: AppColors.red,
     onError: AppColors.darkGreen,
     onPrimary: AppColors.white,
@@ -76,19 +74,19 @@ AppBarTheme _getAppBarTheme() => const AppBarTheme(
 ElevatedButtonThemeData _getElevatedButtonTheme() {
   return ElevatedButtonThemeData(
     style: ButtonStyle(
-      minimumSize: MaterialStateProperty.all(ButtonStyles.primarySize),
-      backgroundColor: MaterialStateProperty.resolveWith<Color?>(
-        (Set<MaterialState> states) {
-          if (states.contains(MaterialState.disabled)) {
+      minimumSize: WidgetStateProperty.all(ButtonStyles.primarySize),
+      backgroundColor: WidgetStateProperty.resolveWith<Color?>(
+        (Set<WidgetState> states) {
+          if (states.contains(WidgetState.disabled)) {
             return AppColors.greyLight;
           }
 
           return AppColors.blueRegular;
         },
       ),
-      padding: MaterialStateProperty.all(const EdgeInsets.symmetric(horizontal: 25.0, vertical: 14.0)),
-      foregroundColor: MaterialStateProperty.all(AppColors.white),
-      textStyle: MaterialStateProperty.all(ButtonStyles.primaryLabel),
+      padding: WidgetStateProperty.all(const EdgeInsets.symmetric(horizontal: 25.0, vertical: 14.0)),
+      foregroundColor: WidgetStateProperty.all(AppColors.white),
+      textStyle: WidgetStateProperty.all(ButtonStyles.primaryLabel),
     ),
   );
 }
@@ -174,7 +172,7 @@ InputDecorationTheme _getInputDecorationTheme() {
 
 CheckboxThemeData _getCheckboxTheme() {
   return CheckboxThemeData(
-    checkColor: MaterialStateProperty.all(AppColors.white),
+    checkColor: WidgetStateProperty.all(AppColors.white),
     shape: const RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(4.0))),
     side: const BorderSide(width: 1.5, color: AppColors.blueRegular),
     materialTapTargetSize: MaterialTapTargetSize.padded,

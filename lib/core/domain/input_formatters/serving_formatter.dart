@@ -1,5 +1,5 @@
 import 'package:flutter/services.dart';
-import 'package:loopcare_frontend/features/onboarding_new/utils/reg_exp_utils.dart';
+import 'package:loopcare_frontend/core/presentation/utils/reg_exp_utils.dart';
 
 class ServingFormatter extends TextInputFormatter {
   @override

@@ -6,10 +6,10 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loopcare_frontend/core/application/system_service.dart';
-import 'package:loopcare_frontend/core/domain/analytics/firebase_event_custom_definitions.dart';
+import 'package:loopcare_frontend/core/domain/analytics/analytics_events.dart';
+import 'package:loopcare_frontend/core/domain/analytics/analytics_parameters.dart';
 import 'package:loopcare_frontend/core/domain/aws_cookies_type.dart';
-import 'package:loopcare_frontend/core/domain/analytics/firebase_event_list.dart';
-import 'package:loopcare_frontend/core/infrastructure/services/firebase_event_service.dart';
+import 'package:loopcare_frontend/core/infrastructure/services/analytics_service.dart';
 import 'package:loopcare_frontend/core/presentation/app_bar/custom_app_bar.dart';
 import 'package:loopcare_frontend/core/presentation/buttons/custom_elevated_button.dart';
 import 'package:loopcare_frontend/core/presentation/buttons/custom_filled_icon_button.dart';
@@ -27,6 +27,7 @@ import 'package:loopcare_frontend/features/video_player/presentation/widgets/vid
 import 'package:video_player/video_player.dart';
 import 'package:wakelock_plus/wakelock_plus.dart';
 
+@RoutePage()
 class VideoPage extends StatefulWidget {
   final PhysicalProgram program;
 
@@ -68,8 +69,8 @@ class _VideoPageState extends State<VideoPage> {
     )..initialize().then((value) {
         _videoPlayerController?.play();
 
-        AnalyticsEventService.instance.logPhysicalActivityVideoEvent(
-          FirebaseEvents.videoScreen,
+        AnalyticsEventService().logPhysicalActivityVideoEvent(
+          AnalyticsEvents.videoScreen,
           widget.program,
           exercise,
         );
@@ -119,7 +120,8 @@ class _VideoPageState extends State<VideoPage> {
 
     _loadVideoPlayer(widget.program.exercises[_videoIndex - 1]);
 
-    _videoPageController.setCountDownTimer(widget.program.exercises[_videoIndex - 1].delayBeforeNext);
+    _videoPageController
+        .setCountDownTimer(widget.program.exercises[_videoIndex - 1].delayBeforeNext);
 
     setState(() {
       _videoIndex -= 1;
@@ -153,11 +155,11 @@ class _VideoPageState extends State<VideoPage> {
   }
 
   Future<bool> _onWillPop(BuildContext context) {
-    AnalyticsEventService.instance.logEvent(
-      FirebaseEvents.programClosed,
+    AnalyticsEventService().logEvent(
+      eventName: AnalyticsEvents.programClosed,
       parameters: {
-        CustomDefinitions.programId: widget.program.id,
-        CustomDefinitions.timestamp: DateTime.now().toIso8601String(),
+        AnalyticsParameters.programId: widget.program.id,
+        AnalyticsParameters.timestamp: DateTime.now().toIso8601String(),
       },
     );
 
@@ -184,7 +186,8 @@ class _VideoPageState extends State<VideoPage> {
 
                 return CustomScaffold.blueDarkest(
                   appBar: isPortrait
-                      ? CustomAppBar.transparent(leading: CustomFilledIconButton.leadingBlueLighter())
+                      ? CustomAppBar.transparent(
+                          leading: CustomFilledIconButton.leadingBlueLighter())
                       : null,
                   body: CustomSafeArea(
                     bottom: isPortrait,

@@ -6,24 +6,18 @@ import 'package:loopcare_frontend/features/education/presentation/lesson_complet
 import 'package:loopcare_frontend/injection.dart';
 
 class UnlockGroupSessionFeature extends StatelessWidget {
-  final bool wantJoinLater;
-
-  const UnlockGroupSessionFeature({super.key, required this.wantJoinLater});
+  const UnlockGroupSessionFeature({super.key});
 
   String get _bodyText {
     final account = getIt<SharedStorageService>().account!;
     final isTreatedByPsychiatrist = account.medicalOnboarding!.treatedByPsychiatrist;
 
-    if (wantJoinLater) {
-      return LocalizedTexts.groupSessionsJoinLaterLessonComplete;
+    if (account.isOnTrial) {
+      return LocalizedTexts.trialSubscriptionLessonComplete;
+    } else if (isTreatedByPsychiatrist) {
+      return LocalizedTexts.treatedByTherapistLessonComplete;
     } else {
-      if (account.isOnTrial) {
-        return LocalizedTexts.trialSubscriptionLessonComplete;
-      } else if (isTreatedByPsychiatrist) {
-        return LocalizedTexts.treatedByTherapistLessonComplete;
-      } else {
-        return LocalizedTexts.unlockFeatureDescription;
-      }
+      return LocalizedTexts.unlockFeatureDescription;
     }
   }
 

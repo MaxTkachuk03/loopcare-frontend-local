@@ -14,7 +14,7 @@ class CustomScaffold extends StatelessWidget {
   const CustomScaffold({
     super.key,
     required this.appBar,
-    required this.withBg,
+    this.withBg = false,
     required this.color,
     this.body,
     this.resizeToAvoidBottomInset,
@@ -25,42 +25,42 @@ class CustomScaffold extends StatelessWidget {
     Key? key,
     CustomAppBar? appBar,
     Widget? body,
-    bool? withBg,
+    bool withBg = false,
   }) =>
       CustomScaffold(
         key: key,
         appBar: appBar,
         body: body,
         color: AppColors.coralLightest,
-        withBg: withBg ?? false,
+        withBg: withBg,
       );
 
   factory CustomScaffold.coral({
     Key? key,
     CustomAppBar? appBar,
     Widget? body,
-    bool? withBg,
+    bool withBg = false,
   }) =>
       CustomScaffold(
         key: key,
         appBar: appBar,
         body: body,
         color: AppColors.coralOffRegular,
-        withBg: withBg ?? false,
+        withBg: withBg,
       );
 
   factory CustomScaffold.orangeLightest({
     Key? key,
     CustomAppBar? appBar,
     Widget? body,
-    bool? withBg,
+    bool withBg = false,
   }) =>
       CustomScaffold(
         key: key,
         appBar: appBar,
         body: body,
         color: AppColors.orangeLightest,
-        withBg: withBg ?? false,
+        withBg: withBg,
       );
 
   factory CustomScaffold.orange({
@@ -68,7 +68,7 @@ class CustomScaffold extends StatelessWidget {
     CustomAppBar? appBar,
     Widget? body,
     Widget? bottomSheet,
-    bool? withBg,
+    bool withBg = false,
   }) =>
       CustomScaffold(
         key: key,
@@ -76,7 +76,7 @@ class CustomScaffold extends StatelessWidget {
         body: body,
         color: AppColors.orangeOffRegular,
         bottomSheet: bottomSheet,
-        withBg: withBg ?? false,
+        withBg: withBg,
       );
 
   factory CustomScaffold.yellowLightest({
@@ -84,7 +84,7 @@ class CustomScaffold extends StatelessWidget {
     CustomAppBar? appBar,
     Widget? body,
     bool? resizeToAvoidBottomInset,
-    bool? withBg,
+    bool withBg = false,
   }) =>
       CustomScaffold(
         key: key,
@@ -92,118 +92,118 @@ class CustomScaffold extends StatelessWidget {
         body: body,
         color: AppColors.yellowLightest,
         resizeToAvoidBottomInset: resizeToAvoidBottomInset,
-        withBg: withBg ?? false,
+        withBg: withBg,
       );
 
   factory CustomScaffold.yellow({
     Key? key,
     CustomAppBar? appBar,
     Widget? body,
-    bool? withBg,
+    bool withBg = false,
   }) =>
       CustomScaffold(
         key: key,
         appBar: appBar,
         body: body,
         color: AppColors.yellowOffRegular,
-        withBg: withBg ?? false,
+        withBg: withBg,
       );
 
   factory CustomScaffold.greenLightest({
     Key? key,
     CustomAppBar? appBar,
     Widget? body,
-    bool? withBg,
+    bool withBg = false,
   }) =>
       CustomScaffold(
         key: key,
         appBar: appBar,
         body: body,
         color: AppColors.greenLightest,
-        withBg: withBg ?? false,
+        withBg: withBg,
       );
   factory CustomScaffold.greenLighter({
     Key? key,
     CustomAppBar? appBar,
     Widget? body,
-    bool? withBg,
+    bool withBg = false,
   }) =>
       CustomScaffold(
         key: key,
         appBar: appBar,
         body: body,
         color: AppColors.greenLighter,
-        withBg: withBg ?? false,
+        withBg: withBg,
       );
 
   factory CustomScaffold.green({
     Key? key,
     CustomAppBar? appBar,
     Widget? body,
-    bool? withBg,
+    bool withBg = false,
   }) =>
       CustomScaffold(
         key: key,
         appBar: appBar,
         body: body,
         color: AppColors.greenOffRegular,
-        withBg: withBg ?? false,
+        withBg: withBg,
       );
 
   factory CustomScaffold.greenDarker({
     Key? key,
     CustomAppBar? appBar,
     Widget? body,
-    bool? withBg,
+    bool withBg = false,
   }) =>
       CustomScaffold(
         key: key,
         appBar: appBar,
         body: body,
         color: AppColors.greenDarker,
-        withBg: withBg ?? false,
+        withBg: withBg,
       );
 
   factory CustomScaffold.petrolLightest({
     Key? key,
     CustomAppBar? appBar,
     Widget? body,
-    bool? withBg,
+    bool withBg = false,
   }) =>
       CustomScaffold(
         key: key,
         appBar: appBar,
         body: body,
         color: AppColors.petrolLightest,
-        withBg: withBg ?? false,
+        withBg: withBg,
       );
 
   factory CustomScaffold.petrol({
     Key? key,
     CustomAppBar? appBar,
     Widget? body,
-    bool? withBg,
+    bool withBg = false,
   }) =>
       CustomScaffold(
         key: key,
         appBar: appBar,
         body: body,
         color: AppColors.petrolOffRegular,
-        withBg: withBg ?? false,
+        withBg: withBg,
       );
 
   factory CustomScaffold.blueLightest({
     Key? key,
     CustomAppBar? appBar,
     Widget? body,
-    bool? withBg,
+    bool withBg = false,
   }) =>
       CustomScaffold(
         key: key,
         appBar: appBar,
         body: body,
         color: AppColors.blueLightest,
-        withBg: withBg ?? false,
+        withBg: withBg,
       );
 
   factory CustomScaffold.blue({
@@ -211,28 +211,28 @@ class CustomScaffold extends StatelessWidget {
     CustomAppBar? appBar,
     Widget? body,
     bool? needBottomFacture,
-    bool? withBg,
+    bool withBg = false,
   }) =>
       CustomScaffold(
         key: key,
         appBar: appBar,
         body: body,
         color: AppColors.blueOffRegular,
-        withBg: withBg ?? false,
+        withBg: withBg,
       );
 
   factory CustomScaffold.blueDarkest({
     Key? key,
     CustomAppBar? appBar,
     Widget? body,
-    bool? withBg,
+    bool withBg = false,
   }) =>
       CustomScaffold(
         key: key,
         appBar: appBar,
         body: body,
         color: AppColors.blueDarkest,
-        withBg: withBg ?? false,
+        withBg: withBg,
       );
 
   @override

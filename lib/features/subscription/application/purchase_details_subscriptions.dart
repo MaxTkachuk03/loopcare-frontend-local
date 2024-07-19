@@ -1,3 +1,5 @@
+// ignore_for_file: depend_on_referenced_packages
+
 import 'dart:async';
 import 'dart:io';
 
@@ -5,10 +7,10 @@ import 'package:in_app_purchase/in_app_purchase.dart';
 import 'package:in_app_purchase_storekit/in_app_purchase_storekit.dart';
 import 'package:in_app_purchase_storekit/store_kit_wrappers.dart';
 import 'package:loopcare_frontend/core/infrastructure/dio_client/request_error.dart';
-import 'package:loopcare_frontend/features/subscription/application/subscription_error.dart';
+import 'package:loopcare_frontend/core/infrastructure/dio_client/server_error_data.dart';
+import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/features/subscription/application/subscription_service.dart';
-
-import '../../../injection.dart';
+import 'package:loopcare_frontend/injection.dart';
 
 class PurchaseDetailsStreamSubscription {
   final AppSubscriptionService inAppPurchaseService = getIt<AppSubscriptionService>();
@@ -37,7 +39,8 @@ class PurchaseDetailsStreamSubscription {
     _streamSubscription = inAppPurchaseService.storeSubscription.listen(
       (List<PurchaseDetails> events) async {
         if (events.isEmpty) {
-          onError?.call(const RequestError.streamSubscription(purchaseServiceErrorMessage));
+          onError?.call(
+              const RequestError.streamSubscription(ServerErrorData(message: LocalizedTexts.purchaseStreamError)));
           return;
         }
         if (events.every((element) => element.status == PurchaseStatus.restored)) {
@@ -68,7 +71,8 @@ class PurchaseDetailsStreamSubscription {
                 onCanceled?.call();
                 break;
               case PurchaseStatus.error:
-                onError?.call(const RequestError.streamSubscription(purchaseServiceErrorMessage));
+                onError?.call(const RequestError.streamSubscription(
+                    ServerErrorData(message: LocalizedTexts.purchaseStreamError)));
                 if (Platform.isIOS) {
                   await inAppPurchaseService.finishTransactionIOS();
                 }
@@ -80,9 +84,10 @@ class PurchaseDetailsStreamSubscription {
           },
         );
       },
-      onDone: () => close(),
+      onDone: close,
       onError: (e) {
-        onError?.call(const RequestError.streamSubscription(purchaseServiceErrorMessage));
+        onError?.call(const RequestError.streamSubscription(
+            ServerErrorData(message: LocalizedTexts.purchaseStreamError)));
         close();
       },
     );

@@ -7,6 +7,7 @@ import 'package:loopcare_frontend/core/presentation/alerting/show_app_snackbar.d
 import 'package:loopcare_frontend/core/presentation/app_bar/custom_app_bar.dart';
 import 'package:loopcare_frontend/core/presentation/buttons/custom_elevated_button.dart';
 import 'package:loopcare_frontend/core/presentation/buttons/custom_filled_icon_button.dart';
+import 'package:loopcare_frontend/core/presentation/custom_error_widget/error_invoker.dart';
 import 'package:loopcare_frontend/core/presentation/custom_safe_area.dart';
 import 'package:loopcare_frontend/core/presentation/like_unlike_selector/like_unlike_selector.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
@@ -23,6 +24,7 @@ import 'package:loopcare_frontend/features/smart_goals/application/smart_goals_b
 import 'package:loopcare_frontend/features/smart_goals/domain/weekly_smart_goal.dart';
 import 'package:loopcare_frontend/features/smart_goals/presentation/goal_review_page/widgets/goal_review_card.dart';
 
+@RoutePage()
 class GoalReviewPage extends StatefulWidget {
   final WeeklySmartGoal goal;
 
@@ -78,13 +80,13 @@ class _GoalReviewPageState extends State<GoalReviewPage> {
 
   void _onErrorAddingReview(SmartGoalsState state) {
     final String? errorMessage = state.data.error?.maybeMap(
-      forbidden: (s) => s.error.message,
-      notFound: (s) => s.error.message,
-      badRequest: (s) => s.error.message,
-      orElse: () => LocalizedTexts.somethingWentWrong.tr(),
+      forbidden: (s) => s.message,
+      notFound: (s) => s.message,
+      badRequest: (s) => s.message,
+      orElse: () => LocalizedTexts.somethingWentWrong,
     );
 
-    context.showError(content: CustomText.w400(errorMessage ?? ''));
+    context.showError(content: CustomText.w400(errorMessage?.tr() ?? LocalizedTexts.somethingWentWrong.tr()));
   }
 
   void _onReviewAdded(SmartGoalsState state) => context
@@ -103,59 +105,64 @@ class _GoalReviewPageState extends State<GoalReviewPage> {
       appBar: CustomAppBar.green(
         title: LocalizedTexts.goalReview.tr(),
         leading: CustomFilledIconButton.leadingGreenLighter(),
+        actions: const [
+          ErrorInvokeButton(),
+        ],
       ),
       body: CustomSafeArea(
-        child: ScrollableContainer(
-          child: BlocListener<SmartGoalsBloc, SmartGoalsState>(
-            listenWhen: _listenWhen,
-            listener: _onReviewAddedListener,
-            child: MainContainer(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                children: [
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      const SizedBox(height: 28.0),
-                      GoalReviewCard(item: widget.goal),
-                      _ScoreReviewWidget(
-                        scoreValue: _scoreValue,
-                        onScorePressedHandler: _onScorePressedHandler,
-                      ),
-                      const SizedBox(height: 25.0),
-                      CustomText.bitter600(
-                        LocalizedTexts.wantToTryInFuture.tr(),
-                        style: context.textTheme.bodyLarge,
-                      ),
-                      const SizedBox(height: 25.0),
-                      ValueListenableBuilder(
-                        valueListenable: _wantToTryValue,
-                        builder: (context, value, _) => LikeUnlikeSelector(
-                          onChange: _onWantToTryChangeHandler,
-                          value: _wantToTryValue.value,
+        child: ErrorInvoker(
+          child: ScrollableContainer(
+            child: BlocListener<SmartGoalsBloc, SmartGoalsState>(
+              listenWhen: _listenWhen,
+              listener: _onReviewAddedListener,
+              child: MainContainer(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: [
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        const SizedBox(height: 28.0),
+                        GoalReviewCard(item: widget.goal),
+                        _ScoreReviewWidget(
+                          scoreValue: _scoreValue,
+                          onScorePressedHandler: _onScorePressedHandler,
+                        ),
+                        const SizedBox(height: 25.0),
+                        CustomText.bitter600(
+                          LocalizedTexts.wantToTryInFuture.tr(),
+                          style: context.textTheme.bodyLarge,
+                        ),
+                        const SizedBox(height: 25.0),
+                        ValueListenableBuilder(
+                          valueListenable: _wantToTryValue,
+                          builder: (context, value, _) => LikeUnlikeSelector(
+                            onChange: _onWantToTryChangeHandler,
+                            value: _wantToTryValue.value,
+                          ),
+                        ),
+                      ],
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 30.0),
+                      child: ValueListenableBuilder<int?>(
+                        valueListenable: _scoreValue,
+                        builder: (_, score, __) => ValueListenableBuilder<LikeUnlikeOptions?>(
+                          valueListenable: _wantToTryValue,
+                          builder: (_, wantToTry, __) {
+                            final bool canSend = score != null && wantToTry != null;
+
+                            return CustomElevatedButton.blueFullWidth(
+                              label: LocalizedTexts.confirm.tr(),
+                              onPressed: canSend ? _onPressedHandler : null,
+                            );
+                          },
                         ),
                       ),
-                    ],
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 30.0),
-                    child: ValueListenableBuilder<int?>(
-                      valueListenable: _scoreValue,
-                      builder: (_, score, __) => ValueListenableBuilder<LikeUnlikeOptions?>(
-                        valueListenable: _wantToTryValue,
-                        builder: (_, wantToTry, __) {
-                          final bool canSend = score != null && wantToTry != null;
-
-                          return CustomElevatedButton.blueFullWidth(
-                            label: LocalizedTexts.confirm.tr(),
-                            onPressed: canSend ? _onPressedHandler : null,
-                          );
-                        },
-                      ),
-                    ),
-                  )
-                ],
+                    )
+                  ],
+                ),
               ),
             ),
           ),

@@ -2,9 +2,10 @@ import 'package:auto_route/auto_route.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:loopcare_frontend/core/domain/analytics/firebase_event_custom_definitions.dart';
-import 'package:loopcare_frontend/core/domain/analytics/firebase_event_list.dart';
-import 'package:loopcare_frontend/core/infrastructure/services/firebase_event_service.dart';
+import 'package:loopcare_frontend/core/domain/analytics/analytics_events.dart';
+import 'package:loopcare_frontend/core/domain/analytics/analytics_parameters.dart';
+import 'package:loopcare_frontend/core/infrastructure/services/analytics_service.dart';
+import 'package:loopcare_frontend/core/infrastructure/services/logger/logger.dart';
 import 'package:loopcare_frontend/core/presentation/alerting/show_app_snackbar.dart';
 import 'package:loopcare_frontend/core/presentation/app_bar/custom_app_bar.dart';
 import 'package:loopcare_frontend/core/presentation/buttons/custom_elevated_button.dart';
@@ -35,6 +36,7 @@ import 'package:loopcare_frontend/features/nutrition/presentation/edit_dish/edit
 import 'package:loopcare_frontend/features/nutrition/presentation/widgets/meal_portions/nutrition_values_block.dart';
 import 'package:loopcare_frontend/features/nutrition/presentation/widgets/servings_amount/servings_amount.dart';
 
+@RoutePage()
 class DishDetailsPage extends StatefulWidget {
   final int dishId;
   final bool canEditDish;
@@ -94,7 +96,9 @@ class _DishDetailsPageState extends State<DishDetailsPage> {
 
     if (mealId == null || val.isEmpty) return;
 
-    context.read<DishBloc>().add(DishEvent.servingChanged(mealId: mealId, servingAmount: int.parse(val)));
+    context
+        .read<DishBloc>()
+        .add(DishEvent.servingChanged(mealId: mealId, servingAmount: int.parse(val)));
   }
 
   void _onNutritionFactSelect(NutritionValuesTypes item) {
@@ -114,14 +118,14 @@ class _DishDetailsPageState extends State<DishDetailsPage> {
           ),
         );
 
-    AnalyticsEventService.instance.logEvent(
-      FirebaseEvents.foodLogged,
+    AnalyticsEventService().logEvent(
+      eventName: AnalyticsEvents.foodLogged,
       parameters: {
-        CustomDefinitions.timestamp: DateTime.now().toIso8601String(),
-        CustomDefinitions.mealId: externalFoodItemId,
-        CustomDefinitions.servingId: servingId,
-        CustomDefinitions.numberOfUnits: numberOfUnits.toString(),
-        CustomDefinitions.isDishes: 'true',
+        AnalyticsParameters.timestamp: DateTime.now().toIso8601String(),
+        AnalyticsParameters.mealId: externalFoodItemId,
+        AnalyticsParameters.servingId: servingId,
+        AnalyticsParameters.numberOfUnits: numberOfUnits.toString(),
+        AnalyticsParameters.isDishes: 'true',
       },
     );
 
@@ -141,7 +145,10 @@ class _DishDetailsPageState extends State<DishDetailsPage> {
           final mealId = mealBloc.state.data.getCurrentMealId;
 
           if (mealId == null) {
-            debugPrint('Search item click freezed DishDetailsPage mealId == null');
+            log.e(
+              'Search item click freezed DishDetailsPage mealId == null',
+              error: LogTitle.noItem,
+            );
             return;
           }
 
@@ -277,8 +284,8 @@ class _DishDetailsPageState extends State<DishDetailsPage> {
                             children: [
                               ServingsAmount(
                                 inputController: _servingController,
-                                onValueChangeHandler:
-                                    _onServingChanges.withDebounce(const Duration(milliseconds: 500)),
+                                onValueChangeHandler: _onServingChanges
+                                    .withDebounce(const Duration(milliseconds: 500)),
                               ),
                               NutritionValuesBlock(
                                 numberOfPortions: dishState.selectedDish.numberOfServings.toInt(),
@@ -302,9 +309,9 @@ class _DishDetailsPageState extends State<DishDetailsPage> {
                                     dishState.selectedDish.numberOfServings,
                                 carbFiberRatio: dishState.selectedDish.carbFiberRatio,
                                 carbsPercent: dishState.selectedDish.carbsPercent,
-                                totalCalories:
-                                    (dishState.selectedDish.caloriesSumWithDrinks * _servingsAmount) /
-                                        dishState.selectedDish.numberOfServings,
+                                totalCalories: (dishState.selectedDish.caloriesSumWithDrinks *
+                                        _servingsAmount) /
+                                    dishState.selectedDish.numberOfServings,
                                 totalCarbs: (dishState.selectedDish.carbsSum * _servingsAmount) /
                                     dishState.selectedDish.numberOfServings,
                               ),
@@ -347,7 +354,8 @@ class _DishDetailsPageState extends State<DishDetailsPage> {
                                       return state.maybeMap(
                                           dish: (dishState) {
                                             return CustomElevatedButton.blueFullWidth(
-                                              onPressed: dishState.hasFoodItems ? _onLogDishHandler : null,
+                                              onPressed:
+                                                  dishState.hasFoodItems ? _onLogDishHandler : null,
                                               label: LocalizedTexts.logItem.tr(),
                                             );
                                           },

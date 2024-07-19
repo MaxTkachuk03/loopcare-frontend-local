@@ -4,7 +4,7 @@ import 'package:loopcare_frontend/core/presentation/text/custom_text.dart';
 import 'package:loopcare_frontend/core/presentation/text_field/custom_text_field.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 import 'package:loopcare_frontend/core/presentation/utils/build_context_extensions.dart';
-import 'package:loopcare_frontend/features/onboarding_new/utils/reg_exp_utils.dart';
+import 'package:loopcare_frontend/core/presentation/utils/reg_exp_utils.dart';
 
 class UnitField extends StatelessWidget {
   final TextEditingController controller;

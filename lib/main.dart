@@ -15,9 +15,12 @@ import 'package:loopcare_frontend/core/application/system_service.dart';
 import 'package:loopcare_frontend/core/infrastructure/app_lifecycle_observer.dart';
 import 'package:loopcare_frontend/core/infrastructure/services/country_code_service/country_code_service.dart';
 import 'package:loopcare_frontend/core/infrastructure/services/events.dart';
+import 'package:loopcare_frontend/core/infrastructure/services/logger/logger.dart';
 import 'package:loopcare_frontend/core/infrastructure/services/mixpanel_event_service.dart';
 import 'package:loopcare_frontend/core/infrastructure/services/mixpanel_manager.dart';
+import 'package:loopcare_frontend/core/presentation/custom_error_widget/custom_error_widget.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localization_constants.dart';
+import 'package:loopcare_frontend/features/river/presentation/painters/river_stream_shaders.dart';
 import 'package:loopcare_frontend/firebase_options.dart';
 import 'package:loopcare_frontend/injection.dart';
 import 'package:path_provider/path_provider.dart';
@@ -38,13 +41,14 @@ Future<void> main() async {
 
   await FirebaseCrashlytics.instance.setCrashlyticsCollectionEnabled(!kDebugMode);
 
-  FlutterError.onError = FirebaseCrashlytics.instance.recordFlutterFatalError;
+  FlutterError.onError = _onFlutterError;
+
+  if (!kDebugMode) {
+    ErrorWidget.builder = _onFlutterErrorWidget;
+  }
 
   // Pass all uncaught asynchronous errors that aren't handled by the Flutter framework to Crashlytics
-  PlatformDispatcher.instance.onError = (error, stack) {
-    FirebaseCrashlytics.instance.recordError(error, stack, fatal: true);
-    return true;
-  };
+  PlatformDispatcher.instance.onError = _onPlatformDispatcherError;
 
   await EasyLocalization.ensureInitialized();
 
@@ -74,6 +78,8 @@ Future<void> main() async {
     androidNotificationOngoing: true,
   );
 
+  await RiverStreamShader.instance.init('shaders/river_stream_shader.glsl');
+
   return runApp(
     EasyLocalization(
       supportedLocales: LocalizationConstants.supportedLocales,
@@ -84,3 +90,17 @@ Future<void> main() async {
     ),
   );
 }
+
+void _onFlutterError(FlutterErrorDetails details) {
+  log.e(details.exceptionAsString(), error: details.runtimeType, stackTrace: details.stack);
+  FirebaseCrashlytics.instance.recordFlutterFatalError(details);
+}
+
+bool _onPlatformDispatcherError(Object error, StackTrace stackTrace) {
+  log.e(error.toString(), error: error.runtimeType, stackTrace: stackTrace);
+  FirebaseCrashlytics.instance.recordError(error, stackTrace, fatal: true);
+  return true;
+}
+
+Widget _onFlutterErrorWidget(FlutterErrorDetails details) =>
+    CustomErrorWidget(errorDetails: details);

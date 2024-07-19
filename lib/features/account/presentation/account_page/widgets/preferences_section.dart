@@ -2,7 +2,6 @@ import 'package:auto_route/auto_route.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:loopcare_frontend/core/domain/unlocked_feature_type.dart';
 import 'package:loopcare_frontend/core/presentation/alerting/show_app_snackbar.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/core/presentation/routes/app_router.dart';
@@ -26,7 +25,8 @@ class PreferencesSection extends StatelessWidget {
     context.router.push(FoodPreferencesRoute(fromLessonComplete: false));
   }
 
-  void _onBuddyHandler(BuildContext context) => context.router.pushNamed(AppRoutes.buddyPreferences);
+  void _onBuddyHandler(BuildContext context) =>
+      context.router.pushNamed(AppRoutes.buddyPreferences);
 
   void _onPhysicalActivitiesHandler(BuildContext context) {
     context.router.pushNamed(AppRoutes.physicalPreferences);
@@ -37,8 +37,9 @@ class PreferencesSection extends StatelessWidget {
   }
 
   String _groupSessionsSubtitle(AuthenticationState state) {
-    final grouped =
-        state.data.isUserGrouped ? LocalizedTexts.yes.tr().capitalize() : LocalizedTexts.no.tr().capitalize();
+    final grouped = state.data.isUserGrouped
+        ? LocalizedTexts.yes.tr().capitalize()
+        : LocalizedTexts.no.tr().capitalize();
 
     return "${LocalizedTexts.partOfGroup.tr()}: $grouped";
   }
@@ -128,17 +129,19 @@ class PreferencesSection extends StatelessWidget {
                 SectionTitle(title: LocalizedTexts.preferences.tr()),
                 SectionItem(
                   title: LocalizedTexts.food.tr(),
-                  onPressHandler: state.data.isFoodLoggingUnlocked ? () => _onFoodHandler(context) : null,
+                  onPressHandler:
+                      state.data.isFoodLoggingUnlocked ? () => _onFoodHandler(context) : null,
                 ),
                 const Divider(height: 1.0, color: AppColors.blueLighter),
                 SectionItem(
                   title: LocalizedTexts.buddyTitle.tr(),
-                  onPressHandler: state.data.isBuddyUnlocked ? () => _onBuddyHandler(context) : null,
+                  onPressHandler:
+                      state.data.isBuddyUnlocked ? () => _onBuddyHandler(context) : null,
                 ),
                 const Divider(height: 1.0, color: AppColors.blueLighter),
                 SectionItem(
                   title: LocalizedTexts.physicalExercises.tr(),
-                  onPressHandler: state.data.unlockedFeatures.contains(UnlockedFeatureType.physicalActivities)
+                  onPressHandler: state.data.isPhysicalActivitiesUnlocked
                       ? () => _onPhysicalActivitiesHandler(context)
                       : null,
                 ),
@@ -146,14 +149,10 @@ class PreferencesSection extends StatelessWidget {
                 SectionItem(
                   title: LocalizedTexts.groupSessions.tr(),
                   subTitle: _groupSessionsSubtitle(state),
-                  onPressHandler:
-                      state.data.isGroupSessionsUnlocked ? () => _onGroupSessionsHandler(context) : null,
+                  onPressHandler: state.data.isGroupSessionsUnlocked
+                      ? () => _onGroupSessionsHandler(context)
+                      : null,
                 ),
-                // Todo it's old part, need to check do we need it in future
-                // const SizedBox(height: 16.0),
-                // const Divider(height: 1.0, color: AppColors.blueLighter),
-                // const SizedBox(height: 16.0),
-                // SectionItem(title: LocalizedTexts.diabetes.tr(), onPressHandler: () {}),
               ],
             );
           },

@@ -90,6 +90,30 @@ class BottomPlacedButton extends StatelessWidget {
     this.buttonPadding,
   }) : backgroundColor = AppColors.orangeRegular;
 
+  const BottomPlacedButton.coralLightest({
+    super.key,
+    required this.body,
+    required this.button,
+    this.enableButton = true,
+    this.buttonPadding,
+  }) : backgroundColor = AppColors.coralLightest;
+
+  const BottomPlacedButton.coral({
+    super.key,
+    required this.body,
+    required this.button,
+    this.enableButton = true,
+    this.buttonPadding,
+  }) : backgroundColor = AppColors.coralOffRegular;
+
+  const BottomPlacedButton.coralDarker({
+    super.key,
+    required this.body,
+    required this.button,
+    this.enableButton = true,
+    this.buttonPadding,
+  }) : backgroundColor = AppColors.coralRegular;
+
   const BottomPlacedButton.green({
     super.key,
     required this.body,
@@ -106,6 +130,14 @@ class BottomPlacedButton extends StatelessWidget {
     this.buttonPadding,
   }) : backgroundColor = AppColors.greenLightest;
 
+  const BottomPlacedButton.petrolLightest({
+    super.key,
+    required this.body,
+    required this.button,
+    this.enableButton = true,
+    this.buttonPadding,
+  }) : backgroundColor = AppColors.petrolLightest;
+
   const BottomPlacedButton.petrol({
     super.key,
     required this.body,
@@ -113,6 +145,14 @@ class BottomPlacedButton extends StatelessWidget {
     this.enableButton = true,
     this.buttonPadding,
   }) : backgroundColor = AppColors.petrolOffRegular;
+
+  const BottomPlacedButton.petrolDarker({
+    super.key,
+    required this.body,
+    required this.button,
+    this.enableButton = true,
+    this.buttonPadding,
+  }) : backgroundColor = AppColors.petrolRegular;
 
   @override
   Widget build(BuildContext context) {

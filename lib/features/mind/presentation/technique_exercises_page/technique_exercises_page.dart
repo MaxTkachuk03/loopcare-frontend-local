@@ -2,7 +2,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:loopcare_frontend/core/domain/analytics/firebase_event_list.dart';
+import 'package:loopcare_frontend/core/domain/analytics/analytics_events.dart';
 import 'package:loopcare_frontend/core/presentation/app_bar/custom_app_bar.dart';
 import 'package:loopcare_frontend/core/presentation/buttons/custom_filled_icon_button.dart';
 import 'package:loopcare_frontend/core/presentation/custom_safe_area.dart';
@@ -15,6 +15,7 @@ import 'package:loopcare_frontend/features/mind/domain/mind_analytics_mixin/mind
 import 'package:loopcare_frontend/features/mind/presentation/widgets/exercise_list_tile/exercise_list_tile.dart';
 import 'package:loopcare_frontend/features/mind/presentation/widgets/mind_list_content/mind_list_content.dart';
 
+@RoutePage()
 class TechniqueExercisesPage extends StatefulWidget {
   const TechniqueExercisesPage({super.key});
 
@@ -29,12 +30,12 @@ class _TechniqueExercisesPageState extends State<TechniqueExercisesPage> with Mi
     super.initState();
     techniqueId = context.read<MindBloc>().state.data.currentTechnique!.id;
 
-    track(FirebaseEvents.mindSelectTechnique);
+    track(AnalyticsEvents.mindSelectTechnique);
   }
 
   @override
   void dispose() {
-    track(FirebaseEvents.mindCloseTechnique);
+    track(AnalyticsEvents.mindCloseTechnique );
     super.dispose();
   }
 

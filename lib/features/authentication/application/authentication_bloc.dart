@@ -1,5 +1,7 @@
 import 'dart:async';
+import 'dart:io';
 
+import 'package:easy_localization/easy_localization.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:get_it/get_it.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
@@ -11,34 +13,39 @@ import 'package:loopcare_frontend/core/application/socket_service_chat/chat_sock
 import 'package:loopcare_frontend/core/domain/account/account.dart';
 import 'package:loopcare_frontend/core/domain/account/gender_preferences.dart';
 import 'package:loopcare_frontend/core/domain/account/gender_type.dart';
-import 'package:loopcare_frontend/core/domain/analytics/firebase_event_custom_definitions.dart';
-import 'package:loopcare_frontend/core/domain/analytics/firebase_event_list.dart';
+import 'package:loopcare_frontend/core/domain/analytics/analytics_events.dart';
+import 'package:loopcare_frontend/core/domain/analytics/analytics_parameters.dart';
 import 'package:loopcare_frontend/core/domain/medical_onboarding.dart';
-import 'package:loopcare_frontend/core/domain/unlock_config/unlock_feature/unlock_feature.dart';
 import 'package:loopcare_frontend/core/domain/unlocked_feature_type.dart';
 import 'package:loopcare_frontend/core/infrastructure/dio_client/dio_client.dart';
 import 'package:loopcare_frontend/core/infrastructure/dio_client/request_error.dart';
+import 'package:loopcare_frontend/core/infrastructure/services/analytics_service.dart';
+import 'package:loopcare_frontend/core/infrastructure/services/apps_flyer_service.dart';
 import 'package:loopcare_frontend/core/infrastructure/services/events.dart';
-import 'package:loopcare_frontend/core/infrastructure/services/firebase_event_service.dart';
 import 'package:loopcare_frontend/core/infrastructure/services/mixpanel_event_service.dart';
 import 'package:loopcare_frontend/core/infrastructure/services/shared_storage/shared_storage_service.dart';
 import 'package:loopcare_frontend/core/presentation/utils/string_extensions.dart';
 import 'package:loopcare_frontend/features/account/domain/user_grouping_state.dart';
 import 'package:loopcare_frontend/features/authentication/application/authentication_service.dart';
 import 'package:loopcare_frontend/features/authentication/application/dto/account_document_version_data.dart';
+import 'package:loopcare_frontend/features/authentication/application/dto/device_data.dart';
 import 'package:loopcare_frontend/features/authentication/application/dto/forgot_password_data.dart';
 import 'package:loopcare_frontend/features/authentication/application/dto/login_data.dart';
 import 'package:loopcare_frontend/features/authentication/application/dto/mental_health_test_answers.dart';
 import 'package:loopcare_frontend/features/authentication/application/dto/sign_up_data.dart';
+import 'package:loopcare_frontend/features/authentication/application/dto/update_user_email_data.dart';
 import 'package:loopcare_frontend/features/authentication/application/dto/validate_email_data.dart';
 import 'package:loopcare_frontend/features/buddy/domain/buddy.dart';
 import 'package:loopcare_frontend/features/chat/application/chat_bloc/group_chat_bloc.dart';
-import 'package:loopcare_frontend/features/onboarding_new/application/dto/registration_physical_fitness_data.dart';
+import 'package:loopcare_frontend/features/onboarding/application/dto/registration_physical_fitness_data.dart';
 import 'package:uuid/uuid.dart';
 
 part 'authentication_bloc.freezed.dart';
+
 part 'authentication_bloc.g.dart';
+
 part 'authentication_event.dart';
+
 part 'authentication_state.dart';
 
 @singleton
@@ -66,6 +73,7 @@ class AuthenticationBloc extends HydratedBloc<AuthenticationEvent, Authenticatio
     on<ForgotPassword>(_onForgotPassword);
     on<UpdateName>(_onUpdateName);
     on<UpdateEmail>(_onUpdateEmail);
+    on<UpdateUserEmail>(_onUpdateUserEmail);
     on<GetAccount>(_onGetAccount);
     on<DeleteAccount>(_onDeleteAccount);
     on<ConnectSockets>(_onConnectSockets);
@@ -75,6 +83,7 @@ class AuthenticationBloc extends HydratedBloc<AuthenticationEvent, Authenticatio
     on<AuthenticatedCheck>(_onAuthenticatedCheck);
     on<StartTrackUser>(_onStartTrackUser);
     on<UpdatePolicy>(_onUpdatePolicy);
+    on<SendAppsFlyerData>(_onSendAppsFlyerDate);
 
     hydrate();
     _accessTokenSubscription = authTokenManager.addListener((token) {
@@ -137,7 +146,7 @@ class AuthenticationBloc extends HydratedBloc<AuthenticationEvent, Authenticatio
           AppMixpanelEvents.loginFail,
           {
             'email': event.email,
-            'message': error.error.toString(),
+            'message': error.message.tr(),
           },
         );
         emit(AuthenticationState.init(state.data));
@@ -169,9 +178,11 @@ class AuthenticationBloc extends HydratedBloc<AuthenticationEvent, Authenticatio
           emailApproveDate: response.emailApproveDate,
           subscription: response.subscription,
           createdAt: response.createdAt,
+          features: response.features,
         );
 
         add(const AuthenticationEvent.getAccount());
+        add(const AuthenticationEvent.sendApsFlyerData());
 
         emit(
           AuthenticationState.authenticated(
@@ -236,11 +247,11 @@ class AuthenticationBloc extends HydratedBloc<AuthenticationEvent, Authenticatio
         authTokenManager.setAccessToken(response.accessToken);
         authTokenManager.setRefreshToken(response.refreshToken);
 
-        AnalyticsEventService.instance.logEvent(
-          CIOEvents.onboardingNewUserCreated,
+        AnalyticsEventService().logEvent(
+          eventName: AnalyticsEvents.onboardingNewUserCreated,
           parameters: {
-            CustomDefinitions.value: state.data.email,
-            CustomDefinitions.confirmed: 'false',
+            AnalyticsParameters.value: state.data.email,
+            AnalyticsParameters.confirmed: 'false',
           },
         );
 
@@ -261,6 +272,7 @@ class AuthenticationBloc extends HydratedBloc<AuthenticationEvent, Authenticatio
           emailApproveDate: response.emailApproveDate,
           subscription: response.subscription,
           createdAt: response.createdAt,
+          features: response.features,
         );
 
         emit(
@@ -276,7 +288,7 @@ class AuthenticationBloc extends HydratedBloc<AuthenticationEvent, Authenticatio
             ),
           ),
         );
-
+        add(const AuthenticationEvent.sendApsFlyerData());
         add(const AuthenticationEvent.getAccount());
       },
     );
@@ -296,26 +308,24 @@ class AuthenticationBloc extends HydratedBloc<AuthenticationEvent, Authenticatio
             ),
           ),
         );
-
-        final data = ForgotPasswordData(email: event.email.toLowerCase());
-
-        final response = await _authenticationService.forgotPassword(data);
-
-        response.fold(
-          (error) => emit(
-            state.copyWith(data: state.data.copyWith(error: error)),
-          ),
-          (response) => emit(
-            state.copyWith(
-              data: state.data.copyWith(
-                emailWasSend: true,
-                email: data.email,
-                error: null,
-              ),
-            ),
-          ),
-        );
       },
+    );
+    final data = ForgotPasswordData(email: event.email.toLowerCase());
+
+    final response = await _authenticationService.forgotPassword(data);
+    response.fold(
+      (error) => emit(
+        state.copyWith(data: state.data.copyWith(error: error)),
+      ),
+      (response) => emit(
+        state.copyWith(
+          data: state.data.copyWith(
+            emailWasSend: true,
+            email: data.email,
+            error: null,
+          ),
+        ),
+      ),
     );
   }
 
@@ -406,41 +416,33 @@ class AuthenticationBloc extends HydratedBloc<AuthenticationEvent, Authenticatio
       groupingState: event.groupingState,
     );
 
-    emit(
-      state.copyWith(
-        data: state.data.copyWith(
-          account: account,
-        ),
-      ),
-    );
+    emit(state.copyWith(data: state.data.copyWith(account: account)));
   }
 
   FutureOr<void> _onUnlockFeature(
     UnlockedFeature event,
     Emitter<AuthenticationState> emit,
   ) async {
-    final response = await _authenticationService.unlockFeature(event.feature);
+    // TODO check new unlock feature logic
+    // final response = await _authenticationService.unlockFeature(event.feature);
 
-    response.fold(
-      (l) => null,
-      (r) {
-        final account = _sharedPref.account = _sharedPref.account?.copyWith(
-          features: r.features.where((feature) => feature.unlocked).toList(),
-        );
+    final account = _sharedPref.account;
+    final accountFeatures = _sharedPref.account?.features;
 
-        emit(
-          state.copyWith(
-            data: state.data.copyWith(
-              account: account,
-            ),
-          ),
-        );
+    if (account == null || accountFeatures == null) return;
 
-        if (event.feature.feature == UnlockedFeatureType.grouping.name) {
-          add(const AuthenticationEvent.changeAccountGroupStatus(UserGroupingState.unlockedPreferences));
-        }
-      },
-    );
+    final updatedAccount = _sharedPref.account =
+        account.copyWith(features: accountFeatures.unlockFeature(event.feature));
+
+    emit(state.copyWith(data: state.data.copyWith(account: updatedAccount)));
+
+    if (event.feature.isGrouping) {
+      add(
+        const AuthenticationEvent.changeAccountGroupStatus(
+          UserGroupingState.unlockedPreferences,
+        ),
+      );
+    }
   }
 
   FutureOr<void> _onAuthenticatedCheck(
@@ -453,11 +455,11 @@ class AuthenticationBloc extends HydratedBloc<AuthenticationEvent, Authenticatio
       (l) => null,
       (r) {
         if (r.emailApproveDate != null) {
-          AnalyticsEventService.instance.logEvent(
-            FirebaseEvents.userEmail,
+          AnalyticsEventService().logEvent(
+            eventName: AnalyticsEvents.userEmail,
             parameters: {
-              CustomDefinitions.value: state.data.email,
-              CustomDefinitions.confirmed: 'true',
+              AnalyticsParameters.value: state.data.email,
+              AnalyticsParameters.confirmed: 'true',
             },
           );
 
@@ -476,10 +478,10 @@ class AuthenticationBloc extends HydratedBloc<AuthenticationEvent, Authenticatio
     UpdateName event,
     Emitter<AuthenticationState> emit,
   ) async {
-    AnalyticsEventService.instance.logEvent(
-      FirebaseEvents.userName,
+    AnalyticsEventService().logEvent(
+      eventName: AnalyticsEvents.userName,
       parameters: {
-        CustomDefinitions.value: event.name,
+        AnalyticsParameters.value: event.name,
       },
     );
 
@@ -489,6 +491,34 @@ class AuthenticationBloc extends HydratedBloc<AuthenticationEvent, Authenticatio
           name: event.name,
         ),
       ),
+    );
+  }
+
+  FutureOr<void> _onUpdateUserEmail(
+    UpdateUserEmail event,
+    Emitter<AuthenticationState> emit,
+  ) async {
+    emit(AuthenticationState.isLoading(state.data.copyWith(isLoading: true)));
+
+    final UpdateUserEmailData data = UpdateUserEmailData(event.email, event.password);
+
+    final response = await _authenticationService.updateUserEmail(data);
+
+    response.fold(
+      (l) => emit(
+          AuthenticationState.errorUpdateEmail(state.data.copyWith(error: l, isLoading: false))),
+      (r) {
+        CustomerIoService.changeUserEmail(email: event.email);
+
+        final updatedAccount =
+            _sharedPref.account = state.data.account?.copyWith(email: event.email);
+
+        emit(AuthenticationState.emailWasUpdated(state.data.copyWith(
+          email: event.email,
+          account: updatedAccount,
+          isLoading: false,
+        )));
+      },
     );
   }
 
@@ -589,7 +619,7 @@ class AuthenticationBloc extends HydratedBloc<AuthenticationEvent, Authenticatio
           foodPreferencesHates: r.foodPreferences?.hates,
           foodPreferencesDislikes: r.foodPreferences?.dislike,
           foodPreferencesAllergic: r.foodPreferences?.allergic,
-          features: r.features.where((feature) => feature.unlocked).toList(),
+          features: r.features,
           physicalActivitiesPreferences: r.physicalActivitiesPreferences,
           emailApproveDate: r.emailApproveDate,
           mentalHealthTests: r.mentalHealthTests,
@@ -658,5 +688,22 @@ class AuthenticationBloc extends HydratedBloc<AuthenticationEvent, Authenticatio
   void _connectSockets() {
     _socketService.startListen();
     _chatSocketService.startListen();
+  }
+
+  FutureOr<void> _onSendAppsFlyerDate(
+    SendAppsFlyerData data,
+    Emitter<AuthenticationState> emit,
+  ) async {
+    final appsId = await AppsFlyerService.getAppsFlyerId();
+    if (appsId == null) {
+      return;
+    }
+    final data = DeviceData(uid: appsId, platform: Platform.isIOS ? 'ios' : 'android');
+    final response = await _authenticationService.sendAppsFlyerDeviceData(data);
+
+    response.fold(
+      (error) => emit(AuthenticationState.error(state.data.copyWith(error: error))),
+      (_) {},
+    );
   }
 }

@@ -37,7 +37,7 @@ class BuddyStateData with _$BuddyStateData {
     @Default(0) int currentStepProgress,
   }) = _BuddyStateData;
 
-  String? get errorMessage => error?.maybeMap(conflict: (s) => s.error.error, orElse: () => null);
+  String? get errorMessage => error?.message;
 
   bool get gotAllNecessaryData => liveTogether != null && relation != null && email != null;
 

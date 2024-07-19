@@ -6,9 +6,11 @@ class AppImages {
 
   static const AssetImage recipePlaceholder = AssetImage('$imagesFilePath/recipe_placeholder.png');
 
-  static const AssetImage sessionPlaceholder = AssetImage('$imagesFilePath/session_placeholder.png');
+  static const AssetImage sessionPlaceholder =
+      AssetImage('$imagesFilePath/session_placeholder.png');
 
-  static SvgPicture exclamationMark = SvgPicture.asset('$imagesFilePath/exclamation_mark.svg', fit: BoxFit.scaleDown);
+  static SvgPicture exclamationMark =
+      SvgPicture.asset('$imagesFilePath/exclamation_mark.svg', fit: BoxFit.scaleDown);
 
   static const AssetImage intro = AssetImage('$imagesFilePath/new_intro.png');
 
@@ -32,19 +34,43 @@ class AppImages {
 
   static SvgPicture oepsSmall = SvgPicture.asset('$imagesFilePath/oeps.svg', width: 60, height: 60);
 
-  static SvgPicture noConnectionBig = SvgPicture.asset('$imagesFilePath/no_connection.svg', width: 120, height: 120);
+  static SvgPicture noConnectionBig =
+      SvgPicture.asset('$imagesFilePath/no_connection.svg', width: 120, height: 120);
 
-  static SvgPicture noConnectionSmall = SvgPicture.asset('$imagesFilePath/no_connection.svg', width: 60, height: 60);
+  static SvgPicture noConnectionSmall =
+      SvgPicture.asset('$imagesFilePath/no_connection.svg', width: 60, height: 60);
 
-  static SvgPicture calorieDensityFoodA = SvgPicture.asset('$imagesFilePath/calorie_dencity_food_a.svg');
+  static SvgPicture calorieDensityFoodA =
+      SvgPicture.asset('$imagesFilePath/calorie_dencity_food_a.svg');
 
-  static SvgPicture calorieDensityFoodB = SvgPicture.asset('$imagesFilePath/calorie_dencity_food_b.svg');
+  static SvgPicture calorieDensityFoodB =
+      SvgPicture.asset('$imagesFilePath/calorie_dencity_food_b.svg');
 
   static SvgPicture bottomFrame = SvgPicture.asset('$imagesFilePath/bottom_frame.svg');
 
-  static const AssetImage educationPreview = AssetImage('$imagesFilePath/new_education_preview.png');
+  static const AssetImage educationPreview =
+      AssetImage('$imagesFilePath/new_education_preview.png');
   static SvgPicture subscriptionTop = SvgPicture.asset('$imagesFilePath/konfetti.svg');
   static const AssetImage buddyIntro = AssetImage('$imagesFilePath/buddy_intro.png');
+
+  static const AssetImage onboardingIntro =
+      AssetImage('$imagesFilePath/onboarding_intro_background.png');
+
+  static const AssetImage onboardingIntroPrograms =
+      AssetImage('$imagesFilePath/onboarding_programs.png');
+
+  static const AssetImage onboardingIntro1 = AssetImage('$imagesFilePath/onboarding_community_maria.png');
+  static const AssetImage onboardingIntro2 = AssetImage('$imagesFilePath/onboarding_medical_shalu.png');
+  static const AssetImage onboardingIntro3 = AssetImage('$imagesFilePath/onboarding_activity_joshua.png');
+  static const AssetImage onboardingIntro4 = AssetImage('$imagesFilePath/onboarding_nutrition_andrew.png');
+  static const AssetImage onboardingIntro5 = AssetImage('$imagesFilePath/onboarding_mind_denise.png');
+
+  static const AssetImage onboardingPacing = AssetImage('$imagesFilePath/onboarding_pacing.png');
+
+  static SvgPicture onboardingArrow = SvgPicture.asset('$imagesFilePath/onboarding_arrow.svg');
+
+  static const AssetImage riverOverviewMockPng =
+      AssetImage('$imagesFilePath/river_overview_mock.png');
 
   AppImages._();
 }

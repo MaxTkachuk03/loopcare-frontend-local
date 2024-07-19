@@ -12,13 +12,12 @@ import 'package:loopcare_frontend/features/smart_goals/application/smart_goals_b
 import 'package:loopcare_frontend/features/smart_goals/presentation/widgets/weekly_goal_reason_chips.dart';
 
 class WeeklyGoalCancelReason extends StatelessWidget {
-  final Key? key;
   final Function() onRemove;
 
   const WeeklyGoalCancelReason({
-    this.key,
+    super.key,
     required this.onRemove,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -47,20 +46,23 @@ class WeeklyGoalCancelReason extends StatelessWidget {
         const WeeklyGoalReasonChips(),
         const SizedBox(height: 28),
         CustomOutlinedButton.blueFullWidth(
-          onPressed: () => context.router.pop(),
+          onPressed: context.router.maybePop,
           label: LocalizedTexts.cancel.tr(),
         ),
         const SizedBox(height: 16.0),
-        BlocBuilder<SmartGoalsBloc, SmartGoalsState>(builder: (context, state) {
-          return CustomElevatedButton.blueFullWidth(
+        BlocBuilder<SmartGoalsBloc, SmartGoalsState>(
+          builder: (context, state) {
+            return CustomElevatedButton.blueFullWidth(
               label: LocalizedTexts.cancelGoal.tr(),
               onPressed: state.data.reason != null
                   ? () {
-                      context.router.pop();
-                      onRemove();
-                    }
-                  : null);
-        }),
+                    context.router.maybePop();
+                    onRemove();
+                  }
+                  : null,
+            );
+          },
+        ),
         const SizedBox(height: 16.0),
       ],
     );

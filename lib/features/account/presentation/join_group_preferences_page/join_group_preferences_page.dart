@@ -2,10 +2,10 @@ import 'package:auto_route/auto_route.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:loopcare_frontend/core/domain/analytics/firebase_event_custom_definitions.dart';
-import 'package:loopcare_frontend/core/domain/analytics/firebase_event_list.dart';
+import 'package:loopcare_frontend/core/domain/analytics/analytics_events.dart';
+import 'package:loopcare_frontend/core/domain/analytics/analytics_parameters.dart';
 import 'package:loopcare_frontend/core/domain/yes_no_answer.dart';
-import 'package:loopcare_frontend/core/infrastructure/services/firebase_event_service.dart';
+import 'package:loopcare_frontend/core/infrastructure/services/analytics_service.dart';
 import 'package:loopcare_frontend/core/infrastructure/services/shared_storage/shared_storage_service.dart';
 import 'package:loopcare_frontend/core/presentation/buttons/custom_elevated_button.dart';
 import 'package:loopcare_frontend/core/presentation/choice_chip/custom_choice_chip.dart';
@@ -21,6 +21,7 @@ import 'package:loopcare_frontend/features/account/presentation/widgets/group_pr
 import 'package:loopcare_frontend/features/education/domain/extra_action_page_mode.dart';
 import 'package:loopcare_frontend/injection.dart';
 
+@RoutePage()
 class JoinGroupPreferencesPage extends StatefulWidget {
   // TODO route is called only from one place with false value, so we don't need it as a param cause it always the same
   final bool fromLessonComplete;
@@ -53,17 +54,19 @@ class _JoinGroupPreferencesPageState extends State<JoinGroupPreferencesPage> {
 
   void _onNextPressedHandler() {
     if (_selectedValue == YesNoAnswer.no) {
-      context.router.pop();
+      context.router.maybePop();
     } else {
-      AnalyticsEventService.instance.logEvent(
-        FirebaseEvents.iWantToJoinToGroup,
+      AnalyticsEventService().logEvent(
+        eventName: AnalyticsEvents.iWantToJoinToGroup,
         parameters: {
-          CustomDefinitions.navigatedFrom: widget.fromLessonComplete ? 'Lesson content' : 'User profile',
+          AnalyticsParameters.navigatedFrom:
+              widget.fromLessonComplete ? 'Lesson content' : 'User profile',
         },
       );
 
       if (account!.isOnTrial) {
-        context.router.push(NeedPaidSubscriptionRoute(mode: const ExtraActionPageMode.userProfile()));
+        context.router
+            .push(NeedPaidSubscriptionRoute(mode: const ExtraActionPageMode.userProfile()));
         return;
       }
 
@@ -75,7 +78,9 @@ class _JoinGroupPreferencesPageState extends State<JoinGroupPreferencesPage> {
       context.router.push(GenderPreferencesRoute(fromLessonComplete: widget.fromLessonComplete));
     }
 
-    context.read<GroupPreferencesBloc>().add(GroupPreferencesEvent.setWouldLikeJoinGroup(_selectedValue!));
+    context
+        .read<GroupPreferencesBloc>()
+        .add(GroupPreferencesEvent.setWouldLikeJoinGroup(_selectedValue!));
   }
 
   @override

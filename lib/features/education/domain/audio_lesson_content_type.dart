@@ -1,1 +1,1 @@
-enum AudioLessonContentType { audio, subtitles }
+enum AudioLessonContentType { audio, subtitles, html }

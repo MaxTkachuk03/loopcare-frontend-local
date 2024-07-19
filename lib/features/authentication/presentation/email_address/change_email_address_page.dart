@@ -16,10 +16,11 @@ import 'package:loopcare_frontend/core/presentation/widgets/main_container.dart'
 import 'package:loopcare_frontend/features/authentication/application/authentication_bloc.dart';
 import 'package:loopcare_frontend/features/authentication/domain/email/email.dart';
 import 'package:loopcare_frontend/features/authentication/presentation/email_address/widgets/email_address_form.dart';
-import 'package:loopcare_frontend/features/onboarding_new/application/medical_questions/medical_questions_bloc.dart';
-import 'package:loopcare_frontend/features/onboarding_new/application/mental_questions/mental_questions_bloc.dart';
-import 'package:loopcare_frontend/features/onboarding_new/application/physical_questions/physical_questions_bloc.dart';
+import 'package:loopcare_frontend/features/onboarding/application/medical_questions/medical_questions_bloc.dart';
+import 'package:loopcare_frontend/features/onboarding/application/mental_questions/mental_questions_bloc.dart';
+import 'package:loopcare_frontend/features/onboarding/application/physical_questions/physical_questions_bloc.dart';
 
+@RoutePage()
 class ChangeEmailAddressPage extends StatefulWidget {
   const ChangeEmailAddressPage({super.key});
 
@@ -42,24 +43,26 @@ class _ChangeEmailAddressPageState extends State<ChangeEmailAddressPage> {
     return MultiBlocListener(
       listeners: [
         BlocListener<AuthenticationBloc, AuthenticationState>(
-          listenWhen: (previous, current) => !previous.data.emailVerified && current.data.emailVerified,
+          listenWhen: (previous, current) =>
+              !previous.data.emailVerified && current.data.emailVerified,
           listener: _emailValidationListener,
         ),
         BlocListener<AuthenticationBloc, AuthenticationState>(
-          listenWhen: (previous, current) => !previous.data.emailWasSend && current.data.emailWasSend,
+          listenWhen: (previous, current) =>
+              !previous.data.emailWasSend && current.data.emailWasSend,
           listener: _navigationListener,
         ),
       ],
       child: GestureDetector(
         onTap: FocusScope.of(context).unfocus,
-        child: CustomScaffold.greenLightest(
+        child: CustomScaffold.blueLightest(
           key: const ValueKey('change_email_address_page'),
-          appBar: CustomAppBar.green(
+          appBar: CustomAppBar.blue(
             title: LocalizedTexts.changeEmail.tr(),
-            leading: CustomFilledIconButton.leadingGreenLighter(),
+            leading: CustomFilledIconButton.leadingBlueLighter(),
           ),
           body: CustomSafeArea(
-            child: BottomPlacedButton.greenLightest(
+            child: BottomPlacedButton.blueLightest(
               body: MainContainer(
                 child: Column(
                   key: const ValueKey('change_email_page_body'),
@@ -109,15 +112,16 @@ class _ChangeEmailAddressPageState extends State<ChangeEmailAddressPage> {
     TextInput.finishAutofillContext();
 
     context.read<AuthenticationBloc>().add(
-      AuthenticationEvent.updateEmail(
-        email: _email,
-        update: true,
-      ),
-    );
+          AuthenticationEvent.updateEmail(
+            email: _email,
+            update: true,
+          ),
+        );
   }
 
-  void _emailValidationListener(BuildContext context, AuthenticationState state) {
-    final physicalData = context.read<PhysicalQuestionsBloc>().state.registrationPhysicalQuestionsData;
+  Future<void> _emailValidationListener(BuildContext context, AuthenticationState state) async {
+    final physicalData =
+        context.read<PhysicalQuestionsBloc>().state.registrationPhysicalQuestionsData;
     final medicalData = context.read<MedicalQuestionsBloc>().state.registrationData;
     final mentalData = context.read<MentalQuestionsBloc>().state.registrationData;
     final authBloc = context.read<AuthenticationBloc>();
@@ -134,6 +138,6 @@ class _ChangeEmailAddressPageState extends State<ChangeEmailAddressPage> {
 
   void _navigationListener(BuildContext context, AuthenticationState state) {
     _formValidNotifier.value = false;
-    context.router.pop();
+    context.router.maybePop();
   }
 }

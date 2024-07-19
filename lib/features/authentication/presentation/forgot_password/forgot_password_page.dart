@@ -1,3 +1,4 @@
+import 'package:auto_route/annotations.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -12,11 +13,11 @@ import 'package:loopcare_frontend/core/presentation/text/custom_text.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 import 'package:loopcare_frontend/core/presentation/utils/build_context_extensions.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/main_container.dart';
+import 'package:loopcare_frontend/features/authentication/application/authentication_bloc.dart';
 import 'package:loopcare_frontend/features/authentication/domain/email/email.dart';
-import 'package:loopcare_frontend/features/authentication/presentation/forgot_password/widgets%20/forgot_password_form.dart';
+import 'package:loopcare_frontend/features/authentication/presentation/forgot_password/widgets/forgot_password_form.dart';
 
-import '../../application/authentication_bloc.dart';
-
+@RoutePage()
 class ForgotPasswordPage extends StatefulWidget {
   const ForgotPasswordPage({super.key});
 
@@ -38,11 +39,11 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: FocusScope.of(context).unfocus,
-      child: CustomScaffold.greenLightest(
+      child: CustomScaffold.blueLightest(
         key: const ValueKey('forgot_password_page'),
-        appBar: CustomAppBar.green(leading: CustomFilledIconButton.leadingGreenLighter()),
+        appBar: CustomAppBar.blue(leading: CustomFilledIconButton.leadingBlueLighter()),
         body: CustomSafeArea(
-          child: BottomPlacedButton.greenLightest(
+          child: BottomPlacedButton.blueLightest(
             body: MainContainer(
               child: ListView(
                 key: const ValueKey('forgot_password_page_body'),

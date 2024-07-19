@@ -1,3 +1,4 @@
+// ignore_for_file: use_build_context_synchronously
 import 'dart:async';
 import 'dart:convert';
 import 'dart:developer';
@@ -12,10 +13,10 @@ import 'package:flutter_zoom_videosdk/native/zoom_videosdk.dart';
 import 'package:flutter_zoom_videosdk/native/zoom_videosdk_event_listener.dart';
 import 'package:flutter_zoom_videosdk/native/zoom_videosdk_user.dart';
 import 'package:loopcare_frontend/core/application/system_service.dart';
-import 'package:loopcare_frontend/core/domain/analytics/firebase_event_custom_definitions.dart';
-import 'package:loopcare_frontend/core/domain/analytics/firebase_event_list.dart';
+import 'package:loopcare_frontend/core/domain/analytics/analytics_events.dart';
+import 'package:loopcare_frontend/core/domain/analytics/analytics_parameters.dart';
+import 'package:loopcare_frontend/core/infrastructure/services/analytics_service.dart';
 import 'package:loopcare_frontend/core/infrastructure/services/events.dart';
-import 'package:loopcare_frontend/core/infrastructure/services/firebase_event_service.dart';
 import 'package:loopcare_frontend/core/infrastructure/services/mixpanel_event_service.dart';
 import 'package:loopcare_frontend/core/infrastructure/services/shared_storage/shared_storage_service.dart';
 import 'package:loopcare_frontend/core/presentation/alerting/modal_bottom_sheet.dart';
@@ -42,6 +43,7 @@ import 'package:loopcare_frontend/features/video_session/presentation/widgets/us
 import 'package:loopcare_frontend/injection.dart';
 import 'package:wakelock_plus/wakelock_plus.dart';
 
+@RoutePage()
 class SessionCallPage extends StatefulWidget {
   const SessionCallPage({super.key});
 
@@ -180,7 +182,8 @@ class _SessionCallPageState extends State<SessionCallPage> with WidgetsBindingOb
 
   void _joinSession() {
     Future<void>.microtask(() async {
-      final String? sessionPassword = context.read<TopicsBloc>().state.data.signedGroupSessionPassword;
+      final String? sessionPassword =
+          context.read<TopicsBloc>().state.data.signedGroupSessionPassword;
       final String? sessionKey = context.read<TopicsBloc>().state.data.signedGroupSessionKey;
 
       final String token = context.read<TopicsBloc>().state.data.signedSessionSignature;
@@ -230,7 +233,8 @@ class _SessionCallPageState extends State<SessionCallPage> with WidgetsBindingOb
     if (_timer != null) _timer?.cancel();
 
     _timer = Timer.periodic(const Duration(seconds: 1), (timer) async {
-      final Duration passedTime = await context.read<TopicsBloc>().state.data.timePassedSinceSessionStart;
+      final Duration passedTime =
+          await context.read<TopicsBloc>().state.data.timePassedSinceSessionStart;
 
       if (mounted) {
         context.read<SessionCallBloc>().add(SessionCallEvent.setTimerValue(passedTime.inSeconds));
@@ -246,7 +250,7 @@ class _SessionCallPageState extends State<SessionCallPage> with WidgetsBindingOb
     _sessionJoinListener = emitter.on(EventType.onSessionJoin, (sessionUser) async {
       isInSession = true;
 
-      AnalyticsEventService.instance.logEvent(FirebaseEvents.userEntersSession);
+      AnalyticsEventService().logEvent(eventName: AnalyticsEvents.userEntersSession);
 
       _startTimer();
 
@@ -326,13 +330,14 @@ class _SessionCallPageState extends State<SessionCallPage> with WidgetsBindingOb
         setState(() {
           _sessionParticipants = [
             mySelf!,
-            ...remoteUserListJson.map((userJson) => ZoomVideoSdkUser.fromJson(userJson)).toList()
+            ...remoteUserListJson.map((userJson) => ZoomVideoSdkUser.fromJson(userJson)),
           ];
         });
       }
     });
 
-    _userActiveAudioChangedListener = emitter.on(EventType.onUserActiveAudioChanged, (Map data) async {
+    _userActiveAudioChangedListener =
+        emitter.on(EventType.onUserActiveAudioChanged, (Map data) async {
       // Gets list of user who are speaking at the moment
       final List<ZoomVideoSdkUser> userList = _getSessionChangedUsers(data);
 
@@ -341,7 +346,8 @@ class _SessionCallPageState extends State<SessionCallPage> with WidgetsBindingOb
       setState(() {});
     });
 
-    _userAudioStatusChangedListener = emitter.on(EventType.onUserAudioStatusChanged, (Map data) async {
+    _userAudioStatusChangedListener =
+        emitter.on(EventType.onUserAudioStatusChanged, (Map data) async {
       log('_userAudioStatusChangedListener $data', name: 'zoomSessionLog');
 
       final ZoomVideoSdkUser? mySelf = await zoom.session.getMySelf();
@@ -356,7 +362,8 @@ class _SessionCallPageState extends State<SessionCallPage> with WidgetsBindingOb
       setState(() {});
     });
 
-    _userVideoStatusChangedListener = emitter.on(EventType.onUserVideoStatusChanged, (Map data) async {
+    _userVideoStatusChangedListener =
+        emitter.on(EventType.onUserVideoStatusChanged, (Map data) async {
       log('_userVideoStatusChangedListener $data', name: 'zoomSessionLog');
 
       final ZoomVideoSdkUser? mySelf = await zoom.session.getMySelf();
@@ -384,7 +391,8 @@ class _SessionCallPageState extends State<SessionCallPage> with WidgetsBindingOb
       log('_cloudRecordingStatusListener - ${data['status']}', name: 'zoomSessionLog');
     });
 
-    _networkStatusChangeListener = emitter.on(EventType.onUserVideoNetworkStatusChanged, (Map data) async {
+    _networkStatusChangeListener =
+        emitter.on(EventType.onUserVideoNetworkStatusChanged, (Map data) async {
       ZoomVideoSdkUser? networkUser = ZoomVideoSdkUser.fromJson(jsonDecode(data['user']));
 
       log('_networkStatusChangeListener - $networkUser ${data['status']}', name: 'zoomSessionLog');
@@ -406,7 +414,8 @@ class _SessionCallPageState extends State<SessionCallPage> with WidgetsBindingOb
             context: context,
             builder: (BuildContext context) => AlertDialog(
               title: const Text("Can't Access Camera"),
-              content: const Text("please turn on the toggle in system settings to grant permission"),
+              content:
+                  const Text("please turn on the toggle in system settings to grant permission"),
               actions: <Widget>[
                 TextButton(
                   onPressed: () => Navigator.pop(context, 'OK'),
@@ -421,7 +430,8 @@ class _SessionCallPageState extends State<SessionCallPage> with WidgetsBindingOb
             context: context,
             builder: (BuildContext context) => AlertDialog(
               title: const Text("Can't Access Microphone"),
-              content: const Text("please turn on the toggle in system settings to grant permission"),
+              content:
+                  const Text("please turn on the toggle in system settings to grant permission"),
               actions: <Widget>[
                 TextButton(
                   onPressed: () => Navigator.pop(context, 'OK'),
@@ -458,7 +468,7 @@ class _SessionCallPageState extends State<SessionCallPage> with WidgetsBindingOb
         builder: (BuildContext context) => ErrorDialog(
           errorText: errorType,
           onErrorHandler: () {
-            context.router.pop();
+            context.router.maybePop();
             if (!isInSession) _onErrorHandler(errorType);
           },
         ),
@@ -494,16 +504,15 @@ class _SessionCallPageState extends State<SessionCallPage> with WidgetsBindingOb
     ModalBottomSheet.leaveSessionCall(
       context: context,
       onLeavePressed: _leaveSessionHandler,
-      onStayPressed: context.router.pop,
+      onStayPressed: context.router.maybePop,
     );
   }
 
   _leaveSessionHandler() async {
-    AnalyticsEventService.instance.logEvent(FirebaseEvents.userLeaveSession);
-
+    AnalyticsEventService().logEvent(eventName: AnalyticsEvents.userLeaveSession);
     await zoom.leaveSession(false);
     if (context.mounted) {
-      context.router.pop();
+      context.router.maybePop();
     }
   }
 
@@ -566,12 +575,14 @@ class _SessionCallPageState extends State<SessionCallPage> with WidgetsBindingOb
     });
   }
 
-  void _showNotSupportSnack() => context.showError(content: Text(LocalizedTexts.toggleSpeakerError.tr()));
+  void _showNotSupportSnack() =>
+      context.showError(content: Text(LocalizedTexts.toggleSpeakerError.tr()));
 
   void onSettingsHandler() {
     showDialog(
       context: context,
-      builder: (context) => SettingsDialog(onToggleSpeaker: onToggleSpeaker, isSpeakerOn: isSpeakerOn),
+      builder: (context) =>
+          SettingsDialog(onToggleSpeaker: onToggleSpeaker, isSpeakerOn: isSpeakerOn),
     );
   }
 
@@ -596,7 +607,8 @@ class _SessionCallPageState extends State<SessionCallPage> with WidgetsBindingOb
     if (signedSessionId == null) return;
 
     context.read<ReportAbuseBloc>().add(const ReportAbuseEvent.init());
-    final Duration timePassed = await context.read<TopicsBloc>().state.data.timePassedSinceSessionStart;
+    final Duration timePassed =
+        await context.read<TopicsBloc>().state.data.timePassedSinceSessionStart;
 
     final sessionReport = GroupSessionReport(
       id: signedSessionId,
@@ -607,11 +619,11 @@ class _SessionCallPageState extends State<SessionCallPage> with WidgetsBindingOb
       ModalBottomSheet.reportAbuse(context: context, groupSession: sessionReport);
     }
 
-    AnalyticsEventService.instance.logEvent(
-      FirebaseEvents.groupSessionReportedIssue,
+    AnalyticsEventService().logEvent(
+      eventName: AnalyticsEvents.groupSessionReportedIssue,
       parameters: {
-        CustomDefinitions.sessionId: signedSessionId,
-        CustomDefinitions.timePassed: formatSecondsToTimeString(timePassed.inSeconds),
+        AnalyticsParameters.sessionId: signedSessionId,
+        AnalyticsParameters.timePassed: formatSecondsToTimeString(timePassed.inSeconds),
       },
     );
   }
@@ -653,7 +665,8 @@ class _SessionCallPageState extends State<SessionCallPage> with WidgetsBindingOb
                                 final textEvents = context.read<TopicsBloc>().state.data.textEvents;
 
                                 final text = textEvents
-                                        .lastWhereOrNull((e) => state.data.sessionTime >= e.timestamp)
+                                        .lastWhereOrNull(
+                                            (e) => state.data.sessionTime >= e.timestamp)
                                         ?.text ??
                                     '';
 
@@ -668,7 +681,8 @@ class _SessionCallPageState extends State<SessionCallPage> with WidgetsBindingOb
                 if (userJoinedToSession)
                   BlocBuilder<SessionCallBloc, SessionCallState>(
                     builder: (context, state) {
-                      final currentSession = context.read<TopicsBloc>().state.data.signedGroupSession;
+                      final currentSession =
+                          context.read<TopicsBloc>().state.data.signedGroupSession;
 
                       if (currentSession != null && currentSession.isSessionEnded) {
                         _forceEndSession();

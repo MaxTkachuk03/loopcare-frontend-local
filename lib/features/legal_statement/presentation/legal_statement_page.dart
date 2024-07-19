@@ -3,9 +3,9 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loopcare_frontend/core/application/customer_io_service/customer_io_service.dart';
-import 'package:loopcare_frontend/core/domain/analytics/firebase_event_custom_definitions.dart';
-import 'package:loopcare_frontend/core/domain/analytics/firebase_event_list.dart';
-import 'package:loopcare_frontend/core/infrastructure/services/firebase_event_service.dart';
+import 'package:loopcare_frontend/core/domain/analytics/analytics_events.dart';
+import 'package:loopcare_frontend/core/domain/analytics/analytics_parameters.dart';
+import 'package:loopcare_frontend/core/infrastructure/services/analytics_service.dart';
 import 'package:loopcare_frontend/core/presentation/app_bar/custom_app_bar.dart';
 import 'package:loopcare_frontend/core/presentation/bottom_placed_button/bottom_placed_button.dart';
 import 'package:loopcare_frontend/core/presentation/buttons/custom_elevated_button.dart';
@@ -21,6 +21,7 @@ import 'package:loopcare_frontend/features/consent_confirmation/application/cons
 import 'package:loopcare_frontend/features/legal_statement/application/legal_statement_bloc.dart';
 import 'package:loopcare_frontend/features/legal_statement/presentation/widgets/legal_statement_confirmation_box.dart';
 
+@RoutePage()
 class LegalStatementPage extends StatefulWidget {
   const LegalStatementPage({super.key});
 
@@ -104,10 +105,10 @@ class _LegalStatementPageState extends State<LegalStatementPage> {
   void onChanged(bool value) => valueListener.value = value;
 
   void onConfirm() {
-    AnalyticsEventService.instance.logEvent(
-      FirebaseEvents.legalStatement,
+    AnalyticsEventService().logEvent(
+      eventName: AnalyticsEvents.legalStatement,
       parameters: {
-        CustomDefinitions.value: 'true',
+        AnalyticsParameters.value: 'true',
       },
     );
 
@@ -119,7 +120,9 @@ class _LegalStatementPageState extends State<LegalStatementPage> {
   }
 
   Future<bool> onWillPop() async {
-    context.read<ConsentConfirmationBloc>().add(const ConsentConfirmationEvent.passageChanged(false));
+    context
+        .read<ConsentConfirmationBloc>()
+        .add(const ConsentConfirmationEvent.passageChanged(false));
 
     return Future.value(true);
   }

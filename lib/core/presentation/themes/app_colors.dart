@@ -94,7 +94,7 @@ class AppColors {
   // TODO new colors
 
   // Base  colors
-  static const Color transparent = Colors.transparent;
+  static const Color transparent = Color(0x00FFFFFF);
   static const Color white = Color(0xFFFFFFFF);
   static const Color greyLight = Color(0xFF9F9F9F);
   static const Color greyRegular = Color(0xFF707070);

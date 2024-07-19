@@ -2,8 +2,8 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:loopcare_frontend/core/domain/analytics/firebase_event_list.dart';
-import 'package:loopcare_frontend/core/infrastructure/services/firebase_event_service.dart';
+import 'package:loopcare_frontend/core/domain/analytics/analytics_events.dart';
+import 'package:loopcare_frontend/core/infrastructure/services/analytics_service.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/core/presentation/text/custom_text.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
@@ -150,7 +150,7 @@ class _TimeslotCardState extends State<TimeslotCard> {
   }
 
   _onSessionPressed() {
-    AnalyticsEventService.instance.logEvent(FirebaseEvents.userSignedUpForSession);
+    AnalyticsEventService().logEvent(eventName: AnalyticsEvents.userSignedUpForSession);
     context.read<TopicsBloc>().add(
           TopicsEvent.signUpToSession(widget.groupSession.id),
         );

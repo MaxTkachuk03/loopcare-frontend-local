@@ -2,9 +2,9 @@ import 'package:auto_route/auto_route.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:loopcare_frontend/core/domain/analytics/firebase_event_custom_definitions.dart';
-import 'package:loopcare_frontend/core/domain/analytics/firebase_event_list.dart';
-import 'package:loopcare_frontend/core/infrastructure/services/firebase_event_service.dart';
+import 'package:loopcare_frontend/core/domain/analytics/analytics_events.dart';
+import 'package:loopcare_frontend/core/domain/analytics/analytics_parameters.dart';
+import 'package:loopcare_frontend/core/infrastructure/services/analytics_service.dart';
 import 'package:loopcare_frontend/core/infrastructure/services/shared_storage/shared_storage_service.dart';
 import 'package:loopcare_frontend/core/presentation/buttons/custom_outlined_button.dart';
 import 'package:loopcare_frontend/core/presentation/error/error_screen.dart';
@@ -45,7 +45,7 @@ class GroupPreferencesForm extends StatelessWidget {
                   return Center(
                     child: ErrorScreen(
                       error: error!,
-                      onButtonPressed: () => context.router.pop(),
+                      onButtonPressed: context.router.maybePop,
                     ),
                   );
                 },
@@ -150,12 +150,12 @@ class GroupPreferencesForm extends StatelessWidget {
     final account = getIt<SharedStorageService>().account;
     final groupId = account?.groupId ?? -1;
 
-    AnalyticsEventService.instance.logEvent(
-      FirebaseEvents.userLeaveGroup,
+    AnalyticsEventService().logEvent(
+      eventName: AnalyticsEvents.userLeaveGroup,
       parameters: {
-        CustomDefinitions.groupId: groupId.toString(),
-        CustomDefinitions.type: account?.genderPreference?.name ?? '',
-        CustomDefinitions.timestamp: DateTime.now().toIso8601String(),
+        AnalyticsParameters.groupId: groupId.toString(),
+        AnalyticsParameters.type: account?.genderPreference?.name ?? '',
+        AnalyticsParameters.timestamp: DateTime.now().toIso8601String(),
       },
     );
     context.read<GroupPreferencesBloc>().add(const GroupPreferencesEvent.leaveGroup());

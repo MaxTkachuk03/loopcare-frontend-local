@@ -33,9 +33,9 @@ class ProteinDegreeDescription extends StatelessWidget {
   void _openLesson(BuildContext context) {
     context
         .read<EducationLessonBloc>()
-        .add(const EducationLessonEvent.getLessonContent(lessonId: 27, pageIndex: 0));
+        .add(const EducationLessonEvent.getLessonContent(lessonId: 27));
 
-    context.router.pushNamed('/lesson/27/page/0');
+    context.router.pushNamed('/lesson/27');
   }
 
   NutritionValueDescriptionItem get proteinDegreeItem =>

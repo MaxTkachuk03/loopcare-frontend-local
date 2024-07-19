@@ -15,7 +15,8 @@ import 'package:loopcare_frontend/features/smart_goals/application/smart_goals_b
 class DashboardSmartGoals extends StatelessWidget {
   const DashboardSmartGoals({super.key});
 
-  void onPressHandler(BuildContext context) => context.router.pushNamed(AppRoutes.selectGoalsCategory);
+  void onPressHandler(BuildContext context) =>
+      context.router.pushNamed(AppRoutes.selectGoalsCategory);
 
   @override
   Widget build(BuildContext context) {

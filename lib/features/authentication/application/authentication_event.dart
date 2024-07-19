@@ -32,6 +32,11 @@ class AuthenticationEvent with _$AuthenticationEvent {
     bool? receiveAnEmails,
   }) = UpdateEmail;
 
+  const factory AuthenticationEvent.updateUserEmail({
+    required String email,
+    required String password,
+  }) = UpdateUserEmail;
+
   const factory AuthenticationEvent.startTrackUser() = StartTrackUser;
 
   const factory AuthenticationEvent.getAccount() = GetAccount;
@@ -43,7 +48,7 @@ class AuthenticationEvent with _$AuthenticationEvent {
   const factory AuthenticationEvent.changeAccountGroupStatus(UserGroupingState groupingState) =
       ChangeAccountGroupStatus;
 
-  const factory AuthenticationEvent.unlockFeature(UnlockFeature feature) = UnlockedFeature;
+  const factory AuthenticationEvent.unlockFeature(UnlockedFeatureType feature) = UnlockedFeature;
 
   const factory AuthenticationEvent.syncChatState() = SyncChatState;
 
@@ -53,4 +58,6 @@ class AuthenticationEvent with _$AuthenticationEvent {
     required int termsAndConditionsVersion,
     required int privacyPolicyVersion,
   }) = UpdatePolicy;
+
+  const factory AuthenticationEvent.sendApsFlyerData() = SendAppsFlyerData;
 }

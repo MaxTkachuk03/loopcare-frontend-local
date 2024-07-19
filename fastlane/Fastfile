@@ -1,0 +1,115 @@
+# This file contains the fastlane.tools configuration
+# You can find the documentation at https://docs.fastlane.tools
+#
+# For a list of all available actions, check out
+#
+#     https://docs.fastlane.tools/actions
+#
+# For a list of all available plugins, check out
+#
+#     https://docs.fastlane.tools/plugins/available-plugins
+#
+
+# Uncomment the line if you want fastlane to automatically update itself
+# update_fastlane
+
+# default_platform(:android)
+
+env = lane_context[SharedValues::ENVIRONMENT]
+build_type = env == 'prod' ? "AAB" : "APK"
+build_folder = env == 'prod' ? "bundle/prodRelease" : "flutter-apk"
+
+desc "Send message to slack"
+private_lane :send_message_to_slack do
+  
+  release_hash= Actions.lane_context[SharedValues::FIREBASE_APP_DISTRO_RELEASE]
+
+  version = release_hash[:displayVersion]
+  build_version = release_hash[:buildVersion]
+  download_link = release_hash[:firebaseConsoleUri]
+
+  slack(
+    message: "<@U04NE4SPK71> <@U062QDH31TK> new #{env} build version #{version}:#{build_version} is available by link #{download_link}",
+    slack_url: ENV["SLACK_URL"],
+    default_payloads: ["git_branch", "git_author"]
+  )
+  
+end
+
+desc "Build binary"
+private_lane :build_binary do
+  platform_name = ENV["FASTLANE_PLATFORM_NAME"]
+  sh "./actions/build_script.sh #{env} #{platform_name}"
+end 
+
+platform :ios do
+
+  desc "Submit build to testflight"
+  lane :testflight_distribution do
+
+    api_key = app_store_connect_api_key(
+      key_id: ENV["APP_STORE_CONNECT_API_KEY_ID"],
+      issuer_id: ENV["ISSUER_ID"],
+      key_filepath: File.join(Dir.pwd, "AuthKey_TT5KZ359F8.p8"),
+      duration: 1200,
+    )
+  
+    pilot(
+      api_key: api_key, 
+      ipa: "build/ios/ipa/LeanOnMe.ipa",
+      skip_waiting_for_build_processing: true,
+      uses_non_exempt_encryption: false,
+    )
+
+  end
+
+  desc "Submit ios build to Firebase AppDistribution"
+  lane :firebase_distribution do
+
+    firebase_app_distribution(
+      app: ENV["IOS_APP_ID"],
+      firebase_cli_token: ENV["FIREBASE_CLI_TOKEN"],
+      groups: "QA",
+      ipa_path: "build/ios/ipa/LeanOnMe.ipa",
+      release_notes_file: "fastlane/release_notes/#{env}.txt",
+    )
+
+  end
+
+end
+
+platform :android do
+
+  desc "Submit build to play store"
+  lane :play_store_distribution do
+    upload_to_play_store(
+      json_key: File.join(Dir.pwd, "leanonme-prod-d047bc57140e.json" ),
+      package_name: "com.loopcare.leanonme.app",
+      aab: "build/app/outputs/bundle/prodRelease/app-prod-release.aab"
+    )
+  end
+
+  desc "Submit android build to Firebase AppDistribution"
+  lane :firebase_distribution do
+
+    firebase_app_distribution(
+      app: ENV["ANDROID_APP_ID"],
+      firebase_cli_token: ENV["FIREBASE_CLI_TOKEN"],
+      groups: "QA",
+      android_artifact_type: build_type,
+      android_artifact_path: "build/app/outputs/#{build_folder}/app-#{env}-release.#{build_type.downcase}",
+      release_notes_file: "fastlane/release_notes/#{env}.txt",
+    )
+
+  end
+end
+
+after_all do |lane|
+  if lane == :firebase_distribution
+    send_message_to_slack
+  end
+end
+
+before_all do |lane|
+  build_binary
+end

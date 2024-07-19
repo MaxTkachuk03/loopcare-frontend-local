@@ -41,7 +41,7 @@ extension DateTimeExtension on DateTime {
   }
 
   DateTime get dateOnly {
-    return DateTime(this.year, this.month, this.day);
+    return DateTime(year, month, day);
   }
 
   String get isoStringWithoutTime {

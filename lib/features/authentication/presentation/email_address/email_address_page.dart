@@ -17,6 +17,7 @@ import 'package:loopcare_frontend/features/authentication/application/authentica
 import 'package:loopcare_frontend/features/authentication/domain/email/email.dart';
 import 'package:loopcare_frontend/features/authentication/presentation/email_address/widgets/email_address_form.dart';
 
+@RoutePage()
 class EmailAddressPage extends StatefulWidget {
   const EmailAddressPage({super.key});
 
@@ -52,14 +53,14 @@ class _EmailAddressPageState extends State<EmailAddressPage> {
       ],
       child: GestureDetector(
         onTap: FocusScope.of(context).unfocus,
-        child: CustomScaffold.greenLightest(
+        child: CustomScaffold.blueLightest(
           key: const ValueKey('email_address_page'),
-          appBar: CustomAppBar.green(
+          appBar: CustomAppBar.blue(
             title: LocalizedTexts.email.tr(),
-            leading: CustomFilledIconButton.leadingGreenLighter(),
+            leading: CustomFilledIconButton.leadingBlueLighter(),
           ),
           body: CustomSafeArea(
-            child: BottomPlacedButton.greenLightest(
+            child: BottomPlacedButton.blueLightest(
               body: MainContainer(
                 child: Column(
                   key: const ValueKey('email_page_body'),
@@ -120,7 +121,7 @@ class _EmailAddressPageState extends State<EmailAddressPage> {
           current.data.emailVerified;
 
   void _navigationListener(BuildContext context, AuthenticationState state) =>
-      context.router.pushNamed(AppRoutes.successVerifiedEmail);
+      context.router.pushNamed(AppRoutes.onboardingQuestions);
 
   void _blockButtonListener(BuildContext context, AuthenticationState state) =>
       _formValidNotifier.value = false;

@@ -1,4 +1,6 @@
+import 'package:collection/collection.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:loopcare_frontend/core/presentation/utils/date_time_extensions.dart';
 import 'package:loopcare_frontend/features/smart_goals/domain/smart_goal.dart';
 import 'package:loopcare_frontend/features/smart_goals/domain/weekly_goal_progress_log.dart';
 
@@ -38,7 +40,24 @@ class WeeklySmartGoal with _$WeeklySmartGoal {
     return times;
   }
 
-  bool get hasCompletions => completionsAmount > 0;
+  int progressForDate(DateTime? date) {
+    if (progressLogs == null || date == null) {
+      return 0;
+    }
+    final log = progressLogs!.firstWhereOrNull((log) {
+      return log.date.dateOnly == date.dateOnly;
+    });
+    return log?.times ?? 0;
+  }
+  int? progressIdForDate(DateTime? date) {
+    if (progressLogs == null || date == null) {
+      return null;
+    }
+    final log = progressLogs!.firstWhereOrNull((log) {
+      return log.date.dateOnly == date.dateOnly;
+    });
+    return log?.id;
+  }
 
   bool get isAchieved {
     if (progressLogs == null) {
