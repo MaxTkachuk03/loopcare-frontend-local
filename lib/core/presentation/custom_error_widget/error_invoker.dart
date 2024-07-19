@@ -66,16 +66,15 @@ class ErrorInvokeButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    if (kIsProd) {
-      return const SizedBox.shrink();
+    if (kIsDev) {
+      return IconButton(
+        onPressed: getIt<ErrorInvokeService>().throwArtificialError,
+        icon: const Icon(
+          Icons.bug_report_outlined,
+          color: Colors.red,
+        ),
+      );
     }
-
-    return IconButton(
-      onPressed: getIt<ErrorInvokeService>().throwArtificialError,
-      icon: const Icon(
-        Icons.bug_report_outlined,
-        color: Colors.red,
-      ),
-    );
+    return const SizedBox.shrink();
   }
 }

@@ -148,6 +148,8 @@ class LocalizedTexts {
   static const String scanYourProduct = 'scanYourProduct';
   static const String barCodeResultCalories = 'barCodeResultCalories';
   static const String barCodeResultPerServing = 'barCodeResultPerServing';
+  static const String openSettings = 'openSettings';
+  static const String allowCameraMessage = 'allowCameraMessage';
 
   //Search
   static const String searchHint = 'searchHint';
@@ -247,10 +249,13 @@ class LocalizedTexts {
   // Education
   static const String all = 'all';
   static const String general = 'general';
-  static const String nutrition = 'nutrition';
   static const String mind = 'mind';
   static const String activity = 'activity';
   static const String availableIn = 'availableIn';
+  static const String psychology = 'psychology';
+  static const String nutrition = 'nutrition';
+  static const String medical = 'medical';
+  static const String community = 'community';
 
   static const String noMealsLogged = 'noMealsLogged';
   static const String noMealsLoggedYet = 'noMealsLoggedYet';
@@ -284,6 +289,7 @@ class LocalizedTexts {
   // Education
   static const String backToToday = 'backToToday';
   static const String backToEducation = 'backToEducation';
+  static const String backToThePool = 'backToThePool';
   static const String completed = 'completed';
   static const String complete = 'complete';
 
@@ -597,8 +603,8 @@ class LocalizedTexts {
   static const String assignmentAddedTitle = "assignmentAddedTitle";
   static const String assignmentAddedText = "assignmentAddedText";
   static const String startNow = "startNow";
-  static const String assignment = "assignment";
-  static const String assignments = "assignments";
+  static const String reflection = "reflection";
+  static const String reflections = "reflections";
   static const String seeLesson = "seeLesson";
   static const String allAssignmentsCompleted = "allAssignmentsCompleted";
   static const String errorOpenTextMessage = "errorOpenTextMessage";
@@ -606,7 +612,7 @@ class LocalizedTexts {
   static const String doneToday = "doneToday";
   static const String completeBefore = "completeBefore";
   static const String completedOn = "completedOn";
-  static const String pastAssignments = "pastAssignments";
+  static const String pastReflections = "pastReflections";
 
   //Group chat
   static const String groupChat = 'groupChat';
@@ -664,6 +670,21 @@ class LocalizedTexts {
 
   //Log weight
   static const String logWeight = 'logWeight';
+
+  // Onboarding River
+  static const String onboardingIntroTitle = 'onboardingIntroTitle';
+  static const String onboardingIntroProgram1 = 'onboardingIntroProgram1';
+  static const String onboardingIntroProgram2 = 'onboardingIntroProgram2';
+  static const String onboardingIntroMissionTitle = 'onboardingIntroMissionTitle';
+  static const String onboardingIntroMissionAndrew = 'onboardingIntroMissionAndrew';
+  static const String onboardingIntroMissionMaria = 'onboardingIntroMissionMaria';
+  static const String onboardingIntroMissionShalu = 'onboardingIntroMissionShalu';
+  static const String onboardingIntroMissionJoshua = 'onboardingIntroMissionJoshua';
+  static const String onboardingIntroMissionDenise = 'onboardingIntroMissionDenise';
+  static const String onboardingPacingTitle = 'onboardingPacingTitle';
+  static const String onboardingPacingMessage = 'onboardingPacingMessage';
+  static const String iAmReady = 'iAmReady';
+  static const String riverOverviewTitle = 'riverOverviewTitle';
 
   // Onboarding Physical
   // Intro
@@ -755,7 +776,9 @@ class LocalizedTexts {
 
   // Taking medication
   static const String weightLossMedicationQuestion = 'weightLossMedicationQuestion';
+  @Deprecated('Not include in River Onboarding')
   static const String medicationPastPeriodQuestion = 'medicationPastPeriodQuestion';
+  @Deprecated('Not include in River Onboarding')
   static const String medicationPastPeriodQuestion2 = 'medicationPastPeriodQuestion2';
   static const String mounjaro = 'mounjaro';
   static const String ozempic = 'ozempic';
@@ -938,8 +961,8 @@ class LocalizedTexts {
   //Waiting for confirmation page
   static const String waitingForConfirmationTitle = 'waitingForConfirmationTitle';
   static const String resendConfirmationMessage = 'resendConfirmationMessage';
-  static const String waitingForConfirmationBody1 = 'waitingForConfirmationBody1';
-  static const String waitingForConfirmationBody2 = 'waitingForConfirmationBody2';
+  static const String waitingForConfirmationSubtitle = 'waitingForConfirmationSubtitle';
+  static const String waitingForConfirmationBody = 'waitingForConfirmationBody';
   static const String waitingForConfirmationBody3 = 'waitingForConfirmationBody3';
   static const String waitingForConfirmationBody4 = 'waitingForConfirmationBody4';
   static const String resend = 'resend';
@@ -1140,4 +1163,17 @@ class LocalizedTexts {
   static const String socketException = 'socketException';
   //Parsing Exception
   static const String parsingException = 'parsingException';
+
+  // River
+  static const String guidancePracticeTitle = 'guidancePracticeTitle';
+  static const String guidancePracticeDescription = 'guidancePracticeDescription';
+  static const String guidanceProfileTitle = 'guidanceProfileTitle';
+  static const String guidanceProfileDescription = 'guidanceProfileDescription';
+  static const String guidanceCompletedTitle = 'guidanceCompletedTitle';
+  static const String guidanceCompletedDescription = 'guidanceCompletedDescription';
+
+  // Maintenance
+  static const String maintenanceLabel = 'maintenanceLabel';
+  static const String maintenancePageTitle = 'maintenancePageTitle';
+  static const String maintenancePageDescription = 'maintenancePageDescription';
 }

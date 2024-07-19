@@ -1,8 +1,8 @@
 import 'package:flutter/foundation.dart';
 import 'package:json_annotation/json_annotation.dart';
+import 'package:loopcare_frontend/core/domain/account/account_features.dart';
 import 'package:loopcare_frontend/core/domain/account/gender_type.dart';
 import 'package:loopcare_frontend/core/domain/account/sex_type.dart';
-import 'package:loopcare_frontend/core/domain/unlock_config/feature/feature.dart';
 import 'package:loopcare_frontend/features/authentication/domain/subscription/subscription.dart';
 
 part 'login_response.g.dart';
@@ -22,7 +22,7 @@ class LoginResponse {
   final Subscription subscription;
   final DateTime? emailApproveDate;
   final DateTime createdAt;
-  final List<Feature> features;
+  final AccountFeatures features;
 
   const LoginResponse({
     required this.accessToken,

@@ -22,7 +22,7 @@ class IntroPage extends StatelessWidget {
   AppConfig get _appConfig => getIt<AppConfig>();
 
   void _onGetStarted(BuildContext context) {
-    context.router.pushNamed(AppRoutes.joinUs);
+    context.router.pushNamed(AppRoutes.onboardingIntro);
   }
 
   void _onLoginTap(BuildContext context) {
@@ -31,10 +31,10 @@ class IntroPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return CustomScaffold.green(
+    return CustomScaffold.blueLightest(
       key: const ValueKey('intro_page'),
       body: CustomSafeArea(
-        child: BottomPlacedButton.green(
+        child: BottomPlacedButton.blueLightest(
           body: MainContainer(
             child: ListView(
               physics: const ClampingScrollPhysics(),

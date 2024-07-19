@@ -49,7 +49,6 @@ class AuthTokenInterceptor extends Interceptor {
     log.i(
       'RESPONSE STATUS: ${response.statusCode} PATH: ${response.realUri.path}',
       error: runtimeType,
-      stackTrace: StackTrace.empty,
     );
     return handler.next(response);
   }
@@ -65,14 +64,12 @@ class AuthTokenInterceptor extends Interceptor {
       log.i(
         'ATTEMPT: ${err.requestOptions.retryAttempt}',
         error: runtimeType,
-        stackTrace: StackTrace.empty,
       );
 
       if (err.requestOptions.retryAttempt == retries) {
         log.i(
           'LOGGING OUT: ATTEMPTS finished',
           error: runtimeType,
-          stackTrace: StackTrace.empty,
         );
 
         _clearBeforeLogout();
@@ -91,7 +88,6 @@ class AuthTokenInterceptor extends Interceptor {
         log.i(
           'ACCESS TOKEN EXPIRED, GETTING NEW TOKEN PAIR',
           error: runtimeType,
-          stackTrace: StackTrace.empty,
         );
 
         isRefreshing = true;
@@ -124,7 +120,6 @@ class AuthTokenInterceptor extends Interceptor {
     log.i(
       'ADDING TO QUEUE => URI: ${err.requestOptions.uri}',
       error: runtimeType,
-      stackTrace: StackTrace.empty,
     );
 
     isRefreshing = false;
@@ -144,7 +139,6 @@ class AuthTokenInterceptor extends Interceptor {
       log.i(
         'RETRYING [$i] => Uri: ${requestOptions.uri}',
         error: runtimeType,
-        stackTrace: StackTrace.empty,
       );
 
       requestOptions.headers = {'Authorization': 'Bearer $token', 'Content-Type': 'application/json'};

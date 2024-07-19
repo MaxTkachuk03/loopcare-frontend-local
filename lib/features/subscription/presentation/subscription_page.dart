@@ -17,6 +17,7 @@ import 'package:loopcare_frontend/core/presentation/routes/app_router.gr.dart';
 import 'package:loopcare_frontend/core/presentation/scaffold/custom_scaffold.dart';
 import 'package:loopcare_frontend/core/presentation/text/custom_text.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
+import 'package:loopcare_frontend/features/river/application/river_bloc.dart';
 import 'package:loopcare_frontend/features/subscription/application/subscription_bloc.dart';
 import 'package:loopcare_frontend/features/subscription/application/subscription_controller.dart';
 import 'package:loopcare_frontend/features/subscription/presentation/widget/subscription_status_widget.dart';
@@ -42,6 +43,8 @@ class _SubscriptionPageState extends State<SubscriptionPage> {
     CustomerIoService.track(
       event: CIOEvents.subscriptionPage,
     );
+
+    Future.delayed(Duration(seconds: 2), _navigateToHome);
   }
 
   @override
@@ -74,7 +77,7 @@ class _SubscriptionPageState extends State<SubscriptionPage> {
             subscriptionActive: (data) => context.router.replaceNamed(AppRoutes.home),
             purchaseDuplicateSubscription: (data) => _onDuplicateSettings(context),
             purchasedSubscription: (data) => (data.subscription?.isActive ?? false)
-                ? context.router.replaceNamed(AppRoutes.home)
+                ? _navigateToHome()
                 : _onRestoreFromSettings(data),
             askRestoredSubscription: (data) => _showAskRestorePopover(),
             loading: (data) => controller.handleLoading(data.isLoading),
@@ -121,14 +124,14 @@ class _SubscriptionPageState extends State<SubscriptionPage> {
     );
   }
 
-  _onDuplicateSettings(BuildContext context) {
+  void _onDuplicateSettings(BuildContext context) {
     if (!sheetOpenedNotifier.value) {
       sheetOpenedNotifier.value = true;
       _showRestoreSubscriptionBottomSheet(isDuplicate: true);
     }
   }
 
-  _onRestoreFromSettings(SubscriptionStateData data) {
+  void _onRestoreFromSettings(SubscriptionStateData data) {
     if (!sheetOpenedNotifier.value) {
       sheetOpenedNotifier.value = true;
 
@@ -196,13 +199,22 @@ class _SubscriptionPageState extends State<SubscriptionPage> {
       cur is AskRestoredSubscriptionState ||
       cur is LogoutState;
 
-  _errorListener(BuildContext context, SubscriptionState state) {
+  void _errorListener(BuildContext context, SubscriptionState state) {
     var errorMessage = state.data.error?.message ?? LocalizedTexts.somethingWentWrong;
     controller.resetState();
     context.showErrorBar(
       content: Text(errorMessage.tr()),
       position: FlashPosition.top,
     );
+  }
+
+  void _navigateToHome() {
+    PageRouteInfo path = const HomeRoute();
+    if (!context.read<RiverBloc>().state.data.isBeginningComplete) {
+      path = const RiverOverviewRoute();
+    }
+
+    context.router.replaceAll([path]);
   }
 }
 

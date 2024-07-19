@@ -39,23 +39,20 @@ class AppRouter extends $AppRouter {
           page: IntroRoute.page,
         ),
         AutoRoute(
+          path: AppRoutes.riverOverview,
+          page: RiverOverviewRoute.page,
+        ),
+        AutoRoute(
           path: AppRoutes.home,
           page: HomeRoute.page,
           children: [
             AutoRoute(path: AppRoutes.dashboard, page: DashboardRoute.page),
-            AutoRoute(path: AppRoutes.education, page: EducationRoute.page),
-            AutoRoute(path: AppRoutes.groupChatTab, page: GroupChatRoute.page),
+            AutoRoute(path: AppRoutes.river, page: RiverRoute.page, initial: true),
             AutoRoute(path: AppRoutes.account, page: AccountRoute.page),
           ],
         ),
-        AutoRoute(
-          path: AppRoutes.joinUs,
-          page: JoinUsRoute.page,
-        ),
-        AutoRoute(
-          path: AppRoutes.successVerifiedEmail,
-          page: SuccessVerifiedEmailRoute.page,
-        ), // added
+
+        // Auth
         AutoRoute(
           path: AppRoutes.login,
           page: LoginRoute.page,
@@ -68,6 +65,18 @@ class AppRouter extends $AppRouter {
         // Onboarding
         AutoRoute(
           path: AppRoutes.onboardingIntro,
+          page: OnboardingIntroRoute.page,
+        ),
+        AutoRoute(
+          path: AppRoutes.onboardingIntroMission,
+          page: OnboardingIntroOurMissionRoute.page,
+        ),
+        AutoRoute(
+          path: AppRoutes.onboardingPacing,
+          page: OnboardingPacingRoute.page,
+        ),
+        AutoRoute(
+          path: AppRoutes.onboardingQuestions,
           page: OnboardingQuestionsRoute.page,
         ),
 
@@ -222,7 +231,7 @@ class AppRouter extends $AppRouter {
         AutoRoute(
           path: AppRoutes.updateEmail,
           page: UpdateEmailRoute.page,
-        ), // added
+        ),
 
         // Video
         AutoRoute(
@@ -347,29 +356,33 @@ class AppRouter extends $AppRouter {
 
         // Quizzes
         AutoRoute(
-          path: AppRoutes.quizzes,
-          page: QuizzesIntroRoute.page,
+          path: AppRoutes.quizIntro,
+          page: QuizIntroRoute.page,
         ), // added
         AutoRoute(
-          path: AppRoutes.quizesQuestions,
-          page: QuizzesQuestionsRoute.page,
+          path: AppRoutes.quizQuestion,
+          page: QuizQuestionRoute.page,
+        ), // added
+
+        // Reflections
+        AutoRoute(
+          path: AppRoutes.myReflections,
+          page: MyReflectionsRoute.page,
         ), // added
         AutoRoute(
-          path: AppRoutes.assignmentsIntro,
-          page: AssignmentsIntroRoute.page,
+          path: AppRoutes.reflectionsIntro,
+          page: ReflectionsIntroRoute.page,
         ), // added
         AutoRoute(
-          path: AppRoutes.assignmentsQuestions,
-          page: AssignmentsQuestionsRoute.page,
+          path: AppRoutes.reflectionQuestion,
+          page: ReflectionQuestionRoute.page,
         ), // added
         AutoRoute(
-          path: AppRoutes.myAssignments,
-          page: MyAssignmentsRoute.page,
+          path: AppRoutes.reflectionComplete,
+          page: ReflectionCompleteRoute.page,
         ), // added
-        AutoRoute(
-          path: AppRoutes.assignmentsSaved,
-          page: AssignmentsSavedRoute.page,
-        ), // added
+
+        // Chat
         AutoRoute(
           path: AppRoutes.groupChat,
           page: GroupChatRoute.page,
@@ -433,6 +446,10 @@ class AppRouter extends $AppRouter {
         AutoRoute(
           path: AppRoutes.goalReview,
           page: GoalReviewRoute.page,
+        ),
+        AutoRoute(
+          path: AppRoutes.maintenance,
+          page: MaintenanceRoute.page,
         ),
       ];
 }

@@ -32,7 +32,9 @@ class _AccountPageState extends State<AccountPage> {
   void initState() {
     super.initState();
     context.read<YouAndFoodBloc>().add(const YouAndFoodEvent.fetchFoodPreferences());
-    context.read<PhysicalActivitiesPreferencesBloc>().add(const PhysicalActivitiesPreferencesEvent.getPreferences());
+    context
+        .read<PhysicalActivitiesPreferencesBloc>()
+        .add(const PhysicalActivitiesPreferencesEvent.getPreferences());
     CustomerIO.track(
       name: CIOEvents.profilePage,
     );
@@ -54,7 +56,6 @@ class _AccountPageState extends State<AccountPage> {
                 SizedBox(height: 32.0),
                 AccountSection(),
                 SizedBox(height: 24.0),
-                //Todo hide subscription flow LOOPCARE-2197
                 SubscriptionSection(),
                 SizedBox(height: 24.0),
                 // TODO: LOOPCARE-1999: Remove "Personal details" section from user profile screen.

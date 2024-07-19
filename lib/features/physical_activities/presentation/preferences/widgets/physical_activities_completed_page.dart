@@ -16,41 +16,39 @@ import 'package:loopcare_frontend/core/presentation/utils/build_context_extensio
 import 'package:loopcare_frontend/core/presentation/widgets/main_container.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/scrollable_container.dart';
 import 'package:loopcare_frontend/features/authentication/application/authentication_bloc.dart';
-import 'package:loopcare_frontend/features/education/application/education_lesson/education_lesson_bloc.dart';
 import 'package:loopcare_frontend/features/education/presentation/education_page/widgets/category_label.dart';
 import 'package:loopcare_frontend/features/education/presentation/lesson_complete_page/widgets/unlock_physical_activities_feature.dart';
-import 'package:loopcare_frontend/features/nutrition/application/dashboard_education/dashboard_education_bloc.dart';
+import 'package:loopcare_frontend/features/river/infrastructure/river_module_stream_type.dart';
 
 @RoutePage()
 class PhysicalActivitiesCompletePage extends StatefulWidget {
-  const PhysicalActivitiesCompletePage({super.key});
+  final RiverModuleStreamType streamType;
+
+  const PhysicalActivitiesCompletePage({super.key, required this.streamType});
 
   @override
   State<PhysicalActivitiesCompletePage> createState() => _PhysicalActivitiesCompletePageState();
 }
 
 class _PhysicalActivitiesCompletePageState extends State<PhysicalActivitiesCompletePage> {
-
-  @override
-  void initState() {
-    super.initState();
-    if (!context.read<EducationLessonBloc>().state.data.isLessonCompleted) {
-      context.read<EducationLessonBloc>().add(const EducationLessonEvent.completeLesson());
-    }
-  }
-
   _onPressHandler(BuildContext context) {
     context.read<AuthenticationBloc>().add(const AuthenticationEvent.getAccount());
-    context.read<DashboardEducationBloc>().add(const DashboardEducationEvent.getDashboardLessons());
     context.router.popUntilRouteWithName(HomeRoute.name);
   }
 
+  CustomAppBarTextTheme get _theme => widget.streamType.appBarTextTheme;
+
+  bool get _isLightTheme => _theme == CustomAppBarTextTheme.light;
+
   @override
   Widget build(BuildContext context) {
-    return CustomScaffold.petrol(
-      appBar: CustomAppBar.petrol(
+    return CustomScaffold(
+      color: widget.streamType.offRegularColor,
+      appBar: CustomAppBar(
+        backgroundColor: widget.streamType.regularColor,
+        textTheme: widget.streamType.appBarTextTheme,
         title: LocalizedTexts.lesson.tr(),
-        leading: CustomFilledIconButton.leadingPetrolLighter(),
+        leading: CustomFilledIconButton.fromColor(color: widget.streamType.lighterColor),
       ),
       body: CustomSafeArea(
         child: ScrollableContainer(
@@ -59,22 +57,25 @@ class _PhysicalActivitiesCompletePageState extends State<PhysicalActivitiesCompl
             children: [
               Column(
                 children: [
-                  UnderAppbar.petrol(
+                  UnderAppbar(
+                    fillColor: widget.streamType.regularColor,
                     child: Center(
                       child: Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 120.0),
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            const CircleAvatar(
+                            CircleAvatar(
                               radius: 22.0,
-                              backgroundColor: AppColors.greenRegular,
-                              child: Icon(Icons.check, size: 24, color: AppColors.white),
+                              backgroundColor:
+                                  _isLightTheme ? AppColors.greenRegular : AppColors.blueRegular,
+                              child: const Icon(Icons.check, size: 24, color: AppColors.white),
                             ),
                             const SizedBox(height: 22.0),
                             CustomText.bitter600(
                               '${LocalizedTexts.lessonCompleted.tr()}!',
-                              style: context.textTheme.displayMedium?.copyWith(color: AppColors.white),
+                              style:
+                                  context.textTheme.displayMedium?.copyWith(color: AppColors.white),
                               textAlign: TextAlign.center,
                             ),
                           ],

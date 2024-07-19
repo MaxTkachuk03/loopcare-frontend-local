@@ -9,7 +9,6 @@ import 'package:loopcare_frontend/core/presentation/buttons/custom_elevated_butt
 import 'package:loopcare_frontend/core/presentation/buttons/custom_filled_icon_button.dart';
 import 'package:loopcare_frontend/core/presentation/custom_safe_area.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
-import 'package:loopcare_frontend/core/presentation/routes/app_router.dart';
 import 'package:loopcare_frontend/core/presentation/routes/app_router.gr.dart';
 import 'package:loopcare_frontend/core/presentation/scaffold/custom_scaffold.dart';
 import 'package:loopcare_frontend/core/presentation/text/custom_text.dart';
@@ -20,13 +19,19 @@ import 'package:loopcare_frontend/core/presentation/widgets/scrollable_container
 import 'package:loopcare_frontend/features/physical_activities/application/physical_activities_preferences/physical_activities_preferences_bloc.dart';
 import 'package:loopcare_frontend/features/physical_activities/presentation/preferences/widgets/activity_type_chips.dart';
 import 'package:loopcare_frontend/features/physical_activities/presentation/preferences/widgets/flexibility_chips.dart';
+import 'package:loopcare_frontend/features/river/infrastructure/river_module_stream_type.dart';
 import 'package:loopcare_frontend/injection.dart';
 
 @RoutePage()
 class PhysicalActivitiesActivityTypePage extends StatefulWidget {
+  final RiverModuleStreamType streamType;
   final bool profileInvoke;
 
-  const PhysicalActivitiesActivityTypePage({super.key, this.profileInvoke = false});
+  const PhysicalActivitiesActivityTypePage({
+    super.key,
+    this.profileInvoke = false,
+    this.streamType = RiverModuleStreamType.psychology,
+  });
 
   @override
   State<PhysicalActivitiesActivityTypePage> createState() =>
@@ -52,13 +57,24 @@ class _PhysicalActivitiesActivityTypePageState extends State<PhysicalActivitiesA
     }
 
     if (getIt<SharedStorageService>().account?.isPhysicalActivitiesUnlocked ?? false) {
-      context.router.pushNamed(AppRoutes.physicalActivitiesComplete);
+      context.router.push(PhysicalActivitiesCompleteRoute(streamType: widget.streamType));
     }
   }
 
   void _onNext() => context
       .read<PhysicalActivitiesPreferencesBloc>()
       .add(const PhysicalActivitiesPreferencesEvent.savePreferences());
+
+  get _scaffoldColor =>
+      widget.profileInvoke ? AppColors.blueLightest : widget.streamType.lightestColor;
+
+  get _appBarColor => widget.profileInvoke ? AppColors.blueRegular : widget.streamType.regularColor;
+
+  get _appBarTextTheme =>
+      widget.profileInvoke ? CustomAppBarTextTheme.light : widget.streamType.appBarTextTheme;
+
+  get _leadingButtonColor =>
+      widget.profileInvoke ? AppColors.blueLighter : widget.streamType.lighterColor;
 
   @override
   Widget build(BuildContext context) {
@@ -68,12 +84,12 @@ class _PhysicalActivitiesActivityTypePageState extends State<PhysicalActivitiesA
       listener: _onChangeListener,
       child: CustomScaffold(
         withBg: false,
-        color: widget.profileInvoke ? AppColors.blueLightest : AppColors.petrolLightest,
+        color: _scaffoldColor,
         appBar: CustomAppBar(
-          backgroundColor: widget.profileInvoke ? AppColors.blueRegular : AppColors.petrolRegular,
-          textTheme: CustomAppBarTextTheme.light,
+          backgroundColor: _appBarColor,
+          textTheme: _appBarTextTheme,
           title: LocalizedTexts.trainingFocus.tr(),
-          leading: CustomFilledIconButton.leadingBlueLighter(),
+          leading: CustomFilledIconButton.fromColor(color: _leadingButtonColor),
         ),
         body: CustomSafeArea(
           child: ScrollableContainer(

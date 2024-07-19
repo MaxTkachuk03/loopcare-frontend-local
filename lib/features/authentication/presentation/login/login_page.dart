@@ -19,17 +19,18 @@ import 'package:loopcare_frontend/injection.dart';
 class LoginPage extends StatelessWidget {
   const LoginPage({super.key});
 
-  void _onForgotMyPassword(BuildContext context) => context.router.pushNamed(AppRoutes.forgotPassword);
+  void _onForgotMyPassword(BuildContext context) =>
+      context.router.pushNamed(AppRoutes.forgotPassword);
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: FocusScope.of(context).unfocus,
-      child: CustomScaffold.green(
+      child: CustomScaffold.blueLightest(
         key: const ValueKey('login_page'),
         appBar: CustomAppBar.transparent(
           leading: context.router.canPop()
-                  ? CustomFilledIconButton.leadingGreenLighter()
+                  ? CustomFilledIconButton.leadingWhite()
                   : const SizedBox.shrink(),
         ),
         body: CustomSafeArea(
@@ -44,8 +45,8 @@ class LoginPage extends StatelessWidget {
                 const SizedBox(height: 24.0),
                 CustomText.bitter600(
                   '${LocalizedTexts.loginTitle.tr(namedArgs: {
-                    'projectName': getIt<AppConfig>().projectName
-                  })}!',
+                        'projectName': getIt<AppConfig>().projectName
+                      })}!',
                   style: context.textTheme.displayLarge,
                   textAlign: TextAlign.center,
                 ),

@@ -14,7 +14,6 @@ import 'package:loopcare_frontend/core/presentation/utils/date_time_utils.dart';
 import 'package:loopcare_frontend/features/education/application/education_lesson/education_lesson_bloc.dart';
 import 'package:loopcare_frontend/features/education/application/education_program/education_program_bloc.dart';
 import 'package:loopcare_frontend/features/education/domain/education_lesson.dart';
-import 'package:loopcare_frontend/features/education/presentation/education_page/utils/get_label_by_category.dart';
 import 'package:loopcare_frontend/features/education/presentation/education_page/widgets/education_countdown.dart';
 import 'package:loopcare_frontend/features/education/presentation/education_page/widgets/lesson_state.dart';
 
@@ -35,12 +34,14 @@ class EducationCard extends StatelessWidget {
         children: [
           LessonState.locked(),
           const SizedBox(width: 6.0),
-          if (!showCountdown) CustomText.w700(LocalizedTexts.locked.tr(), style: context.textTheme.bodySmall),
+          if (!showCountdown)
+            CustomText.w700(LocalizedTexts.locked.tr(), style: context.textTheme.bodySmall),
           if (showCountdown)
             Expanded(
               child: Wrap(
                 children: [
-                  CustomText.w600('${LocalizedTexts.availableIn.tr()}: ', style: context.textTheme.bodySmall),
+                  CustomText.w600('${LocalizedTexts.availableIn.tr()}: ',
+                      style: context.textTheme.bodySmall),
                   EducationCountDown(seconds: lessonWithCountdown.timeRemaining),
                 ],
               ),
@@ -68,7 +69,7 @@ class EducationCard extends StatelessWidget {
   _onTapHandler(BuildContext context) {
     context
         .read<EducationLessonBloc>()
-        .add(EducationLessonEvent.getLessonContent(lessonId: lesson.id, pageIndex: _initialLessonPageIndex));
+        .add(EducationLessonEvent.getLessonContent(lessonId: lesson.id));
     CustomerIoService.track(
       event: CIOEvents.educationArticleOpen,
       attributes: {
@@ -125,7 +126,7 @@ class EducationCard extends StatelessWidget {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
-                                getLabelByCategory(lesson.category),
+                                // getLabelByStreamType(lesson.category),
                                 const SizedBox(height: 8.0),
                                 CustomText.bitter700(
                                   lesson.title,
@@ -139,7 +140,8 @@ class EducationCard extends StatelessWidget {
                                     const Icon(Icons.watch_later_outlined, size: 16),
                                     const SizedBox(width: 6.0),
                                     CustomText.w600(
-                                      formatSecondsToDurationString(lesson.duration, alwaysShowSeconds: true),
+                                      formatSecondsToDurationString(lesson.duration,
+                                          alwaysShowSeconds: true),
                                       style: context.textTheme.bodySmall,
                                     )
                                   ],

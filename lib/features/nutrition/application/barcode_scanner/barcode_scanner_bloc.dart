@@ -8,19 +8,16 @@ import 'package:loopcare_frontend/features/nutrition/application/barcode_scanner
 import 'package:loopcare_frontend/features/nutrition/application/nutrition_service.dart';
 
 part 'barcode_scanner_bloc.freezed.dart';
-
 part 'barcode_scanner_event.dart';
-
 part 'barcode_scanner_state.dart';
 
 @singleton
-class BarcodeScannerBloc
-    extends Bloc<BarcodeScannerEvent, BarcodeScannerState> {
-  final NutritionService barcodeService;
+class BarcodeScannerBloc extends Bloc<BarcodeScannerEvent, BarcodeScannerState> {
+  final NutritionService _nutritionService;
 
   BarcodeScannerBloc(
-    this.barcodeService,
-  ) : super(BarcodeScannerState.initial()) {
+    this._nutritionService,
+  ) : super(const BarcodeScannerState.initial(BarcodeScannerStateData())) {
     on<GetInformation>(_onGetInformation);
   }
 
@@ -28,14 +25,14 @@ class BarcodeScannerBloc
     GetInformation event,
     Emitter<BarcodeScannerState> emit,
   ) async {
-    emit(BarcodeScannerState.loading());
-    final response = await barcodeService
-        .getBarcodeInformation(event.barCode); // '020357122682'
+    emit(BarcodeScannerState.loading(state.data.copyWith(isLoading: true)));
+
+    final response = await _nutritionService.getBarcodeInformation(event.barCode);
 
     response.fold(
-      (l) => emit(BarcodeScannerState.error(error: l)),
+      (l) => emit(BarcodeScannerState.error(state.data.copyWith(error: l, isLoading: false))),
       (r) => emit(
-        BarcodeScannerState.success(foodItem: r.data),
+        BarcodeScannerState.loaded(state.data.copyWith(foodItem: r.data, isLoading: false)),
       ),
     );
   }

@@ -5,7 +5,6 @@ import 'package:loopcare_frontend/core/presentation/loader/loader.dart';
 import 'package:loopcare_frontend/features/account/application/group_preferences_bloc.dart';
 import 'package:loopcare_frontend/features/account/domain/group_prefs_mode.dart';
 import 'package:loopcare_frontend/features/account/presentation/widgets/group_prefs_page_wrap.dart';
-import 'package:loopcare_frontend/features/education/application/education_lesson/education_lesson_bloc.dart';
 
 class GroupLessonWrap extends StatelessWidget {
   final Widget child;
@@ -54,8 +53,6 @@ class GroupLessonWrap extends StatelessWidget {
   }
 
   Future<bool> _onWillPop(BuildContext context) {
-    context.read<EducationLessonBloc>().add(const EducationLessonEvent.progressBack());
-
     return Future.value(true);
   }
 }

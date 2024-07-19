@@ -42,14 +42,14 @@ class _NamePageState extends State<NamePage> {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: FocusScope.of(context).unfocus,
-      child: CustomScaffold.greenLightest(
+      child: CustomScaffold.blueLightest(
         key: const ValueKey('name_page'),
-        appBar: CustomAppBar.green(
+        appBar: CustomAppBar.blue(
           title: LocalizedTexts.name.tr(),
-          leading: CustomFilledIconButton.leadingGreenLighter(),
+          leading: CustomFilledIconButton.leadingBlueLighter(),
         ),
         body: CustomSafeArea(
-          child: BottomPlacedButton.greenLightest(
+          child: BottomPlacedButton.blueLightest(
             body: MainContainer(
               child: Column(
                 key: const ValueKey('name_page_body'),

@@ -20,15 +20,17 @@ import 'package:loopcare_frontend/features/account/application/group_preferences
 import 'package:loopcare_frontend/features/account/domain/group_prefs_mode.dart';
 import 'package:loopcare_frontend/features/account/presentation/widgets/group_lesson_wrap.dart';
 import 'package:loopcare_frontend/features/account/presentation/widgets/group_prefs_page_wrap.dart';
-import 'package:loopcare_frontend/features/education/application/education_lesson/education_lesson_bloc.dart';
+import 'package:loopcare_frontend/features/river/infrastructure/river_module_stream_type.dart';
 
 @RoutePage()
 class NicknamePreferencesPage extends StatefulWidget {
+  final RiverModuleStreamType streamType;
   final bool fromLessonComplete;
 
   const NicknamePreferencesPage({
     super.key,
     required this.fromLessonComplete,
+    this.streamType = RiverModuleStreamType.psychology,
   });
 
   @override
@@ -50,7 +52,9 @@ class _NicknamePreferencesPageState extends State<NicknamePreferencesPage> {
 
   void _onNextPressedHandler() {
     dismissKeyboard(context);
-    context.read<GroupPreferencesBloc>().add(GroupPreferencesEvent.setNickname(_nicknameController.text));
+    context
+        .read<GroupPreferencesBloc>()
+        .add(GroupPreferencesEvent.setNickname(_nicknameController.text));
   }
 
   void _onNicknameChangeHandler(_) {
@@ -73,13 +77,14 @@ class _NicknamePreferencesPageState extends State<NicknamePreferencesPage> {
     final groupPrefsMode = context.read<GroupPreferencesBloc>().state.data.groupPrefsMode;
 
     if (groupPrefsMode == GroupPrefsMode.groupingLesson) {
-      context.read<EducationLessonBloc>().add(const EducationLessonEvent.progressForward());
+      // context.read<EducationLessonBloc>().add(const EducationLessonEvent.progressForward());
     }
 
     AnalyticsEventService.instance.logEvent(
       FirebaseEvents.userFillsOutNicknamePreferences,
       parameters: {
-        CustomDefinitions.navigatedFrom: widget.fromLessonComplete ? 'Lesson content' : 'User profile',
+        CustomDefinitions.navigatedFrom:
+            widget.fromLessonComplete ? 'Lesson content' : 'User profile',
         CustomDefinitions.value: _nicknameController.text,
       },
     );
@@ -87,7 +92,8 @@ class _NicknamePreferencesPageState extends State<NicknamePreferencesPage> {
     if (groupPrefsMode == GroupPrefsMode.singlePage) {
       context.router.maybePop();
     } else {
-      context.router.push(GroupRulesOneRoute(fromLessonComplete: widget.fromLessonComplete));
+      context.router.push(GroupRulesOneRoute(
+          fromLessonComplete: widget.fromLessonComplete, streamType: widget.streamType));
     }
   }
 
@@ -100,6 +106,7 @@ class _NicknamePreferencesPageState extends State<NicknamePreferencesPage> {
         return GroupLessonWrap(
           fromLessonComplete: widget.fromLessonComplete,
           child: GroupPrefsPageWrap(
+            streamType: widget.streamType,
             fromLessonComplete: widget.fromLessonComplete,
             child: CustomSafeArea(
               child: MainContainer(
@@ -126,8 +133,11 @@ class _NicknamePreferencesPageState extends State<NicknamePreferencesPage> {
                       Column(
                         children: [
                           CustomElevatedButton.blueFullWidth(
-                            onPressed: _nicknameController.text.isEmpty ? null : _onNextPressedHandler,
-                            label: widget.fromLessonComplete ? LocalizedTexts.next.tr() : LocalizedTexts.save.tr(),
+                            onPressed:
+                                _nicknameController.text.isEmpty ? null : _onNextPressedHandler,
+                            label: widget.fromLessonComplete
+                                ? LocalizedTexts.next.tr()
+                                : LocalizedTexts.save.tr(),
                           ),
                           const SizedBox(height: 30.0),
                         ],

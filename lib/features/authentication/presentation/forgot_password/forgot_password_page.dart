@@ -39,11 +39,11 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: FocusScope.of(context).unfocus,
-      child: CustomScaffold.greenLightest(
+      child: CustomScaffold.blueLightest(
         key: const ValueKey('forgot_password_page'),
-        appBar: CustomAppBar.green(leading: CustomFilledIconButton.leadingGreenLighter()),
+        appBar: CustomAppBar.blue(leading: CustomFilledIconButton.leadingBlueLighter()),
         body: CustomSafeArea(
-          child: BottomPlacedButton.greenLightest(
+          child: BottomPlacedButton.blueLightest(
             body: MainContainer(
               child: ListView(
                 key: const ValueKey('forgot_password_page_body'),

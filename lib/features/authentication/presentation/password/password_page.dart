@@ -23,9 +23,11 @@ import 'package:loopcare_frontend/core/presentation/widgets/checkbox_form_field.
 import 'package:loopcare_frontend/core/presentation/widgets/main_container.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/password_with_indicator/password_with_indicator.dart';
 import 'package:loopcare_frontend/features/authentication/application/authentication_bloc.dart';
-import 'package:loopcare_frontend/features/onboarding_new/application/medical_questions/medical_questions_bloc.dart';
-import 'package:loopcare_frontend/features/onboarding_new/application/mental_questions/mental_questions_bloc.dart';
-import 'package:loopcare_frontend/features/onboarding_new/application/physical_questions/physical_questions_bloc.dart';
+import 'package:loopcare_frontend/features/home/application/navigation_bar_bloc.dart';
+import 'package:loopcare_frontend/features/onboarding/application/medical_questions/medical_questions_bloc.dart';
+import 'package:loopcare_frontend/features/onboarding/application/mental_questions/mental_questions_bloc.dart';
+import 'package:loopcare_frontend/features/onboarding/application/physical_questions/physical_questions_bloc.dart';
+import 'package:loopcare_frontend/features/river/application/river_bloc.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 @RoutePage()
@@ -62,22 +64,34 @@ class _PasswordPageState extends State<PasswordPage> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocListener<AuthenticationBloc, AuthenticationState>(
-      listenWhen: (previous, current) => (ModalRoute.of(context)?.isCurrent ?? false),
-      listener: (_, state) => state.mapOrNull(
-        error: _errorListener,
-        waitedForConfirmation: _navigationListener,
-      ),
+    return MultiBlocListener(
+      listeners: [
+        BlocListener<AuthenticationBloc, AuthenticationState>(
+          listenWhen: (previous, current) => (ModalRoute.of(context)?.isCurrent ?? false),
+          listener: (_, state) => state.mapOrNull(
+            error: _errorListener,
+            // waitedForConfirmation: _navigationListener,
+            gotAccount: _onGotAccount,
+          ),
+        ),
+        BlocListener<RiverBloc, RiverState>(
+          listener: (context, state) {
+            state.mapOrNull(
+              moduleLoaded: _onRiverModulesLoaded,
+            );
+          },
+        )
+      ],
       child: GestureDetector(
         onTap: FocusScope.of(context).unfocus,
-        child: CustomScaffold.greenLightest(
+        child: CustomScaffold.blueLightest(
           key: const ValueKey('password_page'),
-          appBar: CustomAppBar.green(
+          appBar: CustomAppBar.blue(
             title: LocalizedTexts.createAccount.tr(),
-            leading: CustomFilledIconButton.leadingGreenLighter(),
+            leading: CustomFilledIconButton.leadingBlueLighter(),
           ),
           body: CustomSafeArea(
-            child: BottomPlacedButton.greenLightest(
+            child: BottomPlacedButton.blueLightest(
               body: MainContainer(
                 child: AutofillGroup(
                   child: ListView(
@@ -158,6 +172,7 @@ class _PasswordPageState extends State<PasswordPage> {
               button: ValueListenableBuilder<bool>(
                 valueListenable: _formValidationNotifier,
                 builder: (context, isValid, _) {
+                  // todo: add loading state
                   return CustomElevatedButton.blueFullWidth(
                     key: const ValueKey('password_page_next_button'),
                     onPressed: isValid ? _onNextPressed : null,
@@ -235,5 +250,13 @@ class _PasswordPageState extends State<PasswordPage> {
     _validateForm();
   }
 
-  void _navigationListener(AuthenticationState state) => context.router.pushNamed(AppRoutes.waitingForConfirmation);
+  void _onGotAccount(AuthenticationState state) => context.read<RiverBloc>().add(const RiverEvent.getModules());
+
+  void _onRiverModulesLoaded(RiverState state) {
+    context.read<NavigationBarBloc>().add(
+      const NavigationBarEvent.setBeginningUncompleted(),
+    );
+
+    context.router.pushNamed(AppRoutes.waitingForConfirmation);
+  }
 }

@@ -71,6 +71,13 @@ class CustomFilledIconButton extends StatelessWidget {
         styles: IconButton.styleFrom(backgroundColor: AppColors.blueLighter),
       );
 
+  factory CustomFilledIconButton.leadingWhite({void Function()? onPressed}) => CustomFilledIconButton(
+        icon: const Icon(Icons.chevron_left_rounded),
+        onPressed: onPressed,
+        color: AppColors.blueDarker,
+        styles: IconButton.styleFrom(backgroundColor: AppColors.white),
+      );
+
   @override
   Widget build(BuildContext context) {
     return IconButton.filled(

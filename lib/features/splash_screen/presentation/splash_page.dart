@@ -12,8 +12,10 @@ import 'package:loopcare_frontend/core/presentation/routes/app_router.dart';
 import 'package:loopcare_frontend/core/presentation/scaffold/custom_scaffold.dart';
 import 'package:loopcare_frontend/core/presentation/text/custom_text.dart';
 import 'package:loopcare_frontend/features/authentication/application/authentication_bloc.dart';
+import 'package:loopcare_frontend/features/home/application/navigation_bar_bloc.dart';
 import 'package:loopcare_frontend/features/legal_statement/application/legal_statement_bloc.dart';
-import 'package:loopcare_frontend/features/onboarding_new/application/general/general_onboarding_bloc.dart';
+import 'package:loopcare_frontend/features/onboarding/application/general/general_onboarding_bloc.dart';
+import 'package:loopcare_frontend/features/river/application/river_bloc.dart';
 import 'package:loopcare_frontend/features/splash_screen/infrastructure/splash_controller.dart';
 
 @RoutePage()
@@ -57,7 +59,11 @@ class _SplashPageState extends State<SplashPage> {
     );
   }
 
+  void _onAuthorized() => _controller.getRiverModules();
+
   Future<void> _navigateAuthorized() async {
+    _controller.setUpBottomNavigationBar();
+
     final routes = await _controller.getRoute();
 
     if (context.mounted) {
@@ -81,6 +87,8 @@ class _SplashPageState extends State<SplashPage> {
       authenticationBloc:  context.read<AuthenticationBloc>(),
       legalStatementBloc: context.read<LegalStatementBloc>(),
       onboardingBloc: context.read<GeneralOnboardingBloc>(),
+      riverBloc: context.read<RiverBloc>(),
+      navigationBarBloc: context.read<NavigationBarBloc>(),
     );
 
     _controller.requestPermissions();
@@ -109,12 +117,17 @@ class _SplashPageState extends State<SplashPage> {
         BlocListener<AuthenticationBloc, AuthenticationState>(
           listener: (context, state) => state.mapOrNull(
               needUpdatePolicies: (_) => _updatePolicies(),
-              gotAccount: (_) => _navigateAuthorized(),
+              gotAccount: (_) => _onAuthorized(),
               error: (state) => _errorListener(state.data.error?.error),
             ),
         ),
+        BlocListener<RiverBloc, RiverState>(
+          listener: (context, state) => state.mapOrNull(
+            moduleLoaded: (_) => _navigateAuthorized(),
+          ),
+        ),
       ],
-      child: CustomScaffold.green(),
+      child: CustomScaffold.blueLightest(),
     );
   }
 }

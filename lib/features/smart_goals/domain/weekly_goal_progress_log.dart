@@ -8,6 +8,7 @@ class WeeklyGoalProgressLog with _$WeeklyGoalProgressLog {
   const WeeklyGoalProgressLog._();
 
   const factory WeeklyGoalProgressLog({
+    required int id,
     required DateTime date,
     required int times,
   }) = _WeeklyGoalProgressLog;
