@@ -19,6 +19,8 @@ import 'package:loopcare_frontend/core/presentation/widgets/main_container.dart'
 import 'package:loopcare_frontend/core/presentation/widgets/scrollable_container.dart';
 import 'package:loopcare_frontend/features/account/presentation/account_page/widgets/account_container.dart';
 import 'package:loopcare_frontend/features/authentication/application/authentication_bloc.dart';
+import 'package:loopcare_frontend/features/authentication/domain/email/email.dart';
+import 'package:loopcare_frontend/features/authentication/domain/login_password/login_password.dart';
 
 @RoutePage()
 class UpdateEmailPage extends StatefulWidget {
@@ -35,7 +37,9 @@ class _UpdateEmailPageState extends State<UpdateEmailPage> {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
 
-  void _onFormChangedHandler() => _isFormValid.value = _formKey.currentState?.validate() ?? false;
+  void _onFormChangedHandler() =>
+      _isFormValid.value = Email.create(_emailController.text).isRight() &&
+          LoginPassword.create(_passwordController.text).isRight();
 
   void _onForgotMyPassword() => context.router.pushNamed(AppRoutes.forgotPassword);
 
