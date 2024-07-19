@@ -111,6 +111,7 @@ class _DashboardPageState extends State<DashboardPage> with WidgetsBindingObserv
     }
 
     if (state.data.isSmartGoalUnlocked) {
+      context.read<SmartGoalsBloc>().add(SmartGoalsEvent.selectDate(selectedDate: _selectedDay));
       context.read<SmartGoalsBloc>().add(const SmartGoalsEvent.getWeeklyGoals());
     }
   }
