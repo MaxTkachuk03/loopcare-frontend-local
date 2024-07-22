@@ -2,9 +2,9 @@ import 'package:auto_route/auto_route.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:loopcare_frontend/core/domain/analytics/firebase_event_custom_definitions.dart';
-import 'package:loopcare_frontend/core/domain/analytics/firebase_event_list.dart';
-import 'package:loopcare_frontend/core/infrastructure/services/firebase_event_service.dart';
+import 'package:loopcare_frontend/core/domain/analytics/analytics_events.dart';
+import 'package:loopcare_frontend/core/domain/analytics/analytics_parameters.dart';
+import 'package:loopcare_frontend/core/infrastructure/services/analytics_service.dart';
 import 'package:loopcare_frontend/core/presentation/buttons/custom_elevated_button.dart';
 import 'package:loopcare_frontend/core/presentation/custom_safe_area.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
@@ -36,10 +36,10 @@ class GroupRulesSixPage extends StatelessWidget {
 
     context.read<GroupPreferencesBloc>().add(const GroupPreferencesEvent.acceptRules());
 
-    AnalyticsEventService.instance.logEvent(
-      FirebaseEvents.userFillsOutGroupPreferences,
+    AnalyticsEventService().logEvent(
+      eventName: AnalyticsEvents.userFillsOutGroupPreferences,
       parameters: {
-        CustomDefinitions.navigatedFrom: fromLessonComplete ? 'Lesson content' : 'User profile',
+        AnalyticsParameters.navigatedFrom: fromLessonComplete ? 'Lesson content' : 'User profile',
       },
     );
 

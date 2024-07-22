@@ -47,6 +47,8 @@ class _AccountSectionState extends State<AccountSection> {
     context.read<AuthenticationBloc>().add(const AuthenticationEvent.logout());
   }
 
+  void _onEmailPressedHandler() => context.router.pushNamed(AppRoutes.updateEmail);
+
   void _onAvatarPressedHandler() => context.router.pushNamed(AppRoutes.selectAvatar);
 
   @override
@@ -70,7 +72,7 @@ class _AccountSectionState extends State<AccountSection> {
               SectionItem(
                 title: LocalizedTexts.emailAddress.tr(),
                 subTitle: state.data.accountEmail,
-                onPressHandler: () {},
+                onPressHandler: _onEmailPressedHandler,
               ),
               const Divider(height: 1.0, color: AppColors.blueLighter),
               const SizedBox(height: 16.0),

@@ -5,9 +5,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loopcare_frontend/core/application/customer_io_service/customer_io_attributes.dart';
 import 'package:loopcare_frontend/core/application/customer_io_service/customer_io_events.dart';
-import 'package:loopcare_frontend/core/domain/analytics/firebase_event_custom_definitions.dart';
-import 'package:loopcare_frontend/core/domain/analytics/firebase_event_list.dart';
-import 'package:loopcare_frontend/core/infrastructure/services/firebase_event_service.dart';
+import 'package:loopcare_frontend/core/domain/analytics/analytics_events.dart';
+import 'package:loopcare_frontend/core/domain/analytics/analytics_parameters.dart';
+import 'package:loopcare_frontend/core/infrastructure/services/analytics_service.dart';
 import 'package:loopcare_frontend/core/presentation/app_bar/custom_app_bar.dart';
 import 'package:loopcare_frontend/core/presentation/buttons/custom_elevated_button.dart';
 import 'package:loopcare_frontend/core/presentation/buttons/custom_filled_icon_button.dart';
@@ -93,13 +93,14 @@ class _LogWeightPageState extends State<LogWeightPage> {
         .read<DashboardWeightBloc>()
         .add(DashboardWeightEvent.logWeight(widget.selectedDay, double.parse(formattedWeight)));
 
-    AnalyticsEventService.instance.logEvent(
-      FirebaseEvents.weightLogged,
+    AnalyticsEventService().logEvent(
+      eventName: AnalyticsEvents.weightLogged,
       parameters: {
-        CustomDefinitions.value: formattedWeight,
-        CustomDefinitions.measurementSystem: _isMetricSystem ? 'metric' : 'imperial',
+        AnalyticsParameters.value: formattedWeight,
+        AnalyticsParameters.measurementSystem: _isMetricSystem ? 'metric' : 'imperial',
       },
     );
+
     CustomerIO.track(
       name: CIOEvents.weightLogged,
       attributes: {

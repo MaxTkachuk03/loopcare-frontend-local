@@ -3,9 +3,9 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:fast_immutable_collections/fast_immutable_collections.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:loopcare_frontend/core/domain/analytics/firebase_event_custom_definitions.dart';
-import 'package:loopcare_frontend/core/domain/analytics/firebase_event_list.dart';
-import 'package:loopcare_frontend/core/infrastructure/services/firebase_event_service.dart';
+import 'package:loopcare_frontend/core/domain/analytics/analytics_events.dart';
+import 'package:loopcare_frontend/core/domain/analytics/analytics_parameters.dart';
+import 'package:loopcare_frontend/core/infrastructure/services/analytics_service.dart';
 import 'package:loopcare_frontend/core/presentation/app_bar/custom_app_bar.dart';
 import 'package:loopcare_frontend/core/presentation/buttons/custom_elevated_button.dart';
 import 'package:loopcare_frontend/core/presentation/buttons/custom_filled_icon_button.dart';
@@ -103,13 +103,13 @@ class _QuizQuestionPageState extends State<QuizQuestionPage> {
         questionId: _currentQuestion.id,
       ));
 
-      AnalyticsEventService.instance.logEvent(
-        FirebaseEvents.userCompleteQuiz,
+      AnalyticsEventService().logEvent(eventName:
+        AnalyticsEvents.userCompleteQuiz,
         parameters: {
-          CustomDefinitions.lessonId: educationBloc.state.data.id,
-          CustomDefinitions.title: _currentQuestion.question,
-          CustomDefinitions.questionId: _currentQuestion.id.toString(),
-          CustomDefinitions.value: _selectedAnswer.toString(),
+          AnalyticsParameters.lessonId: educationBloc.state.data.id,
+          AnalyticsParameters.title: _currentQuestion.question,
+          AnalyticsParameters.questionId: _currentQuestion.id.toString(),
+          AnalyticsParameters.value: _selectedAnswer.toString(),
         },
       );
     }

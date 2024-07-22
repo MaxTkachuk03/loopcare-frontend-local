@@ -232,6 +232,10 @@ class AppRouter extends $AppRouter {
           path: AppRoutes.nicknamePreferences,
           page: NicknamePreferencesRoute.page,
         ), // added
+        AutoRoute(
+          path: AppRoutes.updateEmail,
+          page: UpdateEmailRoute.page,
+        ),
 
         // Video
         AutoRoute(

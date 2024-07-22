@@ -2,9 +2,9 @@ import 'package:auto_route/auto_route.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:loopcare_frontend/core/domain/analytics/firebase_event_custom_definitions.dart';
-import 'package:loopcare_frontend/core/domain/analytics/firebase_event_list.dart';
-import 'package:loopcare_frontend/core/infrastructure/services/firebase_event_service.dart';
+import 'package:loopcare_frontend/core/domain/analytics/analytics_events.dart';
+import 'package:loopcare_frontend/core/domain/analytics/analytics_parameters.dart';
+import 'package:loopcare_frontend/core/infrastructure/services/analytics_service.dart';
 import 'package:loopcare_frontend/core/presentation/buttons/custom_elevated_button.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/core/presentation/routes/app_router.gr.dart';
@@ -39,13 +39,14 @@ class ProgramFooterOverlay extends StatelessWidget {
 
     context.read<ProgramsInProgressBloc>().add(ProgramsInProgressEvent.setProgram(program));
 
-    AnalyticsEventService.instance.logEvent(
-      FirebaseEvents.programStarted,
+    AnalyticsEventService().logEvent(eventName:
+    AnalyticsEvents.programStarted,
       parameters: {
-        CustomDefinitions.programId: program.id,
-        CustomDefinitions.timestamp: DateTime.now().toIso8601String(),
+        AnalyticsParameters.programId: program.id,
+        AnalyticsParameters.timestamp: DateTime.now().toIso8601String(),
       },
     );
+
 
     context.router.push(VideoRoute(program: program));
   }

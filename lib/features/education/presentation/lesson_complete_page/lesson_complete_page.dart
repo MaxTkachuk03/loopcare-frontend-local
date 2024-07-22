@@ -2,8 +2,8 @@ import 'package:auto_route/auto_route.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:loopcare_frontend/core/domain/analytics/firebase_event_list.dart';
-import 'package:loopcare_frontend/core/infrastructure/services/firebase_event_service.dart';
+import 'package:loopcare_frontend/core/domain/analytics/analytics_events.dart';
+import 'package:loopcare_frontend/core/infrastructure/services/analytics_service.dart';
 import 'package:loopcare_frontend/core/infrastructure/services/shared_storage/shared_storage_service.dart';
 import 'package:loopcare_frontend/core/presentation/alerting/show_app_snackbar.dart';
 import 'package:loopcare_frontend/core/presentation/app_bar/custom_app_bar.dart';
@@ -44,17 +44,19 @@ class LessonCompletePage extends StatefulWidget {
 }
 
 class _LessonCompletePageState extends State<LessonCompletePage> {
+  bool _hasReflection = false;
+
   @override
   void initState() {
     super.initState();
 
-    final riverState = context.read<RiverBloc>().state.data;
-
-    if (riverState.activeModuleItem?.unlocksReflectionId != null) {
-      context.read<ReflectionsBloc>().add(const ReflectionsEvent.getReflections());
-    }
+    final activeModuleItem = context.read<RiverBloc>().state.data.activeModuleItem;
 
     context.read<RiverBloc>().add(const RiverEvent.updateActiveModuleItemStatus());
+
+    if (activeModuleItem == null) return;
+
+    _hasReflection = activeModuleItem.unlocksReflectionId != null && activeModuleItem.isUnLocked;
   }
 
   void _onPressHandler(BuildContext context) {
@@ -66,9 +68,13 @@ class _LessonCompletePageState extends State<LessonCompletePage> {
     context.showError(content: Text(errorMessage.tr()));
   }
 
-  void _lessonCompleteListener(BuildContext context, EducationLessonState state) {
-    AnalyticsEventService.instance.logLessonCompletedEvent(
-      FirebaseEvents.lessonCompletedScreen,
+  void _onModuleItemCompleteListener(BuildContext context, RiverState state) {
+    if (_hasReflection) {
+      context.read<ReflectionsBloc>().add(const ReflectionsEvent.getReflections());
+    }
+
+    AnalyticsEventService().logLessonCompletedEvent(
+      AnalyticsEvents.lessonCompletedScreen,
       context.read<EducationLessonBloc>().state.data.id,
     );
   }
@@ -87,9 +93,11 @@ class _LessonCompletePageState extends State<LessonCompletePage> {
           listenWhen: (prev, cur) => cur is ErrorCompleteLesson,
           listener: _onErrorListener,
         ),
-        BlocListener<EducationLessonBloc, EducationLessonState>(
-          listenWhen: (prev, cur) => prev is Loading && cur is LessonCompleted,
-          listener: _lessonCompleteListener,
+        BlocListener<RiverBloc, RiverState>(
+          listenWhen: (prev, cur) =>
+              prev is RiverStateModuleItemLoading &&
+              (cur is RiverStateModuleItemLoaded || cur is RiverStateModuleLoaded),
+          listener: _onModuleItemCompleteListener,
         ),
       ],
       child: CustomScaffold(

@@ -2,9 +2,9 @@ import 'package:auto_route/auto_route.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:loopcare_frontend/core/domain/analytics/firebase_event_custom_definitions.dart';
-import 'package:loopcare_frontend/core/domain/analytics/firebase_event_list.dart';
-import 'package:loopcare_frontend/core/infrastructure/services/firebase_event_service.dart';
+import 'package:loopcare_frontend/core/domain/analytics/analytics_events.dart';
+import 'package:loopcare_frontend/core/domain/analytics/analytics_parameters.dart';
+import 'package:loopcare_frontend/core/infrastructure/services/analytics_service.dart';
 import 'package:loopcare_frontend/core/presentation/alerting/show_app_snackbar.dart';
 import 'package:loopcare_frontend/core/presentation/app_bar/custom_app_bar.dart';
 import 'package:loopcare_frontend/core/presentation/buttons/custom_elevated_button.dart';
@@ -121,15 +121,15 @@ class _EditDishPageState extends State<EditDishPage> {
                       ),
                     );
 
-                AnalyticsEventService.instance.logEvent(
-                  FirebaseEvents.foodLogged,
+                AnalyticsEventService().logEvent(
+                  eventName: AnalyticsEvents.foodLogged,
                   parameters: {
-                    CustomDefinitions.timestamp: DateTime.now().toIso8601String(),
-                    CustomDefinitions.mealId: item.id,
-                    CustomDefinitions.foodItem: item.id,
-                    CustomDefinitions.servingId: servingId,
-                    CustomDefinitions.numberOfUnits: numberOfUnits.toString(),
-                    CustomDefinitions.isDishes: 'true',
+                    AnalyticsParameters.timestamp: DateTime.now().toIso8601String(),
+                    AnalyticsParameters.mealId: item.id,
+                    AnalyticsParameters.foodItem: item.id,
+                    AnalyticsParameters.servingId: servingId,
+                    AnalyticsParameters.numberOfUnits: numberOfUnits.toString(),
+                    AnalyticsParameters.isDishes: 'true',
                   },
                 );
                 context.router.popUntilRouteWithName(SearchRoute.name);
@@ -216,7 +216,8 @@ class _EditDishPageState extends State<EditDishPage> {
         initialCaloriesValue: item.serving.calories,
         foodItemName: item.foodName,
         onConfirm: (double numberOfUnits, String servingId) {
-          final dishId = context.read<EditDishBloc>().state.mapOrNull(dishInfo: (s) => s.currentDish.id);
+          final dishId =
+              context.read<EditDishBloc>().state.mapOrNull(dishInfo: (s) => s.currentDish.id);
 
           if (dishId == null) return;
 
@@ -229,14 +230,14 @@ class _EditDishPageState extends State<EditDishPage> {
                 ),
               );
 
-          AnalyticsEventService.instance.logEvent(
-            FirebaseEvents.foodLogged,
+          AnalyticsEventService().logEvent(eventName:
+          AnalyticsEvents.foodLogged,
             parameters: {
-              CustomDefinitions.timestamp: DateTime.now().toIso8601String(),
-              CustomDefinitions.mealId: item.id.toString(),
-              CustomDefinitions.servingId: servingId,
-              CustomDefinitions.numberOfUnits: numberOfUnits.toString(),
-              CustomDefinitions.isDishes: 'true',
+              AnalyticsParameters.timestamp: DateTime.now().toIso8601String(),
+              AnalyticsParameters.mealId: item.id.toString(),
+              AnalyticsParameters.servingId: servingId,
+              AnalyticsParameters.numberOfUnits: numberOfUnits.toString(),
+              AnalyticsParameters.isDishes: 'true',
             },
           );
         },
@@ -319,7 +320,6 @@ class _EditDishPageState extends State<EditDishPage> {
                 ),
               ),
             ),
-
             body: CustomSafeArea(
               child: ScrollableContainer(
                 child: BlocBuilder<EditDishBloc, EditDishState>(
@@ -356,7 +356,8 @@ class _EditDishPageState extends State<EditDishPage> {
                                     portionsFocusNode: _portionsFocusNode,
                                     portionsController: _portionsController,
                                     isPortionsEditable: true,
-                                    numberOfPortions: dishState.currentDish.numberOfServings.toInt(),
+                                    numberOfPortions:
+                                        dishState.currentDish.numberOfServings.toInt(),
                                     nutritionValuesList: dishState.currentDish.serving.list,
                                     selectedNutritionType: dishState.currentNutritionType,
                                     onNutritionFactSelect: _onNutritionFactSelect,
@@ -375,8 +376,8 @@ class _EditDishPageState extends State<EditDishPage> {
                                     fiber: dishState.currentDish.fiberSum * _servingsAmount,
                                     carbFiberRatio: dishState.currentDish.carbFiberRatio,
                                     carbsPercent: dishState.currentDish.carbsPercent,
-                                    totalCalories:
-                                    dishState.currentDish.caloriesSumWithDrinks * _servingsAmount,
+                                    totalCalories: dishState.currentDish.caloriesSumWithDrinks *
+                                        _servingsAmount,
                                     totalCarbs: dishState.currentDish.carbsSum * _servingsAmount,
                                   ),
                                   const SizedBox(height: 15.0),
@@ -408,7 +409,9 @@ class _EditDishPageState extends State<EditDishPage> {
                                         return state.maybeMap(
                                             dishInfo: (dishState) {
                                               return CustomElevatedButton.blueFullWidth(
-                                                onPressed: dishState.hasFoodItems ? _onSaveDishHandler : null,
+                                                onPressed: dishState.hasFoodItems
+                                                    ? _onSaveDishHandler
+                                                    : null,
                                                 label: LocalizedTexts.save.tr(),
                                               );
                                             },

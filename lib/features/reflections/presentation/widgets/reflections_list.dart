@@ -8,12 +8,14 @@ class ReflectionsList extends StatelessWidget {
   final List<Reflection> list;
   final String title;
   final bool fromDashboard;
+  final bool isPast;
 
   const ReflectionsList({
     super.key,
     required this.list,
     required this.title,
     required this.fromDashboard,
+    this.isPast = false,
   });
 
   @override
@@ -31,7 +33,7 @@ class ReflectionsList extends StatelessWidget {
           itemCount: list.length,
           itemBuilder: (BuildContext context, int i) {
             final item = list[i];
-            return ReflectionListItem(item: item, fromDashboard: fromDashboard);
+            return ReflectionListItem(item: item, fromDashboard: fromDashboard, isPast: isPast);
           },
         ),
       ],

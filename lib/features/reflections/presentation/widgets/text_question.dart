@@ -73,7 +73,7 @@ class _TextQuestionState extends State<TextQuestion> {
                     controller: _controller,
                     validator: textAnswerValidator,
                     textInputAction: TextInputAction.newline,
-                    autovalidateMode: AutovalidateMode.always,
+                    autovalidateMode: AutovalidateMode.onUserInteraction,
                     onChanged: _onInputChangeHandler,
                     enforcedLimitCount: MaxLengthEnforcement.none,
                     limitCount: 20000,

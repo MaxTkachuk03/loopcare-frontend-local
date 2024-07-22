@@ -2,7 +2,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:loopcare_frontend/core/infrastructure/services/firebase_event_service.dart';
+import 'package:loopcare_frontend/core/infrastructure/services/analytics_service.dart';
 import 'package:loopcare_frontend/core/presentation/alerting/modal_bottom_sheet.dart';
 import 'package:loopcare_frontend/core/presentation/alerting/show_app_snackbar.dart';
 import 'package:loopcare_frontend/core/presentation/app_bar/custom_app_bar.dart';
@@ -57,10 +57,11 @@ class _MealPageState extends State<MealPage> {
   void _onSaveToMyDishesHandler() {
     final state = context.read<MealsBloc>().state;
 
-    final mealCategory =
-        DishFavoritesCategory.values.asNameMap().containsKey(state.data.currentMealCategory?.toLowerCase())
-            ? state.data.currentMealCategory?.toLowerCase()
-            : MealCategory.breakfast.originalValue;
+    final mealCategory = DishFavoritesCategory.values
+            .asNameMap()
+            .containsKey(state.data.currentMealCategory?.toLowerCase())
+        ? state.data.currentMealCategory?.toLowerCase()
+        : MealCategory.breakfast.originalValue;
 
     final mealId = state.data.getCurrentMealId;
 
@@ -97,8 +98,9 @@ class _MealPageState extends State<MealPage> {
 
     if (currentMealCategory == null) return '';
 
-    AnalyticsEventService.instance.logEvent(
-      'meal_screen_type_${currentMealCategory.replaceAll(' ', '_').replaceFirst('&', 'and')}',
+    AnalyticsEventService().logEvent(
+      eventName:
+          'meal_screen_type_${currentMealCategory.replaceAll(' ', '_').replaceFirst('&', 'and')}',
     );
 
     return '${currentMealCategory.capitalizeOnlyFirstLetter()}${' ${LocalizedTexts.logList.tr()}'}';
@@ -107,9 +109,10 @@ class _MealPageState extends State<MealPage> {
   String get _appBarSubTitle {
     final state = context.read<MealsBloc>().state;
 
-    final date = state.data.currentDateTime.isoStringWithoutTime != DateTime.now().isoStringWithoutTime
-        ? state.data.currentDateTime.shortDate
-        : LocalizedTexts.today.tr().capitalize();
+    final date =
+        state.data.currentDateTime.isoStringWithoutTime != DateTime.now().isoStringWithoutTime
+            ? state.data.currentDateTime.shortDate
+            : LocalizedTexts.today.tr().capitalize();
     return date;
   }
 
@@ -130,6 +133,7 @@ class _MealPageState extends State<MealPage> {
   void _onNutritionFactSelect(NutritionValuesTypes item) {
     context.read<MealsBloc>().add(MealsEvent.nutritionItemChanged(item));
   }
+
   // TODO hide recommendations after discussion with Diana 16.05.2024
   // _onRecommendationsPressed(BuildContext context) {
   //   final mealState = context.read<MealsBloc>().state;
@@ -190,8 +194,11 @@ class _MealPageState extends State<MealPage> {
 
   _onBack() {
     final state = context.read<MealsBloc>().state;
-    final hasMoreThanOneMealRouteInStack =
-        context.router.stack.map((e) => e.name).where((n) => n == context.router.current.name).length > 1;
+    final hasMoreThanOneMealRouteInStack = context.router.stack
+            .map((e) => e.name)
+            .where((n) => n == context.router.current.name)
+            .length >
+        1;
 
     if (state.data.currentFoodItems.isEmpty && !hasMoreThanOneMealRouteInStack) {
       context.read<MealsBloc>().add(MealsEvent.deleteMeal(state.data.getCurrentMealId));
@@ -247,9 +254,11 @@ class _MealPageState extends State<MealPage> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       NutritionValuesBlock(
-                        numberOfPortions: mealsState.data.currentMeal?.serving.numberOfUnits.toInt() ?? 0,
+                        numberOfPortions:
+                            mealsState.data.currentMeal?.serving.numberOfUnits.toInt() ?? 0,
                         selectedNutritionType: mealsState.data.currentNutritionType,
-                        nutritionValuesList: mealsState.data.currentMeal?.serving.list ?? <NutritionItem>[],
+                        nutritionValuesList:
+                            mealsState.data.currentMeal?.serving.list ?? <NutritionItem>[],
                         onNutritionFactSelect: _onNutritionFactSelect,
                       ),
                       Expanded(

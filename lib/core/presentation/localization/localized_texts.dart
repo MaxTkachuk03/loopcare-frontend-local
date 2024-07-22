@@ -148,6 +148,8 @@ class LocalizedTexts {
   static const String scanYourProduct = 'scanYourProduct';
   static const String barCodeResultCalories = 'barCodeResultCalories';
   static const String barCodeResultPerServing = 'barCodeResultPerServing';
+  static const String openSettings = 'openSettings';
+  static const String allowCameraMessage = 'allowCameraMessage';
 
   //Search
   static const String searchHint = 'searchHint';
@@ -363,6 +365,12 @@ class LocalizedTexts {
   static const String errorSubjectMessage = 'errorSubjectMessage';
   static const String requiredField = 'requiredField';
   static const String send = 'send';
+  static const String changeYourEmail = 'changeYourEmail';
+  static const String changeYourEmailDescription = 'changeYourEmailDescription';
+  static const String submit = 'submit';
+  static const String emailChangeConfirmedTitle = 'emailChangeConfirmedTitle';
+  static const String emailChangeConfirmedBody1 = 'emailChangeConfirmedBody1';
+  static const String emailChangeConfirmedBody2 = 'emailChangeConfirmedBody2';
 
   // User profile avatar
   static const String avatar = 'avatar';

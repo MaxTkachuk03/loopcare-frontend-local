@@ -43,7 +43,7 @@ class _SplashPageState extends State<SplashPage> {
 
   void _appUpdateErrorListener(AppUpdateState state) {
     FlutterNativeSplash.remove();
-    _errorListener(state.data.error?.error);
+    _errorListener(state.data.error?.message.tr());
   }
 
   void _errorListener(dynamic error) {

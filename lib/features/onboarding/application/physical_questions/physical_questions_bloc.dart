@@ -7,9 +7,9 @@ import 'package:injectable/injectable.dart';
 import 'package:loopcare_frontend/core/application/customer_io_service/customer_io_service.dart';
 import 'package:loopcare_frontend/core/domain/account/gender_type.dart';
 import 'package:loopcare_frontend/core/domain/account/sex_type.dart';
-import 'package:loopcare_frontend/core/domain/analytics/firebase_event_custom_definitions.dart';
-import 'package:loopcare_frontend/core/domain/analytics/firebase_event_list.dart';
-import 'package:loopcare_frontend/core/infrastructure/services/firebase_event_service.dart';
+import 'package:loopcare_frontend/core/domain/analytics/analytics_events.dart';
+import 'package:loopcare_frontend/core/domain/analytics/analytics_parameters.dart';
+import 'package:loopcare_frontend/core/infrastructure/services/analytics_service.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/unit_tabs/measurement_system_type.dart';
 import 'package:loopcare_frontend/features/onboarding/application/dto/add_physical_survey.dart';
 import 'package:loopcare_frontend/features/onboarding/application/dto/registration_physical_fitness_data.dart';
@@ -18,8 +18,11 @@ import 'package:loopcare_frontend/features/onboarding/utils/bmi_calculator.dart'
 import 'package:loopcare_frontend/features/onboarding/utils/date_helpers.dart';
 
 part 'physical_questions_bloc.freezed.dart';
+
 part 'physical_questions_bloc.g.dart';
+
 part 'physical_questions_event.dart';
+
 part 'physical_questions_state.dart';
 
 @singleton
@@ -69,10 +72,10 @@ class PhysicalQuestionsBloc extends HydratedBloc<PhysicalQuestionsEvent, Physica
     HappinessChanged event,
     Emitter<PhysicalQuestionsState> emit,
   ) {
-    AnalyticsEventService.instance.logEvent(
-      CIOEvents.onboardingHappiness,
+    AnalyticsEventService().logEvent(
+      eventName: AnalyticsEvents.onboardingHappiness,
       parameters: {
-        CustomDefinitions.value: event.happiness,
+        AnalyticsParameters.value: event.happiness,
       },
     );
 
@@ -94,11 +97,11 @@ class PhysicalQuestionsBloc extends HydratedBloc<PhysicalQuestionsEvent, Physica
     HeightChanged event,
     Emitter<PhysicalQuestionsState> emit,
   ) {
-    AnalyticsEventService.instance.logEvent(
-      CIOEvents.onboardingHeight,
+    AnalyticsEventService().logEvent(
+      eventName: AnalyticsEvents.onboardingHeight,
       parameters: {
-        CustomDefinitions.value: event.height,
-        CustomDefinitions.measurementSystem: event.measurementSystemType.name,
+        AnalyticsParameters.value: event.height,
+        AnalyticsParameters.measurementSystem: event.measurementSystemType.name,
       },
     );
 
@@ -124,18 +127,18 @@ class PhysicalQuestionsBloc extends HydratedBloc<PhysicalQuestionsEvent, Physica
   ) {
     final bmi = BmiCalculator.getUserBmiIndex(state.heightInCm, event.weight);
 
-    AnalyticsEventService.instance.logEvent(
-      CIOEvents.onboardingWeight,
+    AnalyticsEventService().logEvent(
+      eventName: AnalyticsEvents.onboardingWeight,
       parameters: {
-        CustomDefinitions.value: event.weight,
-        CustomDefinitions.measurementSystem: event.measurementSystemType.name,
+        AnalyticsParameters.value: event.weight,
+        AnalyticsParameters.measurementSystem: event.measurementSystemType.name,
       },
     );
 
-    AnalyticsEventService.instance.logEvent(
-      FirebaseEvents.userBmi,
+    AnalyticsEventService().logEvent(
+      eventName: AnalyticsEvents.userBmi,
       parameters: {
-        CustomDefinitions.value: bmi.toString(),
+        AnalyticsParameters.value: bmi.toString(),
       },
     );
 
@@ -161,10 +164,10 @@ class PhysicalQuestionsBloc extends HydratedBloc<PhysicalQuestionsEvent, Physica
     BirthdayChanged event,
     Emitter<PhysicalQuestionsState> emit,
   ) {
-    AnalyticsEventService.instance.logEvent(
-      CIOEvents.onboardingBirthday,
+    AnalyticsEventService().logEvent(
+      eventName: AnalyticsEvents.onboardingBirthday,
       parameters: {
-        CustomDefinitions.value: event.birthday.toIso8601String(),
+        AnalyticsParameters.value: event.birthday.toIso8601String(),
       },
     );
 
@@ -187,10 +190,10 @@ class PhysicalQuestionsBloc extends HydratedBloc<PhysicalQuestionsEvent, Physica
     SexChanged event,
     Emitter<PhysicalQuestionsState> emit,
   ) {
-    AnalyticsEventService.instance.logEvent(
-      CIOEvents.onboardingSex,
+    AnalyticsEventService().logEvent(
+      eventName: AnalyticsEvents.onboardingSex,
       parameters: {
-        CustomDefinitions.value: event.sexType.name,
+        AnalyticsParameters.value: event.sexType.name,
       },
     );
 
@@ -212,10 +215,10 @@ class PhysicalQuestionsBloc extends HydratedBloc<PhysicalQuestionsEvent, Physica
     GenderChanged event,
     Emitter<PhysicalQuestionsState> emit,
   ) {
-    AnalyticsEventService.instance.logEvent(
-      CIOEvents.onboardingGender,
+    AnalyticsEventService().logEvent(
+      eventName: AnalyticsEvents.onboardingGender,
       parameters: {
-        CustomDefinitions.value: event.gender.name,
+        AnalyticsParameters.value: event.gender.name,
       },
     );
 
@@ -234,7 +237,8 @@ class PhysicalQuestionsBloc extends HydratedBloc<PhysicalQuestionsEvent, Physica
   }
 
   @override
-  PhysicalQuestionsState? fromJson(Map<String, dynamic> json) => PhysicalQuestionsState.fromJson(json);
+  PhysicalQuestionsState? fromJson(Map<String, dynamic> json) =>
+      PhysicalQuestionsState.fromJson(json);
 
   @override
   Map<String, dynamic>? toJson(PhysicalQuestionsState state) {
