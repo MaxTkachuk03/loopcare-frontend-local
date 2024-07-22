@@ -82,10 +82,10 @@ class PurchaseDetailsStreamSubscription {
           },
         );
       },
-      onDone: () => close(),
+      onDone: close,
       onError: (e) {
-        onError
-            ?.call(const RequestError.streamSubscription(ServerErrorData(message: LocalizedTexts.purchaseStreamError)));
+        onError?.call(const RequestError.streamSubscription(
+            ServerErrorData(message: LocalizedTexts.purchaseStreamError)));
         close();
       },
     );
