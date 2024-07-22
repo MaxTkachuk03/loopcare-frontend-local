@@ -38,30 +38,32 @@ Either<RequestError, Map<String, dynamic>> handleResponse(Response? response) {
     return const Left(RequestError.unhandledResponse(ServerErrorData(message: LocalizedTexts.somethingIsIncorrect)));
   }
 
-  final serverErrorData = ServerErrorData. fromJson(response.data);
-  final data = serverErrorData.copyWith(message: serverErrorData.message?.tr());
-
   // All Error from BE should be handled by statusCode
   switch (response.statusCode) {
     case HttpStatus.paymentRequired:
-      return Left(RequestError.paymentRequired(data));
+      return Left(RequestError.paymentRequired(_translateMessage(response)));
     case HttpStatus.badRequest:
-      return Left(RequestError.badRequest(data));
+      return Left(RequestError.badRequest(_translateMessage(response)));
     case HttpStatus.unauthorized:
-      return Left(RequestError.unauthorized(data));
+      return Left(RequestError.unauthorized(_translateMessage(response)));
     case HttpStatus.forbidden:
-      return Left(RequestError.forbidden(data));
+      return Left(RequestError.forbidden(_translateMessage(response)));
     case HttpStatus.notFound:
-      return Left(RequestError.notFound(data));
+      return Left(RequestError.notFound(_translateMessage(response)));
     case HttpStatus.conflict:
-      return Left(RequestError.conflict(data));
+      return Left(RequestError.conflict(_translateMessage(response)));
     case HttpStatus.internalServerError:
     case HttpStatus.badGateway:
     case HttpStatus.serviceUnavailable:
-      return Left(RequestError.serverError(data));
+      return Left(RequestError.serverError(_translateMessage(response)));
     case HttpStatus.unprocessableEntity:
-      return Left(RequestError.unprocessableEntity(data));
+      return Left(RequestError.unprocessableEntity(_translateMessage(response)));
     default:
       return Right(getResponseData(response));
   }
+}
+
+ServerErrorData _translateMessage(Response response) {
+  final serverErrorData = ServerErrorData.fromJson(response.data);
+  return serverErrorData.copyWith(message: serverErrorData.message?.tr());
 }
