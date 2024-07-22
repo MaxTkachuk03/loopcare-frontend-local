@@ -27,6 +27,8 @@ import 'package:loopcare_frontend/features/mood/application/mood_bloc.dart';
 import 'package:loopcare_frontend/features/nutrition/application/bmr/bmr_bloc.dart';
 import 'package:loopcare_frontend/features/nutrition/application/dashboard_weight/dashboard_weight_bloc.dart';
 import 'package:loopcare_frontend/features/nutrition/application/meals/meals_bloc.dart';
+import 'package:loopcare_frontend/features/reflections/application/reflections_bloc.dart';
+import 'package:loopcare_frontend/features/reflections/presentation/reflections_dashboard_widget.dart';
 import 'package:loopcare_frontend/features/smart_goals/application/smart_goals_bloc.dart';
 
 @RoutePage()
@@ -104,11 +106,12 @@ class _DashboardPageState extends State<DashboardPage> with WidgetsBindingObserv
       context.read<TopicsBloc>().add(const TopicsEvent.fetchTopics());
     }
 
-    if (state.data.isAssignmentsUnlocked) {
-      // TODO need new logic
+    if (state.data.isReflectionsUnlocked) {
+      context.read<ReflectionsBloc>().add(const ReflectionsEvent.getReflections());
     }
 
     if (state.data.isSmartGoalUnlocked) {
+      context.read<SmartGoalsBloc>().add(SmartGoalsEvent.selectDate(selectedDate: _selectedDay));
       context.read<SmartGoalsBloc>().add(const SmartGoalsEvent.getWeeklyGoals());
     }
   }
@@ -124,10 +127,6 @@ class _DashboardPageState extends State<DashboardPage> with WidgetsBindingObserv
       ..add(MealsEvent.fetchMeals(startDate: day, endDate: day));
     context.read<MoodBloc>().add(MoodEvent.setDate(day));
     context.read<BmrBloc>().add(BmrEvent.getBmr(date: day));
-
-    if (context.read<AuthenticationBloc>().state.data.isAssignmentsUnlocked) {
-      // TODO need new logic
-    }
 
     if (context.read<AuthenticationBloc>().state.data.isSmartGoalUnlocked) {
       context.read<SmartGoalsBloc>().add(SmartGoalsEvent.selectDate(selectedDate: day));
@@ -302,21 +301,21 @@ class _DashboardPageState extends State<DashboardPage> with WidgetsBindingObserv
                               }
                             },
                           ),
-                          // BlocBuilder<AuthenticationBloc, AuthenticationState>(
-                          //   builder: (context, state) {
-                          //     if (state.data.isAssignmentsUnlocked) {
-                          //       return Column(
-                          //         crossAxisAlignment: CrossAxisAlignment.start,
-                          //         children: [
-                          //           DashboardAssignments(date: _selectedDay),
-                          //           const SizedBox(height: 19.0),
-                          //         ],
-                          //       );
-                          //     } else {
-                          //       return const SizedBox.shrink();
-                          //     }
-                          //   },
-                          // ),
+                          BlocBuilder<AuthenticationBloc, AuthenticationState>(
+                            builder: (context, state) {
+                              if (state.data.isReflectionsUnlocked) {
+                                return Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    ReflectionsDashboardWidget(date: _selectedDay),
+                                    const SizedBox(height: 19.0),
+                                  ],
+                                );
+                              } else {
+                                return const SizedBox.shrink();
+                              }
+                            },
+                          ),
                           const EmergencyBtn(needBackgroundColor: true),
                           const SizedBox(height: 19.0),
                         ],

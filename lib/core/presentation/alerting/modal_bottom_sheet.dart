@@ -2,11 +2,12 @@ import 'package:auto_route/auto_route.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:loopcare_frontend/core/domain/analytics/firebase_event_custom_definitions.dart';
-import 'package:loopcare_frontend/core/domain/analytics/firebase_event_list.dart';
+
+import 'package:loopcare_frontend/core/domain/analytics/analytics_events.dart';
+import 'package:loopcare_frontend/core/domain/analytics/analytics_parameters.dart';
 import 'package:loopcare_frontend/core/domain/emergency_numbers/emergency_numbers.dart';
+import 'package:loopcare_frontend/core/infrastructure/services/analytics_service.dart';
 import 'package:loopcare_frontend/core/infrastructure/services/app_config.dart';
-import 'package:loopcare_frontend/core/infrastructure/services/firebase_event_service.dart';
 import 'package:loopcare_frontend/core/presentation/alerting/widgets/already_planned_card.dart';
 import 'package:loopcare_frontend/core/presentation/app_version/app_update_policies_documents.dart';
 import 'package:loopcare_frontend/core/presentation/buttons/custom_elevated_button.dart';
@@ -92,6 +93,56 @@ class ModalBottomSheet {
         );
       },
     ).whenComplete(onContinuePressed);
+  }
+
+  static void emailChangeConfirmed({
+    required BuildContext context,
+    required void Function() onCloseCallback,
+  }) {
+    showModalBottomSheet<void>(
+      showDragHandle: true,
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(24.0)),
+      context: context,
+      builder: (context) {
+        return MainContainer(
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              const SizedBox(height: 25.0),
+              const CircleAvatar(
+                radius: 22.0,
+                backgroundColor: AppColors.greenRegular,
+                child: Icon(Icons.check, size: 30),
+              ),
+              const SizedBox(height: 20.0),
+              CustomText.bitter500(
+                LocalizedTexts.emailChangeConfirmedTitle.tr(),
+                style: context.textTheme.displayMedium,
+                textAlign: TextAlign.center,
+              ),
+              const SizedBox(height: 32.0),
+              CustomText.w600(
+                LocalizedTexts.emailChangeConfirmedBody1.tr(),
+                style: context.textTheme.bodyMedium,
+                textAlign: TextAlign.center,
+              ),
+              const SizedBox(height: 32.0),
+              CustomText.w400(
+                LocalizedTexts.emailChangeConfirmedBody2.tr(),
+                style: context.textTheme.bodyMedium,
+                textAlign: TextAlign.center,
+              ),
+              const SizedBox(height: 32.0),
+              CustomElevatedButton.blueFullWidth(
+                label: LocalizedTexts.done.tr(),
+                onPressed: context.router.maybePop,
+              ),
+              const SizedBox(height: 30.0),
+            ],
+          ),
+        );
+      },
+    ).whenComplete(onCloseCallback);
   }
 
   static void physicalInvalidMessage({required BuildContext context, required String message}) {
@@ -199,13 +250,15 @@ class ModalBottomSheet {
                   CustomElevatedButton.blueFullWidth(
                     onPressed: () {
                       //12.02.2024 Discussed with Diana
-                      AnalyticsEventService.instance.logEvent(
-                        FirebaseEvents.deleteAccount,
+                      AnalyticsEventService().logEvent(
+                        eventName:
+                        AnalyticsEvents.deleteAccount,
                         parameters: {
-                          CustomDefinitions.timestamp: DateTime.now().toIso8601String(),
-                          CustomDefinitions.confirmed: false,
+                          AnalyticsParameters.timestamp: DateTime.now().toIso8601String(),
+                          AnalyticsParameters.confirmed: false,
                         },
                       );
+
 
                       context.router.maybePop();
                     },

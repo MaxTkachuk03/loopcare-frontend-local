@@ -148,6 +148,8 @@ class LocalizedTexts {
   static const String scanYourProduct = 'scanYourProduct';
   static const String barCodeResultCalories = 'barCodeResultCalories';
   static const String barCodeResultPerServing = 'barCodeResultPerServing';
+  static const String openSettings = 'openSettings';
+  static const String allowCameraMessage = 'allowCameraMessage';
 
   //Search
   static const String searchHint = 'searchHint';
@@ -363,6 +365,12 @@ class LocalizedTexts {
   static const String errorSubjectMessage = 'errorSubjectMessage';
   static const String requiredField = 'requiredField';
   static const String send = 'send';
+  static const String changeYourEmail = 'changeYourEmail';
+  static const String changeYourEmailDescription = 'changeYourEmailDescription';
+  static const String submit = 'submit';
+  static const String emailChangeConfirmedTitle = 'emailChangeConfirmedTitle';
+  static const String emailChangeConfirmedBody1 = 'emailChangeConfirmedBody1';
+  static const String emailChangeConfirmedBody2 = 'emailChangeConfirmedBody2';
 
   // Emergency Numbers
   static const String emergencySubtitle = 'emergencySubtitle';
@@ -595,8 +603,8 @@ class LocalizedTexts {
   static const String assignmentAddedTitle = "assignmentAddedTitle";
   static const String assignmentAddedText = "assignmentAddedText";
   static const String startNow = "startNow";
-  static const String assignment = "assignment";
-  static const String assignments = "assignments";
+  static const String reflection = "reflection";
+  static const String reflections = "reflections";
   static const String seeLesson = "seeLesson";
   static const String allAssignmentsCompleted = "allAssignmentsCompleted";
   static const String errorOpenTextMessage = "errorOpenTextMessage";
@@ -604,7 +612,7 @@ class LocalizedTexts {
   static const String doneToday = "doneToday";
   static const String completeBefore = "completeBefore";
   static const String completedOn = "completedOn";
-  static const String pastAssignments = "pastAssignments";
+  static const String pastReflections = "pastReflections";
 
   //Group chat
   static const String groupChat = 'groupChat';
@@ -1163,4 +1171,9 @@ class LocalizedTexts {
   static const String guidanceProfileDescription = 'guidanceProfileDescription';
   static const String guidanceCompletedTitle = 'guidanceCompletedTitle';
   static const String guidanceCompletedDescription = 'guidanceCompletedDescription';
+
+  // Maintenance
+  static const String maintenanceLabel = 'maintenanceLabel';
+  static const String maintenancePageTitle = 'maintenancePageTitle';
+  static const String maintenancePageDescription = 'maintenancePageDescription';
 }

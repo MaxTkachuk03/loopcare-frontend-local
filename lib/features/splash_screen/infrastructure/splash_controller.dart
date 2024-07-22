@@ -1,11 +1,12 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:loopcare_frontend/build_type.dart';
 import 'package:loopcare_frontend/core/application/app_update/app_update_bloc.dart';
-import 'package:loopcare_frontend/core/application/apps_flyer/apps_flyer_service.dart';
 import 'package:loopcare_frontend/core/application/auth_token_manager.dart';
 import 'package:loopcare_frontend/core/application/permissions_service.dart';
+import 'package:loopcare_frontend/core/infrastructure/services/apps_flyer_service.dart';
 import 'package:loopcare_frontend/core/infrastructure/services/events.dart';
 import 'package:loopcare_frontend/core/infrastructure/services/mixpanel_event_service.dart';
+import 'package:loopcare_frontend/core/infrastructure/services/shared_storage/shared_storage_service.dart';
 import 'package:loopcare_frontend/core/infrastructure/services/stored_account_service/stored_account_service.dart';
 import 'package:loopcare_frontend/core/presentation/routes/app_router.gr.dart';
 import 'package:loopcare_frontend/features/authentication/application/authentication_bloc.dart';
@@ -57,6 +58,10 @@ class SplashController {
 
   Future<List<PageRouteInfo>> getRoute() async {
     authenticationBloc.add(const AuthenticationEvent.startTrackUser());
+
+    // TODO: remove at version 1.6.0 or higher
+    authenticationBloc.add(const AuthenticationEvent.sendApsFlyerData());
+
     final account = StoredAccountService.getAccount();
 
     final authorisedRoute =
@@ -85,7 +90,8 @@ class SplashController {
   void getAccount() => authenticationBloc.add(const AuthenticationEvent.getAccount());
 
   Future<PageRouteInfo> _getAuthorisedRoute(bool hasActiveSubscription) async {
-    AuthTokenManager authTokenManager = getIt<AuthTokenManager>();
+    final authTokenManager = getIt<AuthTokenManager>();
+    final storage = getIt<SharedStorageService>();
 
     final accessToken = await authTokenManager.getAccessToken() ?? '';
     final refreshToken = await authTokenManager.getRefreshToken() ?? '';
@@ -94,7 +100,9 @@ class SplashController {
       return const LoginRoute();
     } else if (!hasActiveSubscription && kIsProd) {
       return const SubscriptionRoute();
-    } else if (!riverBloc.state.data.isBeginningStarted && !riverBloc.state.data.isBeginningComplete) {
+    } else if (!riverBloc.state.data.isBeginningStarted &&
+        !riverBloc.state.data.isBeginningComplete &&
+        !storage.isRiverOverviewVisited) {
       return const RiverOverviewRoute();
     } else {
       return const HomeRoute();

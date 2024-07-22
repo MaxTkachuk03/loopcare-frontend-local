@@ -228,6 +228,10 @@ class AppRouter extends $AppRouter {
           path: AppRoutes.nicknamePreferences,
           page: NicknamePreferencesRoute.page,
         ), // added
+        AutoRoute(
+          path: AppRoutes.updateEmail,
+          page: UpdateEmailRoute.page,
+        ),
 
         // Video
         AutoRoute(
@@ -359,22 +363,26 @@ class AppRouter extends $AppRouter {
           path: AppRoutes.quizQuestion,
           page: QuizQuestionRoute.page,
         ), // added
+
+        // Reflections
         AutoRoute(
-          path: AppRoutes.assignmentsIntro,
-          page: AssignmentsIntroRoute.page,
+          path: AppRoutes.myReflections,
+          page: MyReflectionsRoute.page,
         ), // added
         AutoRoute(
-          path: AppRoutes.assignmentsQuestions,
-          page: AssignmentsQuestionsRoute.page,
+          path: AppRoutes.reflectionsIntro,
+          page: ReflectionsIntroRoute.page,
         ), // added
         AutoRoute(
-          path: AppRoutes.myAssignments,
-          page: MyAssignmentsRoute.page,
+          path: AppRoutes.reflectionQuestion,
+          page: ReflectionQuestionRoute.page,
         ), // added
         AutoRoute(
-          path: AppRoutes.assignmentsSaved,
-          page: AssignmentsSavedRoute.page,
+          path: AppRoutes.reflectionComplete,
+          page: ReflectionCompleteRoute.page,
         ), // added
+
+        // Chat
         AutoRoute(
           path: AppRoutes.groupChat,
           page: GroupChatRoute.page,
@@ -438,6 +446,10 @@ class AppRouter extends $AppRouter {
         AutoRoute(
           path: AppRoutes.goalReview,
           page: GoalReviewRoute.page,
+        ),
+        AutoRoute(
+          path: AppRoutes.maintenance,
+          page: MaintenanceRoute.page,
         ),
       ];
 }

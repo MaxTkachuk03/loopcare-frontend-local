@@ -30,7 +30,7 @@ class _ForgotPasswordFormState extends State<ForgotPasswordForm> {
   @override
   Widget build(BuildContext context) {
     return BlocListener<AuthenticationBloc, AuthenticationState>(
-      listenWhen: _redirectListenWhen,
+      listenWhen: _listenWhen,
       listener: _redirectListener,
       child: Form(
         key: _formKey,
@@ -46,37 +46,31 @@ class _ForgotPasswordFormState extends State<ForgotPasswordForm> {
   void _onChangedForm() => widget.onFormChanged(_emailController.text);
 
   void _redirectListener(BuildContext context, AuthenticationState state) {
-    state.mapOrNull(
-      guest: (state) {
-        context.showSuccessBar(
-          content: Text(
-            LocalizedTexts.forgotEmailSuccessMessage.tr(
-              namedArgs: {
-                'email': state.maybeWhen(
-                  guest: (data) => data.email,
-                  orElse: () => '',
-                ),
-              },
-            ),
-          ),
-          actions: [
-            TextButton(
-              onPressed: context.router.maybePop,
-              child: const Text('Ok'),
-            ),
-          ],
-        );
+    context.showSuccessBar(
+      content: Text(
+        LocalizedTexts.forgotEmailSuccessMessage.tr(
+          namedArgs: {'email': _emailController.text},
+        ),
+      ),
+      actions: [
+        TextButton(
+          onPressed: context.router.maybePop,
+          child: const Text('Ok'),
+        ),
+      ],
+    );
 
-        context.router.pushNamed(AppRoutes.login);
-      },
+    state.mapOrNull(
+      guest: (_) => context.router.pushNamed(AppRoutes.login),
+      authenticated: (_) => context.router.maybePop(),
     );
   }
 
-  bool _redirectListenWhen(AuthenticationState previous, AuthenticationState current) {
-    final previousEmail = previous.maybeMap(guest: (state) => state.data.emailWasSend, orElse: () => false);
-    final currentEmail = current.maybeMap(guest: (state) => state.data.emailWasSend, orElse: () => false);
-    final error = current.mapOrNull(guest: (state) => state.data.error);
+  bool _listenWhen(AuthenticationState previous, AuthenticationState current) {
+    final previousEmail = previous.data.emailWasSend;
+    final currentEmail = current.data.emailWasSend;
+    final hasError = current.data.error != null;
 
-    return previousEmail != currentEmail && currentEmail && error == null;
+    return previousEmail != currentEmail && currentEmail || hasError;
   }
 }

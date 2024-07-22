@@ -1,5 +1,5 @@
 // Firebase analytics screens names mapper, added comment means that screen added to confluence doc with the screenshot
-final screenNames = {
+final _screenNames = {
   'ProxyRoute': 'Proxy Screen', // added
   'IntroRoute': 'Intro Screen', // added
   'HomeRoute': 'Calendar Screen', // added
@@ -91,3 +91,15 @@ final screenNames = {
   'ExplanationRoute': 'Mind Explanation Screen', // added
   'ExerciseRoute': 'Mind Technique Exercise Screen', // added
 };
+
+String? getScreenName(String? value) => value == null
+    ? null
+    : _screenNames[value] ?? value.replaceLast('Route','Screen').setSpaces();
+
+extension _ScreenNameStringExtension on String {
+  String setSpaces() =>
+      splitMapJoin(RegExp(r'[A-Z]'), onMatch: (s) => ' ${s[0]}').trim();
+
+  String replaceLast(String from, String to) =>
+      replaceFirstMapped(from, (match) => to, length - from.length);
+}

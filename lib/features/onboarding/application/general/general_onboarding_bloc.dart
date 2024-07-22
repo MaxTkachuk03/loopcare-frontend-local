@@ -8,8 +8,8 @@ import 'package:hydrated_bloc/hydrated_bloc.dart';
 import 'package:injectable/injectable.dart';
 import 'package:loopcare_frontend/core/application/customer_io_service/customer_io_service.dart';
 import 'package:loopcare_frontend/core/domain/account/sex_type.dart';
-import 'package:loopcare_frontend/core/domain/analytics/firebase_event_list.dart';
-import 'package:loopcare_frontend/core/infrastructure/services/firebase_event_service.dart';
+import 'package:loopcare_frontend/core/domain/analytics/analytics_events.dart';
+import 'package:loopcare_frontend/core/infrastructure/services/analytics_service.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 import 'package:loopcare_frontend/features/onboarding/application/general/mental_health_service.dart';
@@ -50,9 +50,13 @@ import 'package:loopcare_frontend/features/onboarding/utils/enum_list_extension.
 import 'package:ntp/ntp.dart';
 
 part 'general_onboarding_bloc.freezed.dart';
+
 part 'general_onboarding_bloc.g.dart';
+
 part 'general_onboarding_event.dart';
+
 part 'general_onboarding_staps.dart';
+
 part 'general_onboarding_state.dart';
 
 @singleton
@@ -81,7 +85,8 @@ class GeneralOnboardingBloc extends HydratedBloc<GeneralOnboardingEvent, General
   }
 
   @override
-  GeneralOnboardingState? fromJson(Map<String, dynamic> json) => GeneralOnboardingState.fromJson(json);
+  GeneralOnboardingState? fromJson(Map<String, dynamic> json) =>
+      GeneralOnboardingState.fromJson(json);
 
   @override
   Map<String, dynamic>? toJson(GeneralOnboardingState state) => state.toJson();
@@ -130,8 +135,8 @@ class GeneralOnboardingBloc extends HydratedBloc<GeneralOnboardingEvent, General
           MentalQuestionStep.introStepTwo,
         ];
 
-        mentalSteps.addAll(List.generate(
-            tests.length * 2, (i) => (i + 1).isOdd ? MentalQuestionStep.test : MentalQuestionStep.testSummery));
+        mentalSteps.addAll(List.generate(tests.length * 2,
+            (i) => (i + 1).isOdd ? MentalQuestionStep.test : MentalQuestionStep.testSummery));
 
         mentalSteps.add(MentalQuestionStep.result);
 
@@ -167,7 +172,7 @@ class GeneralOnboardingBloc extends HydratedBloc<GeneralOnboardingEvent, General
     _timer = Timer(
       Duration(seconds: durationTime),
       () {
-        AnalyticsEventService.instance.logEvent(FirebaseEvents.showPopupAboutExceededTime);
+        AnalyticsEventService().logEvent(eventName: AnalyticsEvents.showPopupAboutExceededTime);
         add(const GeneralOnboardingEvent.stopTimer(isTimeUp: true));
         _timer?.cancel();
       },
@@ -221,14 +226,15 @@ class GeneralOnboardingBloc extends HydratedBloc<GeneralOnboardingEvent, General
     if (event.enable && !containsPregnancyStep) {
       emit(
         state.copyWith(
-          medicalQuestions:
-              List.from(state.medicalQuestions).insertAfter(MedicalQuestionStep.intro, MedicalQuestionStep.pregnancy),
+          medicalQuestions: List.from(state.medicalQuestions)
+              .insertAfter(MedicalQuestionStep.intro, MedicalQuestionStep.pregnancy),
         ),
       );
     } else if (!event.enable && containsPregnancyStep) {
       emit(
         state.copyWith(
-          medicalQuestions: List.from(state.medicalQuestions)..remove(MedicalQuestionStep.pregnancy),
+          medicalQuestions: List.from(state.medicalQuestions)
+            ..remove(MedicalQuestionStep.pregnancy),
         ),
       );
     }
@@ -285,16 +291,17 @@ class GeneralOnboardingBloc extends HydratedBloc<GeneralOnboardingEvent, General
       );
     } else if (isExclude) {
       if (physicalStep == PhysicalQuestionStep.birthday) {
-        physicalQuestions = physicalQuestions.insertAfter(physicalStep, PhysicalQuestionStep.ageExclusion);
+        physicalQuestions =
+            physicalQuestions.insertAfter(physicalStep, PhysicalQuestionStep.ageExclusion);
         physicalStack = [...physicalStack, PhysicalQuestionStep.ageExclusion];
 
-        _trackExclusion(CIOEvents.onboardingAgeExclusion);
-
+        _trackExclusion(AnalyticsEvents.onboardingAgeExclusion);
       } else if (physicalStep == PhysicalQuestionStep.weight) {
-        physicalQuestions = physicalQuestions.insertAfter(physicalStep, PhysicalQuestionStep.bmiExclusion);
+        physicalQuestions =
+            physicalQuestions.insertAfter(physicalStep, PhysicalQuestionStep.bmiExclusion);
         physicalStack = [...physicalStack, PhysicalQuestionStep.bmiExclusion];
 
-        _trackExclusion(CIOEvents.onboardingBmiExclusion);
+        _trackExclusion(AnalyticsEvents.onboardingBmiExclusion);
       }
     } else {
       final nextStepIndex = state.physicalQuestions.indexWhere((e) => e == physicalStep) + 1;
@@ -337,12 +344,14 @@ class GeneralOnboardingBloc extends HydratedBloc<GeneralOnboardingEvent, General
       );
     } else if (isExclude) {
       if (medicalStep == MedicalQuestionStep.pregnancy) {
-        medicalQuestions = medicalQuestions.insertAfter(medicalStep, MedicalQuestionStep.pregnancyExclusion);
+        medicalQuestions =
+            medicalQuestions.insertAfter(medicalStep, MedicalQuestionStep.pregnancyExclusion);
         medicalStack = [...medicalStack, MedicalQuestionStep.pregnancyExclusion];
 
-        _trackExclusion(CIOEvents.onboardingPregnancyExclusion);
+        _trackExclusion(AnalyticsEvents.onboardingPregnancyExclusion);
       } else if (medicalStep == MedicalQuestionStep.treatmentByTheDoctor) {
-        medicalQuestions = medicalQuestions.insertAfter(medicalStep, MedicalQuestionStep.completedDisease);
+        medicalQuestions =
+            medicalQuestions.insertAfter(medicalStep, MedicalQuestionStep.completedDisease);
         medicalStack = [...medicalStack, MedicalQuestionStep.completedDisease];
       }
     } else {
@@ -376,7 +385,8 @@ class GeneralOnboardingBloc extends HydratedBloc<GeneralOnboardingEvent, General
     List<MentalHealthTest> mentalTests = state.mentalTests;
 
     MentalHealthTest currentMentalTest = state.currentMentalTest ?? mentalTests.first;
-    MentalHealthQuestion currentQuestion = state.currentMentalQuestion ?? currentMentalTest.questions.first;
+    MentalHealthQuestion currentQuestion =
+        state.currentMentalQuestion ?? currentMentalTest.questions.first;
 
     if (mentalStep == MentalQuestionStep.testSummery && mentalTests.last == currentMentalTest) {
       add(const GeneralOnboardingEvent.stopTimer());
@@ -387,7 +397,8 @@ class GeneralOnboardingBloc extends HydratedBloc<GeneralOnboardingEvent, General
       if (currentMentalTest.questions.isLast(currentQuestion)) {
         mentalStack = [...mentalStack, MentalQuestionStep.testSummery];
       } else {
-        currentQuestion = currentMentalTest.questions[currentMentalTest.questions.indexOf(currentQuestion) + 1];
+        currentQuestion =
+            currentMentalTest.questions[currentMentalTest.questions.indexOf(currentQuestion) + 1];
       }
     } else if (mentalStep == MentalQuestionStep.testSummery) {
       if (mentalTests.isLast(currentMentalTest)) {
@@ -437,12 +448,15 @@ class GeneralOnboardingBloc extends HydratedBloc<GeneralOnboardingEvent, General
   GeneralOnboardingState _previousPhysicalStepState() {
     List<PhysicalQuestionStep> physicalQuestions = state.physicalQuestions;
     if (state.currentPhysicalStep == PhysicalQuestionStep.ageExclusion) {
-      physicalQuestions = List.from(state.physicalQuestions)..remove(PhysicalQuestionStep.ageExclusion);
+      physicalQuestions = List.from(state.physicalQuestions)
+        ..remove(PhysicalQuestionStep.ageExclusion);
     } else if (state.currentPhysicalStep == PhysicalQuestionStep.bmiExclusion) {
-      physicalQuestions = List.from(state.physicalQuestions)..remove(PhysicalQuestionStep.bmiExclusion);
+      physicalQuestions = List.from(state.physicalQuestions)
+        ..remove(PhysicalQuestionStep.bmiExclusion);
     }
 
-    final List<PhysicalQuestionStep> physicalPassedStack = List.from(state.physicalPassedStack)..removeLast();
+    final List<PhysicalQuestionStep> physicalPassedStack = List.from(state.physicalPassedStack)
+      ..removeLast();
     _sendScreenView(physicalPassedStack.last.screenName);
 
     return state.copyWith(
@@ -463,9 +477,11 @@ class GeneralOnboardingBloc extends HydratedBloc<GeneralOnboardingEvent, General
     }
 
     if (state.currentMedicalStep == MedicalQuestionStep.pregnancyExclusion) {
-      medicalQuestions = List.from(state.medicalQuestions)..remove(MedicalQuestionStep.pregnancyExclusion);
+      medicalQuestions = List.from(state.medicalQuestions)
+        ..remove(MedicalQuestionStep.pregnancyExclusion);
     } else if (state.currentMedicalStep == MedicalQuestionStep.completedDisease) {
-      medicalQuestions = List.from(state.medicalQuestions)..remove(MedicalQuestionStep.completedDisease);
+      medicalQuestions = List.from(state.medicalQuestions)
+        ..remove(MedicalQuestionStep.completedDisease);
     }
 
     _sendScreenView(medicalStack.last.screenName);
@@ -483,7 +499,8 @@ class GeneralOnboardingBloc extends HydratedBloc<GeneralOnboardingEvent, General
     List<MentalQuestionStep> mentalStack = state.mentalPassedStack;
     List<MentalHealthTest> mentalTests = state.mentalTests;
     MentalHealthTest currentMentalTest = state.currentMentalTest ?? mentalTests.first;
-    MentalHealthQuestion currentQuestion = state.currentMentalQuestion ?? currentMentalTest.questions.first;
+    MentalHealthQuestion currentQuestion =
+        state.currentMentalQuestion ?? currentMentalTest.questions.first;
 
     if (mentalStep == MentalQuestionStep.testSummery && mentalTests.last == currentMentalTest) {
       add(const GeneralOnboardingEvent.resumeTimer());
@@ -502,7 +519,8 @@ class GeneralOnboardingBloc extends HydratedBloc<GeneralOnboardingEvent, General
 
         mentalStack = List.from(mentalStack)..removeLast();
       } else {
-        currentQuestion = currentMentalTest.questions[currentMentalTest.questions.indexOf(currentQuestion) - 1];
+        currentQuestion =
+            currentMentalTest.questions[currentMentalTest.questions.indexOf(currentQuestion) - 1];
       }
     } else {
       mentalStack = List.from(mentalStack)..removeLast();
@@ -519,8 +537,8 @@ class GeneralOnboardingBloc extends HydratedBloc<GeneralOnboardingEvent, General
   }
 
   void _sendScreenView(String screenName) {
-    AnalyticsEventService.instance.logEvent(
-      'screen_view',
+    AnalyticsEventService().logEvent(
+      eventName: 'screen_view',
       parameters: {
         'screenName': screenName,
       },
@@ -528,7 +546,7 @@ class GeneralOnboardingBloc extends HydratedBloc<GeneralOnboardingEvent, General
   }
 
   void _trackExclusion(String eventName) {
-    AnalyticsEventService.instance.logEvent(eventName);
+    AnalyticsEventService().logEvent(eventName: eventName);
     CustomerIoService.track(event: eventName);
   }
 }

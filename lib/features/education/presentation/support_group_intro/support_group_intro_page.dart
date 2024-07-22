@@ -2,10 +2,10 @@ import 'package:auto_route/auto_route.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:loopcare_frontend/core/domain/analytics/firebase_event_custom_definitions.dart';
-import 'package:loopcare_frontend/core/domain/analytics/firebase_event_list.dart';
+import 'package:loopcare_frontend/core/domain/analytics/analytics_events.dart';
+import 'package:loopcare_frontend/core/domain/analytics/analytics_parameters.dart';
 import 'package:loopcare_frontend/core/domain/yes_no_answer.dart';
-import 'package:loopcare_frontend/core/infrastructure/services/firebase_event_service.dart';
+import 'package:loopcare_frontend/core/infrastructure/services/analytics_service.dart';
 import 'package:loopcare_frontend/core/infrastructure/services/shared_storage/shared_storage_service.dart';
 import 'package:loopcare_frontend/core/presentation/app_bar/custom_app_bar.dart';
 import 'package:loopcare_frontend/core/presentation/buttons/custom_elevated_button.dart';
@@ -123,11 +123,11 @@ class SupportGroupIntroPage extends StatelessWidget {
   void _onJoinPressed(BuildContext context) {
     final account = getIt<SharedStorageService>().account;
 
-    AnalyticsEventService.instance.logEvent(
-      FirebaseEvents.iWantToJoinToGroup,
+    AnalyticsEventService().logEvent(
+      eventName: AnalyticsEvents.iWantToJoinToGroup,
       parameters: {
-        CustomDefinitions.navigatedFrom: 'Lesson content',
-        CustomDefinitions.decision: LocalizedTexts.yesILikeToJoin.tr()
+        AnalyticsParameters.navigatedFrom: 'Lesson content',
+        AnalyticsParameters.decision: LocalizedTexts.yesILikeToJoin.tr()
       },
     );
 
@@ -157,11 +157,11 @@ class SupportGroupIntroPage extends StatelessWidget {
   }
 
   void _onDoNotJoinPressed(BuildContext context) {
-    AnalyticsEventService.instance.logEvent(
-      FirebaseEvents.iWantToJoinToGroup,
+    AnalyticsEventService().logEvent(
+      eventName: AnalyticsEvents.iWantToJoinToGroup,
       parameters: {
-        CustomDefinitions.navigatedFrom: 'Lesson content',
-        CustomDefinitions.decision: LocalizedTexts.joinLater.tr()
+        AnalyticsParameters.navigatedFrom: 'Lesson content',
+        AnalyticsParameters.decision: LocalizedTexts.joinLater.tr()
       },
     );
 

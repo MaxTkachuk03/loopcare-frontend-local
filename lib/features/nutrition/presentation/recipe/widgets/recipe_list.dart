@@ -1,9 +1,9 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:loopcare_frontend/core/domain/analytics/firebase_event_custom_definitions.dart';
-import 'package:loopcare_frontend/core/domain/analytics/firebase_event_list.dart';
-import 'package:loopcare_frontend/core/infrastructure/services/firebase_event_service.dart';
+import 'package:loopcare_frontend/core/domain/analytics/analytics_events.dart';
+import 'package:loopcare_frontend/core/domain/analytics/analytics_parameters.dart';
+import 'package:loopcare_frontend/core/infrastructure/services/analytics_service.dart';
 import 'package:loopcare_frontend/core/presentation/routes/app_router.gr.dart';
 import 'package:loopcare_frontend/features/nutrition/application/meals/meals_bloc.dart';
 import 'package:loopcare_frontend/features/nutrition/application/recipe/recipe_bloc.dart';
@@ -111,15 +111,15 @@ class RecipeList extends StatelessWidget {
                 ),
               );
 
-          AnalyticsEventService.instance.logEvent(
-            FirebaseEvents.foodLogged,
+          AnalyticsEventService().logEvent(eventName:
+            AnalyticsEvents.foodLogged,
             parameters: {
-              CustomDefinitions.timestamp: DateTime.now().toIso8601String(),
-              CustomDefinitions.mealId: mealId.toString(),
-              CustomDefinitions.foodItem: item.id,
-              CustomDefinitions.servingId: servingId,
-              CustomDefinitions.numberOfUnits: numberOfUnits.toString(),
-              CustomDefinitions.isRecipe: 'true',
+              AnalyticsParameters.timestamp: DateTime.now().toIso8601String(),
+              AnalyticsParameters.mealId: mealId.toString(),
+              AnalyticsParameters.foodItem: item.id,
+              AnalyticsParameters.servingId: servingId,
+              AnalyticsParameters.numberOfUnits: numberOfUnits.toString(),
+              AnalyticsParameters.isRecipe: 'true',
             },
           );
         },

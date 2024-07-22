@@ -85,6 +85,7 @@ class AppRoutes {
   static const String joinGroupPreferences = '/join-group-preferences'; // added
   static const String genderPreferences = '/gender-preferences'; // added
   static const String nicknamePreferences = '/nickname-preferences'; // added
+  static const String updateEmail = '/update-email';
 
   // Video
   static const String video = '/video'; // added
@@ -116,13 +117,15 @@ class AppRoutes {
   static const String createMood = '/create-mood';
   static const String moodOption = '/mood-option';
 
-  // Quizzes & Assignments
+  // Quizzes
   static const String quizIntro = '/quiz-intro';
   static const String quizQuestion = '/quiz-question';
-  static const String assignmentsIntro = '/assignments-intro';
-  static const String assignmentsQuestions = '/assignments-questions';
-  static const String myAssignments = '/my-assignments';
-  static const String assignmentsSaved = '/assignments-saved';
+
+  // Reflections
+  static const String myReflections = '/my-reflections';
+  static const String reflectionsIntro = '/reflections-intro';
+  static const String reflectionQuestion = '/reflection-question';
+  static const String reflectionComplete = '/reflection-complete';
 
   // New theme
   static const String theme = '/theme';
@@ -148,8 +151,8 @@ class AppRoutes {
   static const String goalsStatistics = '/goals-statistics';
   static const String goalReview = '/goal-review';
 
-  // Create Path methods
-  static String createLessonPath(int id, [int page = 0]) => '/lesson/$id/page/$page';
+  // Maintenance
+  static const String maintenance = '/maintenance';
 
   AppRoutes._();
 }

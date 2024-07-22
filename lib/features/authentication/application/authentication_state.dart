@@ -6,6 +6,9 @@ class AuthenticationState with _$AuthenticationState {
 
   const factory AuthenticationState.init(AuthenticationData data) = InitialAuthenticationState;
 
+  const factory AuthenticationState.isLoading(AuthenticationData data) =
+      AuthenticationStateIsLoading;
+
   const factory AuthenticationState.error(AuthenticationData data) = ErrorAuthenticationState;
 
   const factory AuthenticationState.logout(AuthenticationData data) = LogoutState;
@@ -24,6 +27,11 @@ class AuthenticationState with _$AuthenticationState {
 
   const factory AuthenticationState.needUpdatePolicies(AuthenticationData data) =
       NeedUpdatePolicies;
+  const factory AuthenticationState.emailWasUpdated(AuthenticationData data) =
+      AuthenticationStateEmailWasUpdated;
+
+  const factory AuthenticationState.errorUpdateEmail(AuthenticationData data) =
+      AuthenticationStateErrorUpdateEmail;
 }
 
 @freezed
@@ -39,6 +47,7 @@ class AuthenticationData with _$AuthenticationData {
     @Default(false) bool emailVerified,
     @Default(-1) int accountId,
     Account? account,
+    @Default(false) bool isLoading,
     // ignore: invalid_annotation_target
     @JsonKey(includeFromJson: false, includeToJson: false) RequestError? error,
   }) = _AuthenticationData;
@@ -96,7 +105,7 @@ class AuthenticationData with _$AuthenticationData {
 
   bool get isPhysicalActivitiesUnlocked => account?.isPhysicalActivitiesUnlocked ?? false;
 
-  bool get isAssignmentsUnlocked => account?.isAssignmentsUnlocked ?? false;
+  bool get isReflectionsUnlocked => account?.isReflectionsUnlocked ?? false;
 
   bool get isBuddyUnlocked => account?.isBuddyUnlocked ?? false;
 

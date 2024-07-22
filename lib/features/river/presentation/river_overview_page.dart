@@ -1,6 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:loopcare_frontend/core/infrastructure/services/shared_storage/shared_storage_service.dart';
 import 'package:loopcare_frontend/core/presentation/custom_safe_area.dart';
 import 'package:loopcare_frontend/core/presentation/icon_images/app_images.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
@@ -10,6 +11,7 @@ import 'package:loopcare_frontend/core/presentation/scale_gesture_detector/scale
 import 'package:loopcare_frontend/core/presentation/text/custom_text.dart';
 import 'package:loopcare_frontend/core/presentation/utils/build_context_extensions.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/scrollable_container.dart';
+import 'package:loopcare_frontend/injection.dart';
 
 const _titles = [
   "The \nBeginning",
@@ -38,6 +40,12 @@ class _RiverOverviewPageState extends State<RiverOverviewPage> {
     } else {
       context.router.replaceNamed(AppRoutes.home);
     }
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    getIt<SharedStorageService>().riverOverviewVisited();
   }
 
   @override
