@@ -41,17 +41,25 @@ class DashboardWeeklyGoalItem extends StatefulWidget {
 }
 
 class _DashboardWeeklyGoalItemState extends State<DashboardWeeklyGoalItem> {
+  int get times =>
+      widget.item.progressForDate(context.read<SmartGoalsBloc>().state.data.selectedDate);
+
   void _onProgressHandler(BuildContext context, WeeklySmartGoal item) {
     HapticFeedback.vibrate();
     context.read<SmartGoalsBloc>().add(SmartGoalsEvent.postCompletions(weeklySmartGoal: item));
   }
 
   void _onResetProgressHandler(BuildContext context, WeeklySmartGoal item) {
-    HapticFeedback.vibrate();
-    context.read<SmartGoalsBloc>().add(SmartGoalsEvent.resetCompletions(sessionId: widget.sessionId));
+    final selectedDate = context.read<SmartGoalsBloc>().state.data.selectedDate;
+    final progressId = item.progressIdForDate(selectedDate);
+    if (progressId != null) {
+      HapticFeedback.vibrate();
+      context.read<SmartGoalsBloc>().add(SmartGoalsEvent.resetCompletions(progressId: progressId));
+    }
   }
 
-  void _onItemHandler(BuildContext context, WeeklySmartGoal item) => ModalBottomSheet.smartGoalComplete(
+  void _onItemHandler(BuildContext context, WeeklySmartGoal item) =>
+      ModalBottomSheet.smartGoalComplete(
         context: context,
         content: WeeklyGoalInfo(
           weeklyGoal: item,
@@ -76,8 +84,9 @@ class _DashboardWeeklyGoalItemState extends State<DashboardWeeklyGoalItem> {
     );
   }
 
-  void _onRemove() async =>
-      context.read<SmartGoalsBloc>().add(SmartGoalsEvent.deleteSession(sessionId: widget.sessionId));
+  void _onRemove() async => context
+      .read<SmartGoalsBloc>()
+      .add(SmartGoalsEvent.deleteSession(sessionId: widget.sessionId));
 
   @override
   Widget build(BuildContext context) {
@@ -129,11 +138,12 @@ class _DashboardWeeklyGoalItemState extends State<DashboardWeeklyGoalItem> {
             trailing: (widget.editable)
                 ? GoalProgressButton(
                     item: widget.item,
-                    onPressed: widget.item.completionsAmount < maxCompletions
+                    times: times,
+                    onPressed: times < maxCompletions
                         ? () => _onProgressHandler(context, widget.item)
                         : null,
                     onResetProgress:
-                        widget.item.completionsAmount > 0 ? () => _onResetProgressHandler(context, widget.item) : null,
+                        times > 0 ? () => _onResetProgressHandler(context, widget.item) : null,
                   )
                 : GoalAchieveButton(
                     item: widget.item,
@@ -162,7 +172,8 @@ class _SlideRemoveButton extends StatelessWidget {
           child: Container(
               margin: const EdgeInsets.all(4),
               alignment: Alignment.center,
-              decoration: BoxDecoration(color: AppColors.red, borderRadius: BorderRadius.circular(8)),
+              decoration:
+                  BoxDecoration(color: AppColors.red, borderRadius: BorderRadius.circular(8)),
               child: const Icon(
                 Icons.delete_forever,
                 color: Colors.white,
@@ -178,7 +189,8 @@ class _LeftDaysWidget extends StatelessWidget {
   final int sessionId;
   final bool readyForReview;
 
-  const _LeftDaysWidget({required this.item, required this.sessionId, required this.readyForReview});
+  const _LeftDaysWidget(
+      {required this.item, required this.sessionId, required this.readyForReview});
 
   @override
   Widget build(BuildContext context) {
@@ -192,7 +204,8 @@ class _LeftDaysWidget extends StatelessWidget {
           ),
           BlocBuilder<SmartGoalsBloc, SmartGoalsState>(
             builder: (context, state) {
-              final days = readyForReview ? LocalizedTexts.weeklyDaysReview.tr() : _getSubTitle(state);
+              final days =
+                  readyForReview ? LocalizedTexts.weeklyDaysReview.tr() : _getSubTitle(state);
               if (days.isNotEmpty) {
                 return CustomText.w400(
                   days,

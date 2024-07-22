@@ -28,8 +28,9 @@ import 'package:loopcare_frontend/features/video_session/domain/zoom_config.dart
 import 'package:loopcare_frontend/features/video_session/presentation/widgets/session_countdown/session_countdown.dart';
 import 'package:loopcare_frontend/injection.dart';
 
-const double bottomSheetHeight = 167;
+const double _bottomSheetHeight = 167.0;
 
+@RoutePage()
 class SessionWaitingPage extends StatefulWidget {
   // TODO pass session as a prop so we can get rid of check if we have session
   const SessionWaitingPage({super.key});
@@ -77,7 +78,7 @@ class _SessionWaitingPageState extends State<SessionWaitingPage> {
       ),
       bottomSheet: Container(
         width: double.infinity,
-        height: bottomSheetHeight,
+        height: _bottomSheetHeight,
         color: AppColors.blueDarker,
         padding: const EdgeInsets.symmetric(horizontal: 36, vertical: 32),
         child: const SessionCountdown(),
@@ -210,7 +211,7 @@ class _SessionWaitingPageState extends State<SessionWaitingPage> {
                           ],
                         ),
                       ),
-                      const SizedBox(height: bottomSheetHeight),
+                      const SizedBox(height: _bottomSheetHeight),
                     ],
                   ),
                 ),

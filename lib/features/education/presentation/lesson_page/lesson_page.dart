@@ -3,9 +3,9 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loopcare_frontend/core/application/analytics_bloc.dart';
-import 'package:loopcare_frontend/core/domain/analytics/firebase_event_custom_definitions.dart';
-import 'package:loopcare_frontend/core/domain/analytics/firebase_event_list.dart';
-import 'package:loopcare_frontend/core/infrastructure/services/firebase_event_service.dart';
+import 'package:loopcare_frontend/core/domain/analytics/analytics_events.dart';
+import 'package:loopcare_frontend/core/domain/analytics/analytics_parameters.dart';
+import 'package:loopcare_frontend/core/infrastructure/services/analytics_service.dart';
 import 'package:loopcare_frontend/core/infrastructure/services/shared_storage/shared_storage_service.dart';
 import 'package:loopcare_frontend/core/presentation/app_bar/custom_app_bar.dart';
 import 'package:loopcare_frontend/core/presentation/buttons/custom_filled_icon_button.dart';
@@ -13,23 +13,23 @@ import 'package:loopcare_frontend/core/presentation/custom_safe_area.dart';
 import 'package:loopcare_frontend/core/presentation/error/error_screen.dart';
 import 'package:loopcare_frontend/core/presentation/loader/loader.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
-import 'package:loopcare_frontend/core/presentation/routes/app_router.dart';
 import 'package:loopcare_frontend/core/presentation/routes/app_router.gr.dart';
 import 'package:loopcare_frontend/core/presentation/scaffold/custom_scaffold.dart';
 import 'package:loopcare_frontend/features/education/application/education_lesson/education_lesson_bloc.dart';
 import 'package:loopcare_frontend/features/education/presentation/lesson/widgets/lesson_audio_body.dart';
 import 'package:loopcare_frontend/features/education/presentation/lesson/widgets/lesson_text_body.dart';
-import 'package:loopcare_frontend/features/quizzes/domain/lesson_question_type.dart';
+import 'package:loopcare_frontend/features/river/infrastructure/river_module_stream_type.dart';
 import 'package:loopcare_frontend/injection.dart';
 
+@RoutePage()
 class LessonPage extends StatefulWidget {
   final int lessonId;
-  final int pageIndex;
+  final RiverModuleStreamType streamType;
 
   const LessonPage({
     super.key,
     @PathParam('lessonId') required this.lessonId,
-    @PathParam('pageIndex') required this.pageIndex,
+    this.streamType = RiverModuleStreamType.community,
   });
 
   @override
@@ -37,39 +37,21 @@ class LessonPage extends StatefulWidget {
 }
 
 class _LessonPageState extends State<LessonPage> {
-  _onNextPressed() {
-    final lessonBloc = context.read<EducationLessonBloc>();
-    if (lessonBloc.state.data.isLastPage) {
-      final account = getIt<SharedStorageService>().account;
+  void _onNextPressed() {
+    final lessonBlocData = context.read<EducationLessonBloc>().state.data;
 
-      if (lessonBloc.state.data.isBuddyUnlocked && !(account?.isBuddyUnlocked ?? false)) {
-        context.router.pushNamed(AppRoutes.buddyIntro);
-        return;
-      }
+    final account = getIt<SharedStorageService>().account;
 
-      if (lessonBloc.state.data.questions.isEmpty ||
-          lessonBloc.state.data.questions.first.type != LessonQuestionType.quiz) {
-        context.router.pushNamed(AppRoutes.lessonComplete);
-      } else {
-        context.router.push(QuizzesIntroRoute(lessonId: widget.lessonId));
-      }
+    if (lessonBlocData.isBuddyUnlocked && !(account?.isBuddyUnlocked ?? false)) {
+      context.router.push(BuddyIntroRoute(streamType: widget.streamType));
       return;
     }
 
-    lessonBloc.add(const EducationLessonEvent.nextPage());
-
-    lessonBloc.add(const EducationLessonEvent.progressForward());
-
-    int pageIndex = widget.pageIndex + 1;
-
-    context.router.pushNamed('/lesson/${widget.lessonId}/page/$pageIndex');
-  }
-
-  _onPrevPressed() {
-    context.read<EducationLessonBloc>().add(const EducationLessonEvent.prevPage());
-    context.read<EducationLessonBloc>().add(const EducationLessonEvent.progressBack());
-
-    context.router.pop();
+    if (lessonBlocData.hasQuiz) {
+      context.router.push(QuizIntroRoute(lessonId: widget.lessonId, streamType: widget.streamType));
+    } else {
+      context.router.push(LessonCompleteRoute(streamType: widget.streamType));
+    }
   }
 
   Future<bool> _onWillPop() {
@@ -77,21 +59,21 @@ class _LessonPageState extends State<LessonPage> {
 
     context.read<AnalyticsBloc>().add(
           AnalyticsEvent.sendAnalytics(
-            FirebaseEvents.leaveLessonScreen,
+            AnalyticsEvents.leaveLessonScreen,
             {
-              CustomDefinitions.lessonId: widget.lessonId.toString(),
-              CustomDefinitions.lessonType: stateData.currentPage.type.name,
-              CustomDefinitions.timestamp: DateTime.now().toIso8601String(),
+              AnalyticsParameters.lessonId: widget.lessonId.toString(),
+              AnalyticsParameters.lessonType: stateData.contentType.name,
+              AnalyticsParameters.timestamp: DateTime.now().toIso8601String(),
             },
           ),
         );
 
-    AnalyticsEventService.instance.logLessonEvent(
-      FirebaseEvents.leaveLessonScreen,
+    AnalyticsEventService().logLessonEvent(
+      AnalyticsEvents.leaveLessonScreen,
       widget.lessonId,
-      stateData.currentPage,
-      stateData.lessonTitle,
-      stateData.questions.isNotEmpty && stateData.questions.first.type == LessonQuestionType.quiz,
+      stateData.contentType,
+      stateData.title,
+      stateData.hasQuiz,
     );
 
     return Future.value(true);
@@ -99,17 +81,17 @@ class _LessonPageState extends State<LessonPage> {
 
   void _onRetryHandler() => context
       .read<EducationLessonBloc>()
-      .add(EducationLessonEvent.getLessonContent(lessonId: widget.lessonId, pageIndex: widget.pageIndex));
+      .add(EducationLessonEvent.getLessonContent(lessonId: widget.lessonId));
 
   void _onContentLoaded(BuildContext context, EducationLessonState s) {
     final state = s.data;
 
-    AnalyticsEventService.instance.logLessonEvent(
-      FirebaseEvents.lessonScreen,
+    AnalyticsEventService().logLessonEvent(
+      AnalyticsEvents.lessonScreen,
       widget.lessonId,
-      state.currentPage,
-      state.lessonTitle,
-      state.questions.isNotEmpty && state.questions.first.type == LessonQuestionType.quiz,
+      state.contentType,
+      state.title,
+      state.hasQuiz,
     );
   }
 
@@ -117,16 +99,19 @@ class _LessonPageState extends State<LessonPage> {
   Widget build(BuildContext context) {
     return WillPopScope(
       onWillPop: _onWillPop,
-      child: CustomScaffold.petrolLightest(
-        appBar: CustomAppBar.petrol(
+      child: CustomScaffold(
+        color: widget.streamType.lightestColor,
+        appBar: CustomAppBar(
+          backgroundColor: widget.streamType.regularColor,
           title: LocalizedTexts.lesson.tr(),
-          leading: CustomFilledIconButton.leadingPetrolLighter(onPressed: _onPrevPressed),
+          textTheme: widget.streamType.appBarTextTheme,
+          leading: CustomFilledIconButton.fromColor(color: widget.streamType.lighterColor),
         ),
         body: CustomSafeArea(
           child: BlocConsumer<EducationLessonBloc, EducationLessonState>(
             listener: _onContentLoaded,
             listenWhen: (prev, cur) => cur is ContentLoaded,
-            builder: (BuildContext context, state) {
+            builder: (context, state) {
               return state.maybeMap(
                 initial: (_) => const Loader(),
                 contentIsLoading: (_) => const Loader(),
@@ -135,11 +120,16 @@ class _LessonPageState extends State<LessonPage> {
                 orElse: () {
                   if (state.data.isArticlePage) {
                     return LessonTextBody(
-                        onNextPressed: _onNextPressed, content: state.data.currentPage.content);
+                      onNextPressed: _onNextPressed,
+                      streamType: widget.streamType,
+                    );
                   }
 
                   if (state.data.isAudioPage) {
-                    return LessonAudioBody(onNextPressed: _onNextPressed);
+                    return LessonAudioBody(
+                      onNextPressed: _onNextPressed,
+                      streamType: widget.streamType,
+                    );
                   }
 
                   return const SizedBox.shrink();

@@ -1,9 +1,7 @@
 import 'package:dartz/dartz.dart';
 import 'package:injectable/injectable.dart';
 import 'package:loopcare_frontend/core/infrastructure/dio_client/dio_client.dart';
-import 'package:loopcare_frontend/core/infrastructure/dio_client/parse_response.dart';
 import 'package:loopcare_frontend/core/infrastructure/dio_client/request_error.dart';
-import 'package:loopcare_frontend/features/authentication/domain/subscription/subscription.dart';
 import 'package:loopcare_frontend/features/transparency/applictation/transparency_service.dart';
 import 'package:loopcare_frontend/features/transparency/domain/device_info.dart';
 
@@ -15,6 +13,6 @@ class APITransparencyService implements TransparencyService {
 
   @override
   Future<Either<RequestError, dynamic>> saveDeviceInfo(DeviceInfo data) async {
-    return client.post('/analytics/device-info', data: data).then(parseResponse(Subscription.fromJson));
+    return await client.post('/analytics/device-info', data: data);
   }
 }

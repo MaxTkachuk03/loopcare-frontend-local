@@ -1,7 +1,8 @@
+import 'package:auto_route/annotations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:loopcare_frontend/core/domain/analytics/firebase_event_list.dart';
-import 'package:loopcare_frontend/core/infrastructure/services/firebase_event_service.dart';
+import 'package:loopcare_frontend/core/domain/analytics/analytics_events.dart';
+import 'package:loopcare_frontend/core/infrastructure/services/analytics_service.dart';
 import 'package:loopcare_frontend/core/presentation/custom_safe_area.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 import 'package:loopcare_frontend/features/nutrition/application/search/dto/search_item.dart';
@@ -10,6 +11,7 @@ import 'package:loopcare_frontend/features/nutrition/application/search/search_b
 import 'package:loopcare_frontend/features/nutrition/presentation/search/widgets/search_app_bar.dart';
 import 'package:loopcare_frontend/features/nutrition/presentation/search/widgets/search_result_list.dart';
 
+@RoutePage()
 class SearchPage extends StatefulWidget {
   final void Function(SearchItem item) onItemTap;
   final SearchMode? mode;
@@ -28,12 +30,11 @@ class _SearchPageState extends State<SearchPage> {
   void initState() {
     super.initState();
     context.read<SearchBloc>().add(const SearchEvent.resetData());
-    AnalyticsEventService.instance.logEvent(FirebaseEvents.searchScreenOpened);
+    AnalyticsEventService().logEvent(eventName: AnalyticsEvents.searchScreenOpened);
   }
 
   Future<bool> _onPreviousPage(BuildContext context) {
-    AnalyticsEventService.instance.logEvent(FirebaseEvents.searchScreenClosed);
-
+    AnalyticsEventService().logEvent(eventName: AnalyticsEvents.searchScreenClosed);
     return Future.value(true);
   }
 

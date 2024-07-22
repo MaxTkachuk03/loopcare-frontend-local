@@ -9,7 +9,6 @@ import 'package:loopcare_frontend/core/presentation/buttons/custom_elevated_butt
 import 'package:loopcare_frontend/core/presentation/buttons/custom_filled_icon_button.dart';
 import 'package:loopcare_frontend/core/presentation/custom_safe_area.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
-import 'package:loopcare_frontend/core/presentation/routes/app_router.dart';
 import 'package:loopcare_frontend/core/presentation/routes/app_router.gr.dart';
 import 'package:loopcare_frontend/core/presentation/scaffold/custom_scaffold.dart';
 import 'package:loopcare_frontend/core/presentation/text/custom_text.dart';
@@ -20,12 +19,19 @@ import 'package:loopcare_frontend/core/presentation/widgets/scrollable_container
 import 'package:loopcare_frontend/features/authentication/application/authentication_bloc.dart';
 import 'package:loopcare_frontend/features/physical_activities/application/physical_activities_preferences/physical_activities_preferences_bloc.dart';
 import 'package:loopcare_frontend/features/physical_activities/presentation/preferences/widgets/frequency_chips.dart';
+import 'package:loopcare_frontend/features/river/infrastructure/river_module_stream_type.dart';
 import 'package:loopcare_frontend/injection.dart';
 
+@RoutePage()
 class PhysicalActivitiesFrequencyPage extends StatefulWidget {
+  final RiverModuleStreamType streamType;
   final bool profileInvoke;
 
-  const PhysicalActivitiesFrequencyPage({super.key, this.profileInvoke = false});
+  const PhysicalActivitiesFrequencyPage({
+    super.key,
+    this.profileInvoke = false,
+    this.streamType = RiverModuleStreamType.psychology,
+  });
 
   @override
   State<PhysicalActivitiesFrequencyPage> createState() => _PhysicalActivitiesFrequencyPageState();
@@ -35,7 +41,9 @@ class _PhysicalActivitiesFrequencyPageState extends State<PhysicalActivitiesFreq
   @override
   void initState() {
     super.initState();
-    context.read<PhysicalActivitiesPreferencesBloc>().add(const PhysicalActivitiesPreferencesEvent.getPreferences());
+    context
+        .read<PhysicalActivitiesPreferencesBloc>()
+        .add(const PhysicalActivitiesPreferencesEvent.getPreferences());
   }
 
   void _onErrorHandler(PhysicalActivitiesPreferencesState state) =>
@@ -52,39 +60,50 @@ class _PhysicalActivitiesFrequencyPageState extends State<PhysicalActivitiesFreq
   void _onUpdateHandler(PhysicalActivitiesPreferencesState state) {
     if (widget.profileInvoke) {
       context.read<AuthenticationBloc>().add(const AuthenticationEvent.getAccount());
-      context.router.pop();
+      context.router.maybePop();
       return;
     }
 
     if (state.data.needActivitiesType) {
-      context.router.pushNamed(AppRoutes.physicalActivitiesActivityType);
+      context.router.push(PhysicalActivitiesActivityTypeRoute(streamType: widget.streamType));
       return;
     }
 
     if (getIt<SharedStorageService>().account?.isPhysicalActivitiesUnlocked ?? false) {
-      context.router.pushNamed(AppRoutes.physicalActivitiesComplete);
+      context.router.push(PhysicalActivitiesCompleteRoute(streamType: widget.streamType));
     }
   }
 
   void _onNext() {
-    context.read<PhysicalActivitiesPreferencesBloc>().add(const PhysicalActivitiesPreferencesEvent.savePreferences());
+    context
+        .read<PhysicalActivitiesPreferencesBloc>()
+        .add(const PhysicalActivitiesPreferencesEvent.savePreferences());
   }
+
+  get _scaffoldColor =>
+      widget.profileInvoke ? AppColors.blueLightest : widget.streamType.lightestColor;
+
+  get _appBarColor => widget.profileInvoke ? AppColors.blueRegular : widget.streamType.regularColor;
+
+  get _appBarTextTheme =>
+      widget.profileInvoke ? CustomAppBarTextTheme.light : widget.streamType.appBarTextTheme;
+
+  get _leadingButtonColor =>
+      widget.profileInvoke ? AppColors.blueLighter : widget.streamType.lighterColor;
 
   @override
   Widget build(BuildContext context) {
     return BlocListener<PhysicalActivitiesPreferencesBloc, PhysicalActivitiesPreferencesState>(
-      listenWhen: (prev, cur) => prev is Saving && context.router.current.name == PhysicalActivitiesFrequencyRoute.name,
+      listenWhen: (prev, cur) =>
+          prev is Saving && context.router.current.name == PhysicalActivitiesFrequencyRoute.name,
       listener: _onChangeListener,
       child: CustomScaffold(
-        withBg: false,
-        color: widget.profileInvoke ? AppColors.blueLightest : AppColors.petrolLightest,
+        color: _scaffoldColor,
         appBar: CustomAppBar(
+          backgroundColor: _appBarColor,
+          textTheme: _appBarTextTheme,
           title: LocalizedTexts.trainingFrequency.tr(),
-          textTheme: CustomAppBarTextTheme.light,
-          backgroundColor: widget.profileInvoke ? AppColors.blueRegular : AppColors.petrolRegular,
-          leading: widget.profileInvoke
-              ? CustomFilledIconButton.leadingBlueLighter()
-              : CustomFilledIconButton.leadingPetrolLighter(),
+          leading: CustomFilledIconButton.fromColor(color: _leadingButtonColor),
         ),
         body: CustomSafeArea(
           child: ScrollableContainer(
@@ -101,13 +120,16 @@ class _PhysicalActivitiesFrequencyPageState extends State<PhysicalActivitiesFreq
                         style: context.textTheme.displayMedium,
                       ),
                       const SizedBox(height: 28.0),
-                      widget.profileInvoke ? const FrequencyChips.coral() : const FrequencyChips.green(),
+                      widget.profileInvoke
+                          ? const FrequencyChips.coral()
+                          : const FrequencyChips.green(),
                       const SizedBox(height: 8.0),
                     ],
                   ),
                   Column(
                     children: [
-                      BlocBuilder<PhysicalActivitiesPreferencesBloc, PhysicalActivitiesPreferencesState>(
+                      BlocBuilder<PhysicalActivitiesPreferencesBloc,
+                          PhysicalActivitiesPreferencesState>(
                         builder: (context, state) {
                           return CustomElevatedButton.blueFullWidth(
                             onPressed: state.data.isFrequencySet ? _onNext : null,

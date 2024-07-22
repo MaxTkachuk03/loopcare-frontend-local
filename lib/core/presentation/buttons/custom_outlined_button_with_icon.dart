@@ -20,7 +20,7 @@ class CustomOutlinedButtonWithIcon extends StatelessWidget {
         label: label,
         icon: icon,
         styles: ButtonStyle(
-          minimumSize: MaterialStateProperty.all(ButtonStyles.fullWidthSize),
+          minimumSize: WidgetStateProperty.all(ButtonStyles.fullWidthSize),
           side: ButtonStyles.getButtonBorder(ButtonStyles.borderCoral),
         ),
       );
@@ -43,7 +43,7 @@ class CustomOutlinedButtonWithIcon extends StatelessWidget {
         label: label,
         icon: icon,
         styles: ButtonStyle(
-          minimumSize: MaterialStateProperty.all(ButtonStyles.smallSize),
+          minimumSize: WidgetStateProperty.all(ButtonStyles.smallSize),
           side: ButtonStyles.getButtonBorder(ButtonStyles.borderCoral),
         ),
       );
@@ -55,7 +55,7 @@ class CustomOutlinedButtonWithIcon extends StatelessWidget {
         label: label,
         icon: icon,
         styles: ButtonStyle(
-          minimumSize: MaterialStateProperty.all(ButtonStyles.fullWidthSize),
+          minimumSize: WidgetStateProperty.all(ButtonStyles.fullWidthSize),
           side: ButtonStyles.getButtonBorder(ButtonStyles.borderOrange),
         ),
       );
@@ -77,7 +77,7 @@ class CustomOutlinedButtonWithIcon extends StatelessWidget {
         label: label,
         icon: icon,
         styles: ButtonStyle(
-          minimumSize: MaterialStateProperty.all(ButtonStyles.smallSize),
+          minimumSize: WidgetStateProperty.all(ButtonStyles.smallSize),
           side: ButtonStyles.getButtonBorder(ButtonStyles.borderOrange),
         ),
       );
@@ -90,7 +90,7 @@ class CustomOutlinedButtonWithIcon extends StatelessWidget {
         label: label,
         icon: icon,
         styles: ButtonStyle(
-          minimumSize: MaterialStateProperty.all(ButtonStyles.fullWidthSize),
+          minimumSize: WidgetStateProperty.all(ButtonStyles.fullWidthSize),
           side: ButtonStyles.getButtonBorder(ButtonStyles.borderYellow),
         ),
       );
@@ -115,7 +115,7 @@ class CustomOutlinedButtonWithIcon extends StatelessWidget {
         label: label,
         icon: icon,
         styles: ButtonStyle(
-          minimumSize: MaterialStateProperty.all(ButtonStyles.smallSize),
+          minimumSize: WidgetStateProperty.all(ButtonStyles.smallSize),
           side: ButtonStyles.getButtonBorder(ButtonStyles.borderYellow),
         ),
       );
@@ -127,7 +127,7 @@ class CustomOutlinedButtonWithIcon extends StatelessWidget {
         label: label,
         icon: icon,
         styles: ButtonStyle(
-          minimumSize: MaterialStateProperty.all(ButtonStyles.fullWidthSize),
+          minimumSize: WidgetStateProperty.all(ButtonStyles.fullWidthSize),
           side: ButtonStyles.getButtonBorder(ButtonStyles.borderGreen),
         ),
       );
@@ -150,7 +150,7 @@ class CustomOutlinedButtonWithIcon extends StatelessWidget {
         label: label,
         icon: icon,
         styles: ButtonStyle(
-          minimumSize: MaterialStateProperty.all(ButtonStyles.smallSize),
+          minimumSize: WidgetStateProperty.all(ButtonStyles.smallSize),
           side: ButtonStyles.getButtonBorder(ButtonStyles.borderGreen),
         ),
       );
@@ -162,7 +162,7 @@ class CustomOutlinedButtonWithIcon extends StatelessWidget {
         label: label,
         icon: icon,
         styles: ButtonStyle(
-          minimumSize: MaterialStateProperty.all(ButtonStyles.fullWidthSize),
+          minimumSize: WidgetStateProperty.all(ButtonStyles.fullWidthSize),
           side: ButtonStyles.getButtonBorder(ButtonStyles.borderPetrol),
         ),
       );
@@ -185,7 +185,7 @@ class CustomOutlinedButtonWithIcon extends StatelessWidget {
         label: label,
         icon: icon,
         styles: ButtonStyle(
-          minimumSize: MaterialStateProperty.all(ButtonStyles.smallSize),
+          minimumSize: WidgetStateProperty.all(ButtonStyles.smallSize),
           side: ButtonStyles.getButtonBorder(ButtonStyles.borderPetrol),
         ),
       );
@@ -197,7 +197,7 @@ class CustomOutlinedButtonWithIcon extends StatelessWidget {
         label: label,
         icon: icon,
         styles: ButtonStyle(
-          minimumSize: MaterialStateProperty.all(ButtonStyles.fullWidthSize),
+          minimumSize: WidgetStateProperty.all(ButtonStyles.fullWidthSize),
           side: ButtonStyles.getButtonBorder(ButtonStyles.borderBlue),
         ),
       );
@@ -214,7 +214,7 @@ class CustomOutlinedButtonWithIcon extends StatelessWidget {
         icon: icon,
         styles: ButtonStyle(
           side: ButtonStyles.getButtonBorder(ButtonStyles.borderBlue),
-          backgroundColor: MaterialStateProperty.all(
+          backgroundColor: WidgetStateProperty.all(
             needBackgroundColor ?? false ? AppColors.blueLightest : AppColors.transparent,
           ),
         ),
@@ -227,7 +227,7 @@ class CustomOutlinedButtonWithIcon extends StatelessWidget {
         label: label,
         icon: icon,
         styles: ButtonStyle(
-          minimumSize: MaterialStateProperty.all(ButtonStyles.smallSize),
+          minimumSize: WidgetStateProperty.all(ButtonStyles.smallSize),
           side: ButtonStyles.getButtonBorder(ButtonStyles.borderBlue),
         ),
       );

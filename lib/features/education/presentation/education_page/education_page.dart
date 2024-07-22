@@ -1,3 +1,4 @@
+import 'package:auto_route/annotations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loopcare_frontend/core/presentation/custom_safe_area.dart';
@@ -9,11 +10,11 @@ import 'package:loopcare_frontend/features/education/application/education_progr
 import 'package:loopcare_frontend/features/education/presentation/education_page/widgets/education_app_bar.dart';
 import 'package:loopcare_frontend/features/education/presentation/education_page/widgets/education_card.dart';
 import 'package:loopcare_frontend/features/education/presentation/education_page/widgets/progress_item.dart';
-import 'package:loopcare_frontend/features/nutrition/application/dashboard_education/dashboard_education_bloc.dart';
 import 'package:loopcare_frontend/features/nutrition/application/meals/meals_bloc.dart';
 
 const double _lessonCardHeight = 184;
 
+@RoutePage()
 class EducationPage extends StatefulWidget {
   const EducationPage({super.key});
 
@@ -49,12 +50,6 @@ class _EducationPageState extends State<EducationPage> with SingleTickerProvider
 
   _lessonCompleteListener(BuildContext context, EducationLessonState state) {
     final currentDate = context.read<MealsBloc>().state.data.currentDateTime;
-
-    context.read<EducationProgramBloc>().add(const EducationProgramEvent.getLessons());
-
-    context
-        .read<DashboardEducationBloc>()
-        .add(DashboardEducationEvent.getDashboardLessons(currentDate: currentDate));
   }
 
   _lessonsListener(BuildContext context, EducationProgramState state) {
@@ -66,7 +61,7 @@ class _EducationPageState extends State<EducationPage> with SingleTickerProvider
     return MultiBlocListener(
       listeners: [
         BlocListener<EducationLessonBloc, EducationLessonState>(
-          listenWhen: (prev, cur) => cur is LessonCompleted, //TODO: Probably incorrect
+          listenWhen: (prev, cur) => cur is LessonCompleted,
           listener: _lessonCompleteListener,
         ),
         BlocListener<EducationProgramBloc, EducationProgramState>(

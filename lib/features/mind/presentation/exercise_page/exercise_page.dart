@@ -1,11 +1,12 @@
 import 'package:auto_route/annotations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:loopcare_frontend/core/domain/analytics/firebase_event_list.dart';
+import 'package:loopcare_frontend/core/domain/analytics/analytics_events.dart';
 import 'package:loopcare_frontend/features/mind/application/mind_bloc.dart';
 import 'package:loopcare_frontend/features/mind/domain/mind_analytics_mixin/mind_analytics_mixin.dart';
 import 'package:loopcare_frontend/features/mind/presentation/widgets/mind_content_screen/mind_content_screen.dart';
 
+@RoutePage()
 class ExercisePage extends StatefulWidget {
   const ExercisePage({
     super.key,
@@ -19,20 +20,19 @@ class ExercisePage extends StatefulWidget {
 }
 
 class _ExercisePageState extends State<ExercisePage> with MindAnalyticsMixin {
-
   @override
   void initState() {
     super.initState();
     techniqueId = context.read<MindBloc>().state.data.currentTechnique!.id;
     exerciseId = context.read<MindBloc>().state.data.currentExercise!.id;
 
-    track(FirebaseEvents.mindOpenExercise);
+    track(AnalyticsEvents.mindOpenExercise);
   }
 
   void _onExerciseCompleted() {
     context.read<MindBloc>().add(const MindEvent.completeCurrentExercise());
 
-    track(FirebaseEvents.mindCompletedExercise);
+    track(AnalyticsEvents.mindCompletedExercise);
   }
 
   void _onRepeat() {
@@ -40,7 +40,9 @@ class _ExercisePageState extends State<ExercisePage> with MindAnalyticsMixin {
 
     bloc.add(MindEvent.selectExercise(exercise: bloc.state.data.currentExercise!));
 
-    track(FirebaseEvents.mindRepeatedExercise);
+    track(
+      AnalyticsEvents.mindRepeatedExercise,
+    );
   }
 
   @override

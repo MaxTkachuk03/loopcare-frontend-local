@@ -2,7 +2,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:loopcare_frontend/core/domain/analytics/firebase_event_list.dart';
+import 'package:loopcare_frontend/core/domain/analytics/analytics_events.dart';
 import 'package:loopcare_frontend/core/presentation/alerting/show_app_snackbar.dart';
 import 'package:loopcare_frontend/core/presentation/app_bar/custom_app_bar.dart';
 import 'package:loopcare_frontend/core/presentation/buttons/custom_filled_icon_button.dart';
@@ -16,6 +16,7 @@ import 'package:loopcare_frontend/features/mind/domain/mind_analytics_mixin/mind
 import 'package:loopcare_frontend/features/mind/presentation/widgets/mind_list_content/mind_list_content.dart';
 import 'package:loopcare_frontend/features/mind/presentation/widgets/techniques_list_tile/techniques_list_tile.dart';
 
+@RoutePage()
 class TechniquesPage extends StatefulWidget {
   const TechniquesPage({super.key});
 
@@ -24,15 +25,14 @@ class TechniquesPage extends StatefulWidget {
 }
 
 class _TechniquesPageState extends State<TechniquesPage> with MindAnalyticsMixin {
-
   void listener(BuildContext context, MindState state) {
     state.mapOrNull(
       error: errorHandler,
     );
   }
 
-  void errorHandler(MindState state) =>
-      context.showError(content: Text(state.data.error?.error?.message ?? LocalizedTexts.somethingWentWrong.tr()));
+  void errorHandler(MindState state) => context.showError(
+      content: Text(state.data.error?.error?.message ?? LocalizedTexts.somethingWentWrong.tr()));
 
   Future<void> getTechniques() async =>
       context.read<MindBloc>().add(const MindEvent.getTechniques());
@@ -41,12 +41,12 @@ class _TechniquesPageState extends State<TechniquesPage> with MindAnalyticsMixin
   void initState() {
     super.initState();
     getTechniques();
-    track(FirebaseEvents.mindOpen);
+    track(AnalyticsEvents.mindOpen);
   }
 
   @override
   void dispose() {
-    track(FirebaseEvents.mindClose);
+    track(AnalyticsEvents.mindClose);
     super.dispose();
   }
 
@@ -62,7 +62,6 @@ class _TechniquesPageState extends State<TechniquesPage> with MindAnalyticsMixin
           listener: listener,
           buildWhen: (previous, current) => ModalRoute.of(context)?.isCurrent ?? false,
           builder: (context, state) {
-
             return MindListContent(
               isLoading: state.data.isLoading && state.data.techniques.isEmpty,
               title: state.data.mindInfo?.title ?? '',

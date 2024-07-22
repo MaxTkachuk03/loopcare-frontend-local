@@ -12,6 +12,7 @@ import 'package:loopcare_frontend/core/presentation/utils/build_context_extensio
 import 'package:loopcare_frontend/features/smart_goals/domain/smart_goal_category.dart';
 import 'package:loopcare_frontend/features/smart_goals/presentation/select_goals_category_page/widgets/goals_categories_list.dart';
 
+@RoutePage()
 class SelectGoalsCategoryPage extends StatelessWidget {
   const SelectGoalsCategoryPage({super.key});
 
@@ -27,7 +28,6 @@ class SelectGoalsCategoryPage extends StatelessWidget {
       ),
       body: CustomSafeArea(
         child: CustomScrollView(
-          physics: const ClampingScrollPhysics(),
           slivers: [
             SliverToBoxAdapter(
               child: Padding(

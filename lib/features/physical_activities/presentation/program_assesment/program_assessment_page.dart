@@ -2,9 +2,9 @@ import 'package:auto_route/auto_route.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:loopcare_frontend/core/domain/analytics/firebase_event_custom_definitions.dart';
-import 'package:loopcare_frontend/core/domain/analytics/firebase_event_list.dart';
-import 'package:loopcare_frontend/core/infrastructure/services/firebase_event_service.dart';
+import 'package:loopcare_frontend/core/domain/analytics/analytics_events.dart';
+import 'package:loopcare_frontend/core/domain/analytics/analytics_parameters.dart';
+import 'package:loopcare_frontend/core/infrastructure/services/analytics_service.dart';
 import 'package:loopcare_frontend/core/presentation/alerting/show_app_snackbar.dart';
 import 'package:loopcare_frontend/core/presentation/app_bar/custom_app_bar.dart';
 import 'package:loopcare_frontend/core/presentation/buttons/custom_elevated_button.dart';
@@ -26,8 +26,7 @@ import 'package:loopcare_frontend/features/physical_activities/presentation/phys
 import 'package:loopcare_frontend/features/physical_activities/presentation/program_assesment/widgets/assesment_block.dart';
 import 'package:loopcare_frontend/features/physical_activities/presentation/program_assesment/widgets/like_unlike_block.dart';
 
-const physicalProgramAlreadyLogged = 'physical_program_already_logged';
-
+@RoutePage()
 class ProgramAssessmentPage extends StatefulWidget {
   final VoidCallback onDisposeCb;
 
@@ -114,13 +113,14 @@ class _ProgramAssessmentPageState extends State<ProgramAssessmentPage> {
                         CustomOutlinedButton.blueFullWidth(
                           onPressed: () {
                             final programId = state.data.currentProgram?.id ?? -1;
-                            AnalyticsEventService.instance.logEvent(
-                              FirebaseEvents.programCompletedWithoutLogging,
+                            AnalyticsEventService().logEvent(
+                              eventName: AnalyticsEvents.programCompletedWithoutLogging,
                               parameters: {
-                                CustomDefinitions.timestamp: DateTime.now().toIso8601String(),
-                                CustomDefinitions.programId: programId.toString(),
+                                AnalyticsParameters.timestamp: DateTime.now().toIso8601String(),
+                                AnalyticsParameters.programId: programId.toString(),
                               },
                             );
+
                             context.router.popUntilRouteWithName(HomeRoute.name);
                           },
                           label: LocalizedTexts.backToTodayNotLogged.tr(),
@@ -159,18 +159,18 @@ class _ProgramAssessmentPageState extends State<ProgramAssessmentPage> {
     final assessmentLikeValue = assessmentLike;
     if (assessmentScoreValue == null || assessmentLikeValue == null) return;
 
-    AnalyticsEventService.instance.logProgramAssessmentEvent(
-      FirebaseEvents.programAssessmentScreen,
+    AnalyticsEventService().logProgramAssessmentEvent(
+      AnalyticsEvents.programAssessmentScreen,
       assessmentScore!,
       '${assessmentLike!}',
       programId,
     );
 
-    AnalyticsEventService.instance.logEvent(
-      FirebaseEvents.programCompletedWithLogging,
+    AnalyticsEventService().logEvent(
+      eventName: AnalyticsEvents.programCompletedWithLogging,
       parameters: {
-        CustomDefinitions.timestamp: DateTime.now().toIso8601String(),
-        CustomDefinitions.programId: programId.toString(),
+        AnalyticsParameters.timestamp: DateTime.now().toIso8601String(),
+        AnalyticsParameters.programId: programId.toString(),
       },
     );
 
@@ -196,17 +196,16 @@ class _ProgramAssessmentPageState extends State<ProgramAssessmentPage> {
 
   void _physicalProgramErrorListener(BuildContext context, PhysicalProgramsState state) {
     final error = state.data.error;
-
     if (error != null) {
       final errorMessage = error.maybeMap(
         conflict: (error) {
-          return error.error.message == physicalProgramAlreadyLogged
-              ? LocalizedTexts.physicalProgramAlreadyLogged.tr()
-              : LocalizedTexts.somethingIsIncorrect.tr();
+          return error.message == LocalizedTexts.physicalProgramAlreadyLogged
+              ? error.message
+              : LocalizedTexts.somethingIsIncorrect;
         },
-        orElse: () => LocalizedTexts.somethingIsIncorrect.tr(),
+        orElse: () => LocalizedTexts.somethingIsIncorrect,
       );
-      context.showError(content: Text(errorMessage));
+      context.showError(content: Text(errorMessage.tr()));
     }
   }
 

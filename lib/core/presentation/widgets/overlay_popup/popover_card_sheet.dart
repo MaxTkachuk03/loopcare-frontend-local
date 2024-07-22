@@ -45,7 +45,7 @@ List<PopupMenuEntry<SheetItem>> _generateOptions(
     mode.items.length,
     (index) => PopupMenuItem(
       padding: const EdgeInsets.symmetric(horizontal: 16),
-      labelTextStyle: MaterialStateProperty.all(
+      labelTextStyle: WidgetStateProperty.all(
         itemContext?.textTheme.bodySmall?.copyWith(color: AppColors.white),
       ),
       textStyle: itemContext?.textTheme.bodySmall?.copyWith(color: AppColors.white),

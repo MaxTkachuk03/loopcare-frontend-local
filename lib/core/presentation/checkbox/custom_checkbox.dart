@@ -30,12 +30,12 @@ class CustomCheckbox extends StatelessWidget {
     return Checkbox(
       value: value,
       onChanged: onChanged,
-      fillColor: MaterialStateProperty.resolveWith((Set<MaterialState> states) {
-        const Set<MaterialState> interactiveStates = <MaterialState>{
-          MaterialState.pressed,
-          MaterialState.hovered,
-          MaterialState.focused,
-          MaterialState.selected,
+      fillColor: WidgetStateProperty.resolveWith((Set<WidgetState> states) {
+        const Set<WidgetState> interactiveStates = <WidgetState>{
+          WidgetState.pressed,
+          WidgetState.hovered,
+          WidgetState.focused,
+          WidgetState.selected,
         };
 
         if (states.any(interactiveStates.contains)) {

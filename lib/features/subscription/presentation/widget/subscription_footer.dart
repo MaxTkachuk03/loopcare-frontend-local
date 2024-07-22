@@ -20,30 +20,31 @@ class _FooterSubscriptionState extends State<FooterSubscription> {
   @override
   Widget build(BuildContext context) {
     return ValueListenableBuilder<PurchasableProduct?>(
-        valueListenable: widget.controller.selectedPlan,
-        builder: (context, selectedPlan, _) {
-          return Column(children: [
-            ...widget.controller.products
-                .map(
-                  (product) => Padding(
-                    padding: const EdgeInsets.only(top: 8.0),
-                    child: SubscriptionPlane.general(
-                      title: product.title,
-                      description: product.description,
-                      recommended: product.recommended,
-                      regularPrice: product.roundPrice,
-                      priceWithCurrency: product.priceWithCurrency,
-                      onTap: () => widget.controller.setPlans(product),
-                      selected: widget.controller.selectedPlan.value?.details?.id == product.details?.id &&
-                          widget.controller.selectedPlan.value?.details?.price == product.details?.price,
-                    ),
-                  ),
-                )
-                .toList(),
+      valueListenable: widget.controller.selectedPlan,
+      builder: (context, selectedPlan, _) {
+        return Column(
+          children: [
+            ...widget.controller.products.map(
+              (product) => Padding(
+                padding: const EdgeInsets.only(top: 8.0),
+                child: SubscriptionPlane.general(
+                  title: product.title,
+                  description: product.description,
+                  recommended: product.recommended,
+                  regularPrice: product.roundPrice,
+                  priceWithCurrency: product.priceWithCurrency,
+                  onTap: () => widget.controller.setPlans(product),
+                  selected: widget.controller.selectedPlan.value?.details?.id == product.details?.id &&
+                      widget.controller.selectedPlan.value?.details?.price == product.details?.price,
+                ),
+              ),
+            ),
             const SizedBox(height: 8.0),
             RestoreSubscriptionLink(onRestoreTap: () => widget.controller.restorePurchase()),
             const SizedBox(height: 8.0),
-          ]);
-        });
+          ],
+        );
+      },
+    );
   }
 }

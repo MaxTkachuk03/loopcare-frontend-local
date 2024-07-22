@@ -2,14 +2,15 @@ import 'package:auto_route/auto_route.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:loopcare_frontend/core/domain/analytics/firebase_event_custom_definitions.dart';
-import 'package:loopcare_frontend/core/domain/analytics/firebase_event_list.dart';
-import 'package:loopcare_frontend/core/infrastructure/services/firebase_event_service.dart';
+import 'package:loopcare_frontend/core/domain/analytics/analytics_events.dart';
+import 'package:loopcare_frontend/core/domain/analytics/analytics_parameters.dart';
+import 'package:loopcare_frontend/core/infrastructure/services/analytics_service.dart';
 import 'package:loopcare_frontend/core/presentation/alerting/show_app_snackbar.dart';
 import 'package:loopcare_frontend/core/presentation/app_bar/custom_app_bar.dart';
 import 'package:loopcare_frontend/core/presentation/buttons/custom_elevated_button.dart';
 import 'package:loopcare_frontend/core/presentation/buttons/custom_filled_icon_button.dart';
 import 'package:loopcare_frontend/core/presentation/buttons/custom_outlined_button.dart';
+import 'package:loopcare_frontend/core/presentation/custom_error_widget/error_invoker.dart';
 import 'package:loopcare_frontend/core/presentation/custom_safe_area.dart';
 import 'package:loopcare_frontend/core/presentation/error/error_screen.dart';
 import 'package:loopcare_frontend/core/presentation/loader/loader.dart';
@@ -38,6 +39,7 @@ import 'package:loopcare_frontend/features/nutrition/presentation/widgets/servin
 
 enum EditDishPageMode { edit, create }
 
+@RoutePage()
 class EditDishPage extends StatefulWidget {
   final EditDishPageMode mode;
   final EditDishEvent event;
@@ -119,15 +121,15 @@ class _EditDishPageState extends State<EditDishPage> {
                       ),
                     );
 
-                AnalyticsEventService.instance.logEvent(
-                  FirebaseEvents.foodLogged,
+                AnalyticsEventService().logEvent(
+                  eventName: AnalyticsEvents.foodLogged,
                   parameters: {
-                    CustomDefinitions.timestamp: DateTime.now().toIso8601String(),
-                    CustomDefinitions.mealId: item.id,
-                    CustomDefinitions.foodItem: item.id,
-                    CustomDefinitions.servingId: servingId,
-                    CustomDefinitions.numberOfUnits: numberOfUnits.toString(),
-                    CustomDefinitions.isDishes: 'true',
+                    AnalyticsParameters.timestamp: DateTime.now().toIso8601String(),
+                    AnalyticsParameters.mealId: item.id,
+                    AnalyticsParameters.foodItem: item.id,
+                    AnalyticsParameters.servingId: servingId,
+                    AnalyticsParameters.numberOfUnits: numberOfUnits.toString(),
+                    AnalyticsParameters.isDishes: 'true',
                   },
                 );
                 context.router.popUntilRouteWithName(SearchRoute.name);
@@ -185,7 +187,7 @@ class _EditDishPageState extends State<EditDishPage> {
     });
 
     context.showSuccessBar(content: Text(LocalizedTexts.dishWasSaved.tr()));
-    context.router.pop();
+    context.router.maybePop();
   }
 
   void _showValidationSnackbar(String error) => context.showError(content: Text(error));
@@ -214,7 +216,8 @@ class _EditDishPageState extends State<EditDishPage> {
         initialCaloriesValue: item.serving.calories,
         foodItemName: item.foodName,
         onConfirm: (double numberOfUnits, String servingId) {
-          final dishId = context.read<EditDishBloc>().state.mapOrNull(dishInfo: (s) => s.currentDish.id);
+          final dishId =
+              context.read<EditDishBloc>().state.mapOrNull(dishInfo: (s) => s.currentDish.id);
 
           if (dishId == null) return;
 
@@ -227,14 +230,14 @@ class _EditDishPageState extends State<EditDishPage> {
                 ),
               );
 
-          AnalyticsEventService.instance.logEvent(
-            FirebaseEvents.foodLogged,
+          AnalyticsEventService().logEvent(eventName:
+          AnalyticsEvents.foodLogged,
             parameters: {
-              CustomDefinitions.timestamp: DateTime.now().toIso8601String(),
-              CustomDefinitions.mealId: item.id.toString(),
-              CustomDefinitions.servingId: servingId,
-              CustomDefinitions.numberOfUnits: numberOfUnits.toString(),
-              CustomDefinitions.isDishes: 'true',
+              AnalyticsParameters.timestamp: DateTime.now().toIso8601String(),
+              AnalyticsParameters.mealId: item.id.toString(),
+              AnalyticsParameters.servingId: servingId,
+              AnalyticsParameters.numberOfUnits: numberOfUnits.toString(),
+              AnalyticsParameters.isDishes: 'true',
             },
           );
         },
@@ -260,7 +263,7 @@ class _EditDishPageState extends State<EditDishPage> {
   }
 
   _deleteDishListener(BuildContext context, state) {
-    context.router.pop();
+    context.router.maybePop();
   }
 
   Future<bool> _onWillPop() {
@@ -291,7 +294,7 @@ class _EditDishPageState extends State<EditDishPage> {
             appBar: CustomAppBar.green(
               title: '${LocalizedTexts.addToMyDishedAs.tr()}...',
               leading: CustomFilledIconButton.leadingGreenLighter(),
-              actions: const [CloseAction(), SizedBox(width: 16.0)],
+              actions: const [CloseAction(), SizedBox(width: 16.0), ErrorInvokeButton()],
               bottom: PreferredSize(
                 preferredSize: const Size.fromHeight(150),
                 child: Column(
@@ -322,22 +325,23 @@ class _EditDishPageState extends State<EditDishPage> {
                 child: BlocBuilder<EditDishBloc, EditDishState>(
                   builder: (BuildContext context, state) {
                     return state.maybeMap(
-                        loading: (_) => const Loader(),
-                        orElse: () => const SizedBox.shrink(),
-                        error: (errorState) {
-                          final error = errorState.fetchError;
+                      loading: (_) => const Loader(),
+                      orElse: () => const SizedBox.shrink(),
+                      error: (errorState) {
+                        final error = errorState.fetchError;
 
-                          return ErrorScreen(
-                            error: error,
-                            onButtonPressed: () {
-                              //TODO: Need to check
-                              final editDishBloc = context.read<EditDishBloc>();
-                              editDishBloc.add(widget.event);
-                            },
-                          );
-                        },
-                        dishInfo: (dishState) {
-                          return Column(
+                        return ErrorScreen(
+                          error: error,
+                          onButtonPressed: () {
+                            //TODO: Need to check
+                            final editDishBloc = context.read<EditDishBloc>();
+                            editDishBloc.add(widget.event);
+                          },
+                        );
+                      },
+                      dishInfo: (dishState) {
+                        return ErrorInvoker(
+                          child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
@@ -352,7 +356,8 @@ class _EditDishPageState extends State<EditDishPage> {
                                     portionsFocusNode: _portionsFocusNode,
                                     portionsController: _portionsController,
                                     isPortionsEditable: true,
-                                    numberOfPortions: dishState.currentDish.numberOfServings.toInt(),
+                                    numberOfPortions:
+                                        dishState.currentDish.numberOfServings.toInt(),
                                     nutritionValuesList: dishState.currentDish.serving.list,
                                     selectedNutritionType: dishState.currentNutritionType,
                                     onNutritionFactSelect: _onNutritionFactSelect,
@@ -371,8 +376,8 @@ class _EditDishPageState extends State<EditDishPage> {
                                     fiber: dishState.currentDish.fiberSum * _servingsAmount,
                                     carbFiberRatio: dishState.currentDish.carbFiberRatio,
                                     carbsPercent: dishState.currentDish.carbsPercent,
-                                    totalCalories:
-                                        dishState.currentDish.caloriesSumWithDrinks * _servingsAmount,
+                                    totalCalories: dishState.currentDish.caloriesSumWithDrinks *
+                                        _servingsAmount,
                                     totalCarbs: dishState.currentDish.carbsSum * _servingsAmount,
                                   ),
                                   const SizedBox(height: 15.0),
@@ -404,7 +409,9 @@ class _EditDishPageState extends State<EditDishPage> {
                                         return state.maybeMap(
                                             dishInfo: (dishState) {
                                               return CustomElevatedButton.blueFullWidth(
-                                                onPressed: dishState.hasFoodItems ? _onSaveDishHandler : null,
+                                                onPressed: dishState.hasFoodItems
+                                                    ? _onSaveDishHandler
+                                                    : null,
                                                 label: LocalizedTexts.save.tr(),
                                               );
                                             },
@@ -416,8 +423,10 @@ class _EditDishPageState extends State<EditDishPage> {
                                 ],
                               ),
                             ],
-                          );
-                        });
+                          ),
+                        );
+                      },
+                    );
                   },
                 ),
               ),

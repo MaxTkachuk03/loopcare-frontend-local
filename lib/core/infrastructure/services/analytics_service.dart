@@ -1,0 +1,325 @@
+import 'package:fast_immutable_collections/fast_immutable_collections.dart';
+import 'package:firebase_analytics/firebase_analytics.dart';
+import 'package:loopcare_frontend/build_type.dart';
+import 'package:loopcare_frontend/core/domain/analytics/analytics_events.dart';
+import 'package:loopcare_frontend/core/domain/analytics/analytics_parameters.dart';
+import 'package:loopcare_frontend/core/infrastructure/services/apps_flyer_service.dart';
+import 'package:loopcare_frontend/core/infrastructure/services/country_code_service/country_code_service.dart';
+import 'package:loopcare_frontend/core/infrastructure/services/logger/logger.dart';
+import 'package:loopcare_frontend/core/infrastructure/services/stored_account_service/stored_account_service.dart';
+import 'package:loopcare_frontend/features/education/domain/lesson_content_type.dart';
+import 'package:loopcare_frontend/features/physical_activities/domain/physical_program.dart';
+import 'package:loopcare_frontend/features/physical_activities/domain/physical_program_exercise.dart';
+import 'package:loopcare_frontend/features/reflections/domain/reflection.dart';
+
+class AnalyticsEventService {
+  final bool _includeAppsFlyer;
+  final bool _includeFbAnalytics;
+
+  const AnalyticsEventService.appsFlyer()
+      : _includeAppsFlyer = true,
+        _includeFbAnalytics = false;
+
+  const AnalyticsEventService.firebase()
+      : _includeFbAnalytics = true,
+        _includeAppsFlyer = false;
+
+  const AnalyticsEventService()
+      : _includeAppsFlyer = true,
+        _includeFbAnalytics = true;
+
+  void logEvent({
+    required String eventName,
+    Map<String, dynamic>? parameters,
+  }) async {
+    final userId = StoredAccountService.getAccount()?.id ?? -1;
+
+    final userIdPrefix = CountryCodeService.instance.serverCountryCode;
+
+    if (_includeFbAnalytics) {
+      await _firebaseLogEvent(parameters, userId, userIdPrefix, eventName);
+    }
+    if (_includeAppsFlyer && kIsProd) {
+      await _appsFlyerLogEvent(parameters, userId, userIdPrefix, eventName);
+    }
+  }
+
+  Future<void> _appsFlyerLogEvent(
+    Map<String, dynamic>? parameters,
+    int userId,
+    String userIdPrefix,
+    String eventName,
+  ) async {
+    Map<String, Object> tmpParameters = Map.from(parameters ?? {});
+    Map<String, dynamic> args = tmpParameters.map((key, value) => MapEntry('af_$key}', value));
+    args[AnalyticsParameters.userId] = 'af_$userId-$userIdPrefix';
+
+    try {
+      await AppsFlyerService.appsflyerSdk.logEvent('af_$eventName', args);
+    } on Exception catch (error) {
+      log.e(error.toString(), error: error.runtimeType);
+    }
+  }
+
+  Future<void> _firebaseLogEvent(
+    Map<String, dynamic>? parameters,
+    int userId,
+    String userIdPrefix,
+    String eventName,
+  ) async {
+    Map<String, Object> tmpParameters = Map.from(parameters ?? {});
+    tmpParameters[AnalyticsParameters.userId] = '$userId-$userIdPrefix';
+
+    await FirebaseAnalytics.instance.logEvent(
+      name: eventName,
+      parameters: tmpParameters,
+    );
+  }
+
+  void logFoodPreferencesEvent(
+    String eventName,
+    IList<String> selectedHatesNames,
+    IList<String> selectedAllergicNames,
+    IList<String> selectedDislikesNames,
+  ) async {
+    logFoodPreferencesHateEvent(eventName, selectedHatesNames);
+    logFoodPreferencesAllergicEvent(eventName, selectedAllergicNames);
+    logFoodPreferencesDislikeEvent(eventName, selectedDislikesNames);
+  }
+
+  void logFoodPreferencesHateEvent(String eventName, IList<String> selectedHatesNames) async {
+    for (var item in selectedHatesNames) {
+      logEvent(
+        eventName: '${eventName}_${AnalyticsParameters.hated}',
+        parameters: {
+          AnalyticsParameters.hated: item.toString(),
+        },
+      );
+    }
+  }
+
+  void logFoodPreferencesAllergicEvent(
+    String eventName,
+    IList<String> selectedAllergicNames,
+  ) async {
+    for (var item in selectedAllergicNames) {
+      logEvent(
+        eventName: '${eventName}_${AnalyticsParameters.allergic}',
+        parameters: {
+          AnalyticsParameters.allergic: item.toString(),
+        },
+      );
+    }
+  }
+
+  void logFoodPreferencesDislikeEvent(
+    String eventName,
+    IList<String> selectedDislikeNames,
+  ) async {
+    for (var item in selectedDislikeNames) {
+      logEvent(
+        eventName: '${eventName}_${AnalyticsParameters.dislike}',
+        parameters: {
+          AnalyticsParameters.dislike: item.toString(),
+        },
+      );
+    }
+  }
+
+  void logLessonCompletedEvent(
+    String eventName,
+    int lessonId,
+  ) async =>
+      logEvent(
+        eventName: eventName,
+        parameters: {
+          AnalyticsParameters.lessonId: lessonId.toString(),
+        },
+      );
+
+  void logLessonEvent(
+    String eventName,
+    int lessonId,
+    LessonContentType contentType,
+    String lessonTitle,
+    bool withQuiz,
+  ) async {
+    logEvent(
+      eventName: eventName,
+      parameters: {
+        AnalyticsParameters.lessonId: lessonId.toString(),
+        AnalyticsParameters.lessonType: contentType.name,
+        AnalyticsParameters.title: lessonTitle,
+        // AnalyticsParameters.withAudio: lesson.type == LessonContentType.audio ? 'true' : 'false',
+        AnalyticsParameters.withQuiz: withQuiz ? 'true' : 'false',
+        AnalyticsParameters.timestamp: DateTime.now().toIso8601String(),
+      },
+    );
+  }
+
+  void openedTextLessonVersionEvent(int lessonId) async {
+    logEvent(
+      eventName: AnalyticsEvents.openedTextLessonVersion,
+      parameters: {
+        AnalyticsParameters.lessonId: lessonId.toString(),
+        AnalyticsParameters.timestamp: DateTime.now().toIso8601String(),
+      },
+    );
+  }
+
+  void closedTextLessonVersionEvent(int lessonId) async {
+    logEvent(
+      eventName: AnalyticsEvents.closedTextLessonVersion,
+      parameters: {
+        AnalyticsParameters.lessonId: lessonId.toString(),
+        AnalyticsParameters.timestamp: DateTime.now().toIso8601String(),
+      },
+    );
+  }
+
+  void lessonAudioPlayEvent(int lessonId) async {
+    logEvent(
+      eventName: AnalyticsEvents.lessonAudioPlay,
+      parameters: {
+        AnalyticsParameters.lessonId: lessonId.toString(),
+        AnalyticsParameters.timestamp: DateTime.now().toIso8601String(),
+      },
+    );
+  }
+
+  void lessonAudioStopEvent(int lessonId) async {
+    logEvent(
+      eventName: AnalyticsEvents.lessonAudioStop,
+      parameters: {
+        AnalyticsParameters.lessonId: lessonId.toString(),
+        AnalyticsParameters.timestamp: DateTime.now().toIso8601String(),
+      },
+    );
+  }
+
+  void lessonAudioFinishedEvent(int lessonId) async {
+    logEvent(
+      eventName: AnalyticsEvents.lessonAudioFinished,
+      parameters: {
+        AnalyticsParameters.lessonId: lessonId.toString(),
+        AnalyticsParameters.timestamp: DateTime.now().toIso8601String(),
+      },
+    );
+  }
+
+  void logProgramAssessmentEvent(
+    String eventName,
+    int score,
+    String assessmentLike,
+    int programId,
+  ) async {
+    logEvent(
+      eventName: eventName,
+      parameters: {
+        AnalyticsParameters.assessmentLevel: score,
+        AnalyticsParameters.assessmentLike: assessmentLike,
+        AnalyticsParameters.programId: programId.toString(),
+      },
+    );
+  }
+
+  void logPhysicalProgramEvent(
+    String eventName,
+    PhysicalProgram program,
+  ) async {
+    logEvent(
+      eventName: eventName,
+      parameters: {
+        AnalyticsParameters.programId: program.id,
+        AnalyticsParameters.programName: program.name,
+        AnalyticsParameters.programDuration: program.duration,
+        AnalyticsParameters.programDifficulty: program.difficultyName,
+      },
+    );
+  }
+
+  void logPhysicalActivityVideoEvent(
+    String eventName,
+    PhysicalProgram program,
+    PhysicalProgramExercise exercise,
+  ) async {
+    logEvent(
+      eventName: eventName,
+      parameters: {
+        AnalyticsParameters.programId: program.id,
+        AnalyticsParameters.programName: program.name,
+        AnalyticsParameters.programDuration: program.duration,
+        AnalyticsParameters.programDifficulty: program.difficultyName,
+        AnalyticsParameters.exercise: exercise.name,
+        AnalyticsParameters.exerciseDuration: exercise.duration,
+        AnalyticsParameters.exerciseLink: exercise.video ?? '',
+      },
+    );
+  }
+
+  void openedSessionPreparationMaterialsEvent(int sessionId, String weekTopic) async {
+    logEvent(
+      eventName: AnalyticsEvents.openedSessionPreparationMaterials,
+      parameters: {
+        AnalyticsParameters.sessionId: sessionId.toString(),
+        AnalyticsParameters.weekTopic: weekTopic,
+        AnalyticsParameters.timestamp: DateTime.now().toIso8601String(),
+      },
+    );
+  }
+
+  void closedSessionPreparationMaterialsEvent(int sessionId, String weekTopic) async {
+    logEvent(
+      eventName: AnalyticsEvents.closedSessionPreparationMaterials,
+      parameters: {
+        AnalyticsParameters.sessionId: sessionId.toString(),
+        AnalyticsParameters.weekTopic: weekTopic,
+        AnalyticsParameters.timestamp: DateTime.now().toIso8601String(),
+      },
+    );
+  }
+
+  void userOpenedAssignment(Reflection question) async {
+    logEvent(
+      eventName: AnalyticsEvents.userOpenedReflection,
+      parameters: {
+        AnalyticsParameters.reflectionId: question.id.toString(),
+        AnalyticsParameters.reflectionTitle: question.title,
+        AnalyticsParameters.timestamp: DateTime.now().toIso8601String(),
+      },
+    );
+  }
+
+  void finalizeAssignment(
+    String event,
+    Reflection reflection,
+    bool fromDashboard,
+  ) async {
+    logEvent(
+      eventName: event,
+      parameters: {
+        AnalyticsParameters.reflectionId: reflection.id,
+        AnalyticsParameters.reflectionTitle: reflection.title,
+        AnalyticsParameters.timestamp: DateTime.now().toIso8601String(),
+        AnalyticsParameters.navigatedFrom: fromDashboard ? 'Dashboard' : 'My assignments',
+      },
+    );
+  }
+
+  void assignmentMotivationScale(
+    String value,
+    Reflection reflection,
+    bool fromDashboard,
+  ) async {
+    logEvent(
+      eventName: AnalyticsEvents.reflectionMotivationScale,
+      parameters: {
+        AnalyticsParameters.value: value,
+        AnalyticsParameters.reflectionId: reflection.id,
+        AnalyticsParameters.reflectionTitle: reflection.title,
+        AnalyticsParameters.timestamp: DateTime.now().toIso8601String(),
+        AnalyticsParameters.navigatedFrom: fromDashboard ? 'Dashboard' : 'My assignments',
+      },
+    );
+  }
+}

@@ -5,10 +5,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
 import 'package:loopcare_frontend/core/application/customer_io_service/customer_io_service.dart';
-import 'package:loopcare_frontend/core/domain/analytics/firebase_event_custom_definitions.dart';
-import 'package:loopcare_frontend/core/domain/analytics/firebase_event_list.dart';
+import 'package:loopcare_frontend/core/domain/analytics/analytics_events.dart';
+import 'package:loopcare_frontend/core/domain/analytics/analytics_parameters.dart';
 import 'package:loopcare_frontend/core/infrastructure/dio_client/request_error.dart';
-import 'package:loopcare_frontend/core/infrastructure/services/firebase_event_service.dart';
+import 'package:loopcare_frontend/core/infrastructure/services/analytics_service.dart';
 import 'package:loopcare_frontend/core/infrastructure/services/shared_storage/shared_storage_service.dart';
 import 'package:loopcare_frontend/core/presentation/utils/date_time_extensions.dart';
 import 'package:loopcare_frontend/features/smart_goals/application/cancel_goal_reason.dart';
@@ -23,7 +23,9 @@ import 'package:loopcare_frontend/features/smart_goals/domain/weekly_smart_goal.
 import 'package:loopcare_frontend/injection.dart';
 
 part 'smart_goals_bloc.freezed.dart';
+
 part 'smart_goals_event.dart';
+
 part 'smart_goals_state.dart';
 
 const sessionReviewDelay = 7;
@@ -33,7 +35,8 @@ class SmartGoalsBloc extends Bloc<SmartGoalsEvent, SmartGoalsState> {
   final SmartGoalsService _smartGoalsService;
   final account = getIt<SharedStorageService>().account;
 
-  SmartGoalsBloc(this._smartGoalsService) : super(const SmartGoalsState.initial(SmartGoalsStateData())) {
+  SmartGoalsBloc(this._smartGoalsService)
+      : super(const SmartGoalsState.initial(SmartGoalsStateData())) {
     on<GetGoals>(_onGetGoals);
     on<GetWeeklyGoals>(_onGetWeeklyGoals);
     on<SetGoals>(_onSetGoals);
@@ -63,7 +66,8 @@ class SmartGoalsBloc extends Bloc<SmartGoalsEvent, SmartGoalsState> {
 
     response.fold(
       (l) => emit(SmartGoalsState.error(state.data.copyWith(error: l, isLoading: false))),
-      (r) => emit(SmartGoalsState.goalsLoaded(state.data.copyWith(goals: r.data, isLoading: false))),
+      (r) =>
+          emit(SmartGoalsState.goalsLoaded(state.data.copyWith(goals: r.data, isLoading: false))),
     );
   }
 
@@ -77,7 +81,8 @@ class SmartGoalsBloc extends Bloc<SmartGoalsEvent, SmartGoalsState> {
 
     response.fold(
       (l) => emit(SmartGoalsState.error(state.data.copyWith(error: l, isLoading: false))),
-      (r) => emit(SmartGoalsState.gotWeeklySession(state.data.copyWith(weeklyGoalsSessions: r.data, isLoading: false))),
+      (r) => emit(SmartGoalsState.gotWeeklySession(
+          state.data.copyWith(weeklyGoalsSessions: r.data, isLoading: false))),
     );
   }
 
@@ -87,15 +92,16 @@ class SmartGoalsBloc extends Bloc<SmartGoalsEvent, SmartGoalsState> {
   ) async {
     emit(SmartGoalsState.loading(state.data.copyWith(isLoading: true)));
 
-    final response = await _smartGoalsService.saveGoals(goal: SaveGoalsBody(smartGoalId: event.goal.id));
+    final response =
+        await _smartGoalsService.saveGoals(goal: SaveGoalsBody(smartGoalId: event.goal.id));
     response.fold(
       (l) {
         emit(SmartGoalsState.errorSaveGoals(state.data.copyWith(error: l, isLoading: false)));
       },
       (r) {
         _addGoalAnalyticEvent(r);
-        emit(SmartGoalsState.weeklySessionSaved(
-            state.data.copyWith(weeklyGoalsSessions: [...state.data.weeklyGoalsSessions, r], isLoading: false)));
+        emit(SmartGoalsState.weeklySessionSaved(state.data.copyWith(
+            weeklyGoalsSessions: [...state.data.weeklyGoalsSessions, r], isLoading: false)));
       },
     );
   }
@@ -120,7 +126,8 @@ class SmartGoalsBloc extends Bloc<SmartGoalsEvent, SmartGoalsState> {
   ) async {
     emit(SmartGoalsState.loading(state.data.copyWith(isLoading: true)));
 
-    final response = await _smartGoalsService.deleteSession(sessionId: event.sessionId, reason: state.data.reason!);
+    final response = await _smartGoalsService.deleteSession(
+        sessionId: event.sessionId, reason: state.data.reason!);
 
     response.fold(
       (l) {
@@ -150,15 +157,16 @@ class SmartGoalsBloc extends Bloc<SmartGoalsEvent, SmartGoalsState> {
   void _addGoalAnalyticEvent(WeeklyGoalsSession session) {
     if (session.sessionHasGoal) {
       final goal = session.goal!;
-      AnalyticsEventService.instance.logEvent(
-        FirebaseEvents.userSavedGoals,
+      AnalyticsEventService().logEvent(
+        eventName: AnalyticsEvents.userSavedGoals,
         parameters: {
-          CustomDefinitions.userId: account?.id,
-          CustomDefinitions.title: goal.title,
-          CustomDefinitions.goalCategoryTitle: goal.smartGoal.category.name,
+          AnalyticsParameters.userId: account?.id,
+          AnalyticsParameters.title: goal.title,
+          AnalyticsParameters.goalCategoryTitle: goal.smartGoal.category.name,
           //Discussed with Souni and Paul  limit custom dimensions
-          CustomDefinitions.timestamp: session.startedAt!.toIso8601String(),
-          if (session.finishedAt != null) CustomDefinitions.timePassed: session.finishedAt!.toIso8601String(),
+          AnalyticsParameters.timestamp: session.startedAt!.toIso8601String(),
+          if (session.finishedAt != null)
+            AnalyticsParameters.timePassed: session.finishedAt!.toIso8601String(),
         },
       );
 
@@ -168,8 +176,10 @@ class SmartGoalsBloc extends Bloc<SmartGoalsEvent, SmartGoalsState> {
           CIOAttributes.userId: account?.id,
           CIOAttributes.goalTitle: goal.title,
           CIOAttributes.goalCategoryTitle: goal.smartGoal.category.name,
-          if (session.finishedAt != null) CIOAttributes.finishDate: session.finishedAt!.toIso8601String(),
-          if (session.lastReviewDate != null) CIOAttributes.reviewLastDate: session.finishedAt!.toIso8601String(),
+          if (session.finishedAt != null)
+            CIOAttributes.finishDate: session.finishedAt!.toIso8601String(),
+          if (session.lastReviewDate != null)
+            CIOAttributes.reviewLastDate: session.finishedAt!.toIso8601String(),
         },
       );
     }
@@ -188,14 +198,14 @@ class SmartGoalsBloc extends Bloc<SmartGoalsEvent, SmartGoalsState> {
         emit(SmartGoalsState.errorAddingReview(state.data.copyWith(error: l, isLoading: false)));
       },
       (r) {
-        AnalyticsEventService.instance.logEvent(
-          FirebaseEvents.userAddedReview,
+        AnalyticsEventService().logEvent(
+          eventName: AnalyticsEvents.userAddedReview,
           parameters: {
-            CustomDefinitions.userId: account?.id,
-            CustomDefinitions.goalCategoryTitle: event.data.categoryTitle,
-            CustomDefinitions.title: event.data.goalTitle,
-            CustomDefinitions.score: event.data.difficulty,
-            CustomDefinitions.wantsToRepeat: event.data.isTryAgain.toString(),
+            AnalyticsParameters.userId: account?.id,
+            AnalyticsParameters.goalCategoryTitle: event.data.categoryTitle,
+            AnalyticsParameters.title: event.data.goalTitle,
+            AnalyticsParameters.score: event.data.difficulty,
+            AnalyticsParameters.wantsToRepeat: event.data.isTryAgain.toString(),
           },
         );
 
@@ -211,7 +221,8 @@ class SmartGoalsBloc extends Bloc<SmartGoalsEvent, SmartGoalsState> {
         );
         var sessions = [...state.data.weeklyGoalsSessions];
         sessions.removeWhere((session) => session.id == r.id);
-        emit(SmartGoalsState.reviewAdded(state.data.copyWith(weeklyGoalsSessions: sessions, isLoading: false)));
+        emit(SmartGoalsState.reviewAdded(
+            state.data.copyWith(weeklyGoalsSessions: sessions, isLoading: false)));
       },
     );
   }
@@ -233,13 +244,14 @@ class SmartGoalsBloc extends Bloc<SmartGoalsEvent, SmartGoalsState> {
     final response = await _smartGoalsService.confirmProgress(
         progress: ProgressGoalData(reviewId: event.weeklySmartGoal.id, progress: [smartGoalLog]));
 
-    response.fold((l) => emit(SmartGoalsState.error(state.data.copyWith(error: l, isLoading: false))), (r) {
+    response.fold(
+        (l) => emit(SmartGoalsState.error(state.data.copyWith(error: l, isLoading: false))), (r) {
       _logGoalAnalyticEvent(smartGoalLog);
       var sessions = [...state.data.weeklyGoalsSessions];
       final index = sessions.indexWhere((session) => session.id == r.id);
       sessions[index] = r;
-      emit(
-          SmartGoalsState.progressConfirmed(state.data.copyWith(weeklyGoalsSessions: [...sessions], isLoading: false)));
+      emit(SmartGoalsState.progressConfirmed(
+          state.data.copyWith(weeklyGoalsSessions: [...sessions], isLoading: false)));
     });
   }
 
@@ -248,25 +260,28 @@ class SmartGoalsBloc extends Bloc<SmartGoalsEvent, SmartGoalsState> {
     Emitter<SmartGoalsState> emit,
   ) async {
     emit(SmartGoalsState.loading(state.data.copyWith(isLoading: true)));
-    final response = await _smartGoalsService.resetProgress(sessionId: event.sessionId);
+    final response = await _smartGoalsService.resetProgress(progressId: event.progressId);
 
-    response.fold((l) => emit(SmartGoalsState.error(state.data.copyWith(error: l, isLoading: false))), (r) {
+    response.fold(
+        (l) => emit(SmartGoalsState.error(state.data.copyWith(error: l, isLoading: false))), (r) {
       var sessions = [...state.data.weeklyGoalsSessions];
       final index = sessions.indexWhere((session) => session.id == r.id);
       sessions[index] = r;
-      emit(SmartGoalsState.progressReset(state.data.copyWith(weeklyGoalsSessions: [...sessions], isLoading: false)));
+      emit(SmartGoalsState.progressReset(
+          state.data.copyWith(weeklyGoalsSessions: [...sessions], isLoading: false)));
     });
   }
 
   void _logGoalAnalyticEvent(ProgressSmartGoalLog log) {
-    AnalyticsEventService.instance.logEvent(
-      FirebaseEvents.userLogGoal,
+    AnalyticsEventService().logEvent(
+      eventName: AnalyticsEvents.userLogGoal,
       parameters: {
-        CustomDefinitions.userId: account?.id,
-        CustomDefinitions.value: log.times,
-        CustomDefinitions.timestamp: log.date,
+        AnalyticsParameters.userId: account?.id,
+        AnalyticsParameters.value: log.times,
+        AnalyticsParameters.timestamp: log.date,
       },
     );
+
     CustomerIoService.track(
       event: CIOEvents.userLogGoal,
       attributes: {

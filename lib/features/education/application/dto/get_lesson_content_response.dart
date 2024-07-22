@@ -1,8 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:json_annotation/json_annotation.dart';
-import 'package:loopcare_frontend/core/domain/unlock_config/lesson_unlock_config/lesson_unlock_config.dart';
-import 'package:loopcare_frontend/features/education/application/dto/lesson_page.dart';
-import 'package:loopcare_frontend/features/quizzes/domain/lesson_question.dart';
+import 'package:loopcare_frontend/features/education/domain/lesson_content_type.dart';
+import 'package:loopcare_frontend/features/lesson_quiz/domain/quiz.dart';
 
 part 'get_lesson_content_response.g.dart';
 
@@ -10,32 +9,37 @@ part 'get_lesson_content_response.g.dart';
 @JsonSerializable()
 class GetLessonContentResponse {
   final int id;
-  final String category;
   final String title;
-  final String image;
   final int duration;
-  final int pageCounter;
-  final LessonUnlockConfig unlockingConfig;
-  final DateTime? completedAt;
-  final int step;
-  final List<LessonPage> pages;
-  final List<LessonQuestion> questions;
+  final LessonContentType contentType;
+  final String imageUrl;
+  final String cardImageUrl;
+  final String? audioUrl;
+  final String htmlUrl;
+  final String? subtitleImages;
+  final Quiz? quiz;
+  final String? conclusion;
+  final String? unlockTitle;
+  final String? unlockDescription;
 
   const GetLessonContentResponse(
     this.id,
-    this.category,
     this.title,
-    this.image,
     this.duration,
-    this.pageCounter,
-    this.unlockingConfig,
-    this.completedAt,
-    this.step,
-    this.pages,
-    this.questions,
+    this.contentType,
+    this.imageUrl,
+    this.cardImageUrl,
+    this.audioUrl,
+    this.htmlUrl,
+    this.subtitleImages,
+    this.quiz,
+    this.conclusion,
+    this.unlockTitle,
+    this.unlockDescription,
   );
 
-  static GetLessonContentResponse fromJson(Map<String, dynamic> json) => _$GetLessonContentResponseFromJson(json);
+  static GetLessonContentResponse fromJson(Map<String, dynamic> json) =>
+      _$GetLessonContentResponseFromJson(json);
 
   Map<String, dynamic> toJson() => _$GetLessonContentResponseToJson(this);
 }

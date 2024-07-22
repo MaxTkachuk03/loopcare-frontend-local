@@ -13,7 +13,7 @@ const int timeoutDuration = 30000;
 Map<String, String> headers = {
   contentType: applicationJson,
   accept: applicationJson,
-  defaultLanguage: "en",
+  defaultLanguage: appConfig.language,
   region: appConfig.region,
 };
 

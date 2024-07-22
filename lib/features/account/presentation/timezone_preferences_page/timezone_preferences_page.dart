@@ -3,9 +3,9 @@ import 'package:collection/collection.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:loopcare_frontend/core/domain/analytics/firebase_event_custom_definitions.dart';
-import 'package:loopcare_frontend/core/domain/analytics/firebase_event_list.dart';
-import 'package:loopcare_frontend/core/infrastructure/services/firebase_event_service.dart';
+import 'package:loopcare_frontend/core/domain/analytics/analytics_events.dart';
+import 'package:loopcare_frontend/core/domain/analytics/analytics_parameters.dart';
+import 'package:loopcare_frontend/core/infrastructure/services/analytics_service.dart';
 import 'package:loopcare_frontend/core/presentation/alerting/show_app_snackbar.dart';
 import 'package:loopcare_frontend/core/presentation/buttons/custom_elevated_button.dart';
 import 'package:loopcare_frontend/core/presentation/choice_chip/custom_choice_chip.dart';
@@ -21,16 +21,19 @@ import 'package:loopcare_frontend/features/account/application/group_preferences
 import 'package:loopcare_frontend/features/account/domain/group_prefs_mode.dart';
 import 'package:loopcare_frontend/features/account/presentation/widgets/group_lesson_wrap.dart';
 import 'package:loopcare_frontend/features/account/presentation/widgets/group_prefs_page_wrap.dart';
-import 'package:loopcare_frontend/features/education/application/education_lesson/education_lesson_bloc.dart';
+import 'package:loopcare_frontend/features/river/infrastructure/river_module_stream_type.dart';
 import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 import 'package:timezone/timezone.dart';
 
+@RoutePage()
 class TimezonePreferencesPage extends StatefulWidget {
+  final RiverModuleStreamType streamType;
   final bool fromLessonComplete;
 
   const TimezonePreferencesPage({
     super.key,
     required this.fromLessonComplete,
+    this.streamType = RiverModuleStreamType.psychology,
   });
 
   @override
@@ -80,26 +83,30 @@ class _TimezonePreferencesPageState extends State<TimezonePreferencesPage> {
   }
 
   void _onErrorHandler(GroupPreferencesState state) =>
-      context.showError(content: Text(state.data.error?.error.toString() ?? ''));
+      context.showError(content: Text(state.data.error?.message.tr() ?? ''));
 
   void _onUpdateHandler(GroupPreferencesState state) {
     final groupPrefsMode = context.read<GroupPreferencesBloc>().state.data.groupPrefsMode;
 
     if (groupPrefsMode == GroupPrefsMode.groupingLesson) {
-      context.read<EducationLessonBloc>().add(const EducationLessonEvent.progressForward());
+      // context.read<EducationLessonBloc>().add(const EducationLessonEvent.progressForward());
     }
 
-    AnalyticsEventService.instance.logEvent(
-      FirebaseEvents.userFillsOutTimezonePreferences,
+    AnalyticsEventService().logEvent(
+      eventName: AnalyticsEvents.userFillsOutTimezonePreferences,
       parameters: {
-        CustomDefinitions.navigatedFrom: widget.fromLessonComplete ? 'Lesson content' : 'User profile',
+        AnalyticsParameters.navigatedFrom:
+            widget.fromLessonComplete ? 'Lesson content' : 'User profile',
       },
     );
 
     if (groupPrefsMode == GroupPrefsMode.singlePage) {
-      context.router.pop();
+      context.router.maybePop();
     } else {
-      context.router.push(NicknamePreferencesRoute(fromLessonComplete: widget.fromLessonComplete));
+      context.router.push(NicknamePreferencesRoute(
+        fromLessonComplete: widget.fromLessonComplete,
+        streamType: widget.streamType,
+      ));
     }
   }
 
@@ -140,6 +147,7 @@ class _TimezonePreferencesPageState extends State<TimezonePreferencesPage> {
       child: GroupLessonWrap(
         fromLessonComplete: widget.fromLessonComplete,
         child: GroupPrefsPageWrap(
+          streamType: widget.streamType,
           fromLessonComplete: widget.fromLessonComplete,
           child: CustomSafeArea(
             child: Column(
@@ -157,13 +165,14 @@ class _TimezonePreferencesPageState extends State<TimezonePreferencesPage> {
                       ),
                       const SizedBox(height: 20.0),
                       SearchField(
-                          hintText: LocalizedTexts.searchTimezone.tr(),
-                          contentPadding: const EdgeInsets.symmetric(vertical: 0, horizontal: 16.0),
-                          prefixIcon: const Icon(
-                            Icons.search,
-                            color: AppColors.greyLabel,
-                          ),
-                          onChanged: _onSearch),
+                        hintText: LocalizedTexts.searchTimezone.tr(),
+                        contentPadding: const EdgeInsets.symmetric(vertical: 0, horizontal: 16.0),
+                        prefixIcon: const Icon(
+                          Icons.search,
+                          color: AppColors.greyLabel,
+                        ),
+                        onChanged: _onSearch,
+                      ),
                     ],
                   ),
                 ),
@@ -195,8 +204,9 @@ class _TimezonePreferencesPageState extends State<TimezonePreferencesPage> {
                       const SizedBox(height: 24.0),
                       CustomElevatedButton.blueFullWidth(
                         onPressed: _selectedLocation == null ? null : _onNextPressedHandler,
-                        label:
-                            widget.fromLessonComplete ? LocalizedTexts.next.tr() : LocalizedTexts.save.tr(),
+                        label: widget.fromLessonComplete
+                            ? LocalizedTexts.next.tr()
+                            : LocalizedTexts.save.tr(),
                       ),
                       const SizedBox(height: 30.0),
                     ],

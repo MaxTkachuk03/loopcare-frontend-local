@@ -32,15 +32,9 @@ class SettingsDialog extends StatelessWidget {
                     title: CustomText.w400('Toggle speaker ${isSpeakerOn ? 'off' : 'on'}'),
                     onTap: () {
                       onToggleSpeaker();
-                      context.router.pop();
+                      context.router.maybePop();
                     },
                   ),
-                  // ListTile(
-                  //   title: const Text('Toggle camera aspect ratio'),
-                  //   onTap: () {
-                  //     context.router.pop();
-                  //   },
-                  // ),
                 ],
               ).toList(),
             ),

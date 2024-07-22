@@ -6,24 +6,32 @@ import 'package:loopcare_frontend/core/presentation/buttons/custom_elevated_butt
 import 'package:loopcare_frontend/core/presentation/buttons/custom_filled_icon_button.dart';
 import 'package:loopcare_frontend/core/presentation/custom_safe_area.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
-import 'package:loopcare_frontend/core/presentation/routes/app_router.dart';
+import 'package:loopcare_frontend/core/presentation/routes/app_router.gr.dart';
 import 'package:loopcare_frontend/core/presentation/scaffold/custom_scaffold.dart';
 import 'package:loopcare_frontend/core/presentation/text/custom_text.dart';
 import 'package:loopcare_frontend/core/presentation/utils/build_context_extensions.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/main_container.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/scrollable_container.dart';
+import 'package:loopcare_frontend/features/river/infrastructure/river_module_stream_type.dart';
 
+@RoutePage()
 class BuddyDescriptionPage extends StatelessWidget {
-  const BuddyDescriptionPage({super.key});
+  final RiverModuleStreamType streamType;
 
-  void _onNextPressed(BuildContext context) => context.router.pushNamed(AppRoutes.lessonComplete);
+  const BuddyDescriptionPage({super.key, required this.streamType});
+
+  void _onNextPressed(BuildContext context) =>
+      context.router.push(LessonCompleteRoute(streamType: streamType));
 
   @override
   Widget build(BuildContext context) {
-    return CustomScaffold.petrolLightest(
-      appBar: CustomAppBar.petrol(
+    return CustomScaffold(
+      color: streamType.lightestColor,
+      appBar: CustomAppBar(
+        backgroundColor: streamType.regularColor,
+        textTheme: streamType.appBarTextTheme,
         title: LocalizedTexts.preferences.tr(),
-        leading: CustomFilledIconButton.leadingPetrolLighter(),
+        leading: CustomFilledIconButton.fromColor(color: streamType.lighterColor),
       ),
       body: CustomSafeArea(
         child: ScrollableContainer(

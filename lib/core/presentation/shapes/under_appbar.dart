@@ -11,8 +11,8 @@ class UnderAppbar extends StatelessWidget {
 
   const UnderAppbar({super.key, required this.child, this.fillColor, this.height});
 
-  factory UnderAppbar.coral({required Widget child}) =>
-      UnderAppbar(fillColor: AppColors.coralRegular, child: child);
+  factory UnderAppbar.coral({required Widget child, double? height}) =>
+      UnderAppbar(fillColor: AppColors.coralRegular, height: height, child: child);
 
   factory UnderAppbar.orange({required Widget child}) =>
       UnderAppbar(fillColor: AppColors.orangeRegular, child: child);

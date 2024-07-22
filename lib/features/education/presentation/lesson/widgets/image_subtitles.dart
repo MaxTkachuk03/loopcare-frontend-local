@@ -31,7 +31,7 @@ class _ImageSubtitlesState extends State<ImageSubtitles> {
   }
 
   _parseSubTitleFile() async {
-    final path = context.read<EducationLessonBloc>().state.data.currentPage.content.subtitleFilePath;
+    final path = context.read<EducationLessonBloc>().state.data.subtitleFilePath;
 
     final subtitleFile = await File(path).readAsString();
 
@@ -41,14 +41,15 @@ class _ImageSubtitlesState extends State<ImageSubtitles> {
   String _getSubtitleImagePath(int lessonId, String src) =>
       "${appConfig.baseUrl}/education/content/$lessonId/$src";
 
-  Map<String, String> get _headers => {"Authorization": 'Bearer ${storage.getString('access_token')}'};
+  Map<String, String> get _headers =>
+      {"Authorization": 'Bearer ${storage.getString('access_token')}'};
 
   @override
   Widget build(BuildContext context) {
     return ValueListenableBuilder<AudioSubtitle?>(
       valueListenable: widget.controller.activeSubtitleItem,
       builder: (context, activeSubtitleItem, _) {
-        final int lessonId = context.read<EducationLessonBloc>().state.data.lessonId;
+        final int lessonId = context.read<EducationLessonBloc>().state.data.id;
         final path = _getSubtitleImagePath(lessonId, activeSubtitleItem?.src ?? '');
 
         return widget.controller.hasActiveSubtitleItem

@@ -7,9 +7,9 @@ import 'package:flash/flash_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loopcare_frontend/build_type.dart';
-import 'package:loopcare_frontend/core/domain/analytics/firebase_event_custom_definitions.dart';
-import 'package:loopcare_frontend/core/domain/analytics/firebase_event_list.dart';
-import 'package:loopcare_frontend/core/infrastructure/services/firebase_event_service.dart';
+import 'package:loopcare_frontend/core/domain/analytics/analytics_events.dart';
+import 'package:loopcare_frontend/core/domain/analytics/analytics_parameters.dart';
+import 'package:loopcare_frontend/core/infrastructure/services/analytics_service.dart';
 import 'package:loopcare_frontend/core/presentation/alerting/modal_bottom_sheet.dart';
 import 'package:loopcare_frontend/core/presentation/buttons/custom_outlined_button.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
@@ -27,24 +27,27 @@ class DeleteAccountSection extends StatefulWidget {
 }
 
 class _DeleteAccountSectionState extends State<DeleteAccountSection> {
-  _onDeleteAccountPressed(BuildContext context, bool noActiveSubscription, SubscriptionState state) {
+  _onDeleteAccountPressed(
+      BuildContext context, bool noActiveSubscription, SubscriptionState state) {
     isVendorPlatform(state)
         ? ModalBottomSheet.deleteAccount(
             context: context,
             noActiveSubscription: noActiveSubscription,
             onDeleted: () {
               context.read<AuthenticationBloc>().add(const AuthenticationEvent.deleteAccount());
-              AnalyticsEventService.instance.logEvent(
-                FirebaseEvents.deleteAccount,
+              AnalyticsEventService().logEvent(
+                eventName: AnalyticsEvents.deleteAccount,
                 parameters: {
-                  CustomDefinitions.timestamp: DateTime.now().toIso8601String(),
-                  CustomDefinitions.confirmed: true,
+                  AnalyticsParameters.timestamp: DateTime.now().toIso8601String(),
+                  AnalyticsParameters.confirmed: true,
                 },
               );
             },
             onSubscriptionPref: () => Platform.isIOS
-                ? launchUrl(Uri.parse(appConfig.appStoreSettingsLink), mode: LaunchMode.externalApplication)
-                : launchUrl(Uri.parse(appConfig.playMarketSettingsLink), mode: LaunchMode.externalApplication),
+                ? launchUrl(Uri.parse(appConfig.appStoreSettingsLink),
+                    mode: LaunchMode.externalApplication)
+                : launchUrl(Uri.parse(appConfig.playMarketSettingsLink),
+                    mode: LaunchMode.externalApplication),
           )
         : _showPopover();
   }
@@ -63,7 +66,7 @@ class _DeleteAccountSectionState extends State<DeleteAccountSection> {
           content: CustomText(LocalizedTexts.otherPurchaseVendorCancelAccountSubscription.tr()),
           actions: [
             TextButton(
-              onPressed: () => context.router.pop(),
+              onPressed: () => context.router.maybePop(),
               child: Text(LocalizedTexts.ok.tr().toUpperCase()),
             ),
           ],
@@ -75,11 +78,11 @@ class _DeleteAccountSectionState extends State<DeleteAccountSection> {
         noActiveSubscription: true,
         onDeleted: () {
           context.read<AuthenticationBloc>().add(const AuthenticationEvent.deleteAccount());
-          AnalyticsEventService.instance.logEvent(
-            FirebaseEvents.deleteAccount,
+          AnalyticsEventService().logEvent(
+            eventName: AnalyticsEvents.deleteAccount,
             parameters: {
-              CustomDefinitions.timestamp: DateTime.now().toIso8601String(),
-              CustomDefinitions.confirmed: true,
+              AnalyticsParameters.timestamp: DateTime.now().toIso8601String(),
+              AnalyticsParameters.confirmed: 'true',
             },
           );
         },
@@ -92,14 +95,17 @@ class _DeleteAccountSectionState extends State<DeleteAccountSection> {
       child: BlocListener<SubscriptionBloc, SubscriptionState>(
         listener: (context, state) => state.maybeMap(
           error: (state) => _errorListener,
-          gotAccountSubscription: (state) => _onDeleteAccountPressed(context, !state.data.hasSubscription, state),
+          gotAccountSubscription: (state) =>
+              _onDeleteAccountPressed(context, !state.data.hasSubscription, state),
           orElse: () => null,
         ),
         child: Column(
           children: [
             CustomOutlinedButton.coralFullWidth(
               onPressed: () => kIsProd
-                  ? context.read<SubscriptionBloc>().add(const SubscriptionEvent.getAccountSubscription())
+                  ? context
+                      .read<SubscriptionBloc>()
+                      .add(const SubscriptionEvent.getAccountSubscription())
                   : _confirmDelete(),
               label: LocalizedTexts.deleteAccount.tr(),
             ),
@@ -110,11 +116,11 @@ class _DeleteAccountSectionState extends State<DeleteAccountSection> {
   }
 
   _errorListener(BuildContext context, SubscriptionState state) {
-    final errorMessage = state.data.errorMessage ?? LocalizedTexts.somethingWentWrong.tr();
+    final errorMessage = state.data.errorMessage ?? LocalizedTexts.somethingWentWrong;
     context.showErrorBar(
-      content: Text(errorMessage),
+      content: Text(errorMessage.tr()),
       position: FlashPosition.top,
     );
-    context.router.pop();
+    context.router.maybePop();
   }
 }

@@ -1,7 +1,6 @@
 import 'package:dartz/dartz.dart';
 import 'package:injectable/injectable.dart';
 import 'package:loopcare_frontend/core/infrastructure/dio_client/dio_client.dart';
-import 'package:loopcare_frontend/core/infrastructure/dio_client/parse_response.dart';
 import 'package:loopcare_frontend/core/infrastructure/dio_client/request_error.dart';
 import 'package:loopcare_frontend/features/mind/application/dto/complete_exercise_data.dart';
 import 'package:loopcare_frontend/features/mind/application/dto/mind_info_response.dart';
@@ -26,7 +25,10 @@ class APIMindService implements MindService {
     // TODO use to mock info server response
     // return right(MindInfoResponse.fromJson(program));
 
-    return client.get('/mind/program').then(parseResponse(MindInfoResponse.fromJson));
+    return await client.get(
+      '/mind/program',
+      fromJson: MindInfoResponse.fromJson,
+    );
   }
 
   @override
@@ -34,7 +36,10 @@ class APIMindService implements MindService {
     // TODO use to mock techniques server response
     // return right(MindTechniquesResponse.fromJson({'data': techniques}));
 
-    return client.get('/mind/techniques').then(parseResponse(MindTechniquesResponse.fromJson));
+    return await client.get(
+      '/mind/techniques',
+      fromJson: MindTechniquesResponse.fromJson,
+    );
   }
 
   @override
@@ -42,7 +47,10 @@ class APIMindService implements MindService {
     // TODO use to mock exercises server response
     // return right(MindTechniqueExercisesResponse.fromJson({'data': exercises}));
 
-    return client.get('/mind/techniques/$techniqueId/exercises').then(parseResponse(MindTechniqueExercisesResponse.fromJson));
+    return await client.get(
+      '/mind/techniques/$techniqueId/exercises',
+      fromJson: MindTechniqueExercisesResponse.fromJson,
+    );
   }
 
   @override
@@ -51,9 +59,10 @@ class APIMindService implements MindService {
     int exerciseId, {
     required CompleteExerciseData data,
   }) async {
-    return client.post(
+    return await client.post(
       '/mind/techniques/$techniqueId/exercises/$exerciseId',
       data: data,
-    ).then(parseResponse(MindTechniqueExercise.fromJson));
+      fromJson: MindTechniqueExercise.fromJson,
+    );
   }
 }

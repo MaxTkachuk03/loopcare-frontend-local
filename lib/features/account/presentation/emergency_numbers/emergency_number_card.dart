@@ -63,7 +63,9 @@ class EmergencyNumberCard extends StatelessWidget {
     try {
       await launchUrl(launchUri, mode: LaunchMode.externalApplication);
     } catch (e) {
-      _showError(context);
+      if (context.mounted) {
+        _showError(context);
+      }
     }
   }
 
@@ -73,7 +75,9 @@ class EmergencyNumberCard extends StatelessWidget {
     try {
       await launchUrl(launchUri);
     } catch (e) {
-      _showError(context);
+      if (context.mounted) {
+        _showError(context);
+      }
     }
   }
 }

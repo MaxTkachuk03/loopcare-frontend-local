@@ -1,7 +1,6 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:loopcare_frontend/core/infrastructure/dio_client/response_error_const.dart';
 import 'package:loopcare_frontend/core/presentation/alerting/show_app_snackbar.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/core/presentation/text/custom_text.dart';
@@ -119,24 +118,11 @@ class _EmailAddressFormState extends State<EmailAddressForm> {
   void _errorListener(BuildContext context, AuthenticationState state) {
     final error = state.data.error;
     if (error != null) {
-      final errorMessage = error.maybeMap(
-        badRequest: (value) {
-          final message = error.error.message;
-          if (message == accountAlreadyExists) {
-            _emailErrorTextNotifier.value = LocalizedTexts.emailAlreadyTaken.tr();
-            return null;
-          } else {
-            return LocalizedTexts.somethingIsIncorrect.tr();
-          }
-        },
-        forbidden: (forbidden) => (forbidden.error.message != null)
-            ? forbidden.error.message!
-            : LocalizedTexts.somethingIsIncorrect.tr(),
-        orElse: () => LocalizedTexts.somethingIsIncorrect.tr(),
-      );
-
-      if (errorMessage != null) {
-        context.showError(content: Text(errorMessage));
+      final message = error.message;
+      if (message == LocalizedTexts.accountAlreadyExists) {
+        _emailErrorTextNotifier.value = message.tr();
+      } else {
+        context.showError(content: Text(message.tr()));
       }
     }
   }

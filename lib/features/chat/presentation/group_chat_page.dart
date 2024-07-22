@@ -1,3 +1,5 @@
+// ignore_for_file: depend_on_referenced_packages
+
 import 'package:auto_route/auto_route.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flash/flash.dart';
@@ -8,8 +10,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_chat_types/flutter_chat_types.dart' as types;
 import 'package:flutter_chat_ui/flutter_chat_ui.dart';
 import 'package:loopcare_frontend/core/domain/account/account.dart';
-import 'package:loopcare_frontend/core/domain/analytics/firebase_event_list.dart';
-import 'package:loopcare_frontend/core/infrastructure/services/firebase_event_service.dart';
+import 'package:loopcare_frontend/core/domain/analytics/analytics_events.dart';
+import 'package:loopcare_frontend/core/infrastructure/services/analytics_service.dart';
 import 'package:loopcare_frontend/core/infrastructure/services/overlay_service.dart';
 import 'package:loopcare_frontend/core/infrastructure/services/shared_storage/shared_storage_service.dart';
 import 'package:loopcare_frontend/core/presentation/alerting/modal_bottom_sheet.dart';
@@ -37,6 +39,7 @@ import 'package:loopcare_frontend/injection.dart';
 
 const int _maxMessageLength = 1024;
 
+@RoutePage()
 class GroupChatPage extends StatefulWidget {
   const GroupChatPage({super.key});
 
@@ -52,7 +55,7 @@ class _GroupChatPageState extends State<GroupChatPage> with WidgetsBindingObserv
     WidgetsBinding.instance.addObserver(this);
     super.initState();
 
-    AnalyticsEventService.instance.logEvent(FirebaseEvents.userOpenedChat);
+    AnalyticsEventService().logEvent(eventName: AnalyticsEvents.userOpenedChat);
   }
 
   @override
@@ -60,7 +63,7 @@ class _GroupChatPageState extends State<GroupChatPage> with WidgetsBindingObserv
     WidgetsBinding.instance.removeObserver(this);
     super.dispose();
 
-    AnalyticsEventService.instance.logEvent(FirebaseEvents.userLeavesChat);
+    AnalyticsEventService().logEvent(eventName: AnalyticsEvents.userLeavesChat);
   }
 
   @override
@@ -196,7 +199,7 @@ class _GroupChatPageState extends State<GroupChatPage> with WidgetsBindingObserv
           content: CustomText('${LocalizedTexts.messageLengthRestriction.tr()}.'),
           actions: [
             TextButton(
-              onPressed: () => context.router.pop(),
+              onPressed: context.router.maybePop,
               child: Text(LocalizedTexts.ok.tr().toUpperCase()),
             ),
           ],
@@ -233,18 +236,20 @@ class _GroupChatPageState extends State<GroupChatPage> with WidgetsBindingObserv
   }
 
   void _setReadPointer(GroupChatState state) {
-    if (state.data.messages.isNotEmpty && context.tabsRouter.activeIndex == 2 && _account.isUserGrouped) {
+    if (state.data.messages.isNotEmpty &&
+        context.tabsRouter.activeIndex == 2 &&
+        _account.isUserGrouped) {
       _controller.setReadPointer(fromMessageId: state.data.messages.first.id!);
     }
   }
 
   void _onErrorHandler(GroupChatState state) {
     final String? errorMessage = state.data.error?.maybeMap(
-      unprocessableEntity: (s) => s.error.message,
-      orElse: () => LocalizedTexts.somethingWentWrong.tr(),
+      unprocessableEntity: (s) => s.message,
+      orElse: () => LocalizedTexts.somethingWentWrong,
     );
     context.showErrorBar(
-      content: CustomText(errorMessage ?? ''),
+      content: CustomText(errorMessage?.tr() ?? LocalizedTexts.somethingWentWrong.tr()),
       position: FlashPosition.top,
     );
   }
@@ -257,8 +262,9 @@ class _GroupChatPageState extends State<GroupChatPage> with WidgetsBindingObserv
       message.text.isEmpty
           ? Container(
               height: avatarSize,
-              alignment:
-                  _controller.user.id != message.author.id ? Alignment.centerLeft : Alignment.centerRight,
+              alignment: _controller.user.id != message.author.id
+                  ? Alignment.centerLeft
+                  : Alignment.centerRight,
               padding: const EdgeInsets.symmetric(horizontal: 4.0),
               child: CustomText.w400(
                 LocalizedTexts.messageRemoved.tr(),

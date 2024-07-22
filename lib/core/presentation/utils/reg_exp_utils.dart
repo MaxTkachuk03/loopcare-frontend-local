@@ -1,0 +1,21 @@
+class RegExpUtils {
+  static const upperCaseLetters = r"(?<=[a-z])(?=[A-Z])";
+
+  static const withDecimals = r"[0-9]+[,.]{0,1}[0-9]*";
+
+  static const onlyDigits = r"[0-9]";
+
+  static const digitsReg = r".*[0-9].*";
+
+  static const letterReg = r".*[A-Za-z].*";
+
+  static const capitalLetterReg = r".*[A-Z].*";
+
+  static const specialCharactersReg = r".*[/$&+,:;=?@#|'<>.^*()%!%~-].*";
+
+  static const digitsWithDotOrComma = r"^\d+([.,]\d*)?$";
+
+  static const userName = r"^([^\x00-\x7F]|[\w_\ \.\+\-\']){1,64}$";
+
+  RegExpUtils._();
+}

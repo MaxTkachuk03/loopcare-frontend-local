@@ -2,7 +2,6 @@ part of '../mind_content_screen.dart';
 
 class _VideoCompleteContent extends StatelessWidget {
   const _VideoCompleteContent({
-    super.key,
     required this.isExercise,
     required this.contentTitle,
     required this.completeButtonLabel,
@@ -85,8 +84,8 @@ class _VideoCompleteContent extends StatelessWidget {
                 label: LocalizedTexts.repeat.tr(),
                 style: ButtonStyle(
                   side: ButtonStyles.getButtonBorder(ButtonStyles.borderYellow),
-                  backgroundColor: MaterialStateProperty.resolveWith<Color?>(
-                    (states) => states.contains(MaterialState.disabled) ? AppColors.greenLightest : AppColors.white,
+                  backgroundColor: WidgetStateProperty.resolveWith<Color?>(
+                    (states) => states.contains(WidgetState.disabled) ? AppColors.greenLightest : AppColors.white,
                   ),
                 ),
                 onPressed: onRepeatPressed,

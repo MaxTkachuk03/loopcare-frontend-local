@@ -121,7 +121,8 @@ extension SnackBarShortcuts on BuildContext {
                   : const EdgeInsets.all(24.0),
               child: Row(
                 children: [
-                  if (leadIcon != null) Padding(padding: const EdgeInsets.only(right: 8.0), child: leadIcon),
+                  if (leadIcon != null)
+                    Padding(padding: const EdgeInsets.only(right: 8.0), child: leadIcon),
                   Expanded(
                     child: Text(
                       text,

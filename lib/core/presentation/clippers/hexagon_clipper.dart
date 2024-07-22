@@ -5,25 +5,16 @@ class HexagonClipper extends CustomClipper<Path> {
   Path getClip(Size size) {
     Path path = Path();
 
-    path.moveTo(size.width * 0.9674330, size.height * -0.2068701);
-    path.cubicTo(size.width * 1.010856, size.height * -0.04601023, size.width * 1.010856,
-        size.height * 0.1528948, size.width * 0.9674330, size.height * 0.3137540);
-    path.lineTo(size.width * 0.8380490, size.height * 0.7436494);
-    path.cubicTo(size.width * 0.7952010, size.height * 0.9023908, size.width * 0.7165541, size.height,
-        size.width * 0.6315077, size.height);
-    path.lineTo(size.width * 0.3627629, size.height);
-    path.cubicTo(size.width * 0.2777165, size.height, size.width * 0.1990693, size.height * 0.9023908,
-        size.width * 0.1562198, size.height * 0.7436494);
-    path.lineTo(size.width * 0.03256675, size.height * 0.3137540);
-    path.cubicTo(size.width * -0.01085554, size.height * 0.1528943, size.width * -0.01085546,
-        size.height * -0.04601069, size.width * 0.03256675, size.height * -0.2068707);
-    path.lineTo(size.width * 0.1619508, size.height * -0.6861782);
-    path.cubicTo(size.width * 0.2048003, size.height * -0.8449195, size.width * 0.2834459,
-        size.height * -0.9425287, size.width * 0.3684923, size.height * -0.9425287);
-    path.lineTo(size.width * 0.6315077, size.height * -0.9425287);
-    path.cubicTo(size.width * 0.7165541, size.height * -0.9425287, size.width * 0.7952010,
-        size.height * -0.8449195, size.width * 0.8380490, size.height * -0.6861782);
-    path.lineTo(size.width * 0.9674330, size.height * -0.2068701);
+    path.lineTo(size.width, 0);
+    path.cubicTo(size.width, size.height * 0.1, size.width, size.height / 5, size.width * 0.97, size.height * 0.29);
+    path.cubicTo(size.width * 0.97, size.height * 0.29, size.width * 0.84, size.height * 0.74, size.width * 0.84, size.height * 0.74);
+    path.cubicTo(size.width * 0.8, size.height * 0.9, size.width * 0.72, size.height, size.width * 0.63, size.height);
+    path.cubicTo(size.width * 0.63, size.height, size.width * 0.36, size.height, size.width * 0.36, size.height);
+    path.cubicTo(size.width * 0.28, size.height, size.width / 5, size.height * 0.9, size.width * 0.16, size.height * 0.74);
+    path.cubicTo(size.width * 0.16, size.height * 0.74, size.width * 0.03, size.height * 0.29, size.width * 0.03, size.height * 0.29);
+    path.cubicTo(size.width * 0.01, size.height / 5, 0, size.height * 0.1, 0, 0);
+    path.cubicTo(0, 0, size.width, 0, size.width, 0);
+    path.lineTo(size.width, 0);
 
     path.close();
 

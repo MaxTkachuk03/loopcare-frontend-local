@@ -3,9 +3,9 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loopcare_frontend/core/application/analytics_bloc.dart';
-import 'package:loopcare_frontend/core/domain/analytics/firebase_event_custom_definitions.dart';
-import 'package:loopcare_frontend/core/domain/analytics/firebase_event_list.dart';
-import 'package:loopcare_frontend/core/infrastructure/services/firebase_event_service.dart';
+import 'package:loopcare_frontend/core/domain/analytics/analytics_events.dart';
+import 'package:loopcare_frontend/core/domain/analytics/analytics_parameters.dart';
+import 'package:loopcare_frontend/core/infrastructure/services/analytics_service.dart';
 import 'package:loopcare_frontend/core/presentation/buttons/custom_elevated_button.dart';
 import 'package:loopcare_frontend/core/presentation/buttons/custom_outlined_button.dart';
 import 'package:loopcare_frontend/core/presentation/icon_images/app_icons.dart';
@@ -104,14 +104,14 @@ class BookedSessionCard extends StatelessWidget {
 
     context.read<AnalyticsBloc>().add(
           AnalyticsEvent.sendAnalytics(
-            FirebaseEvents.openedSessionPreparationMaterials,
+            AnalyticsEvents.openedSessionPreparationMaterials,
             {
-              CustomDefinitions.timestamp: DateTime.now().toIso8601String(),
+              AnalyticsParameters.timestamp: DateTime.now().toIso8601String(),
             },
           ),
         );
 
-    AnalyticsEventService.instance.openedSessionPreparationMaterialsEvent(
+  AnalyticsEventService().openedSessionPreparationMaterialsEvent(
       sessionId,
       groupSession.topic,
     );
@@ -120,10 +120,10 @@ class BookedSessionCard extends StatelessWidget {
   }
 
   _onCancelPressed(BuildContext context) {
-    AnalyticsEventService.instance.logEvent(
-      FirebaseEvents.userSignedOutFromSession,
+    AnalyticsEventService().logEvent( eventName:
+    AnalyticsEvents.userSignedOutFromSession,
       parameters: {
-        CustomDefinitions.sessionId: groupSession.id.toString(),
+        AnalyticsParameters.sessionId: groupSession.id.toString(),
       },
     );
     context.read<TopicsBloc>().add(TopicsEvent.signOutFromSession(groupSession.id));

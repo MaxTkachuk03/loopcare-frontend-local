@@ -88,7 +88,7 @@ class CustomTextField extends StatefulWidget {
         maxLength: 64,
         hintText: LocalizedTexts.nicknamePlaceholder.tr(),
         controller: controller,
-        validator: nameValidator(),
+        validator: NameValidator.validate,
         keyboardType: TextInputType.name,
         fillColor: fillColor,
         errorText: errorText,

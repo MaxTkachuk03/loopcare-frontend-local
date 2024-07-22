@@ -2,16 +2,25 @@ part of 'barcode_scanner_bloc.dart';
 
 @freezed
 class BarcodeScannerState with _$BarcodeScannerState {
-  factory BarcodeScannerState.initial() => const BarcodeScannerState.success(
-        foodItem: null,
-      );
+  const factory BarcodeScannerState.initial(BarcodeScannerStateData data) =
+      BarcodeScannerStateInitial;
 
-  factory BarcodeScannerState.loading() = _Loading;
+  const factory BarcodeScannerState.loading(BarcodeScannerStateData data) =
+      BarcodeScannerStateLoading;
 
-  const factory BarcodeScannerState.success({
-    FoodItemBarCode? foodItem,
-    RequestError? barcodeError,
-  }) = _Success;
-//TODO: old state style
-  const factory BarcodeScannerState.error({required RequestError error}) = _Error;
+  const factory BarcodeScannerState.error(BarcodeScannerStateData data) = BarcodeScannerStateError;
+
+  const factory BarcodeScannerState.loaded(BarcodeScannerStateData data) =
+      BarcodeScannerStateLoaded;
+}
+
+@freezed
+class BarcodeScannerStateData with _$BarcodeScannerStateData {
+  const BarcodeScannerStateData._();
+
+  const factory BarcodeScannerStateData({
+    @Default(null) FoodItemBarCode? foodItem,
+    @Default(false) bool isLoading,
+    @Default(null) RequestError? error,
+  }) = _BarcodeScannerStateData;
 }

@@ -1,5 +1,5 @@
+import 'package:auto_route/annotations.dart';
 import 'package:easy_localization/easy_localization.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loopcare_frontend/core/presentation/app_bar/custom_app_bar.dart';
@@ -15,6 +15,7 @@ import 'package:loopcare_frontend/core/presentation/widgets/main_container.dart'
 import 'package:loopcare_frontend/features/smart_goals/application/smart_goals_statistics_bloc.dart';
 import 'package:loopcare_frontend/features/smart_goals/presentation/goals_statistics_page/widgets/goals_stats_list.dart';
 
+@RoutePage()
 class GoalsStatisticsPage extends StatefulWidget {
   const GoalsStatisticsPage({super.key});
 

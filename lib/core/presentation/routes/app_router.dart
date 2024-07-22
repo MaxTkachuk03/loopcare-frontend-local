@@ -2,102 +2,8 @@ import 'package:auto_route/auto_route.dart';
 import 'package:loopcare_frontend/core/presentation/routes/gender_prefs_guard.dart';
 import 'package:loopcare_frontend/core/presentation/routes/proxy_guard.dart';
 import 'package:loopcare_frontend/core/presentation/routes/unlock_feature_guard.dart';
-import 'package:loopcare_frontend/core/presentation/theme_components_theme/theme_components_theme.dart';
-import 'package:loopcare_frontend/features/access_code/access_code_page.dart';
-import 'package:loopcare_frontend/features/account/presentation/account_page/account_page.dart';
-import 'package:loopcare_frontend/features/account/presentation/buddy_page/buddy_preferences_page.dart';
-import 'package:loopcare_frontend/features/account/presentation/buddy_page/presentation/buddy_completed_page.dart';
-import 'package:loopcare_frontend/features/account/presentation/buddy_page/presentation/buddy_email_page.dart';
-import 'package:loopcare_frontend/features/account/presentation/buddy_page/presentation/buddy_live_together_page.dart';
-import 'package:loopcare_frontend/features/account/presentation/buddy_page/presentation/buddy_relation_page.dart';
-import 'package:loopcare_frontend/features/account/presentation/edit_food_preferences_page/edit_food_preferences_page.dart';
-import 'package:loopcare_frontend/features/account/presentation/food_preferences_page/food_preferences_page.dart';
-import 'package:loopcare_frontend/features/account/presentation/food_preferences_page/lesson_complete_food_preferences_page.dart';
-import 'package:loopcare_frontend/features/account/presentation/gender_preferences_page/gender_preferences_page.dart';
-import 'package:loopcare_frontend/features/account/presentation/group_preferences/group_preferences_page.dart';
-import 'package:loopcare_frontend/features/account/presentation/group_rules_page/group_rules_five_page.dart';
-import 'package:loopcare_frontend/features/account/presentation/group_rules_page/group_rules_four_page.dart';
-import 'package:loopcare_frontend/features/account/presentation/group_rules_page/group_rules_one_page.dart';
-import 'package:loopcare_frontend/features/account/presentation/group_rules_page/group_rules_six_page.dart';
-import 'package:loopcare_frontend/features/account/presentation/group_rules_page/group_rules_three_page.dart';
-import 'package:loopcare_frontend/features/account/presentation/group_rules_page/group_rules_two_page.dart';
-import 'package:loopcare_frontend/features/account/presentation/join_group_preferences_page/join_group_preferences_page.dart';
-import 'package:loopcare_frontend/features/account/presentation/nickname_preferences_page/nickname_preferences_page.dart';
-import 'package:loopcare_frontend/features/account/presentation/subscription_page/manage_subscription_page.dart';
-import 'package:loopcare_frontend/features/account/presentation/timezone_preferences_page/timezone_preferences_page.dart';
-import 'package:loopcare_frontend/features/assignments/presentation/assignments_intro_page.dart';
-import 'package:loopcare_frontend/features/assignments/presentation/assignments_questions_page.dart';
-import 'package:loopcare_frontend/features/assignments/presentation/assignments_saved_page.dart';
-import 'package:loopcare_frontend/features/assignments/presentation/my_assignments_page.dart';
-import 'package:loopcare_frontend/features/authentication/presentation/email_address/change_email_address_page.dart';
-import 'package:loopcare_frontend/features/authentication/presentation/email_address/email_address_page.dart';
-import 'package:loopcare_frontend/features/authentication/presentation/forgot_password/forgot_password_page.dart';
-import 'package:loopcare_frontend/features/authentication/presentation/login/login_page.dart';
-import 'package:loopcare_frontend/features/authentication/presentation/name/name_page.dart';
-import 'package:loopcare_frontend/features/authentication/presentation/password/password_page.dart';
-import 'package:loopcare_frontend/features/authentication/presentation/success_verified_email/success_verified_email_page.dart';
-import 'package:loopcare_frontend/features/authentication/presentation/waiting_for_confirmation/waiting_for_confirmation_page.dart';
-import 'package:loopcare_frontend/features/authentication/presentation/welcome/sign_up_welcome_page.dart';
-import 'package:loopcare_frontend/features/buddy/presentation/buddy_description_page.dart';
-import 'package:loopcare_frontend/features/buddy/presentation/buddy_intro_page.dart';
-import 'package:loopcare_frontend/features/chat/presentation/group_chat_page.dart';
-import 'package:loopcare_frontend/features/chat/presentation/group_users_page.dart';
-import 'package:loopcare_frontend/features/dashboard/presentation/dashboard_page.dart';
-import 'package:loopcare_frontend/features/education/presentation/consult_doctor_page.dart';
-import 'package:loopcare_frontend/features/education/presentation/education_page/education_page.dart';
-import 'package:loopcare_frontend/features/education/presentation/lesson_complete_page/lesson_complete_page.dart';
-import 'package:loopcare_frontend/features/education/presentation/lesson_page/lesson_page.dart';
-import 'package:loopcare_frontend/features/education/presentation/need_paid_subscription_page.dart';
-import 'package:loopcare_frontend/features/education/presentation/support_group_intro/support_group_intro_page.dart';
-import 'package:loopcare_frontend/features/group_sessions/presentation/preparation_materials_page.dart';
-import 'package:loopcare_frontend/features/home/presentation/home_page.dart';
-import 'package:loopcare_frontend/features/intro/presentation/intro_page.dart';
-import 'package:loopcare_frontend/features/join_us/presentation/join_us_page.dart';
-import 'package:loopcare_frontend/features/legal_statement/presentation/legal_statement_page.dart';
-import 'package:loopcare_frontend/features/mind/presentation/exercise_page/exercise_page.dart';
-import 'package:loopcare_frontend/features/mind/presentation/explanation_page/explanation_page.dart';
-import 'package:loopcare_frontend/features/mind/presentation/explanation_technique_page/explanation_technique_page.dart';
-import 'package:loopcare_frontend/features/mind/presentation/intro_exercise_page/intro_exercise_page.dart';
-import 'package:loopcare_frontend/features/mind/presentation/technique_exercises_page/technique_exercises_page.dart';
-import 'package:loopcare_frontend/features/mind/presentation/techniques_page/techniques_page.dart';
-import 'package:loopcare_frontend/features/mood/presentation/create_mood_page.dart';
-import 'package:loopcare_frontend/features/mood/presentation/mood_option_page.dart';
-import 'package:loopcare_frontend/features/nutrition/presentation/barcode_scanner/widgets/barcode_scanner_page.dart';
-import 'package:loopcare_frontend/features/nutrition/presentation/choose_date/choose_date_calendar_page.dart';
-import 'package:loopcare_frontend/features/nutrition/presentation/daily_intake/daily_intake_page.dart';
-import 'package:loopcare_frontend/features/nutrition/presentation/dish_details_page/dish_details_page.dart';
-import 'package:loopcare_frontend/features/nutrition/presentation/edit_dish/edit_dish_page.dart';
-import 'package:loopcare_frontend/features/nutrition/presentation/log_weight_page/log_weight_page.dart';
-import 'package:loopcare_frontend/features/nutrition/presentation/meal/meal_page.dart';
-import 'package:loopcare_frontend/features/nutrition/presentation/recipe/recipe_page.dart';
-import 'package:loopcare_frontend/features/nutrition/presentation/recipe_details/recipe_details_page.dart';
-import 'package:loopcare_frontend/features/nutrition/presentation/recommendations/recommendations_page.dart';
-import 'package:loopcare_frontend/features/nutrition/presentation/search/search_page.dart';
-import 'package:loopcare_frontend/features/nutrition/presentation/select_food/select_food_page.dart';
-import 'package:loopcare_frontend/features/nutrition/presentation/select_serving_page/select_serving_page.dart';
-import 'package:loopcare_frontend/features/onboarding_new/presentation/onboarding_questions.dart';
-import 'package:loopcare_frontend/features/physical_activities/presentation/physical_programs/physical_programs_page.dart';
-import 'package:loopcare_frontend/features/physical_activities/presentation/preferences/widgets/physical_activities_activity_page.dart';
-import 'package:loopcare_frontend/features/physical_activities/presentation/preferences/widgets/physical_activities_completed_page.dart';
-import 'package:loopcare_frontend/features/physical_activities/presentation/preferences/widgets/physical_activities_frequency_page.dart';
-import 'package:loopcare_frontend/features/physical_activities/presentation/preferences/widgets/physical_preferences_intro_page.dart';
-import 'package:loopcare_frontend/features/physical_activities/presentation/preferences/widgets/physical_preferences_page.dart';
-import 'package:loopcare_frontend/features/physical_activities/presentation/program_assesment/program_assessment_page.dart';
-import 'package:loopcare_frontend/features/physical_activities/presentation/program_details/program_details_page.dart';
-import 'package:loopcare_frontend/features/physical_activities/presentation/select_exercise/select_exercise_page.dart';
-import 'package:loopcare_frontend/features/proxy/proxy_page.dart';
-import 'package:loopcare_frontend/features/quizzes/presentation/quizzes_intro_page.dart';
-import 'package:loopcare_frontend/features/quizzes/presentation/quizzes_questions_page.dart';
-import 'package:loopcare_frontend/features/smart_goals/presentation/goal_review_page/goal_review_page.dart';
-import 'package:loopcare_frontend/features/smart_goals/presentation/goals_statistics_page/goals_statistics_page.dart';
-import 'package:loopcare_frontend/features/smart_goals/presentation/select_goals_category_page/select_goals_category_page.dart';
-import 'package:loopcare_frontend/features/smart_goals/presentation/select_goals_page/select_goals_page.dart';
-import 'package:loopcare_frontend/features/splash_screen/presentation/splash_page.dart';
-import 'package:loopcare_frontend/features/subscription/presentation/subscription_page.dart';
-import 'package:loopcare_frontend/features/video_player/presentation/video_page.dart';
-import 'package:loopcare_frontend/features/video_session/presentation/session_call_page.dart';
-import 'package:loopcare_frontend/features/video_session/presentation/session_rules_page.dart';
-import 'package:loopcare_frontend/features/video_session/presentation/session_waiting_page.dart';
+
+import 'app_router.gr.dart';
 
 part 'app_routes.dart';
 
@@ -114,431 +20,436 @@ const groupLessonRoutes = [
   'GroupRulesSixRoute',
 ];
 
-@MaterialAutoRouter(
-  replaceInRouteName: 'Page,Route',
-  routes: [
-    AutoRoute(
-      initial: true,
-      path: AppRoutes.splash,
-      page: SplashPage,
-    ),
-    AutoRoute(
-      path: AppRoutes.proxy,
-      page: ProxyPage,
-      guards: [ProxyGuard],
-    ), // added
-    AutoRoute(
-      path: AppRoutes.intro,
-      page: IntroPage,
-    ),
-    AutoRoute(
-      path: AppRoutes.accessCode,
-      page: AccessCodePage,
-    ),
-    AutoRoute(
-      path: AppRoutes.home,
-      page: HomePage,
-      children: [
-        AutoRoute(path: AppRoutes.dashboard, page: DashboardPage),
-        AutoRoute(path: AppRoutes.education, page: EducationPage),
-        AutoRoute(path: AppRoutes.groupChat, page: GroupChatPage),
-        AutoRoute(path: AppRoutes.account, page: AccountPage),
-      ],
-    ),
-    AutoRoute(
-      path: AppRoutes.joinUs,
-      page: JoinUsPage,
-    ),
-    AutoRoute(
-      path: AppRoutes.successVerifiedEmail,
-      page: SuccessVerifiedEmailPage,
-    ), // added
-    AutoRoute(
-      path: AppRoutes.login,
-      page: LoginPage,
-    ), // added
-    AutoRoute(
-      path: AppRoutes.forgotPassword,
-      page: ForgotPasswordPage,
-    ), // added
+@AutoRouterConfig(replaceInRouteName: 'Page,Route')
+class AppRouter extends $AppRouter {
+  @override
+  List<AutoRoute> get routes => [
+        AutoRoute(
+          initial: true,
+          path: AppRoutes.splash,
+          page: SplashRoute.page,
+        ),
+        AutoRoute(
+          path: AppRoutes.proxy,
+          page: ProxyRoute.page,
+          guards: const [ProxyGuard()],
+        ), // added
+        AutoRoute(
+          path: AppRoutes.intro,
+          page: IntroRoute.page,
+        ),
+        AutoRoute(
+          path: AppRoutes.riverOverview,
+          page: RiverOverviewRoute.page,
+        ),
+        AutoRoute(
+          path: AppRoutes.home,
+          page: HomeRoute.page,
+          children: [
+            AutoRoute(path: AppRoutes.dashboard, page: DashboardRoute.page),
+            AutoRoute(path: AppRoutes.river, page: RiverRoute.page, initial: true),
+            AutoRoute(path: AppRoutes.account, page: AccountRoute.page),
+          ],
+        ),
 
-    // Onboarding
-    AutoRoute(
-      path: AppRoutes.onboardingIntro,
-      page: OnboardingQuestionsPage,
-    ),
+        // Auth
+        AutoRoute(
+          path: AppRoutes.login,
+          page: LoginRoute.page,
+        ), // added
+        AutoRoute(
+          path: AppRoutes.forgotPassword,
+          page: ForgotPasswordRoute.page,
+        ), // added
 
-    // Legal statement
-    AutoRoute(
-      path: AppRoutes.legalStatement,
-      page: LegalStatementPage,
-    ), // added
+        // Onboarding
+        AutoRoute(
+          path: AppRoutes.onboardingIntro,
+          page: OnboardingIntroRoute.page,
+        ),
+        AutoRoute(
+          path: AppRoutes.onboardingIntroMission,
+          page: OnboardingIntroOurMissionRoute.page,
+        ),
+        AutoRoute(
+          path: AppRoutes.onboardingPacing,
+          page: OnboardingPacingRoute.page,
+        ),
+        AutoRoute(
+          path: AppRoutes.onboardingQuestions,
+          page: OnboardingQuestionsRoute.page,
+        ),
 
-    // Create account
-    AutoRoute(
-      path: AppRoutes.signUpWelcome,
-      page: SignUpWelcomePage,
-    ), // added
-    AutoRoute(
-      path: AppRoutes.name,
-      page: NamePage,
-    ), // added
-    AutoRoute(
-      path: AppRoutes.password,
-      page: PasswordPage,
-    ), // added
-    AutoRoute(
-      path: AppRoutes.emailAddress,
-      page: EmailAddressPage,
-    ), // added
-    AutoRoute(
-      path: AppRoutes.waitingForConfirmation,
-      page: WaitingForConfirmationPage,
-    ), // added
-    AutoRoute(
-      path: AppRoutes.changeEmail,
-      page: ChangeEmailAddressPage,
-    ), // added
+        // Legal statement
+        AutoRoute(
+          path: AppRoutes.legalStatement,
+          page: LegalStatementRoute.page,
+        ), // added
 
-    // Barcode scanner
-    AutoRoute(
-      path: AppRoutes.barcodeScanner,
-      page: BarcodeScannerPage,
-    ), // added
+        // Create account
+        AutoRoute(
+          path: AppRoutes.signUpWelcome,
+          page: SignUpWelcomeRoute.page,
+        ), // added
+        AutoRoute(
+          path: AppRoutes.name,
+          page: NameRoute.page,
+        ), // added
+        AutoRoute(
+          path: AppRoutes.password,
+          page: PasswordRoute.page,
+        ), // added
+        AutoRoute(
+          path: AppRoutes.emailAddress,
+          page: EmailAddressRoute.page,
+        ), // added
+        AutoRoute(
+          path: AppRoutes.waitingForConfirmation,
+          page: WaitingForConfirmationRoute.page,
+        ), // added
+        AutoRoute(
+          path: AppRoutes.changeEmail,
+          page: ChangeEmailAddressRoute.page,
+        ), // added
 
-    // Nutrition
-    AutoRoute(
-      path: AppRoutes.selectFood,
-      page: SelectFoodPage,
-    ), // added
-    AutoRoute(
-      path: AppRoutes.selectServing,
-      page: SelectServingPage,
-    ), // added
-    AutoRoute(
-      path: AppRoutes.search,
-      page: SearchPage,
-    ), // added
-    AutoRoute(
-      path: AppRoutes.recipe,
-      page: RecipePage,
-    ), // added
-    AutoRoute(
-      path: AppRoutes.meal,
-      page: MealPage,
-    ), // added
-    // AutoRoute(
-    //   path: AppRoutes.logPlannedMeals,
-    //   page: LogPlannedMealsPage,
-    // ), // added
-    AutoRoute(
-      path: AppRoutes.logWeight,
-      page: LogWeightPage,
-    ), // added
-    AutoRoute(
-      path: AppRoutes.recipeDetails,
-      page: RecipeDetailsPage,
-    ), // added
-    AutoRoute(
-      path: AppRoutes.chooseDate,
-      page: ChooseDateCalendarPage,
-    ), // added
-    // AutoRoute(
-    //   path: AppRoutes.weekPlanner,
-    //   page: WeekPlannerPage,
-    // ), // added
-    AutoRoute(
-      path: AppRoutes.recommendations,
-      page: RecommendationsPage,
-    ), // added
+        // Barcode scanner
+        AutoRoute(
+          path: AppRoutes.barcodeScanner,
+          page: BarcodeScannerRoute.page,
+        ), // added
 
-    // Education
-    AutoRoute(
-      path: AppRoutes.lesson,
-      page: LessonPage,
-    ), // added
-    AutoRoute(
-      path: AppRoutes.lessonComplete,
-      page: LessonCompletePage,
-      guards: [UnlockFeatureGuard],
-    ), // added
+        // Nutrition
+        AutoRoute(
+          path: AppRoutes.selectFood,
+          page: SelectFoodRoute.page,
+        ), // added
+        AutoRoute(
+          path: AppRoutes.selectServing,
+          page: SelectServingRoute.page,
+        ), // added
+        AutoRoute(
+          path: AppRoutes.search,
+          page: SearchRoute.page,
+        ), // added
+        AutoRoute(
+          path: AppRoutes.recipe,
+          page: RecipeRoute.page,
+        ), // added
+        AutoRoute(
+          path: AppRoutes.meal,
+          page: MealRoute.page,
+        ), // added
+        AutoRoute(
+          path: AppRoutes.logWeight,
+          page: LogWeightRoute.page,
+        ), // added
+        AutoRoute(
+          path: AppRoutes.recipeDetails,
+          page: RecipeDetailsRoute.page,
+        ), // added
+        AutoRoute(
+          path: AppRoutes.chooseDate,
+          page: ChooseDateCalendarRoute.page,
+        ), // added
+        AutoRoute(
+          path: AppRoutes.recommendations,
+          page: RecommendationsRoute.page,
+        ), // added
 
-    // Dish
-    AutoRoute(
-      path: AppRoutes.dishDetails,
-      page: DishDetailsPage,
-    ), // added
-    AutoRoute(
-      path: AppRoutes.editDish,
-      page: EditDishPage,
-    ), // added
+        // Education
+        AutoRoute(
+          path: AppRoutes.lesson,
+          page: LessonRoute.page,
+        ), // added
+        AutoRoute(
+          path: AppRoutes.lessonComplete,
+          page: LessonCompleteRoute.page,
+          guards: const [UnlockFeatureGuard()],
+        ), // added
 
-    AutoRoute(
-      path: AppRoutes.selectExercise,
-      page: SelectExercisePage,
-    ), // added
-    AutoRoute(
-      path: AppRoutes.dailyIntake,
-      page: DailyIntakePage,
-    ), // added
-    AutoRoute(
-      path: AppRoutes.programAssessment,
-      page: ProgramAssessmentPage,
-    ), // added
-    AutoRoute(
-      path: AppRoutes.chooseProgram,
-      page: PhysicalProgramsPage,
-    ), // added
-    AutoRoute(
-      path: AppRoutes.programDetails,
-      page: ProgramDetailsPage,
-    ), // added
+        // Dish
+        AutoRoute(
+          path: AppRoutes.dishDetails,
+          page: DishDetailsRoute.page,
+        ), // added
+        AutoRoute(
+          path: AppRoutes.editDish,
+          page: EditDishRoute.page,
+        ), // added
 
-    // User profile
-    AutoRoute(
-      path: AppRoutes.foodPreferences,
-      page: FoodPreferencesPage,
-    ), // added
-    AutoRoute(
-      path: AppRoutes.lessonCompleteFoodPreferences,
-      page: LessonCompleteFoodPreferencesPage,
-    ), // added
-    AutoRoute(
-      path: AppRoutes.physicalPreferences,
-      page: PhysicalPreferencesPage,
-    ), // added
-    AutoRoute(
-      path: AppRoutes.editFoodPreferences,
-      page: EditFoodPreferencesPage,
-    ), // added
-    AutoRoute(
-      path: AppRoutes.joinGroupPreferences,
-      page: JoinGroupPreferencesPage,
-    ), // added
-    AutoRoute(
-      path: AppRoutes.genderPreferences,
-      page: GenderPreferencesPage,
-      guards: [GenderPrefsGuard],
-    ), // added
-    AutoRoute(
-      path: AppRoutes.nicknamePreferences,
-      page: NicknamePreferencesPage,
-    ), // added
+        AutoRoute(
+          path: AppRoutes.selectExercise,
+          page: SelectExerciseRoute.page,
+        ), // added
+        AutoRoute(
+          path: AppRoutes.dailyIntake,
+          page: DailyIntakeRoute.page,
+        ), // added
+        AutoRoute(
+          path: AppRoutes.programAssessment,
+          page: ProgramAssessmentRoute.page,
+        ), // added
+        AutoRoute(
+          path: AppRoutes.chooseProgram,
+          page: PhysicalProgramsRoute.page,
+        ), // added
+        AutoRoute(
+          path: AppRoutes.programDetails,
+          page: ProgramDetailsRoute.page,
+        ), // added
 
-    // Video
-    AutoRoute(
-      path: AppRoutes.video,
-      page: VideoPage,
-    ), // added
+        // User profile
+        AutoRoute(
+          path: AppRoutes.foodPreferences,
+          page: FoodPreferencesRoute.page,
+        ), // added
+        AutoRoute(
+          path: AppRoutes.lessonCompleteFoodPreferences,
+          page: LessonCompleteFoodPreferencesRoute.page,
+        ), // added
+        AutoRoute(
+          path: AppRoutes.physicalPreferences,
+          page: PhysicalPreferencesRoute.page,
+        ), // added
+        AutoRoute(
+          path: AppRoutes.editFoodPreferences,
+          page: EditFoodPreferencesRoute.page,
+        ), // added
+        AutoRoute(
+          path: AppRoutes.joinGroupPreferences,
+          page: JoinGroupPreferencesRoute.page,
+        ), // added
+        AutoRoute(
+          path: AppRoutes.genderPreferences,
+          page: GenderPreferencesRoute.page,
+          guards: const [GenderPrefsGuard()],
+        ), // added
+        AutoRoute(
+          path: AppRoutes.nicknamePreferences,
+          page: NicknamePreferencesRoute.page,
+        ), // added
+        AutoRoute(
+          path: AppRoutes.updateEmail,
+          page: UpdateEmailRoute.page,
+        ),
 
-    AutoRoute(
-      path: AppRoutes.groupPreferences,
-      page: GroupPreferencesPage,
-    ), // added
-    AutoRoute(
-      path: AppRoutes.timezone,
-      page: TimezonePreferencesPage,
-    ), // added
-    AutoRoute(
-      path: AppRoutes.groupRulesOne,
-      page: GroupRulesOnePage,
-    ), // added
-    AutoRoute(
-      path: AppRoutes.groupRulesTwo,
-      page: GroupRulesTwoPage,
-    ), // added
-    AutoRoute(
-      path: AppRoutes.groupRulesThree,
-      page: GroupRulesThreePage,
-    ), // added
-    AutoRoute(
-      path: AppRoutes.groupRulesFour,
-      page: GroupRulesFourPage,
-    ), // added
-    AutoRoute(
-      path: AppRoutes.groupRulesFive,
-      page: GroupRulesFivePage,
-    ), // added
-    AutoRoute(
-      path: AppRoutes.groupRulesSix,
-      page: GroupRulesSixPage,
-    ), // added
-    AutoRoute(
-      path: AppRoutes.supportGroupIntro,
-      page: SupportGroupIntroPage,
-    ),
-    AutoRoute(
-      path: AppRoutes.consultDoctor,
-      page: ConsultDoctorPage,
-    ),
-    AutoRoute(
-      path: AppRoutes.needPaidSubscription,
-      page: NeedPaidSubscriptionPage,
-    ), // added
+        // Video
+        AutoRoute(
+          path: AppRoutes.video,
+          page: VideoRoute.page,
+        ), // added
 
-    // Zoom video sessions
-    AutoRoute(
-      path: AppRoutes.sessionWaitingRoom,
-      page: SessionWaitingPage,
-    ), // added
-    AutoRoute(
-      path: AppRoutes.sessionCall,
-      page: SessionCallPage,
-    ), // added
-    AutoRoute(
-      path: AppRoutes.sessionRules,
-      page: SessionRulesPage,
-    ), // added
-    AutoRoute(
-      path: AppRoutes.preparationMaterials,
-      page: PreparationMaterialsPage,
-    ), // added
-    AutoRoute(
-      path: AppRoutes.physicalPreferencesIntro,
-      page: PhysicalPreferencesIntroPage,
-    ), // added
-    AutoRoute(
-      path: AppRoutes.physicalActivitiesFrequency,
-      page: PhysicalActivitiesFrequencyPage,
-    ), // added
-    AutoRoute(
-      path: AppRoutes.physicalActivitiesActivityType,
-      page: PhysicalActivitiesActivityTypePage,
-    ), // added
-    AutoRoute(
-      path: AppRoutes.physicalActivitiesComplete,
-      page: PhysicalActivitiesCompletePage,
-    ), // added
+        AutoRoute(
+          path: AppRoutes.groupPreferences,
+          page: GroupPreferencesRoute.page,
+        ), // added
+        AutoRoute(
+          path: AppRoutes.timezone,
+          page: TimezonePreferencesRoute.page,
+        ), // added
+        AutoRoute(
+          path: AppRoutes.groupRulesOne,
+          page: GroupRulesOneRoute.page,
+        ), // added
+        AutoRoute(
+          path: AppRoutes.groupRulesTwo,
+          page: GroupRulesTwoRoute.page,
+        ), // added
+        AutoRoute(
+          path: AppRoutes.groupRulesThree,
+          page: GroupRulesThreeRoute.page,
+        ), // added
+        AutoRoute(
+          path: AppRoutes.groupRulesFour,
+          page: GroupRulesFourRoute.page,
+        ), // added
+        AutoRoute(
+          path: AppRoutes.groupRulesFive,
+          page: GroupRulesFiveRoute.page,
+        ), // added
+        AutoRoute(
+          path: AppRoutes.groupRulesSix,
+          page: GroupRulesSixRoute.page,
+        ), // added
+        AutoRoute(
+          path: AppRoutes.supportGroupIntro,
+          page: SupportGroupIntroRoute.page,
+        ),
+        AutoRoute(
+          path: AppRoutes.consultDoctor,
+          page: ConsultDoctorRoute.page,
+        ),
+        AutoRoute(
+          path: AppRoutes.needPaidSubscription,
+          page: NeedPaidSubscriptionRoute.page,
+        ), // added
 
-    // Mind
-    AutoRoute(
-      path: AppRoutes.mindTechniques,
-      page: TechniquesPage,
-    ), // added
-    AutoRoute(
-      path: AppRoutes.mindExplanation,
-      page: ExplanationPage,
-    ), // added
-    AutoRoute(
-      path: AppRoutes.techniqueExercises,
-      page: TechniqueExercisesPage,
-    ), // added
-    AutoRoute(
-      path: AppRoutes.techniqueExplanation,
-      page: ExplanationTechniquePage,
-    ), // added
-    AutoRoute(
-      path: AppRoutes.mindExercise,
-      page: ExercisePage,
-    ), // added
-    AutoRoute(
-      path: AppRoutes.mindIntroExercise,
-      page: IntroExercisePage,
-    ), // added
+        // Zoom video sessions
+        AutoRoute(
+          path: AppRoutes.sessionWaitingRoom,
+          page: SessionWaitingRoute.page,
+        ), // added
+        AutoRoute(
+          path: AppRoutes.sessionCall,
+          page: SessionCallRoute.page,
+        ), // added
+        AutoRoute(
+          path: AppRoutes.sessionRules,
+          page: SessionRulesRoute.page,
+        ), // added
+        AutoRoute(
+          path: AppRoutes.preparationMaterials,
+          page: PreparationMaterialsRoute.page,
+        ), // added
+        AutoRoute(
+          path: AppRoutes.physicalPreferencesIntro,
+          page: PhysicalPreferencesIntroRoute.page,
+        ), // added
+        AutoRoute(
+          path: AppRoutes.physicalActivitiesFrequency,
+          page: PhysicalActivitiesFrequencyRoute.page,
+        ), // added
+        AutoRoute(
+          path: AppRoutes.physicalActivitiesActivityType,
+          page: PhysicalActivitiesActivityTypeRoute.page,
+        ), // added
+        AutoRoute(
+          path: AppRoutes.physicalActivitiesComplete,
+          page: PhysicalActivitiesCompleteRoute.page,
+        ), // added
 
-    // Mood
-    AutoRoute(
-      path: AppRoutes.createMood,
-      page: CreateMoodPage,
-    ), // added
-    AutoRoute(
-      path: AppRoutes.moodOption,
-      page: MoodOptionPage,
-    ), // added
+        // Mind
+        AutoRoute(
+          path: AppRoutes.mindTechniques,
+          page: TechniquesRoute.page,
+        ), // added
+        AutoRoute(
+          path: AppRoutes.mindExplanation,
+          page: ExplanationRoute.page,
+        ), // added
+        AutoRoute(
+          path: AppRoutes.techniqueExercises,
+          page: TechniqueExercisesRoute.page,
+        ), // added
+        AutoRoute(
+          path: AppRoutes.techniqueExplanation,
+          page: ExplanationTechniqueRoute.page,
+        ), // added
+        AutoRoute(
+          path: AppRoutes.mindExercise,
+          page: ExerciseRoute.page,
+        ), // added
+        AutoRoute(
+          path: AppRoutes.mindIntroExercise,
+          page: IntroExerciseRoute.page,
+        ), // added
 
-    // Quizzes
-    AutoRoute(
-      path: AppRoutes.quizzes,
-      page: QuizzesIntroPage,
-    ), // added
-    AutoRoute(
-      path: AppRoutes.quizesQuestions,
-      page: QuizzesQuestionsPage,
-    ), // added
-    AutoRoute(
-      path: AppRoutes.assignmentsIntro,
-      page: AssignmentsIntroPage,
-    ), // added
-    AutoRoute(
-      path: AppRoutes.assignmentsQuestions,
-      page: AssignmentsQuestionsPage,
-    ), // added
-    AutoRoute(
-      path: AppRoutes.myAssignments,
-      page: MyAssignmentsPage,
-    ), // added
-    AutoRoute(
-      path: AppRoutes.assignmentsSaved,
-      page: AssignmentsSavedPage,
-    ), // added
-    AutoRoute(
-      path: AppRoutes.theme,
-      page: ThemeComponentsPage,
-    ), // dont need to add to firebase mapper
-    AutoRoute(
-      path: AppRoutes.groupChat,
-      page: GroupChatPage,
-    ), // added
-    AutoRoute(
-      path: AppRoutes.groupChatUsers,
-      page: GroupUsersPage,
-    ),
-    AutoRoute(
-      path: AppRoutes.subscription,
-      page: SubscriptionPage,
-    ),
-    AutoRoute(
-      path: AppRoutes.manageSubscription,
-      page: ManageSubscriptionPage,
-    ), // added
+        // Mood
+        AutoRoute(
+          path: AppRoutes.createMood,
+          page: CreateMoodRoute.page,
+        ), // added
+        AutoRoute(
+          path: AppRoutes.moodOption,
+          page: MoodOptionRoute.page,
+        ), // added
 
-    // Buddy
-    AutoRoute(
-      path: AppRoutes.buddyIntro,
-      page: BuddyIntroPage,
-    ), // added
-    AutoRoute(
-      path: AppRoutes.buddyDescription,
-      page: BuddyDescriptionPage,
-    ), // added
-    AutoRoute(
-      path: AppRoutes.buddyPreferences,
-      page: BuddyPreferencesPage,
-    ), // added
-    AutoRoute(
-      path: AppRoutes.buddyLiveTogether,
-      page: BuddyLiveTogetherPage,
-    ), // added
-    AutoRoute(
-      path: AppRoutes.buddyRelation,
-      page: BuddyRelationPage,
-    ), // added
-    AutoRoute(
-      path: AppRoutes.buddyEmail,
-      page: BuddyEmailPage,
-    ), // added
-    AutoRoute(
-      path: AppRoutes.buddyCompleted,
-      page: BuddyCompletedPage,
-    ), // added
+        // Quizzes
+        AutoRoute(
+          path: AppRoutes.quizIntro,
+          page: QuizIntroRoute.page,
+        ), // added
+        AutoRoute(
+          path: AppRoutes.quizQuestion,
+          page: QuizQuestionRoute.page,
+        ), // added
 
-    // Smart goals
-    AutoRoute(
-      path: AppRoutes.selectGoalsCategory,
-      page: SelectGoalsCategoryPage,
-    ),
-    AutoRoute(
-      path: AppRoutes.selectGoals,
-      page: SelectGoalsPage,
-    ),
-    AutoRoute(
-      path: AppRoutes.goalsStatistics,
-      page: GoalsStatisticsPage,
-    ),
-    AutoRoute(
-      path: AppRoutes.goalReview,
-      page: GoalReviewPage,
-    ),
-  ],
-)
-class $AppRouter {}
+        // Reflections
+        AutoRoute(
+          path: AppRoutes.myReflections,
+          page: MyReflectionsRoute.page,
+        ), // added
+        AutoRoute(
+          path: AppRoutes.reflectionsIntro,
+          page: ReflectionsIntroRoute.page,
+        ), // added
+        AutoRoute(
+          path: AppRoutes.reflectionQuestion,
+          page: ReflectionQuestionRoute.page,
+        ), // added
+        AutoRoute(
+          path: AppRoutes.reflectionComplete,
+          page: ReflectionCompleteRoute.page,
+        ), // added
+
+        // Chat
+        AutoRoute(
+          path: AppRoutes.groupChat,
+          page: GroupChatRoute.page,
+        ), // added
+        AutoRoute(
+          path: AppRoutes.groupChatUsers,
+          page: GroupUsersRoute.page,
+        ),
+        AutoRoute(
+          path: AppRoutes.subscription,
+          page: SubscriptionRoute.page,
+        ),
+        AutoRoute(
+          path: AppRoutes.manageSubscription,
+          page: ManageSubscriptionRoute.page,
+        ), // added
+
+        // Buddy
+        AutoRoute(
+          path: AppRoutes.buddyIntro,
+          page: BuddyIntroRoute.page,
+        ), // added
+        AutoRoute(
+          path: AppRoutes.buddyDescription,
+          page: BuddyDescriptionRoute.page,
+        ), // added
+        AutoRoute(
+          path: AppRoutes.buddyPreferences,
+          page: BuddyPreferencesRoute.page,
+        ), // added
+        AutoRoute(
+          path: AppRoutes.buddyLiveTogether,
+          page: BuddyLiveTogetherRoute.page,
+        ), // added
+        AutoRoute(
+          path: AppRoutes.buddyRelation,
+          page: BuddyRelationRoute.page,
+        ), // added
+        AutoRoute(
+          path: AppRoutes.buddyEmail,
+          page: BuddyEmailRoute.page,
+        ), // added
+        AutoRoute(
+          path: AppRoutes.buddyCompleted,
+          page: BuddyCompletedRoute.page,
+        ), // added
+
+        // Smart goals
+        AutoRoute(
+          path: AppRoutes.selectGoalsCategory,
+          page: SelectGoalsCategoryRoute.page,
+        ),
+        AutoRoute(
+          path: AppRoutes.selectGoals,
+          page: SelectGoalsRoute.page,
+        ),
+        AutoRoute(
+          path: AppRoutes.goalsStatistics,
+          page: GoalsStatisticsRoute.page,
+        ),
+        AutoRoute(
+          path: AppRoutes.goalReview,
+          page: GoalReviewRoute.page,
+        ),
+        AutoRoute(
+          path: AppRoutes.maintenance,
+          page: MaintenanceRoute.page,
+        ),
+      ];
+}
