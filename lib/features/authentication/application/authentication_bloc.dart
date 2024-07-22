@@ -247,7 +247,7 @@ class AuthenticationBloc extends HydratedBloc<AuthenticationEvent, Authenticatio
         authTokenManager.setAccessToken(response.accessToken);
         authTokenManager.setRefreshToken(response.refreshToken);
 
-        AnalyticsEventService().logEvent(
+        const AnalyticsEventService().logEvent(
           eventName: AnalyticsEvents.onboardingNewUserCreated,
           parameters: {
             AnalyticsParameters.value: state.data.email,
@@ -452,7 +452,7 @@ class AuthenticationBloc extends HydratedBloc<AuthenticationEvent, Authenticatio
       (l) => null,
       (r) {
         if (r.emailApproveDate != null) {
-          AnalyticsEventService().logEvent(
+          const AnalyticsEventService().logEvent(
             eventName: AnalyticsEvents.userEmail,
             parameters: {
               AnalyticsParameters.value: state.data.email,
@@ -475,7 +475,7 @@ class AuthenticationBloc extends HydratedBloc<AuthenticationEvent, Authenticatio
     UpdateName event,
     Emitter<AuthenticationState> emit,
   ) async {
-    AnalyticsEventService().logEvent(
+    const AnalyticsEventService().logEvent(
       eventName: AnalyticsEvents.userName,
       parameters: {
         AnalyticsParameters.value: event.name,

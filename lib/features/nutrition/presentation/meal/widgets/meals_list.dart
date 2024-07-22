@@ -120,7 +120,7 @@ class MealsList extends StatelessWidget {
                 ),
               );
 
-          AnalyticsEventService().logEvent(eventName:
+          const AnalyticsEventService().logEvent(eventName:
             AnalyticsEvents.foodLogged,
             parameters: {
               AnalyticsParameters.timestamp: DateTime.now().toIso8601String(),

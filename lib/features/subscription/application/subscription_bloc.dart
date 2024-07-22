@@ -4,11 +4,10 @@ import 'dart:async';
 import 'dart:io';
 
 import 'package:dartz/dartz.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:in_app_purchase/in_app_purchase.dart';
-import 'package:in_app_purchase_android/in_app_purchase_android.dart';
-import 'package:in_app_purchase_storekit/in_app_purchase_storekit.dart';
 import 'package:injectable/injectable.dart';
 import 'package:loopcare_frontend/core/application/auth_token_manager.dart';
 import 'package:loopcare_frontend/core/application/customer_io_service/customer_io_service.dart';
@@ -32,6 +31,12 @@ import 'package:loopcare_frontend/features/subscription/donain/valid_status.dart
 import 'package:loopcare_frontend/features/subscription/donain/verify_purchase_data_android.dart';
 import 'package:loopcare_frontend/features/subscription/donain/verify_purchase_data_ios.dart';
 import 'package:loopcare_frontend/features/subscription/utils/date_utils.dart';
+//import for AppStoreProductDetails
+import 'package:in_app_purchase_storekit/in_app_purchase_storekit.dart';
+//import for SKProductWrapper
+import 'package:in_app_purchase_storekit/store_kit_wrappers.dart';
+import 'package:in_app_purchase_android/in_app_purchase_android.dart';
+
 
 import '../../../injection.dart';
 
@@ -116,7 +121,6 @@ class SubscriptionBloc extends Bloc<SubscriptionEvent, SubscriptionState> {
     }
   }
 
-// 3
   Future<void> _verifyOldPurchase(
       PurchaseDetails? oldPurchaseDetails, ProductDetails product) async {
     isValidatePastIOSPurchase = false;
@@ -136,7 +140,6 @@ class SubscriptionBloc extends Bloc<SubscriptionEvent, SubscriptionState> {
     });
   }
 
-  // 4
   FutureOr<void> _onBuySubscription(
     BuySubscription event,
     Emitter<SubscriptionState> emit,
@@ -226,7 +229,7 @@ class SubscriptionBloc extends Bloc<SubscriptionEvent, SubscriptionState> {
             },
           );
           final identifier = _getTransactionId(purchaseDetails) ?? '';
-          AnalyticsEventService.appsFlyer().logEvent(
+          const AnalyticsEventService.appsFlyer().logEvent(
             eventName: AnalyticsEvents.subscriptionBought,
             parameters: {
               AnalyticsParameters.subscriptionContentId: purchaseDetails.purchaseID,

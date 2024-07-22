@@ -80,7 +80,7 @@ class _NicknamePreferencesPageState extends State<NicknamePreferencesPage> {
       // context.read<EducationLessonBloc>().add(const EducationLessonEvent.progressForward());
     }
 
-    AnalyticsEventService().logEvent(
+    const AnalyticsEventService().logEvent(
       eventName: AnalyticsEvents.userFillsOutNicknamePreferences,
       parameters: {
         AnalyticsParameters.navigatedFrom:

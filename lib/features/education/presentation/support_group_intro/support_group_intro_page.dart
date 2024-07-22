@@ -123,7 +123,7 @@ class SupportGroupIntroPage extends StatelessWidget {
   void _onJoinPressed(BuildContext context) {
     final account = getIt<SharedStorageService>().account;
 
-    AnalyticsEventService().logEvent(
+    const AnalyticsEventService().logEvent(
       eventName: AnalyticsEvents.iWantToJoinToGroup,
       parameters: {
         AnalyticsParameters.navigatedFrom: 'Lesson content',
@@ -157,7 +157,7 @@ class SupportGroupIntroPage extends StatelessWidget {
   }
 
   void _onDoNotJoinPressed(BuildContext context) {
-    AnalyticsEventService().logEvent(
+    const AnalyticsEventService().logEvent(
       eventName: AnalyticsEvents.iWantToJoinToGroup,
       parameters: {
         AnalyticsParameters.navigatedFrom: 'Lesson content',

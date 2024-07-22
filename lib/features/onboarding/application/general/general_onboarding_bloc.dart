@@ -172,7 +172,7 @@ class GeneralOnboardingBloc extends HydratedBloc<GeneralOnboardingEvent, General
     _timer = Timer(
       Duration(seconds: durationTime),
       () {
-        AnalyticsEventService().logEvent(eventName: AnalyticsEvents.showPopupAboutExceededTime);
+        const AnalyticsEventService().logEvent(eventName: AnalyticsEvents.showPopupAboutExceededTime);
         add(const GeneralOnboardingEvent.stopTimer(isTimeUp: true));
         _timer?.cancel();
       },
@@ -537,7 +537,7 @@ class GeneralOnboardingBloc extends HydratedBloc<GeneralOnboardingEvent, General
   }
 
   void _sendScreenView(String screenName) {
-    AnalyticsEventService().logEvent(
+    const AnalyticsEventService().logEvent(
       eventName: 'screen_view',
       parameters: {
         'screenName': screenName,
@@ -546,7 +546,7 @@ class GeneralOnboardingBloc extends HydratedBloc<GeneralOnboardingEvent, General
   }
 
   void _trackExclusion(String eventName) {
-    AnalyticsEventService().logEvent(eventName: eventName);
+    const AnalyticsEventService().logEvent(eventName: eventName);
     CustomerIoService.track(event: eventName);
   }
 }

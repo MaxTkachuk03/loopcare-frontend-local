@@ -67,7 +67,7 @@ class _LessonAudioBodyState extends State<LessonAudioBody> {
           ),
         );
 
-    AnalyticsEventService().lessonAudioFinishedEvent(lessonId);
+    const AnalyticsEventService().lessonAudioFinishedEvent(lessonId);
     widget.onNextPressed();
   }
 
@@ -82,7 +82,7 @@ class _LessonAudioBodyState extends State<LessonAudioBody> {
           ),
         );
 
-    AnalyticsEventService().closedTextLessonVersionEvent(lessonId);
+    const AnalyticsEventService().closedTextLessonVersionEvent(lessonId);
   }
 
   void _onReadText() {
@@ -96,7 +96,7 @@ class _LessonAudioBodyState extends State<LessonAudioBody> {
           ),
         );
 
-    AnalyticsEventService().openedTextLessonVersionEvent(lessonId);
+    const AnalyticsEventService().openedTextLessonVersionEvent(lessonId);
 
     ModalBottomSheet.readTextVersion(
       context: context,

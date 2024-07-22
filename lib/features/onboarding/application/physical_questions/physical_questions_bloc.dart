@@ -72,7 +72,7 @@ class PhysicalQuestionsBloc extends HydratedBloc<PhysicalQuestionsEvent, Physica
     HappinessChanged event,
     Emitter<PhysicalQuestionsState> emit,
   ) {
-    AnalyticsEventService().logEvent(
+    const AnalyticsEventService().logEvent(
       eventName: AnalyticsEvents.onboardingHappiness,
       parameters: {
         AnalyticsParameters.value: event.happiness,
@@ -97,7 +97,7 @@ class PhysicalQuestionsBloc extends HydratedBloc<PhysicalQuestionsEvent, Physica
     HeightChanged event,
     Emitter<PhysicalQuestionsState> emit,
   ) {
-    AnalyticsEventService().logEvent(
+    const AnalyticsEventService().logEvent(
       eventName: AnalyticsEvents.onboardingHeight,
       parameters: {
         AnalyticsParameters.value: event.height,
@@ -127,7 +127,7 @@ class PhysicalQuestionsBloc extends HydratedBloc<PhysicalQuestionsEvent, Physica
   ) {
     final bmi = BmiCalculator.getUserBmiIndex(state.heightInCm, event.weight);
 
-    AnalyticsEventService().logEvent(
+    const AnalyticsEventService().logEvent(
       eventName: AnalyticsEvents.onboardingWeight,
       parameters: {
         AnalyticsParameters.value: event.weight,
@@ -135,7 +135,7 @@ class PhysicalQuestionsBloc extends HydratedBloc<PhysicalQuestionsEvent, Physica
       },
     );
 
-    AnalyticsEventService().logEvent(
+    const AnalyticsEventService().logEvent(
       eventName: AnalyticsEvents.userBmi,
       parameters: {
         AnalyticsParameters.value: bmi.toString(),
@@ -164,7 +164,7 @@ class PhysicalQuestionsBloc extends HydratedBloc<PhysicalQuestionsEvent, Physica
     BirthdayChanged event,
     Emitter<PhysicalQuestionsState> emit,
   ) {
-    AnalyticsEventService().logEvent(
+    const AnalyticsEventService().logEvent(
       eventName: AnalyticsEvents.onboardingBirthday,
       parameters: {
         AnalyticsParameters.value: event.birthday.toIso8601String(),
@@ -190,7 +190,7 @@ class PhysicalQuestionsBloc extends HydratedBloc<PhysicalQuestionsEvent, Physica
     SexChanged event,
     Emitter<PhysicalQuestionsState> emit,
   ) {
-    AnalyticsEventService().logEvent(
+    const  AnalyticsEventService().logEvent(
       eventName: AnalyticsEvents.onboardingSex,
       parameters: {
         AnalyticsParameters.value: event.sexType.name,
@@ -215,7 +215,7 @@ class PhysicalQuestionsBloc extends HydratedBloc<PhysicalQuestionsEvent, Physica
     GenderChanged event,
     Emitter<PhysicalQuestionsState> emit,
   ) {
-    AnalyticsEventService().logEvent(
+    const AnalyticsEventService().logEvent(
       eventName: AnalyticsEvents.onboardingGender,
       parameters: {
         AnalyticsParameters.value: event.gender.name,

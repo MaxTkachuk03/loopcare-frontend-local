@@ -113,7 +113,7 @@ class _ProgramAssessmentPageState extends State<ProgramAssessmentPage> {
                         CustomOutlinedButton.blueFullWidth(
                           onPressed: () {
                             final programId = state.data.currentProgram?.id ?? -1;
-                            AnalyticsEventService().logEvent(
+                            const AnalyticsEventService().logEvent(
                               eventName: AnalyticsEvents.programCompletedWithoutLogging,
                               parameters: {
                                 AnalyticsParameters.timestamp: DateTime.now().toIso8601String(),
@@ -159,14 +159,14 @@ class _ProgramAssessmentPageState extends State<ProgramAssessmentPage> {
     final assessmentLikeValue = assessmentLike;
     if (assessmentScoreValue == null || assessmentLikeValue == null) return;
 
-    AnalyticsEventService().logProgramAssessmentEvent(
+    const AnalyticsEventService().logProgramAssessmentEvent(
       AnalyticsEvents.programAssessmentScreen,
       assessmentScore!,
       '${assessmentLike!}',
       programId,
     );
 
-    AnalyticsEventService().logEvent(
+    const AnalyticsEventService().logEvent(
       eventName: AnalyticsEvents.programCompletedWithLogging,
       parameters: {
         AnalyticsParameters.timestamp: DateTime.now().toIso8601String(),
