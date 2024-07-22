@@ -43,8 +43,6 @@ class _SubscriptionPageState extends State<SubscriptionPage> {
     CustomerIoService.track(
       event: CIOEvents.subscriptionPage,
     );
-
-    Future.delayed(Duration(seconds: 2), _navigateToHome);
   }
 
   @override
