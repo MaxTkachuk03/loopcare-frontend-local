@@ -30,7 +30,7 @@ class _ForgotPasswordFormState extends State<ForgotPasswordForm> {
   @override
   Widget build(BuildContext context) {
     return BlocListener<AuthenticationBloc, AuthenticationState>(
-      listenWhen: _redirectListenWhen,
+      listenWhen: _listenWhen,
       listener: _redirectListener,
       child: Form(
         key: _formKey,
@@ -49,7 +49,7 @@ class _ForgotPasswordFormState extends State<ForgotPasswordForm> {
     context.showSuccessBar(
       content: Text(
         LocalizedTexts.forgotEmailSuccessMessage.tr(
-          namedArgs: {'email': state.data.email},
+          namedArgs: {'email': _emailController.text},
         ),
       ),
       actions: [
@@ -66,11 +66,11 @@ class _ForgotPasswordFormState extends State<ForgotPasswordForm> {
     );
   }
 
-  bool _redirectListenWhen(AuthenticationState previous, AuthenticationState current) {
+  bool _listenWhen(AuthenticationState previous, AuthenticationState current) {
     final previousEmail = previous.data.emailWasSend;
     final currentEmail = current.data.emailWasSend;
-    final noError = current.data.error == null;
+    final hasError = current.data.error != null;
 
-    return previousEmail != currentEmail && currentEmail && noError;
+    return previousEmail != currentEmail && currentEmail || hasError;
   }
 }
