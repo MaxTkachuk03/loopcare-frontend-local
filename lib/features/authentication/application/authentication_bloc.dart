@@ -298,18 +298,15 @@ class AuthenticationBloc extends HydratedBloc<AuthenticationEvent, Authenticatio
     ForgotPassword event,
     Emitter<AuthenticationState> emit,
   ) async {
-    state.mapOrNull(
-      guest: (state) async {
-        emit(
-          state.copyWith(
-            data: state.data.copyWith(
-              emailWasSend: false,
-              error: null,
-            ),
-          ),
-        );
-      },
+    emit(
+      state.copyWith(
+        data: state.data.copyWith(
+          emailWasSend: false,
+          error: null,
+        ),
+      ),
     );
+
     final data = ForgotPasswordData(email: event.email.toLowerCase());
 
     final response = await _authenticationService.forgotPassword(data);
