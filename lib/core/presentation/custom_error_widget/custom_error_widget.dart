@@ -6,6 +6,7 @@ import 'package:loopcare_frontend/build_type.dart';
 import 'package:loopcare_frontend/core/presentation/buttons/custom_elevated_button.dart';
 import 'package:loopcare_frontend/core/presentation/buttons/custom_outlined_button.dart';
 import 'package:loopcare_frontend/core/presentation/routes/app_router.gr.dart';
+import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 import 'package:loopcare_frontend/features/authentication/application/authentication_bloc.dart';
 import 'package:loopcare_frontend/features/legal_statement/application/legal_statement_bloc.dart';
 import 'package:loopcare_frontend/features/onboarding/application/general/general_onboarding_bloc.dart';
@@ -18,61 +19,66 @@ class CustomErrorWidget extends StatelessWidget {
 
   final FlutterErrorDetails errorDetails;
 
+  void _copyToClipBoard() async =>
+      await Clipboard.setData(ClipboardData(text: errorDetails.toString()));
+
+  void _resetDataAndNavigateToRoot(BuildContext context)  {
+    // Clean all data
+    context
+      ..read<GeneralOnboardingBloc>().add(const GeneralOnboardingEvent.resetData())
+      ..read<MedicalQuestionsBloc>().add(const MedicalQuestionsEvent.resetData())
+      ..read<PhysicalQuestionsBloc>().add(const PhysicalQuestionsEvent.resetData())
+      ..read<MentalQuestionsBloc>().add(const MentalQuestionsEvent.resetData())
+      ..read<AuthenticationBloc>().add(const AuthenticationEvent.init())
+      ..read<LegalStatementBloc>().add(const LegalStatementEvent.passageChanged(false));
+
+    context.router.popUntilRoot();
+  }
+
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.white,
-      body: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Text(
-                kIsProd
-                    ? 'Oops! Something went wrong!'
-                    : errorDetails.summary.toString(),
+    return Container(
+      margin: const EdgeInsets.all(16.0),
+      padding: const EdgeInsets.all(16.0),
+      decoration: const BoxDecoration(
+        color: AppColors.greyDarker,
+        borderRadius: BorderRadius.all(Radius.circular(12))
+      ),
+      child: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Text(
+              kIsDev
+                  ? errorDetails.summary.toString()
+                  : 'Oops! Something went wrong!',
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                color: kIsDev ? Colors.red : Colors.white,
+                fontWeight: FontWeight.bold,
+                fontSize: 16,
+              ),
+            ),
+            const SizedBox(height: 16),
+            if (kIsDev)
+              CustomOutlinedButton.greenSmall(
+                label: 'Copy the error summary',
+                onPressed: _copyToClipBoard,
+              )
+            else
+              const Text(
+                'Please close the application (swipe it away) and reopen it. Sorry for the inconvenience.',
                 textAlign: TextAlign.center,
-                style: TextStyle(
-                  color: kIsProd ? Colors.black : Colors.red,
-                  fontWeight: FontWeight.bold,
-                  fontSize: 16,
-                ),
+                style: TextStyle(color: Colors.white, fontSize: 14),
               ),
-              const SizedBox(height: 16),
-              if (kIsProd)
-                const Text(
-                  'We encountered an error and we\'ve notified our engineering team about it. Sorry for the inconvenience caused.',
-                  textAlign: TextAlign.center,
-                  style: TextStyle(color: Colors.black, fontSize: 14),
-                )
-              else
-                CustomOutlinedButton.greenSmall(
-                  label: 'Copy the error summary',
-                  onPressed: () async {
-                    await Clipboard.setData(ClipboardData(text: errorDetails.toString()));
-                  },
-                ),
-              const SizedBox(height: 16),
+            const SizedBox(height: 16),
+            if (context.router.stack.map((e) => e.name).contains(IntroRoute.name))
               CustomElevatedButton.green(
-                label: 'Back home',
-                onPressed: ()  {
-                  if (context.router.stack.map((e) => e.name).contains(IntroRoute.name)) {
-                    // Clean all data
-                    context
-                      ..read<GeneralOnboardingBloc>().add(const GeneralOnboardingEvent.resetData())
-                      ..read<MedicalQuestionsBloc>().add(const MedicalQuestionsEvent.resetData())
-                      ..read<PhysicalQuestionsBloc>().add(const PhysicalQuestionsEvent.resetData())
-                      ..read<MentalQuestionsBloc>().add(const MentalQuestionsEvent.resetData())
-                      ..read<AuthenticationBloc>().add(const AuthenticationEvent.init())
-                      ..read<LegalStatementBloc>().add(const LegalStatementEvent.passageChanged(false));
-                  }
-
-                  context.router.popUntilRoot();
-                },
+                label: 'Back to Start',
+                onPressed: () => _resetDataAndNavigateToRoot(context),
               ),
-            ],
-          ),
+          ],
         ),
       ),
     );
