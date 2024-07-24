@@ -537,12 +537,7 @@ class GeneralOnboardingBloc extends HydratedBloc<GeneralOnboardingEvent, General
   }
 
   void _sendScreenView(String screenName) {
-    const AnalyticsEventService().logEvent(
-      eventName: 'screen_view',
-      parameters: {
-        'screenName': screenName,
-      },
-    );
+    const AnalyticsEventService().logScreenEvent(screenName);
   }
 
   void _trackExclusion(String eventName) {

@@ -2,6 +2,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_uxcam/flutter_uxcam.dart';
 import 'package:loopcare_frontend/core/presentation/app_bar/custom_app_bar.dart';
 import 'package:loopcare_frontend/core/presentation/bottom_placed_button/bottom_placed_button.dart';
 import 'package:loopcare_frontend/core/presentation/buttons/custom_elevated_button.dart';
@@ -64,12 +65,14 @@ class _NamePageState extends State<NamePage> {
                   Form(
                     key: _formKey,
                     onChanged: _onChangedForm,
-                    child: CustomTextField(
-                      key: const ValueKey('name_page_text_field'),
-                      controller: _nameController,
-                      hintText: LocalizedTexts.yourName.tr(),
-                      validator: NameValidator.validate,
-                      maxLength: 64,
+                    child: OccludeWrapper(
+                      child: CustomTextField(
+                        key: const ValueKey('name_page_text_field'),
+                        controller: _nameController,
+                        hintText: LocalizedTexts.yourName.tr(),
+                        validator: NameValidator.validate,
+                        maxLength: 64,
+                      ),
                     ),
                   ),
                   const SizedBox(height: 24.0),

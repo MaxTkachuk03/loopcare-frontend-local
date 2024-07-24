@@ -1,6 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_uxcam/flutter_uxcam.dart';
 import 'package:loopcare_frontend/core/presentation/alerting/show_app_snackbar.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/core/presentation/text/custom_text.dart';
@@ -65,11 +66,13 @@ class _EmailAddressFormState extends State<EmailAddressForm> {
               ValueListenableBuilder<String?>(
                 valueListenable: _emailErrorTextNotifier,
                 builder: (context, error, _) {
-                  return CustomTextField.email(
-                    key: const ValueKey('registration_email_text_field'),
-                    controller: _emailController,
-                    errorText: error,
-                    onChanged: _onEmailChanged,
+                  return OccludeWrapper(
+                    child: CustomTextField.email(
+                      key: const ValueKey('registration_email_text_field'),
+                      controller: _emailController,
+                      errorText: error,
+                      onChanged: _onEmailChanged,
+                    ),
                   );
                 },
               ),

@@ -3,6 +3,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_uxcam/flutter_uxcam.dart';
 import 'package:loopcare_frontend/build_type.dart';
 import 'package:loopcare_frontend/core/application/app_update/app_update_bottom_sheet.dart';
 import 'package:loopcare_frontend/core/infrastructure/services/events.dart';
@@ -64,14 +65,20 @@ class _LoginFormState extends State<LoginForm> {
               onChanged: _onChangedForm,
               child: Column(
                 children: [
-                  CustomTextField.loginEmail(
-                    key: const ValueKey('login_email_text_field'),
-                    controller: _emailController,
-                  ),
-                  const SizedBox(height: 12.0),
-                  CustomTextField.password(
-                    key: const ValueKey('login_password_text_field'),
-                    controller: _passwordController,
+                  OccludeWrapper(
+                    child: Column(
+                      children: [
+                        CustomTextField.loginEmail(
+                          key: const ValueKey('login_email_text_field'),
+                          controller: _emailController,
+                        ),
+                        const SizedBox(height: 12.0),
+                        CustomTextField.password(
+                          key: const ValueKey('login_password_text_field'),
+                          controller: _passwordController,
+                        ),
+                      ],
+                    ),
                   ),
                   const SizedBox(height: 40.0),
                   ValueListenableBuilder<bool>(
