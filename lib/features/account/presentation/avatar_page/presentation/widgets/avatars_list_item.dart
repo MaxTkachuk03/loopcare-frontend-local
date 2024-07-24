@@ -7,6 +7,7 @@ import 'package:loopcare_frontend/features/account/presentation/avatar_page/doma
 class AvatarsListItem extends StatelessWidget {
   final AvatarOption item;
   final bool isSelected;
+  final bool isDisabled;
   final Function(AvatarOption item) onPressed;
 
   const AvatarsListItem({
@@ -14,12 +15,13 @@ class AvatarsListItem extends StatelessWidget {
     required this.item,
     required this.onPressed,
     required this.isSelected,
+    required this.isDisabled,
   });
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () => onPressed(item),
+      onTap: isDisabled ? null : () => onPressed(item),
       child: Column(
         children: [
           CircleAvatar(radius: 22, child: item.image),

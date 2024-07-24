@@ -1,22 +1,30 @@
-import 'dart:io';
 import 'package:flutter/material.dart';
-import 'package:loopcare_frontend/features/account/presentation/avatar_page/domain/avatar_variant_option.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:loopcare_frontend/features/account/presentation/account_page/widgets/local_user_avatar.dart';
+import 'package:loopcare_frontend/features/account/presentation/account_page/widgets/network_user_avatar.dart';
+import 'package:loopcare_frontend/features/account/presentation/avatar_page/domain/avatar_controller.dart';
+import 'package:loopcare_frontend/features/authentication/application/authentication_bloc.dart';
 
 class UserAvatar extends StatelessWidget {
-  final AvatarVariantOption? avatar;
-  final File? photo;
+  final AvatarController controller;
   final void Function()? onPressed;
 
-  const UserAvatar({super.key, this.avatar, this.onPressed, this.photo});
+  const UserAvatar({super.key, this.onPressed, required this.controller});
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: onPressed,
-      child: CircleAvatar(
-          foregroundImage: photo != null ? FileImage(photo!) : null,
-          radius: 75,
-          child: avatar?.image),
+    return ValueListenableBuilder(
+      valueListenable: controller.avatarMode,
+      builder: (context, mode, _) => mode.map(
+        local: (_) => LocalUserAvatar(
+          controller: controller,
+          onPressed: onPressed,
+        ),
+        network: (_) => NetworkUserAvatar(
+          url: context.read<AuthenticationBloc>().state.data.avatar,
+          onPressed: onPressed,
+        ),
+      ),
     );
   }
 }

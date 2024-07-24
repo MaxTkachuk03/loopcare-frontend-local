@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:io';
 
+import 'package:dio/dio.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:get_it/get_it.dart';
@@ -84,6 +85,7 @@ class AuthenticationBloc extends HydratedBloc<AuthenticationEvent, Authenticatio
     on<StartTrackUser>(_onStartTrackUser);
     on<UpdatePolicy>(_onUpdatePolicy);
     on<SendAppsFlyerData>(_onSendAppsFlyerDate);
+    on<UploadAvatar>(_onUploadAvatar);
 
     hydrate();
     _accessTokenSubscription = authTokenManager.addListener((token) {
@@ -123,6 +125,28 @@ class AuthenticationBloc extends HydratedBloc<AuthenticationEvent, Authenticatio
       _chatBloc.add(const GroupChatEvent.getUnreadCount());
       _chatBloc.add(const GroupChatEvent.getMessages(refresh: true));
     }
+  }
+
+  FutureOr<void> _onUploadAvatar(
+    UploadAvatar event,
+    Emitter<AuthenticationState> emit,
+  ) async {
+    emit(AuthenticationState.isLoading(state.data.copyWith(isLoading: true)));
+
+    final res = await _authenticationService.uploadAvatar(event.data);
+
+    res.fold(
+      (l) => emit(AuthenticationState.error(state.data.copyWith(isLoading: false, error: l))),
+      (r) {
+        final updatedAccount =
+            _sharedPref.account = state.data.account?.copyWith(avatarUrl: r.data);
+
+        emit(AuthenticationState.avatarUploaded(state.data.copyWith(
+          account: updatedAccount,
+          isLoading: false,
+        )));
+      },
+    );
   }
 
   FutureOr<void> _onAuthenticationInit(
@@ -179,6 +203,7 @@ class AuthenticationBloc extends HydratedBloc<AuthenticationEvent, Authenticatio
           subscription: response.subscription,
           createdAt: response.createdAt,
           features: response.features,
+          avatarUrl: response.avatarUrl,
         );
 
         add(const AuthenticationEvent.getAccount());
@@ -623,6 +648,7 @@ class AuthenticationBloc extends HydratedBloc<AuthenticationEvent, Authenticatio
           subscription: r.subscription,
           medicalOnboarding: r.medicalOnboarding,
           createdAt: r.physicalFitness.createdAt,
+          avatarUrl: r.avatarUrl,
         );
 
         _sharedPref.account = account;

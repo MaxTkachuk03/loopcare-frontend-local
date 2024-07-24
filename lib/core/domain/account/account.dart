@@ -44,6 +44,7 @@ abstract class Account implements _$Account {
     @Default('') String diabetes,
     @Default('') String? nickname,
     @Default(null) String? buddyState,
+    @Default(null) String? avatarUrl,
     @Default(GenderPreferences.noPreference) GenderPreferences? genderPreference,
     @Default('') String? timezone,
     @Default([]) List<FoodPreference>? foodPreferencesHates,

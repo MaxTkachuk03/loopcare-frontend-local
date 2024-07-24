@@ -252,6 +252,8 @@ class AppIcons {
       SvgPicture.asset('$iconsFilePath/user_avatar_icon_petrol.svg');
   static SvgPicture userAvatarIconYellow =
       SvgPicture.asset('$iconsFilePath/user_avatar_icon_yellow.svg');
+  static SvgPicture userAvatarIconPhoto =
+      SvgPicture.asset('$iconsFilePath/user_avatar_icon_photo.svg');
 
   static SvgPicture femaleAvatarTone1 = SvgPicture.asset('$iconsFilePath/female_avatar_tone1.svg');
   static SvgPicture femaleAvatarTone2 = SvgPicture.asset('$iconsFilePath/female_avatar_tone2.svg');

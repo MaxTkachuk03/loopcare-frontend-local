@@ -1,4 +1,5 @@
 import 'package:dartz/dartz.dart';
+import 'package:dio/dio.dart';
 import 'package:injectable/injectable.dart';
 import 'package:loopcare_frontend/core/infrastructure/dio_client/dio_client.dart';
 import 'package:loopcare_frontend/core/infrastructure/dio_client/request_error.dart';
@@ -13,6 +14,7 @@ import 'package:loopcare_frontend/features/authentication/application/dto/login_
 import 'package:loopcare_frontend/features/authentication/application/dto/report_abuse_data.dart';
 import 'package:loopcare_frontend/features/authentication/application/dto/sign_up_data.dart';
 import 'package:loopcare_frontend/features/authentication/application/dto/update_user_email_data.dart';
+import 'package:loopcare_frontend/features/authentication/application/dto/upload_avatar_response.dart';
 import 'package:loopcare_frontend/features/authentication/application/dto/validate_email_data.dart';
 
 @Injectable(as: AuthenticationService)
@@ -86,5 +88,14 @@ class APIAuthenticationService implements AuthenticationService {
   @override
   Future<Either<RequestError, dynamic>> sendAppsFlyerDeviceData(DeviceData data) async {
     return await client.post('/accounts/appsflyer-devices', data: data.toJson());
+  }
+
+  @override
+  Future<Either<RequestError, UploadAvatarResponse>> uploadAvatar(FormData data) {
+    return client.patch(
+      '/accounts/upload/avatar',
+      data: data,
+      fromJson: UploadAvatarResponse.fromJson,
+    );
   }
 }

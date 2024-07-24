@@ -42,6 +42,7 @@ class AccountResponse {
   final String? buddyState;
   final AccountFeatures features;
   final MentalHealthTests? mentalHealthTests;
+  final String? avatarUrl;
   final PhysicalActivitiesPreferences? physicalActivitiesPreferences;
   final MedicalOnboarding medicalOnboarding;
   final DateTime? createdAt;
@@ -70,6 +71,7 @@ class AccountResponse {
     required this.physicalActivitiesPreferences,
     required this.subscription,
     required this.medicalOnboarding,
+    required this.avatarUrl,
     this.buddyState,
     this.buddy,
     this.createdAt,

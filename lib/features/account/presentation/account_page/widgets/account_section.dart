@@ -8,37 +8,17 @@ import 'package:loopcare_frontend/core/presentation/routes/app_router.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 import 'package:loopcare_frontend/features/account/application/group_preferences_bloc.dart';
 import 'package:loopcare_frontend/features/account/presentation/account_page/widgets/account_container.dart';
+import 'package:loopcare_frontend/features/account/presentation/account_page/widgets/network_user_avatar.dart';
 import 'package:loopcare_frontend/features/account/presentation/account_page/widgets/section_item.dart';
 import 'package:loopcare_frontend/features/account/presentation/account_page/widgets/section_title.dart';
-import 'package:loopcare_frontend/features/account/presentation/account_page/widgets/user_avatar.dart';
 import 'package:loopcare_frontend/features/authentication/application/authentication_bloc.dart';
 import 'package:loopcare_frontend/features/physical_activities/application/physical_activities_preferences/physical_activities_preferences_bloc.dart';
 import 'package:loopcare_frontend/features/physical_activities/application/physical_programs_bloc.dart';
 
-class AccountSection extends StatefulWidget {
+class AccountSection extends StatelessWidget {
   const AccountSection({super.key});
 
-  @override
-  State<AccountSection> createState() => _AccountSectionState();
-}
-
-class _AccountSectionState extends State<AccountSection> {
-  // bool _useFaceId = false;
-  // bool _requireLogin = false;
-  //
-  // _onUseFaceIdToggle(bool? value) {
-  //   setState(() {
-  //     _useFaceId = value ?? false;
-  //   });
-  // }
-  //
-  // _onRequireLogin(bool? value) {
-  //   setState(() {
-  //     _requireLogin = value ?? false;
-  //   });
-  // }
-
-  _onLogOutPressed() {
+  void _onLogOutPressed(BuildContext context) {
     context.read<GroupPreferencesBloc>().add(const GroupPreferencesEvent.initClear());
     context.read<PhysicalProgramsBloc>().add(const PhysicalProgramsEvent.init());
     context
@@ -47,9 +27,11 @@ class _AccountSectionState extends State<AccountSection> {
     context.read<AuthenticationBloc>().add(const AuthenticationEvent.logout());
   }
 
-  void _onEmailPressedHandler() => context.router.pushNamed(AppRoutes.updateEmail);
+  void _onEmailPressedHandler(BuildContext context) =>
+      context.router.pushNamed(AppRoutes.updateEmail);
 
-  void _onAvatarPressedHandler() => context.router.pushNamed(AppRoutes.selectAvatar);
+  void _onAvatarPressedHandler(BuildContext context) =>
+      context.router.pushNamed(AppRoutes.selectAvatar);
 
   @override
   Widget build(BuildContext context) {
@@ -60,8 +42,9 @@ class _AccountSectionState extends State<AccountSection> {
             children: [
               SectionTitle(title: LocalizedTexts.account.tr()),
               const SizedBox(height: 27),
-              UserAvatar(
-                onPressed: _onAvatarPressedHandler,
+              NetworkUserAvatar(
+                url: state.data.avatar,
+                onPressed: () => _onAvatarPressedHandler(context),
               ),
               SectionItem(
                 title: LocalizedTexts.name.tr(),
@@ -72,7 +55,7 @@ class _AccountSectionState extends State<AccountSection> {
               SectionItem(
                 title: LocalizedTexts.emailAddress.tr(),
                 subTitle: state.data.accountEmail,
-                onPressHandler: _onEmailPressedHandler,
+                onPressHandler: () => _onEmailPressedHandler(context),
               ),
               const Divider(height: 1.0, color: AppColors.blueLighter),
               const SizedBox(height: 16.0),
@@ -97,7 +80,7 @@ class _AccountSectionState extends State<AccountSection> {
               // const Divider(height: 1.0, color: AppColors.blueLighter),
               // const SizedBox(height: 16.0),
               CustomElevatedButton.coralFullWidth(
-                onPressed: _onLogOutPressed,
+                onPressed: () => _onLogOutPressed(context),
                 label: LocalizedTexts.signOut.tr(),
               ),
               const SizedBox(height: 16.0),

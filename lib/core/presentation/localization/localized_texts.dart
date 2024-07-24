@@ -378,6 +378,8 @@ class LocalizedTexts {
   static const String moveToResize = 'moveToResize';
   static const String chooseYourAvatar = 'chooseYourAvatar';
   static const String addPhoto = 'addPhoto';
+  static const String avatarSizeErrorMessageTitle = 'avatarSizeErrorMessageTitle';
+  static const String avatarSizeErrorMessageSubtitle = 'avatarSizeErrorMessageSubtitle';
 
   // Emergency Numbers
   static const String emergencySubtitle = 'emergencySubtitle';

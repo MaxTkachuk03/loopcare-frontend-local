@@ -971,6 +971,8 @@
   "moveToResize": "move to resize",
   "chooseYourAvatar": "Choose your avatar",
   "addPhoto": "Add photo",
+  "avatarSizeErrorMessageTitle": "Oops! It looks like the picture you’re trying to upload is over the 10 MB size limit.",
+  "avatarSizeErrorMessageSubtitle": "Please choose a smaller file and try again.",
 
 
   "//comment": "mental tests final results",

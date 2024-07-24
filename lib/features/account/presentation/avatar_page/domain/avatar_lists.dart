@@ -7,32 +7,39 @@ class AvatarLists {
   AvatarLists._();
 
   static final avatarListOptions = [
-    AvatarOption('photo', AppIcons.userAvatarIconBlue, AvatarTypeKey.photo),
+    AvatarOption('photo', AppIcons.userAvatarIconPhoto, AvatarTypeKey.photo),
     AvatarOption('avatar 1', AppIcons.userAvatarIconGreen, AvatarTypeKey.icon),
     AvatarOption('avatar 2', AppIcons.femaleAvatarTone1, AvatarTypeKey.iconFemale),
     AvatarOption('avatar 3', AppIcons.maleAvatarTone1, AvatarTypeKey.iconMale),
   ];
 
   static final iconAvatarVariantsList = [
-    AvatarVariantOption(AppIcons.userAvatarIconBlue, AvatarTypeKey.icon),
-    AvatarVariantOption(AppIcons.userAvatarIconGreen, AvatarTypeKey.icon),
-    AvatarVariantOption(AppIcons.userAvatarIconCoral, AvatarTypeKey.icon),
-    AvatarVariantOption(AppIcons.userAvatarIconOrange, AvatarTypeKey.icon),
-    AvatarVariantOption(AppIcons.userAvatarIconPetrol, AvatarTypeKey.icon),
-    AvatarVariantOption(AppIcons.userAvatarIconYellow, AvatarTypeKey.icon),
+    AvatarVariantOption('${AppIcons.iconsFilePath}/user_avatar_icon_blue.svg', AvatarTypeKey.icon),
+    AvatarVariantOption('${AppIcons.iconsFilePath}/user_avatar_icon_green.svg', AvatarTypeKey.icon),
+    AvatarVariantOption('${AppIcons.iconsFilePath}/user_avatar_icon_coral.svg', AvatarTypeKey.icon),
+    AvatarVariantOption(
+        '${AppIcons.iconsFilePath}/user_avatar_icon_orange.svg', AvatarTypeKey.icon),
+    AvatarVariantOption(
+        '${AppIcons.iconsFilePath}/user_avatar_icon_petrol.svg', AvatarTypeKey.icon),
+    AvatarVariantOption(
+        '${AppIcons.iconsFilePath}/user_avatar_icon_yellow.svg', AvatarTypeKey.icon),
   ];
 
   static final femaleIconAvatarVariantsList = [
-    AvatarVariantOption(AppIcons.femaleAvatarTone1, AvatarTypeKey.iconFemale),
-    AvatarVariantOption(AppIcons.femaleAvatarTone2, AvatarTypeKey.iconFemale),
-    AvatarVariantOption(AppIcons.femaleAvatarTone3, AvatarTypeKey.iconFemale),
-    AvatarVariantOption(AppIcons.femaleAvatarTone4, AvatarTypeKey.iconFemale),
+    AvatarVariantOption(
+        '${AppIcons.iconsFilePath}/female_avatar_tone1.svg', AvatarTypeKey.iconFemale),
+    AvatarVariantOption(
+        '${AppIcons.iconsFilePath}/female_avatar_tone2.svg', AvatarTypeKey.iconFemale),
+    AvatarVariantOption(
+        '${AppIcons.iconsFilePath}/female_avatar_tone3.svg', AvatarTypeKey.iconFemale),
+    AvatarVariantOption(
+        '${AppIcons.iconsFilePath}/female_avatar_tone4.svg', AvatarTypeKey.iconFemale),
   ];
 
   static final maleIconAvatarVariantsList = [
-    AvatarVariantOption(AppIcons.maleAvatarTone1, AvatarTypeKey.iconMale),
-    AvatarVariantOption(AppIcons.maleAvatarTone2, AvatarTypeKey.iconMale),
-    AvatarVariantOption(AppIcons.maleAvatarTone3, AvatarTypeKey.iconMale),
-    AvatarVariantOption(AppIcons.maleAvatarTone4, AvatarTypeKey.iconMale),
+    AvatarVariantOption('${AppIcons.iconsFilePath}/male_avatar_tone1.svg', AvatarTypeKey.iconMale),
+    AvatarVariantOption('${AppIcons.iconsFilePath}/male_avatar_tone2.svg', AvatarTypeKey.iconMale),
+    AvatarVariantOption('${AppIcons.iconsFilePath}/male_avatar_tone3.svg', AvatarTypeKey.iconMale),
+    AvatarVariantOption('${AppIcons.iconsFilePath}/male_avatar_tone4.svg', AvatarTypeKey.iconMale),
   ];
 }
