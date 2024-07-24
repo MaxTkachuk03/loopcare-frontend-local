@@ -116,8 +116,8 @@ class APISmartGoalsService implements SmartGoalsService {
   }
 
   @override
-  Future<Either<RequestError, WeeklyGoalsSession>> resetProgress({required int sessionId}) async {
-    return await client.delete('/smart-goal/progress/$sessionId', fromJson: WeeklyGoalsSession.fromJson);
+  Future<Either<RequestError, WeeklyGoalsSession>> resetProgress({required int progressId}) async {
+    return await client.delete('/smart-goal/progress/$progressId', fromJson: WeeklyGoalsSession.fromJson);
   }
 
   @override

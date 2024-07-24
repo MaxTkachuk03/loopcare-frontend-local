@@ -41,18 +41,24 @@ class RiverBloc extends Bloc<RiverEvent, RiverState> {
 
     response.fold(
       (l) => emit(RiverState.moduleLoadingError(state.data.copyWith(error: l, isLoading: false))),
-      (r) => emit(
-        RiverState.moduleLoaded(
-          state.data.copyWith(
-            modules: r.data,
-            activeModule: r.data.firstWhere(
-              (module) => !module.isCompleted,
-              orElse: () => r.data.last,
+      (r) {
+        final activeModule = r.data.isNotEmpty
+            ? r.data.firstWhere(
+                (module) => !module.isCompleted,
+                orElse: () => r.data.last,
+              )
+            : null;
+
+        emit(
+          RiverState.moduleLoaded(
+            state.data.copyWith(
+              modules: r.data,
+              activeModule: activeModule,
+              isLoading: false,
             ),
-            isLoading: false,
           ),
-        ),
-      ),
+        );
+      },
     );
   }
 
@@ -73,9 +79,13 @@ class RiverBloc extends Bloc<RiverEvent, RiverState> {
   }
 
   FutureOr<void> _onUpdateActiveModuleItemStatus(
-      UpdateActiveModuleItemStatus event, Emitter<RiverState> emit) async {
+    UpdateActiveModuleItemStatus event,
+    Emitter<RiverState> emit,
+  ) async {
     final moduleItem = state.data.activeModuleItem;
     var activeModule = state.data.activeModule;
+
+    emit(RiverState.moduleItemLoading(state.data.copyWith(isLoading: true)));
 
     RiverModuleItemState itemState;
     if (moduleItem == null || moduleItem.isCompleted || activeModule == null) {
@@ -99,8 +109,6 @@ class RiverBloc extends Bloc<RiverEvent, RiverState> {
       // todo: check if required action is exist iteration 2
       itemState = RiverModuleItemState.completed;
     }
-
-    emit(RiverState.moduleItemLoading(state.data.copyWith(isLoading: true)));
 
     final data = RiverModuleItemStateData(itemState: itemState);
 

@@ -4,9 +4,9 @@ import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:just_audio/just_audio.dart';
 import 'package:loopcare_frontend/core/application/analytics_bloc.dart';
-import 'package:loopcare_frontend/core/domain/analytics/firebase_event_custom_definitions.dart';
-import 'package:loopcare_frontend/core/domain/analytics/firebase_event_list.dart';
-import 'package:loopcare_frontend/core/infrastructure/services/firebase_event_service.dart';
+import 'package:loopcare_frontend/core/domain/analytics/analytics_events.dart';
+import 'package:loopcare_frontend/core/domain/analytics/analytics_parameters.dart';
+import 'package:loopcare_frontend/core/infrastructure/services/analytics_service.dart';
 import 'package:loopcare_frontend/core/presentation/buttons/custom_icon_button.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 import 'package:loopcare_frontend/features/education/application/education_lesson/education_lesson_bloc.dart';
@@ -102,14 +102,14 @@ class ControlButtons extends StatelessWidget {
   _onPlayPressed(BuildContext context) {
     final lessonId = context.read<EducationLessonBloc>().state.data.id;
 
-    AnalyticsEventService.instance.lessonAudioPlayEvent(lessonId);
+    AnalyticsEventService().lessonAudioPlayEvent(lessonId);
 
     context.read<AnalyticsBloc>().add(
           AnalyticsEvent.sendAnalytics(
-            FirebaseEvents.lessonAudioPlay,
+            AnalyticsEvents.lessonAudioPlay,
             {
-              CustomDefinitions.lessonId: lessonId.toString(),
-              CustomDefinitions.timestamp: DateTime.now().toIso8601String(),
+              AnalyticsParameters.lessonId: lessonId.toString(),
+              AnalyticsParameters.timestamp: DateTime.now().toIso8601String(),
             },
           ),
         );
@@ -120,14 +120,14 @@ class ControlButtons extends StatelessWidget {
   _onPlayPaused(BuildContext context) {
     final lessonId = context.read<EducationLessonBloc>().state.data.id;
 
-    AnalyticsEventService.instance.lessonAudioStopEvent(lessonId);
+   AnalyticsEventService().lessonAudioStopEvent(lessonId);
 
     context.read<AnalyticsBloc>().add(
           AnalyticsEvent.sendAnalytics(
-            FirebaseEvents.lessonAudioStop,
+            AnalyticsEvents.lessonAudioStop,
             {
-              CustomDefinitions.lessonId: lessonId.toString(),
-              CustomDefinitions.timestamp: DateTime.now().toIso8601String(),
+              AnalyticsParameters.lessonId: lessonId.toString(),
+              AnalyticsParameters.timestamp: DateTime.now().toIso8601String(),
             },
           ),
         );
@@ -140,44 +140,38 @@ class ControlButtons extends StatelessWidget {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        const SizedBox(width: 50),
-        SizedBox(
-          height: 50,
-          width: 50,
-          child: StreamBuilder<PlayerState>(
-            stream: player.playerStateStream,
-            builder: (context, snapshot) {
-              final playerState = snapshot.data;
-              final processingState = playerState?.processingState;
-              final playing = playerState?.playing;
-              if (processingState == ProcessingState.loading ||
-                  processingState == ProcessingState.buffering) {
-                return Container(
-                  margin: const EdgeInsets.symmetric(vertical: 10.0),
-                  width: 30.0,
-                  height: 30.0,
-                  child: const CircularProgressIndicator(
-                    color: AppColors.darkGreen,
-                  ),
-                );
-              } else if (playing != true) {
-                return CustomIconButton(
-                  icon: const Icon(Icons.play_arrow, size: 35, color: AppColors.blueRegular),
-                  onPressed: () => _onPlayPressed(context),
-                );
-              } else if (processingState != ProcessingState.completed) {
-                return CustomIconButton(
-                  icon: const Icon(Icons.pause, size: 35, color: AppColors.blueRegular),
-                  onPressed: () => _onPlayPaused(context),
-                );
-              } else {
-                return CustomIconButton(
-                  icon: const Icon(Icons.replay, size: 35, color: AppColors.blueRegular),
-                  onPressed: () => player.seek(Duration.zero),
-                );
-              }
-            },
-          ),
+        const SizedBox(width: 35),
+        StreamBuilder<PlayerState>(
+          stream: player.playerStateStream,
+          builder: (context, snapshot) {
+            final playerState = snapshot.data;
+            final processingState = playerState?.processingState;
+            final playing = playerState?.playing;
+
+            if (processingState == ProcessingState.loading ||
+                processingState == ProcessingState.buffering) {
+              return const SizedBox(
+                width: 30,
+                height: 30,
+                child: CircularProgressIndicator(color: AppColors.darkGreen),
+              );
+            } else if (playing != true) {
+              return CustomIconButton(
+                icon: const Icon(Icons.play_arrow, size: 35, color: AppColors.blueRegular),
+                onPressed: () => _onPlayPressed(context),
+              );
+            } else if (processingState != ProcessingState.completed) {
+              return CustomIconButton(
+                icon: const Icon(Icons.pause, size: 35, color: AppColors.blueRegular),
+                onPressed: () => _onPlayPaused(context),
+              );
+            } else {
+              return CustomIconButton(
+                icon: const Icon(Icons.replay, size: 35, color: AppColors.blueRegular),
+                onPressed: () => player.seek(Duration.zero),
+              );
+            }
+          },
         ),
 
         ValueListenableBuilder<bool>(
@@ -188,7 +182,7 @@ class ControlButtons extends StatelessWidget {
               onPressed: _handleMute,
               icon: Icon(
                 isMute ? Icons.volume_off : Icons.volume_up,
-                size: 30,
+                size: 35,
                 color: AppColors.blueRegular,
               ),
             );

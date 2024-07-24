@@ -12,8 +12,14 @@ import 'package:loopcare_frontend/core/presentation/utils/date_time_extensions.d
 class ReflectionListItem extends StatelessWidget {
   final Reflection item;
   final bool fromDashboard;
+  final bool isPast;
 
-  const ReflectionListItem({super.key, required this.item, required this.fromDashboard});
+  const ReflectionListItem({
+    super.key,
+    required this.item,
+    required this.fromDashboard,
+    this.isPast = false,
+  });
 
   Color get _checkIconColor => item.isComplete ? AppColors.greenRegular : AppColors.greyMid;
 
@@ -48,7 +54,8 @@ class ReflectionListItem extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           CustomText.w600(item.title, style: context.textTheme.bodySmall),
-                          CustomText.w400(_subTitle, style: context.textTheme.bodySmall),
+                          if (!item.isCompletedMoreThanWeekAgo || !isPast)
+                            CustomText.w400(_subTitle, style: context.textTheme.bodySmall),
                         ],
                       ),
                     ),

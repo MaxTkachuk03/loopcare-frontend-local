@@ -68,6 +68,7 @@ class MyReflectionsPage extends StatelessWidget {
                                   list: pastReflections,
                                   title: LocalizedTexts.pastReflections.tr().capitalize(),
                                   fromDashboard: false,
+                                  isPast: true,
                                 ),
                               ]
                             ],

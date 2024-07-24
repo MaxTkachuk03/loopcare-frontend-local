@@ -4,7 +4,7 @@ import 'package:app_tracking_transparency/app_tracking_transparency.dart';
 import 'package:appsflyer_sdk/appsflyer_sdk.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:loopcare_frontend/build_type.dart';
-import 'package:loopcare_frontend/core/application/apps_flyer/apps_flyer_events.dart';
+import 'package:loopcare_frontend/core/domain/analytics/apps_flyer/apps_flyer_events.dart';
 import 'package:loopcare_frontend/core/infrastructure/services/events.dart';
 import 'package:loopcare_frontend/core/infrastructure/services/mixpanel_event_service.dart';
 
@@ -20,7 +20,6 @@ class AppsFlyerService {
   static AppsflyerSdk appsflyerSdk = AppsflyerSdk(appsFlyerOptions);
 
   static Future<void> start() async {
-    TrackingStatus status = await AppTrackingTransparency.trackingAuthorizationStatus;
 
     await appsflyerSdk.initSdk(
       registerConversionDataCallback: true,
@@ -29,6 +28,8 @@ class AppsFlyerService {
     );
 
     if (Platform.isIOS) {
+      TrackingStatus status = await AppTrackingTransparency.trackingAuthorizationStatus;
+
       final forGdpr = AppsFlyerConsent.forGDPRUser(
         hasConsentForDataUsage: true,
         hasConsentForAdsPersonalization: status == TrackingStatus.authorized ? true : false,
@@ -56,7 +57,5 @@ class AppsFlyerService {
     );
   }
 
-  static logEvent({required String eventName, Map<String, String>? args}) async {
-    await appsflyerSdk.logEvent(eventName, args);
-  }
+  static Future<String?> getAppsFlyerId() => appsflyerSdk.getAppsFlyerUID();
 }

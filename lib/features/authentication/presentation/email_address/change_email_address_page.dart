@@ -43,11 +43,13 @@ class _ChangeEmailAddressPageState extends State<ChangeEmailAddressPage> {
     return MultiBlocListener(
       listeners: [
         BlocListener<AuthenticationBloc, AuthenticationState>(
-          listenWhen: (previous, current) => !previous.data.emailVerified && current.data.emailVerified,
+          listenWhen: (previous, current) =>
+              !previous.data.emailVerified && current.data.emailVerified,
           listener: _emailValidationListener,
         ),
         BlocListener<AuthenticationBloc, AuthenticationState>(
-          listenWhen: (previous, current) => !previous.data.emailWasSend && current.data.emailWasSend,
+          listenWhen: (previous, current) =>
+              !previous.data.emailWasSend && current.data.emailWasSend,
           listener: _navigationListener,
         ),
       ],
@@ -110,15 +112,16 @@ class _ChangeEmailAddressPageState extends State<ChangeEmailAddressPage> {
     TextInput.finishAutofillContext();
 
     context.read<AuthenticationBloc>().add(
-      AuthenticationEvent.updateEmail(
-        email: _email,
-        update: true,
-      ),
-    );
+          AuthenticationEvent.updateEmail(
+            email: _email,
+            update: true,
+          ),
+        );
   }
 
-  void _emailValidationListener(BuildContext context, AuthenticationState state) {
-    final physicalData = context.read<PhysicalQuestionsBloc>().state.registrationPhysicalQuestionsData;
+  Future<void> _emailValidationListener(BuildContext context, AuthenticationState state) async {
+    final physicalData =
+        context.read<PhysicalQuestionsBloc>().state.registrationPhysicalQuestionsData;
     final medicalData = context.read<MedicalQuestionsBloc>().state.registrationData;
     final mentalData = context.read<MentalQuestionsBloc>().state.registrationData;
     final authBloc = context.read<AuthenticationBloc>();

@@ -8,9 +8,7 @@ import 'package:loopcare_frontend/core/presentation/text/custom_text.dart';
 import 'package:loopcare_frontend/core/presentation/utils/build_context_extensions.dart';
 
 class NoInformation extends StatelessWidget {
-  const NoInformation({
-    super.key,
-  });
+  const NoInformation({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -34,9 +32,7 @@ class NoInformation extends StatelessWidget {
           child: Column(
             children: <Widget>[
               AppIcons.infoQuestion,
-              const SizedBox(
-                height: 8,
-              ),
+              const SizedBox(height: 8),
               CustomText.bitter600(
                 textAlign: TextAlign.center,
                 LocalizedTexts.sorryNotFound.tr(),

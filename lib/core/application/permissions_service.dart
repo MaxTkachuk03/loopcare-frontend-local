@@ -12,7 +12,11 @@ class PermissionsService {
 
   static PermissionsService get instance => _instance;
 
+  PermissionsService();
+
   bool _isNotificationGranted = false;
+
+  bool get isNotificationGranted => _isNotificationGranted;
 
   final Map<String, List<Permission>> _zoomCallsPermissions = {
     AppPlatforms.ios.name: [
@@ -26,8 +30,6 @@ class PermissionsService {
       Permission.phone,
     ],
   };
-
-  PermissionsService();
 
   get _platformDependentZoomCallsPermissionsList => Platform.isAndroid
       ? _zoomCallsPermissions[AppPlatforms.android.name]
@@ -62,12 +64,10 @@ class PermissionsService {
 
   Future<bool> getZoomCallPermissions() =>
       _requestFilePermissions(_platformDependentZoomCallsPermissionsList);
-  
+
   Future<bool> requestNotificationPermissions() async {
     final settings = await FirebaseMessaging.instance.requestPermission(announcement: true);
 
     return _isNotificationGranted = settings.authorizationStatus == AuthorizationStatus.authorized;
   }
-  
-  bool get isNotificationGranted => _isNotificationGranted;
 }

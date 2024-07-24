@@ -85,6 +85,7 @@ class AppRoutes {
   static const String joinGroupPreferences = '/join-group-preferences'; // added
   static const String genderPreferences = '/gender-preferences'; // added
   static const String nicknamePreferences = '/nickname-preferences'; // added
+  static const String updateEmail = '/update-email';
 
   // Video
   static const String video = '/video'; // added

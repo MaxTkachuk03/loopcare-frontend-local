@@ -3,9 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loopcare_frontend/core/application/analytics_bloc.dart';
-import 'package:loopcare_frontend/core/domain/analytics/firebase_event_custom_definitions.dart';
-import 'package:loopcare_frontend/core/domain/analytics/firebase_event_list.dart';
-import 'package:loopcare_frontend/core/infrastructure/services/firebase_event_service.dart';
+import 'package:loopcare_frontend/core/domain/analytics/analytics_events.dart';
+import 'package:loopcare_frontend/core/domain/analytics/analytics_parameters.dart';
+import 'package:loopcare_frontend/core/infrastructure/services/analytics_service.dart';
 import 'package:loopcare_frontend/core/presentation/alerting/modal_bottom_sheet.dart';
 import 'package:loopcare_frontend/core/presentation/buttons/custom_outlined_button.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
@@ -59,44 +59,44 @@ class _LessonAudioBodyState extends State<LessonAudioBody> {
   _setIsComplete() {
     context.read<AnalyticsBloc>().add(
           AnalyticsEvent.sendAnalytics(
-            FirebaseEvents.lessonAudioFinished,
+            AnalyticsEvents.lessonAudioFinished,
             {
-              CustomDefinitions.lessonId: lessonId.toString(),
-              CustomDefinitions.timestamp: DateTime.now().toIso8601String(),
+              AnalyticsParameters.lessonId: lessonId.toString(),
+              AnalyticsParameters.timestamp: DateTime.now().toIso8601String(),
             },
           ),
         );
 
-    AnalyticsEventService.instance.lessonAudioFinishedEvent(lessonId);
+    AnalyticsEventService().lessonAudioFinishedEvent(lessonId);
     widget.onNextPressed();
   }
 
   void onCompleteModalHandler() {
     context.read<AnalyticsBloc>().add(
           AnalyticsEvent.sendAnalytics(
-            FirebaseEvents.closedTextLessonVersion,
+            AnalyticsEvents.closedTextLessonVersion,
             {
-              CustomDefinitions.lessonId: lessonId.toString(),
-              CustomDefinitions.timestamp: DateTime.now().toIso8601String(),
+              AnalyticsParameters.lessonId: lessonId.toString(),
+              AnalyticsParameters.timestamp: DateTime.now().toIso8601String(),
             },
           ),
         );
 
-    AnalyticsEventService.instance.closedTextLessonVersionEvent(lessonId);
+    AnalyticsEventService().closedTextLessonVersionEvent(lessonId);
   }
 
   void _onReadText() {
     context.read<AnalyticsBloc>().add(
           AnalyticsEvent.sendAnalytics(
-            FirebaseEvents.openedTextLessonVersion,
+            AnalyticsEvents.openedTextLessonVersion,
             {
-              CustomDefinitions.lessonId: lessonId.toString(),
-              CustomDefinitions.timestamp: DateTime.now().toIso8601String(),
+              AnalyticsParameters.lessonId: lessonId.toString(),
+              AnalyticsParameters.timestamp: DateTime.now().toIso8601String(),
             },
           ),
         );
 
-    AnalyticsEventService.instance.openedTextLessonVersionEvent(lessonId);
+    AnalyticsEventService().openedTextLessonVersionEvent(lessonId);
 
     ModalBottomSheet.readTextVersion(
       context: context,

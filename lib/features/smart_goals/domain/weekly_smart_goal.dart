@@ -49,6 +49,15 @@ class WeeklySmartGoal with _$WeeklySmartGoal {
     });
     return log?.times ?? 0;
   }
+  int? progressIdForDate(DateTime? date) {
+    if (progressLogs == null || date == null) {
+      return null;
+    }
+    final log = progressLogs!.firstWhereOrNull((log) {
+      return log.date.dateOnly == date.dateOnly;
+    });
+    return log?.id;
+  }
 
   bool get isAchieved {
     if (progressLogs == null) {

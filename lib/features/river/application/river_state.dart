@@ -34,14 +34,15 @@ class RiverStateData with _$RiverStateData {
 
   int get currentPage => activeModule != null ? modules.indexOf(activeModule!) : 0;
 
-  bool get isBeginningComplete =>
-      modules.indexOf(modules.firstWhere(
+  bool get isBeginningComplete => modules.isEmpty
+      ? true
+      : modules.indexOf(modules.firstWhere(
         (m) => !m.isCompleted,
         orElse: () => modules.last,
       )) > 0;
 
   bool get isBeginningStarted =>
-      currentPage == 0 && activeModule!.moduleItems.any((item) => item.isCompleted);
+      currentPage == 0 && (activeModule?.moduleItems.any((item) => item.isCompleted) ?? true);
 
   bool get isProfileCompleted =>
       activeModule?.moduleItems.firstWhereOrNull((item) => item.isProfile)?.isCompleted ?? true;
