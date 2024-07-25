@@ -349,8 +349,8 @@ SPEC REPOS:
     - PromisesObjC
     - PromisesSwift
     - SAMKeychain
-    - UXCam
     - TOCropViewController
+    - UXCam
     - ZoomVideoSDK
 
 EXTERNAL SOURCES:
