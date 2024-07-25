@@ -6,6 +6,7 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_uxcam/flutter_uxcam.dart';
 import 'package:loopcare_frontend/core/domain/url_constants.dart';
 import 'package:loopcare_frontend/core/presentation/alerting/show_app_snackbar.dart';
 import 'package:loopcare_frontend/core/presentation/app_bar/custom_app_bar.dart';
@@ -113,10 +114,12 @@ class _PasswordPageState extends State<PasswordPage> {
                           ),
                         ),
                       ),
-                      PasswordWithIndicator(
-                        key: const ValueKey('password_page_with_indicator'),
-                        controller: _passwordController,
-                        onChange: _onPasswordChanged,
+                      OccludeWrapper(
+                        child: PasswordWithIndicator(
+                          key: const ValueKey('password_page_with_indicator'),
+                          controller: _passwordController,
+                          onChange: _onPasswordChanged,
+                        ),
                       ),
                       const SizedBox(height: 20.0),
                       CheckboxFormField(
