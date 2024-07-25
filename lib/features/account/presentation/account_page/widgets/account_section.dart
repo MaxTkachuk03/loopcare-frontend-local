@@ -2,6 +2,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_uxcam/flutter_uxcam.dart';
 import 'package:loopcare_frontend/core/presentation/buttons/custom_elevated_button.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/core/presentation/routes/app_router.dart';
@@ -41,21 +42,27 @@ class AccountSection extends StatelessWidget {
           child: Column(
             children: [
               SectionTitle(title: LocalizedTexts.account.tr()),
-              const SizedBox(height: 27),
-              NetworkUserAvatar(
-                url: state.data.avatar,
-                onPressed: () => _onAvatarPressedHandler(context),
-              ),
-              SectionItem(
-                title: LocalizedTexts.name.tr(),
-                subTitle: state.data.nameCapitalised,
-                onPressHandler: () {},
-              ),
-              const Divider(height: 1.0, color: AppColors.blueLighter),
-              SectionItem(
-                title: LocalizedTexts.emailAddress.tr(),
-                subTitle: state.data.accountEmail,
-                onPressHandler: () => _onEmailPressedHandler(context),
+              OccludeWrapper(
+                child: Column(
+                  children: [
+                    const SizedBox(height: 27),
+                    NetworkUserAvatar(
+                      url: state.data.avatar,
+                      onPressed: () => _onAvatarPressedHandler(context),
+                    ),
+                    SectionItem(
+                      title: LocalizedTexts.name.tr(),
+                      subTitle: state.data.nameCapitalised,
+                      onPressHandler: () {},
+                    ),
+                    const Divider(height: 1.0, color: AppColors.blueLighter),
+                    SectionItem(
+                      title: LocalizedTexts.emailAddress.tr(),
+                      subTitle: state.data.accountEmail,
+                      onPressHandler: () => _onEmailPressedHandler(context),
+                    ),
+                  ],
+                ),
               ),
               const Divider(height: 1.0, color: AppColors.blueLighter),
               const SizedBox(height: 16.0),

@@ -162,6 +162,9 @@ PODS:
   - flutter_udid (0.0.1):
     - Flutter
     - SAMKeychain
+  - flutter_uxcam (2.5.4):
+    - Flutter
+    - UXCam (~> 3.6.14)
   - flutter_zoom_videosdk (0.0.1):
     - Flutter
     - ZoomVideoSDK/ZoomVideoSDK
@@ -266,6 +269,7 @@ PODS:
   - TOCropViewController (2.7.4)
   - url_launcher_ios (0.0.1):
     - Flutter
+  - UXCam (3.6.15)
   - video_player_avfoundation (0.0.1):
     - Flutter
     - FlutterMacOS
@@ -294,6 +298,7 @@ DEPENDENCIES:
   - flutter_native_splash (from `.symlinks/plugins/flutter_native_splash/ios`)
   - flutter_secure_storage (from `.symlinks/plugins/flutter_secure_storage/ios`)
   - flutter_udid (from `.symlinks/plugins/flutter_udid/ios`)
+  - flutter_uxcam (from `.symlinks/plugins/flutter_uxcam/ios`)
   - flutter_zoom_videosdk (from `.symlinks/plugins/flutter_zoom_videosdk/ios`)
   - image_cropper (from `.symlinks/plugins/image_cropper/ios`)
   - image_picker_ios (from `.symlinks/plugins/image_picker_ios/ios`)
@@ -344,6 +349,7 @@ SPEC REPOS:
     - PromisesObjC
     - PromisesSwift
     - SAMKeychain
+    - UXCam
     - TOCropViewController
     - ZoomVideoSDK
 
@@ -382,6 +388,8 @@ EXTERNAL SOURCES:
     :path: ".symlinks/plugins/flutter_secure_storage/ios"
   flutter_udid:
     :path: ".symlinks/plugins/flutter_udid/ios"
+  flutter_uxcam:
+    :path: ".symlinks/plugins/flutter_uxcam/ios"
   flutter_zoom_videosdk:
     :path: ".symlinks/plugins/flutter_zoom_videosdk/ios"
   image_cropper:
@@ -456,6 +464,7 @@ SPEC CHECKSUMS:
   flutter_native_splash: edf599c81f74d093a4daf8e17bd7a018854bc778
   flutter_secure_storage: d33dac7ae2ea08509be337e775f6b59f1ff45f12
   flutter_udid: a2482c67a61b9c806ef59dd82ed8d007f1b7ac04
+  flutter_uxcam: 4ec3d74f99adbbfff0a62bf676107d194b6ef737
   flutter_zoom_videosdk: 6cfe5ed4a015adaf8c2bc57e50261914f1ddd38b
   GoogleAppMeasurement: f65fc137531af9ad647f1c0a42f3b6a4d3a98049
   GoogleDataTransport: 6c09b596d841063d76d4288cc2d2f42cc36e1e2a
@@ -480,11 +489,12 @@ SPEC CHECKSUMS:
   sqflite: 673a0e54cc04b7d6dba8d24fb8095b31c3a99eec
   TOCropViewController: 80b8985ad794298fb69d3341de183f33d1853654
   url_launcher_ios: 5334b05cef931de560670eeae103fd3e431ac3fe
+  UXCam: dab8e85b4c7fecdf09081d46b249099059a0451f
   video_player_avfoundation: 7c6c11d8470e1675df7397027218274b6d2360b3
   wakelock_plus: 78ec7c5b202cab7761af8e2b2b3d0671be6c4ae1
   webview_flutter_wkwebview: be0f0d33777f1bfd0c9fdcb594786704dbf65f36
   ZoomVideoSDK: 5fc44a9acd0b3a4ae9328a873898bff5b28640a8
 
-PODFILE CHECKSUM: e45d0ca79e9bfbbd0d669bb99dedbc7800c511db
+PODFILE CHECKSUM: b92b68ba919719da30d62336647f79f1d38ee9bc
 
 COCOAPODS: 1.15.2

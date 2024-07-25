@@ -3,6 +3,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:loopcare_frontend/core/domain/analytics/uxcam/uxcam_navigation_observer.dart';
 import 'package:loopcare_frontend/core/infrastructure/route_observers/route_observer_utils.dart';
 import 'package:loopcare_frontend/core/infrastructure/services/app_bloc_provider.dart';
 import 'package:loopcare_frontend/core/infrastructure/services/app_config.dart';
@@ -62,6 +63,7 @@ class _AppState extends State<_App> {
       routerDelegate: _appRouter.delegate(
         navigatorObservers: () => [
           RouteObserverUtils(),
+          UxcamNavigationObserver(),
           FirebaseNavigatorObserver(
             analytics: _analytics,
           ),

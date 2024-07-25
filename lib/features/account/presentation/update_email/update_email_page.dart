@@ -2,6 +2,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_uxcam/flutter_uxcam.dart';
 import 'package:loopcare_frontend/core/presentation/alerting/modal_bottom_sheet.dart';
 import 'package:loopcare_frontend/core/presentation/alerting/show_app_snackbar.dart';
 import 'package:loopcare_frontend/core/presentation/app_bar/custom_app_bar.dart';
@@ -103,14 +104,20 @@ class _UpdateEmailPageState extends State<UpdateEmailPage> {
                               style: context.textTheme.bodyMedium,
                             ),
                             const SizedBox(height: 20.0),
-                            CustomTextField.email(
-                              key: const ValueKey('email_text_field'),
-                              controller: _emailController,
-                            ),
-                            const SizedBox(height: 20.0),
-                            CustomTextField.password(
-                              key: const ValueKey('password_text_field'),
-                              controller: _passwordController,
+                            OccludeWrapper(
+                              child: Column(
+                                children: [
+                                  CustomTextField.email(
+                                    key: const ValueKey('email_text_field'),
+                                    controller: _emailController,
+                                  ),
+                                  const SizedBox(height: 20.0),
+                                  CustomTextField.password(
+                                    key: const ValueKey('password_text_field'),
+                                    controller: _passwordController,
+                                  ),
+                                ],
+                              ),
                             ),
                             TextButton(
                               onPressed: _onForgotMyPassword,
