@@ -2,6 +2,7 @@ import 'package:auto_route/annotations.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_uxcam/flutter_uxcam.dart';
 import 'package:loopcare_frontend/core/presentation/custom_safe_area.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/core/presentation/scaffold/custom_scaffold.dart';
@@ -191,10 +192,12 @@ class _DashboardPageState extends State<DashboardPage> with WidgetsBindingObserv
                           const SizedBox(height: 28),
                           BlocBuilder<AuthenticationBloc, AuthenticationState>(
                             builder: (context, state) {
-                              return CustomText.bitter600(
-                                _getHelloMessage(state.data.nameCapitalised),
-                                style: context.textTheme.displayMedium
-                                    ?.copyWith(color: AppColors.white),
+                              return OccludeWrapper(
+                                child: CustomText.bitter600(
+                                  _getHelloMessage(state.data.nameCapitalised),
+                                  style: context.textTheme.displayMedium
+                                      ?.copyWith(color: AppColors.white),
+                                ),
                               );
                             },
                           ),

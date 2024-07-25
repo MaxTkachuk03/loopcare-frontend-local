@@ -1,5 +1,8 @@
 import 'package:fast_immutable_collections/fast_immutable_collections.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
+import 'package:flutter/foundation.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:flutter_uxcam/flutter_uxcam.dart';
 import 'package:loopcare_frontend/build_type.dart';
 import 'package:loopcare_frontend/core/domain/analytics/analytics_events.dart';
 import 'package:loopcare_frontend/core/domain/analytics/analytics_parameters.dart';
@@ -15,44 +18,67 @@ import 'package:loopcare_frontend/features/reflections/domain/reflection.dart';
 class AnalyticsEventService {
   final bool _includeAppsFlyer;
   final bool _includeFbAnalytics;
+  final bool _includeUXcam;
 
   const AnalyticsEventService.appsFlyer()
       : _includeAppsFlyer = true,
-        _includeFbAnalytics = false;
+        _includeFbAnalytics = false,
+        _includeUXcam = false;
 
   const AnalyticsEventService.firebase()
       : _includeFbAnalytics = true,
-        _includeAppsFlyer = false;
+        _includeAppsFlyer = false,
+        _includeUXcam = false;
+
+  const AnalyticsEventService.uxcam()
+      : _includeFbAnalytics = false,
+        _includeAppsFlyer = false,
+        _includeUXcam = true;
 
   const AnalyticsEventService()
       : _includeAppsFlyer = true,
-        _includeFbAnalytics = true;
+        _includeFbAnalytics = true,
+        _includeUXcam = true;
 
   void logEvent({
     required String eventName,
     Map<String, dynamic>? parameters,
   }) async {
-    final userId = StoredAccountService.getAccount()?.id ?? -1;
-
+    final accountId = StoredAccountService.getAccount()?.id ?? -1;
     final userIdPrefix = CountryCodeService.instance.serverCountryCode;
+    final userId = '$accountId-$userIdPrefix';
 
     if (_includeFbAnalytics) {
-      await _firebaseLogEvent(parameters, userId, userIdPrefix, eventName);
+      await _firebaseLogEvent(eventName, userId, parameters);
     }
+
     if (_includeAppsFlyer && kIsProd) {
-      await _appsFlyerLogEvent(parameters, userId, userIdPrefix, eventName);
+      await _appsFlyerLogEvent(eventName, userId, parameters);
+    }
+
+    if (_includeUXcam) {
+      await _uxcamLogEvent(eventName, userId, parameters);
+    }
+  }
+
+  void logScreenEvent(String screenName) {
+    if (_includeFbAnalytics || _includeAppsFlyer) {
+      logEvent(eventName: 'screen_view', parameters: {'screenName': screenName});
+    }
+
+    if (_includeUXcam) {
+      FlutterUxcam.tagScreenName(screenName);
     }
   }
 
   Future<void> _appsFlyerLogEvent(
-    Map<String, dynamic>? parameters,
-    int userId,
-    String userIdPrefix,
     String eventName,
+    String userId,
+    Map<String, dynamic>? parameters,
   ) async {
     Map<String, Object> tmpParameters = Map.from(parameters ?? {});
-    Map<String, dynamic> args = tmpParameters.map((key, value) => MapEntry('af_$key}', value));
-    args[AnalyticsParameters.userId] = 'af_$userId-$userIdPrefix';
+    Map<String, dynamic> args = tmpParameters.map((key, value) => MapEntry('af_$key', value));
+    args[AnalyticsParameters.userId] = 'af_$userId';
 
     try {
       await AppsFlyerService.appsflyerSdk.logEvent('af_$eventName', args);
@@ -62,18 +88,36 @@ class AnalyticsEventService {
   }
 
   Future<void> _firebaseLogEvent(
-    Map<String, dynamic>? parameters,
-    int userId,
-    String userIdPrefix,
     String eventName,
+    String userId,
+    Map<String, dynamic>? parameters,
   ) async {
     Map<String, Object> tmpParameters = Map.from(parameters ?? {});
-    tmpParameters[AnalyticsParameters.userId] = '$userId-$userIdPrefix';
+    tmpParameters[AnalyticsParameters.userId] = userId;
 
     await FirebaseAnalytics.instance.logEvent(
       name: eventName,
       parameters: tmpParameters,
     );
+  }
+
+  Future<void> _uxcamLogEvent(
+      String eventName,
+      String userId,
+      Map<String, dynamic>? parameters,
+  ) async {
+    Map<String, Object> tmpParameters = Map.from(parameters ?? {});
+    tmpParameters[AnalyticsParameters.userId] = userId;
+
+    FlutterUxcam.logEventWithProperties(eventName, parameters ?? {});
+  }
+
+  Future<void> init() async {
+    if (kIsDev || kDebugMode) return;
+
+    FlutterUxcam.optIntoSchematicRecordings();
+    FlutterUxConfig config = FlutterUxConfig(userAppKey: dotenv.env['UXCAM_APP_KEY'] ?? '',);
+    await FlutterUxcam.startWithConfiguration(config);
   }
 
   void logFoodPreferencesEvent(

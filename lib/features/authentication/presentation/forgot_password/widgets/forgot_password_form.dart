@@ -2,6 +2,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_uxcam/flutter_uxcam.dart';
 import 'package:loopcare_frontend/core/presentation/alerting/show_app_snackbar.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/core/presentation/routes/app_router.dart';
@@ -35,9 +36,11 @@ class _ForgotPasswordFormState extends State<ForgotPasswordForm> {
       child: Form(
         key: _formKey,
         onChanged: _onChangedForm,
-        child: CustomTextField.email(
-          key: const ValueKey('forgot_password_email_text_field'),
-          controller: _emailController,
+        child: OccludeWrapper(
+          child: CustomTextField.email(
+            key: const ValueKey('forgot_password_email_text_field'),
+            controller: _emailController,
+          ),
         ),
       ),
     );

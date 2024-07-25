@@ -5,6 +5,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_uxcam/flutter_uxcam.dart';
 import 'package:loopcare_frontend/build_type.dart';
 import 'package:loopcare_frontend/core/presentation/alerting/modal_bottom_sheet.dart';
 import 'package:loopcare_frontend/core/presentation/app_bar/custom_app_bar.dart';
@@ -158,9 +159,11 @@ class _WaitingForConfirmationPageState extends State<WaitingForConfirmationPage>
                         BlocBuilder<AuthenticationBloc, AuthenticationState>(
                           key: const ValueKey('waiting_for_confirmation_email_line'),
                           builder: (context, state) {
-                            return CustomText.w600(
-                              state.data.email,
-                              style: context.textTheme.bodyMedium,
+                            return OccludeWrapper(
+                              child: CustomText.w600(
+                                state.data.email,
+                                style: context.textTheme.bodyMedium,
+                              ),
                             );
                           },
                         ),
