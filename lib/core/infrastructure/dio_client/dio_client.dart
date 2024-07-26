@@ -16,9 +16,7 @@ import 'package:loopcare_frontend/core/infrastructure/dio_client/parse_response.
 import 'package:loopcare_frontend/core/infrastructure/dio_client/request_error.dart';
 import 'package:loopcare_frontend/core/infrastructure/dio_client/retry.dart';
 import 'package:loopcare_frontend/core/infrastructure/services/logger/logger.dart';
-import 'package:loopcare_frontend/core/infrastructure/services/network_service/network_service.dart';
 import 'package:loopcare_frontend/core/infrastructure/services/shared_storage/shared_storage_service.dart';
-import 'package:loopcare_frontend/injection.dart';
 import 'package:pretty_dio_logger/pretty_dio_logger.dart';
 
 enum FetchType { get, post, put, delete, patch, downloading }
@@ -311,12 +309,10 @@ Future<Either<RequestError, T>> fetchResponse<T>(
         break;
     }
   } on DioException catch (error) {
-    final bool connected = await getIt<NetworkStatusService>().checkInternetConnection();
-
     log.e(error.toString(), error: error.runtimeType);
 
-    if (!connected) {
-      throw Left(RequestError.connection(error));
+    if (error.type.isConnectionException) {
+      return Left(RequestError.connection(error));
     } else {
       return handleDioException(error);
     }
