@@ -2,7 +2,7 @@
 
 ## Getting Started
 
-Project was set up and developed with flutter version 3.22.1
+Project was set up and developed with flutter version 3.22.3
 We are using 100 line length in project, so before starting make sure you changed default line length in your IDE
 
 Follow these steps to set up a project:
