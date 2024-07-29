@@ -6,6 +6,7 @@ import 'package:loopcare_frontend/features/river/domain/river_module_item.dart';
 import 'function_coefficients.dart';
 
 const List<Offset> _zeroPagePositions = [
+  Offset(0.39, 0.31),
   Offset(0.76, 0.62),
   Offset(0.88, 0.45),
 ];
@@ -45,7 +46,8 @@ class ModuleItemsUtils {
     return d + a * _f((x - c) / b);
   }
 
-  static List<({Offset offset, RiverModuleItem item})> getItemsOffsets(int page, List<RiverModuleItem> items) {
+  static List<({Offset offset, RiverModuleItem item})> getItemsOffsets(
+      int page, List<RiverModuleItem> items) {
     if (page == 0) {
       return _getBeginningPageOffsets(items);
     } else {
@@ -53,7 +55,8 @@ class ModuleItemsUtils {
     }
   }
 
-  static List<({Offset offset, RiverModuleItem item})> _getBeginningPageOffsets(List<RiverModuleItem> items) {
+  static List<({Offset offset, RiverModuleItem item})> _getBeginningPageOffsets(
+      List<RiverModuleItem> items) {
     final List<({Offset offset, RiverModuleItem item})> list = [];
 
     for (int i = 0; i < items.length; i++) {
@@ -64,7 +67,8 @@ class ModuleItemsUtils {
     return list;
   }
 
-  static List<({Offset offset, RiverModuleItem item})> _getItemsOffsetForPage(int page, List<RiverModuleItem> items) {
+  static List<({Offset offset, RiverModuleItem item})> _getItemsOffsetForPage(
+      int page, List<RiverModuleItem> items) {
     final List<({Offset offset, RiverModuleItem item})> list = [];
 
     final root = items.where((i) => i.isRootItem).toList();

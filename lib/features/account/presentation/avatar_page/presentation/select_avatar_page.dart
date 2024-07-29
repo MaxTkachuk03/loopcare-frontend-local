@@ -28,7 +28,9 @@ import 'package:loopcare_frontend/features/authentication/application/authentica
 
 @RoutePage()
 class SelectAvatarPage extends StatefulWidget {
-  const SelectAvatarPage({super.key});
+  final void Function()? onDispose;
+
+  const SelectAvatarPage({super.key, this.onDispose});
 
   @override
   State<SelectAvatarPage> createState() => _SelectAvatarPageState();
@@ -168,6 +170,7 @@ class _SelectAvatarPageState extends State<SelectAvatarPage> {
   void dispose() {
     super.dispose();
 
+    widget.onDispose?.call();
     _controller.showSizeError.removeListener(_sizeErrorListener);
     _controller.dispose();
   }
