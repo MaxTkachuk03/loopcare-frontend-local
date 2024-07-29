@@ -428,8 +428,7 @@ class AuthenticationBloc extends HydratedBloc<AuthenticationEvent, Authenticatio
 
     if (account == null || accountFeatures == null) return;
 
-    final updatedAccount = _sharedPref.account =
-        account.copyWith(features: accountFeatures.unlockFeature(event.feature));
+    final updatedAccount = _sharedPref.account = account.unlockFeature(event.feature);
 
     emit(state.copyWith(data: state.data.copyWith(account: updatedAccount)));
 
