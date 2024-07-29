@@ -96,6 +96,8 @@ class AuthenticationData with _$AuthenticationData {
 
   bool get isFoodLoggingUnlocked => account?.isFoodLoggingUnlocked ?? false;
 
+  bool get isMoodLoggingUnlocked => account?.isMoodLoggingUnlocked ?? false;
+
   bool get isCalorieDensityUnlocked => account?.isCalorieDensityUnlocked ?? false;
 
   bool get isProteinDegreeUnlocked => account?.isProteinDegreeUnlocked ?? false;

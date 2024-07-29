@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:math';
 
 import 'package:flutter/material.dart';
 
@@ -14,6 +15,7 @@ const Duration _updatePositionDuration = Duration(milliseconds: 60000);
 const Duration _completeDuration = Duration(milliseconds: 50);
 
 const double _completedGradientPosition = 1.0;
+const double _endGradientPosition = 0.83;
 const double _spawnedGradientPosition = 0.0;
 const double _startGradientPosition = -0.12;
 
@@ -27,14 +29,18 @@ class AnimatedRiverStreams extends StatefulWidget {
     required this.totalDelay,
     required this.isCompleted,
     required this.completedDate,
-    required this.onCompleted,
+    this.driving = true,
+    this.enableGradient,
+    this.onCompleted,
   });
 
   final int page;
   final DateTime? completedDate;
   final int totalDelay;
   final bool isCompleted;
-  final void Function() onCompleted;
+  final bool driving;
+  final bool? enableGradient;
+  final void Function()? onCompleted;
 
   @override
   State<AnimatedRiverStreams> createState() => AnimatedRiverStreamsState();
@@ -55,7 +61,7 @@ class AnimatedRiverStreamsState extends State<AnimatedRiverStreams> with SingleT
   void initState() {
     super.initState();
     _fillColor = widget.isCompleted;
-    _enableGradient = widget.completedDate != null || isBeginning;
+    _enableGradient = widget.completedDate != null || isBeginning || (widget.enableGradient ?? false);
     _setupPosition();
     _setupAnimationControllers();
     _startTimer();
@@ -102,11 +108,11 @@ class AnimatedRiverStreamsState extends State<AnimatedRiverStreams> with SingleT
 
     if (widget.isCompleted) {
       _position = _completedGradientPosition;
-    } else if (isBeginning) {
+    } else if ((widget.completedDate == null && !widget.driving) || isBeginning) {
       _position = _spawnedGradientPosition;
     } else if (widget.completedDate == null) {
       _position = _startGradientPosition;
-    } else if (widget.completedDate!.isBefore(now)) {
+    } else if (widget.completedDate!.isBefore(now) && widget.driving) {
       _position = _completedGradientPosition;
     } else {
       _position = _definePosition(now);
@@ -117,12 +123,19 @@ class AnimatedRiverStreamsState extends State<AnimatedRiverStreams> with SingleT
 
   double _definePosition(DateTime dateTime) {
     final leftDuration = widget.completedDate!.difference(dateTime);
+    final position =  1- leftDuration.inSeconds.safeDivide(widget.totalDelay);
 
-    return 1- leftDuration.inSeconds.safeDivide(widget.totalDelay);
+    if (widget.driving) {
+      return position;
+    } else {
+      return min(position, _endGradientPosition);
+    }
   }
 
   void _startTimer() {
-    if ((widget.completedDate?.isAfter(DateTime.now()) ?? false) && !widget.isCompleted) {
+    if ((widget.completedDate?.isAfter(DateTime.now()) ?? false) &&
+        !widget.isCompleted &&
+        widget.driving) {
       _timer?.cancel();
       _timer = Timer.periodic(_updatePositionDuration, (_) => _position = _definePosition(DateTime.now()));
     }
@@ -146,7 +159,7 @@ class AnimatedRiverStreamsState extends State<AnimatedRiverStreams> with SingleT
       }
     });
 
-    if ((!widget.isCompleted && widget.completedDate != null) || isBeginning) {
+    if (!widget.isCompleted && _enableGradient) {
       _controller.repeat(reverse: true);
     }
   }
@@ -178,7 +191,7 @@ class AnimatedRiverStreamsState extends State<AnimatedRiverStreams> with SingleT
   void _stopAnimation() {
     _timer?.cancel();
     _controller.stop();
-    widget.onCompleted();
+    widget.onCompleted?.call();
   }
 }
 

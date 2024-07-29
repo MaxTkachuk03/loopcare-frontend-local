@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loopcare_frontend/core/presentation/routes/app_router.gr.dart';
 import 'package:loopcare_frontend/features/authentication/application/authentication_bloc.dart';
-import 'package:loopcare_frontend/features/home/presentation/widget/custom_navigation_bar.dart';
-import 'package:loopcare_frontend/features/home/presentation/widget/navigation_bar_items.dart';
+import 'package:loopcare_frontend/features/home/presentation/widget/custom_navigation_bar/custom_navigation_bar.dart';
+import 'package:loopcare_frontend/features/home/presentation/widget/navigation_bar_item/navigation_bar_items.dart';
 
 @RoutePage()
 class HomePage extends StatefulWidget {
