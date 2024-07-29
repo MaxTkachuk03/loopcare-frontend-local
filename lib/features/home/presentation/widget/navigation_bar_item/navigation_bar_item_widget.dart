@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:loopcare_frontend/core/presentation/icon_images/app_icons.dart';
+import 'package:loopcare_frontend/core/presentation/icon_images/app_icons_data.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 import 'package:loopcare_frontend/features/home/presentation/widget/navigation_bar_item/navigation_bar_items.dart';
 
@@ -20,17 +21,16 @@ class NavigationBarItemWidget extends StatelessWidget {
       child: Builder(
         builder: (context) {
           if (item.isProfile) {
-            return Container(
-              height: 24,
-              width: 24,
-              decoration: BoxDecoration(
-                shape: BoxShape.circle,
-                border: Border.all(
-                  color: AppColors.white,
-                  width: 2.0,
+            // todo change to avatar
+            return const SizedBox.square(
+              dimension: 24,
+              child: FittedBox(
+                fit: BoxFit.none,
+                child: Icon(
+                  AppIconsData.iProfile,
+                  color: AppColors.blueLightest,
+                  size: 36,
                 ),
-                // todo add after upload avatar feature
-                // image: DecorationImage(image: NetworkImage('https://variety.com/wp-content/uploads/2021/04/Avatar.jpg?w=800'))
               ),
             );
           } else if (item.isPractice) {
