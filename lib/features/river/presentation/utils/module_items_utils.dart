@@ -3,26 +3,18 @@ import 'dart:ui';
 
 import 'package:loopcare_frontend/features/river/domain/river_module_item.dart';
 
-import 'function_coefficients.dart';
+import 'package:loopcare_frontend/features/river/presentation/utils/function_coefficients.dart';
 
 const List<Offset> _zeroPagePositions = [
+  Offset(0.39, 0.31),
   Offset(0.76, 0.62),
   Offset(0.88, 0.45),
 ];
 
-const Offset _startButtonPosition = Offset(0.39, 0.31);
-
 class ModuleItemsUtils {
   static get zeroPagePositions => _zeroPagePositions;
 
-  static get startButtonPosition => _startButtonPosition;
-
-  static Offset getOffset(int page, int itemIndex, int stream) {
-    final dx = ItemsPositions(page).values.elementAt(stream, itemIndex);
-    return _getOffset(dx, page, stream);
-  }
-
-  static Offset getRootOffset(int page) {
+  static Offset _getRootOffset(int page) {
     const dx = 0.5;
     return _getOffset(dx, page, 2);
   }
@@ -45,7 +37,7 @@ class ModuleItemsUtils {
     return d + a * _f((x - c) / b);
   }
 
-  static List<({Offset offset, RiverModuleItem item})> getItemsOffsets(int page, List<RiverModuleItem> items) {
+  static List<({Offset offset, RiverModuleItem item})> getAllocatedItems(int page, List<RiverModuleItem> items) {
     if (page == 0) {
       return _getBeginningPageOffsets(items);
     } else {
@@ -74,21 +66,145 @@ class ModuleItemsUtils {
     final medical = items.where((i) => i.streamType.isMedical && !i.isRootItem).toList();
     final nutrition = items.where((i) => i.streamType.isNutrition && !i.isRootItem).toList();
 
-    final streams = [root, psychology, community, medical, activity, nutrition];
+    final streams = [psychology, community, medical, activity, nutrition];
+    streams.sort((a, b) => b.length.compareTo(a.length));
+    streams.insert(0, root);
+
+    final ranges = RangeBox();
 
     for (final listItems in streams) {
+
       for (int i = 0; i < listItems.length; i++) {
         final item = listItems[i];
-        if (!item.isRootItem) {
-          final position = ModuleItemsUtils.getOffset(page, i, item.streamType.streamIndex);
-          list.add((offset: position, item: item));
+
+        final range = ranges.elementAt(item.streamType.streamIndex);
+
+        if (item.isRootItem) {
+          final offset = _getRootOffset(page);
+          list.add((offset: offset, item: item));
+          ranges.insertGaps(2, 0.5);
         } else {
-          final position = ModuleItemsUtils.getRootOffset(page);
-          list.add((offset: position, item: item));
+          final biggestRanges = range.biggest;
+          double position;
+
+          if (biggestRanges.any((e) => e.inRange(0.1))) {
+            position = 0.1;
+          } else if (biggestRanges.any((e) => e.inRange(0.9)) && (i == 0 || listItems.length > 2)) {
+            position = 0.9;
+          } else {
+            final range = (item.streamType.streamIndex + page).isOdd ? biggestRanges.first : biggestRanges.last;
+            position = range.middle;
+          }
+
+          final offset = _getOffset(position, page, item.streamType.streamIndex);
+          list.add((offset: offset, item: item));
+          ranges.insertGaps(item.streamType.streamIndex, position);
         }
       }
     }
 
     return list;
   }
+}
+
+class RangeBox {
+  final List<RangeLine> _ranges;
+
+  RangeBox() : _ranges = List.generate(5, (_) => RangeLine.fill());
+
+  int get length => _ranges.length;
+
+  RangeLine elementAt(int index) => _ranges.elementAt(index);
+
+  void insertGaps(int streamIndex, double gapPosition) {
+    for (int i = 0; i < _ranges.length; i++) {
+      final gapWidth = i >= streamIndex - 1 && i <= streamIndex + 1 ? 0.1 : 0.0;
+      _ranges[i].insertGap(gapPosition, itemWidth: gapWidth);
+    }
+  }
+}
+
+class RangeLine {
+  final List<DoubleRange> _list;
+
+  RangeLine.fromIterable(Iterable<DoubleRange> list) : _list = list.toList();
+
+  RangeLine.fill() : _list = [const DoubleRange.fill()];
+
+  int get length => _list.length;
+
+  List<DoubleRange> get biggest {
+    if (_list.isEmpty) return [];
+
+    return _list.where((e) => e.length == _list.first.length).toList();
+  }
+
+  RangeLine insertGap(double position, {double itemWidth = 0.0}) {
+    final list = _list;
+
+    final index = list.indexWhere((r) => r.inRange(position));
+    final rangeItem = list.elementAt(index);
+
+    final newRanges = rangeItem.insertInRange(position, itemWidth: itemWidth);
+
+    list.replaceRange(index, index + 1, newRanges);
+    list.sort((a, b) => b.length.compareTo(a.length));
+
+    return RangeLine.fromIterable(list);
+  }
+
+  bool isAvailablePosition(double value) => _list.any((r) => r.inRange(value));
+}
+
+class DoubleRange {
+  final double from;
+  final double to;
+
+  const DoubleRange(this.from, this.to);
+
+  const DoubleRange.fill() : from = 0.0, to = 1.0;
+
+  double get length => (to - from).abs();
+
+  double get middle => from + (to - from) / 2;
+
+  bool inRange(double value) => value > from && value < to;
+
+  List<DoubleRange> insertInRange(double position, {double itemWidth = 0.0}) {
+    if (!inRange(position)) {
+      throw _OutOfRangeException(this, position);
+    }
+
+    if (position == from || position == to) {
+      return [this];
+    }
+    return [DoubleRange(from, position - itemWidth/2), DoubleRange(position + itemWidth/2, to)];
+  }
+
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+          other is DoubleRange &&
+              runtimeType == other.runtimeType &&
+              from == other.from &&
+              to == other.to;
+
+  @override
+  int get hashCode => from.hashCode ^ to.hashCode;
+
+  @override
+  String toString() {
+    return 'DoubleRange($from, $to)';
+  }
+}
+
+final class _OutOfRangeException implements Exception {
+  @pragma("vm:entry-point")
+  const _OutOfRangeException(this.range, this.position);
+
+  final DoubleRange range;
+  final double position;
+
+  @override
+  String toString() => "Out of DoubleRange, ${range.from}..${range.to} : $position";
 }
