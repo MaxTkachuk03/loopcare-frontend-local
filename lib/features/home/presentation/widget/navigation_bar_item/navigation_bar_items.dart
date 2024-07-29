@@ -38,6 +38,9 @@ enum NavigationBarItems {
         river => AppIconsData.iEducation,
         account => AppIconsData.iProfile,
       };
+
+  static NavigationBarItems itemAtIndex(int index) =>
+      NavigationBarItems.values.firstWhere((e) => index == e.number);
 }
 
 List<NavigationBarItems> get bottomTabs => [

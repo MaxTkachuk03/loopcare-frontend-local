@@ -32,20 +32,34 @@ class AppIcons {
           width: 22,
           height: 22,
           colorFilter: ColorFilter.mode(selected ? selectedColor : regularColor, BlendMode.srcIn));
-  static SvgPicture dashboardAccountActive =
-      SvgPicture.asset('$iconsFilePath/dashboard_account.svg');
+
+  static SvgPicture dashboardAccount = SvgPicture.asset(
+    '$iconsFilePath/dashboard_account.svg',
+    colorFilter: ColorFilter.mode(AppColors.white.withOpacity(0.5), BlendMode.srcIn),
+  );
+  static SvgPicture dashboardAccountActive = SvgPicture.asset('$iconsFilePath/dashboard_account.svg');
+
   static SvgPicture dashboardCalendar = SvgPicture.asset(
     '$iconsFilePath/dashboard_calendar.svg',
     colorFilter: ColorFilter.mode(AppColors.white.withOpacity(0.5), BlendMode.srcIn),
   );
+  static SvgPicture dashboardCalendarActive = SvgPicture.asset('$iconsFilePath/dashboard_calendar.svg');
+
   static SvgPicture dashboardEducation = SvgPicture.asset(
     '$iconsFilePath/dashboard_education.svg',
     colorFilter: ColorFilter.mode(AppColors.white.withOpacity(0.5), BlendMode.srcIn),
   );
+  static SvgPicture dashboardEducationActive = SvgPicture.asset('$iconsFilePath/dashboard_education.svg');
+
   static SvgPicture dashboardChat = SvgPicture.asset(
     '$iconsFilePath/dashboard_chat.svg',
     colorFilter: ColorFilter.mode(AppColors.white.withOpacity(0.5), BlendMode.srcIn),
   );
+  static SvgPicture dashboardChatActive = SvgPicture.asset('$iconsFilePath/dashboard_chat.svg');
+
+  static SvgPicture navigationBarPractice = SvgPicture.asset('$iconsFilePath/bar_practice.svg');
+  static SvgPicture navigationBarRiver = SvgPicture.asset('$iconsFilePath/bar_river.svg');
+
   static SvgPicture infoQuestion = SvgPicture.asset('$iconsFilePath/icon_info_question.svg');
   static SvgPicture orangeExclamationMark =
       SvgPicture.asset('$iconsFilePath/orange_exclamation_mark.svg');
@@ -145,19 +159,6 @@ class AppIcons {
     width: 24.0,
     height: 24.0,
   );
-
-  static SvgPicture dashboardAccount = SvgPicture.asset(
-    '$iconsFilePath/dashboard_account.svg',
-    colorFilter: ColorFilter.mode(AppColors.white.withOpacity(0.5), BlendMode.srcIn),
-  );
-
-  static SvgPicture dashboardCalendarActive =
-      SvgPicture.asset('$iconsFilePath/dashboard_calendar.svg');
-
-  static SvgPicture dashboardEducationActive =
-      SvgPicture.asset('$iconsFilePath/dashboard_education.svg');
-
-  static SvgPicture dashboardChatActive = SvgPicture.asset('$iconsFilePath/dashboard_chat.svg');
 
   static SvgPicture holderAvatar =
       SvgPicture.asset('$iconsFilePath/holder_avatar.svg', width: 30.0, height: 30.0);

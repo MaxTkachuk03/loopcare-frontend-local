@@ -2,13 +2,20 @@ import 'dart:math' as math;
 
 import 'package:badges/badges.dart' as badge;
 import 'package:flutter/material.dart';
+import 'package:loopcare_frontend/core/infrastructure/services/app_config.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
+import 'package:loopcare_frontend/features/home/presentation/widget/custom_navigation_bar/animated_bottom_bar.dart';
 import 'package:loopcare_frontend/features/river/domain/river_module_item.dart';
-import 'package:loopcare_frontend/features/river/infrastructure/blue_river_module_item_state.dart';
 import 'package:loopcare_frontend/features/river/infrastructure/feature_placement.dart';
 import 'package:loopcare_frontend/features/river/presentation/river_module_item_widget/river_module_button.dart';
+import 'package:loopcare_frontend/features/river/presentation/river_module_item_widget/river_module_item_preview.dart';
+import 'package:loopcare_frontend/features/river/presentation/utils/river_utils.dart';
 import 'package:visibility_detector/visibility_detector.dart';
 
+part 'parts/_flying_item.dart';
+part 'parts/_river_item_footprint.dart';
+
+const _defaultItemRadius = 25.0;
 const _idleDuration = Duration(milliseconds: 2000);
 const _colorDuration = Duration(milliseconds: 1000);
 const _rotationDuration = Duration(milliseconds: 1000);
@@ -26,7 +33,7 @@ class RiverAnimationModuleItemWidget extends StatefulWidget {
   const RiverAnimationModuleItemWidget({
     super.key,
     required this.item,
-    this.radius = 25,
+    this.radius = _defaultItemRadius,
     this.isBeginning = false,
     this.onTap,
     this.onStatusChanged,
@@ -37,26 +44,27 @@ class RiverAnimationModuleItemWidget extends StatefulWidget {
   State<RiverAnimationModuleItemWidget> createState() => _RiverAnimationModuleItemWidgetState();
 }
 
-class _RiverAnimationModuleItemWidgetState extends State<RiverAnimationModuleItemWidget> with TickerProviderStateMixin {
+class _RiverAnimationModuleItemWidgetState extends State<RiverAnimationModuleItemWidget>
+    with TickerProviderStateMixin, RiverUtils {
   final GlobalKey _buttonKey = GlobalKey();
 
   late AnimationController _idleController;
   late AnimationController _colorController;
   late AnimationController _rotationController;
-  late AnimationController _unlockController;
   late AnimationController _badgeController;
 
   late Animation<Color?> _colorIconAnimation;
   late Animation<Color?> _colorBgAnimation;
   late Animation<double> _rotateAnimation;
-  late Animation<Offset> _unlockAnimation;
   late Animation<double> _idleAnimation;
   late Animation<double> _badgeAnimation;
 
-  bool _enableFootprint = false;
   bool _isOnViewport = false;
 
   _ItemAnimation? _itemAnimation;
+
+  @override
+  bool get isBeginning => widget.isBeginning;
 
   @override
   void initState() {
@@ -65,7 +73,6 @@ class _RiverAnimationModuleItemWidgetState extends State<RiverAnimationModuleIte
     _colorController = AnimationController(duration: _colorDuration, vsync: this);
     _rotationController = AnimationController(duration: _rotationDuration, vsync: this);
     _badgeController = AnimationController(duration: _badgeDuration, vsync: this);
-    _unlockController = AnimationController(duration: _unlockDuration, vsync: this);
 
     if (widget.item.isCompleted) {
       _badgeController.animateTo(1);
@@ -81,7 +88,6 @@ class _RiverAnimationModuleItemWidgetState extends State<RiverAnimationModuleIte
     _idleController.dispose();
     _colorController.dispose();
     _rotationController.dispose();
-    _unlockController.dispose();
     _badgeController.dispose();
     super.dispose();
   }
@@ -111,16 +117,6 @@ class _RiverAnimationModuleItemWidgetState extends State<RiverAnimationModuleIte
         alignment: Alignment.center,
         clipBehavior: Clip.none,
         children: [
-          if (_enableFootprint)
-            SlideTransition(
-              position: _unlockAnimation,
-              child: RiverModuleButton(
-                icon: widget.item.icon,
-                radius: widget.radius,
-                bgColor: _getBackgroundColor(widget.item),
-                iconColor: _getIconColor(widget.item),
-              ),
-            ),
           AnimatedBuilder(
             animation: _colorController,
             builder: (context, _) => AnimatedBuilder(
@@ -179,6 +175,16 @@ class _RiverAnimationModuleItemWidgetState extends State<RiverAnimationModuleIte
     );
   }
 
+  Offset get _translatePractice => isBeginning ? Offset(widget.radius, 0) : Offset(widget.radius / 2 + 2, 0);
+
+  Offset get _translateProfile => isBeginning ? Offset(widget.radius, 2) : Offset(widget.radius / 2 + 4, -1);
+
+  Offset get _endPosition  => widget.item.featurePlacement?.isDashboard ?? false
+      ? _definePosition(kNavigationBarItemPractice).translate(_translatePractice.dx, _translatePractice.dy)
+      : _definePosition(kNavigationBarItemProfile).translate(_translateProfile.dx, _translateProfile.dy);
+
+  Offset get _startPosition => _definePosition(_buttonKey);
+
   void _setUpAnimations() {
     _setUpItemColorAnimation(widget.item, widget.item);
 
@@ -186,49 +192,27 @@ class _RiverAnimationModuleItemWidgetState extends State<RiverAnimationModuleIte
         .chain(CurveTween(curve: Curves.ease))
         .animate(_rotationController);
 
-    _unlockAnimation = Tween<Offset>(
-      begin: Offset.zero,
-      end: Offset.zero,
-    ).animate(_unlockController);
-
     _idleAnimation = Tween<double>(begin: 1.0, end: 1.1).animate(_idleController);
     _badgeAnimation = Tween<double>(begin: 0.0, end: 1.0).animate(_badgeController);
   }
 
   void _clearItemAnimation() => _itemAnimation = null;
 
-  Color _getIconColor(RiverModuleItem item) {
-    if (widget.isBeginning) {
-      return BlueRiverModuleItemState.iconColor(item.itemState);
-    } else {
-      return item.iconColor;
-    }
-  }
-
-  Color _getBackgroundColor(RiverModuleItem item) {
-    if (widget.isBeginning) {
-      return BlueRiverModuleItemState.backgroundColor(item.itemState);
-    } else {
-      return item.bgColor;
-    }
-  }
-
   void _setUpItemColorAnimation(RiverModuleItem begin, RiverModuleItem end) {
     _colorIconAnimation = ColorTween(
-      begin: _getIconColor(begin),
-      end: _getIconColor(end),
+      begin: getIconColor(begin),
+      end: getIconColor(end),
     ).animate(_colorController);
 
     _colorBgAnimation = ColorTween(
-      begin: _getBackgroundColor(begin),
-      end: _getBackgroundColor(end),
+      begin: getBackgroundColor(begin),
+      end: getBackgroundColor(end),
     ).animate(_colorController);
   }
 
   void _addListeners() {
     _colorController.addStatusListener(_colorListener);
     _rotationController.addStatusListener(_rotationListener);
-    _unlockController.addStatusListener(_unlockListener);
     _badgeController.addStatusListener(_badgeListener);
   }
 
@@ -245,24 +229,18 @@ class _RiverAnimationModuleItemWidgetState extends State<RiverAnimationModuleIte
   void _rotationListener(AnimationStatus state) {
     if (state == AnimationStatus.completed) {
       if (widget.item.featurePlacement != null) {
-        setState(() => _enableFootprint = true);
-        _unlockController.forward();
-      } else if (widget.item.isCompleted) {
-        _runComplete();
+        _runTransition();
       } else {
-        _clearItemAnimation();
+        _completeOrClearAction();
       }
     }
   }
 
-  void _unlockListener(AnimationStatus state) {
-    if (state == AnimationStatus.completed) {
-      widget.onTransitionComplete?.call(widget.item.featurePlacement!);
-      if (widget.item.isCompleted) {
-        _runComplete();
-      } else {
-        _clearItemAnimation();
-      }
+  void _completeOrClearAction() {
+    if (widget.item.isCompleted) {
+      _runComplete();
+    } else {
+      _clearItemAnimation();
     }
   }
 
@@ -288,6 +266,11 @@ class _RiverAnimationModuleItemWidgetState extends State<RiverAnimationModuleIte
     }
   }
 
+  void _transitionCompleted() {
+    widget.onTransitionComplete?.call(widget.item.featurePlacement!);
+    _completeOrClearAction();
+  }
+
   void _startIdling() {
     if (widget.item.isUnLocked) {
       Future.delayed(const Duration(seconds: 1), () => _idleController.repeat(reverse: true));
@@ -299,13 +282,24 @@ class _RiverAnimationModuleItemWidgetState extends State<RiverAnimationModuleIte
   }
 
   void _runRead() {
-    if (widget.item.featurePlacement != null) {
-      _updateUnlockAnimation();
-    }
-
     _idleController.reset();
     _rotationController.forward();
     _colorController.forward();
+  }
+
+  void _runTransition() {
+    _showTransitionItemAnimation(
+      context: context,
+      startPosition: _startPosition,
+      endPosition: _endPosition,
+      onEnd: _transitionCompleted,
+      item: _RiverItemFootprint(
+        key: ValueKey(widget.item.id),
+        item: widget.item,
+        radius: widget.radius,
+        isBeginning: isBeginning,
+      ),
+    );
   }
 
   void _runComplete() {
@@ -316,40 +310,22 @@ class _RiverAnimationModuleItemWidgetState extends State<RiverAnimationModuleIte
     _isOnViewport = info.visibleFraction > 0;
     _startAnimation();
   }
-
-  void _updateUnlockAnimation() {
-    final itemPosition = _definePosition();
-
-    final screenSize = MediaQuery.of(context).size;
-    final offsetCoefficient = (widget.item.featurePlacement?.isDashboard ?? false) ? 1 : 3;
-    final targetDxOffset = (widget.item.featurePlacement?.isDashboard ?? false) ? widget.radius :  - widget.radius;
-
-    final dy = (screenSize.height - itemPosition.dy - kBottomNavigationBarHeight * 2) / widget.radius;
-    final dx = (offsetCoefficient * (screenSize.width / 4) - itemPosition.dx - targetDxOffset) / widget.radius;
-
-    final endOffset = Offset(dx, dy);
-
-    _unlockAnimation = Tween<Offset>(
-      begin: Offset.zero,
-      end: endOffset,
-    ).animate(_unlockController);
-  }
-
-  Offset _definePosition() {
-    final itemContext = _buttonKey.currentContext;
-    if (itemContext == null) {
-      throw FlutterError('No context in RiverModuleButton');
-    }
-
-    final RenderBox button = itemContext.findRenderObject()! as RenderBox;
-    final RenderBox overlay = Navigator.of(context).overlay!.context.findRenderObject()! as RenderBox;
-
-    return button.localToGlobal(Offset.zero, ancestor: overlay).translate(widget.radius, 0);
-  }
 }
 
 enum _ItemAnimation {
   unlock,
   readAndComplete,
   complete,
+}
+
+Offset _definePosition(GlobalKey key) {
+  final itemContext = key.currentContext;
+  if (itemContext == null) {
+    throw FlutterError('No context in item');
+  }
+
+  final RenderBox button = itemContext.findRenderObject()! as RenderBox;
+  final RenderBox overlay = Navigator.of(kOverlayContext).overlay!.context.findRenderObject()! as RenderBox;
+
+  return button.localToGlobal(Offset.zero, ancestor: overlay);
 }
