@@ -177,7 +177,7 @@ class _RiverAnimationModuleItemWidgetState extends State<RiverAnimationModuleIte
 
   Offset get _translatePractice => isBeginning ? Offset(widget.radius, 0) : Offset(widget.radius / 2 + 2, 0);
 
-  Offset get _translateProfile => isBeginning ? Offset(widget.radius, 2) : Offset(widget.radius / 2 + 4, -1);
+  Offset get _translateProfile => isBeginning ? Offset(widget.radius, 1) : Offset(widget.radius / 2 + 4, -1);
 
   Offset get _endPosition  => widget.item.featurePlacement?.isDashboard ?? false
       ? _definePosition(kNavigationBarItemPractice).translate(_translatePractice.dx, _translatePractice.dy)

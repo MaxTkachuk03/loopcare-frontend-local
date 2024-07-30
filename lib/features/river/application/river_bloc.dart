@@ -31,7 +31,7 @@ class RiverBloc extends Bloc<RiverEvent, RiverState> {
   }
 
   FutureOr<void> _onInitRiver(InitRiver event, Emitter<RiverState> emit) async {
-    emit(const RiverState.moduleLoaded(RiverStateData()));
+    emit(const RiverState.initial(RiverStateData()));
   }
 
   FutureOr<void> _onGetModules(GetModules event, Emitter<RiverState> emit) async {
