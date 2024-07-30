@@ -46,7 +46,7 @@ class _FlyingItemRoute extends PopupRoute {
       );
 
   @override
-  Duration get transitionDuration => const Duration(milliseconds: 300);
+  Duration get transitionDuration => const Duration(milliseconds: 30);
 
   @override
   bool get barrierDismissible => false;
