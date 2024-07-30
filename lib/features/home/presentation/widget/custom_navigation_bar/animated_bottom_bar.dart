@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:badges/badges.dart' as badge;
 import 'package:flutter/material.dart';
 import 'package:loopcare_frontend/core/infrastructure/services/shared_storage/shared_storage_service.dart';
@@ -82,7 +84,11 @@ class _CustomBottomNavigationBarState extends State<CustomBottomNavigationBar> {
 
   @override
   Widget build(BuildContext context) {
-    final height = kBottomNavigationBarHeight + MediaQuery.of(context).padding.bottom;
+    final bottomPadding = Platform.isAndroid ? 8.0 : 0.0;
+
+    final height = kBottomNavigationBarHeight +
+        bottomPadding +
+        MediaQuery.of(context).padding.bottom;
 
     return Container(
       height: height,
