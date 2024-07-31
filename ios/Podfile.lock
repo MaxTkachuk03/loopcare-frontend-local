@@ -38,6 +38,17 @@ PODS:
     - CustomerIOCommon (= 2.12.5)
   - device_info_plus (0.0.1):
     - Flutter
+  - facebook_app_events (0.0.1):
+    - FBAudienceNetwork (~> 6.15)
+    - FBSDKCoreKit (~> 17.0)
+    - Flutter
+  - FBAEMKit (17.0.2):
+    - FBSDKCoreKit_Basics (= 17.0.2)
+  - FBAudienceNetwork (6.15.1)
+  - FBSDKCoreKit (17.0.2):
+    - FBAEMKit (= 17.0.2)
+    - FBSDKCoreKit_Basics (= 17.0.2)
+  - FBSDKCoreKit_Basics (17.0.2)
   - Firebase/Analytics (10.27.0):
     - Firebase/Core
   - Firebase/Core (10.27.0):
@@ -285,6 +296,7 @@ DEPENDENCIES:
   - customer_io (from `.symlinks/plugins/customer_io/ios`)
   - CustomerIO/MessagingPushFCM (~> 2.12.2)
   - device_info_plus (from `.symlinks/plugins/device_info_plus/ios`)
+  - facebook_app_events (from `.symlinks/plugins/facebook_app_events/ios`)
   - firebase_analytics (from `.symlinks/plugins/firebase_analytics/ios`)
   - firebase_core (from `.symlinks/plugins/firebase_core/ios`)
   - firebase_crashlytics (from `.symlinks/plugins/firebase_crashlytics/ios`)
@@ -321,6 +333,10 @@ SPEC REPOS:
     - CustomerIOMessagingPush
     - CustomerIOMessagingPushFCM
     - CustomerIOTracking
+    - FBAEMKit
+    - FBAudienceNetwork
+    - FBSDKCoreKit
+    - FBSDKCoreKit_Basics
     - Firebase
     - FirebaseABTesting
     - FirebaseAnalytics
@@ -364,6 +380,8 @@ EXTERNAL SOURCES:
     :path: ".symlinks/plugins/customer_io/ios"
   device_info_plus:
     :path: ".symlinks/plugins/device_info_plus/ios"
+  facebook_app_events:
+    :path: ".symlinks/plugins/facebook_app_events/ios"
   firebase_analytics:
     :path: ".symlinks/plugins/firebase_analytics/ios"
   firebase_core:
@@ -433,6 +451,11 @@ SPEC CHECKSUMS:
   CustomerIOMessagingPushFCM: b419b4b6bfe259754186f246098fbd11cd02cb82
   CustomerIOTracking: 058bcae5ae2678de47f45c71066ac9eafafb7cd5
   device_info_plus: 97af1d7e84681a90d0693e63169a5d50e0839a0d
+  facebook_app_events: acb7c266406d3e3592bcf846d7184172ecfd6492
+  FBAEMKit: 619f96ea65427e8afca240d5b0f4703738dfdf5c
+  FBAudienceNetwork: 80871c3b3057e89ab36d9eb79344be20377e3994
+  FBSDKCoreKit: a5f384db2e9ee84e98494fed8f983d2bd79accff
+  FBSDKCoreKit_Basics: d35c775aaf243a2d731dfae7be3a74b1987285ab
   Firebase: 26b040b20866a55f55eb3611b9fcf3ae64816b86
   firebase_analytics: 921262f343360193f8376eb89c01fb5f15571ca2
   firebase_core: 5926464bbb028fef87d2443369b73ada2a8a3608

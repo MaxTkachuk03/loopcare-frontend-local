@@ -102,9 +102,9 @@ class AnalyticsEventService {
   }
 
   Future<void> _uxcamLogEvent(
-      String eventName,
-      String userId,
-      Map<String, dynamic>? parameters,
+    String eventName,
+    String userId,
+    Map<String, dynamic>? parameters,
   ) async {
     Map<String, Object> tmpParameters = Map.from(parameters ?? {});
     tmpParameters[AnalyticsParameters.userId] = userId;
@@ -116,7 +116,9 @@ class AnalyticsEventService {
     if (kIsDev || kDebugMode) return;
 
     FlutterUxcam.optIntoSchematicRecordings();
-    FlutterUxConfig config = FlutterUxConfig(userAppKey: dotenv.env['UXCAM_APP_KEY'] ?? '',);
+    FlutterUxConfig config = FlutterUxConfig(
+      userAppKey: dotenv.env['UXCAM_APP_KEY'] ?? '',
+    );
     await FlutterUxcam.startWithConfiguration(config);
   }
 

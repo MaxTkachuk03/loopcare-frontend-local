@@ -8,7 +8,6 @@ import 'package:loopcare_frontend/features/authentication/application/authentica
 import 'package:loopcare_frontend/injection.dart';
 
 class StoredAccountService {
-
   static Account? getAccount() {
     try {
       return getIt<SharedStorageService>().account;

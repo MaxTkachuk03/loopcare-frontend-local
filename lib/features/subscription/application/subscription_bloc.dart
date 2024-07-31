@@ -18,6 +18,7 @@ import 'package:loopcare_frontend/core/domain/analytics/analytics_parameters.dar
 import 'package:loopcare_frontend/core/infrastructure/dio_client/request_error.dart';
 import 'package:loopcare_frontend/core/infrastructure/dio_client/server_error_data.dart';
 import 'package:loopcare_frontend/core/infrastructure/services/analytics_service.dart';
+import 'package:loopcare_frontend/core/infrastructure/services/facebook_events_service.dart';
 import 'package:loopcare_frontend/core/infrastructure/services/logger/logger.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/features/authentication/application/authentication_service.dart';
@@ -226,6 +227,15 @@ class SubscriptionBloc extends Bloc<SubscriptionEvent, SubscriptionState> {
             },
           );
           final identifier = _getTransactionId(purchaseDetails) ?? '';
+          FacebookEventsService.logEvent(
+            eventName: AnalyticsEvents.subscriptionBought,
+            parameters: {
+              AnalyticsParameters.subscriptionContentId: purchaseDetails.purchaseID,
+              AnalyticsParameters.subscriptionTransactionId: identifier,
+              AnalyticsParameters.subscriptionContentType: purchaseDetails.productID,
+              AnalyticsParameters.subscriptionEventTime: r.purchasedAt,
+            },
+          );
           AnalyticsEventService.appsFlyer().logEvent(
             eventName: AnalyticsEvents.subscriptionBought,
             parameters: {
