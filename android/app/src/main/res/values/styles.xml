@@ -22,6 +22,6 @@
     <color name="ic_launcher_background">#a7c05d</color>
 
     <!--    facebook evets sdk-->
-    <string name="facebook_app_id">831596425739085</string>
-    <string name="facebook_client_token">8c6b66ea541a6dde8e4ba09631818a9e</string>
+    <string name="facebook_app_id">448683584654067</string>
+    <string name="facebook_client_token">e6257699c6afd22a44e1d214c593d94a</string>
 </resources>

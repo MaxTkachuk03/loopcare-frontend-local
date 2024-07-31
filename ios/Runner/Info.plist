@@ -35,14 +35,14 @@
             <dict>
                 <key>CFBundleURLSchemes</key>
                 <array>
-                    <string>fb831596425739085</string>
+                    <string>fb448683584654067</string>
                 </array>
             </dict>
         </array>
         <key>FacebookAppID</key>
-        <string>831596425739085</string>
+        <string>448683584654067</string>
         <key>FacebookClientToken</key>
-        <string>8c6b66ea541a6dde8e4ba09631818a9e</string>
+        <string>e6257699c6afd22a44e1d214c593d94a</string>
         <key>FacebookDisplayName</key>
         <string>[APP_NAME]</string>
 		<key>CFBundleVersion</key>
