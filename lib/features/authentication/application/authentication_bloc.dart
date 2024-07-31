@@ -22,6 +22,7 @@ import 'package:loopcare_frontend/core/infrastructure/dio_client/request_error.d
 import 'package:loopcare_frontend/core/infrastructure/services/analytics_service.dart';
 import 'package:loopcare_frontend/core/infrastructure/services/apps_flyer_service.dart';
 import 'package:loopcare_frontend/core/infrastructure/services/events.dart';
+import 'package:loopcare_frontend/core/infrastructure/services/facebook_events_service.dart';
 import 'package:loopcare_frontend/core/infrastructure/services/mixpanel_event_service.dart';
 import 'package:loopcare_frontend/core/infrastructure/services/shared_storage/shared_storage_service.dart';
 import 'package:loopcare_frontend/core/presentation/utils/string_extensions.dart';
@@ -248,6 +249,14 @@ class AuthenticationBloc extends HydratedBloc<AuthenticationEvent, Authenticatio
         authTokenManager.setRefreshToken(response.refreshToken);
 
         AnalyticsEventService().logEvent(
+          eventName: AnalyticsEvents.onboardingNewUserCreated,
+          parameters: {
+            AnalyticsParameters.value: state.data.email,
+            AnalyticsParameters.confirmed: 'false',
+          },
+        );
+
+        FacebookEventsService.logEvent(
           eventName: AnalyticsEvents.onboardingNewUserCreated,
           parameters: {
             AnalyticsParameters.value: state.data.email,
