@@ -42,8 +42,7 @@ class _RiverPageState extends State<RiverPage> {
       body: ScaleGestureDetector(
         onZoomOut: _navigationHandler,
         child: CustomSafeArea(
-          child: BlocConsumer<RiverBloc, RiverState>(
-            listener: (context, state) {},
+          child: BlocBuilder<RiverBloc, RiverState>(
             builder: (context, state) {
               return state.maybeMap(
                 moduleLoadingError: (state) => ErrorScreen(error: state.data.error!),

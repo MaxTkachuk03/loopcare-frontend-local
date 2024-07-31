@@ -79,8 +79,8 @@ dependencies:
   rxdart: ^0.27.7
   scrollable_positioned_list: ^0.3.8
   shared_preferences: ^2.2.2
-  smooth_page_indicator: ^1.1.0
   shimmer: ^3.0.0
+  smooth_page_indicator: ^1.1.0
   socket_io_client: 2.0.3+1
   timezone: ^0.9.2
   url_launcher: ^6.2.1

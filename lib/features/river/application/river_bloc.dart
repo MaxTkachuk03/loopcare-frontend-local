@@ -6,10 +6,12 @@ import 'package:injectable/injectable.dart';
 import 'package:loopcare_frontend/core/infrastructure/dio_client/request_error.dart';
 import 'package:loopcare_frontend/core/presentation/utils/list_extensions.dart';
 import 'package:loopcare_frontend/features/river/application/dto/river_module_item_state_data.dart';
+import 'package:loopcare_frontend/features/river/application/dto/river_module_state_data.dart';
 import 'package:loopcare_frontend/features/river/application/river_service.dart';
 import 'package:loopcare_frontend/features/river/domain/river_module.dart';
 import 'package:loopcare_frontend/features/river/domain/river_module_item.dart';
 import 'package:loopcare_frontend/features/river/infrastructure/river_module_item_state.dart';
+import 'package:loopcare_frontend/features/river/infrastructure/river_module_state.dart';
 
 part 'river_event.dart';
 part 'river_state.dart';
@@ -90,7 +92,7 @@ class RiverBloc extends Bloc<RiverEvent, RiverState> {
     RiverModuleItemState itemState;
     if (moduleItem == null || moduleItem.isCompleted || activeModule == null) {
       final module = state.data.modules.firstWhere(
-        (m) => !m.isCompleted,
+        (m) => m.isInProgress,
         orElse: () => state.data.modules.last,
       );
 
@@ -122,7 +124,7 @@ class RiverBloc extends Bloc<RiverEvent, RiverState> {
       (l) => emit(
         RiverState.moduleItemLoadingError(state.data.copyWith(error: l, isLoading: false)),
       ),
-      (r) {
+      (r) async {
         final isRootPassed = r.isRootItem && state.data.activeModule?.nextModuleUnlocksAt == null;
 
         if (isRootPassed) {
@@ -155,9 +157,7 @@ class RiverBloc extends Bloc<RiverEvent, RiverState> {
             ),
           );
 
-          if (activeModule!.isAllComplete) {
-            add(const RiverEvent.completeActiveModule());
-          }
+          add(const RiverEvent.checkCompletion());
         }
       },
     );
@@ -188,58 +188,64 @@ class RiverBloc extends Bloc<RiverEvent, RiverState> {
             ),
           ),
         );
-
-        final isAllModuleItemsCompleted = activeModule.moduleItems.every((i) => i.isCompleted);
-
-        if (isAllModuleItemsCompleted) {
-          add(const RiverEvent.checkCompletion());
-        }
       },
     );
   }
 
   FutureOr<void> _onCheckCompletion(CheckCompletion event, Emitter<RiverState> emit) async {
-    if (_isActiveModuleCompleted) {
-      add(const RiverEvent.completeActiveModule());
+    if (await state.data.activeModule.lookCompletion()) {
+      emit(RiverState.moduleCompleted(state.data));
     }
   }
 
   FutureOr<void> _onCompleteActiveModule(
-      CompleteActiveModule event, Emitter<RiverState> emit) async {
-    final activeModule = state.data.activeModule!.copyWith(
-      isCompleted: true,
-    );
-
-    emit(
-      RiverState.moduleLoaded(
-        RiverStateData(
-          activeModule: activeModule,
-          modules: _updateModule(activeModule),
-        ),
-      ),
-    );
-
-    if (state.data.currentPage + 1 == state.data.modules.length) {
-      return;
-    }
+    CompleteActiveModule event,
+    Emitter<RiverState> emit,
+  ) async {
+    if (state.data.activeModule == null) return;
 
     emit(RiverState.moduleLoading(state.data.copyWith(isLoading: true)));
 
-    final nextModule = state.data.modules[state.data.currentPage + 1];
-
-    final response = await _riverService.getModuleById(moduleId: nextModule.id);
+    final response = await _riverService.updateModuleState(
+      moduleId: state.data.activeModule?.id ?? -1,
+      data: const RiverModuleStateData(moduleState: RiverModuleState.completed),
+    );
 
     response.fold(
       (l) => emit(RiverState.moduleLoadingError(state.data.copyWith(error: l, isLoading: false))),
-      (r) => emit(
-        RiverState.moduleLoaded(
-          state.data.copyWith(
-            activeModule: r,
-            modules: _updateModule(r),
-            isLoading: false,
+      (r) {
+        var nextModule = state.data.nextModule;
+
+        List<RiverModule> modules = [];
+        for (int i = 0; i < state.data.modules.length; i++) {
+          final item = state.data.modules[i];
+          if (item.id == state.data.activeModule?.id) {
+            modules.add(r);
+          } else if (item.id == nextModule?.id) {
+            final moduleItems = item.moduleItems
+                .map((i) => i.isRootItem ? i.copyWith(itemState: RiverModuleItemState.unlocked) : i)
+                .toList();
+
+            nextModule = item.copyWith(
+              moduleItems: moduleItems,
+              moduleState: RiverModuleState.inProgress,
+            );
+            modules.add(nextModule);
+          } else {
+            modules.add(item);
+          }
+        }
+
+        emit(
+          RiverState.moduleLoaded(
+            state.data.copyWith(
+              activeModule: nextModule ?? state.data.activeModule,
+              modules: modules,
+              isLoading: false,
+            ),
           ),
-        ),
-      ),
+        );
+      },
     );
   }
 
@@ -274,16 +280,5 @@ class RiverBloc extends Bloc<RiverEvent, RiverState> {
     return module.copyWith(
         moduleItems:
             module.moduleItems.map((i) => i.id == moduleItem.id ? moduleItem : i).toList());
-  }
-
-  bool get _isActiveModuleCompleted {
-    final activeModule = state.data.activeModule;
-    final isActiveModuleNotCompleted = !(activeModule?.isCompleted ?? true);
-    final isTimePassed = state.data.currentPage == 0 ||
-        (activeModule?.nextModuleUnlocksAt?.isBefore(DateTime.timestamp()) ?? false);
-    final isEveryModuleItemsCompleted =
-        activeModule?.moduleItems.every((item) => item.isCompleted) ?? false;
-
-    return isActiveModuleNotCompleted && isTimePassed && isEveryModuleItemsCompleted;
   }
 }

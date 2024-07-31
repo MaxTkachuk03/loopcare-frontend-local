@@ -33,7 +33,7 @@ class ItemsPositionsTwo extends ItemsPositionValues {
   List<double> get red => [0.79, 0.14, 0.98];
 
   @override
-  List<double> get orange => [0.64, 0.16, 0.91];
+  List<double> get orange => [0.64, 0.16, 0.91, 0.1];
 
   @override
   List<double> get yellow => [0.32, 0.77];

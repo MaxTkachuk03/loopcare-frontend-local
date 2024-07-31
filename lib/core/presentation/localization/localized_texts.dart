@@ -1173,6 +1173,9 @@ class LocalizedTexts {
   static const String guidanceProfileDescription = 'guidanceProfileDescription';
   static const String guidanceCompletedTitle = 'guidanceCompletedTitle';
   static const String guidanceCompletedDescription = 'guidanceCompletedDescription';
+  static const String moduleCompletedTitle = 'moduleCompletedTitle';
+  static const String moduleCompletedDescription = 'moduleCompletedDescription';
+  static const String lastModuleCompletedDescription = 'lastModuleCompletedDescription';
 
   // Maintenance
   static const String maintenanceLabel = 'maintenanceLabel';

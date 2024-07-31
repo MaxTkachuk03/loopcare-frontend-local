@@ -24,6 +24,7 @@ class RiverModulePreview extends StatelessWidget with RiverUtils {
 
     return Container(
       height: kDefaultModuleHeight,
+      padding: const EdgeInsets.only(left: 20),
       decoration: BoxDecoration(
         gradient: LinearGradient(
           begin: Alignment.topCenter,
