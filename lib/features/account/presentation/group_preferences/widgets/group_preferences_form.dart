@@ -150,7 +150,7 @@ class GroupPreferencesForm extends StatelessWidget {
     final account = getIt<SharedStorageService>().account;
     final groupId = account?.groupId ?? -1;
 
-    AnalyticsEventService().logEvent(
+    const AnalyticsEventService().logEvent(
       eventName: AnalyticsEvents.userLeaveGroup,
       parameters: {
         AnalyticsParameters.groupId: groupId.toString(),

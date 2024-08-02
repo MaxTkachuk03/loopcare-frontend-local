@@ -189,15 +189,15 @@ class _RecipeDetailsPageState extends State<RecipeDetailsPage> {
   void _logAnalytics(TabController tabController) {
     switch (tabController.index) {
       case 1:
-        AnalyticsEventService()
+        const AnalyticsEventService()
             .logEvent(eventName: AnalyticsEvents.recipeDetailsScreenInstructions);
         break;
       case 2:
-        AnalyticsEventService()
+        const AnalyticsEventService()
             .logEvent(eventName: AnalyticsEvents.recipeDetailsScreenIngredients);
         break;
       default:
-        AnalyticsEventService().logEvent(eventName: AnalyticsEvents.recipeDetailsScreenSummary);
+        const AnalyticsEventService().logEvent(eventName: AnalyticsEvents.recipeDetailsScreenSummary);
         break;
     }
   }

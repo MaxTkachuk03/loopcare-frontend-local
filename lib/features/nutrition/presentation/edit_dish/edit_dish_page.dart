@@ -121,7 +121,7 @@ class _EditDishPageState extends State<EditDishPage> {
                       ),
                     );
 
-                AnalyticsEventService().logEvent(
+                const AnalyticsEventService().logEvent(
                   eventName: AnalyticsEvents.foodLogged,
                   parameters: {
                     AnalyticsParameters.timestamp: DateTime.now().toIso8601String(),
@@ -230,7 +230,7 @@ class _EditDishPageState extends State<EditDishPage> {
                 ),
               );
 
-          AnalyticsEventService().logEvent(eventName:
+          const AnalyticsEventService().logEvent(eventName:
           AnalyticsEvents.foodLogged,
             parameters: {
               AnalyticsParameters.timestamp: DateTime.now().toIso8601String(),

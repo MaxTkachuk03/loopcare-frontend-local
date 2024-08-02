@@ -34,14 +34,14 @@ class AppSubscriptionService {
 
   Future<bool> buyItemInStore(ProductDetails product) async {
     if (Platform.isIOS) {
-      await _finishTransactionIOS();
+      await finishTransactionIOS();
     }
     final PurchaseParam purchaseParam = PurchaseParam(productDetails: product, applicationUserName: customerIOId);
     final isBought = await instance.buyNonConsumable(purchaseParam: purchaseParam);
     return isBought;
   }
 
-  Future<void> _finishTransactionIOS() async {
+  Future<void> finishTransactionIOS() async {
     final paymentWrapper = SKPaymentQueueWrapper();
     final transactions = await paymentWrapper.transactions();
     await Future.wait(transactions.map((transaction) => paymentWrapper.finishTransaction(transaction)));

@@ -36,7 +36,7 @@ class GroupRulesSixPage extends StatelessWidget {
 
     context.read<GroupPreferencesBloc>().add(const GroupPreferencesEvent.acceptRules());
 
-    AnalyticsEventService().logEvent(
+    const AnalyticsEventService().logEvent(
       eventName: AnalyticsEvents.userFillsOutGroupPreferences,
       parameters: {
         AnalyticsParameters.navigatedFrom: fromLessonComplete ? 'Lesson content' : 'User profile',

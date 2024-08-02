@@ -45,7 +45,7 @@ class _ConsultDoctorPageState extends State<ConsultDoctorPage> {
   void _onCompleteFromProfileHandler(_) {
     final userId = getIt<SharedStorageService>().account!.id;
 
-    AnalyticsEventService().logEvent(
+    const AnalyticsEventService().logEvent(
       eventName: AnalyticsEvents.userConfirmedDoctorConsent,
       parameters: {
         AnalyticsParameters.userId: userId,

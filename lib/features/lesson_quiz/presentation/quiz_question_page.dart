@@ -103,7 +103,7 @@ class _QuizQuestionPageState extends State<QuizQuestionPage> {
         questionId: _currentQuestion.id,
       ));
 
-      AnalyticsEventService().logEvent(eventName:
+      const AnalyticsEventService().logEvent(eventName:
         AnalyticsEvents.userCompleteQuiz,
         parameters: {
           AnalyticsParameters.lessonId: educationBloc.state.data.id,

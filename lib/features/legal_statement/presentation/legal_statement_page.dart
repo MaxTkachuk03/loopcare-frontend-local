@@ -105,7 +105,7 @@ class _LegalStatementPageState extends State<LegalStatementPage> {
   void onChanged(bool value) => valueListener.value = value;
 
   void onConfirm() {
-    AnalyticsEventService().logEvent(
+    const AnalyticsEventService().logEvent(
       eventName: AnalyticsEvents.legalStatement,
       parameters: {
         AnalyticsParameters.value: 'true',

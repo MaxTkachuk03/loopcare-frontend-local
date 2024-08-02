@@ -157,7 +157,7 @@ class SmartGoalsBloc extends Bloc<SmartGoalsEvent, SmartGoalsState> {
   void _addGoalAnalyticEvent(WeeklyGoalsSession session) {
     if (session.sessionHasGoal) {
       final goal = session.goal!;
-      AnalyticsEventService().logEvent(
+      const AnalyticsEventService().logEvent(
         eventName: AnalyticsEvents.userSavedGoals,
         parameters: {
           AnalyticsParameters.userId: account?.id,
@@ -273,7 +273,7 @@ class SmartGoalsBloc extends Bloc<SmartGoalsEvent, SmartGoalsState> {
   }
 
   void _logGoalAnalyticEvent(ProgressSmartGoalLog log) {
-    AnalyticsEventService().logEvent(
+    const AnalyticsEventService().logEvent(
       eventName: AnalyticsEvents.userLogGoal,
       parameters: {
         AnalyticsParameters.userId: account?.id,

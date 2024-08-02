@@ -67,7 +67,7 @@ class _ReportAbuseWidgetState extends State<ReportAbuseWidget> {
   _onSendPressed() {
     controller.isEnableSend.value = false;
 
-    AnalyticsEventService().logEvent(eventName:
+    const AnalyticsEventService().logEvent(eventName:
     AnalyticsEvents.reportIssue,
       parameters: {
         AnalyticsParameters.value: controller.reportController.value.text,

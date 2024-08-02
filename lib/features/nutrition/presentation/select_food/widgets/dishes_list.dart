@@ -50,7 +50,7 @@ class _DishesListState extends State<DishesList> with AutomaticKeepAliveClientMi
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
-    AnalyticsEventService().logEvent(eventName: AnalyticsEvents.selectFoodScreenMyDishes);
+    const AnalyticsEventService().logEvent(eventName: AnalyticsEvents.selectFoodScreenMyDishes);
   }
 
   Future _onRefresh() async {

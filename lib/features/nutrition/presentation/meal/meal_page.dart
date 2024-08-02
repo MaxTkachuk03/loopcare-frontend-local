@@ -98,7 +98,7 @@ class _MealPageState extends State<MealPage> {
 
     if (currentMealCategory == null) return '';
 
-    AnalyticsEventService().logEvent(
+    const AnalyticsEventService().logEvent(
       eventName:
           'meal_screen_type_${currentMealCategory.replaceAll(' ', '_').replaceFirst('&', 'and')}',
     );
