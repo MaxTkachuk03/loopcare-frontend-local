@@ -23,21 +23,18 @@ import 'package:loopcare_frontend/features/authentication/domain/subscription/su
 import 'package:loopcare_frontend/features/subscription/application/purchase_details_subscriptions.dart';
 import 'package:loopcare_frontend/features/subscription/application/purchase_service.dart';
 import 'package:loopcare_frontend/features/subscription/application/subscription_service.dart';
-import 'package:loopcare_frontend/features/subscription/donain/purchased_product.dart';
-import 'package:loopcare_frontend/features/subscription/donain/server_product.dart';
-import 'package:loopcare_frontend/features/subscription/donain/subscription_state.dart';
-import 'package:loopcare_frontend/features/subscription/donain/valid_status.dart';
-import 'package:loopcare_frontend/features/subscription/donain/verify_purchase_data_android.dart';
-import 'package:loopcare_frontend/features/subscription/donain/verify_purchase_data_ios.dart';
+import 'package:loopcare_frontend/features/subscription/domain/purchased_product.dart';
+import 'package:loopcare_frontend/features/subscription/domain/server_product.dart';
+import 'package:loopcare_frontend/features/subscription/domain/subscription_state.dart';
+import 'package:loopcare_frontend/features/subscription/domain/valid_status.dart';
+import 'package:loopcare_frontend/features/subscription/domain/verify_purchase_data_android.dart';
+import 'package:loopcare_frontend/features/subscription/domain/verify_purchase_data_ios.dart';
 import 'package:loopcare_frontend/features/subscription/utils/date_utils.dart';
 //import for AppStoreProductDetails
 import 'package:in_app_purchase_storekit/in_app_purchase_storekit.dart';
 //import for SKProductWrapper
-import 'package:in_app_purchase_storekit/store_kit_wrappers.dart';
 import 'package:in_app_purchase_android/in_app_purchase_android.dart';
-
-
-import '../../../injection.dart';
+import 'package:loopcare_frontend/injection.dart';
 
 part 'subscription_bloc.freezed.dart';
 
@@ -229,9 +226,14 @@ class SubscriptionBloc extends Bloc<SubscriptionEvent, SubscriptionState> {
           );
           final identifier = _getTransactionId(purchaseDetails) ?? '';
 
+          final price = state.data.product?.price;
+          final currencyCode = state.data.product?.currencyCode;
+
           FacebookEventsService.logEvent(
-            eventName: AnalyticsEvents.subscriptionBought,
+            eventName: '${AnalyticsEvents.subscriptionBought}_${price}_$currencyCode',
             parameters: {
+              AnalyticsParameters.subscriptionRevenue: state.data.product?.price,
+              AnalyticsParameters.subscriptionCurrencyCode: state.data.product?.currencyCode,
               AnalyticsParameters.subscriptionContentId: purchaseDetails.purchaseID,
               AnalyticsParameters.subscriptionTransactionId: identifier,
               AnalyticsParameters.subscriptionContentType: purchaseDetails.productID,
@@ -240,8 +242,10 @@ class SubscriptionBloc extends Bloc<SubscriptionEvent, SubscriptionState> {
           );
 
           const AnalyticsEventService.appsFlyer().logEvent(
-            eventName: AnalyticsEvents.subscriptionBought,
+            eventName: '${AnalyticsEvents.subscriptionBought}_${price}_$currencyCode',
             parameters: {
+              AnalyticsParameters.subscriptionRevenue: state.data.product?.price,
+              AnalyticsParameters.subscriptionCurrencyCode: state.data.product?.currencyCode,
               AnalyticsParameters.subscriptionContentId: purchaseDetails.purchaseID,
               AnalyticsParameters.subscriptionTransactionId: identifier,
               AnalyticsParameters.subscriptionContentType: purchaseDetails.productID,

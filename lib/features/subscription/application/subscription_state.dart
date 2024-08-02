@@ -17,30 +17,39 @@ class SubscriptionState with _$SubscriptionState {
 
   const factory SubscriptionState.subscriptionEnded(SubscriptionStateData data) = SubscriptionEnded;
 
-  const factory SubscriptionState.subscriptionCancelled(SubscriptionStateData data) = SubscriptionCancelled;
+  const factory SubscriptionState.subscriptionCancelled(SubscriptionStateData data) =
+      SubscriptionCancelled;
 
-  const factory SubscriptionState.subscriptionUnRenewed(SubscriptionStateData data) = SubscriptionUnRenewed;
+  const factory SubscriptionState.subscriptionUnRenewed(SubscriptionStateData data) =
+      SubscriptionUnRenewed;
 
   const factory SubscriptionState.success(SubscriptionStateData data) = SuccessSubscriptionState;
 
-  const factory SubscriptionState.successInPlans(SubscriptionStateData data) = SuccessSubscriptionPlans;
+  const factory SubscriptionState.successInPlans(SubscriptionStateData data) =
+      SuccessSubscriptionPlans;
 
-  const factory SubscriptionState.purchasedSubscription(SubscriptionStateData data) = PurchasedSubscriptionState;
+  const factory SubscriptionState.purchasedSubscription(SubscriptionStateData data) =
+      PurchasedSubscriptionState;
 
-  const factory SubscriptionState.restoredSubscription(SubscriptionStateData data) = RestoredSubscriptionState;
+  const factory SubscriptionState.restoredSubscription(SubscriptionStateData data) =
+      RestoredSubscriptionState;
 
-  const factory SubscriptionState.askRestoredSubscription(SubscriptionStateData data) = AskRestoredSubscriptionState;
+  const factory SubscriptionState.askRestoredSubscription(SubscriptionStateData data) =
+      AskRestoredSubscriptionState;
 
-  const factory SubscriptionState.subscriptionActive(SubscriptionStateData data) = SubscriptionActual;
+  const factory SubscriptionState.subscriptionActive(SubscriptionStateData data) =
+      SubscriptionActual;
 
   const factory SubscriptionState.serviceSubscriptionUnavailable(SubscriptionStateData data) =
       ServiceSubscriptionUnavailable;
 
-  const factory SubscriptionState.gotPlansFromServer(SubscriptionStateData data) = GotPlansFromServer;
+  const factory SubscriptionState.gotPlansFromServer(SubscriptionStateData data) =
+      GotPlansFromServer;
 
   const factory SubscriptionState.logout(SubscriptionStateData data) = LogoutState;
 
-  const factory SubscriptionState.gotAccountSubscription(SubscriptionStateData data) = GotAccountSubscription;
+  const factory SubscriptionState.gotAccountSubscription(SubscriptionStateData data) =
+      GotAccountSubscription;
 }
 
 @freezed
@@ -56,9 +65,11 @@ class SubscriptionStateData with _$SubscriptionStateData {
     @Default(false) bool isWaitTimeout,
     PurchasedProduct? purchased,
     Subscription? subscription,
+    ProductDetails? product,
   }) = _SubscriptionStateData;
 
   String? get errorMessage => error?.message;
 
-  bool get hasSubscription => (subscription?.isActive ?? false) && subscription?.state != SubscriptionStatus.cancelled;
+  bool get hasSubscription =>
+      (subscription?.isActive ?? false) && subscription?.state != SubscriptionStatus.cancelled;
 }

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:loopcare_frontend/features/subscription/application/subscription_controller.dart';
-import 'package:loopcare_frontend/features/subscription/donain/purchasable_product.dart';
+import 'package:loopcare_frontend/features/subscription/domain/purchasable_product.dart';
 import 'package:loopcare_frontend/features/subscription/presentation/widget/restore_subscription_link.dart';
 import 'package:loopcare_frontend/features/subscription/presentation/widget/subscription_plane_item.dart';
 
@@ -34,8 +34,10 @@ class _FooterSubscriptionState extends State<FooterSubscription> {
                   regularPrice: product.roundPrice,
                   priceWithCurrency: product.priceWithCurrency,
                   onTap: () => widget.controller.setPlans(product),
-                  selected: widget.controller.selectedPlan.value?.details?.id == product.details?.id &&
-                      widget.controller.selectedPlan.value?.details?.price == product.details?.price,
+                  selected:
+                      widget.controller.selectedPlan.value?.details?.id == product.details?.id &&
+                          widget.controller.selectedPlan.value?.details?.price ==
+                              product.details?.price,
                 ),
               ),
             ),
