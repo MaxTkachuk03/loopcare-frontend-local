@@ -66,7 +66,7 @@ class _SubscriptionStatusWidget extends _ScrollColumn {
             children: [
               topCover,
               SubscriptionTitle.trial(),
-              SubscriptionLabel.trial(),
+              const SizedBox(height: 24.0),
               FooterSubscription(
                 controller: controller,
               ),

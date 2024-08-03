@@ -250,7 +250,7 @@ class _SessionCallPageState extends State<SessionCallPage> with WidgetsBindingOb
     _sessionJoinListener = emitter.on(EventType.onSessionJoin, (sessionUser) async {
       isInSession = true;
 
-      AnalyticsEventService().logEvent(eventName: AnalyticsEvents.userEntersSession);
+      const AnalyticsEventService().logEvent(eventName: AnalyticsEvents.userEntersSession);
 
       _startTimer();
 
@@ -509,7 +509,7 @@ class _SessionCallPageState extends State<SessionCallPage> with WidgetsBindingOb
   }
 
   _leaveSessionHandler() async {
-    AnalyticsEventService().logEvent(eventName: AnalyticsEvents.userLeaveSession);
+    const AnalyticsEventService().logEvent(eventName: AnalyticsEvents.userLeaveSession);
     await zoom.leaveSession(false);
     if (context.mounted) {
       context.router.maybePop();
@@ -619,7 +619,7 @@ class _SessionCallPageState extends State<SessionCallPage> with WidgetsBindingOb
       ModalBottomSheet.reportAbuse(context: context, groupSession: sessionReport);
     }
 
-    AnalyticsEventService().logEvent(
+    const AnalyticsEventService().logEvent(
       eventName: AnalyticsEvents.groupSessionReportedIssue,
       parameters: {
         AnalyticsParameters.sessionId: signedSessionId,

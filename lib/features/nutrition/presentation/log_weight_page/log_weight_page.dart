@@ -93,7 +93,7 @@ class _LogWeightPageState extends State<LogWeightPage> {
         .read<DashboardWeightBloc>()
         .add(DashboardWeightEvent.logWeight(widget.selectedDay, double.parse(formattedWeight)));
 
-    AnalyticsEventService().logEvent(
+    const AnalyticsEventService().logEvent(
       eventName: AnalyticsEvents.weightLogged,
       parameters: {
         AnalyticsParameters.value: formattedWeight,

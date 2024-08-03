@@ -111,7 +111,7 @@ class BookedSessionCard extends StatelessWidget {
           ),
         );
 
-  AnalyticsEventService().openedSessionPreparationMaterialsEvent(
+    const AnalyticsEventService().openedSessionPreparationMaterialsEvent(
       sessionId,
       groupSession.topic,
     );
@@ -120,7 +120,7 @@ class BookedSessionCard extends StatelessWidget {
   }
 
   _onCancelPressed(BuildContext context) {
-    AnalyticsEventService().logEvent( eventName:
+    const AnalyticsEventService().logEvent( eventName:
     AnalyticsEvents.userSignedOutFromSession,
       parameters: {
         AnalyticsParameters.sessionId: groupSession.id.toString(),

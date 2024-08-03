@@ -112,7 +112,7 @@ class _SearchAppBarState extends State<SearchAppBar> with TickerProviderStateMix
       }
 
       final filters = [searchMode, widget.mode?.searchModeValue].toString();
-      AnalyticsEventService().logEvent(
+      const AnalyticsEventService().logEvent(
         eventName: AnalyticsEvents.performedSearch,
         parameters: {
           AnalyticsParameters.value: widget.searchController.text,
@@ -137,7 +137,7 @@ class _SearchAppBarState extends State<SearchAppBar> with TickerProviderStateMix
     }
 
     final filters = [searchMode, widget.mode?.searchModeValue].toString();
-    AnalyticsEventService().logEvent(
+    const AnalyticsEventService().logEvent(
       eventName: AnalyticsEvents.performedSearch,
       parameters: {
         AnalyticsParameters.value: widget.searchController.text,

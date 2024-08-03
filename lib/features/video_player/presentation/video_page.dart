@@ -69,7 +69,7 @@ class _VideoPageState extends State<VideoPage> {
     )..initialize().then((value) {
         _videoPlayerController?.play();
 
-        AnalyticsEventService().logPhysicalActivityVideoEvent(
+        const AnalyticsEventService().logPhysicalActivityVideoEvent(
           AnalyticsEvents.videoScreen,
           widget.program,
           exercise,
@@ -155,7 +155,7 @@ class _VideoPageState extends State<VideoPage> {
   }
 
   Future<bool> _onWillPop(BuildContext context) {
-    AnalyticsEventService().logEvent(
+    const AnalyticsEventService().logEvent(
       eventName: AnalyticsEvents.programClosed,
       parameters: {
         AnalyticsParameters.programId: widget.program.id,

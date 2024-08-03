@@ -63,7 +63,7 @@ class _ReflectionQuestionPageState extends State<ReflectionQuestionPage> {
     final activeReflection = context.read<ReflectionsBloc>().state.data.activeReflection;
 
     if (activeReflection != null) {
-      AnalyticsEventService().assignmentMotivationScale(
+      const AnalyticsEventService().assignmentMotivationScale(
           _currentQuestion.id.toString(), activeReflection, widget.fromDashboard);
     }
 
@@ -104,7 +104,7 @@ class _ReflectionQuestionPageState extends State<ReflectionQuestionPage> {
       final activeReflection = context.read<ReflectionsBloc>().state.data.activeReflection;
 
       if (activeReflection != null) {
-       AnalyticsEventService().finalizeAssignment(
+        const AnalyticsEventService().finalizeAssignment(
            AnalyticsEvents.userCompleteReflection, activeReflection, widget.fromDashboard);
       }
 

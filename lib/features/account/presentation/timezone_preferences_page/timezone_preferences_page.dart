@@ -92,7 +92,7 @@ class _TimezonePreferencesPageState extends State<TimezonePreferencesPage> {
       // context.read<EducationLessonBloc>().add(const EducationLessonEvent.progressForward());
     }
 
-    AnalyticsEventService().logEvent(
+    const AnalyticsEventService().logEvent(
       eventName: AnalyticsEvents.userFillsOutTimezonePreferences,
       parameters: {
         AnalyticsParameters.navigatedFrom:

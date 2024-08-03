@@ -179,7 +179,7 @@ class GroupPreferencesBloc extends Bloc<GroupPreferencesEvent, GroupPreferencesS
 
   FutureOr<void> _onChangeGroupPrefsMode(
       ChangeGroupPrefsMode event, Emitter<GroupPreferencesState> emit) {
-    AnalyticsEventService().logEvent(eventName: AnalyticsEvents.unlockedSupportGroupFeature);
+    const AnalyticsEventService().logEvent(eventName: AnalyticsEvents.unlockedSupportGroupFeature);
 
     emit(GroupPreferencesState.updated(state.data.copyWith(
       groupPrefsMode: event.groupPrefsMode,

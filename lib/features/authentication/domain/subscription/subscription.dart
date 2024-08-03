@@ -1,6 +1,6 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:loopcare_frontend/features/authentication/domain/subscription/subscription_plan.dart';
-import 'package:loopcare_frontend/features/subscription/donain/subscription_state.dart';
+import 'package:loopcare_frontend/features/subscription/domain/subscription_state.dart';
 
 part 'subscription.freezed.dart';
 part 'subscription.g.dart';

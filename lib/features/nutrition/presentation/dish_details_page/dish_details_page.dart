@@ -118,7 +118,7 @@ class _DishDetailsPageState extends State<DishDetailsPage> {
           ),
         );
 
-    AnalyticsEventService().logEvent(
+    const AnalyticsEventService().logEvent(
       eventName: AnalyticsEvents.foodLogged,
       parameters: {
         AnalyticsParameters.timestamp: DateTime.now().toIso8601String(),

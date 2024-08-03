@@ -1,10 +1,14 @@
+import 'dart:io';
+
 import 'package:badges/badges.dart' as badge;
 import 'package:flutter/material.dart';
+import 'package:loopcare_frontend/core/infrastructure/services/shared_storage/shared_storage_service.dart';
 import 'package:loopcare_frontend/core/presentation/text/custom_text.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 import 'package:loopcare_frontend/core/presentation/utils/build_context_extensions.dart';
 import 'package:loopcare_frontend/features/home/presentation/widget/navigation_bar_item/navigation_bar_item_widget.dart';
 import 'package:loopcare_frontend/features/home/presentation/widget/navigation_bar_item/navigation_bar_items.dart';
+import 'package:loopcare_frontend/injection.dart';
 
 part 'parts/_custom_bottom_navigation_bar_item.dart';
 part 'parts/_animated_row.dart';
@@ -80,7 +84,11 @@ class _CustomBottomNavigationBarState extends State<CustomBottomNavigationBar> {
 
   @override
   Widget build(BuildContext context) {
-    final height = kBottomNavigationBarHeight + MediaQuery.of(context).padding.bottom;
+    final bottomPadding = Platform.isAndroid ? 8.0 : 0.0;
+
+    final height = kBottomNavigationBarHeight +
+        bottomPadding +
+        MediaQuery.of(context).padding.bottom;
 
     return Container(
       height: height,
@@ -104,7 +112,7 @@ class _CustomBottomNavigationBarState extends State<CustomBottomNavigationBar> {
                 item: item,
                 isSelected: isSelected,
               ),
-              label: item.label,
+              label: item.label(getIt<SharedStorageService>().account?.name ?? ''),
               showBadge: widget.badges.contains(item),
               selected: _selectedItem == index,
               onTap: () => _onItemPressed(index),

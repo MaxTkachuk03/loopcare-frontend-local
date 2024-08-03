@@ -119,7 +119,7 @@ class UnderAppBarContainer extends StatelessWidget {
                       ),
                     );
 
-                    AnalyticsEventService().logEvent(
+                    const AnalyticsEventService().logEvent(
                       eventName: AnalyticsEvents.foodLogged,
                       parameters: {
                         AnalyticsParameters.timestamp: DateTime.now().toIso8601String(),

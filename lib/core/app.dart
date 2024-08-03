@@ -7,6 +7,7 @@ import 'package:loopcare_frontend/core/domain/analytics/uxcam/uxcam_navigation_o
 import 'package:loopcare_frontend/core/infrastructure/route_observers/route_observer_utils.dart';
 import 'package:loopcare_frontend/core/infrastructure/services/app_bloc_provider.dart';
 import 'package:loopcare_frontend/core/infrastructure/services/app_config.dart';
+import 'package:loopcare_frontend/core/infrastructure/services/facebook_events_service.dart';
 import 'package:loopcare_frontend/core/infrastructure/services/firebase_navigator_observer.dart';
 import 'package:loopcare_frontend/core/infrastructure/services/network_service/network_service.dart';
 import 'package:loopcare_frontend/core/presentation/routes/app_router.dart';
@@ -50,8 +51,10 @@ class _AppState extends State<_App> {
   @override
   void initState() {
     super.initState();
+
     _appRouter = AppRouter();
     kNavigatorKey = _appRouter.navigatorKey;
+    FacebookEventsService();
   }
 
   @override

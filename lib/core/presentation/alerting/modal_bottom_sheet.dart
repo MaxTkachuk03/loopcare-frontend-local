@@ -250,7 +250,7 @@ class ModalBottomSheet {
                   CustomElevatedButton.blueFullWidth(
                     onPressed: () {
                       //12.02.2024 Discussed with Diana
-                      AnalyticsEventService().logEvent(
+                      const AnalyticsEventService().logEvent(
                         eventName: AnalyticsEvents.deleteAccount,
                         parameters: {
                           AnalyticsParameters.timestamp: DateTime.now().toIso8601String(),
