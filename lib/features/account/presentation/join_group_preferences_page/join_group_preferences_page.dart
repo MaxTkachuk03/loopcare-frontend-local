@@ -56,7 +56,7 @@ class _JoinGroupPreferencesPageState extends State<JoinGroupPreferencesPage> {
     if (_selectedValue == YesNoAnswer.no) {
       context.router.maybePop();
     } else {
-      AnalyticsEventService().logEvent(
+      const AnalyticsEventService().logEvent(
         eventName: AnalyticsEvents.iWantToJoinToGroup,
         parameters: {
           AnalyticsParameters.navigatedFrom:

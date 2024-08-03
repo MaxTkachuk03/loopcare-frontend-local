@@ -47,7 +47,7 @@ class RiverModuleItem with _$RiverModuleItem {
 
   bool get isProfile => iconType == RiverIconType.profile;
 
-  bool get isPractice => iconType == RiverIconType.practise;
+  bool get isPractice => iconType == RiverIconType.practice;
 
   factory RiverModuleItem.fromJson(Map<String, dynamic> json) => _$RiverModuleItemFromJson(json);
 }

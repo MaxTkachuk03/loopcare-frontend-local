@@ -92,34 +92,38 @@ class _RiverScreenState extends State<RiverScreen> with RiverUtils {
     }
   }
 
+  void _updateModuleItem(int id) {
+    final riverBloc = context.read<RiverBloc>();
+
+    riverBloc.add(
+      RiverEvent.updateGuidanceModuleItem(
+        moduleId: widget.module.id,
+        moduleItemId: id,
+      ),
+    );
+  }
+
   void _beginningUnlockAction(RiverModuleItem item) {
     if (item.itemState.isCompleted) {
       return;
     }
 
-    final riverBloc = context.read<RiverBloc>();
+    if (item.isRootItem) {
+      context.router.push(SelectAvatarRoute(onDispose: () => _updateModuleItem(item.id)));
+      return;
+    }
 
     if (item.isPractice) {
       ModalBottomSheet.guidancePractice(
         context: context,
-        onConfirm: () => riverBloc.add(
-          RiverEvent.updateGuidanceModuleItem(
-            moduleId: widget.module.id,
-            moduleItemId: item.id,
-          ),
-        ),
+        onConfirm: () => _updateModuleItem(item.id),
       );
     }
 
     if (item.isProfile) {
       ModalBottomSheet.guidanceProfile(
         context: context,
-        onConfirm: () => riverBloc.add(
-          RiverEvent.updateGuidanceModuleItem(
-            moduleId: widget.module.id,
-            moduleItemId: item.id,
-          ),
-        ),
+        onConfirm: () => _updateModuleItem(item.id),
       );
     }
   }
@@ -153,8 +157,7 @@ class _RiverScreenState extends State<RiverScreen> with RiverUtils {
   }
 
   void _onCompleteTime() {
-    if (isBeginning &&
-        !context.read<NavigationBarBloc>().state.data.isBeginningCompleted) {
+    if (isBeginning && !context.read<NavigationBarBloc>().state.data.isBeginningCompleted) {
       ModalBottomSheet.guidanceCompleted(
         context: context,
         onConfirm: () =>

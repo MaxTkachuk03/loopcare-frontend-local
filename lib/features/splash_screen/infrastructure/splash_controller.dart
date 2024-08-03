@@ -64,8 +64,7 @@ class SplashController {
 
     final account = StoredAccountService.getAccount();
 
-    final authorisedRoute =
-        await _getAuthorisedRoute(account?.hasActiveSubscription ?? false);
+    final authorisedRoute = await _getAuthorisedRoute(account?.hasActiveSubscription ?? false);
     final routes = [authorisedRoute];
 
     MixpanelEventService.instance.trackVisit(
@@ -119,7 +118,6 @@ class SplashController {
       );
     }
   }
-
 
   List<PageRouteInfo> getOnboardingRoute() {
     final authState = authenticationBloc.state;

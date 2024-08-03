@@ -89,7 +89,7 @@ class _GenderPreferencesPageState extends State<GenderPreferencesPage> {
       // context.read<EducationLessonBloc>().add(const EducationLessonEvent.progressForward());
     }
 
-    AnalyticsEventService().logEvent(
+    const AnalyticsEventService().logEvent(
       eventName: AnalyticsEvents.userFillsOutGenderPreferences,
       parameters: {
         AnalyticsParameters.navigatedFrom:

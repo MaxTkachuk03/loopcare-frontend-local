@@ -1,5 +1,5 @@
 name: loopcare_frontend
-version: 1.4.0+211
+version: 1.5.0+217
 publish_to: none
 description: Lean on me
 environment:
@@ -28,6 +28,7 @@ dependencies:
   dio: ^5.5.0+1
   easy_localization: ^3.0.3
   email_validator: 2.1.17
+  facebook_app_events: ^0.19.2
   fast_immutable_collections: ^10.2.4
   firebase_analytics: 11.0.0
   firebase_core: 3.0.0
@@ -53,9 +54,11 @@ dependencies:
     path: ./local_plugins/zoom_video_sdk_update
   freezed_annotation: ^2.4.1
   get_it: ^7.6.4
+  http_parser: ^4.0.2
   hydrated_bloc: ^9.1.2
-  image_picker: ^1.0.0
-  in_app_purchase: ^3.1.13
+  image_cropper: ^7.1.0
+  image_picker: ^1.1.2
+  in_app_purchase: ^3.2.0
   injectable: ^2.3.2
   intl: ^0.19.0
   json_annotation: ^4.8.1
@@ -78,8 +81,8 @@ dependencies:
   rxdart: ^0.27.7
   scrollable_positioned_list: ^0.3.8
   shared_preferences: ^2.2.2
-  smooth_page_indicator: ^1.1.0
   shimmer: ^3.0.0
+  smooth_page_indicator: ^1.1.0
   socket_io_client: 2.0.3+1
   timezone: ^0.9.2
   url_launcher: ^6.2.1

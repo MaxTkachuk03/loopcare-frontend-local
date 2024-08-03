@@ -232,6 +232,10 @@ class AppRouter extends $AppRouter {
           path: AppRoutes.updateEmail,
           page: UpdateEmailRoute.page,
         ),
+        AutoRoute(
+          path: AppRoutes.selectAvatar,
+          page: SelectAvatarRoute.page,
+        ),
 
         // Video
         AutoRoute(

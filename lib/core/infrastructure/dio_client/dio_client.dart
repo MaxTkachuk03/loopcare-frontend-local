@@ -176,6 +176,7 @@ class DioClient {
     CancelToken? cancelToken,
     ProgressCallback? onSendProgress,
     ProgressCallback? onReceiveProgress,
+    Map<String, String>? headers,
   }) =>
       fetchResponse(
         dio,
@@ -188,6 +189,7 @@ class DioClient {
         cancelToken: cancelToken,
         onSendProgress: onSendProgress,
         onReceiveProgress: onReceiveProgress,
+        headers: headers,
       );
 
   Future<Either<RequestError, T>> delete<T>(
@@ -243,10 +245,12 @@ Future<Either<RequestError, T>> fetchResponse<T>(
   ProgressCallback? onSendProgress,
   ProgressCallback? onReceiveProgress,
   String? savePath,
+  Map<String, String>? headers,
 }) async {
   Response<dynamic> response;
 
-  dio.options.headers = headers;
+  dio.options.headers = {...dio.options.headers, ...?headers};
+
   try {
     switch (type) {
       case FetchType.get:

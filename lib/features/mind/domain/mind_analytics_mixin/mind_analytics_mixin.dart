@@ -10,7 +10,7 @@ mixin MindAnalyticsMixin {
   set exerciseId(int id) => _exerciseId = id;
 
   void track(String event) {
-    AnalyticsEventService().logEvent(
+    const AnalyticsEventService().logEvent(
       eventName: event,
       parameters: {
         if (_techniqueId != null) AnalyticsParameters.techniqueId: _techniqueId,

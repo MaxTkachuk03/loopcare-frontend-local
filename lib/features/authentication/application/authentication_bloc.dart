@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:io';
 
+import 'package:dio/dio.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:get_it/get_it.dart';
@@ -22,6 +23,7 @@ import 'package:loopcare_frontend/core/infrastructure/dio_client/request_error.d
 import 'package:loopcare_frontend/core/infrastructure/services/analytics_service.dart';
 import 'package:loopcare_frontend/core/infrastructure/services/apps_flyer_service.dart';
 import 'package:loopcare_frontend/core/infrastructure/services/events.dart';
+import 'package:loopcare_frontend/core/infrastructure/services/facebook_events_service.dart';
 import 'package:loopcare_frontend/core/infrastructure/services/mixpanel_event_service.dart';
 import 'package:loopcare_frontend/core/infrastructure/services/shared_storage/shared_storage_service.dart';
 import 'package:loopcare_frontend/core/presentation/utils/string_extensions.dart';
@@ -84,6 +86,7 @@ class AuthenticationBloc extends HydratedBloc<AuthenticationEvent, Authenticatio
     on<StartTrackUser>(_onStartTrackUser);
     on<UpdatePolicy>(_onUpdatePolicy);
     on<SendAppsFlyerData>(_onSendAppsFlyerDate);
+    on<UploadAvatar>(_onUploadAvatar);
 
     hydrate();
     _accessTokenSubscription = authTokenManager.addListener((token) {
@@ -123,6 +126,28 @@ class AuthenticationBloc extends HydratedBloc<AuthenticationEvent, Authenticatio
       _chatBloc.add(const GroupChatEvent.getUnreadCount());
       _chatBloc.add(const GroupChatEvent.getMessages(refresh: true));
     }
+  }
+
+  FutureOr<void> _onUploadAvatar(
+    UploadAvatar event,
+    Emitter<AuthenticationState> emit,
+  ) async {
+    emit(AuthenticationState.isLoading(state.data.copyWith(isLoading: true)));
+
+    final res = await _authenticationService.uploadAvatar(event.data);
+
+    res.fold(
+      (l) => emit(AuthenticationState.error(state.data.copyWith(isLoading: false, error: l))),
+      (r) {
+        final updatedAccount =
+            _sharedPref.account = state.data.account?.copyWith(avatarUrl: r.data);
+
+        emit(AuthenticationState.avatarUploaded(state.data.copyWith(
+          account: updatedAccount,
+          isLoading: false,
+        )));
+      },
+    );
   }
 
   FutureOr<void> _onAuthenticationInit(
@@ -179,6 +204,7 @@ class AuthenticationBloc extends HydratedBloc<AuthenticationEvent, Authenticatio
           subscription: response.subscription,
           createdAt: response.createdAt,
           features: response.features,
+          avatarUrl: response.avatarUrl,
         );
 
         add(const AuthenticationEvent.getAccount());
@@ -247,7 +273,15 @@ class AuthenticationBloc extends HydratedBloc<AuthenticationEvent, Authenticatio
         authTokenManager.setAccessToken(response.accessToken);
         authTokenManager.setRefreshToken(response.refreshToken);
 
-        AnalyticsEventService().logEvent(
+        const AnalyticsEventService().logEvent(
+          eventName: AnalyticsEvents.onboardingNewUserCreated,
+          parameters: {
+            AnalyticsParameters.value: state.data.email,
+            AnalyticsParameters.confirmed: 'false',
+          },
+        );
+
+        FacebookEventsService.logEvent(
           eventName: AnalyticsEvents.onboardingNewUserCreated,
           parameters: {
             AnalyticsParameters.value: state.data.email,
@@ -451,7 +485,7 @@ class AuthenticationBloc extends HydratedBloc<AuthenticationEvent, Authenticatio
       (l) => null,
       (r) {
         if (r.emailApproveDate != null) {
-          AnalyticsEventService().logEvent(
+          const AnalyticsEventService().logEvent(
             eventName: AnalyticsEvents.userEmail,
             parameters: {
               AnalyticsParameters.value: state.data.email,
@@ -474,7 +508,7 @@ class AuthenticationBloc extends HydratedBloc<AuthenticationEvent, Authenticatio
     UpdateName event,
     Emitter<AuthenticationState> emit,
   ) async {
-    AnalyticsEventService().logEvent(
+    const AnalyticsEventService().logEvent(
       eventName: AnalyticsEvents.userName,
       parameters: {
         AnalyticsParameters.value: event.name,
@@ -622,6 +656,7 @@ class AuthenticationBloc extends HydratedBloc<AuthenticationEvent, Authenticatio
           subscription: r.subscription,
           medicalOnboarding: r.medicalOnboarding,
           createdAt: r.physicalFitness.createdAt,
+          avatarUrl: r.avatarUrl,
         );
 
         _sharedPref.account = account;

@@ -46,7 +46,9 @@ class IntroPage extends StatelessWidget {
                 ),
                 const SizedBox(height: 28.0),
                 CustomText.bitter600(
-                  '${LocalizedTexts.introTitle.tr(namedArgs: {'projectName': _appConfig.projectName})}!',
+                  '${LocalizedTexts.introTitle.tr(namedArgs: {
+                        'projectName': _appConfig.projectName
+                      })}!',
                   style: context.textTheme.displayLarge,
                   textAlign: TextAlign.center,
                 ),

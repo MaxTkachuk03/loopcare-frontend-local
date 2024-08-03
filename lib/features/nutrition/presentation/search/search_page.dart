@@ -30,11 +30,11 @@ class _SearchPageState extends State<SearchPage> {
   void initState() {
     super.initState();
     context.read<SearchBloc>().add(const SearchEvent.resetData());
-    AnalyticsEventService().logEvent(eventName: AnalyticsEvents.searchScreenOpened);
+    const AnalyticsEventService().logEvent(eventName: AnalyticsEvents.searchScreenOpened);
   }
 
   Future<bool> _onPreviousPage(BuildContext context) {
-    AnalyticsEventService().logEvent(eventName: AnalyticsEvents.searchScreenClosed);
+    const AnalyticsEventService().logEvent(eventName: AnalyticsEvents.searchScreenClosed);
     return Future.value(true);
   }
 

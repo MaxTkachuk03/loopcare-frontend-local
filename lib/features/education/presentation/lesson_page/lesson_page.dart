@@ -68,7 +68,7 @@ class _LessonPageState extends State<LessonPage> {
           ),
         );
 
-    AnalyticsEventService().logLessonEvent(
+    const AnalyticsEventService().logLessonEvent(
       AnalyticsEvents.leaveLessonScreen,
       widget.lessonId,
       stateData.contentType,
@@ -86,7 +86,7 @@ class _LessonPageState extends State<LessonPage> {
   void _onContentLoaded(BuildContext context, EducationLessonState s) {
     final state = s.data;
 
-    AnalyticsEventService().logLessonEvent(
+    const AnalyticsEventService().logLessonEvent(
       AnalyticsEvents.lessonScreen,
       widget.lessonId,
       state.contentType,

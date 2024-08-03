@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:in_app_purchase/in_app_purchase.dart';
 import 'package:loopcare_frontend/core/application/customer_io_service/customer_io_service.dart';
 import 'package:loopcare_frontend/features/subscription/application/subscription_bloc.dart';
-import 'package:loopcare_frontend/features/subscription/donain/purchasable_product.dart';
+import 'package:loopcare_frontend/features/subscription/domain/purchasable_product.dart';
 import 'package:loopcare_frontend/features/subscription/utils/mapper_utils.dart';
 
 class SubscriptionController {
@@ -26,7 +26,8 @@ class SubscriptionController {
     final map = data.plans.groupBy((plan) => plan.id);
 
     List<ProductDetails> list = map.entries
-        .map((list) => list.value.reduce((curr, next) => curr.rawPrice.toInt() < next.rawPrice.toInt() ? curr : next))
+        .map((list) => list.value
+            .reduce((curr, next) => curr.rawPrice.toInt() < next.rawPrice.toInt() ? curr : next))
         .toList();
     List<ProductDetails> orderList = [];
     for (var serverPlan in data.serverPlans) {
@@ -52,7 +53,9 @@ class SubscriptionController {
     if (data.plans.isEmpty) {
       return;
     }
-    List<ProductDetails> list = [...(Platform.isAndroid ? _getUniqueAndroidPlans() : _getIosPlans())];
+    List<ProductDetails> list = [
+      ...(Platform.isAndroid ? _getUniqueAndroidPlans() : _getIosPlans())
+    ];
     final lastId = list.isNotEmpty ? list.last.id : -1;
 
     for (var serverPlan in data.serverPlans) {

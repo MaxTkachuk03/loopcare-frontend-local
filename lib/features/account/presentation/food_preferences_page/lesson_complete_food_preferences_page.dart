@@ -39,7 +39,7 @@ class _LessonCompleteFoodPreferencesPageState extends State<LessonCompleteFoodPr
   void didChangeDependencies() {
     super.didChangeDependencies();
     final state = context.read<YouAndFoodBloc>().state;
-    AnalyticsEventService().logFoodPreferencesEvent(
+    const AnalyticsEventService().logFoodPreferencesEvent(
       AnalyticsEvents.lessonCompleteFoodPreferencesScreen,
       state.selectedHatesNames,
       state.selectedAllergicNames,
