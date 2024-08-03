@@ -1,6 +1,5 @@
-// Package imports:
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:loopcare_frontend/features/subscription/donain/server_product.dart';
+import 'package:loopcare_frontend/features/subscription/domain/server_product.dart';
 
 part 'server_product_data.freezed.dart';
 part 'server_product_data.g.dart';
@@ -11,5 +10,6 @@ class ServerProductData with _$ServerProductData {
     @Default([]) List<ServerProduct> data,
   }) = _ServerProductData;
 
-  factory ServerProductData.fromJson(Map<String, dynamic> json) => _$ServerProductDataFromJson(json);
+  factory ServerProductData.fromJson(Map<String, dynamic> json) =>
+      _$ServerProductDataFromJson(json);
 }

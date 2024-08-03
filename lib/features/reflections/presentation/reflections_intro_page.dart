@@ -51,7 +51,7 @@ class _ReflectionsIntroPageState extends State<ReflectionsIntroPage> {
         .read<ReflectionsBloc>()
         .add(ReflectionsEvent.setActiveReflection(reflection: widget.reflectionItem));
 
-    AnalyticsEventService().userOpenedAssignment(widget.reflectionItem);
+    const AnalyticsEventService().userOpenedAssignment(widget.reflectionItem);
   }
 
   @override
@@ -80,7 +80,7 @@ class _ReflectionsIntroPageState extends State<ReflectionsIntroPage> {
   }
 
   Future<bool> _onWillPopHandler() {
-    AnalyticsEventService().finalizeAssignment(
+    const AnalyticsEventService().finalizeAssignment(
       AnalyticsEvents.userLeftReflection,
       widget.reflectionItem,
       widget.fromDashboard,

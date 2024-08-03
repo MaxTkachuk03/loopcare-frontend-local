@@ -201,7 +201,7 @@ class ProgramCard extends StatelessWidget {
       ..router.push(ProgramDetailsRoute(program: program))
       ..read<PhysicalProgramsBloc>().add(PhysicalProgramsEvent.setCurrentProgram(program));
 
-    AnalyticsEventService().logPhysicalProgramEvent(
+    const AnalyticsEventService().logPhysicalProgramEvent(
       AnalyticsEvents.physicalProgramsScreen,
       program,
     );

@@ -102,7 +102,7 @@ class ControlButtons extends StatelessWidget {
   _onPlayPressed(BuildContext context) {
     final lessonId = context.read<EducationLessonBloc>().state.data.id;
 
-    AnalyticsEventService().lessonAudioPlayEvent(lessonId);
+    const AnalyticsEventService().lessonAudioPlayEvent(lessonId);
 
     context.read<AnalyticsBloc>().add(
           AnalyticsEvent.sendAnalytics(
@@ -120,7 +120,7 @@ class ControlButtons extends StatelessWidget {
   _onPlayPaused(BuildContext context) {
     final lessonId = context.read<EducationLessonBloc>().state.data.id;
 
-   AnalyticsEventService().lessonAudioStopEvent(lessonId);
+    const AnalyticsEventService().lessonAudioStopEvent(lessonId);
 
     context.read<AnalyticsBloc>().add(
           AnalyticsEvent.sendAnalytics(

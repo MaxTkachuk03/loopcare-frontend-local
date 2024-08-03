@@ -20,7 +20,7 @@ class RiverModulePreview extends StatelessWidget with RiverUtils {
 
   @override
   Widget build(BuildContext context) {
-    final positionedItems = ModuleItemsUtils.getItemsOffsets(getIndex(page), module.moduleItems);
+    final positionedItems = ModuleItemsUtils.getAllocatedItems(getIndex(page), module.moduleItems);
 
     return Container(
       height: kDefaultModuleHeight,

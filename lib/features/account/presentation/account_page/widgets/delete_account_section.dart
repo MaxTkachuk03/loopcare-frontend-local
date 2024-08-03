@@ -35,7 +35,7 @@ class _DeleteAccountSectionState extends State<DeleteAccountSection> {
             noActiveSubscription: noActiveSubscription,
             onDeleted: () {
               context.read<AuthenticationBloc>().add(const AuthenticationEvent.deleteAccount());
-              AnalyticsEventService().logEvent(
+              const AnalyticsEventService().logEvent(
                 eventName: AnalyticsEvents.deleteAccount,
                 parameters: {
                   AnalyticsParameters.timestamp: DateTime.now().toIso8601String(),
@@ -78,7 +78,7 @@ class _DeleteAccountSectionState extends State<DeleteAccountSection> {
         noActiveSubscription: true,
         onDeleted: () {
           context.read<AuthenticationBloc>().add(const AuthenticationEvent.deleteAccount());
-          AnalyticsEventService().logEvent(
+          const AnalyticsEventService().logEvent(
             eventName: AnalyticsEvents.deleteAccount,
             parameters: {
               AnalyticsParameters.timestamp: DateTime.now().toIso8601String(),

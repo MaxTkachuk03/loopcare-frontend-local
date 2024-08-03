@@ -73,7 +73,7 @@ class _LessonCompletePageState extends State<LessonCompletePage> {
       context.read<ReflectionsBloc>().add(const ReflectionsEvent.getReflections());
     }
 
-    AnalyticsEventService().logLessonCompletedEvent(
+    const AnalyticsEventService().logLessonCompletedEvent(
       AnalyticsEvents.lessonCompletedScreen,
       context.read<EducationLessonBloc>().state.data.id,
     );

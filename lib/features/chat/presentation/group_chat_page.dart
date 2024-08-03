@@ -55,7 +55,7 @@ class _GroupChatPageState extends State<GroupChatPage> with WidgetsBindingObserv
     WidgetsBinding.instance.addObserver(this);
     super.initState();
 
-    AnalyticsEventService().logEvent(eventName: AnalyticsEvents.userOpenedChat);
+    const AnalyticsEventService().logEvent(eventName: AnalyticsEvents.userOpenedChat);
   }
 
   @override
@@ -63,7 +63,7 @@ class _GroupChatPageState extends State<GroupChatPage> with WidgetsBindingObserv
     WidgetsBinding.instance.removeObserver(this);
     super.dispose();
 
-    AnalyticsEventService().logEvent(eventName: AnalyticsEvents.userLeavesChat);
+    const AnalyticsEventService().logEvent(eventName: AnalyticsEvents.userLeavesChat);
   }
 
   @override

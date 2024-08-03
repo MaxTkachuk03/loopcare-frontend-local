@@ -786,7 +786,7 @@
   "updatePoliciesDocumentsBodyText1": "To continue using our app, please review and accept the following documents",
   "updatePoliciesDocumentsBodyText2": "If you do not agree with the new terms, you can delete your account by contacting our support at",
   "nextWeekTopic": "The topic for next week’s session will be made available soon",
-  "subscriptionTrialTitle": "First 2 weeks for free!",
+  "subscriptionTrialTitle": "Great to have you on\n board!",
   "subscriptionTrialLabel": "After your trial period you are enrolled and \nyou can cancel on a monthly basis.",
   "subscriptionTrialExpiredTitle": "Your trial has expired",
   "subscriptionTrialExpiredLabel1": "We hope you enjoyed our program.",
@@ -971,6 +971,14 @@
   "maintenanceLabel": "Maintenance",
   "maintenancePageTitle": "We’ll be back soon!",
   "maintenancePageDescription": "We’re currently releasing exciting new content, if you’ve opted in, you’ll receive a push notification when we’re back online.\n\nSubscribe to our newsletter to get a sneak peak at what’s coming up!",
+  "avatar": "Avatar",
+  "selectProfilePicture": "Select your profile picture",
+  "moveToResize": "move to resize",
+  "chooseYourAvatar": "Choose your avatar",
+  "addPhoto": "Add photo",
+  "avatarSizeErrorMessageTitle": "Oops! It looks like the picture you’re trying to upload is over the 10 MB size limit.",
+  "avatarSizeErrorMessageSubtitle": "Please choose a smaller file and try again.",
+
 
   "//comment": "mental tests final results",
   "phq8FinalResultHigh1": "The questionnaire results indicate that you are currently experiencing notable mental distress.",

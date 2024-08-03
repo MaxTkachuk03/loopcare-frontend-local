@@ -81,7 +81,7 @@ class SubscriptionPlaneItem extends StatelessWidget {
                       CustomText.w400(
                         description,
                         style: context.textTheme.bodyMedium?.copyWith(
-                          color: AppColors.blueDarkest,
+                          color: AppColors.coralRegular,
                         ),
                         textAlign: TextAlign.center,
                       ),

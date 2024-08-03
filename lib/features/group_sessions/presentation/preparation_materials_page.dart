@@ -34,7 +34,7 @@ class PreparationMaterialsPage extends StatelessWidget {
           ),
         );
 
-    AnalyticsEventService().closedSessionPreparationMaterialsEvent(sessionId, weekTopic);
+    const AnalyticsEventService().closedSessionPreparationMaterialsEvent(sessionId, weekTopic);
 
     return Future.value(true);
   }

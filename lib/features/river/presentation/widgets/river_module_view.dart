@@ -45,7 +45,7 @@ class _RiverScreenState extends State<RiverScreen> with RiverUtils {
   void initState() {
     super.initState();
     _page = getIndex(widget.page);
-    _positionedItems = ModuleItemsUtils.getItemsOffsets(_page, widget.module.moduleItems);
+    _positionedItems = ModuleItemsUtils.getAllocatedItems(_page, widget.module.moduleItems);
 
     final activeModule = context.read<RiverBloc>().state.data.activeModule;
     if (activeModule.isModuleItemsCompleted && activeModule.isInProgress && isBeginning) {
@@ -58,7 +58,7 @@ class _RiverScreenState extends State<RiverScreen> with RiverUtils {
   void didUpdateWidget(covariant RiverScreen oldWidget) {
     super.didUpdateWidget(oldWidget);
     if (!widget.module.moduleItems.equals(oldWidget.module.moduleItems)) {
-      _positionedItems = ModuleItemsUtils.getItemsOffsets(_page, widget.module.moduleItems);
+      _positionedItems = ModuleItemsUtils.getAllocatedItems(_page, widget.module.moduleItems);
     }
   }
 
@@ -134,11 +134,12 @@ class _RiverScreenState extends State<RiverScreen> with RiverUtils {
       return;
     }
 
-    // todo: uncomment for LOOPCARE-2948 User Avatar
-    // if (item.isRootItem) {
-    //   context.router.push(SelectAvatarRoute(onDispose: () => _updateModuleItem(item.id)));
-    // } else
-      if (item.isPractice) {
+    if (item.isRootItem) {
+      context.router.push(SelectAvatarRoute(onDispose: () => _updateModuleItem(item.id)));
+      return;
+    }
+
+    if (item.isPractice) {
       ModalBottomSheet.guidancePractice(
         context: context,
         onConfirm: () => _updateModuleItem(item.id),

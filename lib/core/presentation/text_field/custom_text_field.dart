@@ -8,7 +8,6 @@ import 'package:loopcare_frontend/core/presentation/utils/build_context_extensio
 import 'package:loopcare_frontend/core/presentation/validators/email_validator.dart';
 import 'package:loopcare_frontend/core/presentation/validators/login_password_validator.dart';
 import 'package:loopcare_frontend/core/presentation/validators/name_validator.dart';
-import 'package:loopcare_frontend/core/presentation/validators/registration_code_validator.dart';
 
 class CustomTextField extends StatefulWidget {
   final TextInputType? keyboardType;
@@ -247,25 +246,6 @@ class CustomTextField extends StatefulWidget {
         onChanged: onChanged,
         style: style,
         decoration: decoration,
-      );
-
-  factory CustomTextField.registrationCode({
-    Key? key,
-    Color? fillColor,
-    String? errorText,
-    ValueChanged<String>? onChanged,
-    required TextEditingController controller,
-  }) =>
-      CustomTextField(
-        key: key,
-        maxLength: 64,
-        hintText: LocalizedTexts.registrationCodePlaceholder.tr(),
-        controller: controller,
-        validator: registrationCodeValidator(),
-        keyboardType: TextInputType.number,
-        fillColor: fillColor,
-        errorText: errorText,
-        onChanged: onChanged,
       );
 
   @override
