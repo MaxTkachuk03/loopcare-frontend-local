@@ -16,7 +16,7 @@ PODS:
   - connectivity_plus (0.0.1):
     - Flutter
     - FlutterMacOS
-  - customer_io (1.5.0):
+  - customer_io (1.4.0):
     - CustomerIO/MessagingInApp (~> 2)
     - CustomerIO/Tracking (~> 2)
     - Flutter
@@ -443,7 +443,7 @@ SPEC CHECKSUMS:
   audio_service: f509d65da41b9521a61f1c404dd58651f265a567
   audio_session: 088d2483ebd1dc43f51d253d4a1c517d9a2e7207
   connectivity_plus: ddd7f30999e1faaef5967c23d5b6d503d10434db
-  customer_io: dec3157324b3203db45d1388687ccdf1208adf26
+  customer_io: 92787a1faee8114f7fc52974cb266ac477167506
   CustomerIO: 23b20c362c2824492147e50120c3da78dbd2d5a7
   CustomerIOCommon: 823ae9cec9fe1e3427e86ed01ff037f6b2fd225c
   CustomerIOMessagingInApp: 193d5991459623b3657ea135ef143db48a1b127b
@@ -505,7 +505,7 @@ SPEC CHECKSUMS:
   UXCam: dab8e85b4c7fecdf09081d46b249099059a0451f
   video_player_avfoundation: 7c6c11d8470e1675df7397027218274b6d2360b3
   wakelock_plus: 78ec7c5b202cab7761af8e2b2b3d0671be6c4ae1
-  webview_flutter_wkwebview: 2a23822e9039b7b1bc52e5add778e5d89ad488d1
+  webview_flutter_wkwebview: be0f0d33777f1bfd0c9fdcb594786704dbf65f36
   ZoomVideoSDK: 5fc44a9acd0b3a4ae9328a873898bff5b28640a8
 
 PODFILE CHECKSUM: b92b68ba919719da30d62336647f79f1d38ee9bc
