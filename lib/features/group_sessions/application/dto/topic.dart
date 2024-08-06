@@ -20,5 +20,9 @@ class Topic with _$Topic {
     required List<GroupSessionProgramEvent> groupSessionProgramEvents,
   }) = _Topic;
 
+  bool get hasTimeSlots => groupSessions.any((s) => s.hasTimeSlots);
+
+  bool get hasSessions => groupSessions.any((s) => !s.isSessionEnded);
+
   factory Topic.fromJson(Map<String, dynamic> json) => _$TopicFromJson(json);
 }

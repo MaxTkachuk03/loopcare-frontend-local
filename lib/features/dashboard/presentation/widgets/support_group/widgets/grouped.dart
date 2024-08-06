@@ -7,19 +7,72 @@ import 'package:loopcare_frontend/core/presentation/localization/localized_texts
 import 'package:loopcare_frontend/core/presentation/text/custom_text.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 import 'package:loopcare_frontend/core/presentation/utils/build_context_extensions.dart';
-import 'package:loopcare_frontend/features/dashboard/presentation/widgets/support_group/widgets/dashboard_no_group_this_week.dart';
-import 'package:loopcare_frontend/features/dashboard/presentation/widgets/support_group/widgets/grouped_no_timeslots.dart';
-import 'package:loopcare_frontend/features/dashboard/presentation/widgets/support_group/widgets/grouped_not_signed.dart';
+import 'package:loopcare_frontend/features/dashboard/domain/grouped_session_widget_state.dart';
 import 'package:loopcare_frontend/features/dashboard/presentation/widgets/support_group/widgets/session_card.dart';
 import 'package:loopcare_frontend/features/group_sessions/application/topics_bloc.dart';
 
 class Grouped extends StatelessWidget {
-  const Grouped({
-    super.key,
-  });
+  const Grouped({super.key});
+
+  GroupedSessionWidgetState _getWidgetState(BuildContext context) {
+    final state = context.read<TopicsBloc>().state.data;
+
+    if (state.isNotSignedHasFreeTimeSlots) {
+      return GroupedSessionWidgetState.notSignedHasSlots;
+    }
+
+    if (state.isNotSignedHasNoFreeTimeSlots) {
+      return GroupedSessionWidgetState.notSignedNoSlots;
+    }
+
+    if (state.isNotSignedNoSessions) {
+      return GroupedSessionWidgetState.notSignedNoSessions;
+    }
+
+    if (state.signedMinUsersNotReached) {
+      return GroupedSessionWidgetState.signedMinUsersNotReached;
+    }
+
+    if (state.signedSessionCanceledHasOtherSlots) {
+      return GroupedSessionWidgetState.signedSessionCanceledHasOtherSlots;
+    }
+
+    if (state.signedSessionCanceledNoOtherSlots) {
+      return GroupedSessionWidgetState.signedSessionCanceledNoOtherSlots;
+    }
+
+    if (state.signedSessionInProgress) {
+      return GroupedSessionWidgetState.signedSessionInProgress;
+    }
+
+    if (state.signedSessionNotStarted) {
+      return GroupedSessionWidgetState.signedSessionNotStarted;
+    }
+
+    if (state.signedSessionCompleted) {
+      return GroupedSessionWidgetState.signedSessionCompleted;
+    }
+
+    return GroupedSessionWidgetState.signedSessionNotStarted;
+  }
+
+  Widget _getAdditionalTextWidget(BuildContext context, GroupedSessionWidgetState state) =>
+      switch (state) {
+        GroupedSessionWidgetState.signedSessionCanceledNoOtherSlots => CustomText.w400(
+            LocalizedTexts.noOtherTimeslotsAvailable.tr(),
+            style: context.textTheme.bodySmall,
+          ),
+        GroupedSessionWidgetState.signedSessionCompleted => CustomText.w400(
+            LocalizedTexts.nextWeekTopic.tr(),
+            style: context.textTheme.bodyMedium,
+          ),
+        _ => const SizedBox.shrink(),
+      };
 
   @override
   Widget build(BuildContext context) {
+    final sessionWidgetState = _getWidgetState(context);
+
     return BlocBuilder<TopicsBloc, TopicsState>(
       builder: (context, state) {
         return state.maybeMap(
@@ -34,7 +87,8 @@ class Grouped extends StatelessWidget {
               ),
               child: ErrorScreen(
                 error: error!,
-                onButtonPressed: () => context.read<TopicsBloc>().add(const TopicsEvent.fetchTopics()),
+                onButtonPressed: () =>
+                    context.read<TopicsBloc>().add(const TopicsEvent.fetchTopics()),
               ),
             );
           },
@@ -43,51 +97,26 @@ class Grouped extends StatelessWidget {
             return Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                if (state.data.isGroupsOnWeekAvailable)
-                  CustomText.bitter600(
-                    state.data.isHappeningNow
-                        ? LocalizedTexts.happeningNow.tr()
-                        : LocalizedTexts.comingUpThisWeek.tr(),
-                    style: context.textTheme.bodyLarge,
-                  ),
+                CustomText.bitter600(
+                  state.data.signedSessionInProgress
+                      ? LocalizedTexts.happeningNow.tr()
+                      : LocalizedTexts.comingUpThisWeek.tr(),
+                  style: context.textTheme.bodyLarge,
+                ),
                 const SizedBox(height: 16.0),
-                if (!state.data.timeSlotsAvailable &&
-                    !state.data.isSigned &&
-                    state.data.isGroupsOnWeekAvailable)
-                  const GroupedNoTimeslots(),
-                if (state.data.timeSlotsAvailable && !state.data.isSigned)
-                  GroupedNotSigned(
-                    topicName: state.data.weekTopicName,
-                    image: state.data.thisWeekTopicsImage,
-                  ),
-                if (!state.data.isGroupsOnWeekAvailable) const DashboardNoGroupThisWeek(),
-                if (state.data.isSigned && state.data.isGroupsOnWeekAvailable)
-                  FutureBuilder<bool>(
-                      future: state.data.isCanJoin,
-                      builder: (context, snapshot) {
-                        final data = snapshot.data;
-
-                        if (snapshot.hasData && data != null) {
-                          return SessionCard(
-                            topicName: state.data.weekTopicName,
-                            startDate: state.data.signedGroupSessionStartTime ?? DateTime.now(),
-                            endDate: state.data.signedGroupSessionsEndTime ?? DateTime.now(),
-                            preparationMaterialsAvailable: !state.data.signedGroupSessionsCancelled,
-                            isCancelledOrMissed: state.data.signedGroupSessionsCancelledOrMissed,
-                            isCancelled: state.data.signedGroupSessionsCancelled,
-                            isMissed: state.data.signedGroupSessionsMissed,
-                            image: state.data.thisWeekTopicsImage,
-                            isFinished: state.data.signedGroupSessionFinished,
-                            timeSlotsAvailable: state.data.timeSlotsAvailable,
-                            sessionMightBeCancelled: state.data.signedGroupSessionsMightBeCancelled,
-                            isHappeningNow: state.data.isHappeningNow,
-                            isCanJoin: data,
-                            minMemberCount: state.data.signedGroupSession?.minMemberCount ?? 0,
-                          );
-                        } else {
-                          return const SizedBox.shrink();
-                        }
-                      }),
+                switch (sessionWidgetState) {
+                  GroupedSessionWidgetState.notSignedNoSlots => CustomText.w400(
+                      LocalizedTexts.noOtherTimeslotsAvailable.tr(),
+                      style: context.textTheme.bodySmall,
+                    ),
+                  GroupedSessionWidgetState.notSignedNoSessions => CustomText.w400(
+                      LocalizedTexts.noGroupThisWeek.tr(),
+                      style: context.textTheme.bodySmall,
+                    ),
+                  _ => SessionCard(sessionWidgetState: sessionWidgetState),
+                },
+                const SizedBox(height: 16.0),
+                _getAdditionalTextWidget(context, sessionWidgetState),
               ],
             );
           },
