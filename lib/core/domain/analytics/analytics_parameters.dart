@@ -113,6 +113,8 @@ class AnalyticsParameters {
 
   static String get subscriptionContentType => 'af_content_type';
 
+  static String get subscriptionCurrencyCode => 'af_currency';
+
   static String get subscriptionRevenue => 'af_revenue';
 
   static String get subscriptionEventTime => 'event_time';

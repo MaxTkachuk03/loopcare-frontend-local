@@ -1,17 +1,18 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:loopcare_frontend/core/presentation/icon_images/app_icons_data.dart';
+import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 
 enum NavigationBarItems {
-  practice(0, 'Practice'),
-  river(1, 'River'),
-  account(2, 'Profile');
+  practice(0),
+  river(1),
+  account(2);
 
-  const NavigationBarItems(this.number, this.label);
+  const NavigationBarItems(this.number);
 
   final int number;
-  final String label;
 
   static Color getColorByIndex(int index) => values.elementAt(index).color;
 
@@ -20,6 +21,12 @@ enum NavigationBarItems {
   bool get isPractice => this == practice;
 
   bool get isProfile => this == account;
+
+  String label(String userName) => switch (this) {
+    practice => LocalizedTexts.practice.tr(),
+    river => LocalizedTexts.pool.tr(),
+    account => userName,
+  };
 
   Color get color => switch (this) {
         practice => AppColors.blueRegular,
@@ -38,6 +45,9 @@ enum NavigationBarItems {
         river => AppIconsData.iEducation,
         account => AppIconsData.iProfile,
       };
+
+  static NavigationBarItems itemAtIndex(int index) =>
+      NavigationBarItems.values.firstWhere((e) => index == e.number);
 }
 
 List<NavigationBarItems> get bottomTabs => [

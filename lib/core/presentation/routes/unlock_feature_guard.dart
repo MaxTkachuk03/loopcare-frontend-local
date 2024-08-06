@@ -15,7 +15,7 @@ class UnlockFeatureGuard extends AutoRouteGuard {
     final unlocksFeature = getIt<RiverBloc>().state.data.activeModuleItem?.unlocksFeature ?? [];
 
     for (final feature in unlocksFeature) {
-      if (!(account?.features.isFeatureUnlocked(feature) ?? false)) {
+      if (!(account?.isFeatureUnlocked(feature) ?? false)) {
         _unlockFeature(feature);
       }
     }

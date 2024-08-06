@@ -76,6 +76,7 @@ class _LoginFormState extends State<LoginForm> {
                         CustomTextField.password(
                           key: const ValueKey('login_password_text_field'),
                           controller: _passwordController,
+                          onEditingComplete: TextInput.finishAutofillContext,
                         ),
                       ],
                     ),
@@ -101,8 +102,8 @@ class _LoginFormState extends State<LoginForm> {
   }
 
   _onChangedForm() {
-    final isValidForm =
-        Email.create(_emailController.text).isRight() && LoginPassword.create(_passwordController.text).isRight();
+    final isValidForm = Email.create(_emailController.text).isRight() &&
+        LoginPassword.create(_passwordController.text).isRight();
 
     _formValidationNotifier.value = isValidForm;
   }
@@ -128,29 +129,31 @@ class _LoginFormState extends State<LoginForm> {
 
   void _updatePolicies(NeedUpdatePolicies state) {
     final storage = getIt<SharedStorageService>();
-    final updatePrivacyPolicy = storage.privacyPolicyVersion > (state.data.account?.privacyPolicyVersion ?? 1);
-    final updateTermsAndConditions = storage.termsAndConditionsVersion > (state.data.account?.termsAndConditionsVersion ?? 1);
+    final updatePrivacyPolicy =
+        storage.privacyPolicyVersion > (state.data.account?.privacyPolicyVersion ?? 1);
+    final updateTermsAndConditions =
+        storage.termsAndConditionsVersion > (state.data.account?.termsAndConditionsVersion ?? 1);
 
     AppUpdateBottomSheet.showPoliciesUpdate(
       updatePrivacyPolicy: updatePrivacyPolicy,
       updateTermsAndConditions: updateTermsAndConditions,
       onConfirmed: () => context.read<AuthenticationBloc>().add(
-        AuthenticationEvent.updatePolicy(
-          privacyPolicyVersion: storage.privacyPolicyVersion,
-          termsAndConditionsVersion: storage.termsAndConditionsVersion,
-        ),
-      ),
+            AuthenticationEvent.updatePolicy(
+              privacyPolicyVersion: storage.privacyPolicyVersion,
+              termsAndConditionsVersion: storage.termsAndConditionsVersion,
+            ),
+          ),
     );
   }
 
   void _onRiverModulesLoaded(RiverState state) {
     if (!state.data.isBeginningComplete) {
       context.read<NavigationBarBloc>().add(
-        NavigationBarEvent.setBeginningUncompleted(
-          isPracticeOpened: state.data.isPracticeCompleted,
-          isProfileOpened: state.data.isProfileCompleted,
-        ),
-      );
+            NavigationBarEvent.setBeginningUncompleted(
+              isPracticeOpened: state.data.isPracticeCompleted,
+              isProfileOpened: state.data.isProfileCompleted,
+            ),
+          );
     }
 
     String route = AppRoutes.home;

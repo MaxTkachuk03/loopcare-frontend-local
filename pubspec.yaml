@@ -1,5 +1,5 @@
 name: loopcare_frontend
-version: 1.4.2+214
+version: 1.5.0+217
 publish_to: none
 description: Lean on me
 environment:
@@ -28,6 +28,7 @@ dependencies:
   dio: ^5.5.0+1
   easy_localization: ^3.0.3
   email_validator: 2.1.17
+  facebook_app_events: ^0.19.2
   fast_immutable_collections: ^10.2.4
   firebase_analytics: 11.0.0
   firebase_core: 3.0.0

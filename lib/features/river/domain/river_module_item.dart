@@ -21,7 +21,7 @@ class RiverModuleItem with _$RiverModuleItem {
     @Default(0) int lessonId,
     @Default(false) bool isRootItem,
     @Default([]) List<int> unlocksItems,
-    @Default([]) List<UnlockedFeatureType> unlocksFeature,
+    @Default([]) @UnlockedFeatureTypeListConverter() List<UnlockedFeatureType> unlocksFeature,
     @Default(null) int? unlocksReflectionId,
     @Default(null) int? unlocksSmartGoalCategoryId,
     @Default(false) bool crossModule,
@@ -50,4 +50,28 @@ class RiverModuleItem with _$RiverModuleItem {
   bool get isPractice => iconType == RiverIconType.practise;
 
   factory RiverModuleItem.fromJson(Map<String, dynamic> json) => _$RiverModuleItemFromJson(json);
+}
+
+class UnlockedFeatureTypeListConverter
+    implements JsonConverter<List<UnlockedFeatureType>, List<dynamic>> {
+  const UnlockedFeatureTypeListConverter();
+
+  @override
+  List<UnlockedFeatureType> fromJson(List<dynamic> json) {
+    return json
+        .map((value) {
+          UnlockedFeatureType? enumValue;
+          try {
+            enumValue = UnlockedFeatureType.values.byName(value as String);
+          } catch (e) {
+            enumValue = null;
+          }
+          return enumValue;
+        })
+        .whereType<UnlockedFeatureType>()
+        .toList(); // Remove null values
+  }
+
+  @override
+  List<dynamic> toJson(List<UnlockedFeatureType> object) => object.map((e) => e.name).toList();
 }

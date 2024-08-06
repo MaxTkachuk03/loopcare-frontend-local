@@ -30,6 +30,21 @@
 		<string>$(FLUTTER_BUILD_NAME)</string>
 		<key>CFBundleSignature</key>
 		<string>????</string>
+        <key>CFBundleURLTypes</key>
+        <array>
+            <dict>
+                <key>CFBundleURLSchemes</key>
+                <array>
+                    <string>fb448683584654067</string>
+                </array>
+            </dict>
+        </array>
+        <key>FacebookAppID</key>
+        <string>448683584654067</string>
+        <key>FacebookClientToken</key>
+        <string>e6257699c6afd22a44e1d214c593d94a</string>
+        <key>FacebookDisplayName</key>
+        <string>$(APP_NAME)</string>
 		<key>CFBundleVersion</key>
 		<string>$(FLUTTER_BUILD_NUMBER)</string>
 		<key>LSApplicationQueriesSchemes</key>

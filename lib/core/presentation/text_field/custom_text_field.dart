@@ -8,7 +8,6 @@ import 'package:loopcare_frontend/core/presentation/utils/build_context_extensio
 import 'package:loopcare_frontend/core/presentation/validators/email_validator.dart';
 import 'package:loopcare_frontend/core/presentation/validators/login_password_validator.dart';
 import 'package:loopcare_frontend/core/presentation/validators/name_validator.dart';
-import 'package:loopcare_frontend/core/presentation/validators/registration_code_validator.dart';
 
 class CustomTextField extends StatefulWidget {
   final TextInputType? keyboardType;
@@ -18,6 +17,7 @@ class CustomTextField extends StatefulWidget {
   final Icon? prefixIcon;
   final bool? isToggleEye;
   final bool? isClearField;
+  final TextInputAction? textinputAction;
   final int? maxLength;
   final String? errorText;
   final FormFieldValidator<String>? validator;
@@ -32,6 +32,7 @@ class CustomTextField extends StatefulWidget {
   final TextAlign textAlign;
   final bool readOnly;
   final Iterable<String>? autofillHints;
+  final void Function()? onEditingComplete;
 
   const CustomTextField({
     super.key,
@@ -56,6 +57,8 @@ class CustomTextField extends StatefulWidget {
     this.textAlign = TextAlign.start,
     this.autofillHints,
     this.readOnly = false,
+    this.textinputAction = TextInputAction.next,
+    this.onEditingComplete,
   });
 
   factory CustomTextField.search({
@@ -136,6 +139,8 @@ class CustomTextField extends StatefulWidget {
     Color? fillColor,
     String? errorText,
     ValueChanged<String>? onChanged,
+    TextInputAction textinputAction = TextInputAction.next,
+    void Function()? onEditingComplete,
     required TextEditingController controller,
   }) =>
       CustomTextField(
@@ -149,11 +154,15 @@ class CustomTextField extends StatefulWidget {
         fillColor: fillColor,
         errorText: errorText,
         onChanged: onChanged,
+        textinputAction: textinputAction,
+        onEditingComplete: onEditingComplete,
       );
 
   factory CustomTextField.password({
     Key? key,
     Color? fillColor,
+    TextInputAction textinputAction = TextInputAction.done,
+    void Function()? onEditingComplete,
     required TextEditingController controller,
   }) =>
       CustomTextField(
@@ -164,7 +173,9 @@ class CustomTextField extends StatefulWidget {
         autofillHints: const [AutofillHints.password],
         prefixIcon: const Icon(Icons.lock, size: 24),
         isToggleEye: true,
+        textinputAction: textinputAction,
         obscureText: true,
+        onEditingComplete: onEditingComplete,
       );
 
   factory CustomTextField.hiddenEmail({
@@ -237,25 +248,6 @@ class CustomTextField extends StatefulWidget {
         decoration: decoration,
       );
 
-  factory CustomTextField.registrationCode({
-    Key? key,
-    Color? fillColor,
-    String? errorText,
-    ValueChanged<String>? onChanged,
-    required TextEditingController controller,
-  }) =>
-      CustomTextField(
-        key: key,
-        maxLength: 64,
-        hintText: LocalizedTexts.registrationCodePlaceholder.tr(),
-        controller: controller,
-        validator: registrationCodeValidator(),
-        keyboardType: TextInputType.number,
-        fillColor: fillColor,
-        errorText: errorText,
-        onChanged: onChanged,
-      );
-
   @override
   State<CustomTextField> createState() => _CustomTextFieldState();
 }
@@ -322,6 +314,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
       enableIMEPersonalizedLearning: false,
       enableSuggestions: false,
       autocorrect: false,
+      textInputAction: widget.textinputAction,
       keyboardType: widget.keyboardType,
       obscureText: _isObscureText,
       textAlign: widget.textAlign,
@@ -334,6 +327,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
       focusNode: widget.focusNode,
       inputFormatters: widget.inputFormatters,
       readOnly: widget.readOnly,
+      onEditingComplete: widget.onEditingComplete,
     );
   }
 }

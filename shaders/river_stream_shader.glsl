@@ -7,8 +7,8 @@ uniform vec4 uColorEnd;
 out vec4 fragColor;
 
 float simplex(vec2 st, float time, float position) {
-    float pos1 = position + (0.05 + (0.05 * time)) * sin((5 * st.y + (2 * time)) / (3 - 1.4 * time));
-    float pos2 = position + 0.11 + (0.03 * time) + (0.05 + (0.05 * time)) * sin((5 * st.y + (2 * time)) / (3 - 1.2 * time));
+    float pos1 = position + (0.04 * time) * sin((5 * st.y + (2 * time)) / (3 - 1.4 * time));
+    float pos2 = position + 0.06 + (0.02 * time) + (0.05 + (0.05 * time)) * sin((5 * st.y + (2 * time)) / (3 - 1.2 * time));
 
 
     if (pos1 > st.x) {

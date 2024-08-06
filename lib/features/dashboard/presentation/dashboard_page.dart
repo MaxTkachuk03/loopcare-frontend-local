@@ -272,7 +272,29 @@ class _DashboardPageState extends State<DashboardPage> with WidgetsBindingObserv
                               }
                             },
                           ),
-                          PersonMood(date: _selectedDay),
+                          BlocBuilder<AuthenticationBloc, AuthenticationState>(
+                            builder: (context, state) {
+                              // TODO place confition back when backend will be ready
+                              return Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  PersonMood(date: _selectedDay),
+                                  const SizedBox(height: 19.0),
+                                ],
+                              );
+                              // if (state.data.isMoodLoggingUnlocked) {
+                              //   return Column(
+                              //     crossAxisAlignment: CrossAxisAlignment.start,
+                              //     children: [
+                              //       PersonMood(date: _selectedDay),
+                              //       const SizedBox(height: 19.0),
+                              //     ],
+                              //   );
+                              // } else {
+                              //   return const SizedBox.shrink();
+                              // }
+                            },
+                          ),
                           const SizedBox(height: 19.0),
                           BlocBuilder<AuthenticationBloc, AuthenticationState>(
                             builder: (context, state) {

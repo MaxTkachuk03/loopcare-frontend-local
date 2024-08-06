@@ -1,18 +1,18 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:loopcare_frontend/core/domain/account/account_features.dart';
 import 'package:loopcare_frontend/core/domain/account/gender_preferences.dart';
 import 'package:loopcare_frontend/core/domain/account/gender_type.dart';
 import 'package:loopcare_frontend/core/domain/account/sex_type.dart';
 import 'package:loopcare_frontend/core/domain/constants.dart';
 import 'package:loopcare_frontend/core/domain/medical_onboarding.dart';
 import 'package:loopcare_frontend/core/domain/mental_health_tests.dart';
+import 'package:loopcare_frontend/core/domain/unlocked_feature_type.dart';
 import 'package:loopcare_frontend/core/presentation/utils/string_extensions.dart';
 import 'package:loopcare_frontend/features/account/domain/user_grouping_state.dart';
 import 'package:loopcare_frontend/features/authentication/domain/subscription/subscription.dart';
 import 'package:loopcare_frontend/features/buddy/domain/buddy.dart';
 import 'package:loopcare_frontend/features/onboarding/domain/interpretation_type.dart';
 import 'package:loopcare_frontend/features/physical_activities/domain/physical_activities_preferences.dart';
-import 'package:loopcare_frontend/features/subscription/donain/subscription_state.dart';
+import 'package:loopcare_frontend/features/subscription/domain/subscription_state.dart';
 import 'package:loopcare_frontend/features/you_and_food/application/dto/food_preference.dart';
 
 part 'account.freezed.dart';
@@ -31,7 +31,7 @@ abstract class Account implements _$Account {
     required GenderType gender,
     required SexType sex,
     required Subscription subscription,
-    required AccountFeatures features,
+    required Map<String, bool> features,
     Buddy? buddy,
     @Default(null) UserGroupingState? groupingState,
     @Default(null) int? groupId,
@@ -65,29 +65,36 @@ abstract class Account implements _$Account {
     return match != null ? int.parse(match[0] ?? '0') : 0;
   }
 
-  bool get isPhysicalActivitiesUnlocked => features.physicalActivity;
+  Account unlockFeature(UnlockedFeatureType key) =>
+      copyWith(features: {...features, key.name: true});
 
-  bool get isFoodLoggingUnlocked => features.foodLogging;
+  bool isFeatureUnlocked(UnlockedFeatureType feature) => features[feature.name] ?? false;
 
-  bool get isGroupSessionsUnlocked => features.grouping;
+  bool get isFoodLoggingUnlocked => isFeatureUnlocked(UnlockedFeatureType.foodLogging);
 
-  bool get isReflectionsUnlocked => features.reflections;
+  bool get isPhysicalActivitiesUnlocked => isFeatureUnlocked(UnlockedFeatureType.physicalActivity);
 
-  bool get isBuddyUnlocked => features.buddy;
+  bool get isGroupSessionsUnlocked => isFeatureUnlocked(UnlockedFeatureType.grouping);
 
-  bool get isSmartGoalsUnlocked => features.smartGoals;
+  bool get isReflectionsUnlocked => isFeatureUnlocked(UnlockedFeatureType.reflections);
 
-  bool get isMindUnlocked => features.mind;
+  bool get isBuddyUnlocked => isFeatureUnlocked(UnlockedFeatureType.buddy);
 
-  bool get isCalorieDensityUnlocked => features.calorieDensity;
+  bool get isSmartGoalsUnlocked => isFeatureUnlocked(UnlockedFeatureType.smartGoals);
 
-  bool get isProteinDegreeUnlocked => features.proteinDegree;
+  bool get isMindUnlocked => isFeatureUnlocked(UnlockedFeatureType.mind);
 
-  bool get isCalorieTrackerUnlocked => features.calorieTracker;
+  bool get isCalorieDensityUnlocked => isFeatureUnlocked(UnlockedFeatureType.calorieDensity);
 
-  bool get isCarbohydrateRatioUnlocked => features.fiberIndicator;
+  bool get isProteinDegreeUnlocked => isFeatureUnlocked(UnlockedFeatureType.proteinDegree);
 
-  bool get isWeightLoggingUnlocked => features.weightLogging;
+  bool get isCalorieTrackerUnlocked => isFeatureUnlocked(UnlockedFeatureType.calorieTracker);
+
+  bool get isCarbohydrateRatioUnlocked => isFeatureUnlocked(UnlockedFeatureType.fiberIndicator);
+
+  bool get isWeightLoggingUnlocked => isFeatureUnlocked(UnlockedFeatureType.weightLogging);
+
+  bool get isMoodLoggingUnlocked => isFeatureUnlocked(UnlockedFeatureType.moodLogging);
 
   bool get disableGroupSessions => mentalHealthTests != null && _isPhq8High ? true : false;
 

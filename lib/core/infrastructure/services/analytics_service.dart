@@ -1,5 +1,6 @@
 import 'package:fast_immutable_collections/fast_immutable_collections.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_uxcam/flutter_uxcam.dart';
 import 'package:loopcare_frontend/build_type.dart';
@@ -101,9 +102,9 @@ class AnalyticsEventService {
   }
 
   Future<void> _uxcamLogEvent(
-      String eventName,
-      String userId,
-      Map<String, dynamic>? parameters,
+    String eventName,
+    String userId,
+    Map<String, dynamic>? parameters,
   ) async {
     Map<String, Object> tmpParameters = Map.from(parameters ?? {});
     tmpParameters[AnalyticsParameters.userId] = userId;
@@ -112,8 +113,12 @@ class AnalyticsEventService {
   }
 
   Future<void> init() async {
+    if (kIsDev || kDebugMode) return;
+
     FlutterUxcam.optIntoSchematicRecordings();
-    FlutterUxConfig config = FlutterUxConfig(userAppKey: dotenv.env['UXCAM_APP_KEY'] ?? '',);
+    FlutterUxConfig config = FlutterUxConfig(
+      userAppKey: dotenv.env['UXCAM_APP_KEY'] ?? '',
+    );
     await FlutterUxcam.startWithConfiguration(config);
   }
 
