@@ -25,6 +25,7 @@ import 'package:loopcare_frontend/features/account/presentation/avatar_page/doma
 import 'package:loopcare_frontend/features/account/presentation/avatar_page/presentation/widgets/avatar_menu.dart';
 import 'package:loopcare_frontend/features/account/presentation/avatar_page/presentation/widgets/avatars_list.dart';
 import 'package:loopcare_frontend/features/authentication/application/authentication_bloc.dart';
+import 'package:permission_handler/permission_handler.dart';
 
 @RoutePage()
 class SelectAvatarPage extends StatefulWidget {
@@ -48,6 +49,7 @@ class _SelectAvatarPageState extends State<SelectAvatarPage> {
         : const UserAvatarMode.local();
 
     _controller.showSizeError.addListener(_sizeErrorListener);
+    _controller.showPermissionsPopup.addListener(_permissionsListener);
 
     _controller.setAvatarMode(mode);
   }
@@ -58,6 +60,16 @@ class _SelectAvatarPageState extends State<SelectAvatarPage> {
     ModalBottomSheet.avatarSizeErrorDialog(
       context: context,
       onClose: () => _controller.showSizeError.value = false,
+    );
+  }
+
+  void _permissionsListener() {
+    if (!_controller.showPermissionsPopup.value) return;
+
+    ModalBottomSheet.galeryPermissonsDialog(
+      context: context,
+      onGoToSettings: openAppSettings,
+      onClose: () => _controller.showPermissionsPopup.value = false,
     );
   }
 
@@ -172,6 +184,7 @@ class _SelectAvatarPageState extends State<SelectAvatarPage> {
 
     widget.onDispose?.call();
     _controller.showSizeError.removeListener(_sizeErrorListener);
+    _controller.showPermissionsPopup.removeListener(_permissionsListener);
     _controller.dispose();
   }
 }

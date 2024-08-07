@@ -1033,6 +1033,45 @@ class ModalBottomSheet {
     ).whenComplete(onClose);
   }
 
+  static void galeryPermissonsDialog({
+    required BuildContext context,
+    required void Function() onGoToSettings,
+    required void Function() onClose,
+  }) {
+    showModalBottomSheet<void>(
+      showDragHandle: true,
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12.0)),
+      context: context,
+      builder: (BuildContext context) {
+        return MainContainer(
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              const CircleAvatar(
+                backgroundColor: AppColors.red,
+                child: Icon(Icons.priority_high_outlined),
+              ),
+              const SizedBox(height: 20.0),
+              CustomText.w600(
+                LocalizedTexts.galeryPermissionsMessage.tr(),
+                style: context.textTheme.bodyMedium,
+              ),
+              const SizedBox(height: 20.0),
+              Padding(
+                padding: const EdgeInsets.symmetric(vertical: 20.0),
+                child: CustomElevatedButton.blueFullWidth(
+                  onPressed: onGoToSettings,
+                  label: LocalizedTexts.goToAppSettings.tr(),
+                ),
+              ),
+            ],
+          ),
+        );
+      },
+    ).whenComplete(onClose);
+  }
+
   static void readTextVersion({
     required BuildContext context,
     required RiverModuleStreamType streamType,

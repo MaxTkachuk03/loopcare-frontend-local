@@ -382,6 +382,8 @@ class LocalizedTexts {
   static const String addPhoto = 'addPhoto';
   static const String avatarSizeErrorMessageTitle = 'avatarSizeErrorMessageTitle';
   static const String avatarSizeErrorMessageSubtitle = 'avatarSizeErrorMessageSubtitle';
+  static const String goToAppSettings = 'goToAppSettings';
+  static const String galeryPermissionsMessage = 'galeryPermissionsMessage';
 
   // Emergency Numbers
   static const String emergencySubtitle = 'emergencySubtitle';

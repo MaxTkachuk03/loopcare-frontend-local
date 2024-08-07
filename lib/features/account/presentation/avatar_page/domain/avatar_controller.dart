@@ -5,6 +5,7 @@ import 'package:loopcare_frontend/core/infrastructure/services/image_helper/imag
 import 'package:loopcare_frontend/features/account/presentation/avatar_page/domain/avatar_option.dart';
 import 'package:loopcare_frontend/features/account/presentation/avatar_page/domain/avatar_variant_option.dart';
 import 'package:loopcare_frontend/features/account/presentation/avatar_page/domain/user_avatar_mode.dart';
+import 'package:permission_handler/permission_handler.dart';
 
 class AvatarController {
   final ImageHelper _imageHelper;
@@ -17,6 +18,7 @@ class AvatarController {
   ValueNotifier<File?> selectedPhoto = ValueNotifier(null);
   ValueNotifier<UserAvatarMode> avatarMode = ValueNotifier(const UserAvatarMode.local());
   ValueNotifier<bool> showSizeError = ValueNotifier(false);
+  ValueNotifier<bool> showPermissionsPopup = ValueNotifier(false);
 
   void onSelectAvatarOption(AvatarOption item) => selectedAvatarOption.value = item;
 
@@ -34,21 +36,36 @@ class AvatarController {
   }
 
   void onPickPhoto() async {
-    final file = await _imageHelper.pickImage();
+    PermissionStatus status =
+        Platform.isAndroid ? await Permission.camera.status : await Permission.photos.status;
 
-    if (file != null) {
-      final croppedImage = await _imageHelper.crop(file: file);
+    if (status.isDenied) {
+      status = Platform.isAndroid
+          ? await Permission.camera.request()
+          : await Permission.photos.request();
+    }
 
-      if (croppedImage != null) {
-        final croppedFile = File(croppedImage.path);
-        if (await croppedFile.length() > Constants.avatarFileMaxSize) {
-          showSizeError.value = true;
-          return;
+    if (status.isPermanentlyDenied) {
+      showPermissionsPopup.value = true;
+    }
+
+    if (status.isGranted || status.isLimited) {
+      final file = await _imageHelper.pickImage();
+
+      if (file != null) {
+        final croppedImage = await _imageHelper.crop(file: file);
+
+        if (croppedImage != null) {
+          final croppedFile = File(croppedImage.path);
+          if (await croppedFile.length() > Constants.avatarFileMaxSize) {
+            showSizeError.value = true;
+            return;
+          }
+          selectedAvatar.value = null;
+          selectedPhoto.value = croppedFile;
+          avatarMode.value = const UserAvatarMode.local();
+          setCanSave();
         }
-        selectedAvatar.value = null;
-        selectedPhoto.value = croppedFile;
-        avatarMode.value = const UserAvatarMode.local();
-        setCanSave();
       }
     }
   }
@@ -61,5 +78,6 @@ class AvatarController {
     selectedPhoto.dispose();
     avatarMode.dispose();
     showSizeError.dispose();
+    showPermissionsPopup.dispose();
   }
 }
