@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:in_app_purchase/in_app_purchase.dart';
+import 'package:loopcare_frontend/core/infrastructure/services/country_code_service/country_code_service.dart';
 
 class PurchasableProduct {
   final ProductDetails? details;
@@ -35,6 +36,9 @@ class PurchasableProduct {
 
   String get title => Platform.isIOS ? _titleIOS : _titleAndroid;
 
-  String get priceWithCurrency =>
-      (currency == '\$' || currency == '£') ? '$currency$roundPrice' : '$roundPrice$currency';
+  String get priceWithCurrency => CountryCodeService.instance.useUsServer
+      ? ''
+      : (currency == '\$' || currency == '£')
+          ? '$currency$roundPrice'
+          : '$roundPrice$currency';
 }

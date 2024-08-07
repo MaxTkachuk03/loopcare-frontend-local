@@ -69,7 +69,7 @@ class SubscriptionPlaneItem extends StatelessWidget {
                     CustomText.bitter600(
                       //Todo remove priceWithCurrency will be updated with localization
                       LocalizedTexts.subscriptionTitlePrice.tr(
-                        args: [title, ''],
+                        args: [title, priceWithCurrency],
                       ),
                       style: context.textTheme.bodyMedium?.copyWith(
                         color: AppColors.blueDarkest,
