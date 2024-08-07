@@ -1,5 +1,3 @@
-// ignore_for_file: depend_on_referenced_packages
-
 import 'dart:async';
 import 'dart:io';
 
@@ -50,6 +48,9 @@ class PurchaseDetailsStreamSubscription {
             await inAppPurchaseService.completePurchase(purchaseDetails);
           }
           onRestored?.call(events.last);
+          if (Platform.isIOS) {
+            await inAppPurchaseService.finishTransactionIOS();
+          }
           return;
         }
         Future.forEach(
@@ -60,6 +61,9 @@ class PurchaseDetailsStreamSubscription {
                 break;
               case PurchaseStatus.purchased:
                 onPurchased?.call(purchaseDetails);
+                if (Platform.isIOS) {
+                  await inAppPurchaseService.finishTransactionIOS();
+                }
                 break;
               case PurchaseStatus.canceled:
                 onCanceled?.call();
@@ -67,6 +71,9 @@ class PurchaseDetailsStreamSubscription {
               case PurchaseStatus.error:
                 onError?.call(const RequestError.streamSubscription(
                     ServerErrorData(message: LocalizedTexts.purchaseStreamError)));
+                if (Platform.isIOS) {
+                  await inAppPurchaseService.finishTransactionIOS();
+                }
                 break;
               default:
                 break;
@@ -75,10 +82,10 @@ class PurchaseDetailsStreamSubscription {
           },
         );
       },
-      onDone: () => close(),
+      onDone: close,
       onError: (e) {
-        onError
-            ?.call(const RequestError.streamSubscription(ServerErrorData(message: LocalizedTexts.purchaseStreamError)));
+        onError?.call(const RequestError.streamSubscription(
+            ServerErrorData(message: LocalizedTexts.purchaseStreamError)));
         close();
       },
     );

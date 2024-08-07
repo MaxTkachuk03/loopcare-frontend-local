@@ -111,7 +111,8 @@ class _SubscriptionPageState extends State<SubscriptionPage> {
               topCover: AppImages.subscriptionTop,
               bottomCover: AppColors.blueRegular,
             ),
-            serviceSubscriptionUnavailable: (_) => content = SubscriptionStateView.serviceUnavailable(
+            serviceSubscriptionUnavailable: (_) =>
+                content = SubscriptionStateView.serviceUnavailable(
               controller: controller,
               topCover: AppImages.subscriptionTop,
               bottomCover: AppColors.blueRegular,

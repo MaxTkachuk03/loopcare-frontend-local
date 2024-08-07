@@ -40,7 +40,7 @@ class _FavoriteListState extends State<FavoriteList> with AutomaticKeepAliveClie
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
-   AnalyticsEventService().logEvent(eventName: AnalyticsEvents.selectFoodScreenMyFavorites);
+    const AnalyticsEventService().logEvent(eventName: AnalyticsEvents.selectFoodScreenMyFavorites);
   }
 
   Future _onRefresh() async {

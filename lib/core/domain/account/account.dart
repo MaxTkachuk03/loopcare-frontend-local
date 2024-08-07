@@ -12,7 +12,7 @@ import 'package:loopcare_frontend/features/authentication/domain/subscription/su
 import 'package:loopcare_frontend/features/buddy/domain/buddy.dart';
 import 'package:loopcare_frontend/features/onboarding/domain/interpretation_type.dart';
 import 'package:loopcare_frontend/features/physical_activities/domain/physical_activities_preferences.dart';
-import 'package:loopcare_frontend/features/subscription/donain/subscription_state.dart';
+import 'package:loopcare_frontend/features/subscription/domain/subscription_state.dart';
 import 'package:loopcare_frontend/features/you_and_food/application/dto/food_preference.dart';
 
 part 'account.freezed.dart';
@@ -44,6 +44,7 @@ abstract class Account implements _$Account {
     @Default('') String diabetes,
     @Default('') String? nickname,
     @Default(null) String? buddyState,
+    @Default(null) String? avatarUrl,
     @Default(GenderPreferences.noPreference) GenderPreferences? genderPreference,
     @Default('') String? timezone,
     @Default([]) List<FoodPreference>? foodPreferencesHates,

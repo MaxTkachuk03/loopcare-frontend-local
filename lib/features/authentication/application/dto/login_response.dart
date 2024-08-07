@@ -21,6 +21,7 @@ class LoginResponse {
   final Subscription subscription;
   final DateTime? emailApproveDate;
   final DateTime createdAt;
+  final String? avatarUrl;
   final Map<String, bool> features;
 
   const LoginResponse({
@@ -36,6 +37,7 @@ class LoginResponse {
     required this.subscription,
     required this.emailApproveDate,
     required this.createdAt,
+    required this.avatarUrl,
     required this.features,
   });
 

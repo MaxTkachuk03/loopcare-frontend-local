@@ -115,7 +115,7 @@ class MindBloc extends Bloc<MindEvent, MindState> {
     response.fold(
       (l) => emit(MindState.error(state.data.copyWith(error: l, isLoading: false))),
       (r) {
-        AnalyticsEventService().logEvent(
+        const AnalyticsEventService().logEvent(
           eventName: AnalyticsEvents.mindCompletedExercise,
           parameters: {
             AnalyticsParameters.techniqueId: techniqueId,
@@ -189,7 +189,7 @@ class MindBloc extends Bloc<MindEvent, MindState> {
         ? AnalyticsEvents.mindRatingAfterExercise
         : AnalyticsEvents.mindRatingBeforeExercise;
 
-    AnalyticsEventService().logEvent(
+    const AnalyticsEventService().logEvent(
       eventName: logEventName,
       parameters: {
         AnalyticsParameters.techniqueId: state.data.currentTechnique?.id ?? 0,

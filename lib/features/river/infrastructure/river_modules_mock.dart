@@ -7,7 +7,22 @@ var modules = [
     "isCompleted": false,
     "moduleItems": [
       {
+        "lessonId": null,
+        "isRootItem": true,
+        "unlocksItems": [2, 3],
+        "unlocksFeature": [],
+        "unlocksReflectionId": null,
+        "unlocksSmartGoalCategoryId": null,
+        "crossModule": false,
+        "featurePlacement": null,
+        "itemState": "unlocked",
         "id": 1,
+        "streamType": "psychology",
+        "iconType": "reflection",
+        "actions": []
+      },
+      {
+        "id": 2,
         "streamType": "psychology",
         "iconType": "profile",
         "lessonId": null,
@@ -17,10 +32,10 @@ var modules = [
         "unlocksSmartGoalCategoryId": null,
         "crossModule": false,
         "featurePlacement": "profile",
-        "itemState": "unlocked"
+        "itemState": "locked"
       },
       {
-        "id": 2,
+        "id": 3,
         "streamType": "psychology",
         "iconType": "practice",
         "lessonId": null,
@@ -30,7 +45,7 @@ var modules = [
         "unlocksSmartGoalCategoryId": null,
         "crossModule": false,
         "featurePlacement": "dashboard",
-        "itemState": "unlocked"
+        "itemState": "locked"
       },
     ]
   },

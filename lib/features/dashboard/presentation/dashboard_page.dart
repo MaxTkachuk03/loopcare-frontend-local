@@ -274,17 +274,25 @@ class _DashboardPageState extends State<DashboardPage> with WidgetsBindingObserv
                           ),
                           BlocBuilder<AuthenticationBloc, AuthenticationState>(
                             builder: (context, state) {
-                              if (state.data.isMoodLoggingUnlocked) {
-                                return Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    PersonMood(date: _selectedDay),
-                                    const SizedBox(height: 19.0),
-                                  ],
-                                );
-                              } else {
-                                return const SizedBox.shrink();
-                              }
+                              // TODO place confition back when backend will be ready
+                              return Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  PersonMood(date: _selectedDay),
+                                  const SizedBox(height: 19.0),
+                                ],
+                              );
+                              // if (state.data.isMoodLoggingUnlocked) {
+                              //   return Column(
+                              //     crossAxisAlignment: CrossAxisAlignment.start,
+                              //     children: [
+                              //       PersonMood(date: _selectedDay),
+                              //       const SizedBox(height: 19.0),
+                              //     ],
+                              //   );
+                              // } else {
+                              //   return const SizedBox.shrink();
+                              // }
                             },
                           ),
                           const SizedBox(height: 19.0),

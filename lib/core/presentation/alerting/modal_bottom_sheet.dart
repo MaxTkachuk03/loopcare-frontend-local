@@ -250,15 +250,13 @@ class ModalBottomSheet {
                   CustomElevatedButton.blueFullWidth(
                     onPressed: () {
                       //12.02.2024 Discussed with Diana
-                      AnalyticsEventService().logEvent(
-                        eventName:
-                        AnalyticsEvents.deleteAccount,
+                      const AnalyticsEventService().logEvent(
+                        eventName: AnalyticsEvents.deleteAccount,
                         parameters: {
                           AnalyticsParameters.timestamp: DateTime.now().toIso8601String(),
                           AnalyticsParameters.confirmed: false,
                         },
                       );
-
 
                       context.router.maybePop();
                     },
@@ -995,6 +993,83 @@ class ModalBottomSheet {
         );
       },
     );
+  }
+
+  static void avatarSizeErrorDialog({
+    required BuildContext context,
+    required void Function() onClose,
+  }) {
+    showModalBottomSheet<void>(
+      showDragHandle: true,
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12.0)),
+      context: context,
+      builder: (BuildContext context) {
+        return MainContainer(
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              const CircleAvatar(
+                backgroundColor: AppColors.blueRegular,
+                child: Icon(Icons.priority_high_outlined),
+              ),
+              const SizedBox(height: 20.0),
+              CustomText.w600(LocalizedTexts.avatarSizeErrorMessageTitle.tr(),
+                  style: context.textTheme.bodyMedium),
+              const SizedBox(height: 20.0),
+              CustomText.w400(LocalizedTexts.avatarSizeErrorMessageSubtitle.tr(),
+                  style: context.textTheme.bodyMedium),
+              Padding(
+                padding: const EdgeInsets.symmetric(vertical: 20.0),
+                child: CustomElevatedButton.blueFullWidth(
+                  onPressed: context.router.maybePop,
+                  label: LocalizedTexts.ok.tr().toUpperCase(),
+                ),
+              ),
+            ],
+          ),
+        );
+      },
+    ).whenComplete(onClose);
+  }
+
+  static void galeryPermissonsDialog({
+    required BuildContext context,
+    required void Function() onGoToSettings,
+    required void Function() onClose,
+  }) {
+    showModalBottomSheet<void>(
+      showDragHandle: true,
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12.0)),
+      context: context,
+      builder: (BuildContext context) {
+        return MainContainer(
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              const CircleAvatar(
+                backgroundColor: AppColors.red,
+                child: Icon(Icons.priority_high_outlined),
+              ),
+              const SizedBox(height: 20.0),
+              CustomText.w600(
+                LocalizedTexts.galeryPermissionsMessage.tr(),
+                style: context.textTheme.bodyMedium,
+              ),
+              const SizedBox(height: 20.0),
+              Padding(
+                padding: const EdgeInsets.symmetric(vertical: 20.0),
+                child: CustomElevatedButton.blueFullWidth(
+                  onPressed: onGoToSettings,
+                  label: LocalizedTexts.goToAppSettings.tr(),
+                ),
+              ),
+            ],
+          ),
+        );
+      },
+    ).whenComplete(onClose);
   }
 
   static void readTextVersion({

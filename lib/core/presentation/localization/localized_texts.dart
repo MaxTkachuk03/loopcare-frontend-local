@@ -245,6 +245,8 @@ class LocalizedTexts {
   static const String fiberLowQualityLabel = 'fiberLowQualityLabel';
   static const String notSignificant = 'notSignificant';
   static const String insignificant = 'insignificant';
+  static const String practice = 'practice';
+  static const String pool = 'pool';
 
   // Education
   static const String all = 'all';
@@ -371,6 +373,17 @@ class LocalizedTexts {
   static const String emailChangeConfirmedTitle = 'emailChangeConfirmedTitle';
   static const String emailChangeConfirmedBody1 = 'emailChangeConfirmedBody1';
   static const String emailChangeConfirmedBody2 = 'emailChangeConfirmedBody2';
+
+  // User profile avatar
+  static const String avatar = 'avatar';
+  static const String selectProfilePicture = 'selectProfilePicture';
+  static const String moveToResize = 'moveToResize';
+  static const String chooseYourAvatar = 'chooseYourAvatar';
+  static const String addPhoto = 'addPhoto';
+  static const String avatarSizeErrorMessageTitle = 'avatarSizeErrorMessageTitle';
+  static const String avatarSizeErrorMessageSubtitle = 'avatarSizeErrorMessageSubtitle';
+  static const String goToAppSettings = 'goToAppSettings';
+  static const String galeryPermissionsMessage = 'galeryPermissionsMessage';
 
   // Emergency Numbers
   static const String emergencySubtitle = 'emergencySubtitle';
