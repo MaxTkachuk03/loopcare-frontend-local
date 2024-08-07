@@ -657,58 +657,33 @@ class ModalBottomSheet {
     );
   }
 
-  static void sessionsDialog({
-    required BuildContext context,
-  }) {
+  static void sessionsDialog({required BuildContext context}) {
     showModalBottomSheet<void>(
+      showDragHandle: true,
       isScrollControlled: true,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12.0)),
       context: context,
       builder: (BuildContext context) {
-        return BlocBuilder<TopicsBloc, TopicsState>(
-          builder: (context, state) {
-            return FractionallySizedBox(
-              heightFactor: 0.8,
-              child: CustomSafeArea(
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 32.0),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Align(
-                        alignment: Alignment.topRight,
-                        child: SizedBox(
-                          width: 30.0,
-                          height: 30.0,
-                          child: IconButton(
-                            iconSize: 30,
-                            padding: EdgeInsets.zero,
-                            onPressed: () => context.router.maybePop(),
-                            icon: const Icon(Icons.close),
-                          ),
-                        ),
-                      ),
-                      const SizedBox(height: 16.0),
-                      CustomText.bitter500(
-                        state.data.weekTopicName,
-                        style: context.textTheme.displayMedium,
-                      ),
-                      const SizedBox(height: 12.0),
-                      const Divider(
-                        thickness: 1.0,
-                        height: 1.0,
-                        color: AppColors.greyDarker,
-                      ),
-                      const SizedBox(height: 12.0),
-                      state.data.isSigned && state.data.isGroupsOnWeekAvailable
-                          ? const BookedSessionModalContent()
-                          : const NotBookedSessionsModalContent()
-                    ],
+        return MainContainer(
+          child: BlocBuilder<TopicsBloc, TopicsState>(builder: (context, state) {
+            return Padding(
+              padding: const EdgeInsets.only(bottom: 30.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  CustomText.bitter500(
+                    state.data.weekTopicName,
+                    style: context.textTheme.displayMedium,
                   ),
-                ),
+                  const Divider(thickness: 1.0, height: 24.0, color: AppColors.greyDarker),
+                  state.data.isSigned
+                      ? const BookedSessionModalContent()
+                      : const NotBookedSessionsModalContent()
+                ],
               ),
             );
-          },
+          }),
         );
       },
     );

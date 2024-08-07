@@ -30,122 +30,64 @@ class TopicsData with _$TopicsData {
 
   Topic? get weekTopic => DateTime.now().isLastDayOfWeek ? _nextWeekTopic : _thisWeekTopic;
 
-  List<GroupSessionProgramEvent>? get thisWeekTopicProgram => _thisWeekTopic?.groupSessionProgramEvents;
+  bool get topicHasFreeTimeSlots => weekTopic?.hasTimeSlots ?? false;
 
-  String get weekTopicName => DateTime.now().isLastDayOfWeek ? _nextWeekTopicName : _thisWeekTopicName;
+  bool get topicHasSessions => weekTopic?.hasSessions ?? false;
+
+  bool get isNotSignedHasFreeTimeSlots => !isSigned && topicHasFreeTimeSlots;
+
+  bool get isNotSignedHasNoFreeTimeSlots => !isSigned && !topicHasFreeTimeSlots;
+
+  bool get isNotSignedNoSessions => !isSigned && !topicHasSessions;
+
+  bool get signedMinUsersNotReached =>
+      signedGroupSession != null &&
+      !signedGroupSession!.isCanceled &&
+      signedGroupSession!.lessThanHourBeforeStart &&
+      !signedGroupSession!.isMinUsersReached;
+
+  bool get signedSessionCanceledHasOtherSlots =>
+      signedGroupSession != null && signedGroupSession!.isCanceled && topicHasFreeTimeSlots;
+
+  bool get signedSessionCanceledNoOtherSlots =>
+      signedGroupSession != null && signedGroupSession!.isCanceled && !topicHasFreeTimeSlots;
+
+  bool get signedSessionCompleted => signedGroupSession != null && signedGroupSession!.isCompleted;
+
+  bool get signedSessionInProgress =>
+      signedGroupSession != null && signedGroupSession!.isInProgress;
+
+  bool get signedSessionNotStarted =>
+      signedGroupSession != null && !signedGroupSession!.isSessionAlreadyStarted;
+
+  List<GroupSessionProgramEvent>? get thisWeekTopicProgram =>
+      _thisWeekTopic?.groupSessionProgramEvents;
+
+  String get weekTopicName =>
+      DateTime.now().isLastDayOfWeek ? _nextWeekTopicName : _thisWeekTopicName;
 
   String get _thisWeekTopicName => topics[DateTime.now().weekNumber]?.topic ?? '';
 
   String get _nextWeekTopicName => topics[DateTime.now().nextWeekNumber]?.topic ?? '';
 
-  GroupSession? get signedGroupSession => weekTopic?.groupSessions.firstWhereOrNull((s) => s.signed);
+  GroupSession? get signedGroupSession =>
+      weekTopic?.groupSessions.firstWhereOrNull((s) => s.signed);
 
-  bool get isHappeningNow {
-    var isHappeningNow = false;
-    if (isSigned) {
-      var sessionStartDate = signedGroupSessionStartTime;
-      var sessionEndDate = signedGroupSessionsEndTime;
-      var nowMoment = DateTime.now();
-      if (sessionStartDate != null && sessionEndDate != null) {
-        if (nowMoment.isAfter(sessionStartDate) && nowMoment.isBefore(sessionEndDate)) {
-          isHappeningNow = true;
-        }
-      }
-    }
-    return isHappeningNow;
-  }
-
-  bool get isSignedInPast {
-    if (signedGroupSession != null) {
-      return DateTime.now().isAfter(signedGroupSessionsEndTime ?? DateTime.now());
-    } else {
-      return false;
-    }
-  }
-
-  bool get isSigned {
-    return signedGroupSession != null ? true : false;
-  }
+  bool get isSigned => signedGroupSession != null;
 
   DateTime? get signedGroupSessionStartTime => signedGroupSession?.localStartTime;
 
   DateTime? get signedGroupSessionsEndTime => signedGroupSession?.localEndTime;
 
-  bool get signedGroupSessionsCancelledOrMissed {
-    return signedGroupSession?.status == GroupSessionStatus.cancelled;
-  }
+  bool get signedGroupSessionsCancelledOrMissed =>
+      signedGroupSession?.status == GroupSessionStatus.cancelled;
 
-  bool get signedGroupSessionsMissed {
-    return signedGroupSession?.status == GroupSessionStatus.cancelled;
-  }
+  bool get signedGroupSessionsMissed => signedGroupSession?.status == GroupSessionStatus.cancelled;
 
-  bool get signedGroupSessionFinished {
-    return signedGroupSession?.status == GroupSessionStatus.finished;
-  }
+  bool get signedGroupSessionFinished => signedGroupSession?.status == GroupSessionStatus.finished;
 
-  bool get signedGroupSessionsCancelled {
-    return signedGroupSession?.status == GroupSessionStatus.cancelled;
-  }
-
-  // TODO can be simplified, calculations can be moved to the GroupSession model
-  bool get signedGroupSessionsMightBeCancelled {
-    if (isSigned) {
-      if (DateTime.now()
-              .isAfter(signedGroupSessionStartTime?.subtract(const Duration(hours: 1)) ?? DateTime.now()) &&
-          DateTime.now().isBefore(signedGroupSessionStartTime ?? DateTime.now())) {
-        return signedGroupSession!.memberCount < signedGroupSession!.minMemberCount;
-      } else {
-        return false;
-      }
-    } else {
-      return false;
-    }
-  }
-
-  bool get isGroupsOnWeekAvailable {
-    if (isSignedInPast) return false;
-
-    int sessionsAvailableOnThisWeek = weekTopic?.groupSessions
-            .where(
-              (element) =>
-                  element.startDate.add(Duration(seconds: weekTopic?.duration ?? 0)).toLocal().isAfter(
-                        DateTime.now(),
-                      ) &&
-                  (element.status == GroupSessionStatus.planned ||
-                      element.status == GroupSessionStatus.active),
-            )
-            .toList()
-            .length ??
-        0;
-    return sessionsAvailableOnThisWeek > 0;
-  }
-
-  Future<bool> get isCanJoin async {
-    final timeToSessionStart = await timeLeftToSessionStart;
-    final ntpTime = await TimeService.now;
-    final isMoreThanTenMinutesLeft =
-        timeToSessionStart > const Duration(minutes: 0) && timeToSessionStart < const Duration(minutes: 10);
-
-    final isSessionIsInProgress = ntpTime.isAfter(signedGroupSessionStartTime ?? ntpTime) &&
-        ntpTime.isBefore(signedGroupSessionsEndTime ?? ntpTime);
-
-    return isMoreThanTenMinutesLeft || isSessionIsInProgress;
-  }
-
-  // TODO move to the GroupSession model
-  bool get timeSlotsAvailable {
-    var freeSlots = 0;
-    weekTopic?.groupSessions.forEach((element) {
-      if (element.status != GroupSessionStatus.cancelled) {
-        var endTime = element.startDate.add(Duration(seconds: weekTopic?.duration ?? 0)).toLocal();
-        var isAfterNow = endTime.isAfter(DateTime.now());
-        if (isAfterNow) {
-          freeSlots += element.maxMemberCount - element.memberCount;
-        }
-      }
-    });
-    return freeSlots > 0;
-  }
+  bool get signedGroupSessionsCancelled =>
+      signedGroupSession?.status == GroupSessionStatus.cancelled;
 
   String? get signedGroupSessionPassword => signedGroupSession?.password;
 
@@ -153,9 +95,18 @@ class TopicsData with _$TopicsData {
 
   int? get signedGroupSessionId => signedGroupSession?.id;
 
-  List<GroupSessionProgramEvent> get thisWeekTopicsEvents => _thisWeekTopic?.groupSessionProgramEvents ?? [];
+  List<GroupSessionProgramEvent> get thisWeekTopicsEvents =>
+      _thisWeekTopic?.groupSessionProgramEvents ?? [];
 
   String get thisWeekTopicsImage => _thisWeekTopic?.image ?? '';
+
+  List<GroupSession> get weeklyTopicSortedSessions {
+    List<GroupSession> groupSessions = [...?weekTopic?.groupSessions];
+
+    groupSessions.sort((s1, s2) => s1.startDate.compareTo(s2.startDate));
+
+    return groupSessions;
+  }
 
   // TODO move to the GroupSession model
   Future<Duration> get timePassedSinceSessionStart async {

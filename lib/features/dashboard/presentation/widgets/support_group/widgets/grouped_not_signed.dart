@@ -55,7 +55,7 @@ class GroupedNotSigned extends StatelessWidget {
                   ),
                   const SizedBox(height: 10.0),
                   CustomOutlinedButton.coralSmall(
-                    label: LocalizedTexts.bookYourSeatNow.tr(),
+                    label: LocalizedTexts.bookYourSeat.tr(),
                     onPressed: () => _onBookSeatPressed(context),
                   ),
                 ],

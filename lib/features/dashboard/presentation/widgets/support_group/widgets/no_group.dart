@@ -24,6 +24,10 @@ class NoGroup extends StatelessWidget {
             final startDate = state.data.signedGroupSessionStartTime ?? DateTime.now();
             final endDate = state.data.signedGroupSessionsEndTime ?? DateTime.now();
 
+            final day = startDate.toDateFormat;
+            final startTime = startDate.toTimeFormat;
+            final endTime = endDate.toTimeFormat;
+
             return Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
@@ -34,7 +38,8 @@ class NoGroup extends StatelessWidget {
                 const SizedBox(height: 18),
                 Container(
                   decoration: BoxDecoration(
-                    border: Border.all(width: 1, color: AppColors.blueLighter, style: BorderStyle.solid),
+                    border: Border.all(
+                        width: 1, color: AppColors.blueLighter, style: BorderStyle.solid),
                     borderRadius: const BorderRadius.all(Radius.circular(10.0)),
                   ),
                   child: Row(
@@ -60,7 +65,9 @@ class NoGroup extends StatelessWidget {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               const SizedBox(height: 10.0),
-                              CategoryLabel(label: LocalizedTexts.completed.tr(), color: AppColors.coralRegular),
+                              CategoryLabel(
+                                  label: LocalizedTexts.completed.tr(),
+                                  color: AppColors.coralRegular),
                               const SizedBox(height: 10.0),
                               CustomText.w700(
                                 state.data.weekTopicName,
@@ -68,16 +75,8 @@ class NoGroup extends StatelessWidget {
                               ),
                               const SizedBox(height: 10.0),
                               CustomText.w400(
-                                LocalizedTexts.dayFromTo.tr(
-                                  namedArgs: {
-                                    'day': '${startDate.weekdayString} ${startDate.shortDate}',
-                                    'startTime': startDate.timeHoursMinutes24,
-                                    'endTime': endDate.timeHoursMinutes24,
-                                  },
-                                ),
-                                style: context.textTheme.bodySmall?.copyWith(
-                                  fontSize: ThemeConstants.fontSize12,
-                                ),
+                                LocalizedTexts.dayFromTo.tr(args: [day, startTime, endTime]),
+                                style: context.textTheme.bodySmall,
                               ),
                               const SizedBox(height: 10.0),
                             ],
@@ -88,7 +87,8 @@ class NoGroup extends StatelessWidget {
                   ),
                 ),
                 const SizedBox(height: 18),
-                CustomText.w400(LocalizedTexts.nextWeekTopic.tr(), style: context.textTheme.bodyMedium),
+                CustomText.w400(LocalizedTexts.nextWeekTopic.tr(),
+                    style: context.textTheme.bodyMedium),
               ],
             );
           },

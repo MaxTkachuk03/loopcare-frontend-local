@@ -15,7 +15,6 @@ import 'package:loopcare_frontend/features/dashboard/presentation/widgets/suppor
 import 'package:loopcare_frontend/features/dashboard/presentation/widgets/support_group/widgets/lessons_uncompleted.dart';
 import 'package:loopcare_frontend/features/dashboard/presentation/widgets/support_group/widgets/looking_for_group.dart';
 import 'package:loopcare_frontend/features/dashboard/presentation/widgets/support_group/widgets/no_group.dart';
-import 'package:loopcare_frontend/features/dashboard/presentation/widgets/support_group/widgets/no_timeslots.dart';
 import 'package:loopcare_frontend/features/dashboard/presentation/widgets/support_group/widgets/not_grouped.dart';
 import 'package:loopcare_frontend/features/group_sessions/application/topics_bloc.dart';
 
@@ -83,8 +82,6 @@ class _SupportGroupState extends State<SupportGroup> {
                       return const LookingForGroup();
                     case UserGroupingState.grouped:
                       return const Grouped();
-                    case UserGroupingState.noTS:
-                      return const NoTimeslots();
                     case UserGroupingState.noGroup:
                       return const NoGroup();
                     default:
