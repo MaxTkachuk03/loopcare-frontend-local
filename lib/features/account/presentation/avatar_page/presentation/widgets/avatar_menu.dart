@@ -4,6 +4,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:loopcare_frontend/core/presentation/buttons/custom_outlined_button.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
+import 'package:loopcare_frontend/features/account/presentation/account_page/widgets/avatar_container.dart';
 import 'package:loopcare_frontend/features/account/presentation/avatar_page/domain/avatar_controller.dart';
 import 'package:loopcare_frontend/features/account/presentation/avatar_page/domain/avatar_lists.dart';
 import 'package:loopcare_frontend/features/account/presentation/avatar_page/domain/avatar_type_key.dart';
@@ -55,14 +56,17 @@ class AvatarMenu extends StatelessWidget {
                   final isSelected = item == avatar;
 
                   return Material(
-                    color: isSelected ? AppColors.blueLightest : null,
+                    color: isSelected ? AppColors.blueLightest : AppColors.transparent,
                     borderRadius: BorderRadius.circular(12),
                     child: InkWell(
                       borderRadius: BorderRadius.circular(12),
                       onTap: () => _onVariantItemPressed(item),
                       child: Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 12.0),
-                        child: CircleAvatar(radius: 22, child: SvgPicture.asset(item.imagePath)),
+                        child: AvatarContainer(
+                          radius: 22,
+                          child: SvgPicture.asset(item.imagePath),
+                        ),
                       ),
                     ),
                   );

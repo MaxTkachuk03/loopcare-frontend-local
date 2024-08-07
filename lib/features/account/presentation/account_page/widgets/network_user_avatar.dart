@@ -2,37 +2,89 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:loopcare_frontend/core/presentation/icon_images/app_icons.dart';
 import 'package:loopcare_frontend/core/presentation/network_image_with_cache/network_image_with_cache.dart';
+import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
+import 'package:loopcare_frontend/features/account/presentation/account_page/widgets/avatar_container.dart';
+
+const double _avatarSize = 150.0;
+
+const _defaultAvatar = SvgPicture(
+  SvgAssetLoader(AppIcons.avatarIconPhotoPath),
+  width: _avatarSize,
+  height: _avatarSize,
+);
 
 class NetworkUserAvatar extends StatelessWidget {
   final String url;
   final void Function()? onPressed;
+  final double size;
+  final Widget? unselectedAvatar;
+  final BorderSide? borderSide;
+  final bool _onlyPhotoBorder;
 
-  const NetworkUserAvatar({super.key, this.onPressed, required this.url});
+  const NetworkUserAvatar({
+    super.key,
+    required this.url,
+    this.size = _avatarSize,
+    this.unselectedAvatar,
+    this.borderSide,
+    this.onPressed,
+  }) : _onlyPhotoBorder = false;
 
-  get _isSvg => url.contains('svg');
+  const NetworkUserAvatar.onlyPhotoBorder({
+    super.key,
+    required this.url,
+    this.size = _avatarSize,
+    this.unselectedAvatar,
+    this.borderSide,
+    this.onPressed,
+  }) : _onlyPhotoBorder = true;
 
-  get _content {
+  bool get _isSvg => url.contains('svg');
+
+  Widget get _content {
     if (url.isEmpty) {
-      return SvgPicture.asset(
-        '${AppIcons.iconsFilePath}/user_avatar_icon_photo.svg',
-        width: 150,
-        height: 150,
-      );
+      return unselectedAvatar ?? _defaultAvatar;
     } else if (_isSvg) {
-      return CircleAvatar(radius: 75, child: SvgPicture.network(url, width: 150, height: 150));
+      return SvgPicture.network(
+        url,
+        width: size,
+        height: size,
+      );
     } else {
       return ClipRRect(
-        borderRadius: BorderRadius.circular(150.0),
+        borderRadius: BorderRadius.circular(size),
         child: SizedBox(
-            width: 150,
-            height: 150,
-            child: NetworkImageWithCache(url: url, imageBoxFit: BoxFit.cover)),
+          width: size,
+          height: size,
+          child: NetworkImageWithCache(
+            url: url,
+            imageBoxFit: BoxFit.cover,
+          ),
+        ),
       );
     }
   }
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(onTap: onPressed, child: _content);
+    final avatarBorderSide = _onlyPhotoBorder
+        ? BorderSide(width: 2, color: _isSvg ? AppColors.transparent : AppColors.white, strokeAlign: 1)
+        : borderSide;
+
+    final padding = _onlyPhotoBorder && !_isSvg ? 2.0 : 0.0;
+    final radius = size / 2 - padding;
+
+    return GestureDetector(
+      onTap: onPressed,
+      child: Padding(
+        padding: EdgeInsets.all(padding),
+        child: AvatarContainer(
+          radius: radius,
+          borderSide: avatarBorderSide,
+          child: _content,
+        ),
+      ),
+    );
   }
 }
+
