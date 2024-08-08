@@ -85,10 +85,17 @@ class _LoginFormState extends State<LoginForm> {
                   ValueListenableBuilder<bool>(
                     valueListenable: _formValidationNotifier,
                     builder: (context, isValid, _) {
-                      return CustomElevatedButton.blueFullWidth(
-                        key: const ValueKey('login_button'),
-                        onPressed: isValid ? _onLogin : null,
-                        label: LocalizedTexts.login.tr(),
+                      return BlocBuilder<AuthenticationBloc, AuthenticationState>(
+                        builder: (context, state) {
+                          final isLoading = state is AuthenticationStateIsLoading;
+
+                          return CustomElevatedButton.blueFullWidth(
+                            key: const ValueKey('login_button'),
+                            onPressed: isValid ? _onLogin : null,
+                            label: LocalizedTexts.login.tr(),
+                            isLoading: isLoading,
+                          );
+                        },
                       );
                     },
                   ),
@@ -111,12 +118,8 @@ class _LoginFormState extends State<LoginForm> {
   _onLogin() {
     TextInput.finishAutofillContext();
 
-    context.read<AuthenticationBloc>().add(
-          AuthenticationEvent.login(
-            email: _emailController.text,
-            password: _passwordController.text,
-          ),
-        );
+    context.read<AuthenticationBloc>().add(AuthenticationEvent.login(
+        email: _emailController.text, password: _passwordController.text));
   }
 
   void _authenticationListener(BuildContext context, AuthenticationState state) {

@@ -161,6 +161,8 @@ class AuthenticationBloc extends HydratedBloc<AuthenticationEvent, Authenticatio
     Login event,
     Emitter<AuthenticationState> emit,
   ) async {
+    emit(AuthenticationState.isLoading(state.data.copyWith(isLoading: true)));
+
     final data = LoginData(email: event.email.toLowerCase(), password: event.password);
 
     final response = await _authenticationService.login(data);
@@ -174,8 +176,8 @@ class AuthenticationBloc extends HydratedBloc<AuthenticationEvent, Authenticatio
             'message': error.message.tr(),
           },
         );
-        emit(AuthenticationState.init(state.data));
-        emit(AuthenticationState.guest(state.data.copyWith(error: error)));
+        emit(AuthenticationState.init(state.data.copyWith(isLoading: false)));
+        emit(AuthenticationState.guest(state.data.copyWith(error: error, isLoading: false)));
       },
       (response) async {
         final customerIoId = response.customerIoId ?? response.id.toString();
@@ -216,6 +218,7 @@ class AuthenticationBloc extends HydratedBloc<AuthenticationEvent, Authenticatio
               customerIoId: response.customerIoId ?? '',
               accountId: response.id,
               account: account,
+              isLoading: false,
             ),
           ),
         );
@@ -227,6 +230,8 @@ class AuthenticationBloc extends HydratedBloc<AuthenticationEvent, Authenticatio
     Logout event,
     Emitter<AuthenticationState> emit,
   ) async {
+    emit(AuthenticationState.isLoading(state.data.copyWith(isLoading: true)));
+
     await _authenticationService.logout();
     await authTokenManager.removeAccessToken();
     await authTokenManager.removeRefreshToken();
