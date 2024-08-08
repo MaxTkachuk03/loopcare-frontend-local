@@ -199,7 +199,7 @@ class _SubscriptionPageState extends State<SubscriptionPage> {
       cur is LogoutState;
 
   void _errorListener(BuildContext context, SubscriptionState state) {
-    var errorMessage = state.data.error?.message ?? LocalizedTexts.somethingWentWrong;
+    var errorMessage = state.data.error?.message ?? LocalizedTexts.errorSomethingWentWrong;
     controller.resetState();
     context.showErrorBar(
       content: Text(errorMessage.tr()),

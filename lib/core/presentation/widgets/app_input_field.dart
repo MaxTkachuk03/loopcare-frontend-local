@@ -138,7 +138,8 @@ class _AppTextFieldState extends State<AppInputTextField> {
             obscureText: widget.obscureText ?? false,
             autofillHints: widget.autofillHints,
             keyboardType: widget.keyboardType,
-            style: widget.style ?? context.textTheme.bodyMedium?.copyWith(fontWeight: FontWeight.w600),
+            style:
+                widget.style ?? context.textTheme.bodyMedium?.copyWith(fontWeight: FontWeight.w600),
             textInputAction: widget.textInputAction ?? TextInputAction.next,
             // onSubmitted: widget.onSubmitted,
             inputFormatters: widget.inputFormatters,

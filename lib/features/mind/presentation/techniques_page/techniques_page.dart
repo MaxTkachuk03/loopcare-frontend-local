@@ -32,7 +32,7 @@ class _TechniquesPageState extends State<TechniquesPage> with MindAnalyticsMixin
   }
 
   void errorHandler(MindState state) => context.showError(
-      content: Text(state.data.error?.error?.message ?? LocalizedTexts.somethingWentWrong.tr()));
+      content: Text(state.data.error?.error?.message ?? LocalizedTexts.errorSomethingWentWrong.tr()));
 
   Future<void> getTechniques() async =>
       context.read<MindBloc>().add(const MindEvent.getTechniques());

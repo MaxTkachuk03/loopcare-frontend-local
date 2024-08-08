@@ -132,7 +132,7 @@ class SubscriptionBloc extends Bloc<SubscriptionEvent, SubscriptionState> {
       r.valid ?? true
           ? add(SubscriptionEvent.buySubscription(product))
           : add(const SubscriptionEvent.errorVerifyPurchase(RequestError.streamSubscription(
-              ServerErrorData(message: LocalizedTexts.subscriptionServiceUnavailable))));
+              ServerErrorData(message: LocalizedTexts.errorSubscriptionServiceUnavailable))));
     });
   }
 
@@ -153,7 +153,7 @@ class SubscriptionBloc extends Bloc<SubscriptionEvent, SubscriptionState> {
           SubscriptionState.error(
             state.data.copyWith(
               error: const RequestError.streamSubscription(
-                  ServerErrorData(message: LocalizedTexts.subscriptionServiceUnavailable)),
+                  ServerErrorData(message: LocalizedTexts.errorSubscriptionServiceUnavailable)),
               isLoading: false,
             ),
           ),
@@ -172,7 +172,7 @@ class SubscriptionBloc extends Bloc<SubscriptionEvent, SubscriptionState> {
         SubscriptionState.purchaseDuplicateSubscription(
           state.data.copyWith(
             error: const RequestError.streamSubscription(
-                ServerErrorData(message: LocalizedTexts.purchaseErrorMessage)),
+                ServerErrorData(message: LocalizedTexts.errorPurchaseErrorMessage)),
             isLoading: false,
           ),
         ),
@@ -262,8 +262,8 @@ class SubscriptionBloc extends Bloc<SubscriptionEvent, SubscriptionState> {
             ),
           );
         } else {
-          add(const SubscriptionEvent.errorVerifyPurchase(RequestError.streamSubscription(
-              ServerErrorData(message: LocalizedTexts.subscriptionServiceUnavailable))));
+          add( SubscriptionEvent.errorVerifyPurchase(RequestError.streamSubscription(
+              ServerErrorData(message: LocalizedTexts.errorSubscriptionServiceUnavailable))));
         }
       },
     );

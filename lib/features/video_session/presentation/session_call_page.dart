@@ -164,7 +164,7 @@ class _SessionCallPageState extends State<SessionCallPage> with WidgetsBindingOb
               LocalizedTexts.micState.tr(namedArgs: {"micState": micState}),
             ),
           )
-        : context.showError(content: Text(LocalizedTexts.somethingWentWrong.tr()));
+        : context.showError(content: Text(LocalizedTexts.errorSomethingWentWrong.tr()));
   }
 
   void _setInactivityTimer() {

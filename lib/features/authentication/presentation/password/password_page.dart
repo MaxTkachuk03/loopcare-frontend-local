@@ -133,7 +133,8 @@ class _PasswordPageState extends State<PasswordPage> {
                             style: context.textTheme.bodyMedium,
                             children: [
                               TextSpan(
-                                recognizer: TapGestureRecognizer()..onTap = _onTermsAndConditionsTap,
+                                recognizer: TapGestureRecognizer()
+                                  ..onTap = _onTermsAndConditionsTap,
                                 text: LocalizedTexts.termsAndConditions.tr(),
                                 style: context.textTheme.bodyMedium?.copyWith(
                                   decoration: TextDecoration.underline,
@@ -191,7 +192,7 @@ class _PasswordPageState extends State<PasswordPage> {
   }
 
   _errorListener(AuthenticationState state) {
-    final errorMessage = state.data.error?.message ?? LocalizedTexts.somethingWentWrong;
+    final errorMessage = state.data.error?.message ?? LocalizedTexts.errorSomethingWentWrong;
     context.showErrorBar(
       content: CustomText(errorMessage.tr()),
       position: FlashPosition.top,
@@ -201,7 +202,8 @@ class _PasswordPageState extends State<PasswordPage> {
   void _onNextPressed() {
     TextInput.finishAutofillContext();
 
-    final physicalData = context.read<PhysicalQuestionsBloc>().state.registrationPhysicalQuestionsData;
+    final physicalData =
+        context.read<PhysicalQuestionsBloc>().state.registrationPhysicalQuestionsData;
     final medicalData = context.read<MedicalQuestionsBloc>().state.registrationData;
     final mentalData = context.read<MentalQuestionsBloc>().state.registrationData;
     //Todo put appFlyer ID
@@ -253,12 +255,13 @@ class _PasswordPageState extends State<PasswordPage> {
     _validateForm();
   }
 
-  void _onGotAccount(AuthenticationState state) => context.read<RiverBloc>().add(const RiverEvent.getModules());
+  void _onGotAccount(AuthenticationState state) =>
+      context.read<RiverBloc>().add(const RiverEvent.getModules());
 
   void _onRiverModulesLoaded(RiverState state) {
     context.read<NavigationBarBloc>().add(
-      const NavigationBarEvent.setBeginningUncompleted(),
-    );
+          const NavigationBarEvent.setBeginningUncompleted(),
+        );
 
     context.router.pushNamed(AppRoutes.waitingForConfirmation);
   }

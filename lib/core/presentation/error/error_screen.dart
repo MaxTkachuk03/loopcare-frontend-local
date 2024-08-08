@@ -29,22 +29,22 @@ class ErrorScreen extends StatelessWidget {
 
   String _getTitle() {
     return error.maybeWhen(
-      requestCancelled: (_) => LocalizedTexts.noConnectionTitle.tr(),
-      orElse: () => LocalizedTexts.oeps.tr(),
-      socketException: (_) => LocalizedTexts.noConnectionTitle.tr(),
+      requestCancelled: (_) => LocalizedTexts.errorNoConnectionTitle.tr(),
+      orElse: () => LocalizedTexts.errorOeps.tr(),
+      socketException: (_) => LocalizedTexts.errorNoConnectionTitle.tr(),
     );
   }
 
   String _getDescription() {
     return error.maybeWhen(
-      requestCancelled: (_) => LocalizedTexts.noConnectionText.tr(),
-      orElse: () => LocalizedTexts.somethingWentWrong.tr(),
-      socketException: (_) => LocalizedTexts.noConnectionText.tr(),
+      requestCancelled: (_) => LocalizedTexts.errorNoConnectionText.tr(),
+      orElse: () => LocalizedTexts.errorSomethingWentWrong.tr(),
+      socketException: (_) => LocalizedTexts.errorNoConnectionText.tr(),
       notFound: (error) {
-        if (error.message == LocalizedTexts.servingIdIsNotFound) {
-          return error.message?.tr() ?? LocalizedTexts.invalidIngredientText.tr();
+        if (error.message == LocalizedTexts.errorValidationServingIdEmpty) {
+          return error.message?.tr() ?? LocalizedTexts.errorInvalidIngredientText.tr();
         }
-        return LocalizedTexts.somethingWentWrong.tr();
+        return LocalizedTexts.errorSomethingWentWrong.tr();
       },
     );
   }
@@ -54,7 +54,7 @@ class ErrorScreen extends StatelessWidget {
       padding: const EdgeInsets.only(top: 12.0),
       child: CustomOutlinedButton.blue(
         onPressed: onButtonPressed,
-        label: buttonText ?? LocalizedTexts.retry.tr(),
+        label: buttonText ?? LocalizedTexts.errorRetry.tr(),
       ),
     );
   }
@@ -62,7 +62,7 @@ class ErrorScreen extends StatelessWidget {
   Widget _getButton() {
     return error.maybeWhen(
       notFound: (error) {
-        if (error.message == LocalizedTexts.servingIdIsNotFound) {
+        if (error.message == LocalizedTexts.errorValidationServingIdEmpty) {
           return const SizedBox.shrink();
         }
         return _getRetryButton();

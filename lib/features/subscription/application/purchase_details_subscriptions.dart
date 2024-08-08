@@ -38,7 +38,7 @@ class PurchaseDetailsStreamSubscription {
       (List<PurchaseDetails> events) async {
         if (events.isEmpty) {
           onError?.call(
-              const RequestError.streamSubscription(ServerErrorData(message: LocalizedTexts.purchaseStreamError)));
+              const RequestError.streamSubscription(ServerErrorData(message: LocalizedTexts.errorPurchaseStreamError)));
           return;
         }
         if (events.every((element) => element.status == PurchaseStatus.restored)) {
@@ -70,7 +70,7 @@ class PurchaseDetailsStreamSubscription {
                 break;
               case PurchaseStatus.error:
                 onError?.call(const RequestError.streamSubscription(
-                    ServerErrorData(message: LocalizedTexts.purchaseStreamError)));
+                    ServerErrorData(message: LocalizedTexts.errorPurchaseStreamError)));
                 if (Platform.isIOS) {
                   await inAppPurchaseService.finishTransactionIOS();
                 }
@@ -85,7 +85,7 @@ class PurchaseDetailsStreamSubscription {
       onDone: close,
       onError: (e) {
         onError?.call(const RequestError.streamSubscription(
-            ServerErrorData(message: LocalizedTexts.purchaseStreamError)));
+            ServerErrorData(message: LocalizedTexts.errorPurchaseStreamError)));
         close();
       },
     );
