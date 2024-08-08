@@ -40,6 +40,7 @@ class _ForgotPasswordFormState extends State<ForgotPasswordForm> {
           child: CustomTextField.email(
             key: const ValueKey('forgot_password_email_text_field'),
             controller: _emailController,
+            textInputAction: TextInputAction.done,
           ),
         ),
       ),

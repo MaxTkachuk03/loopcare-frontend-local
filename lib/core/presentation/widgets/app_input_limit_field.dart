@@ -145,7 +145,8 @@ class _InputLimitTextFieldState extends State<AppLimitTextField> {
             onChanged: onChangedHandler,
             obscureText: widget.obscureText ?? false,
             keyboardType: widget.keyboardType,
-            style: widget.style ?? context.textTheme.bodyMedium?.copyWith(fontWeight: FontWeight.w600),
+            style:
+                widget.style ?? context.textTheme.bodyMedium?.copyWith(fontWeight: FontWeight.w600),
             textInputAction: widget.textInputAction ?? TextInputAction.next,
             onSubmitted: widget.onSubmitted,
             expands: widget.expands,
@@ -160,7 +161,8 @@ class _InputLimitTextFieldState extends State<AppLimitTextField> {
               hintText: widget.hintText,
               suffixIcon: widget.suffixIcon,
               focusedColor: widget.focusedColor,
-              contentPadding: widget.contentPadding ?? const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+              contentPadding:
+                  widget.contentPadding ?? const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
             ),
           ),
         );
