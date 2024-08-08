@@ -5,7 +5,7 @@ class FunctionCoefficientsThree extends FunctionCoefficientsValues  {
   const FunctionCoefficientsThree();
 
   @override
-  List<double> get green => [0.05, -0.76, 0.8, 0.16];
+  List<double> get green => [0.05, 0.76, 0.8, 0.16];
 
   @override
   List<double> get blue => [0.04, 0.6, 0.82, 0.27];

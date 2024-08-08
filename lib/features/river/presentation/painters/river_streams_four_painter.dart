@@ -17,7 +17,7 @@ class FunctionCoefficientsFour extends FunctionCoefficientsValues {
   List<double> get orange => [-0.098, -0.7, 0.376, 0.6];
 
   @override
-  List<double> get yellow => [-0.08, 0.72, 0.82, 0.68];
+  List<double> get yellow => [-0.08, 0.72, 0.92, 0.68];
 }
 
 class ItemsPositionsFour extends ItemsPositionValues {

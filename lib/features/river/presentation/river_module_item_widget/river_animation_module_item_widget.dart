@@ -17,6 +17,7 @@ part 'parts/_river_item_footprint.dart';
 
 const _defaultItemRadius = 25.0;
 const _idleDuration = Duration(milliseconds: 2000);
+const _idleDelayDuration = Duration(milliseconds: 1000);
 const _colorDuration = Duration(milliseconds: 1000);
 const _rotationDuration = Duration(milliseconds: 1000);
 const _unlockDuration = Duration(milliseconds: 1000);
@@ -60,6 +61,7 @@ class _RiverAnimationModuleItemWidgetState extends State<RiverAnimationModuleIte
   late Animation<double> _badgeAnimation;
 
   bool _isOnViewport = false;
+  bool _isMounted = true;
 
   _ItemAnimation? _itemAnimation;
 
@@ -74,10 +76,6 @@ class _RiverAnimationModuleItemWidgetState extends State<RiverAnimationModuleIte
     _rotationController = AnimationController(duration: _rotationDuration, vsync: this);
     _badgeController = AnimationController(duration: _badgeDuration, vsync: this);
 
-    if (widget.item.isCompleted) {
-      _badgeController.animateTo(1);
-    }
-
     _setUpAnimations();
     _addListeners();
     _startIdling();
@@ -89,6 +87,7 @@ class _RiverAnimationModuleItemWidgetState extends State<RiverAnimationModuleIte
     _colorController.dispose();
     _rotationController.dispose();
     _badgeController.dispose();
+    _isMounted = false;
     super.dispose();
   }
 
@@ -193,7 +192,11 @@ class _RiverAnimationModuleItemWidgetState extends State<RiverAnimationModuleIte
         .animate(_rotationController);
 
     _idleAnimation = Tween<double>(begin: 1.0, end: 1.1).animate(_idleController);
-    _badgeAnimation = Tween<double>(begin: 0.0, end: 1.0).animate(_badgeController);
+
+    _badgeAnimation = Tween<double>(
+      begin: widget.item.isCompleted ? 1.0 : 0.0,
+      end: 1.0,
+    ).animate(_badgeController);
   }
 
   void _clearItemAnimation() => _itemAnimation = null;
@@ -273,7 +276,9 @@ class _RiverAnimationModuleItemWidgetState extends State<RiverAnimationModuleIte
 
   void _startIdling() {
     if (widget.item.isUnLocked) {
-      Future.delayed(const Duration(seconds: 1), () => _idleController.repeat(reverse: true));
+      Future.delayed(_idleDelayDuration, () {
+        if (_isMounted) _idleController.repeat(reverse: true);
+      });
     }
   }
 
