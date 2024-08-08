@@ -5,6 +5,7 @@ import 'package:customer_io/customer_io_config.dart';
 import 'package:customer_io/customer_io_enums.dart';
 import 'package:device_info_plus/device_info_plus.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:flutter_timezone/flutter_timezone.dart';
 import 'package:loopcare_frontend/core/application/customer_io_service/customer_io_attributes.dart';
 import 'package:loopcare_frontend/core/application/customer_io_service/customer_io_events.dart';
 import 'package:loopcare_frontend/core/application/firebase/mesaging/firebase_messaging.dart';
@@ -37,12 +38,14 @@ class CustomerIoService {
     required bool receiveAnEmails,
   }) async {
     final isNotificationGranted = PermissionsService.instance.isNotificationGranted;
+    final timezone = await FlutterTimezone.getLocalTimezone();
 
     CustomerIO.identify(
       identifier: id,
       attributes: {
         'name': name,
         'email': email,
+        'timezone': timezone,
         'created_at': _timestamp,
         'system_locale': Platform.localeName,
         'consent_to_email': receiveAnEmails,
@@ -83,6 +86,7 @@ class CustomerIoService {
     final info = await PackageInfo.fromPlatform();
     final appVersion = '${info.version} (${info.buildNumber})';
     final userIdPrefix = CountryCodeService.instance.serverCountryCode;
+    final timezone = await FlutterTimezone.getLocalTimezone();
 
     CustomerIO.identify(
       identifier: customerIoId,
@@ -90,6 +94,7 @@ class CustomerIoService {
         'user_id': '$id-$userIdPrefix',
         'email': email,
         'name': name,
+        'timezone': timezone,
         'system_locale': Platform.localeName,
       },
     );
