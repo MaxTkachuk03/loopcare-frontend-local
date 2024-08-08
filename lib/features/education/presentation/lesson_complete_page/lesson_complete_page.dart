@@ -64,7 +64,7 @@ class _LessonCompletePageState extends State<LessonCompletePage> {
   }
 
   void _onErrorListener(BuildContext context, EducationLessonState state) {
-    final errorMessage = state.data.errorMessage ?? LocalizedTexts.somethingWentWrong;
+    final errorMessage = state.data.errorMessage ?? LocalizedTexts.errorSomethingWentWrong;
     context.showError(content: Text(errorMessage.tr()));
   }
 

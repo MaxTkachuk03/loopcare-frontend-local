@@ -114,7 +114,7 @@ class _CreateMoodPageState extends State<CreateMoodPage> {
   }
 
   _onErrorHandler(MoodState s) =>
-      context.showError(content: Text(s.data.errorMessage ?? LocalizedTexts.somethingWentWrong.tr()));
+      context.showError(content: Text(s.data.errorMessage ?? LocalizedTexts.errorSomethingWentWrong.tr()));
 
   _onUpdateHandler(MoodState s) => context.router.maybePop();
 

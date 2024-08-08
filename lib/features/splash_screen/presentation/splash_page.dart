@@ -48,7 +48,7 @@ class _SplashPageState extends State<SplashPage> {
 
   void _errorListener(dynamic error) {
     _navigateToIntro();
-    context.showError(content: CustomText(error?.toString() ?? LocalizedTexts.somethingWentWrong.tr()));
+    context.showError(content: CustomText(error?.toString() ?? LocalizedTexts.errorSomethingWentWrong.tr()));
   }
 
   void _updatePolicies() {

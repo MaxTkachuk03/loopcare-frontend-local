@@ -123,7 +123,7 @@ class _EmailAddressFormState extends State<EmailAddressForm> {
     final error = state.data.error;
     if (error != null) {
       final message = error.message;
-      if (message == LocalizedTexts.accountAlreadyExists) {
+      if (message == LocalizedTexts.errorAccountIdAlreadyExists) {
         _emailErrorTextNotifier.value = message.tr();
       } else {
         context.showError(content: Text(message.tr()));

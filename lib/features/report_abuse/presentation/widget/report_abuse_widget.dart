@@ -94,7 +94,7 @@ class _ReportAbuseWidgetState extends State<ReportAbuseWidget> {
   _showError() {
     widget.close();
     context.showError(
-      content: CustomText(LocalizedTexts.somethingWentWrong.tr()),
+      content: CustomText(LocalizedTexts.errorSomethingWentWrong.tr()),
     );
   }
 }
