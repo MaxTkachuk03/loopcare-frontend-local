@@ -83,10 +83,10 @@ class _GoalReviewPageState extends State<GoalReviewPage> {
       forbidden: (s) => s.message,
       notFound: (s) => s.message,
       badRequest: (s) => s.message,
-      orElse: () => LocalizedTexts.somethingWentWrong,
+      orElse: () => LocalizedTexts.errorSomethingWentWrong,
     );
 
-    context.showError(content: CustomText.w400(errorMessage?.tr() ?? LocalizedTexts.somethingWentWrong.tr()));
+    context.showError(content: CustomText.w400(errorMessage?.tr() ?? LocalizedTexts.errorSomethingWentWrong.tr()));
   }
 
   void _onReviewAdded(SmartGoalsState state) => context

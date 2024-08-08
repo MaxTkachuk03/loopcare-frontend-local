@@ -12,7 +12,7 @@ class NotBookedSessionsModalContent extends StatelessWidget {
   const NotBookedSessionsModalContent({super.key});
 
   void _signUpFailureListener(BuildContext context, TopicsState state) =>
-      context.showError(content: CustomText.w400(LocalizedTexts.somethingWentWrong.tr()));
+      context.showError(content: CustomText.w400(LocalizedTexts.errorSomethingWentWrong.tr()));
 
   @override
   Widget build(BuildContext context) {

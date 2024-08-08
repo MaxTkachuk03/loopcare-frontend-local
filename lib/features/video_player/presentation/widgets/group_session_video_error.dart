@@ -43,7 +43,7 @@ class GroupSessionVideoError extends StatelessWidget {
                 child: ElevatedButton(
                   onPressed: onUpdate,
                   child: CustomText.w400(
-                    LocalizedTexts.retry.tr(),
+                    LocalizedTexts.errorRetry.tr(),
                     style: context.textTheme.bodyMedium?.copyWith(color: AppColors.white),
                   ),
                 ),
