@@ -41,14 +41,14 @@ class _RiverScreenState extends State<RiverScreen> with RiverUtils {
   void initState() {
     super.initState();
     _page = getIndex(widget.page);
-    _positionedItems = ModuleItemsUtils.getItemsOffsets(_page, widget.module.moduleItems);
+    _positionedItems = ModuleItemsUtils.getAllocatedItems(_page, widget.module.moduleItems);
   }
 
   @override
   void didUpdateWidget(covariant RiverScreen oldWidget) {
     super.didUpdateWidget(oldWidget);
     if (!widget.module.moduleItems.equals(oldWidget.module.moduleItems)) {
-      _positionedItems = ModuleItemsUtils.getItemsOffsets(_page, widget.module.moduleItems);
+      _positionedItems = ModuleItemsUtils.getAllocatedItems(_page, widget.module.moduleItems);
     }
   }
 
