@@ -60,7 +60,8 @@ class _EmailAddressFormState extends State<EmailAddressForm> {
         key: _formKey,
         onChanged: _onChangedForm,
         child: AutofillGroup(
-          onDisposeAction: widget._isUpdate ? AutofillContextAction.commit : AutofillContextAction.cancel,
+          onDisposeAction:
+              widget._isUpdate ? AutofillContextAction.commit : AutofillContextAction.cancel,
           child: Column(
             children: [
               ValueListenableBuilder<String?>(

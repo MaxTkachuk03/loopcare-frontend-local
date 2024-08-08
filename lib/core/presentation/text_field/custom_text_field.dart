@@ -17,7 +17,7 @@ class CustomTextField extends StatefulWidget {
   final Icon? prefixIcon;
   final bool? isToggleEye;
   final bool? isClearField;
-  final TextInputAction? textinputAction;
+  final TextInputAction? textInputAction;
   final int? maxLength;
   final String? errorText;
   final FormFieldValidator<String>? validator;
@@ -57,7 +57,7 @@ class CustomTextField extends StatefulWidget {
     this.textAlign = TextAlign.start,
     this.autofillHints,
     this.readOnly = false,
-    this.textinputAction = TextInputAction.next,
+    this.textInputAction = TextInputAction.next,
     this.onEditingComplete,
   });
 
@@ -103,6 +103,7 @@ class CustomTextField extends StatefulWidget {
     Color? fillColor,
     String? errorText,
     ValueChanged<String>? onChanged,
+    TextInputAction textInputAction = TextInputAction.next,
     required TextEditingController controller,
   }) =>
       CustomTextField(
@@ -114,6 +115,7 @@ class CustomTextField extends StatefulWidget {
         keyboardType: TextInputType.emailAddress,
         autofillHints: const [AutofillHints.email],
         fillColor: fillColor,
+        textInputAction: textInputAction,
         errorText: errorText,
         onChanged: onChanged,
       );
@@ -128,6 +130,7 @@ class CustomTextField extends StatefulWidget {
         hintText: LocalizedTexts.buddyEmailHint.tr(),
         controller: controller,
         validator: emailValidator(),
+        textInputAction: TextInputAction.done,
         keyboardType: TextInputType.emailAddress,
         fillColor: fillColor,
         errorText: errorText,
@@ -139,7 +142,7 @@ class CustomTextField extends StatefulWidget {
     Color? fillColor,
     String? errorText,
     ValueChanged<String>? onChanged,
-    TextInputAction textinputAction = TextInputAction.next,
+    TextInputAction textInputAction = TextInputAction.next,
     void Function()? onEditingComplete,
     required TextEditingController controller,
   }) =>
@@ -154,14 +157,14 @@ class CustomTextField extends StatefulWidget {
         fillColor: fillColor,
         errorText: errorText,
         onChanged: onChanged,
-        textinputAction: textinputAction,
+        textInputAction: textInputAction,
         onEditingComplete: onEditingComplete,
       );
 
   factory CustomTextField.password({
     Key? key,
     Color? fillColor,
-    TextInputAction textinputAction = TextInputAction.continueAction,
+    TextInputAction textInputAction = TextInputAction.done,
     void Function()? onEditingComplete,
     required TextEditingController controller,
   }) =>
@@ -173,7 +176,7 @@ class CustomTextField extends StatefulWidget {
         autofillHints: const [AutofillHints.password],
         prefixIcon: const Icon(Icons.lock, size: 24),
         isToggleEye: true,
-        textinputAction: textinputAction,
+        textInputAction: textInputAction,
         obscureText: true,
         onEditingComplete: onEditingComplete,
       );
@@ -220,6 +223,7 @@ class CustomTextField extends StatefulWidget {
         isToggleEye: true,
         obscureText: true,
         onChanged: onChanged,
+        textInputAction: TextInputAction.done,
       );
 
   factory CustomTextField.unit({
@@ -314,7 +318,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
       enableIMEPersonalizedLearning: false,
       enableSuggestions: false,
       autocorrect: false,
-      textInputAction: widget.textinputAction,
+      textInputAction: widget.textInputAction,
       keyboardType: widget.keyboardType,
       obscureText: _isObscureText,
       textAlign: widget.textAlign,
