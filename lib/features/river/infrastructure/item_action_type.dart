@@ -1,0 +1,4 @@
+enum ItemActionType {
+  required,
+  deferred,
+}

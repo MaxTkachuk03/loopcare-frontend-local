@@ -7,6 +7,7 @@ import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 import 'package:loopcare_frontend/features/home/presentation/widget/custom_navigation_bar/animated_bottom_bar.dart';
 import 'package:loopcare_frontend/features/river/domain/river_module_item.dart';
 import 'package:loopcare_frontend/features/river/infrastructure/feature_placement.dart';
+import 'package:loopcare_frontend/features/river/infrastructure/river_module_item_animation_state.dart';
 import 'package:loopcare_frontend/features/river/presentation/river_module_item_widget/river_module_button.dart';
 import 'package:loopcare_frontend/features/river/presentation/river_module_item_widget/river_module_item_preview.dart';
 import 'package:loopcare_frontend/features/river/presentation/utils/river_utils.dart';
@@ -17,6 +18,8 @@ part 'parts/_river_item_footprint.dart';
 
 const _defaultItemRadius = 25.0;
 const _idleDuration = Duration(milliseconds: 2000);
+const _bouncedDuration = Duration(milliseconds: 150);
+const _bouncedFullDuration = Duration(milliseconds: 900);
 const _colorDuration = Duration(milliseconds: 1000);
 const _rotationDuration = Duration(milliseconds: 1000);
 const _unlockDuration = Duration(milliseconds: 1000);
@@ -26,8 +29,7 @@ class RiverAnimationModuleItemWidget extends StatefulWidget {
   final RiverModuleItem item;
   final double radius;
   final Function()? onTap;
-  final Function()? onStatusChanged;
-  final Function(FeaturePlacement placement)? onTransitionComplete;
+  final Function(FeaturePlacement? placement)? onAnimationComplete;
   final bool isBeginning;
 
   const RiverAnimationModuleItemWidget({
@@ -36,8 +38,7 @@ class RiverAnimationModuleItemWidget extends StatefulWidget {
     this.radius = _defaultItemRadius,
     this.isBeginning = false,
     this.onTap,
-    this.onStatusChanged,
-    this.onTransitionComplete,
+    this.onAnimationComplete,
   });
 
   @override
@@ -48,7 +49,7 @@ class _RiverAnimationModuleItemWidgetState extends State<RiverAnimationModuleIte
     with TickerProviderStateMixin, RiverUtils {
   final GlobalKey _buttonKey = GlobalKey();
 
-  late AnimationController _idleController;
+  late AnimationController _sizeController;
   late AnimationController _colorController;
   late AnimationController _rotationController;
   late AnimationController _badgeController;
@@ -56,13 +57,13 @@ class _RiverAnimationModuleItemWidgetState extends State<RiverAnimationModuleIte
   late Animation<Color?> _colorIconAnimation;
   late Animation<Color?> _colorBgAnimation;
   late Animation<double> _rotateAnimation;
-  late Animation<double> _idleAnimation;
+  late Animation<double> _sizeAnimation;
   late Animation<double> _badgeAnimation;
+
+  late RiverModuleItemAnimationState _itemAnimation;
 
   bool _isOnViewport = false;
   bool _isDisposed = false;
-
-  _ItemAnimation? _itemAnimation;
 
   @override
   bool get isBeginning => widget.isBeginning;
@@ -70,19 +71,22 @@ class _RiverAnimationModuleItemWidgetState extends State<RiverAnimationModuleIte
   @override
   void initState() {
     super.initState();
-    _idleController = AnimationController(duration: _idleDuration, vsync: this);
+    _sizeController = AnimationController(duration: _idleDuration, vsync: this);
     _colorController = AnimationController(duration: _colorDuration, vsync: this);
     _rotationController = AnimationController(duration: _rotationDuration, vsync: this);
     _badgeController = AnimationController(duration: _badgeDuration, vsync: this);
 
+    _itemAnimation = widget.item.states.animationState;
+
     _setUpAnimations();
+    _setUpItemColorAnimation(widget.item);
     _addListeners();
-    _startIdling();
+    _startAnimation();
   }
 
   @override
   void dispose() {
-    _idleController.dispose();
+    _sizeController.dispose();
     _colorController.dispose();
     _rotationController.dispose();
     _badgeController.dispose();
@@ -93,16 +97,9 @@ class _RiverAnimationModuleItemWidgetState extends State<RiverAnimationModuleIte
   @override
   void didUpdateWidget(covariant RiverAnimationModuleItemWidget oldWidget) {
     super.didUpdateWidget(oldWidget);
-    _setUpItemColorAnimation(oldWidget.item, widget.item);
+    _setUpItemColorAnimation(widget.item);
 
-    if (oldWidget.item.isLocked && widget.item.isUnLocked) {
-      _itemAnimation = _ItemAnimation.unlock;
-    } else if (oldWidget.item.isUnLocked && (widget.item.isRead || widget.item.isCompleted)) {
-      _itemAnimation = _ItemAnimation.readAndComplete;
-    } else if (oldWidget.item.isRead && widget.item.isCompleted) {
-      _itemAnimation = _ItemAnimation.complete;
-    }
-
+    _itemAnimation = widget.item.states.animationState;
     _startAnimation();
   }
 
@@ -110,7 +107,7 @@ class _RiverAnimationModuleItemWidgetState extends State<RiverAnimationModuleIte
   Widget build(BuildContext context) {
     return VisibilityDetector(
       key: Key('animated_module_item_${widget.item.id}'),
-      onVisibilityChanged: onViewPortChanged,
+      onVisibilityChanged: _onViewPortChanged,
       child: Stack(
         alignment: Alignment.center,
         clipBehavior: Clip.none,
@@ -118,7 +115,7 @@ class _RiverAnimationModuleItemWidgetState extends State<RiverAnimationModuleIte
           AnimatedBuilder(
             animation: _colorController,
             builder: (context, _) => AnimatedBuilder(
-              animation: _idleController,
+              animation: _sizeController,
               builder: (context, _) => AnimatedBuilder(
                 animation: _rotationController,
                 builder: (context, child) => Transform(
@@ -126,7 +123,7 @@ class _RiverAnimationModuleItemWidgetState extends State<RiverAnimationModuleIte
                   transform: Matrix4.identity()
                     ..setEntry(3, 2, 0.001)
                     ..rotateY(math.pi * _rotateAnimation.value)
-                    ..scale(_idleAnimation.value, _idleAnimation.value),
+                    ..scale(_sizeAnimation.value, _sizeAnimation.value),
                   child: child,
                 ),
                 child: RiverModuleButton(
@@ -135,7 +132,7 @@ class _RiverAnimationModuleItemWidgetState extends State<RiverAnimationModuleIte
                   radius: widget.radius,
                   bgColor: _colorBgAnimation.value,
                   iconColor: _colorIconAnimation.value,
-                  onPressed: widget.item.isLocked ? null : widget.onTap,
+                  onPressed: widget.onTap,
                 ),
               ),
             ),
@@ -184,29 +181,34 @@ class _RiverAnimationModuleItemWidgetState extends State<RiverAnimationModuleIte
   Offset get _startPosition => _definePosition(_buttonKey);
 
   void _setUpAnimations() {
-    _setUpItemColorAnimation(widget.item, widget.item);
+    _setUpItemColorAnimation(widget.item);
 
     _rotateAnimation = Tween<double>(begin: 0.0, end: 2.0)
         .chain(CurveTween(curve: Curves.ease))
         .animate(_rotationController);
 
-    _idleAnimation = Tween<double>(begin: 1.0, end: 1.1).animate(_idleController);
+    _sizeAnimation = Tween<double>(begin: 1.0, end: 1.2)
+        .chain(CurveTween(curve: Curves.easeInOut))
+        .animate(_sizeController);
 
     _badgeAnimation = Tween<double>(begin: widget.item.isCompleted ? 1.0 : 0.0, end: 1.0)
         .animate(_badgeController);
   }
 
-  void _clearItemAnimation() => _itemAnimation = null;
+  void _clearItemAnimation() {
+    widget.onAnimationComplete?.call(null);
+    _itemAnimation = RiverModuleItemAnimationState.no;
+  }
 
-  void _setUpItemColorAnimation(RiverModuleItem begin, RiverModuleItem end) {
+  void _setUpItemColorAnimation(RiverModuleItem item) {
     _colorIconAnimation = ColorTween(
-      begin: getIconColor(begin),
-      end: getIconColor(end),
+      begin: getIconColor(item.states.prevItemState, item.streamType),
+      end: getIconColor(item.states.itemState, item.streamType),
     ).animate(_colorController);
 
     _colorBgAnimation = ColorTween(
-      begin: getBackgroundColor(begin),
-      end: getBackgroundColor(end),
+      begin: getBackgroundColor(item.states.prevItemState, item.streamType),
+      end: getBackgroundColor(item.states.itemState, item.streamType),
     ).animate(_colorController);
   }
 
@@ -218,9 +220,9 @@ class _RiverAnimationModuleItemWidgetState extends State<RiverAnimationModuleIte
 
   void _colorListener(AnimationStatus state) {
     if (state == AnimationStatus.completed) {
-      _startIdling();
+      _runIdling();
 
-      if (widget.item.isUnLocked) {
+      if (widget.item.states.itemState.isUnLocked) {
         _clearItemAnimation();
       }
     }
@@ -246,20 +248,23 @@ class _RiverAnimationModuleItemWidgetState extends State<RiverAnimationModuleIte
 
   void _badgeListener(AnimationStatus state) {
     if (state == AnimationStatus.completed) {
-      widget.onStatusChanged?.call();
       _clearItemAnimation();
     }
   }
 
   void _startAnimation() {
-    if (_isOnViewport && _itemAnimation != null) {
+    if (_isOnViewport) {
       switch (_itemAnimation) {
-        case _ItemAnimation.unlock:
+        case RiverModuleItemAnimationState.unlock:
           _runUnlock();
-        case _ItemAnimation.readAndComplete:
+        case RiverModuleItemAnimationState.read:
           _runRead();
-        case _ItemAnimation.complete:
+        case RiverModuleItemAnimationState.complete:
           _runComplete();
+        case RiverModuleItemAnimationState.idling:
+          _runIdling();
+        case RiverModuleItemAnimationState.bounced:
+          _runBounced();
         default:
           return;
       }
@@ -267,14 +272,14 @@ class _RiverAnimationModuleItemWidgetState extends State<RiverAnimationModuleIte
   }
 
   void _transitionCompleted() {
-    widget.onTransitionComplete?.call(widget.item.featurePlacement!);
+    widget.onAnimationComplete?.call(widget.item.featurePlacement!);
     _completeOrClearAction();
   }
 
-  void _startIdling() {
-    if (widget.item.isUnLocked) {
+  void _runIdling() {
+    if (widget.item.states.itemState.isUnLocked) {
       Future.delayed(const Duration(seconds: 1), () {
-        if (!_isDisposed) _idleController.repeat(reverse: true);
+        if (!_isDisposed) _sizeController.repeat(reverse: true);
       });
     }
   }
@@ -284,7 +289,7 @@ class _RiverAnimationModuleItemWidgetState extends State<RiverAnimationModuleIte
   }
 
   void _runRead() {
-    _idleController.reset();
+    _sizeController.reset();
     _rotationController.forward();
     _colorController.forward();
   }
@@ -308,16 +313,35 @@ class _RiverAnimationModuleItemWidgetState extends State<RiverAnimationModuleIte
     _badgeController.forward();
   }
 
-  void onViewPortChanged(VisibilityInfo info) {
+  void _runBounced() async {
+    final isIdling = _sizeController.isAnimating;
+    if (isIdling) {
+      _sizeController.reset();
+    }
+
+    _sizeController
+      ..duration = _bouncedDuration
+      ..reverseDuration = _bouncedDuration;
+
+    _sizeController.repeat(reverse: true);
+
+    await Future.delayed(_bouncedFullDuration);
+    _sizeController.reset();
+    _clearItemAnimation();
+
+    if (isIdling) {
+      _sizeController
+        ..duration = _idleDuration
+        ..reverseDuration = _idleDuration;
+
+      _sizeController.repeat(reverse: true);
+    }
+  }
+
+  void _onViewPortChanged(VisibilityInfo info) {
     _isOnViewport = info.visibleFraction > 0;
     _startAnimation();
   }
-}
-
-enum _ItemAnimation {
-  unlock,
-  readAndComplete,
-  complete,
 }
 
 Offset _definePosition(GlobalKey key) {

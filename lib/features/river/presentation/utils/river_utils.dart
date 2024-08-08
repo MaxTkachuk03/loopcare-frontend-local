@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:loopcare_frontend/features/river/domain/river_module_item.dart';
 import 'package:loopcare_frontend/features/river/infrastructure/blue_river_module_item_state.dart';
+import 'package:loopcare_frontend/features/river/infrastructure/river_module_item_state.dart';
+import 'package:loopcare_frontend/features/river/infrastructure/river_module_stream_type.dart';
 
 const double kRiverOverviewItemRadius = 18.0;
 const double kRiverRootItemRadius = 36.0;
@@ -13,19 +14,19 @@ mixin RiverUtils {
 
   int getIndex(int i) => i <= 5 ? i : getIndex(i - 5);
 
-  Color getIconColor(RiverModuleItem item) {
+  Color getIconColor(RiverModuleItemState state, RiverModuleStreamType streamType) {
     if (isBeginning) {
-      return BlueRiverModuleItemState.iconColor(item.itemState);
+      return BlueRiverModuleItemState.iconColor(state);
     } else {
-      return item.iconColor;
+      return state.iconColor(streamType);
     }
   }
 
-  Color getBackgroundColor(RiverModuleItem item) {
+  Color getBackgroundColor(RiverModuleItemState state, RiverModuleStreamType streamType) {
     if (isBeginning) {
-      return BlueRiverModuleItemState.backgroundColor(item.itemState);
+      return BlueRiverModuleItemState.backgroundColor(state);
     } else {
-      return item.bgColor;
+      return state.bgColor(streamType);
     }
   }
 

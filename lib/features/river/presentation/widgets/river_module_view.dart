@@ -97,7 +97,7 @@ class _RiverScreenState extends State<RiverScreen> with RiverUtils {
               radius: radius,
               isBeginning: isBeginning,
               onTap: () => _onItemPressed(item),
-              onTransitionComplete: _onTransitionItemCompleted,
+              onAnimationComplete: (placement) => _onAnimationCompleted(item, placement),
             );
           },
         ),
@@ -106,11 +106,20 @@ class _RiverScreenState extends State<RiverScreen> with RiverUtils {
   }
 
   void _onItemPressed(RiverModuleItem item) {
-    if (isBeginning) {
+    if (item.isLocked) {
+      _bounceParentItem(item);
+    } else if (isBeginning) {
       _beginningUnlockAction(item);
     } else {
       _navigateToLesson(item);
     }
+  }
+
+  void _bounceParentItem(RiverModuleItem item) {
+    context.read<RiverBloc>().add(RiverEvent.bounceParentItem(
+          moduleItemId: item.id,
+          moduleId: widget.module.id,
+        ));
   }
 
   void _updateModuleItem(int id) {
@@ -130,16 +139,13 @@ class _RiverScreenState extends State<RiverScreen> with RiverUtils {
   }
 
   void _beginningUnlockAction(RiverModuleItem item) {
-    if (item.itemState.isCompleted) {
+    if (item.isCompleted) {
       return;
     }
 
     if (item.isRootItem) {
       context.router.push(SelectAvatarRoute(onDispose: () => _updateModuleItem(item.id)));
-      return;
-    }
-
-    if (item.isPractice) {
+    } else if (item.isPractice) {
       ModalBottomSheet.guidancePractice(
         context: context,
         onConfirm: () => _updateModuleItem(item.id),
@@ -167,6 +173,14 @@ class _RiverScreenState extends State<RiverScreen> with RiverUtils {
     context.router.push(LessonRoute(lessonId: item.lessonId, streamType: item.streamType));
   }
 
+  void _onAnimationCompleted(RiverModuleItem item, FeaturePlacement? placement) {
+    if (placement != null) {
+      _onTransitionItemCompleted(placement);
+    } else {
+      _onStateChanged(item);
+    }
+  }
+
   void _onTransitionItemCompleted(FeaturePlacement placement) {
     final navigationBloc = context.read<NavigationBarBloc>();
     if (isBeginning && placement.isDashboard) {
@@ -183,6 +197,13 @@ class _RiverScreenState extends State<RiverScreen> with RiverUtils {
   void _onCompleteModule() {
     _showPopup = true;
     _showCompleteDialog();
+  }
+
+  void _onStateChanged(RiverModuleItem item) {
+    context.read<RiverBloc>().add(RiverEvent.updateGuidanceModuleItem(
+      moduleItemId: item.id,
+      moduleId: widget.module.id,
+    ));
   }
 
   void _onCompleteTime() {
