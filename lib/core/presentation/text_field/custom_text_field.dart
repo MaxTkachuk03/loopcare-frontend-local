@@ -161,7 +161,7 @@ class CustomTextField extends StatefulWidget {
   factory CustomTextField.password({
     Key? key,
     Color? fillColor,
-    TextInputAction textinputAction = TextInputAction.done,
+    TextInputAction textinputAction = TextInputAction.continueAction,
     void Function()? onEditingComplete,
     required TextEditingController controller,
   }) =>
