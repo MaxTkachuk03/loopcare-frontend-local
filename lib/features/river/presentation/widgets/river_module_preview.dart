@@ -24,6 +24,7 @@ class RiverModulePreview extends StatelessWidget with RiverUtils {
 
     return Container(
       height: kDefaultModuleHeight,
+      padding: const EdgeInsets.only(left: 20.0),
       decoration: BoxDecoration(
         gradient: LinearGradient(
           begin: Alignment.topCenter,
@@ -45,7 +46,7 @@ class RiverModulePreview extends StatelessWidget with RiverUtils {
         positionedItems: positionedItems,
         itemBuilder: (context, index) {
           final item = positionedItems[index].item;
-          final radius = itemRadius(isOverview: true);
+          final radius = itemRadius(isOverview: isBeginning && index > 0 || !isBeginning);
 
           return RiverModuleItemPreview(
             item: item,
