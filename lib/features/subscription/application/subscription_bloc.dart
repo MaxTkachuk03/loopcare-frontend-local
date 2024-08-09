@@ -160,7 +160,10 @@ class SubscriptionBloc extends Bloc<SubscriptionEvent, SubscriptionState> {
         );
       } else {
         emit(
-          SubscriptionState.loading(state.data.copyWith(isWaitTimeout: true)),
+            SubscriptionState.loading(state.data.copyWith(
+            isWaitTimeout: true,
+            product: event.product,
+          )),
         );
         add(const SubscriptionEvent.notifyUser());
       }
@@ -244,8 +247,6 @@ class SubscriptionBloc extends Bloc<SubscriptionEvent, SubscriptionState> {
           const AnalyticsEventService.appsFlyer().logEvent(
             eventName: '${AnalyticsEvents.subscriptionBought}_${price}_$currencyCode',
             parameters: {
-              AnalyticsParameters.subscriptionRevenue: state.data.product?.price,
-              AnalyticsParameters.subscriptionCurrencyCode: state.data.product?.currencyCode,
               AnalyticsParameters.subscriptionContentId: purchaseDetails.purchaseID,
               AnalyticsParameters.subscriptionTransactionId: identifier,
               AnalyticsParameters.subscriptionContentType: purchaseDetails.productID,
@@ -262,7 +263,7 @@ class SubscriptionBloc extends Bloc<SubscriptionEvent, SubscriptionState> {
             ),
           );
         } else {
-          add( SubscriptionEvent.errorVerifyPurchase(RequestError.streamSubscription(
+          add(SubscriptionEvent.errorVerifyPurchase(RequestError.streamSubscription(
               ServerErrorData(message: LocalizedTexts.errorSubscriptionServiceUnavailable))));
         }
       },
