@@ -248,6 +248,8 @@ class AuthenticationBloc extends HydratedBloc<AuthenticationEvent, Authenticatio
     SignUp event,
     Emitter<AuthenticationState> emit,
   ) async {
+    emit(AuthenticationState.isLoading(state.data.copyWith(isLoading: true)));
+
     final data = SignUpData(
       name: state.data.name,
       email: state.data.email.toLowerCase(),
@@ -270,9 +272,7 @@ class AuthenticationBloc extends HydratedBloc<AuthenticationEvent, Authenticatio
 
     response.fold(
       (error) => emit(
-        AuthenticationState.error(
-          state.data.copyWith(error: error),
-        ),
+        AuthenticationState.error(state.data.copyWith(error: error, isLoading: false)),
       ),
       (response) {
         authTokenManager.setAccessToken(response.accessToken);
@@ -324,6 +324,7 @@ class AuthenticationBloc extends HydratedBloc<AuthenticationEvent, Authenticatio
               password: event.password,
               emailWasSend: true,
               account: account,
+              isLoading: false,
             ),
           ),
         );
