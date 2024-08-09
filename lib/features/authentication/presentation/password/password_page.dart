@@ -176,11 +176,17 @@ class _PasswordPageState extends State<PasswordPage> {
               button: ValueListenableBuilder<bool>(
                 valueListenable: _formValidationNotifier,
                 builder: (context, isValid, _) {
-                  // todo: add loading state
-                  return CustomElevatedButton.blueFullWidth(
-                    key: const ValueKey('password_page_next_button'),
-                    onPressed: isValid ? _onNextPressed : null,
-                    label: LocalizedTexts.register.tr(),
+                  return BlocBuilder<AuthenticationBloc, AuthenticationState>(
+                    builder: (context, state) {
+                      final isLoading = state is AuthenticationStateIsLoading;
+
+                      return CustomElevatedButton.blueFullWidth(
+                        key: const ValueKey('password_page_next_button'),
+                        onPressed: isValid ? _onNextPressed : null,
+                        label: LocalizedTexts.register.tr(),
+                        isLoading: isLoading,
+                      );
+                    },
                   );
                 },
               ),
