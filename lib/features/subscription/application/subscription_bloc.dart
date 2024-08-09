@@ -160,7 +160,7 @@ class SubscriptionBloc extends Bloc<SubscriptionEvent, SubscriptionState> {
         );
       } else {
         emit(
-            SubscriptionState.loading(state.data.copyWith(
+          SubscriptionState.loading(state.data.copyWith(
             isWaitTimeout: true,
             product: event.product,
           )),
