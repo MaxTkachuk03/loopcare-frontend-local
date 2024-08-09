@@ -62,7 +62,7 @@ String? _getDate(DateTime? timeStamp) {
 }
 
 _errorListener(BuildContext context, SubscriptionState state) {
-  final errorMessage = state.data.errorMessage ?? LocalizedTexts.somethingWentWrong;
+  final errorMessage = state.data.errorMessage ?? LocalizedTexts.errorSomethingWentWrong;
   context.showErrorBar(
     content: Text(errorMessage.tr()),
     position: FlashPosition.top,

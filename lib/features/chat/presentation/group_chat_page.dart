@@ -246,10 +246,10 @@ class _GroupChatPageState extends State<GroupChatPage> with WidgetsBindingObserv
   void _onErrorHandler(GroupChatState state) {
     final String? errorMessage = state.data.error?.maybeMap(
       unprocessableEntity: (s) => s.message,
-      orElse: () => LocalizedTexts.somethingWentWrong,
+      orElse: () => LocalizedTexts.errorSomethingWentWrong,
     );
     context.showErrorBar(
-      content: CustomText(errorMessage?.tr() ?? LocalizedTexts.somethingWentWrong.tr()),
+      content: CustomText(errorMessage?.tr() ?? LocalizedTexts.errorSomethingWentWrong.tr()),
       position: FlashPosition.top,
     );
   }

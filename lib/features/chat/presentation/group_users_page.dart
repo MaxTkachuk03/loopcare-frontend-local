@@ -124,11 +124,11 @@ class _GroupUsersPageState extends State<GroupUsersPage> with WidgetsBindingObse
   void _onErrorHandler(GroupChatState state) {
     final errorMessage = state.data.error?.maybeMap(
       unprocessableEntity: (s) => s.message,
-      orElse: () => LocalizedTexts.somethingWentWrong,
+      orElse: () => LocalizedTexts.errorSomethingWentWrong,
     );
 
     context.showErrorBar(
-      content: CustomText(errorMessage?.tr() ?? LocalizedTexts.somethingWentWrong.tr()),
+      content: CustomText(errorMessage?.tr() ?? LocalizedTexts.errorSomethingWentWrong.tr()),
       position: FlashPosition.top,
     );
   }

@@ -10,7 +10,7 @@ class MoodNoteField extends AppLimitTextField {
           fieldKey: controller.noteFieldKey,
           focusNode: controller.noteFocusNode,
           controller: controller.noteController,
-          textInputAction: TextInputAction.newline,
+          textInputAction: TextInputAction.done,
           keyboardType: TextInputType.multiline,
           autovalidateMode: controller.noteAutoValidateMode,
           onChanged: (_) {},

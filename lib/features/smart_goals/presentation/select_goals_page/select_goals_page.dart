@@ -118,7 +118,7 @@ class _SelectGoalsPageState extends State<SelectGoalsPage> {
       forbidden: (s) => s.error.message,
       notFound: (s) => s.error.message,
       badRequest: (s) => s.error.message,
-      orElse: () => LocalizedTexts.somethingWentWrong.tr(),
+      orElse: () => LocalizedTexts.errorSomethingWentWrong.tr(),
     );
 
     context.showError(content: CustomText.w400(errorMessage ?? ''));

@@ -2,7 +2,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 
 class ZoomErrorMapper {
-  static final String _defaultErrorText = LocalizedTexts.somethingWentWrong.tr();
+  static final String _defaultErrorText = LocalizedTexts.errorSomethingWentWrong.tr();
 
   static final Map<String, String> _errorsMap = {
     "ZoomVideoSDKError_Session_Already_In_Progress": LocalizedTexts.sessionIsInProgress.tr(),

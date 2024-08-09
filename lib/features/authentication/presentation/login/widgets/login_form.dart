@@ -193,17 +193,17 @@ class _LoginFormState extends State<LoginForm> {
       final errorMessage = error.maybeMap(
         notFound: (e) {
           final message = e.message;
-          return message == LocalizedTexts.accountNotFound
+          return message == LocalizedTexts.errorAccountIdNotFound
               ? message
-              : LocalizedTexts.somethingIsIncorrect.tr();
+              : LocalizedTexts.errorSomethingIsIncorrect.tr();
         },
         badRequest: (error) {
           final message = error.message;
-          return message == LocalizedTexts.emailOrPasswordAreIncorrect
+          return message == LocalizedTexts.errorCoreEmailOrPasswordAreIncorrect
               ? message
-              : LocalizedTexts.somethingIsIncorrect;
+              : LocalizedTexts.errorSomethingIsIncorrect;
         },
-        orElse: () => LocalizedTexts.somethingIsIncorrect.tr(),
+        orElse: () => LocalizedTexts.errorSomethingIsIncorrect.tr(),
       );
 
       context.showError(content: Text(errorMessage.tr()));

@@ -198,7 +198,7 @@ class _PasswordPageState extends State<PasswordPage> {
   }
 
   _errorListener(AuthenticationState state) {
-    final errorMessage = state.data.error?.message ?? LocalizedTexts.somethingWentWrong;
+    final errorMessage = state.data.error?.message ?? LocalizedTexts.errorSomethingWentWrong;
     context.showErrorBar(
       content: CustomText(errorMessage.tr()),
       position: FlashPosition.top,

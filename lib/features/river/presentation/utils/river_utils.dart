@@ -14,7 +14,7 @@ mixin RiverUtils {
   int getIndex(int i) => i <= 5 ? i : getIndex(i - 5);
 
   Color getIconColor(RiverModuleItem item) {
-    if (isBeginning) {
+    if (isBeginning && !item.isRootItem) {
       return BlueRiverModuleItemState.iconColor(item.itemState);
     } else {
       return item.iconColor;
@@ -22,7 +22,7 @@ mixin RiverUtils {
   }
 
   Color getBackgroundColor(RiverModuleItem item) {
-    if (isBeginning) {
+    if (isBeginning && !item.isRootItem) {
       return BlueRiverModuleItemState.backgroundColor(item.itemState);
     } else {
       return item.bgColor;

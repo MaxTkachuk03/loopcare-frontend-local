@@ -132,7 +132,7 @@ class SubscriptionBloc extends Bloc<SubscriptionEvent, SubscriptionState> {
       r.valid ?? true
           ? add(SubscriptionEvent.buySubscription(product))
           : add(const SubscriptionEvent.errorVerifyPurchase(RequestError.streamSubscription(
-              ServerErrorData(message: LocalizedTexts.subscriptionServiceUnavailable))));
+              ServerErrorData(message: LocalizedTexts.errorSubscriptionServiceUnavailable))));
     });
   }
 
@@ -153,14 +153,17 @@ class SubscriptionBloc extends Bloc<SubscriptionEvent, SubscriptionState> {
           SubscriptionState.error(
             state.data.copyWith(
               error: const RequestError.streamSubscription(
-                  ServerErrorData(message: LocalizedTexts.subscriptionServiceUnavailable)),
+                  ServerErrorData(message: LocalizedTexts.errorSubscriptionServiceUnavailable)),
               isLoading: false,
             ),
           ),
         );
       } else {
         emit(
-          SubscriptionState.loading(state.data.copyWith(isWaitTimeout: true)),
+          SubscriptionState.loading(state.data.copyWith(
+            isWaitTimeout: true,
+            product: event.product,
+          )),
         );
         add(const SubscriptionEvent.notifyUser());
       }
@@ -172,7 +175,7 @@ class SubscriptionBloc extends Bloc<SubscriptionEvent, SubscriptionState> {
         SubscriptionState.purchaseDuplicateSubscription(
           state.data.copyWith(
             error: const RequestError.streamSubscription(
-                ServerErrorData(message: LocalizedTexts.purchaseErrorMessage)),
+                ServerErrorData(message: LocalizedTexts.errorPurchaseErrorMessage)),
             isLoading: false,
           ),
         ),
@@ -244,8 +247,6 @@ class SubscriptionBloc extends Bloc<SubscriptionEvent, SubscriptionState> {
           const AnalyticsEventService.appsFlyer().logEvent(
             eventName: '${AnalyticsEvents.subscriptionBought}_${price}_$currencyCode',
             parameters: {
-              AnalyticsParameters.subscriptionRevenue: state.data.product?.price,
-              AnalyticsParameters.subscriptionCurrencyCode: state.data.product?.currencyCode,
               AnalyticsParameters.subscriptionContentId: purchaseDetails.purchaseID,
               AnalyticsParameters.subscriptionTransactionId: identifier,
               AnalyticsParameters.subscriptionContentType: purchaseDetails.productID,
@@ -262,8 +263,8 @@ class SubscriptionBloc extends Bloc<SubscriptionEvent, SubscriptionState> {
             ),
           );
         } else {
-          add(const SubscriptionEvent.errorVerifyPurchase(RequestError.streamSubscription(
-              ServerErrorData(message: LocalizedTexts.subscriptionServiceUnavailable))));
+          add(SubscriptionEvent.errorVerifyPurchase(RequestError.streamSubscription(
+              ServerErrorData(message: LocalizedTexts.errorSubscriptionServiceUnavailable))));
         }
       },
     );
