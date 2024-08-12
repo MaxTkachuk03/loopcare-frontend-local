@@ -1,8 +1,11 @@
 import 'dart:math' as math;
+
+import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:loopcare_frontend/core/presentation/text/custom_text.dart';
 import 'package:loopcare_frontend/core/presentation/utils/build_context_extensions.dart';
 import 'package:loopcare_frontend/features/river/domain/river_module_item.dart';
+import 'package:loopcare_frontend/features/river/presentation/utils/module_items_utils.dart';
 import 'package:loopcare_frontend/features/river/presentation/utils/river_utils.dart';
 import 'package:loopcare_frontend/features/river/presentation/widgets/animated_river_streams.dart';
 
@@ -18,6 +21,7 @@ class RiverModuleBuilder extends StatelessWidget with RiverUtils {
     required this.completedDate,
     required this.positionedItems,
     required this.itemBuilder,
+    required this.startItemBuilder,
     this.isOverview = false,
     this.enableGradient,
     this.onCompleted,
@@ -38,10 +42,13 @@ class RiverModuleBuilder extends StatelessWidget with RiverUtils {
   final bool? enableGradient;
   final void Function()? onCompleted;
   final Widget Function(BuildContext context, int index) itemBuilder;
+  final Widget Function(BuildContext context) startItemBuilder;
   final List<({Offset offset, RiverModuleItem item})> positionedItems;
 
   @override
   bool get isBeginning => index == 0;
+
+  bool get _containRootItem => positionedItems.firstWhereOrNull((i) => i.item.isRootItem) != null;
 
   bool get _isVertical => direction == Axis.vertical;
 
@@ -101,6 +108,12 @@ class RiverModuleBuilder extends StatelessWidget with RiverUtils {
             ),
           ),
         ),
+        if (isBeginning && !_containRootItem)
+          Positioned(
+            top: _itemTopPosition(ModuleItemsUtils.zeroPageRootItemPosition, kRiverRootItemRadius),
+            left: _itemLeftPosition(ModuleItemsUtils.zeroPageRootItemPosition, kRiverRootItemRadius),
+            child: startItemBuilder(context),
+          ),
         ...positionedModuleItems,
         Positioned(
           top: 20.0,

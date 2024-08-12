@@ -12,6 +12,7 @@ import 'package:loopcare_frontend/features/river/domain/river_module.dart';
 import 'package:loopcare_frontend/features/river/domain/river_module_item.dart';
 import 'package:loopcare_frontend/features/river/infrastructure/feature_placement.dart';
 import 'package:loopcare_frontend/features/river/presentation/river_module_item_widget/river_animation_module_item_widget.dart';
+import 'package:loopcare_frontend/features/river/presentation/river_module_item_widget/start_river_module_item.dart';
 import 'package:loopcare_frontend/features/river/presentation/utils/module_items_utils.dart';
 import 'package:loopcare_frontend/features/river/presentation/utils/river_utils.dart';
 import 'package:loopcare_frontend/features/river/presentation/widgets/river_module_builder.dart';
@@ -81,6 +82,9 @@ class _RiverScreenState extends State<RiverScreen> with RiverUtils {
           onTransitionComplete: _onTransitionItemCompleted,
         );
       },
+      startItemBuilder: (context) => StartRiverModuleItem(
+        onTap: _onStartItemPressed,
+      ),
     );
   }
 
@@ -90,6 +94,10 @@ class _RiverScreenState extends State<RiverScreen> with RiverUtils {
     } else {
       _navigateToLesson(item);
     }
+  }
+
+  void _onStartItemPressed() {
+    ModalBottomSheet.guidanceStartRiver(context: context);
   }
 
   void _updateModuleItem(int id) {
