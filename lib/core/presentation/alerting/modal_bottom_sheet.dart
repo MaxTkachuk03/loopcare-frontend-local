@@ -1703,7 +1703,6 @@ class ModalBottomSheet {
     );
   }
 
-  // TODO: change messages
   static void guidanceStartRiver({
     required BuildContext context,
   }) {
@@ -1719,12 +1718,12 @@ class ModalBottomSheet {
             children: [
               const SizedBox(height: 32.0),
               CustomText.w600(
-                'Welcome to River',
+                LocalizedTexts.guidanceStartRiverTitle.tr(),
                 style: context.textTheme.bodyMedium,
               ),
-              const SizedBox(height: 24.0),
+              const SizedBox(height: 20.0),
               CustomText.w400(
-                'To start your experience and learn something new, click on one of the elements.',
+                LocalizedTexts.guidanceStartRiverDescription.tr(),
                 style: context.textTheme.bodyMedium,
               ),
               const SizedBox(height: 20.0),
@@ -1766,12 +1765,7 @@ class ModalBottomSheet {
                   ),
                 ],
               ),
-              const SizedBox(height: 20.0),
-              CustomText.w400(
-                'Once you\'ve completed the tutorial, you\'ll be ready to start using the River in full.',
-                style: context.textTheme.bodyMedium,
-              ),
-              const SizedBox(height: 20.0),
+              const SizedBox(height: 24.0),
               CustomElevatedButton.blueFullWidth(
                 label: LocalizedTexts.ok.tr().toUpperCase(),
                 onPressed: context.router.maybePop,
