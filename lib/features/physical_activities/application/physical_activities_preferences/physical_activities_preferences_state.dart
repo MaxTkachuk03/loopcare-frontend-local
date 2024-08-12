@@ -44,6 +44,7 @@ class PhysicalActivitiesPreferencesData with _$PhysicalActivitiesPreferencesData
     return trainingFrequency != PhysicalActivitiesFrequency.oneTime &&
         trainingFrequency != PhysicalActivitiesFrequency.twoTimes;
   }
+  String get errorKey => error?.message ?? LocalizedTexts.errorSomethingWentWrong;
 
   PhysicalActivitiesFrequency? get currentTrainingFrequency => trainingFrequency;
 

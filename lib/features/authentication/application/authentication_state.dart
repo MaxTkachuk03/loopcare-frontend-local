@@ -133,4 +133,5 @@ class AuthenticationData with _$AuthenticationData {
       return '';
     }
   }
+  String get errorKey => error?.message ?? LocalizedTexts.errorSomethingWentWrong;
 }

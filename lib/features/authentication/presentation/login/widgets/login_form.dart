@@ -13,6 +13,7 @@ import 'package:loopcare_frontend/core/presentation/alerting/show_app_snackbar.d
 import 'package:loopcare_frontend/core/presentation/buttons/custom_elevated_button.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/core/presentation/routes/app_router.dart';
+import 'package:loopcare_frontend/core/presentation/text/custom_text.dart';
 import 'package:loopcare_frontend/core/presentation/text_field/custom_text_field.dart';
 import 'package:loopcare_frontend/features/authentication/application/authentication_bloc.dart';
 import 'package:loopcare_frontend/features/authentication/domain/email/email.dart';
@@ -190,23 +191,7 @@ class _LoginFormState extends State<LoginForm> {
   void _onGuest(GuestAuthenticationState state) {
     final error = state.data.error;
     if (error != null) {
-      final errorMessage = error.maybeMap(
-        notFound: (e) {
-          final message = e.message;
-          return message == LocalizedTexts.errorAccountIdNotFound
-              ? message
-              : LocalizedTexts.errorSomethingIsIncorrect.tr();
-        },
-        badRequest: (error) {
-          final message = error.message;
-          return message == LocalizedTexts.errorCoreEmailOrPasswordAreIncorrect
-              ? message
-              : LocalizedTexts.errorSomethingIsIncorrect;
-        },
-        orElse: () => LocalizedTexts.errorSomethingIsIncorrect.tr(),
-      );
-
-      context.showError(content: Text(errorMessage.tr()));
+      context.showError(content: CustomText(error.message.tr()));
     }
   }
 

@@ -93,16 +93,16 @@ class _CreateMoodPageState extends State<CreateMoodPage> {
 
     widget.mode.map(
       create: (_) => context.read<MoodBloc>().add(MoodEvent.createMood(data)),
-      edit: (s) => context.read<MoodBloc>().add(MoodEvent.updateMood(moodId: s.moodRecord.id, data: data)),
+      edit: (s) =>
+          context.read<MoodBloc>().add(MoodEvent.updateMood(moodId: s.moodRecord.id, data: data)),
     );
   }
 
   void _onDeleteMoodHandler() {
     widget.mode.map(
       create: (_) => null,
-      edit: (s) => context
-          .read<MoodBloc>()
-          .add(MoodEvent.deleteMood(moodId: s.moodRecord.id, date: widget.date.isoStringWithoutTime)),
+      edit: (s) => context.read<MoodBloc>().add(
+          MoodEvent.deleteMood(moodId: s.moodRecord.id, date: widget.date.isoStringWithoutTime)),
     );
   }
 
@@ -113,8 +113,7 @@ class _CreateMoodPageState extends State<CreateMoodPage> {
     );
   }
 
-  _onErrorHandler(MoodState s) =>
-      context.showError(content: Text(s.data.errorMessage ?? LocalizedTexts.errorSomethingWentWrong.tr()));
+  _onErrorHandler(MoodState s) => context.showError(content: CustomText(s.data.errorKey.tr()));
 
   _onUpdateHandler(MoodState s) => context.router.maybePop();
 
@@ -156,7 +155,8 @@ class _CreateMoodPageState extends State<CreateMoodPage> {
                           ValueListenableBuilder<MoodPickerListItem?>(
                             valueListenable: _moodPageController.moodValue,
                             builder: (context, moodValue, _) => MoodPicker(
-                                onItemPressed: isEditable ? _onMoodValueChangeHandler : null, value: moodValue),
+                                onItemPressed: isEditable ? _onMoodValueChangeHandler : null,
+                                value: moodValue),
                           ),
                           const SizedBox(height: 12.0),
                           MoodOptions(controller: _moodPageController, isEditable: isEditable),

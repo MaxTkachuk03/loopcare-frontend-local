@@ -60,8 +60,8 @@ class _UpdateEmailPageState extends State<UpdateEmailPage> {
   }
 
   void _onErrorUpdateEmail(AuthenticationState s) {
-    final message = s.data.error?.message ?? '';
-    context.showError(content: CustomText(message));
+    final message = s.data.error?.message ?? LocalizedTexts.errorSomethingWentWrong;
+    context.showError(content: CustomText(message.tr()));
   }
 
   void _onEmailChangeListener(BuildContext context, AuthenticationState state) {

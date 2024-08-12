@@ -67,4 +67,6 @@ class ReflectionsStateData with _$ReflectionsStateData {
       return r.completedAt != null || unlockedDate.isBefore(endDate) && !r.isComplete;
     }).toList();
   }
+
+  String get errorKey => error?.message ?? LocalizedTexts.errorSomethingWentWrong;
 }

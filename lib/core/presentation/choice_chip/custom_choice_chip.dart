@@ -1,5 +1,6 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
+import 'package:loopcare_frontend/core/presentation/text/custom_text.dart';
 import 'package:loopcare_frontend/core/presentation/text_with_accents/text_with_accents.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 import 'package:loopcare_frontend/core/presentation/utils/build_context_extensions.dart';
@@ -196,7 +197,7 @@ class CustomChoiceChip<T> extends StatelessWidget {
               Expanded(
                 child: accent != null
                     ? accent!
-                    : AutoSizeText(
+                    : CustomText(
                         label ?? '',
                         textAlign: textAlign ?? TextAlign.start,
                         style: selected

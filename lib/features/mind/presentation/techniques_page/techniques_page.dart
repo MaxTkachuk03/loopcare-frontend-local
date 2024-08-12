@@ -10,6 +10,7 @@ import 'package:loopcare_frontend/core/presentation/custom_safe_area.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/core/presentation/routes/app_router.dart';
 import 'package:loopcare_frontend/core/presentation/scaffold/custom_scaffold.dart';
+import 'package:loopcare_frontend/core/presentation/text/custom_text.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 import 'package:loopcare_frontend/features/mind/application/mind_bloc.dart';
 import 'package:loopcare_frontend/features/mind/domain/mind_analytics_mixin/mind_analytics_mixin.dart';
@@ -32,7 +33,7 @@ class _TechniquesPageState extends State<TechniquesPage> with MindAnalyticsMixin
   }
 
   void errorHandler(MindState state) => context.showError(
-      content: Text(state.data.error?.error?.message ?? LocalizedTexts.errorSomethingWentWrong.tr()));
+      content: CustomText(state.data.errorKey.tr()));
 
   Future<void> getTechniques() async =>
       context.read<MindBloc>().add(const MindEvent.getTechniques());

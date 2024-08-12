@@ -181,6 +181,7 @@ class _DetailsSection extends StatelessWidget {
         children: [
           Expanded(
             child: AccountContainer(
+              padding: const EdgeInsets.all(24.0),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.start,

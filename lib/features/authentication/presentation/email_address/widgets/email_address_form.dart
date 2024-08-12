@@ -126,7 +126,7 @@ class _EmailAddressFormState extends State<EmailAddressForm> {
       if (message == LocalizedTexts.errorAccountIdAlreadyExists) {
         _emailErrorTextNotifier.value = message.tr();
       } else {
-        context.showError(content: Text(message.tr()));
+        context.showError(content: CustomText(message.tr()));
       }
     }
   }

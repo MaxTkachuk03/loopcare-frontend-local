@@ -55,7 +55,7 @@ class EmergencyNumberCard extends StatelessWidget {
   }
 
   void _showError(BuildContext context) =>
-      context.showError(content: Text(LocalizedTexts.openLinkErrorMessage.tr()));
+      context.showError(content: CustomText(LocalizedTexts.openLinkErrorMessage.tr()));
 
   Future<void> _launchInBrowser(String url, BuildContext context) async {
     final Uri launchUri = Uri.parse(url);
