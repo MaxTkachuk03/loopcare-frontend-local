@@ -81,7 +81,7 @@ class EducationLessonData with _$EducationLessonData {
 
   bool get hasQuiz => quiz != null;
 
-  String? get errorMessage => error?.message;
+  String get errorKey => error?.message ?? LocalizedTexts.errorSomethingWentWrong;
 
   String filePath(String url) {
     var urlArr = url.split('/');

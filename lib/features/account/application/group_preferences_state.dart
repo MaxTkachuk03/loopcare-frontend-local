@@ -24,4 +24,6 @@ class GroupPreferencesData with _$GroupPreferencesData {
     @Default(GroupPrefsMode.singlePage) GroupPrefsMode groupPrefsMode,
     RequestError? error,
   }) = _GroupPreferencesData;
+
+  String get errorKey => error?.message ?? LocalizedTexts.errorSomethingWentWrong;
 }

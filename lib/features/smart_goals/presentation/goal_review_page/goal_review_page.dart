@@ -78,16 +78,8 @@ class _GoalReviewPageState extends State<GoalReviewPage> {
     );
   }
 
-  void _onErrorAddingReview(SmartGoalsState state) {
-    final String? errorMessage = state.data.error?.maybeMap(
-      forbidden: (s) => s.message,
-      notFound: (s) => s.message,
-      badRequest: (s) => s.message,
-      orElse: () => LocalizedTexts.errorSomethingWentWrong,
-    );
-
-    context.showError(content: CustomText.w400(errorMessage?.tr() ?? LocalizedTexts.errorSomethingWentWrong.tr()));
-  }
+  void _onErrorAddingReview(SmartGoalsState state) =>
+      context.showError(content: CustomText.w400(state.data.errorKey.tr()));
 
   void _onReviewAdded(SmartGoalsState state) => context
     ..read<SmartGoalsBloc>().add(const SmartGoalsEvent.getWeeklyGoals())
@@ -96,7 +88,8 @@ class _GoalReviewPageState extends State<GoalReviewPage> {
   bool _listenWhen(prev, cur) {
     final isCurrentRoute = ModalRoute.of(context)?.isCurrent ?? false;
 
-    return isCurrentRoute && (cur is GotSmartGoalsStateErrorAddingReview || cur is GotSmartGoalsStateReviewAdded);
+    return isCurrentRoute &&
+        (cur is GotSmartGoalsStateErrorAddingReview || cur is GotSmartGoalsStateReviewAdded);
   }
 
   @override

@@ -236,7 +236,7 @@ class _PasswordPageState extends State<PasswordPage> {
   void _onPrivacyPolicyTap() => _launchInBrowser(privacyPolicyUrl);
 
   void _showError(BuildContext context) =>
-      context.showError(content: Text(LocalizedTexts.openLinkErrorMessage.tr()));
+      context.showError(content: CustomText(LocalizedTexts.openLinkErrorMessage.tr()));
 
   Future<void> _launchInBrowser(String url) async {
     final Uri launchUri = Uri.parse(url);

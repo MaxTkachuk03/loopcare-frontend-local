@@ -99,7 +99,7 @@ class _SelectAvatarPageState extends State<SelectAvatarPage> {
   }
 
   void _onErrorUploadAvatar(AuthenticationState s) {
-    context.showError(content: CustomText(s.data.error?.message ?? ''));
+    context.showError(content: CustomText(s.data.errorKey.tr()));
   }
 
   void _onAvatarUploaded(_) => context.router.popUntilRouteWithName(HomeRoute.name);

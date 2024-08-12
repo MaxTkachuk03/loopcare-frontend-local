@@ -197,7 +197,7 @@ class _ProgramAssessmentPageState extends State<ProgramAssessmentPage> {
   void _physicalProgramErrorListener(BuildContext context, PhysicalProgramsState state) {
     final error = state.data.error;
     if (error != null) {
-      context.showError(content: Text(LocalizedTexts.errorSomethingIsIncorrect.tr()));
+      context.showError(content: CustomText(LocalizedTexts.errorSomethingIsIncorrect.tr()));
     }
   }
 

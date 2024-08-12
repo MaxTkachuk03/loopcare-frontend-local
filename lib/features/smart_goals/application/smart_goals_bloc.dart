@@ -10,6 +10,7 @@ import 'package:loopcare_frontend/core/domain/analytics/analytics_parameters.dar
 import 'package:loopcare_frontend/core/infrastructure/dio_client/request_error.dart';
 import 'package:loopcare_frontend/core/infrastructure/services/analytics_service.dart';
 import 'package:loopcare_frontend/core/infrastructure/services/shared_storage/shared_storage_service.dart';
+import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/core/presentation/utils/date_time_extensions.dart';
 import 'package:loopcare_frontend/features/smart_goals/application/cancel_goal_reason.dart';
 import 'package:loopcare_frontend/features/smart_goals/application/dto/goal_review_body.dart';
