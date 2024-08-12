@@ -1702,4 +1702,85 @@ class ModalBottomSheet {
       },
     );
   }
+
+  // TODO: change messages
+  static void guidanceStartRiver({
+    required BuildContext context,
+  }) {
+    showModalBottomSheet(
+      context: context,
+      showDragHandle: false,
+      backgroundColor: AppColors.blueLightest,
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12.0)),
+      builder: (BuildContext context) {
+        return MainContainer(
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              const SizedBox(height: 32.0),
+              CustomText.w600(
+                'Welcome to River',
+                style: context.textTheme.bodyMedium,
+              ),
+              const SizedBox(height: 24.0),
+              CustomText.w400(
+                'To start your experience and learn something new, click on one of the elements.',
+                style: context.textTheme.bodyMedium,
+              ),
+              const SizedBox(height: 20.0),
+              const Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Material(
+                    elevation: 6,
+                    surfaceTintColor: AppColors.transparent,
+                    color: AppColors.blueLightest,
+                    borderRadius: BorderRadius.all(Radius.circular(25)),
+                    child: SizedBox.square(
+                      dimension: 50.0,
+                      child: Center(
+                        child: Icon(
+                          AppIconsData.iProfile,
+                          color: AppColors.blueRegular,
+                          size: 36.0,
+                        ),
+                      ),
+                    ),
+                  ),
+                  SizedBox(width: 16),
+                  Material(
+                    elevation: 6,
+                    surfaceTintColor: AppColors.transparent,
+                    color: AppColors.blueLightest,
+                    borderRadius: BorderRadius.all(Radius.circular(25)),
+                    child: SizedBox.square(
+                      dimension: 50.0,
+                      child: Center(
+                        child: Icon(
+                          AppIconsData.iProfile,
+                          color: AppColors.blueRegular,
+                          size: 36.0,
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+              const SizedBox(height: 20.0),
+              CustomText.w400(
+                'Once you\'ve completed the tutorial, you\'ll be ready to start using the River in full.',
+                style: context.textTheme.bodyMedium,
+              ),
+              const SizedBox(height: 20.0),
+              CustomElevatedButton.blueFullWidth(
+                label: LocalizedTexts.ok.tr().toUpperCase(),
+                onPressed: context.router.maybePop,
+              ),
+              const SizedBox(height: 30.0),
+            ],
+          ),
+        );
+      },
+    );
+  }
 }
