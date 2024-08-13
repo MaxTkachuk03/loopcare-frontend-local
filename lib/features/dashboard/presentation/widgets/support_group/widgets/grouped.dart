@@ -71,10 +71,10 @@ class Grouped extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final sessionWidgetState = _getWidgetState(context);
-
     return BlocBuilder<TopicsBloc, TopicsState>(
       builder: (context, state) {
+        final sessionWidgetState = _getWidgetState(context);
+
         return state.maybeMap(
           error: (errorState) {
             final error = errorState.data.error;
