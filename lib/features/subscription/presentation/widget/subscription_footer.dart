@@ -34,8 +34,9 @@ class _FooterSubscriptionState extends State<FooterSubscription> {
                   regularPrice: product.roundPrice,
                   priceWithCurrency: product.priceWithCurrency,
                   onTap: () => widget.controller.setPlans(product),
-                  selected:
-                      widget.controller.selectedPlan.value?.details?.id == product.details?.id &&
+                  selected: (widget.controller.products.length == 1)
+                      ? true
+                      : widget.controller.selectedPlan.value?.details?.id == product.details?.id &&
                           widget.controller.selectedPlan.value?.details?.price ==
                               product.details?.price,
                 ),

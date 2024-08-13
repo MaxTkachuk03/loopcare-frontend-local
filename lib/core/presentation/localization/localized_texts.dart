@@ -2402,6 +2402,7 @@ class LocalizedTexts {
   static const String errorSubscriptionServiceUnavailable = 'errorSubscriptionServiceUnavailable';
   static const String errorPurchaseStreamError = 'errorPurchaseStreamError';
   static const String errorPurchaseErrorMessage = 'errorPurchaseErrorMessage';
+  static const String errorPurchaseVerificationError = 'errorPurchaseVerificationError';
 
   //DioException
   static const String errorRequestCancelledDio = 'errorRequestCancelledDio';
