@@ -97,7 +97,9 @@ class _RiverScreenState extends State<RiverScreen> with RiverUtils {
   }
 
   void _onStartItemPressed() {
-    ModalBottomSheet.guidanceStartRiver(context: context);
+    if (!context.read<NavigationBarBloc>().state.data.isBeginningCompleted) {
+      ModalBottomSheet.guidanceStartRiver(context: context);
+    }
   }
 
   void _updateModuleItem(int id) {

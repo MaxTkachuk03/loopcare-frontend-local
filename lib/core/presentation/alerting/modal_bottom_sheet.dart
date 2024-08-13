@@ -1663,6 +1663,7 @@ class ModalBottomSheet {
       builder: (BuildContext context) {
         return MainContainer(
           child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisSize: MainAxisSize.min,
             children: [
               const SizedBox(height: 32.0),
@@ -1714,6 +1715,7 @@ class ModalBottomSheet {
       builder: (BuildContext context) {
         return MainContainer(
           child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisSize: MainAxisSize.min,
             children: [
               const SizedBox(height: 32.0),
