@@ -1,10 +1,10 @@
 import 'package:auto_route/auto_route.dart';
-import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loopcare_frontend/core/presentation/checkbox/custom_checkbox.dart';
 import 'package:loopcare_frontend/core/presentation/icon_images/app_icons.dart';
 import 'package:loopcare_frontend/core/presentation/routes/app_router.gr.dart';
+import 'package:loopcare_frontend/core/presentation/text/custom_text.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 import 'package:loopcare_frontend/core/presentation/utils/build_context_extensions.dart';
 import 'package:loopcare_frontend/features/nutrition/application/select_food/select_food_bloc.dart';
@@ -22,8 +22,9 @@ class FavoriteListItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<SelectFoodBloc, SelectFoodState>(
       builder: (BuildContext context, state) {
-        final isSelected =
-            state.mapOrNull(selectFood: (state) => state.selectedFavoritesItems.contains(foodItem)) ?? false;
+        final isSelected = state.mapOrNull(
+                selectFood: (state) => state.selectedFavoritesItems.contains(foodItem)) ??
+            false;
 
         return ListTile(
           contentPadding: EdgeInsets.zero,
@@ -40,15 +41,12 @@ class FavoriteListItem extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    AutoSizeText(
+                    CustomText.w600(
                       foodItem.foodName,
                       maxLines: 2,
-                      style: context.textTheme.bodySmall?.copyWith(
-                        fontWeight: FontWeight.w600,
-                        color: AppColors.blueDarker,
-                      ),
+                      style: context.textTheme.bodySmall,
                     ),
-                    AutoSizeText(
+                    CustomText.w400(
                       '${foodItem.brandName} | ${foodItem.serving.servingDescription}',
                       maxLines: 1,
                       style: context.textTheme.bodySmall?.copyWith(
