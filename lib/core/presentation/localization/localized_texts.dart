@@ -384,6 +384,7 @@ class LocalizedTexts {
   static const String avatarSizeErrorMessageSubtitle = 'avatarSizeErrorMessageSubtitle';
   static const String goToAppSettings = 'goToAppSettings';
   static const String galeryPermissionsMessage = 'galeryPermissionsMessage';
+  static const String galeryPermissionsMessageAndroid = 'galeryPermissionsMessageAndroid';
 
   // Emergency Numbers
   static const String emergencySubtitle = 'emergencySubtitle';
@@ -1136,7 +1137,6 @@ class LocalizedTexts {
   static const String reasonGoalMissing = 'reasonGoalMissing';
   static const String reasonGoalHabit = 'reasonGoalHabit';
   static const String reasonGoalSpecific = 'reasonGoalSpecific';
-
 
   // River
   static const String guidancePracticeTitle = 'guidancePracticeTitle';

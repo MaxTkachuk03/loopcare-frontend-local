@@ -970,7 +970,8 @@
   "avatarSizeErrorMessageTitle": "Oops! It looks like the picture you’re trying to upload is over the 10 MB size limit.",
   "avatarSizeErrorMessageSubtitle": "Please choose a smaller file and try again.",
   "goToAppSettings": "Go to app settings",
-  "galeryPermissionsMessage": "Please allow access to your gallery",
+  "galeryPermissionsMessage": "Please allow access to your meida gallery",
+  "galeryPermissionsMessageAndroid": "Please allow access to your media gallery and camera",
 
 
   "//comment": "mental tests final results",
