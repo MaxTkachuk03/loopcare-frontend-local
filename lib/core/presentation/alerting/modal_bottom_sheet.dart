@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:auto_route/auto_route.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
@@ -1029,7 +1031,9 @@ class ModalBottomSheet {
               ),
               const SizedBox(height: 20.0),
               CustomText.w600(
-                LocalizedTexts.galeryPermissionsMessage.tr(),
+                Platform.isAndroid
+                    ? LocalizedTexts.galeryPermissionsMessageAndroid.tr()
+                    : LocalizedTexts.galeryPermissionsMessage.tr(),
                 style: context.textTheme.bodyMedium,
               ),
               const SizedBox(height: 20.0),
