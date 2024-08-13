@@ -126,6 +126,7 @@ class _SubscriptionPageState extends State<SubscriptionPage> {
   void _onDuplicateSettings(BuildContext context) {
     if (!sheetOpenedNotifier.value) {
       sheetOpenedNotifier.value = true;
+      controller.handleLoading(false);
       _showRestoreSubscriptionBottomSheet(isDuplicate: true);
     }
   }
@@ -133,7 +134,7 @@ class _SubscriptionPageState extends State<SubscriptionPage> {
   void _onRestoreFromSettings(SubscriptionStateData data) {
     if (!sheetOpenedNotifier.value) {
       sheetOpenedNotifier.value = true;
-
+      controller.handleLoading(false);
       if (isVendorPlatform(data.subscription?.vendor)) {
         _showRestoreSubscriptionBottomSheet();
       } else {
@@ -199,10 +200,10 @@ class _SubscriptionPageState extends State<SubscriptionPage> {
       cur is LogoutState;
 
   void _errorListener(BuildContext context, SubscriptionState state) {
-    var errorMessage = state.data.error?.message ?? LocalizedTexts.errorSomethingWentWrong;
+
     controller.resetState();
     context.showErrorBar(
-      content: Text(errorMessage.tr()),
+      content: CustomText(state.data.errorKey.tr()),
       position: FlashPosition.top,
     );
   }

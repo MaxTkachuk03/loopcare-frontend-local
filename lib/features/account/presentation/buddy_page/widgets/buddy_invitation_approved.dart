@@ -62,9 +62,9 @@ String? _getDate(DateTime? timeStamp) {
 }
 
 _errorListener(BuildContext context, SubscriptionState state) {
-  final errorMessage = state.data.errorMessage ?? LocalizedTexts.errorSomethingWentWrong;
+  final errorMessage = state.data.errorKey;
   context.showErrorBar(
-    content: Text(errorMessage.tr()),
+    content: CustomText(errorMessage.tr()),
     position: FlashPosition.top,
   );
   context.router.maybePop();

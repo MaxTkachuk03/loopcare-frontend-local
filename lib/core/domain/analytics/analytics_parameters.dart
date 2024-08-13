@@ -118,4 +118,6 @@ class AnalyticsParameters {
   static String get subscriptionRevenue => 'af_revenue';
 
   static String get subscriptionEventTime => 'event_time';
+
+  static const String productIdentifier = 'product_identifier';
 }

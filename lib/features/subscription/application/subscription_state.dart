@@ -62,13 +62,12 @@ class SubscriptionStateData with _$SubscriptionStateData {
     @Default(<ProductDetails>[]) List<ProductDetails> plans,
     @Default(<ServerProduct>[]) List<ServerProduct> serverPlans,
     @Default(<PurchaseDetails>[]) List<PurchaseDetails> purchases,
-    @Default(false) bool isWaitTimeout,
     PurchasedProduct? purchased,
     Subscription? subscription,
     ProductDetails? product,
   }) = _SubscriptionStateData;
 
-  String? get errorMessage => error?.message;
+  String get errorKey => error?.message ?? LocalizedTexts.errorSomethingWentWrong;
 
   bool get hasSubscription =>
       (subscription?.isActive ?? false) && subscription?.state != SubscriptionStatus.cancelled;

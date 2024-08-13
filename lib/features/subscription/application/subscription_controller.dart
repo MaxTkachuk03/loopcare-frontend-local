@@ -72,6 +72,10 @@ class SubscriptionController {
         }
       }
     }
+    if (products.length == 1) {
+      selectedPlan.value = products.first;
+      isEnableSubscribe.value = true;
+    }
   }
 
   String _getCurrency(String currencyCode) => NumberFormat().simpleCurrencySymbol(currencyCode);

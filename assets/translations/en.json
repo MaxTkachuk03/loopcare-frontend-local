@@ -1882,6 +1882,7 @@
   "errorSomethingWentWrong": "Something went wrong \nPlease try again later",
   "errorSubscriptionServiceUnavailable": "Something went wrong with service, please try again",
   "errorPurchaseStreamError": "Something went wrong with stream subscription, please try again",
+  "errorPurchaseVerificationError": "Something went wrong with verification subscription, please try restore",
   "errorPurchaseErrorMessage": "Product was not purchased, please try again",
   "errorSomethingIsIncorrect": "Something is incorrect or missing",
   "errorServingIdIsNotFound": "Sorry, invalid ingredients data",
