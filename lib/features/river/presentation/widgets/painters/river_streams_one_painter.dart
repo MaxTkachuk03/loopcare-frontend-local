@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:loopcare_frontend/features/river/presentation/painters/river_stream_painter.dart';
+import 'package:loopcare_frontend/features/river/presentation/widgets/painters/river_stream_painter.dart';
 
 class FunctionCoefficientsOne extends FunctionCoefficientsValues {
   const FunctionCoefficientsOne();

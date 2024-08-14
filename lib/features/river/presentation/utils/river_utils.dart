@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:loopcare_frontend/features/river/domain/river_module_item.dart';
-import 'package:loopcare_frontend/features/river/infrastructure/blue_river_module_item_state.dart';
-import 'package:loopcare_frontend/features/river/infrastructure/river_module_item_state.dart';
-import 'package:loopcare_frontend/features/river/infrastructure/river_module_stream_type.dart';
+import 'package:loopcare_frontend/features/river/domain/blue_river_module_item_state.dart';
+import 'package:loopcare_frontend/features/river/domain/river_module_item_state.dart';
+import 'package:loopcare_frontend/features/river/domain/river_module_stream_type.dart';
 
 const double kRiverOverviewItemRadius = 18.0;
 const double kRiverRootItemRadius = 36.0;

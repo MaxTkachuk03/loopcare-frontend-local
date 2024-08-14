@@ -10,12 +10,12 @@ import 'package:loopcare_frontend/features/home/application/navigation_bar_bloc.
 import 'package:loopcare_frontend/features/river/application/river_bloc.dart';
 import 'package:loopcare_frontend/features/river/domain/river_module.dart';
 import 'package:loopcare_frontend/features/river/domain/river_module_item.dart';
-import 'package:loopcare_frontend/features/river/infrastructure/feature_placement.dart';
-import 'package:loopcare_frontend/features/river/presentation/river_module_item_widget/river_animation_module_item_widget.dart';
-import 'package:loopcare_frontend/features/river/presentation/river_module_item_widget/start_river_module_item.dart';
+import 'package:loopcare_frontend/features/river/domain/feature_placement.dart';
 import 'package:loopcare_frontend/features/river/presentation/utils/module_items_utils.dart';
 import 'package:loopcare_frontend/features/river/presentation/utils/river_utils.dart';
 import 'package:loopcare_frontend/features/river/presentation/widgets/river_module_builder.dart';
+import 'package:loopcare_frontend/features/river/presentation/widgets/river_module_item_widget/river_animation_module_item_widget.dart';
+import 'package:loopcare_frontend/features/river/presentation/widgets/river_module_item_widget/start_river_module_item.dart';
 import 'package:visibility_detector/visibility_detector.dart';
 
 class RiverScreen extends StatefulWidget {

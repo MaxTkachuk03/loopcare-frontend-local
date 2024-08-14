@@ -2,13 +2,12 @@ import 'dart:async';
 import 'dart:math';
 
 import 'package:flutter/material.dart';
-
-import '../painters/river_streams_five_painter.dart';
-import '../painters/river_streams_four_painter.dart';
-import '../painters/river_streams_one_painter.dart';
-import '../painters/river_streams_start_painter.dart';
-import '../painters/river_streams_three_painter.dart';
-import '../painters/river_streams_two_painter.dart';
+import 'package:loopcare_frontend/features/river/presentation/widgets/painters/river_streams_five_painter.dart';
+import 'package:loopcare_frontend/features/river/presentation/widgets/painters/river_streams_four_painter.dart';
+import 'package:loopcare_frontend/features/river/presentation/widgets/painters/river_streams_one_painter.dart';
+import 'package:loopcare_frontend/features/river/presentation/widgets/painters/river_streams_start_painter.dart';
+import 'package:loopcare_frontend/features/river/presentation/widgets/painters/river_streams_three_painter.dart';
+import 'package:loopcare_frontend/features/river/presentation/widgets/painters/river_streams_two_painter.dart';
 
 const Duration _waveDuration = Duration(milliseconds: 3000);
 const Duration _updatePositionDuration = Duration(milliseconds: 60000);

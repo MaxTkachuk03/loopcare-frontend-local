@@ -1,7 +1,7 @@
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:loopcare_frontend/features/reflections/domain/reflection_question.dart';
-import 'package:loopcare_frontend/features/river/infrastructure/river_module_stream_type.dart';
+import 'package:loopcare_frontend/features/river/domain/river_module_stream_type.dart';
 
 part 'reflection.freezed.dart';
 

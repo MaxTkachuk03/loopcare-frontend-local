@@ -6,11 +6,11 @@ import 'package:loopcare_frontend/core/infrastructure/services/app_config.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 import 'package:loopcare_frontend/features/home/presentation/widget/custom_navigation_bar/animated_bottom_bar.dart';
 import 'package:loopcare_frontend/features/river/domain/river_module_item.dart';
-import 'package:loopcare_frontend/features/river/infrastructure/feature_placement.dart';
-import 'package:loopcare_frontend/features/river/infrastructure/river_module_item_animation_state.dart';
-import 'package:loopcare_frontend/features/river/presentation/river_module_item_widget/river_module_button.dart';
-import 'package:loopcare_frontend/features/river/presentation/river_module_item_widget/river_module_item_preview.dart';
+import 'package:loopcare_frontend/features/river/domain/feature_placement.dart';
+import 'package:loopcare_frontend/features/river/domain/river_module_item_animation_state.dart';
 import 'package:loopcare_frontend/features/river/presentation/utils/river_utils.dart';
+import 'package:loopcare_frontend/features/river/presentation/widgets/river_module_item_widget/river_module_button.dart';
+import 'package:loopcare_frontend/features/river/presentation/widgets/river_module_item_widget/river_module_item_preview.dart';
 import 'package:visibility_detector/visibility_detector.dart';
 
 part 'parts/_flying_item.dart';

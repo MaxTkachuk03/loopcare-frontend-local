@@ -20,7 +20,7 @@ import 'package:loopcare_frontend/features/education/presentation/education_page
 import 'package:loopcare_frontend/features/education/presentation/lesson/widgets/audio_block.dart';
 import 'package:loopcare_frontend/features/education/presentation/lesson/widgets/image_container.dart';
 import 'package:loopcare_frontend/features/education/presentation/lesson/widgets/player_loading_state.dart';
-import 'package:loopcare_frontend/features/river/infrastructure/river_module_stream_type.dart';
+import 'package:loopcare_frontend/features/river/domain/river_module_stream_type.dart';
 
 const kHeightPadding = 20.0;
 

@@ -1,5 +1,5 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:loopcare_frontend/features/river/infrastructure/item_action_type.dart';
+import 'package:loopcare_frontend/features/river/domain/item_action_type.dart';
 
 part 'river_module_item_actions.freezed.dart';
 part 'river_module_item_actions.g.dart';

@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:loopcare_frontend/core/domain/unlocked_feature_type.dart';
+import 'package:loopcare_frontend/features/river/domain/river_icon_type.dart';
 import 'package:loopcare_frontend/features/river/domain/river_module_item_actions.dart';
 import 'package:loopcare_frontend/features/river/domain/river_module_item_view_state.dart';
-import 'package:loopcare_frontend/features/river/infrastructure/feature_placement.dart';
-import 'package:loopcare_frontend/features/river/infrastructure/river_icon_type.dart';
-import 'package:loopcare_frontend/features/river/infrastructure/river_module_stream_type.dart';
+import 'package:loopcare_frontend/features/river/domain/feature_placement.dart';
+import 'package:loopcare_frontend/features/river/domain/river_module_stream_type.dart';
 
 part 'river_module_item.freezed.dart';
 part 'river_module_item.g.dart';

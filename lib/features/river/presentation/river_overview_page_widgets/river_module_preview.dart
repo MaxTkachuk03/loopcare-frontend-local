@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:loopcare_frontend/features/river/domain/river_module.dart';
-import 'package:loopcare_frontend/features/river/presentation/river_module_item_widget/river_module_item_preview.dart';
-import 'package:loopcare_frontend/features/river/presentation/river_module_item_widget/start_river_module_item.dart';
 import 'package:loopcare_frontend/features/river/presentation/utils/module_items_utils.dart';
 import 'package:loopcare_frontend/features/river/presentation/utils/river_utils.dart';
 import 'package:loopcare_frontend/features/river/presentation/widgets/river_module_builder.dart';
+import 'package:loopcare_frontend/features/river/presentation/widgets/river_module_item_widget/river_module_item_preview.dart';
+import 'package:loopcare_frontend/features/river/presentation/widgets/river_module_item_widget/start_river_module_item.dart';
 
 class RiverModulePreview extends StatelessWidget with RiverUtils {
   const RiverModulePreview({

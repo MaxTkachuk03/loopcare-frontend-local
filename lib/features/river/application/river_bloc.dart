@@ -5,15 +5,16 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
 import 'package:loopcare_frontend/core/infrastructure/dio_client/request_error.dart';
 import 'package:loopcare_frontend/core/presentation/utils/list_extensions.dart';
-import 'package:loopcare_frontend/features/river/application/dto/river_module_item_state_data.dart';
-import 'package:loopcare_frontend/features/river/application/dto/river_module_state_data.dart';
-import 'package:loopcare_frontend/features/river/application/river_service.dart';
+import 'package:loopcare_frontend/features/river/domain/river_module_item_state.dart';
+import 'package:loopcare_frontend/features/river/domain/river_service.dart';
 import 'package:loopcare_frontend/features/river/domain/river_module.dart';
 import 'package:loopcare_frontend/features/river/domain/river_module_item.dart';
 import 'package:loopcare_frontend/features/river/domain/river_module_item_view_state.dart';
-import 'package:loopcare_frontend/features/river/infrastructure/river_module_item_animation_state.dart';
-import 'package:loopcare_frontend/features/river/infrastructure/river_module_item_state.dart';
-import 'package:loopcare_frontend/features/river/infrastructure/river_module_state.dart';
+import 'package:loopcare_frontend/features/river/domain/river_module_item_animation_state.dart';
+import 'package:loopcare_frontend/features/river/domain/river_module_state.dart';
+import 'package:loopcare_frontend/features/river/infrastructure/dto/river_module_item_state_data.dart';
+import 'package:loopcare_frontend/features/river/infrastructure/dto/river_module_state_data.dart';
+import 'package:loopcare_frontend/features/river/presentation/widgets/painters/river_stream_shaders.dart';
 
 part 'river_event.dart';
 part 'river_state.dart';
@@ -41,6 +42,8 @@ class RiverBloc extends Bloc<RiverEvent, RiverState> {
 
   FutureOr<void> _onGetModules(GetModules event, Emitter<RiverState> emit) async {
     emit(RiverState.moduleLoading(state.data.copyWith(isLoading: true)));
+
+    await RiverStreamShader.instance.init('shaders/river_stream_shader.glsl');
 
     final response = await _riverService.getModules();
 

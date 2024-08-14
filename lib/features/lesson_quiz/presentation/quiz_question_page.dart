@@ -24,7 +24,7 @@ import 'package:loopcare_frontend/features/lesson_quiz/domain/quiz_question_opti
 import 'package:loopcare_frontend/features/lesson_quiz/infrastructure/questions_page_mode.dart';
 import 'package:loopcare_frontend/features/lesson_quiz/presentation/widgets/answer_explanation.dart';
 import 'package:loopcare_frontend/features/lesson_quiz/presentation/widgets/quiz_question_options_list.dart';
-import 'package:loopcare_frontend/features/river/infrastructure/river_module_stream_type.dart';
+import 'package:loopcare_frontend/features/river/domain/river_module_stream_type.dart';
 
 @RoutePage()
 class QuizQuestionPage extends StatefulWidget {

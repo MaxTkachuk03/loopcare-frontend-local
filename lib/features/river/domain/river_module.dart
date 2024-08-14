@@ -1,6 +1,6 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:loopcare_frontend/features/river/domain/river_module_item.dart';
-import 'package:loopcare_frontend/features/river/infrastructure/river_module_state.dart';
+import 'package:loopcare_frontend/features/river/domain/river_module_state.dart';
 import 'package:ntp/ntp.dart';
 
 part 'river_module.freezed.dart';
