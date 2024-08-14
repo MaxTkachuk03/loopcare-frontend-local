@@ -40,6 +40,7 @@ class ReflectionsDashboardWidget extends StatelessWidget {
               onTap: () => context.router.push(const MyReflectionsRoute()),
               highlightColor: AppColors.petrolLightest,
               leadingIcon: const CircleAvatar(
+                radius: 22,
                 backgroundColor: AppColors.petrolRegular,
                 child: Icon(AppIconsData.iReflection, color: AppColors.petrolLightest),
               ),
