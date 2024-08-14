@@ -205,13 +205,13 @@ class _RiverAnimationModuleItemWidgetState extends State<RiverAnimationModuleIte
 
   void _setUpItemColorAnimation(RiverModuleItem item) {
     _colorIconAnimation = ColorTween(
-      begin: getIconColor(item.states.prevItemState, item.streamType),
-      end: getIconColor(item.states.itemState, item.streamType),
+      begin: getIconColor(item.states.prevItemState, item.streamType, item.isRootItem),
+      end: getIconColor(item.states.itemState, item.streamType, item.isRootItem),
     ).animate(_colorController);
 
     _colorBgAnimation = ColorTween(
-      begin: getBackgroundColor(item.states.prevItemState, item.streamType),
-      end: getBackgroundColor(item.states.itemState, item.streamType),
+      begin: getBackgroundColor(item.states.prevItemState, item.streamType, item.isRootItem),
+      end: getBackgroundColor(item.states.itemState, item.streamType, item.isRootItem),
     ).animate(_colorController);
   }
 
@@ -282,7 +282,7 @@ class _RiverAnimationModuleItemWidgetState extends State<RiverAnimationModuleIte
   void _runIdling() {
     if (widget.item.states.itemState.isUnLocked) {
       Future.delayed(_idleDelayDuration, () {
-        if (_isMounted) _idleController.repeat(reverse: true);
+        if (_isMounted) _sizeController.repeat(reverse: true);
       });
     }
   }
