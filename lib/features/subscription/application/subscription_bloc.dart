@@ -30,8 +30,10 @@ import 'package:loopcare_frontend/features/subscription/domain/valid_status.dart
 import 'package:loopcare_frontend/features/subscription/domain/verify_purchase_data_android.dart';
 import 'package:loopcare_frontend/features/subscription/domain/verify_purchase_data_ios.dart';
 import 'package:loopcare_frontend/features/subscription/utils/date_utils.dart';
+
 //import for AppStoreProductDetails
 import 'package:in_app_purchase_storekit/in_app_purchase_storekit.dart';
+
 //import for SKProductWrapper
 import 'package:in_app_purchase_android/in_app_purchase_android.dart';
 import 'package:loopcare_frontend/injection.dart';
@@ -63,53 +65,46 @@ class SubscriptionBloc extends Bloc<SubscriptionEvent, SubscriptionState> {
     on<SubscriptionLogout>(_onLogout);
     on<GetPlansFromServer>(_onGetPlansFromServer);
     on<BuySubscription>(_onBuySubscription);
-    on<NotifyUser>(_notifyUser);
     on<VerifyLastPurchase>(_onVerifyLastPurchase);
     on<RestorePurchased>(_onRestorePurchased);
     on<PurchasedSubscription>(_onPurchasedSubscription);
-    on<ErrorVerifyPurchase>(_onErrorVerifyPurchase);
+    on<ErrorPurchase>(_onErrorPurchase);
     on<GetActiveSubscription>(_onGetActiveSubscription);
     on<GetAccountSubscription>(_onGetAccountSubscription);
     on<GetSubscriptionPlans>(_onGetSubscriptionPlans);
+    on<CanceledByUser>(_cancelledByUser);
 
     purchaseDetailsStreamSubscription = PurchaseDetailsStreamSubscription(
-      onError: (error) => isValidatePastIOSPurchase
-          ? _verifyOldPurchase(null, buyingProduct!)
-          : add(SubscriptionEvent.errorVerifyPurchase(error)),
+      onError: (error) => add(SubscriptionEvent.errorPurchase(error)),
       onRestored: (purchase) async => _restoreTransactionData(purchase),
       onPurchased: (PurchaseDetails purchaseDetails) async => _handlePurchase(purchaseDetails),
+      onCanceled: () => add(const SubscriptionEvent.canceledByUser()),
+      onEmpty: () => isValidatePastIOSPurchase
+          ? _verifyOldPurchase(null, buyingProduct!)
+          : log.i('No any transactions from  store history'),
     )..init();
   }
 
-  // 1
   FutureOr<void> _onVerifyLastPurchase(
     VerifyLastPurchase event,
     Emitter<SubscriptionState> emit,
   ) async {
-    emit(
-      const SubscriptionState.initial(SubscriptionStateData()),
-    );
-    emit(
-      SubscriptionState.loading(state.data.copyWith(isLoading: true)),
-    );
+    emit(const SubscriptionState.initial(SubscriptionStateData()));
+    emit(SubscriptionState.loading(state.data.copyWith(isLoading: true)));
     isValidatePastIOSPurchase = true;
     _getOldPurchase(event.product);
   }
 
-  //2
   void _getOldPurchase(ProductDetails product) async {
     PurchaseDetails? oldPurchaseDetails;
     if (Platform.isAndroid) {
-      {
-        final InAppPurchaseAndroidPlatformAddition androidAddition = inAppPurchaseService.instance
-            .getPlatformAddition<InAppPurchaseAndroidPlatformAddition>();
-        final QueryPurchaseDetailsResponse oldPurchases =
-            await androidAddition.queryPastPurchases();
-        if (oldPurchases.pastPurchases.isNotEmpty) {
-          oldPurchaseDetails = oldPurchases.pastPurchases.last;
-        }
-        await _verifyOldPurchase(oldPurchaseDetails, product);
+      final InAppPurchaseAndroidPlatformAddition androidAddition =
+          inAppPurchaseService.instance.getPlatformAddition<InAppPurchaseAndroidPlatformAddition>();
+      final QueryPurchaseDetailsResponse oldPurchases = await androidAddition.queryPastPurchases();
+      if (oldPurchases.pastPurchases.isNotEmpty) {
+        oldPurchaseDetails = oldPurchases.pastPurchases.last;
       }
+      await _verifyOldPurchase(oldPurchaseDetails, product);
     } else {
       isValidatePastIOSPurchase = true;
       buyingProduct = product;
@@ -127,12 +122,21 @@ class SubscriptionBloc extends Bloc<SubscriptionEvent, SubscriptionState> {
       response = await _apiVerified(oldPurchaseDetails);
     }
     response.fold((error) {
-      add(SubscriptionEvent.errorVerifyPurchase(error));
+      _pushAnalyticErrorVerifyLastPurchase(product);
+      add(SubscriptionEvent.errorPurchase(error));
     }, (r) async {
-      r.valid ?? true
-          ? add(SubscriptionEvent.buySubscription(product))
-          : add(const SubscriptionEvent.errorVerifyPurchase(RequestError.streamSubscription(
-              ServerErrorData(message: LocalizedTexts.subscriptionServiceUnavailable))));
+      if (r.valid ?? true) {
+        add(SubscriptionEvent.buySubscription(product));
+      } else {
+        _pushAnalyticErrorVerifyLastPurchase(product);
+        add(
+          const SubscriptionEvent.errorPurchase(
+            RequestError.streamSubscription(
+              ServerErrorData(message: LocalizedTexts.errorSomethingWentWrong),
+            ),
+          ),
+        );
+      }
     });
   }
 
@@ -140,39 +144,38 @@ class SubscriptionBloc extends Bloc<SubscriptionEvent, SubscriptionState> {
     BuySubscription event,
     Emitter<SubscriptionState> emit,
   ) async {
-    emit(
-      SubscriptionState.loading(state.data.copyWith(isLoading: true)),
-    );
-
     final inAppPurchaseService = getIt<AppSubscriptionService>();
-
     try {
+      _pushAnalyticStartPurchase(event);
       final purchased = await inAppPurchaseService.buyItemInStore(event.product);
       if (!purchased) {
         emit(
           SubscriptionState.error(
             state.data.copyWith(
               error: const RequestError.streamSubscription(
-                  ServerErrorData(message: LocalizedTexts.subscriptionServiceUnavailable)),
+                ServerErrorData(message: LocalizedTexts.errorPurchaseErrorMessage),
+              ),
               isLoading: false,
             ),
           ),
         );
       } else {
         emit(
-          SubscriptionState.loading(state.data.copyWith(isWaitTimeout: true)),
+          SubscriptionState.loading(
+            state.data.copyWith(
+              product: event.product,
+            ),
+          ),
         );
-        add(const SubscriptionEvent.notifyUser());
       }
     } catch (e) {
-      emit(
-        SubscriptionState.loading(state.data.copyWith(isLoading: false)),
-      );
+      _pushAnalyticDuplicatePurchase(event);
       emit(
         SubscriptionState.purchaseDuplicateSubscription(
           state.data.copyWith(
             error: const RequestError.streamSubscription(
-                ServerErrorData(message: LocalizedTexts.purchaseErrorMessage)),
+              ServerErrorData(message: LocalizedTexts.errorPurchaseErrorMessage),
+            ),
             isLoading: false,
           ),
         ),
@@ -180,27 +183,7 @@ class SubscriptionBloc extends Bloc<SubscriptionEvent, SubscriptionState> {
     }
   }
 
-  FutureOr<void> _notifyUser(
-    NotifyUser event,
-    Emitter<SubscriptionState> emit,
-  ) async {
-    await Future.delayed(
-      const Duration(seconds: delayDuration),
-      () {
-        if (state.data.isWaitTimeout) {
-          emit(SubscriptionState.askRestoredSubscription(
-              state.data.copyWith(isLoading: false, isWaitTimeout: false)));
-        }
-      },
-    );
-  }
-
   Future<void> _handlePurchase(PurchaseDetails purchaseDetails) async {
-    // todo: resolve using regular event-state flow
-    // ignore: invalid_use_of_visible_for_testing_member
-    emit(
-      SubscriptionState.loading(state.data.copyWith(isLoading: true, isWaitTimeout: false)),
-    );
     try {
       if (purchaseDetails.status == PurchaseStatus.purchased) {
         await _verifyPurchasedOrRestore(purchaseDetails);
@@ -212,7 +195,8 @@ class SubscriptionBloc extends Bloc<SubscriptionEvent, SubscriptionState> {
     final response = await _apiPurchaseOrRestore(purchaseDetails);
     response.fold(
       (error) {
-        add(SubscriptionEvent.errorVerifyPurchase(error));
+        _pushAnalyticErrorVerifyOnServer(purchaseDetails);
+        add(SubscriptionEvent.errorPurchase(error));
       },
       (r) async {
         final accessTokenUpdated = await authTokenManager.updateAccessToken();
@@ -244,8 +228,6 @@ class SubscriptionBloc extends Bloc<SubscriptionEvent, SubscriptionState> {
           const AnalyticsEventService.appsFlyer().logEvent(
             eventName: '${AnalyticsEvents.subscriptionBought}_${price}_$currencyCode',
             parameters: {
-              AnalyticsParameters.subscriptionRevenue: state.data.product?.price,
-              AnalyticsParameters.subscriptionCurrencyCode: state.data.product?.currencyCode,
               AnalyticsParameters.subscriptionContentId: purchaseDetails.purchaseID,
               AnalyticsParameters.subscriptionTransactionId: identifier,
               AnalyticsParameters.subscriptionContentType: purchaseDetails.productID,
@@ -262,8 +244,13 @@ class SubscriptionBloc extends Bloc<SubscriptionEvent, SubscriptionState> {
             ),
           );
         } else {
-          add(const SubscriptionEvent.errorVerifyPurchase(RequestError.streamSubscription(
-              ServerErrorData(message: LocalizedTexts.subscriptionServiceUnavailable))));
+          add(
+            const SubscriptionEvent.errorPurchase(
+              RequestError.streamSubscription(
+                ServerErrorData(message: LocalizedTexts.errorPurchaseVerificationError),
+              ),
+            ),
+          );
         }
       },
     );
@@ -343,33 +330,35 @@ class SubscriptionBloc extends Bloc<SubscriptionEvent, SubscriptionState> {
   FutureOr<void> _onPurchasedSubscription(
     PurchasedSubscription event,
     Emitter<SubscriptionState> emit,
-  ) async {
-    emit(
-      SubscriptionState.loading(state.data.copyWith(isLoading: false)),
-    );
-    emit(SubscriptionState.purchasedSubscription(state.data.copyWith(
-      purchased: event.purchasedProduct,
-      subscription: event.subscription,
-      isLoading: false,
-    )));
-  }
+  ) async =>
+      emit(
+        SubscriptionState.purchasedSubscription(
+          state.data.copyWith(
+            purchased: event.purchasedProduct,
+            subscription: event.subscription,
+            isLoading: false,
+          ),
+        ),
+      );
 
-  FutureOr<void> _onErrorVerifyPurchase(
-    ErrorVerifyPurchase event,
+  FutureOr<void> _onErrorPurchase(
+    ErrorPurchase event,
     Emitter<SubscriptionState> emit,
   ) async =>
-      emit(SubscriptionState.error(state.data.copyWith(
-        error: event.error,
-        isLoading: false,
-      )));
+      emit(
+        SubscriptionState.error(
+          state.data.copyWith(
+            error: event.error,
+            isLoading: false,
+          ),
+        ),
+      );
 
   FutureOr<void> _onRestorePurchased(
     RestorePurchased event,
     Emitter<SubscriptionState> emit,
   ) {
-    emit(
-      SubscriptionState.loading(state.data.copyWith(isLoading: true)),
-    );
+    emit(SubscriptionState.loading(state.data.copyWith(isLoading: true)));
     isValidatePastIOSPurchase = false;
     final inAppPurchaseService = getIt<AppSubscriptionService>();
     inAppPurchaseService.restorePurchase();
@@ -385,7 +374,14 @@ class SubscriptionBloc extends Bloc<SubscriptionEvent, SubscriptionState> {
     final vendor = Platform.isIOS ? 'ios' : 'android';
     var response = await _purchaseService.getProductList(vendor);
     response.fold((error) {
-      emit(SubscriptionState.serviceSubscriptionUnavailable(state.data));
+      emit(
+        SubscriptionState.error(
+          state.data.copyWith(
+            error: error,
+            isLoading: false,
+          ),
+        ),
+      );
     }, (r) {
       List<ServerProduct> serverList = [...r.data];
       serverList.sort((a, b) => a.price!.toInt().compareTo(b.price!.toInt()));
@@ -400,9 +396,7 @@ class SubscriptionBloc extends Bloc<SubscriptionEvent, SubscriptionState> {
     GetSubscriptionPlans event,
     Emitter<SubscriptionState> emit,
   ) async {
-    emit(
-      SubscriptionState.loading(state.data.copyWith(isLoading: true)),
-    );
+    emit(SubscriptionState.loading(state.data.copyWith(isLoading: true)));
     Set<String> products = {};
     for (final product in state.data.serverPlans) {
       products.add(product.productId!);
@@ -415,10 +409,7 @@ class SubscriptionBloc extends Bloc<SubscriptionEvent, SubscriptionState> {
     final inAppPurchaseService = getIt<AppSubscriptionService>();
     final plans = await inAppPurchaseService.getSubscriptionPlans(products);
     if (plans.isEmpty) {
-      emit(
-        SubscriptionState.loading(state.data.copyWith(isLoading: false)),
-      );
-      emit(SubscriptionState.serviceSubscriptionUnavailable(state.data));
+      emit(SubscriptionState.serviceSubscriptionUnavailable(state.data.copyWith(isLoading: false)));
     } else {
       emit(
         SubscriptionState.successInPlans(state.data.copyWith(isLoading: false, plans: plans)),
@@ -439,7 +430,8 @@ class SubscriptionBloc extends Bloc<SubscriptionEvent, SubscriptionState> {
       (error) => emit(SubscriptionState.error(state.data.copyWith(error: error, isLoading: false))),
       (r) => emit(
         SubscriptionState.gotAccountSubscription(
-            state.data.copyWith(isLoading: false, subscription: r.subscription)),
+          state.data.copyWith(isLoading: false, subscription: r.subscription),
+        ),
       ),
     );
   }
@@ -537,18 +529,95 @@ class SubscriptionBloc extends Bloc<SubscriptionEvent, SubscriptionState> {
     SubscriptionLogout event,
     Emitter<SubscriptionState> emit,
   ) async {
-    emit(
-      SubscriptionState.loading(state.data.copyWith(isLoading: true)),
-    );
+    emit(SubscriptionState.loading(state.data.copyWith(isLoading: true)));
     purchaseDetailsStreamSubscription.close();
     await _authenticationService.logout();
     await authTokenManager.removeAccessToken();
     await authTokenManager.removeRefreshToken();
     CustomerIoService.logOut();
     _socketService.disconnect();
+    emit(SubscriptionState.logout(state.data.copyWith(isLoading: false)));
+  }
+
+  FutureOr<void> _cancelledByUser(
+    CanceledByUser event,
+    Emitter<SubscriptionState> emit,
+  ) async {
+    CustomerIoService.track(
+      event: AnalyticsEvents.subscriptionUserClosePurchaseDialog,
+    );
+    const AnalyticsEventService.uxcam().logEvent(
+      eventName: AnalyticsEvents.subscriptionUserClosePurchaseDialog,
+      parameters: {
+        AnalyticsParameters.timestamp: DateTime.now().toIso8601String(),
+      },
+    );
     emit(
       SubscriptionState.loading(state.data.copyWith(isLoading: false)),
     );
-    emit(SubscriptionState.logout(state.data));
+  }
+
+  void _pushAnalyticStartPurchase(BuySubscription event) {
+    CustomerIoService.track(
+      event: AnalyticsEvents.subscriptionStartPurchase,
+      attributes: {
+        CIOAttributes.identifierOption: event.product.id,
+      },
+    );
+    const AnalyticsEventService.uxcam().logEvent(
+      eventName: AnalyticsEvents.subscriptionStartPurchase,
+      parameters: {
+        AnalyticsParameters.timestamp: DateTime.now().toIso8601String(),
+        AnalyticsParameters.productIdentifier: event.product.id,
+      },
+    );
+  }
+
+  void _pushAnalyticErrorVerifyLastPurchase(ProductDetails product) {
+    CustomerIoService.track(
+      event: AnalyticsEvents.subscriptionErrorVerifyLastPurchaseOnServer,
+      attributes: {
+        CIOAttributes.identifierOption: product.id,
+      },
+    );
+    const AnalyticsEventService.uxcam().logEvent(
+      eventName: AnalyticsEvents.subscriptionErrorVerifyLastPurchaseOnServer,
+      parameters: {
+        AnalyticsParameters.timestamp: DateTime.now().toIso8601String(),
+        AnalyticsParameters.productIdentifier: product.id,
+      },
+    );
+  }
+
+  void _pushAnalyticDuplicatePurchase(BuySubscription event) {
+    CustomerIoService.track(
+      event: AnalyticsEvents.subscriptionDuplicatePurchase,
+      attributes: {
+        CIOAttributes.identifierOption: event.product.id,
+      },
+    );
+    const AnalyticsEventService.uxcam().logEvent(
+      eventName: AnalyticsEvents.subscriptionDuplicatePurchase,
+      parameters: {
+        AnalyticsParameters.timestamp: DateTime.now().toIso8601String(),
+        AnalyticsParameters.productIdentifier: event.product.id,
+      },
+    );
+  }
+
+  void _pushAnalyticErrorVerifyOnServer(PurchaseDetails purchaseDetails) {
+    CustomerIoService.track(
+      event: AnalyticsEvents.subscriptionErrorVerifyOnServer,
+      attributes: {
+        CIOAttributes.identifierOption: purchaseDetails.productID,
+      },
+    );
+    const AnalyticsEventService.uxcam().logEvent(
+      eventName: AnalyticsEvents.subscriptionErrorVerifyOnServer,
+      parameters: {
+        AnalyticsParameters.timestamp: DateTime.now().toIso8601String(),
+        AnalyticsParameters.productIdentifier: purchaseDetails.productID,
+      },
+    );
   }
 }

@@ -60,7 +60,8 @@ class _EmailAddressFormState extends State<EmailAddressForm> {
         key: _formKey,
         onChanged: _onChangedForm,
         child: AutofillGroup(
-          onDisposeAction: widget._isUpdate ? AutofillContextAction.commit : AutofillContextAction.cancel,
+          onDisposeAction:
+              widget._isUpdate ? AutofillContextAction.commit : AutofillContextAction.cancel,
           child: Column(
             children: [
               ValueListenableBuilder<String?>(
@@ -122,10 +123,10 @@ class _EmailAddressFormState extends State<EmailAddressForm> {
     final error = state.data.error;
     if (error != null) {
       final message = error.message;
-      if (message == LocalizedTexts.accountAlreadyExists) {
+      if (message == LocalizedTexts.errorAccountIdAlreadyExists) {
         _emailErrorTextNotifier.value = message.tr();
       } else {
-        context.showError(content: Text(message.tr()));
+        context.showError(content: CustomText(message.tr()));
       }
     }
   }

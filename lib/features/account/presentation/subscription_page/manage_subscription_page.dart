@@ -158,9 +158,9 @@ class _ManageSubscriptionPageState extends State<ManageSubscriptionPage> {
   }
 
   _errorListener(BuildContext context, SubscriptionState state) {
-    final errorMessage = state.data.errorMessage ?? LocalizedTexts.somethingWentWrong;
+    final errorMessage = state.data.errorKey ;
     context.showErrorBar(
-      content: Text(errorMessage.tr()),
+      content: CustomText(errorMessage.tr()),
       position: FlashPosition.top,
     );
     context.router.maybePop();
@@ -181,6 +181,7 @@ class _DetailsSection extends StatelessWidget {
         children: [
           Expanded(
             child: AccountContainer(
+              padding: const EdgeInsets.all(24.0),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.start,

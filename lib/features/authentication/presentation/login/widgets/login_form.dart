@@ -13,6 +13,7 @@ import 'package:loopcare_frontend/core/presentation/alerting/show_app_snackbar.d
 import 'package:loopcare_frontend/core/presentation/buttons/custom_elevated_button.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/core/presentation/routes/app_router.dart';
+import 'package:loopcare_frontend/core/presentation/text/custom_text.dart';
 import 'package:loopcare_frontend/core/presentation/text_field/custom_text_field.dart';
 import 'package:loopcare_frontend/features/authentication/application/authentication_bloc.dart';
 import 'package:loopcare_frontend/features/authentication/domain/email/email.dart';
@@ -85,10 +86,17 @@ class _LoginFormState extends State<LoginForm> {
                   ValueListenableBuilder<bool>(
                     valueListenable: _formValidationNotifier,
                     builder: (context, isValid, _) {
-                      return CustomElevatedButton.blueFullWidth(
-                        key: const ValueKey('login_button'),
-                        onPressed: isValid ? _onLogin : null,
-                        label: LocalizedTexts.login.tr(),
+                      return BlocBuilder<AuthenticationBloc, AuthenticationState>(
+                        builder: (context, state) {
+                          final isLoading = state is AuthenticationStateIsLoading;
+
+                          return CustomElevatedButton.blueFullWidth(
+                            key: const ValueKey('login_button'),
+                            onPressed: isValid ? _onLogin : null,
+                            label: LocalizedTexts.login.tr(),
+                            isLoading: isLoading,
+                          );
+                        },
                       );
                     },
                   ),
@@ -111,12 +119,8 @@ class _LoginFormState extends State<LoginForm> {
   _onLogin() {
     TextInput.finishAutofillContext();
 
-    context.read<AuthenticationBloc>().add(
-          AuthenticationEvent.login(
-            email: _emailController.text,
-            password: _passwordController.text,
-          ),
-        );
+    context.read<AuthenticationBloc>().add(AuthenticationEvent.login(
+        email: _emailController.text, password: _passwordController.text));
   }
 
   void _authenticationListener(BuildContext context, AuthenticationState state) {
@@ -187,23 +191,7 @@ class _LoginFormState extends State<LoginForm> {
   void _onGuest(GuestAuthenticationState state) {
     final error = state.data.error;
     if (error != null) {
-      final errorMessage = error.maybeMap(
-        notFound: (e) {
-          final message = e.message;
-          return message == LocalizedTexts.accountNotFound
-              ? message
-              : LocalizedTexts.somethingIsIncorrect.tr();
-        },
-        badRequest: (error) {
-          final message = error.message;
-          return message == LocalizedTexts.emailOrPasswordAreIncorrect
-              ? message
-              : LocalizedTexts.somethingIsIncorrect;
-        },
-        orElse: () => LocalizedTexts.somethingIsIncorrect.tr(),
-      );
-
-      context.showError(content: Text(errorMessage.tr()));
+      context.showError(content: CustomText(error.message.tr()));
     }
   }
 

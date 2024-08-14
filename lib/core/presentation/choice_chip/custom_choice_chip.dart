@@ -1,5 +1,5 @@
-import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
+import 'package:loopcare_frontend/core/presentation/text/custom_text.dart';
 import 'package:loopcare_frontend/core/presentation/text_with_accents/text_with_accents.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 import 'package:loopcare_frontend/core/presentation/utils/build_context_extensions.dart';
@@ -187,7 +187,8 @@ class CustomChoiceChip<T> extends StatelessWidget {
       data: Theme.of(context).copyWith(canvasColor: AppColors.transparent),
       child: ChoiceChip(
         padding: padding ?? const EdgeInsets.symmetric(horizontal: 25.0, vertical: 14.0),
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(borderRadius ?? 25))),
+        shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.all(Radius.circular(borderRadius ?? 25))),
         label: SizedBox(
           height: chipHeight,
           child: Row(
@@ -196,11 +197,12 @@ class CustomChoiceChip<T> extends StatelessWidget {
               Expanded(
                 child: accent != null
                     ? accent!
-                    : AutoSizeText(
+                    : CustomText(
                         label ?? '',
                         textAlign: textAlign ?? TextAlign.start,
                         style: selected
-                            ? context.textTheme.bodySmall?.copyWith(fontWeight: FontWeight.w600, color: selectedTextColor)
+                            ? context.textTheme.bodySmall
+                                ?.copyWith(fontWeight: FontWeight.w600, color: selectedTextColor)
                             : context.textTheme.bodySmall?.copyWith(fontWeight: FontWeight.w400),
                       ),
               ),
@@ -212,7 +214,9 @@ class CustomChoiceChip<T> extends StatelessWidget {
         onSelected: onSelected == null ? null : (_) => onSelected?.call(value),
         selectedColor: selectedColor,
         disabledColor: AppColors.greyLight,
-        side: ChipTheme.of(context).side?.copyWith(color: onSelected == null ? AppColors.greyLight : borderColor),
+        side: ChipTheme.of(context)
+            .side
+            ?.copyWith(color: onSelected == null ? AppColors.greyLight : borderColor),
         color: WidgetStateProperty.resolveWith((states) {
           const Set<WidgetState> interactiveStates = <WidgetState>{
             WidgetState.pressed,

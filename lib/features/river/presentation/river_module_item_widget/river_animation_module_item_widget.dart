@@ -20,6 +20,7 @@ const _defaultItemRadius = 25.0;
 const _idleDuration = Duration(milliseconds: 2000);
 const _bouncedDuration = Duration(milliseconds: 150);
 const _bouncedFullDuration = Duration(milliseconds: 900);
+const _idleDelayDuration = Duration(milliseconds: 1000);
 const _colorDuration = Duration(milliseconds: 1000);
 const _rotationDuration = Duration(milliseconds: 1000);
 const _unlockDuration = Duration(milliseconds: 1000);
@@ -63,7 +64,7 @@ class _RiverAnimationModuleItemWidgetState extends State<RiverAnimationModuleIte
   late RiverModuleItemAnimationState _itemAnimation;
 
   bool _isOnViewport = false;
-  bool _isDisposed = false;
+  bool _isMounted = true;
 
   @override
   bool get isBeginning => widget.isBeginning;
@@ -90,7 +91,7 @@ class _RiverAnimationModuleItemWidgetState extends State<RiverAnimationModuleIte
     _colorController.dispose();
     _rotationController.dispose();
     _badgeController.dispose();
-    _isDisposed = true;
+    _isMounted = false;
     super.dispose();
   }
 
@@ -191,8 +192,10 @@ class _RiverAnimationModuleItemWidgetState extends State<RiverAnimationModuleIte
         .chain(CurveTween(curve: Curves.easeInOut))
         .animate(_sizeController);
 
-    _badgeAnimation = Tween<double>(begin: widget.item.isCompleted ? 1.0 : 0.0, end: 1.0)
-        .animate(_badgeController);
+    _badgeAnimation = Tween<double>(
+      begin: widget.item.isCompleted ? 1.0 : 0.0,
+      end: 1.0,
+    ).animate(_badgeController);
   }
 
   void _clearItemAnimation() {
@@ -278,8 +281,8 @@ class _RiverAnimationModuleItemWidgetState extends State<RiverAnimationModuleIte
 
   void _runIdling() {
     if (widget.item.states.itemState.isUnLocked) {
-      Future.delayed(const Duration(seconds: 1), () {
-        if (!_isDisposed) _sizeController.repeat(reverse: true);
+      Future.delayed(_idleDelayDuration, () {
+        if (_isMounted) _idleController.repeat(reverse: true);
       });
     }
   }

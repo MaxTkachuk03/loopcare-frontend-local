@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:auto_route/auto_route.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
@@ -11,6 +13,8 @@ class ErrorInterceptor extends QueuedInterceptor {
   void onResponse(Response response, ResponseInterceptorHandler handler) {
     if (_isMaintenance(response)) {
       _pushToMaintenanceScreen();
+    } else if (_isPaymentRequired(response)) {
+      _pushToSubscriptionScreen();
     } else {
       return handler.next(response);
     }
@@ -26,11 +30,17 @@ class ErrorInterceptor extends QueuedInterceptor {
     return handler.next(err);
   }
 
-  bool _isMaintenance(Response<dynamic> response) => response.statusCode == 503;
+  bool _isMaintenance(Response<dynamic> response) => response.statusCode == HttpStatus.serviceUnavailable;
+
+  bool _isPaymentRequired(Response<dynamic> response) => response.statusCode == HttpStatus.paymentRequired;
 
   void _pushToMaintenanceScreen() {
     FlutterNativeSplash.remove();
     kOverlayContext.router.replaceAll([const MaintenanceRoute()]);
+  }
+  void _pushToSubscriptionScreen() {
+    FlutterNativeSplash.remove();
+    kOverlayContext.router.replaceAll([const SubscriptionRoute()]);
   }
 }
 

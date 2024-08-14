@@ -1,18 +1,20 @@
 import 'dart:math' as math;
 import 'dart:ui';
 
+import 'package:collection/collection.dart';
 import 'package:loopcare_frontend/features/river/domain/river_module_item.dart';
-
 import 'package:loopcare_frontend/features/river/presentation/utils/function_coefficients.dart';
 
 const List<Offset> _zeroPagePositions = [
-  Offset(0.39, 0.31),
   Offset(0.76, 0.62),
   Offset(0.88, 0.45),
+  Offset(0.59, 0.54),
 ];
 
+const Offset _zeroPageRootItemPosition = Offset(0.39, 0.31);
+
 class ModuleItemsUtils {
-  static get zeroPagePositions => _zeroPagePositions;
+  static Offset get zeroPageRootItemPosition => _zeroPageRootItemPosition;
 
   static Offset _getRootOffset(int page) {
     const dx = 0.5;
@@ -49,19 +51,27 @@ class ModuleItemsUtils {
   }
 
   static List<({Offset offset, RiverModuleItem item})> _getBeginningPageOffsets(
-      List<RiverModuleItem> items) {
+    List<RiverModuleItem> items,
+  ) {
     final List<({Offset offset, RiverModuleItem item})> list = [];
 
-    for (int i = 0; i < items.length; i++) {
-      final item = items[i];
-      list.add((offset: ModuleItemsUtils.zeroPagePositions[i], item: item));
+    final rootItem = items.firstWhereOrNull((i) => i.isRootItem);
+    final regularItems = items.where((i) => !i.isRootItem).toList();
+
+    if (rootItem != null) list.add((offset: _zeroPageRootItemPosition, item: rootItem));
+
+    for (int i = 0; i < regularItems.length; i++) {
+      final item = regularItems[i];
+      list.add((offset: _zeroPagePositions[i], item: item));
     }
 
     return list;
   }
 
   static List<({Offset offset, RiverModuleItem item})> _getItemsOffsetForPage(
-      int page, List<RiverModuleItem> items) {
+    int page,
+    List<RiverModuleItem> items,
+  ) {
     final List<({Offset offset, RiverModuleItem item})> list = [];
 
     final root = items.where((i) => i.isRootItem).toList();

@@ -71,7 +71,7 @@ class _NicknamePreferencesPageState extends State<NicknamePreferencesPage> {
   }
 
   void _onErrorHandler(GroupPreferencesState state) =>
-      context.showError(content: Text(state.data.error?.message.tr() ?? ''));
+      context.showError(content: CustomText(state.data.errorKey.tr()));
 
   void _onUpdateHandler(GroupPreferencesState state) {
     final groupPrefsMode = context.read<GroupPreferencesBloc>().state.data.groupPrefsMode;

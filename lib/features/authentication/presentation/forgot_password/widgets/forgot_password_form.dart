@@ -6,7 +6,9 @@ import 'package:flutter_uxcam/flutter_uxcam.dart';
 import 'package:loopcare_frontend/core/presentation/alerting/show_app_snackbar.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/core/presentation/routes/app_router.dart';
+import 'package:loopcare_frontend/core/presentation/text/custom_text.dart';
 import 'package:loopcare_frontend/core/presentation/text_field/custom_text_field.dart';
+import 'package:loopcare_frontend/core/presentation/utils/string_extensions.dart';
 import 'package:loopcare_frontend/features/authentication/application/authentication_bloc.dart';
 
 class ForgotPasswordForm extends StatefulWidget {
@@ -40,6 +42,7 @@ class _ForgotPasswordFormState extends State<ForgotPasswordForm> {
           child: CustomTextField.email(
             key: const ValueKey('forgot_password_email_text_field'),
             controller: _emailController,
+            textInputAction: TextInputAction.done,
           ),
         ),
       ),
@@ -50,7 +53,7 @@ class _ForgotPasswordFormState extends State<ForgotPasswordForm> {
 
   void _redirectListener(BuildContext context, AuthenticationState state) {
     context.showSuccessBar(
-      content: Text(
+      content: CustomText(
         LocalizedTexts.forgotEmailSuccessMessage.tr(
           namedArgs: {'email': _emailController.text},
         ),
@@ -58,7 +61,7 @@ class _ForgotPasswordFormState extends State<ForgotPasswordForm> {
       actions: [
         TextButton(
           onPressed: context.router.maybePop,
-          child: const Text('Ok'),
+          child:  CustomText(LocalizedTexts.ok.tr().capitalize()),
         ),
       ],
     );

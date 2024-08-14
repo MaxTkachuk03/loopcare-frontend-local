@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:loopcare_frontend/core/presentation/text/custom_text.dart';
 import 'package:loopcare_frontend/core/presentation/utils/build_context_extensions.dart';
 import 'package:loopcare_frontend/core/presentation/utils/string_extensions.dart';
+import 'package:loopcare_frontend/features/account/presentation/account_page/widgets/avatar_container.dart';
 import 'package:loopcare_frontend/features/account/presentation/avatar_page/domain/avatar_option.dart';
 
 class AvatarsListItem extends StatelessWidget {
@@ -24,7 +25,10 @@ class AvatarsListItem extends StatelessWidget {
       onTap: isDisabled ? null : () => onPressed(item),
       child: Column(
         children: [
-          CircleAvatar(radius: 22, child: item.image),
+          AvatarContainer(
+            radius: 22,
+            child: item.image,
+          ),
           const SizedBox(height: 12),
           CustomText(
             item.label.capitalize(),

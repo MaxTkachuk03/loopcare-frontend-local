@@ -86,9 +86,16 @@ class AccountSection extends StatelessWidget {
               // const SizedBox(height: 16.0),
               // const Divider(height: 1.0, color: AppColors.blueLighter),
               // const SizedBox(height: 16.0),
-              CustomElevatedButton.coralFullWidth(
-                onPressed: () => _onLogOutPressed(context),
-                label: LocalizedTexts.signOut.tr(),
+              BlocBuilder<AuthenticationBloc, AuthenticationState>(
+                builder: (context, state) {
+                  final isLoading = state is AuthenticationStateIsLoading;
+
+                  return CustomElevatedButton.coralFullWidth(
+                    onPressed: () => _onLogOutPressed(context),
+                    label: LocalizedTexts.signOut.tr(),
+                    isLoading: isLoading,
+                  );
+                },
               ),
               const SizedBox(height: 16.0),
             ],

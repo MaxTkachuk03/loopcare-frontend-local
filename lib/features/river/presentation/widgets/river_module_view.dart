@@ -12,6 +12,7 @@ import 'package:loopcare_frontend/features/river/domain/river_module.dart';
 import 'package:loopcare_frontend/features/river/domain/river_module_item.dart';
 import 'package:loopcare_frontend/features/river/infrastructure/feature_placement.dart';
 import 'package:loopcare_frontend/features/river/presentation/river_module_item_widget/river_animation_module_item_widget.dart';
+import 'package:loopcare_frontend/features/river/presentation/river_module_item_widget/start_river_module_item.dart';
 import 'package:loopcare_frontend/features/river/presentation/utils/module_items_utils.dart';
 import 'package:loopcare_frontend/features/river/presentation/utils/river_utils.dart';
 import 'package:loopcare_frontend/features/river/presentation/widgets/river_module_builder.dart';
@@ -100,6 +101,9 @@ class _RiverScreenState extends State<RiverScreen> with RiverUtils {
               onAnimationComplete: (placement) => _onAnimationCompleted(item, placement),
             );
           },
+          startItemBuilder: (context) => StartRiverModuleItem(
+            onTap: _onStartItemPressed,
+          ),
         ),
       ),
     );
@@ -117,9 +121,15 @@ class _RiverScreenState extends State<RiverScreen> with RiverUtils {
 
   void _bounceParentItem(RiverModuleItem item) {
     context.read<RiverBloc>().add(RiverEvent.bounceParentItem(
-          moduleItemId: item.id,
-          moduleId: widget.module.id,
-        ));
+      moduleItemId: item.id,
+      moduleId: widget.module.id,
+    ));
+  }
+
+  void _onStartItemPressed() {
+    if (!context.read<NavigationBarBloc>().state.data.isBeginningCompleted) {
+      ModalBottomSheet.guidanceStartRiver(context: context);
+    }
   }
 
   void _updateModuleItem(int id) {

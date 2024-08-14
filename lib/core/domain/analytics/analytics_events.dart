@@ -189,4 +189,15 @@ class AnalyticsEvents {
   static String get userLogGoal => 'user_log_goal';
 
   static  String get subscriptionBought => 'af_subscribe';
+
+  //Subscription
+  static const String subscriptionPlanBought = 'subscription_bought';
+  static const String subscriptionStartPurchase = 'subscription_start_purchase';
+
+  //Subscription errors
+  static const String subscriptionServiceUnavailable = 'subscription_service_unavailable';
+  static const String subscriptionUserClosePurchaseDialog = 'subscription_user_close_purchase_dialog';
+  static const String subscriptionDuplicatePurchase = 'subscription_duplicate_purchase';
+  static const String subscriptionErrorVerifyOnServer = 'subscription_error_verify_on_server';
+  static const String subscriptionErrorVerifyLastPurchaseOnServer = 'subscription_error_verify_last_purchase_on_server';
 }

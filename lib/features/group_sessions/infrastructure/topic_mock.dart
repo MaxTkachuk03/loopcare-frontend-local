@@ -2,16 +2,16 @@ var topics = [
   {
     "groupSessions": [
       {
-        "memberCount": 1,
+        "memberCount": 2,
         "minMemberCount": 1,
         "maxMemberCount": 9,
-        "status": "finished",
-        "signed": false,
+        "status": "planned",
+        "signed": true,
         "groupSessionMembers": [],
         "id": 78,
         "topic": "Mindfulness",
-        "startDate": "2024-02-15T17:16:00.000Z",
-        "endDate": "2024-01-26T18:16:00.000Z",
+        "startDate": "2024-08-06T14:07:00.000Z",
+        "endDate": "2024-08-06T15:07:00.000Z",
         "password": "f73d4ef553",
         "groupSessionKey": "78-ENV:develop-GROUP_ID:13196"
       },
@@ -24,8 +24,8 @@ var topics = [
         "groupSessionMembers": [],
         "id": 92,
         "topic": "Mindfulness",
-        "startDate": "2024-01-17T13:00:00.866Z",
-        "endDate": "2024-01-17T13:53:00.866Z",
+        "startDate": "2024-08-07T17:16:00.000Z",
+        "endDate": "2024-08-07T18:12:00.000Z",
         "password": "c6adc4c1e0",
         "groupSessionKey": "92-ENV:develop-GROUP_ID:13196"
       },
@@ -38,8 +38,8 @@ var topics = [
         "groupSessionMembers": [],
         "id": 105,
         "topic": "Mindfulness",
-        "startDate": "2023-12-07T16:00:00.985Z",
-        "endDate": "2023-12-07T16:53:00.985Z",
+        "startDate": "2024-08-08T17:16:00.000Z",
+        "endDate": "2024-08-08T18:16:00.000Z",
         "password": "4010423f99",
         "groupSessionKey": "105-ENV:develop-GROUP_ID:13196"
       }
@@ -95,7 +95,8 @@ var topics = [
         "id": 19,
         "event": "TEXT",
         "timestamp": 251,
-        "text": "Please start the check-in round, this will last 9 minutes. One of you can now start.",
+        "text":
+            "Please start the check-in round, this will last 9 minutes. One of you can now start.",
         "videoPath": null,
         "duration": null
       },
@@ -180,7 +181,8 @@ var topics = [
         "id": 43,
         "event": "TEXT",
         "timestamp": 1200,
-        "text": "How was the exercise for you? Share your experience with your group. Anyone can start.",
+        "text":
+            "How was the exercise for you? Share your experience with your group. Anyone can start.",
         "videoPath": null,
         "duration": null
       }

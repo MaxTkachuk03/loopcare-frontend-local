@@ -19,6 +19,7 @@ import 'package:loopcare_frontend/core/presentation/nutrition/nutrition_summary/
 import 'package:loopcare_frontend/core/presentation/routes/app_router.dart';
 import 'package:loopcare_frontend/core/presentation/routes/app_router.gr.dart';
 import 'package:loopcare_frontend/core/presentation/scaffold/custom_scaffold.dart';
+import 'package:loopcare_frontend/core/presentation/text/custom_text.dart';
 import 'package:loopcare_frontend/core/presentation/utils/function_extensions.dart';
 import 'package:loopcare_frontend/core/presentation/utils/string_extensions.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/main_container.dart';
@@ -129,7 +130,7 @@ class _DishDetailsPageState extends State<DishDetailsPage> {
       },
     );
 
-    context.showSuccessBar(content: Text(LocalizedTexts.foodItemWasAddedToDish.tr()));
+    context.showSuccessBar(content: CustomText(LocalizedTexts.foodItemWasAddedToDish.tr()));
     context.router.popUntilRouteWithName(SearchRoute.name);
   }
 
@@ -208,7 +209,7 @@ class _DishDetailsPageState extends State<DishDetailsPage> {
           dishId: dishId,
           internalFoodItemId: int.parse(item.id),
         ));
-    context.showSuccessBar(content: Text(LocalizedTexts.foodItemWasDeletedFromDish.tr()));
+    context.showSuccessBar(content: CustomText(LocalizedTexts.foodItemWasDeletedFromDish.tr()));
   }
 
   void _onFoodItemPressed(BuildContext context, DishFoodItem item) {

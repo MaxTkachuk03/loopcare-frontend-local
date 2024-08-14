@@ -22,4 +22,6 @@ class AppUpdateData with _$AppUpdateData {
     @Default(false) bool isLoading,
     RequestError? error,
   }) = _AppUpdateData;
+
+  String get errorKey => error?.message ?? LocalizedTexts.errorSomethingWentWrong;
 }

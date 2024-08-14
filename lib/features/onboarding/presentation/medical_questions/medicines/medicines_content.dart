@@ -80,16 +80,19 @@ class _MedicinesContentState extends State<MedicinesContent> {
               key: _formKey,
               child: Column(
                 mainAxisSize: MainAxisSize.min,
-                children: _controllers
-                    .map((controller) => Padding(
-                      padding: const EdgeInsets.only(bottom: 16.0),
-                      child: CustomTextField(
-                        controller: controller,
-                        hintText: LocalizedTexts.medicinesPlaceholder.tr(),
-                        maxLength: 30,
-                      ),
-                    ))
-                    .toList(),
+                children: _controllers.map((c) {
+                  final isLast = _controllers.last == c;
+
+                  return Padding(
+                    padding: const EdgeInsets.only(bottom: 16.0),
+                    child: CustomTextField(
+                      controller: c,
+                      hintText: LocalizedTexts.medicinesPlaceholder.tr(),
+                      textInputAction: isLast ? TextInputAction.done : TextInputAction.next,
+                      maxLength: 30,
+                    ),
+                  );
+                }).toList(),
               ),
             ),
           ],
