@@ -48,7 +48,9 @@ class _SessionWaitingPageState extends State<SessionWaitingPage> {
 
     zoom.initSdk(initConfig);
 
-    context.read<VideoPlayerBloc>().add(const VideoPlayerEvent.getAwsCookies(AwsCookiesType.SESSION));
+    context
+        .read<VideoPlayerBloc>()
+        .add(const VideoPlayerEvent.getAwsCookies(AwsCookiesType.SESSION));
 
     final int? sessionId = context.read<TopicsBloc>().state.data.signedGroupSessionId;
 
@@ -64,12 +66,17 @@ class _SessionWaitingPageState extends State<SessionWaitingPage> {
   DateTime get startDate =>
       context.read<TopicsBloc>().state.data.signedGroupSessionStartTime ?? DateTime.now();
 
-  DateTime get endDate => context.read<TopicsBloc>().state.data.signedGroupSessionsEndTime ?? DateTime.now();
+  DateTime get endDate =>
+      context.read<TopicsBloc>().state.data.signedGroupSessionsEndTime ?? DateTime.now();
 
   String get image => context.read<TopicsBloc>().state.data.thisWeekTopicsImage;
 
   @override
   Widget build(BuildContext context) {
+    final day = startDate.toDateFormat;
+    final startTime = startDate.toTimeFormat;
+    final endTime = endDate.toTimeFormat;
+
     return CustomScaffold.orange(
       appBar: CustomAppBar.orange(
         title: LocalizedTexts.groupSession.tr(),
@@ -142,7 +149,8 @@ class _SessionWaitingPageState extends State<SessionWaitingPage> {
                                   ),
                                   Expanded(
                                     child: Padding(
-                                      padding: const EdgeInsets.only(top: 12.0, bottom: 12.0, right: 12.0),
+                                      padding: const EdgeInsets.only(
+                                          top: 12.0, bottom: 12.0, right: 12.0),
                                       child: Column(
                                         crossAxisAlignment: CrossAxisAlignment.start,
                                         children: [
@@ -153,16 +161,9 @@ class _SessionWaitingPageState extends State<SessionWaitingPage> {
                                           ),
                                           const SizedBox(height: 10.0),
                                           CustomText.w400(
-                                            LocalizedTexts.dayFromTo.tr(
-                                              namedArgs: {
-                                                'day': '${startDate.weekdayString} ${startDate.shortDate}',
-                                                'startTime': startDate.timeHoursMinutes24,
-                                                'endTime': endDate.timeHoursMinutes24,
-                                              },
-                                            ),
-                                            style: context.textTheme.bodySmall?.copyWith(
-                                              fontSize: ThemeConstants.fontSize12,
-                                            ),
+                                            LocalizedTexts.dayFromTo
+                                                .tr(args: [day, startTime, endTime]),
+                                            style: context.textTheme.bodySmall,
                                           ),
                                         ],
                                       ),

@@ -83,7 +83,7 @@ class _TimezonePreferencesPageState extends State<TimezonePreferencesPage> {
   }
 
   void _onErrorHandler(GroupPreferencesState state) =>
-      context.showError(content: Text(state.data.error?.message.tr() ?? ''));
+      context.showError(content: CustomText(state.data.errorKey.tr()));
 
   void _onUpdateHandler(GroupPreferencesState state) {
     final groupPrefsMode = context.read<GroupPreferencesBloc>().state.data.groupPrefsMode;
@@ -92,7 +92,7 @@ class _TimezonePreferencesPageState extends State<TimezonePreferencesPage> {
       // context.read<EducationLessonBloc>().add(const EducationLessonEvent.progressForward());
     }
 
-    AnalyticsEventService().logEvent(
+    const AnalyticsEventService().logEvent(
       eventName: AnalyticsEvents.userFillsOutTimezonePreferences,
       parameters: {
         AnalyticsParameters.navigatedFrom:

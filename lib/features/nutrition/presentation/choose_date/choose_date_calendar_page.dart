@@ -9,6 +9,7 @@ import 'package:loopcare_frontend/core/presentation/custom_safe_area.dart';
 import 'package:loopcare_frontend/core/presentation/icon_images/app_images.dart';
 import 'package:loopcare_frontend/core/presentation/loader/loader.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
+import 'package:loopcare_frontend/core/presentation/text/custom_text.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 import 'package:loopcare_frontend/core/presentation/utils/date_time_extensions.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/hexagon.dart';
@@ -195,7 +196,7 @@ class _ChooseDateCalendarPageState extends State<ChooseDateCalendarPage> {
 
     context.router.maybePop();
     context.showSuccessBar(
-      content: Text(LocalizedTexts.changesSaved.tr()),
+      content: CustomText(LocalizedTexts.changesSaved.tr()),
     );
 
     context.showFlashBar(

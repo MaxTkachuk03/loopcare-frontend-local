@@ -67,7 +67,7 @@ class MedicalQuestionsBloc extends HydratedBloc<MedicalQuestionsEvent, MedicalQu
     PregnancyChanged event,
     Emitter<MedicalQuestionsState> emit,
   ) {
-    AnalyticsEventService().logEvent(
+    const AnalyticsEventService().logEvent(
       eventName: AnalyticsEvents.onboardingPregnancy,
       parameters: {
         AnalyticsParameters.value: event.value.toString(),
@@ -88,7 +88,7 @@ class MedicalQuestionsBloc extends HydratedBloc<MedicalQuestionsEvent, MedicalQu
     TreatmentByTheDoctorChanged event,
     Emitter<MedicalQuestionsState> emit,
   ) {
-    AnalyticsEventService().logEvent(
+    const AnalyticsEventService().logEvent(
       eventName: AnalyticsEvents.onboardingPsychiatrist,
       parameters: {
         AnalyticsParameters.value: event.value.toString(),
@@ -108,7 +108,7 @@ class MedicalQuestionsBloc extends HydratedBloc<MedicalQuestionsEvent, MedicalQu
     MedicinesChanged event,
     Emitter<MedicalQuestionsState> emit,
   ) {
-    AnalyticsEventService().logEvent(
+    const AnalyticsEventService().logEvent(
       eventName: AnalyticsEvents.onboardingMedicine,
       parameters: {
         AnalyticsParameters.value: event.medicines.toString(),
@@ -129,7 +129,7 @@ class MedicalQuestionsBloc extends HydratedBloc<MedicalQuestionsEvent, MedicalQu
     MedicationFuturePeriodChanged event,
     Emitter<MedicalQuestionsState> emit,
   ) {
-    AnalyticsEventService().logEvent(
+    const AnalyticsEventService().logEvent(
       eventName: AnalyticsEvents.onboardingTreatmentPeriod,
       parameters: {
         AnalyticsParameters.value: event.value.name,
@@ -150,7 +150,7 @@ class MedicalQuestionsBloc extends HydratedBloc<MedicalQuestionsEvent, MedicalQu
     MedicationPastPeriodChanged event,
     Emitter<MedicalQuestionsState> emit,
   ) {
-    AnalyticsEventService().logEvent(
+    const AnalyticsEventService().logEvent(
       eventName: AnalyticsEvents.onboardingTakingPeriod,
       parameters: {
         AnalyticsParameters.value: event.value.name,
@@ -169,7 +169,7 @@ class MedicalQuestionsBloc extends HydratedBloc<MedicalQuestionsEvent, MedicalQu
     WeightLossMedicationChanged event,
     Emitter<MedicalQuestionsState> emit,
   ) {
-    AnalyticsEventService().logEvent(
+    const AnalyticsEventService().logEvent(
       eventName: AnalyticsEvents.onboardingSemaglutide,
       parameters: {
         AnalyticsParameters.value: event.value.toString(),
@@ -190,7 +190,7 @@ class MedicalQuestionsBloc extends HydratedBloc<MedicalQuestionsEvent, MedicalQu
     UpdateDisease event,
     Emitter<MedicalQuestionsState> emit,
   ) {
-    AnalyticsEventService().logEvent(
+    const AnalyticsEventService().logEvent(
       eventName: _analyticsEventFromDisease(event.diseases),
       parameters: {
         if (event.value && event.diseases.isDiabetes) AnalyticsParameters.type: event.diseases.name,

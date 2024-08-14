@@ -35,7 +35,7 @@ class _DeleteAccountSectionState extends State<DeleteAccountSection> {
             noActiveSubscription: noActiveSubscription,
             onDeleted: () {
               context.read<AuthenticationBloc>().add(const AuthenticationEvent.deleteAccount());
-              AnalyticsEventService().logEvent(
+              const AnalyticsEventService().logEvent(
                 eventName: AnalyticsEvents.deleteAccount,
                 parameters: {
                   AnalyticsParameters.timestamp: DateTime.now().toIso8601String(),
@@ -78,7 +78,7 @@ class _DeleteAccountSectionState extends State<DeleteAccountSection> {
         noActiveSubscription: true,
         onDeleted: () {
           context.read<AuthenticationBloc>().add(const AuthenticationEvent.deleteAccount());
-          AnalyticsEventService().logEvent(
+          const AnalyticsEventService().logEvent(
             eventName: AnalyticsEvents.deleteAccount,
             parameters: {
               AnalyticsParameters.timestamp: DateTime.now().toIso8601String(),
@@ -116,7 +116,7 @@ class _DeleteAccountSectionState extends State<DeleteAccountSection> {
   }
 
   _errorListener(BuildContext context, SubscriptionState state) {
-    final errorMessage = state.data.errorMessage ?? LocalizedTexts.somethingWentWrong;
+    final errorMessage = state.data.errorKey;
     context.showErrorBar(
       content: Text(errorMessage.tr()),
       position: FlashPosition.top,

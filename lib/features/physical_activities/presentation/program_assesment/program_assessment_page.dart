@@ -113,7 +113,7 @@ class _ProgramAssessmentPageState extends State<ProgramAssessmentPage> {
                         CustomOutlinedButton.blueFullWidth(
                           onPressed: () {
                             final programId = state.data.currentProgram?.id ?? -1;
-                            AnalyticsEventService().logEvent(
+                            const AnalyticsEventService().logEvent(
                               eventName: AnalyticsEvents.programCompletedWithoutLogging,
                               parameters: {
                                 AnalyticsParameters.timestamp: DateTime.now().toIso8601String(),
@@ -159,14 +159,14 @@ class _ProgramAssessmentPageState extends State<ProgramAssessmentPage> {
     final assessmentLikeValue = assessmentLike;
     if (assessmentScoreValue == null || assessmentLikeValue == null) return;
 
-    AnalyticsEventService().logProgramAssessmentEvent(
+    const AnalyticsEventService().logProgramAssessmentEvent(
       AnalyticsEvents.programAssessmentScreen,
       assessmentScore!,
       '${assessmentLike!}',
       programId,
     );
 
-    AnalyticsEventService().logEvent(
+    const AnalyticsEventService().logEvent(
       eventName: AnalyticsEvents.programCompletedWithLogging,
       parameters: {
         AnalyticsParameters.timestamp: DateTime.now().toIso8601String(),
@@ -197,15 +197,7 @@ class _ProgramAssessmentPageState extends State<ProgramAssessmentPage> {
   void _physicalProgramErrorListener(BuildContext context, PhysicalProgramsState state) {
     final error = state.data.error;
     if (error != null) {
-      final errorMessage = error.maybeMap(
-        conflict: (error) {
-          return error.message == LocalizedTexts.physicalProgramAlreadyLogged
-              ? error.message
-              : LocalizedTexts.somethingIsIncorrect;
-        },
-        orElse: () => LocalizedTexts.somethingIsIncorrect,
-      );
-      context.showError(content: Text(errorMessage.tr()));
+      context.showError(content: CustomText(LocalizedTexts.errorSomethingIsIncorrect.tr()));
     }
   }
 

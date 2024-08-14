@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:loopcare_frontend/features/river/domain/river_module.dart';
 import 'package:loopcare_frontend/features/river/presentation/river_module_item_widget/river_module_item_preview.dart';
+import 'package:loopcare_frontend/features/river/presentation/river_module_item_widget/start_river_module_item.dart';
 import 'package:loopcare_frontend/features/river/presentation/utils/module_items_utils.dart';
 import 'package:loopcare_frontend/features/river/presentation/utils/river_utils.dart';
 import 'package:loopcare_frontend/features/river/presentation/widgets/river_module_builder.dart';
@@ -20,11 +21,11 @@ class RiverModulePreview extends StatelessWidget with RiverUtils {
 
   @override
   Widget build(BuildContext context) {
-    final positionedItems = ModuleItemsUtils.getItemsOffsets(getIndex(page), module.moduleItems);
+    final positionedItems = ModuleItemsUtils.getAllocatedItems(getIndex(page), module.moduleItems);
 
     return Container(
       height: kDefaultModuleHeight,
-      padding: const EdgeInsets.only(left: 20),
+      padding: const EdgeInsets.only(left: 20.0),
       decoration: BoxDecoration(
         gradient: LinearGradient(
           begin: Alignment.topCenter,
@@ -46,7 +47,7 @@ class RiverModulePreview extends StatelessWidget with RiverUtils {
         positionedItems: positionedItems,
         itemBuilder: (context, index) {
           final item = positionedItems[index].item;
-          final radius = itemRadius(isOverview: true);
+          var radius = isBeginning && item.isRootItem ? kRiverRootItemRadius : itemRadius(isOverview: true);
 
           return RiverModuleItemPreview(
             item: item,
@@ -54,6 +55,7 @@ class RiverModulePreview extends StatelessWidget with RiverUtils {
             isBeginning: isBeginning,
           );
         },
+        startItemBuilder: (context) => const StartRiverModuleItem(),
       ),
     );
   }

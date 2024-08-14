@@ -54,7 +54,7 @@ BottomNavigationBarThemeData _bottomNavigationBarThemeData() {
 
 ColorScheme _getColorScheme() {
   return const ColorScheme(
-    primary: AppColors.darkGreen,
+    primary: AppColors.blueRegular,
     secondary: AppColors.black,
     surface: AppColors.white,
     error: AppColors.red,

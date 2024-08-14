@@ -63,7 +63,7 @@ class _ReflectionQuestionPageState extends State<ReflectionQuestionPage> {
     final activeReflection = context.read<ReflectionsBloc>().state.data.activeReflection;
 
     if (activeReflection != null) {
-      AnalyticsEventService().assignmentMotivationScale(
+      const AnalyticsEventService().assignmentMotivationScale(
           _currentQuestion.id.toString(), activeReflection, widget.fromDashboard);
     }
 
@@ -97,15 +97,15 @@ class _ReflectionQuestionPageState extends State<ReflectionQuestionPage> {
   }
 
   void _onErrorHandler(ReflectionsState s) =>
-      context.showError(content: CustomText(s.data.error?.message ?? ''));
+      context.showError(content: CustomText(s.data.errorKey.tr()));
 
   void _onUpdateHandler(ReflectionsState s) {
     if (widget.step == (_totalSteps - 1)) {
       final activeReflection = context.read<ReflectionsBloc>().state.data.activeReflection;
 
       if (activeReflection != null) {
-       AnalyticsEventService().finalizeAssignment(
-           AnalyticsEvents.userCompleteReflection, activeReflection, widget.fromDashboard);
+        const AnalyticsEventService().finalizeAssignment(
+            AnalyticsEvents.userCompleteReflection, activeReflection, widget.fromDashboard);
       }
 
       context.router.push(ReflectionCompleteRoute(streamType: widget.streamType));

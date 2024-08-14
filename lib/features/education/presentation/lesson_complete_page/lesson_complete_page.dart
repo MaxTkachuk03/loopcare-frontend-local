@@ -63,17 +63,15 @@ class _LessonCompletePageState extends State<LessonCompletePage> {
     context.router.popUntilRouteWithName(HomeRoute.name);
   }
 
-  void _onErrorListener(BuildContext context, EducationLessonState state) {
-    final errorMessage = state.data.errorMessage ?? LocalizedTexts.somethingWentWrong;
-    context.showError(content: Text(errorMessage.tr()));
-  }
+  void _onErrorListener(BuildContext context, EducationLessonState state) =>
+      context.showError(content: CustomText(state.data.errorKey.tr()));
 
   void _onModuleItemCompleteListener(BuildContext context, RiverState state) {
     if (_hasReflection) {
       context.read<ReflectionsBloc>().add(const ReflectionsEvent.getReflections());
     }
 
-    AnalyticsEventService().logLessonCompletedEvent(
+    const AnalyticsEventService().logLessonCompletedEvent(
       AnalyticsEvents.lessonCompletedScreen,
       context.read<EducationLessonBloc>().state.data.id,
     );

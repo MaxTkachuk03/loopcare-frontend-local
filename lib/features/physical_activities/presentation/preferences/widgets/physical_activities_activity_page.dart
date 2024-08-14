@@ -40,7 +40,7 @@ class PhysicalActivitiesActivityTypePage extends StatefulWidget {
 
 class _PhysicalActivitiesActivityTypePageState extends State<PhysicalActivitiesActivityTypePage> {
   void _onErrorHandler(PhysicalActivitiesPreferencesState state) =>
-      context.showError(content: Text(state.data.error?.error.toString() ?? ''));
+      context.showError(content: CustomText(state.data.errorKey.tr()));
 
   void _onChangeListener(BuildContext context, PhysicalActivitiesPreferencesState state) {
     state.maybeMap(

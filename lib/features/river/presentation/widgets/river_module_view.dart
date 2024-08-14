@@ -12,6 +12,7 @@ import 'package:loopcare_frontend/features/river/domain/river_module.dart';
 import 'package:loopcare_frontend/features/river/domain/river_module_item.dart';
 import 'package:loopcare_frontend/features/river/infrastructure/feature_placement.dart';
 import 'package:loopcare_frontend/features/river/presentation/river_module_item_widget/river_animation_module_item_widget.dart';
+import 'package:loopcare_frontend/features/river/presentation/river_module_item_widget/start_river_module_item.dart';
 import 'package:loopcare_frontend/features/river/presentation/utils/module_items_utils.dart';
 import 'package:loopcare_frontend/features/river/presentation/utils/river_utils.dart';
 import 'package:loopcare_frontend/features/river/presentation/widgets/river_module_builder.dart';
@@ -45,7 +46,7 @@ class _RiverScreenState extends State<RiverScreen> with RiverUtils {
   void initState() {
     super.initState();
     _page = getIndex(widget.page);
-    _positionedItems = ModuleItemsUtils.getItemsOffsets(_page, widget.module.moduleItems);
+    _positionedItems = ModuleItemsUtils.getAllocatedItems(_page, widget.module.moduleItems);
 
     final activeModule = context.read<RiverBloc>().state.data.activeModule;
     if (activeModule.isModuleItemsCompleted && activeModule.isInProgress && isBeginning) {
@@ -58,7 +59,7 @@ class _RiverScreenState extends State<RiverScreen> with RiverUtils {
   void didUpdateWidget(covariant RiverScreen oldWidget) {
     super.didUpdateWidget(oldWidget);
     if (!widget.module.moduleItems.equals(oldWidget.module.moduleItems)) {
-      _positionedItems = ModuleItemsUtils.getItemsOffsets(_page, widget.module.moduleItems);
+      _positionedItems = ModuleItemsUtils.getAllocatedItems(_page, widget.module.moduleItems);
     }
   }
 
@@ -100,6 +101,9 @@ class _RiverScreenState extends State<RiverScreen> with RiverUtils {
               onTransitionComplete: _onTransitionItemCompleted,
             );
           },
+          startItemBuilder: (context) => StartRiverModuleItem(
+            onTap: _onStartItemPressed,
+          ),
         ),
       ),
     );
@@ -110,6 +114,12 @@ class _RiverScreenState extends State<RiverScreen> with RiverUtils {
       _beginningUnlockAction(item);
     } else {
       _navigateToLesson(item);
+    }
+  }
+
+  void _onStartItemPressed() {
+    if (!context.read<NavigationBarBloc>().state.data.isBeginningCompleted) {
+      ModalBottomSheet.guidanceStartRiver(context: context);
     }
   }
 
@@ -134,11 +144,12 @@ class _RiverScreenState extends State<RiverScreen> with RiverUtils {
       return;
     }
 
-    // todo: uncomment for LOOPCARE-2948 User Avatar
-    // if (item.isRootItem) {
-    //   context.router.push(SelectAvatarRoute(onDispose: () => _updateModuleItem(item.id)));
-    // } else
-      if (item.isPractice) {
+    if (item.isRootItem) {
+      context.router.push(SelectAvatarRoute(onDispose: () => _updateModuleItem(item.id)));
+      return;
+    }
+
+    if (item.isPractice) {
       ModalBottomSheet.guidancePractice(
         context: context,
         onConfirm: () => _updateModuleItem(item.id),
@@ -185,6 +196,7 @@ class _RiverScreenState extends State<RiverScreen> with RiverUtils {
   }
 
   void _onCompleteTime() {
+
     context.read<RiverBloc>().add(const RiverEvent.checkCompletion());
   }
 

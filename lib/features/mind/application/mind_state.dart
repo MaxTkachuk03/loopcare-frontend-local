@@ -47,7 +47,10 @@ class MindStateData with _$MindStateData {
 
   bool get isLastExercise => currentExercise?.id == exercises.last.id;
 
-  bool get isConsecutiveUnlock => currentTechnique?.exerciseUnlockStyle == TechniqueExerciseUnlockStyle.consecutive;
+  bool get isConsecutiveUnlock =>
+      currentTechnique?.exerciseUnlockStyle == TechniqueExerciseUnlockStyle.consecutive;
+
+  String get errorKey => error?.message ?? LocalizedTexts.errorSomethingWentWrong;
 
   List<MindExerciseStep> get exerciseSteps {
     final List<MindExerciseStep> steps = [];

@@ -93,7 +93,8 @@ class _SelectGoalsPageState extends State<SelectGoalsPage> {
           ),
           button: BlocConsumer<SmartGoalsBloc, SmartGoalsState>(
             listener: _onSetGoalsListener,
-            listenWhen: (prev, cur) => cur is SmartGoalsStateErrorSaveGoals || cur is SmartGoalsStateWeeklySessionSaved,
+            listenWhen: (prev, cur) =>
+                cur is SmartGoalsStateErrorSaveGoals || cur is SmartGoalsStateWeeklySessionSaved,
             builder: (BuildContext context, SmartGoalsState state) {
               return CustomElevatedButton.blueFullWidth(
                 label: LocalizedTexts.setGoal.tr(),
@@ -113,16 +114,8 @@ class _SelectGoalsPageState extends State<SelectGoalsPage> {
     );
   }
 
-  void _onErrorSaveWeeklyGoals(BuildContext context, SmartGoalsState state) {
-    final String? errorMessage = state.data.error?.maybeMap(
-      forbidden: (s) => s.error.message,
-      notFound: (s) => s.error.message,
-      badRequest: (s) => s.error.message,
-      orElse: () => LocalizedTexts.somethingWentWrong.tr(),
-    );
-
-    context.showError(content: CustomText.w400(errorMessage ?? ''));
-  }
+  void _onErrorSaveWeeklyGoals(BuildContext context, SmartGoalsState state) =>
+      context.showError(content: CustomText.w400(state.data.errorKey.tr()));
 
   void _onSetWeeklyGoals(BuildContext context, SmartGoalsState state) => context
     ..showSuccessBar(content: CustomText.w400(LocalizedTexts.saveWeeklyGoalsSuccessMessage.tr()))

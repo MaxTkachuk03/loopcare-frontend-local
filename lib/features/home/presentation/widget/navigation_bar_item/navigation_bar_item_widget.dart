@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:loopcare_frontend/core/presentation/icon_images/app_icons.dart';
-import 'package:loopcare_frontend/core/presentation/icon_images/app_icons_data.dart';
-import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
+import 'package:loopcare_frontend/features/account/presentation/account_page/widgets/network_user_avatar.dart';
+import 'package:loopcare_frontend/features/authentication/application/authentication_bloc.dart';
 import 'package:loopcare_frontend/features/home/presentation/widget/navigation_bar_item/navigation_bar_items.dart';
+
+const double _iconSize = 24.0;
 
 class NavigationBarItemWidget extends StatelessWidget {
   const NavigationBarItemWidget({
@@ -21,15 +25,14 @@ class NavigationBarItemWidget extends StatelessWidget {
       child: Builder(
         builder: (context) {
           if (item.isProfile) {
-            // todo change to avatar
-            return const SizedBox.square(
-              dimension: 24,
-              child: FittedBox(
-                fit: BoxFit.none,
-                child: Icon(
-                  AppIconsData.iProfile,
-                  color: AppColors.blueLightest,
-                  size: 36,
+            return BlocBuilder<AuthenticationBloc, AuthenticationState>(
+              builder: (context, state) => NetworkUserAvatar.onlyPhotoBorder(
+                url: state.data.avatar,
+                size: _iconSize,
+                unselectedAvatar: SvgPicture.asset(
+                  AppIcons.avatarIconBluePath,
+                  width: _iconSize,
+                  height: _iconSize,
                 ),
               ),
             );

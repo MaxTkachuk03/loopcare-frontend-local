@@ -130,7 +130,7 @@ class _BuddyPreferencesPageState extends State<BuddyPreferencesPage> {
   }
 
   _errorListener(BuildContext context, BuddyState state) {
-    final errorMessage = state.data.errorMessage ?? LocalizedTexts.somethingWentWrong;
+    final errorMessage = state.data.errorMessage ?? LocalizedTexts.errorSomethingWentWrong;
     context.showErrorBar(
       content: Text(errorMessage.tr()),
       position: FlashPosition.top,

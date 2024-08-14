@@ -37,18 +37,20 @@ class _GenderChipsState extends State<GenderChips> {
   @override
   Widget build(BuildContext context) {
     return Column(
-      children: GenderType.values.map(
-          (item) => Padding(
-            padding: const EdgeInsets.only(bottom: 8.0),
-            child: CustomChoiceChip.yellow(
-              label: item.title.tr(),
-              selected: item == _selectedGender,
-              onSelected: _onSelected,
-              value: item,
-              textAlign: TextAlign.center,
+      children: GenderType.values
+          .map(
+            (item) => Padding(
+              padding: const EdgeInsets.only(bottom: 8.0),
+              child: CustomChoiceChip.yellow(
+                label: item.title.tr(),
+                selected: item == _selectedGender,
+                onSelected: _onSelected,
+                value: item,
+                textAlign: TextAlign.center,
+              ),
             ),
-          ),
-        ).toList(),
+          )
+          .toList(),
     );
   }
 }

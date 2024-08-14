@@ -92,6 +92,10 @@ extension DateTimeExtension on DateTime {
     return DateFormat('EEEE', 'en_EN').format(this);
   }
 
+  String get toDateFormat => DateFormat('EEEE d MMMM', 'en_EN').format(this);
+
+  String get toTimeFormat => DateFormat('HH:mm', 'en_EN').format(this);
+
   String get shortWeekdayString {
     return DateFormat('E', 'en_EN').format(this);
   }
@@ -246,7 +250,8 @@ extension DateTimeExtension on DateTime {
   }
 
   bool inRange(DateTime startDate, DateTime endTime) {
-    return (isBefore(endTime) || isSameDate(endTime)) && (isAfter(startDate) || (isSameDate(startDate)));
+    return (isBefore(endTime) || isSameDate(endTime)) &&
+        (isAfter(startDate) || (isSameDate(startDate)));
   }
 }
 

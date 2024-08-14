@@ -54,5 +54,5 @@ class BookedSessionModalContent extends StatelessWidget {
   }
 
   void _signOutFailureListener(BuildContext context, TopicsState state) =>
-      context.showError(content: Text(LocalizedTexts.somethingWentWrong.tr()));
+      context.showError(content: CustomText(LocalizedTexts.errorSomethingWentWrong.tr()));
 }

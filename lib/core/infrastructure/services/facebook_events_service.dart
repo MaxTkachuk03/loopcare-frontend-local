@@ -15,17 +15,15 @@ class FacebookEventsService {
     final account = StoredAccountService.getAccount();
     final userIdPrefix = CountryCodeService.instance.serverCountryCode;
 
-    if (account == null) return;
-
     TrackingStatus status = await AppTrackingTransparency.trackingAuthorizationStatus;
 
     _service
-      ..setUserID('${account.id}-$userIdPrefix')
+      ..setUserID('${account?.id}-$userIdPrefix')
       ..setUserData(
-        email: account.email,
-        firstName: account.name,
-        dateOfBirth: account.birthDate.toString(),
-        gender: account.gender.name,
+        email: account?.email,
+        firstName: account?.name,
+        dateOfBirth: account?.birthDate.toString(),
+        gender: account?.gender.name,
       );
 
     if (Platform.isIOS) {
@@ -35,5 +33,9 @@ class FacebookEventsService {
 
   static void logEvent({required String eventName, Map<String, dynamic>? parameters}) {
     _service.logEvent(name: eventName, parameters: parameters);
+  }
+
+  static void subscriptionEvent({required String orderId, String? currency, double? price}) {
+    _service.logSubscribe(orderId: orderId, price: price, currency: currency);
   }
 }

@@ -73,11 +73,11 @@ class _GenderPreferencesPageState extends State<GenderPreferencesPage> {
   void _onErrorHandler(GroupPreferencesState state) {
     final String? errorMessage = state.data.error?.maybeMap(
       unprocessableEntity: (s) => s.error.message,
-      orElse: () => LocalizedTexts.somethingWentWrong,
+      orElse: () => LocalizedTexts.errorSomethingWentWrong,
     );
 
     context.showErrorBar(
-      content: CustomText(errorMessage?.tr() ?? LocalizedTexts.somethingWentWrong.tr()),
+      content: CustomText(errorMessage?.tr() ?? LocalizedTexts.errorSomethingWentWrong.tr()),
       position: FlashPosition.top,
     );
   }
@@ -89,7 +89,7 @@ class _GenderPreferencesPageState extends State<GenderPreferencesPage> {
       // context.read<EducationLessonBloc>().add(const EducationLessonEvent.progressForward());
     }
 
-    AnalyticsEventService().logEvent(
+    const AnalyticsEventService().logEvent(
       eventName: AnalyticsEvents.userFillsOutGenderPreferences,
       parameters: {
         AnalyticsParameters.navigatedFrom:

@@ -12,10 +12,8 @@ import 'package:loopcare_frontend/features/account/domain/user_grouping_state.da
 import 'package:loopcare_frontend/features/authentication/application/authentication_bloc.dart';
 import 'package:loopcare_frontend/features/dashboard/presentation/widgets/dashboard_card_title/dashboard_card_title.dart';
 import 'package:loopcare_frontend/features/dashboard/presentation/widgets/support_group/widgets/grouped.dart';
-import 'package:loopcare_frontend/features/dashboard/presentation/widgets/support_group/widgets/lessons_uncompleted.dart';
 import 'package:loopcare_frontend/features/dashboard/presentation/widgets/support_group/widgets/looking_for_group.dart';
 import 'package:loopcare_frontend/features/dashboard/presentation/widgets/support_group/widgets/no_group.dart';
-import 'package:loopcare_frontend/features/dashboard/presentation/widgets/support_group/widgets/no_timeslots.dart';
 import 'package:loopcare_frontend/features/dashboard/presentation/widgets/support_group/widgets/not_grouped.dart';
 import 'package:loopcare_frontend/features/group_sessions/application/topics_bloc.dart';
 
@@ -34,9 +32,7 @@ class _SupportGroupState extends State<SupportGroup> {
     context.read<TopicsBloc>().add(const TopicsEvent.fetchTopics());
   }
 
-  void onPressHandler(BuildContext context) {
-    context.router.pushNamed(AppRoutes.groupPreferences);
-  }
+  void onPressHandler() => context.router.pushNamed(AppRoutes.groupPreferences);
 
   @override
   Widget build(BuildContext context) {
@@ -51,7 +47,7 @@ class _SupportGroupState extends State<SupportGroup> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             DashboardCardTitle(
-              onTap: () => onPressHandler(context),
+              onTap: onPressHandler,
               highlightColor: AppColors.orangeLightest,
               leadingIcon: AppIcons.customSupportGroup,
               title: CustomText.bitter600(
@@ -72,8 +68,6 @@ class _SupportGroupState extends State<SupportGroup> {
               child: BlocBuilder<AuthenticationBloc, AuthenticationState>(
                 builder: (context, state) {
                   switch (state.data.groupingState) {
-                    case UserGroupingState.locked:
-                      return const LessonsUncompleted();
                     case UserGroupingState.refused:
                     case UserGroupingState.unlockedPreferences:
                     case UserGroupingState.left:
@@ -83,8 +77,6 @@ class _SupportGroupState extends State<SupportGroup> {
                       return const LookingForGroup();
                     case UserGroupingState.grouped:
                       return const Grouped();
-                    case UserGroupingState.noTS:
-                      return const NoTimeslots();
                     case UserGroupingState.noGroup:
                       return const NoGroup();
                     default:

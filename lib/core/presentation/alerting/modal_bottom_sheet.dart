@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:auto_route/auto_route.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
@@ -250,15 +252,13 @@ class ModalBottomSheet {
                   CustomElevatedButton.blueFullWidth(
                     onPressed: () {
                       //12.02.2024 Discussed with Diana
-                      AnalyticsEventService().logEvent(
-                        eventName:
-                        AnalyticsEvents.deleteAccount,
+                      const AnalyticsEventService().logEvent(
+                        eventName: AnalyticsEvents.deleteAccount,
                         parameters: {
                           AnalyticsParameters.timestamp: DateTime.now().toIso8601String(),
                           AnalyticsParameters.confirmed: false,
                         },
                       );
-
 
                       context.router.maybePop();
                     },
@@ -659,58 +659,33 @@ class ModalBottomSheet {
     );
   }
 
-  static void sessionsDialog({
-    required BuildContext context,
-  }) {
+  static void sessionsDialog({required BuildContext context}) {
     showModalBottomSheet<void>(
+      showDragHandle: true,
       isScrollControlled: true,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12.0)),
       context: context,
       builder: (BuildContext context) {
-        return BlocBuilder<TopicsBloc, TopicsState>(
-          builder: (context, state) {
-            return FractionallySizedBox(
-              heightFactor: 0.8,
-              child: CustomSafeArea(
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 32.0),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Align(
-                        alignment: Alignment.topRight,
-                        child: SizedBox(
-                          width: 30.0,
-                          height: 30.0,
-                          child: IconButton(
-                            iconSize: 30,
-                            padding: EdgeInsets.zero,
-                            onPressed: () => context.router.maybePop(),
-                            icon: const Icon(Icons.close),
-                          ),
-                        ),
-                      ),
-                      const SizedBox(height: 16.0),
-                      CustomText.bitter500(
-                        state.data.weekTopicName,
-                        style: context.textTheme.displayMedium,
-                      ),
-                      const SizedBox(height: 12.0),
-                      const Divider(
-                        thickness: 1.0,
-                        height: 1.0,
-                        color: AppColors.greyDarker,
-                      ),
-                      const SizedBox(height: 12.0),
-                      state.data.isSigned && state.data.isGroupsOnWeekAvailable
-                          ? const BookedSessionModalContent()
-                          : const NotBookedSessionsModalContent()
-                    ],
+        return MainContainer(
+          child: BlocBuilder<TopicsBloc, TopicsState>(builder: (context, state) {
+            return Padding(
+              padding: const EdgeInsets.only(bottom: 30.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  CustomText.bitter500(
+                    state.data.weekTopicName,
+                    style: context.textTheme.displayMedium,
                   ),
-                ),
+                  const Divider(thickness: 1.0, height: 24.0, color: AppColors.greyDarker),
+                  state.data.isSigned
+                      ? const BookedSessionModalContent()
+                      : const NotBookedSessionsModalContent()
+                ],
               ),
             );
-          },
+          }),
         );
       },
     );
@@ -995,6 +970,85 @@ class ModalBottomSheet {
         );
       },
     );
+  }
+
+  static void avatarSizeErrorDialog({
+    required BuildContext context,
+    required void Function() onClose,
+  }) {
+    showModalBottomSheet<void>(
+      showDragHandle: true,
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12.0)),
+      context: context,
+      builder: (BuildContext context) {
+        return MainContainer(
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              const CircleAvatar(
+                backgroundColor: AppColors.blueRegular,
+                child: Icon(Icons.priority_high_outlined),
+              ),
+              const SizedBox(height: 20.0),
+              CustomText.w600(LocalizedTexts.avatarSizeErrorMessageTitle.tr(),
+                  style: context.textTheme.bodyMedium),
+              const SizedBox(height: 20.0),
+              CustomText.w400(LocalizedTexts.avatarSizeErrorMessageSubtitle.tr(),
+                  style: context.textTheme.bodyMedium),
+              Padding(
+                padding: const EdgeInsets.symmetric(vertical: 20.0),
+                child: CustomElevatedButton.blueFullWidth(
+                  onPressed: context.router.maybePop,
+                  label: LocalizedTexts.ok.tr().toUpperCase(),
+                ),
+              ),
+            ],
+          ),
+        );
+      },
+    ).whenComplete(onClose);
+  }
+
+  static void galeryPermissonsDialog({
+    required BuildContext context,
+    required void Function() onGoToSettings,
+    required void Function() onClose,
+  }) {
+    showModalBottomSheet<void>(
+      showDragHandle: true,
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12.0)),
+      context: context,
+      builder: (BuildContext context) {
+        return MainContainer(
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              const CircleAvatar(
+                backgroundColor: AppColors.red,
+                child: Icon(Icons.priority_high_outlined),
+              ),
+              const SizedBox(height: 20.0),
+              CustomText.w600(
+                Platform.isAndroid
+                    ? LocalizedTexts.galeryPermissionsMessageAndroid.tr()
+                    : LocalizedTexts.galeryPermissionsMessage.tr(),
+                style: context.textTheme.bodyMedium,
+              ),
+              const SizedBox(height: 20.0),
+              Padding(
+                padding: const EdgeInsets.symmetric(vertical: 20.0),
+                child: CustomElevatedButton.blueFullWidth(
+                  onPressed: onGoToSettings,
+                  label: LocalizedTexts.goToAppSettings.tr(),
+                ),
+              ),
+            ],
+          ),
+        );
+      },
+    ).whenComplete(onClose);
   }
 
   static void readTextVersion({
@@ -1613,6 +1667,7 @@ class ModalBottomSheet {
       builder: (BuildContext context) {
         return MainContainer(
           child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisSize: MainAxisSize.min,
             children: [
               const SizedBox(height: 32.0),
@@ -1644,6 +1699,82 @@ class ModalBottomSheet {
                   context.router.maybePop();
                   onConfirm?.call();
                 },
+              ),
+              const SizedBox(height: 30.0),
+            ],
+          ),
+        );
+      },
+    );
+  }
+
+  static void guidanceStartRiver({
+    required BuildContext context,
+  }) {
+    showModalBottomSheet(
+      context: context,
+      showDragHandle: false,
+      backgroundColor: AppColors.blueLightest,
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12.0)),
+      builder: (BuildContext context) {
+        return MainContainer(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              const SizedBox(height: 32.0),
+              CustomText.w600(
+                LocalizedTexts.guidanceStartRiverTitle.tr(),
+                style: context.textTheme.bodyMedium,
+              ),
+              const SizedBox(height: 20.0),
+              CustomText.w400(
+                LocalizedTexts.guidanceStartRiverDescription.tr(),
+                style: context.textTheme.bodyMedium,
+              ),
+              const SizedBox(height: 20.0),
+              const Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Material(
+                    elevation: 6,
+                    surfaceTintColor: AppColors.transparent,
+                    color: AppColors.blueLightest,
+                    borderRadius: BorderRadius.all(Radius.circular(25)),
+                    child: SizedBox.square(
+                      dimension: 50.0,
+                      child: Center(
+                        child: Icon(
+                          AppIconsData.iProfile,
+                          color: AppColors.blueRegular,
+                          size: 36.0,
+                        ),
+                      ),
+                    ),
+                  ),
+                  SizedBox(width: 16),
+                  Material(
+                    elevation: 6,
+                    surfaceTintColor: AppColors.transparent,
+                    color: AppColors.blueLightest,
+                    borderRadius: BorderRadius.all(Radius.circular(25)),
+                    child: SizedBox.square(
+                      dimension: 50.0,
+                      child: Center(
+                        child: Icon(
+                          AppIconsData.iProfile,
+                          color: AppColors.blueRegular,
+                          size: 36.0,
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+              const SizedBox(height: 24.0),
+              CustomElevatedButton.blueFullWidth(
+                label: LocalizedTexts.ok.tr().toUpperCase(),
+                onPressed: context.router.maybePop,
               ),
               const SizedBox(height: 30.0),
             ],

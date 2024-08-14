@@ -18,6 +18,7 @@ import 'package:loopcare_frontend/core/presentation/localization/localized_texts
 import 'package:loopcare_frontend/core/presentation/nutrition/nutrition_summary/nutrition_summary.dart';
 import 'package:loopcare_frontend/core/presentation/routes/app_router.gr.dart';
 import 'package:loopcare_frontend/core/presentation/scaffold/custom_scaffold.dart';
+import 'package:loopcare_frontend/core/presentation/text/custom_text.dart';
 import 'package:loopcare_frontend/core/presentation/text_field/custom_text_field.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 import 'package:loopcare_frontend/core/presentation/utils/string_extensions.dart';
@@ -121,7 +122,7 @@ class _EditDishPageState extends State<EditDishPage> {
                       ),
                     );
 
-                AnalyticsEventService().logEvent(
+                const AnalyticsEventService().logEvent(
                   eventName: AnalyticsEvents.foodLogged,
                   parameters: {
                     AnalyticsParameters.timestamp: DateTime.now().toIso8601String(),
@@ -186,11 +187,11 @@ class _EditDishPageState extends State<EditDishPage> {
       _isUserSaveChanges = true;
     });
 
-    context.showSuccessBar(content: Text(LocalizedTexts.dishWasSaved.tr()));
+    context.showSuccessBar(content: CustomText(LocalizedTexts.dishWasSaved.tr()));
     context.router.maybePop();
   }
 
-  void _showValidationSnackbar(String error) => context.showError(content: Text(error));
+  void _showValidationSnackbar(String error) => context.showError(content: CustomText(error));
 
   void _onDeleteFoodItem(BuildContext context, FoodItem item) {
     final dishId = context.read<EditDishBloc>().state.mapOrNull(dishInfo: (s) => s.currentDish.id);
@@ -230,7 +231,7 @@ class _EditDishPageState extends State<EditDishPage> {
                 ),
               );
 
-          AnalyticsEventService().logEvent(eventName:
+          const AnalyticsEventService().logEvent(eventName:
           AnalyticsEvents.foodLogged,
             parameters: {
               AnalyticsParameters.timestamp: DateTime.now().toIso8601String(),

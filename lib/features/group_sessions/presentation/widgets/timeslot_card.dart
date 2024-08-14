@@ -150,7 +150,7 @@ class _TimeslotCardState extends State<TimeslotCard> {
   }
 
   _onSessionPressed() {
-    AnalyticsEventService().logEvent(eventName: AnalyticsEvents.userSignedUpForSession);
+    const AnalyticsEventService().logEvent(eventName: AnalyticsEvents.userSignedUpForSession);
     context.read<TopicsBloc>().add(
           TopicsEvent.signUpToSession(widget.groupSession.id),
         );

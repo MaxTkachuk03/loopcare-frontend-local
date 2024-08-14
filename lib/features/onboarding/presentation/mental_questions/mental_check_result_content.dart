@@ -192,7 +192,7 @@ class _MentalCheckResultContentState extends State<MentalCheckResultContent> {
     final result = state.results[test?.type];
 
     if (result != null) {
-      AnalyticsEventService().logEvent(eventName:
+      const AnalyticsEventService().logEvent(eventName:
       AnalyticsEvents.userMentalHealthTest,
         parameters: {
           AnalyticsParameters.testType: test!.type.name,

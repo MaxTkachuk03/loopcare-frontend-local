@@ -1,10 +1,8 @@
 import 'dart:math' as math;
 
-import 'package:easy_localization/easy_localization.dart';
+import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
-import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/core/presentation/text/custom_text.dart';
-import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 import 'package:loopcare_frontend/core/presentation/utils/build_context_extensions.dart';
 import 'package:loopcare_frontend/features/river/domain/river_module_item.dart';
 import 'package:loopcare_frontend/features/river/presentation/utils/module_items_utils.dart';
@@ -12,9 +10,6 @@ import 'package:loopcare_frontend/features/river/presentation/utils/river_utils.
 import 'package:loopcare_frontend/features/river/presentation/widgets/animated_river_streams.dart';
 
 const kDefaultModuleHeight = 240.0;
-
-const double _startButtonBiggerRadius = 36.0;
-const double _startButtonSmallerRadius = 32.0;
 
 class RiverModuleBuilder extends StatelessWidget with RiverUtils {
   const RiverModuleBuilder({
@@ -26,6 +21,7 @@ class RiverModuleBuilder extends StatelessWidget with RiverUtils {
     required this.completedDate,
     required this.positionedItems,
     required this.itemBuilder,
+    required this.startItemBuilder,
     this.isOverview = false,
     this.enableGradient,
     this.onCompleted,
@@ -46,37 +42,27 @@ class RiverModuleBuilder extends StatelessWidget with RiverUtils {
   final bool? enableGradient;
   final void Function()? onCompleted;
   final Widget Function(BuildContext context, int index) itemBuilder;
+  final Widget Function(BuildContext context) startItemBuilder;
   final List<({Offset offset, RiverModuleItem item})> positionedItems;
 
   @override
   bool get isBeginning => index == 0;
 
+  bool get _containRootItem => positionedItems.firstWhereOrNull((i) => i.item.isRootItem) != null;
+
   bool get _isVertical => direction == Axis.vertical;
 
   double get _angle => _isVertical ? math.pi / 2 : 0.0;
 
-  double get _startButtonRadius => _isVertical
-      ? _startButtonSmallerRadius
-      : _startButtonBiggerRadius;
+  double _itemTopPosition(Offset offset, double radius) =>
+      _isVertical ? dimension * offset.dx - radius : topOffset + dimension * offset.dy - radius;
 
-  double get _startButtonTopPosition =>
-      _itemTopPosition(ModuleItemsUtils.startButtonPosition, _startButtonRadius);
-
-  double get _startButtonLeftPosition =>
-      _itemLeftPosition(ModuleItemsUtils.startButtonPosition, _startButtonRadius);
-
-  double _itemTopPosition(Offset offset, double radius) => _isVertical
-      ? dimension * offset.dx - radius
-      : topOffset + dimension * offset.dy - radius;
-
-  double _itemLeftPosition(Offset offset, double radius) => _isVertical
-      ? dimension * (1 - offset.dy) - radius
-      : dimension * offset.dx - radius;
+  double _itemLeftPosition(Offset offset, double radius) =>
+      _isVertical ? dimension * (1 - offset.dy) - radius : dimension * offset.dx - radius;
 
   double? get _titleRightPosition => _isVertical ? 20.0 : null;
 
   double? get _titleWidth => _isVertical ? 106.0 : null;
-
 
   @override
   Widget build(BuildContext context) {
@@ -122,18 +108,11 @@ class RiverModuleBuilder extends StatelessWidget with RiverUtils {
             ),
           ),
         ),
-        if (isBeginning)
+        if (isBeginning && !_containRootItem)
           Positioned(
-            top: _startButtonTopPosition,
-            left: _startButtonLeftPosition,
-            child: CircleAvatar(
-              radius: _startButtonRadius,
-              backgroundColor: AppColors.blueRegular,
-              child: CustomText.w400(
-                LocalizedTexts.start.tr(),
-                style: context.textTheme.bodyLarge?.copyWith(color: AppColors.white),
-              ),
-            ),
+            top: _itemTopPosition(ModuleItemsUtils.zeroPageRootItemPosition, kRiverRootItemRadius),
+            left: _itemLeftPosition(ModuleItemsUtils.zeroPageRootItemPosition, kRiverRootItemRadius),
+            child: startItemBuilder(context),
           ),
         ...positionedModuleItems,
         Positioned(

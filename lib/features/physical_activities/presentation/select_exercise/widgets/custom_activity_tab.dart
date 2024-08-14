@@ -64,7 +64,7 @@ class _CustomActivityTabState extends State<CustomActivityTab> with AutomaticKee
                   focusNode: controller.activityFocusNode,
                   controller: controller.activityController,
                   validator: validateActivityField,
-                  textInputAction: TextInputAction.newline,
+                  textInputAction: TextInputAction.done,
                   keyboardType: TextInputType.multiline,
                   autovalidateMode: controller.activityAutoValidateMode,
                   onChanged: (_) {},
@@ -96,8 +96,8 @@ class _CustomActivityTabState extends State<CustomActivityTab> with AutomaticKee
 
   void _onLogActivityPressed(BuildContext context) {
     context
-      ..read<PhysicalProgramsBloc>()
-          .add(PhysicalProgramsEvent.createCustomActivity(controller.activityController.text.trim()))
+      ..read<PhysicalProgramsBloc>().add(
+          PhysicalProgramsEvent.createCustomActivity(controller.activityController.text.trim()))
       ..router.popUntilRouteWithName(HomeRoute.name);
   }
 }

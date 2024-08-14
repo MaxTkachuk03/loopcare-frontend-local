@@ -8,6 +8,7 @@ import 'package:loopcare_frontend/core/domain/analytics/analytics_events.dart';
 import 'package:loopcare_frontend/core/domain/yes_no_answer.dart';
 import 'package:loopcare_frontend/core/infrastructure/dio_client/request_error.dart';
 import 'package:loopcare_frontend/core/infrastructure/services/analytics_service.dart';
+import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/features/account/application/dto/group_preferences_body.dart';
 import 'package:loopcare_frontend/features/account/application/group_preferences_service.dart';
 import 'package:loopcare_frontend/features/account/domain/group_prefs_mode.dart';
@@ -179,7 +180,7 @@ class GroupPreferencesBloc extends Bloc<GroupPreferencesEvent, GroupPreferencesS
 
   FutureOr<void> _onChangeGroupPrefsMode(
       ChangeGroupPrefsMode event, Emitter<GroupPreferencesState> emit) {
-    AnalyticsEventService().logEvent(eventName: AnalyticsEvents.unlockedSupportGroupFeature);
+    const AnalyticsEventService().logEvent(eventName: AnalyticsEvents.unlockedSupportGroupFeature);
 
     emit(GroupPreferencesState.updated(state.data.copyWith(
       groupPrefsMode: event.groupPrefsMode,

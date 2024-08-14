@@ -11,6 +11,7 @@ import 'package:loopcare_frontend/core/presentation/loader/loader.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/core/presentation/routes/app_router.gr.dart';
 import 'package:loopcare_frontend/core/presentation/scaffold/custom_scaffold.dart';
+import 'package:loopcare_frontend/core/presentation/text/custom_text.dart';
 import 'package:loopcare_frontend/features/nutrition/application/edit_dish/edit_dish_bloc.dart';
 import 'package:loopcare_frontend/features/nutrition/application/meals/meals_bloc.dart';
 import 'package:loopcare_frontend/features/nutrition/application/recipe/recipe_bloc.dart';
@@ -152,7 +153,7 @@ class _RecipeDetailsPageState extends State<RecipeDetailsPage> {
     if (mealCategory == null) return;
 
     if (state.data.isContainsRecipeOrDish) {
-      context.showError(content: Text(LocalizedTexts.invalidCreateDishFromMealMessage.tr()));
+      context.showError(content: CustomText(LocalizedTexts.invalidCreateDishFromMealMessage.tr()));
       return;
     }
 
@@ -189,15 +190,15 @@ class _RecipeDetailsPageState extends State<RecipeDetailsPage> {
   void _logAnalytics(TabController tabController) {
     switch (tabController.index) {
       case 1:
-        AnalyticsEventService()
+        const AnalyticsEventService()
             .logEvent(eventName: AnalyticsEvents.recipeDetailsScreenInstructions);
         break;
       case 2:
-        AnalyticsEventService()
+        const AnalyticsEventService()
             .logEvent(eventName: AnalyticsEvents.recipeDetailsScreenIngredients);
         break;
       default:
-        AnalyticsEventService().logEvent(eventName: AnalyticsEvents.recipeDetailsScreenSummary);
+        const AnalyticsEventService().logEvent(eventName: AnalyticsEvents.recipeDetailsScreenSummary);
         break;
     }
   }

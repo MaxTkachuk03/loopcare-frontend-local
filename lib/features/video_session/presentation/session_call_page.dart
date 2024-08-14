@@ -25,6 +25,7 @@ import 'package:loopcare_frontend/core/presentation/custom_safe_area.dart';
 import 'package:loopcare_frontend/core/presentation/loader/loader.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/core/presentation/routes/app_router.dart';
+import 'package:loopcare_frontend/core/presentation/text/custom_text.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 import 'package:loopcare_frontend/core/presentation/utils/date_time_utils.dart';
 import 'package:loopcare_frontend/features/authentication/application/dto/group_session_report.dart';
@@ -160,11 +161,11 @@ class _SessionCallPageState extends State<SessionCallPage> with WidgetsBindingOb
 
     status == Errors.Success
         ? context.showSuccessBar(
-            content: Text(
+            content: CustomText(
               LocalizedTexts.micState.tr(namedArgs: {"micState": micState}),
             ),
           )
-        : context.showError(content: Text(LocalizedTexts.somethingWentWrong.tr()));
+        : context.showError(content: CustomText(LocalizedTexts.errorSomethingWentWrong.tr()));
   }
 
   void _setInactivityTimer() {
@@ -250,7 +251,7 @@ class _SessionCallPageState extends State<SessionCallPage> with WidgetsBindingOb
     _sessionJoinListener = emitter.on(EventType.onSessionJoin, (sessionUser) async {
       isInSession = true;
 
-      AnalyticsEventService().logEvent(eventName: AnalyticsEvents.userEntersSession);
+      const AnalyticsEventService().logEvent(eventName: AnalyticsEvents.userEntersSession);
 
       _startTimer();
 
@@ -398,7 +399,7 @@ class _SessionCallPageState extends State<SessionCallPage> with WidgetsBindingOb
       log('_networkStatusChangeListener - $networkUser ${data['status']}', name: 'zoomSessionLog');
 
       if (data['status'] == NetworkStatus.Bad) {
-        context.showError(content: Text(LocalizedTexts.badConnectionMessage.tr()));
+        context.showError(content: CustomText(LocalizedTexts.badConnectionMessage.tr()));
       }
     });
 
@@ -509,7 +510,7 @@ class _SessionCallPageState extends State<SessionCallPage> with WidgetsBindingOb
   }
 
   _leaveSessionHandler() async {
-    AnalyticsEventService().logEvent(eventName: AnalyticsEvents.userLeaveSession);
+    const AnalyticsEventService().logEvent(eventName: AnalyticsEvents.userLeaveSession);
     await zoom.leaveSession(false);
     if (context.mounted) {
       context.router.maybePop();
@@ -521,7 +522,7 @@ class _SessionCallPageState extends State<SessionCallPage> with WidgetsBindingOb
 
     if (context.mounted) {
       context.router.popUntilRouteWithPath(AppRoutes.home);
-      context.showSuccessBar(content: Text(LocalizedTexts.sessionEndDialogText.tr()));
+      context.showSuccessBar(content: CustomText(LocalizedTexts.sessionEndDialogText.tr()));
     }
   }
 
@@ -576,7 +577,7 @@ class _SessionCallPageState extends State<SessionCallPage> with WidgetsBindingOb
   }
 
   void _showNotSupportSnack() =>
-      context.showError(content: Text(LocalizedTexts.toggleSpeakerError.tr()));
+      context.showError(content: CustomText(LocalizedTexts.toggleSpeakerError.tr()));
 
   void onSettingsHandler() {
     showDialog(
@@ -619,7 +620,7 @@ class _SessionCallPageState extends State<SessionCallPage> with WidgetsBindingOb
       ModalBottomSheet.reportAbuse(context: context, groupSession: sessionReport);
     }
 
-    AnalyticsEventService().logEvent(
+    const AnalyticsEventService().logEvent(
       eventName: AnalyticsEvents.groupSessionReportedIssue,
       parameters: {
         AnalyticsParameters.sessionId: signedSessionId,

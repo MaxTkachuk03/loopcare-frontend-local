@@ -32,6 +32,9 @@ class AuthenticationState with _$AuthenticationState {
 
   const factory AuthenticationState.errorUpdateEmail(AuthenticationData data) =
       AuthenticationStateErrorUpdateEmail;
+
+  const factory AuthenticationState.avatarUploaded(AuthenticationData data) =
+      AuthenticationStateAvatarUploaded;
 }
 
 @freezed
@@ -54,6 +57,10 @@ class AuthenticationData with _$AuthenticationData {
 
   factory AuthenticationData.fromJson(Map<String, dynamic> json) =>
       _$AuthenticationDataFromJson(json);
+
+  bool get hasAvatar => account?.avatarUrl != null;
+
+  String get avatar => account?.avatarUrl ?? '';
 
   bool get hasActiveSubscription => (account?.hasActiveSubscription ?? false);
 
@@ -126,4 +133,5 @@ class AuthenticationData with _$AuthenticationData {
       return '';
     }
   }
+  String get errorKey => error?.message ?? LocalizedTexts.errorSomethingWentWrong;
 }

@@ -139,7 +139,7 @@ class _SessionCountdownState extends State<SessionCountdown> {
   }
 
   void _onErrorListener(BuildContext context, TopicsState state) {
-    context.showError(content: Text(LocalizedTexts.somethingWentWrong.tr()));
+    context.showError(content: CustomText(LocalizedTexts.errorSomethingWentWrong.tr()));
     setState(() {
       _sessionTimerMode = const SessionTimerMode.sessionError();
     });

@@ -111,7 +111,8 @@ class _SubscriptionPageState extends State<SubscriptionPage> {
               topCover: AppImages.subscriptionTop,
               bottomCover: AppColors.blueRegular,
             ),
-            serviceSubscriptionUnavailable: (_) => content = SubscriptionStateView.serviceUnavailable(
+            serviceSubscriptionUnavailable: (_) =>
+                content = SubscriptionStateView.serviceUnavailable(
               controller: controller,
               topCover: AppImages.subscriptionTop,
               bottomCover: AppColors.blueRegular,
@@ -125,6 +126,7 @@ class _SubscriptionPageState extends State<SubscriptionPage> {
   void _onDuplicateSettings(BuildContext context) {
     if (!sheetOpenedNotifier.value) {
       sheetOpenedNotifier.value = true;
+      controller.handleLoading(false);
       _showRestoreSubscriptionBottomSheet(isDuplicate: true);
     }
   }
@@ -132,7 +134,7 @@ class _SubscriptionPageState extends State<SubscriptionPage> {
   void _onRestoreFromSettings(SubscriptionStateData data) {
     if (!sheetOpenedNotifier.value) {
       sheetOpenedNotifier.value = true;
-
+      controller.handleLoading(false);
       if (isVendorPlatform(data.subscription?.vendor)) {
         _showRestoreSubscriptionBottomSheet();
       } else {
@@ -198,10 +200,10 @@ class _SubscriptionPageState extends State<SubscriptionPage> {
       cur is LogoutState;
 
   void _errorListener(BuildContext context, SubscriptionState state) {
-    var errorMessage = state.data.error?.message ?? LocalizedTexts.somethingWentWrong;
+
     controller.resetState();
     context.showErrorBar(
-      content: Text(errorMessage.tr()),
+      content: CustomText(state.data.errorKey.tr()),
       position: FlashPosition.top,
     );
   }
