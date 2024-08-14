@@ -225,15 +225,6 @@ class SubscriptionBloc extends Bloc<SubscriptionEvent, SubscriptionState> {
             },
           );
 
-          const AnalyticsEventService.appsFlyer().logEvent(
-            eventName: '${AnalyticsEvents.subscriptionBought}_${price}_$currencyCode',
-            parameters: {
-              AnalyticsParameters.subscriptionContentId: purchaseDetails.purchaseID,
-              AnalyticsParameters.subscriptionTransactionId: identifier,
-              AnalyticsParameters.subscriptionContentType: purchaseDetails.productID,
-              AnalyticsParameters.subscriptionEventTime: r.purchasedAt,
-            },
-          );
           add(
             SubscriptionEvent.purchasedSubscription(
               r,

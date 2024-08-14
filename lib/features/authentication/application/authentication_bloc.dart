@@ -279,7 +279,7 @@ class AuthenticationBloc extends HydratedBloc<AuthenticationEvent, Authenticatio
         authTokenManager.setAccessToken(response.accessToken);
         authTokenManager.setRefreshToken(response.refreshToken);
 
-        const AnalyticsEventService().logEvent(
+        const AnalyticsEventService(includeAppsFlyer: true).logEvent(
           eventName: AnalyticsEvents.onboardingNewUserCreated,
           parameters: {
             AnalyticsParameters.value: state.data.email,
