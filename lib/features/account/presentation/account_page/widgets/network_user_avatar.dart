@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:loopcare_frontend/core/presentation/buttons/custom_filled_icon_button.dart';
 import 'package:loopcare_frontend/core/presentation/icon_images/app_icons.dart';
 import 'package:loopcare_frontend/core/presentation/network_image_with_cache/network_image_with_cache.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
@@ -65,26 +66,40 @@ class NetworkUserAvatar extends StatelessWidget {
     }
   }
 
+  bool get _isEditable => onPressed != null;
+
   @override
   Widget build(BuildContext context) {
     final avatarBorderSide = _onlyPhotoBorder
-        ? BorderSide(width: 2, color: _isSvg ? AppColors.transparent : AppColors.white, strokeAlign: 1)
+        ? BorderSide(
+            width: 2, color: _isSvg ? AppColors.transparent : AppColors.white, strokeAlign: 1)
         : borderSide;
 
     final padding = _onlyPhotoBorder && !_isSvg ? 2.0 : 0.0;
     final radius = size / 2 - padding;
 
-    return GestureDetector(
-      onTap: onPressed,
-      child: Padding(
-        padding: EdgeInsets.all(padding),
-        child: AvatarContainer(
-          radius: radius,
-          borderSide: avatarBorderSide,
-          child: _content,
+    return Stack(
+      children: [
+        Padding(
+          padding: EdgeInsets.all(padding),
+          child: AvatarContainer(
+            radius: radius,
+            borderSide: avatarBorderSide,
+            child: _content,
+          ),
         ),
-      ),
+        if (_isEditable)
+          Positioned(
+            bottom: 0,
+            right: 0,
+            child: CustomFilledIconButton(
+              onPressed: onPressed,
+              styles: IconButton.styleFrom(backgroundColor: AppColors.blueOffRegular),
+              iconSize: 18,
+              icon: const Icon(Icons.edit, color: AppColors.white),
+            ),
+          ),
+      ],
     );
   }
 }
-

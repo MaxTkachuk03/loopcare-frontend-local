@@ -35,8 +35,8 @@ class AnalyticsEventService {
         _includeAppsFlyer = false,
         _includeUXcam = true;
 
-  const AnalyticsEventService()
-      : _includeAppsFlyer = true,
+  const AnalyticsEventService({bool includeAppsFlyer = false})
+      : _includeAppsFlyer = includeAppsFlyer,
         _includeFbAnalytics = true,
         _includeUXcam = true;
 
