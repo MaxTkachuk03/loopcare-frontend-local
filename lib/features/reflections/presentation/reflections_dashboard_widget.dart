@@ -2,9 +2,9 @@ import 'package:auto_route/auto_route.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:loopcare_frontend/core/presentation/custom_app_icon/custom_app_icon.dart';
 import 'package:loopcare_frontend/core/presentation/error/error_screen.dart';
 import 'package:loopcare_frontend/core/presentation/icon_images/app_icons.dart';
-import 'package:loopcare_frontend/core/presentation/icon_images/app_icons_data.dart';
 import 'package:loopcare_frontend/core/presentation/loader/loader.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/core/presentation/routes/app_router.gr.dart';
@@ -39,11 +39,7 @@ class ReflectionsDashboardWidget extends StatelessWidget {
             DashboardCardTitle(
               onTap: () => context.router.push(const MyReflectionsRoute()),
               highlightColor: AppColors.petrolLightest,
-              leadingIcon: const CircleAvatar(
-                radius: 22,
-                backgroundColor: AppColors.petrolRegular,
-                child: Icon(AppIconsData.iReflection, color: AppColors.petrolLightest),
-              ),
+              leadingIcon: const CustomAppIcon.reflection(),
               title: CustomText.bitter600(
                 LocalizedTexts.reflections.tr(),
                 style: context.textTheme.headlineSmall,
