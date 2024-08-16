@@ -4,13 +4,12 @@ import 'package:dio/dio.dart';
 import 'package:injectable/injectable.dart';
 import 'package:loopcare_frontend/core/application/app_update/app_update_bottom_sheet.dart';
 import 'package:loopcare_frontend/core/infrastructure/services/shared_storage/shared_storage_service.dart';
-import 'package:loopcare_frontend/injection.dart';
 
 @injectable
 class AppVersionInterceptor extends QueuedInterceptor {
-  AppVersionInterceptor();
+  final SharedStorageService _storage;
 
-  SharedStorageService get _storage =>  getIt<SharedStorageService>();
+  AppVersionInterceptor(this._storage);
 
   @override
   void onResponse(Response response, ResponseInterceptorHandler handler) {
@@ -31,8 +30,9 @@ class AppVersionInterceptor extends QueuedInterceptor {
   bool _checkHeaderVersion(Map<String, List<String>> headers) {
     if (headers.containsKey(headerVersionProperty) && _storage.localVersion > 1) {
       final version = int.tryParse(headers[headerVersionProperty]?.first ?? '') ?? 0;
+      final isForceUpdate = bool.tryParse(headers['is-force-update']?.first ?? '') ?? false;
 
-      if (version > _storage.storeVersion) {
+      if (version > _storage.storeVersion && isForceUpdate) {
         _storage.storeVersion = version;
         return version > _storage.localVersion;
       }
