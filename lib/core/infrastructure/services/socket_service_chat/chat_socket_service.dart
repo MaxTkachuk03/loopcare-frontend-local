@@ -2,9 +2,8 @@ import 'dart:async';
 
 import 'package:get_it/get_it.dart';
 import 'package:loopcare_frontend/core/application/auth_token_manager.dart';
-import 'package:loopcare_frontend/core/application/socket_service/events.dart';
-import 'package:loopcare_frontend/core/application/socket_service_chat/chat_events.dart';
 import 'package:loopcare_frontend/core/infrastructure/services/app_config.dart';
+import 'package:loopcare_frontend/core/infrastructure/services/socket_service_chat/chat_events.dart';
 import 'package:loopcare_frontend/features/chat/application/chat_bloc/group_chat_bloc.dart';
 import 'package:loopcare_frontend/features/chat/domain/group_message.dart';
 import 'package:loopcare_frontend/features/chat/domain/socket_remove_data.dart';
@@ -109,7 +108,6 @@ class ChatSocketService {
 
   void _onErrorHandler(dynamic data) {
     disconnect();
-    _debug('on ${SocketEvents.error}: $data');
   }
 
   void _debug(String data) {

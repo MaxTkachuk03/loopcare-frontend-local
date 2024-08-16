@@ -499,6 +499,7 @@
   "emailChangeConfirmedBody1": "Your email address has been successfully updated.",
   "emailChangeConfirmedBody2": "We have sent you an email to your new address. Please click the link to verify.",
   "yourPreferencesUpdated": "Your {prefName} preferences have been updated",
+  "news": "News",
   "createNew": "Create new",
   "updateExist": "Update existing",
   "existMealText": "You want to create a new meal or edit an existing one?",
