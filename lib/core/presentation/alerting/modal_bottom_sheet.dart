@@ -1371,6 +1371,62 @@ class ModalBottomSheet {
     );
   }
 
+  static void appMinorUpdate({
+    required BuildContext context,
+    required Future<void> Function()? onUpdatePressed,
+  }) {
+    showModalBottomSheet<void>(
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12.0)),
+      context: context,
+      enableDrag: false,
+      isScrollControlled: true,
+      builder: (context) {
+        return MainContainer(
+          child: Padding(
+            padding: const EdgeInsets.symmetric(vertical: 30.0),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                const CircleAvatar(
+                  backgroundColor: AppColors.greenRegular,
+                  radius: 22,
+                  child: Icon(
+                    Icons.upload,
+                    size: 36,
+                    color: AppColors.greenLightest,
+                  ),
+                ),
+                const SizedBox(height: 24),
+                CustomText.w600(
+                  LocalizedTexts.minorUpdateTitle.tr(),
+                  style: context.textTheme.displayMedium,
+                  textAlign: TextAlign.center,
+                ),
+                const SizedBox(height: 20),
+                CustomText.w400(
+                  LocalizedTexts.minorUpdateBody.tr(),
+                  style: context.textTheme.bodyMedium,
+                  textAlign: TextAlign.center,
+                ),
+                const SizedBox(height: 24),
+                CustomElevatedButton.blueFullWidth(
+                  label: LocalizedTexts.update.tr(),
+                  onPressed: onUpdatePressed,
+                ),
+                const SizedBox(height: 20),
+                CustomOutlinedButton.blueFullWidth(
+                  label: LocalizedTexts.doItLaterButton.tr(),
+                  onPressed: context.router.maybePop,
+                ),
+                const SizedBox(height: 12.0),
+              ],
+            ),
+          ),
+        );
+      },
+    );
+  }
+
   static void inviteNewBuddy({
     required BuildContext context,
     required void Function() onInvite,

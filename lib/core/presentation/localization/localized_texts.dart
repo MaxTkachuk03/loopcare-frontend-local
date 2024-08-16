@@ -1038,6 +1038,9 @@ class LocalizedTexts {
   static const String updatePoliciesDocuments = 'updatePoliciesDocuments';
   static const String updatePoliciesDocumentsBodyText1 = 'updatePoliciesDocumentsBodyText1';
   static const String updatePoliciesDocumentsBodyText2 = 'updatePoliciesDocumentsBodyText2';
+  static const String minorUpdateTitle = 'minorUpdateTitle';
+  static const String minorUpdateBody = 'minorUpdateBody';
+  static const String doItLaterButton = 'doItLaterButton';
 
   // Buddy
   static const String buddyTitle = 'buddyTitle';
