@@ -10,5 +10,5 @@ class Constants {
   static const double calorieMaintenanceTopRange = 400;
   static const double calorieMaintenanceBottomRange = 800;
 
-  static const double avatarFileMaxSize = 10485760; // 10mb
+  static const double avatarFileMaxSize = 20971520; // 20mb
 }
