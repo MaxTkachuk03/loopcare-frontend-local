@@ -5,6 +5,7 @@ import 'package:loopcare_frontend/core/application/dto/updated_access_token_resp
 import 'package:loopcare_frontend/core/infrastructure/dio_client/dio_client.dart';
 import 'package:loopcare_frontend/core/infrastructure/dio_client/dio_options.dart';
 import 'package:loopcare_frontend/core/infrastructure/services/socket_service/socket_service.dart';
+import 'package:loopcare_frontend/core/infrastructure/services/socket_service_buddy/buddy_socket_service.dart';
 import 'package:loopcare_frontend/core/infrastructure/services/socket_service_chat/chat_socket_service.dart';
 import 'package:loopcare_frontend/features/authentication/application/authentication_bloc.dart';
 
@@ -83,6 +84,7 @@ class _AppLifeCycleStateListenerState extends State<AppLifeCycleStateListener> {
     final accessTokenIsUpdated = await updateAccessToken();
     if (accessTokenIsUpdated) {
       SocketService.instance.reconnect();
+      BuddySocketService.instance.reconnect();
       ChatSocketService.instance.reconnect();
     }
     return accessTokenIsUpdated;

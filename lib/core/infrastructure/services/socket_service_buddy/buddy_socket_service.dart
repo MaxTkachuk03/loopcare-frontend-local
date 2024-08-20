@@ -6,27 +6,27 @@ import 'package:loopcare_frontend/core/infrastructure/services/app_config.dart';
 import 'package:loopcare_frontend/core/infrastructure/services/app_sync_service/app_sync_service.dart';
 // ignore: unused_import
 import 'package:loopcare_frontend/core/infrastructure/services/logger/logger.dart';
-import 'package:loopcare_frontend/core/infrastructure/services/socket_service/events.dart';
+import 'package:loopcare_frontend/core/infrastructure/services/socket_service_buddy/buddy_events.dart';
 import 'package:socket_io_client/socket_io_client.dart' as io;
 
 const _serverDisconnect = 'io server disconnect';
 
-class SocketService {
+class BuddySocketService {
   final AppConfig? _appConfig;
   final AppSyncService _syncService;
   final AuthTokenManager? _tokenManager;
 
   String? _baseUrl;
   io.Socket? _socket;
-  static final SocketService _instance = SocketService._internal();
+  static final BuddySocketService _instance = BuddySocketService._internal();
 
-  static SocketService get instance => _instance;
+  static BuddySocketService get instance => _instance;
 
-  SocketService._internal()
+  BuddySocketService._internal()
       : _appConfig = GetIt.instance<AppConfig>(),
         _tokenManager = GetIt.instance<AuthTokenManager>(),
         _syncService = GetIt.instance<AppSyncService>() {
-    _baseUrl = 'wss://${_appConfig?.baseHost}/group-session';
+    _baseUrl = 'wss://${_appConfig?.baseHost}/buddy';
   }
 
   Future<void> startListen() async {
@@ -80,14 +80,10 @@ class SocketService {
       ..onConnect(_onConnect)
       ..onDisconnect(_onDisconnect)
       ..onConnectTimeout(_onConnectTimeout)
-      ..on(SocketEvents.slotCancelled, _refreshTopics)
-      ..on(SocketEvents.topicAvailable, _refreshTopics)
-      ..on(SocketEvents.topicUnavailable, _refreshTopics)
-      ..on(SocketEvents.newTopicAvailable, _refreshTopics)
-      ..on(SocketEvents.topicSlotFinished, _refreshTopics)
-      ..on(SocketEvents.topicSlotStarted, _refreshTopics)
-      ..on(SocketEvents.topicSlotStartedSoon, _refreshTopics)
-      ..on(SocketEvents.error, _onErrorHandler)
+      ..on(BuddySocketEvents.buddyRejectInvite, _onBuddyRejectInvite)
+      ..on(BuddySocketEvents.buddyLeft, _onBuddyLeft)
+      ..on(BuddySocketEvents.buddyAcceptedInvite, _onBuddyAcceptedInvite)
+      ..on(BuddySocketEvents.error, _onErrorHandler)
       ..onError(_onError);
 
     _socket!.connect();
@@ -111,16 +107,26 @@ class SocketService {
 
   void _onErrorHandler(dynamic data) {
     disconnect();
-    _debug('on ${SocketEvents.error}: $data');
+    _debug('on ${BuddySocketEvents.error}: $data');
   }
 
   void _onError(dynamic data) {
     _debug('Socket Error: $data');
   }
 
-  void _refreshTopics(dynamic data) => _syncService.refreshTopics();
+  void _onBuddyRejectInvite(dynamic data) {
+    _syncService.buddyRejectInvite();
+  }
+
+  void _onBuddyLeft(dynamic data) {
+    _syncService.buddyLeft();
+  }
+
+  void _onBuddyAcceptedInvite(dynamic data) {
+    _syncService.buddyAcceptedInvite();
+  }
 
   void _debug(String data) {
-    // log.i(data, error: 'SocketIO');
+    // log.i(data, error: 'SocketIO Buddy');
   }
 }

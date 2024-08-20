@@ -24,6 +24,7 @@ import 'package:loopcare_frontend/core/infrastructure/services/facebook_events_s
 import 'package:loopcare_frontend/core/infrastructure/services/mixpanel_event_service.dart';
 import 'package:loopcare_frontend/core/infrastructure/services/shared_storage/shared_storage_service.dart';
 import 'package:loopcare_frontend/core/infrastructure/services/socket_service/socket_service.dart';
+import 'package:loopcare_frontend/core/infrastructure/services/socket_service_buddy/buddy_socket_service.dart';
 import 'package:loopcare_frontend/core/infrastructure/services/socket_service_chat/chat_socket_service.dart';
 import 'package:loopcare_frontend/core/infrastructure/services/user_states_service/user_states_service.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
@@ -54,6 +55,7 @@ class AuthenticationBloc extends HydratedBloc<AuthenticationEvent, Authenticatio
   final SharedStorageService _sharedPref;
   final AppSyncService _syncService;
   final ChatSocketService _chatSocketService = ChatSocketService.instance;
+  final BuddySocketService _socketServiceBuddy = BuddySocketService.instance;
   final SocketService _socketService = SocketService.instance;
   final UserStatesService _statesService;
 
@@ -248,6 +250,7 @@ class AuthenticationBloc extends HydratedBloc<AuthenticationEvent, Authenticatio
 
     emit(const AuthenticationState.guest(AuthenticationData()));
 
+    _socketServiceBuddy.disconnect();
     _socketService.disconnect();
     _chatSocketService.disconnect();
   }
@@ -749,6 +752,7 @@ class AuthenticationBloc extends HydratedBloc<AuthenticationEvent, Authenticatio
   }
 
   void _connectSockets() {
+    _socketServiceBuddy.startListen();
     _socketService.startListen();
     _chatSocketService.startListen();
   }
