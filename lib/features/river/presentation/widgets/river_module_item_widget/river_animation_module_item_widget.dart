@@ -182,8 +182,6 @@ class _RiverAnimationModuleItemWidgetState extends State<RiverAnimationModuleIte
   Offset get _startPosition => _definePosition(_buttonKey);
 
   void _setUpAnimations() {
-    _setUpItemColorAnimation(widget.item);
-
     _rotateAnimation = Tween<double>(begin: 0.0, end: 2.0)
         .chain(CurveTween(curve: Curves.ease))
         .animate(_rotationController);
@@ -193,7 +191,7 @@ class _RiverAnimationModuleItemWidgetState extends State<RiverAnimationModuleIte
         .animate(_sizeController);
 
     _badgeAnimation = Tween<double>(
-      begin: widget.item.isCompleted ? 1.0 : 0.0,
+      begin: widget.item.states.prevItemState.isCompleted ? 1.0 : 0.0,
       end: 1.0,
     ).animate(_badgeController);
   }
@@ -242,7 +240,7 @@ class _RiverAnimationModuleItemWidgetState extends State<RiverAnimationModuleIte
   }
 
   void _completeOrClearAction() {
-    if (widget.item.isCompleted) {
+    if (widget.item.states.itemState.isCompleted) {
       _runComplete();
     } else {
       _clearItemAnimation();

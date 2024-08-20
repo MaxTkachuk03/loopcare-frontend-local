@@ -14,7 +14,7 @@ class RiverEvent with _$RiverEvent {
 
   const factory RiverEvent.updateActiveModuleItemStatus() = UpdateActiveModuleItemStatus;
 
-  const factory RiverEvent.updateGuidanceModuleItem({
+  const factory RiverEvent.updateModuleItemById({
     required int moduleId,
     required int moduleItemId,
   }) = UpdateModuleItem;
@@ -28,4 +28,6 @@ class RiverEvent with _$RiverEvent {
     required int moduleId,
     required int moduleItemId,
   }) = BounceParentItem;
+
+  const factory RiverEvent.completeBuddyModuleItem() = CompleteBuddyModuleItem;
 }

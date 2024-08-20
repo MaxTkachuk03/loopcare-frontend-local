@@ -39,7 +39,7 @@ mixin RiverUtils {
   }
 
   double itemRadius({bool isRoot = false, bool isOverview = false}) {
-    if (isOverview) {
+    if (isOverview && (!isRoot && isBeginning || !isBeginning)) {
       return kRiverOverviewItemRadius;
     } else if (isRoot) {
       return kRiverRootItemRadius;

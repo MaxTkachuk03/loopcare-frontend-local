@@ -28,13 +28,16 @@ class RiverStateData with _$RiverStateData {
 
   const factory RiverStateData({
     @Default([]) List<RiverModule> modules,
+    @Default([]) List<RiverModuleItem> crossModuleItems,
     @Default(false) bool isLoading,
     RiverModule? activeModule,
     RiverModuleItem? activeModuleItem,
     RequestError? error,
   }) = _RiverStateData;
 
-  RiverModule? get nextModule => activeModule != null ? modules.elementAt(currentPage + 1) : null;
+  RiverModule? get nextModule => activeModule != null && modules.last.id != activeModule?.id
+      ? modules.elementAt(currentPage + 1)
+      : activeModule;
 
   int get currentPage => activeModule != null ? modules.indexOf(activeModule!) : 0;
 
@@ -46,11 +49,14 @@ class RiverStateData with _$RiverStateData {
       )) > 0;
 
   bool get isBeginningStarted =>
-      currentPage == 0 && (activeModule?.moduleItems.any((item) => item.isCompleted) ?? true);
+      currentPage == 0 &&
+          (activeModule?.moduleItems.any((item) => item.states.prevItemState.isCompleted) ?? true);
 
   bool get isProfileCompleted =>
-      activeModule?.moduleItems.firstWhereOrNull((item) => item.isProfile)?.isCompleted ?? true;
+      activeModule?.moduleItems
+          .firstWhereOrNull((item) => item.isProfile)?.states.prevItemState.isCompleted ?? true;
 
   bool get isPracticeCompleted =>
-      activeModule?.moduleItems.firstWhereOrNull((item) => item.isPractice)?.isCompleted ?? true;
+      activeModule?.moduleItems
+          .firstWhereOrNull((item) => item.isPractice)?.states.prevItemState.isCompleted ?? true;
 }

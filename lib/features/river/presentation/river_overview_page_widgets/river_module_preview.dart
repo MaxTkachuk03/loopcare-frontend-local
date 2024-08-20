@@ -38,7 +38,7 @@ class RiverModulePreview extends StatelessWidget with RiverUtils {
       ),
       child: RiverModuleBuilder(
         isOverview: true,
-        enableGradient: module.moduleItems.any((i) => !i.isLocked),
+        enableGradient: module.moduleItems.any((i) => !i.states.prevItemState.isLocked),
         index: getIndex(page),
         completedDate: module.nextModuleUnlocksAt,
         totalDelay: module.nextModuleUnlockDelay,
@@ -47,7 +47,7 @@ class RiverModulePreview extends StatelessWidget with RiverUtils {
         positionedItems: positionedItems,
         itemBuilder: (context, index) {
           final item = positionedItems[index].item;
-          var radius = isBeginning && item.isRootItem ? kRiverRootItemRadius : itemRadius(isOverview: true);
+          final radius = itemRadius(isRoot: item.isRootItem, isOverview: true);
 
           return RiverModuleItemPreview(
             item: item,

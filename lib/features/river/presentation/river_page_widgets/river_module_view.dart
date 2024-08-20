@@ -110,7 +110,7 @@ class _RiverScreenState extends State<RiverScreen> with RiverUtils {
   }
 
   void _onItemPressed(RiverModuleItem item) {
-    if (item.isLocked) {
+    if (item.states.prevItemState.isLocked) {
       _bounceParentItem(item);
     } else if (isBeginning) {
       _beginningUnlockAction(item);
@@ -136,7 +136,7 @@ class _RiverScreenState extends State<RiverScreen> with RiverUtils {
     final riverBloc = context.read<RiverBloc>();
 
     riverBloc.add(
-      RiverEvent.updateGuidanceModuleItem(
+      RiverEvent.updateModuleItemById(
         moduleId: widget.module.id,
         moduleItemId: id,
       ),
@@ -149,7 +149,7 @@ class _RiverScreenState extends State<RiverScreen> with RiverUtils {
   }
 
   void _beginningUnlockAction(RiverModuleItem item) {
-    if (item.isCompleted) {
+    if (item.states.prevItemState.isCompleted) {
       return;
     }
 
@@ -210,7 +210,7 @@ class _RiverScreenState extends State<RiverScreen> with RiverUtils {
   }
 
   void _onStateChanged(RiverModuleItem item) {
-    context.read<RiverBloc>().add(RiverEvent.updateGuidanceModuleItem(
+    context.read<RiverBloc>().add(RiverEvent.updateModuleItemById(
       moduleItemId: item.id,
       moduleId: widget.module.id,
     ));

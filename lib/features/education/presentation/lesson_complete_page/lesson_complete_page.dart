@@ -56,7 +56,8 @@ class _LessonCompletePageState extends State<LessonCompletePage> {
 
     if (activeModuleItem == null) return;
 
-    _hasReflection = activeModuleItem.unlocksReflectionId != null && activeModuleItem.isUnLocked;
+    _hasReflection = activeModuleItem.unlocksReflectionId != null &&
+        activeModuleItem.states.itemState.isUnLocked;
   }
 
   void _onPressHandler(BuildContext context) {

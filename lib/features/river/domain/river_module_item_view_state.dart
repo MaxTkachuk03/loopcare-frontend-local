@@ -31,7 +31,10 @@ class RiverModuleItemViewStateConverter implements JsonConverter<RiverModuleItem
   @override
   RiverModuleItemViewState fromJson(Map<String, dynamic> json) {
     final itemState = RiverModuleItemState.values.byName(json['itemState']);
-    final prevItemState = RiverModuleItemState.values.byName(json['prevItemState'] ?? json['itemState']);
+    final rawPrevItemState = json['prevItemState'];
+    final prevItemState = rawPrevItemState != null
+        ? RiverModuleItemState.values.byName(rawPrevItemState)
+        : RiverModuleItemState.locked;
 
     RiverModuleItemAnimationState animationState;
     if (itemState.isUnLockedOrHigher && prevItemState.isLocked) {

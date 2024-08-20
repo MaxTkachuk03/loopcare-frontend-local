@@ -31,29 +31,32 @@ class RiverModuleItem with _$RiverModuleItem {
     required FeaturePlacement? featurePlacement,
     @RiverModuleItemViewStateConverter()
     required RiverModuleItemViewState states,
+    @Default(null) int? completedInModuleId,
+    @Default(0) int spawnedInModuleId,
   }) = _RiverModuleItem;
 
   Color get bgColor => states.prevItemState.bgColor(streamType);
 
-  IconData get icon => iconType.icon;
-
   Color get iconColor => states.prevItemState.iconColor(streamType);
 
+  IconData get icon => iconType.icon;
+
   double get iconElevation => states.prevItemState.elevation;
-
-  bool get isLocked => states.itemState.isLocked;
-
-  bool get isUnLocked => states.prevItemState.isUnLocked;
-
-  bool get isCompleted => states.prevItemState.isCompleted;
-
-  bool get isRead => states.prevItemState.isRead;
 
   bool get isProfile => iconType == RiverIconType.profile;
 
   bool get isPractice => iconType == RiverIconType.practise;
 
-  factory RiverModuleItem.fromJson(Map<String, dynamic> json) => _$RiverModuleItemFromJson(json);
+  bool get isCompletedCrossModule => crossModule && states.prevItemState.isCompleted;
+
+  bool get isReadCrossModule =>
+      crossModule && states.prevItemState.isRead && states.itemState.isRead;
+
+  bool get isBuddyCrossModuleItem => crossModule && unlocksFeature.contains(UnlockedFeatureType.buddy);
+
+  bool get isAdditionalBuddyCrossModuleItem => crossModule && unlocksFeature.isEmpty && actions.isEmpty;
+
+      factory RiverModuleItem.fromJson(Map<String, dynamic> json) => _$RiverModuleItemFromJson(json);
 }
 
 class UnlockedFeatureTypeListConverter
