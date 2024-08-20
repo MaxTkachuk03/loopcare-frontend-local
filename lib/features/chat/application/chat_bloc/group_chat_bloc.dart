@@ -6,6 +6,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
 import 'package:loopcare_frontend/core/infrastructure/dio_client/request_error.dart';
+import 'package:loopcare_frontend/core/infrastructure/services/app_sync_service/app_sync_service.dart';
 import 'package:loopcare_frontend/features/chat/application/chat_service.dart';
 import 'package:loopcare_frontend/features/chat/application/chat_watcher_bloc/chat_watcher_bloc.dart';
 import 'package:loopcare_frontend/features/chat/domain/group_member.dart';
@@ -19,8 +20,13 @@ part 'group_chat_state.dart';
 class GroupChatBloc extends Bloc<GroupChatEvent, GroupChatState> {
   final ChatService chatService;
   final ChatWatcherBloc _chatWatcherBloc;
+  final AppSyncService _syncService;
 
-  GroupChatBloc(this.chatService, this._chatWatcherBloc) : super(const GroupChatState.initial(GroupChatStateData())) {
+  GroupChatBloc(
+    this.chatService,
+    this._chatWatcherBloc,
+    this._syncService,
+  ) : super(const GroupChatState.initial(GroupChatStateData())) {
     on<ChatEventInit>(_onInitReportAbuse);
     on<SendMessage>(_onSendMessage);
     on<GetMessages>(_onGetMessages);
@@ -30,6 +36,17 @@ class GroupChatBloc extends Bloc<GroupChatEvent, GroupChatState> {
     on<NewMessage>(_onNewMessage);
     on<SetReadPointer>(_onSetReadPointer);
     on<GetUnreadCount>(_onGetUnreadCount);
+
+    _syncService.stream.listen(
+     (event) {
+       event.whenOrNull(
+         buddyAcceptedInvite: () {
+           add(const GroupChatEvent.getUnreadCount());
+           add(const GroupChatEvent.getMessages(refresh: true));
+         },
+       );
+     },
+    );
   }
 
   FutureOr<void> _onInitReportAbuse(
@@ -44,11 +61,15 @@ class GroupChatBloc extends Bloc<GroupChatEvent, GroupChatState> {
   ) async {
     emit(GroupChatState.loading(state.data.copyWith(isLoadingMembers: false)));
     final response = await chatService.unreadCount();
-    response.fold((error) => emit(GroupChatState.error(GroupChatStateData(error: error, isLoadingMembers: false))),
-        (r) {
-      _chatWatcherBloc.add(ChatWatcherEvent.getNewMassage(r.data));
-      emit(GroupChatState.gotUnreadCount(state.data.copyWith(isLoadingMembers: false, counter: r.data)));
-    });
+    response.fold(
+      (e) => emit(GroupChatState.error(GroupChatStateData(error: e, isLoadingMembers: false))),
+      (r) {
+        _chatWatcherBloc.add(ChatWatcherEvent.getNewMassage(r.data));
+        emit(GroupChatState.gotUnreadCount(
+          state.data.copyWith(isLoadingMembers: false, counter: r.data),
+        ));
+      },
+    );
   }
 
   FutureOr<void> _onSetReadPointer(

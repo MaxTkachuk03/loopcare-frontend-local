@@ -48,6 +48,7 @@ class AuthenticationData with _$AuthenticationData {
     @Default('') String password,
     @Default(false) bool emailWasSend,
     @Default(false) bool emailVerified,
+    @Default(false) bool showBuddyNews,
     @Default(-1) int accountId,
     Account? account,
     @Default(false) bool isLoading,

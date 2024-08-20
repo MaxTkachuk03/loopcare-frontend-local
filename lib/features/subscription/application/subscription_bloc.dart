@@ -9,7 +9,6 @@ import 'package:in_app_purchase/in_app_purchase.dart';
 import 'package:injectable/injectable.dart';
 import 'package:loopcare_frontend/core/application/auth_token_manager.dart';
 import 'package:loopcare_frontend/core/application/customer_io_service/customer_io_service.dart';
-import 'package:loopcare_frontend/core/application/socket_service/socket_service.dart';
 import 'package:loopcare_frontend/core/domain/analytics/analytics_events.dart';
 import 'package:loopcare_frontend/core/domain/analytics/analytics_parameters.dart';
 import 'package:loopcare_frontend/core/infrastructure/dio_client/request_error.dart';
@@ -17,6 +16,7 @@ import 'package:loopcare_frontend/core/infrastructure/dio_client/server_error_da
 import 'package:loopcare_frontend/core/infrastructure/services/analytics_service.dart';
 import 'package:loopcare_frontend/core/infrastructure/services/facebook_events_service.dart';
 import 'package:loopcare_frontend/core/infrastructure/services/logger/logger.dart';
+import 'package:loopcare_frontend/core/infrastructure/services/socket_service/socket_service.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/features/authentication/application/authentication_service.dart';
 import 'package:loopcare_frontend/features/authentication/domain/subscription/subscription.dart';
@@ -225,15 +225,6 @@ class SubscriptionBloc extends Bloc<SubscriptionEvent, SubscriptionState> {
             },
           );
 
-          const AnalyticsEventService.appsFlyer().logEvent(
-            eventName: '${AnalyticsEvents.subscriptionBought}_${price}_$currencyCode',
-            parameters: {
-              AnalyticsParameters.subscriptionContentId: purchaseDetails.purchaseID,
-              AnalyticsParameters.subscriptionTransactionId: identifier,
-              AnalyticsParameters.subscriptionContentType: purchaseDetails.productID,
-              AnalyticsParameters.subscriptionEventTime: r.purchasedAt,
-            },
-          );
           add(
             SubscriptionEvent.purchasedSubscription(
               r,

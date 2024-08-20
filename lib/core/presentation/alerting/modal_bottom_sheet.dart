@@ -1745,7 +1745,7 @@ class ModalBottomSheet {
                       dimension: 50.0,
                       child: Center(
                         child: Icon(
-                          AppIconsData.iProfile,
+                          AppIconsData.iPractice,
                           color: AppColors.blueRegular,
                           size: 36.0,
                         ),

@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loopcare_frontend/features/home/application/navigation_bar_bloc.dart';
 import 'package:loopcare_frontend/features/home/presentation/widget/custom_navigation_bar/animated_bottom_bar.dart';
 import 'package:loopcare_frontend/features/home/presentation/widget/navigation_bar_item/navigation_bar_items.dart';
+import 'package:loopcare_frontend/features/river/application/river_bloc.dart';
 
 class CustomNavigationBar extends StatelessWidget {
   final TabsRouter tabsRouter;
@@ -42,6 +43,8 @@ class CustomNavigationBar extends StatelessWidget {
       context.read<NavigationBarBloc>().add(const NavigationBarEvent.removePractiseNotification());
     } else if (index == 2) {
       context.read<NavigationBarBloc>().add(const NavigationBarEvent.removeProfileNotification());
+    } else if (index == 1) {
+      context.read<RiverBloc>().add(const RiverEvent.getActualModule());
     }
   }
 }
