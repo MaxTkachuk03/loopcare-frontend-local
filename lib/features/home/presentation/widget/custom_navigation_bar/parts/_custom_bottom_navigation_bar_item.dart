@@ -44,6 +44,8 @@ class _CustomBottomNavigationBarItem extends StatelessWidget {
               Flexible(
                 child: CustomText.w400(
                   label,
+                  maxLines: 1,
+                  textAlign: TextAlign.center,
                   style: textStyle,
                 ),
               ),

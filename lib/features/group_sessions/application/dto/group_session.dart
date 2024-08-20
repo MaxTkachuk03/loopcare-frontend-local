@@ -26,15 +26,40 @@ class GroupSession with _$GroupSession {
     required String groupSessionKey,
   }) = _GroupSession;
 
-  bool get isSessionAlreadyStarted => startDate.isBefore(DateTime.now());
+  bool get _isNotEnded => DateTime.now().isBefore(localEndTime);
+
+  bool get _hasFreeSlots => maxMemberCount - memberCount > 0;
+
+  bool get hasTimeSlots {
+    if (status == GroupSessionStatus.cancelled) return false;
+
+    return _isNotEnded && _hasFreeSlots;
+  }
+
+  bool get isCanceled => status == GroupSessionStatus.cancelled;
+
+  bool get lessThanHourBeforeStart => localStartTime.difference(DateTime.now()).inMinutes < 60;
+
+  // TODO check with Diana session is completed state we dont have completed state right now
+  bool get isCompleted => isSessionEnded;
+
+  bool get isInProgress => isSessionAlreadyStarted && isSessionNotEnded;
+
+  bool get isMinUsersReached => memberCount >= minMemberCount;
+
+  bool get isSessionNotEnded =>
+      DateTime.now().isBefore(localEndTime) || DateTime.now().isAtSameMomentAs(localEndTime);
+
+  bool get isSessionAlreadyStarted =>
+      DateTime.now().isAfter(localStartTime) || DateTime.now().isAtSameMomentAs(localStartTime);
 
   bool get isStartedLessThanFifteenMinutesAgo =>
       DateTime.now().difference(startDate.toLocal()).inMinutes <
       GroupSessionConstants.timeUserCanRejoinToSession;
 
-  bool get isSessionEnded => DateTime.now().toLocal().isAfter(endDate.toLocal());
+  bool get isSessionEnded => DateTime.now().isAfter(endDate.toLocal());
 
-  get availableSeatsAmount => maxMemberCount - memberCount;
+  int get availableSeatsAmount => maxMemberCount - memberCount;
 
   DateTime get localStartTime => startDate.toLocal();
 

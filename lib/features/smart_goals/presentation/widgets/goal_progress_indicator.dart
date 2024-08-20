@@ -1,4 +1,3 @@
-import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 import 'package:loopcare_frontend/core/presentation/utils/build_context_extensions.dart';
@@ -72,35 +71,33 @@ class _TextAccent extends StatelessWidget {
     required this.steps,
   });
 
-  TextStyle? getStyle(BuildContext context) => context.textTheme.bodySmall?.copyWith(
-      fontFamily: ThemeConstants.openSansFontFamily,
-      color: AppColors.white,
-      fontWeight: FontWeight.w400,
-      letterSpacing: 1.54);
+  TextStyle? getStyle(BuildContext context, [Color? color = AppColors.white]) =>
+      context.textTheme.bodySmall?.copyWith(color: color, letterSpacing: 1.54);
 
   @override
   Widget build(BuildContext context) {
     return Container(
       width: 2 * counterRadius,
       alignment: Alignment.center,
-      child: AutoSizeText.rich(
-        maxLines: 1,
-        style: context.textTheme.bodySmall,
-        TextSpan(
-          children: <InlineSpan>[
-            TextSpan(
-              text: '$currentStep',
-              style: getStyle(context),
-            ),
-            TextSpan(
-              text: '/',
-              style: getStyle(context)?.copyWith(color: AppColors.blueLightest),
-            ),
-            TextSpan(
-              text: '$steps',
-              style: getStyle(context),
-            ),
-          ],
+      child: FittedBox(
+        child: RichText(
+          text: TextSpan(
+            style: context.textTheme.bodySmall,
+            children: <InlineSpan>[
+              TextSpan(
+                text: '$currentStep',
+                style: getStyle(context),
+              ),
+              TextSpan(
+                text: '/',
+                style: getStyle(context, AppColors.blueLightest),
+              ),
+              TextSpan(
+                text: '$steps',
+                style: getStyle(context),
+              ),
+            ],
+          ),
         ),
       ),
     );

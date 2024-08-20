@@ -16,6 +16,7 @@ import 'package:loopcare_frontend/core/presentation/localization/localized_texts
 import 'package:loopcare_frontend/core/presentation/nutrition/nutrition_summary/nutrition_summary.dart';
 import 'package:loopcare_frontend/core/presentation/routes/app_router.gr.dart';
 import 'package:loopcare_frontend/core/presentation/scaffold/custom_scaffold.dart';
+import 'package:loopcare_frontend/core/presentation/text/custom_text.dart';
 import 'package:loopcare_frontend/core/presentation/utils/date_time_extensions.dart';
 import 'package:loopcare_frontend/core/presentation/utils/string_extensions.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/main_container.dart';
@@ -68,7 +69,7 @@ class _MealPageState extends State<MealPage> {
     if (mealId == null || mealCategory == null) return;
 
     if (state.data.isContainsRecipeOrDish) {
-      context.showError(content: Text(LocalizedTexts.invalidCreateDishFromMealMessage.tr()));
+      context.showError(content: CustomText(LocalizedTexts.invalidCreateDishFromMealMessage.tr()));
       return;
     }
 

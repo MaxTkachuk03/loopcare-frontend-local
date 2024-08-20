@@ -240,5 +240,34 @@ class AppIcons {
       SvgPicture.asset('$iconsFilePath/icon_reflection_unlock.svg');
   static SvgPicture iReflectionCompleted =
       SvgPicture.asset('$iconsFilePath/icon_reflection_completed.svg');
+
+  static SvgPicture userAvatarIconBlue =
+      SvgPicture.asset('$iconsFilePath/user_avatar_icon_blue.svg');
+  static SvgPicture userAvatarIconCoral =
+      SvgPicture.asset('$iconsFilePath/user_avatar_icon_coral.svg');
+  static SvgPicture userAvatarIconGreen =
+      SvgPicture.asset('$iconsFilePath/user_avatar_icon_green.svg');
+  static SvgPicture userAvatarIconOrange =
+      SvgPicture.asset('$iconsFilePath/user_avatar_icon_orange.svg');
+  static SvgPicture userAvatarIconPetrol =
+      SvgPicture.asset('$iconsFilePath/user_avatar_icon_petrol.svg');
+  static SvgPicture userAvatarIconYellow =
+      SvgPicture.asset('$iconsFilePath/user_avatar_icon_yellow.svg');
+  static SvgPicture userAvatarIconPhoto =
+      SvgPicture.asset('$iconsFilePath/user_avatar_icon_photo.svg');
+
+  static SvgPicture femaleAvatarTone1 = SvgPicture.asset('$iconsFilePath/female_avatar_tone1.svg');
+  static SvgPicture femaleAvatarTone2 = SvgPicture.asset('$iconsFilePath/female_avatar_tone2.svg');
+  static SvgPicture femaleAvatarTone3 = SvgPicture.asset('$iconsFilePath/female_avatar_tone3.svg');
+  static SvgPicture femaleAvatarTone4 = SvgPicture.asset('$iconsFilePath/female_avatar_tone4.svg');
+
+  static SvgPicture maleAvatarTone1 = SvgPicture.asset('$iconsFilePath/male_avatar_tone1.svg');
+  static SvgPicture maleAvatarTone2 = SvgPicture.asset('$iconsFilePath/male_avatar_tone2.svg');
+  static SvgPicture maleAvatarTone3 = SvgPicture.asset('$iconsFilePath/male_avatar_tone3.svg');
+  static SvgPicture maleAvatarTone4 = SvgPicture.asset('$iconsFilePath/male_avatar_tone4.svg');
+
+  static const String avatarIconPhotoPath = '$iconsFilePath/user_avatar_icon_photo.svg';
+  static const String avatarIconBluePath = '$iconsFilePath/user_avatar_icon_blue.svg';
+
   AppIcons._();
 }

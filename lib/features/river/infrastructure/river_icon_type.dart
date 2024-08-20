@@ -14,7 +14,7 @@ enum RiverIconType {
   nutrition,
   weight,
   profile,
-  practise, // practice
+  practise,
   reflection;
 
   bool get isReflection => this == reflection;

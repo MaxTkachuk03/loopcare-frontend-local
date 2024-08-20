@@ -97,7 +97,7 @@ class _ReflectionQuestionPageState extends State<ReflectionQuestionPage> {
   }
 
   void _onErrorHandler(ReflectionsState s) =>
-      context.showError(content: CustomText(s.data.error?.message ?? ''));
+      context.showError(content: CustomText(s.data.errorKey.tr()));
 
   void _onUpdateHandler(ReflectionsState s) {
     if (widget.step == (_totalSteps - 1)) {
@@ -105,7 +105,7 @@ class _ReflectionQuestionPageState extends State<ReflectionQuestionPage> {
 
       if (activeReflection != null) {
         const AnalyticsEventService().finalizeAssignment(
-           AnalyticsEvents.userCompleteReflection, activeReflection, widget.fromDashboard);
+            AnalyticsEvents.userCompleteReflection, activeReflection, widget.fromDashboard);
       }
 
       context.router.push(ReflectionCompleteRoute(streamType: widget.streamType));

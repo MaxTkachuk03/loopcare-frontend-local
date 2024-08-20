@@ -175,6 +175,11 @@ class RiverBloc extends Bloc<RiverEvent, RiverState> {
         RiverState.moduleItemLoadingError(state.data.copyWith(error: l, isLoading: false)),
       ),
       (r) {
+        if (r.isRootItem) {
+          add(const RiverEvent.getActualModule());
+          return;
+        }
+
         final activeModule = _updateModuleItem(event.moduleId, r);
 
         var modules = _updateModule(activeModule);

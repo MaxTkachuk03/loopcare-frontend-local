@@ -32,23 +32,27 @@ class _SplashPageState extends State<SplashPage> {
   Future<void> _initPackageInfo(AppUpdateState state) async {
     FlutterNativeSplash.remove();
 
-    if (state.data.needToUpdate) {
+    if (state.data.needToForceUpdate) {
       AppUpdateBottomSheet.showAppUpdate();
     } else if (_controller.isAuthorized) {
       _controller.getAccount();
     } else {
       _navigateUnauthorized();
     }
+
+    if (state.data.needToMinorUpdate) {
+      Future.delayed(const Duration(seconds: 3), AppUpdateBottomSheet.showMinorAppUpdate);
+    }
   }
 
   void _appUpdateErrorListener(AppUpdateState state) {
     FlutterNativeSplash.remove();
-    _errorListener(state.data.error?.message.tr());
+    _errorListener(state.data.errorKey);
   }
 
-  void _errorListener(dynamic error) {
+  void _errorListener(String errorKey) {
     _navigateToIntro();
-    context.showError(content: CustomText(error?.toString() ?? LocalizedTexts.somethingWentWrong.tr()));
+    context.showError(content: CustomText(errorKey.tr()));
   }
 
   void _updatePolicies() {
@@ -84,7 +88,7 @@ class _SplashPageState extends State<SplashPage> {
     super.initState();
     _controller = SplashController(
       appUpdateBloc: context.read<AppUpdateBloc>(),
-      authenticationBloc:  context.read<AuthenticationBloc>(),
+      authenticationBloc: context.read<AuthenticationBloc>(),
       legalStatementBloc: context.read<LegalStatementBloc>(),
       onboardingBloc: context.read<GeneralOnboardingBloc>(),
       riverBloc: context.read<RiverBloc>(),
@@ -110,16 +114,16 @@ class _SplashPageState extends State<SplashPage> {
       listeners: [
         BlocListener<AppUpdateBloc, AppUpdateState>(
           listener: (context, state) => state.mapOrNull(
-              loaded: _initPackageInfo,
-              error: _appUpdateErrorListener,
-            ),
+            loaded: _initPackageInfo,
+            error: _appUpdateErrorListener,
+          ),
         ),
         BlocListener<AuthenticationBloc, AuthenticationState>(
           listener: (context, state) => state.mapOrNull(
-              needUpdatePolicies: (_) => _updatePolicies(),
-              gotAccount: (_) => _onAuthorized(),
-              error: (state) => _errorListener(state.data.error?.error),
-            ),
+            needUpdatePolicies: (_) => _updatePolicies(),
+            gotAccount: (_) => _onAuthorized(),
+            error: (state) => _errorListener(state.data.error?.error),
+          ),
         ),
         BlocListener<RiverBloc, RiverState>(
           listener: (context, state) => state.mapOrNull(

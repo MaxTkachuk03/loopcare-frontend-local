@@ -2,7 +2,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:loopcare_frontend/core/presentation/loader/loader.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/scrollable_container.dart';
 import 'package:loopcare_frontend/features/subscription/application/subscription_controller.dart';
 import 'package:loopcare_frontend/features/subscription/presentation/widget/subscription_button.dart';
@@ -39,17 +38,6 @@ class _SubscriptionWrapperPageState extends State<_SubscriptionWrapperPage> {
             padding: EdgeInsets.zero,
             color: widget.bottomCover,
             child: widget.child,
-          ),
-        ),
-        Positioned.fill(
-          child: Align(
-            alignment: Alignment.center,
-            child: ValueListenableBuilder<bool>(
-              valueListenable: widget.controller.loading,
-              builder: (context, loading, _) {
-                return loading ? const Loader() : const SizedBox.shrink();
-              },
-            ),
           ),
         ),
       ],

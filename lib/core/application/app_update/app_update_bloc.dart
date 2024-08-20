@@ -7,6 +7,7 @@ import 'package:injectable/injectable.dart';
 import 'package:loopcare_frontend/core/application/app_update/app_version_service.dart';
 import 'package:loopcare_frontend/core/infrastructure/dio_client/request_error.dart';
 import 'package:loopcare_frontend/core/infrastructure/services/shared_storage/shared_storage_service.dart';
+import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/injection.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 
@@ -39,7 +40,14 @@ class AppUpdateBloc extends Bloc<AppUpdateEvent, AppUpdateState> {
 
         final platformMinVersion = Platform.isIOS ? r.iosMinVersion : r.androidMinVersion;
 
+        final isForceUpdate = r.isForceUpdate;
+
         final localVersion = int.parse(info.buildNumber);
+
+        final needToForceUpdate = localVersion < platformMinVersion && isForceUpdate;
+
+        final displayPopup = storage.storeVersion < platformMinVersion;
+        final needToMinorUpdate = !isForceUpdate && localVersion < platformMinVersion && displayPopup;
 
         storage.localVersion = localVersion;
         storage.storeVersion = platformMinVersion;
@@ -47,12 +55,11 @@ class AppUpdateBloc extends Bloc<AppUpdateEvent, AppUpdateState> {
         storage.privacyPolicyVersion = r.privacyPolicyVersion;
         storage.termsAndConditionsVersion = r.termsAndConditionsVersion;
 
-        final needToUpdate = localVersion < platformMinVersion;
-
         emit(
           AppUpdateState.loaded(
             state.data.copyWith(
-              needToUpdate: needToUpdate,
+              needToForceUpdate: needToForceUpdate,
+              needToMinorUpdate: needToMinorUpdate,
               privacyPolicyVersion: r.privacyPolicyVersion,
               termsAndConditionsVersion: r.termsAndConditionsVersion,
               isLoading: false,

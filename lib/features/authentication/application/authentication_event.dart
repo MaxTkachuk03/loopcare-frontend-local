@@ -20,6 +20,8 @@ class AuthenticationEvent with _$AuthenticationEvent {
 
   const factory AuthenticationEvent.resendEmail() = ResendEmail;
 
+  const factory AuthenticationEvent.uploadAvatar(FormData data) = UploadAvatar;
+
   const factory AuthenticationEvent.forgotPassword(String email) = ForgotPassword;
 
   const factory AuthenticationEvent.previousStep() = PreviousStep;

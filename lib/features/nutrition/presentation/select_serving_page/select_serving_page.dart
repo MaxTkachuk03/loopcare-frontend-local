@@ -147,7 +147,7 @@ class _SelectServingPageState extends State<SelectServingPage> {
 
     final snackBarText = _getSnackBarText(isFavorite, state.hasSelectedMealCategoryFilters);
 
-    context.showSuccessBar(content: Text(snackBarText));
+    context.showSuccessBar(content: CustomText(snackBarText));
   }
 
   _removeFromFavorite() {

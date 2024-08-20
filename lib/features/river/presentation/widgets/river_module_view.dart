@@ -12,6 +12,7 @@ import 'package:loopcare_frontend/features/river/domain/river_module.dart';
 import 'package:loopcare_frontend/features/river/domain/river_module_item.dart';
 import 'package:loopcare_frontend/features/river/infrastructure/feature_placement.dart';
 import 'package:loopcare_frontend/features/river/presentation/river_module_item_widget/river_animation_module_item_widget.dart';
+import 'package:loopcare_frontend/features/river/presentation/river_module_item_widget/start_river_module_item.dart';
 import 'package:loopcare_frontend/features/river/presentation/utils/module_items_utils.dart';
 import 'package:loopcare_frontend/features/river/presentation/utils/river_utils.dart';
 import 'package:loopcare_frontend/features/river/presentation/widgets/river_module_builder.dart';
@@ -41,14 +42,14 @@ class _RiverScreenState extends State<RiverScreen> with RiverUtils {
   void initState() {
     super.initState();
     _page = getIndex(widget.page);
-    _positionedItems = ModuleItemsUtils.getItemsOffsets(_page, widget.module.moduleItems);
+    _positionedItems = ModuleItemsUtils.getAllocatedItems(_page, widget.module.moduleItems);
   }
 
   @override
   void didUpdateWidget(covariant RiverScreen oldWidget) {
     super.didUpdateWidget(oldWidget);
     if (!widget.module.moduleItems.equals(oldWidget.module.moduleItems)) {
-      _positionedItems = ModuleItemsUtils.getItemsOffsets(_page, widget.module.moduleItems);
+      _positionedItems = ModuleItemsUtils.getAllocatedItems(_page, widget.module.moduleItems);
     }
   }
 
@@ -81,6 +82,9 @@ class _RiverScreenState extends State<RiverScreen> with RiverUtils {
           onTransitionComplete: _onTransitionItemCompleted,
         );
       },
+      startItemBuilder: (context) => StartRiverModuleItem(
+        onTap: _onStartItemPressed,
+      ),
     );
   }
 
@@ -92,34 +96,44 @@ class _RiverScreenState extends State<RiverScreen> with RiverUtils {
     }
   }
 
+  void _onStartItemPressed() {
+    if (!context.read<NavigationBarBloc>().state.data.isBeginningCompleted) {
+      ModalBottomSheet.guidanceStartRiver(context: context);
+    }
+  }
+
+  void _updateModuleItem(int id) {
+    final riverBloc = context.read<RiverBloc>();
+
+    riverBloc.add(
+      RiverEvent.updateGuidanceModuleItem(
+        moduleId: widget.module.id,
+        moduleItemId: id,
+      ),
+    );
+  }
+
   void _beginningUnlockAction(RiverModuleItem item) {
     if (item.itemState.isCompleted) {
       return;
     }
 
-    final riverBloc = context.read<RiverBloc>();
+    if (item.isRootItem) {
+      context.router.push(SelectAvatarRoute(onDispose: () => _updateModuleItem(item.id)));
+      return;
+    }
 
     if (item.isPractice) {
       ModalBottomSheet.guidancePractice(
         context: context,
-        onConfirm: () => riverBloc.add(
-          RiverEvent.updateGuidanceModuleItem(
-            moduleId: widget.module.id,
-            moduleItemId: item.id,
-          ),
-        ),
+        onConfirm: () => _updateModuleItem(item.id),
       );
     }
 
     if (item.isProfile) {
       ModalBottomSheet.guidanceProfile(
         context: context,
-        onConfirm: () => riverBloc.add(
-          RiverEvent.updateGuidanceModuleItem(
-            moduleId: widget.module.id,
-            moduleItemId: item.id,
-          ),
-        ),
+        onConfirm: () => _updateModuleItem(item.id),
       );
     }
   }
@@ -153,8 +167,7 @@ class _RiverScreenState extends State<RiverScreen> with RiverUtils {
   }
 
   void _onCompleteTime() {
-    if (isBeginning &&
-        !context.read<NavigationBarBloc>().state.data.isBeginningCompleted) {
+    if (isBeginning && !context.read<NavigationBarBloc>().state.data.isBeginningCompleted) {
       ModalBottomSheet.guidanceCompleted(
         context: context,
         onConfirm: () =>

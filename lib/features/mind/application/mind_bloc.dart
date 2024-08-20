@@ -8,6 +8,7 @@ import 'package:loopcare_frontend/core/domain/analytics/analytics_events.dart';
 import 'package:loopcare_frontend/core/domain/analytics/analytics_parameters.dart';
 import 'package:loopcare_frontend/core/infrastructure/dio_client/request_error.dart';
 import 'package:loopcare_frontend/core/infrastructure/services/analytics_service.dart';
+import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/features/mind/application/dto/complete_exercise_data.dart';
 import 'package:loopcare_frontend/features/mind/application/dto/mind_info_response.dart';
 import 'package:loopcare_frontend/features/mind/application/dto/mind_technique.dart';

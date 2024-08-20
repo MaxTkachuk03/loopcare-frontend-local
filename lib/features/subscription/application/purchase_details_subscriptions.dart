@@ -17,12 +17,14 @@ class PurchaseDetailsStreamSubscription {
   final Function(RequestError error)? onError;
   final Function(PurchaseDetails purchase)? onRestored;
   final Function()? onCanceled;
+  final Function()? onEmpty;
 
   StreamSubscription<List<PurchaseDetails>>? _streamSubscription;
 
   PurchaseDetailsStreamSubscription({
     this.onPending,
     this.onPurchased,
+    this.onEmpty,
     this.onError,
     this.onRestored,
     this.onCanceled,
@@ -37,8 +39,7 @@ class PurchaseDetailsStreamSubscription {
     _streamSubscription = inAppPurchaseService.storeSubscription.listen(
       (List<PurchaseDetails> events) async {
         if (events.isEmpty) {
-          onError?.call(
-              const RequestError.streamSubscription(ServerErrorData(message: LocalizedTexts.purchaseStreamError)));
+          onEmpty?.call();
           return;
         }
         if (events.every((element) => element.status == PurchaseStatus.restored)) {
@@ -70,7 +71,7 @@ class PurchaseDetailsStreamSubscription {
                 break;
               case PurchaseStatus.error:
                 onError?.call(const RequestError.streamSubscription(
-                    ServerErrorData(message: LocalizedTexts.purchaseStreamError)));
+                    ServerErrorData(message: LocalizedTexts.errorPurchaseStreamError)));
                 if (Platform.isIOS) {
                   await inAppPurchaseService.finishTransactionIOS();
                 }
@@ -85,7 +86,7 @@ class PurchaseDetailsStreamSubscription {
       onDone: close,
       onError: (e) {
         onError?.call(const RequestError.streamSubscription(
-            ServerErrorData(message: LocalizedTexts.purchaseStreamError)));
+            ServerErrorData(message: LocalizedTexts.errorPurchaseStreamError)));
         close();
       },
     );

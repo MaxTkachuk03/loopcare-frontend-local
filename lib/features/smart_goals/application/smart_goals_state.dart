@@ -64,4 +64,5 @@ class SmartGoalsStateData with _$SmartGoalsStateData {
         final id = session.goal?.smartGoal.externalId;
         return relatedExternalIds.contains(id) || id == externalId;
       });
+  String get errorKey => error?.message ?? LocalizedTexts.errorSomethingWentWrong;
 }

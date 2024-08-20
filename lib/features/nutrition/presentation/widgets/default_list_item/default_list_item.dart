@@ -1,4 +1,3 @@
-import 'package:auto_size_text/auto_size_text.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
@@ -44,13 +43,10 @@ class DefaultListItem extends StatelessWidget {
                 ),
               ),
             ),
-            AutoSizeText(
+            CustomText.w400(
               '${item.calories} ${LocalizedTexts.kcal.tr()}',
               maxLines: 1,
-              style: context.textTheme.bodySmall?.copyWith(
-                fontWeight: FontWeight.w400,
-                color: AppColors.greyRegular,
-              ),
+              style: context.textTheme.bodySmall?.copyWith(color: AppColors.greyRegular),
             ),
           ],
         ),

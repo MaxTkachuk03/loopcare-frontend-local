@@ -16,10 +16,13 @@ class AppUpdateData with _$AppUpdateData {
   const AppUpdateData._();
 
   const factory AppUpdateData({
-    @Default(false) bool needToUpdate,
+    @Default(false) bool needToForceUpdate,
+    @Default(false) bool needToMinorUpdate,
     @Default(1) int privacyPolicyVersion,
     @Default(1) int termsAndConditionsVersion,
     @Default(false) bool isLoading,
     RequestError? error,
   }) = _AppUpdateData;
+
+  String get errorKey => error?.message ?? LocalizedTexts.errorSomethingWentWrong;
 }
