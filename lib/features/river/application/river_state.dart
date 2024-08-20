@@ -18,6 +18,8 @@ class RiverState with _$RiverState {
   const factory RiverState.moduleItemLoaded(RiverStateData data) = RiverStateModuleItemLoaded;
 
   const factory RiverState.moduleItemSelected(RiverStateData data) = RiverStateModuleItemSelected;
+
+  const factory RiverState.moduleCompleted(RiverStateData data) = RiverStateModuleCompleted;
 }
 
 @freezed
@@ -32,12 +34,14 @@ class RiverStateData with _$RiverStateData {
     RequestError? error,
   }) = _RiverStateData;
 
+  RiverModule? get nextModule => activeModule != null ? modules.elementAt(currentPage + 1) : null;
+
   int get currentPage => activeModule != null ? modules.indexOf(activeModule!) : 0;
 
   bool get isBeginningComplete => modules.isEmpty
       ? true
       : modules.indexOf(modules.firstWhere(
-        (m) => !m.isCompleted,
+        (m) => m.moduleState.isInProgress,
         orElse: () => modules.last,
       )) > 0;
 

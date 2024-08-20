@@ -23,4 +23,9 @@ class RiverEvent with _$RiverEvent {
     int? moduleId,
     RiverModuleItem? item,
   }) = SelectModuleItem;
+
+  const factory RiverEvent.bounceParentItem({
+    required int moduleId,
+    required int moduleItemId,
+  }) = BounceParentItem;
 }

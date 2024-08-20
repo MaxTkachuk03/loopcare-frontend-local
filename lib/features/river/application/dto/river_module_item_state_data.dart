@@ -7,12 +7,21 @@ part 'river_module_item_state_data.g.dart';
 @immutable
 @JsonSerializable()
 class RiverModuleItemStateData {
-  final RiverModuleItemState itemState;
+  final RiverModuleItemState? itemState;
+  final RiverModuleItemState prevItemState;
 
-  const RiverModuleItemStateData({required this.itemState});
+  const RiverModuleItemStateData({
+    required this.itemState,
+    required this.prevItemState,
+  });
 
   static RiverModuleItemStateData fromJson(Map<String, dynamic> json) =>
       _$RiverModuleItemStateDataFromJson(json);
 
   Map<String, dynamic> toJson() => _$RiverModuleItemStateDataToJson(this);
+
+  @override
+  String toString() {
+    return 'itemState: $itemState, prevItemState: $prevItemState';
+  }
 }

@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
 import 'package:injectable/injectable.dart';
+import 'package:loopcare_frontend/core/infrastructure/services/app_sync_service/app_sync_service.dart';
 
 part 'navigation_bar_bloc.freezed.dart';
 part 'navigation_bar_bloc.g.dart';
@@ -11,7 +12,9 @@ part 'navigation_bar_state.dart';
 
 @singleton
 class NavigationBarBloc extends HydratedBloc<NavigationBarEvent, NavigationBarState> {
-  NavigationBarBloc() : super(const NavigationBarState.initialised(NavigationBarStateData())) {
+  final AppSyncService _syncService;
+
+  NavigationBarBloc(this._syncService) : super(const NavigationBarState.initialised(NavigationBarStateData())) {
     on<InitNavigationBar>(_onInitNavigationBar);
     on<SetBeginningUncompleted>(_onSetBeginningUncompleted);
     on<UnlockPractise>(_onUnlockPractise);
@@ -21,6 +24,13 @@ class NavigationBarBloc extends HydratedBloc<NavigationBarEvent, NavigationBarSt
     on<RemovePractiseNotification>(_onRemovePractiseNotification);
     on<AddProfileNotification>(_onAddProfileNotification);
     on<RemoveProfileNotification>(_onRemoveProfileNotification);
+
+    _syncService.stream.listen(
+      (event) => event.whenOrNull(
+        buddyLeft: () => add(const NavigationBarEvent.addProfileNotification()),
+        buddyRejectInvite: () => add(const NavigationBarEvent.addProfileNotification()),
+      ),
+    );
   }
 
   @override

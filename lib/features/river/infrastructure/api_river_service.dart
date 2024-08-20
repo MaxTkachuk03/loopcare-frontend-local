@@ -4,6 +4,7 @@ import 'package:loopcare_frontend/core/infrastructure/dio_client/dio_client.dart
 import 'package:loopcare_frontend/core/infrastructure/dio_client/request_error.dart';
 import 'package:loopcare_frontend/features/river/application/dto/get_modules_response.dart';
 import 'package:loopcare_frontend/features/river/application/dto/river_module_item_state_data.dart';
+import 'package:loopcare_frontend/features/river/application/dto/river_module_state_data.dart';
 import 'package:loopcare_frontend/features/river/application/river_service.dart';
 import 'package:loopcare_frontend/features/river/domain/river_module.dart';
 import 'package:loopcare_frontend/features/river/domain/river_module_item.dart';
@@ -19,19 +20,19 @@ class APIRiverService implements RiverService {
   APIRiverService(this.client);
 
   @override
-  Future<Either<RequestError, GetModulesResponse>> getModules() async {
+  Future<Either<RequestError, GetModulesResponse>> getModules() {
     // TODO river modules response mock
-    // return right(GetModulesResponse.fromJson({'data': modules}));
-    return await client.get('/river/modules', fromJson: GetModulesResponse.fromJson);
+    // return Future.value(right(GetModulesResponse.fromJson({'data': modules})));
+    return client.get('/river/modules', fromJson: GetModulesResponse.fromJson);
   }
 
   @override
-  Future<Either<RequestError, RiverModule>> getModuleById({required int moduleId}) async {
+  Future<Either<RequestError, RiverModule>> getModuleById({required int moduleId}) {
     // TODO river modules response mock
-    // return right(RiverModule.fromJson({'data': modules[1]}));
+    // return Future.value(right(RiverModule.fromJson({'data': modules[1]})));
 
     // TODO replace with correct url
-    return await client.get('/river/modules/$moduleId', fromJson: RiverModule.fromJson);
+    return client.get('/river/modules/$moduleId', fromJson: RiverModule.fromJson);
   }
 
   @override
@@ -39,13 +40,25 @@ class APIRiverService implements RiverService {
     required int moduleId,
     required int moduleItemId,
     required RiverModuleItemStateData data,
-  }) async {
+  }) {
     // TODO river modules response mock
-    // return right(RiverModuleItem.fromJson(moduleItem));
-    return await client.put(
+    // return Future.value(right(RiverModuleItem.fromJson(moduleItem)));
+    return client.put(
       '/river/modules/$moduleId/module-items/$moduleItemId/progress',
       data: data,
       fromJson: RiverModuleItem.fromJson,
+    );
+  }
+
+  @override
+  Future<Either<RequestError, RiverModule>> updateModuleState({
+    required int moduleId,
+    required RiverModuleStateData data,
+  }) {
+    return client.put(
+      '/river/modules/$moduleId/progress',
+      data: data,
+      fromJson: RiverModule.fromJson,
     );
   }
 }

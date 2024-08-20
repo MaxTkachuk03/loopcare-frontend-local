@@ -35,12 +35,12 @@ class _RiverItemFootprintState extends State<_RiverItemFootprint>
     _theBeginningController = AnimationController(duration: _unlockDuration, vsync: this);
 
     _backgroundColorAnimation = ColorTween(
-      begin: getBackgroundColor(widget.item),
+      begin: getBackgroundColor(widget.item.states.itemState, widget.item.streamType),
       end: AppColors.red,
     ).animate(_controller);
 
     _foregroundColorAnimation = ColorTween(
-      begin: getIconColor(widget.item),
+      begin: getIconColor(widget.item.states.itemState, widget.item.streamType),
       end: AppColors.red,
     ).animate(_controller);
 

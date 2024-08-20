@@ -26,13 +26,13 @@ class RiverModuleItemPreview extends StatelessWidget with RiverUtils {
   Widget build(BuildContext context) {
     return Material(
       shape: const CircleBorder(),
-      color: backgroundColor ?? getBackgroundColor(item),
+      color: backgroundColor ?? getBackgroundColor(item.states.itemState, item.streamType),
       elevation: elevation,
       child: SizedBox.square(
         dimension: 2 * radius,
         child: Icon(
           item.icon,
-          color: iconColor ?? getIconColor(item),
+          color: iconColor ?? getIconColor(item.states.itemState, item.streamType),
           size: radius * 1.44,
         ),
       ),

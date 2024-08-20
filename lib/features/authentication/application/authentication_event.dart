@@ -62,4 +62,6 @@ class AuthenticationEvent with _$AuthenticationEvent {
   }) = UpdatePolicy;
 
   const factory AuthenticationEvent.sendApsFlyerData() = SendAppsFlyerData;
+
+  const factory AuthenticationEvent.buddyVisited() = BuddyVisited;
 }

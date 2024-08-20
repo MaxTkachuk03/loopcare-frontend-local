@@ -287,6 +287,7 @@ class LocalizedTexts {
   static const String yesDelete = 'yesDelete';
   static const String noCancel = 'noCancel';
   static const String yourPreferencesUpdated = 'yourPreferencesUpdated';
+  static const String news = 'news';
 
   // Education
   static const String backToToday = 'backToToday';
@@ -1148,6 +1149,9 @@ class LocalizedTexts {
   static const String guidanceProfileDescription = 'guidanceProfileDescription';
   static const String guidanceCompletedTitle = 'guidanceCompletedTitle';
   static const String guidanceCompletedDescription = 'guidanceCompletedDescription';
+  static const String moduleCompletedTitle = 'moduleCompletedTitle';
+  static const String moduleCompletedDescription = 'moduleCompletedDescription';
+  static const String lastModuleCompletedDescription = 'lastModuleCompletedDescription';
   static const String guidanceStartRiverTitle = 'guidanceStartRiverTitle';
   static const String guidanceStartRiverDescription = 'guidanceStartRiverDescription';
 
