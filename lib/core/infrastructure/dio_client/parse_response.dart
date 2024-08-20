@@ -63,6 +63,10 @@ Either<RequestError, Map<String, dynamic>> handleResponse(Response? response) {
 }
 
 ServerErrorData _getTranslateKey(Response response) {
-  final serverErrorData = ServerErrorData.fromJson(response.data);
-  return serverErrorData.copyWith(message: serverErrorData.message);
+  if (response.data is String) {
+    return ServerErrorData(error: response.data, message: response.data);
+  } else {
+    final serverErrorData = ServerErrorData.fromJson(response.data);
+    return serverErrorData.copyWith(message: serverErrorData.message);
+  }
 }
