@@ -7,11 +7,16 @@ class UserStatesModelAdapter extends TypeAdapter<UserStatesModel> {
 
   @override
   UserStatesModel read(BinaryReader reader) {
-    return UserStatesModel.fromJson(reader.read());
+    final id = reader.read() as int;
+    final buddyStatus = reader.read() as String?;
+
+    return UserStatesModel(id: id, buddyStatus: buddyStatus);
   }
 
   @override
   void write(BinaryWriter writer, UserStatesModel obj) {
-    writer.write(obj.toJson());
+    writer
+      ..write(obj.id)
+      ..write(obj.buddyStatus);
   }
 }
