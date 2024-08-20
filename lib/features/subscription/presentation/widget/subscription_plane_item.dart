@@ -67,7 +67,6 @@ class SubscriptionPlaneItem extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
                     CustomText.bitter600(
-                      //Todo remove priceWithCurrency will be updated with localization
                       LocalizedTexts.subscriptionTitlePrice.tr(
                         args: [title, priceWithCurrency],
                       ),
