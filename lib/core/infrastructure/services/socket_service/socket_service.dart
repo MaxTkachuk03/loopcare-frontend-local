@@ -26,7 +26,7 @@ class SocketService {
       : _appConfig = GetIt.instance<AppConfig>(),
         _tokenManager = GetIt.instance<AuthTokenManager>(),
         _syncService = GetIt.instance<AppSyncService>() {
-    _baseUrl = 'wss://${_appConfig?.baseHost}/group-session';
+    _baseUrl = 'wss://${_appConfig?.baseHost}/buddy';
   }
 
   Future<void> startListen() async {
@@ -87,6 +87,7 @@ class SocketService {
       ..on(SocketEvents.topicSlotFinished, _refreshTopics)
       ..on(SocketEvents.topicSlotStarted, _refreshTopics)
       ..on(SocketEvents.topicSlotStartedSoon, _refreshTopics)
+      ..on(SocketEvents.buddyInvited, _onBuddyInvited)
       ..on(SocketEvents.buddyRejectInvite, _onBuddyRejectInvite)
       ..on(SocketEvents.buddyLeft, _onBuddyLeft)
       ..on(SocketEvents.buddyAcceptedInvite, _onBuddyAcceptedInvite)
@@ -122,6 +123,8 @@ class SocketService {
   }
 
   void _refreshTopics(dynamic data) => _syncService.refreshTopics();
+
+  void _onBuddyInvited(dynamic data) => _syncService.buddyInvited();
 
   void _onBuddyRejectInvite(dynamic data) => _syncService.buddyRejectInvite();
 

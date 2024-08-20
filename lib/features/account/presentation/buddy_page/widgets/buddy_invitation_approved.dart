@@ -6,7 +6,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/core/presentation/text/custom_text.dart';
-import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 import 'package:loopcare_frontend/core/presentation/utils/build_context_extensions.dart';
 import 'package:loopcare_frontend/features/account/presentation/account_page/widgets/account_container.dart';
 import 'package:loopcare_frontend/features/account/presentation/buddy_page/application/buddy_bloc.dart';
@@ -29,22 +28,15 @@ class BuddyInvitationApproved extends StatelessWidget {
               title: LocalizedTexts.buddyEmail,
               value: state.data.buddy?.email ?? '',
             ),
-            const SizedBox(
-              height: 14,
-            ),
+            const SizedBox(height: 14),
             _DetailsSection(
               title: LocalizedTexts.buddyUserName,
               value: state.data.buddy?.username ?? '',
             ),
-            const SizedBox(
-              height: 14,
-            ),
+            const SizedBox(height: 14),
             _DetailsSection(
               title: LocalizedTexts.buddySince,
               value: _getDate(state.data.buddy?.invitation?.invitationDate),
-            ),
-            const SizedBox(
-              height: 14,
             ),
           ],
         );
@@ -78,34 +70,13 @@ class _DetailsSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      height: 109,
-      child: Row(
+    return AccountContainer(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          Expanded(
-            child: AccountContainer(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.start,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  CustomText(
-                    title.tr(),
-                    style: context.textTheme.bodyMedium?.copyWith(
-                      color: AppColors.blueDarker,
-                    ),
-                  ),
-                  const SizedBox(height: 4.0),
-                  CustomText.w600(
-                    value?.tr() ?? '',
-                    style: context.textTheme.bodyMedium?.copyWith(
-                      fontSize: ThemeConstants.fontSize14,
-                      color: AppColors.blueDarker,
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ),
+          CustomText(title.tr(), style: context.textTheme.bodyMedium),
+          const SizedBox(height: 4.0),
+          CustomText.w600(value?.tr() ?? '', style: context.textTheme.bodySmall),
         ],
       ),
     );

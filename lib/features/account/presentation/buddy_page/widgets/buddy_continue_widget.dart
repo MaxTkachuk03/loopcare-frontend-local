@@ -29,7 +29,7 @@ class _BuddyContinueState extends State<BuddyContinueWidget> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 16.0),
+      padding: const EdgeInsets.symmetric(vertical: 30.0),
       child: CustomElevatedButton.blueFullWidth(
         onPressed: widget.enable ? () => _onNextHandler() : null,
         label: LocalizedTexts.next.tr(),

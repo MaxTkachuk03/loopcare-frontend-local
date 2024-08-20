@@ -31,6 +31,7 @@ import 'package:loopcare_frontend/core/presentation/widgets/custom_rounded_conta
 import 'package:loopcare_frontend/core/presentation/widgets/keyboard_listener_container.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/main_container.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/scrollable_container.dart';
+import 'package:loopcare_frontend/features/account/presentation/buddy_page/application/buddy_bloc.dart';
 import 'package:loopcare_frontend/features/account/presentation/emergency_numbers/emergency_number_card.dart';
 import 'package:loopcare_frontend/features/authentication/application/dto/group_chat_report.dart';
 import 'package:loopcare_frontend/features/authentication/application/dto/group_session_report.dart';
@@ -1427,47 +1428,57 @@ class ModalBottomSheet {
     );
   }
 
-  static void inviteNewBuddy({
+  static void removeInviteConfirmation({
     required BuildContext context,
     required void Function() onInvite,
   }) {
+    final name = context.read<BuddyBloc>().state.data.buddy?.username ?? '';
+
     showModalBottomSheet<void>(
       showDragHandle: true,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12.0)),
       context: context,
       builder: (BuildContext context) {
-        return FractionallySizedBox(
-          heightFactor: 0.75,
-          child: ScrollableContainer(
-            child: MainContainer(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  CustomText.w600(
-                    LocalizedTexts.buddyFindAnotherBuddyLabel.tr(),
-                    style: context.textTheme.bodyMedium?.copyWith(color: AppColors.orangeRegular),
-                  ),
-                  CustomText.w400(
-                    LocalizedTexts.buddyFindAnotherBuddyContent.tr(),
-                    style: context.textTheme.bodyMedium,
-                  ),
-                  const SizedBox(height: 12.0),
-                  CustomElevatedButton.blueFullWidth(
-                    onPressed: () {
-                      context.router.maybePop.call();
-                      onInvite.call();
-                    },
-                    label: LocalizedTexts.buddyFindAnotherBuddy.tr(),
-                  ),
-                  const SizedBox(height: 12.0),
-                  CustomOutlinedButton.blueFullWidth(
-                    onPressed: () => context.router.maybePop.call(),
-                    label: LocalizedTexts.buddyNotNeedAnotherBuddy.tr(),
-                  ),
-                  const SizedBox(height: 12.0),
-                ],
+        return MainContainer(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              const CircleAvatar(
+                radius: 25.0,
+                backgroundColor: AppColors.blueRegular,
+                child: Icon(Icons.check, size: 30),
               ),
-            ),
+              const SizedBox(height: 20.0),
+              CustomText.w600(
+                LocalizedTexts.buddyFindAnotherBuddyLabel.tr(namedArgs: {"name": name}),
+                style: context.textTheme.bodyMedium,
+              ),
+              const SizedBox(height: 20.0),
+              CustomText.w400(
+                LocalizedTexts.buddyFindAnotherBuddyContentOne.tr(),
+                style: context.textTheme.bodyMedium,
+              ),
+              const SizedBox(height: 20.0),
+              CustomText.w400(
+                LocalizedTexts.buddyFindAnotherBuddyContentTwo.tr(),
+                style: context.textTheme.bodyMedium,
+              ),
+              const SizedBox(height: 20.0),
+              CustomElevatedButton.blueFullWidth(
+                onPressed: () {
+                  context.router.maybePop();
+                  onInvite();
+                },
+                label: LocalizedTexts.buddyFindAnotherBuddy.tr(),
+              ),
+              const SizedBox(height: 20.0),
+              CustomOutlinedButton.blueFullWidth(
+                onPressed: context.router.maybePop,
+                label: LocalizedTexts.buddyNotNeedAnotherBuddy.tr(),
+              ),
+              const SizedBox(height: 30.0),
+            ],
           ),
         );
       },

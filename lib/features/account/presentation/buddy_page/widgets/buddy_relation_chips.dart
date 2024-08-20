@@ -36,7 +36,7 @@ class _BuddyRelationChipsState extends State<BuddyRelationChips> {
       itemBuilder: (BuildContext context, int i) {
         final item = Relation.values[i];
 
-        return CustomChoiceChip.coral(
+        return CustomChoiceChip.orange(
           label: item.label,
           selected: item == _selectedValue,
           onSelected: _onSelected,

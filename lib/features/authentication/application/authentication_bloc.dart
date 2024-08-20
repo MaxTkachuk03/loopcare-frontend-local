@@ -29,6 +29,7 @@ import 'package:loopcare_frontend/core/infrastructure/services/user_states_servi
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/core/presentation/utils/string_extensions.dart';
 import 'package:loopcare_frontend/features/account/domain/user_grouping_state.dart';
+import 'package:loopcare_frontend/features/account/presentation/buddy_page/application/buddy_status.dart';
 import 'package:loopcare_frontend/features/authentication/application/authentication_service.dart';
 import 'package:loopcare_frontend/features/authentication/application/dto/account_document_version_data.dart';
 import 'package:loopcare_frontend/features/authentication/application/dto/device_data.dart';
@@ -98,6 +99,7 @@ class AuthenticationBloc extends HydratedBloc<AuthenticationEvent, Authenticatio
     _syncService.stream.listen(
       (event) => event.whenOrNull(
         // todo
+        buddyInvited: () => add(const AuthenticationEvent.getAccount()),
         buddyAcceptedInvite: () => add(const AuthenticationEvent.getAccount()),
         buddyLeft: () => add(const AuthenticationEvent.getAccount()),
         buddyRejectInvite: () => add(const AuthenticationEvent.getAccount()),
@@ -655,6 +657,8 @@ class AuthenticationBloc extends HydratedBloc<AuthenticationEvent, Authenticatio
           birthDate: r.physicalFitness.birthDate,
           groupingState: r.groupingState,
           groupId: r.groupId,
+          buddyState: r.buddyState,
+          buddy: r.buddy,
           groupingStartedAt: r.groupingStartedAt,
           nickname: r.groupingPreferences?.nickname,
           genderPreference: r.groupingPreferences?.genderPreference,

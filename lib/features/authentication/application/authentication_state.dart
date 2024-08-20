@@ -91,7 +91,7 @@ class AuthenticationData with _$AuthenticationData {
 
   bool get disableGroupSessions => account?.disableGroupSessions ?? false;
 
-  String? get buddyState => account?.buddyState;
+  BuddyStatus? get buddyState => account?.buddyState;
 
   Buddy? get buddy => account?.buddy;
 
@@ -134,5 +134,6 @@ class AuthenticationData with _$AuthenticationData {
       return '';
     }
   }
+
   String get errorKey => error?.message ?? LocalizedTexts.errorSomethingWentWrong;
 }

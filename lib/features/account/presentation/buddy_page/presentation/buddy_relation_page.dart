@@ -34,7 +34,7 @@ class BuddyRelationPage extends StatelessWidget {
           leading: CustomFilledIconButton.leadingBlueLighter(),
           bottom: PreferredSize(
             preferredSize: const Size.fromHeight(72),
-            child: BuddyProgressBar.coral(backgroundColor: AppColors.blueRegular),
+            child: BuddyProgressBar.white(backgroundColor: AppColors.blueRegular),
           ),
         ),
         body: CustomSafeArea(

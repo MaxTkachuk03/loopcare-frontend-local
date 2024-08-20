@@ -15,7 +15,9 @@ class _LiveTogetherChipsState extends State<LiveTogetherChips> {
   YesNoAnswer? _selectedValue;
 
   void _onSelected(YesNoAnswer value) => setState(() {
-        context.read<BuddyBloc>().add(BuddyEvent.liveTogether(liveTogether: value == YesNoAnswer.yes));
+        context
+            .read<BuddyBloc>()
+            .add(BuddyEvent.liveTogether(liveTogether: value == YesNoAnswer.yes));
         _selectedValue = value;
       });
 
@@ -36,7 +38,7 @@ class _LiveTogetherChipsState extends State<LiveTogetherChips> {
       itemBuilder: (BuildContext context, int i) {
         final item = YesNoAnswer.values[i];
 
-        return CustomChoiceChip.coral(
+        return CustomChoiceChip.orange(
           label: item.label,
           selected: item == _selectedValue,
           onSelected: _onSelected,

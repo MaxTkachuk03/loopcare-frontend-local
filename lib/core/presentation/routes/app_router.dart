@@ -410,10 +410,6 @@ class AppRouter extends $AppRouter {
           page: BuddyIntroRoute.page,
         ), // added
         AutoRoute(
-          path: AppRoutes.buddyDescription,
-          page: BuddyDescriptionRoute.page,
-        ), // added
-        AutoRoute(
           path: AppRoutes.buddyPreferences,
           page: BuddyPreferencesRoute.page,
         ), // added

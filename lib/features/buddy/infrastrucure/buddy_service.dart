@@ -8,5 +8,6 @@ abstract class BuddyService {
   Future<Either<RequestError, Buddy>> removeBuddy();
   Future<Either<RequestError, Buddy>> updateBuddy(RequestBuddy data);
   Future<Either<RequestError, Buddy>> inviteBuddy(RequestBuddy data);
+  Future<Either<RequestError, Buddy>> rejectInvitation();
   Future<Either<RequestError, Buddy>> resendBuddy();
 }
