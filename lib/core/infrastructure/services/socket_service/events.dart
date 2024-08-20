@@ -9,4 +9,7 @@ class SocketEvents {
   static const String topicSlotStarted = 'SLOT_STARTED';
   static const String topicSlotStartedSoon = 'SLOT_STARTING_SOON';
   static const String error = 'ERROR';
+  static const String buddyRejectInvite = 'BUDDY_REJECTED_INVITE';
+  static const String buddyLeft = 'BUDDY_LEFT';
+  static const String buddyAcceptedInvite = 'BUDDY_ACCEPTED_INVITE';
 }

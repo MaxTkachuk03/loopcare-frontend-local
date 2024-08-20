@@ -67,6 +67,12 @@ class CategoryLabel extends StatelessWidget {
         textColor: AppColors.white,
       );
 
+  factory CategoryLabel.news() => CategoryLabel(
+        label: LocalizedTexts.news.tr().toUpperCase(),
+        color: AppColors.lq3,
+        textColor: AppColors.white,
+      );
+
   @override
   Widget build(BuildContext context) {
     return Container(

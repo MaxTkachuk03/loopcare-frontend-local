@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
 import 'package:loopcare_frontend/core/infrastructure/dio_client/request_error.dart';
+import 'package:loopcare_frontend/core/infrastructure/services/app_sync_service/app_sync_service.dart';
 import 'package:loopcare_frontend/core/presentation/utils/list_extensions.dart';
 import 'package:loopcare_frontend/features/river/application/dto/river_module_item_state_data.dart';
 import 'package:loopcare_frontend/features/river/application/dto/river_module_state_data.dart';
@@ -22,8 +23,12 @@ part 'river_bloc.freezed.dart';
 @singleton
 class RiverBloc extends Bloc<RiverEvent, RiverState> {
   final RiverService _riverService;
+  final AppSyncService _syncService;
 
-  RiverBloc(this._riverService) : super(const RiverState.initial(RiverStateData())) {
+  RiverBloc(
+    this._riverService,
+    this._syncService,
+  ) : super(const RiverState.initial(RiverStateData())) {
     on<InitRiver>(_onInitRiver);
     on<GetModules>(_onGetModules);
     on<GetActualModule>(_onGetActualModule);
@@ -33,6 +38,14 @@ class RiverBloc extends Bloc<RiverEvent, RiverState> {
     on<CompleteActiveModule>(_onCompleteActiveModule);
     on<SelectModuleItem>(_onSelectModuleItem);
     on<BounceParentItem>(_onBounceParentItem);
+
+    // todo: add event for deferred actions
+    // _syncService.stream.listen(
+    //   (event) => event.whenOrNull(
+    //     buddyAcceptedInvite: () => add(const RiverEvent.completeBuddyModuleItem()),
+    //     buddyLeft: () => add(const RiverEvent.displayBuddyModuleItem()),
+    //   ),
+    // );
   }
 
   FutureOr<void> _onInitRiver(InitRiver event, Emitter<RiverState> emit) async {

@@ -25,8 +25,10 @@ class PreferencesSection extends StatelessWidget {
     context.router.push(FoodPreferencesRoute(fromLessonComplete: false));
   }
 
-  void _onBuddyHandler(BuildContext context) =>
-      context.router.pushNamed(AppRoutes.buddyPreferences);
+  void _onBuddyHandler(BuildContext context) {
+    context.read<AuthenticationBloc>().add(const AuthenticationEvent.buddyVisited());
+    context.router.pushNamed(AppRoutes.buddyPreferences);
+  }
 
   void _onPhysicalActivitiesHandler(BuildContext context) {
     context.router.pushNamed(AppRoutes.physicalPreferences);
@@ -135,6 +137,7 @@ class PreferencesSection extends StatelessWidget {
                 const Divider(height: 1.0, color: AppColors.blueLighter),
                 SectionItem(
                   title: LocalizedTexts.buddyTitle.tr(),
+                  showNews: state.data.showBuddyNews,
                   onPressHandler:
                       state.data.isBuddyUnlocked ? () => _onBuddyHandler(context) : null,
                 ),

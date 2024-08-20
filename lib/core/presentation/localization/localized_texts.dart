@@ -287,6 +287,7 @@ class LocalizedTexts {
   static const String yesDelete = 'yesDelete';
   static const String noCancel = 'noCancel';
   static const String yourPreferencesUpdated = 'yourPreferencesUpdated';
+  static const String news = 'news';
 
   // Education
   static const String backToToday = 'backToToday';
