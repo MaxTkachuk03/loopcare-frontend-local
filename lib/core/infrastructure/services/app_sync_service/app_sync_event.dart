@@ -8,6 +8,8 @@ class AppSyncEvent with _$AppSyncEvent {
 
   const factory AppSyncEvent.refreshTopics() = _RefreshTopics;
 
+  const factory AppSyncEvent.buddyInvited() = _BuddyInvited;
+
   const factory AppSyncEvent.buddyRejectInvite() = _BuddyRejectInvite;
 
   const factory AppSyncEvent.buddyLeft() = _BuddyLeft;

@@ -2,23 +2,15 @@ part of 'buddy_bloc.dart';
 
 @freezed
 class BuddyState with _$BuddyState {
-  const factory BuddyState.initial(BuddyStateData data) = InitialBuddyState;
+  const factory BuddyState.initial(BuddyStateData data) = BuddyStateInitial;
 
-  const factory BuddyState.loading(BuddyStateData data) = LoadingBuddyState;
+  const factory BuddyState.loading(BuddyStateData data) = BuddyStateLoading;
 
-  const factory BuddyState.error(BuddyStateData data) = ErrorBuddyState;
+  const factory BuddyState.error(BuddyStateData data) = BuddyStateError;
 
-  const factory BuddyState.noBuddy(BuddyStateData data) = NoBuddy;
+  const factory BuddyState.stateQuestion(BuddyStateData data) = BuddyStateQuestion;
 
-  const factory BuddyState.stateQuestion(BuddyStateData data) = _BuddyStateQuestion;
-
-  const factory BuddyState.sentBuddyInvitation(BuddyStateData data) = SentBuddyInvitation;
-
-  const factory BuddyState.gotBuddy(BuddyStateData data) = _GotBuddyState;
-
-  const factory BuddyState.removedBuddy(BuddyStateData data) = _RemovedBuddy;
-
-  const factory BuddyState.resentInvitation(BuddyStateData data) = _ResentInvitation;
+  const factory BuddyState.gotBuddy(BuddyStateData data) = BuddyStateGotBuddy;
 }
 
 @freezed
@@ -32,24 +24,24 @@ class BuddyStateData with _$BuddyStateData {
     bool? liveTogether,
     String? email,
     String? relation,
-    String? buddyState,
+    BuddyStatus? buddyState,
     Buddy? buddy,
     @Default(0) int currentStepProgress,
   }) = _BuddyStateData;
 
-  String? get errorMessage => error?.message;
+  String get errorMessage => error?.message ?? LocalizedTexts.errorSomethingWentWrong;
 
   bool get gotAllNecessaryData => liveTogether != null && relation != null && email != null;
 
-  bool get isInvitationApproved => buddyState == BuddyStatus.approved.name;
+  bool get isInvitationApproved => buddyState == BuddyStatus.approved;
 
-  bool get isInvitationRejected => buddyState == BuddyStatus.rejected.name;
+  bool get isInvitationRejected => buddyState == BuddyStatus.rejected;
 
-  bool get isBuddyNotAvailable => buddyState == BuddyStatus.left.name;
+  bool get isBuddyNotAvailable => buddyState == BuddyStatus.left;
 
-  bool get isInvitationPending => buddyState == BuddyStatus.invited.name;
+  bool get isInvitationPending => buddyState == BuddyStatus.invited;
 
-  bool get navigateInviteAnotherBuddy => isBuddyNotAvailable || isInvitationRejected;
+  bool get canInviteOtherBuddy => isBuddyNotAvailable || isInvitationRejected;
 
-  bool get showInviteAnotherBuddy => isInvitationApproved || navigateInviteAnotherBuddy || isInvitationPending;
+  bool get hasBuddyState => buddyState != null;
 }

@@ -11,16 +11,17 @@ import 'package:loopcare_frontend/core/presentation/buttons/custom_filled_icon_b
 import 'package:loopcare_frontend/core/presentation/custom_safe_area.dart';
 import 'package:loopcare_frontend/core/presentation/loader/loader.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
-import 'package:loopcare_frontend/core/presentation/routes/app_router.dart';
+import 'package:loopcare_frontend/core/presentation/routes/app_router.gr.dart';
 import 'package:loopcare_frontend/core/presentation/scaffold/custom_scaffold.dart';
+import 'package:loopcare_frontend/core/presentation/text/custom_text.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/main_container.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/scrollable_container.dart';
 import 'package:loopcare_frontend/features/account/presentation/buddy_page/application/buddy_bloc.dart';
+import 'package:loopcare_frontend/features/account/presentation/buddy_page/application/buddy_status.dart';
 import 'package:loopcare_frontend/features/account/presentation/buddy_page/widgets/buddy_invitation_approved.dart';
 import 'package:loopcare_frontend/features/account/presentation/buddy_page/widgets/buddy_invitation_pedding.dart';
 import 'package:loopcare_frontend/features/account/presentation/buddy_page/widgets/buddy_invitation_reject.dart';
 import 'package:loopcare_frontend/features/account/presentation/buddy_page/widgets/buddy_not_available.dart';
-import 'package:loopcare_frontend/features/account/presentation/buddy_page/widgets/profile_buddy_no_state.dart';
 
 @RoutePage()
 class BuddyPreferencesPage extends StatefulWidget {
@@ -31,34 +32,51 @@ class BuddyPreferencesPage extends StatefulWidget {
 }
 
 class _BuddyPreferencesPageState extends State<BuddyPreferencesPage> {
-  @override
-  void initState() {
-    super.initState();
-    context.read<BuddyBloc>().add(const BuddyEvent.getStatusBuddy());
+  String get _btnLabel {
+    final buddyState = context.read<BuddyBloc>().state.data.buddyState;
+    return switch (buddyState) {
+      BuddyStatus.invited => LocalizedTexts.removeInvite.tr(),
+      BuddyStatus.rejected || BuddyStatus.left => LocalizedTexts.inviteBuddy.tr(),
+      BuddyStatus.approved => LocalizedTexts.removeBuddy.tr(),
+      _ => '',
+    };
   }
 
-  void _navigateRejectNotAvailableState({bool notAvailable = false}) {
-    if (notAvailable) {
-      context.read<BuddyBloc>().add(const BuddyEvent.getStatusBuddy(needNavigate: true));
-      return;
-    }
+  Function get _btnHandler {
+    final buddyState = context.read<BuddyBloc>().state.data.buddyState;
+    return switch (buddyState) {
+      BuddyStatus.invited || BuddyStatus.approved => _onRemoveInvite,
+      BuddyStatus.rejected || BuddyStatus.left => _onInviteBuddy,
+      _ => () {},
+    };
+  }
+
+  void _onRemoveInvite() {
+    ModalBottomSheet.removeInviteConfirmation(context: context, onInvite: _onInviteBuddy);
+  }
+
+  void _onInviteBuddy() {
     context.read<BuddyBloc>().add(const BuddyEvent.removeBuddy());
+
+    context.router.pushAndPopUntil(
+      const BuddyIntroRoute(),
+      predicate: (Route<dynamic> route) => route.settings.name == HomeRoute.name,
+    );
   }
 
-  void _navigatePendingAcceptedState(BuildContext context) => ModalBottomSheet.inviteNewBuddy(
-        context: context,
-        onInvite: () => _navigateRejectNotAvailableState(),
+  void _errorListener(BuildContext context, BuddyState state) {
+    if (state is BuddyStateError) {
+      context.showErrorBar(
+        content: CustomText(state.data.errorMessage.tr()),
+        position: FlashPosition.top,
       );
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
-    final width = MediaQuery.of(context).size.width;
     return BlocConsumer<BuddyBloc, BuddyState>(
-      listener: (context, state) => state.maybeMap(
-        error: (state) => _errorListener,
-        removedBuddy: (state) => context.router.pushNamed(AppRoutes.buddyLiveTogether),
-        orElse: () => null,
-      ),
+      listener: _errorListener,
       builder: (context, state) {
         return CustomScaffold.blue(
           withBg: true,
@@ -66,75 +84,44 @@ class _BuddyPreferencesPageState extends State<BuddyPreferencesPage> {
             leading: CustomFilledIconButton.leadingBlueLighter(),
             title: LocalizedTexts.buddyPreferences.tr(),
           ),
-          body: SizedBox(
-            width: width,
-            child: Stack(
-              children: [
-                CustomSafeArea(
-                  child: ScrollableContainer(
-                    child: MainContainer(
-                      child: state.maybeWhen(
-                        orElse: () {
-                          Widget content = const SizedBox.shrink();
-                          if (state.data.isInvitationApproved) {
-                            content = const BuddyInvitationApproved();
-                          } else if (state.data.isInvitationPending) {
-                            content = const BuddyInvitationPending();
-                          } else if (state.data.isInvitationRejected) {
-                            content = const BuddyInvitationReject();
-                          } else if (state.data.isBuddyNotAvailable) {
-                            content = const BuddyNotAvailable();
-                          } else if (!state.data.isLoading) {
-                            content = const ProfileNoBuddyState();
-                          }
-                          return Column(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Column(
-                                children: [
-                                  const SizedBox(height: 40),
-                                  content,
-                                  const SizedBox(height: 40),
-                                ],
-                              ),
-                              if (state.data.showInviteAnotherBuddy)
-                                Padding(
-                                  padding: const EdgeInsets.symmetric(vertical: 16.0),
-                                  child: CustomElevatedButton.coralFullWidth(
-                                    label: LocalizedTexts.buddyInviteAnotherBuddy.tr(),
-                                    onPressed: state.data.navigateInviteAnotherBuddy
-                                        ? () => _navigateRejectNotAvailableState.call(
-                                            notAvailable: state.data.isBuddyNotAvailable)
-                                        : () => _navigatePendingAcceptedState.call(context),
-                                  ),
-                                )
-                            ],
-                          );
-                        },
-                      ),
-                    ),
-                  ),
+          body: CustomSafeArea(
+            child: ScrollableContainer(
+              child: MainContainer(
+                child: state.maybeWhen(
+                  loading: (_) => const Loader(),
+                  orElse: () {
+                    return Column(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Column(
+                          children: [
+                            const SizedBox(height: 40),
+                            switch (state.data.buddyState) {
+                              BuddyStatus.invited => const BuddyInvitationPending(),
+                              BuddyStatus.rejected => const BuddyInvitationReject(),
+                              BuddyStatus.approved => const BuddyInvitationApproved(),
+                              BuddyStatus.left => const BuddyNotAvailable(),
+                              _ => const SizedBox.shrink(),
+                            },
+                            const SizedBox(height: 40),
+                          ],
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.symmetric(vertical: 30.0),
+                          child: CustomElevatedButton.orangeFullWidth(
+                            label: _btnLabel,
+                            onPressed: () => _btnHandler(),
+                          ),
+                        )
+                      ],
+                    );
+                  },
                 ),
-                Positioned.fill(
-                  child: Align(
-                    alignment: Alignment.center,
-                    child: state.data.isLoading ? const Loader() : const SizedBox.shrink(),
-                  ),
-                ),
-              ],
+              ),
             ),
           ),
         );
       },
     );
-  }
-
-  _errorListener(BuildContext context, BuddyState state) {
-    final errorMessage = state.data.errorMessage ?? LocalizedTexts.errorSomethingWentWrong;
-    context.showErrorBar(
-      content: Text(errorMessage.tr()),
-      position: FlashPosition.top,
-    );
-    context.router.maybePop();
   }
 }

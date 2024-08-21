@@ -40,7 +40,14 @@ class AppUpdateBloc extends Bloc<AppUpdateEvent, AppUpdateState> {
 
         final platformMinVersion = Platform.isIOS ? r.iosMinVersion : r.androidMinVersion;
 
+        final isForceUpdate = r.isForceUpdate;
+
         final localVersion = int.parse(info.buildNumber);
+
+        final needToForceUpdate = localVersion < platformMinVersion && isForceUpdate;
+
+        final displayPopup = storage.storeVersion < platformMinVersion;
+        final needToMinorUpdate = !isForceUpdate && localVersion < platformMinVersion && displayPopup;
 
         storage.localVersion = localVersion;
         storage.storeVersion = platformMinVersion;
@@ -48,12 +55,11 @@ class AppUpdateBloc extends Bloc<AppUpdateEvent, AppUpdateState> {
         storage.privacyPolicyVersion = r.privacyPolicyVersion;
         storage.termsAndConditionsVersion = r.termsAndConditionsVersion;
 
-        final needToUpdate = localVersion < platformMinVersion;
-
         emit(
           AppUpdateState.loaded(
             state.data.copyWith(
-              needToUpdate: needToUpdate,
+              needToForceUpdate: needToForceUpdate,
+              needToMinorUpdate: needToMinorUpdate,
               privacyPolicyVersion: r.privacyPolicyVersion,
               termsAndConditionsVersion: r.termsAndConditionsVersion,
               isLoading: false,

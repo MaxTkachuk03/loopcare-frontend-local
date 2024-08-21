@@ -5,14 +5,9 @@ import 'package:loopcare_frontend/core/presentation/text/custom_text.dart';
 import 'package:loopcare_frontend/core/presentation/utils/build_context_extensions.dart';
 import 'package:loopcare_frontend/features/account/presentation/account_page/widgets/account_container.dart';
 
-class BuddyInvitationReject extends StatefulWidget {
+class BuddyInvitationReject extends StatelessWidget {
   const BuddyInvitationReject({super.key});
 
-  @override
-  State<BuddyInvitationReject> createState() => _BuddyInvitationRejectState();
-}
-
-class _BuddyInvitationRejectState extends State<BuddyInvitationReject> {
   @override
   Widget build(BuildContext context) {
     return AccountContainer(
@@ -24,11 +19,11 @@ class _BuddyInvitationRejectState extends State<BuddyInvitationReject> {
             LocalizedTexts.buddyRejectTitle.tr(),
             style: context.textTheme.headlineSmall,
           ),
+          const SizedBox(height: 18.0),
           CustomText.w400(
             LocalizedTexts.buddyRejectSubTitle.tr(),
             style: context.textTheme.bodyMedium,
           ),
-          const SizedBox(height: 17.0),
         ],
       ),
     );

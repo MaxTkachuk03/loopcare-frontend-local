@@ -5,11 +5,14 @@ import 'package:loopcare_frontend/core/infrastructure/services/app_sync_service/
 
 @singleton
 class AppSyncService {
-  final StreamController<AppSyncEvent> _streamController = StreamController<AppSyncEvent>.broadcast();
+  final StreamController<AppSyncEvent> _streamController =
+      StreamController<AppSyncEvent>.broadcast();
 
   Stream<AppSyncEvent> get stream => _streamController.stream;
 
   void refreshTopics() => _streamController.add(const AppSyncEvent.refreshTopics());
+
+  void buddyInvited() => _streamController.add(const AppSyncEvent.buddyInvited());
 
   void buddyRejectInvite() => _streamController.add(const AppSyncEvent.buddyRejectInvite());
 

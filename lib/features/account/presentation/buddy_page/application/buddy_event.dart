@@ -2,8 +2,6 @@ part of 'buddy_bloc.dart';
 
 @freezed
 class BuddyEvent with _$BuddyEvent {
-  const factory BuddyEvent.init() = InitBuddy;
-
   const factory BuddyEvent.nextQuestion() = BuddyNextQuestion;
 
   const factory BuddyEvent.previousQuestion() = BuddyPreviuosQuestion;
@@ -22,5 +20,7 @@ class BuddyEvent with _$BuddyEvent {
 
   const factory BuddyEvent.resendInvitation() = ResendInvitation;
 
-  const factory BuddyEvent.getStatusBuddy({@Default(false) bool needNavigate}) = GetStatusBuddy;
+  const factory BuddyEvent.removeInvitation() = RemoveInvitation;
+
+  const factory BuddyEvent.updateBuddySettings(Account? data) = UpdateBuddySettings;
 }

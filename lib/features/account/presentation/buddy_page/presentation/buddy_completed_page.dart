@@ -24,12 +24,12 @@ class BuddyCompletedPage extends StatelessWidget {
 
   void _onNextHandler(BuildContext context) {
     context.read<BuddyBloc>().add(const BuddyEvent.inviteBuddy());
-    context.router.popUntilRouteWithName(BuddyPreferencesRoute.name);
+    context.router.popUntilRouteWithName(HomeRoute.name);
   }
 
   @override
   Widget build(BuildContext context) {
-    return CustomScaffold.blue(
+    return CustomScaffold.blueLightest(
       appBar: CustomAppBar.blue(
         title: LocalizedTexts.buddyPreferences.tr(),
         leading: CustomFilledIconButton.leadingBlueLighter(),
@@ -45,7 +45,7 @@ class BuddyCompletedPage extends StatelessWidget {
                   UnderAppbar.blue(
                     child: Center(
                       child: Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 120.0),
+                        padding: const EdgeInsets.symmetric(horizontal: 100.0),
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
@@ -57,7 +57,8 @@ class BuddyCompletedPage extends StatelessWidget {
                             const SizedBox(height: 22.0),
                             CustomText.bitter600(
                               '${LocalizedTexts.buddyCompleted.tr()}!',
-                              style: context.textTheme.displayMedium?.copyWith(color: AppColors.white),
+                              style:
+                                  context.textTheme.displayMedium?.copyWith(color: AppColors.white),
                               textAlign: TextAlign.center,
                             ),
                           ],
@@ -80,7 +81,7 @@ class BuddyCompletedPage extends StatelessWidget {
               ),
               MainContainer(
                 child: Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 16.0),
+                  padding: const EdgeInsets.symmetric(vertical: 30.0),
                   child: CustomElevatedButton.blueFullWidth(
                     onPressed: () => _onNextHandler(context),
                     label: LocalizedTexts.continueBtn.tr(),

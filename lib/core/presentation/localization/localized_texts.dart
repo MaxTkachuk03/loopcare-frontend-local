@@ -1039,6 +1039,9 @@ class LocalizedTexts {
   static const String updatePoliciesDocuments = 'updatePoliciesDocuments';
   static const String updatePoliciesDocumentsBodyText1 = 'updatePoliciesDocumentsBodyText1';
   static const String updatePoliciesDocumentsBodyText2 = 'updatePoliciesDocumentsBodyText2';
+  static const String minorUpdateTitle = 'minorUpdateTitle';
+  static const String minorUpdateBody = 'minorUpdateBody';
+  static const String doItLaterButton = 'doItLaterButton';
 
   // Buddy
   static const String buddyTitle = 'buddyTitle';
@@ -1074,8 +1077,12 @@ class LocalizedTexts {
   static const String buddyRejectSubTitle = 'buddyRejectSubTitle';
   static const String buddyResendInvitation = 'buddyResendInvitation';
   static const String buddyInviteAnotherBuddy = 'buddyInviteAnotherBuddy';
+  static const String removeInvite = 'removeInvite';
+  static const String removeBuddy = 'removeBuddy';
+  static const String inviteBuddy = 'inviteBuddy';
   static const String buddyFindAnotherBuddyLabel = 'buddyFindAnotherBuddyLabel';
-  static const String buddyFindAnotherBuddyContent = 'buddyFindAnotherBuddyContent';
+  static const String buddyFindAnotherBuddyContentOne = 'buddyFindAnotherBuddyContentOne';
+  static const String buddyFindAnotherBuddyContentTwo = 'buddyFindAnotherBuddyContentTwo';
   static const String buddyFindAnotherBuddy = 'buddyFindAnotherBuddy';
   static const String buddyNotNeedAnotherBuddy = 'buddyNotNeedAnotherBuddy';
   static const String buddyEmail = 'buddyEmail';

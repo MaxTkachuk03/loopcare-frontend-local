@@ -7,9 +7,12 @@ import 'package:loopcare_frontend/core/presentation/localization/localized_texts
 import 'package:loopcare_frontend/core/presentation/text/custom_text.dart';
 import 'package:loopcare_frontend/core/presentation/text_field/custom_text_field.dart';
 import 'package:loopcare_frontend/core/presentation/utils/build_context_extensions.dart';
+import 'package:loopcare_frontend/core/presentation/utils/scroll_controller_extensions.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/main_container.dart';
 import 'package:loopcare_frontend/features/onboarding/application/general/general_onboarding_bloc.dart';
 import 'package:loopcare_frontend/features/onboarding/application/medical_questions/medical_questions_bloc.dart';
+
+const _scrollValue = 64; // input height + sizedBox
 
 class MedicinesContent extends StatefulWidget {
   const MedicinesContent({super.key});
@@ -19,15 +22,10 @@ class MedicinesContent extends StatefulWidget {
 }
 
 class _MedicinesContentState extends State<MedicinesContent> {
-  final _formKey = GlobalKey();
+  final _formKey = GlobalKey<FormState>();
+  final _scrollController = ScrollController();
 
-  final List<TextEditingController> _controllers = [
-    TextEditingController(),
-    TextEditingController(),
-    TextEditingController(),
-    TextEditingController(),
-    TextEditingController(),
-  ];
+  final List<TextEditingController> _controllers = List.generate(5, (_) => TextEditingController());
 
   @override
   void initState() {
@@ -40,6 +38,8 @@ class _MedicinesContentState extends State<MedicinesContent> {
     for (final element in _controllers) {
       element.dispose();
     }
+
+    _scrollController.dispose();
 
     super.dispose();
   }
@@ -63,12 +63,21 @@ class _MedicinesContentState extends State<MedicinesContent> {
     }
   }
 
+  void _onEditingComplete() {
+    FocusScope.of(context).nextFocus();
+
+    if (_scrollController.position.pixels >= _scrollController.position.maxScrollExtent) {
+      return;
+    }
+
+    _scrollController.scrollWithEase600(_scrollController.position.pixels + _scrollValue);
+  }
+
   @override
   Widget build(BuildContext context) {
     return BottomPlacedButton.coralLightest(
       body: MainContainer(
-        child: ListView(
-          physics: const ClampingScrollPhysics(),
+        child: Column(
           children: [
             const SizedBox(height: 50.0),
             CustomText.bitter600(
@@ -76,23 +85,26 @@ class _MedicinesContentState extends State<MedicinesContent> {
               style: context.textTheme.displayMedium,
             ),
             const SizedBox(height: 28.0),
-            Form(
-              key: _formKey,
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                children: _controllers.map((c) {
-                  final isLast = _controllers.last == c;
+            Expanded(
+              child: Form(
+                key: _formKey,
+                child: ListView.separated(
+                  controller: _scrollController,
+                  itemCount: _controllers.length,
+                  itemBuilder: (_, int i) {
+                    final controller = _controllers[i];
+                    final isLast = controller == _controllers.last;
 
-                  return Padding(
-                    padding: const EdgeInsets.only(bottom: 16.0),
-                    child: CustomTextField(
-                      controller: c,
+                    return CustomTextField(
+                      controller: controller,
                       hintText: LocalizedTexts.medicinesPlaceholder.tr(),
                       textInputAction: isLast ? TextInputAction.done : TextInputAction.next,
+                      onEditingComplete: _onEditingComplete,
                       maxLength: 30,
-                    ),
-                  );
-                }).toList(),
+                    );
+                  },
+                  separatorBuilder: (_, __) => const SizedBox(height: 16),
+                ),
               ),
             ),
           ],

@@ -32,12 +32,16 @@ class _SplashPageState extends State<SplashPage> {
   Future<void> _initPackageInfo(AppUpdateState state) async {
     FlutterNativeSplash.remove();
 
-    if (state.data.needToUpdate) {
+    if (state.data.needToForceUpdate) {
       AppUpdateBottomSheet.showAppUpdate();
     } else if (_controller.isAuthorized) {
       _controller.getAccount();
     } else {
       _navigateUnauthorized();
+    }
+
+    if (state.data.needToMinorUpdate) {
+      Future.delayed(const Duration(seconds: 3), AppUpdateBottomSheet.showMinorAppUpdate);
     }
   }
 
