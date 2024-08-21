@@ -80,6 +80,7 @@ class BuddySocketService {
       ..onConnect(_onConnect)
       ..onDisconnect(_onDisconnect)
       ..onConnectTimeout(_onConnectTimeout)
+      ..on(BuddySocketEvents.buddyInvited, _onBuddyInvited)
       ..on(BuddySocketEvents.buddyRejectInvite, _onBuddyRejectInvite)
       ..on(BuddySocketEvents.buddyLeft, _onBuddyLeft)
       ..on(BuddySocketEvents.buddyAcceptedInvite, _onBuddyAcceptedInvite)
@@ -112,6 +113,10 @@ class BuddySocketService {
 
   void _onError(dynamic data) {
     _debug('Socket Error: $data');
+  }
+
+  void _onBuddyInvited(dynamic data) {
+    _syncService.buddyInvited();
   }
 
   void _onBuddyRejectInvite(dynamic data) {
