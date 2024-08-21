@@ -33,7 +33,7 @@ class _PreferencesSectionState extends State<PreferencesSection> {
 
     final authBloc = context.read<AuthenticationBloc>();
 
-    context.read<BuddyBloc>().add(BuddyEvent.updateBuddySettings(authBloc.state.data.account));
+    context.read<BuddyBloc>().add(BuddyEvent.updateBuddyState(authBloc.state.data.account));
   }
 
   void _onFoodHandler(BuildContext context) {
@@ -41,11 +41,9 @@ class _PreferencesSectionState extends State<PreferencesSection> {
   }
 
   void _onBuddyHandler(BuildContext context) {
-    final authBloc = context.read<AuthenticationBloc>();
+    context.read<AuthenticationBloc>().add(const AuthenticationEvent.buddyVisited());
 
-    authBloc.add(const AuthenticationEvent.buddyVisited());
-
-    final buddyWasNotInvited = authBloc.state.data.buddyState == null;
+    final buddyWasNotInvited = context.read<BuddyBloc>().state.data.buddyState == null;
     final route = buddyWasNotInvited ? AppRoutes.buddyIntro : AppRoutes.buddyPreferences;
 
     context.router.pushNamed(route);
@@ -128,7 +126,7 @@ class _PreferencesSectionState extends State<PreferencesSection> {
   }
 
   void _onAccountUpdated(BuildContext context, AuthenticationState state) {
-    context.read<BuddyBloc>().add(BuddyEvent.updateBuddySettings(state.data.account));
+    context.read<BuddyBloc>().add(BuddyEvent.updateBuddyState(state.data.account));
   }
 
   @override

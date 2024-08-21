@@ -102,6 +102,7 @@ class AuthenticationBloc extends HydratedBloc<AuthenticationEvent, Authenticatio
       (event) => event.whenOrNull(
         // todo
         buddyInvited: () => add(const AuthenticationEvent.getAccount()),
+        disownBuddy: () => add(const AuthenticationEvent.getAccount()),
         buddyAcceptedInvite: () => add(const AuthenticationEvent.getAccount()),
         buddyLeft: () => add(const AuthenticationEvent.getAccount()),
         buddyRejectInvite: () => add(const AuthenticationEvent.getAccount()),

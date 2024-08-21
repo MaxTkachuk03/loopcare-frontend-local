@@ -81,6 +81,7 @@ class BuddySocketService {
       ..onDisconnect(_onDisconnect)
       ..onConnectTimeout(_onConnectTimeout)
       ..on(BuddySocketEvents.buddyInvited, _onBuddyInvited)
+      ..on(BuddySocketEvents.disownBuddy, _onDisownBuddy)
       ..on(BuddySocketEvents.buddyRejectInvite, _onBuddyRejectInvite)
       ..on(BuddySocketEvents.buddyLeft, _onBuddyLeft)
       ..on(BuddySocketEvents.buddyAcceptedInvite, _onBuddyAcceptedInvite)
@@ -117,6 +118,10 @@ class BuddySocketService {
 
   void _onBuddyInvited(dynamic data) {
     _syncService.buddyInvited();
+  }
+
+  void _onDisownBuddy(dynamic data) {
+    _syncService.disownBuddy();
   }
 
   void _onBuddyRejectInvite(dynamic data) {

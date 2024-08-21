@@ -11,6 +11,14 @@ class BuddyState with _$BuddyState {
   const factory BuddyState.stateQuestion(BuddyStateData data) = BuddyStateQuestion;
 
   const factory BuddyState.gotBuddy(BuddyStateData data) = BuddyStateGotBuddy;
+
+  const factory BuddyState.invited(BuddyStateData data) = BuddyStateInvited;
+
+  const factory BuddyState.approved(BuddyStateData data) = BuddyStateApproved;
+
+  const factory BuddyState.rejected(BuddyStateData data) = BuddyStateRejected;
+
+  const factory BuddyState.left(BuddyStateData data) = BuddyStateLeft;
 }
 
 @freezed
@@ -18,15 +26,13 @@ class BuddyStateData with _$BuddyStateData {
   const BuddyStateData._();
 
   const factory BuddyStateData({
-    @Default(BuddyQuestions.liveTogether) BuddyQuestions currentQuestion,
-    RequestError? error,
-    @Default(false) bool isLoading,
+    BuddyStatus? buddyState,
+    Buddy? buddy,
     bool? liveTogether,
     String? email,
     String? relation,
-    BuddyStatus? buddyState,
-    Buddy? buddy,
-    @Default(0) int currentStepProgress,
+    RequestError? error,
+    @Default(false) bool isLoading,
   }) = _BuddyStateData;
 
   String get errorMessage => error?.message ?? LocalizedTexts.errorSomethingWentWrong;
