@@ -27,6 +27,13 @@ class AppUpdateBottomSheet {
     );
   }
 
+  static void showMinorAppUpdate() {
+    ModalBottomSheet.appMinorUpdate(
+      context: kOverlayContext,
+      onUpdatePressed: _onAppUpdatePressed
+    );
+  }
+
   static void showPoliciesUpdate({
     required bool updatePrivacyPolicy,
     required bool updateTermsAndConditions,

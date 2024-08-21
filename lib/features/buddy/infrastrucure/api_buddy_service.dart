@@ -13,27 +13,32 @@ class APIBuddyService implements BuddyService {
   APIBuddyService(this.client);
 
   @override
-  Future<Either<RequestError, Buddy>> getBuddy() async {
-    return await client.get('/buddy/preferences', fromJson: Buddy.fromJson);
+  Future<Either<RequestError, Buddy>> getBuddy() {
+    return client.get('/buddy/preferences', fromJson: Buddy.fromJson);
   }
 
   @override
-  Future<Either<RequestError, Buddy>> removeBuddy() async {
-    return await client.delete('/buddy/preferences', fromJson: Buddy.fromJson);
+  Future<Either<RequestError, Buddy>> removeBuddy() {
+    return client.delete('/buddy/preferences', fromJson: Buddy.fromJson);
   }
 
   @override
-  Future<Either<RequestError, Buddy>> inviteBuddy(RequestBuddy data) async {
-    return await client.post('/buddy/preferences', data: data, fromJson: Buddy.fromJson);
+  Future<Either<RequestError, Buddy>> inviteBuddy(RequestBuddy data) {
+    return client.post('/buddy/preferences', data: data, fromJson: Buddy.fromJson);
   }
 
   @override
-  Future<Either<RequestError, Buddy>> updateBuddy(RequestBuddy data) async {
-    return await client.patch('/buddy/preferences', data: data, fromJson: Buddy.fromJson);
+  Future<Either<RequestError, Buddy>> updateBuddy(RequestBuddy data) {
+    return client.patch('/buddy/preferences', data: data, fromJson: Buddy.fromJson);
   }
 
   @override
-  Future<Either<RequestError, Buddy>> resendBuddy() async {
-    return await client.post('/buddy/resend', fromJson: Buddy.fromJson);
+  Future<Either<RequestError, Buddy>> rejectInvitation() {
+    return client.post('/buddy/reject-invitation', fromJson: Buddy.fromJson);
+  }
+
+  @override
+  Future<Either<RequestError, Buddy>> resendBuddy() {
+    return client.post('/buddy/resend', fromJson: Buddy.fromJson);
   }
 }

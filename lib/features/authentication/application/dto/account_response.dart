@@ -8,6 +8,7 @@ import 'package:loopcare_frontend/core/domain/medical_onboarding.dart';
 import 'package:loopcare_frontend/core/domain/mental_health_tests.dart';
 import 'package:loopcare_frontend/core/domain/physical_fitness/physical_fitness.dart';
 import 'package:loopcare_frontend/features/account/domain/user_grouping_state.dart';
+import 'package:loopcare_frontend/features/account/presentation/buddy_page/application/buddy_status.dart';
 import 'package:loopcare_frontend/features/authentication/domain/subscription/subscription.dart';
 import 'package:loopcare_frontend/features/buddy/domain/buddy.dart';
 import 'package:loopcare_frontend/features/diabetes/application/dto/diabetes_type.dart';
@@ -38,7 +39,7 @@ class AccountResponse {
   final GroupingPreferences? groupingPreferences;
   final Subscription subscription;
   final Buddy? buddy;
-  final String? buddyState;
+  final BuddyStatus? buddyState;
   final Map<String, bool> features;
   final MentalHealthTests? mentalHealthTests;
   final String? avatarUrl;

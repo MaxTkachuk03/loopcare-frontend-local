@@ -9,6 +9,7 @@ import 'package:loopcare_frontend/core/infrastructure/dio_client/dio_client.dart
 import 'package:loopcare_frontend/core/infrastructure/dio_client/dio_options.dart';
 import 'package:loopcare_frontend/core/infrastructure/services/logger/logger.dart';
 import 'package:loopcare_frontend/core/infrastructure/services/socket_service/socket_service.dart';
+import 'package:loopcare_frontend/core/infrastructure/services/socket_service_buddy/buddy_socket_service.dart';
 import 'package:loopcare_frontend/core/infrastructure/services/socket_service_chat/chat_socket_service.dart';
 import 'package:loopcare_frontend/features/authentication/application/authentication_bloc.dart';
 
@@ -183,6 +184,7 @@ class AuthTokenInterceptor extends Interceptor {
     final accessTokenIsUpdated = await updateAccessToken();
     if (accessTokenIsUpdated) {
       SocketService.instance.reconnect();
+      BuddySocketService.instance.reconnect();
       ChatSocketService.instance.reconnect();
     }
     return accessTokenIsUpdated;

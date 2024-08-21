@@ -6,6 +6,7 @@ part 'get_versions_response.g.dart';
 @JsonSerializable()
 class GetVersionsResponse {
   final bool isEnabled;
+  final bool isForceUpdate;
   final int androidMinVersion;
   final int iosMinVersion;
   final int termsAndConditionsVersion;
@@ -15,6 +16,7 @@ class GetVersionsResponse {
     required this.isEnabled,
     required this.androidMinVersion,
     required this.iosMinVersion,
+    this.isForceUpdate = true,
     this.termsAndConditionsVersion = 1,
     this.privacyPolicyVersion = 1,
   });

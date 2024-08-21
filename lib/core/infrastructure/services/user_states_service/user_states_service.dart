@@ -2,6 +2,7 @@ import 'package:injectable/injectable.dart';
 import 'package:loopcare_frontend/core/infrastructure/services/shared_storage/shared_storage_service.dart';
 import 'package:loopcare_frontend/core/infrastructure/services/user_states_service/src/constants/user_states_repository.dart';
 import 'package:loopcare_frontend/core/infrastructure/services/user_states_service/src/user_states_model/user_states_model.dart';
+import 'package:loopcare_frontend/features/account/presentation/buddy_page/application/buddy_status.dart';
 
 @lazySingleton
 class UserStatesService {
@@ -12,9 +13,9 @@ class UserStatesService {
 
   int get _accountId => _storage.account?.id ?? -1;
 
-  String? get buddyStatus => _repository.getUserStates(_accountId)?.buddyStatus;
+  BuddyStatus? get buddyStatus => _repository.getUserStates(_accountId)?.buddyStatus;
 
-  set buddyStatus(String? status) {
+  set buddyStatus(BuddyStatus? status) {
     UserStatesModel? model;
     if (_repository.hasStates(_accountId)) {
       model = _repository.getUserStates(_accountId)?.copyWith(buddyStatus: status);

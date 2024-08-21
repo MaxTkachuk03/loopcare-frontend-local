@@ -22,6 +22,12 @@ class BuddyProgressBar extends StatelessWidget {
         progressEmptyColor: AppColors.blueLighter,
       );
 
+  factory BuddyProgressBar.white({required Color backgroundColor}) => BuddyProgressBar(
+        backgroundColor: backgroundColor,
+        progressFillColor: AppColors.white,
+        progressEmptyColor: AppColors.blueLighter,
+      );
+
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<BuddyBloc, BuddyState>(
@@ -34,7 +40,8 @@ class BuddyProgressBar extends StatelessWidget {
           stepsList.add(
             Flexible(
               child: _Item(
-                progress: state.data.currentQuestion.index == i ? state.data.currentStepProgress : value,
+                progress:
+                    state.data.currentQuestion.index == i ? state.data.currentStepProgress : value,
                 progressFillColor: progressFillColor ?? AppColors.blueDarker,
                 progressEmptyColor: progressEmptyColor ?? AppColors.blueLighter,
               ),
@@ -57,7 +64,8 @@ class _Item extends StatelessWidget {
   final Color progressEmptyColor;
   final int progress;
 
-  const _Item({required this.progress, required this.progressFillColor, required this.progressEmptyColor});
+  const _Item(
+      {required this.progress, required this.progressFillColor, required this.progressEmptyColor});
 
   @override
   Widget build(BuildContext context) {
@@ -82,7 +90,8 @@ class _Item extends StatelessWidget {
             ],
           ),
         ),
-        CircleAvatar(radius: 10, backgroundColor: progress == 100 ? progressFillColor : progressEmptyColor)
+        CircleAvatar(
+            radius: 10, backgroundColor: progress == 100 ? progressFillColor : progressEmptyColor)
       ],
     );
   }
