@@ -14,6 +14,8 @@ class AppSyncService {
 
   void buddyInvited() => _streamController.add(const AppSyncEvent.buddyInvited());
 
+  void disownBuddy() => _streamController.add(const AppSyncEvent.disownBuddy());
+
   void buddyRejectInvite() => _streamController.add(const AppSyncEvent.buddyRejectInvite());
 
   void buddyLeft() => _streamController.add(const AppSyncEvent.buddyLeft());
