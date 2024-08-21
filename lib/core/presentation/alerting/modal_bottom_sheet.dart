@@ -1430,7 +1430,7 @@ class ModalBottomSheet {
 
   static void removeInviteConfirmation({
     required BuildContext context,
-    required void Function() onInvite,
+    required void Function() onAnotherBuddy,
   }) {
     final name = context.read<BuddyBloc>().state.data.buddy?.username ?? '';
 
@@ -1438,47 +1438,50 @@ class ModalBottomSheet {
       showDragHandle: true,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12.0)),
       context: context,
+      isScrollControlled: true,
       builder: (BuildContext context) {
         return MainContainer(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              const CircleAvatar(
-                radius: 25.0,
-                backgroundColor: AppColors.blueRegular,
-                child: Icon(Icons.check, size: 30),
-              ),
-              const SizedBox(height: 20.0),
-              CustomText.w600(
-                LocalizedTexts.buddyFindAnotherBuddyLabel.tr(namedArgs: {"name": name}),
-                style: context.textTheme.bodyMedium,
-              ),
-              const SizedBox(height: 20.0),
-              CustomText.w400(
-                LocalizedTexts.buddyFindAnotherBuddyContentOne.tr(),
-                style: context.textTheme.bodyMedium,
-              ),
-              const SizedBox(height: 20.0),
-              CustomText.w400(
-                LocalizedTexts.buddyFindAnotherBuddyContentTwo.tr(),
-                style: context.textTheme.bodyMedium,
-              ),
-              const SizedBox(height: 20.0),
-              CustomElevatedButton.blueFullWidth(
-                onPressed: () {
-                  context.router.maybePop();
-                  onInvite();
-                },
-                label: LocalizedTexts.buddyFindAnotherBuddy.tr(),
-              ),
-              const SizedBox(height: 20.0),
-              CustomOutlinedButton.blueFullWidth(
-                onPressed: context.router.maybePop,
-                label: LocalizedTexts.buddyNotNeedAnotherBuddy.tr(),
-              ),
-              const SizedBox(height: 30.0),
-            ],
+          child: Padding(
+            padding: const EdgeInsets.symmetric(vertical: 30.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                const CircleAvatar(
+                  radius: 25.0,
+                  backgroundColor: AppColors.blueRegular,
+                  child: Icon(Icons.check, size: 30),
+                ),
+                const SizedBox(height: 20.0),
+                CustomText.w600(
+                  LocalizedTexts.buddyFindAnotherBuddyLabel.tr(namedArgs: {"name": name}),
+                  style: context.textTheme.bodyMedium,
+                ),
+                const SizedBox(height: 20.0),
+                CustomText.w400(
+                  LocalizedTexts.buddyFindAnotherBuddyContentOne.tr(),
+                  style: context.textTheme.bodyMedium,
+                ),
+                const SizedBox(height: 20.0),
+                CustomText.w400(
+                  LocalizedTexts.buddyFindAnotherBuddyContentTwo.tr(),
+                  style: context.textTheme.bodyMedium,
+                ),
+                const SizedBox(height: 20.0),
+                CustomElevatedButton.blueFullWidth(
+                  onPressed: () {
+                    context.router.maybePop();
+                    onAnotherBuddy();
+                  },
+                  label: LocalizedTexts.buddyFindAnotherBuddy.tr(),
+                ),
+                const SizedBox(height: 20.0),
+                CustomOutlinedButton.blueFullWidth(
+                  onPressed: context.router.maybePop,
+                  label: LocalizedTexts.buddyNotNeedAnotherBuddy.tr(),
+                ),
+              ],
+            ),
           ),
         );
       },

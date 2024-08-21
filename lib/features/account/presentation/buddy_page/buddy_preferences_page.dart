@@ -52,11 +52,21 @@ class _BuddyPreferencesPageState extends State<BuddyPreferencesPage> {
   }
 
   void _onRemoveInvite() {
-    ModalBottomSheet.removeInviteConfirmation(context: context, onInvite: _onInviteBuddy);
+    ModalBottomSheet.removeInviteConfirmation(
+        context: context, onAnotherBuddy: _onAnotherBuddyHandler);
+  }
+
+  void _onAnotherBuddyHandler() {
+    context.read<BuddyBloc>().add(const BuddyEvent.removeBuddy());
+
+    context.router.pushAndPopUntil(
+      const BuddyIntroRoute(),
+      predicate: (Route<dynamic> route) => route.settings.name == HomeRoute.name,
+    );
   }
 
   void _onInviteBuddy() {
-    context.read<BuddyBloc>().add(const BuddyEvent.removeBuddy());
+    context.read<BuddyBloc>().add(const BuddyEvent.updateBuddyStatus(null));
 
     context.router.pushAndPopUntil(
       const BuddyIntroRoute(),
@@ -75,53 +85,46 @@ class _BuddyPreferencesPageState extends State<BuddyPreferencesPage> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocConsumer<BuddyBloc, BuddyState>(
-      listener: _errorListener,
-      builder: (context, state) {
-        return CustomScaffold.blue(
-          withBg: true,
-          appBar: CustomAppBar.blue(
-            leading: CustomFilledIconButton.leadingBlueLighter(),
-            title: LocalizedTexts.buddyPreferences.tr(),
-          ),
-          body: CustomSafeArea(
-            child: ScrollableContainer(
-              child: MainContainer(
-                child: state.maybeWhen(
-                  loading: (_) => const Loader(),
-                  orElse: () {
-                    return Column(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Column(
-                          children: [
-                            const SizedBox(height: 40),
-                            switch (state.data.buddyState) {
-                              BuddyStatus.invited => const BuddyInvitationPending(),
-                              BuddyStatus.rejected => const BuddyInvitationReject(),
-                              BuddyStatus.approved => const BuddyInvitationApproved(),
-                              BuddyStatus.left => const BuddyNotAvailable(),
-                              _ => const SizedBox.shrink(),
-                            },
-                            const SizedBox(height: 40),
-                          ],
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.symmetric(vertical: 30.0),
-                          child: CustomElevatedButton.orangeFullWidth(
-                            label: _btnLabel,
-                            onPressed: () => _btnHandler(),
-                          ),
-                        )
-                      ],
-                    );
-                  },
+    return CustomScaffold.blue(
+      withBg: true,
+      appBar: CustomAppBar.blue(
+        leading: CustomFilledIconButton.leadingBlueLighter(),
+        title: LocalizedTexts.buddyPreferences.tr(),
+      ),
+      body: CustomSafeArea(
+        child: ScrollableContainer(
+          child: MainContainer(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Padding(
+                  padding: const EdgeInsets.only(top: 40.0),
+                  child: BlocConsumer<BuddyBloc, BuddyState>(
+                    listener: _errorListener,
+                    builder: (BuildContext context, BuddyState state) {
+                      return state.maybeWhen(
+                        loading: (_) => const Loader(),
+                        invited: (_) => const BuddyInvitationPending(),
+                        rejected: (_) => const BuddyInvitationReject(),
+                        approved: (_) => const BuddyInvitationApproved(),
+                        left: (_) => const BuddyNotAvailable(),
+                        orElse: () => const BuddyNotAvailable(),
+                      );
+                    },
+                  ),
                 ),
-              ),
+                Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 30.0),
+                  child: CustomElevatedButton.orangeFullWidth(
+                    label: _btnLabel,
+                    onPressed: () => _btnHandler(),
+                  ),
+                )
+              ],
             ),
           ),
-        );
-      },
+        ),
+      ),
     );
   }
 }
