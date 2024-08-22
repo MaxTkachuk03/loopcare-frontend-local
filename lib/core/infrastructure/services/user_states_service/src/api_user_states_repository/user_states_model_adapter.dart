@@ -1,10 +1,11 @@
 import 'package:hive/hive.dart';
+import 'package:loopcare_frontend/core/infrastructure/hive_service/hive_constants.dart';
 import 'package:loopcare_frontend/core/infrastructure/services/user_states_service/src/user_states_model/user_states_model.dart';
 import 'package:loopcare_frontend/features/account/presentation/buddy_page/application/buddy_status.dart';
 
 class UserStatesModelAdapter extends TypeAdapter<UserStatesModel> {
   @override
-  final typeId = 0;
+  final typeId = HiveTypeIdConstants.userStates;
 
   @override
   UserStatesModel read(BinaryReader reader) {
