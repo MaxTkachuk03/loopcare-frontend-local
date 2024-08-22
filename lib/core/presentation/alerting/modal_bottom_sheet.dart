@@ -49,7 +49,7 @@ import 'package:loopcare_frontend/features/report_abuse/presentation/widget/repo
 import 'package:loopcare_frontend/features/river/domain/river_module_stream_type.dart';
 import 'package:loopcare_frontend/injection.dart';
 
-AppConfig appConfig = getIt<AppConfig>();
+AppConfig _appConfig = getIt<AppConfig>();
 
 class ModalBottomSheet {
   ModalBottomSheet._();
@@ -557,7 +557,7 @@ class ModalBottomSheet {
                 MainContainer(
                   child: TextWithAccents(
                     LocalizedTexts.mentalHealthMoreInfo.tr(
-                      namedArgs: {'appName': appConfig.projectName},
+                      namedArgs: {'appName': _appConfig.projectName},
                     ),
                     accents: [
                       LocalizedTexts.mentalHealthMoreInfoBold1.tr(),

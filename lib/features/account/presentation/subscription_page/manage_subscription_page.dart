@@ -6,7 +6,7 @@ import 'package:flash/flash.dart';
 import 'package:flash/flash_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:loopcare_frontend/core/infrastructure/services/app_config.dart';
+import 'package:loopcare_frontend/core/domain/url_constants.dart';
 import 'package:loopcare_frontend/core/presentation/app_bar/custom_app_bar.dart';
 import 'package:loopcare_frontend/core/presentation/buttons/custom_elevated_button.dart';
 import 'package:loopcare_frontend/core/presentation/buttons/custom_filled_icon_button.dart';
@@ -34,8 +34,6 @@ class ManageSubscriptionPage extends StatefulWidget {
 
 class _ManageSubscriptionPageState extends State<ManageSubscriptionPage> {
   final AppSubscriptionService inAppPurchaseService = getIt<AppSubscriptionService>();
-
-  AppConfig get appConfig => getIt<AppConfig>();
 
   @override
   void didChangeDependencies() {
@@ -111,9 +109,9 @@ class _ManageSubscriptionPageState extends State<ManageSubscriptionPage> {
                     onPressed: isVendorPlatform(state)
                         ? () {
                             Platform.isIOS
-                                ? launchUrl(Uri.parse(appConfig.appStoreSettingsLink),
+                                ? launchUrl(Uri.parse(appStoreSettingsLink),
                                     mode: LaunchMode.externalApplication)
-                                : launchUrl(Uri.parse(appConfig.playMarketSettingsLink),
+                                : launchUrl(Uri.parse(playMarketSettingsLink),
                                     mode: LaunchMode.externalApplication);
                           }
                         : () => _showPopover(),

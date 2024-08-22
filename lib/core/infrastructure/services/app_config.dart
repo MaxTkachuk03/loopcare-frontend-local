@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:injectable/injectable.dart';
+import 'package:loopcare_frontend/core/domain/constants.dart';
 import 'package:loopcare_frontend/core/infrastructure/services/country_code_service/country_code_service.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localization_constants.dart';
 
@@ -21,7 +22,5 @@ class AppConfig {
 
   String get baseHost => Uri.parse(baseUrl).host;
 
-  String get appStoreSettingsLink => 'https://apps.apple.com/account/subscriptions';
-
-  String get playMarketSettingsLink => 'https://play.google.com/store/account/subscriptions';
+  String get version => Constants.apiVersion;
 }

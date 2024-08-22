@@ -7,6 +7,7 @@ import 'package:flash/flash_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loopcare_frontend/core/application/customer_io_service/customer_io_service.dart';
+import 'package:loopcare_frontend/core/domain/url_constants.dart';
 import 'package:loopcare_frontend/core/presentation/alerting/modal_bottom_sheet.dart';
 import 'package:loopcare_frontend/core/presentation/app_bar/custom_app_bar.dart';
 import 'package:loopcare_frontend/core/presentation/icon_images/app_images.dart';
@@ -144,7 +145,7 @@ class _SubscriptionPageState extends State<SubscriptionPage> {
   }
 
   void _showRestoreSubscriptionBottomSheet({bool isDuplicate = false}) {
-    final link = Platform.isIOS ? appConfig.appStoreSettingsLink : appConfig.playMarketSettingsLink;
+    final link = Platform.isIOS ? appStoreSettingsLink : playMarketSettingsLink;
 
     ModalBottomSheet.restoreSubscription(
       context: context,
