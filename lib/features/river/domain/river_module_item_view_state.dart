@@ -37,7 +37,7 @@ class RiverModuleItemViewStateConverter implements JsonConverter<RiverModuleItem
     return RiverModuleItemViewState(
       itemState: itemState,
       prevItemState: prevItemState,
-      animationState: _getAnimatedState(itemState, prevItemState),
+      animationState: prevItemState.transformAnimationState(itemState),
     );
   }
 
@@ -48,25 +48,6 @@ class RiverModuleItemViewStateConverter implements JsonConverter<RiverModuleItem
       return state;
     } else {
       return RiverModuleItemState.locked;
-    }
-  }
-
-  RiverModuleItemAnimationState _getAnimatedState(
-    RiverModuleItemState itemState,
-    RiverModuleItemState prevItemState,
-  ) {
-    if (itemState.isUnLockedOrHigher && prevItemState.isLocked) {
-      return RiverModuleItemAnimationState.unlock;
-    } else if (itemState.isReadOrHigher && prevItemState.isUnLocked) {
-      return RiverModuleItemAnimationState.read;
-    } else if (itemState.isCompleted && prevItemState.isRead) {
-      return RiverModuleItemAnimationState.complete;
-    } else if (itemState.isRead && prevItemState.isCompleted) {
-      return RiverModuleItemAnimationState.reversCompletion;
-    } else if (itemState.isUnLocked && prevItemState.isUnLocked) {
-      return RiverModuleItemAnimationState.idling;
-    } else {
-      return RiverModuleItemAnimationState.no;
     }
   }
 

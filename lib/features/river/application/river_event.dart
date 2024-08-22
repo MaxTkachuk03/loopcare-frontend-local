@@ -30,4 +30,8 @@ class RiverEvent with _$RiverEvent {
     required int moduleId,
     required int moduleItemId,
   }) = BounceParentItem;
+
+  const factory RiverEvent.finishUserAvatarRiverModuleItem({
+    required bool complete,
+  }) = FinishUserAvatarRiverModuleItem;
 }
