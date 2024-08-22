@@ -5,7 +5,7 @@ import 'package:loopcare_frontend/core/presentation/text/custom_text.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 import 'package:loopcare_frontend/core/presentation/utils/build_context_extensions.dart';
 import 'package:loopcare_frontend/features/physical_activities/domain/program_difficulty.dart';
-import 'package:loopcare_frontend/features/river/infrastructure/river_module_stream_type.dart';
+import 'package:loopcare_frontend/features/river/domain/river_module_stream_type.dart';
 
 class CategoryLabel extends StatelessWidget {
   final String label;
@@ -49,8 +49,11 @@ class CategoryLabel extends StatelessWidget {
   factory CategoryLabel.groupSession() =>
       CategoryLabel(label: LocalizedTexts.groupSession.tr(), color: AppColors.petrolRegular);
 
-  factory CategoryLabel.buddy() =>
-      CategoryLabel(label: LocalizedTexts.buddy.tr(), color: AppColors.coralRegular);
+  factory CategoryLabel.buddy() => CategoryLabel(
+        label: LocalizedTexts.buddy.tr(),
+        color: AppColors.orangeRegular,
+        textColor: AppColors.blueDarker,
+      );
 
   factory CategoryLabel.smartGoals({required String label}) =>
       CategoryLabel(label: label, color: AppColors.greenRegular, textColor: AppColors.blueDarker);
@@ -64,6 +67,12 @@ class CategoryLabel extends StatelessWidget {
   factory CategoryLabel.maintenance() => CategoryLabel(
         label: LocalizedTexts.maintenanceLabel.tr().toUpperCase(),
         color: AppColors.coralRegular,
+        textColor: AppColors.white,
+      );
+
+  factory CategoryLabel.news() => CategoryLabel(
+        label: LocalizedTexts.news.tr().toUpperCase(),
+        color: AppColors.lq3,
         textColor: AppColors.white,
       );
 

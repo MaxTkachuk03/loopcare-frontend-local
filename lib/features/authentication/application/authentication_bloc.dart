@@ -4,13 +4,10 @@ import 'dart:io';
 import 'package:dio/dio.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:get_it/get_it.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
 import 'package:injectable/injectable.dart';
 import 'package:loopcare_frontend/core/application/auth_token_manager.dart';
 import 'package:loopcare_frontend/core/application/customer_io_service/customer_io_service.dart';
-import 'package:loopcare_frontend/core/application/socket_service/socket_service.dart';
-import 'package:loopcare_frontend/core/application/socket_service_chat/chat_socket_service.dart';
 import 'package:loopcare_frontend/core/domain/account/account.dart';
 import 'package:loopcare_frontend/core/domain/account/gender_preferences.dart';
 import 'package:loopcare_frontend/core/domain/account/gender_type.dart';
@@ -18,17 +15,22 @@ import 'package:loopcare_frontend/core/domain/analytics/analytics_events.dart';
 import 'package:loopcare_frontend/core/domain/analytics/analytics_parameters.dart';
 import 'package:loopcare_frontend/core/domain/medical_onboarding.dart';
 import 'package:loopcare_frontend/core/domain/unlocked_feature_type.dart';
-import 'package:loopcare_frontend/core/infrastructure/dio_client/dio_client.dart';
 import 'package:loopcare_frontend/core/infrastructure/dio_client/request_error.dart';
 import 'package:loopcare_frontend/core/infrastructure/services/analytics_service.dart';
+import 'package:loopcare_frontend/core/infrastructure/services/app_sync_service/app_sync_service.dart';
 import 'package:loopcare_frontend/core/infrastructure/services/apps_flyer_service.dart';
 import 'package:loopcare_frontend/core/infrastructure/services/events.dart';
 import 'package:loopcare_frontend/core/infrastructure/services/facebook_events_service.dart';
 import 'package:loopcare_frontend/core/infrastructure/services/mixpanel_event_service.dart';
 import 'package:loopcare_frontend/core/infrastructure/services/shared_storage/shared_storage_service.dart';
+import 'package:loopcare_frontend/core/infrastructure/services/socket_service/socket_service.dart';
+import 'package:loopcare_frontend/core/infrastructure/services/socket_service_buddy/buddy_socket_service.dart';
+import 'package:loopcare_frontend/core/infrastructure/services/socket_service_chat/chat_socket_service.dart';
+import 'package:loopcare_frontend/core/infrastructure/services/user_states_service/user_states_service.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/core/presentation/utils/string_extensions.dart';
 import 'package:loopcare_frontend/features/account/domain/user_grouping_state.dart';
+import 'package:loopcare_frontend/features/account/presentation/buddy_page/application/buddy_status.dart';
 import 'package:loopcare_frontend/features/authentication/application/authentication_service.dart';
 import 'package:loopcare_frontend/features/authentication/application/dto/account_document_version_data.dart';
 import 'package:loopcare_frontend/features/authentication/application/dto/device_data.dart';
@@ -39,34 +41,33 @@ import 'package:loopcare_frontend/features/authentication/application/dto/sign_u
 import 'package:loopcare_frontend/features/authentication/application/dto/update_user_email_data.dart';
 import 'package:loopcare_frontend/features/authentication/application/dto/validate_email_data.dart';
 import 'package:loopcare_frontend/features/buddy/domain/buddy.dart';
-import 'package:loopcare_frontend/features/chat/application/chat_bloc/group_chat_bloc.dart';
 import 'package:loopcare_frontend/features/onboarding/application/dto/registration_physical_fitness_data.dart';
 import 'package:uuid/uuid.dart';
 
 part 'authentication_bloc.freezed.dart';
-
 part 'authentication_bloc.g.dart';
-
 part 'authentication_event.dart';
-
 part 'authentication_state.dart';
 
 @singleton
 class AuthenticationBloc extends HydratedBloc<AuthenticationEvent, AuthenticationState> {
   final AuthenticationService _authenticationService;
-  final DioClient client;
-  final AuthTokenManager authTokenManager;
+  final AuthTokenManager _authTokenManager;
   final SharedStorageService _sharedPref;
-  final SocketService _socketService = SocketService.instance;
+  final AppSyncService _syncService;
   final ChatSocketService _chatSocketService = ChatSocketService.instance;
-  final GroupChatBloc _chatBloc = GetIt.instance<GroupChatBloc>();
+  final BuddySocketService _socketServiceBuddy = BuddySocketService.instance;
+  final SocketService _socketService = SocketService.instance;
+  final UserStatesService _statesService;
+
   AccessTokenSubscription? _accessTokenSubscription;
 
   AuthenticationBloc(
     this._authenticationService,
-    this.client,
-    this.authTokenManager,
+    this._authTokenManager,
     this._sharedPref,
+    this._syncService,
+    this._statesService,
   ) : super(const AuthenticationState.guest(AuthenticationData())) {
     on<AuthenticationInit>(_onAuthenticationInit);
     on<Login>(_onLogin);
@@ -88,13 +89,20 @@ class AuthenticationBloc extends HydratedBloc<AuthenticationEvent, Authenticatio
     on<UpdatePolicy>(_onUpdatePolicy);
     on<SendAppsFlyerData>(_onSendAppsFlyerDate);
     on<UploadAvatar>(_onUploadAvatar);
+    on<BuddyVisited>(_onBuddyVisited);
 
     hydrate();
-    _accessTokenSubscription = authTokenManager.addListener((token) {
+    _accessTokenSubscription = _authTokenManager.addListener((token) {
       if (token == null) {
         add(const AuthenticationEvent.init());
       }
     });
+
+    _syncService.stream.listen(
+      (event) => event.whenOrNull(
+        refreshAccount: () => add(const AuthenticationEvent.getAccount()),
+      ),
+    );
   }
 
   @override
@@ -124,8 +132,7 @@ class AuthenticationBloc extends HydratedBloc<AuthenticationEvent, Authenticatio
     Emitter<AuthenticationState> emit,
   ) async {
     if (_sharedPref.account?.groupingState == UserGroupingState.grouped) {
-      _chatBloc.add(const GroupChatEvent.getUnreadCount());
-      _chatBloc.add(const GroupChatEvent.getMessages(refresh: true));
+      _syncService.refreshChatMessages();
     }
   }
 
@@ -190,8 +197,8 @@ class AuthenticationBloc extends HydratedBloc<AuthenticationEvent, Authenticatio
           name: response.name,
         );
 
-        await authTokenManager.setAccessToken(response.accessToken);
-        await authTokenManager.setRefreshToken(response.refreshToken);
+        await _authTokenManager.setAccessToken(response.accessToken);
+        await _authTokenManager.setRefreshToken(response.refreshToken);
 
         _connectSockets();
 
@@ -234,13 +241,14 @@ class AuthenticationBloc extends HydratedBloc<AuthenticationEvent, Authenticatio
     emit(AuthenticationState.isLoading(state.data.copyWith(isLoading: true)));
 
     await _authenticationService.logout();
-    await authTokenManager.removeAccessToken();
-    await authTokenManager.removeRefreshToken();
+    await _authTokenManager.removeAccessToken();
+    await _authTokenManager.removeRefreshToken();
 
     _sharedPref.removeAccount();
 
     emit(const AuthenticationState.guest(AuthenticationData()));
 
+    _socketServiceBuddy.disconnect();
     _socketService.disconnect();
     _chatSocketService.disconnect();
   }
@@ -276,8 +284,8 @@ class AuthenticationBloc extends HydratedBloc<AuthenticationEvent, Authenticatio
         AuthenticationState.error(state.data.copyWith(error: error, isLoading: false)),
       ),
       (response) {
-        authTokenManager.setAccessToken(response.accessToken);
-        authTokenManager.setRefreshToken(response.refreshToken);
+        _authTokenManager.setAccessToken(response.accessToken);
+        _authTokenManager.setRefreshToken(response.refreshToken);
 
         const AnalyticsEventService(includeAppsFlyer: true).logEvent(
           eventName: AnalyticsEvents.onboardingNewUserCreated,
@@ -461,9 +469,6 @@ class AuthenticationBloc extends HydratedBloc<AuthenticationEvent, Authenticatio
     UnlockedFeature event,
     Emitter<AuthenticationState> emit,
   ) async {
-    // TODO check new unlock feature logic
-    // final response = await _authenticationService.unlockFeature(event.feature);
-
     final account = _sharedPref.account;
     final accountFeatures = _sharedPref.account?.features;
 
@@ -648,6 +653,8 @@ class AuthenticationBloc extends HydratedBloc<AuthenticationEvent, Authenticatio
           birthDate: r.physicalFitness.birthDate,
           groupingState: r.groupingState,
           groupId: r.groupId,
+          buddyState: r.buddyState,
+          buddy: r.buddy,
           groupingStartedAt: r.groupingStartedAt,
           nickname: r.groupingPreferences?.nickname,
           genderPreference: r.groupingPreferences?.genderPreference,
@@ -672,7 +679,23 @@ class AuthenticationBloc extends HydratedBloc<AuthenticationEvent, Authenticatio
             _sharedPref.termsAndConditionsVersion > account.termsAndConditionsVersion) {
           emit(AuthenticationState.needUpdatePolicies(state.data.copyWith(account: account)));
         } else {
-          emit(AuthenticationState.gotAccount(state.data.copyWith(account: account)));
+          final showBuddyNews = _statesService.buddyStatus != account.buddyState &&
+              account.buddyState.isRejectedOrLeft;
+
+          if (showBuddyNews) {
+            _syncService.showProfileNotificationBadge();
+          } else {
+            _statesService.buddyStatus = account.buddyState;
+          }
+
+          emit(
+            AuthenticationState.gotAccount(
+              state.data.copyWith(
+                account: account,
+                showBuddyNews: showBuddyNews,
+              ),
+            ),
+          );
         }
 
         add(const AuthenticationEvent.syncChatState());
@@ -723,7 +746,21 @@ class AuthenticationBloc extends HydratedBloc<AuthenticationEvent, Authenticatio
     );
   }
 
+  FutureOr<void> _onBuddyVisited(
+    BuddyVisited event,
+    Emitter<AuthenticationState> emit,
+  ) async {
+    if (!state.data.showBuddyNews) return;
+
+    _statesService.buddyStatus = state.data.account?.buddyState;
+
+    emit(
+      state.copyWith(data: state.data.copyWith(showBuddyNews: false)),
+    );
+  }
+
   void _connectSockets() {
+    _socketServiceBuddy.startListen();
     _socketService.startListen();
     _chatSocketService.startListen();
   }

@@ -31,6 +31,7 @@ import 'package:loopcare_frontend/core/presentation/widgets/custom_rounded_conta
 import 'package:loopcare_frontend/core/presentation/widgets/keyboard_listener_container.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/main_container.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/scrollable_container.dart';
+import 'package:loopcare_frontend/features/account/presentation/buddy_page/application/buddy_bloc.dart';
 import 'package:loopcare_frontend/features/account/presentation/emergency_numbers/emergency_number_card.dart';
 import 'package:loopcare_frontend/features/authentication/application/dto/group_chat_report.dart';
 import 'package:loopcare_frontend/features/authentication/application/dto/group_session_report.dart';
@@ -45,7 +46,7 @@ import 'package:loopcare_frontend/features/nutrition/domain/nutrition_item/nutri
 import 'package:loopcare_frontend/features/nutrition/domain/nutrition_values_types/nutrition_values_types.dart';
 import 'package:loopcare_frontend/features/nutrition/domain/select_serving/meal_category_filter.dart';
 import 'package:loopcare_frontend/features/report_abuse/presentation/widget/report_abuse_widget.dart';
-import 'package:loopcare_frontend/features/river/infrastructure/river_module_stream_type.dart';
+import 'package:loopcare_frontend/features/river/domain/river_module_stream_type.dart';
 import 'package:loopcare_frontend/injection.dart';
 
 AppConfig appConfig = getIt<AppConfig>();
@@ -1427,46 +1428,59 @@ class ModalBottomSheet {
     );
   }
 
-  static void inviteNewBuddy({
+  static void removeInviteConfirmation({
     required BuildContext context,
-    required void Function() onInvite,
+    required void Function() onAnotherBuddy,
   }) {
+    final name = context.read<BuddyBloc>().state.data.buddy?.username ?? '';
+
     showModalBottomSheet<void>(
       showDragHandle: true,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12.0)),
       context: context,
+      isScrollControlled: true,
       builder: (BuildContext context) {
-        return FractionallySizedBox(
-          heightFactor: 0.75,
-          child: ScrollableContainer(
-            child: MainContainer(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  CustomText.w600(
-                    LocalizedTexts.buddyFindAnotherBuddyLabel.tr(),
-                    style: context.textTheme.bodyMedium?.copyWith(color: AppColors.orangeRegular),
-                  ),
-                  CustomText.w400(
-                    LocalizedTexts.buddyFindAnotherBuddyContent.tr(),
-                    style: context.textTheme.bodyMedium,
-                  ),
-                  const SizedBox(height: 12.0),
-                  CustomElevatedButton.blueFullWidth(
-                    onPressed: () {
-                      context.router.maybePop.call();
-                      onInvite.call();
-                    },
-                    label: LocalizedTexts.buddyFindAnotherBuddy.tr(),
-                  ),
-                  const SizedBox(height: 12.0),
-                  CustomOutlinedButton.blueFullWidth(
-                    onPressed: () => context.router.maybePop.call(),
-                    label: LocalizedTexts.buddyNotNeedAnotherBuddy.tr(),
-                  ),
-                  const SizedBox(height: 12.0),
-                ],
-              ),
+        return MainContainer(
+          child: Padding(
+            padding: const EdgeInsets.symmetric(vertical: 30.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                const CircleAvatar(
+                  radius: 25.0,
+                  backgroundColor: AppColors.blueRegular,
+                  child: Icon(Icons.check, size: 30),
+                ),
+                const SizedBox(height: 20.0),
+                CustomText.w600(
+                  LocalizedTexts.buddyFindAnotherBuddyLabel.tr(namedArgs: {"name": name}),
+                  style: context.textTheme.bodyMedium,
+                ),
+                const SizedBox(height: 20.0),
+                CustomText.w400(
+                  LocalizedTexts.buddyFindAnotherBuddyContentOne.tr(),
+                  style: context.textTheme.bodyMedium,
+                ),
+                const SizedBox(height: 20.0),
+                CustomText.w400(
+                  LocalizedTexts.buddyFindAnotherBuddyContentTwo.tr(),
+                  style: context.textTheme.bodyMedium,
+                ),
+                const SizedBox(height: 20.0),
+                CustomElevatedButton.blueFullWidth(
+                  onPressed: () {
+                    context.router.maybePop();
+                    onAnotherBuddy();
+                  },
+                  label: LocalizedTexts.buddyFindAnotherBuddy.tr(),
+                ),
+                const SizedBox(height: 20.0),
+                CustomOutlinedButton.blueFullWidth(
+                  onPressed: context.router.maybePop,
+                  label: LocalizedTexts.buddyNotNeedAnotherBuddy.tr(),
+                ),
+              ],
             ),
           ),
         );
@@ -1831,6 +1845,113 @@ class ModalBottomSheet {
               CustomElevatedButton.blueFullWidth(
                 label: LocalizedTexts.ok.tr().toUpperCase(),
                 onPressed: context.router.maybePop,
+              ),
+              const SizedBox(height: 30.0),
+            ],
+          ),
+        );
+      },
+    );
+  }
+
+  static void moduleCompleted({
+    required BuildContext context,
+    required String currentModule,
+    required String nextModule,
+    void Function()? onConfirm,
+  }) {
+    showModalBottomSheet(
+      context: context,
+      showDragHandle: false,
+      backgroundColor: AppColors.blueLightest,
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12.0)),
+      builder: (BuildContext context) {
+        return MainContainer(
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              const SizedBox(height: 32.0),
+              const Center(
+                child: CircleAvatar(
+                  radius: 25,
+                  backgroundColor: AppColors.blueRegular,
+                  child: Icon(
+                    Icons.check_rounded,
+                    color: AppColors.blueLightest,
+                    size: 36.0,
+                  ),
+                ),
+              ),
+              const SizedBox(height: 24.0),
+              CustomText.w600(
+                LocalizedTexts.moduleCompletedTitle.tr(args: [currentModule]),
+                style: context.textTheme.bodyMedium,
+              ),
+              const SizedBox(height: 20.0),
+              CustomText.w400(
+                LocalizedTexts.moduleCompletedDescription.tr(args: [nextModule]),
+                style: context.textTheme.bodyMedium,
+              ),
+              const SizedBox(height: 20.0),
+              CustomElevatedButton.blueFullWidth(
+                label: LocalizedTexts.ok.tr().toUpperCase(),
+                onPressed: () {
+                  context.router.maybePop();
+                  onConfirm?.call();
+                },
+              ),
+              const SizedBox(height: 30.0),
+            ],
+          ),
+        );
+      },
+    );
+  }
+
+  static void lastModuleCompleted({
+    required BuildContext context,
+    required String moduleTitle,
+    void Function()? onConfirm,
+  }) {
+    showModalBottomSheet(
+      context: context,
+      showDragHandle: false,
+      backgroundColor: AppColors.blueLightest,
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12.0)),
+      builder: (BuildContext context) {
+        return MainContainer(
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              const SizedBox(height: 32.0),
+              const Center(
+                child: CircleAvatar(
+                  radius: 25,
+                  backgroundColor: AppColors.blueRegular,
+                  child: Icon(
+                    Icons.check_rounded,
+                    color: AppColors.blueLightest,
+                    size: 36.0,
+                  ),
+                ),
+              ),
+              const SizedBox(height: 24.0),
+              CustomText.w600(
+                LocalizedTexts.moduleCompletedTitle.tr(args: [moduleTitle]),
+                style: context.textTheme.bodyMedium,
+              ),
+              const SizedBox(height: 20.0),
+              CustomText.w400(
+                LocalizedTexts.lastModuleCompletedDescription.tr(),
+                style: context.textTheme.bodyMedium,
+              ),
+              const SizedBox(height: 20.0),
+              CustomElevatedButton.blueFullWidth(
+                label: LocalizedTexts.ok.tr().toUpperCase(),
+                onPressed: () {
+                  context.router.maybePop();
+                  onConfirm?.call();
+                },
               ),
               const SizedBox(height: 30.0),
             ],

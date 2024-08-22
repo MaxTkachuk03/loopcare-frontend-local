@@ -14,19 +14,42 @@ import 'package:loopcare_frontend/features/account/application/group_preferences
 import 'package:loopcare_frontend/features/account/presentation/account_page/widgets/account_container.dart';
 import 'package:loopcare_frontend/features/account/presentation/account_page/widgets/section_item.dart';
 import 'package:loopcare_frontend/features/account/presentation/account_page/widgets/section_title.dart';
+import 'package:loopcare_frontend/features/account/presentation/buddy_page/application/buddy_bloc.dart';
 import 'package:loopcare_frontend/features/authentication/application/authentication_bloc.dart';
+import 'package:loopcare_frontend/features/home/application/navigation_bar_bloc.dart';
 import 'package:loopcare_frontend/features/physical_activities/application/physical_activities_preferences/physical_activities_preferences_bloc.dart';
 import 'package:loopcare_frontend/features/you_and_food/application/you_and_food_bloc.dart';
 
-class PreferencesSection extends StatelessWidget {
+class PreferencesSection extends StatefulWidget {
   const PreferencesSection({super.key});
+
+  @override
+  State<PreferencesSection> createState() => _PreferencesSectionState();
+}
+
+class _PreferencesSectionState extends State<PreferencesSection> {
+  @override
+  void initState() {
+    super.initState();
+
+    final authBloc = context.read<AuthenticationBloc>();
+
+    context.read<BuddyBloc>().add(BuddyEvent.updateBuddyState(authBloc.state.data.account));
+  }
 
   void _onFoodHandler(BuildContext context) {
     context.router.push(FoodPreferencesRoute(fromLessonComplete: false));
   }
 
-  void _onBuddyHandler(BuildContext context) =>
-      context.router.pushNamed(AppRoutes.buddyPreferences);
+  void _onBuddyHandler(BuildContext context) {
+    context.read<AuthenticationBloc>().add(const AuthenticationEvent.buddyVisited());
+    context.read<NavigationBarBloc>().add(const NavigationBarEvent.removeProfileNotification());
+
+    final buddyWasNotInvited = context.read<BuddyBloc>().state.data.buddyState == null;
+    final route = buddyWasNotInvited ? AppRoutes.buddyIntro : AppRoutes.buddyPreferences;
+
+    context.router.pushNamed(route);
+  }
 
   void _onPhysicalActivitiesHandler(BuildContext context) {
     context.router.pushNamed(AppRoutes.physicalPreferences);
@@ -104,6 +127,10 @@ class PreferencesSection extends StatelessWidget {
     );
   }
 
+  void _onAccountUpdated(BuildContext context, AuthenticationState state) {
+    context.read<BuddyBloc>().add(BuddyEvent.updateBuddyState(state.data.account));
+  }
+
   @override
   Widget build(BuildContext context) {
     return MultiBlocListener(
@@ -120,6 +147,9 @@ class PreferencesSection extends StatelessWidget {
           listenWhen: _whenGroupUpdated,
           listener: _groupUpdatingListener,
         ),
+        BlocListener<AuthenticationBloc, AuthenticationState>(
+          listener: _onAccountUpdated,
+        ),
       ],
       child: AccountContainer(
         child: BlocBuilder<AuthenticationBloc, AuthenticationState>(
@@ -135,6 +165,7 @@ class PreferencesSection extends StatelessWidget {
                 const Divider(height: 1.0, color: AppColors.blueLighter),
                 SectionItem(
                   title: LocalizedTexts.buddyTitle.tr(),
+                  showNews: state.data.showBuddyNews,
                   onPressHandler:
                       state.data.isBuddyUnlocked ? () => _onBuddyHandler(context) : null,
                 ),

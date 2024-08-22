@@ -41,7 +41,7 @@ class RiverModuleBuilder extends StatelessWidget with RiverUtils {
   final bool isOverview;
   final bool? enableGradient;
   final void Function()? onCompleted;
-  final Widget Function(BuildContext context, int index) itemBuilder;
+  final Widget Function(BuildContext context, RiverModuleItem item) itemBuilder;
   final Widget Function(BuildContext context) startItemBuilder;
   final List<({Offset offset, RiverModuleItem item})> positionedItems;
 
@@ -76,7 +76,7 @@ class RiverModuleBuilder extends StatelessWidget with RiverUtils {
         return Positioned(
           top: _itemTopPosition(offset, radius),
           left: _itemLeftPosition(offset, radius),
-          child: itemBuilder(context, index),
+          child: itemBuilder(context, item),
         );
       },
     );

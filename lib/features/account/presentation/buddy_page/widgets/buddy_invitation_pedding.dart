@@ -9,19 +9,15 @@ import 'package:loopcare_frontend/core/presentation/utils/date_time_extensions.d
 import 'package:loopcare_frontend/features/account/presentation/account_page/widgets/account_container.dart';
 import 'package:loopcare_frontend/features/account/presentation/buddy_page/application/buddy_bloc.dart';
 
-class BuddyInvitationPending extends StatefulWidget {
+class BuddyInvitationPending extends StatelessWidget {
   const BuddyInvitationPending({super.key});
 
-  @override
-  State<BuddyInvitationPending> createState() => _BuddyInvitationPendingState();
-}
-
-class _BuddyInvitationPendingState extends State<BuddyInvitationPending> {
   @override
   Widget build(BuildContext context) {
     return AccountContainer(
       child: Column(
         mainAxisAlignment: MainAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           CustomText.bitter600(
             LocalizedTexts.buddyPendingTitle.tr(),
@@ -41,14 +37,13 @@ class _BuddyInvitationPendingState extends State<BuddyInvitationPending> {
               );
             },
           ),
-          const SizedBox(height: 17.0),
+          const SizedBox(height: 18.0),
           CustomOutlinedButton.blueFullWidth(
             onPressed: () {
               context.read<BuddyBloc>().add(const BuddyEvent.resendInvitation());
             },
             label: LocalizedTexts.buddyResendInvitation.tr(),
           ),
-          const SizedBox(height: 17.0),
         ],
       ),
     );

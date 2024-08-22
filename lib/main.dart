@@ -6,6 +6,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
+import 'package:hive/hive.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
 import 'package:just_audio_background/just_audio_background.dart';
 import 'package:loopcare_frontend/build_type.dart';
@@ -21,11 +22,12 @@ import 'package:loopcare_frontend/core/infrastructure/services/mixpanel_event_se
 import 'package:loopcare_frontend/core/infrastructure/services/mixpanel_manager.dart';
 import 'package:loopcare_frontend/core/presentation/custom_error_widget/custom_error_widget.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localization_constants.dart';
-import 'package:loopcare_frontend/features/river/presentation/painters/river_stream_shaders.dart';
 import 'package:loopcare_frontend/firebase_options.dart';
 import 'package:loopcare_frontend/injection.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:timezone/data/latest.dart' as tz;
+
+import 'core/infrastructure/services/user_states_service/src/user_states_model/user_states_model.dart';
 
 Future<void> main() async {
   final widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
@@ -81,7 +83,9 @@ Future<void> main() async {
     androidNotificationOngoing: true,
   );
 
-  await RiverStreamShader.instance.init('shaders/river_stream_shader.glsl');
+  final directory = await getApplicationDocumentsDirectory();
+  Hive.init(directory.path);
+  await Hive.openBox<UserStatesModel>('user_states');
 
   return runApp(
     EasyLocalization(

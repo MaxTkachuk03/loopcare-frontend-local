@@ -48,6 +48,7 @@ class AuthenticationData with _$AuthenticationData {
     @Default('') String password,
     @Default(false) bool emailWasSend,
     @Default(false) bool emailVerified,
+    @Default(false) bool showBuddyNews,
     @Default(-1) int accountId,
     Account? account,
     @Default(false) bool isLoading,
@@ -90,7 +91,7 @@ class AuthenticationData with _$AuthenticationData {
 
   bool get disableGroupSessions => account?.disableGroupSessions ?? false;
 
-  String? get buddyState => account?.buddyState;
+  BuddyStatus? get buddyState => account?.buddyState;
 
   Buddy? get buddy => account?.buddy;
 
@@ -133,5 +134,6 @@ class AuthenticationData with _$AuthenticationData {
       return '';
     }
   }
+
   String get errorKey => error?.message ?? LocalizedTexts.errorSomethingWentWrong;
 }

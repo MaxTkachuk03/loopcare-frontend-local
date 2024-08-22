@@ -8,6 +8,7 @@ import 'package:loopcare_frontend/core/domain/mental_health_tests.dart';
 import 'package:loopcare_frontend/core/domain/unlocked_feature_type.dart';
 import 'package:loopcare_frontend/core/presentation/utils/string_extensions.dart';
 import 'package:loopcare_frontend/features/account/domain/user_grouping_state.dart';
+import 'package:loopcare_frontend/features/account/presentation/buddy_page/application/buddy_status.dart';
 import 'package:loopcare_frontend/features/authentication/domain/subscription/subscription.dart';
 import 'package:loopcare_frontend/features/buddy/domain/buddy.dart';
 import 'package:loopcare_frontend/features/onboarding/domain/interpretation_type.dart';
@@ -43,7 +44,7 @@ abstract class Account implements _$Account {
     DateTime? birthDate,
     @Default('') String diabetes,
     @Default('') String? nickname,
-    @Default(null) String? buddyState,
+    @Default(null) BuddyStatus? buddyState,
     @Default(null) String? avatarUrl,
     @Default(GenderPreferences.noPreference) GenderPreferences? genderPreference,
     @Default('') String? timezone,

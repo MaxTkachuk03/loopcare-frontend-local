@@ -3,17 +3,20 @@ import 'package:loopcare_frontend/core/presentation/icon_images/app_icons.dart';
 import 'package:loopcare_frontend/core/presentation/text/custom_text.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 import 'package:loopcare_frontend/core/presentation/utils/build_context_extensions.dart';
+import 'package:loopcare_frontend/features/education/presentation/education_page/widgets/category_label.dart';
 
 class SectionItem extends StatelessWidget {
   final String title;
   final String? subTitle;
   final void Function()? onPressHandler;
+  final bool showNews;
 
   const SectionItem({
     super.key,
     this.subTitle,
     required this.title,
     this.onPressHandler,
+    this.showNews = false,
   });
 
   @override
@@ -43,6 +46,8 @@ class SectionItem extends StatelessWidget {
                 ],
               ),
             ),
+            if (showNews)
+              CategoryLabel.news(),
             const ImageIcon(
               AppIcons.arrow,
               color: AppColors.greyLabel,

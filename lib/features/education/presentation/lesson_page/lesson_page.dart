@@ -6,7 +6,6 @@ import 'package:loopcare_frontend/core/application/analytics_bloc.dart';
 import 'package:loopcare_frontend/core/domain/analytics/analytics_events.dart';
 import 'package:loopcare_frontend/core/domain/analytics/analytics_parameters.dart';
 import 'package:loopcare_frontend/core/infrastructure/services/analytics_service.dart';
-import 'package:loopcare_frontend/core/infrastructure/services/shared_storage/shared_storage_service.dart';
 import 'package:loopcare_frontend/core/presentation/app_bar/custom_app_bar.dart';
 import 'package:loopcare_frontend/core/presentation/buttons/custom_filled_icon_button.dart';
 import 'package:loopcare_frontend/core/presentation/custom_safe_area.dart';
@@ -18,8 +17,7 @@ import 'package:loopcare_frontend/core/presentation/scaffold/custom_scaffold.dar
 import 'package:loopcare_frontend/features/education/application/education_lesson/education_lesson_bloc.dart';
 import 'package:loopcare_frontend/features/education/presentation/lesson/widgets/lesson_audio_body.dart';
 import 'package:loopcare_frontend/features/education/presentation/lesson/widgets/lesson_text_body.dart';
-import 'package:loopcare_frontend/features/river/infrastructure/river_module_stream_type.dart';
-import 'package:loopcare_frontend/injection.dart';
+import 'package:loopcare_frontend/features/river/domain/river_module_stream_type.dart';
 
 @RoutePage()
 class LessonPage extends StatefulWidget {
@@ -39,13 +37,6 @@ class LessonPage extends StatefulWidget {
 class _LessonPageState extends State<LessonPage> {
   void _onNextPressed() {
     final lessonBlocData = context.read<EducationLessonBloc>().state.data;
-
-    final account = getIt<SharedStorageService>().account;
-
-    if (lessonBlocData.isBuddyUnlocked && !(account?.isBuddyUnlocked ?? false)) {
-      context.router.push(BuddyIntroRoute(streamType: widget.streamType));
-      return;
-    }
 
     if (lessonBlocData.hasQuiz) {
       context.router.push(QuizIntroRoute(lessonId: widget.lessonId, streamType: widget.streamType));
