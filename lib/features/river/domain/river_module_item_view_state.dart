@@ -32,28 +32,42 @@ class RiverModuleItemViewStateConverter implements JsonConverter<RiverModuleItem
   RiverModuleItemViewState fromJson(Map<String, dynamic> json) {
     final itemState = RiverModuleItemState.values.byName(json['itemState']);
     final rawPrevItemState = json['prevItemState'];
-    final prevItemState = rawPrevItemState != null
-        ? RiverModuleItemState.values.byName(rawPrevItemState)
-        : RiverModuleItemState.locked;
-
-    RiverModuleItemAnimationState animationState;
-    if (itemState.isUnLockedOrHigher && prevItemState.isLocked) {
-      animationState = RiverModuleItemAnimationState.unlock;
-    } else if (itemState.isReadOrHigher && prevItemState.isUnLocked) {
-      animationState = RiverModuleItemAnimationState.read;
-    } else if (itemState.isCompleted && prevItemState.isRead) {
-      animationState = RiverModuleItemAnimationState.complete;
-    } else if (itemState.isUnLocked && prevItemState.isUnLocked) {
-      animationState = RiverModuleItemAnimationState.idling;
-    } else {
-      animationState = RiverModuleItemAnimationState.no;
-    }
+    final prevItemState = _stateFromRaw(rawPrevItemState, itemState);
 
     return RiverModuleItemViewState(
       itemState: itemState,
       prevItemState: prevItemState,
-      animationState: animationState,
+      animationState: _getAnimatedState(itemState, prevItemState),
     );
+  }
+
+  RiverModuleItemState _stateFromRaw(String? rawPrevItemState, RiverModuleItemState state) {
+    if (rawPrevItemState != null) {
+     return RiverModuleItemState.values.byName(rawPrevItemState);
+    } else if (state.isReadOrHigher) {
+      return state;
+    } else {
+      return RiverModuleItemState.locked;
+    }
+  }
+
+  RiverModuleItemAnimationState _getAnimatedState(
+    RiverModuleItemState itemState,
+    RiverModuleItemState prevItemState,
+  ) {
+    if (itemState.isUnLockedOrHigher && prevItemState.isLocked) {
+      return RiverModuleItemAnimationState.unlock;
+    } else if (itemState.isReadOrHigher && prevItemState.isUnLocked) {
+      return RiverModuleItemAnimationState.read;
+    } else if (itemState.isCompleted && prevItemState.isRead) {
+      return RiverModuleItemAnimationState.complete;
+    } else if (itemState.isRead && prevItemState.isCompleted) {
+      return RiverModuleItemAnimationState.reversCompletion;
+    } else if (itemState.isUnLocked && prevItemState.isUnLocked) {
+      return RiverModuleItemAnimationState.idling;
+    } else {
+      return RiverModuleItemAnimationState.no;
+    }
   }
 
   @override

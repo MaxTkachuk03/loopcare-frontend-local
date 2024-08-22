@@ -54,6 +54,8 @@ class RiverModuleItem with _$RiverModuleItem {
 
   bool get isBuddyCrossModuleItem => crossModule && unlocksFeature.contains(UnlockedFeatureType.buddy);
 
+  bool get isGroupingCrossModuleItem => crossModule && unlocksFeature.contains(UnlockedFeatureType.grouping);
+
   bool get isAdditionalBuddyCrossModuleItem => crossModule && unlocksFeature.isEmpty && actions.isEmpty;
 
       factory RiverModuleItem.fromJson(Map<String, dynamic> json) => _$RiverModuleItemFromJson(json);

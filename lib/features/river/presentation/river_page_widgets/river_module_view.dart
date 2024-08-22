@@ -89,13 +89,10 @@ class _RiverScreenState extends State<RiverScreen> with RiverUtils {
           isCompleted: isCompleted,
           title: widget.module.title,
           positionedItems: _positionedItems,
-          itemBuilder: (context, index) {
-            final item = _positionedItems[index].item;
-            final radius = itemRadius(isRoot: item.isRootItem);
-
+          itemBuilder: (context, item) {
             return RiverAnimationModuleItemWidget(
               item: item,
-              radius: radius,
+              radius: itemRadius(isRoot: item.isRootItem),
               isBeginning: isBeginning,
               onTap: () => _onItemPressed(item),
               onAnimationComplete: (placement) => _onAnimationCompleted(item, placement),

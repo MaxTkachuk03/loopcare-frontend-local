@@ -6,17 +6,13 @@ part 'app_sync_event.freezed.dart';
 class AppSyncEvent with _$AppSyncEvent {
   const AppSyncEvent._();
 
-  const factory AppSyncEvent.refreshTopics() = _RefreshTopics;
+  const factory AppSyncEvent.refreshTopics() = _RefreshTopicsSyncEvent;
 
-  const factory AppSyncEvent.buddyInvited() = _BuddyInvited;
+  const factory AppSyncEvent.refreshChatMessages() = _RefreshChatMessagesSyncEvent;
 
-  const factory AppSyncEvent.disownBuddy() = _DisownBuddy;
+  const factory AppSyncEvent.refreshAccount() = _RefreshAccountSyncEvent;
 
-  const factory AppSyncEvent.buddyRejectInvite() = _BuddyRejectInvite;
+  const factory AppSyncEvent.refreshActualRiverModule() = _RefreshActualRiverModuleSyncEvent;
 
-  const factory AppSyncEvent.buddyLeft() = _BuddyLeft;
-
-  const factory AppSyncEvent.buddyAcceptedInvite() = _BuddyAcceptedInvite;
-
-  const factory AppSyncEvent.refreshChatMessages() = _RefreshChatMessages;
+  const factory AppSyncEvent.showProfileNotificationBadge() = _ShowProfileNotificationSyncEvent;
 }

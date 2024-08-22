@@ -45,13 +45,10 @@ class RiverModulePreview extends StatelessWidget with RiverUtils {
         isCompleted: module.isCompleted,
         title: module.title,
         positionedItems: positionedItems,
-        itemBuilder: (context, index) {
-          final item = positionedItems[index].item;
-          final radius = itemRadius(isRoot: item.isRootItem, isOverview: true);
-
+        itemBuilder: (context, item) {
           return RiverModuleItemPreview(
             item: item,
-            radius: radius,
+            radius: itemRadius(isRoot: item.isRootItem, isOverview: true),
             isBeginning: isBeginning,
           );
         },

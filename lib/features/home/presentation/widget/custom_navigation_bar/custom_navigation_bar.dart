@@ -1,6 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:loopcare_frontend/features/authentication/application/authentication_bloc.dart';
 import 'package:loopcare_frontend/features/home/application/navigation_bar_bloc.dart';
 import 'package:loopcare_frontend/features/home/presentation/widget/custom_navigation_bar/animated_bottom_bar.dart';
 import 'package:loopcare_frontend/features/home/presentation/widget/navigation_bar_item/navigation_bar_items.dart';
@@ -41,7 +42,7 @@ class CustomNavigationBar extends StatelessWidget {
 
     if (index == 0) {
       context.read<NavigationBarBloc>().add(const NavigationBarEvent.removePractiseNotification());
-    } else if (index == 2) {
+    } else if (index == 2 && !context.read<AuthenticationBloc>().state.data.showBuddyNews) {
       context.read<NavigationBarBloc>().add(const NavigationBarEvent.removeProfileNotification());
     } else if (index == 1) {
       context.read<RiverBloc>().add(const RiverEvent.getActualModule());

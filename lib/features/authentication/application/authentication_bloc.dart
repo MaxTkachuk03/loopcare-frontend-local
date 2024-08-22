@@ -100,12 +100,7 @@ class AuthenticationBloc extends HydratedBloc<AuthenticationEvent, Authenticatio
 
     _syncService.stream.listen(
       (event) => event.whenOrNull(
-        // todo
-        buddyInvited: () => add(const AuthenticationEvent.getAccount()),
-        disownBuddy: () => add(const AuthenticationEvent.getAccount()),
-        buddyAcceptedInvite: () => add(const AuthenticationEvent.getAccount()),
-        buddyLeft: () => add(const AuthenticationEvent.getAccount()),
-        buddyRejectInvite: () => add(const AuthenticationEvent.getAccount()),
+        refreshAccount: () => add(const AuthenticationEvent.getAccount()),
       ),
     );
   }
@@ -474,9 +469,6 @@ class AuthenticationBloc extends HydratedBloc<AuthenticationEvent, Authenticatio
     UnlockedFeature event,
     Emitter<AuthenticationState> emit,
   ) async {
-    // TODO check new unlock feature logic
-    // final response = await _authenticationService.unlockFeature(event.feature);
-
     final account = _sharedPref.account;
     final accountFeatures = _sharedPref.account?.features;
 
@@ -687,11 +679,20 @@ class AuthenticationBloc extends HydratedBloc<AuthenticationEvent, Authenticatio
             _sharedPref.termsAndConditionsVersion > account.termsAndConditionsVersion) {
           emit(AuthenticationState.needUpdatePolicies(state.data.copyWith(account: account)));
         } else {
+          final showBuddyNews = _statesService.buddyStatus != account.buddyState &&
+              account.buddyState.isRejectedOrLeft;
+
+          if (showBuddyNews) {
+            _syncService.showProfileNotificationBadge();
+          } else {
+            _statesService.buddyStatus = account.buddyState;
+          }
+
           emit(
             AuthenticationState.gotAccount(
               state.data.copyWith(
                 account: account,
-                showBuddyNews: _statesService.buddyStatus != account.buddyState,
+                showBuddyNews: showBuddyNews,
               ),
             ),
           );
@@ -749,6 +750,8 @@ class AuthenticationBloc extends HydratedBloc<AuthenticationEvent, Authenticatio
     BuddyVisited event,
     Emitter<AuthenticationState> emit,
   ) async {
+    if (!state.data.showBuddyNews) return;
+
     _statesService.buddyStatus = state.data.account?.buddyState;
 
     emit(

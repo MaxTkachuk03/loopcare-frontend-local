@@ -6,7 +6,9 @@ class RiverEvent with _$RiverEvent {
 
   const factory RiverEvent.getModules() = GetModules;
 
-  const factory RiverEvent.getActualModule() = GetActualModule;
+  const factory RiverEvent.getActualModule({
+    @Default(true) bool removeActiveItem,
+  }) = GetActualModule;
 
   const factory RiverEvent.checkCompletion() = CheckCompletion;
 
@@ -28,6 +30,4 @@ class RiverEvent with _$RiverEvent {
     required int moduleId,
     required int moduleItemId,
   }) = BounceParentItem;
-
-  const factory RiverEvent.completeBuddyModuleItem() = CompleteBuddyModuleItem;
 }

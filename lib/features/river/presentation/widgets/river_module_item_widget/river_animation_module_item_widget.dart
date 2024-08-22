@@ -3,6 +3,7 @@ import 'dart:math' as math;
 import 'package:badges/badges.dart' as badge;
 import 'package:flutter/material.dart';
 import 'package:loopcare_frontend/core/infrastructure/services/app_config.dart';
+import 'package:loopcare_frontend/core/infrastructure/services/logger/logger.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 import 'package:loopcare_frontend/features/home/presentation/widget/custom_navigation_bar/animated_bottom_bar.dart';
 import 'package:loopcare_frontend/features/river/domain/river_module_item.dart';
@@ -69,15 +70,22 @@ class _RiverAnimationModuleItemWidgetState extends State<RiverAnimationModuleIte
   @override
   bool get isBeginning => widget.isBeginning;
 
+  void _log(dynamic data) {
+    if (widget.item.isBuddyCrossModuleItem) log.i(data, error: 'BUDDY MODULE ITEM');
+  }
+
   @override
   void initState() {
     super.initState();
+    _log('initState ${widget.item.states}');
+
     _sizeController = AnimationController(duration: _idleDuration, vsync: this);
     _colorController = AnimationController(duration: _colorDuration, vsync: this);
     _rotationController = AnimationController(duration: _rotationDuration, vsync: this);
     _badgeController = AnimationController(duration: _badgeDuration, vsync: this);
 
     _itemAnimation = widget.item.states.animationState;
+    _log('initState itemAnimation $_itemAnimation');
 
     _setUpAnimations();
     _setUpItemColorAnimation(widget.item);
@@ -98,7 +106,9 @@ class _RiverAnimationModuleItemWidgetState extends State<RiverAnimationModuleIte
   @override
   void didUpdateWidget(covariant RiverAnimationModuleItemWidget oldWidget) {
     super.didUpdateWidget(oldWidget);
+    _log('didUpdateWidget ${widget.item.states}');
     _setUpItemColorAnimation(widget.item);
+    _setUpAnimations();
 
     _itemAnimation = widget.item.states.animationState;
     _startAnimation();
@@ -107,7 +117,7 @@ class _RiverAnimationModuleItemWidgetState extends State<RiverAnimationModuleIte
   @override
   Widget build(BuildContext context) {
     return VisibilityDetector(
-      key: Key('animated_module_item_${widget.item.id}'),
+      key: Key('animated_module_item_${widget.item.hashCode}'),
       onVisibilityChanged: _onViewPortChanged,
       child: Stack(
         alignment: Alignment.center,
@@ -171,9 +181,13 @@ class _RiverAnimationModuleItemWidgetState extends State<RiverAnimationModuleIte
     );
   }
 
-  Offset get _translatePractice => isBeginning ? Offset(widget.radius, 0) : Offset(widget.radius / 2 + 2, 0);
+  Offset get _translatePractice => isBeginning
+      ? Offset(widget.radius - 2, 0)
+      : Offset(widget.radius / 2, - widget.radius / 2 + 2);
 
-  Offset get _translateProfile => isBeginning ? Offset(widget.radius, 1) : Offset(widget.radius / 2 + 4, -1);
+  Offset get _translateProfile => isBeginning
+      ? Offset(widget.radius + 2, 0)
+      : Offset(widget.radius / 2 + 4, -1);
 
   Offset get _endPosition  => widget.item.featurePlacement?.isDashboard ?? false
       ? _definePosition(kNavigationBarItemPractice).translate(_translatePractice.dx, _translatePractice.dy)
@@ -192,8 +206,10 @@ class _RiverAnimationModuleItemWidgetState extends State<RiverAnimationModuleIte
 
     _badgeAnimation = Tween<double>(
       begin: widget.item.states.prevItemState.isCompleted ? 1.0 : 0.0,
-      end: 1.0,
+      end: widget.item.states.itemState.isRead ? 0.0 : 1.0,
     ).animate(_badgeController);
+
+    _log('_setUpAnimations _badgeAnimation ${_badgeAnimation.value}');
   }
 
   void _clearItemAnimation() {
@@ -261,6 +277,7 @@ class _RiverAnimationModuleItemWidgetState extends State<RiverAnimationModuleIte
         case RiverModuleItemAnimationState.read:
           _runRead();
         case RiverModuleItemAnimationState.complete:
+        case RiverModuleItemAnimationState.reversCompletion:
           _runComplete();
         case RiverModuleItemAnimationState.idling:
           _runIdling();
@@ -290,9 +307,9 @@ class _RiverAnimationModuleItemWidgetState extends State<RiverAnimationModuleIte
   }
 
   void _runRead() {
+    _colorController.forward();
     _sizeController.reset();
     _rotationController.forward();
-    _colorController.forward();
   }
 
   void _runTransition() {
