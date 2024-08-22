@@ -1,7 +1,7 @@
 class Constants {
   Constants._();
 
-  static const apiVersion = '2';
+  static const apiVersion = '1';
 
   static const maleFiberDailyGoal = 30;
   static const femaleFiberDailyGoal = 20;
