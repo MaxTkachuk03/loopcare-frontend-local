@@ -3,7 +3,6 @@ import 'dart:math' as math;
 import 'package:badges/badges.dart' as badge;
 import 'package:flutter/material.dart';
 import 'package:loopcare_frontend/core/infrastructure/services/app_config.dart';
-import 'package:loopcare_frontend/core/infrastructure/services/logger/logger.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 import 'package:loopcare_frontend/features/home/presentation/widget/custom_navigation_bar/animated_bottom_bar.dart';
 import 'package:loopcare_frontend/features/river/domain/river_module_item.dart';
@@ -70,14 +69,9 @@ class _RiverAnimationModuleItemWidgetState extends State<RiverAnimationModuleIte
   @override
   bool get isBeginning => widget.isBeginning;
 
-  void _log(dynamic data) {
-    if (widget.item.isBuddyCrossModuleItem) log.i(data, error: 'BUDDY MODULE ITEM');
-  }
-
   @override
   void initState() {
     super.initState();
-    _log('initState ${widget.item.states}');
 
     _sizeController = AnimationController(duration: _idleDuration, vsync: this);
     _colorController = AnimationController(duration: _colorDuration, vsync: this);
@@ -85,7 +79,6 @@ class _RiverAnimationModuleItemWidgetState extends State<RiverAnimationModuleIte
     _badgeController = AnimationController(duration: _badgeDuration, vsync: this);
 
     _itemAnimation = widget.item.states.animationState;
-    _log('initState itemAnimation $_itemAnimation');
 
     _setUpAnimations();
     _setUpItemColorAnimation(widget.item);
@@ -106,7 +99,6 @@ class _RiverAnimationModuleItemWidgetState extends State<RiverAnimationModuleIte
   @override
   void didUpdateWidget(covariant RiverAnimationModuleItemWidget oldWidget) {
     super.didUpdateWidget(oldWidget);
-    _log('didUpdateWidget ${widget.item.states}');
     _setUpItemColorAnimation(widget.item);
     _setUpAnimations();
 
@@ -208,8 +200,6 @@ class _RiverAnimationModuleItemWidgetState extends State<RiverAnimationModuleIte
       begin: widget.item.states.prevItemState.isCompleted ? 1.0 : 0.0,
       end: widget.item.states.itemState.isRead ? 0.0 : 1.0,
     ).animate(_badgeController);
-
-    _log('_setUpAnimations _badgeAnimation ${_badgeAnimation.value}');
   }
 
   void _clearItemAnimation() {
