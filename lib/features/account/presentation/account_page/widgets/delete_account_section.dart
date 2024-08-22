@@ -9,6 +9,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loopcare_frontend/build_type.dart';
 import 'package:loopcare_frontend/core/domain/analytics/analytics_events.dart';
 import 'package:loopcare_frontend/core/domain/analytics/analytics_parameters.dart';
+import 'package:loopcare_frontend/core/domain/url_constants.dart';
 import 'package:loopcare_frontend/core/infrastructure/services/analytics_service.dart';
 import 'package:loopcare_frontend/core/presentation/alerting/modal_bottom_sheet.dart';
 import 'package:loopcare_frontend/core/presentation/buttons/custom_outlined_button.dart';
@@ -27,9 +28,18 @@ class DeleteAccountSection extends StatefulWidget {
 }
 
 class _DeleteAccountSectionState extends State<DeleteAccountSection> {
+
+  void launchSubscriptionPref() {
+    final link = Platform.isIOS ? appStoreSettingsLink : playMarketSettingsLink;
+
+    launchUrl(Uri.parse(link), mode: LaunchMode.externalApplication);
+  }
+
   _onDeleteAccountPressed(
-      BuildContext context, bool noActiveSubscription, SubscriptionState state) {
-    isVendorPlatform(state)
+    BuildContext context,
+    bool noActiveSubscription,
+    SubscriptionState state,
+  ) => isVendorPlatform(state)
         ? ModalBottomSheet.deleteAccount(
             context: context,
             noActiveSubscription: noActiveSubscription,
@@ -43,22 +53,13 @@ class _DeleteAccountSectionState extends State<DeleteAccountSection> {
                 },
               );
             },
-            onSubscriptionPref: () => Platform.isIOS
-                ? launchUrl(Uri.parse(appConfig.appStoreSettingsLink),
-                    mode: LaunchMode.externalApplication)
-                : launchUrl(Uri.parse(appConfig.playMarketSettingsLink),
-                    mode: LaunchMode.externalApplication),
+            onSubscriptionPref: launchSubscriptionPref,
           )
         : _showPopover();
-  }
 
-  bool isVendorPlatform(SubscriptionState state) {
-    if (Platform.isIOS && (state.data.subscription?.vendor == 'ios') ||
-        Platform.isAndroid && (state.data.subscription?.vendor == 'android')) {
-      return true;
-    }
-    return false;
-  }
+  bool isVendorPlatform(SubscriptionState state) =>
+      Platform.isIOS && (state.data.subscription?.vendor == 'ios') ||
+        Platform.isAndroid && (state.data.subscription?.vendor == 'android');
 
   void _showPopover() => showDialog<String>(
         context: context,
