@@ -6,11 +6,14 @@ import 'package:loopcare_frontend/core/infrastructure/services/image_helper/imag
 import 'package:loopcare_frontend/features/account/presentation/avatar_page/domain/avatar_option.dart';
 import 'package:loopcare_frontend/features/account/presentation/avatar_page/domain/avatar_variant_option.dart';
 import 'package:loopcare_frontend/features/account/presentation/avatar_page/domain/user_avatar_mode.dart';
+import 'package:loopcare_frontend/features/river/application/river_bloc.dart';
 import 'package:permission_handler/permission_handler.dart';
 
 class AvatarController {
   final ImageHelper _imageHelper;
-  AvatarController(this._imageHelper);
+  final RiverBloc riverBloc;
+
+  AvatarController(this._imageHelper, {required this.riverBloc});
 
   ValueNotifier<bool> showAvatarMenu = ValueNotifier(false);
   ValueNotifier<bool> canSave = ValueNotifier(false);
@@ -82,7 +85,11 @@ class AvatarController {
     }
   }
 
-  dispose() {
+  void finishRiverModuleItem({bool complete = false}) {
+    riverBloc.add(RiverEvent.finishUserAvatarRiverModuleItem(complete: complete));
+  }
+
+  void dispose() {
     showAvatarMenu.dispose();
     canSave.dispose();
     selectedAvatarOption.dispose();

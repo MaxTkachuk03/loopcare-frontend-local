@@ -25,6 +25,7 @@ import 'package:loopcare_frontend/features/account/presentation/avatar_page/doma
 import 'package:loopcare_frontend/features/account/presentation/avatar_page/presentation/widgets/avatar_menu.dart';
 import 'package:loopcare_frontend/features/account/presentation/avatar_page/presentation/widgets/avatars_list.dart';
 import 'package:loopcare_frontend/features/authentication/application/authentication_bloc.dart';
+import 'package:loopcare_frontend/features/river/application/river_bloc.dart';
 import 'package:permission_handler/permission_handler.dart';
 
 @RoutePage()
@@ -38,11 +39,15 @@ class SelectAvatarPage extends StatefulWidget {
 }
 
 class _SelectAvatarPageState extends State<SelectAvatarPage> {
-  final AvatarController _controller = AvatarController(ImageHelper());
+  late final AvatarController _controller;
 
   @override
   void initState() {
     super.initState();
+    _controller = AvatarController(
+      ImageHelper(),
+      riverBloc: context.read<RiverBloc>(),
+    );
 
     final mode = context.read<AuthenticationBloc>().state.data.hasAvatar
         ? const UserAvatarMode.network()
@@ -102,7 +107,10 @@ class _SelectAvatarPageState extends State<SelectAvatarPage> {
     context.showError(content: CustomText(s.data.errorKey.tr()));
   }
 
-  void _onAvatarUploaded(_) => context.router.popUntilRouteWithName(HomeRoute.name);
+  void _onAvatarUploaded(_) {
+    _controller.finishRiverModuleItem(complete: true);
+    context.router.popUntilRouteWithName(HomeRoute.name);
+  }
 
   void _avatarUpdateListener(BuildContext context, AuthenticationState state) {
     state.mapOrNull(error: _onErrorUploadAvatar, avatarUploaded: _onAvatarUploaded);
@@ -180,11 +188,10 @@ class _SelectAvatarPageState extends State<SelectAvatarPage> {
 
   @override
   void dispose() {
-    super.dispose();
-
-    widget.onDispose?.call();
+    _controller.finishRiverModuleItem();
     _controller.showSizeError.removeListener(_sizeErrorListener);
     _controller.showPermissionsPopup.removeListener(_permissionsListener);
     _controller.dispose();
+    super.dispose();
   }
 }

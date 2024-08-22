@@ -42,6 +42,7 @@ class RiverBloc extends Bloc<RiverEvent, RiverState> {
     on<CompleteActiveModule>(_onCompleteActiveModule);
     on<SelectModuleItem>(_onSelectModuleItem);
     on<BounceParentItem>(_onBounceParentItem);
+    on<FinishUserAvatarRiverModuleItem>(_onFinishUserAvatarRiverModuleItem);
 
     _syncService.stream.listen(
       (event) => event.whenOrNull(
@@ -311,6 +312,37 @@ class RiverBloc extends Bloc<RiverEvent, RiverState> {
     );
 
     module = _updateModuleItem(event.moduleId, moduleItem);
+
+    emit(
+      RiverState.moduleItemLoaded(
+        state.data.copyWith(
+          modules: _updateModule(module),
+        ),
+      ),
+    );
+  }
+
+  FutureOr<void> _onFinishUserAvatarRiverModuleItem(
+    FinishUserAvatarRiverModuleItem event,
+    Emitter<RiverState> emit,
+  ) async {
+    var module = state.data.modules.first;
+    var moduleItem = module.moduleItems.firstWhereOrNull((i) => i.isRootItem);
+
+    if (moduleItem == null || moduleItem.states.itemState.isCompleted) return;
+
+    final itemState = event.complete ? RiverModuleItemState.completed : RiverModuleItemState.read;
+    final prevItemState = moduleItem.states.prevItemState;
+
+    moduleItem = moduleItem.copyWith(
+      states: RiverModuleItemViewState(
+        itemState: itemState,
+        prevItemState: prevItemState,
+        animationState: prevItemState.transformAnimationState(itemState),
+      ),
+    );
+
+    module = _updateModuleItem(module.id, moduleItem);
 
     emit(
       RiverState.moduleItemLoaded(
