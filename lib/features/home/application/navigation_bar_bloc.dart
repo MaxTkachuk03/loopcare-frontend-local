@@ -27,8 +27,7 @@ class NavigationBarBloc extends HydratedBloc<NavigationBarEvent, NavigationBarSt
 
     _syncService.stream.listen(
       (event) => event.whenOrNull(
-        buddyLeft: () => add(const NavigationBarEvent.addProfileNotification()),
-        buddyRejectInvite: () => add(const NavigationBarEvent.addProfileNotification()),
+        showProfileNotificationBadge: () => add(const NavigationBarEvent.addProfileNotification()),
       ),
     );
   }

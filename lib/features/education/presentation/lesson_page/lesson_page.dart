@@ -17,7 +17,7 @@ import 'package:loopcare_frontend/core/presentation/scaffold/custom_scaffold.dar
 import 'package:loopcare_frontend/features/education/application/education_lesson/education_lesson_bloc.dart';
 import 'package:loopcare_frontend/features/education/presentation/lesson/widgets/lesson_audio_body.dart';
 import 'package:loopcare_frontend/features/education/presentation/lesson/widgets/lesson_text_body.dart';
-import 'package:loopcare_frontend/features/river/infrastructure/river_module_stream_type.dart';
+import 'package:loopcare_frontend/features/river/domain/river_module_stream_type.dart';
 
 @RoutePage()
 class LessonPage extends StatefulWidget {

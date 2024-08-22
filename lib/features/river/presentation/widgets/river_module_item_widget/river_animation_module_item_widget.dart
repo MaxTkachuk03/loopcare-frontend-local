@@ -6,11 +6,11 @@ import 'package:loopcare_frontend/core/infrastructure/services/app_config.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 import 'package:loopcare_frontend/features/home/presentation/widget/custom_navigation_bar/animated_bottom_bar.dart';
 import 'package:loopcare_frontend/features/river/domain/river_module_item.dart';
-import 'package:loopcare_frontend/features/river/infrastructure/feature_placement.dart';
-import 'package:loopcare_frontend/features/river/infrastructure/river_module_item_animation_state.dart';
-import 'package:loopcare_frontend/features/river/presentation/river_module_item_widget/river_module_button.dart';
-import 'package:loopcare_frontend/features/river/presentation/river_module_item_widget/river_module_item_preview.dart';
+import 'package:loopcare_frontend/features/river/domain/feature_placement.dart';
+import 'package:loopcare_frontend/features/river/domain/river_module_item_animation_state.dart';
 import 'package:loopcare_frontend/features/river/presentation/utils/river_utils.dart';
+import 'package:loopcare_frontend/features/river/presentation/widgets/river_module_item_widget/river_module_button.dart';
+import 'package:loopcare_frontend/features/river/presentation/widgets/river_module_item_widget/river_module_item_preview.dart';
 import 'package:visibility_detector/visibility_detector.dart';
 
 part 'parts/_flying_item.dart';
@@ -72,6 +72,7 @@ class _RiverAnimationModuleItemWidgetState extends State<RiverAnimationModuleIte
   @override
   void initState() {
     super.initState();
+
     _sizeController = AnimationController(duration: _idleDuration, vsync: this);
     _colorController = AnimationController(duration: _colorDuration, vsync: this);
     _rotationController = AnimationController(duration: _rotationDuration, vsync: this);
@@ -99,6 +100,7 @@ class _RiverAnimationModuleItemWidgetState extends State<RiverAnimationModuleIte
   void didUpdateWidget(covariant RiverAnimationModuleItemWidget oldWidget) {
     super.didUpdateWidget(oldWidget);
     _setUpItemColorAnimation(widget.item);
+    _setUpAnimations();
 
     _itemAnimation = widget.item.states.animationState;
     _startAnimation();
@@ -107,7 +109,7 @@ class _RiverAnimationModuleItemWidgetState extends State<RiverAnimationModuleIte
   @override
   Widget build(BuildContext context) {
     return VisibilityDetector(
-      key: Key('animated_module_item_${widget.item.id}'),
+      key: Key('animated_module_item_${widget.item.hashCode}'),
       onVisibilityChanged: _onViewPortChanged,
       child: Stack(
         alignment: Alignment.center,
@@ -171,9 +173,13 @@ class _RiverAnimationModuleItemWidgetState extends State<RiverAnimationModuleIte
     );
   }
 
-  Offset get _translatePractice => isBeginning ? Offset(widget.radius, 0) : Offset(widget.radius / 2 + 2, 0);
+  Offset get _translatePractice => isBeginning
+      ? Offset(widget.radius - 2, 0)
+      : Offset(widget.radius / 2, - widget.radius / 2 + 2);
 
-  Offset get _translateProfile => isBeginning ? Offset(widget.radius, 1) : Offset(widget.radius / 2 + 4, -1);
+  Offset get _translateProfile => isBeginning
+      ? Offset(widget.radius + 2, 0)
+      : Offset(widget.radius / 2 + 4, -1);
 
   Offset get _endPosition  => widget.item.featurePlacement?.isDashboard ?? false
       ? _definePosition(kNavigationBarItemPractice).translate(_translatePractice.dx, _translatePractice.dy)
@@ -182,8 +188,6 @@ class _RiverAnimationModuleItemWidgetState extends State<RiverAnimationModuleIte
   Offset get _startPosition => _definePosition(_buttonKey);
 
   void _setUpAnimations() {
-    _setUpItemColorAnimation(widget.item);
-
     _rotateAnimation = Tween<double>(begin: 0.0, end: 2.0)
         .chain(CurveTween(curve: Curves.ease))
         .animate(_rotationController);
@@ -193,8 +197,8 @@ class _RiverAnimationModuleItemWidgetState extends State<RiverAnimationModuleIte
         .animate(_sizeController);
 
     _badgeAnimation = Tween<double>(
-      begin: widget.item.isCompleted ? 1.0 : 0.0,
-      end: 1.0,
+      begin: widget.item.states.prevItemState.isCompleted ? 1.0 : 0.0,
+      end: widget.item.states.itemState.isRead ? 0.0 : 1.0,
     ).animate(_badgeController);
   }
 
@@ -242,7 +246,7 @@ class _RiverAnimationModuleItemWidgetState extends State<RiverAnimationModuleIte
   }
 
   void _completeOrClearAction() {
-    if (widget.item.isCompleted) {
+    if (widget.item.states.itemState.isCompleted) {
       _runComplete();
     } else {
       _clearItemAnimation();
@@ -263,6 +267,7 @@ class _RiverAnimationModuleItemWidgetState extends State<RiverAnimationModuleIte
         case RiverModuleItemAnimationState.read:
           _runRead();
         case RiverModuleItemAnimationState.complete:
+        case RiverModuleItemAnimationState.reversCompletion:
           _runComplete();
         case RiverModuleItemAnimationState.idling:
           _runIdling();
@@ -292,9 +297,9 @@ class _RiverAnimationModuleItemWidgetState extends State<RiverAnimationModuleIte
   }
 
   void _runRead() {
+    _colorController.forward();
     _sizeController.reset();
     _rotationController.forward();
-    _colorController.forward();
   }
 
   void _runTransition() {

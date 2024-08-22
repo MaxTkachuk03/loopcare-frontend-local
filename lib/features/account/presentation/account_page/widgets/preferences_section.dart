@@ -16,6 +16,7 @@ import 'package:loopcare_frontend/features/account/presentation/account_page/wid
 import 'package:loopcare_frontend/features/account/presentation/account_page/widgets/section_title.dart';
 import 'package:loopcare_frontend/features/account/presentation/buddy_page/application/buddy_bloc.dart';
 import 'package:loopcare_frontend/features/authentication/application/authentication_bloc.dart';
+import 'package:loopcare_frontend/features/home/application/navigation_bar_bloc.dart';
 import 'package:loopcare_frontend/features/physical_activities/application/physical_activities_preferences/physical_activities_preferences_bloc.dart';
 import 'package:loopcare_frontend/features/you_and_food/application/you_and_food_bloc.dart';
 
@@ -42,6 +43,7 @@ class _PreferencesSectionState extends State<PreferencesSection> {
 
   void _onBuddyHandler(BuildContext context) {
     context.read<AuthenticationBloc>().add(const AuthenticationEvent.buddyVisited());
+    context.read<NavigationBarBloc>().add(const NavigationBarEvent.removeProfileNotification());
 
     final buddyWasNotInvited = context.read<BuddyBloc>().state.data.buddyState == null;
     final route = buddyWasNotInvited ? AppRoutes.buddyIntro : AppRoutes.buddyPreferences;

@@ -2,12 +2,13 @@ import 'package:dartz/dartz.dart';
 import 'package:injectable/injectable.dart';
 import 'package:loopcare_frontend/core/infrastructure/dio_client/dio_client.dart';
 import 'package:loopcare_frontend/core/infrastructure/dio_client/request_error.dart';
-import 'package:loopcare_frontend/features/river/application/dto/get_modules_response.dart';
-import 'package:loopcare_frontend/features/river/application/dto/river_module_item_state_data.dart';
-import 'package:loopcare_frontend/features/river/application/dto/river_module_state_data.dart';
-import 'package:loopcare_frontend/features/river/application/river_service.dart';
+import 'package:loopcare_frontend/features/river/domain/river_service.dart';
 import 'package:loopcare_frontend/features/river/domain/river_module.dart';
 import 'package:loopcare_frontend/features/river/domain/river_module_item.dart';
+import 'package:loopcare_frontend/features/river/infrastructure/dto/get_modules_response.dart';
+import 'package:loopcare_frontend/features/river/infrastructure/dto/river_module_item_state_data.dart';
+import 'package:loopcare_frontend/features/river/infrastructure/dto/river_module_state_data.dart';
+import 'package:loopcare_frontend/features/river/infrastructure/dto/get_cross_module_items_response.dart';
 
 // TODO river modules response mock
 //import 'package:loopcare_frontend/features/river/infrastructure/river_modules_mock.dart';
@@ -59,6 +60,14 @@ class APIRiverService implements RiverService {
       '/river/modules/$moduleId/progress',
       data: data,
       fromJson: RiverModule.fromJson,
+    );
+  }
+
+  @override
+  Future<Either<RequestError, GetCrossModuleItemsResponse>> getDeferredModuleItems() {
+    return client.get(
+      '/river/modules/module-items/deferred',
+      fromJson: GetCrossModuleItemsResponse.fromJson,
     );
   }
 }

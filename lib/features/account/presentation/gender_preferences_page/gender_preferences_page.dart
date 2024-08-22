@@ -23,7 +23,7 @@ import 'package:loopcare_frontend/features/account/application/group_preferences
 import 'package:loopcare_frontend/features/account/domain/group_prefs_mode.dart';
 import 'package:loopcare_frontend/features/account/presentation/widgets/group_lesson_wrap.dart';
 import 'package:loopcare_frontend/features/account/presentation/widgets/group_prefs_page_wrap.dart';
-import 'package:loopcare_frontend/features/river/infrastructure/river_module_stream_type.dart';
+import 'package:loopcare_frontend/features/river/domain/river_module_stream_type.dart';
 import 'package:loopcare_frontend/injection.dart';
 
 @RoutePage()

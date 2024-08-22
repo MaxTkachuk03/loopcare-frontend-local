@@ -4,7 +4,8 @@ enum RiverModuleItemAnimationState {
   idling,
   bounced,
   read,
-  complete;
+  complete,
+  reversCompletion;
 
   const RiverModuleItemAnimationState();
 
@@ -19,4 +20,6 @@ enum RiverModuleItemAnimationState {
   bool get isRead => this == read;
 
   bool get isCompleted => this == complete;
+
+  bool get isReversCompletion => this == reversCompletion;
 }

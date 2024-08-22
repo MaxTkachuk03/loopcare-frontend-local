@@ -12,15 +12,28 @@ class AppSyncService {
 
   void refreshTopics() => _streamController.add(const AppSyncEvent.refreshTopics());
 
-  void buddyInvited() => _streamController.add(const AppSyncEvent.buddyInvited());
+  void buddyInvited() => _streamController.add(const AppSyncEvent.refreshAccount());
 
-  void disownBuddy() => _streamController.add(const AppSyncEvent.disownBuddy());
+  void disownBuddy() => _streamController
+    ..add(const AppSyncEvent.refreshActualRiverModule())
+    ..add(const AppSyncEvent.refreshAccount());
 
-  void buddyRejectInvite() => _streamController.add(const AppSyncEvent.buddyRejectInvite());
+  void buddyRejectInvite() => _streamController
+    ..add(const AppSyncEvent.showProfileNotificationBadge())
+    ..add(const AppSyncEvent.refreshAccount());
 
-  void buddyLeft() => _streamController.add(const AppSyncEvent.buddyLeft());
+  void buddyLeft() => _streamController
+    ..add(const AppSyncEvent.refreshActualRiverModule())
+    ..add(const AppSyncEvent.showProfileNotificationBadge())
+    ..add(const AppSyncEvent.refreshAccount());
 
-  void buddyAcceptedInvite() => _streamController.add(const AppSyncEvent.buddyAcceptedInvite());
+  void buddyAcceptedInvite() => _streamController
+    ..add(const AppSyncEvent.refreshActualRiverModule())
+    ..add(const AppSyncEvent.refreshAccount());
 
-  void refreshChatMessages() => _streamController.add(const AppSyncEvent.refreshChatMessages());
+  void refreshChatMessages() => _streamController
+    .add(const AppSyncEvent.refreshChatMessages());
+
+  void showProfileNotificationBadge() => _streamController
+    .add(const AppSyncEvent.showProfileNotificationBadge());
 }

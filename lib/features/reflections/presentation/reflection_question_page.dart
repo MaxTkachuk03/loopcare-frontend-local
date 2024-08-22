@@ -23,7 +23,7 @@ import 'package:loopcare_frontend/features/reflections/domain/reflection_questio
 import 'package:loopcare_frontend/features/reflections/presentation/widgets/multi_choice_question.dart';
 import 'package:loopcare_frontend/features/reflections/presentation/widgets/scale_question.dart';
 import 'package:loopcare_frontend/features/reflections/presentation/widgets/text_question.dart';
-import 'package:loopcare_frontend/features/river/infrastructure/river_module_stream_type.dart';
+import 'package:loopcare_frontend/features/river/domain/river_module_stream_type.dart';
 
 @RoutePage()
 class ReflectionQuestionPage extends StatefulWidget {

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
-import 'package:loopcare_frontend/features/river/infrastructure/river_module_stream_type.dart';
+import 'package:loopcare_frontend/features/river/domain/river_module_stream_type.dart';
 
 enum RiverModuleItemState {
   locked,

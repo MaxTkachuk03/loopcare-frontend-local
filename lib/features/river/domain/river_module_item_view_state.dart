@@ -1,6 +1,6 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:loopcare_frontend/features/river/infrastructure/river_module_item_animation_state.dart';
-import 'package:loopcare_frontend/features/river/infrastructure/river_module_item_state.dart';
+import 'package:loopcare_frontend/features/river/domain/river_module_item_animation_state.dart';
+import 'package:loopcare_frontend/features/river/domain/river_module_item_state.dart';
 
 part 'river_module_item_view_state.freezed.dart';
 part 'river_module_item_view_state.g.dart';
@@ -31,26 +31,43 @@ class RiverModuleItemViewStateConverter implements JsonConverter<RiverModuleItem
   @override
   RiverModuleItemViewState fromJson(Map<String, dynamic> json) {
     final itemState = RiverModuleItemState.values.byName(json['itemState']);
-    final prevItemState = RiverModuleItemState.values.byName(json['prevItemState'] ?? json['itemState']);
-
-    RiverModuleItemAnimationState animationState;
-    if (itemState.isUnLockedOrHigher && prevItemState.isLocked) {
-      animationState = RiverModuleItemAnimationState.unlock;
-    } else if (itemState.isReadOrHigher && prevItemState.isUnLocked) {
-      animationState = RiverModuleItemAnimationState.read;
-    } else if (itemState.isCompleted && prevItemState.isRead) {
-      animationState = RiverModuleItemAnimationState.complete;
-    } else if (itemState.isUnLocked && prevItemState.isUnLocked) {
-      animationState = RiverModuleItemAnimationState.idling;
-    } else {
-      animationState = RiverModuleItemAnimationState.no;
-    }
+    final rawPrevItemState = json['prevItemState'];
+    final prevItemState = _stateFromRaw(rawPrevItemState, itemState);
 
     return RiverModuleItemViewState(
       itemState: itemState,
       prevItemState: prevItemState,
-      animationState: animationState,
+      animationState: _getAnimatedState(itemState, prevItemState),
     );
+  }
+
+  RiverModuleItemState _stateFromRaw(String? rawPrevItemState, RiverModuleItemState state) {
+    if (rawPrevItemState != null) {
+     return RiverModuleItemState.values.byName(rawPrevItemState);
+    } else if (state.isReadOrHigher) {
+      return state;
+    } else {
+      return RiverModuleItemState.locked;
+    }
+  }
+
+  RiverModuleItemAnimationState _getAnimatedState(
+    RiverModuleItemState itemState,
+    RiverModuleItemState prevItemState,
+  ) {
+    if (itemState.isUnLockedOrHigher && prevItemState.isLocked) {
+      return RiverModuleItemAnimationState.unlock;
+    } else if (itemState.isReadOrHigher && prevItemState.isUnLocked) {
+      return RiverModuleItemAnimationState.read;
+    } else if (itemState.isCompleted && prevItemState.isRead) {
+      return RiverModuleItemAnimationState.complete;
+    } else if (itemState.isRead && prevItemState.isCompleted) {
+      return RiverModuleItemAnimationState.reversCompletion;
+    } else if (itemState.isUnLocked && prevItemState.isUnLocked) {
+      return RiverModuleItemAnimationState.idling;
+    } else {
+      return RiverModuleItemAnimationState.no;
+    }
   }
 
   @override

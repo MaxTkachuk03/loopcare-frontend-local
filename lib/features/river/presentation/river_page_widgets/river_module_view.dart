@@ -10,12 +10,12 @@ import 'package:loopcare_frontend/features/home/application/navigation_bar_bloc.
 import 'package:loopcare_frontend/features/river/application/river_bloc.dart';
 import 'package:loopcare_frontend/features/river/domain/river_module.dart';
 import 'package:loopcare_frontend/features/river/domain/river_module_item.dart';
-import 'package:loopcare_frontend/features/river/infrastructure/feature_placement.dart';
-import 'package:loopcare_frontend/features/river/presentation/river_module_item_widget/river_animation_module_item_widget.dart';
-import 'package:loopcare_frontend/features/river/presentation/river_module_item_widget/start_river_module_item.dart';
+import 'package:loopcare_frontend/features/river/domain/feature_placement.dart';
 import 'package:loopcare_frontend/features/river/presentation/utils/module_items_utils.dart';
 import 'package:loopcare_frontend/features/river/presentation/utils/river_utils.dart';
 import 'package:loopcare_frontend/features/river/presentation/widgets/river_module_builder.dart';
+import 'package:loopcare_frontend/features/river/presentation/widgets/river_module_item_widget/river_animation_module_item_widget.dart';
+import 'package:loopcare_frontend/features/river/presentation/widgets/river_module_item_widget/start_river_module_item.dart';
 import 'package:visibility_detector/visibility_detector.dart';
 
 class RiverScreen extends StatefulWidget {
@@ -89,13 +89,10 @@ class _RiverScreenState extends State<RiverScreen> with RiverUtils {
           isCompleted: isCompleted,
           title: widget.module.title,
           positionedItems: _positionedItems,
-          itemBuilder: (context, index) {
-            final item = _positionedItems[index].item;
-            final radius = itemRadius(isRoot: item.isRootItem);
-
+          itemBuilder: (context, item) {
             return RiverAnimationModuleItemWidget(
               item: item,
-              radius: radius,
+              radius: itemRadius(isRoot: item.isRootItem),
               isBeginning: isBeginning,
               onTap: () => _onItemPressed(item),
               onAnimationComplete: (placement) => _onAnimationCompleted(item, placement),
@@ -110,7 +107,7 @@ class _RiverScreenState extends State<RiverScreen> with RiverUtils {
   }
 
   void _onItemPressed(RiverModuleItem item) {
-    if (item.isLocked) {
+    if (item.states.prevItemState.isLocked) {
       _bounceParentItem(item);
     } else if (isBeginning) {
       _beginningUnlockAction(item);
@@ -136,7 +133,7 @@ class _RiverScreenState extends State<RiverScreen> with RiverUtils {
     final riverBloc = context.read<RiverBloc>();
 
     riverBloc.add(
-      RiverEvent.updateGuidanceModuleItem(
+      RiverEvent.updateModuleItemById(
         moduleId: widget.module.id,
         moduleItemId: id,
       ),
@@ -149,7 +146,7 @@ class _RiverScreenState extends State<RiverScreen> with RiverUtils {
   }
 
   void _beginningUnlockAction(RiverModuleItem item) {
-    if (item.isCompleted) {
+    if (item.states.prevItemState.isCompleted) {
       return;
     }
 
@@ -210,7 +207,7 @@ class _RiverScreenState extends State<RiverScreen> with RiverUtils {
   }
 
   void _onStateChanged(RiverModuleItem item) {
-    context.read<RiverBloc>().add(RiverEvent.updateGuidanceModuleItem(
+    context.read<RiverBloc>().add(RiverEvent.updateModuleItemById(
       moduleItemId: item.id,
       moduleId: widget.module.id,
     ));

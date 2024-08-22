@@ -18,7 +18,7 @@ import 'package:loopcare_frontend/core/presentation/widgets/scrollable_container
 import 'package:loopcare_frontend/features/authentication/application/authentication_bloc.dart';
 import 'package:loopcare_frontend/features/education/presentation/education_page/widgets/category_label.dart';
 import 'package:loopcare_frontend/features/education/presentation/lesson_complete_page/widgets/unlock_physical_activities_feature.dart';
-import 'package:loopcare_frontend/features/river/infrastructure/river_module_stream_type.dart';
+import 'package:loopcare_frontend/features/river/domain/river_module_stream_type.dart';
 
 @RoutePage()
 class PhysicalActivitiesCompletePage extends StatefulWidget {

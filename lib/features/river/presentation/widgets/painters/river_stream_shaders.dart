@@ -16,6 +16,8 @@ class RiverStreamShader {
   /// Initialise FragmentProgram from shader file. The file must be in a
   /// different directory from assets and declared in the pubspec.yaml file.
   Future<void> init(String path) async {
+    if (_initialised) return;
+
     _fragmentProgram = await FragmentProgram.fromAsset(path);
     _initialised = true;
   }

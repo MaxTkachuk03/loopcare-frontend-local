@@ -1,5 +1,5 @@
 import 'package:flutter/widgets.dart';
-import 'package:loopcare_frontend/features/river/presentation/painters/river_stream_shaders.dart';
+import 'package:loopcare_frontend/features/river/presentation/widgets/painters/river_stream_shaders.dart';
 import 'package:meta/meta.dart';
 
 const Color _green = Color(0xffAECA5F);

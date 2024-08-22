@@ -46,7 +46,7 @@ import 'package:loopcare_frontend/features/nutrition/domain/nutrition_item/nutri
 import 'package:loopcare_frontend/features/nutrition/domain/nutrition_values_types/nutrition_values_types.dart';
 import 'package:loopcare_frontend/features/nutrition/domain/select_serving/meal_category_filter.dart';
 import 'package:loopcare_frontend/features/report_abuse/presentation/widget/report_abuse_widget.dart';
-import 'package:loopcare_frontend/features/river/infrastructure/river_module_stream_type.dart';
+import 'package:loopcare_frontend/features/river/domain/river_module_stream_type.dart';
 import 'package:loopcare_frontend/injection.dart';
 
 AppConfig appConfig = getIt<AppConfig>();

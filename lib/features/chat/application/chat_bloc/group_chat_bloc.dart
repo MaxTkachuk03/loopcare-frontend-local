@@ -40,7 +40,7 @@ class GroupChatBloc extends Bloc<GroupChatEvent, GroupChatState> {
     _syncService.stream.listen(
      (event) {
        event.whenOrNull(
-         buddyAcceptedInvite: () {
+         refreshChatMessages: () {
            add(const GroupChatEvent.getUnreadCount());
            add(const GroupChatEvent.getMessages(refresh: true));
          },

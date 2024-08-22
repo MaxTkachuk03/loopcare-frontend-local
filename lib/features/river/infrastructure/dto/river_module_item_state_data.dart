@@ -1,6 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:json_annotation/json_annotation.dart';
-import 'package:loopcare_frontend/features/river/infrastructure/river_module_item_state.dart';
+import 'package:loopcare_frontend/features/river/domain/river_module_item_state.dart';
 
 part 'river_module_item_state_data.g.dart';
 
@@ -9,10 +9,12 @@ part 'river_module_item_state_data.g.dart';
 class RiverModuleItemStateData {
   final RiverModuleItemState? itemState;
   final RiverModuleItemState prevItemState;
+  final int? completedInModuleId;
 
   const RiverModuleItemStateData({
     required this.itemState,
     required this.prevItemState,
+    required this.completedInModuleId,
   });
 
   static RiverModuleItemStateData fromJson(Map<String, dynamic> json) =>
@@ -22,6 +24,6 @@ class RiverModuleItemStateData {
 
   @override
   String toString() {
-    return 'itemState: $itemState, prevItemState: $prevItemState';
+    return 'itemState: $itemState, prevItemState: $prevItemState, completedInModuleId: $completedInModuleId';
   }
 }

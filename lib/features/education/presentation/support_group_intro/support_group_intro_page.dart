@@ -26,7 +26,7 @@ import 'package:loopcare_frontend/features/account/application/group_preferences
 import 'package:loopcare_frontend/features/education/application/education_lesson/education_lesson_bloc.dart';
 import 'package:loopcare_frontend/features/education/domain/extra_action_page_mode.dart';
 import 'package:loopcare_frontend/features/education/presentation/education_page/widgets/category_label.dart';
-import 'package:loopcare_frontend/features/river/infrastructure/river_module_stream_type.dart';
+import 'package:loopcare_frontend/features/river/domain/river_module_stream_type.dart';
 import 'package:loopcare_frontend/injection.dart';
 
 @RoutePage()

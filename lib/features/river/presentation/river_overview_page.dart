@@ -10,7 +10,7 @@ import 'package:loopcare_frontend/core/presentation/scale_gesture_detector/scale
 import 'package:loopcare_frontend/core/presentation/text/custom_text.dart';
 import 'package:loopcare_frontend/core/presentation/utils/build_context_extensions.dart';
 import 'package:loopcare_frontend/features/river/application/river_bloc.dart';
-import 'package:loopcare_frontend/features/river/presentation/widgets/river_module_preview.dart';
+import 'package:loopcare_frontend/features/river/presentation/river_overview_page_widgets/river_module_preview.dart';
 import 'package:loopcare_frontend/injection.dart';
 
 @RoutePage()

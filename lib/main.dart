@@ -21,7 +21,6 @@ import 'package:loopcare_frontend/core/infrastructure/services/mixpanel_event_se
 import 'package:loopcare_frontend/core/infrastructure/services/mixpanel_manager.dart';
 import 'package:loopcare_frontend/core/presentation/custom_error_widget/custom_error_widget.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localization_constants.dart';
-import 'package:loopcare_frontend/features/river/presentation/painters/river_stream_shaders.dart';
 import 'package:loopcare_frontend/firebase_options.dart';
 import 'package:loopcare_frontend/injection.dart';
 import 'package:path_provider/path_provider.dart';
@@ -80,8 +79,6 @@ Future<void> main() async {
     androidNotificationChannelName: 'Audio playback',
     androidNotificationOngoing: true,
   );
-
-  await RiverStreamShader.instance.init('shaders/river_stream_shader.glsl');
 
   return runApp(
     EasyLocalization(

@@ -27,7 +27,7 @@ import 'package:loopcare_frontend/features/education/presentation/lesson_complet
 import 'package:loopcare_frontend/features/education/presentation/lesson_complete_page/widgets/unlock_group_session_feature.dart';
 import 'package:loopcare_frontend/features/reflections/application/reflections_bloc.dart';
 import 'package:loopcare_frontend/features/river/application/river_bloc.dart';
-import 'package:loopcare_frontend/features/river/infrastructure/river_module_stream_type.dart';
+import 'package:loopcare_frontend/features/river/domain/river_module_stream_type.dart';
 import 'package:loopcare_frontend/injection.dart';
 
 @RoutePage()
@@ -56,7 +56,8 @@ class _LessonCompletePageState extends State<LessonCompletePage> {
 
     if (activeModuleItem == null) return;
 
-    _hasReflection = activeModuleItem.unlocksReflectionId != null && activeModuleItem.isUnLocked;
+    _hasReflection = activeModuleItem.unlocksReflectionId != null &&
+        activeModuleItem.states.itemState.isUnLocked;
   }
 
   void _onPressHandler(BuildContext context) {
