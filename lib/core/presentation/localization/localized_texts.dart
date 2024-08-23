@@ -378,6 +378,7 @@ class LocalizedTexts {
   // User profile avatar
   static const String avatar = 'avatar';
   static const String selectProfilePicture = 'selectProfilePicture';
+  static const String cropper = 'cropper';
   static const String moveToResize = 'moveToResize';
   static const String chooseYourAvatar = 'chooseYourAvatar';
   static const String addPhoto = 'addPhoto';

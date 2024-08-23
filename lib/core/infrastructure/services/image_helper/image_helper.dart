@@ -1,9 +1,12 @@
 import 'dart:io';
 import 'package:dio/dio.dart';
+import 'package:easy_localization/easy_localization.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:http_parser/http_parser.dart';
 import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 import 'package:mime/mime.dart';
 
@@ -19,7 +22,7 @@ class ImageHelper {
 
   Future<XFile?> pickImage({
     ImageSource source = ImageSource.gallery,
-    int quality = 100,
+    int quality = 95,
   }) async {
     return await _imagePicker.pickImage(source: source, imageQuality: quality);
   }
@@ -28,15 +31,25 @@ class ImageHelper {
     required XFile file,
     CropStyle cropStyle = CropStyle.rectangle,
   }) async {
-    return await _imageCropper.cropImage(sourcePath: file.path, compressQuality: 100, uiSettings: [
-      AndroidUiSettings(
-        toolbarTitle: 'Cropper',
-        toolbarColor: AppColors.blueRegular,
-        toolbarWidgetColor: AppColors.white,
-        aspectRatioPresets: CropAspectRatioPreset.values,
-      ),
-      IOSUiSettings(title: 'Cropper', aspectRatioPresets: CropAspectRatioPreset.values)
-    ]);
+    final decodedImage = await decodeImageFromList(File(file.path).readAsBytesSync());
+
+    return await _imageCropper.cropImage(
+        sourcePath: file.path,
+        compressQuality: 90,
+        maxHeight: decodedImage.height ~/ 1.5,
+        maxWidth: decodedImage.width ~/ 1.5,
+        uiSettings: [
+          AndroidUiSettings(
+            toolbarTitle: LocalizedTexts.cropper.tr(),
+            toolbarColor: AppColors.blueRegular,
+            toolbarWidgetColor: AppColors.white,
+            aspectRatioPresets: CropAspectRatioPreset.values,
+          ),
+          IOSUiSettings(
+            title: LocalizedTexts.cropper.tr(),
+            aspectRatioPresets: CropAspectRatioPreset.values,
+          )
+        ]);
   }
 
   static String _getFileExtension(String path) => path.split('.').last;
