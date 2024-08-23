@@ -23,6 +23,7 @@ class AvatarController {
   ValueNotifier<UserAvatarMode> avatarMode = ValueNotifier(const UserAvatarMode.local());
   ValueNotifier<bool> showSizeError = ValueNotifier(false);
   ValueNotifier<bool> showPermissionsPopup = ValueNotifier(false);
+  ValueNotifier<bool> pickingImageInProgress = ValueNotifier(false);
 
   Future<List<Permission>> _getAndroidPermissions() async {
     List<Permission> permissions = [Permission.camera];
@@ -65,6 +66,8 @@ class AvatarController {
     }
 
     if (statuses.values.every(((s) => s.isGranted || s.isLimited))) {
+      pickingImageInProgress.value = true;
+
       final file = await _imageHelper.pickImage();
 
       if (file != null) {
@@ -74,14 +77,20 @@ class AvatarController {
           final croppedFile = File(croppedImage.path);
           if (await croppedFile.length() > Constants.avatarFileMaxSize) {
             showSizeError.value = true;
+            pickingImageInProgress.value = false;
             return;
           }
           selectedAvatar.value = null;
           selectedPhoto.value = croppedFile;
           avatarMode.value = const UserAvatarMode.local();
+          pickingImageInProgress.value = false;
           setCanSave();
         }
+
+        pickingImageInProgress.value = false;
       }
+
+      pickingImageInProgress.value = false;
     }
   }
 

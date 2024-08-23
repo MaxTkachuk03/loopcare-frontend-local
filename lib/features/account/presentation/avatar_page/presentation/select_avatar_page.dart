@@ -10,6 +10,7 @@ import 'package:loopcare_frontend/core/presentation/app_bar/custom_app_bar.dart'
 import 'package:loopcare_frontend/core/presentation/buttons/custom_elevated_button.dart';
 import 'package:loopcare_frontend/core/presentation/buttons/custom_filled_icon_button.dart';
 import 'package:loopcare_frontend/core/presentation/custom_safe_area.dart';
+import 'package:loopcare_frontend/core/presentation/loader/loader.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/core/presentation/routes/app_router.gr.dart';
 import 'package:loopcare_frontend/core/presentation/scaffold/custom_scaffold.dart';
@@ -132,50 +133,69 @@ class _SelectAvatarPageState extends State<SelectAvatarPage> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   const SizedBox(height: 32),
-                  AccountContainer(
-                    child: Column(
-                      children: [
-                        CustomText.bitter600(
-                          LocalizedTexts.selectProfilePicture.tr(),
-                          style: context.textTheme.headlineSmall,
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.symmetric(vertical: 17.0),
-                          child: Center(
-                            child: UserAvatar(onPressed: null, controller: _controller),
-                          ),
-                        ),
-                        ValueListenableBuilder(
-                          valueListenable: _controller.showAvatarMenu,
-                          builder: (context, showMenu, _) {
-                            if (!showMenu) return const SizedBox.shrink();
-
-                            return AvatarMenu(controller: _controller);
-                          },
-                        ),
-                        const Divider(height: 34.0, thickness: 1, color: AppColors.blueLighter),
-                        CustomText.w400(
-                          LocalizedTexts.chooseYourAvatar.tr(),
-                          style: context.textTheme.bodyMedium,
-                        ),
-                        AvatarsList(controller: _controller),
-                        const SizedBox(height: 12),
-                        BlocBuilder<AuthenticationBloc, AuthenticationState>(
-                          builder: (context, state) {
-                            final isLoading = state is AuthenticationStateIsLoading;
-
-                            return ValueListenableBuilder(
-                              valueListenable: _controller.canSave,
-                              builder: (_, canSave, __) => CustomElevatedButton.blueFullWidth(
-                                label: LocalizedTexts.save.tr(),
-                                onPressed: canSave ? _onSaveAvatarPressedHandler : null,
-                                isLoading: isLoading,
+                  Stack(
+                    children: [
+                      AccountContainer(
+                        child: Column(
+                          children: [
+                            CustomText.bitter600(
+                              LocalizedTexts.selectProfilePicture.tr(),
+                              style: context.textTheme.headlineSmall,
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.symmetric(vertical: 17.0),
+                              child: Center(
+                                child: UserAvatar(onPressed: null, controller: _controller),
                               ),
-                            );
-                          },
+                            ),
+                            ValueListenableBuilder(
+                              valueListenable: _controller.showAvatarMenu,
+                              builder: (context, showMenu, _) {
+                                if (!showMenu) return const SizedBox.shrink();
+
+                                return AvatarMenu(controller: _controller);
+                              },
+                            ),
+                            const Divider(height: 34.0, thickness: 1, color: AppColors.blueLighter),
+                            CustomText.w400(
+                              LocalizedTexts.chooseYourAvatar.tr(),
+                              style: context.textTheme.bodyMedium,
+                            ),
+                            AvatarsList(controller: _controller),
+                            const SizedBox(height: 12),
+                            BlocBuilder<AuthenticationBloc, AuthenticationState>(
+                              builder: (context, state) {
+                                final isLoading = state is AuthenticationStateIsLoading;
+
+                                return ValueListenableBuilder(
+                                  valueListenable: _controller.canSave,
+                                  builder: (_, canSave, __) => CustomElevatedButton.blueFullWidth(
+                                    label: LocalizedTexts.save.tr(),
+                                    onPressed: canSave ? _onSaveAvatarPressedHandler : null,
+                                    isLoading: isLoading,
+                                  ),
+                                );
+                              },
+                            ),
+                          ],
                         ),
-                      ],
-                    ),
+                      ),
+                      ValueListenableBuilder(
+                          valueListenable: _controller.pickingImageInProgress,
+                          builder: (context, inProgress, _) {
+                            return inProgress
+                                ? Positioned.fill(
+                                    child: Container(
+                                      decoration: BoxDecoration(
+                                        color: AppColors.blueLighter.withOpacity(0.5),
+                                        borderRadius: BorderRadius.circular(12),
+                                      ),
+                                      child: const Loader(),
+                                    ),
+                                  )
+                                : const SizedBox.shrink();
+                          }),
+                    ],
                   ),
                 ],
               ),
