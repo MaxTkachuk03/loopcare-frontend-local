@@ -1,5 +1,4 @@
 import 'dart:io';
-import 'package:device_info_plus/device_info_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:loopcare_frontend/core/domain/constants.dart';
 import 'package:loopcare_frontend/core/infrastructure/services/image_helper/image_helper.dart';
@@ -25,21 +24,6 @@ class AvatarController {
   ValueNotifier<bool> showPermissionsPopup = ValueNotifier(false);
   ValueNotifier<bool> pickingImageInProgress = ValueNotifier(false);
 
-  Future<List<Permission>> _getAndroidPermissions() async {
-    List<Permission> permissions = [Permission.camera];
-
-    final androidInfo = await DeviceInfoPlugin().androidInfo;
-
-    final mediaPermission =
-        androidInfo.version.sdkInt <= 32 ? Permission.storage : Permission.photos;
-
-    permissions.add(mediaPermission);
-
-    return permissions;
-  }
-
-  Future<List<Permission>> _getIosPermissions() => Future.value([Permission.photos]);
-
   void onSelectAvatarOption(AvatarOption item) => selectedAvatarOption.value = item;
 
   void setAvatarMode(UserAvatarMode mode) => avatarMode.value = mode;
@@ -56,16 +40,14 @@ class AvatarController {
   }
 
   void onPickPhoto() async {
-    final permissions =
-        Platform.isAndroid ? await _getAndroidPermissions() : await _getIosPermissions();
+    final status =
+        Platform.isAndroid ? await Permission.camera.request() : await Permission.photos.request();
 
-    Map<Permission, PermissionStatus> statuses = await permissions.request();
-
-    if (statuses.containsValue(PermissionStatus.permanentlyDenied)) {
+    if (status == PermissionStatus.permanentlyDenied) {
       showPermissionsPopup.value = true;
     }
 
-    if (statuses.values.every(((s) => s.isGranted || s.isLimited))) {
+    if (status == PermissionStatus.granted || status == PermissionStatus.limited) {
       pickingImageInProgress.value = true;
 
       final file = await _imageHelper.pickImage();
