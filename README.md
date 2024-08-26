@@ -19,11 +19,12 @@ Follow these steps to set up a project:
 10. Create `config` folder in the `ios` folder, then create `dev`, `stag`, `uat` and `prod` folders in the `config` folder, so next paths should be valid `ios/config/dev` and `ios/config/prod`
 11. Download firebase `GoogleService-Info.plist` files for each environment from the firebase
 12. Put `GoogleService-Info.plist` to the `ios/config<env_name>` (ex. `ios/config/dev`) folder, if there is no such folder, you have to create it. Project has custom build script that will copy right plist file to the runner folder during the build process.
-13. Create `.env.dev`, `.env.stag`, `.env.uat` and `.env.prod` files in the root directory. 
+13. Create `.env.dev`, `.env.stag`, `.env.uat` and `.env.prod` files in the root directory.
 14. File `.env.example` contains needed variable names, copy it to the `.env.dev`, `.env.stag`, `.env.uat` and `.env.prod`.You can find env file variable values in the project [documentation](https://loopcare.atlassian.net/wiki/spaces/LOOPCARE/pages/53739539/Environment+variables). Also firebase variables you can get from the `google-services.json` and `GoogleService-Info.plist` respectively.
 15. Add [keystore.properties](https://loopcare.atlassian.net/wiki/spaces/LOOPCARE/pages/285540355/Keystore.properties) into `android/` folder and [loopcare_cert.jks](https://loopcare.atlassian.net/wiki/spaces/LOOPCARE/pages/285605897/loopcare+cert.jks) into `android/app` folder.
 
 ## Setup fastlane
+
 1. Install fastlane to your local machine, the simplest way to do it - homebrew command `brew install fastlane`. For another possible ways check the official installation guide [fastlane getting started](https://docs.fastlane.tools/getting-started/ios/setup/)
 2. Setup environment variables. Go to `fastlane` folder in the project root directory and create files `.env.dev`, `.env.stag`, `.env.uat` and `.env.prod`.You can find env file variable values in the project [fastlane variables](https://loopcare.atlassian.net/wiki/spaces/LOOPCARE/pages/455147521/Fastlane+environment+variables). To get `FIREBASE_CLI_TOKEN` variable, you need to login to firebase account, check the [link](https://firebase.google.com/docs/cli#cli-ci-systems)
 3. For testflight app distribution with script you need an App Store Connect API key [download key](https://loopcare.atlassian.net/wiki/spaces/LOOPCARE/pages/454230019/App+Store+Connect+API+key)
@@ -32,11 +33,14 @@ Follow these steps to set up a project:
 6. You're ready to run fastlane scripts
 
 ## Setup RPS(Run Pubspec Script)
+
 You can run fastlane deploy scripts from the `pubspec.yaml` scripts section, to do so first install rps:
+
 1. Run `dart pub global activate rps` in the console
 2. Now you can run scripts from the `pubspec.yaml`
 
 ### Supported rps scripts
+
 - `rps firebase ios dev`
 - `rps firebase ios stag`
 - `rps firebase ios uat`
@@ -52,23 +56,68 @@ You can run fastlane deploy scripts from the `pubspec.yaml` scripts section, to 
 
 - `rps playstore prod`
 
-### Application architecture
+## Application architecture
 
-We follow the principles of **Domain-Driven Design**<br> in the project.
+Clean Architecture is a software design philosophy that aims to create systems that are scalable, maintainable, and adaptable to change. It emphasises the separation of concerns by organising code into distinct layers, each with a specific responsibility, and enforces a strict dependency rule to ensure that the core business logic remains independent of external frameworks, UI, and data sources.
 
-Application is separated into features. All features are in **./lib/features folder**.<br>.
-And each feature separate into layers:
+In app we’re follow Flutter **clean architecture** principles and structure. Thats why each feature separated to the layers.
 
-1. **presentation** - is all widgets and the local state of the them. It is dumbest part of the app.
-2. **application** - is place for BLoC. Storing and managing state for the presentation layer.
-3. **domain** - consists of:
-   - Validating data and keeping it valid.
-   - Transforming data
-   - Models (f. e. entities `User` or `Note` entities) and failures
-4. **infrastructure** - work with APIs, Firebase libraries, databases, services. Also it holds data
-   transfer objects (DTOs).
+### 1. Presentation Layer
 
-### Code generation
+**Purpose**: The Presentation Layer is responsible for displaying the UI and handling user input.
+
+**Details**: UI Components (Widgets): These interact with the BLoC to receive data to display and to send user actions.
+
+### 2. Application Layer
+
+**Purpose:** This layer acts as a mediator between the domain layer and the outer layers (infrastructure and presentation). It manages application-specific logic like state management and orchestration of use cases.
+
+**Contents:** Service Classes: Application services that coordinate tasks, often invoking use cases from the domain layer.
+
+**BLoC Interaction:** The BLoC may indirectly interact with the application layer if the BLoC needs to orchestrate several use cases or manage application-specific logic that spans multiple domain objects. However, in many implementations, the BLoC directly interacts with use cases from the domain layer.
+
+### 3. Domain Layer
+
+**Purpose:** The Domain Layer contains the business logic of the application, abstracted away from the details of how data is retrieved or stored.
+
+**BLoC Interaction:** The BLoC should interact with the Domain Layer but should not reside in it.
+
+**Details:** Entities: Core classes representing business objects.
+
+### 4. Infrastructure Layer
+
+**Purpose:** The Data Layer is responsible for data retrieval and persistence.
+
+**BLoC Interaction:** The BLoC interacts indirectly with the Data Layer through the Domain Laye
+
+**Details:** Repositories: Abstract classes (interfaces) that define data operations, implemented by concrete classes that handle the actual data source (e.g., REST APIs, databases).
+
+**Data Sources:** Concrete classes that interact with external sources of data (e.g., API services, local databases).
+
+### Flow Example:
+
+**UI Event:** A user interacts with the UI (e.g., presses a button).
+
+**BLoC:** The event is passed to the BLoC, which processes it (e.g., triggers a state change).
+
+**Use Case:** The BLoC calls a use case in the Domain Layer to perform the necessary business logic.
+
+**Service:** The BLoC event triggers method to fetch or save data.
+
+**Data Source:** The service may call a data source to interact with the database or API.
+
+**Return Data:** Data flows back through the service, and finally to the BLoC.
+
+**State Update:** The BLoC emits a new state, which the UI listens to and updates accordingly.
+
+## Local plugins
+
+We are using two packages as a local plugins, they are placed under the `local_plugins` folder in the root directory.
+
+1. `zoom_video_sdk_update` - zoom doesn't have official package on the pub get, so the only case is to download from the admin panel.
+2. `advertising_id` -
+
+## Code generation
 
 `flutter packages pub run build_runner build` - if you want the generator to run one time
 
@@ -90,14 +139,14 @@ To add new language:
 3. Add new supported locale in the `lib/core/presentation/localization/localization_constants.dart`
    file
 
-### Troubleshooting
+## Troubleshooting
 
 1. When run android build command you can face an error in the console `Runtime JAR files in the classpath should have the same version`
    - To fix it - move to the android folder in `cd android` and run `./gradlew` command, you can run both commands with `cd android && ./gradlew` command
    - Rerun build command
 
-### GIT Tags
+## GIT Tags
 
 1. Update build version, push
-2. git tag 1.0.30+116 afc7d988         - where “1.0.30+116” - new tag with new version, and “afc7d988" commit ID 
-3. git push origin --tags                
+2. git tag 1.0.30+116 afc7d988 - where “1.0.30+116” - new tag with new version, and “afc7d988" commit ID
+3. git push origin --tags
