@@ -1771,6 +1771,7 @@
   "errorAuthAccessTokenInvalid": "Auth access token is invalid.",
   "errorAuthRefreshTokenNotFound": "Auth refresh token not found.",
   "errorAccountIdAlreadyExists": "This email address is incorrect or already taken",
+  "errorAccountEmailOrPasswordInvalid" : "We were unable to update your email address. Please check your credentials and try again",
   "errorAccountIdNotFound": "Account ID not found.",
   "errorAccountEmailNotFound": "Email or password are incorrect",
   "errorAccountInvitationNotFound": "Account invitation not found.",
