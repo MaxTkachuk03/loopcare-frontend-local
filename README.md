@@ -115,7 +115,7 @@ In app we’re follow Flutter **clean architecture** principles and structure. T
 We are using two packages as a local plugins, they are placed under the `local_plugins` folder in the root directory.
 
 1. `zoom_video_sdk_update` - zoom doesn't have official package on the pub get, so the only case is to download from the admin panel.
-2. `advertising_id` -
+2. `advertising_id` - ios version has conflicts if use throught the pub get
 
 ## Code generation
 
