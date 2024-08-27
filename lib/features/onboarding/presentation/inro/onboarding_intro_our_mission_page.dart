@@ -38,11 +38,11 @@ class _OnboardingIntroOurMissionPageState extends State<OnboardingIntroOurMissio
   void _onNextPressed() => context.router.pushNamed(AppRoutes.onboardingPacing);
 
   double get _textHeight => textHeight(
-    _longestMemberDescription.tr(),
-    MediaQuery.of(context).size.width - 80.0,
-    context.textTheme.bodyMedium,
-    MediaQuery.of(context).textScaler,
-  );
+        _longestMemberDescription.tr(),
+        MediaQuery.of(context).size.width - 80.0,
+        context.textTheme.bodyMedium,
+        MediaQuery.of(context).textScaler,
+      );
 
   @override
   void initState() {
