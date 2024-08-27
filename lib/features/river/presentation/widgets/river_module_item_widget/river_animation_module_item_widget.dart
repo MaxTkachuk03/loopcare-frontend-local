@@ -62,8 +62,9 @@ class _RiverAnimationModuleItemWidgetState extends State<RiverAnimationModuleIte
   late Animation<double> _badgeAnimation;
 
   late RiverModuleItemAnimationState _itemAnimation;
+  RiverModuleItemAnimationState? _activeItemAnimation;
 
-  bool _isOnViewport = false;
+  bool _isOnViewport = true;
   bool _isMounted = true;
 
   @override
@@ -72,7 +73,6 @@ class _RiverAnimationModuleItemWidgetState extends State<RiverAnimationModuleIte
   @override
   void initState() {
     super.initState();
-
     _sizeController = AnimationController(duration: _idleDuration, vsync: this);
     _colorController = AnimationController(duration: _colorDuration, vsync: this);
     _rotationController = AnimationController(duration: _rotationDuration, vsync: this);
@@ -260,7 +260,9 @@ class _RiverAnimationModuleItemWidgetState extends State<RiverAnimationModuleIte
   }
 
   void _startAnimation() {
-    if (_isOnViewport) {
+    if (_isOnViewport && _itemAnimation != _activeItemAnimation) {
+      _activeItemAnimation = _itemAnimation;
+
       switch (_itemAnimation) {
         case RiverModuleItemAnimationState.unlock:
           _runUnlock();
@@ -347,8 +349,13 @@ class _RiverAnimationModuleItemWidgetState extends State<RiverAnimationModuleIte
   }
 
   void _onViewPortChanged(VisibilityInfo info) {
-    _isOnViewport = info.visibleFraction > 0;
-    _startAnimation();
+    final isOnViewport = info.visibleFraction > 0;
+
+    if (_isOnViewport != isOnViewport && isOnViewport) {
+      _startAnimation();
+    }
+
+    _isOnViewport = isOnViewport;
   }
 }
 

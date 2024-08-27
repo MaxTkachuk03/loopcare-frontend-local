@@ -5,7 +5,7 @@ final log = AppLogger();
 
 class AppLogger {
   final _log = Logger(
-    printer: PrettyPrinter(),
+    printer: PrettyPrinter(printTime: true),
     filter: _DevelopmentEnvironmentFilter(),
   );
 
@@ -17,15 +17,15 @@ class AppLogger {
 
   void i(dynamic message, {Object? error}) =>
       _log.i(message, error: error, stackTrace: StackTrace.empty);
+
+  void d(dynamic message, {Object? title}) =>
+      _log.d(message, error: title, stackTrace: StackTrace.empty);
 }
 
 class _DevelopmentEnvironmentFilter extends LogFilter {
   @override
   bool shouldLog(LogEvent event) {
-    bool shouldLog = false;
-    if (event.level.value >= level!.value) {
-      shouldLog = true;
-    }
+    final shouldLog = event.level.value >= level!.value;
 
     return !kIsProd && shouldLog;
   }
