@@ -39,15 +39,5 @@ class BuddyStateData with _$BuddyStateData {
 
   bool get gotAllNecessaryData => liveTogether != null && relation != null && email != null;
 
-  bool get isInvitationApproved => buddyState == BuddyStatus.approved;
-
-  bool get isInvitationRejected => buddyState == BuddyStatus.rejected;
-
-  bool get isBuddyNotAvailable => buddyState == BuddyStatus.left;
-
-  bool get isInvitationPending => buddyState == BuddyStatus.invited;
-
-  bool get canInviteOtherBuddy => isBuddyNotAvailable || isInvitationRejected;
-
   bool get hasBuddyState => buddyState != null;
 }

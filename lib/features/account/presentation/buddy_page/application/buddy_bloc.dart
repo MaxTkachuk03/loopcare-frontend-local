@@ -6,7 +6,6 @@ import 'package:injectable/injectable.dart';
 import 'package:loopcare_frontend/core/domain/account/account.dart';
 import 'package:loopcare_frontend/core/infrastructure/dio_client/request_error.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
-import 'package:loopcare_frontend/features/account/presentation/buddy_page/application/buddy_questions.dart';
 import 'package:loopcare_frontend/features/account/presentation/buddy_page/application/buddy_status.dart';
 import 'package:loopcare_frontend/features/buddy/domain/buddy.dart';
 import 'package:loopcare_frontend/features/buddy/domain/request_buddy.dart';
@@ -100,9 +99,9 @@ class BuddyBloc extends Bloc<BuddyEvent, BuddyState> {
     if (!state.data.gotAllNecessaryData) return;
 
     final response = await _buddyService.inviteBuddy(RequestBuddy(
-      liveTogether: state.data.liveTogether!,
-      relation: state.data.relation!,
-      email: state.data.email,
+      liveTogether: state.data.liveTogether ?? false,
+      relation: state.data.relation ?? '',
+      email: state.data.email ?? '',
     ));
 
     response.fold(
@@ -129,20 +128,20 @@ class BuddyBloc extends Bloc<BuddyEvent, BuddyState> {
     BuddyLiveTogether event,
     Emitter<BuddyState> emit,
   ) async {
-    emit(BuddyState.loading(state.data.copyWith(liveTogether: event.liveTogether)));
+    emit(BuddyState.gotBuddy(state.data.copyWith(liveTogether: event.liveTogether)));
   }
 
   FutureOr<void> _onBuddyRelation(
     BuddyRelation event,
     Emitter<BuddyState> emit,
   ) async {
-    emit(BuddyState.loading(state.data.copyWith(relation: event.relation)));
+    emit(BuddyState.gotBuddy(state.data.copyWith(relation: event.relation)));
   }
 
   FutureOr<void> _onBuddyEmail(
     BuddyEmail event,
     Emitter<BuddyState> emit,
   ) async {
-    emit(BuddyState.loading(state.data.copyWith(email: event.email)));
+    emit(BuddyState.gotBuddy(state.data.copyWith(email: event.email)));
   }
 }
