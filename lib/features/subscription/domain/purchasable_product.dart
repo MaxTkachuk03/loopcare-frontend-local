@@ -1,40 +1,57 @@
-import 'dart:io';
-
+import 'package:easy_localization/easy_localization.dart';
 import 'package:in_app_purchase/in_app_purchase.dart';
+import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
+import 'package:loopcare_frontend/features/subscription/domain/sku_product.dart';
+import 'package:loopcare_frontend/features/subscription/domain/subscription_image_data.dart';
+import 'package:loopcare_frontend/features/subscription/domain/subscription_translation.dart';
 
 class PurchasableProduct {
-  final ProductDetails? details;
-  final double offer;
-  final double regularPrice;
-  final String currency;
-  final bool recommended;
-  final String? localizationDescription;
-  final String? localizationTitle;
+  final bool showBadge;
+  final bool isOfferEligible;
+  final ProductDetails details;
+  final SkuProduct skuProduct;
+  final SubscriptionTranslation? subscriptionTranslation;
+  final List<SubscriptionImageData>? carouselImages;
 
   const PurchasableProduct({
-    this.details,
-    required this.offer,
-    required this.regularPrice,
-    required this.currency,
-    this.recommended = false,
-    this.localizationDescription,
-    this.localizationTitle,
+    required this.details,
+    required this.skuProduct,
+    required this.isOfferEligible,
+    this.showBadge = false,
+    this.subscriptionTranslation,
+    this.carouselImages,
   });
 
-  String get roundPrice => details?.rawPrice.toStringAsFixed(2) ?? '';
+  List<SubscriptionImageData> get images => carouselImages ?? [];
 
-  String get _titleIOS => details?.title ?? '';
-
-  String get _descriptionIOS => details?.description ?? '';
-
-  String get _descriptionAndroid => localizationDescription ?? details?.description ?? '';
-
-  String get _titleAndroid => localizationTitle ?? details?.title ?? '';
-
-  String get description => Platform.isIOS ? _descriptionIOS : _descriptionAndroid;
-
-  String get title => Platform.isIOS ? _titleIOS : _titleAndroid;
+  String get roundPrice => details.rawPrice.toStringAsFixed(2);
 
   String get priceWithCurrency =>
-      (currency == '\$' || currency == '£') ? '$currency$roundPrice' : '$roundPrice$currency';
+      (_currency == '\$' || _currency == '£') ? '$_currency$roundPrice' : '$roundPrice$_currency';
+
+  String get description => isOfferEligible ? _descriptionOffer : _descriptionRegular;
+
+  String get title => isOfferEligible ? _titleOffer : _titleRegular;
+
+  bool get isPricedOffer =>
+      skuProduct.offerId != null && skuProduct.offerPriceAmount > 0 && isOfferEligible;
+
+  bool get isTrialOffer =>
+      skuProduct.offerId != null && isOfferEligible && skuProduct.offerPriceAmount == 0;
+
+  String? get badgeUrl => isPricedOffer ? subscriptionTranslation?.badge : null;
+
+  String get _titleOffer =>
+      '$priceWithCurrency / ${subscriptionTranslation?.customBillingPeriodText ?? ''}';
+
+  String get _titleRegular =>
+      '$priceWithCurrency / ${subscriptionTranslation?.customBillingPeriodText ?? ''}';
+
+  String get _descriptionOffer => subscriptionTranslation?.offerDescription ?? '';
+
+  String get _descriptionRegular => LocalizedTexts.subscriptionSubscribe.tr();
+
+  String get _currency => _getCurrency(details.currencyCode);
+
+  String _getCurrency(String currencyCode) => NumberFormat().simpleCurrencySymbol(currencyCode);
 }

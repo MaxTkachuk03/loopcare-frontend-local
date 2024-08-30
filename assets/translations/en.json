@@ -791,6 +791,25 @@
   "doItLaterButton": "Do it later",
   "nextWeekTopic": "The topic for next week’s session will be made available soon",
   "subscriptionTrialTitle": "Great to have you on\n board!",
+
+
+  "//comment": "add it into new localization",
+
+  "subscriptionRecommendedAccess": "recommended",
+  "subscriptionLimitedAccess": "limited time offer",
+  "subscriptionLifeTimeAccess": "lifetime access",
+  "subscriptionFlexibleAccess": "flexible access",
+  "subscriptionMonth": "monthly",
+  "subscriptionQuarterly": "quarterly",
+  "subscriptionAnnually": "annually",
+  "subscriptionWeekly": "weekly",
+  "subscriptionDaily" : "days",
+  "subscriptionDescriptionLabel": "Cancel anytime in subscriptions center",
+
+
+
+
+  "subscriptionGenericTitle": "Your journey is about to begin.",
   "subscriptionTrialLabel": "After your trial period you are enrolled and \nyou can cancel on a monthly basis.",
   "subscriptionTrialExpiredTitle": "Your trial has expired",
   "subscriptionTrialExpiredLabel1": "We hope you enjoyed our program.",

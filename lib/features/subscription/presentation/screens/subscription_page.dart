@@ -10,7 +10,7 @@ import 'package:loopcare_frontend/core/application/customer_io_service/customer_
 import 'package:loopcare_frontend/core/domain/url_constants.dart';
 import 'package:loopcare_frontend/core/presentation/alerting/modal_bottom_sheet.dart';
 import 'package:loopcare_frontend/core/presentation/app_bar/custom_app_bar.dart';
-import 'package:loopcare_frontend/core/presentation/icon_images/app_images.dart';
+import 'package:loopcare_frontend/core/presentation/custom_safe_area.dart';
 import 'package:loopcare_frontend/core/presentation/loader/loader.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/core/presentation/routes/app_router.dart';
@@ -20,8 +20,10 @@ import 'package:loopcare_frontend/core/presentation/text/custom_text.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 import 'package:loopcare_frontend/features/river/application/river_bloc.dart';
 import 'package:loopcare_frontend/features/subscription/application/subscription_bloc.dart';
-import 'package:loopcare_frontend/features/subscription/application/subscription_controller.dart';
-import 'package:loopcare_frontend/features/subscription/presentation/widget/subscription_status_widget.dart';
+import 'package:loopcare_frontend/features/subscription/presentation/controller/subscription_controller.dart';
+import 'package:loopcare_frontend/features/subscription/presentation/screens/subscription_nonrenewable_page.dart';
+import 'package:loopcare_frontend/features/subscription/presentation/screens/subscription_service_unavailable_page.dart';
+import 'package:loopcare_frontend/features/subscription/presentation/screens/subscription_single_plan_page.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 @RoutePage()
@@ -33,14 +35,12 @@ class SubscriptionPage extends StatefulWidget {
 }
 
 class _SubscriptionPageState extends State<SubscriptionPage> {
-  late SubscriptionController controller;
-  Widget content = const Loader();
-  final ValueNotifier<bool> sheetOpenedNotifier = ValueNotifier(false);
+  late SubscriptionController _controller;
 
   @override
   void initState() {
     super.initState();
-    controller = SubscriptionController(bloc: context.read<SubscriptionBloc>());
+    _controller = SubscriptionController(bloc: context.read<SubscriptionBloc>());
     CustomerIoService.track(
       event: CIOEvents.subscriptionPage,
     );
@@ -49,75 +49,49 @@ class _SubscriptionPageState extends State<SubscriptionPage> {
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
-    controller.getSubscriptionPlans();
+    _controller.checkSubscriptionEligible();
   }
 
   @override
   void dispose() {
-    controller.dispose();
+    _controller.dispose();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
+    Widget content = const Loader();
+    return CustomSafeArea(
       child: CustomScaffold(
-        withBg: false,
-        color: AppColors.blueRegular,
+        color: AppColors.blueDarker,
         appBar: CustomAppBar.transparent(
           leading: const SizedBox.shrink(),
           actions: [_LogoutWidget()],
           title: null,
         ),
         body: BlocConsumer<SubscriptionBloc, SubscriptionState>(
-          listenWhen: _listenerStates,
           listener: (context, state) => state.maybeWhen(
-            successInPlans: (data) => controller.setupPlans(data),
+            setEligibility: (data) => _controller.getSubscriptionPlansFromServer(),
+            successInPlans: (data) => _controller.setupPlans(data),
             subscriptionActive: (data) => context.router.replaceNamed(AppRoutes.home),
             purchaseDuplicateSubscription: (data) => _onDuplicateSettings(context),
             purchasedSubscription: (data) => (data.subscription?.isActive ?? false)
                 ? _navigateToHome()
                 : _onRestoreFromSettings(data),
             askRestoredSubscription: (data) => _showAskRestorePopover(),
-            loading: (data) => controller.handleLoading(data.isLoading),
+            loading: (data) => _controller.handleLoading(data.isLoading),
             logout: (_) => context.router.replaceAll([const IntroRoute()]),
             error: (_) => _errorListener(context, state),
             orElse: () => null,
           ),
           builder: (context, state) => state.maybeWhen(
             orElse: () => content,
-            trial: (s) => content = SubscriptionStateView.trial(
-              controller: controller,
-              topCover: AppImages.subscriptionTop,
-              bottomCover: AppColors.blueRegular,
+            singlePlan: (_) => content = SubscriptionSinglePlanPage(
+              controller: _controller,
             ),
-            trialExpired: (_) => content = SubscriptionStateView.trialExpired(
-              controller: controller,
-              topCover: AppImages.subscriptionTop,
-              bottomCover: AppColors.blueRegular,
-            ),
-            subscriptionEnded: (_) => content = SubscriptionStateView.endedSubscription(
-              controller: controller,
-              topCover: AppImages.subscriptionTop,
-              bottomCover: AppColors.blueRegular,
-            ),
-            subscriptionCancelled: (_) => content = SubscriptionStateView.cancelledSubscription(
-              controller: controller,
-              topCover: AppImages.subscriptionTop,
-              bottomCover: AppColors.blueRegular,
-            ),
-            subscriptionUnRenewed: (_) => content = SubscriptionStateView.notRenewSubscription(
-              controller: controller,
-              onTap: () => context.router.replaceNamed(AppRoutes.home),
-              topCover: AppImages.subscriptionTop,
-              bottomCover: AppColors.blueRegular,
-            ),
+            subscriptionUnRenewed: (_) => content = const SubscriptionNonrenewablePage(),
             serviceSubscriptionUnavailable: (_) =>
-                content = SubscriptionStateView.serviceUnavailable(
-              controller: controller,
-              topCover: AppImages.subscriptionTop,
-              bottomCover: AppColors.blueRegular,
-            ),
+                content = const SubscriptionServiceUnavailablePage(),
           ),
         ),
       ),
@@ -125,17 +99,17 @@ class _SubscriptionPageState extends State<SubscriptionPage> {
   }
 
   void _onDuplicateSettings(BuildContext context) {
-    if (!sheetOpenedNotifier.value) {
-      sheetOpenedNotifier.value = true;
-      controller.handleLoading(false);
+    if (!_controller.sheetOpenedNotifier.value) {
+      _controller.sheetOpenedNotifier.value = true;
+      _controller.handleLoading(false);
       _showRestoreSubscriptionBottomSheet(isDuplicate: true);
     }
   }
 
   void _onRestoreFromSettings(SubscriptionStateData data) {
-    if (!sheetOpenedNotifier.value) {
-      sheetOpenedNotifier.value = true;
-      controller.handleLoading(false);
+    if (!_controller.sheetOpenedNotifier.value) {
+      _controller.sheetOpenedNotifier.value = true;
+      _controller.handleLoading(false);
       if (isVendorPlatform(data.subscription?.vendor)) {
         _showRestoreSubscriptionBottomSheet();
       } else {
@@ -150,7 +124,7 @@ class _SubscriptionPageState extends State<SubscriptionPage> {
     ModalBottomSheet.restoreSubscription(
       context: context,
       isDuplicate: isDuplicate,
-      sheetNotifier: sheetOpenedNotifier,
+      sheetNotifier: _controller.sheetOpenedNotifier,
       onSubscriptionPref: () {
         launchUrl(Uri.parse(link), mode: LaunchMode.externalApplication);
         context.read<SubscriptionBloc>().add(const SubscriptionEvent.logout());
@@ -175,7 +149,7 @@ class _SubscriptionPageState extends State<SubscriptionPage> {
       );
 
   void _showAskRestorePopover() {
-    controller.loading.value = false;
+    _controller.loading.value = false;
     showDialog<String>(
       context: context,
       builder: (BuildContext context) => AlertDialog(
@@ -190,19 +164,8 @@ class _SubscriptionPageState extends State<SubscriptionPage> {
     );
   }
 
-  bool _listenerStates(prev, cur) =>
-      cur is ErrorSubscriptionState ||
-      cur is SuccessSubscriptionPlans ||
-      cur is PurchasedSubscriptionState ||
-      cur is SubscriptionActual ||
-      cur is LoadingSubscriptionState ||
-      cur is PurchasedDuplicateSubscriptionState ||
-      cur is AskRestoredSubscriptionState ||
-      cur is LogoutState;
-
   void _errorListener(BuildContext context, SubscriptionState state) {
-
-    controller.resetState();
+    _controller.resetState();
     context.showErrorBar(
       content: CustomText(state.data.errorKey.tr()),
       position: FlashPosition.top,
@@ -226,7 +189,7 @@ class _LogoutWidget extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: 16.0),
       child: CircleAvatar(
         radius: 22,
-        backgroundColor: AppColors.blueLight,
+        backgroundColor: AppColors.blueLighter,
         child: IconButton(
           icon: const Icon(
             Icons.logout,

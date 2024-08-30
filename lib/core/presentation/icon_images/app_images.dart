@@ -68,6 +68,6 @@ class AppImages {
   static const AssetImage onboardingPacing = AssetImage('$imagesFilePath/onboarding_pacing.png');
 
   static SvgPicture onboardingArrow = SvgPicture.asset('$imagesFilePath/onboarding_arrow.svg');
-
-  AppImages._();
+  static SvgPicture subscriptionCross = SvgPicture.asset('$imagesFilePath/subscription_cross.svg');
+ AppImages._();
 }

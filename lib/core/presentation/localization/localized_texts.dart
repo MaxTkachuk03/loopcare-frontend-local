@@ -574,6 +574,7 @@ class LocalizedTexts {
   //Subscription
   static const String subscription = "subscription";
   static const String manageSubscription = "manageSubscription";
+  static const String subscriptionGenericTitle = "subscriptionGenericTitle";
   static const String subscriptionTrialTitle = "subscriptionTrialTitle";
   static const String subscriptionTrialLabel = "subscriptionTrialLabel";
   static const String subscriptionTrialExpiredTitle = "subscriptionTrialExpiredTitle";
@@ -610,6 +611,18 @@ class LocalizedTexts {
   static const String duplicateSubscriptionFromSettings = "duplicateSubscriptionFromSettings";
   static const String otherPurchaseVendorCancelAccountSubscription =
       "otherPurchaseVendorCancelAccountSubscription";
+
+  static const String subscriptionLimitedAccess = 'subscriptionLimitedAccess';
+  static const String subscriptionLifeTimeAccess = 'subscriptionLifeTimeAccess';
+  static const String subscriptionRecommendedAccess = 'subscriptionRecommendedAccess';
+  static const String subscriptionFlexibleAccess = 'subscriptionFlexibleAccess';
+  static const String subscriptionDaily = 'subscriptionDaily';
+  static const String subscriptionWeekly = 'subscriptionWeekly';
+  static const String subscriptionMonth = 'subscriptionMonth';
+  static const String subscriptionQuarterly = 'subscriptionQuarterly';
+  static const String subscriptionAnnually = 'subscriptionAnnually';
+  static const String subscriptionDescriptionLabel = 'subscriptionDescriptionLabel';
+
 
   // Quizzes
   static const String quiz = "quiz";
@@ -897,6 +910,7 @@ class LocalizedTexts {
   static const String phq8ResultMedium = "phq8ResultMedium";
   static const String phq8ResultHigh = "phq8ResultHigh";
   static const String phq8ResultHighest = "phq8ResultHighest";
+
   // Mental final results
   static const String phq8FinalResultHigh1 = "phq8FinalResultHigh1";
   static const String phq8FinalResultHigh2 = "phq8FinalResultHigh2";
