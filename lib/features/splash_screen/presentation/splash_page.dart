@@ -5,9 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:loopcare_frontend/core/application/app_update/app_update_bloc.dart';
 import 'package:loopcare_frontend/core/application/app_update/app_update_bottom_sheet.dart';
-import 'package:loopcare_frontend/core/infrastructure/services/network_service/network_service.dart';
 import 'package:loopcare_frontend/core/presentation/alerting/show_app_snackbar.dart';
-import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/core/presentation/routes/app_router.dart';
 import 'package:loopcare_frontend/core/presentation/scaffold/custom_scaffold.dart';
 import 'package:loopcare_frontend/core/presentation/text/custom_text.dart';
@@ -94,15 +92,7 @@ class _SplashPageState extends State<SplashPage> {
     );
 
     _controller.requestPermissions();
-
-    final networkStatus = context.read<NetworkStatus>();
-
-    if (networkStatus == NetworkStatus.offline) {
-      FlutterNativeSplash.remove();
-      context.showError(content: CustomText(LocalizedTexts.connectionLost.tr()));
-    } else {
-      _controller.initApp();
-    }
+    _controller.initApp();
   }
 
   @override

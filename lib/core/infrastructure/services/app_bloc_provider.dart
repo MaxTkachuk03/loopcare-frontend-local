@@ -1,6 +1,7 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loopcare_frontend/core/application/analytics_bloc.dart';
 import 'package:loopcare_frontend/core/application/app_update/app_update_bloc.dart';
+import 'package:loopcare_frontend/core/application/connectivity_bloc/connectivity_bloc.dart';
 import 'package:loopcare_frontend/features/account/application/group_preferences_bloc.dart';
 import 'package:loopcare_frontend/features/account/presentation/buddy_page/application/buddy_bloc.dart';
 import 'package:loopcare_frontend/features/authentication/application/authentication_bloc.dart';
@@ -51,6 +52,9 @@ class AppBlocProvider {
   AppBlocProvider._();
 
   static List<BlocProvider> get providers => [
+        BlocProvider<ConnectivityBloc>(
+          create: (_) => getIt<ConnectivityBloc>()..add(const ConnectivityEvent.init()),
+        ),
         BlocProvider<NavigationBarBloc>(
           create: (_) => getIt<NavigationBarBloc>(),
         ),
