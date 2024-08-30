@@ -680,7 +680,7 @@ class AuthenticationBloc extends HydratedBloc<AuthenticationEvent, Authenticatio
           emit(AuthenticationState.needUpdatePolicies(state.data.copyWith(account: account)));
         } else {
           final showBuddyNews = _statesService.buddyStatus != account.buddyState &&
-              account.buddyState.isRejectedOrLeft;
+              !account.buddyState.isInvited;
 
           if (showBuddyNews) {
             _syncService.showProfileNotificationBadge();
