@@ -56,9 +56,11 @@ class RiverModuleItem with _$RiverModuleItem {
 
   bool get isGroupingCrossModuleItem => crossModule && unlocksFeature.contains(UnlockedFeatureType.grouping);
 
-  bool get isAdditionalBuddyCrossModuleItem => crossModule && unlocksFeature.isEmpty && actions.isEmpty;
+  bool get isAdditionalBuddyCrossModuleItem => crossModule &&
+      unlocksFeature.isEmpty &&
+      actions.any((a) => a.module == 'buddyApprove');
 
-      factory RiverModuleItem.fromJson(Map<String, dynamic> json) => _$RiverModuleItemFromJson(json);
+  factory RiverModuleItem.fromJson(Map<String, dynamic> json) => _$RiverModuleItemFromJson(json);
 }
 
 class UnlockedFeatureTypeListConverter

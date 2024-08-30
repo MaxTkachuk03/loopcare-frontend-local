@@ -41,9 +41,8 @@ class RiverStateData with _$RiverStateData {
 
   int get currentPage => activeModule != null ? modules.indexOf(activeModule!) : 0;
 
-  bool get isBeginningComplete => modules.isEmpty
-      ? true
-      : modules.indexOf(modules.firstWhere(
+  bool get isBeginningComplete => modules.isEmpty ||
+      modules.indexOf(modules.firstWhere(
         (m) => m.moduleState.isInProgress,
         orElse: () => modules.last,
       )) > 0;
