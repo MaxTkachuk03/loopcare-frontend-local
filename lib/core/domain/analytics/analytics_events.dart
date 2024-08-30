@@ -123,35 +123,35 @@ class AnalyticsEvents {
 
   static String get userLeavesChat => 'user_leaves_chat';
 
-  static  String get onboardingNewUserCreated => 'onboarding_new_user_created';
-  static  String get onboardingAgeExclusion => 'onboarding_age_exclusion';
-  static  String get onboardingBmiExclusion => 'onboarding_bmi_exclusion';
-  static  String get onboardingPregnancyExclusion => 'onboarding_pregnancy_exclusion';
-  static  String get onboardingLocomotor => 'onboarding_locomotor';
-  static  String get onboardingLiverDisease => 'onboarding_liver_disease';
-  static  String get onboardingAsthma => 'onboarding_asthma';
-  static  String get onboardingRenalFailure => 'onboarding_renal_failure';
-  static  String get onboardingStomachReduction => 'onboarding_stomach_reduction';
-  static  String get onboardingCardiovascularDisease => 'onboarding_cardiovascular_disease';
-  static  String get onboardingHypertension => 'onboarding_hypertension';
-  static  String get onboardingMetabolicDisease => 'onboarding_metabolic_disease';
-  static  String get onboardingThyroidDisease => 'onboarding_thyroid_disease';
-  static  String get onboardingSecondaryForm => 'onboarding_secondary_form';
-  static  String get onboardingDiabetes => 'onboarding_diabetes';
-  static  String get onboardingApnea => 'onboarding_apnea';
-  static  String get  onboardingPregnancy => 'onboarding_pregnancy';
-  static  String get onboardingPsychiatrist => 'onboarding_psychiatrist';
-  static  String get onboardingMedicine => 'onboarding_medicine';
-  static  String get onboardingTreatmentPeriod => 'onboarding_treatment_period';
-  static  String get onboardingTakingPeriod => 'onboarding_taking_period';
-  static  String get onboardingSemaglutideExplanation => 'onboarding_semaglutide_explanation';
-  static  String get onboardingSemaglutide => 'onboarding_semaglutide';
-  static  String get onboardingHappiness => 'onboarding_happiness';
-  static  String get onboardingHeight => 'onboarding_height';
-  static  String get onboardingWeight => 'onboarding_weight';
-  static  String get onboardingBirthday => 'onboarding_birthday';
-  static  String get  onboardingSex => 'onboarding_sex';
-  static  String get onboardingGender => 'onboarding_gender';
+  static String get onboardingNewUserCreated => 'onboarding_new_user_created';
+  static String get onboardingAgeExclusion => 'onboarding_age_exclusion';
+  static String get onboardingBmiExclusion => 'onboarding_bmi_exclusion';
+  static String get onboardingPregnancyExclusion => 'onboarding_pregnancy_exclusion';
+  static String get onboardingLocomotor => 'onboarding_locomotor';
+  static String get onboardingLiverDisease => 'onboarding_liver_disease';
+  static String get onboardingAsthma => 'onboarding_asthma';
+  static String get onboardingRenalFailure => 'onboarding_renal_failure';
+  static String get onboardingStomachReduction => 'onboarding_stomach_reduction';
+  static String get onboardingCardiovascularDisease => 'onboarding_cardiovascular_disease';
+  static String get onboardingHypertension => 'onboarding_hypertension';
+  static String get onboardingMetabolicDisease => 'onboarding_metabolic_disease';
+  static String get onboardingThyroidDisease => 'onboarding_thyroid_disease';
+  static String get onboardingSecondaryForm => 'onboarding_secondary_form';
+  static String get onboardingDiabetes => 'onboarding_diabetes';
+  static String get onboardingApnea => 'onboarding_apnea';
+  static String get onboardingPregnancy => 'onboarding_pregnancy';
+  static String get onboardingPsychiatrist => 'onboarding_psychiatrist';
+  static String get onboardingMedicine => 'onboarding_medicine';
+  static String get onboardingTreatmentPeriod => 'onboarding_treatment_period';
+  static String get onboardingTakingPeriod => 'onboarding_taking_period';
+  static String get onboardingSemaglutideExplanation => 'onboarding_semaglutide_explanation';
+  static String get onboardingSemaglutide => 'onboarding_semaglutide';
+  static String get onboardingHappiness => 'onboarding_happiness';
+  static String get onboardingHeight => 'onboarding_height';
+  static String get onboardingWeight => 'onboarding_weight';
+  static String get onboardingBirthday => 'onboarding_birthday';
+  static String get onboardingSex => 'onboarding_sex';
+  static String get onboardingGender => 'onboarding_gender';
   // Mind
   static String get userConfirmedDoctorConsent => 'user_confirmed_doctor_consent';
 
@@ -188,7 +188,7 @@ class AnalyticsEvents {
 
   static String get userLogGoal => 'user_log_goal';
 
-  static  String get subscriptionBought => 'af_subscribe';
+  static String get subscriptionBought => 'af_subscribe';
 
   //Subscription
   static const String subscriptionPlanBought = 'subscription_bought';
@@ -196,8 +196,10 @@ class AnalyticsEvents {
 
   //Subscription errors
   static const String subscriptionServiceUnavailable = 'subscription_service_unavailable';
-  static const String subscriptionUserClosePurchaseDialog = 'subscription_user_close_purchase_dialog';
+  static const String subscriptionUserClosePurchaseDialog =
+      'subscription_user_close_purchase_dialog';
   static const String subscriptionDuplicatePurchase = 'subscription_duplicate_purchase';
   static const String subscriptionErrorVerifyOnServer = 'subscription_error_verify_on_server';
-  static const String subscriptionErrorVerifyLastPurchaseOnServer = 'subscription_error_verify_last_purchase_on_server';
+  static const String subscriptionErrorVerifyLastPurchaseOnServer =
+      'subscription_error_verify_last_purchase_on_server';
 }

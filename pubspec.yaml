@@ -3,7 +3,7 @@ version: 1.7.0+227
 publish_to: none
 description: Lean on me
 environment:
-  sdk: '>=3.2.3 <4.0.0'
+  sdk: ">=3.2.3 <4.0.0"
 
 dependencies:
   advertising_id:
@@ -141,7 +141,7 @@ flutter:
           weight: 600
     - family: AppIcons
       fonts:
-      - asset: assets/fonts/AppIcons.ttf
+        - asset: assets/fonts/AppIcons.ttf
   uses-material-design: true
   shaders:
     - shaders/river_stream_shader.glsl
@@ -156,7 +156,6 @@ flutter_native_splash:
 
 license_generator:
   output_path: ./license_dependencies.dart
-
 
 scripts:
   testflight:
