@@ -86,18 +86,20 @@ class _LoginFormState extends State<LoginForm> {
                   ValueListenableBuilder<bool>(
                     valueListenable: _formValidationNotifier,
                     builder: (context, isValid, _) {
-                      return BlocBuilder<AuthenticationBloc, AuthenticationState>(
-                        builder: (context, state) {
-                          final isLoading = state is AuthenticationStateIsLoading;
+                      return Builder(builder: (context) {
+                        final authState = context.watch<AuthenticationBloc>().state;
+                        final riverState = context.watch<RiverBloc>().state.data;
 
-                          return CustomElevatedButton.blueFullWidth(
-                            key: const ValueKey('login_button'),
-                            onPressed: isValid ? _onLogin : null,
-                            label: LocalizedTexts.login.tr(),
-                            isLoading: isLoading,
-                          );
-                        },
-                      );
+                        final isLoading =
+                            authState is AuthenticationStateIsLoading || riverState.isLoading;
+
+                        return CustomElevatedButton.blueFullWidth(
+                          key: const ValueKey('login_button'),
+                          onPressed: isValid ? _onLogin : null,
+                          label: LocalizedTexts.login.tr(),
+                          isLoading: isLoading,
+                        );
+                      });
                     },
                   ),
                 ],
@@ -126,7 +128,8 @@ class _LoginFormState extends State<LoginForm> {
   void _authenticationListener(BuildContext context, AuthenticationState state) {
     state.mapOrNull(
       needUpdatePolicies: _updatePolicies,
-      gotAccount: _onAuthorized,
+      gotAccount: _onGetAccount,
+      authenticated: _onAuthorized,
       guest: _onGuest,
     );
   }
@@ -183,9 +186,14 @@ class _LoginFormState extends State<LoginForm> {
     pushNamedAndClearStack(context, route);
   }
 
-  void _onAuthorized(GotAccountState state) {
+  void _onGetAccount(_) {
     context.read<RiverBloc>().add(const RiverEvent.init());
     context.read<RiverBloc>().add(const RiverEvent.getModules());
+  }
+
+  void _onAuthorized(_) {
+    context.read<AuthenticationBloc>().add(const AuthenticationEvent.getAccount());
+    context.read<AuthenticationBloc>().add(const AuthenticationEvent.sendApsFlyerData());
   }
 
   void _onGuest(GuestAuthenticationState state) {

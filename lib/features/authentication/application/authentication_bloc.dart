@@ -87,7 +87,7 @@ class AuthenticationBloc extends HydratedBloc<AuthenticationEvent, Authenticatio
     on<AuthenticatedCheck>(_onAuthenticatedCheck);
     on<StartTrackUser>(_onStartTrackUser);
     on<UpdatePolicy>(_onUpdatePolicy);
-    on<SendAppsFlyerData>(_onSendAppsFlyerDate);
+    on<SendAppsFlyerData>(_onSendAppsFlyerData);
     on<UploadAvatar>(_onUploadAvatar);
     on<BuddyVisited>(_onBuddyVisited);
 
@@ -187,7 +187,7 @@ class AuthenticationBloc extends HydratedBloc<AuthenticationEvent, Authenticatio
         emit(AuthenticationState.init(state.data.copyWith(isLoading: false)));
         emit(AuthenticationState.guest(state.data.copyWith(error: error, isLoading: false)));
       },
-      (response) async {
+      (response) {
         final customerIoId = response.customerIoId ?? response.id.toString();
 
         CustomerIoService.userAuthenticated(
@@ -197,8 +197,8 @@ class AuthenticationBloc extends HydratedBloc<AuthenticationEvent, Authenticatio
           name: response.name,
         );
 
-        await _authTokenManager.setAccessToken(response.accessToken);
-        await _authTokenManager.setRefreshToken(response.refreshToken);
+        _authTokenManager.setAccessToken(response.accessToken);
+        _authTokenManager.setRefreshToken(response.refreshToken);
 
         _connectSockets();
 
@@ -216,9 +216,6 @@ class AuthenticationBloc extends HydratedBloc<AuthenticationEvent, Authenticatio
           features: response.features,
           avatarUrl: response.avatarUrl,
         );
-
-        add(const AuthenticationEvent.getAccount());
-        add(const AuthenticationEvent.sendApsFlyerData());
 
         emit(
           AuthenticationState.authenticated(
@@ -635,6 +632,8 @@ class AuthenticationBloc extends HydratedBloc<AuthenticationEvent, Authenticatio
     GetAccount event,
     Emitter<AuthenticationState> emit,
   ) async {
+    emit(AuthenticationState.isLoading(state.data.copyWith(isLoading: true)));
+
     final response = await _authenticationService.fetchAccount();
 
     response.fold(
@@ -765,16 +764,16 @@ class AuthenticationBloc extends HydratedBloc<AuthenticationEvent, Authenticatio
     _chatSocketService.startListen();
   }
 
-  FutureOr<void> _onSendAppsFlyerDate(
+  FutureOr<void> _onSendAppsFlyerData(
     SendAppsFlyerData data,
     Emitter<AuthenticationState> emit,
   ) async {
     final appsId = await AppsFlyerService.getAppsFlyerId();
-    if (appsId == null) {
-      return;
-    }
-    final data = DeviceData(uid: appsId, platform: Platform.isIOS ? 'ios' : 'android');
-    final response = await _authenticationService.sendAppsFlyerDeviceData(data);
+
+    if (appsId == null) return;
+
+    final deviceData = DeviceData(uid: appsId, platform: Platform.isIOS ? 'ios' : 'android');
+    final response = await _authenticationService.sendAppsFlyerDeviceData(deviceData);
 
     response.fold(
       (error) => emit(AuthenticationState.error(state.data.copyWith(error: error))),
