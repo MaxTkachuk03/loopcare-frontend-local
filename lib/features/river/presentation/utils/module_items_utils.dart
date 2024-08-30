@@ -133,7 +133,7 @@ class RangeBox {
 
   void insertGaps(int streamIndex, double gapPosition) {
     for (int i = 0; i < _ranges.length; i++) {
-      final gapWidth = i >= streamIndex - 1 && i <= streamIndex + 1 ? 0.1 : 0.0;
+      final gapWidth = i >= streamIndex - 1 && i <= streamIndex + 1 ? 0.15 : 0.0;
       _ranges[i].insertGap(gapPosition, itemWidth: gapWidth);
     }
   }
@@ -156,10 +156,11 @@ class RangeLine {
 
   RangeLine insertGap(double position, {double itemWidth = 0.0}) {
     final list = _list;
-
     final index = list.indexWhere((r) => r.inRange(position));
-    final rangeItem = list.elementAt(index);
 
+    if (index.isNegative) return this;
+
+    final rangeItem = list.elementAt(index);
     final newRanges = rangeItem.insertInRange(position, itemWidth: itemWidth);
 
     list.replaceRange(index, index + 1, newRanges);
@@ -169,6 +170,9 @@ class RangeLine {
   }
 
   bool isAvailablePosition(double value) => _list.any((r) => r.inRange(value));
+
+  @override
+  String toString() => _list.toString();
 }
 
 class DoubleRange {

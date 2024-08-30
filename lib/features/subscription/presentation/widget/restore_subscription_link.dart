@@ -9,11 +9,24 @@ import 'package:url_launcher/url_launcher.dart';
 
 class RestoreSubscriptionLink extends StatelessWidget {
   final Function onRestoreTap;
+  final Color textColor;
 
-  const RestoreSubscriptionLink({super.key, required this.onRestoreTap});
+  const RestoreSubscriptionLink({
+    super.key,
+    required this.onRestoreTap,
+    required this.textColor,
+  });
 
   @override
   Widget build(BuildContext context) {
+    final style = context.textTheme.bodyMedium?.copyWith(
+      fontSize: ThemeConstants.fontSize14,
+      fontFamily: ThemeConstants.openSansFontFamily,
+      color: textColor,
+      decoration: TextDecoration.underline,
+      decorationColor: textColor,
+      fontWeight: FontWeight.w700,
+    );
     return Column(
       mainAxisAlignment: MainAxisAlignment.start,
       children: [
@@ -29,14 +42,7 @@ class RestoreSubscriptionLink extends StatelessWidget {
               TextSpan(
                 recognizer: TapGestureRecognizer()..onTap = () => onRestoreTap(),
                 text: LocalizedTexts.subscriptionRestoreLabel.tr(),
-                style: context.textTheme.bodyMedium?.copyWith(
-                  fontSize: ThemeConstants.fontSize14,
-                  fontFamily: ThemeConstants.openSansFontFamily,
-                  color: AppColors.white,
-                  decoration: TextDecoration.underline,
-                  decorationColor: AppColors.white,
-                  fontWeight: FontWeight.w700,
-                ),
+                style: style,
               ),
               const WidgetSpan(
                 child: Padding(
@@ -45,16 +51,10 @@ class RestoreSubscriptionLink extends StatelessWidget {
               ),
               TextSpan(
                 recognizer: TapGestureRecognizer()
-                  ..onTap = () => launchUrl(Uri.parse(privacyPolicyUrl), mode: LaunchMode.externalApplication),
+                  ..onTap = () =>
+                      launchUrl(Uri.parse(privacyPolicyUrl), mode: LaunchMode.externalApplication),
                 text: LocalizedTexts.subscriptionPrivacyLabel.tr(),
-                style: context.textTheme.bodyMedium?.copyWith(
-                  fontSize: ThemeConstants.fontSize14,
-                  fontFamily: ThemeConstants.openSansFontFamily,
-                  color: AppColors.white,
-                  decoration: TextDecoration.underline,
-                  decorationColor: AppColors.white,
-                  fontWeight: FontWeight.w700,
-                ),
+                style: style,
               ),
             ],
           ),
@@ -65,16 +65,10 @@ class RestoreSubscriptionLink extends StatelessWidget {
             children: <InlineSpan>[
               TextSpan(
                 recognizer: TapGestureRecognizer()
-                  ..onTap = () => launchUrl(Uri.parse(termsAndConditionsUrl), mode: LaunchMode.externalApplication),
+                  ..onTap = () => launchUrl(Uri.parse(termsAndConditionsUrl),
+                      mode: LaunchMode.externalApplication),
                 text: LocalizedTexts.subscriptionTermsLabel.tr(),
-                style: context.textTheme.bodyMedium?.copyWith(
-                  fontSize: ThemeConstants.fontSize14,
-                  fontFamily: ThemeConstants.openSansFontFamily,
-                  color: AppColors.white,
-                  decoration: TextDecoration.underline,
-                  decorationColor: AppColors.white,
-                  fontWeight: FontWeight.w700,
-                ),
+                style: style,
               ),
               const WidgetSpan(
                 child: Padding(

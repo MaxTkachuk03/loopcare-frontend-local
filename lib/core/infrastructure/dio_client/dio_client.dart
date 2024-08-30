@@ -52,7 +52,7 @@ class DioClient {
     if (kDebugMode) {
       dio.interceptors.add(PrettyDioLogger(
         requestHeader: false,
-        requestBody: true,
+        requestBody: false,
         responseHeader: false,
         responseBody: false,
         error: true,

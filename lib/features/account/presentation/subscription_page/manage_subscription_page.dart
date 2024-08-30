@@ -20,7 +20,7 @@ import 'package:loopcare_frontend/core/presentation/widgets/main_container.dart'
 import 'package:loopcare_frontend/core/presentation/widgets/scrollable_container.dart';
 import 'package:loopcare_frontend/features/account/presentation/account_page/widgets/account_container.dart';
 import 'package:loopcare_frontend/features/subscription/application/subscription_bloc.dart';
-import 'package:loopcare_frontend/features/subscription/application/subscription_service.dart';
+import 'package:loopcare_frontend/features/subscription/infrastructure/subscription_service.dart';
 import 'package:loopcare_frontend/injection.dart';
 import 'package:url_launcher/url_launcher.dart';
 
