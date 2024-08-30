@@ -3,6 +3,9 @@ part of 'subscription_bloc.dart';
 @freezed
 class SubscriptionEvent with _$SubscriptionEvent {
   const factory SubscriptionEvent.getPlansFromServer() = GetPlansFromServer;
+  const factory SubscriptionEvent.getSubscriptionPlans() = GetSubscriptionPlans;
+
+  const factory SubscriptionEvent.processingDataPlans() = ProcessingDataPlans;
 
   const factory SubscriptionEvent.getActiveSubscription() = GetActiveSubscription;
 
@@ -12,7 +15,7 @@ class SubscriptionEvent with _$SubscriptionEvent {
 
   const factory SubscriptionEvent.buySubscription(ProductDetails product) = BuySubscription;
 
-  const factory SubscriptionEvent.getSubscriptionPlans() = GetSubscriptionPlans;
+
 
   const factory SubscriptionEvent.init() = SubscriptionInit;
 
@@ -28,4 +31,8 @@ class SubscriptionEvent with _$SubscriptionEvent {
   const factory SubscriptionEvent.errorPurchase(RequestError error) = ErrorPurchase;
 
   const factory SubscriptionEvent.canceledByUser() = CanceledByUser;
+
+  const factory SubscriptionEvent.checkEligibility() = CheckEligibility;
+
+  const factory SubscriptionEvent.setEligibility({required bool isEligible}) = SetEligibility;
 }

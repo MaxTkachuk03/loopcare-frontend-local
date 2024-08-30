@@ -69,5 +69,7 @@ class APIRiverService implements RiverService {
       '/river/modules/module-items/deferred',
       fromJson: GetCrossModuleItemsResponse.fromJson,
     );
+    // TODO river modules response mock
+    // return Future.value(right(GetCrossModuleItemsResponse.fromJson({'data': []})));
   }
 }

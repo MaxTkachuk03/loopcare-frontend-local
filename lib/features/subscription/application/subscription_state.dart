@@ -11,14 +11,9 @@ class SubscriptionState with _$SubscriptionState {
   const factory SubscriptionState.purchaseDuplicateSubscription(SubscriptionStateData data) =
       PurchasedDuplicateSubscriptionState;
 
-  const factory SubscriptionState.trial(SubscriptionStateData data) = Trial;
+  const factory SubscriptionState.singlePlan(SubscriptionStateData data) = SinglePlan;
 
-  const factory SubscriptionState.trialExpired(SubscriptionStateData data) = TtrialExpired;
-
-  const factory SubscriptionState.subscriptionEnded(SubscriptionStateData data) = SubscriptionEnded;
-
-  const factory SubscriptionState.subscriptionCancelled(SubscriptionStateData data) =
-      SubscriptionCancelled;
+  const factory SubscriptionState.multiplePlans(SubscriptionStateData data) = MultiplePlans;
 
   const factory SubscriptionState.subscriptionUnRenewed(SubscriptionStateData data) =
       SubscriptionUnRenewed;
@@ -27,6 +22,9 @@ class SubscriptionState with _$SubscriptionState {
 
   const factory SubscriptionState.successInPlans(SubscriptionStateData data) =
       SuccessSubscriptionPlans;
+
+  const factory SubscriptionState.processedDataPlans(SubscriptionStateData data) =
+      processedDataPlans;
 
   const factory SubscriptionState.purchasedSubscription(SubscriptionStateData data) =
       PurchasedSubscriptionState;
@@ -50,6 +48,9 @@ class SubscriptionState with _$SubscriptionState {
 
   const factory SubscriptionState.gotAccountSubscription(SubscriptionStateData data) =
       GotAccountSubscription;
+
+  const factory SubscriptionState.setEligibility(SubscriptionStateData data) =
+      SetEligibilitySubscription;
 }
 
 @freezed
@@ -65,6 +66,7 @@ class SubscriptionStateData with _$SubscriptionStateData {
     PurchasedProduct? purchased,
     Subscription? subscription,
     ProductDetails? product,
+    @Default(false) bool isEligible,
   }) = _SubscriptionStateData;
 
   String get errorKey => error?.message ?? LocalizedTexts.errorSomethingWentWrong;

@@ -2,7 +2,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:loopcare_frontend/core/presentation/buttons/custom_elevated_button.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
-import 'package:loopcare_frontend/features/subscription/application/subscription_controller.dart';
+import 'package:loopcare_frontend/features/subscription/presentation/controller/subscription_controller.dart';
 
 class SubscribeButton extends StatelessWidget {
   final SubscriptionController controller;
@@ -14,17 +14,18 @@ class SubscribeButton extends StatelessWidget {
     return ValueListenableBuilder<bool>(
       valueListenable: controller.isEnableSubscribe,
       builder: (context, isEnableSubscribe, _) {
-        return Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 16.0),
-          child: ValueListenableBuilder<bool>(
-            valueListenable: controller.loading,
-            builder: (context, loading, _) {
-              return CustomElevatedButton.coralFullWidth(
-                  isLoading: loading,
-                  onPressed: isEnableSubscribe ? controller.onSubscribe : null,
-                  label: LocalizedTexts.subscriptionSubscribe.tr());
-            },
-          ),
+        return ValueListenableBuilder<bool>(
+          valueListenable: controller.loading,
+          builder: (context, loading, _) {
+            return ValueListenableBuilder<String>(
+                valueListenable: controller.subscribeTitle,
+                builder: (context, title, _) {
+                  return CustomElevatedButton.coralFullWidth(
+                      isLoading: loading,
+                      onPressed: isEnableSubscribe ? controller.onSubscribe : null,
+                      label: title);
+                });
+          },
         );
       },
     );
