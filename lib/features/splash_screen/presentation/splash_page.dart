@@ -30,9 +30,8 @@ class _SplashPageState extends State<SplashPage> {
   late SplashController _controller;
 
   Future<void> _initPackageInfo(AppUpdateState state) async {
-    FlutterNativeSplash.remove();
-
     if (state.data.needToForceUpdate) {
+      FlutterNativeSplash.remove();
       AppUpdateBottomSheet.showAppUpdate();
     } else if (_controller.isAuthorized) {
       _controller.getAccount();
@@ -45,14 +44,10 @@ class _SplashPageState extends State<SplashPage> {
     }
   }
 
-  void _appUpdateErrorListener(AppUpdateState state) {
-    FlutterNativeSplash.remove();
-    _errorListener(state.data.errorKey);
-  }
-
   void _errorListener(String errorKey) {
-    _navigateToIntro();
+    FlutterNativeSplash.remove();
     context.showError(content: CustomText(errorKey.tr()));
+    _navigateToIntro();
   }
 
   void _updatePolicies() {
@@ -74,10 +69,13 @@ class _SplashPageState extends State<SplashPage> {
       // ignore: use_build_context_synchronously
       context.router.replaceAll(routes);
     }
+
+    FlutterNativeSplash.remove();
   }
 
   void _navigateUnauthorized() {
     final routes = _controller.getOnboardingRoute();
+    FlutterNativeSplash.remove();
     context.router.replaceAll(routes);
   }
 
@@ -100,9 +98,8 @@ class _SplashPageState extends State<SplashPage> {
     final networkStatus = context.read<NetworkStatus>();
 
     if (networkStatus == NetworkStatus.offline) {
-      context.showError(
-        content: CustomText(LocalizedTexts.connectionLost.tr()),
-      );
+      FlutterNativeSplash.remove();
+      context.showError(content: CustomText(LocalizedTexts.connectionLost.tr()));
     } else {
       _controller.initApp();
     }
@@ -115,19 +112,20 @@ class _SplashPageState extends State<SplashPage> {
         BlocListener<AppUpdateBloc, AppUpdateState>(
           listener: (context, state) => state.mapOrNull(
             loaded: _initPackageInfo,
-            error: _appUpdateErrorListener,
+            error: (state) => _errorListener(state.data.error?.message ?? ''),
           ),
         ),
         BlocListener<AuthenticationBloc, AuthenticationState>(
           listener: (context, state) => state.mapOrNull(
             needUpdatePolicies: (_) => _updatePolicies(),
             gotAccount: (_) => _onAuthorized(),
-            error: (state) => _errorListener(state.data.error?.error),
+            error: (state) => _errorListener(state.data.error?.message ?? ''),
           ),
         ),
         BlocListener<RiverBloc, RiverState>(
           listener: (context, state) => state.mapOrNull(
             moduleLoaded: (_) => _navigateAuthorized(),
+            moduleLoadingError: (state) => _errorListener(state.data.error?.message ?? ''),
           ),
         ),
       ],

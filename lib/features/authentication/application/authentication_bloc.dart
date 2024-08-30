@@ -108,7 +108,7 @@ class AuthenticationBloc extends HydratedBloc<AuthenticationEvent, Authenticatio
   @override
   Future<void> close() async {
     _accessTokenSubscription?.call();
-    await super.close();  
+    await super.close();
   }
 
   @override
