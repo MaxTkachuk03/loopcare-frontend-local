@@ -46,9 +46,9 @@ class RiverStateData with _$RiverStateData {
 
   bool get isProfileCompleted =>
       modules.firstOrNull?.moduleItems
-          .firstWhereOrNull((item) => item.isProfile)?.states.prevItemState.isCompleted ?? true;
+          .firstWhereOrNull((item) => item.isProfile)?.isCompleted ?? true;
 
   bool get isPracticeCompleted =>
       modules.firstOrNull?.moduleItems
-          .firstWhereOrNull((item) => item.isPractice)?.states.prevItemState.isCompleted ?? true;
+          .firstWhereOrNull((item) => item.isPractice)?.isCompleted ?? true;
 }
