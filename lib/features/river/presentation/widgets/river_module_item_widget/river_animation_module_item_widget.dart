@@ -262,7 +262,7 @@ class _RiverAnimationModuleItemWidgetState extends State<RiverAnimationModuleIte
   void _startAnimation() {
     if (_isOnViewport && _itemAnimation != _activeItemAnimation) {
       _activeItemAnimation = _itemAnimation;
-
+      _stopIdling();
       switch (_itemAnimation) {
         case RiverModuleItemAnimationState.unlock:
           _runUnlock();
@@ -291,7 +291,13 @@ class _RiverAnimationModuleItemWidgetState extends State<RiverAnimationModuleIte
       Future.delayed(_idleDelayDuration, () {
         if (_isMounted) _sizeController.repeat(reverse: true);
       });
+    } else {
+      _stopIdling();
     }
+  }
+
+  void _stopIdling() {
+    _sizeController.reset();
   }
 
   void _runUnlock() {
@@ -349,13 +355,15 @@ class _RiverAnimationModuleItemWidgetState extends State<RiverAnimationModuleIte
   }
 
   void _onViewPortChanged(VisibilityInfo info) {
-    final isOnViewport = info.visibleFraction > 0;
-
-    if (_isOnViewport != isOnViewport && isOnViewport) {
+    if (_compareAndSetViewportState(info.visibleFraction > 0)) {
       _startAnimation();
     }
+  }
 
-    _isOnViewport = isOnViewport;
+  bool _compareAndSetViewportState(bool value) {
+    final condition = _isOnViewport != value && value;
+    _isOnViewport = value;
+    return condition;
   }
 }
 
