@@ -36,43 +36,25 @@ class AppsFlyerService {
     }
 
     if (Platform.isIOS) {
-      TrackingStatus status =
-          await AppTrackingTransparency.trackingAuthorizationStatus;
+      TrackingStatus status = await AppTrackingTransparency.trackingAuthorizationStatus;
 
       final forGdpr = AppsFlyerConsent.forGDPRUser(
         hasConsentForDataUsage: true,
-        hasConsentForAdsPersonalization:
-            status == TrackingStatus.authorized ? true : false,
+        hasConsentForAdsPersonalization: status == TrackingStatus.authorized ? true : false,
       );
 
       appsflyerSdk.setConsentData(forGdpr);
     }
 
     appsflyerSdk.onAppOpenAttribution((res) {
-      appsflyerSdk.logEvent(
-          AppsFlyerEvents.onAppOpenAttribution, {"res": res.toString()});
+      appsflyerSdk.logEvent(AppsFlyerEvents.onAppOpenAttribution, {"res": res.toString()});
     });
 
     appsflyerSdk.onInstallConversionData((res) {
-      appsflyerSdk.logEvent(
-          AppsFlyerEvents.onInstallConversionData, {"res": res.toString()});
+      appsflyerSdk.logEvent(AppsFlyerEvents.onInstallConversionData, {"res": res.toString()});
     });
-
-    appsflyerSdk.startSDK(
-      onSuccess: () {},
-      onError: (int errorCode, String errorMessage) {
-        FirebaseCrashlytics.instance.recordError(
-          'Error start appFlyer SDK $errorCode - $errorMessage',
-          null,
-          fatal: true,
-        );
-
-        MixpanelEventService.instance.track(
-          AppMixpanelEvents.appflyerSdkStartError,
-          {'error start appsFlyer SDK': "code $errorCode - $errorMessage"},
-        );
-      },
-    );
+    // Removed onSuccess and onError callbacks as per appsFlyer dev team recommendation 02.09.2024
+    appsflyerSdk.startSDK();
   }
 
   static Future<String?> getAppsFlyerId() => appsflyerSdk.getAppsFlyerUID();
