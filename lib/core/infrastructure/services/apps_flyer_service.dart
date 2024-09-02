@@ -2,11 +2,10 @@ import 'dart:io';
 
 import 'package:app_tracking_transparency/app_tracking_transparency.dart';
 import 'package:appsflyer_sdk/appsflyer_sdk.dart';
+import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:loopcare_frontend/build_type.dart';
 import 'package:loopcare_frontend/core/domain/analytics/apps_flyer/apps_flyer_events.dart';
-import 'package:loopcare_frontend/core/infrastructure/services/events.dart';
-import 'package:loopcare_frontend/core/infrastructure/services/mixpanel_event_service.dart';
 
 class AppsFlyerService {
   static AppsFlyerOptions appsFlyerOptions = AppsFlyerOptions(
@@ -20,12 +19,19 @@ class AppsFlyerService {
   static AppsflyerSdk appsflyerSdk = AppsflyerSdk(appsFlyerOptions);
 
   static Future<void> start() async {
-
-    await appsflyerSdk.initSdk(
-      registerConversionDataCallback: true,
-      registerOnAppOpenAttributionCallback: true,
-      registerOnDeepLinkingCallback: true,
-    );
+    try {
+      await appsflyerSdk.initSdk(
+        registerConversionDataCallback: true,
+        registerOnAppOpenAttributionCallback: true,
+        registerOnDeepLinkingCallback: true,
+      );
+    } catch (e) {
+      FirebaseCrashlytics.instance.recordError(
+        'Error init appFlyer SDK ${e.toString()}',
+        null,
+        fatal: true,
+      );
+    }
 
     if (Platform.isIOS) {
       TrackingStatus status = await AppTrackingTransparency.trackingAuthorizationStatus;
@@ -45,16 +51,8 @@ class AppsFlyerService {
     appsflyerSdk.onInstallConversionData((res) {
       appsflyerSdk.logEvent(AppsFlyerEvents.onInstallConversionData, {"res": res.toString()});
     });
-
-    appsflyerSdk.startSDK(
-      onSuccess: () {},
-      onError: (int errorCode, String errorMessage) {
-        MixpanelEventService.instance.track(
-          AppMixpanelEvents.appflyerSdkStartError,
-          {'error': "code $errorCode - $errorMessage"},
-        );
-      },
-    );
+    // Removed onSuccess and onError callbacks as per appsFlyer dev team recommendation 02.09.2024
+    appsflyerSdk.startSDK();
   }
 
   static Future<String?> getAppsFlyerId() => appsflyerSdk.getAppsFlyerUID();
