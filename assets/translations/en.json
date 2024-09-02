@@ -1835,6 +1835,7 @@
   "errorBuddyRegistrationTokenExpired": "Buddy registration token has expired.",
   "errorBuddyRegistrationTokenInvalid": "Buddy registration token is invalid.",
   "errorBuddyInvitationTokenExpired": "Buddy invitation token has expired.",
+  "errorBuddyInvitationBuddyOccupied": "Sorry, this person isn’t available for the buddy program. Can you think of someone else who could help you? Reach out to support if you need a hand",
   "errorBuddyInvitationTokenInvalid": "Buddy invitation token is invalid.",
   "errorBuddyInvitationEmailInvalid": "Buddy invitation email is invalid.",
   "errorBuddyInvitationNotFound": "Buddy invitation not found.",
