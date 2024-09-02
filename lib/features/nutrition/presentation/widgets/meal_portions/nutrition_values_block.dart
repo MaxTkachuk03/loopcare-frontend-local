@@ -1,4 +1,4 @@
-import 'package:easy_localization/easy_localization.dart';
+import 'package:loopcare_frontend/core/application/localization/localizer_extenstion.dart';
 import 'package:flutter/material.dart';
 import 'package:loopcare_frontend/core/presentation/alerting/modal_bottom_sheet.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
@@ -66,7 +66,7 @@ class NutritionValuesBlock extends StatelessWidget {
                 ),
               if (isPortionsEditable == null)
                 CustomText.w600(
-                  LocalizedTexts.portionMeal.tr(namedArgs: {'numberOfPortion': '$numberOfPortions'}),
+                  LocalizedTexts.portionMeal.tr({'numberOfPortion': '$numberOfPortions'}),
                   style: context.textTheme.bodySmall?.copyWith(
                     fontSize: ThemeConstants.fontSize12,
                   ),

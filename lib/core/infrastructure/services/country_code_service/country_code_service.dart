@@ -44,7 +44,6 @@ class CountryCodeService {
     'UY',
   ];
 
-
   String? _countryCode;
 
   String? _serverCountryCode;
@@ -53,7 +52,8 @@ class CountryCodeService {
 
   String get countryCode => _countryCode ?? '';
 
-  String get _localeCountryCode => WidgetsBinding.instance.platformDispatcher.locale.countryCode ?? 'US';
+  String get _localeCountryCode =>
+      WidgetsBinding.instance.platformDispatcher.locale.countryCode ?? 'US';
 
   String get localRegion => _localRegion ??= _localeCountryCode;
 

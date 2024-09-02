@@ -1,5 +1,5 @@
 import 'package:auto_route/annotations.dart';
-import 'package:easy_localization/easy_localization.dart';
+import 'package:loopcare_frontend/core/application/localization/localizer_extenstion.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loopcare_frontend/core/presentation/app_bar/custom_app_bar.dart';
@@ -38,7 +38,7 @@ class _GoalsStatisticsPageState extends State<GoalsStatisticsPage> {
   Widget build(BuildContext context) {
     return CustomScaffold.greenLightest(
       appBar: CustomAppBar.green(
-        title: LocalizedTexts.myGoals.tr(),
+        title: LocalizedTexts.smartGoalsMyGoals.tr(),
         leading: CustomFilledIconButton.leadingGreenLighter(),
       ),
       body: CustomSafeArea(
@@ -48,7 +48,7 @@ class _GoalsStatisticsPageState extends State<GoalsStatisticsPage> {
             children: [
               const SizedBox(height: 28.0),
               CustomText.bitter600(
-                LocalizedTexts.goalsStatisticsTitle.tr(),
+                LocalizedTexts.smartGoalsStatisticsTitle.tr(),
                 style: context.textTheme.displayMedium,
               ),
               const SizedBox(height: 32.0),
@@ -63,7 +63,7 @@ class _GoalsStatisticsPageState extends State<GoalsStatisticsPage> {
                     orElse: () {
                       if (!state.data.hasAccomplishedCategories) {
                         return CustomText.w400(
-                          LocalizedTexts.goalsAccomplishedEmptyMessage.tr(),
+                          LocalizedTexts.smartGoalsAccomplishedEmptyMessage.tr(),
                           style: context.textTheme.bodyMedium,
                         );
                       } else {
@@ -81,7 +81,7 @@ class _GoalsStatisticsPageState extends State<GoalsStatisticsPage> {
                                           context.textTheme.bodyMedium?.copyWith(fontWeight: FontWeight.w700),
                                     ),
                                     TextSpan(
-                                      text: LocalizedTexts.goalsAccomplishedInTotal.tr(),
+                                      text: LocalizedTexts.smartGoalsAccomplishedInTotal.tr(),
                                       style: context.textTheme.bodyMedium,
                                     ),
                                   ],

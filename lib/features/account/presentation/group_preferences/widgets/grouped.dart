@@ -1,4 +1,4 @@
-import 'package:easy_localization/easy_localization.dart';
+import 'package:loopcare_frontend/core/application/localization/localizer_extenstion.dart';
 import 'package:flutter/material.dart';
 import 'package:loopcare_frontend/core/infrastructure/services/shared_storage/shared_storage_service.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
@@ -45,7 +45,7 @@ class _GroupedState extends State<Grouped> {
                   LocalizedTexts.goodNews.tr(),
                   style: context.textTheme.bodyLarge?.copyWith(fontSize: ThemeConstants.fontSize20),
                 ),
-                const Text(LocalizedTexts.youHaveBeenAddedToGroup).tr(),
+                 CustomText(LocalizedTexts.youHaveBeenAddedToGroup.tr()),
               ],
             ),
           ),

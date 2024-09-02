@@ -1,8 +1,7 @@
-import 'package:easy_localization/easy_localization.dart';
+import 'package:loopcare_frontend/core/application/localization/localizer_extenstion.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:loopcare_frontend/core/domain/url_constants.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/core/presentation/text/custom_text.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
@@ -32,30 +31,30 @@ class FinalResultsText extends StatelessWidget {
           return Column(
             children: [
               CustomText.w400(
-                LocalizedTexts.phq8FinalResultHigh1.tr(),
+                LocalizedTexts.mentalTestResultsPhq8FinalResultHigh1.tr(),
                 style: context.textTheme.bodyMedium,
               ),
               const SizedBox(height: 16),
               CustomText.w400(
-                LocalizedTexts.phq8FinalResultHigh2.tr(),
+                LocalizedTexts.mentalTestResultsPhq8FinalResultHigh2.tr(),
                 style: context.textTheme.bodyMedium,
               ),
               const SizedBox(height: 16),
               CustomText.w400(
-                LocalizedTexts.phq8FinalResultHigh3.tr(),
+                LocalizedTexts.mentalTestResultsPhq8FinalResultHigh3.tr(),
                 style: context.textTheme.bodyMedium,
               ),
               const SizedBox(height: 16),
               RichText(
                 text: TextSpan(
                   style: context.textTheme.bodyMedium?.copyWith(color: AppColors.blueAppBar),
-                  text: psychologistConsultingLink,
+                  text: LocalizedTexts.linksPsychologistConsulting.tr(),
                   recognizer: TapGestureRecognizer()..onTap = () => onLinkPressed(context),
                 ),
               ),
               const SizedBox(height: 16),
               CustomText.w400(
-                LocalizedTexts.phq8FinalResultHigh4.tr(),
+                LocalizedTexts.mentalTestResultsPhq8FinalResultHigh4.tr(),
                 style: context.textTheme.bodyMedium,
               ),
               const SizedBox(height: 16),
@@ -77,32 +76,32 @@ class FinalResultsText extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               CustomText.w400(
-                LocalizedTexts.personalProgram.tr(),
+                LocalizedTexts.mentalTestResultsPersonalProgram.tr(),
                 style: context.textTheme.bodyMedium,
               ),
               const SizedBox(height: 16),
               CustomText.w400(
-                LocalizedTexts.feelLimited1.tr(),
+                LocalizedTexts.mentalTestResultsFeelLimited1.tr(),
                 style: context.textTheme.bodyMedium,
               ),
               const SizedBox(height: 16),
               CustomText.w400(
-                LocalizedTexts.notATherapy.tr(),
+                LocalizedTexts.mentalTestResultsNotATherapy.tr(),
                 style: context.textTheme.bodyMedium,
               ),
               const SizedBox(height: 16),
               CustomText.w400(
-                LocalizedTexts.learnManyThings.tr(),
+                LocalizedTexts.mentalTestResultsLearnManyThings.tr(),
                 style: context.textTheme.bodyMedium,
               ),
               const SizedBox(height: 16),
               CustomText.w400(
-                LocalizedTexts.unlockAllSections.tr(),
+                LocalizedTexts.mentalTestResultsUnlockAllSections.tr(),
                 style: context.textTheme.bodyMedium,
               ),
               const SizedBox(height: 16),
               CustomText.w400(
-                LocalizedTexts.awailableAreas.tr(),
+                LocalizedTexts.mentalTestResultsAwailableAreas.tr(),
                 style: context.textTheme.bodyMedium,
               ),
               const SizedBox(height: 16),
@@ -120,11 +119,11 @@ class FinalResultsText extends StatelessWidget {
               ),
               BulletListItem(
                 bulletSize: 14.0,
-                text: CustomText.w400(LocalizedTexts.unlockBuddyMessage.tr(), style: context.textTheme.bodyMedium),
+                text: CustomText.w400(LocalizedTexts.mentalTestResultsUnlockBuddyMessage.tr(), style: context.textTheme.bodyMedium),
               ),
               const SizedBox(height: 16),
               CustomText.w400(
-                LocalizedTexts.weWillGuideYou.tr(),
+                LocalizedTexts.mentalTestResultsWeWillGuideYou.tr(),
                 style: context.textTheme.bodyMedium,
               ),
             ],
@@ -136,32 +135,32 @@ class FinalResultsText extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               CustomText.w400(
-                LocalizedTexts.personalProgram.tr(),
+                LocalizedTexts.mentalTestResultsPersonalProgram.tr(),
                 style: context.textTheme.bodyMedium,
               ),
               const SizedBox(height: 16),
               CustomText.w400(
-                LocalizedTexts.feelLimited2.tr(),
+                LocalizedTexts.mentalTestResultsFeelLimited2.tr(),
                 style: context.textTheme.bodyMedium,
               ),
               const SizedBox(height: 16),
               CustomText.w400(
-                LocalizedTexts.notATherapy.tr(),
+                LocalizedTexts.mentalTestResultsNotATherapy.tr(),
                 style: context.textTheme.bodyMedium,
               ),
               const SizedBox(height: 16),
               CustomText.w400(
-                LocalizedTexts.learnManyThings.tr(),
+                LocalizedTexts.mentalTestResultsLearnManyThings.tr(),
                 style: context.textTheme.bodyMedium,
               ),
               const SizedBox(height: 16),
               CustomText.w400(
-                LocalizedTexts.unlockAllSections.tr(),
+                LocalizedTexts.mentalTestResultsUnlockAllSections.tr(),
                 style: context.textTheme.bodyMedium,
               ),
               const SizedBox(height: 16),
               CustomText.w400(
-                LocalizedTexts.awailableAreas.tr(),
+                LocalizedTexts.mentalTestResultsAwailableAreas.tr(),
                 style: context.textTheme.bodyMedium,
               ),
               const SizedBox(height: 16),
@@ -189,13 +188,13 @@ class FinalResultsText extends StatelessWidget {
               BulletListItem(
                 bulletSize: 14.0,
                 text: CustomText.w400(
-                  LocalizedTexts.unlockBuddyMessage.tr(),
+                  LocalizedTexts.mentalTestResultsUnlockBuddyMessage.tr(),
                   style: context.textTheme.bodyMedium,
                 ),
               ),
               const SizedBox(height: 16),
               CustomText.w400(
-                LocalizedTexts.weWillGuideYou.tr(),
+                LocalizedTexts.mentalTestResultsWeWillGuideYou.tr(),
                 style: context.textTheme.bodyMedium,
               ),
             ],
@@ -207,32 +206,32 @@ class FinalResultsText extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               CustomText.w400(
-                LocalizedTexts.personalProgram.tr(),
+                LocalizedTexts.mentalTestResultsPersonalProgram.tr(),
                 style: context.textTheme.bodyMedium,
               ),
               const SizedBox(height: 16),
               CustomText(
-                LocalizedTexts.feelLimited3.tr(),
+                LocalizedTexts.mentalTestResultsFeelLimited3.tr(),
                 style: context.textTheme.bodyMedium,
               ),
               const SizedBox(height: 16),
               CustomText(
-                LocalizedTexts.notATherapy.tr(),
+                LocalizedTexts.mentalTestResultsNotATherapy.tr(),
                 style: context.textTheme.bodyMedium,
               ),
               const SizedBox(height: 16),
               CustomText(
-                LocalizedTexts.learnManyThings.tr(),
+                LocalizedTexts.mentalTestResultsLearnManyThings.tr(),
                 style: context.textTheme.bodyMedium,
               ),
               const SizedBox(height: 16),
               CustomText(
-                LocalizedTexts.unlockAllSections.tr(),
+                LocalizedTexts.mentalTestResultsUnlockAllSections.tr(),
                 style: context.textTheme.bodyMedium,
               ),
               const SizedBox(height: 16),
               CustomText(
-                LocalizedTexts.awailableAreas.tr(),
+                LocalizedTexts.mentalTestResultsAwailableAreas.tr(),
                 style: context.textTheme.bodyMedium,
               ),
               const SizedBox(height: 16),
@@ -260,13 +259,13 @@ class FinalResultsText extends StatelessWidget {
               BulletListItem(
                 bulletSize: 14.0,
                 text: CustomText(
-                  LocalizedTexts.unlockBuddyMessage.tr(),
+                  LocalizedTexts.mentalTestResultsUnlockBuddyMessage.tr(),
                   style: context.textTheme.bodyMedium,
                 ),
               ),
               const SizedBox(height: 16),
               CustomText(
-                LocalizedTexts.weWillGuideYou.tr(),
+                LocalizedTexts.mentalTestResultsWeWillGuideYou.tr(),
                 style: context.textTheme.bodyMedium,
               ),
             ],
@@ -282,32 +281,32 @@ class FinalResultsText extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               CustomText.w400(
-                LocalizedTexts.supportMessage.tr(),
+                LocalizedTexts.mentalTestResultsSupportMessage.tr(),
                 style: context.textTheme.bodyMedium,
               ),
               const SizedBox(height: 16),
               CustomText(
-                LocalizedTexts.feelLimited4.tr(),
+                LocalizedTexts.mentalTestResultsFeelLimited4.tr(),
                 style: context.textTheme.bodyMedium,
               ),
               const SizedBox(height: 16),
               CustomText(
-                LocalizedTexts.notATherapy.tr(),
+                LocalizedTexts.mentalTestResultsNotATherapy.tr(),
                 style: context.textTheme.bodyMedium,
               ),
               const SizedBox(height: 16),
               CustomText(
-                LocalizedTexts.learnManyThings.tr(),
+                LocalizedTexts.mentalTestResultsLearnManyThings.tr(),
                 style: context.textTheme.bodyMedium,
               ),
               const SizedBox(height: 16),
               CustomText(
-                LocalizedTexts.unlockAllSections.tr(),
+                LocalizedTexts.mentalTestResultsUnlockAllSections.tr(),
                 style: context.textTheme.bodyMedium,
               ),
               const SizedBox(height: 16),
               CustomText(
-                LocalizedTexts.awailableAreas.tr(),
+                LocalizedTexts.mentalTestResultsAwailableAreas.tr(),
                 style: context.textTheme.bodyMedium,
               ),
               const SizedBox(height: 16),
@@ -335,13 +334,13 @@ class FinalResultsText extends StatelessWidget {
               BulletListItem(
                 bulletSize: 14.0,
                 text: CustomText(
-                  LocalizedTexts.unlockBuddyMessage.tr(),
+                  LocalizedTexts.mentalTestResultsUnlockBuddyMessage.tr(),
                   style: context.textTheme.bodyMedium,
                 ),
               ),
               const SizedBox(height: 16),
               CustomText(
-                LocalizedTexts.weWillGuideYou.tr(),
+                LocalizedTexts.mentalTestResultsWeWillGuideYou.tr(),
                 style: context.textTheme.bodyMedium,
               ),
             ],
@@ -352,17 +351,17 @@ class FinalResultsText extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             CustomText.w400(
-              LocalizedTexts.personalProgram.tr(),
+              LocalizedTexts.mentalTestResultsPersonalProgram.tr(),
               style: context.textTheme.bodyMedium,
             ),
             const SizedBox(height: 16),
             CustomText(
-              LocalizedTexts.unlockAllSections.tr(),
+              LocalizedTexts.mentalTestResultsUnlockAllSections.tr(),
               style: context.textTheme.bodyMedium,
             ),
             const SizedBox(height: 16),
             CustomText(
-              LocalizedTexts.awailableAreas.tr(),
+              LocalizedTexts.mentalTestResultsAwailableAreas.tr(),
               style: context.textTheme.bodyMedium,
             ),
             const SizedBox(height: 16),
@@ -390,13 +389,13 @@ class FinalResultsText extends StatelessWidget {
             BulletListItem(
               bulletSize: 14.0,
               text: CustomText(
-                LocalizedTexts.unlockBuddyMessage.tr(),
+                LocalizedTexts.mentalTestResultsUnlockBuddyMessage.tr(),
                 style: context.textTheme.bodyMedium,
               ),
             ),
             const SizedBox(height: 16),
             CustomText(
-              LocalizedTexts.weWillGuideYou.tr(),
+              LocalizedTexts.mentalTestResultsWeWillGuideYou.tr(),
               style: context.textTheme.bodyMedium,
             ),
           ],

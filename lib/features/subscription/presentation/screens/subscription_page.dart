@@ -1,7 +1,7 @@
 import 'dart:io';
 
 import 'package:auto_route/auto_route.dart';
-import 'package:easy_localization/easy_localization.dart';
+import 'package:loopcare_frontend/core/application/localization/localizer_extenstion.dart';
 import 'package:flash/flash.dart';
 import 'package:flash/flash_helper.dart';
 import 'package:flutter/material.dart';
@@ -138,7 +138,7 @@ class _SubscriptionPageState extends State<SubscriptionPage> {
   void _showPopover() => showDialog<String>(
         context: context,
         builder: (BuildContext context) => AlertDialog(
-          content: CustomText(LocalizedTexts.otherPurchaseVendorCancelAccountSubscription.tr()),
+          content: CustomText(LocalizedTexts.subscriptionOtherPurchaseVendorCancelAccountSubscription.tr()),
           actions: [
             TextButton(
               onPressed: context.router.maybePop,
@@ -153,7 +153,7 @@ class _SubscriptionPageState extends State<SubscriptionPage> {
     showDialog<String>(
       context: context,
       builder: (BuildContext context) => AlertDialog(
-        content: CustomText(LocalizedTexts.askRestoreSubscription.tr()),
+        content: CustomText(LocalizedTexts.subscriptionAskRestoreSubscription.tr()),
         actions: [
           TextButton(
             onPressed: context.router.maybePop,

@@ -1,0 +1,21 @@
+name: split_intl
+description: Split your localization file into multiple files.
+version: 0.0.3
+homepage: https://gitlab.com/flutterpackages/split_intl
+
+environment:
+  sdk: ">=2.12.0 <4.0.0"
+
+dependencies:
+  dartx: ^1.1.0
+  equatable: ^2.0.5
+
+  meta: ^1.8.0
+  path: ^1.8.0
+  yaml: ^3.1.1
+
+dev_dependencies:
+  strict_analysis:
+    git:
+      url: https://gitlab.com/flutterpackages/strict_analysis.git
+      ref: v1.0.3

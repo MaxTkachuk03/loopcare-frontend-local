@@ -1,5 +1,5 @@
 import 'package:auto_route/auto_route.dart';
-import 'package:easy_localization/easy_localization.dart';
+import 'package:loopcare_frontend/core/application/localization/localizer_extenstion.dart';
 import 'package:flutter/material.dart';
 import 'package:loopcare_frontend/core/presentation/app_bar/custom_app_bar.dart';
 import 'package:loopcare_frontend/core/presentation/buttons/custom_filled_icon_button.dart';
@@ -23,7 +23,7 @@ class SelectGoalsCategoryPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return CustomScaffold.greenLightest(
       appBar: CustomAppBar.green(
-        title: LocalizedTexts.myGoals.tr(),
+        title: LocalizedTexts.smartGoalsMyGoals.tr(),
         leading: CustomFilledIconButton.leadingGreenLighter(),
       ),
       body: CustomSafeArea(
@@ -33,7 +33,7 @@ class SelectGoalsCategoryPage extends StatelessWidget {
               child: Padding(
                 padding: const EdgeInsets.fromLTRB(20.0, 28.0, 20.0, 21.0),
                 child: CustomText.bitter600(
-                  LocalizedTexts.selectGoalsCategoryTitle.tr(),
+                  LocalizedTexts.smartGoalsSelectGoalsCategoryTitle.tr(),
                   style: context.textTheme.displayMedium,
                 ),
               ),

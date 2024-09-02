@@ -1,5 +1,5 @@
 import 'package:auto_route/auto_route.dart';
-import 'package:easy_localization/easy_localization.dart';
+import 'package:loopcare_frontend/core/application/localization/localizer_extenstion.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loopcare_frontend/core/presentation/alerting/modal_bottom_sheet.dart';
@@ -133,9 +133,10 @@ class _ChooseDateCalendarPageState extends State<ChooseDateCalendarPage> {
                   child: Column(
                     children: [
                       CustomAppBar.green(
-                          title: LocalizedTexts.chooseDateFor.tr(
-                        namedArgs: {'mealCategory': widget.mealCategory},
-                      )),
+                        title: LocalizedTexts.chooseDateFor.tr(
+                          {'mealCategory': widget.mealCategory},
+                        ),
+                      ),
                       Padding(
                         padding: const EdgeInsets.symmetric(vertical: 32.0, horizontal: 24.0),
                         child: Column(
@@ -151,7 +152,8 @@ class _ChooseDateCalendarPageState extends State<ChooseDateCalendarPage> {
                             const SizedBox(height: 26.0),
                             MainContainer(
                               child: ElevatedButton(
-                                onPressed: () => state.data.canSave ? _onSaveChangesPressed(context) : null,
+                                onPressed: () =>
+                                    state.data.canSave ? _onSaveChangesPressed(context) : null,
                                 style: Theme.of(context).elevatedButtonTheme.style?.copyWith(
                                   backgroundColor: WidgetStateProperty.resolveWith<Color?>(
                                     (Set<WidgetState> states) {

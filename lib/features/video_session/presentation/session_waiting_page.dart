@@ -1,5 +1,5 @@
 import 'package:auto_route/auto_route.dart';
-import 'package:easy_localization/easy_localization.dart';
+import 'package:loopcare_frontend/core/application/localization/localizer_extenstion.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_zoom_videosdk/native/zoom_videosdk.dart';
@@ -161,8 +161,13 @@ class _SessionWaitingPageState extends State<SessionWaitingPage> {
                                           ),
                                           const SizedBox(height: 10.0),
                                           CustomText.w400(
-                                            LocalizedTexts.dayFromTo
-                                                .tr(args: [day, startTime, endTime]),
+                                            LocalizedTexts.dayFromTo.tr(
+                                              {
+                                                'day': day,
+                                                'startTime': startTime,
+                                                'endTime': endTime,
+                                              },
+                                            ),
                                             style: context.textTheme.bodySmall,
                                           ),
                                         ],

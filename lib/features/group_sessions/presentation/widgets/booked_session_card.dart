@@ -1,5 +1,5 @@
 import 'package:auto_route/auto_route.dart';
-import 'package:easy_localization/easy_localization.dart';
+import 'package:loopcare_frontend/core/application/localization/localizer_extenstion.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loopcare_frontend/core/application/analytics_bloc.dart';
@@ -59,7 +59,7 @@ class BookedSessionCard extends StatelessWidget {
                   ),
                   CustomText.w600(
                     LocalizedTexts.fromToLower.tr(
-                      namedArgs: {
+                      {
                         'startTime': groupSession.startDate.toLocal().timeHoursMinutes24,
                         'endTime': groupSession.startDate
                             .toLocal()
@@ -71,7 +71,7 @@ class BookedSessionCard extends StatelessWidget {
                   ),
                   CustomText.w400(
                     LocalizedTexts.numberOfAvailableSeats.tr(
-                      namedArgs: {
+                      {
                         'number': '${groupSession.availableSeatsAmount}',
                         'totalNumber': '${groupSession.maxMemberCount}',
                       },
@@ -86,7 +86,7 @@ class BookedSessionCard extends StatelessWidget {
           CustomElevatedButton.blueFullWidth(
             onPressed: () => _onPrepareInfoPressed(context),
             label: LocalizedTexts.prepareTakes.tr(
-              namedArgs: {'times': '10'},
+              {'times': '10'},
             ),
           ),
           const SizedBox(height: 16.0),

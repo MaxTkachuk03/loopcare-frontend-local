@@ -1,4 +1,4 @@
-import 'package:easy_localization/easy_localization.dart';
+import 'package:loopcare_frontend/core/application/localization/localizer_extenstion.dart';
 import 'package:flutter/material.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/core/presentation/text/custom_text.dart';
@@ -49,17 +49,16 @@ class CategoryLabel extends StatelessWidget {
   factory CategoryLabel.groupSession() =>
       CategoryLabel(label: LocalizedTexts.groupSession.tr(), color: AppColors.petrolRegular);
 
-  factory CategoryLabel.buddy() => CategoryLabel(
-        label: LocalizedTexts.buddy.tr(),
+  factory CategoryLabel.buddy() =>
+      CategoryLabel( label: LocalizedTexts.buddy.tr(),
         color: AppColors.orangeRegular,
-        textColor: AppColors.blueDarker,
-      );
+        textColor: AppColors.blueDarker,);
 
   factory CategoryLabel.smartGoals({required String label}) =>
       CategoryLabel(label: label, color: AppColors.greenRegular, textColor: AppColors.blueDarker);
 
   factory CategoryLabel.smartGoalNew() => CategoryLabel(
-        label: LocalizedTexts.smartGoalNewLabel.tr(),
+        label: LocalizedTexts.smartGoalsNewLabel.tr(),
         color: AppColors.blueRegular,
         textColor: AppColors.blueLightest,
       );

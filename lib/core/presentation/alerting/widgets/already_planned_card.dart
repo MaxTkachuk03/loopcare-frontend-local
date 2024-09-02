@@ -1,5 +1,5 @@
 import 'package:auto_route/auto_route.dart';
-import 'package:easy_localization/easy_localization.dart';
+import 'package:loopcare_frontend/core/application/localization/localizer_extenstion.dart';
 import 'package:flutter/material.dart';
 import 'package:loopcare_frontend/core/presentation/icon_images/app_icons.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
@@ -46,10 +46,8 @@ class AlreadyPlannedCard extends StatelessWidget {
                   ),
                 if (!active)
                   Text(
-                    LocalizedTexts.alreadyPlannedCategory.tr(),
+                    LocalizedTexts.alreadyPlannedCategory.tr({'mealCategory': mealCategory.toUpperCase()}),
                     style: Theme.of(context).textTheme.bodySmall?.copyWith(color: AppColors.greyLabel),
-                  ).tr(
-                    namedArgs: {'mealCategory': mealCategory.toUpperCase()},
                   ),
                 const SizedBox(height: 18.0),
                 GroupedMealList(

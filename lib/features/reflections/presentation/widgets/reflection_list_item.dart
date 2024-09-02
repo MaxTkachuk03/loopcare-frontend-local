@@ -1,5 +1,5 @@
 import 'package:auto_route/auto_route.dart';
-import 'package:easy_localization/easy_localization.dart';
+import 'package:loopcare_frontend/core/application/localization/localizer_extenstion.dart';
 import 'package:flutter/material.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/core/presentation/routes/app_router.gr.dart';
@@ -28,10 +28,10 @@ class ReflectionListItem extends StatelessWidget {
 
   String get _subTitle => item.isComplete
       ? LocalizedTexts.completedOn.tr(
-          namedArgs: {'date': item.completedAt?.dayWithMonthWithoutLeadingZero ?? ''},
+          {'date': item.completedAt?.dayWithMonthWithoutLeadingZero ?? ''},
         )
       : LocalizedTexts.completeBefore.tr(
-          namedArgs: {'date': item.unlockedAt?.plusWeekShortVersion ?? ''},
+          {'date': item.unlockedAt?.plusWeekShortVersion ?? ''},
         );
 
   @override

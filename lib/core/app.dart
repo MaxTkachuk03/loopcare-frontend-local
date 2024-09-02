@@ -1,8 +1,11 @@
 import 'package:auto_route/auto_route.dart';
-import 'package:easy_localization/easy_localization.dart';
+import 'package:crowdin_sdk/crowdin_sdk.dart';
+import 'package:loopcare_frontend/core/application/localization/localizer_extenstion.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:loopcare_frontend/core/application/localization/app_localizations.dart';
+import 'package:loopcare_frontend/core/application/localization/crowdin_localizations.dart';
 import 'package:loopcare_frontend/core/application/connectivity_bloc/connectivity_bloc.dart';
 import 'package:loopcare_frontend/core/domain/analytics/uxcam/uxcam_navigation_observer.dart';
 import 'package:loopcare_frontend/core/infrastructure/route_observers/route_observer_utils.dart';
@@ -10,10 +13,14 @@ import 'package:loopcare_frontend/core/infrastructure/services/app_bloc_provider
 import 'package:loopcare_frontend/core/infrastructure/services/app_config.dart';
 import 'package:loopcare_frontend/core/infrastructure/services/facebook_events_service.dart';
 import 'package:loopcare_frontend/core/infrastructure/services/firebase_navigator_observer.dart';
-import 'package:loopcare_frontend/core/presentation/alerting/show_app_snackbar.dart';
+import 'package:loopcare_frontend/core/infrastructure/services/logger/logger.dart';
+import 'package:loopcare_frontend/core/infrastructure/services/shared_storage/shared_storage_service.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
+import 'package:loopcare_frontend/core/presentation/alerting/show_app_snackbar.dart';
 import 'package:loopcare_frontend/core/presentation/routes/app_router.dart';
+import 'package:loopcare_frontend/core/presentation/text/custom_text.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
+import 'package:loopcare_frontend/injection.dart';
 
 final autoRouteObserver = AutoRouteObserver();
 
@@ -40,39 +47,72 @@ class _AppState extends State<_App> {
   late final AppRouter _appRouter;
   final FirebaseAnalytics _analytics = FirebaseAnalytics.instance;
 
+  Locale get currentLocale => Locale(getIt<AppConfig>().language);
+
   @override
   void initState() {
     super.initState();
-
     _appRouter = AppRouter();
     kNavigatorKey = _appRouter.navigatorKey;
     FacebookEventsService();
   }
 
+  Future<void> _initializeCrowdin() async {
+    await loadLocalLocalizations();
+    Crowdin.loadTranslations(currentLocale)
+        .then((value) => log.i('devcpp LOADED CROWDIN: ${currentLocale.languageCode}'));
+  }
+
   @override
   Widget build(BuildContext context) {
-    return BlocListener<ConnectivityBloc, ConnectivityState>(
-      listener: (context, state) => state.whenOrNull(
-        statusChanged: _connectivityListener,
-      ),
-      child: MaterialApp.router(
-        debugShowCheckedModeBanner: false,
-        title: 'Loop care',
-        theme: appThemeData,
-        routerDelegate: _appRouter.delegate(
-          navigatorObservers: () => [
-            RouteObserverUtils(),
-            UxcamNavigationObserver(),
-            FirebaseNavigatorObserver(
-              analytics: _analytics,
+    return FutureBuilder<void>(
+      future: _initializeCrowdin(),
+      builder: (context, snapshot) {
+        if (snapshot.connectionState == ConnectionState.done ||
+            getIt<SharedStorageService>().localTranslations != null) {
+          return BlocListener<ConnectivityBloc, ConnectivityState>(
+            listener: (context, state) => state.whenOrNull(
+              statusChanged: _connectivityListener,
             ),
-          ],
-        ),
-        routeInformationParser: _appRouter.defaultRouteParser(),
-        localizationsDelegates: context.localizationDelegates,
-        supportedLocales: context.supportedLocales,
-        locale: context.locale,
-      ),
+            child: MaterialApp.router(
+              debugShowCheckedModeBanner: false,
+              title: 'Loop care',
+              theme: appThemeData,
+              routerDelegate: _appRouter.delegate(
+                navigatorObservers: () => [
+                  RouteObserverUtils(),
+                  UxcamNavigationObserver(),
+                  FirebaseNavigatorObserver(
+                    analytics: _analytics,
+                  ),
+                ],
+              ),
+              routeInformationParser: _appRouter.defaultRouteParser(),
+              localizationsDelegates: const [
+                ...CrowdinLocalization.localizationsDelegates,
+              ],
+              supportedLocales: AppLocalizations.supportedLocales,
+              locale: currentLocale,
+            ),
+          );
+        } else if (snapshot.hasError) {
+          return MaterialApp(
+            home: Scaffold(
+              body: Center(
+                child: CustomText(
+                  LocalizedTexts.errorLoadTranslations.tr(),
+                ),
+              ),
+            ),
+          );
+        } else {
+          return const MaterialApp(
+            home: Scaffold(
+              body: Center(child: CircularProgressIndicator()),
+            ),
+          );
+        }
+      },
     );
   }
 

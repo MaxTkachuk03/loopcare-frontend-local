@@ -1,5 +1,5 @@
-import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:loopcare_frontend/core/application/localization/localizer_extenstion.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/core/presentation/scaffold/custom_scaffold.dart';
 import 'package:loopcare_frontend/core/presentation/text/custom_text.dart';
@@ -15,7 +15,7 @@ class SubscriptionServiceUnavailablePage extends StatelessWidget {
         child: Padding(
           padding: const EdgeInsets.symmetric(vertical: 16.0),
           child: CustomText.bitter600(
-            LocalizedTexts.serviceUnavailable.tr(),
+            LocalizedTexts.errorSubscriptionServiceUnavailable.tr(),
             textAlign: TextAlign.center,
             style: context.textTheme.displayLarge,
           ),

@@ -1,4 +1,4 @@
-import 'package:easy_localization/easy_localization.dart';
+import 'package:intl/intl.dart';
 import "package:moment_dart/moment_dart.dart";
 
 extension DateTimeExtension on DateTime {
