@@ -53,7 +53,7 @@ class SubscriptionBloc extends Bloc<SubscriptionEvent, SubscriptionState> {
   final PurchaseService _purchaseService;
   final AuthTokenManager _authTokenManager;
   bool _isValidatePastIOSPurchase = false;
-  bool _checkEligibility = true;
+  bool _checkEligibility = false;
   ProductDetails? buyingProduct;
 
   SubscriptionBloc(this._authenticationService, this._purchaseService, this._authTokenManager,
@@ -119,6 +119,7 @@ class SubscriptionBloc extends Bloc<SubscriptionEvent, SubscriptionState> {
     SetEligibility event,
     Emitter<SubscriptionState> emit,
   ) {
+    _checkEligibility = false;
     emit(SubscriptionState.setEligibility(state.data.copyWith(isEligible: event.isEligible)));
   }
 
