@@ -1,5 +1,5 @@
 import 'package:circular_countdown_timer/circular_countdown_timer.dart';
-import 'package:easy_localization/easy_localization.dart';
+import 'package:loopcare_frontend/core/application/localization/localizer_extenstion.dart';
 import 'package:flutter/material.dart';
 import 'package:loopcare_frontend/core/presentation/buttons/custom_elevated_button.dart';
 import 'package:loopcare_frontend/core/presentation/icon_images/app_icons.dart';
@@ -70,7 +70,7 @@ class PlayerEndVideoOverlay extends StatelessWidget {
               children: [
                 CustomText.bitter300(
                   LocalizedTexts.exerciseCompleteMessage
-                      .tr(namedArgs: {"currentIndex": '${exercise.order}', "length": '$programLength'}),
+                      .tr({"currentIndex": '${exercise.order}', "length": '$programLength'}),
                   textAlign: TextAlign.center,
                   style: context.textTheme.bodyMedium?.copyWith(
                     color: AppColors.white,

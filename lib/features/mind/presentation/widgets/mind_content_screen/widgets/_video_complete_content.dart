@@ -11,9 +11,9 @@ class _VideoCompleteContent extends StatelessWidget {
     this.difficulty,
     this.onRepeatPressed,
   }) : assert(
-        isExercise && techniqueTitle != null && minutesCounter != null || !isExercise,
-        'Parameters {techniqueTitle} and {minutesCounter} required for {type} [_MindContentScreenType.exercise]',
-      );
+          isExercise && techniqueTitle != null && minutesCounter != null || !isExercise,
+          'Parameters {techniqueTitle} and {minutesCounter} required for {type} [_MindContentScreenType.exercise]',
+        );
 
   final bool isExercise;
   final String completeButtonLabel;
@@ -37,9 +37,7 @@ class _VideoCompleteContent extends StatelessWidget {
         const SizedBox(height: 4),
         if (isExercise)
           CustomText.bitter400(
-            LocalizedTexts.completedExerciseMessage2
-                .tr(args: [techniqueTitle!])
-                .toLowerCase(),
+            LocalizedTexts.completedExerciseMessage2.tr({'count': techniqueTitle!}).toLowerCase(),
             style: context.textTheme.displayMedium?.copyWith(color: AppColors.white),
             textAlign: TextAlign.center,
           )
@@ -85,7 +83,9 @@ class _VideoCompleteContent extends StatelessWidget {
                 style: ButtonStyle(
                   side: ButtonStyles.getButtonBorder(ButtonStyles.borderYellow),
                   backgroundColor: WidgetStateProperty.resolveWith<Color?>(
-                    (states) => states.contains(WidgetState.disabled) ? AppColors.greenLightest : AppColors.white,
+                    (states) => states.contains(WidgetState.disabled)
+                        ? AppColors.greenLightest
+                        : AppColors.white,
                   ),
                 ),
                 onPressed: onRepeatPressed,

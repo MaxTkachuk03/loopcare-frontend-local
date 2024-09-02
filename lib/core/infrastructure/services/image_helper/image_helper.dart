@@ -1,11 +1,11 @@
 import 'dart:io';
 import 'package:dio/dio.dart';
-import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:http_parser/http_parser.dart';
 import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:loopcare_frontend/core/application/localization/localizer_extenstion.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 import 'package:mime/mime.dart';
@@ -40,13 +40,13 @@ class ImageHelper {
         maxWidth: decodedImage.width ~/ 1.5,
         uiSettings: [
           AndroidUiSettings(
-            toolbarTitle: LocalizedTexts.cropper.tr(),
+            toolbarTitle: LocalizedTexts.avatarCropper.tr(),
             toolbarColor: AppColors.blueRegular,
             toolbarWidgetColor: AppColors.white,
             aspectRatioPresets: CropAspectRatioPreset.values,
           ),
           IOSUiSettings(
-            title: LocalizedTexts.cropper.tr(),
+            title: LocalizedTexts.avatarCropper.tr(),
             aspectRatioPresets: CropAspectRatioPreset.values,
           )
         ]);

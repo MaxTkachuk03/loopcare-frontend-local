@@ -1,0 +1,84 @@
+{
+  "@@locale": "en",
+  "myGoals": "My goals",
+  "noGoalsSelected": "No goals selected yet",
+  "chooseGoalsForUpcomingDays": "Choose goals for upcoming 7 days",
+  "upcomingGoals": "Upcoming goals",
+  "upcomingGoalsTitle": "Let’s set goals",
+  "upcomingGoalsDescription": "You can choose up to 2 goals for the upcoming 7 days.",
+  "cancelGoal": "Cancel goal",
+  "cancelGoalTitle": "Cancel your goal?",
+  "cancelGoalSubTitle": "Please tell us the reason why you want to cancel this goal.",
+  "setGoal": "Set goal",
+  "selectGoalsCategoryTitle": "Select a Goal Category",
+  "newLabel": "New",
+  "selectGoalsTitle": "Select a Goal",
+  "selectGoalsSubtitle": "You have 7 days to complete your goal with one countable log per day.",
+  "saveWeeklyGoalsSuccessMessage": "Goals were added to your weekly list",
+  "statisticsTitle": "Your favourite goal categories",
+  "accomplishedInTotal": "goals accomplished in total.",
+  "accomplishedEmptyMessage": "Once you start completing goals your favourite goal categories will appear here.",
+  "accomplished": "goals accomplished",
+  "goalLogDays": "{count, plural, =0{Goal: {count} logged days in a week} one{Goal: {count} logged day in a week} other{Goal: {count} logged days in a week}}",
+  "@goalLogDays": {
+    "description": "The text shown for the goal of logging days in a week",
+    "placeholders": {
+      "count": {
+           "type": "int",
+        "description": "The number of days logged for the goal"
+      }
+    }
+  },
+  "goalLogged": "{count, plural, =0{Logged days: {count}} one{Logged day: {count}} other{Logged days: {count}}}",
+  "@goalLogged": {
+    "description": "The text shown for the number of logged days",
+    "placeholders": {
+      "count": {
+           "type": "int",
+        "description": "The number of days logged"
+      }
+    }
+  },
+  "goalTotalCompletions": "{count, plural, =0{Total logs: {count}} one{Total log: {count}} other{Total logs: {count}}}",
+  "@goalTotalCompletions": {
+    "description": "The text shown for the total number of completions/logs",
+    "placeholders": {
+      "count": {
+           "type": "int",
+        "description": "The total number of completions/logs"
+      }
+    }
+  },
+  "goalCompleted": "Completed: Yes",
+  "goalNotCompleted": "Completed: No",
+  "howHardWasTheGoal": "How hard was this goal for you?",
+  "wantToTryInFuture": "Want to try this again in the future?",
+  "goalReview": "Goal review",
+  "weeklyDaysLeft": "{count, plural, =0{No days left to complete} one{1 day left to complete} other{{count} days left to complete}}",
+  "@weeklyDaysLeft": {
+    "description": "Text indicating how many days are left to complete the goal",
+    "placeholders": {
+      "count": {
+           "type": "int",
+        "description": "The number of days left to complete"
+      }
+    }
+  },
+  "weeklyDayLeft": "1 day to complete",
+  "weeklyDaysReview": "Finished",
+  "weeklyTimes": "{count, plural, =0{No times} one{1 time} other{# times}}",
+  "@weeklyTimes": {
+    "description": "Text indicating how many times something has occurred",
+    "placeholders": {
+      "count": {
+           "type": "int",
+        "description": "The number of times something has occurred"
+      }
+    }
+  },
+  "reasonGoalNotLike": "I don’t like it.",
+  "reasonGoalChallenging": "The goal is too challenging.",
+  "reasonGoalMissing": "I am missing something to complete it.",
+  "reasonGoalHabit": "The goal is already a habit.",
+  "reasonGoalSpecific": "No specific reason."
+}

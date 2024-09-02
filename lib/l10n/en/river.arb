@@ -1,0 +1,35 @@
+{
+  "@@locale": "en",
+  "overviewTitle": "The River Overview",
+  "guidancePracticeTitle": "Practice makes progression.",
+  "guidancePracticeDescription": "The calendar will be your daily entry point to practice what you’ve learned.",
+  "guidanceProfileTitle": "Your profile and account settings.",
+  "guidanceProfileDescription": "In the profile, you can customize your account settings, change personal preferences and access past assignments and features.",
+  "guidanceCompletedTitle": "Congratulation, you finished the Beginning.",
+  "guidanceCompletedDescription": "You can now move on to the first Practice session: What’s your why?.",
+  "moduleCompletedTitle": "Congratulation, you completed the module: \"{module}\"",
+  "@moduleCompletedTitle": {
+    "description": "This is complete module message.",
+    "placeholders": {
+      "module": {
+        "type": "String",
+        "example": "Module"
+      }
+    },
+    "type": "text"
+  },
+  "moduleCompletedDescription": "No rush, you can stay in this module and repeat the practices as often as you prefer. When you feel comfortable, you can move to the next module: \"{nextModule}\".\nGreat job.",
+  "@moduleCompletedDescription": {
+    "description": "This is next module name.",
+    "placeholders": {
+      "nextModule": {
+        "type": "String",
+        "example": "Module"
+      }
+    },
+    "type": "text"
+  },
+  "lastModuleCompletedDescription": "Take your time to revisit the previous modules and reinforce the practices whenever you need.\nYou've done an amazing job reaching this point! Stay tuned, more exciting content is coming soon!",
+  "guidanceStartRiverTitle": "Great!",
+  "guidanceStartRiverDescription": "Now tap the other icons to unlock features and explore."
+}

@@ -1,0 +1,22 @@
+{
+  "@@locale": "nl",
+  "introTitle": "Welkom bij {projectName}",
+  "@introTitle": {
+    "description": "This is a welcome message.",
+    "placeholders": {
+      "projectName": {
+        "type": "String",
+        "example": "LeanOnMe"
+      }
+    },
+    "type": "text"
+  },
+  "introBodyTextFirst": "Dit programma is speciaal ontworpen voor mensen met overgewicht en obesitas die op duurzame wijze willen afvallen en hun levensstijl willen veranderen.",
+  "introBodyTextSecond": "Als deze beschrijving bij je past, laten we dan aan je reis beginnen",
+  "intro2Title": "Het is tijd om een ​​nieuwe jij te omarmen",
+  "intro2BodyTextFirst": "Leuk om te zien dat je je wilt aansluiten bij de LeanOnMe-community",
+  "intro2BodyTextSecond": "Laten we beginnen met een aantal basisgegevens, zoals uw naam en e-mailadres",
+  "intro3Title": "Gefeliciteerd",
+  "intro3BodyTextFirst": "Je hebt zojuist de eerste stap gezet om je ware zelf te omarmen",
+  "intro3BodyTextSecond": "Om te controleren of het programma geschikt is voor u en uw behoeften, beantwoordt u de volgende vragen over uw fysieke, medische en mentale gezondheid"
+}

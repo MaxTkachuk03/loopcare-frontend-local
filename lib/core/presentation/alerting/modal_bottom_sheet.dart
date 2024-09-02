@@ -1,7 +1,7 @@
 import 'dart:io';
 
 import 'package:auto_route/auto_route.dart';
-import 'package:easy_localization/easy_localization.dart';
+import 'package:loopcare_frontend/core/application/localization/localizer_extenstion.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -200,8 +200,8 @@ class ModalBottomSheet {
                 children: [
                   CustomText.w400(
                     isDuplicate
-                        ? '${LocalizedTexts.duplicateSubscriptionFromSettings.tr()}.'
-                        : '${LocalizedTexts.restoreSubscriptionFromSettings.tr()}.',
+                        ? '${LocalizedTexts.subscriptionDuplicateSubscriptionFromSettings.tr()}.'
+                        : '${LocalizedTexts.subscriptionRestoreSubscriptionFromSettings.tr()}.',
                     style: context.textTheme.bodyMedium,
                   ),
                   const SizedBox(height: 32.0),
@@ -212,7 +212,7 @@ class ModalBottomSheet {
                   const SizedBox(height: 12.0),
                   CustomOutlinedButton.blueFullWidth(
                     onPressed: onSubscriptionPref,
-                    label: LocalizedTexts.manageSubscription.tr(),
+                    label: LocalizedTexts.subscriptionManageSubscription.tr(),
                   )
                 ],
               ),
@@ -246,7 +246,7 @@ class ModalBottomSheet {
                   CustomText.w400(
                     noActiveSubscription
                         ? '${LocalizedTexts.deleteModalMessage.tr()}.'
-                        : '${LocalizedTexts.cancelAccountSubscription.tr()}.',
+                        : '${LocalizedTexts.subscriptionCancelAccountSubscription.tr()}.',
                     style: context.textTheme.bodyMedium,
                   ),
                   const SizedBox(height: 32.0),
@@ -270,7 +270,7 @@ class ModalBottomSheet {
                     onPressed: noActiveSubscription ? onDeleted : onSubscriptionPref,
                     label: noActiveSubscription
                         ? LocalizedTexts.yesDelete.tr()
-                        : LocalizedTexts.manageSubscription.tr(),
+                        : LocalizedTexts.subscriptionManageSubscription.tr(),
                   )
                 ],
               ),
@@ -370,11 +370,11 @@ class ModalBottomSheet {
                           children: [
                             const SizedBox(height: 32.0),
                             Text(
-                              LocalizedTexts.deleteMultiDateMealModalMessage.tr(),
+                              LocalizedTexts.deleteMultiDateMealModalMessage.tr({
+                                'mealCategory': mealCategory,
+                              }),
                               style: Theme.of(context).textTheme.headlineSmall,
-                            ).tr(namedArgs: {
-                              'mealCategory': mealCategory,
-                            }),
+                            ),
                             const SizedBox(height: 8.0),
                             Text(
                               LocalizedTexts.deleteMultiDateMealModalExplain.tr(),
@@ -557,7 +557,7 @@ class ModalBottomSheet {
                 MainContainer(
                   child: TextWithAccents(
                     LocalizedTexts.mentalHealthMoreInfo.tr(
-                      namedArgs: {'appName': _appConfig.projectName},
+                      {'appName': _appConfig.projectName},
                     ),
                     accents: [
                       LocalizedTexts.mentalHealthMoreInfoBold1.tr(),
@@ -1033,8 +1033,8 @@ class ModalBottomSheet {
               const SizedBox(height: 20.0),
               CustomText.w600(
                 Platform.isAndroid
-                    ? LocalizedTexts.galeryPermissionsMessageAndroid.tr()
-                    : LocalizedTexts.galeryPermissionsMessage.tr(),
+                    ? LocalizedTexts.avatarGaleryPermissionsMessageAndroid.tr()
+                    : LocalizedTexts.avatarGaleryPermissionsMessage.tr(),
                 style: context.textTheme.bodyMedium,
               ),
               const SizedBox(height: 20.0),
@@ -1042,7 +1042,7 @@ class ModalBottomSheet {
                 padding: const EdgeInsets.symmetric(vertical: 20.0),
                 child: CustomElevatedButton.blueFullWidth(
                   onPressed: onGoToSettings,
-                  label: LocalizedTexts.goToAppSettings.tr(),
+                  label: LocalizedTexts.avatarGoToAppSettings.tr(),
                 ),
               ),
             ],
@@ -1172,9 +1172,9 @@ class ModalBottomSheet {
                   ListView.separated(
                     physics: const NeverScrollableScrollPhysics(),
                     shrinkWrap: true,
-                    itemCount: emergencyNumbersList.length,
+                    itemCount: emergencyList.length,
                     itemBuilder: (context, index) =>
-                        EmergencyNumberCard(number: emergencyNumbersList[index]),
+                        EmergencyNumberCard(number: emergencyList[index]),
                     separatorBuilder: (_, __) {
                       return const Divider(
                           thickness: 1.0, height: 1.0, color: AppColors.greyRegular);
@@ -1276,19 +1276,19 @@ class ModalBottomSheet {
                 ),
               ),
               Text(
-                date,
+                date.tr(),
                 textAlign: TextAlign.left,
                 style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                       color: AppColors.blueDark,
                       fontWeight: FontWeight.w600,
                     ),
-              ).tr(),
+              ),
               const SizedBox(height: 16.0),
               Text(
-                LocalizedTexts.youAlreadyPlanned.tr(),
+                LocalizedTexts.youAlreadyPlanned.tr(
+                  {'mealCategory': mealCategory},
+                ),
                 style: Theme.of(context).textTheme.bodyMedium,
-              ).tr(
-                namedArgs: {'mealCategory': mealCategory},
               ),
               const SizedBox(height: 16.0),
               AlreadyPlannedCard(
@@ -1302,7 +1302,7 @@ class ModalBottomSheet {
                 style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                       color: AppColors.blueDark,
                     ),
-              ).tr(),
+              ),
               if (newItem != null) const SizedBox(height: 16.0),
               if (newItem != null)
                 AlreadyPlannedCard(
@@ -1315,7 +1315,7 @@ class ModalBottomSheet {
                 onPressed: () {
                   onBtnPressed();
                 },
-                child: const Text(LocalizedTexts.yesReplace).tr(),
+                child: Text(LocalizedTexts.yesReplace.tr()),
               ),
             ],
           ),
@@ -1454,7 +1454,7 @@ class ModalBottomSheet {
                 ),
                 const SizedBox(height: 20.0),
                 CustomText.w600(
-                  LocalizedTexts.buddyFindAnotherBuddyLabel.tr(namedArgs: {"name": name}),
+                  LocalizedTexts.buddyFindAnotherBuddyLabel.tr({"name": name}),
                   style: context.textTheme.bodyMedium,
                 ),
                 const SizedBox(height: 20.0),
@@ -1641,12 +1641,12 @@ class ModalBottomSheet {
               ),
               const SizedBox(height: 24.0),
               CustomText.w600(
-                LocalizedTexts.guidancePracticeTitle.tr(),
+                LocalizedTexts.riverGuidancePracticeTitle.tr(),
                 style: context.textTheme.bodyMedium,
               ),
               const SizedBox(height: 20.0),
               CustomText.w400(
-                LocalizedTexts.guidancePracticeDescription.tr(),
+                LocalizedTexts.riverGuidancePracticeDescription.tr(),
                 style: context.textTheme.bodyMedium,
               ),
               const SizedBox(height: 20.0),
@@ -1701,12 +1701,12 @@ class ModalBottomSheet {
               ),
               const SizedBox(height: 24.0),
               CustomText.w600(
-                LocalizedTexts.guidanceProfileTitle.tr(),
+                LocalizedTexts.riverGuidanceProfileTitle.tr(),
                 style: context.textTheme.bodyMedium,
               ),
               const SizedBox(height: 20.0),
               CustomText.w400(
-                LocalizedTexts.guidanceProfileDescription.tr(),
+                LocalizedTexts.riverGuidanceProfileDescription.tr(),
                 style: context.textTheme.bodyMedium,
               ),
               const SizedBox(height: 20.0),
@@ -1754,12 +1754,12 @@ class ModalBottomSheet {
               ),
               const SizedBox(height: 24.0),
               CustomText.w600(
-                LocalizedTexts.guidanceCompletedTitle.tr(),
+                LocalizedTexts.riverGuidanceCompletedTitle.tr(),
                 style: context.textTheme.bodyMedium,
               ),
               const SizedBox(height: 20.0),
               CustomText.w400(
-                LocalizedTexts.guidanceCompletedDescription.tr(),
+                LocalizedTexts.riverGuidanceCompletedDescription.tr(),
                 style: context.textTheme.bodyMedium,
               ),
               const SizedBox(height: 20.0),
@@ -1794,12 +1794,12 @@ class ModalBottomSheet {
             children: [
               const SizedBox(height: 32.0),
               CustomText.w600(
-                LocalizedTexts.guidanceStartRiverTitle.tr(),
+                LocalizedTexts.riverGuidanceStartRiverTitle.tr(),
                 style: context.textTheme.bodyMedium,
               ),
               const SizedBox(height: 20.0),
               CustomText.w400(
-                LocalizedTexts.guidanceStartRiverDescription.tr(),
+                LocalizedTexts.riverGuidanceStartRiverDescription.tr(),
                 style: context.textTheme.bodyMedium,
               ),
               const SizedBox(height: 20.0),
@@ -1884,12 +1884,12 @@ class ModalBottomSheet {
               ),
               const SizedBox(height: 24.0),
               CustomText.w600(
-                LocalizedTexts.moduleCompletedTitle.tr(args: [currentModule]),
+                LocalizedTexts.riverModuleCompletedTitle.tr({'module': currentModule}),
                 style: context.textTheme.bodyMedium,
               ),
               const SizedBox(height: 20.0),
               CustomText.w400(
-                LocalizedTexts.moduleCompletedDescription.tr(args: [nextModule]),
+                LocalizedTexts.riverModuleCompletedDescription.tr({'nextModule': nextModule}),
                 style: context.textTheme.bodyMedium,
               ),
               const SizedBox(height: 20.0),
@@ -1937,12 +1937,12 @@ class ModalBottomSheet {
               ),
               const SizedBox(height: 24.0),
               CustomText.w600(
-                LocalizedTexts.moduleCompletedTitle.tr(args: [moduleTitle]),
+                LocalizedTexts.riverModuleCompletedTitle.tr({'module': moduleTitle}),
                 style: context.textTheme.bodyMedium,
               ),
               const SizedBox(height: 20.0),
               CustomText.w400(
-                LocalizedTexts.lastModuleCompletedDescription.tr(),
+                LocalizedTexts.riverLastModuleCompletedDescription.tr(),
                 style: context.textTheme.bodyMedium,
               ),
               const SizedBox(height: 20.0),

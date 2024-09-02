@@ -56,7 +56,8 @@ class SharedStorageService {
 
   int get privacyPolicyVersion => _prefs.getValue<int?>('privacy_policy_version') ?? 1;
 
-  set termsAndConditionsVersion(int value) => _prefs.setValue('terms_and_conditions_version', value);
+  set termsAndConditionsVersion(int value) =>
+      _prefs.setValue('terms_and_conditions_version', value);
 
   int get termsAndConditionsVersion => _prefs.getValue<int?>('terms_and_conditions_version') ?? 1;
 
@@ -66,6 +67,8 @@ class SharedStorageService {
 
   set account(Account? account) => setString('account', json.encode(account));
 
+  set localTranslations(String? translations) => setString('translations', translations ?? '');
+
   bool get isRiverOverviewVisited => _prefs.getValue<bool?>('river_overview_visited') ?? false;
 
   void riverOverviewVisited() {
@@ -74,8 +77,11 @@ class SharedStorageService {
     }
   }
 
-  Account? get account =>
-      containsKey('account') ? Account.fromJson(json.decode(getString('account') ?? '') as Map<String, dynamic>) : null;
+  String? get localTranslations => getString('translations');
+
+  Account? get account => containsKey('account')
+      ? Account.fromJson(json.decode(getString('account') ?? '') as Map<String, dynamic>)
+      : null;
 
   Future<bool> removeAccount() => _prefs.remove('account');
 
@@ -88,7 +94,9 @@ class SharedStorageService {
           list.add(e.query);
         }
       } else {
-        searchUser.data.list.where((entity) => entity.type == type).forEach((e) => list.add(e.query));
+        searchUser.data.list
+            .where((entity) => entity.type == type)
+            .forEach((e) => list.add(e.query));
       }
     }
     return list;

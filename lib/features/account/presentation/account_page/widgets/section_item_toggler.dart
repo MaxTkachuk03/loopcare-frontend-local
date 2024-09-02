@@ -1,4 +1,4 @@
-import 'package:easy_localization/easy_localization.dart';
+import 'package:loopcare_frontend/core/application/localization/localizer_extenstion.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
@@ -25,9 +25,9 @@ class SectionItemToggler extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
               Text(
-                title,
+                title.tr(),
                 style: Theme.of(context).textTheme.bodyMedium!.copyWith(fontWeight: FontWeight.w500),
-              ).tr(),
+              ),
             ],
           ),
         ),

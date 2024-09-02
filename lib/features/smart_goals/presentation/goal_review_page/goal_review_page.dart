@@ -1,5 +1,5 @@
 import 'package:auto_route/auto_route.dart';
-import 'package:easy_localization/easy_localization.dart';
+import 'package:loopcare_frontend/core/application/localization/localizer_extenstion.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loopcare_frontend/core/domain/like_unlike_options.dart';
@@ -96,7 +96,7 @@ class _GoalReviewPageState extends State<GoalReviewPage> {
   Widget build(BuildContext context) {
     return CustomScaffold.greenLightest(
       appBar: CustomAppBar.green(
-        title: LocalizedTexts.goalReview.tr(),
+        title: LocalizedTexts.smartGoalsGoalReview.tr(),
         leading: CustomFilledIconButton.leadingGreenLighter(),
         actions: const [
           ErrorInvokeButton(),
@@ -124,7 +124,7 @@ class _GoalReviewPageState extends State<GoalReviewPage> {
                         ),
                         const SizedBox(height: 25.0),
                         CustomText.bitter600(
-                          LocalizedTexts.wantToTryInFuture.tr(),
+                          LocalizedTexts.smartGoalsWantToTryInFuture.tr(),
                           style: context.textTheme.bodyLarge,
                         ),
                         const SizedBox(height: 25.0),
@@ -189,7 +189,7 @@ class _ScoreReviewWidget extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           CustomText.bitter600(
-            LocalizedTexts.howHardWasTheGoal.tr(),
+            LocalizedTexts.smartGoalsHowHardWasTheGoal.tr(),
             style: context.textTheme.bodyLarge,
           ),
           const SizedBox(height: 24.0),

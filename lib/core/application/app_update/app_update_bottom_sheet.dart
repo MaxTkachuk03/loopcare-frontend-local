@@ -1,6 +1,6 @@
 import 'dart:io';
 
-import 'package:easy_localization/easy_localization.dart';
+import 'package:loopcare_frontend/core/application/localization/localizer_extenstion.dart';
 import 'package:loopcare_frontend/build_type.dart';
 import 'package:loopcare_frontend/core/domain/url_constants.dart';
 import 'package:loopcare_frontend/core/infrastructure/services/app_config.dart';
@@ -52,9 +52,9 @@ class AppUpdateBottomSheet {
 
   static Future<void> _onAppUpdatePressed() => _launchInBrowser(_storeLink);
 
-  static void _onTermsAndConditionsTap() => _launchInBrowser(termsAndConditionsUrl);
+  static void _onTermsAndConditionsTap() => _launchInBrowser(LocalizedTexts.linksTermsAndConditionsUrl.tr());
 
-  static void _onPrivacyPolicyTap() => _launchInBrowser(privacyPolicyUrl);
+  static void _onPrivacyPolicyTap() => _launchInBrowser(LocalizedTexts.linksPrivacyPolicyUrl.tr());
 
   static void _onEmailTap() => _launchInBrowser(supportEmailMailTo);
 

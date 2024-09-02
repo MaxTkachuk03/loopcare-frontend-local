@@ -1,4 +1,4 @@
-import 'package:easy_localization/easy_localization.dart';
+import 'package:loopcare_frontend/core/application/localization/localizer_extenstion.dart';
 import 'package:flutter/material.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
@@ -49,7 +49,8 @@ class CalendarWeek extends StatelessWidget {
         width: 111,
         decoration: BoxDecoration(
           color: _getDayColor(),
-          borderRadius: const BorderRadius.only(topLeft: Radius.circular(6), topRight: Radius.circular(6)),
+          borderRadius:
+              const BorderRadius.only(topLeft: Radius.circular(6), topRight: Radius.circular(6)),
           boxShadow: const [
             BoxShadow(
               color: AppColors.darkGreen,
@@ -62,27 +63,23 @@ class CalendarWeek extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Text(
-              LocalizedTexts.capitalizeWeekWithNumber.tr(),
+              LocalizedTexts.capitalizeWeekWithNumber.tr({'number': weekNumber}),
               style: Theme.of(context).textTheme.bodySmall!.copyWith(
                     color: _getTextColor(),
                     fontWeight: FontWeight.w600,
                     fontSize: isSelected ? ThemeConstants.fontSize16 : ThemeConstants.fontSize14,
                   ),
-            ).tr(
-              namedArgs: {'number': weekNumber},
             ),
             Text(
-              LocalizedTexts.weekDates.tr(),
+              LocalizedTexts.weekDates.tr({
+                'from': fromDate,
+                'to': toDate,
+                'month': month,
+              }),
               style: Theme.of(context).textTheme.bodySmall!.copyWith(
                     color: _getTextColor(),
                     fontWeight: FontWeight.w400,
                   ),
-            ).tr(
-              namedArgs: {
-                'from': fromDate,
-                'to': toDate,
-                'month': month,
-              },
             ),
           ],
         ),

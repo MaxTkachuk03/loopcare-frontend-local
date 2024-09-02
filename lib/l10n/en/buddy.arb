@@ -1,0 +1,72 @@
+{
+  "@@locale": "en",
+  "title": "Buddy",
+  "buddy": "buddy",
+  "unlocked": "Buddy unlocked",
+  "unlockedBody": "You can start to find a Buddy in the profile section.",
+  "goToPreferences": "Go to Buddy preferences",
+  "introTitle": "Find your Buddy",
+  "descriptionTitle": "How to find a Buddy?",
+  "introBody": "With a Buddy at your side not only are you more likely to stick to your goals, but also have someone to share your journey and make it more enjoyable. \n\nTo stay on track, a buddy is strongly recommended. This is especially the case if you also want to join a support group. Make your social network as strong as possible.",
+  "introYesBtn": "Yes, I’d like to have buddy support",
+  "introNoBtn": "I may do this later",
+  "descriptionContent": "It’s great that you want to share your journey! \nBut how do you actually find a Buddy? \n\nConsider testing the waters by talking to people about being a Buddy in your immediate social circle. \n\nHere are a few things that you can mention when talking to a friend that is interested: \n\u2022 the role a Buddy has in your journey\n\u2022 what you would need from a Buddy and discuss boundaries for your potential Buddy relationship\n\u2022 as a Buddy, they would gain access to the Buddy Network to help them learn about the best way to provide support\n\nThe previous lesson “Finding a Buddy” can also provide some insight on how to go about this. \n\nOnce you have found a loved one that is open to joining you, go to your profile and fill out the Buddy preferences. Once completed, your friend will receive an invitation to join the Buddy Network. \n\n",
+  "preferences": "Buddy preferences",
+  "noPreferencesState": "Would you like to add a Buddy?",
+  "completed": "Buddy preferences\ncompleted",
+  "completedContent": "Your Buddy will receive an invite shortly. We will notify you once your Buddy has responded.",
+  "liveTogetherTitle": "Do you live together with your Buddy?",
+  "relationTitle": "How is your Buddy related to you?",
+  "emailTitle": "What is your Buddy’s email address?",
+  "emailLabel": "We will invite your Buddy to share in your journey via this email address.",
+  "emailHint": "Buddy email address",
+  "partner": "Husband or wife",
+  "child": "child",
+  "parent": "parent",
+  "family": "family",
+  "friend": "friend",
+  "pendingTitle": "We’ve sent an invite to your Buddy",
+  "pendingSubTitle": "We sent this invite on\n{date} at {time}.\n\nWe will notify you once your Buddy has responded.",
+  "@pendingSubTitle": {
+    "description": "Subtitle showing the invite details and notification message",
+    "placeholders": {
+      "date": {
+        "description": "The date when the invite was sent",
+        "type": "String"
+      },
+      "time": {
+        "description": "The time when the invite was sent",
+        "type": "String"
+      }
+    }
+  },
+  "rejectTitle": "Your Buddy did not accept the invite",
+  "rejectSubTitle": "Unfortunately, your friend cannot join you on your journey. There can be many different reasons why they couldn’t join you, but don’t let this discourage you! Try to find another Buddy.\n\nPlease talk to friends and loved ones about whether they are open to being your Buddy before you send the next invite. \n\nAre you having trouble finding a Buddy? The article “Finding a Buddy” can provide some insight on how to approach this topic with others.\n\nYou can easily invite another person to share in your journey.",
+  "notAvailableTitle": "Your Buddy is no longer able to support you",
+  "notAvailableSubTitle": "Unfortunately, your current Buddy cannot be there to support you in the way that a Buddy does. \n\nNo need to worry, there is another Buddy out there. Talk to your close friends and ask around whether one of them would like to join you.\n\nThe education lesson “Finding a Buddy” can also help you to find a new Buddy. \n\nYou can easily invite another person to share in your journey.",
+  "resendInvitation": "Resend invitation",
+  "inviteAnotherBuddy": "Invite another buddy",
+  "findAnotherBuddyContent": "Please note: if you do want a new Buddy. your current Buddy will be notified that you have made this request.",
+  "findAnotherBuddy": "Yes, I want another buddy",
+  "notNeedAnotherBuddy": "No, I would like to keep this buddy",
+  "email": "Buddy email",
+  "userName": "Buddy username",
+  "since": "Buddy since",
+  "removeInvite": "Remove invite",
+  "removeBuddy": "Remove buddy",
+  "inviteBuddy": "Invite buddy",
+  "findAnotherBuddyLabel": "Are you sure that you want to remove {name} as your current Buddy?",
+  "@findAnotherBuddyLabel": {
+    "description": "This is name of buddy.",
+    "placeholders": {
+      "name": {
+        "type": "String",
+        "example": "John"
+      }
+    },
+    "type": "text"
+  },
+  "findAnotherBuddyContentOne": "We believe in our Buddy program and recommend keeping your buddy or inviting someone else who can offer you better encouragement.",
+  "findAnotherBuddyContentTwo": "Please note: if you do want a new Buddy. your current Buddy will be notified that you have made this request."
+
+}

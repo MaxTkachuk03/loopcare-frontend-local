@@ -1,5 +1,5 @@
 import 'package:auto_route/auto_route.dart';
-import 'package:easy_localization/easy_localization.dart';
+import 'package:loopcare_frontend/core/application/localization/localizer_extenstion.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loopcare_frontend/core/presentation/alerting/show_app_snackbar.dart';
@@ -60,7 +60,7 @@ class _BuddyEmailPageState extends State<BuddyEmailPage> {
         color: AppColors.blueLightest,
         appBar: CustomAppBar.blue(
           title: LocalizedTexts.buddyPreferences.tr(),
-          subtitle: LocalizedTexts.stepCounter.tr(args: ['3', '3']),
+          subtitle: LocalizedTexts.stepCounter.tr({'currentStep': 3, 'totalSteps': 3}),
           leading: CustomFilledIconButton.leadingBlueLighter(),
           bottom: const PreferredSize(
             preferredSize: Size.fromHeight(72),

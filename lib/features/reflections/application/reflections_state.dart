@@ -24,7 +24,7 @@ class ReflectionsStateData with _$ReflectionsStateData {
   }) = _ReflectionsStateData;
 
   bool hasReflectionsForCurrentWeek(DateTime selectedDay) {
-    return getSelectedWeekReflections(selectedDay).isNotEmpty;
+    return getSelectedWeekUndoneReflections(selectedDay).isNotEmpty;
   }
 
   List<Reflection> getSelectedWeekReflections(DateTime selectedDay) {

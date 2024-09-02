@@ -1,7 +1,7 @@
 import 'dart:io';
 
 import 'package:auto_route/annotations.dart';
-import 'package:easy_localization/easy_localization.dart';
+import 'package:loopcare_frontend/core/application/localization/localizer_extenstion.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:loopcare_frontend/core/presentation/app_bar/custom_app_bar.dart';

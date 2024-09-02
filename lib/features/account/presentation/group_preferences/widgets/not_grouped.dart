@@ -1,10 +1,11 @@
 import 'package:auto_route/auto_route.dart';
-import 'package:easy_localization/easy_localization.dart';
+import 'package:loopcare_frontend/core/application/localization/localizer_extenstion.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loopcare_frontend/core/presentation/icon_images/app_icons.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/core/presentation/routes/app_router.gr.dart';
+import 'package:loopcare_frontend/core/presentation/text/custom_text.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 import 'package:loopcare_frontend/core/presentation/utils/string_extensions.dart';
 import 'package:loopcare_frontend/features/account/application/group_preferences_bloc.dart';
@@ -28,7 +29,7 @@ class NotGrouped extends StatelessWidget {
                 child: Row(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Expanded(child: const Text(LocalizedTexts.wouldYouLikeToJoinSupportGroup).tr()),
+                    Expanded(child: CustomText(LocalizedTexts.wouldYouLikeToJoinSupportGroup.tr())),
                     const ImageIcon(
                       AppIcons.arrow,
                       color: AppColors.greyLabel,
@@ -42,10 +43,10 @@ class NotGrouped extends StatelessWidget {
                 return state.maybeWhen(
                   orElse: () => const SizedBox.shrink(),
                   updated: (s) {
-                    return Text(
-                      s.wouldLikeJoinGroup?.name.capitalize() ?? '',
+                    return CustomText(
+                      s.wouldLikeJoinGroup?.name.tr().capitalize() ?? '',
                       style: Theme.of(context).textTheme.headlineSmall,
-                    ).tr();
+                    );
                   },
                 );
               }),
@@ -58,8 +59,8 @@ class NotGrouped extends StatelessWidget {
 
   _onPressed(BuildContext context) {
     context
-      ..read<GroupPreferencesBloc>()
-          .add(const GroupPreferencesEvent.changeGroupPrefsMode(GroupPrefsMode.groupPreferencesFlow))
+      ..read<GroupPreferencesBloc>().add(
+          const GroupPreferencesEvent.changeGroupPrefsMode(GroupPrefsMode.groupPreferencesFlow))
       ..router.push(JoinGroupPreferencesRoute(fromLessonComplete: false));
   }
 }

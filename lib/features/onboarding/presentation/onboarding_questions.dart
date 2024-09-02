@@ -1,5 +1,5 @@
 import 'package:auto_route/auto_route.dart';
-import 'package:easy_localization/easy_localization.dart';
+import 'package:loopcare_frontend/core/application/localization/localizer_extenstion.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loopcare_frontend/core/domain/account/sex_type.dart';
@@ -24,7 +24,8 @@ class OnboardingQuestionsPage extends StatefulWidget {
   State<OnboardingQuestionsPage> createState() => _OnboardingQuestionsPageState();
 }
 
-class _OnboardingQuestionsPageState extends State<OnboardingQuestionsPage> with WidgetsBindingObserver {
+class _OnboardingQuestionsPageState extends State<OnboardingQuestionsPage>
+    with WidgetsBindingObserver {
   @override
   void didChangeAppLifecycleState(AppLifecycleState state) {
     super.didChangeAppLifecycleState(state);
@@ -67,7 +68,7 @@ class _OnboardingQuestionsPageState extends State<OnboardingQuestionsPage> with 
           String subtitle = '';
           if (state.hasSubtitle) {
             subtitle = LocalizedTexts.stepCounter.tr(
-              args: [state.stepIndex.toString(), state.stepCount.toString()],
+              {'currentStep': state.stepIndex, 'totalSteps': state.stepCount},
             );
           }
 

@@ -13,8 +13,9 @@ final BuildContext kOverlayContext = kNavigatorKey.currentState!.overlay!.contex
 class AppConfig {
   String get projectName => 'LeanOnMe';
 
-  String get baseUrl =>
-      CountryCodeService.instance.useUsServer ? dotenv.env['BASE_URL'] ?? "" : dotenv.env['BASE_URL_EU'] ?? "";
+  String get baseUrl => CountryCodeService.instance.useUsServer
+      ? dotenv.env['BASE_URL'] ?? ""
+      : dotenv.env['BASE_URL_EU'] ?? "";
 
   String get region => CountryCodeService.instance.localRegion;
 

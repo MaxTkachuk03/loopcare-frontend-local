@@ -1,4 +1,4 @@
-import 'package:easy_localization/easy_localization.dart';
+import 'package:loopcare_frontend/core/application/localization/localizer_extenstion.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loopcare_frontend/core/presentation/clippers/education_clipper.dart';
@@ -75,7 +75,11 @@ class SessionCard extends StatelessWidget {
                     const SizedBox(height: 10.0),
                     if (state.data.isSigned)
                       CustomText.w400(
-                        LocalizedTexts.dayFromTo.tr(args: [day, startTime, endTime]),
+                        LocalizedTexts.dayFromTo.tr( {
+                          'day': day,
+                          'startTime': startTime,
+                          'endTime': endTime,
+                        },),
                         style: context.textTheme.bodySmall,
                       ),
                     const SizedBox(height: 10.0),

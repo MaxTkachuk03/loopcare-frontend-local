@@ -1,0 +1,11 @@
+# Comment arb-dir: lib/l10n when run flutter gen-l10n
+# or
+#flutter pub run crowdin_sdk:gen
+#use  only for flutter pub run split_intl:generate
+#arb-dir: lib/l10n
+synthetic-package: false
+nullable-getter: false
+template-arb-file: app_en.arb
+output-dir: lib/core/application/localization
+output-localization-file: app_localizations.dart
+#output-class: Localizer

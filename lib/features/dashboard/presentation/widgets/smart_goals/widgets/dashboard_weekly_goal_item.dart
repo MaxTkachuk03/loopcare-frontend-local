@@ -1,5 +1,5 @@
 import 'package:auto_route/auto_route.dart';
-import 'package:easy_localization/easy_localization.dart';
+import 'package:loopcare_frontend/core/application/localization/localizer_extenstion.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -204,8 +204,9 @@ class _LeftDaysWidget extends StatelessWidget {
           ),
           BlocBuilder<SmartGoalsBloc, SmartGoalsState>(
             builder: (context, state) {
-              final days =
-                  readyForReview ? LocalizedTexts.weeklyDaysReview.tr() : _getSubTitle(state);
+              final days = readyForReview
+                  ? LocalizedTexts.smartGoalsWeeklyDaysReview.tr()
+                  : _getSubTitle(state);
               if (days.isNotEmpty) {
                 return CustomText.w400(
                   days,
@@ -226,13 +227,11 @@ class _LeftDaysWidget extends StatelessWidget {
       return '';
     }
     if (session.hasActiveSession) {
-      if (session.daysLeft > 1) {
-        return LocalizedTexts.weeklyDaysLeft.tr(
-          args: [(session.daysLeft + 1).toString()],
-        );
-      } else if (session.daysLeft == 1 || session.daysLeft == 0) {
-        return LocalizedTexts.weeklyDayLeft.tr();
-      }
+      return LocalizedTexts.smartGoalsWeeklyDaysLeft.getPlural(
+        args: {
+          'count': (session.daysLeft == 1 || session.daysLeft == 0) ? 1 : session.daysLeft + 1
+        },
+      );
     }
     return '';
   }

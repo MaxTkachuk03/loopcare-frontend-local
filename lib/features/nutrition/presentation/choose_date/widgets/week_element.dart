@@ -1,4 +1,4 @@
-import 'package:easy_localization/easy_localization.dart';
+import 'package:loopcare_frontend/core/application/localization/localizer_extenstion.dart';
 import 'package:flutter/material.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
@@ -26,14 +26,12 @@ class WeekElement extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.only(right: 16.0),
               child: Text(
-                LocalizedTexts.weekWithNumber,
+                LocalizedTexts.weekWithNumber.tr({'number': weekNumber}),
                 style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                       fontSize: ThemeConstants.fontSize12,
                       fontWeight: FontWeight.w600,
                       color: AppColors.darkGreen,
                     ),
-              ).tr(
-                namedArgs: {'number': weekNumber},
               ),
             ),
             const Expanded(

@@ -1,4 +1,4 @@
-import 'package:easy_localization/easy_localization.dart';
+import 'package:loopcare_frontend/core/application/localization/localizer_extenstion.dart';
 import 'package:flutter/material.dart';
 import 'package:loopcare_frontend/core/domain/emergency_numbers/emergency_number_data.dart';
 import 'package:loopcare_frontend/core/presentation/alerting/show_app_snackbar.dart';

@@ -1,5 +1,6 @@
 import 'package:auto_route/auto_route.dart';
-import 'package:easy_localization/easy_localization.dart';
+
+import 'package:loopcare_frontend/core/application/localization/localizer_extenstion.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:loopcare_frontend/core/infrastructure/services/app_config.dart';
@@ -46,9 +47,7 @@ class IntroPage extends StatelessWidget {
                 ),
                 const SizedBox(height: 28.0),
                 CustomText.bitter600(
-                  '${LocalizedTexts.introTitle.tr(namedArgs: {
-                        'projectName': _appConfig.projectName
-                      })}!',
+                  '${LocalizedTexts.introTitle.tr({'projectName': _appConfig.projectName})}!',
                   style: context.textTheme.displayLarge,
                   textAlign: TextAlign.center,
                 ),
@@ -56,6 +55,7 @@ class IntroPage extends StatelessWidget {
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 24.0),
                   child: CustomText.w400(
+                    // '${LocalizedTexts.groupChatLabel.getPlural(args: {'users':0}, countPlaceholderName:'users')}.',
                     '${LocalizedTexts.introBodyTextFirst.tr()}.',
                     style: context.textTheme.bodyMedium,
                     textAlign: TextAlign.center,

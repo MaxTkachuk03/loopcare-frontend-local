@@ -1,0 +1,22 @@
+{
+  "@@locale": "en",
+  "title": "Welcome to {projectName}",
+  "@title": {
+    "description": "This is a welcome message.",
+    "placeholders": {
+      "projectName": {
+        "type": "String",
+        "example": "LeanOnMe"
+      }
+    },
+    "type": "text"
+  },
+  "bodyTextFirst": "This program is specifically designed for people living with overweight and obesity that want to sustainably lose weight and change their lifestyle.",
+  "bodyTextSecond": "If this description fits you, let’s start your journey",
+  "2Title": "It’s time to embrace a new you",
+  "2BodyTextFirst": "Great to see that you want to join the LeanOnMe community",
+  "2BodyTextSecond": "Let’s start with some basics, like your name and email address",
+  "3Title": "Congratulations",
+  "3BodyTextFirst": "You have just taken the first step to embracing your true self",
+  "3BodyTextSecond": "To check if the program is suitable for you and your needs, please answer the upcoming questions regarding your physical, medical and mental health"
+}
