@@ -5,7 +5,6 @@ import 'package:loopcare_frontend/core/presentation/localization/localized_texts
 import 'package:loopcare_frontend/features/subscription/domain/sku_product.dart';
 import 'package:loopcare_frontend/features/subscription/domain/subscription_image_data.dart';
 import 'package:loopcare_frontend/features/subscription/domain/subscription_translation.dart';
-import 'package:loopcare_frontend/core/infrastructure/services/country_code_service/country_code_service.dart';
 
 class PurchasableProduct {
   final bool showBadge;
@@ -28,12 +27,8 @@ class PurchasableProduct {
 
   String get roundPrice => details.rawPrice.toStringAsFixed(2);
 
-  String get priceWithCurrency => CountryCodeService.instance.useUsServer
-      ? ''
-      : (currency == '\$' || currency == '£')
-      ? '$currency$roundPrice'
-      : '$roundPrice$currency';
-
+  String get priceWithCurrency =>
+      (_currency == '\$' || _currency == '£') ? '$_currency$roundPrice' : '$roundPrice$_currency';
 
   String get description => isOfferEligible ? _descriptionOffer : _descriptionRegular;
 
