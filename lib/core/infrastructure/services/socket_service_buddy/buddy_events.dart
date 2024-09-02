@@ -7,4 +7,5 @@ class BuddySocketEvents {
   static const String buddyRejectInvite = 'BUDDY_REJECTED_INVITE';
   static const String buddyLeft = 'BUDDY_LEFT';
   static const String buddyAcceptedInvite = 'BUDDY_ACCEPTED_INVITE';
+  static const String buddyInvitationExpired = 'INVITATION_EXPIRED';
 }

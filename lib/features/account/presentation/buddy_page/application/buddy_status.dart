@@ -3,6 +3,7 @@ enum BuddyStatus {
   rejected,
   approved,
   left,
+  expired,
 }
 
 extension BuddyStatusExtension on BuddyStatus? {
@@ -14,7 +15,5 @@ extension BuddyStatusExtension on BuddyStatus? {
 
   bool get isLeft => this == BuddyStatus.left;
 
-  bool get isRejectedOrLeft => this != null
-      && this != BuddyStatus.invited
-      && this != BuddyStatus.approved;
+  bool get isExpired => this == BuddyStatus.expired;
 }
