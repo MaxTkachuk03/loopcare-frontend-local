@@ -59,8 +59,9 @@ class _AppState extends State<_App> {
 
   Future<void> _initializeCrowdin() async {
     await loadLocalLocalizations();
-    Crowdin.loadTranslations(currentLocale)
-        .then((value) => log.i('devcpp LOADED CROWDIN: ${currentLocale.languageCode}'));
+    await Crowdin.loadTranslations(currentLocale);
+
+    log.i('Current locale: ${currentLocale.languageCode}', error: 'CROWDIN');
   }
 
   @override
@@ -88,9 +89,7 @@ class _AppState extends State<_App> {
                 ],
               ),
               routeInformationParser: _appRouter.defaultRouteParser(),
-              localizationsDelegates: const [
-                ...CrowdinLocalization.localizationsDelegates,
-              ],
+              localizationsDelegates: CrowdinLocalization.localizationsDelegates,
               supportedLocales: AppLocalizations.supportedLocales,
               locale: currentLocale,
             ),
