@@ -32,6 +32,11 @@ class AppSyncService {
     ..add(const AppSyncEvent.showProfileNotificationBadge())
     ..add(const AppSyncEvent.refreshAccount());
 
+  void buddyInvitationExpired() => _streamController
+    ..add(const AppSyncEvent.refreshActualRiverModule())
+    ..add(const AppSyncEvent.showProfileNotificationBadge())
+    ..add(const AppSyncEvent.refreshAccount());
+
   void refreshChatMessages() => _streamController
     .add(const AppSyncEvent.refreshChatMessages());
 
