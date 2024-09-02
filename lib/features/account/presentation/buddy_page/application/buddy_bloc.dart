@@ -86,7 +86,7 @@ class BuddyBloc extends Bloc<BuddyEvent, BuddyState> {
 
     response.fold(
       (l) => emit(BuddyState.error(state.data.copyWith(error: l, isLoading: false))),
-      (r) => emit(BuddyState.gotBuddy(state.data.copyWith(isLoading: false))),
+      (r) => emit(BuddyState.invited(state.data.copyWith(isLoading: false))),
     );
   }
 
