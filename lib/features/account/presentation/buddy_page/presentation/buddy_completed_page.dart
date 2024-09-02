@@ -15,17 +15,12 @@ import 'package:loopcare_frontend/core/presentation/utils/build_context_extensio
 import 'package:loopcare_frontend/core/presentation/widgets/main_container.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/scrollable_container.dart';
 import 'package:loopcare_frontend/features/account/presentation/account_page/widgets/account_container.dart';
-import 'package:loopcare_frontend/features/account/presentation/buddy_page/application/buddy_bloc.dart';
-import 'package:provider/provider.dart';
 
 @RoutePage()
 class BuddyCompletedPage extends StatelessWidget {
   const BuddyCompletedPage({super.key});
 
-  void _onNextHandler(BuildContext context) {
-    context.read<BuddyBloc>().add(const BuddyEvent.inviteBuddy());
-    context.router.popUntilRouteWithName(HomeRoute.name);
-  }
+  void _onNextHandler(BuildContext context) => context.router.popUntilRouteWithName(HomeRoute.name);
 
   @override
   Widget build(BuildContext context) {

@@ -623,7 +623,6 @@ class LocalizedTexts {
   static const String subscriptionAnnually = 'subscriptionAnnually';
   static const String subscriptionDescriptionLabel = 'subscriptionDescriptionLabel';
 
-
   // Quizzes
   static const String quiz = "quiz";
   static const String letsGo = "letsGo";
@@ -2322,6 +2321,7 @@ class LocalizedTexts {
   static const String errorBuddyRegistrationTokenExpired = 'errorBuddyRegistrationTokenExpired';
   static const String errorBuddyRegistrationTokenInvalid = 'errorBuddyRegistrationTokenInvalid';
   static const String errorBuddyInvitationTokenExpired = 'errorBuddyInvitationTokenExpired';
+  static const String errorBuddyInvitationBuddyOccupied = 'errorBuddyInvitationBuddyOccupied';
   static const String errorBuddyInvitationTokenInvalid = 'errorBuddyInvitationTokenInvalid';
   static const String errorBuddyInvitationEmailInvalid = 'errorBuddyInvitationEmailInvalid';
   static const String errorBuddyInvitationNotFound = 'errorBuddyInvitationNotFound';
