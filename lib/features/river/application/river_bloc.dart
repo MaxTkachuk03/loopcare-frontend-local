@@ -115,6 +115,10 @@ class RiverBloc extends Bloc<RiverEvent, RiverState> {
         crossModuleItems,
       );
 
+      modules = _migrateTheBeginningModuleItems(
+        responseModule,
+      );
+
       final activeModuleItem = event.removeActiveItem ? null : state.data.activeModuleItem;
 
       emit(
@@ -513,6 +517,29 @@ class RiverBloc extends Bloc<RiverEvent, RiverState> {
     }
 
     return modules;
+  }
+
+  List<RiverModule> _migrateTheBeginningModuleItems(
+    RiverModule module,
+  ) {
+    final oldModule = state.data.modules.firstOrNull;
+    final newRootItem = module.moduleItems.firstWhereOrNull((i) => i.isRootItem);
+    final oldRootItem = oldModule?.moduleItems.firstWhereOrNull((i) => i.isRootItem);
+    final saveOldRootItem = module.id == oldModule?.id &&
+        newRootItem != null &&
+        oldRootItem != null &&
+        oldRootItem.states.itemState.isCompleted &&
+        newRootItem.states.itemState.isRead;
+
+    if (saveOldRootItem) {
+      final updatedModule = module.copyWith(
+        moduleItems: module.moduleItems.map((i) => i.isRootItem ? oldRootItem : i).toList(),
+      );
+
+      return _updateModule(updatedModule);
+    } else {
+      return _updateModule(module);
+    }
   }
 
   List<RiverModule> _migrateCrossModuleItems(
