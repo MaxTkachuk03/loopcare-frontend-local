@@ -1,5 +1,5 @@
 import 'package:auto_route/auto_route.dart';
-import 'package:easy_localization/easy_localization.dart';
+import 'package:loopcare_frontend/core/application/localization/localizer_extenstion.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
@@ -169,7 +169,7 @@ class ProgramCard extends StatelessWidget {
                       ),
                     ),
                     CustomText.w400(
-                      LocalizedTexts.equipment.tr(namedArgs: {
+                      LocalizedTexts.equipment.tr({
                         'equipment': program.equipment,
                       }),
                       maxLines: 2,
@@ -178,7 +178,7 @@ class ProgramCard extends StatelessWidget {
                           ?.copyWith(fontSize: ThemeConstants.fontSize12),
                     ),
                     CustomText.w400(
-                      LocalizedTexts.targetMuscles.tr(namedArgs: {
+                      LocalizedTexts.targetMuscles.tr({
                         'targetMuscles': program.targetMuscles,
                       }),
                       overflow: TextOverflow.ellipsis,

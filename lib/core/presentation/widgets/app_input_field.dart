@@ -1,5 +1,5 @@
 // Flutter imports:
-import 'package:easy_localization/easy_localization.dart';
+import 'package:loopcare_frontend/core/application/localization/localizer_extenstion.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:loopcare_frontend/core/presentation/text_field/custom_text_field.dart';

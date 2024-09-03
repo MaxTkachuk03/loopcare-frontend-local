@@ -1,5 +1,5 @@
 import 'package:auto_route/auto_route.dart';
-import 'package:easy_localization/easy_localization.dart';
+import 'package:loopcare_frontend/core/application/localization/localizer_extenstion.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -154,13 +154,17 @@ class _LoginFormState extends State<LoginForm> {
   }
 
   void _onRiverModulesLoaded(RiverState state) {
-    if (!state.data.isBeginningComplete) {
-      context.read<NavigationBarBloc>().add(
-            NavigationBarEvent.setBeginningUncompleted(
-              isPracticeOpened: state.data.isPracticeCompleted,
-              isProfileOpened: state.data.isProfileCompleted,
-            ),
-          );
+    final navigationBarBloc = context.read<NavigationBarBloc>();
+
+    if (!state.data.isBeginningComplete ||
+        !navigationBarBloc.state.data.isProfileOpen ||
+        !navigationBarBloc.state.data.isPracticeOpen) {
+      navigationBarBloc.add(
+        NavigationBarEvent.setBeginningUncompleted(
+          isPracticeOpened: state.data.isPracticeCompleted,
+          isProfileOpened: state.data.isProfileCompleted,
+        ),
+      );
     }
 
     String route = AppRoutes.home;

@@ -1,4 +1,4 @@
-import 'package:easy_localization/easy_localization.dart';
+import 'package:loopcare_frontend/core/application/localization/localizer_extenstion.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loopcare_frontend/core/presentation/buttons/custom_outlined_button.dart';
@@ -28,7 +28,7 @@ class BuddyInvitationPending extends StatelessWidget {
               final date = _getDate(state.data.buddy?.invitation?.invitationDate);
               return CustomText.w400(
                 LocalizedTexts.buddyPendingSubTitle.tr(
-                  namedArgs: {
+                  {
                     if (date != null) 'date': '${date.weekdayString} ${date.shortDateWithYear}',
                     if (date != null) 'time': date.timeHoursMinutes
                   },

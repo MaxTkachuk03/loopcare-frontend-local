@@ -1,5 +1,5 @@
 import 'package:auto_route/auto_route.dart';
-import 'package:easy_localization/easy_localization.dart';
+import 'package:loopcare_frontend/core/application/localization/localizer_extenstion.dart';
 import 'package:flutter/material.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/core/presentation/routes/app_router.dart';
@@ -15,9 +15,9 @@ class SubscriptionSection extends StatelessWidget {
     return AccountContainer(
       child: Column(
         children: [
-          SectionTitle(title: LocalizedTexts.subscription.tr()),
+          SectionTitle(title: LocalizedTexts.subscriptionSubscription.tr()),
           SectionItem(
-            title: LocalizedTexts.manageSubscription.tr(),
+            title: LocalizedTexts.subscriptionManageSubscription.tr(),
             onPressHandler: () => context.router.pushNamed(AppRoutes.manageSubscription),
           ),
           const SizedBox(height: 16.0),

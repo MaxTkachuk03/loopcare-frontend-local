@@ -1,6 +1,6 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:dio/dio.dart';
-import 'package:easy_localization/easy_localization.dart';
+import 'package:loopcare_frontend/core/application/localization/localizer_extenstion.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loopcare_frontend/core/infrastructure/services/image_helper/image_helper.dart';
@@ -105,7 +105,7 @@ class _SelectAvatarPageState extends State<SelectAvatarPage> {
   }
 
   void _onErrorUploadAvatar(AuthenticationState s) {
-    context.showError(content: CustomText(s.data.errorKey.tr()));
+    context.showError(content: CustomText(s.data.error?.message ?? ''));
   }
 
   void _onAvatarUploaded(_) {
@@ -122,7 +122,7 @@ class _SelectAvatarPageState extends State<SelectAvatarPage> {
     return CustomScaffold.blue(
       appBar: CustomAppBar.blue(
         leading: CustomFilledIconButton.leadingBlueLighter(),
-        title: LocalizedTexts.avatar.tr(),
+        title: LocalizedTexts.avatarAvatar.tr(),
       ),
       body: BlocListener<AuthenticationBloc, AuthenticationState>(
         listener: _avatarUpdateListener,
@@ -139,7 +139,7 @@ class _SelectAvatarPageState extends State<SelectAvatarPage> {
                         child: Column(
                           children: [
                             CustomText.bitter600(
-                              LocalizedTexts.selectProfilePicture.tr(),
+                              LocalizedTexts.avatarSelectProfilePicture.tr(),
                               style: context.textTheme.headlineSmall,
                             ),
                             Padding(
@@ -158,7 +158,7 @@ class _SelectAvatarPageState extends State<SelectAvatarPage> {
                             ),
                             const Divider(height: 34.0, thickness: 1, color: AppColors.blueLighter),
                             CustomText.w400(
-                              LocalizedTexts.chooseYourAvatar.tr(),
+                              LocalizedTexts.avatarChooseYourAvatar.tr(),
                               style: context.textTheme.bodyMedium,
                             ),
                             AvatarsList(controller: _controller),

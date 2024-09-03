@@ -1,46 +1,51 @@
+import 'package:loopcare_frontend/core/application/localization/localizer_extenstion.dart';
 import 'package:loopcare_frontend/core/domain/emergency_numbers/emergency_number_data.dart';
+import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 
-List<EmergencyNumberData> emergencyNumbersList = [
-  const EmergencyNumberData(
+List<EmergencyNumberData> _emergencyNumbersList = [
+  EmergencyNumberData(
     type: EmergencyNumberType.phone,
-    title: 'Emergency assistance: (call or text)',
-    number: '911',
-    btnTxt: '911',
+    title: LocalizedTexts.emergencyAssistanceTitle.tr(),
+    number: LocalizedTexts.emergencyAssistanceNumber.tr(),
+    btnTxt: LocalizedTexts.emergencyAssistanceLabel.tr(),
   ),
-  const EmergencyNumberData(
+  EmergencyNumberData(
     type: EmergencyNumberType.phone,
-    title: 'U.S suicide and crisis lifeline (call or text)',
-    number: '988',
-    btnTxt: '988',
+    title: LocalizedTexts.emergencyUsLifelineTitle.tr(),
+    number: LocalizedTexts.emergencyUsLifelineTitleNumber.tr(),
+    btnTxt: LocalizedTexts.emergencyUsLifelineTitleLabel.tr(),
   ),
-  const EmergencyNumberData(
+  EmergencyNumberData(
     type: EmergencyNumberType.messenger,
-    title: 'Lifeline Crisis Chat',
-    number: 'https://988lifeline.org/chat',
-    btnTxt: 'Live messenger',
+    title: LocalizedTexts.emergencyCrisisChatTitle.tr(),
+    number: LocalizedTexts.emergencyCrisisChatUrl.tr(),
+    btnTxt: LocalizedTexts.emergencyCrisisChatLabel.tr(),
   ),
-  const EmergencyNumberData(
+  EmergencyNumberData(
     type: EmergencyNumberType.phone,
-    title: 'Self-harm Line',
-    number: '1-800-366-8288',
-    btnTxt: '1-800-366-8288',
+    title: LocalizedTexts.emergencySelfHarmLineTitle.tr(),
+    number: LocalizedTexts.emergencySelfHarmLineNumber.tr(),
+    btnTxt: LocalizedTexts.emergencySelfHarmLineLabel.tr(),
   ),
-  const EmergencyNumberData(
+  EmergencyNumberData(
     type: EmergencyNumberType.phone,
-    title: 'LGBTQ Youth Suicide Hotline (Trevor Project)',
-    number: '1-866-488-786',
-    btnTxt: '1-866-488-786',
+    title: LocalizedTexts.emergencyLGBTQLineTitle.tr(),
+    number: LocalizedTexts.emergencyLGBTQLineNumber.tr(),
+    btnTxt: LocalizedTexts.emergencyLGBTQLineLabel.tr(),
   ),
-  const EmergencyNumberData(
+  EmergencyNumberData(
     type: EmergencyNumberType.phone,
-    title: 'National Crisis Hotline (Anorexia & Bulimia)',
-    number: '1-800-233-4357',
-    btnTxt: '1-800-233-4357',
+    title: LocalizedTexts.emergencyNationalHotlineTitle.tr(),
+    number: LocalizedTexts.emergencyNationalHotlineNumber.tr(),
+    btnTxt: LocalizedTexts.emergencyNationalHotlineLabel.tr(),
   ),
-  const EmergencyNumberData(
+  EmergencyNumberData(
     type: EmergencyNumberType.messenger,
-    title: 'Veterans Line',
-    number: 'https://veteranscrisisline.net/',
-    btnTxt: 'Veterans Line',
+    title: LocalizedTexts.emergencyVeteransLineTitle.tr(),
+    number: LocalizedTexts.emergencyVeteransLineUrl.tr(),
+    btnTxt: LocalizedTexts.emergencyVeteransLineLabel.tr(),
   ),
 ];
+
+List<EmergencyNumberData> get emergencyList =>
+    _emergencyNumbersList.where((entity) => entity.title.isNotEmpty).toList();

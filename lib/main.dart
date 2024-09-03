@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'package:easy_localization/easy_localization.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/foundation.dart';
@@ -12,6 +11,7 @@ import 'package:just_audio_background/just_audio_background.dart';
 import 'package:loopcare_frontend/build_type.dart';
 import 'package:loopcare_frontend/core/app.dart';
 import 'package:loopcare_frontend/core/application/customer_io_service/customer_io_service.dart';
+import 'package:loopcare_frontend/core/application/localization/localization_service.dart';
 import 'package:loopcare_frontend/core/application/system_service.dart';
 import 'package:loopcare_frontend/core/infrastructure/app_lifecycle_observer.dart';
 import 'package:loopcare_frontend/core/infrastructure/services/analytics_service.dart';
@@ -21,7 +21,6 @@ import 'package:loopcare_frontend/core/infrastructure/services/logger/logger.dar
 import 'package:loopcare_frontend/core/infrastructure/services/mixpanel_event_service.dart';
 import 'package:loopcare_frontend/core/infrastructure/services/mixpanel_manager.dart';
 import 'package:loopcare_frontend/core/presentation/custom_error_widget/custom_error_widget.dart';
-import 'package:loopcare_frontend/core/presentation/localization/localization_constants.dart';
 import 'package:loopcare_frontend/firebase_options.dart';
 import 'package:loopcare_frontend/injection.dart';
 import 'package:path_provider/path_provider.dart';
@@ -53,9 +52,9 @@ Future<void> main() async {
   // Pass all uncaught asynchronous errors that aren't handled by the Flutter framework to Crashlytics
   PlatformDispatcher.instance.onError = _onPlatformDispatcherError;
 
-  await EasyLocalization.ensureInitialized();
-
   tz.initializeTimeZones();
+
+  await LocalizationService.initialize();
 
   SystemService.allowOnlyPortraitOrientation();
 
@@ -87,15 +86,7 @@ Future<void> main() async {
   Hive.init(directory.path);
   await Hive.openBox<UserStatesModel>('user_states');
 
-  return runApp(
-    EasyLocalization(
-      supportedLocales: LocalizationConstants.supportedLocales,
-      path: LocalizationConstants.translationsPath,
-      fallbackLocale: LocalizationConstants.localeEnglish,
-      saveLocale: false,
-      child: const AppLifeCycleStateListener(child: App()),
-    ),
-  );
+  return runApp(const AppLifeCycleStateListener(child: App()));
 }
 
 void _onFlutterError(FlutterErrorDetails details) {

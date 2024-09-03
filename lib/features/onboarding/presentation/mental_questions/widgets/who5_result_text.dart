@@ -1,8 +1,7 @@
-import 'package:easy_localization/easy_localization.dart';
+import 'package:loopcare_frontend/core/application/localization/localizer_extenstion.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:loopcare_frontend/core/domain/url_constants.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 import 'package:loopcare_frontend/core/presentation/utils/build_context_extensions.dart';
@@ -36,7 +35,7 @@ class WHO5ResultText extends StatelessWidget {
               if (interpretation == InterpretationType.minimal)
                 TextSpan(
                   style: context.textTheme.bodyMedium?.copyWith(color: AppColors.blueAppBar),
-                  text: '\n$psychologistConsultingLink',
+                  text: '\n${LocalizedTexts.linksPsychologistConsulting.tr()}',
                   recognizer: TapGestureRecognizer()..onTap = () => onLinkPressed(context),
                 ),
             ],

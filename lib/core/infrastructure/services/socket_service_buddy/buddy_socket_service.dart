@@ -85,6 +85,7 @@ class BuddySocketService {
       ..on(BuddySocketEvents.buddyRejectInvite, _onBuddyRejectInvite)
       ..on(BuddySocketEvents.buddyLeft, _onBuddyLeft)
       ..on(BuddySocketEvents.buddyAcceptedInvite, _onBuddyAcceptedInvite)
+      ..on(BuddySocketEvents.buddyInvitationExpired, _onBuddyInvitationExpired)
       ..on(BuddySocketEvents.error, _onErrorHandler)
       ..onError(_onError);
 
@@ -134,6 +135,10 @@ class BuddySocketService {
 
   void _onBuddyAcceptedInvite(dynamic data) {
     _syncService.buddyAcceptedInvite();
+  }
+
+  void _onBuddyInvitationExpired(dynamic data) {
+    _syncService.buddyInvitationExpired();
   }
 
   void _debug(String data) {

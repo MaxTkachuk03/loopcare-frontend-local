@@ -1,7 +1,8 @@
 import 'dart:io';
 
 import 'package:auto_route/auto_route.dart';
-import 'package:easy_localization/easy_localization.dart';
+import 'package:intl/intl.dart';
+import 'package:loopcare_frontend/core/application/localization/localizer_extenstion.dart';
 import 'package:flash/flash.dart';
 import 'package:flash/flash_helper.dart';
 import 'package:flutter/material.dart';
@@ -53,7 +54,7 @@ class _ManageSubscriptionPageState extends State<ManageSubscriptionPage> {
           withBg: true,
           appBar: CustomAppBar.blue(
             leading: CustomFilledIconButton.leadingBlueLighter(),
-            title: LocalizedTexts.manageSubscription.tr(),
+            title: LocalizedTexts.subscriptionManageSubscription.tr(),
           ),
           body: CustomSafeArea(
             child: Column(
@@ -78,21 +79,21 @@ class _ManageSubscriptionPageState extends State<ManageSubscriptionPage> {
                             value: state.data.subscription == null
                                 ? ''
                                 : state.data.subscription!.vendor == 'ios'
-                                    ? LocalizedTexts.appStore
-                                    : LocalizedTexts.googleMarket,
+                                    ? LocalizedTexts.subscriptionAppStore
+                                    : LocalizedTexts.subscriptionGoogleMarket,
                           ),
                           const SizedBox(
                             height: 14,
                           ),
                           _DetailsSection(
-                            title: LocalizedTexts.memberSince,
+                            title: LocalizedTexts.subscriptionMemberSince,
                             value: _getDate(state.data.subscription?.purchasedAt) ?? '',
                           ),
                           const SizedBox(
                             height: 14,
                           ),
                           _DetailsSection(
-                            title: LocalizedTexts.automaticRenewalOn,
+                            title: LocalizedTexts.subscriptionAutomaticRenewalOn,
                             value: _getDate(state.data.subscription?.expiresAt) ?? '',
                           ),
                           const SizedBox(
@@ -115,7 +116,7 @@ class _ManageSubscriptionPageState extends State<ManageSubscriptionPage> {
                                     mode: LaunchMode.externalApplication);
                           }
                         : () => _showPopover(),
-                    label: LocalizedTexts.manageSubscription.tr(),
+                    label: LocalizedTexts.subscriptionManageSubscription.tr(),
                   ),
                 ),
               ],
@@ -137,7 +138,7 @@ class _ManageSubscriptionPageState extends State<ManageSubscriptionPage> {
   void _showPopover() => showDialog<String>(
         context: context,
         builder: (BuildContext context) => AlertDialog(
-          content: CustomText(LocalizedTexts.otherPurchaseVendor.tr()),
+          content: CustomText(LocalizedTexts.subscriptionOtherPurchaseVendor.tr()),
           actions: [
             TextButton(
               onPressed: () => context.router.maybePop(),

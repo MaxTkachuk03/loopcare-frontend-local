@@ -1,4 +1,4 @@
-import 'package:easy_localization/easy_localization.dart';
+import 'package:loopcare_frontend/core/application/localization/localizer_extenstion.dart';
 import 'package:flutter/material.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/core/presentation/text/custom_text.dart';
@@ -20,7 +20,7 @@ class GoalsStatsListItem extends StatelessWidget {
           children: [
             CustomText.w400(item.category.name, style: context.textTheme.bodySmall),
             CustomText.w400(
-              '${item.completed} ${LocalizedTexts.goalsAccomplished.tr()}',
+              '${item.completed} ${LocalizedTexts.smartGoalsAccomplished.tr()}',
               style: context.textTheme.bodySmall,
             ),
           ],

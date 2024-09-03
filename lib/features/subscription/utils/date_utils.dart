@@ -1,4 +1,4 @@
-import 'package:easy_localization/easy_localization.dart';
+import 'package:intl/intl.dart';
 
 class SubscriptionDateUtils {
   static bool isPassDate(String? timeStamp) {

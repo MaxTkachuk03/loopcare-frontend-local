@@ -1,9 +1,9 @@
 // ignore_for_file: depend_on_referenced_packages
 import 'package:collection/collection.dart';
-import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:in_app_purchase/in_app_purchase.dart';
 import 'package:loopcare_frontend/core/application/customer_io_service/customer_io_service.dart';
+import 'package:loopcare_frontend/core/application/localization/localizer_extenstion.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/features/subscription/application/subscription_bloc.dart';
 import 'package:loopcare_frontend/features/subscription/domain/purchasable_product.dart';

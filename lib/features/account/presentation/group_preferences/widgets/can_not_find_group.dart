@@ -1,4 +1,4 @@
-import 'package:easy_localization/easy_localization.dart';
+import 'package:loopcare_frontend/core/application/localization/localizer_extenstion.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loopcare_frontend/core/infrastructure/services/shared_storage/shared_storage_service.dart';
@@ -33,7 +33,8 @@ class _CanNotFindGroupState extends State<CanNotFindGroup> {
     _shouldHideMessage =
         storage.hasSawGroupPreferencesMessage(userId, UserGroupingState.loopedOnGenderPreferences);
 
-    storage.setGroupPreferencesMessageVisibility(userId, UserGroupingState.loopedOnGenderPreferences);
+    storage.setGroupPreferencesMessageVisibility(
+        userId, UserGroupingState.loopedOnGenderPreferences);
   }
 
   @override
@@ -56,7 +57,7 @@ class _CanNotFindGroupState extends State<CanNotFindGroup> {
                     if (groupingStartedAt == null) return const SizedBox.shrink();
 
                     return CustomText.w400(
-                      LocalizedTexts.weHaveNotYetFound.tr(namedArgs: {
+                      LocalizedTexts.weHaveNotYetFound.tr({
                         'dateTime':
                             '${groupingStartedAt.fullDateWithYear} ${LocalizedTexts.at.tr()} ${groupingStartedAt.timeHoursMinutes}.'
                       }),

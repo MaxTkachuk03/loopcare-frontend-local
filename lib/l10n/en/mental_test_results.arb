@@ -1,0 +1,20 @@
+{
+  "@@locale": "en",
+  "phq8FinalResultHigh1": "The questionnaire results indicate that you are currently experiencing notable mental distress.",
+  "phq8FinalResultHigh2": "Unfortunately, the program is not suitable for people who are currently experiencing considerable mental distress, as participation in this program could place additional stress on you.",
+  "phq8FinalResultHigh3": "In order to have a closer look at these symptoms and to treat them, we recommend consulting a psychologist. You can find addresses here:",
+  "phq8FinalResultHigh4": "We invite you to repeat the test when these symptoms have subsided so that you can focus all your energy on your weight-loss journey.",
+  "ifYouHaveSuicidalThoughts": "If you are in an acute crisis or having suicidal thoughts, please contact one of the 24-hour toll-free emergency numbers immediately:",
+  "personalProgram": "Based on your information, we tailor the program to you personally.",
+  "supportMessage": "We would like to support you on your journey in the best possible way and tailor the program to you personally.",
+  "feelLimited1": "It turned out that you currently feel limited by anxiety and physical symptoms. We recommend you talk to a primary care physician or psychologist.",
+  "feelLimited2": "It turned out that you currently feel limited by physical symptoms. We recommend you talk to a primary care physician or psychologist.",
+  "feelLimited3": "It turned out that you currently feel limited by anxiety symptoms. We recommend you talk to a primary care physician or psychologist.",
+  "feelLimited4": "It turned out that you are troubled in several areas at the moment.",
+  "notATherapy": "Please keep in mind that LeanOnMe is not a therapy.",
+  "learnManyThings": "However, you will learn many things that will support you in your mental and physical well-being.",
+  "unlockAllSections": "You will have access to all sections of the program.",
+  "awailableAreas": "The following areas will be available to you as you progress through the program:",
+  "unlockBuddyMessage": "Find a Buddy and get into a Support Group",
+  "weWillGuideYou": "We will guide you step by step in your weight-loss journey.\n\nHave fun with exploring!"
+}

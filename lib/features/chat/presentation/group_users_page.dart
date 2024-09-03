@@ -1,5 +1,5 @@
 import 'package:auto_route/annotations.dart';
-import 'package:easy_localization/easy_localization.dart';
+import 'package:loopcare_frontend/core/application/localization/localizer_extenstion.dart';
 import 'package:flash/flash.dart';
 import 'package:flash/flash_helper.dart';
 import 'package:flutter/material.dart';
@@ -84,7 +84,7 @@ class _GroupUsersPageState extends State<GroupUsersPage> with WidgetsBindingObse
                   padding: const EdgeInsets.symmetric(horizontal: 16.0),
                   child: CustomText.w400(
                     '${LocalizedTexts.groupChatLabel.tr(
-                      namedArgs: {'users': '${state.data.members.length}'},
+                      {'users': '${state.data.members.length}'},
                     )}.',
                     style: context.textTheme.bodyMedium,
                     textAlign: TextAlign.left,
@@ -112,7 +112,8 @@ class _GroupUsersPageState extends State<GroupUsersPage> with WidgetsBindingObse
     );
   }
 
-  String _getNames(GroupChatState state) => state.data.members.map((item) => item.nickname).toList().join(", ");
+  String _getNames(GroupChatState state) =>
+      state.data.members.map((item) => item.nickname).toList().join(", ");
 
   void _onChangeListener(BuildContext context, GroupChatState state) {
     state.maybeMap(

@@ -1,4 +1,4 @@
-import 'package:easy_localization/easy_localization.dart';
+import 'package:loopcare_frontend/core/application/localization/localizer_extenstion.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:loopcare_frontend/core/presentation/icon_images/app_icons.dart';
@@ -10,6 +10,7 @@ import 'package:loopcare_frontend/core/presentation/widgets/main_container.dart'
 class EmptyListWidget extends StatelessWidget {
   final EmptyListType type;
   final String typeText;
+
   const EmptyListWidget({
     super.key,
     required this.type,
@@ -24,7 +25,7 @@ class EmptyListWidget extends StatelessWidget {
         children: [
           const SizedBox(height: 8.0),
           CustomText.bitter600(
-            LocalizedTexts.youHaveNo.tr(namedArgs: {
+            LocalizedTexts.youHaveNo.tr({
               'text': typeText,
             }),
             style: context.textTheme.titleLarge,

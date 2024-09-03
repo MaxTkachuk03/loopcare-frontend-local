@@ -376,17 +376,18 @@ class LocalizedTexts {
   static const String emailChangeConfirmedBody2 = 'emailChangeConfirmedBody2';
 
   // User profile avatar
-  static const String avatar = 'avatar';
-  static const String selectProfilePicture = 'selectProfilePicture';
-  static const String cropper = 'cropper';
-  static const String moveToResize = 'moveToResize';
-  static const String chooseYourAvatar = 'chooseYourAvatar';
-  static const String addPhoto = 'addPhoto';
+  static const String avatarAvatar = 'avatarAvatar';
+  static const String avatarSelectProfilePicture = 'avatarSelectProfilePicture';
+  static const String avatarMoveToResize = 'avatarMoveToResize';
+  static const String avatarChooseYourAvatar = 'avatarChooseYourAvatar';
+  static const String avatarAddPhoto = 'avatarAddPhoto';
   static const String avatarSizeErrorMessageTitle = 'avatarSizeErrorMessageTitle';
   static const String avatarSizeErrorMessageSubtitle = 'avatarSizeErrorMessageSubtitle';
-  static const String goToAppSettings = 'goToAppSettings';
-  static const String galeryPermissionsMessage = 'galeryPermissionsMessage';
-  static const String galeryPermissionsMessageAndroid = 'galeryPermissionsMessageAndroid';
+  static const String avatarGoToAppSettings = 'avatarGoToAppSettings';
+  static const String avatarGaleryPermissionsMessage = 'avatarGaleryPermissionsMessage';
+  static const String avatarGaleryPermissionsMessageAndroid =
+      'avatarGaleryPermissionsMessageAndroid';
+  static const String  avatarCropper = 'avatarCropper';
 
   // Emergency Numbers
   static const String emergencySubtitle = 'emergencySubtitle';
@@ -572,8 +573,8 @@ class LocalizedTexts {
   static const String deleteMood = "deleteMood";
 
   //Subscription
-  static const String subscription = "subscription";
-  static const String manageSubscription = "manageSubscription";
+  static const String subscriptionSubscription = "subscriptionSubscription";
+  static const String subscriptionManageSubscription = "subscriptionManageSubscription";
   static const String subscriptionGenericTitle = "subscriptionGenericTitle";
   static const String subscriptionTrialTitle = "subscriptionTrialTitle";
   static const String subscriptionTrialLabel = "subscriptionTrialLabel";
@@ -599,18 +600,20 @@ class LocalizedTexts {
   static const String subscriptionTitlePrice = "subscriptionTitlePrice";
   static const String subscriptionType = "subscriptionType";
   static const String subscriptionVia = "subscriptionVia";
-  static const String memberSince = "memberSince";
-  static const String automaticRenewalOn = "automaticRenewalOn";
-  static const String serviceUnavailable = "serviceUnavailable";
-  static const String otherPurchaseVendor = "otherPurchaseVendor";
-  static const String appStore = "appStore";
-  static const String googleMarket = "googleMarket";
-  static const String cancelAccountSubscription = "cancelAccountSubscription";
-  static const String restoreSubscriptionFromSettings = "restoreSubscriptionFromSettings";
-  static const String askRestoreSubscription = "askRestoreSubscription";
-  static const String duplicateSubscriptionFromSettings = "duplicateSubscriptionFromSettings";
-  static const String otherPurchaseVendorCancelAccountSubscription =
-      "otherPurchaseVendorCancelAccountSubscription";
+  static const String subscriptionMemberSince = "subscriptionMemberSince";
+  static const String subscriptionAutomaticRenewalOn = "subscriptionAutomaticRenewalOn";
+  static const String subscriptionOtherPurchaseVendor = "subscriptionOtherPurchaseVendor";
+  static const String subscriptionAppStore = "subscriptionAppStore";
+  static const String subscriptionGoogleMarket = "subscriptionGoogleMarket";
+  static const String subscriptionCancelAccountSubscription =
+      "subscriptionCancelAccountSubscription";
+  static const String subscriptionRestoreSubscriptionFromSettings =
+      "subscriptionRestoreSubscriptionFromSettings";
+  static const String subscriptionAskRestoreSubscription = "subscriptionAskRestoreSubscription";
+  static const String subscriptionDuplicateSubscriptionFromSettings =
+      "subscriptionDuplicateSubscriptionFromSettings";
+  static const String subscriptionOtherPurchaseVendorCancelAccountSubscription =
+      "subscriptionOtherPurchaseVendorCancelAccountSubscription";
 
   static const String subscriptionLimitedAccess = 'subscriptionLimitedAccess';
   static const String subscriptionLifeTimeAccess = 'subscriptionLifeTimeAccess';
@@ -911,22 +914,26 @@ class LocalizedTexts {
   static const String phq8ResultHighest = "phq8ResultHighest";
 
   // Mental final results
-  static const String phq8FinalResultHigh1 = "phq8FinalResultHigh1";
-  static const String phq8FinalResultHigh2 = "phq8FinalResultHigh2";
-  static const String phq8FinalResultHigh3 = "phq8FinalResultHigh3";
-  static const String phq8FinalResultHigh4 = "phq8FinalResultHigh4";
-  static const String personalProgram = "personalProgram";
-  static const String supportMessage = "supportMessage";
-  static const String feelLimited1 = "feelLimited1";
-  static const String feelLimited2 = "feelLimited2";
-  static const String feelLimited3 = "feelLimited3";
-  static const String feelLimited4 = "feelLimited4";
-  static const String notATherapy = "notATherapy";
-  static const String learnManyThings = "learnManyThings";
-  static const String unlockAllSections = "unlockAllSections";
-  static const String awailableAreas = "awailableAreas";
-  static const String unlockBuddyMessage = "unlockBuddyMessage";
-  static const String weWillGuideYou = "weWillGuideYou";
+  static const String mentalTestResultsPhq8FinalResultHigh1 =
+      "mentalTestResultsPhq8FinalResultHigh1";
+  static const String mentalTestResultsPhq8FinalResultHigh2 =
+      "mentalTestResultsPhq8FinalResultHigh2";
+  static const String mentalTestResultsPhq8FinalResultHigh3 =
+      "mentalTestResultsPhq8FinalResultHigh3";
+  static const String mentalTestResultsPhq8FinalResultHigh4 =
+      "mentalTestResultsPhq8FinalResultHigh4";
+  static const String mentalTestResultsPersonalProgram = "mentalTestResultsPersonalProgram";
+  static const String mentalTestResultsSupportMessage = "mentalTestResultsSupportMessage";
+  static const String mentalTestResultsFeelLimited1 = "mentalTestResultsFeelLimited1";
+  static const String mentalTestResultsFeelLimited2 = "mentalTestResultsFeelLimited2";
+  static const String mentalTestResultsFeelLimited3 = "mentalTestResultsFeelLimited3";
+  static const String mentalTestResultsFeelLimited4 = "mentalTestResultsFeelLimited4";
+  static const String mentalTestResultsNotATherapy = "mentalTestResultsNotATherapy";
+  static const String mentalTestResultsLearnManyThings = "mentalTestResultsLearnManyThings";
+  static const String mentalTestResultsUnlockAllSections = "mentalTestResultsUnlockAllSections";
+  static const String mentalTestResultsAwailableAreas = "mentalTestResultsAwailableAreas";
+  static const String mentalTestResultsUnlockBuddyMessage = "mentalTestResultsUnlockBuddyMessage";
+  static const String mentalTestResultsWeWillGuideYou = "mentalTestResultsWeWillGuideYou";
 
   static const String phq8Fail = "phq8Fail";
   static const String generalWellBeingSummary = "generalWellBeingSummary";
@@ -1059,7 +1066,7 @@ class LocalizedTexts {
 
   // Buddy
   static const String buddyTitle = 'buddyTitle';
-  static const String buddy = 'buddy';
+  static const String buddy = 'buddyBuddy';
   static const String buddyUnlocked = 'buddyUnlocked';
   static const String buddyUnlockedBody = 'buddyUnlockedBody';
   static const String goToBuddyPreferences = 'goToBuddyPreferences';
@@ -1091,9 +1098,9 @@ class LocalizedTexts {
   static const String buddyRejectSubTitle = 'buddyRejectSubTitle';
   static const String buddyResendInvitation = 'buddyResendInvitation';
   static const String buddyInviteAnotherBuddy = 'buddyInviteAnotherBuddy';
-  static const String removeInvite = 'removeInvite';
-  static const String removeBuddy = 'removeBuddy';
-  static const String inviteBuddy = 'inviteBuddy';
+  static const String removeInvite = 'buddyRemoveInvite';
+  static const String removeBuddy = 'buddyRemoveBuddy';
+  static const String inviteBuddy = 'buddyInviteBuddy';
   static const String buddyFindAnotherBuddyLabel = 'buddyFindAnotherBuddyLabel';
   static const String buddyFindAnotherBuddyContentOne = 'buddyFindAnotherBuddyContentOne';
   static const String buddyFindAnotherBuddyContentTwo = 'buddyFindAnotherBuddyContentTwo';
@@ -1108,70 +1115,55 @@ class LocalizedTexts {
   static const String mindDashboardBtn = 'mindDashboardBtn';
 
   // Smart goals
-  static const String myGoals = 'myGoals';
-  static const String noGoalsSelected = 'noGoalsSelected';
-  static const String chooseGoalsForUpcomingDays = 'chooseGoalsForUpcomingDays';
-  static const String upcomingGoals = 'upcomingGoals';
-  static const String upcomingGoalsTitle = 'upcomingGoalsTitle';
-  static const String upcomingGoalsDescription = 'upcomingGoalsDescription';
-  static const String addGoal = 'addGoal';
-  static const String setGoal = 'setGoal';
-  static const String cancelGoal = 'cancelGoal';
-  static const String cancelGoalTitle = 'cancelGoalTitle';
-  static const String cancelGoalSubTitle = 'cancelGoalSubTitle';
-  static const String confirmGoals = 'confirmGoals';
-  static const String selectGoalsCategoryTitle = 'selectGoalsCategoryTitle';
-  static const String smartGoalNewLabel = 'smartGoalNewLabel';
-  static const String selectGoalsTitle = 'selectGoalsTitle';
-  static const String selectGoalsSubtitle = 'selectGoalsSubtitle';
-  static const String completeCounter = 'completeCounter';
-  static const String saveWeeklyGoalsSuccessMessage = 'saveWeeklyGoalsSuccessMessage';
-  static const String goalsStatisticsTitle = 'goalsStatisticsTitle';
-  static const String goalsAccomplishedInTotal = 'goalsAccomplishedInTotal';
-  static const String goalsAccomplishedEmptyMessage = 'goalsAccomplishedEmptyMessage';
-  static const String goalsAccomplished = 'goalsAccomplished';
-  static const String goal = 'goal';
-  static const String yourCompletion = 'yourCompletion';
-  static const String goalLogged = 'goalLogged';
-  static const String goalLogDays = 'goalLogDays';
-  static const String goalTotalCompletions = 'goalTotalCompletions';
-  static const String goalCompleted = 'goalCompleted';
-  static const String goalNotCompleted = 'goalNotCompleted';
-  static const String howHardWasTheGoal = 'howHardWasTheGoal';
-  static const String wantToTryInFuture = 'wantToTryInFuture';
-  static const String goalReview = 'goalReview';
-  static const String weeklyQuickReview = 'weeklyQuickReview';
-  static const String weeklyDaysLeft = 'weeklyDaysLeft';
-  static const String weeklyDayLeft = 'weeklyDayLeft';
-  static const String weeklyDaysReview = 'weeklyDaysReview';
-  static const String weeklyCompleteTitle = 'weeklyCompleteTitle';
-  static const String weeklyDate = 'weeklyDate';
-  static const String weeklyCompletedFar = 'weeklyCompletedFar';
-  static const String weeklyAddCompletions = 'weeklyAddCompletions';
-  static const String weeklyTime = 'weeklyTime';
-  static const String weeklyTimes = 'weeklyTimes';
-  static const String weeklyMakeCorrections = 'weeklyMakeCorrections';
-  static const String weeklyShowGoalDetails = 'weeklyShowGoalDetails';
-  static const String weeklyModalProgress = 'weeklyModalProgress';
-  static const String weeklyModalInfo = 'weeklyModalInfo';
-  static const String reasonGoalNotLike = 'reasonGoalNotLike';
-  static const String reasonGoalChallenging = 'reasonGoalChallenging';
-  static const String reasonGoalMissing = 'reasonGoalMissing';
-  static const String reasonGoalHabit = 'reasonGoalHabit';
-  static const String reasonGoalSpecific = 'reasonGoalSpecific';
+  static const String smartGoalsMyGoals = 'smartGoalsMyGoals';
+  static const String smartGoalsNoGoalsSelected = 'smartGoalsNoGoalsSelected';
+  static const String smartGoalsChooseGoalsForUpcomingDays = 'smartGoalsChooseGoalsForUpcomingDays';
+  static const String smartGoalsUpcomingGoals = 'smartGoals';
+  static const String smartGoalsUpcomingGoalsTitle = 'smartGoalsUpcomingGoalsTitle';
+  static const String smartGoalsUpcomingGoalsDescription = 'smartGoalsUpcomingGoalsDescription';
+  static const String smartGoalsSetGoal = 'smartGoalsSetGoal';
+  static const String smartGoalsCancelGoal = 'smartGoalsCancelGoal';
+  static const String smartGoalsCancelGoalTitle = 'smartGoalsCancelGoalTitle';
+  static const String smartGoalsCancelGoalSubTitle = 'smartGoalsCancelGoalSubTitle';
+  static const String smartGoalsSelectGoalsCategoryTitle = 'smartGoalsSelectGoalsCategoryTitle';
+  static const String smartGoalsNewLabel = 'smartGoalsNewLabel';
+  static const String smartGoalsSelectGoalsTitle = 'smartGoalsSelectGoalsTitle';
+  static const String smartGoalsSelectGoalsSubtitle = 'smartGoalsSelectGoalsSubtitle';
+  static const String smartGoalsSaveWeeklyGoalsSuccessMessage =
+      'smartGoalsSaveWeeklyGoalsSuccessMessage';
+  static const String smartGoalsStatisticsTitle = 'smartGoalsStatisticsTitle';
+  static const String smartGoalsAccomplishedInTotal = 'smartGoalsAccomplishedInTotal';
+  static const String smartGoalsAccomplishedEmptyMessage = 'smartGoalsAccomplishedEmptyMessage';
+  static const String smartGoalsAccomplished = 'smartGoalsAccomplished';
+
+  static const String smartGoalsGoalLogged = 'smartGoalsGoalLogged';
+  static const String smartGoalsGoalLogDays = 'smartGoalsGoalLogDays';
+  static const String smartGoalsGoalTotalCompletions = 'smartGoalsGoalTotalCompletions';
+  static const String smartGoalsGoalCompleted = 'smartGoalsGoalCompleted';
+  static const String smartGoalsGoalNotCompleted = 'smartGoalsGoalNotCompleted';
+  static const String smartGoalsHowHardWasTheGoal = 'smartGoalsHowHardWasTheGoal';
+  static const String smartGoalsWantToTryInFuture = 'smartGoalsWantToTryInFuture';
+  static const String smartGoalsGoalReview = 'smartGoalsGoalReview';
+  static const String smartGoalsWeeklyDaysLeft = 'smartGoalsWeeklyDaysLeft';
+  static const String smartGoalsWeeklyDaysReview = 'smartGoalsWeeklyDaysReview';
+  static const String smartGoalsReasonGoalNotLike = 'smartGoalsReasonGoalNotLike';
+  static const String smartGoalsReasonGoalChallenging = 'smartGoalsReasonGoalChallenging';
+  static const String smartGoalsReasonGoalMissing = 'smartGoalsReasonGoalMissing';
+  static const String smartGoalsReasonGoalHabit = 'smartGoalsReasonGoalHabit';
+  static const String smartGoalsReasonGoalSpecific = 'smartGoalsReasonGoalSpecific';
 
   // River
-  static const String guidancePracticeTitle = 'guidancePracticeTitle';
-  static const String guidancePracticeDescription = 'guidancePracticeDescription';
-  static const String guidanceProfileTitle = 'guidanceProfileTitle';
-  static const String guidanceProfileDescription = 'guidanceProfileDescription';
-  static const String guidanceCompletedTitle = 'guidanceCompletedTitle';
-  static const String guidanceCompletedDescription = 'guidanceCompletedDescription';
-  static const String moduleCompletedTitle = 'moduleCompletedTitle';
-  static const String moduleCompletedDescription = 'moduleCompletedDescription';
-  static const String lastModuleCompletedDescription = 'lastModuleCompletedDescription';
-  static const String guidanceStartRiverTitle = 'guidanceStartRiverTitle';
-  static const String guidanceStartRiverDescription = 'guidanceStartRiverDescription';
+  static const String riverGuidancePracticeTitle = 'riverGuidancePracticeTitle';
+  static const String riverGuidancePracticeDescription = 'riverGuidancePracticeDescription';
+  static const String riverGuidanceProfileTitle = 'riverGuidanceProfileTitle';
+  static const String riverGuidanceProfileDescription = 'riverGuidanceProfileDescription';
+  static const String riverGuidanceCompletedTitle = 'riverGuidanceCompletedTitle';
+  static const String riverGuidanceCompletedDescription = 'riverGuidanceCompletedDescription';
+  static const String riverGuidanceStartRiverTitle = 'riverGuidanceStartRiverTitle';
+  static const String riverGuidanceStartRiverDescription = 'riverGuidanceStartRiverDescription';
+  static const String riverModuleCompletedTitle = 'riverModuleCompletedTitle';
+  static const String riverModuleCompletedDescription = 'riverModuleCompletedDescription';
+  static const String riverLastModuleCompletedDescription = 'riverLastModuleCompletedDescription';
 
   // Maintenance
   static const String maintenanceLabel = 'maintenanceLabel';
@@ -1179,6 +1171,7 @@ class LocalizedTexts {
   static const String maintenancePageDescription = 'maintenancePageDescription';
 
   //Errors 'are generated from server
+  static const String errorLoadTranslations = "errorLoadTranslations";
   static const String errorValidationIosMinVersionNotANumber =
       'errorValidationIosMinVersionNotANumber';
   static const String errorValidationIosMinVersionNotAnInteger =
@@ -2450,4 +2443,33 @@ class LocalizedTexts {
 
   //Parsing Exception
   static const String errorParsingException = 'errorParsingException';
+
+  //Emergency
+  static const String emergencyAssistanceTitle = 'emergencyAssistanceTitle';
+  static const String emergencyAssistanceNumber = 'emergencyAssistanceNumber';
+  static const String emergencyAssistanceLabel = 'emergencyAssistanceLabel';
+  static const String emergencyUsLifelineTitle = 'emergencyUsLifelineTitle';
+  static const String emergencyUsLifelineTitleNumber = 'emergencyUsLifelineTitleNumber';
+  static const String emergencyUsLifelineTitleLabel = 'emergencyUsLifelineTitleLabel';
+  static const String emergencyCrisisChatTitle = 'emergencyCrisisChatTitle';
+  static const String emergencyCrisisChatUrl = 'emergencyCrisisChatUrl';
+  static const String emergencyCrisisChatLabel = 'emergencyCrisisChatLabel';
+  static const String emergencySelfHarmLineTitle = 'emergencySelfHarmLineTitle';
+  static const String emergencySelfHarmLineNumber = 'emergencySelfHarmLineNumber';
+  static const String emergencySelfHarmLineLabel = 'emergencySelfHarmLineLabel';
+  static const String emergencyLGBTQLineTitle = 'emergencyLGBTQLineTitle';
+  static const String emergencyLGBTQLineNumber = 'emergencyLGBTQLineNumber';
+  static const String emergencyLGBTQLineLabel = 'emergencyLGBTQLineLabel';
+  static const String emergencyNationalHotlineTitle = 'emergencyNationalHotlineTitle';
+  static const String emergencyNationalHotlineNumber = 'emergencyNationalHotlineNumber';
+  static const String emergencyNationalHotlineLabel = 'emergencyNationalHotlineLabel';
+  static const String emergencyVeteransLineTitle = 'emergencyVeteransLineTitle';
+  static const String emergencyVeteransLineUrl = 'emergencyVeteransLineUrl';
+  static const String emergencyVeteransLineLabel = 'emergencyVeteransLineLabel';
+
+  //Links
+  static const String linksTermsAndConditionsUrl = 'linksTermsAndConditionsUrl';
+  static const String linksPrivacyPolicyUrl = 'linksPrivacyPolicyUrl';
+  static const String linksPsychologistConsulting = 'linksPsychologistConsulting';
+  static const String linksInstructionsUrl = 'linksInstructionsUrl';
 }

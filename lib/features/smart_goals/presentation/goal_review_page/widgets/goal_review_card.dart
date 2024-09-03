@@ -1,4 +1,4 @@
-import 'package:easy_localization/easy_localization.dart';
+import 'package:loopcare_frontend/core/application/localization/localizer_extenstion.dart';
 import 'package:flutter/material.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/core/presentation/text/custom_text.dart';
@@ -53,19 +53,21 @@ class GoalReviewCard extends StatelessWidget {
           height: 12.0,
         ),
         CustomText.w400(
-          LocalizedTexts.goalLogDays.tr(args: [item.requiredCompletions.toString()]),
+          LocalizedTexts.smartGoalsGoalLogDays.getPlural(args: {'count': item.requiredCompletions}),
           style: context.textTheme.bodyMedium,
         ),
         CustomText.w400(
-          LocalizedTexts.goalLogged.tr(args: [item.completionsDays.toString()]),
+          LocalizedTexts.smartGoalsGoalLogged.getPlural(args: {'count': item.completionsDays}),
           style: context.textTheme.bodyMedium,
         ),
         CustomText.w400(
-          LocalizedTexts.goalTotalCompletions.tr(args: [item.completionsAmount.toString()]),
+          LocalizedTexts.smartGoalsGoalTotalCompletions.getPlural(args: {'count': item.completionsAmount}),
           style: context.textTheme.bodyMedium,
         ),
         CustomText.w400(
-          item.isAchieved ? LocalizedTexts.goalCompleted.tr() : LocalizedTexts.goalNotCompleted.tr(),
+          item.isAchieved
+              ? LocalizedTexts.smartGoalsGoalCompleted.tr()
+              : LocalizedTexts.smartGoalsGoalNotCompleted.tr(),
           style: context.textTheme.bodyMedium,
         ),
         const SizedBox(

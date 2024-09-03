@@ -1,0 +1,74 @@
+{
+  "@@locale": "en",
+  "trialTitle": "First 2 weeks for free!",
+  "trialLabel": "After your trial period you are enrolled and \nyou can cancel on a monthly basis.",
+  "trialExpiredTitle": "Your trial has expired",
+  "trialExpiredLabel1": "We hope you enjoyed our program.",
+  "trialExpiredLabel2": "If you want to continue,\nrefresh your subscription here:",
+  "endedTitle": "Your subscription \nhas ended",
+  "endedLabel1": "We hope you enjoyed our program.",
+  "endedLabel2": "If you want to continue,\nrefresh your subscription here:",
+  "cancelledTitle": "Your subscription \nwas cancelled",
+  "cancelledLabel1": "We hope you enjoyed our program.",
+  "cancelledLabel2": "If you want to continue,\nrefresh your subscription here:",
+  "renewedTitle": "Your subscription \ncould not be renewed",
+  "renewedLabel": "We want to let you know that your\nsubscription could not be automatically\nrenewed. \n\nYou will get a couple of days to look into this.\nDuring this time you can still use the app.",
+  "restoreLabel": "Restore Purchase",
+  "termsLabel": "Terms & Conditions",
+  "privacyLabel": "Privacy policy",
+  "annual": "Annual",
+  "monthly": "Monthly",
+  "subscribe": "Subscribe",
+  "redeem": "Redeem",
+  "subTitlePrice": "{description}",
+  "@subTitlePrice": {
+    "description": "A formatted string showing a description, which could include a price or other details.",
+    "placeholders": {
+      "description": {
+        "description": "The description to be displayed, such as a price or additional information.",
+        "type": "String"
+      }
+    }
+  },
+  "titlePrice": "{title} {priceWithCurrency}",
+  "@titlePrice": {
+    "description": "A formatted string showing a title followed by the price with currency",
+    "placeholders": {
+      "title": {
+        "description": "The title to be displayed",
+        "type": "String"
+      },
+      "priceWithCurrency": {
+        "description": "The price with currency symbol",
+        "type": "String"
+      }
+    }
+  },
+  "subscription": "Subscription",
+  "manageSubscription": "Manage subscription",
+  "type": "Subscription type",
+  "subscriptionVia": "Subscription via",
+  "memberSince": "Member since",
+  "automaticRenewalOn": "Automatic renewal on",
+  "serviceUnavailable": "Service is unavailable,\nplease try later.",
+  "otherPurchaseVendor": "Sorry, your subscription seems to be purchased from a different store.",
+  "appStore": "App Store",
+  "googleMarket": "Play Market",
+  "cancelAccountSubscription": "Before you delete your account with LeanOnMe, please take a moment to cancel your subscription. This will prevent any future charges. If you're ready to proceed, tap 'Manage Subscription' to go to your device settings",
+  "otherPurchaseVendorCancelAccountSubscription": "Your subscription seems to be purchased from a different store.",
+  "restoreSubscriptionFromSettings": "Please take a moment to resubscribe your subscription plan from Subscription Settings. If you're ready to proceed, tap 'Manage Subscription' to go to your device settings",
+  "askRestoreSubscription": "Sorry, your subscription seems to be purchased but is not verified, please, tap on Restore Purchase to verify it.",
+  "duplicateSubscriptionFromSettings": "This subscription seems to be purchased before. Please take a moment to resubscribe your subscription plan from Subscription Settings. If you're ready to proceed, tap 'Manage Subscription' to go to your device settings",
+  "recommendedAccess": "recommended",
+  "limitedAccess": "limited time offer",
+  "lifeTimeAccess": "lifetime access",
+  "flexibleAccess": "flexible access",
+  "month": "monthly",
+  "quarterly": "quarterly",
+  "annually": "annually",
+  "weekly": "weekly",
+  "daily" : "days",
+  "descriptionLabel": "Cancel anytime in subscriptions center",
+  "genericTitle": "Your journey is about to begin."
+
+}

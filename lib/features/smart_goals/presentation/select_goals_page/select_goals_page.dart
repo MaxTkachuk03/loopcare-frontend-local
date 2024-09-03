@@ -1,5 +1,5 @@
 import 'package:auto_route/auto_route.dart';
-import 'package:easy_localization/easy_localization.dart';
+import 'package:loopcare_frontend/core/application/localization/localizer_extenstion.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loopcare_frontend/core/presentation/alerting/show_app_snackbar.dart';
@@ -63,7 +63,7 @@ class _SelectGoalsPageState extends State<SelectGoalsPage> {
                 ),
                 sliver: SliverToBoxAdapter(
                   child: CustomText.bitter600(
-                    LocalizedTexts.selectGoalsTitle.tr(),
+                    LocalizedTexts.smartGoalsSelectGoalsTitle.tr(),
                     style: context.textTheme.displayMedium,
                   ),
                 ),
@@ -76,7 +76,7 @@ class _SelectGoalsPageState extends State<SelectGoalsPage> {
                 ),
                 sliver: SliverToBoxAdapter(
                   child: CustomText.w400(
-                    LocalizedTexts.selectGoalsSubtitle.tr(),
+                    LocalizedTexts.smartGoalsSelectGoalsSubtitle.tr(),
                     style: context.textTheme.bodyMedium,
                   ),
                 ),
@@ -97,7 +97,7 @@ class _SelectGoalsPageState extends State<SelectGoalsPage> {
                 cur is SmartGoalsStateErrorSaveGoals || cur is SmartGoalsStateWeeklySessionSaved,
             builder: (BuildContext context, SmartGoalsState state) {
               return CustomElevatedButton.blueFullWidth(
-                label: LocalizedTexts.setGoal.tr(),
+                label: LocalizedTexts.smartGoalsSetGoal.tr(),
                 onPressed: _selectedGoal != null ? () => _onSetGoalHandler(context) : null,
               );
             },
@@ -118,6 +118,6 @@ class _SelectGoalsPageState extends State<SelectGoalsPage> {
       context.showError(content: CustomText.w400(state.data.errorKey.tr()));
 
   void _onSetWeeklyGoals(BuildContext context, SmartGoalsState state) => context
-    ..showSuccessBar(content: CustomText.w400(LocalizedTexts.saveWeeklyGoalsSuccessMessage.tr()))
+    ..showSuccessBar(content: CustomText.w400(LocalizedTexts.smartGoalsSaveWeeklyGoalsSuccessMessage.tr()))
     ..router.maybePop();
 }

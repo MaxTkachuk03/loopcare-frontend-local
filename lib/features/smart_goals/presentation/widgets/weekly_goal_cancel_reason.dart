@@ -1,5 +1,5 @@
 import 'package:auto_route/auto_route.dart';
-import 'package:easy_localization/easy_localization.dart';
+import 'package:loopcare_frontend/core/application/localization/localizer_extenstion.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loopcare_frontend/core/presentation/buttons/custom_elevated_button.dart';
@@ -32,13 +32,13 @@ class WeeklyGoalCancelReason extends StatelessWidget {
         ),
         const SizedBox(height: 14.0),
         CustomText.bitter600(
-          LocalizedTexts.cancelGoalTitle.tr(),
+          LocalizedTexts.smartGoalsCancelGoalTitle.tr(),
           style: context.textTheme.displayMedium,
           textAlign: TextAlign.center,
         ),
         const SizedBox(height: 32.0),
         CustomText.w400(
-          LocalizedTexts.cancelGoalSubTitle.tr(),
+          LocalizedTexts.smartGoalsCancelGoalSubTitle.tr(),
           style: context.textTheme.titleMedium,
           textAlign: TextAlign.center,
         ),
@@ -53,7 +53,7 @@ class WeeklyGoalCancelReason extends StatelessWidget {
         BlocBuilder<SmartGoalsBloc, SmartGoalsState>(
           builder: (context, state) {
             return CustomElevatedButton.blueFullWidth(
-              label: LocalizedTexts.cancelGoal.tr(),
+              label: LocalizedTexts.smartGoalsCancelGoal.tr(),
               onPressed: state.data.reason != null
                   ? () {
                     context.router.maybePop();

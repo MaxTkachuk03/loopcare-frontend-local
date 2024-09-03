@@ -1,4 +1,4 @@
-import 'package:easy_localization/easy_localization.dart';
+import 'package:loopcare_frontend/core/application/localization/localizer_extenstion.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:loopcare_frontend/core/presentation/buttons/custom_outlined_button.dart';
@@ -37,7 +37,7 @@ class AvatarMenu extends StatelessWidget {
       builder: (context, options, _) {
         if (_isPhotoSelected) {
           return CustomOutlinedButton.blueFullWidth(
-            label: LocalizedTexts.addPhoto.tr(),
+            label: LocalizedTexts.avatarAddPhoto.tr(),
             onPressed: _onAddPhotoPressedHandler,
           );
         }

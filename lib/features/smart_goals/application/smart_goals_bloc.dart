@@ -131,8 +131,7 @@ class SmartGoalsBloc extends Bloc<SmartGoalsEvent, SmartGoalsState> {
         sessionId: event.sessionId, reason: state.data.reason!);
 
     response.fold(
-      (l) {
-        emit(
+      (l) => emit(
           SmartGoalsState.errorSaveGoals(
             state.data.copyWith(
               error: l,
@@ -140,8 +139,7 @@ class SmartGoalsBloc extends Bloc<SmartGoalsEvent, SmartGoalsState> {
               reason: null,
             ),
           ),
-        );
-      },
+        ),
       (r) {
         var sessions = [...state.data.weeklyGoalsSessions];
         sessions.removeWhere((session) => session.id == r.id);
@@ -155,16 +153,147 @@ class SmartGoalsBloc extends Bloc<SmartGoalsEvent, SmartGoalsState> {
     emit(SmartGoalsState.sessionDeleted(state.data.copyWith(isLoading: false, reason: null)));
   }
 
+  FutureOr<void> _onAddReview(
+    AddReview event,
+    Emitter<SmartGoalsState> emit,
+  ) async {
+    emit(SmartGoalsState.loading(state.data.copyWith(isLoading: true)));
+
+    final response = await _smartGoalsService.addGoalReview(event.data);
+
+    response.fold(
+      (l) {
+        emit(SmartGoalsState.errorAddingReview(state.data.copyWith(error: l, isLoading: false)));
+      },
+      (r) {
+        _logOnAddReview(event.data);
+
+        var sessions = [...state.data.weeklyGoalsSessions];
+        sessions.removeWhere((session) => session.id == r.id);
+
+        emit(
+          SmartGoalsState.reviewAdded(
+            state.data.copyWith(weeklyGoalsSessions: sessions, isLoading: false),
+          ),
+        );
+      },
+    );
+  }
+
+  FutureOr<void> _onPostCompletions(
+    PostCompletions event,
+    Emitter<SmartGoalsState> emit,
+  ) async {
+    emit(SmartGoalsState.loading(state.data.copyWith(isLoading: true)));
+
+    final date = state.data.selectedDate?.dateStringOnly ?? DateTime.now().dateStringOnly;
+    final logs = event.weeklySmartGoal.progressLogs;
+    ProgressSmartGoalLog smartGoalLog = ProgressSmartGoalLog(date: date, times: 1);
+
+    if (logs != null) {
+      final log = logs.firstWhereOrNull((log) => log.date.dateStringOnly == date);
+      smartGoalLog = ProgressSmartGoalLog(date: date, times: (log?.times ?? 0) + 1);
+    }
+
+    final response = await _smartGoalsService.confirmProgress(
+      progress: ProgressGoalData(reviewId: event.weeklySmartGoal.id, progress: [smartGoalLog]),
+    );
+
+    response.fold(
+      (l) => emit(SmartGoalsState.error(state.data.copyWith(error: l, isLoading: false))),
+      (r) {
+        _logGoalAnalyticEvent(smartGoalLog);
+        var sessions = [...state.data.weeklyGoalsSessions];
+        final index = sessions.indexWhere((session) => session.id == r.id);
+        sessions[index] = r;
+
+        emit(
+          SmartGoalsState.progressConfirmed(
+            state.data.copyWith(weeklyGoalsSessions: [...sessions], isLoading: false),
+          ),
+        );
+      },
+    );
+  }
+
+  FutureOr<void> _onResetCompletions(
+    ResetCompletions event,
+    Emitter<SmartGoalsState> emit,
+  ) async {
+    emit(SmartGoalsState.loading(state.data.copyWith(isLoading: true)));
+    final response = await _smartGoalsService.resetProgress(progressId: event.progressId);
+
+    response.fold(
+      (l) => emit(SmartGoalsState.error(state.data.copyWith(error: l, isLoading: false))),
+      (r) {
+        var sessions = [...state.data.weeklyGoalsSessions];
+        final index = sessions.indexWhere((session) => session.id == r.id);
+        sessions[index] = r;
+
+        emit(
+          SmartGoalsState.progressReset(
+            state.data.copyWith(weeklyGoalsSessions: [...sessions], isLoading: false),
+          ),
+        );
+      },
+    );
+  }
+
+  void _logGoalAnalyticEvent(ProgressSmartGoalLog log) {
+    const AnalyticsEventService().logEvent(
+      eventName: AnalyticsEvents.userLogGoal,
+      parameters: {
+        AnalyticsParameters.userId: account?.id ?? -1,
+        AnalyticsParameters.value: log.times,
+        AnalyticsParameters.timestamp: log.date,
+      },
+    );
+
+    CustomerIoService.track(
+      event: CIOEvents.userLogGoal,
+      attributes: {
+        CIOAttributes.userId: account?.id,
+        CIOAttributes.logValue: log.times,
+        CIOAttributes.dateLog: log.date,
+      },
+    );
+  }
+
+  void _logOnAddReview(GoalReviewBody data) {
+    const AnalyticsEventService().logEvent(
+      eventName: AnalyticsEvents.userAddedReview,
+      parameters: {
+        AnalyticsParameters.userId: account?.id ?? -1,
+        AnalyticsParameters.goalCategoryTitle: data.categoryTitle,
+        AnalyticsParameters.title: data.goalTitle,
+        AnalyticsParameters.score: data.difficulty,
+        AnalyticsParameters.wantsToRepeat: data.isTryAgain.toString(),
+      },
+    );
+
+    CustomerIoService.track(
+      event: CIOEvents.userAddedReview,
+      attributes: {
+        CIOAttributes.userId: account?.id,
+        CIOAttributes.goalCategoryTitle: data.categoryTitle,
+        CIOAttributes.goalTitle: data.goalTitle,
+        CIOAttributes.score: data.difficulty,
+        CIOAttributes.wantsToRepeat: data.isTryAgain,
+      },
+    );
+  }
+
   void _addGoalAnalyticEvent(WeeklyGoalsSession session) {
     if (session.sessionHasGoal) {
       final goal = session.goal!;
       const AnalyticsEventService().logEvent(
         eventName: AnalyticsEvents.userSavedGoals,
         parameters: {
-          AnalyticsParameters.userId: account?.id,
+          AnalyticsParameters.userId: account?.id ?? -1,
           AnalyticsParameters.title: goal.title,
           AnalyticsParameters.goalCategoryTitle: goal.smartGoal.category.name,
           //Discussed with Souni and Paul  limit custom dimensions
+          if (session.startedAt != null)
           AnalyticsParameters.timestamp: session.startedAt!.toIso8601String(),
           if (session.finishedAt != null)
             AnalyticsParameters.timePassed: session.finishedAt!.toIso8601String(),
@@ -184,112 +313,5 @@ class SmartGoalsBloc extends Bloc<SmartGoalsEvent, SmartGoalsState> {
         },
       );
     }
-  }
-
-  FutureOr<void> _onAddReview(
-    AddReview event,
-    Emitter<SmartGoalsState> emit,
-  ) async {
-    emit(SmartGoalsState.loading(state.data.copyWith(isLoading: true)));
-
-    final response = await _smartGoalsService.addGoalReview(event.data);
-
-    response.fold(
-      (l) {
-        emit(SmartGoalsState.errorAddingReview(state.data.copyWith(error: l, isLoading: false)));
-      },
-      (r) {
-        AnalyticsEventService().logEvent(
-          eventName: AnalyticsEvents.userAddedReview,
-          parameters: {
-            AnalyticsParameters.userId: account?.id,
-            AnalyticsParameters.goalCategoryTitle: event.data.categoryTitle,
-            AnalyticsParameters.title: event.data.goalTitle,
-            AnalyticsParameters.score: event.data.difficulty,
-            AnalyticsParameters.wantsToRepeat: event.data.isTryAgain.toString(),
-          },
-        );
-
-        CustomerIoService.track(
-          event: CIOEvents.userAddedReview,
-          attributes: {
-            CIOAttributes.userId: account?.id,
-            CIOAttributes.goalCategoryTitle: event.data.categoryTitle,
-            CIOAttributes.goalTitle: event.data.goalTitle,
-            CIOAttributes.score: event.data.difficulty,
-            CIOAttributes.wantsToRepeat: event.data.isTryAgain,
-          },
-        );
-        var sessions = [...state.data.weeklyGoalsSessions];
-        sessions.removeWhere((session) => session.id == r.id);
-        emit(SmartGoalsState.reviewAdded(
-            state.data.copyWith(weeklyGoalsSessions: sessions, isLoading: false)));
-      },
-    );
-  }
-
-  FutureOr<void> _onPostCompletions(
-    PostCompletions event,
-    Emitter<SmartGoalsState> emit,
-  ) async {
-    emit(SmartGoalsState.loading(state.data.copyWith(isLoading: true)));
-    final date = state.data.selectedDate?.dateStringOnly ?? DateTime.now().dateStringOnly;
-    final logs = event.weeklySmartGoal.progressLogs;
-    ProgressSmartGoalLog smartGoalLog = ProgressSmartGoalLog(date: date, times: 1);
-    if (logs != null) {
-      final log = logs.firstWhereOrNull((log) {
-        return log.date.dateStringOnly == date;
-      });
-      smartGoalLog = ProgressSmartGoalLog(date: date, times: (log?.times ?? 0) + 1);
-    }
-    final response = await _smartGoalsService.confirmProgress(
-        progress: ProgressGoalData(reviewId: event.weeklySmartGoal.id, progress: [smartGoalLog]));
-
-    response.fold(
-        (l) => emit(SmartGoalsState.error(state.data.copyWith(error: l, isLoading: false))), (r) {
-      _logGoalAnalyticEvent(smartGoalLog);
-      var sessions = [...state.data.weeklyGoalsSessions];
-      final index = sessions.indexWhere((session) => session.id == r.id);
-      sessions[index] = r;
-      emit(SmartGoalsState.progressConfirmed(
-          state.data.copyWith(weeklyGoalsSessions: [...sessions], isLoading: false)));
-    });
-  }
-
-  FutureOr<void> _onResetCompletions(
-    ResetCompletions event,
-    Emitter<SmartGoalsState> emit,
-  ) async {
-    emit(SmartGoalsState.loading(state.data.copyWith(isLoading: true)));
-    final response = await _smartGoalsService.resetProgress(progressId: event.progressId);
-
-    response.fold(
-        (l) => emit(SmartGoalsState.error(state.data.copyWith(error: l, isLoading: false))), (r) {
-      var sessions = [...state.data.weeklyGoalsSessions];
-      final index = sessions.indexWhere((session) => session.id == r.id);
-      sessions[index] = r;
-      emit(SmartGoalsState.progressReset(
-          state.data.copyWith(weeklyGoalsSessions: [...sessions], isLoading: false)));
-    });
-  }
-
-  void _logGoalAnalyticEvent(ProgressSmartGoalLog log) {
-    const AnalyticsEventService().logEvent(
-      eventName: AnalyticsEvents.userLogGoal,
-      parameters: {
-        AnalyticsParameters.userId: account?.id,
-        AnalyticsParameters.value: log.times,
-        AnalyticsParameters.timestamp: log.date,
-      },
-    );
-
-    CustomerIoService.track(
-      event: CIOEvents.userLogGoal,
-      attributes: {
-        CIOAttributes.userId: account?.id,
-        CIOAttributes.logValue: log.times,
-        CIOAttributes.dateLog: log.date,
-      },
-    );
   }
 }

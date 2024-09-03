@@ -1,5 +1,5 @@
 import 'package:auto_route/auto_route.dart';
-import 'package:easy_localization/easy_localization.dart';
+import 'package:loopcare_frontend/core/application/localization/localizer_extenstion.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
@@ -103,16 +103,18 @@ class FiberDescription extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
                   CustomText.w400(
-                    LocalizedTexts.fiberDailyGoal
-                        .tr(args: ['${fiberValue?.toStringAsFixed(1)}', _fiberDailyGoal]),
+                    LocalizedTexts.fiberDailyGoal.tr({
+                      'fiberAmount': '${fiberValue?.toStringAsFixed(1)}',
+                      'dailyGoal': _fiberDailyGoal
+                    }),
                     style: context.textTheme.bodySmall,
                   ),
                   const SizedBox(height: 20),
                   CustomText.w400(
-                    LocalizedTexts.fiberRatioToCarbo.tr(args: [
-                      '${totalCarbs?.toStringAsFixed(0)}',
-                      '${carbsFiberRatio?.toStringAsFixed(1)}'
-                    ]),
+                    LocalizedTexts.fiberRatioToCarbo.tr({
+                      'totalCarbohydrates': totalCarbs?.toStringAsFixed(0) ?? '',
+                      'ratio': carbsFiberRatio?.toStringAsFixed(1) ?? ''
+                    }),
                     style: context.textTheme.bodySmall,
                   ),
                 ],

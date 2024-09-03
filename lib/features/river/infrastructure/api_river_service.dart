@@ -11,8 +11,8 @@ import 'package:loopcare_frontend/features/river/infrastructure/dto/river_module
 import 'package:loopcare_frontend/features/river/infrastructure/dto/get_cross_module_items_response.dart';
 
 // TODO river modules response mock
-//import 'package:loopcare_frontend/features/river/infrastructure/river_modules_mock.dart';
-//import 'package:loopcare_frontend/features/river/infrastructure/river_module_item_mock.dart';
+// import 'package:loopcare_frontend/features/river/infrastructure/river_modules_mock.dart';
+// import 'package:loopcare_frontend/features/river/infrastructure/river_module_item_mock.dart';
 
 @Injectable(as: RiverService)
 class APIRiverService implements RiverService {

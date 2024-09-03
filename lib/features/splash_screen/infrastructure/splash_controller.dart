@@ -109,7 +109,9 @@ class SplashController {
   }
 
   void setUpBottomNavigationBar() {
-    if (!riverBloc.state.data.isBeginningComplete) {
+    if (!riverBloc.state.data.isBeginningComplete ||
+        !navigationBarBloc.state.data.isProfileOpen ||
+        !navigationBarBloc.state.data.isPracticeOpen) {
       navigationBarBloc.add(
         NavigationBarEvent.setBeginningUncompleted(
           isPracticeOpened: riverBloc.state.data.isPracticeCompleted,

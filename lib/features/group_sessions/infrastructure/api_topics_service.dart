@@ -40,7 +40,8 @@ class APITopicsService implements TopicsService {
   }
 
   @override
-  Future<Either<RequestError, SignToGroupSessionsResponse>> signToGroupMeeting(int groupSessionId) async {
+  Future<Either<RequestError, SignToGroupSessionsResponse>> signToGroupMeeting(
+      int groupSessionId) async {
     return await client.post(
       '/group-sessions/$groupSessionId/members',
       fromJson: SignToGroupSessionsResponse.fromJson,
@@ -53,7 +54,8 @@ class APITopicsService implements TopicsService {
   }
 
   @override
-  Future<Either<RequestError, GetSessionSignatureResponse>> getSessionSignature(int sessionId) async {
+  Future<Either<RequestError, GetSessionSignatureResponse>> getSessionSignature(
+      int sessionId) async {
     return await client.get(
       '/group-sessions/$sessionId/signature',
       fromJson: GetSessionSignatureResponse.fromJson,

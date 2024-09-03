@@ -1,5 +1,5 @@
 import 'package:auto_route/annotations.dart';
-import 'package:easy_localization/easy_localization.dart';
+import 'package:loopcare_frontend/core/application/localization/localizer_extenstion.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loopcare_frontend/core/presentation/app_bar/custom_app_bar.dart';
@@ -66,8 +66,8 @@ class ProgramDetailsPage extends StatelessWidget {
                           ),
                           const SizedBox(height: 20.0),
                           CustomText(
-                            LocalizedTexts.countExercises.tr(
-                              namedArgs: {
+                            LocalizedTexts.countExercises.getPlural(
+                              args: {
                                 'count': '$exercisesLength',
                               },
                             ),
@@ -92,9 +92,9 @@ class ProgramDetailsPage extends StatelessWidget {
                           shrinkWrap: true,
                           physics: const NeverScrollableScrollPhysics(),
                           itemBuilder: (context, index) => ExerciseCard(
-                              index: index,
-                              exercise: program.exercises[index],
-                            ),
+                            index: index,
+                            exercise: program.exercises[index],
+                          ),
                         ),
                       ),
                       const SizedBox(height: 8.0),

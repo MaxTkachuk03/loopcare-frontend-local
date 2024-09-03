@@ -1,5 +1,5 @@
 import 'package:auto_route/auto_route.dart';
-import 'package:easy_localization/easy_localization.dart';
+import 'package:loopcare_frontend/core/application/localization/localizer_extenstion.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loopcare_frontend/core/domain/analytics/analytics_events.dart';
@@ -124,7 +124,7 @@ class _ReflectionQuestionPageState extends State<ReflectionQuestionPage> {
       s.mapOrNull(error: _onErrorHandler, reflectionsLoaded: _onUpdateHandler);
 
   String get _title =>
-      LocalizedTexts.stepCounter.tr(args: [(widget.step + 1).toString(), _totalSteps.toString()]);
+      LocalizedTexts.stepCounter.tr({'currentStep': widget.step + 1, 'totalSteps': _totalSteps});
 
   int get _percent => ((widget.step + 1) * 100 / _totalSteps).round();
 
