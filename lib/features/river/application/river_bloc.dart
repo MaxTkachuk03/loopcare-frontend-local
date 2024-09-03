@@ -184,6 +184,10 @@ class RiverBloc extends Bloc<RiverEvent, RiverState> {
 
     if (_noNeedUpdateModuleItemStates(moduleItem)) return;
 
+    emit(
+      RiverState.moduleItemLoading(state.data.copyWith(isLoading: true)),
+    );
+
     if (_needCompleteModuleItemStates(moduleItem)) {
       moduleItem = _getItemWithNewViewItemState(moduleItem);
       module = _updateModuleItem(event.moduleId, moduleItem);
