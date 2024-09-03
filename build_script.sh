@@ -44,15 +44,15 @@ build_options="--release --obfuscate --split-debug-info=debug-info --dart-define
 case "$platform" in
     "ios")
         echo "Building iOS app..."
-        flutter build ipa "$build_options" --export-method ad-hoc
+        flutter build ipa $build_options --export-method ad-hoc
         ;;
     "android")
         if [ "$build_type" == "prod" ]; then
             echo "Building Android app bundle..."
-            flutter build appbundle "$build_options"
+            flutter build appbundle $build_options
         else
             echo "Building Android APK..."
-            flutter build apk "$build_options"
+            flutter build apk $build_options
         fi
         ;;
     *)
