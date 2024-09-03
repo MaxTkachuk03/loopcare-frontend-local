@@ -104,22 +104,8 @@ class RiverBloc extends Bloc<RiverEvent, RiverState> {
       final responseModule = response.first.onlyRight as RiverModule;
       final responseCrossModuleItems = response.last.onlyRight as GetCrossModuleItemsResponse;
       final crossModuleItems = responseCrossModuleItems.data;
-
-      var modules = _migrateCrossModuleItems(
-        responseModule,
-        crossModuleItems,
-      );
-
-      modules = _refreshCrossModuleItemsInModules(
-        modules,
-        crossModuleItems,
-      );
-
-      modules = _migrateTheBeginningModuleItems(
-        responseModule,
-      );
-
       final activeModuleItem = event.removeActiveItem ? null : state.data.activeModuleItem;
+      final modules = _updateModuleItemsForModule(responseModule, crossModuleItems);
 
       emit(
         RiverState.moduleLoaded(
@@ -456,7 +442,7 @@ class RiverBloc extends Bloc<RiverEvent, RiverState> {
         continue;
       }
 
-      if (item.isAdditionalBuddyCrossModuleItem && item.states.itemState.isLocked) {
+      if (item.isAdditionalBuddyCrossModuleItem && item.states.itemState.isLocked) { //or contain  isAdditionalBuddyCrossModuleItem
         continue;
       }
 
@@ -507,6 +493,22 @@ class RiverBloc extends Bloc<RiverEvent, RiverState> {
       } else {
         modules.add(item);
       }
+    }
+
+    return modules;
+  }
+
+  List<RiverModule> _updateModuleItemsForModule(
+    RiverModule module,
+    List<RiverModuleItem> crossModuleItems,
+  ) {
+    List<RiverModule> modules = [];
+
+    if (module.id == state.data.modules.firstOrNull?.id) {
+      modules = _migrateTheBeginningModuleItems(module);
+    } else {
+      modules = _migrateCrossModuleItems(module, crossModuleItems);
+      modules = _refreshCrossModuleItemsInModules(modules, crossModuleItems);
     }
 
     return modules;
@@ -582,7 +584,7 @@ class RiverBloc extends Bloc<RiverEvent, RiverState> {
     final needAddAdditionalItem = newAdditional.states.itemState.isUnLocked;
 
     if (moveBuddy || moveGrouping) {
-      modules = _moveModules(modules, moveBuddy, moveGrouping, newBuddy, newGrouping);
+      modules = _moveModuleItems(modules, moveBuddy, moveGrouping, newBuddy, newGrouping);
     } else if (needAddAdditionalItem) {
       modules = _insertCrossModuleItems(modules, [newAdditional]);
     }
@@ -590,7 +592,7 @@ class RiverBloc extends Bloc<RiverEvent, RiverState> {
     return modules;
   }
 
-  List<RiverModule> _moveModules(
+  List<RiverModule> _moveModuleItems(
     List<RiverModule> modules,
     bool moveBuddy,
     bool moveGrouping,
