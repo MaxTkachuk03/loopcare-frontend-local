@@ -425,17 +425,6 @@ class RiverBloc extends Bloc<RiverEvent, RiverState> {
       }
     }
 
-    final notContinueAdditionalModuleItem =
-        !module.moduleItems.any((i) => i.isAdditionalBuddyCrossModuleItem);
-
-    if (moduleItem.isBuddyCrossModuleItem &&
-        moduleItem.states.prevItemState.isCompleted &&
-        notContinueAdditionalModuleItem) {
-      moduleItems.add(
-        state.data.crossModuleItems.firstWhere((i) => i.isAdditionalBuddyCrossModuleItem),
-      );
-    }
-
     module = module.copyWith(moduleItems: moduleItems);
 
     return [...state.data.modules].update(index, module);
@@ -532,76 +521,98 @@ class RiverBloc extends Bloc<RiverEvent, RiverState> {
     }
   }
 
-
   List<RiverModule> _refreshCrossModuleItemsInModules(
     List<RiverModule> list,
     List<RiverModuleItem> crossModuleItems,
   ) {
     var modules = List.of(list);
 
-    final oldBuddyCrossModuleItem = state.data.crossModuleItems
+    final oldBuddy = state.data.crossModuleItems
         .firstWhere((i) => i.isBuddyCrossModuleItem);
 
-    final newBuddyCrossModuleItem = crossModuleItems
+    final newBuddy = crossModuleItems
         .firstWhere((i) => i.isBuddyCrossModuleItem);
 
-    final oldGroupingCrossModuleItem = state.data.crossModuleItems
+    final oldGrouping = state.data.crossModuleItems
         .firstWhere((i) => i.isGroupingCrossModuleItem);
 
-    final newGroupingCrossModuleItem = crossModuleItems
+    final newGrouping = crossModuleItems
         .firstWhere((i) => i.isGroupingCrossModuleItem);
 
-    final newAdditionalCrossModuleItem = crossModuleItems
+    final newAdditional = crossModuleItems
         .firstWhere((i) => i.isAdditionalBuddyCrossModuleItem);
 
-    final needToMoveBuddyItem = oldBuddyCrossModuleItem.states.prevItemState.isCompleted &&
-        newBuddyCrossModuleItem.states.itemState.isRead;
+    final moveBuddy = oldBuddy.states.prevItemState.isCompleted &&
+        newBuddy.states.itemState.isRead;
 
-    final needToMoveGroupingItem = oldGroupingCrossModuleItem.states.prevItemState.isCompleted &&
-        newGroupingCrossModuleItem.states.itemState.isRead;
+    final moveGrouping = oldGrouping.states.prevItemState.isCompleted &&
+        newGrouping.states.itemState.isRead;
 
-    final needToAddAdditionalBuddyItem = newAdditionalCrossModuleItem.states.itemState.isUnLocked;
+    final needAddAdditionalItem = newAdditional.states.itemState.isUnLocked;
 
-    if (needToMoveBuddyItem || needToMoveGroupingItem) {
-      final updatedModules = <RiverModule>[];
-
-      for (var module in modules) {
-        if (needToMoveBuddyItem && module.moduleItems.any((i) => i.isBuddyCrossModuleItem)) {
-          module = module.copyWith(
-            moduleItems: module.moduleItems
-                .where((i) => !i.isBuddyCrossModuleItem && !i.isAdditionalBuddyCrossModuleItem)
-                .toList(),
-          );
-        }
-
-        if (needToMoveGroupingItem && module.moduleItems.any((i) => i.isGroupingCrossModuleItem)) {
-          module = module.copyWith(
-            moduleItems: module.moduleItems
-                .where((i) => !i.isGroupingCrossModuleItem)
-                .toList(),
-          );
-        }
-
-        if (module.id == state.data.activeModule?.id) {
-          module = module.copyWith(
-            moduleItems: [
-              ...module.moduleItems,
-              if (needToMoveBuddyItem) newBuddyCrossModuleItem,
-              if (needToMoveGroupingItem) newGroupingCrossModuleItem,
-            ],
-          );
-        }
-
-        updatedModules.add(module);
-      }
-
-      modules = updatedModules;
-    } else if (needToAddAdditionalBuddyItem) {
-      modules = _insertCrossModuleItems(modules, [newAdditionalCrossModuleItem]);
+    if (moveBuddy || moveGrouping) {
+      modules = _moveModules(modules, moveBuddy, moveGrouping, newBuddy, newGrouping);
+    } else if (needAddAdditionalItem) {
+      modules = _insertCrossModuleItems(modules, [newAdditional]);
     }
 
     return modules;
   }
+
+  List<RiverModule> _moveModules(
+    List<RiverModule> modules,
+    bool moveBuddy,
+    bool moveGrouping,
+    RiverModuleItem newBuddy,
+    RiverModuleItem newGrouping,
+  ) {
+    final updatedModules = <RiverModule>{};
+
+    for (var module in modules) {
+      final isCurrent = module.id == state.data.activeModule?.id;
+      final hasBuddy = module.moduleItems.any((i) => i.isBuddyCrossModuleItem);
+      final hasGrouping = module.moduleItems.any((i) => i.isGroupingCrossModuleItem);
+
+      if (moveBuddy && hasBuddy) {
+        module = _updateModuleWithCrossItem(
+          module,
+          newBuddy,
+          isCurrent,
+          (i) => i.isBuddyCrossModuleItem,
+        );
+      }
+
+      if (moveGrouping && hasGrouping) {
+        module = _updateModuleWithCrossItem(
+          module,
+          newGrouping,
+          isCurrent,
+          (i) => i.isGroupingCrossModuleItem,
+        );
+      }
+
+      if (isCurrent) {
+        module = module.copyWith(
+          moduleItems: [
+            ...module.moduleItems,
+            if (moveBuddy && !hasBuddy) newBuddy,
+            if (moveGrouping && !hasGrouping) newGrouping,
+          ],
+        );
+      }
+    }
+
+    return updatedModules.toList();
+  }
+
+  RiverModule _updateModuleWithCrossItem(
+    RiverModule module,
+    RiverModuleItem item,
+    bool isCurrent,
+    bool Function(RiverModuleItem i) onMach,
+  ) => isCurrent
+      ? module.copyWith(moduleItems: module.moduleItems.map((i) => onMach(i) ? item : i).toList())
+      : module.copyWith(moduleItems: module.moduleItems.where((i) => !onMach(i)).toList());
 
   RiverModule? _getActiveModule(List<RiverModule> models) => models.isNotEmpty
       ? models.firstWhere((module) => module.isInProgress, orElse: () => models.last)
