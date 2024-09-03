@@ -20,6 +20,13 @@ class AnalyticsEventService {
   final bool _includeFbAnalytics;
   final bool _includeUXcam;
 
+  String get userId {
+    final accountId = StoredAccountService.getAccount()?.id ?? -1;
+    final userIdPrefix = CountryCodeService.instance.serverCountryCode;
+    final id = '$accountId-$userIdPrefix';
+    return id;
+  }
+
   const AnalyticsEventService.appsFlyer()
       : _includeAppsFlyer = true,
         _includeFbAnalytics = false,
@@ -44,26 +51,26 @@ class AnalyticsEventService {
     required String eventName,
     Map<String, dynamic>? parameters,
   }) async {
-    final accountId = StoredAccountService.getAccount()?.id ?? -1;
-    final userIdPrefix = CountryCodeService.instance.serverCountryCode;
-    final userId = '$accountId-$userIdPrefix';
-
     if (_includeFbAnalytics) {
-      await _firebaseLogEvent(eventName, userId, parameters);
+      await _firebaseLogEvent(eventName, parameters);
     }
 
     if (_includeAppsFlyer && kIsProd) {
-      await _appsFlyerLogEvent(eventName, userId, parameters);
+      await _appsFlyerLogEvent(eventName, parameters);
     }
 
     if (_includeUXcam) {
-      await _uxcamLogEvent(eventName, userId, parameters);
+      await _uxcamLogEvent(eventName, parameters);
     }
   }
 
-  void logScreenEvent(String screenName) {
-    if (_includeFbAnalytics || _includeAppsFlyer) {
-      logEvent(eventName: 'screen_view', parameters: {'screenName': screenName});
+  void logScreenEvent(String screenName) async {
+    if (_includeFbAnalytics) {
+      await _firebaseLogEvent('screen_view', {'screenName': screenName});
+    }
+
+    if (_includeAppsFlyer && kIsProd) {
+      await _appsFlyerLogEvent('screen_view', {'screenName': screenName});
     }
 
     if (_includeUXcam) {
@@ -73,7 +80,6 @@ class AnalyticsEventService {
 
   Future<void> _appsFlyerLogEvent(
     String eventName,
-    String userId,
     Map<String, dynamic>? parameters,
   ) async {
     Map<String, Object> tmpParameters = Map.from(parameters ?? {});
@@ -89,7 +95,6 @@ class AnalyticsEventService {
 
   Future<void> _firebaseLogEvent(
     String eventName,
-    String userId,
     Map<String, dynamic>? parameters,
   ) async {
     Map<String, Object> tmpParameters = Map.from(parameters ?? {});
@@ -103,7 +108,6 @@ class AnalyticsEventService {
 
   Future<void> _uxcamLogEvent(
     String eventName,
-    String userId,
     Map<String, dynamic>? parameters,
   ) async {
     Map<String, Object> tmpParameters = Map.from(parameters ?? {});
