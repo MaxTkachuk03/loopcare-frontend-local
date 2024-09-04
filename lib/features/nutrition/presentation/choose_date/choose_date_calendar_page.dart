@@ -17,12 +17,13 @@ import 'package:loopcare_frontend/core/presentation/widgets/main_container.dart'
 import 'package:loopcare_frontend/core/presentation/widgets/scrollable_container.dart';
 import 'package:loopcare_frontend/features/nutrition/application/choose_date/choose_date_bloc.dart';
 import 'package:loopcare_frontend/features/nutrition/application/meals/meals_bloc.dart';
+import 'package:loopcare_frontend/features/nutrition/domain/select_serving/meal_category.dart';
 import 'package:loopcare_frontend/features/nutrition/presentation/choose_date/widgets/week_calendar.dart';
 import 'package:loopcare_frontend/features/nutrition/presentation/widgets/back_button_hexagon/back_button_hexagon.dart';
 
 @RoutePage()
 class ChooseDateCalendarPage extends StatefulWidget {
-  final String mealCategory;
+  final MealCategory mealCategory;
   final List<DateTime>? dates;
   final int mealId;
 
@@ -56,7 +57,7 @@ class _ChooseDateCalendarPageState extends State<ChooseDateCalendarPage> {
 
     context.read<ChooseDateBloc>().add(
           ChooseDateEvent.setData(
-            mealCategory: widget.mealCategory,
+            mealCategory: widget.mealCategory.name,
             dates: widget.dates,
             currentMealId: widget.mealId,
           ),
@@ -90,7 +91,7 @@ class _ChooseDateCalendarPageState extends State<ChooseDateCalendarPage> {
         onBtnPressed: () => _onReplacePressHandler(state.data.getWarningDate, context),
         onClose: () => isShowReplaceWarning = false,
         date: state.data.getWarningDate.shortDate,
-        mealCategory: widget.mealCategory,
+        mealCategory: widget.mealCategory.title,
         oldItem: state.data.plannedMealsForWarningDate.first,
         newItem: mealsState.data.currentMeal,
       );

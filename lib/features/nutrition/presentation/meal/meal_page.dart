@@ -60,8 +60,8 @@ class _MealPageState extends State<MealPage> {
 
     final mealCategory = DishFavoritesCategory.values
             .asNameMap()
-            .containsKey(state.data.currentMealCategory?.toLowerCase())
-        ? state.data.currentMealCategory?.toLowerCase()
+            .containsKey(state.data.currentMealCategory?.name)
+        ? state.data.currentMealCategory?.name
         : MealCategory.breakfast.originalValue;
 
     final mealId = state.data.getCurrentMealId;
@@ -101,10 +101,10 @@ class _MealPageState extends State<MealPage> {
 
     const AnalyticsEventService().logEvent(
       eventName:
-          'meal_screen_type_${currentMealCategory.replaceAll(' ', '_').replaceFirst('&', 'and')}',
+          'meal_screen_type_${currentMealCategory.originalValue.replaceAll(' ', '_').replaceFirst('&', 'and')}',
     );
 
-    return '${currentMealCategory.capitalizeOnlyFirstLetter()}${' ${LocalizedTexts.logList.tr()}'}';
+    return '${currentMealCategory.title.capitalizeOnlyFirstLetter()} ${LocalizedTexts.logList.tr()}';
   }
 
   String get _appBarSubTitle {
@@ -123,7 +123,7 @@ class _MealPageState extends State<MealPage> {
     if (state.currentFoodItems.isNotEmpty) {
       context.router.push(
         ChooseDateCalendarRoute(
-          mealCategory: state.currentMealCategory ?? '',
+          mealCategory: state.currentMealCategory ?? MealCategory.breakfast,
           dates: state.currentMeal?.planningDates,
           mealId: state.getCurrentMealId ?? -1,
         ),
@@ -170,11 +170,9 @@ class _MealPageState extends State<MealPage> {
               .read<MealsBloc>()
               .add(MealsEvent.deleteMeal(context.read<MealsBloc>().state.data.getCurrentMealId));
 
-          // _setOriginDate();
-
           context.router.popUntilRouteWithName(HomeRoute.name);
         },
-        mealCategory: currentCategory,
+        mealCategory: currentCategory.title,
       );
     } else {
       ModalBottomSheet.deleteMeal(
@@ -188,7 +186,7 @@ class _MealPageState extends State<MealPage> {
 
           context.router.popUntilRouteWithName(HomeRoute.name);
         },
-        mealCategory: currentCategory,
+        mealCategory: currentCategory.title,
       );
     }
   }

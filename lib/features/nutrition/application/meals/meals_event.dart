@@ -6,9 +6,9 @@ class MealsEvent with _$MealsEvent {
 
   const factory MealsEvent.fetchMealById(int id) = FetchMealById;
 
-  const factory MealsEvent.setMealId(int id, String mealCategory) = SetMealId;
+  const factory MealsEvent.setMealId(int id, MealCategory mealCategory) = SetMealId;
 
-  const factory MealsEvent.addMeal(String mealCategory) = AddMeal;
+  const factory MealsEvent.addMeal(MealCategory mealCategory) = AddMeal;
 
   const factory MealsEvent.addFoodItemToMeal(int mealId, String foodItemId, AddFoodItemToMealBody data) =
       AddFoodItemToMeal;

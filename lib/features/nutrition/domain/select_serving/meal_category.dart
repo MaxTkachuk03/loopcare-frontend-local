@@ -37,7 +37,7 @@ extension MealCategoryExtension on MealCategory {
     }
   }
 
-  String? get originalValue {
+  String get originalValue {
     switch (this) {
       case MealCategory.breakfast:
         return 'breakfast';
@@ -45,12 +45,11 @@ extension MealCategoryExtension on MealCategory {
         return 'lunch';
       case MealCategory.dinner:
         return 'dinner';
+        // TODO: ask BE make this value "inbetweens"
       case MealCategory.inbetweens:
         return 'inbetweens & snacks';
       // case MealCategory.drinks:
       //   return 'drinks';
-      default:
-        return null;
     }
   }
 }
