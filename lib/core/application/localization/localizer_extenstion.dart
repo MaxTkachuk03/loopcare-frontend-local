@@ -6,14 +6,12 @@ import 'package:flutter/services.dart' show rootBundle;
 import 'package:intl/intl.dart';
 import 'package:loopcare_frontend/core/infrastructure/services/app_config.dart';
 import 'package:loopcare_frontend/core/infrastructure/services/local_localization_service/local_localization_service.dart';
-import 'package:loopcare_frontend/core/infrastructure/services/shared_storage/shared_storage_service.dart';
 import 'package:loopcare_frontend/injection.dart';
 
 extension LocalizationExtension on String {
   String tr([Map<String, dynamic> params = const {}]) {
     String locale = getIt<AppConfig>().language;
-    final string = getLocalizedString(this, params: params);
-    // final string = Crowdin.getText(locale, this, params) ?? getLocalizedString(this, params: params);
+    final string = Crowdin.getText(locale, this, params) ?? getLocalizedString(this, params: params);
     return string;
   }
 
