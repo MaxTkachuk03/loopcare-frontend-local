@@ -604,7 +604,7 @@ class RiverBloc extends Bloc<RiverEvent, RiverState> {
     RiverModuleItem newBuddy,
     RiverModuleItem newGrouping,
   ) {
-    final updatedModules = <RiverModule>{};
+    final List<RiverModule> updatedModules = [];
 
     for (var module in modules) {
       final isCurrent = module.id == state.data.activeModule?.id;
@@ -638,9 +638,11 @@ class RiverBloc extends Bloc<RiverEvent, RiverState> {
           ],
         );
       }
+
+      updatedModules.add(module);
     }
 
-    return updatedModules.toList();
+    return updatedModules;
   }
 
   RiverModule _updateModuleWithCrossItem(
