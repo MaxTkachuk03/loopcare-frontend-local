@@ -22,6 +22,8 @@ class SharedStorageService {
 
   Future<bool> cleanStorage() => _prefs.cleanStorage();
 
+  void cleanStorageLiveTranslation() => _prefs.cleanStorageLiveTranslation();
+
   Future<bool> setString(String key, String value) => _prefs.setValue<String>(key, value);
 
   String? getString(String key) => _prefs.getValue<String>(key);
