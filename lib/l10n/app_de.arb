@@ -765,6 +765,7 @@
   "errorCorePasswordTokenExpired": "Das Passwort-Token ist abgelaufen.",
   "errorAuthAccessTokenInvalid": "Das Auth-Zugriffstoken ist ungültig.",
   "errorAuthRefreshTokenNotFound": "Auth-Refresh-Token nicht gefunden.",
+  "errorAccountEmailOrPasswordInvalid": "Wir konnten deine E-Mail-Adresse nicht aktualisieren. Bitte überprüfe deine Anmeldedaten und versuche es erneut",
   "errorAccountIdAlreadyExists": "Diese E-Mail-Adresse ist falsch oder bereits vergeben.",
   "errorAccountIdNotFound": "Account-ID nicht gefunden.",
   "errorAccountEmailNotFound": "E-Mail oder Passwort sind falsch.",
@@ -816,6 +817,7 @@
   "errorBuddyInvitationNotFound": "Buddy-Einladung nicht gefunden.",
   "errorBuddyInvitationHasBeenRejected": "Die Buddy-Einladung wurde abgelehnt.",
   "errorBuddyInvitationAlreadyApproved": "Die Buddy-Einladung wurde bereits genehmigt.",
+  "errorBuddyInvitationBuddyOccupied": "Diese Person ist leider nicht für das Buddy-Programm verfügbar. Fällt dir jemand anderes ein, der dir helfen könnte? Wende dich an den Support, wenn du Hilfe brauchst",
   "errorDiabetesTypeNotFound": "Diabetes-Typ nicht gefunden.",
   "errorNutritionMealIdNotFound": "Nutrition meal ID nicht gefunden.",
   "errorNutritionMealFoodItemIdNotFound": "Nutrition Meal Food Item ID nicht gefunden.",
@@ -2433,6 +2435,7 @@
   "physicalActivitiesPreferencesLabel": "Bewegungspräferenzen",
   "requestCode": "Anforderungscode",
   "calorie": "Kalorie",
+  "dencity": "Dichte",
   "protein": "Protein",
   "degree": "gehalt",
   "fiber": "Ballaststoffe",
@@ -2466,6 +2469,5 @@
   "maintenancePageTitle": "Wir sind bald wieder da!",
   "maintenancePageDescription": "Wir veröffentlichen gerade spannende neue Inhalte. Wenn du dich angemeldet hast, erhältst du eine Push-Benachrichtigung, sobald wir wieder online sind.\n\nMelde dich für unseren Newsletter an, um einen Vorgeschmack auf die kommenden Inhalte zu bekommen!",
   "noAlternativesAvailable": "Keine Alternativen verfügbar",
-  "chooseAlternative": "Wähle eine Alternative",
-  "density": "Dichte"
+  "chooseAlternative": "Wähle eine Alternative"
 }
