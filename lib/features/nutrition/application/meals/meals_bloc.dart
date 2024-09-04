@@ -20,7 +20,6 @@ import 'package:loopcare_frontend/features/nutrition/domain/nutrition_values_typ
 import 'package:loopcare_frontend/features/nutrition/domain/select_serving/meal_category.dart';
 import 'package:loopcare_frontend/features/nutrition/domain/serving_size/serving_size.dart';
 import 'package:loopcare_frontend/core/presentation/utils/date_time_extensions.dart';
-import 'package:loopcare_frontend/core/presentation/utils/string_extensions.dart';
 
 part 'meals_event.dart';
 
@@ -333,7 +332,7 @@ class MealsBloc extends Bloc<MealsEvent, MealsState> {
 
     var loggingDate = state.data.currentDateTime.midnightTime.toIso8601String();
 
-    final data = AddMealBody(loggingDate: loggingDate, mealCategory: event.mealCategory);
+    final data = AddMealBody(loggingDate: loggingDate, mealCategory: event.mealCategory.originalValue);
 
     final response = await nutritionService.addMeal(data);
 

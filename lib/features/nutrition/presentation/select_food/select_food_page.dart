@@ -7,6 +7,7 @@ import 'package:loopcare_frontend/core/presentation/custom_safe_area.dart';
 import 'package:loopcare_frontend/core/presentation/scaffold/custom_scaffold.dart';
 import 'package:loopcare_frontend/core/presentation/utils/string_extensions.dart';
 import 'package:loopcare_frontend/features/nutrition/application/meals/meals_bloc.dart';
+import 'package:loopcare_frontend/features/nutrition/domain/select_serving/meal_category.dart';
 import 'package:loopcare_frontend/features/nutrition/presentation/select_food/widgets/dishes_list.dart';
 import 'package:loopcare_frontend/features/nutrition/presentation/select_food/widgets/favorites_list.dart';
 import 'package:loopcare_frontend/features/nutrition/presentation/select_food/widgets/selected_items_label.dart';
@@ -15,7 +16,7 @@ import 'package:loopcare_frontend/core/presentation/utils/date_time_extensions.d
 
 @RoutePage()
 class SelectFoodPage extends StatefulWidget {
-  final String mealCategory;
+  final MealCategory? mealCategory;
 
   const SelectFoodPage({
     super.key,
@@ -36,7 +37,7 @@ class _SelectFoodPageState extends State<SelectFoodPage> with TickerProviderStat
         ? state.data.currentDateTime.shortDate
         : 'today';
 
-    return '${widget.mealCategory.capitalizeOnlyFirstLetter()} $date';
+    return '${widget.mealCategory?.title.capitalizeOnlyFirstLetter() ?? ''} $date';
   }
 
   @override

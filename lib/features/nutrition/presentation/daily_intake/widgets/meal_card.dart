@@ -31,9 +31,9 @@ class MealCard extends StatelessWidget {
     if (isDisabled && mealId == null) return;
 
     if (mealId == null) {
-      context.read<MealsBloc>().add(MealsEvent.addMeal(category.name));
+      context.read<MealsBloc>().add(MealsEvent.addMeal(category));
     } else {
-      context.read<MealsBloc>().add(MealsEvent.setMealId(mealId!, category.title));
+      context.read<MealsBloc>().add(MealsEvent.setMealId(mealId!, category));
     }
 
     context.router.pushNamed(AppRoutes.meal);
@@ -56,7 +56,9 @@ class MealCard extends StatelessWidget {
                     CircleAvatar(
                       radius: 6,
                       backgroundColor: NutritionIndicatorColorPicker.getIndicatorColor(
-                          NutritionIndicatorType.calorieDensity, calorieDensity),
+                        NutritionIndicatorType.calorieDensity,
+                        calorieDensity,
+                      ),
                     ),
                     const SizedBox(width: 10.0),
                     CustomText.bitter600(category.title.capitalize(), style: Theme.of(context).textTheme.bodyLarge),

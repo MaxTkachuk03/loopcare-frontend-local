@@ -23,7 +23,7 @@ import 'package:loopcare_frontend/features/nutrition/presentation/select_food/wi
 import 'package:loopcare_frontend/features/nutrition/presentation/select_food/widgets/list_filters.dart';
 
 class DishesList extends StatefulWidget {
-  final String mealCategory;
+  final MealCategory? mealCategory;
 
   const DishesList({
     super.key,
@@ -62,14 +62,12 @@ class _DishesListState extends State<DishesList> with AutomaticKeepAliveClientMi
   }
 
   bool get _canCreateDishWithSelectedMealCategory {
-    return DishFavoritesCategory.values.asNameMap().containsKey(widget.mealCategory.toLowerCase());
+    return DishFavoritesCategory.values.asNameMap().containsKey(widget.mealCategory?.name);
   }
 
-  String get _defaultMealCategory {
-    return _canCreateDishWithSelectedMealCategory
-        ? widget.mealCategory.toLowerCase()
-        : MealCategory.breakfast.name.toLowerCase();
-  }
+  String get _defaultMealCategory => _canCreateDishWithSelectedMealCategory
+        ? widget.mealCategory?.name ?? ''
+        : MealCategory.breakfast.name;
 
   @override
   Widget build(BuildContext context) {
@@ -193,7 +191,7 @@ class _DishesListState extends State<DishesList> with AutomaticKeepAliveClientMi
     List<MealCategory> defaultMealCategories = [];
 
     for (final mealCategory in MealCategory.values) {
-      if (mealCategory.name.toLowerCase() == widget.mealCategory.toLowerCase()) {
+      if (mealCategory == widget.mealCategory) {
         defaultMealCategories.add(mealCategory);
       }
     }
