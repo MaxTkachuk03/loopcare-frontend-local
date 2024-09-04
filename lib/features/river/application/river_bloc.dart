@@ -445,7 +445,9 @@ class RiverBloc extends Bloc<RiverEvent, RiverState> {
         continue;
       }
 
-      if (item.isAdditionalBuddyCrossModuleItem && item.states.itemState.isLocked) { //or contain  isAdditionalBuddyCrossModuleItem
+      if (item.isAdditionalBuddyCrossModuleItem &&
+          item.states.itemState.isLocked &&
+          _noAdditionalBuddyModuleItem(modules)) {
         continue;
       }
 
@@ -584,8 +586,7 @@ class RiverBloc extends Bloc<RiverEvent, RiverState> {
         newGrouping.states.itemState.isRead;
 
     final needAddAdditionalItem = newAdditional.states.itemState.isUnLocked &&
-        (_getActiveModule(modules)?.moduleItems.none((i) => i.isAdditionalBuddyCrossModuleItem) ??
-            true);
+        _noAdditionalBuddyModuleItem(modules);
 
     if (moveBuddy || moveGrouping) {
       modules = _moveModuleItems(modules, moveBuddy, moveGrouping, newBuddy, newGrouping);
@@ -654,4 +655,8 @@ class RiverBloc extends Bloc<RiverEvent, RiverState> {
   RiverModule? _getActiveModule(List<RiverModule> models) => models.isNotEmpty
       ? models.firstWhere((module) => module.isInProgress, orElse: () => models.last)
       : null;
+
+  bool _noAdditionalBuddyModuleItem(List <RiverModule> modules) =>
+      _getActiveModule(modules)?.moduleItems.none((i) => i.isAdditionalBuddyCrossModuleItem)
+          ?? true;
 }
