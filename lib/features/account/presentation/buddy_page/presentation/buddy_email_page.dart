@@ -47,7 +47,7 @@ class _BuddyEmailPageState extends State<BuddyEmailPage> {
   }
 
   bool _onListenWhenHandler(prev, cur) =>
-      prev is BuddyStateLoading && cur is BuddyStateGotBuddy ||
+      prev is BuddyStateLoading && cur is BuddyStateInvited ||
       prev is BuddyStateLoading && cur is BuddyStateError;
 
   @override
