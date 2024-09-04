@@ -8,4 +8,5 @@ Future<void> initHive() async {
   Hive.init(directory.path);
 
   await Hive.openBox<UserStatesModel>(HiveBoxConstants.userStates);
+  await Hive.openBox<String>(HiveBoxConstants.localization);
 }

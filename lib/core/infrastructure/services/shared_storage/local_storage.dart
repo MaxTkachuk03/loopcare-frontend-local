@@ -15,13 +15,6 @@ class LocalStorage extends StorageActions {
   Future<bool> cleanStorage() => _prefs.clear();
 
   @override
-  void cleanStorageLiveTranslation() => _prefs.getKeys().forEach((String key) {
-        if (key != 'translations') {
-          _prefs.remove(key);
-        }
-      });
-
-  @override
   T? getValue<T extends Object?>(String key) => _prefs.get(key) as T?;
 
   String? getString(String key) => _prefs.getString(key);

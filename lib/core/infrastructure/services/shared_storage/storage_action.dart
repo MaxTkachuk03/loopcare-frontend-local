@@ -6,6 +6,4 @@ abstract class StorageActions {
   Future<bool> remove(String key);
 
   Future<bool> cleanStorage();
-
-  void cleanStorageLiveTranslation();
 }

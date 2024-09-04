@@ -13,6 +13,7 @@ import 'package:loopcare_frontend/core/infrastructure/services/app_bloc_provider
 import 'package:loopcare_frontend/core/infrastructure/services/app_config.dart';
 import 'package:loopcare_frontend/core/infrastructure/services/facebook_events_service.dart';
 import 'package:loopcare_frontend/core/infrastructure/services/firebase_navigator_observer.dart';
+import 'package:loopcare_frontend/core/infrastructure/services/local_localization_service/local_localization_service.dart';
 import 'package:loopcare_frontend/core/infrastructure/services/logger/logger.dart';
 import 'package:loopcare_frontend/core/infrastructure/services/shared_storage/shared_storage_service.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
@@ -70,7 +71,7 @@ class _AppState extends State<_App> {
       future: _initializeCrowdin(),
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.done ||
-            getIt<SharedStorageService>().localTranslations != null) {
+            (getIt<LocalLocalizationService>().translations?.isNotEmpty ?? false)) {
           return BlocListener<ConnectivityBloc, ConnectivityState>(
             listener: (context, state) => state.whenOrNull(
               statusChanged: _connectivityListener,

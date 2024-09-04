@@ -2304,7 +2304,7 @@ class AppLocalizationsDe extends AppLocalizations {
   String get errorAuthRefreshTokenNotFound => 'Auth-Refresh-Token nicht gefunden.';
 
   @override
-  String get errorAccountEmailOrPasswordInvalid => 'We were unable to update your email address. Please check your credentials and try again';
+  String get errorAccountEmailOrPasswordInvalid => 'Wir konnten deine E-Mail-Adresse nicht aktualisieren. Bitte überprüfe deine Anmeldedaten und versuche es erneut';
 
   @override
   String get errorAccountIdAlreadyExists => 'Diese E-Mail-Adresse ist falsch oder bereits vergeben.';
@@ -2460,7 +2460,7 @@ class AppLocalizationsDe extends AppLocalizations {
   String get errorBuddyInvitationAlreadyApproved => 'Die Buddy-Einladung wurde bereits genehmigt.';
 
   @override
-  String get errorBuddyInvitationBuddyOccupied => 'Sorry, this person isn’t available for the buddy program. Can you think of someone else who could help you? Reach out to support if you need a hand';
+  String get errorBuddyInvitationBuddyOccupied => 'Diese Person ist leider nicht für das Buddy-Programm verfügbar. Fällt dir jemand anderes ein, der dir helfen könnte? Wende dich an den Support, wenn du Hilfe brauchst';
 
   @override
   String get errorDiabetesTypeNotFound => 'Diabetes-Typ nicht gefunden.';
@@ -5877,7 +5877,7 @@ class AppLocalizationsDe extends AppLocalizations {
   String get calorie => 'Kalorie';
 
   @override
-  String get dencity => 'dencity';
+  String get dencity => 'Dichte';
 
   @override
   String get protein => 'Protein';

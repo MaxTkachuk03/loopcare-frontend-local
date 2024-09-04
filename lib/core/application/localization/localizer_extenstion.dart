@@ -5,18 +5,20 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter/services.dart' show rootBundle;
 import 'package:intl/intl.dart';
 import 'package:loopcare_frontend/core/infrastructure/services/app_config.dart';
+import 'package:loopcare_frontend/core/infrastructure/services/local_localization_service/local_localization_service.dart';
 import 'package:loopcare_frontend/core/infrastructure/services/shared_storage/shared_storage_service.dart';
 import 'package:loopcare_frontend/injection.dart';
 
 extension LocalizationExtension on String {
   String tr([Map<String, dynamic> params = const {}]) {
     String locale = getIt<AppConfig>().language;
-    final string = Crowdin.getText(locale, this, params) ?? getLocalizedString(this, params: params);
+    final string = getLocalizedString(this, params: params);
+    // final string = Crowdin.getText(locale, this, params) ?? getLocalizedString(this, params: params);
     return string;
   }
 
   String getLocalizedString(String key, {Map<String, dynamic>? params}) {
-    final jsonString = getIt<SharedStorageService>().localTranslations;
+    final jsonString = getIt<LocalLocalizationService>().translations;
     if (jsonString == null || jsonString.isEmpty) {
       return key;
     }
@@ -115,6 +117,6 @@ extension LocalizationExtension on String {
 Future<bool> loadLocalLocalizations() async {
   String locale = getIt<AppConfig>().language;
   final jsonString = await rootBundle.loadString('lib/l10n/app_$locale.arb');
-  getIt<SharedStorageService>().localTranslations = jsonString;
+  getIt<LocalLocalizationService>().translations = jsonString;
   return true;
 }

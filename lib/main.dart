@@ -14,6 +14,7 @@ import 'package:loopcare_frontend/core/application/customer_io_service/customer_
 import 'package:loopcare_frontend/core/application/localization/localization_service.dart';
 import 'package:loopcare_frontend/core/application/system_service.dart';
 import 'package:loopcare_frontend/core/infrastructure/app_lifecycle_observer.dart';
+import 'package:loopcare_frontend/core/infrastructure/hive_service/hive_constants.dart';
 import 'package:loopcare_frontend/core/infrastructure/services/analytics_service.dart';
 import 'package:loopcare_frontend/core/infrastructure/services/country_code_service/country_code_service.dart';
 import 'package:loopcare_frontend/core/infrastructure/services/events.dart';
@@ -85,6 +86,7 @@ Future<void> main() async {
   final directory = await getApplicationDocumentsDirectory();
   Hive.init(directory.path);
   await Hive.openBox<UserStatesModel>('user_states');
+  await Hive.openBox<String>(HiveBoxConstants.localization);
 
   return runApp(const AppLifeCycleStateListener(child: App()));
 }

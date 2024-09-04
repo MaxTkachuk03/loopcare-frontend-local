@@ -711,7 +711,7 @@ class AuthenticationBloc extends HydratedBloc<AuthenticationEvent, Authenticatio
     response.fold(
       (error) => emit(AuthenticationState.error(state.data.copyWith(error: error))),
       (_) {
-        _sharedPref.cleanStorageLiveTranslation();
+        _sharedPref.cleanStorage();
         add(const AuthenticationEvent.logout());
       },
     );
