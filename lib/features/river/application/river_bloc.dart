@@ -362,7 +362,10 @@ class RiverBloc extends Bloc<RiverEvent, RiverState> {
     RiverModuleItem item,
   ) {
     final prevState = item.states.itemState;
-    final canUpdate = prevState.isCompleted && item.actions.isNotEmpty || prevState.isUnLocked;
+    final canUpdate = (!item.isAdditionalBuddyCrossModuleItem &&
+            prevState.isCompleted &&
+            item.actions.isNotEmpty) ||
+        prevState.isUnLocked;
     final state = canUpdate ? null : prevState;
     final completedInModuleId = prevState.isCompleted ? moduleId : null;
 
@@ -374,7 +377,7 @@ class RiverBloc extends Bloc<RiverEvent, RiverState> {
   }
 
   RiverModuleItem _getItemWithNewViewItemState(RiverModuleItem moduleItem) {
-    final itemState = moduleItem.actions.isNotEmpty
+    final itemState = moduleItem.actions.isNotEmpty && !moduleItem.isAdditionalBuddyCrossModuleItem
         ? RiverModuleItemState.read
         : RiverModuleItemState.completed;
 
@@ -447,12 +450,11 @@ class RiverBloc extends Bloc<RiverEvent, RiverState> {
       }
 
       final parentModuleIndex = modules.indexWhere((m) => m.id == item.spawnedInModuleId);
+      final moduleId = currentModuleIndex > parentModuleIndex && activeModule != null
+          ? activeModule.id
+          : item.spawnedInModuleId;
 
-      if (currentModuleIndex > parentModuleIndex) {
-        modules = _addCrossModuleItem(modules, activeModule?.id ?? item.spawnedInModuleId, item);
-      } else {
-        modules = _addCrossModuleItem(modules, item.spawnedInModuleId, item);
-      }
+      modules = _addCrossModuleItem(modules, moduleId, item);
     }
 
     return modules;
@@ -581,7 +583,9 @@ class RiverBloc extends Bloc<RiverEvent, RiverState> {
     final moveGrouping = oldGrouping.states.prevItemState.isCompleted &&
         newGrouping.states.itemState.isRead;
 
-    final needAddAdditionalItem = newAdditional.states.itemState.isUnLocked;
+    final needAddAdditionalItem = newAdditional.states.itemState.isUnLocked &&
+        (_getActiveModule(modules)?.moduleItems.none((i) => i.isAdditionalBuddyCrossModuleItem) ??
+            true);
 
     if (moveBuddy || moveGrouping) {
       modules = _moveModuleItems(modules, moveBuddy, moveGrouping, newBuddy, newGrouping);
