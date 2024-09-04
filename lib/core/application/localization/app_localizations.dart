@@ -4687,6 +4687,12 @@ abstract class AppLocalizations {
   /// **'Auth refresh token not found.'**
   String get errorAuthRefreshTokenNotFound;
 
+  /// No description provided for @errorAccountEmailOrPasswordInvalid.
+  ///
+  /// In en, this message translates to:
+  /// **'We were unable to update your email address. Please check your credentials and try again'**
+  String get errorAccountEmailOrPasswordInvalid;
+
   /// No description provided for @errorAccountIdAlreadyExists.
   ///
   /// In en, this message translates to:
@@ -4992,6 +4998,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Buddy invitation has already been approved.'**
   String get errorBuddyInvitationAlreadyApproved;
+
+  /// No description provided for @errorBuddyInvitationBuddyOccupied.
+  ///
+  /// In en, this message translates to:
+  /// **'Sorry, this person isn’t available for the buddy program. Can you think of someone else who could help you? Reach out to support if you need a hand'**
+  String get errorBuddyInvitationBuddyOccupied;
 
   /// No description provided for @errorDiabetesTypeNotFound.
   ///

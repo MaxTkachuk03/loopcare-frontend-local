@@ -43,16 +43,16 @@ class DailyIntakePage extends StatelessWidget {
                     itemBuilder: (context, index) {
                       final selectedDayMeals =
                           mealsState.data.meals[mealsState.data.currentDateTime.isoStringWithoutTime];
-                      var category = MealCategory.values[index].name;
+                      var category = MealCategory.values[index];
 
                       var mealForCurrentCategory = selectedDayMeals?.firstWhereOrNull(
-                          (m) => m.mealCategory.toLowerCase() == MealCategory.values[index].label);
+                          (m) => m.mealCategory.toLowerCase() == MealCategory.values[index].name);
 
                       final mealItems = mealForCurrentCategory?.mealItems;
                       final isEnabled = mealItems != null && mealItems.isNotEmpty;
                       return MealCard(
                         mealId: mealForCurrentCategory?.id,
-                        title: category,
+                        category: category,
                         isDisabled: !mealsState.data.isEditable,
                         mealItems: isEnabled ? mealItems : null,
                         calorieDensity: isEnabled ? mealsState.data.calorieDensitySum(mealItems) : null,

@@ -2304,6 +2304,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get errorAuthRefreshTokenNotFound => 'Auth refresh token not found.';
 
   @override
+  String get errorAccountEmailOrPasswordInvalid => 'We were unable to update your email address. Please check your credentials and try again';
+
+  @override
   String get errorAccountIdAlreadyExists => 'This email address is incorrect or already taken.';
 
   @override
@@ -2455,6 +2458,9 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get errorBuddyInvitationAlreadyApproved => 'Buddy invitation has already been approved.';
+
+  @override
+  String get errorBuddyInvitationBuddyOccupied => 'Sorry, this person isn’t available for the buddy program. Can you think of someone else who could help you? Reach out to support if you need a hand';
 
   @override
   String get errorDiabetesTypeNotFound => 'Diabetes type not found.';

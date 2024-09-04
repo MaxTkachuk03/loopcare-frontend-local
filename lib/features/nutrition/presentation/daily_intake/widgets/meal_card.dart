@@ -9,10 +9,11 @@ import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 import 'package:loopcare_frontend/core/presentation/utils/string_extensions.dart';
 import 'package:loopcare_frontend/features/nutrition/application/meals/dto/meal_item.dart';
 import 'package:loopcare_frontend/features/nutrition/application/meals/meals_bloc.dart';
+import 'package:loopcare_frontend/features/nutrition/domain/select_serving/meal_category.dart';
 
 class MealCard extends StatelessWidget {
   final int? mealId;
-  final String title;
+  final MealCategory category;
   final double? calorieDensity;
   final List<MealItem>? mealItems;
   final bool isDisabled;
@@ -20,7 +21,7 @@ class MealCard extends StatelessWidget {
   const MealCard({
     super.key,
     required this.mealId,
-    required this.title,
+    required this.category,
     required this.calorieDensity,
     required this.mealItems,
     required this.isDisabled,
@@ -30,11 +31,9 @@ class MealCard extends StatelessWidget {
     if (isDisabled && mealId == null) return;
 
     if (mealId == null) {
-      final mealCategory = title.toLowerCase();
-
-      context.read<MealsBloc>().add(MealsEvent.addMeal(mealCategory));
+      context.read<MealsBloc>().add(MealsEvent.addMeal(category.name));
     } else {
-      context.read<MealsBloc>().add(MealsEvent.setMealId(mealId!, title));
+      context.read<MealsBloc>().add(MealsEvent.setMealId(mealId!, category.title));
     }
 
     context.router.pushNamed(AppRoutes.meal);
@@ -60,7 +59,7 @@ class MealCard extends StatelessWidget {
                           NutritionIndicatorType.calorieDensity, calorieDensity),
                     ),
                     const SizedBox(width: 10.0),
-                    CustomText.bitter600(title.capitalize(), style: Theme.of(context).textTheme.bodyLarge),
+                    CustomText.bitter600(category.title.capitalize(), style: Theme.of(context).textTheme.bodyLarge),
                   ],
                 ),
                 if (!isDisabled || mealId != null)

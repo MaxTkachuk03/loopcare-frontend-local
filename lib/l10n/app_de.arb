@@ -1813,7 +1813,7 @@
   "timeslotMissed": "Sorry, du hast dieses Zeitfenster verpasst",
   "chooseAnotherTimeslot": "Wähle einen anderen Zeitraum aus",
   "noOtherTimeslotsAvailable": "Für diese Woche sind keine weiteren Zeitfenster verfügbar. Das Thema der nächsten Woche folgt in Kürze",
-  "noMinMemberCount": "{number, plural, one {}=0{Es haben sich keine Nutzer für diese Sitzung angemeldet, daher kann sie abgesagt werden.} =1{Nur 1 Benutzer hat sich für diese Sitzung angemeldet, daher kann sie abgesagt werden.} other{Weniger als {number} Nutzer haben sich für diese Sitzung angemeldet, daher wird sie möglicherweise abgesagt.}}",
+  "noMinMemberCount": "{number, plural, =0{Es haben sich keine Nutzer für diese Sitzung angemeldet, daher kann sie abgesagt werden.} =1{Nur 1 Benutzer hat sich für diese Sitzung angemeldet, daher kann sie abgesagt werden.} other{Weniger als {number} Nutzer haben sich für diese Sitzung angemeldet, daher wird sie möglicherweise abgesagt.}}",
   "@noMinMemberCount": {
     "description": "Indicates that the session might be canceled due to insufficient user sign-ups.",
     "placeholders": {
@@ -2056,7 +2056,7 @@
   "intro": "Intro",
   "exercises": "Übungen",
   "startExercise": "Übung starten",
-  "countMins": "{count, plural, one {}=1 {# min} other {# mins}}",
+  "countMins": "{count, plural, =1 {# min} other {# mins}}",
   "@countMins": {
     "description": "Shows the number of minutes",
     "placeholders": {
@@ -2150,7 +2150,7 @@
   "reportIssueAndEmergencyTitle": "Problem und Notfall melden",
   "groupChat": "Gruppenchat",
   "groupChatTitle": "Gruppenmitglieder",
-  "groupChatLabel": "{users, plural, one {}=0{Es gibt keine Mitglieder in deiner Selbsthilfegruppe} =1{Es gibt 1 Mitglied in deiner Selbsthilfegruppe} other{Es gibt {users} Mitglieder in deiner Selbsthilfegruppe}}",
+  "groupChatLabel": "{users, plural, =0{Es gibt keine Mitglieder in deiner Selbsthilfegruppe} =1{Es gibt 1 Mitglied in deiner Selbsthilfegruppe} other{Es gibt {users} Mitglieder in deiner Selbsthilfegruppe}}",
   "@groupChatLabel": {
     "description": "Message indicating the number of members in the support group",
     "placeholders": {
