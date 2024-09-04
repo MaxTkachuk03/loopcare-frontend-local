@@ -1,10 +1,10 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loopcare_frontend/build_type.dart';
 import 'package:loopcare_frontend/core/presentation/buttons/custom_elevated_button.dart';
-import 'package:loopcare_frontend/core/presentation/buttons/custom_outlined_button.dart';
 import 'package:loopcare_frontend/core/presentation/routes/app_router.gr.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 import 'package:loopcare_frontend/features/authentication/application/authentication_bloc.dart';
@@ -16,6 +16,10 @@ import 'package:loopcare_frontend/features/onboarding/application/physical_quest
 
 class CustomErrorWidget extends StatelessWidget {
   const CustomErrorWidget({super.key, required this.errorDetails});
+
+  String get _message => kReleaseMode
+      ? errorDetails.summary.toDescription()
+      : errorDetails.summary.toString();
 
   final FlutterErrorDetails errorDetails;
 
@@ -37,48 +41,51 @@ class CustomErrorWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      margin: const EdgeInsets.all(16.0),
-      padding: const EdgeInsets.all(16.0),
-      decoration: const BoxDecoration(
-        color: AppColors.greyDarker,
-        borderRadius: BorderRadius.all(Radius.circular(12))
-      ),
-      child: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Text(
-              kIsDev
-                  ? errorDetails.summary.toString()
-                  : 'Oops! Something went wrong!',
-              textAlign: TextAlign.center,
-              style: TextStyle(
-                color: kIsDev ? Colors.red : Colors.white,
-                fontWeight: FontWeight.bold,
-                fontSize: 16,
-              ),
-            ),
-            const SizedBox(height: 16),
-            if (kIsDev)
-              CustomOutlinedButton.greenSmall(
-                label: 'Copy the error summary',
-                onPressed: _copyToClipBoard,
-              )
-            else
-              const Text(
-                'Please close the application (swipe it away) and reopen it. Sorry for the inconvenience.',
+    return Material(
+      color: AppColors.transparent,
+      child: Container(
+        margin: const EdgeInsets.all(16.0),
+        padding: const EdgeInsets.all(16.0),
+        decoration: const BoxDecoration(
+          color: AppColors.greyDarker,
+          borderRadius: BorderRadius.all(Radius.circular(12))
+        ),
+        child: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Text(
+                kIsDev
+                    ? _message
+                    : 'Oops! Something went wrong!',
                 textAlign: TextAlign.center,
-                style: TextStyle(color: Colors.white, fontSize: 14),
+                style: TextStyle(
+                  color: kIsDev ? Colors.red : Colors.white,
+                  fontWeight: FontWeight.bold,
+                  fontSize: 16,
+                ),
               ),
-            const SizedBox(height: 16),
-            if (context.router.stack.map((e) => e.name).contains(IntroRoute.name))
-              CustomElevatedButton.green(
-                label: 'Back to Start',
-                onPressed: () => _resetDataAndNavigateToRoot(context),
-              ),
-          ],
+              const SizedBox(height: 16),
+              if (kIsDev)
+                CustomElevatedButton.blueSmall(
+                  label: 'Copy the error summary',
+                  onPressed: _copyToClipBoard,
+                )
+              else
+                const Text(
+                  'Please close the application (swipe it away) and reopen it. Sorry for the inconvenience.',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(color: Colors.white, fontSize: 14),
+                ),
+              const SizedBox(height: 16),
+              if (context.router.stack.map((e) => e.name).contains(IntroRoute.name))
+                CustomElevatedButton.blue(
+                  label: 'Back to Start',
+                  onPressed: () => _resetDataAndNavigateToRoot(context),
+                ),
+            ],
+          ),
         ),
       ),
     );

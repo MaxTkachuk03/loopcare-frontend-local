@@ -68,7 +68,7 @@ class ProgramDetailsPage extends StatelessWidget {
                           CustomText(
                             LocalizedTexts.countExercises.getPlural(
                               args: {
-                                'count': '$exercisesLength',
+                                'count': exercisesLength,
                               },
                             ),
                             style: context.textTheme.bodySmall,
