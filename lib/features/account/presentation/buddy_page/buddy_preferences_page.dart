@@ -36,7 +36,7 @@ class _BuddyPreferencesPageState extends State<BuddyPreferencesPage> {
     final buddyState = context.read<BuddyBloc>().state.data.buddyState;
     return switch (buddyState) {
       BuddyStatus.invited => LocalizedTexts.removeInvite.tr(),
-      BuddyStatus.rejected || BuddyStatus.left => LocalizedTexts.inviteBuddy.tr(),
+      BuddyStatus.rejected || BuddyStatus.left || BuddyStatus.expired => LocalizedTexts.inviteBuddy.tr(),
       BuddyStatus.approved => LocalizedTexts.removeBuddy.tr(),
       _ => '',
     };
@@ -46,7 +46,7 @@ class _BuddyPreferencesPageState extends State<BuddyPreferencesPage> {
     final buddyState = context.read<BuddyBloc>().state.data.buddyState;
     return switch (buddyState) {
       BuddyStatus.invited || BuddyStatus.approved => _onRemoveInvite,
-      BuddyStatus.rejected || BuddyStatus.left => _onInviteBuddy,
+      BuddyStatus.rejected || BuddyStatus.left || BuddyStatus.expired => _onInviteBuddy,
       _ => () {},
     };
   }

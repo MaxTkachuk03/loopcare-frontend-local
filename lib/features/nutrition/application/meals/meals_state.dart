@@ -185,7 +185,7 @@ class MealsStateData with _$MealsStateData, NutritionUtils {
 
   String categoryShortVersion(String category) =>
       category.toLowerCase() == MealCategory.inbetweens.originalValue
-          ? MealCategory.inbetweens.shortValue
+          ? MealCategory.inbetweens.name
           : category;
 
   int? get getCurrentMealId => currentMealId;
