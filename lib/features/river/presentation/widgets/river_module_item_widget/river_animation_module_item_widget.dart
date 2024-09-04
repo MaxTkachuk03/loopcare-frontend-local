@@ -330,7 +330,7 @@ class _RiverAnimationModuleItemWidgetState extends State<RiverAnimationModuleIte
   }
 
   void _runBounced() async {
-    final isIdling = _sizeController.isAnimating;
+    final isIdling = widget.item.states.itemState.isUnLocked;
     if (isIdling) {
       _sizeController.reset();
     }

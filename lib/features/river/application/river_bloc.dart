@@ -104,18 +104,8 @@ class RiverBloc extends Bloc<RiverEvent, RiverState> {
       final responseModule = response.first.onlyRight as RiverModule;
       final responseCrossModuleItems = response.last.onlyRight as GetCrossModuleItemsResponse;
       final crossModuleItems = responseCrossModuleItems.data;
-
-      var modules = _migrateCrossModuleItems(
-        responseModule,
-        crossModuleItems,
-      );
-
-      modules = _refreshCrossModuleItemsInModules(
-        modules,
-        crossModuleItems,
-      );
-
       final activeModuleItem = event.removeActiveItem ? null : state.data.activeModuleItem;
+      final modules = _updateModuleItemsForModule(responseModule, crossModuleItems);
 
       emit(
         RiverState.moduleLoaded(
@@ -179,6 +169,10 @@ class RiverBloc extends Bloc<RiverEvent, RiverState> {
     }
 
     if (_noNeedUpdateModuleItemStates(moduleItem)) return;
+
+    emit(
+      RiverState.moduleItemLoading(state.data.copyWith(isLoading: true)),
+    );
 
     if (_needCompleteModuleItemStates(moduleItem)) {
       moduleItem = _getItemWithNewViewItemState(moduleItem);
@@ -368,7 +362,10 @@ class RiverBloc extends Bloc<RiverEvent, RiverState> {
     RiverModuleItem item,
   ) {
     final prevState = item.states.itemState;
-    final canUpdate = prevState.isCompleted && item.actions.isNotEmpty || prevState.isUnLocked;
+    final canUpdate = (!item.isAdditionalBuddyCrossModuleItem &&
+            prevState.isCompleted &&
+            item.actions.isNotEmpty) ||
+        prevState.isUnLocked;
     final state = canUpdate ? null : prevState;
     final completedInModuleId = prevState.isCompleted ? moduleId : null;
 
@@ -380,7 +377,7 @@ class RiverBloc extends Bloc<RiverEvent, RiverState> {
   }
 
   RiverModuleItem _getItemWithNewViewItemState(RiverModuleItem moduleItem) {
-    final itemState = moduleItem.actions.isNotEmpty
+    final itemState = moduleItem.actions.isNotEmpty && !moduleItem.isAdditionalBuddyCrossModuleItem
         ? RiverModuleItemState.read
         : RiverModuleItemState.completed;
 
@@ -448,17 +445,18 @@ class RiverBloc extends Bloc<RiverEvent, RiverState> {
         continue;
       }
 
-      if (item.isAdditionalBuddyCrossModuleItem && item.states.itemState.isLocked) {
+      if (item.isAdditionalBuddyCrossModuleItem &&
+          item.states.itemState.isLocked &&
+          _noAdditionalBuddyModuleItem(modules)) {
         continue;
       }
 
       final parentModuleIndex = modules.indexWhere((m) => m.id == item.spawnedInModuleId);
+      final moduleId = currentModuleIndex > parentModuleIndex && activeModule != null
+          ? activeModule.id
+          : item.spawnedInModuleId;
 
-      if (currentModuleIndex > parentModuleIndex) {
-        modules = _addCrossModuleItem(modules, activeModule?.id ?? item.spawnedInModuleId, item);
-      } else {
-        modules = _addCrossModuleItem(modules, item.spawnedInModuleId, item);
-      }
+      modules = _addCrossModuleItem(modules, moduleId, item);
     }
 
     return modules;
@@ -502,6 +500,45 @@ class RiverBloc extends Bloc<RiverEvent, RiverState> {
     }
 
     return modules;
+  }
+
+  List<RiverModule> _updateModuleItemsForModule(
+    RiverModule module,
+    List<RiverModuleItem> crossModuleItems,
+  ) {
+    List<RiverModule> modules = [];
+
+    if (module.id == state.data.modules.firstOrNull?.id) {
+      modules = _migrateTheBeginningModuleItems(module);
+    } else {
+      modules = _migrateCrossModuleItems(module, crossModuleItems);
+      modules = _refreshCrossModuleItemsInModules(modules, crossModuleItems);
+    }
+
+    return modules;
+  }
+
+  List<RiverModule> _migrateTheBeginningModuleItems(
+    RiverModule module,
+  ) {
+    final oldModule = state.data.modules.firstOrNull;
+    final newRootItem = module.moduleItems.firstWhereOrNull((i) => i.isRootItem);
+    final oldRootItem = oldModule?.moduleItems.firstWhereOrNull((i) => i.isRootItem);
+    final saveOldRootItem = module.id == oldModule?.id &&
+        newRootItem != null &&
+        oldRootItem != null &&
+        oldRootItem.states.itemState.isCompleted &&
+        newRootItem.states.itemState.isRead;
+
+    if (saveOldRootItem) {
+      final updatedModule = module.copyWith(
+        moduleItems: module.moduleItems.map((i) => i.isRootItem ? oldRootItem : i).toList(),
+      );
+
+      return _updateModule(updatedModule);
+    } else {
+      return _updateModule(module);
+    }
   }
 
   List<RiverModule> _migrateCrossModuleItems(
@@ -548,10 +585,11 @@ class RiverBloc extends Bloc<RiverEvent, RiverState> {
     final moveGrouping = oldGrouping.states.prevItemState.isCompleted &&
         newGrouping.states.itemState.isRead;
 
-    final needAddAdditionalItem = newAdditional.states.itemState.isUnLocked;
+    final needAddAdditionalItem = newAdditional.states.itemState.isUnLocked &&
+        _noAdditionalBuddyModuleItem(modules);
 
     if (moveBuddy || moveGrouping) {
-      modules = _moveModules(modules, moveBuddy, moveGrouping, newBuddy, newGrouping);
+      modules = _moveModuleItems(modules, moveBuddy, moveGrouping, newBuddy, newGrouping);
     } else if (needAddAdditionalItem) {
       modules = _insertCrossModuleItems(modules, [newAdditional]);
     }
@@ -559,7 +597,7 @@ class RiverBloc extends Bloc<RiverEvent, RiverState> {
     return modules;
   }
 
-  List<RiverModule> _moveModules(
+  List<RiverModule> _moveModuleItems(
     List<RiverModule> modules,
     bool moveBuddy,
     bool moveGrouping,
@@ -617,4 +655,8 @@ class RiverBloc extends Bloc<RiverEvent, RiverState> {
   RiverModule? _getActiveModule(List<RiverModule> models) => models.isNotEmpty
       ? models.firstWhere((module) => module.isInProgress, orElse: () => models.last)
       : null;
+
+  bool _noAdditionalBuddyModuleItem(List <RiverModule> modules) =>
+      _getActiveModule(modules)?.moduleItems.none((i) => i.isAdditionalBuddyCrossModuleItem)
+          ?? true;
 }
