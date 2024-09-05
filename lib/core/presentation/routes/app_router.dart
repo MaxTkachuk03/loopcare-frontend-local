@@ -147,10 +147,6 @@ class AppRouter extends $AppRouter {
           path: AppRoutes.recipeDetails,
           page: RecipeDetailsRoute.page,
         ), // added
-        AutoRoute(
-          path: AppRoutes.recommendations,
-          page: RecommendationsRoute.page,
-        ), // added
 
         // Education
         AutoRoute(
