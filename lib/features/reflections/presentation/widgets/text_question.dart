@@ -8,7 +8,7 @@ import 'package:loopcare_frontend/core/presentation/text_field/custom_text_field
 import 'package:loopcare_frontend/core/presentation/utils/build_context_extensions.dart';
 import 'package:loopcare_frontend/features/reflections/application/reflections_bloc.dart';
 import 'package:loopcare_frontend/features/reflections/domain/reflection_question.dart';
-import 'package:loopcare_frontend/features/reflections/presentation/validators/text_answer_validator.dart';
+import 'package:loopcare_frontend/features/reflections/domain/text_answer_validator.dart';
 
 class TextQuestion extends StatefulWidget {
   final ReflectionQuestion question;
