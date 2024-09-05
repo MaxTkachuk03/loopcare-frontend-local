@@ -8,14 +8,17 @@ import 'package:loopcare_frontend/core/infrastructure/services/app_config.dart';
 import 'package:loopcare_frontend/core/infrastructure/services/shared_storage/shared_storage_service.dart';
 import 'package:loopcare_frontend/injection.dart';
 
+const List<String> _pluralIds = ['=0', '=1', '=2', 'few', 'many', 'other'];
+const String _kCount = 'count';
+
 extension LocalizationExtension on String {
   String tr([Map<String, dynamic> params = const {}]) {
     String locale = getIt<AppConfig>().language;
-    final string = Crowdin.getText(locale, this, params) ?? getLocalizedString(this, params: params);
+    final string = Crowdin.getText(locale, this, params) ?? _getLocalizedString(this, params: params);
     return string;
   }
 
-  String getLocalizedString(String key, {Map<String, dynamic>? params}) {
+  String _getLocalizedString(String key, {Map<String, dynamic>? params}) {
     final jsonString = getIt<SharedStorageService>().localTranslations;
     if (jsonString == null || jsonString.isEmpty) {
       return key;
@@ -44,39 +47,31 @@ extension LocalizationExtension on String {
     return localizedString ?? key;
   }
 
-  String getPlural({
-    required Map<String, Object> args,
-    String countPlaceholderName = 'count',
+  /// Returns the pluralized message based on the provided count and locale.
+  ///
+  /// This function takes in three parameters:
+  ///   - `count`: The number to determine the plural form. (Required)
+  ///   - `params`: A map of parameters for named arguments. (Optional, default is an empty map)
+  ///   - `countPlaceholderName`: The name of the placeholder for the count value. (Optional, default is "count")
+  String plural({
+    required int count,
+    Map<String, dynamic>? params,
+    String? countPlaceholderName,
   }) {
+    final countPlaceholder = countPlaceholderName ?? _kCount;
+    final localisationParams = { if (params != null)...params, countPlaceholder: count };
+
     final currentLocale = Locale(Intl.shortLocale(Intl.systemLocale));
     final locale = currentLocale.toString();
-    const pluralIds = ['=0', '=1', '=2', 'few', 'many', 'other'];
 
-    // Extract count value from args
-    final count = args[countPlaceholderName] as int;
-    // Get the pluralized string
-    String message = getLocalizedString(this, params: args);
-    if (message == this) {
-      return this;
-    }
-
-    // Replace placeholders with temporary markers
-    var messageValue = message;
-    final placeholders = args.keys.where((key) => key != countPlaceholderName);
-
-    for (final placeholder in placeholders) {
-      messageValue = messageValue.replaceAll('{$placeholder}', '#$placeholder#');
-    }
+    // Get the translated string with named arguments
+    final message = _getLocalizedString(this, params: localisationParams);
+    if (message == this) return this;
 
     // Extract pluralized versions from the message
-    final extractedPlurals = pluralIds.map((pluralId) {
-      final pluralMessage = _findPlural(messageValue, pluralId);
-      final formattedPlural = placeholders.fold<String?>(
-        pluralMessage,
-        (result, placeholder) => result?.replaceAll('#$placeholder#', '{$placeholder}'),
-      );
-      return formattedPlural;
-    }).toList();
+    final extractedPlurals = _pluralIds
+        .map((pluralId) => _findPlural(message, pluralId))
+        .toList();
 
     // Return the correct pluralized message
     return Intl.pluralLogic(

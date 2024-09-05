@@ -1,6 +1,5 @@
 import 'package:flutter/widgets.dart';
 import 'package:loopcare_frontend/features/river/presentation/widgets/painters/river_stream_shaders.dart';
-import 'package:meta/meta.dart';
 
 const Color _green = Color(0xffAECA5F);
 const Color _greenDark = Color(0xff93B23C);
@@ -20,68 +19,6 @@ const Color _blueDark = Color(0xff1D4978);
 const Color _blueDarker = Color(0xff163F6C);
 const Color _blueDarkest = Color(0xff10355F);
 
-abstract class FunctionCoefficientsValues {
-  const FunctionCoefficientsValues();
-
-  @mustBeOverridden
-  List<double> get green => [];
-
-  @mustBeOverridden
-  List<double> get blue => [];
-
-  @mustBeOverridden
-  List<double> get red => [];
-
-  @mustBeOverridden
-  List<double> get orange => [];
-
-  @mustBeOverridden
-  List<double> get yellow => [];
-
-  List<double> elementAt(int i) {
-    assert(i < 5);
-
-    return switch (i) {
-      0 => yellow,
-      1 => orange,
-      2 => red,
-      3 => blue,
-      _ => green,
-    };
-  }
-}
-
-abstract class ItemsPositionValues {
-  const ItemsPositionValues();
-
-  @mustBeOverridden
-  List<double> get green => [];
-
-  @mustBeOverridden
-  List<double> get blue => [];
-
-  @mustBeOverridden
-  List<double> get red => [];
-
-  @mustBeOverridden
-  List<double> get orange => [];
-
-  @mustBeOverridden
-  List<double> get yellow => [];
-
-  double elementAt(int stream, int index) {
-    assert(stream < 5);
-
-    return switch (stream) {
-      0 => yellow[index],
-      1 => orange[index],
-      2 => red[index],
-      3 => blue[index],
-      _ => green[index],
-    };
-  }
-}
-
 abstract class RenderRiverStreamPainter extends CustomPainter {
   final bool enableGradient;
   final bool fillColor;
@@ -95,86 +32,70 @@ abstract class RenderRiverStreamPainter extends CustomPainter {
     required this.fillColor,
   });
 
-  @mustBeOverridden
-  final double greenHeightCoefficient = 0;
+  // HEIGHT ==================================================================>
+  double get greenHeightCoefficient;
 
-  @mustBeOverridden
-  final double greenDarkHeightCoefficient = 0;
+  double get greenDarkHeightCoefficient;
 
-  @mustBeOverridden
-  final double petrolHeightCoefficient = 0;
+  double get petrolHeightCoefficient;
 
-  @mustBeOverridden
-  final double petrolDarkHeightCoefficient = 0;
+  double get petrolDarkHeightCoefficient;
 
-  @mustBeOverridden
-  final double coralHeightCoefficient = 0;
+  double get coralHeightCoefficient;
 
-  @mustBeOverridden
-  final double coralDarkHeightCoefficient = 0;
+  double get coralDarkHeightCoefficient;
 
-  @mustBeOverridden
-  final double orangeHeightCoefficient = 0;
+  double get orangeHeightCoefficient;
 
-  @mustBeOverridden
-  final double orangeDarkHeightCoefficient = 0;
+  double get orangeDarkHeightCoefficient;
 
-  @mustBeOverridden
-  final double yellowHeightCoefficient = 0;
+  double get yellowHeightCoefficient;
 
-  @mustBeOverridden
-  final double yellowDarkHeightCoefficient = 0;
+  double get yellowDarkHeightCoefficient;
 
-  @mustBeOverridden
-  final double greenOffsetCoefficient = 0;
+  // OFFSET ==================================================================>
+  double get greenOffsetCoefficient;
 
-  @mustBeOverridden
-  final double greenDarkOffsetCoefficient = 0;
+  double get greenDarkOffsetCoefficient;
 
-  @mustBeOverridden
-  final double petrolOffsetCoefficient = 0;
+  double get petrolOffsetCoefficient;
 
-  @mustBeOverridden
-  final double petrolDarkOffsetCoefficient = 0;
+  double get petrolDarkOffsetCoefficient;
 
-  @mustBeOverridden
-  final double coralOffsetCoefficient = 0;
+  double get coralOffsetCoefficient;
 
-  @mustBeOverridden
-  final double coralDarkOffsetCoefficient = 0;
+  double get coralDarkOffsetCoefficient;
 
-  @mustBeOverridden
-  final double orangeOffsetCoefficient = 0;
+  double get orangeOffsetCoefficient;
 
-  @mustBeOverridden
-  final double orangeDarkOffsetCoefficient = 0;
+  double get orangeDarkOffsetCoefficient;
 
-  @mustBeOverridden
-  final double yellowOffsetCoefficient = 0;
+  double get yellowOffsetCoefficient;
 
-  @mustBeOverridden
-  final double yellowDarkOffsetCoefficient = 0;
+  double get yellowDarkOffsetCoefficient;
 
-  final double greenHorizontalOffsetCoefficient = 0;
+  // HORIZONTAL OFFSET =======================================================>
+  double get greenHorizontalOffsetCoefficient => 0;
 
-  final double greenDarkHorizontalOffsetCoefficient = 0;
+  double get greenDarkHorizontalOffsetCoefficient => 0;
 
-  final double petrolHorizontalOffsetCoefficient = 0;
+  double get petrolHorizontalOffsetCoefficient => 0;
 
-  final double petrolDarkHorizontalOffsetCoefficient = 0;
+  double get petrolDarkHorizontalOffsetCoefficient => 0;
 
-  final double coralHorizontalOffsetCoefficient = 0;
+  double get coralHorizontalOffsetCoefficient => 0;
 
-  final double coralDarkHorizontalOffsetCoefficient = 0;
+  double get coralDarkHorizontalOffsetCoefficient => 0;
 
-  final double orangeHorizontalOffsetCoefficient = 0;
+  double get orangeHorizontalOffsetCoefficient => 0;
 
-  final double orangeDarkHorizontalOffsetCoefficient = 0;
+  double get orangeDarkHorizontalOffsetCoefficient => 0;
 
-  final double yellowHorizontalOffsetCoefficient = 0;
+  double get yellowHorizontalOffsetCoefficient => 0;
 
-  final double yellowDarkHorizontalOffsetCoefficient = 0;
+  double get yellowDarkHorizontalOffsetCoefficient => 0;
 
+  // PATH ====================================================================>
   Path green(Size size);
 
   Path greenDark(Size size);

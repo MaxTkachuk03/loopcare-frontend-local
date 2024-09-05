@@ -1,44 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:loopcare_frontend/features/river/presentation/widgets/painters/river_stream_painter.dart';
 
-class FunctionCoefficientsTwo extends FunctionCoefficientsValues {
-  const FunctionCoefficientsTwo();
-
-  @override
-  List<double> get green => [-0.06, -0.57, 0.53, 0.24];
-
-  @override
-  List<double> get blue => [-0.06, -0.57, 0.6, 0.36];
-
-  @override
-  List<double> get red => [-0.07, -0.57, 0.62, 0.44];
-
-  @override
-  List<double> get orange => [-0.07, -0.57, 0.62, 0.53];
-
-  @override
-  List<double> get yellow => [0.045, -0.61, -0.15, 0.56];
-}
-
-class ItemsPositionsTwo extends ItemsPositionValues {
-  const ItemsPositionsTwo();
-
-  @override
-  List<double> get green => [0.1, 0.68, 0.48];
-
-  @override
-  List<double> get blue => [0.28, 0.92, 0.6];
-
-  @override
-  List<double> get red => [0.79, 0.14, 0.98];
-
-  @override
-  List<double> get orange => [0.64, 0.16, 0.91, 0.1];
-
-  @override
-  List<double> get yellow => [0.32, 0.77];
-}
-
 class RiverStreamsTwoPainter extends RenderRiverStreamPainter {
   const RiverStreamsTwoPainter({
     super.gradientPosition = 0,
