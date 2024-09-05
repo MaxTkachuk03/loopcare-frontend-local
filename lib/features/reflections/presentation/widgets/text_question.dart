@@ -72,7 +72,6 @@ class _TextQuestionState extends State<TextQuestion> {
                   child: AppLimitTextField(
                     controller: _controller,
                     validator: textAnswerValidator,
-                    textInputAction: TextInputAction.newline,
                     autovalidateMode: AutovalidateMode.onUserInteraction,
                     onChanged: _onInputChangeHandler,
                     enforcedLimitCount: MaxLengthEnforcement.none,

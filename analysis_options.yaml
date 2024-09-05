@@ -30,7 +30,6 @@ linter:
   # `// ignore_for_file: name_of_lint` syntax on the line or in the file
   # producing the lint.
   rules:
-    sort_pub_dependencies: true
     directives_ordering: false
 
 # include: package:lint/analysis_options.yaml

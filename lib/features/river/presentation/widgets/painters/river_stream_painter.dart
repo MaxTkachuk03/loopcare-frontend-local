@@ -83,7 +83,6 @@ abstract class ItemsPositionValues {
 }
 
 abstract class RenderRiverStreamPainter extends CustomPainter {
-
   final bool enableGradient;
   final bool fillColor;
   final double gradientPosition;
@@ -202,8 +201,8 @@ abstract class RenderRiverStreamPainter extends CustomPainter {
 
       final shader = RiverStreamShader.instance;
 
-      return Paint()..shader = shader
-          .createShader(step: step, time: time, size: size, begin: fill, end: empty);
+      return Paint()
+        ..shader = shader.createShader(step: step, time: time, size: size, begin: fill, end: empty);
     } else if (fillColor) {
       return Paint()..color = fill;
     } else {
@@ -213,54 +212,79 @@ abstract class RenderRiverStreamPainter extends CustomPainter {
 
   @override
   void paint(Canvas canvas, Size size) {
-    final greenSize = Size(size.width * (1 - greenHorizontalOffsetCoefficient), size.height * greenHeightCoefficient);
-    final greenOffset = Offset(size.width * greenHorizontalOffsetCoefficient, size.height * greenOffsetCoefficient);
+    final greenSize = Size(
+        size.width * (1 - greenHorizontalOffsetCoefficient), size.height * greenHeightCoefficient);
+    final greenOffset =
+        Offset(size.width * greenHorizontalOffsetCoefficient, size.height * greenOffsetCoefficient);
     final greenPaint = _pathPaint(size, _green, _blueDarkest, greenHorizontalOffsetCoefficient);
     final greenPath = Path()..addPath(green(greenSize), greenOffset);
 
-    final greenDarkSize = Size(size.width * (1 - greenDarkHorizontalOffsetCoefficient), size.height * greenDarkHeightCoefficient);
-    final greenDarkOffset = Offset(size.width * greenDarkHorizontalOffsetCoefficient, size.height * greenDarkOffsetCoefficient);
-    final greenDarkPaint = _pathPaint(size, _greenDark, _blueDarker, greenDarkHorizontalOffsetCoefficient);
+    final greenDarkSize = Size(size.width * (1 - greenDarkHorizontalOffsetCoefficient),
+        size.height * greenDarkHeightCoefficient);
+    final greenDarkOffset = Offset(size.width * greenDarkHorizontalOffsetCoefficient,
+        size.height * greenDarkOffsetCoefficient);
+    final greenDarkPaint =
+        _pathPaint(size, _greenDark, _blueDarker, greenDarkHorizontalOffsetCoefficient);
     final greenDarkPath = Path()..addPath(greenDark(greenDarkSize), greenDarkOffset);
 
-    final petrolSize = Size(size.width * (1 - petrolHorizontalOffsetCoefficient), size.height * petrolHeightCoefficient);
-    final petrolOffset = Offset(size.width * petrolHorizontalOffsetCoefficient, size.height * petrolOffsetCoefficient);
+    final petrolSize = Size(size.width * (1 - petrolHorizontalOffsetCoefficient),
+        size.height * petrolHeightCoefficient);
+    final petrolOffset = Offset(
+        size.width * petrolHorizontalOffsetCoefficient, size.height * petrolOffsetCoefficient);
     final petrolPaint = _pathPaint(size, _petrol, _blueDark, petrolHorizontalOffsetCoefficient);
     final petrolPath = Path()..addPath(petrol(petrolSize), petrolOffset);
 
-    final petrolDarkSize = Size(size.width * (1 - petrolDarkHorizontalOffsetCoefficient), size.height * petrolDarkHeightCoefficient);
-    final petrolDarkOffset = Offset(size.width * petrolDarkHorizontalOffsetCoefficient, size.height * petrolDarkOffsetCoefficient);
-    final petrolDarkPaint = _pathPaint(size, _petrolDark, _blue, petrolDarkHorizontalOffsetCoefficient);
+    final petrolDarkSize = Size(size.width * (1 - petrolDarkHorizontalOffsetCoefficient),
+        size.height * petrolDarkHeightCoefficient);
+    final petrolDarkOffset = Offset(size.width * petrolDarkHorizontalOffsetCoefficient,
+        size.height * petrolDarkOffsetCoefficient);
+    final petrolDarkPaint =
+        _pathPaint(size, _petrolDark, _blue, petrolDarkHorizontalOffsetCoefficient);
     final petrolDarkPath = Path()..addPath(petrolDark(petrolDarkSize), petrolDarkOffset);
 
-    final coralSize = Size(size.width * (1 - coralHorizontalOffsetCoefficient), size.height * coralHeightCoefficient);
-    final coralOffset = Offset(size.width * coralHorizontalOffsetCoefficient, size.height * coralOffsetCoefficient);
+    final coralSize = Size(
+        size.width * (1 - coralHorizontalOffsetCoefficient), size.height * coralHeightCoefficient);
+    final coralOffset =
+        Offset(size.width * coralHorizontalOffsetCoefficient, size.height * coralOffsetCoefficient);
     final coralPaint = _pathPaint(size, _coral, _blueLightest, coralHorizontalOffsetCoefficient);
     final coralPath = Path()..addPath(coral(coralSize), coralOffset);
 
-    final coralDarkSize = Size(size.width * (1 - coralDarkHorizontalOffsetCoefficient), size.height * coralDarkHeightCoefficient);
-    final coralDarkOffset = Offset(size.width * coralDarkHorizontalOffsetCoefficient, size.height * coralDarkOffsetCoefficient);
-    final coralDarkPaint = _pathPaint(size, _coralDark, _blueLighter, coralDarkHorizontalOffsetCoefficient);
+    final coralDarkSize = Size(size.width * (1 - coralDarkHorizontalOffsetCoefficient),
+        size.height * coralDarkHeightCoefficient);
+    final coralDarkOffset = Offset(size.width * coralDarkHorizontalOffsetCoefficient,
+        size.height * coralDarkOffsetCoefficient);
+    final coralDarkPaint =
+        _pathPaint(size, _coralDark, _blueLighter, coralDarkHorizontalOffsetCoefficient);
     final coralDarkPath = Path()..addPath(coralDark(coralDarkSize), coralDarkOffset);
 
-    final orangeSize = Size(size.width * (1 - orangeHorizontalOffsetCoefficient), size.height * orangeHeightCoefficient);
-    final orangeOffset = Offset(size.width * orangeHorizontalOffsetCoefficient, size.height * orangeOffsetCoefficient);
+    final orangeSize = Size(size.width * (1 - orangeHorizontalOffsetCoefficient),
+        size.height * orangeHeightCoefficient);
+    final orangeOffset = Offset(
+        size.width * orangeHorizontalOffsetCoefficient, size.height * orangeOffsetCoefficient);
     final orangePaint = _pathPaint(size, _orange, _blue, orangeHorizontalOffsetCoefficient);
     final orangePath = Path()..addPath(orange(orangeSize), orangeOffset);
 
-    final orangeDarkSize = Size(size.width * (1 - orangeDarkHorizontalOffsetCoefficient), size.height * orangeDarkHeightCoefficient);
-    final orangeDarkOffset = Offset(size.width * orangeDarkHorizontalOffsetCoefficient, size.height * orangeDarkOffsetCoefficient);
-    final orangeDarkPaint = _pathPaint(size, _orangeDark, _blueDark, orangeDarkHorizontalOffsetCoefficient);
+    final orangeDarkSize = Size(size.width * (1 - orangeDarkHorizontalOffsetCoefficient),
+        size.height * orangeDarkHeightCoefficient);
+    final orangeDarkOffset = Offset(size.width * orangeDarkHorizontalOffsetCoefficient,
+        size.height * orangeDarkOffsetCoefficient);
+    final orangeDarkPaint =
+        _pathPaint(size, _orangeDark, _blueDark, orangeDarkHorizontalOffsetCoefficient);
     final orangeDarkPath = Path()..addPath(orangeDark(orangeDarkSize), orangeDarkOffset);
 
-    final yellowSize = Size(size.width * (1 - yellowHorizontalOffsetCoefficient), size.height * yellowHeightCoefficient);
-    final yellowOffset = Offset(size.width * yellowHorizontalOffsetCoefficient, size.height * yellowOffsetCoefficient);
+    final yellowSize = Size(size.width * (1 - yellowHorizontalOffsetCoefficient),
+        size.height * yellowHeightCoefficient);
+    final yellowOffset = Offset(
+        size.width * yellowHorizontalOffsetCoefficient, size.height * yellowOffsetCoefficient);
     final yellowPaint = _pathPaint(size, _yellow, _blueDarkest, yellowHorizontalOffsetCoefficient);
     final yellowPath = Path()..addPath(yellow(yellowSize), yellowOffset);
 
-    final yellowDarkSize = Size(size.width * (1 - yellowDarkHorizontalOffsetCoefficient), size.height * yellowDarkHeightCoefficient);
-    final yellowDarkOffset = Offset(size.width * yellowDarkHorizontalOffsetCoefficient, size.height * yellowDarkOffsetCoefficient);
-    final yellowDarkPaint = _pathPaint(size, _yellowDark, _blueDarker, yellowDarkHorizontalOffsetCoefficient);
+    final yellowDarkSize = Size(size.width * (1 - yellowDarkHorizontalOffsetCoefficient),
+        size.height * yellowDarkHeightCoefficient);
+    final yellowDarkOffset = Offset(size.width * yellowDarkHorizontalOffsetCoefficient,
+        size.height * yellowDarkOffsetCoefficient);
+    final yellowDarkPaint =
+        _pathPaint(size, _yellowDark, _blueDarker, yellowDarkHorizontalOffsetCoefficient);
     final yellowDarkPath = Path()..addPath(yellowDark(yellowDarkSize), yellowDarkOffset);
 
     canvas.drawPath(yellowPath, yellowPaint);

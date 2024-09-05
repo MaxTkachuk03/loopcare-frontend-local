@@ -9,13 +9,15 @@ import 'package:loopcare_frontend/core/presentation/buttons/custom_elevated_butt
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/core/presentation/scaffold/custom_scaffold.dart';
 import 'package:loopcare_frontend/core/presentation/text/custom_text.dart';
+import 'package:loopcare_frontend/core/presentation/text_field/custom_text_field.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 import 'package:loopcare_frontend/core/presentation/utils/build_context_extensions.dart';
 import 'package:loopcare_frontend/features/authentication/application/dto/group_chat_report.dart';
 import 'package:loopcare_frontend/features/authentication/application/dto/group_session_report.dart';
 import 'package:loopcare_frontend/features/report_abuse/application/report_abuse_bloc.dart';
+import 'package:loopcare_frontend/features/report_abuse/domain/report_abuse_description_validator.dart';
+import 'package:loopcare_frontend/features/report_abuse/domain/report_abuse_subject_validator.dart';
 import 'package:loopcare_frontend/features/report_abuse/presentation/report_abuse_controller.dart';
-import 'package:loopcare_frontend/features/report_abuse/presentation/report_abuse_fields.dart';
 
 class ReportAbuseWidget extends StatefulWidget {
   final GroupSessionReport? groupSession;
@@ -29,18 +31,44 @@ class ReportAbuseWidget extends StatefulWidget {
 }
 
 class _ReportAbuseWidgetState extends State<ReportAbuseWidget> {
-  late ReportAbuseController controller;
+  final ReportAbuseController controller = ReportAbuseController();
 
-  @override
-  void initState() {
-    super.initState();
-    controller = ReportAbuseController()..addFocusNodeListeners();
+  void _onChangeListener(BuildContext context, ReportAbuseState state) {
+    state.maybeMap(
+      sentSuccess: _showSuccess,
+      error: _showError,
+      orElse: () => {},
+    );
   }
 
-  @override
-  void dispose() {
-    controller.dispose();
-    super.dispose();
+  void _onSendPressed() {
+    controller.isFormValid.value = false;
+
+    const AnalyticsEventService().logEvent(
+      eventName: AnalyticsEvents.reportIssue,
+      parameters: {
+        AnalyticsParameters.value: controller.reportController.value.text,
+      },
+    );
+
+    context.read<ReportAbuseBloc>().add(
+          ReportAbuseEvent.sendReport(
+            controller.subjectController.value.text,
+            controller.reportController.value.text,
+            groupSession: widget.groupSession,
+            chatReport: widget.chatReport,
+          ),
+        );
+  }
+
+  void _showSuccess(_) {
+    widget.close();
+    context.showSuccessBar(content: CustomText(LocalizedTexts.reportSuccessTitle.tr()));
+  }
+
+  void _showError(_) {
+    widget.close();
+    context.showError(content: CustomText(LocalizedTexts.errorSomethingWentWrong.tr()));
   }
 
   @override
@@ -56,46 +84,10 @@ class _ReportAbuseWidgetState extends State<ReportAbuseWidget> {
         });
   }
 
-  void _onChangeListener(BuildContext context, ReportAbuseState state) {
-    state.maybeMap(
-      sentSuccess: (_) => _showSuccess(),
-      error: (_) => _showError(),
-      orElse: () => {},
-    );
-  }
-
-  _onSendPressed() {
-    controller.isEnableSend.value = false;
-
-    const AnalyticsEventService().logEvent(eventName:
-    AnalyticsEvents.reportIssue,
-      parameters: {
-        AnalyticsParameters.value: controller.reportController.value.text,
-      },
-    );
-
-
-
-    context.read<ReportAbuseBloc>().add(ReportAbuseEvent.sendReport(
-          controller.subjectController.value.text,
-          controller.reportController.value.text,
-          groupSession: widget.groupSession,
-          chatReport: widget.chatReport,
-        ));
-  }
-
-  _showSuccess() {
-    widget.close();
-    context.showSuccessBar(
-      content: CustomText(LocalizedTexts.reportSuccessTitle.tr()),
-    );
-  }
-
-  _showError() {
-    widget.close();
-    context.showError(
-      content: CustomText(LocalizedTexts.errorSomethingWentWrong.tr()),
-    );
+  @override
+  void dispose() {
+    controller.dispose();
+    super.dispose();
   }
 }
 
@@ -105,6 +97,9 @@ class _ReportFormWidget extends StatelessWidget {
   final Function() onSend;
 
   const _ReportFormWidget({required this.controller, required this.onSend, required this.close});
+
+  void _onFormChanged() =>
+      controller.isFormValid.value = controller.formKey.currentState?.validate() ?? false;
 
   @override
   Widget build(BuildContext context) {
@@ -144,7 +139,7 @@ class _ReportFormWidget extends StatelessWidget {
             resizeToAvoidBottomInset: true,
             body: Form(
               key: controller.formKey,
-              onChanged: () => controller.isFormValid,
+              onChanged: _onFormChanged,
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
@@ -155,18 +150,32 @@ class _ReportFormWidget extends StatelessWidget {
                     style: context.textTheme.bodyMedium,
                   ),
                   const SizedBox(height: 25),
-                  SubjectAbuseFormInputField.subject(controller),
+                  CustomTextField(
+                    key: controller.subjectFieldKey,
+                    controller: controller.subjectController,
+                    hintText: LocalizedTexts.subjectReport.tr(),
+                    validator: reportAbuseSubjectValidator,
+                  ),
                   const SizedBox(height: 16.0),
-                  Expanded(child: ReportAbuseFormLimitTextField.report(controller)),
+                  Expanded(
+                    child: CustomTextField(
+                      key: controller.reportFieldKey,
+                      controller: controller.reportController,
+                      hintText: LocalizedTexts.descriptionReport.tr(),
+                      validator: reportAbuseDescriptionValidator,
+                      keyboardType: TextInputType.multiline,
+                      maxLength: 500,
+                      minLines: 30,
+                      maxLines: 50,
+                    ),
+                  ),
                   const SizedBox(height: 16.0),
                   ValueListenableBuilder<bool>(
-                    valueListenable: controller.isEnableSend,
-                    builder: (context, isEnableSend, _) {
-                      return CustomElevatedButton.blueFullWidth(
-                        onPressed: isEnableSend ? onSend : null,
-                        label: LocalizedTexts.send.tr(),
-                      );
-                    },
+                    valueListenable: controller.isFormValid,
+                    builder: (context, isFormValid, _) => CustomElevatedButton.blueFullWidth(
+                      onPressed: isFormValid ? onSend : null,
+                      label: LocalizedTexts.send.tr(),
+                    ),
                   ),
                 ],
               ),
