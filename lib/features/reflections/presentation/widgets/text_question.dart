@@ -1,13 +1,11 @@
 import 'package:loopcare_frontend/core/application/localization/localizer_extenstion.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loopcare_frontend/core/presentation/buttons/custom_elevated_button.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/core/presentation/text/custom_text.dart';
-import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
+import 'package:loopcare_frontend/core/presentation/text_field/custom_text_field.dart';
 import 'package:loopcare_frontend/core/presentation/utils/build_context_extensions.dart';
-import 'package:loopcare_frontend/core/presentation/widgets/app_input_limit_field.dart';
 import 'package:loopcare_frontend/features/reflections/application/reflections_bloc.dart';
 import 'package:loopcare_frontend/features/reflections/domain/reflection_question.dart';
 import 'package:loopcare_frontend/features/reflections/presentation/validators/text_answer_validator.dart';
@@ -69,17 +67,14 @@ class _TextQuestionState extends State<TextQuestion> {
                 const SizedBox(height: 28.0),
                 SizedBox(
                   height: 200,
-                  child: AppLimitTextField(
+                  child: CustomTextField(
                     controller: _controller,
                     validator: textAnswerValidator,
-                    autovalidateMode: AutovalidateMode.onUserInteraction,
                     onChanged: _onInputChangeHandler,
-                    enforcedLimitCount: MaxLengthEnforcement.none,
-                    limitCount: 20000,
+                    textInputAction: TextInputAction.done,
+                    maxLength: 20000,
                     minLines: 30,
-                    linesCount: 50,
-                    focusedColor: AppColors.blueMid,
-                    cursorColor: AppColors.darkGreen,
+                    maxLines: 50,
                     hintText: '',
                   ),
                 ),
