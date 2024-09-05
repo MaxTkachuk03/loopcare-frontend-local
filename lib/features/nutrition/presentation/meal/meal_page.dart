@@ -110,24 +110,24 @@ class _MealPageState extends State<MealPage> {
   String get _appBarSubTitle {
     final state = context.read<MealsBloc>().state;
 
-    final date =
-        state.data.currentDateTime.isoStringWithoutTime != DateTime.now().isoStringWithoutTime
+    return state.data.currentDateTime.dateOnly.isSameDate(DateTime.now().dateOnly)
             ? state.data.currentDateTime.shortDate
             : LocalizedTexts.today.tr().capitalize();
-    return date;
   }
 
   void _onChooseDates(BuildContext context) {
     final state = context.read<MealsBloc>().state.data;
 
     if (state.currentFoodItems.isNotEmpty) {
-      context.router.push(
-        ChooseDateCalendarRoute(
-          mealCategory: state.currentMealCategory ?? MealCategory.breakfast,
-          dates: state.currentMeal?.planningDates,
-          mealId: state.getCurrentMealId ?? -1,
-        ),
-      );
+      // todo
+      print('no items');
+      // context.router.push(
+      //   ChooseDateCalendarRoute(
+      //     mealCategory: state.currentMealCategory ?? MealCategory.breakfast,
+      //     dates: state.currentMeal?.planningDates,
+      //     mealId: state.getCurrentMealId ?? -1,
+      //   ),
+      // );
     }
   }
 
@@ -220,7 +220,7 @@ class _MealPageState extends State<MealPage> {
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<MealsBloc, MealsState>(
-      builder: (BuildContext context, state) {
+      builder: (BuildContext context, MealsState state) {
         return WillPopScope(
           onWillPop: _onWillPop,
           child: CustomScaffold.greenLighter(

@@ -30,8 +30,8 @@ class ServingsAmount extends StatelessWidget {
       ),
       child: Padding(
         padding: const EdgeInsets.symmetric(
-          horizontal: 25.0,
-          vertical: 15.0,
+          horizontal: 20.0,
+          vertical: 14.0,
         ),
         child: Row(
           children: [

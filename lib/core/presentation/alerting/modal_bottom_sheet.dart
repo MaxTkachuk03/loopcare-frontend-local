@@ -10,7 +10,6 @@ import 'package:loopcare_frontend/core/domain/analytics/analytics_parameters.dar
 import 'package:loopcare_frontend/core/domain/emergency_numbers/emergency_numbers.dart';
 import 'package:loopcare_frontend/core/infrastructure/services/analytics_service.dart';
 import 'package:loopcare_frontend/core/infrastructure/services/app_config.dart';
-import 'package:loopcare_frontend/core/presentation/alerting/widgets/already_planned_card.dart';
 import 'package:loopcare_frontend/core/presentation/app_version/app_update_policies_documents.dart';
 import 'package:loopcare_frontend/core/presentation/buttons/custom_elevated_button.dart';
 import 'package:loopcare_frontend/core/presentation/buttons/custom_icon_button.dart';
@@ -36,7 +35,7 @@ import 'package:loopcare_frontend/features/account/presentation/emergency_number
 import 'package:loopcare_frontend/features/authentication/application/dto/group_chat_report.dart';
 import 'package:loopcare_frontend/features/authentication/application/dto/group_session_report.dart';
 import 'package:loopcare_frontend/features/education/application/education_lesson/education_lesson_bloc.dart';
-import 'package:loopcare_frontend/features/education/presentation/education_page/utils/get_label_by_stream_type.dart';
+import 'package:loopcare_frontend/features/education/presentation/widgets/get_label_by_stream_type.dart';
 import 'package:loopcare_frontend/features/group_sessions/application/topics_bloc.dart';
 import 'package:loopcare_frontend/features/group_sessions/presentation/widgets/booked_session_modal_content.dart';
 import 'package:loopcare_frontend/features/group_sessions/presentation/widgets/not_booked_sessions_modal_content.dart';
@@ -1226,97 +1225,6 @@ class ModalBottomSheet {
                 onPressed: onStayPressed,
                 label: LocalizedTexts.stayInTheSession.tr(),
               )
-            ],
-          ),
-        );
-      },
-    );
-  }
-
-  static void replacePlannedMeal({
-    required BuildContext context,
-    required String date,
-    required String mealCategory,
-    required void Function() onBtnPressed,
-    required void Function() onClose,
-    required MealsListItem oldItem,
-    required MealsListItem? newItem,
-  }) {
-    Size size = MediaQuery.of(context).size;
-
-    showModalBottomSheet<void>(
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(24.0)),
-      backgroundColor: AppColors.white,
-      isScrollControlled: true,
-      context: context,
-      builder: (BuildContext context) {
-        return Container(
-          padding: const EdgeInsets.symmetric(vertical: 42.0, horizontal: 39.0),
-          height: size.height * 0.75,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: [
-              Align(
-                alignment: Alignment.topRight,
-                child: Padding(
-                  padding: const EdgeInsets.only(right: 8.0, top: 32.0),
-                  child: SizedBox(
-                    width: 30.0,
-                    height: 30.0,
-                    child: IconButton(
-                      iconSize: 30,
-                      padding: EdgeInsets.zero,
-                      onPressed: () {
-                        onClose();
-                        context.router.maybePop();
-                      },
-                      icon: const Icon(Icons.close),
-                    ),
-                  ),
-                ),
-              ),
-              Text(
-                date.tr(),
-                textAlign: TextAlign.left,
-                style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                      color: AppColors.blueDark,
-                      fontWeight: FontWeight.w600,
-                    ),
-              ),
-              const SizedBox(height: 16.0),
-              Text(
-                LocalizedTexts.youAlreadyPlanned.tr(
-                  {'mealCategory': mealCategory},
-                ),
-                style: Theme.of(context).textTheme.bodyMedium,
-              ),
-              const SizedBox(height: 16.0),
-              AlreadyPlannedCard(
-                mealCategory: mealCategory,
-                mealItems: oldItem.mealItems,
-                active: false,
-              ),
-              const SizedBox(height: 24.0),
-              Text(
-                LocalizedTexts.replaceWith.tr(),
-                style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                      color: AppColors.blueDark,
-                    ),
-              ),
-              if (newItem != null) const SizedBox(height: 16.0),
-              if (newItem != null)
-                AlreadyPlannedCard(
-                  mealCategory: mealCategory,
-                  mealItems: newItem.mealItems,
-                  active: true,
-                ),
-              const SizedBox(height: 32.0),
-              ElevatedButton(
-                onPressed: () {
-                  onBtnPressed();
-                },
-                child: Text(LocalizedTexts.yesReplace.tr()),
-              ),
             ],
           ),
         );

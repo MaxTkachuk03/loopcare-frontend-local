@@ -6,7 +6,7 @@ import 'package:loopcare_frontend/features/nutrition/application/edit_dish/edit_
 
 class MealCategoryChips extends StatefulWidget {
   final MealCategory initialCategory;
-  final Function onItemPressHandler;
+  final Function(MealCategory category) onItemPressHandler;
 
   const MealCategoryChips({
     super.key,
@@ -20,7 +20,8 @@ class MealCategoryChips extends StatefulWidget {
 
 class _MealCategoryChipsState extends State<MealCategoryChips> with TickerProviderStateMixin {
   final _mealCategories = [MealCategory.breakfast, MealCategory.lunch, MealCategory.dinner];
-  late TabController _tabController;
+
+  late final TabController _tabController;
 
   @override
   void initState() {
@@ -40,16 +41,16 @@ class _MealCategoryChipsState extends State<MealCategoryChips> with TickerProvid
     widget.onItemPressHandler(selectedCategory);
   }
 
-  void _dishLoadedlistener(BuildContext context, state) {
+  void _dishLoadedListener(BuildContext context, state) {
     if (state is DishInfo) {
-      _tabController.index = _mealCategories.indexOf(state.currentDish.mealCategories.first);
+      _tabController.index = _mealCategories.indexOf(state.data.currentDish!.mealCategories.first);
     }
   }
 
   @override
   Widget build(BuildContext context) {
     return BlocListener<EditDishBloc, EditDishState>(
-      listener: _dishLoadedlistener,
+      listener: _dishLoadedListener,
       listenWhen: (prev, cur) => prev is Loading && cur is DishInfo,
       child: CustomTabBar.blue(
         tabs: _mealCategories.map((e) => Tab(text: e.name)).toList(),

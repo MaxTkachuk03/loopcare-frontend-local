@@ -3,6 +3,10 @@ import 'dart:async';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
 import 'package:injectable/injectable.dart';
+import 'package:loopcare_frontend/core/application/customer_io_service/customer_io_service.dart';
+import 'package:loopcare_frontend/core/domain/analytics/analytics_events.dart';
+import 'package:loopcare_frontend/core/domain/analytics/analytics_parameters.dart';
+import 'package:loopcare_frontend/core/infrastructure/services/analytics_service.dart';
 import 'package:loopcare_frontend/features/authentication/application/authentication_bloc.dart';
 
 part 'legal_statement_bloc.freezed.dart';
@@ -45,6 +49,15 @@ class LegalStatementBloc
     PassageChanged event,
     Emitter<LegalStatementState> emit,
   ) {
+    const AnalyticsEventService().logEvent(
+      eventName: AnalyticsEvents.legalStatement,
+      parameters: {
+        AnalyticsParameters.value: 'true',
+      },
+    );
+
+    CustomerIoService.track(event: CIOEvents.onboardingRegisterIntro);
+
     emit(state.copyWith(pageWasPassed: event.value));
   }
 

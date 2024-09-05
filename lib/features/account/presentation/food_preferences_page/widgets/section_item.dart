@@ -1,4 +1,3 @@
-import 'package:fast_immutable_collections/fast_immutable_collections.dart';
 import 'package:flutter/material.dart';
 import 'package:loopcare_frontend/core/presentation/icon_images/app_icons.dart';
 import 'package:loopcare_frontend/core/presentation/text/custom_text.dart';
@@ -8,7 +7,7 @@ import 'package:loopcare_frontend/core/presentation/utils/string_extensions.dart
 
 class SectionItem extends StatelessWidget {
   final String title;
-  final IList<String> options;
+  final List<String> options;
   final VoidCallback onPressHandler;
 
   const SectionItem({

@@ -7,7 +7,7 @@ import 'package:loopcare_frontend/core/presentation/localization/localized_texts
 import 'package:loopcare_frontend/core/presentation/widgets/main_container.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/scrollable_container.dart';
 import 'package:loopcare_frontend/features/education/application/education_lesson/education_lesson_bloc.dart';
-import 'package:loopcare_frontend/features/education/presentation/education_page/utils/get_label_by_stream_type.dart';
+import 'package:loopcare_frontend/features/education/presentation/widgets/get_label_by_stream_type.dart';
 import 'package:loopcare_frontend/features/education/presentation/widgets/lesson_image_header.dart';
 import 'package:loopcare_frontend/features/river/domain/river_module_stream_type.dart';
 

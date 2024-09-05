@@ -148,10 +148,6 @@ class AppRouter extends $AppRouter {
           page: RecipeDetailsRoute.page,
         ), // added
         AutoRoute(
-          path: AppRoutes.chooseDate,
-          page: ChooseDateCalendarRoute.page,
-        ), // added
-        AutoRoute(
           path: AppRoutes.recommendations,
           page: RecommendationsRoute.page,
         ), // added

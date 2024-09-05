@@ -15,8 +15,8 @@ import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 import 'package:loopcare_frontend/core/presentation/utils/build_context_extensions.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/main_container.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/scrollable_container.dart';
+import 'package:loopcare_frontend/features/account/application/food_preference/food_preference_bloc.dart';
 import 'package:loopcare_frontend/features/river/domain/river_module_stream_type.dart';
-import 'package:loopcare_frontend/features/you_and_food/application/you_and_food_bloc.dart';
 import 'package:loopcare_frontend/features/account/presentation/edit_food_preferences_page/widgets/allergic_chips.dart';
 import 'package:loopcare_frontend/features/account/presentation/edit_food_preferences_page/widgets/do_not_like_chips.dart';
 import 'package:loopcare_frontend/features/account/presentation/edit_food_preferences_page/widgets/types_of_food_chips.dart';
@@ -69,13 +69,13 @@ class EditFoodPreferencesPage extends StatelessWidget {
   }
 
   _onOkHandler(BuildContext context) {
-    context.read<YouAndFoodBloc>().add(const YouAndFoodEvent.saveFoodPreferences());
+    context.read<FoodPreferenceBloc>().add(const FoodPreferenceEvent.saveFoodPreferences());
 
     context.router.maybePop();
   }
 
   _onNextHandler(BuildContext context) {
-    context.read<YouAndFoodBloc>().add(const YouAndFoodEvent.saveFoodPreferences());
+    context.read<FoodPreferenceBloc>().add(const FoodPreferenceEvent.saveFoodPreferences());
 
     mode.map(
       allergies: (_) {
