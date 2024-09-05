@@ -226,11 +226,10 @@ class _LeftDaysWidget extends StatelessWidget {
     if (session == null || !session.isWeeklySessionHasTimestamp) {
       return '';
     }
+
     if (session.hasActiveSession) {
-      return LocalizedTexts.smartGoalsWeeklyDaysLeft.getPlural(
-        args: {
-          'count': (session.daysLeft == 1 || session.daysLeft == 0) ? 1 : session.daysLeft + 1
-        },
+      return LocalizedTexts.smartGoalsWeeklyDaysLeft.plural(
+        count: session.daysLeft == 1 || session.daysLeft == 0 ? 1 : session.daysLeft + 1,
       );
     }
     return '';

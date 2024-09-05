@@ -66,11 +66,7 @@ class ProgramDetailsPage extends StatelessWidget {
                           ),
                           const SizedBox(height: 20.0),
                           CustomText(
-                            LocalizedTexts.countExercises.getPlural(
-                              args: {
-                                'count': exercisesLength,
-                              },
-                            ),
+                            LocalizedTexts.countExercises.plural(count: exercisesLength),
                             style: context.textTheme.bodySmall,
                           ),
                           const SizedBox(height: 20.0),
