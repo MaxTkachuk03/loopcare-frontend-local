@@ -45,8 +45,8 @@ class PreparationMaterialsPage extends StatelessWidget {
       builder: (context, state) {
         final content = state.data.weekTopic?.materials.first.article;
 
-        return WillPopScope(
-          onWillPop: () => _onWillPop(context),
+        return PopScope(
+          onPopInvokedWithResult: (canPop, result) => _onWillPop(context),
           child: CustomScaffold.blueLightest(
             appBar: CustomAppBar.blue(
               title: LocalizedTexts.preparation.tr(),
