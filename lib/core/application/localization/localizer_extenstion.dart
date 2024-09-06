@@ -19,7 +19,7 @@ extension LocalizationExtension on String {
   }
 
   String _getLocalizedString(String key, {Map<String, dynamic>? params}) {
-    final jsonString = getIt<SharedStorageService>().localTranslations;
+    final jsonString = getIt<LocalLocalizationService>().translations;
     if (jsonString == null || jsonString.isEmpty) {
       return key;
     }

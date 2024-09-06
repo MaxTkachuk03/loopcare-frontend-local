@@ -15,7 +15,6 @@ import 'package:loopcare_frontend/core/infrastructure/services/facebook_events_s
 import 'package:loopcare_frontend/core/infrastructure/services/firebase_navigator_observer.dart';
 import 'package:loopcare_frontend/core/infrastructure/services/local_localization_service/local_localization_service.dart';
 import 'package:loopcare_frontend/core/infrastructure/services/logger/logger.dart';
-import 'package:loopcare_frontend/core/infrastructure/services/shared_storage/shared_storage_service.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/core/presentation/alerting/show_app_snackbar.dart';
 import 'package:loopcare_frontend/core/presentation/routes/app_router.dart';
