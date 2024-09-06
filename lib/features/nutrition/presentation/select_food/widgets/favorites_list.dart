@@ -9,6 +9,7 @@ import 'package:loopcare_frontend/core/presentation/loader/loader.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 import 'package:loopcare_frontend/features/nutrition/application/select_food/select_food_bloc.dart';
+import 'package:loopcare_frontend/features/nutrition/domain/select_serving/meal_category.dart';
 import 'package:loopcare_frontend/features/nutrition/domain/select_serving/meal_category_filter.dart';
 import 'package:loopcare_frontend/features/nutrition/presentation/select_food/widgets/empty_list_widget.dart';
 import 'package:loopcare_frontend/features/nutrition/presentation/select_food/widgets/favorite_list_item.dart';
@@ -16,7 +17,7 @@ import 'package:loopcare_frontend/features/nutrition/presentation/select_food/wi
 import 'package:loopcare_frontend/features/nutrition/presentation/select_food/widgets/list_filters.dart';
 
 class FavoriteList extends StatefulWidget {
-  final String mealCategory;
+  final MealCategory? mealCategory;
 
   const FavoriteList({
     super.key,
@@ -47,9 +48,7 @@ class _FavoriteListState extends State<FavoriteList> with AutomaticKeepAliveClie
     return context.read<SelectFoodBloc>().add(SelectFoodEvent.fetchFavorites(_defaultMealCategory));
   }
 
-  String get _defaultMealCategory {
-    return widget.mealCategory.toLowerCase();
-  }
+  String get _defaultMealCategory => widget.mealCategory?.name ?? '';
 
   @override
   Widget build(BuildContext context) {

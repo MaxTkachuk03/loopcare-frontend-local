@@ -117,7 +117,7 @@ class _RecipePageState extends State<RecipePage> {
         event: EditDishEvent.createDishFromRecipe(
           recipeId,
           numberOfUnits,
-          _getSelectedMealCategories(mealState.data.currentMealCategory),
+          _getSelectedMealCategories(mealState.data.currentMealCategory?.name),
         ),
       ),
     );

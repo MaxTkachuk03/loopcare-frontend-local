@@ -71,6 +71,7 @@ class RiverStreamsStartPainter extends RenderRiverStreamPainter {
   @override
   double get yellowDarkOffsetCoefficient => 0.315;
 
+  // HORIZONTAL OFFSET =======================================================>
   @override
   double get greenHorizontalOffsetCoefficient => 0.385;
 
@@ -101,7 +102,6 @@ class RiverStreamsStartPainter extends RenderRiverStreamPainter {
   @override
   double get yellowDarkHorizontalOffsetCoefficient => 0.442;
 
-  // PATH ====================================================================>
   // PATH ====================================================================>
   @override
   Path green(Size size) => Path()

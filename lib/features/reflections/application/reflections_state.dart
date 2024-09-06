@@ -23,9 +23,9 @@ class ReflectionsStateData with _$ReflectionsStateData {
     @Default(null) RequestError? error,
   }) = _ReflectionsStateData;
 
-  bool hasReflectionsForCurrentWeek(DateTime selectedDay) {
-    return getSelectedWeekUndoneReflections(selectedDay).isNotEmpty;
-  }
+  bool hasReflectionsForCurrentWeek(DateTime selectedDay) =>
+      getSelectedWeekUndoneReflections(selectedDay).isNotEmpty ||
+      getSelectedDayDoneReflections(selectedDay).isNotEmpty;
 
   List<Reflection> getSelectedWeekReflections(DateTime selectedDay) {
     final startDate = selectedDay.firstDayOfCurrentWeek;
@@ -53,8 +53,9 @@ class ReflectionsStateData with _$ReflectionsStateData {
     }).toList();
   }
 
-  List<Reflection> getSelectedDayDoneReflections(DateTime selectedDay) =>
-      reflections.where((r) => r.completedAt?.dateOnly == selectedDay.dateOnly).toList();
+  List<Reflection> getSelectedDayDoneReflections(DateTime selectedDay) => reflections
+      .where((r) => r.completedAt?.dateOnly.isSameDate(selectedDay.dateOnly) ?? false)
+      .toList();
 
   List<Reflection> getPastReflections(DateTime selectedDay) {
     final endDate = selectedDay.subtract(7.days);

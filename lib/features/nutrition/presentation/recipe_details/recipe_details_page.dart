@@ -146,8 +146,8 @@ class _RecipeDetailsPageState extends State<RecipeDetailsPage> {
 
     final mealCategory = DishFavoritesCategory.values
             .asNameMap()
-            .containsKey(state.data.currentMealCategory?.toLowerCase())
-        ? state.data.currentMealCategory
+            .containsKey(state.data.currentMealCategory?.name)
+        ? state.data.currentMealCategory?.name
         : MealCategory.breakfast.originalValue;
 
     if (mealCategory == null) return;

@@ -33,7 +33,7 @@ class FoodItemServingsBloc extends Bloc<FoodItemServingsEvent, FoodItemServingsS
 
   List<MealCategoryFilter> _initializeMealCategoryFilters() {
     return MealCategory.values.map((v) {
-      return MealCategoryFilter(name: v.name, selected: false);
+      return MealCategoryFilter(name: v.originalValue, selected: false);
     }).toList();
   }
 
