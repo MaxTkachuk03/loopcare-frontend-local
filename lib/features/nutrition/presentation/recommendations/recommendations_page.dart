@@ -13,12 +13,13 @@ import 'package:loopcare_frontend/core/presentation/utils/string_extensions.dart
 import 'package:loopcare_frontend/core/presentation/widgets/main_container.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/scrollable_container.dart';
 import 'package:loopcare_frontend/features/nutrition/application/recipe/recipe_bloc.dart';
+import 'package:loopcare_frontend/features/nutrition/domain/select_serving/meal_category.dart';
 import 'package:loopcare_frontend/features/nutrition/presentation/recommendations/recommendations_carousel.dart';
 import 'package:loopcare_frontend/features/nutrition/presentation/widgets/back_button_hexagon/back_button_hexagon.dart';
 
 @RoutePage()
 class RecommendationsPage extends StatelessWidget {
-  final String mealCategory;
+  final MealCategory mealCategory;
   final DateTime date;
   final bool fromMealPage;
 
@@ -67,7 +68,7 @@ class RecommendationsPage extends StatelessWidget {
                     children: [
                       CustomAppBar.green(
                         title: LocalizedTexts.recommended.tr(),
-                        subtitle: '${mealCategory.capitalize()} ${date.shortDate}',
+                        subtitle: '${mealCategory.title.capitalize()} ${date.shortDate}',
                       ),
                       SizedBox(
                         height: 600,
@@ -105,7 +106,7 @@ class RecommendationsPage extends StatelessWidget {
                   children: [
                     CustomAppBar.green(
                       title: LocalizedTexts.recommended.tr(),
-                      subtitle: '${mealCategory.capitalize()} ${date.shortDate}',
+                      subtitle: '${mealCategory.title.capitalize()} ${date.shortDate}',
                     ),
                     Column(
                       children: [

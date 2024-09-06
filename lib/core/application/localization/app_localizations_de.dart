@@ -2304,6 +2304,9 @@ class AppLocalizationsDe extends AppLocalizations {
   String get errorAuthRefreshTokenNotFound => 'Auth-Refresh-Token nicht gefunden.';
 
   @override
+  String get errorAccountEmailOrPasswordInvalid => 'Wir konnten deine E-Mail-Adresse nicht aktualisieren. Bitte überprüfe deine Anmeldedaten und versuche es erneut';
+
+  @override
   String get errorAccountIdAlreadyExists => 'Diese E-Mail-Adresse ist falsch oder bereits vergeben.';
 
   @override
@@ -2455,6 +2458,9 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String get errorBuddyInvitationAlreadyApproved => 'Die Buddy-Einladung wurde bereits genehmigt.';
+
+  @override
+  String get errorBuddyInvitationBuddyOccupied => 'Diese Person ist leider nicht für das Buddy-Programm verfügbar. Fällt dir jemand anderes ein, der dir helfen könnte? Wende dich an den Support, wenn du Hilfe brauchst';
 
   @override
   String get errorDiabetesTypeNotFound => 'Diabetes-Typ nicht gefunden.';
@@ -3115,10 +3121,10 @@ class AppLocalizationsDe extends AppLocalizations {
   String get buddyFindAnotherBuddyContentTwo => 'Bitte beachte: Wenn du einen neuen Buddy willst, wird dein aktueller Buddy benachrichtigt, dass du diese Anfrage gestellt hast.';
 
   @override
-  String get linksTermsAndConditionsUrl => 'https://lean-on.me/de/terms-and-conditions';
+  String get linksTermsAndConditionsUrl => 'https://lean-on.me/de-DE/terms-and-conditions';
 
   @override
-  String get linksPrivacyPolicyUrl => 'https://lean-on.me/de/privacy-policy';
+  String get linksPrivacyPolicyUrl => 'https://lean-on.me/DE-de/privacy-policy';
 
   @override
   String get linksPsychologistConsulting => 'https://www.bptk.de/patient-innen/#psychotherapeutensuche';
@@ -5871,7 +5877,7 @@ class AppLocalizationsDe extends AppLocalizations {
   String get calorie => 'Kalorie';
 
   @override
-  String get dencity => 'dencity';
+  String get dencity => 'Dichte';
 
   @override
   String get protein => 'Protein';

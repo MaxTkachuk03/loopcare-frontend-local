@@ -765,6 +765,7 @@
   "errorCorePasswordTokenExpired": "Das Passwort-Token ist abgelaufen.",
   "errorAuthAccessTokenInvalid": "Das Auth-Zugriffstoken ist ungültig.",
   "errorAuthRefreshTokenNotFound": "Auth-Refresh-Token nicht gefunden.",
+  "errorAccountEmailOrPasswordInvalid": "Wir konnten deine E-Mail-Adresse nicht aktualisieren. Bitte überprüfe deine Anmeldedaten und versuche es erneut",
   "errorAccountIdAlreadyExists": "Diese E-Mail-Adresse ist falsch oder bereits vergeben.",
   "errorAccountIdNotFound": "Account-ID nicht gefunden.",
   "errorAccountEmailNotFound": "E-Mail oder Passwort sind falsch.",
@@ -816,6 +817,7 @@
   "errorBuddyInvitationNotFound": "Buddy-Einladung nicht gefunden.",
   "errorBuddyInvitationHasBeenRejected": "Die Buddy-Einladung wurde abgelehnt.",
   "errorBuddyInvitationAlreadyApproved": "Die Buddy-Einladung wurde bereits genehmigt.",
+  "errorBuddyInvitationBuddyOccupied": "Diese Person ist leider nicht für das Buddy-Programm verfügbar. Fällt dir jemand anderes ein, der dir helfen könnte? Wende dich an den Support, wenn du Hilfe brauchst",
   "errorDiabetesTypeNotFound": "Diabetes-Typ nicht gefunden.",
   "errorNutritionMealIdNotFound": "Nutrition meal ID nicht gefunden.",
   "errorNutritionMealFoodItemIdNotFound": "Nutrition Meal Food Item ID nicht gefunden.",
@@ -1087,8 +1089,8 @@
   },
   "buddyFindAnotherBuddyContentOne": "Wir glauben an unser Buddy-Programm und empfehlen dir, deinen Buddy zu behalten oder jemanden einzuladen, der dich besser ermutigen kann.",
   "buddyFindAnotherBuddyContentTwo": "Bitte beachte: Wenn du einen neuen Buddy willst, wird dein aktueller Buddy benachrichtigt, dass du diese Anfrage gestellt hast.",
-  "linksTermsAndConditionsUrl": "https://lean-on.me/de/terms-and-conditions",
-  "linksPrivacyPolicyUrl": "https://lean-on.me/de/privacy-policy",
+  "linksTermsAndConditionsUrl": "https://lean-on.me/de-DE/terms-and-conditions",
+  "linksPrivacyPolicyUrl": "https://lean-on.me/DE-de/privacy-policy",
   "linksPsychologistConsulting": "https://www.bptk.de/patient-innen/#psychotherapeutensuche",
   "linksInstructionsUrl": "https://loopcare-pdf-instructions.s3.eu-central-1.amazonaws.com/Dokument2-2.pdf",
   "riverOverviewTitle": "River Übersicht",
@@ -1813,7 +1815,7 @@
   "timeslotMissed": "Sorry, du hast dieses Zeitfenster verpasst",
   "chooseAnotherTimeslot": "Wähle einen anderen Zeitraum aus",
   "noOtherTimeslotsAvailable": "Für diese Woche sind keine weiteren Zeitfenster verfügbar. Das Thema der nächsten Woche folgt in Kürze",
-  "noMinMemberCount": "{number, plural, one {}=0{Es haben sich keine Nutzer für diese Sitzung angemeldet, daher kann sie abgesagt werden.} =1{Nur 1 Benutzer hat sich für diese Sitzung angemeldet, daher kann sie abgesagt werden.} other{Weniger als {number} Nutzer haben sich für diese Sitzung angemeldet, daher wird sie möglicherweise abgesagt.}}",
+  "noMinMemberCount": "{number, plural, =0{Es haben sich keine Nutzer für diese Sitzung angemeldet, daher kann sie abgesagt werden.} =1{Nur 1 Benutzer hat sich für diese Sitzung angemeldet, daher kann sie abgesagt werden.} other{Weniger als {number} Nutzer haben sich für diese Sitzung angemeldet, daher wird sie möglicherweise abgesagt.}}",
   "@noMinMemberCount": {
     "description": "Indicates that the session might be canceled due to insufficient user sign-ups.",
     "placeholders": {
@@ -2056,7 +2058,7 @@
   "intro": "Intro",
   "exercises": "Übungen",
   "startExercise": "Übung starten",
-  "countMins": "{count, plural, one {}=1 {# min} other {# mins}}",
+  "countMins": "{count, plural, =1 {# min} other {# mins}}",
   "@countMins": {
     "description": "Shows the number of minutes",
     "placeholders": {
@@ -2150,7 +2152,7 @@
   "reportIssueAndEmergencyTitle": "Problem und Notfall melden",
   "groupChat": "Gruppenchat",
   "groupChatTitle": "Gruppenmitglieder",
-  "groupChatLabel": "{users, plural, one {}=0{Es gibt keine Mitglieder in deiner Selbsthilfegruppe} =1{Es gibt 1 Mitglied in deiner Selbsthilfegruppe} other{Es gibt {users} Mitglieder in deiner Selbsthilfegruppe}}",
+  "groupChatLabel": "{users, plural, =0{Es gibt keine Mitglieder in deiner Selbsthilfegruppe} =1{Es gibt 1 Mitglied in deiner Selbsthilfegruppe} other{Es gibt {users} Mitglieder in deiner Selbsthilfegruppe}}",
   "@groupChatLabel": {
     "description": "Message indicating the number of members in the support group",
     "placeholders": {
@@ -2433,6 +2435,7 @@
   "physicalActivitiesPreferencesLabel": "Bewegungspräferenzen",
   "requestCode": "Anforderungscode",
   "calorie": "Kalorie",
+  "dencity": "Dichte",
   "protein": "Protein",
   "degree": "gehalt",
   "fiber": "Ballaststoffe",
@@ -2466,6 +2469,5 @@
   "maintenancePageTitle": "Wir sind bald wieder da!",
   "maintenancePageDescription": "Wir veröffentlichen gerade spannende neue Inhalte. Wenn du dich angemeldet hast, erhältst du eine Push-Benachrichtigung, sobald wir wieder online sind.\n\nMelde dich für unseren Newsletter an, um einen Vorgeschmack auf die kommenden Inhalte zu bekommen!",
   "noAlternativesAvailable": "Keine Alternativen verfügbar",
-  "chooseAlternative": "Wähle eine Alternative",
-  "density": "Dichte"
+  "chooseAlternative": "Wähle eine Alternative"
 }

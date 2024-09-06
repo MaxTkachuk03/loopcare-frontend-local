@@ -46,9 +46,14 @@ class _BuddyEmailPageState extends State<BuddyEmailPage> {
     context.router.pushNamed(AppRoutes.buddyCompleted);
   }
 
-  bool _onListenWhenHandler(prev, cur) =>
-      prev is BuddyStateLoading && cur is BuddyStateGotBuddy ||
-      prev is BuddyStateLoading && cur is BuddyStateError;
+  bool _onListenWhenHandler(prev, cur) {
+    if (!(ModalRoute.of(context)?.isCurrent ?? false)) return false;
+
+    final isLoadingOrGotBuddy = prev is BuddyStateLoading || prev is BuddyStateGotBuddy;
+
+    return isLoadingOrGotBuddy && cur is BuddyStateInvited ||
+        isLoadingOrGotBuddy && cur is BuddyStateError;
+  }
 
   @override
   Widget build(BuildContext context) {

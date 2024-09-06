@@ -765,6 +765,7 @@
   "corePasswordTokenExpired": "Password token expired.",
   "authAccessTokenInvalid": "Auth access token is invalid.",
   "authRefreshTokenNotFound": "Auth refresh token not found.",
+  "accountEmailOrPasswordInvalid" : "We were unable to update your email address. Please check your credentials and try again",
   "accountIdAlreadyExists": "This email address is incorrect or already taken.",
   "accountIdNotFound": "Account ID not found.",
   "accountEmailNotFound": "Email or password are incorrect.",
@@ -816,6 +817,7 @@
   "buddyInvitationNotFound": "Buddy invitation not found.",
   "buddyInvitationHasBeenRejected": "Buddy invitation has been rejected.",
   "buddyInvitationAlreadyApproved": "Buddy invitation has already been approved.",
+  "buddyInvitationBuddyOccupied": "Sorry, this person isn’t available for the buddy program. Can you think of someone else who could help you? Reach out to support if you need a hand",
   "diabetesTypeNotFound": "Diabetes type not found.",
   "nutritionMealIdNotFound": "Nutrition meal ID not found.",
   "nutritionMealFoodItemIdNotFound": "Nutrition meal food item ID not found.",
@@ -915,5 +917,4 @@
   "unhandledResponseDio": "Something went wrong.",
   "unhandledErrorDio": "Something went wrong.",
   "otherDio": "Something went wrong"
-
 }

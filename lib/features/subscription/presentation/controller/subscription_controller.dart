@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:in_app_purchase/in_app_purchase.dart';
 import 'package:loopcare_frontend/core/application/customer_io_service/customer_io_service.dart';
 import 'package:loopcare_frontend/core/application/localization/localizer_extenstion.dart';
+import 'package:loopcare_frontend/core/domain/analytics/analytics_parameters.dart';
+import 'package:loopcare_frontend/core/infrastructure/services/analytics_service.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/features/subscription/application/subscription_bloc.dart';
 import 'package:loopcare_frontend/features/subscription/domain/purchasable_product.dart';
@@ -116,10 +118,20 @@ class SubscriptionController {
   void setPlans(PurchasableProduct plan) {
     selectedPlan.value = plan;
     isEnableSubscribe.value = true;
-    CustomerIoService.track(
+    _pushAnalyticsEvents(plan);
+  }
+
+  void _pushAnalyticsEvents(PurchasableProduct plan) {
+     CustomerIoService.track(
       event: CIOEvents.subscriptionSelected,
       attributes: {
         CIOAttributes.identifierOption: plan.details.id,
+      },
+    );
+    const AnalyticsEventService.uxcam().logEvent(
+      eventName: CIOEvents.subscriptionSelected,
+      parameters: {
+        AnalyticsParameters.productIdentifier: plan.details.id,
       },
     );
   }

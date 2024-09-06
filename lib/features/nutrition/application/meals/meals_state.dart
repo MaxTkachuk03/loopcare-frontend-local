@@ -21,7 +21,7 @@ class MealsStateData with _$MealsStateData, NutritionUtils {
     @Default({}) Map<String, List<MealsListItem>> meals,
     @Default(false) bool isLoading,
     DateTime? currentDate,
-    String? currentMealCategory,
+    MealCategory? currentMealCategory,
     DateTime? timeStamp,
     ServingSize? selectedServing,
     RequestError? error,
@@ -185,7 +185,7 @@ class MealsStateData with _$MealsStateData, NutritionUtils {
 
   String categoryShortVersion(String category) =>
       category.toLowerCase() == MealCategory.inbetweens.originalValue
-          ? MealCategory.inbetweens.shortValue
+          ? MealCategory.inbetweens.name
           : category;
 
   int? get getCurrentMealId => currentMealId;
@@ -197,8 +197,6 @@ class MealsStateData with _$MealsStateData, NutritionUtils {
 
   List<DateTime>? get currentMealDates => [currentDateTime];
 
-  String? get selectedMealCategory => currentMealCategory?.capitalizeOnlyFirstLetter();
-
   Map<String, List<MealsListItem>> get mealsMap => meals;
 
   ServingSize? get currentMealServing {
@@ -208,7 +206,7 @@ class MealsStateData with _$MealsStateData, NutritionUtils {
 
     final selectedDayMeals = mealsMap[currentDateTime.isoStringWithoutTime] ?? <MealsListItem>[];
 
-    return selectedDayMeals.firstWhere((item) => item.mealCategory == currentMealCategory).serving;
+    return selectedDayMeals.firstWhere((item) => item.mealCategory == currentMealCategory?.originalValue).serving;
   }
 
   List<MealItem> get currentFoodItems {

@@ -240,29 +240,7 @@ class SubscriptionBloc extends Bloc<SubscriptionEvent, SubscriptionState> {
       (r) async {
         final accessTokenUpdated = await _authTokenManager.updateAccessToken();
         if (accessTokenUpdated) {
-          CustomerIoService.track(
-            event: CIOEvents.subscriptionBought,
-            attributes: {
-              CIOAttributes.identifierOption: purchaseDetails.productID,
-              CIOAttributes.subscriptionExpirationDate: r.expiresAt,
-            },
-          );
-          final identifier = _getTransactionId(purchaseDetails) ?? '';
-
-          final price = state.data.product?.price;
-          final currencyCode = state.data.product?.currencyCode;
-
-          FacebookEventsService.logEvent(
-            eventName: '${AnalyticsEvents.subscriptionBought}_${price}_$currencyCode',
-            parameters: {
-              AnalyticsParameters.subscriptionRevenue: state.data.product?.price,
-              AnalyticsParameters.subscriptionCurrencyCode: state.data.product?.currencyCode,
-              AnalyticsParameters.subscriptionContentId: purchaseDetails.purchaseID,
-              AnalyticsParameters.subscriptionTransactionId: identifier,
-              AnalyticsParameters.subscriptionContentType: purchaseDetails.productID,
-              AnalyticsParameters.subscriptionEventTime: r.purchasedAt,
-            },
-          );
+          _pushAnalyticBoughtEvent(purchaseDetails, r);
 
           add(
             SubscriptionEvent.purchasedSubscription(
@@ -647,6 +625,40 @@ class SubscriptionBloc extends Bloc<SubscriptionEvent, SubscriptionState> {
       parameters: {
         AnalyticsParameters.timestamp: DateTime.now().toIso8601String(),
         AnalyticsParameters.productIdentifier: purchaseDetails.productID,
+      },
+    );
+  }
+
+  void _pushAnalyticBoughtEvent(PurchaseDetails purchaseDetails, Subscription r) {
+    CustomerIoService.track(
+      event: CIOEvents.subscriptionBought,
+      attributes: {
+        CIOAttributes.identifierOption: purchaseDetails.productID,
+        CIOAttributes.subscriptionExpirationDate: r.expiresAt,
+      },
+    );
+
+    const AnalyticsEventService.uxcam().logEvent(
+      eventName: CIOEvents.subscriptionBought,
+      parameters: {
+        AnalyticsParameters.productIdentifier: purchaseDetails.productID,
+        CIOAttributes.subscriptionExpirationDate: r.expiresAt,
+      },
+    );
+    final identifier = _getTransactionId(purchaseDetails) ?? '';
+
+    final price = state.data.product?.price;
+    final currencyCode = state.data.product?.currencyCode;
+
+    FacebookEventsService.logEvent(
+      eventName: '${AnalyticsEvents.subscriptionBought}_${price}_$currencyCode',
+      parameters: {
+        AnalyticsParameters.subscriptionRevenue: state.data.product?.price,
+        AnalyticsParameters.subscriptionCurrencyCode: state.data.product?.currencyCode,
+        AnalyticsParameters.subscriptionContentId: purchaseDetails.purchaseID,
+        AnalyticsParameters.subscriptionTransactionId: identifier,
+        AnalyticsParameters.subscriptionContentType: purchaseDetails.productID,
+        AnalyticsParameters.subscriptionEventTime: r.purchasedAt,
       },
     );
   }
