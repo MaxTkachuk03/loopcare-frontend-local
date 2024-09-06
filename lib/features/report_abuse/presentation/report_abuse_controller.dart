@@ -8,6 +8,11 @@ class ReportAbuseController {
   final TextEditingController subjectController = TextEditingController();
   final TextEditingController reportController = TextEditingController();
 
+  void validateForm() {
+    final isValid = formKey.currentState?.validate() ?? false;
+    isFormValid.value = isValid;
+  }
+
   void dispose() {
     subjectController.dispose();
     reportController.dispose();

@@ -98,9 +98,6 @@ class _ReportFormWidget extends StatelessWidget {
 
   const _ReportFormWidget({required this.controller, required this.onSend, required this.close});
 
-  void _onFormChanged() =>
-      controller.isFormValid.value = controller.formKey.currentState?.validate() ?? false;
-
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -139,7 +136,7 @@ class _ReportFormWidget extends StatelessWidget {
             resizeToAvoidBottomInset: true,
             body: Form(
               key: controller.formKey,
-              onChanged: _onFormChanged,
+              onChanged: controller.validateForm,
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
@@ -154,6 +151,7 @@ class _ReportFormWidget extends StatelessWidget {
                     key: controller.subjectFieldKey,
                     controller: controller.subjectController,
                     hintText: LocalizedTexts.subjectReport.tr(),
+                    textInputAction: TextInputAction.next,
                     validator: reportAbuseSubjectValidator,
                   ),
                   const SizedBox(height: 16.0),
@@ -164,6 +162,7 @@ class _ReportFormWidget extends StatelessWidget {
                       hintText: LocalizedTexts.descriptionReport.tr(),
                       validator: reportAbuseDescriptionValidator,
                       keyboardType: TextInputType.multiline,
+                      textInputAction: TextInputAction.done,
                       maxLength: 500,
                       minLines: 30,
                       maxLines: 50,

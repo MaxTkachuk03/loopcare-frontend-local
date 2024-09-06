@@ -33,9 +33,6 @@ class _CustomActivityTabState extends State<CustomActivityTab> with AutomaticKee
       ..router.popUntilRouteWithName(HomeRoute.name);
   }
 
-  void _onFormChanged() =>
-      controller.isFormValid.value = controller.formKey.currentState?.validate() ?? false;
-
   @override
   Widget build(BuildContext context) {
     super.build(context);
@@ -43,7 +40,7 @@ class _CustomActivityTabState extends State<CustomActivityTab> with AutomaticKee
     return ScrollableContainer(
       child: Form(
         key: controller.formKey,
-        onChanged: _onFormChanged,
+        onChanged: controller.validateForm,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -61,6 +58,7 @@ class _CustomActivityTabState extends State<CustomActivityTab> with AutomaticKee
                   controller: controller.activityController,
                   validator: physicalActivityValidator,
                   keyboardType: TextInputType.multiline,
+                  textInputAction: TextInputAction.done,
                   maxLength: 30,
                   maxLines: 2,
                   hintText: '',
