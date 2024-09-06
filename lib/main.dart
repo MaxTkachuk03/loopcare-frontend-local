@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:crowdin_sdk/crowdin_sdk.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/foundation.dart';
@@ -12,10 +13,12 @@ import 'package:loopcare_frontend/build_type.dart';
 import 'package:loopcare_frontend/core/app.dart';
 import 'package:loopcare_frontend/core/application/customer_io_service/customer_io_service.dart';
 import 'package:loopcare_frontend/core/application/localization/localization_service.dart';
+import 'package:loopcare_frontend/core/application/localization/localizer_extenstion.dart';
 import 'package:loopcare_frontend/core/application/system_service.dart';
 import 'package:loopcare_frontend/core/infrastructure/app_lifecycle_observer.dart';
 import 'package:loopcare_frontend/core/infrastructure/hive_service/hive_constants.dart';
 import 'package:loopcare_frontend/core/infrastructure/services/analytics_service.dart';
+import 'package:loopcare_frontend/core/infrastructure/services/app_config.dart';
 import 'package:loopcare_frontend/core/infrastructure/services/country_code_service/country_code_service.dart';
 import 'package:loopcare_frontend/core/infrastructure/services/events.dart';
 import 'package:loopcare_frontend/core/infrastructure/services/logger/logger.dart';
@@ -87,8 +90,17 @@ Future<void> main() async {
   Hive.init(directory.path);
   await Hive.openBox<UserStatesModel>('user_states');
   await Hive.openBox<String>(HiveBoxConstants.localization);
+  await  _initializeCrowdin();
 
   return runApp(const AppLifeCycleStateListener(child: App()));
+}
+
+Future<void> _initializeCrowdin() async {
+ final  currentLocale= Locale(getIt<AppConfig>().language);
+  await loadLocalLocalizations();
+  await Crowdin.loadTranslations(currentLocale);
+
+  log.i('Current locale: ${currentLocale.languageCode}', error: 'CROWDIN');
 }
 
 void _onFlutterError(FlutterErrorDetails details) {

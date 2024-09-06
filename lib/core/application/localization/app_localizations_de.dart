@@ -2959,7 +2959,7 @@ class AppLocalizationsDe extends AppLocalizations {
     String _temp0 = intl.Intl.pluralLogic(
       count,
       locale: localeName,
-      other: '# Mal',
+      other: '$count Mal',
       one: '1 Mal',
       zero: 'Keine Male',
     );
@@ -4704,11 +4704,11 @@ class AppLocalizationsDe extends AppLocalizations {
   String get noOtherTimeslotsAvailable => 'Für diese Woche sind keine weiteren Zeitfenster verfügbar. Das Thema der nächsten Woche folgt in Kürze';
 
   @override
-  String noMinMemberCount(int number) {
+  String noMinMemberCount(int count) {
     String _temp0 = intl.Intl.pluralLogic(
-      number,
+      count,
       locale: localeName,
-      other: 'Weniger als $number Nutzer haben sich für diese Sitzung angemeldet, daher wird sie möglicherweise abgesagt.',
+      other: 'Weniger als $count Nutzer haben sich für diese Sitzung angemeldet, daher wird sie möglicherweise abgesagt.',
       one: 'Nur 1 Benutzer hat sich für diese Sitzung angemeldet, daher kann sie abgesagt werden.',
       zero: 'Es haben sich keine Nutzer für diese Sitzung angemeldet, daher kann sie abgesagt werden.',
     );
@@ -5034,8 +5034,8 @@ class AppLocalizationsDe extends AppLocalizations {
     String _temp0 = intl.Intl.pluralLogic(
       count,
       locale: localeName,
-      other: '# mins',
-      one: '# min',
+      other: '$count mins',
+      one: '$count min',
     );
     return '$_temp0';
   }
@@ -5193,11 +5193,11 @@ class AppLocalizationsDe extends AppLocalizations {
   String get groupChatTitle => 'Gruppenmitglieder';
 
   @override
-  String groupChatLabel(int users) {
+  String groupChatLabel(int count) {
     String _temp0 = intl.Intl.pluralLogic(
-      users,
+      count,
       locale: localeName,
-      other: 'Es gibt $users Mitglieder in deiner Selbsthilfegruppe',
+      other: 'Es gibt $count Mitglieder in deiner Selbsthilfegruppe',
       one: 'Es gibt 1 Mitglied in deiner Selbsthilfegruppe',
       zero: 'Es gibt keine Mitglieder in deiner Selbsthilfegruppe',
     );

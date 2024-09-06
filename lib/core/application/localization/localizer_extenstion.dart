@@ -4,8 +4,8 @@ import 'package:crowdin_sdk/crowdin_sdk.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter/services.dart' show rootBundle;
 import 'package:intl/intl.dart';
+import 'package:loopcare_frontend/core/domain/local_localization/local_localization_service.dart';
 import 'package:loopcare_frontend/core/infrastructure/services/app_config.dart';
-import 'package:loopcare_frontend/core/infrastructure/services/local_localization_service/local_localization_service.dart';
 import 'package:loopcare_frontend/injection.dart';
 
 const List<String> _pluralIds = ['=0', '=1', '=2', 'few', 'many', 'other'];

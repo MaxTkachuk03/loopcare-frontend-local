@@ -1,5 +1,5 @@
 import 'package:injectable/injectable.dart';
-import 'package:loopcare_frontend/core/infrastructure/services/local_localization_service/src/contracts/localization_repository.dart';
+import 'package:loopcare_frontend/core/domain/local_localization/localization_repository.dart';
 
 @lazySingleton
 class LocalLocalizationService {
