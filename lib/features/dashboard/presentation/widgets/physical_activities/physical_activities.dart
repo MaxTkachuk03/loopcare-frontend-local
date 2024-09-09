@@ -39,9 +39,9 @@ class _PhysicalActivitiesState extends State<PhysicalActivities> {
 
   @override
   void didUpdateWidget(covariant PhysicalActivities oldWidget) {
-    if (oldWidget.selectedDay.isoStringWithoutTime == widget.selectedDay.isoStringWithoutTime)
+    if (oldWidget.selectedDay.isoStringWithoutTime == widget.selectedDay.isoStringWithoutTime) {
       return;
-
+    }
     _updateData();
     super.didUpdateWidget(oldWidget);
   }

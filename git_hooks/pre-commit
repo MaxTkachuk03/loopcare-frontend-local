@@ -1,20 +1,22 @@
-#!/bin/sh
+#!/bin/bash
 
 # Format all Dart files
 echo "Formatting Dart files..."
 dart format lib --line-length 100
 
-# Run Dart analyzer
-echo "Running Dart analyzer..."
-dart analyze
-
-# Check if there are any errors
-if [ $? -ne 0 ]; then
-  echo "Dart analyzer found issues. Please fix them before committing."
-  exit 1
+# Run Flutter analyze and check for errors
+if ! output=$(flutter analyze); then
+    echo "COMMIT REJECTED: Flutter analyze found the following errors:"
+    echo "$output"
+    exit 1
 fi
 
-# Add formatted files to staging
-git add .
+# Run Dart analyze and check for errors
+if ! output=$(dart analyze); then
+    echo "COMMIT REJECTED: Dart analyze found the following errors:"
+    echo "$output"
+    exit 1
+fi
 
+# If we made it this far, the commit is allowed
 exit 0

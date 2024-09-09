@@ -83,15 +83,18 @@ class _GroupPreferencesPageState extends State<GroupPreferencesPage> {
                       if (state.data.groupingState == UserGroupingState.unlockedPreferences) {
                         return const NotGrouped();
                       }
-                      if (state.data.groupingState == UserGroupingState.refused)
+                      if (state.data.groupingState == UserGroupingState.refused) {
                         return const NotGrouped();
-                      if (state.data.groupingState == UserGroupingState.left)
+                      }
+                      if (state.data.groupingState == UserGroupingState.left) {
                         return const NotGrouped();
+                      }
                       if (state.data.groupingState == UserGroupingState.waitingInPool) {
                         return const WaitingInPool();
                       }
-                      if (state.data.groupingState == UserGroupingState.grouped)
+                      if (state.data.groupingState == UserGroupingState.grouped) {
                         return const Grouped();
+                      }
                       if (state.data.groupingState == UserGroupingState.loopedOnGenderPreferences) {
                         return const CanNotFindGroup();
                       }
