@@ -4,31 +4,18 @@ part of 'medical_questions_bloc.dart';
 class MedicalQuestionsEvent with _$MedicalQuestionsEvent {
   const factory MedicalQuestionsEvent.resetData() = ResetData;
 
-  const factory MedicalQuestionsEvent.pregnancyChanged(
-    bool value,
-  ) = PregnancyChanged;
+  const factory MedicalQuestionsEvent.pregnancyChanged(bool value) = PregnancyChanged;
 
-  const factory MedicalQuestionsEvent.treatmentByTheDoctorChanged(
-    bool value,
-  ) = TreatmentByTheDoctorChanged;
+  const factory MedicalQuestionsEvent.treatmentByTheDoctorChanged(bool value) =
+      TreatmentByTheDoctorChanged;
 
-  const factory MedicalQuestionsEvent.weightLossMedicationChanged(
-    bool value,
-  ) = WeightLossMedicationChanged;
-
-  @Deprecated('Not include in River Onboarding')
-  const factory MedicalQuestionsEvent.medicationFuturePeriodChanged(
-    MedicationFuturePeriodAnswer value,
-  ) = MedicationFuturePeriodChanged;
-
-  @Deprecated('Not include in River Onboarding')
-  const factory MedicalQuestionsEvent.medicationPastPeriodChanged(
-    MedicationPastPeriodAnswer value,
-  ) = MedicationPastPeriodChanged;
+  const factory MedicalQuestionsEvent.weightLossMedicationChanged(bool value) =
+      WeightLossMedicationChanged;
 
   const factory MedicalQuestionsEvent.medicinesChanged(List<String> medicines) = MedicinesChanged;
 
-  const factory MedicalQuestionsEvent.updateDisease(Diseases diseases, {required bool value}) = UpdateDisease;
+  const factory MedicalQuestionsEvent.updateDisease(Diseases diseases, {required bool value}) =
+      UpdateDisease;
 
   const factory MedicalQuestionsEvent.handleSexType(SexType sexType) = HandleSexType;
 

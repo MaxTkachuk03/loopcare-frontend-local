@@ -6,6 +6,7 @@ import 'package:loopcare_frontend/core/infrastructure/services/shared_storage/sh
 import 'package:loopcare_frontend/core/presentation/routes/app_router.gr.dart';
 import 'package:loopcare_frontend/features/authentication/application/authentication_bloc.dart';
 import 'package:loopcare_frontend/injection.dart';
+import 'package:flutter/widgets.dart' show WidgetsBinding;
 
 class StoredAccountService {
   static Account? getAccount() {
@@ -17,7 +18,9 @@ class StoredAccountService {
       HydratedBloc.storage.clear();
       getIt<SharedStorageService>().cleanStorage().whenComplete(
         () {
-          kOverlayContext.router.replaceAll([const SplashRoute()]);
+          WidgetsBinding.instance.addPostFrameCallback((_) {
+            kOverlayContext.router.replaceAll([const SplashRoute()]);
+          });
         },
       );
 

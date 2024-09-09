@@ -10,7 +10,6 @@ import 'package:loopcare_frontend/features/education/application/education_progr
 import 'package:loopcare_frontend/features/education/presentation/education_page/widgets/education_app_bar.dart';
 import 'package:loopcare_frontend/features/education/presentation/education_page/widgets/education_card.dart';
 import 'package:loopcare_frontend/features/education/presentation/education_page/widgets/progress_item.dart';
-import 'package:loopcare_frontend/features/nutrition/application/meals/meals_bloc.dart';
 
 const double _lessonCardHeight = 184;
 
@@ -48,9 +47,7 @@ class _EducationPageState extends State<EducationPage> with SingleTickerProvider
     }
   }
 
-  _lessonCompleteListener(BuildContext context, EducationLessonState state) {
-    final currentDate = context.read<MealsBloc>().state.data.currentDateTime;
-  }
+  _lessonCompleteListener(BuildContext context, EducationLessonState state) {}
 
   _lessonsListener(BuildContext context, EducationProgramState state) {
     _jumpToLessonsList();

@@ -110,7 +110,7 @@ class _OnboardingQuestionsPageState extends State<OnboardingQuestionsPage>
 
           return PopScope(
             canPop: state.currentPhysicalStep.isIntro,
-            onPopInvoked: (_) => _onPop(context, state.currentPhysicalStep.isIntro),
+            onPopInvokedWithResult: (value, _) => _onPop(context, value),
             child: CustomScaffold(
               withBg: false,
               color: state.backgroundColor,
