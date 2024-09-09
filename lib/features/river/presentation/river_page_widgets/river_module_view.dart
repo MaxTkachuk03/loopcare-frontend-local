@@ -208,11 +208,12 @@ class _RiverScreenState extends State<RiverScreen> with RiverUtils {
   }
 
   void _onPartlyCompleteModule(RiverState state) {
-    if (ModalRoute.of(context)?.isCurrent ?? false) {
-      ModalBottomSheet.modulePartlyCompleted(
-        context: context,
-        isItemsCompleted: state.data.activeModule.isModuleItemsCompleted,
-      );
+    if (!(ModalRoute.of(context)?.isCurrent ?? false)) return;
+
+    if (state.data.activeModule.isModuleItemsCompleted) {
+      ModalBottomSheet.moduleGraduationCompletedItems(context: context);
+    } else {
+      ModalBottomSheet.moduleGraduationCompletedTime(context: context);
     }
   }
 

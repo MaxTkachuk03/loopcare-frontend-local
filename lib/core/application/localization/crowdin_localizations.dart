@@ -3137,7 +3137,10 @@ class CrowdinLocalization extends AppLocalizations {
   String get riverGuidanceStartRiverDescription => Crowdin.getText(localeName, 'riverGuidanceStartRiverDescription') ?? _fallbackTexts.riverGuidanceStartRiverDescription;
 
 	@override
-  String get riverModuleGraduationTitle => Crowdin.getText(localeName, 'riverModuleGraduationTitle') ?? _fallbackTexts.riverModuleGraduationTitle;
+  String get riverModuleGraduationCompletedItemsTitle => Crowdin.getText(localeName, 'riverModuleGraduationCompletedItemsTitle') ?? _fallbackTexts.riverModuleGraduationCompletedItemsTitle;
+
+	@override
+  String get riverModuleGraduationCompletedTimeTitle => Crowdin.getText(localeName, 'riverModuleGraduationCompletedTimeTitle') ?? _fallbackTexts.riverModuleGraduationCompletedTimeTitle;
 
 	@override
   String get riverModuleGraduationCompletedItemsMessage => Crowdin.getText(localeName, 'riverModuleGraduationCompletedItemsMessage') ?? _fallbackTexts.riverModuleGraduationCompletedItemsMessage;

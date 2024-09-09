@@ -6319,22 +6319,28 @@ abstract class AppLocalizations {
   /// **'Now tap the other icons to unlock features and explore.'**
   String get riverGuidanceStartRiverDescription;
 
-  /// No description provided for @riverModuleGraduationTitle.
+  /// No description provided for @riverModuleGraduationCompletedItemsTitle.
   ///
   /// In en, this message translates to:
-  /// **'There is still something left to do!'**
-  String get riverModuleGraduationTitle;
+  /// **'Great job. You have completed the lessons in this pool.'**
+  String get riverModuleGraduationCompletedItemsTitle;
+
+  /// No description provided for @riverModuleGraduationCompletedTimeTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Your module is fully colored-in, meaning you  first read the Reflection over 7 days ago.'**
+  String get riverModuleGraduationCompletedTimeTitle;
 
   /// No description provided for @riverModuleGraduationCompletedItemsMessage.
   ///
   /// In en, this message translates to:
-  /// **'You have completed all the tasks, but you need to wait a little longer. Spend this time on yourself and practice what you have learnt.'**
+  /// **'You are one step closer to finishing this section. But before you can graduate, we encourage you to practice and reflect on what you have learned in this Pool.\n\nOnce the 7 day timer has has filled this section with color, you can move on to the next pool.'**
   String get riverModuleGraduationCompletedItemsMessage;
 
   /// No description provided for @riverModuleGraduationCompletedTimeMessage.
   ///
   /// In en, this message translates to:
-  /// **'Enough time has passed to move on to the next module, but you still have some work to do. Once you have completed all the tasks, you can move on. So hurry up!'**
+  /// **'No rush: Every module takes the time it takes. Keep reflecting! When you’ve completed all the necessary steps, we’ll ask you if you’re ready to move on. Need some help? Reach out by emailing support@lean-on.me, and one of our specialists will be glad to assist.'**
   String get riverModuleGraduationCompletedTimeMessage;
 
   /// No description provided for @subscriptionTrialTitle.

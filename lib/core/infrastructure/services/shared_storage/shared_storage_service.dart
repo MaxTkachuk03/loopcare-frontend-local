@@ -50,7 +50,7 @@ class SharedStorageService {
 
   set partlyCompletedModule(int value) => _prefs.setValue('partly_completedModule', value);
 
-  int get partlyCompletedModule => _prefs.getValue<int?>('store_version') ?? 1;
+  int get partlyCompletedModule => _prefs.getValue<int?>('partly_completedModule') ?? 1;
 
   set storeVersion(int value) => _prefs.setValue('store_version', value);
 

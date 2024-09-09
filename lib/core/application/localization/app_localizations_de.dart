@@ -3173,13 +3173,16 @@ class AppLocalizationsDe extends AppLocalizations {
   String get riverGuidanceStartRiverDescription => 'Tippe jetzt auf die anderen Icons, um Funktionen freizuschalten und zu entdecken.';
 
   @override
-  String get riverModuleGraduationTitle => 'There is still something left to do!';
+  String get riverModuleGraduationCompletedItemsTitle => 'Great job. You have completed the lessons in this pool.';
 
   @override
-  String get riverModuleGraduationCompletedItemsMessage => 'You have completed all the tasks, but you need to wait a little longer. Spend this time on yourself and practice what you have learnt.';
+  String get riverModuleGraduationCompletedTimeTitle => 'Your module is fully colored-in, meaning you  first read the Reflection over 7 days ago.';
 
   @override
-  String get riverModuleGraduationCompletedTimeMessage => 'Enough time has passed to move on to the next module, but you still have some work to do. Once you have completed all the tasks, you can move on. So hurry up!';
+  String get riverModuleGraduationCompletedItemsMessage => 'You are one step closer to finishing this section. But before you can graduate, we encourage you to practice and reflect on what you have learned in this Pool.\n\nOnce the 7 day timer has has filled this section with color, you can move on to the next pool.';
+
+  @override
+  String get riverModuleGraduationCompletedTimeMessage => 'No rush: Every module takes the time it takes. Keep reflecting! When you’ve completed all the necessary steps, we’ll ask you if you’re ready to move on. Need some help? Reach out by emailing support@lean-on.me, and one of our specialists will be glad to assist.';
 
   @override
   String get subscriptionTrialTitle => 'Die ersten 2 Wochen kostenlos!';

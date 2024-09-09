@@ -32,8 +32,8 @@
   "lastModuleCompletedDescription": "Take your time to revisit the previous modules and reinforce the practices whenever you need.\nYou've done an amazing job reaching this point! Stay tuned, more exciting content is coming soon!",
   "guidanceStartRiverTitle": "Great!",
   "guidanceStartRiverDescription": "Now tap the other icons to unlock features and explore.",
-  "moduleGraduationTitle": "There is still something left to do!",
-  "moduleGraduationCompletedItemsMessage": "You have completed all the tasks, but you need to wait a little longer. Spend this time on yourself and practice what you have learnt.",
-  "moduleGraduationCompletedTimeMessage": "Enough time has passed to move on to the next module, but you still have some work to do. Once you have completed all the tasks, you can move on. So hurry up!"
-
+  "moduleGraduationCompletedItemsTitle": "Great job. You have completed the lessons in this pool.",
+  "moduleGraduationCompletedTimeTitle": "Your module is fully colored-in, meaning you  first read the Reflection over 7 days ago.",
+  "moduleGraduationCompletedItemsMessage": "You are one step closer to finishing this section. But before you can graduate, we encourage you to practice and reflect on what you have learned in this Pool.\n\nOnce the 7 day timer has has filled this section with color, you can move on to the next pool.",
+  "moduleGraduationCompletedTimeMessage": "No rush: Every module takes the time it takes. Keep reflecting! When you’ve completed all the necessary steps, we’ll ask you if you’re ready to move on. Need some help? Reach out by emailing support@lean-on.me, and one of our specialists will be glad to assist."
 }

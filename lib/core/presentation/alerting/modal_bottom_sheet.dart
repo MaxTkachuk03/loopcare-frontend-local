@@ -1961,9 +1961,8 @@ class ModalBottomSheet {
     );
   }
 
-  static void modulePartlyCompleted({
+  static void moduleGraduationCompletedItems({
     required BuildContext context,
-    required bool isItemsCompleted,
     void Function()? onConfirm,
   }) {
     showModalBottomSheet(
@@ -1974,6 +1973,50 @@ class ModalBottomSheet {
       builder: (BuildContext context) {
         return MainContainer(
           child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              const SizedBox(height: 32.0),
+              Center(child: AppIcons.confetti),
+              const SizedBox(height: 24.0),
+              CustomText.w600(
+                LocalizedTexts.riverModuleGraduationCompletedItemsTitle.tr(),
+                style: context.textTheme.bodyMedium,
+              ),
+              const SizedBox(height: 20.0),
+              CustomText.w400(
+                LocalizedTexts.riverModuleGraduationCompletedItemsMessage.tr(),
+                style: context.textTheme.bodyMedium,
+              ),
+              const SizedBox(height: 20.0),
+              CustomElevatedButton.blueFullWidth(
+                label: LocalizedTexts.ok.tr().toUpperCase(),
+                onPressed: () {
+                  context.router.maybePop();
+                  onConfirm?.call();
+                },
+              ),
+              const SizedBox(height: 30.0),
+            ],
+          ),
+        );
+      },
+    );
+  }
+
+  static void moduleGraduationCompletedTime({
+    required BuildContext context,
+    void Function()? onConfirm,
+  }) {
+    showModalBottomSheet(
+      context: context,
+      showDragHandle: false,
+      backgroundColor: AppColors.blueLightest,
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12.0)),
+      builder: (BuildContext context) {
+        return MainContainer(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisSize: MainAxisSize.min,
             children: [
               const SizedBox(height: 32.0),
@@ -1986,14 +2029,12 @@ class ModalBottomSheet {
               ),
               const SizedBox(height: 24.0),
               CustomText.w600(
-                LocalizedTexts.riverModuleGraduationTitle.tr(),
+                LocalizedTexts.riverModuleGraduationCompletedTimeTitle.tr(),
                 style: context.textTheme.bodyMedium,
               ),
               const SizedBox(height: 20.0),
               CustomText.w400(
-                isItemsCompleted
-                    ? LocalizedTexts.riverModuleGraduationCompletedItemsMessage.tr()
-                    : LocalizedTexts.riverModuleGraduationCompletedTimeMessage.tr(),
+                LocalizedTexts.riverModuleGraduationCompletedTimeMessage.tr(),
                 style: context.textTheme.bodyMedium,
               ),
               const SizedBox(height: 20.0),

@@ -671,13 +671,12 @@ class RiverBloc extends Bloc<RiverEvent, RiverState> {
           ?? true;
 
   Future<bool> _showPartlyCompletionDialog(int? page) async {
-    final isNextPageOrCurrent = page != null && page == state.data.currentPage + 1 || page == null;
+    final isNextPageOrCurrent = page != null && page == state.data.currentPage + 1;
     final isItemsComplete = state.data.activeModule.isModuleItemsCompleted;
     final isTimePassed = await state.data.activeModule.isTimePassed;
     final isNewCompletion = page == null &&
-            getIt<SharedStorageService>().partlyCompletedModule != state.data.currentPage ||
-            page != null;
+            getIt<SharedStorageService>().partlyCompletedModule != state.data.currentPage;
 
-    return isNextPageOrCurrent && isNewCompletion && (isItemsComplete || isTimePassed);
+    return (isNextPageOrCurrent || isNewCompletion) && (isItemsComplete || isTimePassed);
   }
 }

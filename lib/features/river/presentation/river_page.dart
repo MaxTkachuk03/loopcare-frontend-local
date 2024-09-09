@@ -20,12 +20,14 @@ class RiverPage extends StatefulWidget {
 
 class _RiverPageState extends State<RiverPage> {
   late PageController _controller;
+  late int _page;
 
   @override
   void initState() {
     super.initState();
+    _page = context.read<RiverBloc>().state.data.currentPage;
     _controller = PageController(
-      initialPage: context.read<RiverBloc>().state.data.currentPage,
+      initialPage: _page,
     );
   }
 
@@ -34,8 +36,6 @@ class _RiverPageState extends State<RiverPage> {
     _controller.dispose();
     super.dispose();
   }
-
-  Future<void> _navigationHandler() => context.router.pushNamed(AppRoutes.riverOverview);
 
   @override
   Widget build(BuildContext context) {
@@ -66,6 +66,8 @@ class _RiverPageState extends State<RiverPage> {
     );
   }
 
+  Future<void> _navigationHandler() => context.router.pushNamed(AppRoutes.riverOverview);
+
   void _refreshReflections(BuildContext context, RiverState state) =>
       context.read<ReflectionsBloc>().add(const ReflectionsEvent.getReflections());
 
@@ -77,5 +79,11 @@ class _RiverPageState extends State<RiverPage> {
       current.data.activeModuleItem == null &&
       (previous.data.activeModuleItem?.states.prevItemState.isUnLocked ?? false);
 
-  void _onPageChanged(int page) => context.read<RiverBloc>().add(RiverEvent.checkCompletion(page: page));
+  void _onPageChanged(int page) {
+    if (_page < page) {
+      context.read<RiverBloc>().add(RiverEvent.checkCompletion(page: page));
+    }
+
+    _page = page;
+  }
 }
