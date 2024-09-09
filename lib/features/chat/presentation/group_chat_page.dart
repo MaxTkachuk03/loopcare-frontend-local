@@ -211,19 +211,19 @@ class _GroupChatPageState extends State<GroupChatPage> with WidgetsBindingObserv
     ModalBottomSheet.reportAbuse(context: context, chatReport: groupChatReport);
   }
 
-  void _copy(BuildContext context, String message) {
-    Clipboard.setData(ClipboardData(text: message)).then((_) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          backgroundColor: AppColors.blueDarker,
-          content: CustomText.w400(
-            LocalizedTexts.snackMassageCopy.tr(),
-            textAlign: TextAlign.left,
-            style: context.textTheme.bodyMedium?.copyWith(color: AppColors.white),
-          ),
+  void _copy(BuildContext context, String message) async {
+    await Clipboard.setData(ClipboardData(text: message));
+    if (!context.mounted) return;
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        backgroundColor: AppColors.blueDarker,
+        content: CustomText.w400(
+          LocalizedTexts.snackMassageCopy.tr(),
+          textAlign: TextAlign.left,
+          style: context.textTheme.bodyMedium?.copyWith(color: AppColors.white),
         ),
-      );
-    });
+      ),
+    );
   }
 
   void _onChangeListener(BuildContext context, GroupChatState state) {

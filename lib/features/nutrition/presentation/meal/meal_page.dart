@@ -58,11 +58,10 @@ class _MealPageState extends State<MealPage> {
   void _onSaveToMyDishesHandler() {
     final state = context.read<MealsBloc>().state;
 
-    final mealCategory = DishFavoritesCategory.values
-            .asNameMap()
-            .containsKey(state.data.currentMealCategory?.name)
-        ? state.data.currentMealCategory?.name
-        : MealCategory.breakfast.originalValue;
+    final mealCategory =
+        DishFavoritesCategory.values.asNameMap().containsKey(state.data.currentMealCategory?.name)
+            ? state.data.currentMealCategory?.name
+            : MealCategory.breakfast.originalValue;
 
     final mealId = state.data.getCurrentMealId;
 
@@ -211,7 +210,7 @@ class _MealPageState extends State<MealPage> {
     context.router.popUntilRouteWithName(HomeRoute.name);
   }
 
-  Future<bool> _onWillPop() async {
+  Future<bool> _onWillPop(_, __) {
     _onBack();
 
     return Future.value(true);
@@ -221,8 +220,8 @@ class _MealPageState extends State<MealPage> {
   Widget build(BuildContext context) {
     return BlocBuilder<MealsBloc, MealsState>(
       builder: (BuildContext context, state) {
-        return WillPopScope(
-          onWillPop: _onWillPop,
+        return PopScope(
+          onPopInvokedWithResult: _onWillPop,
           child: CustomScaffold.greenLighter(
             appBar: CustomAppBar.green(
               title: _appBarTitle,

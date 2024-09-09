@@ -95,7 +95,8 @@ class _RecipePageState extends State<RecipePage> {
     final recipeId = !isMealRecipe
         ? mealState.data.currentFoodItems
             .firstWhere((element) =>
-                element.type == MealItemType.recipe && element.externalId == recipeState.externalRecipeId)
+                element.type == MealItemType.recipe &&
+                element.externalId == recipeState.externalRecipeId)
             .id
         : recipeState.recipeId;
 
@@ -144,8 +145,8 @@ class _RecipePageState extends State<RecipePage> {
   Widget build(BuildContext context) {
     final isMealRecipe = widget.isMealRecipe ?? false;
 
-    return WillPopScope(
-      onWillPop: _onWillPop,
+    return PopScope(
+      onPopInvokedWithResult: _onWillPop,
       child: MultiBlocListener(
         listeners: [
           BlocListener<RecipeBloc, RecipeState>(
@@ -180,8 +181,9 @@ class _RecipePageState extends State<RecipePage> {
                       return ErrorScreen(
                         error: error!,
                         //TODO: need to check
-                        onButtonPressed: () =>
-                            context.read<RecipeBloc>().add(RecipeEvent.fetchRecipe(_currentRecipeId)),
+                        onButtonPressed: () => context
+                            .read<RecipeBloc>()
+                            .add(RecipeEvent.fetchRecipe(_currentRecipeId)),
                       );
                     },
                     recipeInfo: (recipeState) {
@@ -195,8 +197,8 @@ class _RecipePageState extends State<RecipePage> {
                             children: [
                               ServingsAmount(
                                 inputController: _servingController,
-                                onValueChangeHandler:
-                                    _onValueChangeHandler.withDebounce(const Duration(milliseconds: 500)),
+                                onValueChangeHandler: _onValueChangeHandler
+                                    .withDebounce(const Duration(milliseconds: 500)),
                               ),
                               NutritionValuesBlock(
                                 numberOfPortions: recipeState.data.recipe.numberOfServings,
@@ -301,13 +303,18 @@ class _RecipePageState extends State<RecipePage> {
 
     final recipeId = _currentRecipeId;
 
-    if (mealId == null || val.isEmpty || recipeId == null || val == '0' || val == '0.' || val == '0.0') {
+    if (mealId == null ||
+        val.isEmpty ||
+        recipeId == null ||
+        val == '0' ||
+        val == '0.' ||
+        val == '0.0') {
       return;
     }
     if (double.parse(val) == 0 || double.parse(val) < 0.1) return;
 
-    context.read<RecipeBloc>().add(
-        RecipeEvent.servingChanged(mealId: mealId, servingAmount: double.parse(val), recipeId: recipeId));
+    context.read<RecipeBloc>().add(RecipeEvent.servingChanged(
+        mealId: mealId, servingAmount: double.parse(val), recipeId: recipeId));
   }
 
   void _recipeListener(BuildContext context, RecipeState state) {
@@ -342,7 +349,9 @@ class _RecipePageState extends State<RecipePage> {
     RecipeState previous,
     RecipeState current,
   ) {
-    return previous is RecipeInfo && current is RecipeInfo && current.data.recipe != previous.data.recipe;
+    return previous is RecipeInfo &&
+        current is RecipeInfo &&
+        current.data.recipe != previous.data.recipe;
   }
 
   void _onNutritionFactSelect(NutritionValuesTypes item) {
@@ -360,7 +369,7 @@ class _RecipePageState extends State<RecipePage> {
     context.router.replaceNamed(AppRoutes.meal);
   }
 
-  Future<bool> _onWillPop() {
+  Future<bool> _onWillPop(_, __) {
     final isMealRecipe = widget.isMealRecipe ?? false;
 
     if (!isMealRecipe && !_isLogRecipePressed && internalRecipeId != null) {
@@ -412,8 +421,8 @@ class _RecipePageState extends State<RecipePage> {
                       ),
                     );
 
-                const AnalyticsEventService().logEvent(eventName:
-                AnalyticsEvents.foodLogged,
+                const AnalyticsEventService().logEvent(
+                  eventName: AnalyticsEvents.foodLogged,
                   parameters: {
                     AnalyticsParameters.timestamp: DateTime.now().toIso8601String(),
                     AnalyticsParameters.mealId: mealId.toString(),

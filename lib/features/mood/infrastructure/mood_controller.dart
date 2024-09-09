@@ -11,14 +11,8 @@ class MoodController {
   MoodController();
 
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
-
-  final TextEditingController noteController = TextEditingController();
-
   final GlobalKey<FormFieldState<String>> noteFieldKey = GlobalKey<FormFieldState<String>>();
-
-  final FocusNode noteFocusNode = FocusNode();
-
-  AutovalidateMode noteAutoValidateMode = AutovalidateMode.disabled;
+  final TextEditingController noteController = TextEditingController();
 
   ValueNotifier<bool> isValid = ValueNotifier(false);
   ValueNotifier<MoodPickerListItem?> moodValue = ValueNotifier(null);
@@ -28,10 +22,8 @@ class MoodController {
   ValueNotifier<List<MoodFood>> foodValues = ValueNotifier([]);
   ValueNotifier<List<MoodEmotion>> emotionValues = ValueNotifier([]);
 
-  bool get isFormValid => isValid.value = (noteFieldKey.currentState?.isValid ?? false) &&
-      moodValue.value != null &&
-      timeValue.value != null;
-
+  bool get isFormValid => isValid.value =
+      noteController.text.isNotEmpty && moodValue.value != null && timeValue.value != null;
 
   void setMoodInitialValues(Mood value) {
     final moodValue = MoodUtils.getMoodByValue(value.scale);
@@ -75,16 +67,6 @@ class MoodController {
   List<String> get moodEmotionString => emotionValues.value.map((e) => e.value).toList();
 
   DateTime get loggingDate => timeValue.value ?? DateTime.now();
-
-  void addFocusNodeListeners() {
-    noteFocusNode.addListener(() {
-      if (!noteFocusNode.hasFocus) {
-        noteController.text = noteController.value.text.trim();
-        noteFieldKey.currentState?.validate();
-        noteAutoValidateMode = AutovalidateMode.always;
-      }
-    });
-  }
 
   void dispose() {
     noteController.dispose();

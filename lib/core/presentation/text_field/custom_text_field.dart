@@ -19,6 +19,8 @@ class CustomTextField extends StatefulWidget {
   final bool? isClearField;
   final TextInputAction? textInputAction;
   final int? maxLength;
+  final int? minLines;
+  final int? maxLines;
   final String? errorText;
   final FormFieldValidator<String>? validator;
   final ValueChanged<String>? onChanged;
@@ -42,6 +44,8 @@ class CustomTextField extends StatefulWidget {
     this.obscureText,
     this.prefixIcon,
     this.maxLength,
+    this.minLines = 1,
+    this.maxLines = 1,
     this.errorText,
     this.isToggleEye,
     this.onCleared,
@@ -324,6 +328,8 @@ class _CustomTextFieldState extends State<CustomTextField> {
       textAlign: widget.textAlign,
       style: widget.style ?? context.textTheme.bodyMedium?.copyWith(fontWeight: FontWeight.w600),
       maxLength: widget.maxLength,
+      minLines: widget.minLines,
+      maxLines: widget.maxLines,
       decoration: widget.decoration ?? _defaultDecoration,
       validator: widget.validator,
       autovalidateMode: AutovalidateMode.onUserInteraction,

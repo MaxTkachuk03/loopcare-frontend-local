@@ -27,8 +27,8 @@ class ProgramDetailsPage extends StatelessWidget {
   Widget build(BuildContext context) {
     final exercisesLength = program.exercises.length;
 
-    return WillPopScope(
-      onWillPop: () => _onWillPop(context),
+    return PopScope(
+      onPopInvokedWithResult: (_, __) => _onWillPop(context),
       child: CustomScaffold.yellowLightest(
         appBar: CustomAppBar.yellow(
           title: program.name,
