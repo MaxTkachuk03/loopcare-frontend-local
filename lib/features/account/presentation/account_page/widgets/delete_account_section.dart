@@ -28,7 +28,6 @@ class DeleteAccountSection extends StatefulWidget {
 }
 
 class _DeleteAccountSectionState extends State<DeleteAccountSection> {
-
   void launchSubscriptionPref() {
     final link = Platform.isIOS ? appStoreSettingsLink : playMarketSettingsLink;
 
@@ -39,32 +38,34 @@ class _DeleteAccountSectionState extends State<DeleteAccountSection> {
     BuildContext context,
     bool noActiveSubscription,
     SubscriptionState state,
-  ) => isVendorPlatform(state)
-        ? ModalBottomSheet.deleteAccount(
-            context: context,
-            noActiveSubscription: noActiveSubscription,
-            onDeleted: () {
-              context.read<AuthenticationBloc>().add(const AuthenticationEvent.deleteAccount());
-              const AnalyticsEventService().logEvent(
-                eventName: AnalyticsEvents.deleteAccount,
-                parameters: {
-                  AnalyticsParameters.timestamp: DateTime.now().toIso8601String(),
-                  AnalyticsParameters.confirmed: true,
-                },
-              );
-            },
-            onSubscriptionPref: launchSubscriptionPref,
-          )
-        : _showPopover();
+  ) =>
+      isVendorPlatform(state)
+          ? ModalBottomSheet.deleteAccount(
+              context: context,
+              noActiveSubscription: noActiveSubscription,
+              onDeleted: () {
+                context.read<AuthenticationBloc>().add(const AuthenticationEvent.deleteAccount());
+                const AnalyticsEventService().logEvent(
+                  eventName: AnalyticsEvents.deleteAccount,
+                  parameters: {
+                    AnalyticsParameters.timestamp: DateTime.now().toIso8601String(),
+                    AnalyticsParameters.confirmed: true,
+                  },
+                );
+              },
+              onSubscriptionPref: launchSubscriptionPref,
+            )
+          : _showPopover();
 
   bool isVendorPlatform(SubscriptionState state) =>
       Platform.isIOS && (state.data.subscription?.vendor == 'ios') ||
-        Platform.isAndroid && (state.data.subscription?.vendor == 'android');
+      Platform.isAndroid && (state.data.subscription?.vendor == 'android');
 
   void _showPopover() => showDialog<String>(
         context: context,
         builder: (BuildContext context) => AlertDialog(
-          content: CustomText(LocalizedTexts.subscriptionOtherPurchaseVendorCancelAccountSubscription.tr()),
+          content: CustomText(
+              LocalizedTexts.subscriptionOtherPurchaseVendorCancelAccountSubscription.tr()),
           actions: [
             TextButton(
               onPressed: () => context.router.maybePop(),

@@ -2,13 +2,16 @@ part of 'navigation_bar_bloc.dart';
 
 @freezed
 class NavigationBarState with _$NavigationBarState {
-  const factory NavigationBarState.initialised(NavigationBarStateData data) = NavigationBarStateInitialised;
+  const factory NavigationBarState.initialised(NavigationBarStateData data) =
+      NavigationBarStateInitialised;
 
-  const factory NavigationBarState.beginningUncompleted(NavigationBarStateData data) = BeginningUncompletedState;
+  const factory NavigationBarState.beginningUncompleted(NavigationBarStateData data) =
+      BeginningUncompletedState;
 
   const factory NavigationBarState.moduleOpened(NavigationBarStateData data) = ModuleOpenedState;
 
-  const factory NavigationBarState.notificationPlaced(NavigationBarStateData data) = NotificationPlacedState;
+  const factory NavigationBarState.notificationPlaced(NavigationBarStateData data) =
+      NotificationPlacedState;
 }
 
 @freezed
@@ -23,5 +26,6 @@ class NavigationBarStateData with _$NavigationBarStateData {
     @Default(false) bool hasProfileNotification,
   }) = _NavigationBarStateData;
 
-  factory NavigationBarStateData.fromJson(Map<String, dynamic> json) => _$NavigationBarStateDataFromJson(json);
+  factory NavigationBarStateData.fromJson(Map<String, dynamic> json) =>
+      _$NavigationBarStateDataFromJson(json);
 }

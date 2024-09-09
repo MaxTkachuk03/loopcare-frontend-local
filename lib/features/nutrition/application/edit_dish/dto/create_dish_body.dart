@@ -15,6 +15,5 @@ abstract class CreateDishBody implements _$CreateDishBody {
     required String name,
   }) = _CreateDishBody;
 
-  factory CreateDishBody.fromJson(Map<String, dynamic> json) =>
-      _$CreateDishBodyFromJson(json);
+  factory CreateDishBody.fromJson(Map<String, dynamic> json) => _$CreateDishBodyFromJson(json);
 }

@@ -20,7 +20,6 @@ class ErrorInterceptor extends QueuedInterceptor {
     }
   }
 
-
   @override
   void onError(DioException err, ErrorInterceptorHandler handler) {
     if (err.type.isConnectionException) {
@@ -30,14 +29,17 @@ class ErrorInterceptor extends QueuedInterceptor {
     return handler.next(err);
   }
 
-  bool _isMaintenance(Response<dynamic> response) => response.statusCode == HttpStatus.serviceUnavailable;
+  bool _isMaintenance(Response<dynamic> response) =>
+      response.statusCode == HttpStatus.serviceUnavailable;
 
-  bool _isPaymentRequired(Response<dynamic> response) => response.statusCode == HttpStatus.paymentRequired;
+  bool _isPaymentRequired(Response<dynamic> response) =>
+      response.statusCode == HttpStatus.paymentRequired;
 
   void _pushToMaintenanceScreen() {
     FlutterNativeSplash.remove();
     kOverlayContext.router.replaceAll([const MaintenanceRoute()]);
   }
+
   void _pushToSubscriptionScreen() {
     FlutterNativeSplash.remove();
     kOverlayContext.router.replaceAll([const SubscriptionRoute()]);
@@ -47,8 +49,8 @@ class ErrorInterceptor extends QueuedInterceptor {
 extension ConnectionDioExceptionType on DioExceptionType {
   bool get isConnectionException =>
       this == DioExceptionType.sendTimeout ||
-          this == DioExceptionType.connectionTimeout ||
-          this == DioExceptionType.connectionError ||
-          this == DioExceptionType.receiveTimeout ||
-          this == DioExceptionType.unknown;
+      this == DioExceptionType.connectionTimeout ||
+      this == DioExceptionType.connectionError ||
+      this == DioExceptionType.receiveTimeout ||
+      this == DioExceptionType.unknown;
 }

@@ -43,8 +43,8 @@ class _TreatmentByDoctorContentState extends State<TreatmentByDoctorContent> {
     bloc.add(MedicalQuestionsEvent.treatmentByTheDoctorChanged(value));
 
     context.read<GeneralOnboardingBloc>().add(
-      GeneralOnboardingEvent.nextStep(excluded: excluded),
-    );
+          GeneralOnboardingEvent.nextStep(excluded: excluded),
+        );
   }
 
   @override

@@ -14,6 +14,5 @@ abstract class LogProgramBody implements _$LogProgramBody {
     required bool like,
   }) = _LogProgramBody;
 
-  factory LogProgramBody.fromJson(Map<String, dynamic> json) =>
-      _$LogProgramBodyFromJson(json);
+  factory LogProgramBody.fromJson(Map<String, dynamic> json) => _$LogProgramBodyFromJson(json);
 }

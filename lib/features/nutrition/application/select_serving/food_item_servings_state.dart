@@ -72,7 +72,9 @@ class FoodItemServingsState with _$FoodItemServingsState {
 
           return MealCategoryFilter(
             name: f.name.toLowerCase(),
-            selected: selectedFiltersValues == null ? false : selectedFiltersValues.contains(f.name.toLowerCase()),
+            selected: selectedFiltersValues == null
+                ? false
+                : selectedFiltersValues.contains(f.name.toLowerCase()),
           );
         }).toList();
       },

@@ -1,0 +1,20 @@
+#!/bin/sh
+
+# Format all Dart files
+echo "Formatting Dart files..."
+dart format lib --line-length 100
+
+# Run Dart analyzer
+echo "Running Dart analyzer..."
+dart analyze
+
+# Check if there are any errors
+if [ $? -ne 0 ]; then
+  echo "Dart analyzer found issues. Please fix them before committing."
+  exit 1
+fi
+
+# Add formatted files to staging
+git add .
+
+exit 0

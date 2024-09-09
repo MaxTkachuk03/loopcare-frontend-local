@@ -23,7 +23,8 @@ extension BuddyQuestionsX on BuddyQuestions {
   }
 
   int get percentage {
-    final valuesWithExclude = BuddyQuestions.values.where((element) => element != BuddyQuestions.completed);
+    final valuesWithExclude =
+        BuddyQuestions.values.where((element) => element != BuddyQuestions.completed);
 
     final value = (index * 100) / valuesWithExclude.length;
 

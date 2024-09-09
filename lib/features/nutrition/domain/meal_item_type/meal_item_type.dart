@@ -1,6 +1,1 @@
-enum MealItemType {
-  food,
-  recipe,
-  dish,
-  unknown
-}
+enum MealItemType { food, recipe, dish, unknown }

@@ -10,15 +10,20 @@ class SmartGoalsState with _$SmartGoalsState {
 
   const factory SmartGoalsState.error(SmartGoalsStateData data) = SmartGoalsStateError;
 
-  const factory SmartGoalsState.errorSaveGoals(SmartGoalsStateData data) = SmartGoalsStateErrorSaveGoals;
+  const factory SmartGoalsState.errorSaveGoals(SmartGoalsStateData data) =
+      SmartGoalsStateErrorSaveGoals;
 
-  const factory SmartGoalsState.weeklySessionSaved(SmartGoalsStateData data) = SmartGoalsStateWeeklySessionSaved;
+  const factory SmartGoalsState.weeklySessionSaved(SmartGoalsStateData data) =
+      SmartGoalsStateWeeklySessionSaved;
 
-  const factory SmartGoalsState.gotWeeklySession(SmartGoalsStateData data) = GotSmartGoalsStateWeeklySession;
+  const factory SmartGoalsState.gotWeeklySession(SmartGoalsStateData data) =
+      GotSmartGoalsStateWeeklySession;
 
-  const factory SmartGoalsState.errorAddingReview(SmartGoalsStateData data) = GotSmartGoalsStateErrorAddingReview;
+  const factory SmartGoalsState.errorAddingReview(SmartGoalsStateData data) =
+      GotSmartGoalsStateErrorAddingReview;
 
-  const factory SmartGoalsState.reviewAdded(SmartGoalsStateData data) = GotSmartGoalsStateReviewAdded;
+  const factory SmartGoalsState.reviewAdded(SmartGoalsStateData data) =
+      GotSmartGoalsStateReviewAdded;
 
   const factory SmartGoalsState.progressConfirmed(SmartGoalsStateData data) = ProgressConfirmed;
 
@@ -54,13 +59,15 @@ class SmartGoalsStateData with _$SmartGoalsStateData {
     if (startDay == null) {
       return false;
     }
-    return ((startDay.dateOnly.isBefore(selectedDay.dateOnly)) || startDay.dateOnly == selectedDay.dateOnly);
+    return ((startDay.dateOnly.isBefore(selectedDay.dateOnly)) ||
+        startDay.dateOnly == selectedDay.dateOnly);
   }
 
   bool get emptySessionState =>
       weeklyGoalsSessions.every((session) => !session.sessionHasGoal || !session.hasReviewDelay);
 
-  bool goalWasAdded(List<int> relatedExternalIds, int externalId) => weeklyGoalsSessions.any((session) {
+  bool goalWasAdded(List<int> relatedExternalIds, int externalId) =>
+      weeklyGoalsSessions.any((session) {
         final id = session.goal?.smartGoal.externalId;
         return relatedExternalIds.contains(id) || id == externalId;
       });

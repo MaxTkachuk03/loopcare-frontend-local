@@ -74,7 +74,9 @@ class PlayerEndVideoOverlay extends StatelessWidget {
                   textAlign: TextAlign.center,
                   style: context.textTheme.bodyMedium?.copyWith(
                     color: AppColors.white,
-                    fontSize: _isPortraitOrientation ? ThemeConstants.fontSize16 : ThemeConstants.fontSize32,
+                    fontSize: _isPortraitOrientation
+                        ? ThemeConstants.fontSize16
+                        : ThemeConstants.fontSize32,
                   ),
                 ),
                 CustomText.bitter600(
@@ -82,7 +84,9 @@ class PlayerEndVideoOverlay extends StatelessWidget {
                   textAlign: TextAlign.center,
                   style: context.textTheme.bodyMedium?.copyWith(
                     color: AppColors.white,
-                    fontSize: _isPortraitOrientation ? ThemeConstants.fontSize16 : ThemeConstants.fontSize32,
+                    fontSize: _isPortraitOrientation
+                        ? ThemeConstants.fontSize16
+                        : ThemeConstants.fontSize32,
                   ),
                 ),
                 const SizedBox(height: 6.0),
@@ -93,7 +97,9 @@ class PlayerEndVideoOverlay extends StatelessWidget {
                       programType.toUpperCase(),
                       style: context.textTheme.bodySmall?.copyWith(
                         color: AppColors.white,
-                        fontSize: _isPortraitOrientation ? ThemeConstants.fontSize10 : ThemeConstants.fontSize12,
+                        fontSize: _isPortraitOrientation
+                            ? ThemeConstants.fontSize10
+                            : ThemeConstants.fontSize12,
                       ),
                     ),
                     const SizedBox(width: 16.0),
@@ -103,7 +109,9 @@ class PlayerEndVideoOverlay extends StatelessWidget {
                       formatSecondsToDurationString(exercise.duration, alwaysShowSeconds: true),
                       style: context.textTheme.bodySmall?.copyWith(
                         color: AppColors.white,
-                        fontSize: _isPortraitOrientation ? ThemeConstants.fontSize10 : ThemeConstants.fontSize12,
+                        fontSize: _isPortraitOrientation
+                            ? ThemeConstants.fontSize10
+                            : ThemeConstants.fontSize12,
                       ),
                     ),
                     const SizedBox(width: 12.0),

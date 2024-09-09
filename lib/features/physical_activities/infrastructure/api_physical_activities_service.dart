@@ -52,7 +52,8 @@ class APIPhysicalActivitiesService implements PhysicalActivitiesService {
   }
 
   @override
-  Future<Either<RequestError, ProgramListResponse>> getProgramsByDate({String? startDate, String? endDate}) async {
+  Future<Either<RequestError, ProgramListResponse>> getProgramsByDate(
+      {String? startDate, String? endDate}) async {
     final queryParameters = <String, dynamic>{};
     if (startDate != null && endDate != null) {
       queryParameters.addAll({
@@ -81,7 +82,8 @@ class APIPhysicalActivitiesService implements PhysicalActivitiesService {
   }
 
   @override
-  Future<Either<RequestError, PhysicalProgramResponse>> createCustomActivity(CustomActivityBody data) async {
+  Future<Either<RequestError, PhysicalProgramResponse>> createCustomActivity(
+      CustomActivityBody data) async {
     return await client.post(
       '/physical-activities/programs/custom',
       data: data,

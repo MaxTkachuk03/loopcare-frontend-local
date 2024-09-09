@@ -14,7 +14,8 @@ const String _kCount = 'count';
 extension LocalizationExtension on String {
   String tr([Map<String, dynamic> params = const {}]) {
     String locale = getIt<AppConfig>().language;
-    final string = Crowdin.getText(locale, this, params) ?? _getLocalizedString(this, params: params);
+    final string =
+        Crowdin.getText(locale, this, params) ?? _getLocalizedString(this, params: params);
     return string;
   }
 
@@ -59,7 +60,7 @@ extension LocalizationExtension on String {
     String? countPlaceholderName,
   }) {
     final countPlaceholder = countPlaceholderName ?? _kCount;
-    final localisationParams = { if (params != null)...params, countPlaceholder: count };
+    final localisationParams = {if (params != null) ...params, countPlaceholder: count};
 
     final currentLocale = Locale(Intl.shortLocale(Intl.systemLocale));
     final locale = currentLocale.toString();
@@ -69,9 +70,7 @@ extension LocalizationExtension on String {
     if (message == this) return this;
 
     // Extract pluralized versions from the message
-    final extractedPlurals = _pluralIds
-        .map((pluralId) => _findPlural(message, pluralId))
-        .toList();
+    final extractedPlurals = _pluralIds.map((pluralId) => _findPlural(message, pluralId)).toList();
 
     // Return the correct pluralized message
     return Intl.pluralLogic(

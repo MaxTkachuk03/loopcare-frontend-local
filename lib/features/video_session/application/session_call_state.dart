@@ -4,7 +4,8 @@ part of 'session_call_bloc.dart';
 class SessionCallState with _$SessionCallState {
   const factory SessionCallState.initial(SessionCallData data) = SessionCallStateInitial;
 
-  const factory SessionCallState.updateSessionTime(SessionCallData data) = SessionCallStateUpdateSessionTime;
+  const factory SessionCallState.updateSessionTime(SessionCallData data) =
+      SessionCallStateUpdateSessionTime;
 }
 
 @freezed

@@ -14,5 +14,6 @@ class SmartGoalStatistics with _$SmartGoalStatistics {
     @Default(0) int total,
   }) = _SmartGoalStatistics;
 
-  factory SmartGoalStatistics.fromJson(Map<String, dynamic> json) => _$SmartGoalStatisticsFromJson(json);
+  factory SmartGoalStatistics.fromJson(Map<String, dynamic> json) =>
+      _$SmartGoalStatisticsFromJson(json);
 }

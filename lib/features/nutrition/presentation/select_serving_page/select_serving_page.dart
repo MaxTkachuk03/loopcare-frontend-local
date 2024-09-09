@@ -117,7 +117,8 @@ class _SelectServingPageState extends State<SelectServingPage> {
             return Padding(
               padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 30.0),
               child: CustomElevatedButton.blueFullWidth(
-                onPressed: enable ? () => _onConfirmPressed(context, servingAmount, servingId) : null,
+                onPressed:
+                    enable ? () => _onConfirmPressed(context, servingAmount, servingId) : null,
                 label: LocalizedTexts.confirm.tr(),
               ),
             );
@@ -164,11 +165,15 @@ class _SelectServingPageState extends State<SelectServingPage> {
   }
 
   _addToFavorite() {
-    context.read<FoodItemServingsBloc>().add(FoodItemServingsEvent.addToFavorites(widget.foodItemId));
+    context
+        .read<FoodItemServingsBloc>()
+        .add(FoodItemServingsEvent.addToFavorites(widget.foodItemId));
   }
 
   _updateFavourite() {
-    context.read<FoodItemServingsBloc>().add(FoodItemServingsEvent.updateFavorite(widget.foodItemId));
+    context
+        .read<FoodItemServingsBloc>()
+        .add(FoodItemServingsEvent.updateFavorite(widget.foodItemId));
   }
 
   _onAddAsFavouriteConfirmedPressed() {
@@ -196,7 +201,9 @@ class _SelectServingPageState extends State<SelectServingPage> {
     bool value,
     String name,
   ) {
-    context.read<FoodItemServingsBloc>().add(FoodItemServingsEvent.updateMealCategoryFilter(value, name));
+    context
+        .read<FoodItemServingsBloc>()
+        .add(FoodItemServingsEvent.updateMealCategoryFilter(value, name));
   }
 
   void _onFavouritePressed() {

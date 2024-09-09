@@ -24,7 +24,8 @@ class AppList<T> extends StatelessWidget {
     this.onLoadMore,
     this.addBottomPadding = false,
     this.scrollDirection = Axis.vertical,
-  }) : assert(holderText != null || emptyHolder != null, 'Empty state placeholder must initialized');
+  }) : assert(
+            holderText != null || emptyHolder != null, 'Empty state placeholder must initialized');
 
   @override
   Widget build(BuildContext context) {

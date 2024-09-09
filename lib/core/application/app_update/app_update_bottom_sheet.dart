@@ -11,7 +11,6 @@ import 'package:loopcare_frontend/core/presentation/text/custom_text.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class AppUpdateBottomSheet {
-
   static String get _storeLink {
     if (kIsProd) {
       return Platform.isAndroid ? playStoreAppUrl : appStoreAppUrl;
@@ -21,17 +20,11 @@ class AppUpdateBottomSheet {
   }
 
   static void showAppUpdate() {
-    ModalBottomSheet.appUpdate(
-      context: kOverlayContext,
-      onUpdatePressed: _onAppUpdatePressed
-    );
+    ModalBottomSheet.appUpdate(context: kOverlayContext, onUpdatePressed: _onAppUpdatePressed);
   }
 
   static void showMinorAppUpdate() {
-    ModalBottomSheet.appMinorUpdate(
-      context: kOverlayContext,
-      onUpdatePressed: _onAppUpdatePressed
-    );
+    ModalBottomSheet.appMinorUpdate(context: kOverlayContext, onUpdatePressed: _onAppUpdatePressed);
   }
 
   static void showPoliciesUpdate({
@@ -52,7 +45,8 @@ class AppUpdateBottomSheet {
 
   static Future<void> _onAppUpdatePressed() => _launchInBrowser(_storeLink);
 
-  static void _onTermsAndConditionsTap() => _launchInBrowser(LocalizedTexts.linksTermsAndConditionsUrl.tr());
+  static void _onTermsAndConditionsTap() =>
+      _launchInBrowser(LocalizedTexts.linksTermsAndConditionsUrl.tr());
 
   static void _onPrivacyPolicyTap() => _launchInBrowser(LocalizedTexts.linksPrivacyPolicyUrl.tr());
 

@@ -39,8 +39,9 @@ class _GroupPreferencesPageState extends State<GroupPreferencesPage> {
 
     context.read<GroupPreferencesBloc>().add(
           GroupPreferencesEvent.setInitialData(
-            value:
-                authState.data.groupingState == UserGroupingState.grouped ? YesNoAnswer.yes : YesNoAnswer.no,
+            value: authState.data.groupingState == UserGroupingState.grouped
+                ? YesNoAnswer.yes
+                : YesNoAnswer.no,
             gender: genderPreferences ?? authState.data.genderPreferences,
             nickname: nickname ?? authState.data.nickname,
             timezone: timezone ?? authState.data.timezone,
@@ -82,12 +83,15 @@ class _GroupPreferencesPageState extends State<GroupPreferencesPage> {
                       if (state.data.groupingState == UserGroupingState.unlockedPreferences) {
                         return const NotGrouped();
                       }
-                      if (state.data.groupingState == UserGroupingState.refused) return const NotGrouped();
-                      if (state.data.groupingState == UserGroupingState.left) return const NotGrouped();
+                      if (state.data.groupingState == UserGroupingState.refused)
+                        return const NotGrouped();
+                      if (state.data.groupingState == UserGroupingState.left)
+                        return const NotGrouped();
                       if (state.data.groupingState == UserGroupingState.waitingInPool) {
                         return const WaitingInPool();
                       }
-                      if (state.data.groupingState == UserGroupingState.grouped) return const Grouped();
+                      if (state.data.groupingState == UserGroupingState.grouped)
+                        return const Grouped();
                       if (state.data.groupingState == UserGroupingState.loopedOnGenderPreferences) {
                         return const CanNotFindGroup();
                       }

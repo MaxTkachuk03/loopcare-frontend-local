@@ -27,37 +27,37 @@ class GAD7ResultText extends StatelessWidget {
         final interpretation = currentResult?.interpretation;
 
         return switch (interpretation) {
-          InterpretationType.minimal =>  CustomText.w400(
-            LocalizedTexts.gad7ResultMinimal.tr(),
-            style: context.textTheme.bodyMedium,
-          ),
-          InterpretationType.mild => CustomText.w400(
-            LocalizedTexts.gad7ResultMild.tr(),
-            style: context.textTheme.bodyMedium,
-          ),
-          InterpretationType.moderate => CustomText.w400(
-            LocalizedTexts.gad7ResultMedium.tr(),
-            style: context.textTheme.bodyMedium,
-          ),
-          InterpretationType.high => RichText(
-            text: TextSpan(
-              children: [
-                TextSpan(
-                  text: '${LocalizedTexts.gad7ResultHigh.tr()} \n',
-                  style: context.textTheme.bodyMedium,
-                ),
-                TextSpan(
-                  style: context.textTheme.bodyMedium?.copyWith(color: AppColors.blueAppBar),
-                  text: '${LocalizedTexts.linksPsychologistConsulting.tr()} \n\n',
-                  recognizer: TapGestureRecognizer()..onTap = () => onLinkPressed(context),
-                ),
-                TextSpan(
-                  text: LocalizedTexts.ifYouHaveSuicidalThoughts.tr(),
-                  style: context.textTheme.bodyMedium,
-                ),
-              ],
+          InterpretationType.minimal => CustomText.w400(
+              LocalizedTexts.gad7ResultMinimal.tr(),
+              style: context.textTheme.bodyMedium,
             ),
-          ),
+          InterpretationType.mild => CustomText.w400(
+              LocalizedTexts.gad7ResultMild.tr(),
+              style: context.textTheme.bodyMedium,
+            ),
+          InterpretationType.moderate => CustomText.w400(
+              LocalizedTexts.gad7ResultMedium.tr(),
+              style: context.textTheme.bodyMedium,
+            ),
+          InterpretationType.high => RichText(
+              text: TextSpan(
+                children: [
+                  TextSpan(
+                    text: '${LocalizedTexts.gad7ResultHigh.tr()} \n',
+                    style: context.textTheme.bodyMedium,
+                  ),
+                  TextSpan(
+                    style: context.textTheme.bodyMedium?.copyWith(color: AppColors.blueAppBar),
+                    text: '${LocalizedTexts.linksPsychologistConsulting.tr()} \n\n',
+                    recognizer: TapGestureRecognizer()..onTap = () => onLinkPressed(context),
+                  ),
+                  TextSpan(
+                    text: LocalizedTexts.ifYouHaveSuicidalThoughts.tr(),
+                    style: context.textTheme.bodyMedium,
+                  ),
+                ],
+              ),
+            ),
           _ => const SizedBox.shrink(),
         };
       },

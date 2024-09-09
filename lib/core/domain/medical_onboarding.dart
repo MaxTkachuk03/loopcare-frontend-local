@@ -29,5 +29,6 @@ abstract class MedicalOnboarding implements _$MedicalOnboarding {
     @Default(false) bool treatedByPsychiatrist,
   }) = _MedicalOnboarding;
 
-  factory MedicalOnboarding.fromJson(Map<String, dynamic> json) => _$MedicalOnboardingFromJson(json);
+  factory MedicalOnboarding.fromJson(Map<String, dynamic> json) =>
+      _$MedicalOnboardingFromJson(json);
 }

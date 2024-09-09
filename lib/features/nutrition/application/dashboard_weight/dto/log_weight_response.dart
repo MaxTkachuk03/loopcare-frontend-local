@@ -11,8 +11,7 @@ class LogWeightResponse {
 
   const LogWeightResponse(this.data);
 
-  static LogWeightResponse fromJson(Map<String, dynamic> json) =>
-      _$LogWeightResponseFromJson(json);
+  static LogWeightResponse fromJson(Map<String, dynamic> json) => _$LogWeightResponseFromJson(json);
 
   Map<String, dynamic> toJson() => _$LogWeightResponseToJson(this);
 }

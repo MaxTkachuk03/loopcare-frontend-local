@@ -43,7 +43,8 @@ class APIMindService implements MindService {
   }
 
   @override
-  Future<Either<RequestError, MindTechniqueExercisesResponse>> getTechniquesExercises(int techniqueId) async {
+  Future<Either<RequestError, MindTechniqueExercisesResponse>> getTechniquesExercises(
+      int techniqueId) async {
     // TODO use to mock exercises server response
     // return right(MindTechniqueExercisesResponse.fromJson({'data': exercises}));
 

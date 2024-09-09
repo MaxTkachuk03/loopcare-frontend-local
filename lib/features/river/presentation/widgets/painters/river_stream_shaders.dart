@@ -49,5 +49,6 @@ class RiverStreamShader {
       ..setFloat(11, end.alpha.toDouble() / 255);
   }
 
-  FragmentProgram get fragmentProgram => _initialised ? _fragmentProgram : throw FlutterError('RiverStreamShader is not initialised');
+  FragmentProgram get fragmentProgram =>
+      _initialised ? _fragmentProgram : throw FlutterError('RiverStreamShader is not initialised');
 }

@@ -24,13 +24,13 @@ class LocalizationConstants {
     localeDutch,
   ];
 
-
   static String localeLanguageCode() {
     final deviceLanguage = WidgetsBinding.instance.platformDispatcher.locale.languageCode;
 
     return _supportedLocales
-        .firstWhereOrNull((l) => l.languageCode.toLowerCase() == deviceLanguage.toLowerCase())
-        ?.languageCode ?? 'en';
+            .firstWhereOrNull((l) => l.languageCode.toLowerCase() == deviceLanguage.toLowerCase())
+            ?.languageCode ??
+        'en';
   }
 
   LocalizationConstants._();

@@ -37,7 +37,8 @@ class _SliderCalendarState extends State<SliderCalendar> {
   }
 
   void _scrollToIndex() {
-    final int scrollIndex = _days.lastIndexWhere((e) => e.toString() == _selectedDay.midnightTime.toString());
+    final int scrollIndex =
+        _days.lastIndexWhere((e) => e.toString() == _selectedDay.midnightTime.toString());
 
     final int indexWithOffset = scrollIndex - 2;
 

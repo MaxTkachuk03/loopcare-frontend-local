@@ -42,8 +42,9 @@ class PHQ8ResultText extends StatelessWidget {
         final totalScore = testResult?.totalScore;
         if (totalScore == null) return const SizedBox.shrink();
 
-        final text =
-            totalScore > 19 ? LocalizedTexts.phq8ResultHighest.tr() : LocalizedTexts.phq8ResultHigh.tr();
+        final text = totalScore > 19
+            ? LocalizedTexts.phq8ResultHighest.tr()
+            : LocalizedTexts.phq8ResultHigh.tr();
 
         return RichText(
           text: TextSpan(

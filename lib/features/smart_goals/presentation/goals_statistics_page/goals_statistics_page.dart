@@ -28,11 +28,14 @@ class _GoalsStatisticsPageState extends State<GoalsStatisticsPage> {
   void initState() {
     super.initState();
 
-    context.read<SmartGoalsStatisticsBloc>().add(const SmartGoalsStatisticsEvent.getSmartGoalsStatistics());
+    context
+        .read<SmartGoalsStatisticsBloc>()
+        .add(const SmartGoalsStatisticsEvent.getSmartGoalsStatistics());
   }
 
-  void _onErrorRetryHandler() =>
-      context.read<SmartGoalsStatisticsBloc>().add(const SmartGoalsStatisticsEvent.getSmartGoalsStatistics());
+  void _onErrorRetryHandler() => context
+      .read<SmartGoalsStatisticsBloc>()
+      .add(const SmartGoalsStatisticsEvent.getSmartGoalsStatistics());
 
   @override
   Widget build(BuildContext context) {
@@ -77,8 +80,8 @@ class _GoalsStatisticsPageState extends State<GoalsStatisticsPage> {
                                   children: [
                                     TextSpan(
                                       text: '${state.data.totalAccomplishedGoalsAmount} ',
-                                      style:
-                                          context.textTheme.bodyMedium?.copyWith(fontWeight: FontWeight.w700),
+                                      style: context.textTheme.bodyMedium
+                                          ?.copyWith(fontWeight: FontWeight.w700),
                                     ),
                                     TextSpan(
                                       text: LocalizedTexts.smartGoalsAccomplishedInTotal.tr(),

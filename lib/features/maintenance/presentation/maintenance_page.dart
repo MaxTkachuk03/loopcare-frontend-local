@@ -12,7 +12,7 @@ import 'package:loopcare_frontend/features/education/presentation/education_page
 
 @RoutePage()
 class MaintenancePage extends StatelessWidget {
-  const MaintenancePage ({super.key});
+  const MaintenancePage({super.key});
 
   @override
   Widget build(BuildContext context) {

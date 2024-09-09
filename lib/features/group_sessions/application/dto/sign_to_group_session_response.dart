@@ -16,7 +16,8 @@ class SignToGroupSessionsResponse {
     required this.createdAt,
   });
 
-  static SignToGroupSessionsResponse fromJson(Map<String, dynamic> json) => _$SignToGroupSessionsResponseFromJson(json);
+  static SignToGroupSessionsResponse fromJson(Map<String, dynamic> json) =>
+      _$SignToGroupSessionsResponseFromJson(json);
 
   Map<String, dynamic> toJson() => _$SignToGroupSessionsResponseToJson(this);
 }

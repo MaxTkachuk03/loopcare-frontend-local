@@ -29,7 +29,8 @@ class _WaitingInPoolState extends State<WaitingInPool> {
     super.initState();
     final userId = context.read<AuthenticationBloc>().state.data.id;
 
-    _shouldHideMessage = storage.hasSawGroupPreferencesMessage(userId, UserGroupingState.waitingInPool);
+    _shouldHideMessage =
+        storage.hasSawGroupPreferencesMessage(userId, UserGroupingState.waitingInPool);
 
     storage.setGroupPreferencesMessageVisibility(userId, UserGroupingState.waitingInPool);
   }
@@ -45,7 +46,10 @@ class _WaitingInPoolState extends State<WaitingInPool> {
               children: [
                 CustomText.bitter600(
                   LocalizedTexts.weAreLookingForAMatch.tr(),
-                  style: Theme.of(context).textTheme.bodyLarge?.copyWith(fontSize: ThemeConstants.fontSize20),
+                  style: Theme.of(context)
+                      .textTheme
+                      .bodyLarge
+                      ?.copyWith(fontSize: ThemeConstants.fontSize20),
                 ),
                 BlocBuilder<AuthenticationBloc, AuthenticationState>(
                   builder: (BuildContext context, state) {

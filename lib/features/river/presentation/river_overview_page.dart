@@ -50,13 +50,13 @@ class _RiverOverviewPageState extends State<RiverOverviewPage> {
                 itemCount: state.data.modules.length + 1,
                 itemBuilder: (context, index) => index == 0
                     ? Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 30),
-                      child: CustomText.bitter600(
+                        padding: const EdgeInsets.symmetric(vertical: 30),
+                        child: CustomText.bitter600(
                           LocalizedTexts.riverOverviewTitle.tr(),
                           style: context.textTheme.displayLarge,
                           textAlign: TextAlign.center,
                         ),
-                    )
+                      )
                     : RiverModulePreview(module: state.data.modules[index - 1], page: index - 1),
               );
             },

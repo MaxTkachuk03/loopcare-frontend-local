@@ -13,8 +13,8 @@ class BmiCalculator {
   static num getUserBmiIndex(String? height, String? weight) {
     if (height == null || weight == null) return 0;
 
-    return num.parse(
-        ((num.parse(weight) / num.parse(height) / num.parse(height)) * multiplyIndex).toStringAsFixed(1));
+    return num.parse(((num.parse(weight) / num.parse(height) / num.parse(height)) * multiplyIndex)
+        .toStringAsFixed(1));
   }
 
   static bool validate(num? bmi, int? age) {
@@ -26,7 +26,6 @@ class BmiCalculator {
       return bmi >= lowerLimitBmi && bmi <= upperOldLimitBmi;
     }
   }
-
 
 // Waiting approving from BA/customers.
 /*

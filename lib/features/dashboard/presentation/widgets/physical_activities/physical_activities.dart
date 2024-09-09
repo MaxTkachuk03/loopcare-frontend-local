@@ -39,15 +39,21 @@ class _PhysicalActivitiesState extends State<PhysicalActivities> {
 
   @override
   void didUpdateWidget(covariant PhysicalActivities oldWidget) {
-    if (oldWidget.selectedDay.isoStringWithoutTime == widget.selectedDay.isoStringWithoutTime) return;
+    if (oldWidget.selectedDay.isoStringWithoutTime == widget.selectedDay.isoStringWithoutTime)
+      return;
+
     _updateData();
     super.didUpdateWidget(oldWidget);
   }
 
   void _updateData() {
-    context.read<PhysicalActivitiesBloc>().add(PhysicalActivitiesEvent.getWeeklyPhysicalActivities(widget.selectedDay));
+    context
+        .read<PhysicalActivitiesBloc>()
+        .add(PhysicalActivitiesEvent.getWeeklyPhysicalActivities(widget.selectedDay));
 
-    context.read<ProgramsInProgressBloc>().add(const ProgramsInProgressEvent.removeExpiredPrograms());
+    context
+        .read<ProgramsInProgressBloc>()
+        .add(const ProgramsInProgressEvent.removeExpiredPrograms());
   }
 
   void onPressHandler(BuildContext context) {
@@ -57,7 +63,9 @@ class _PhysicalActivitiesState extends State<PhysicalActivities> {
   get _isActive => widget.selectedDay.midnightTime == DateTime.now().midnightTime;
 
   void _programLogged(BuildContext context, PhysicalProgramsState state) {
-    context.read<PhysicalActivitiesBloc>().add(PhysicalActivitiesEvent.getWeeklyPhysicalActivities(widget.selectedDay));
+    context
+        .read<PhysicalActivitiesBloc>()
+        .add(PhysicalActivitiesEvent.getWeeklyPhysicalActivities(widget.selectedDay));
   }
 
   @override
@@ -111,7 +119,8 @@ class _PhysicalActivitiesState extends State<PhysicalActivities> {
                               return ErrorScreen(
                                 error: error!,
                                 onButtonPressed: () => context.read<PhysicalActivitiesBloc>().add(
-                                      PhysicalActivitiesEvent.getWeeklyPhysicalActivities(widget.selectedDay),
+                                      PhysicalActivitiesEvent.getWeeklyPhysicalActivities(
+                                          widget.selectedDay),
                                     ),
                               );
                             },
@@ -123,7 +132,10 @@ class _PhysicalActivitiesState extends State<PhysicalActivities> {
 
                               return isAvailable
                                   ? FilledActivitiesList(
-                                      programsList: [...activePrograms, ...s.data.activities(timesPerWeek)],
+                                      programsList: [
+                                        ...activePrograms,
+                                        ...s.data.activities(timesPerWeek)
+                                      ],
                                     )
                                   : const EmptyActivitiesList();
                             },

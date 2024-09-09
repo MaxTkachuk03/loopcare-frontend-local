@@ -64,8 +64,7 @@ class DeviceInfoService {
       deviceId = null;
     }
     if (approvedTrackingDeviceId) {
-      final response =
-      await apiTransparencyService.saveDeviceInfo(
+      final response = await apiTransparencyService.saveDeviceInfo(
         DeviceInfo(advertisingId: advertisingId!, deviceId: deviceId!),
       );
 

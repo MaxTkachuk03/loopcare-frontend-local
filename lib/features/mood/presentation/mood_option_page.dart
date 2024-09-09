@@ -73,10 +73,13 @@ class _MoodOptionPageState extends State<MoodOptionPage> {
       );
 
   Widget get content => widget.mode.map(
-        emotion: (_) => MoodEmotionOption(onChange: _onEmotionChangeHandler, selectedValues: _emotionValues),
+        emotion: (_) =>
+            MoodEmotionOption(onChange: _onEmotionChangeHandler, selectedValues: _emotionValues),
         time: (_) => MoodTimeOption(onChange: _onTimeChangeHandler, initialValue: _time),
-        withWho: (_) => MoodWithWhoOption(onChange: _onWithWhoChangeHandler, selectedValues: _withWhoValues),
-        where: (_) => MoodWhereOptions(onChange: _onWhereChangeHandler, selectedValues: _whereValues),
+        withWho: (_) =>
+            MoodWithWhoOption(onChange: _onWithWhoChangeHandler, selectedValues: _withWhoValues),
+        where: (_) =>
+            MoodWhereOptions(onChange: _onWhereChangeHandler, selectedValues: _whereValues),
         food: (_) => MoodFoodOptions(onChange: _onFoodChangeHandler, selectedValues: _foodValues),
       );
 
@@ -142,7 +145,8 @@ class _MoodOptionPageState extends State<MoodOptionPage> {
                   alignment: AlignmentDirectional.topStart,
                   child: Padding(
                     padding: const EdgeInsets.only(top: 20),
-                    child: CustomText.bitter500(_description, style: context.textTheme.displayMedium),
+                    child:
+                        CustomText.bitter500(_description, style: context.textTheme.displayMedium),
                   ),
                 ),
               Expanded(

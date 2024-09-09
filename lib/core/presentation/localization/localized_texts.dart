@@ -387,7 +387,7 @@ class LocalizedTexts {
   static const String avatarGaleryPermissionsMessage = 'avatarGaleryPermissionsMessage';
   static const String avatarGaleryPermissionsMessageAndroid =
       'avatarGaleryPermissionsMessageAndroid';
-  static const String  avatarCropper = 'avatarCropper';
+  static const String avatarCropper = 'avatarCropper';
 
   // Emergency Numbers
   static const String emergencySubtitle = 'emergencySubtitle';

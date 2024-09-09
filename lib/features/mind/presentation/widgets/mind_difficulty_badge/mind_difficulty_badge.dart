@@ -8,10 +8,10 @@ class MindDifficultyBadge extends StatelessWidget {
   final TechniqueExerciseDifficulty? difficulty;
 
   @override
-  Widget build(BuildContext context) => switch(difficulty) {
-    TechniqueExerciseDifficulty.easy => CategoryLabel.difficultyEasy(),
-    TechniqueExerciseDifficulty.medium => CategoryLabel.difficultyMedium(),
-    TechniqueExerciseDifficulty.hard => CategoryLabel.difficultyHard(),
-    _ => const SizedBox.shrink(),
-  };
+  Widget build(BuildContext context) => switch (difficulty) {
+        TechniqueExerciseDifficulty.easy => CategoryLabel.difficultyEasy(),
+        TechniqueExerciseDifficulty.medium => CategoryLabel.difficultyMedium(),
+        TechniqueExerciseDifficulty.hard => CategoryLabel.difficultyHard(),
+        _ => const SizedBox.shrink(),
+      };
 }

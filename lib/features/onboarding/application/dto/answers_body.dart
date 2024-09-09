@@ -12,6 +12,5 @@ abstract class AnswersBody implements _$AnswersBody {
 
   const AnswersBody._();
 
-  factory AnswersBody.fromJson(Map<String, dynamic> json) =>
-      _$AnswersBodyFromJson(json);
+  factory AnswersBody.fromJson(Map<String, dynamic> json) => _$AnswersBodyFromJson(json);
 }

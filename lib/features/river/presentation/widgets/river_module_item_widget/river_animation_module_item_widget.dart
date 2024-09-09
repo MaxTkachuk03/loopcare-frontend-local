@@ -175,15 +175,16 @@ class _RiverAnimationModuleItemWidgetState extends State<RiverAnimationModuleIte
 
   Offset get _translatePractice => isBeginning
       ? Offset(widget.radius - 2, 0)
-      : Offset(widget.radius / 2, - widget.radius / 2 + 2);
+      : Offset(widget.radius / 2, -widget.radius / 2 + 2);
 
-  Offset get _translateProfile => isBeginning
-      ? Offset(widget.radius + 2, 0)
-      : Offset(widget.radius / 2 + 4, -1);
+  Offset get _translateProfile =>
+      isBeginning ? Offset(widget.radius + 2, 0) : Offset(widget.radius / 2 + 4, -1);
 
-  Offset get _endPosition  => widget.item.featurePlacement?.isDashboard ?? false
-      ? _definePosition(kNavigationBarItemPractice).translate(_translatePractice.dx, _translatePractice.dy)
-      : _definePosition(kNavigationBarItemProfile).translate(_translateProfile.dx, _translateProfile.dy);
+  Offset get _endPosition => widget.item.featurePlacement?.isDashboard ?? false
+      ? _definePosition(kNavigationBarItemPractice)
+          .translate(_translatePractice.dx, _translatePractice.dy)
+      : _definePosition(kNavigationBarItemProfile)
+          .translate(_translateProfile.dx, _translateProfile.dy);
 
   Offset get _startPosition => _definePosition(_buttonKey);
 
@@ -374,7 +375,8 @@ Offset _definePosition(GlobalKey key) {
   }
 
   final RenderBox button = itemContext.findRenderObject()! as RenderBox;
-  final RenderBox overlay = Navigator.of(kOverlayContext).overlay!.context.findRenderObject()! as RenderBox;
+  final RenderBox overlay =
+      Navigator.of(kOverlayContext).overlay!.context.findRenderObject()! as RenderBox;
 
   return button.localToGlobal(Offset.zero, ancestor: overlay);
 }

@@ -72,7 +72,8 @@ class PhysicalProgramsBloc extends Bloc<PhysicalProgramsEvent, PhysicalProgramsS
 
     response.fold(
       (l) => emit(PhysicalProgramsState.error(state.data.copyWith(isLoading: false, error: l))),
-      (r) => emit(PhysicalProgramsState.programUpdated(state.data.copyWith(isLoading: false, error: null))),
+      (r) => emit(
+          PhysicalProgramsState.programUpdated(state.data.copyWith(isLoading: false, error: null))),
     );
   }
 
@@ -92,7 +93,8 @@ class PhysicalProgramsBloc extends Bloc<PhysicalProgramsEvent, PhysicalProgramsS
     );
   }
 
-  FutureOr<void> _onSetProgramDifficulty(_SetProgramDifficulty event, Emitter<PhysicalProgramsState> emit) {
+  FutureOr<void> _onSetProgramDifficulty(
+      _SetProgramDifficulty event, Emitter<PhysicalProgramsState> emit) {
     emit(
       PhysicalProgramsState.programLoaded(
         state.data.copyWith(programDifficulty: event.programDifficulty),
@@ -118,7 +120,8 @@ class PhysicalProgramsBloc extends Bloc<PhysicalProgramsEvent, PhysicalProgramsS
       );
 
       response.fold(
-        (error) => emit(PhysicalProgramsState.error(state.data.copyWith(isLoading: false, error: error))),
+        (error) =>
+            emit(PhysicalProgramsState.error(state.data.copyWith(isLoading: false, error: error))),
         (r) => emit(PhysicalProgramsState.programUpdated(state.data.copyWith(isLoading: false))),
       );
     }

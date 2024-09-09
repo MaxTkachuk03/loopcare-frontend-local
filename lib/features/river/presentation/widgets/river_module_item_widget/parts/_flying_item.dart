@@ -38,8 +38,7 @@ class _FlyingItemRoute extends PopupRoute {
   final void Function() onEnd;
 
   @override
-  Animation<double> createAnimation() =>
-      CurvedAnimation(
+  Animation<double> createAnimation() => CurvedAnimation(
         parent: super.createAnimation(),
         curve: Curves.fastLinearToSlowEaseIn,
         reverseCurve: const Interval(0.0, 1.0 / 3.0),
@@ -58,7 +57,8 @@ class _FlyingItemRoute extends PopupRoute {
   final String barrierLabel = 'item';
 
   @override
-  Widget buildPage(BuildContext context, Animation<double> animation, Animation<double> secondaryAnimation) {
+  Widget buildPage(
+      BuildContext context, Animation<double> animation, Animation<double> secondaryAnimation) {
     final Widget flyingItem = _FlyingItem(
       key: UniqueKey(),
       route: this,
@@ -145,9 +145,9 @@ class _FlyingItem extends StatelessWidget {
 
 class _FlyingItemRouteLayout extends SingleChildLayoutDelegate {
   _FlyingItemRouteLayout(
-      this.position,
-      this.padding,
-      );
+    this.position,
+    this.padding,
+  );
 
   final Offset position;
   EdgeInsets padding;
@@ -161,6 +161,5 @@ class _FlyingItemRouteLayout extends SingleChildLayoutDelegate {
 
   @override
   bool shouldRelayout(_FlyingItemRouteLayout oldDelegate) =>
-      position != oldDelegate.position
-          || padding != oldDelegate.padding;
+      position != oldDelegate.position || padding != oldDelegate.padding;
 }

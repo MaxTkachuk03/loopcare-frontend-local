@@ -35,7 +35,8 @@ class WaitingForConfirmationPage extends StatefulWidget {
   State<WaitingForConfirmationPage> createState() => _WaitingForConfirmationPageState();
 }
 
-class _WaitingForConfirmationPageState extends State<WaitingForConfirmationPage> with WidgetsBindingObserver {
+class _WaitingForConfirmationPageState extends State<WaitingForConfirmationPage>
+    with WidgetsBindingObserver {
   Timer? timer;
   bool waitingForResponse = false;
 
@@ -106,8 +107,8 @@ class _WaitingForConfirmationPageState extends State<WaitingForConfirmationPage>
   Widget build(BuildContext context) {
     return BlocListener<AuthenticationBloc, AuthenticationState>(
       listener: (context, state) => state.mapOrNull(
-          gotEmailVerification: (_) => _showEmailConfirmedBottomSheet(),
-        ),
+        gotEmailVerification: (_) => _showEmailConfirmedBottomSheet(),
+      ),
       child: PopScope(
         canPop: false,
         child: CustomScaffold.blueLightest(
@@ -133,7 +134,8 @@ class _WaitingForConfirmationPageState extends State<WaitingForConfirmationPage>
                             const SizedBox(height: 22.0),
                             CustomText.bitter600(
                               '${LocalizedTexts.waitingForConfirmationTitle.tr()}!',
-                              style: context.textTheme.displayMedium?.copyWith(color: AppColors.white),
+                              style:
+                                  context.textTheme.displayMedium?.copyWith(color: AppColors.white),
                               textAlign: TextAlign.center,
                             ),
                           ],
@@ -190,7 +192,8 @@ class _WaitingForConfirmationPageState extends State<WaitingForConfirmationPage>
                         TextSpan(text: '${LocalizedTexts.incorrectEmail.tr()} '),
                         TextSpan(
                           text: LocalizedTexts.changeAddress.tr(),
-                          style: context.textTheme.bodyMedium?.copyWith(fontWeight: FontWeight.w600),
+                          style:
+                              context.textTheme.bodyMedium?.copyWith(fontWeight: FontWeight.w600),
                           recognizer: TapGestureRecognizer()..onTap = _onChangeAddress,
                         ),
                       ],

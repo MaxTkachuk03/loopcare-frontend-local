@@ -77,10 +77,11 @@ class NoGroup extends StatelessWidget {
                               CustomText.w400(
                                 LocalizedTexts.dayFromTo.tr(
                                   {
-                                  'day': day,
-                                  'startTime': startTime,
-                                  'endTime': endTime,
-                                },),
+                                    'day': day,
+                                    'startTime': startTime,
+                                    'endTime': endTime,
+                                  },
+                                ),
                                 style: context.textTheme.bodySmall?.copyWith(
                                   fontSize: ThemeConstants.fontSize12,
                                 ),

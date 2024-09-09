@@ -11,7 +11,8 @@ part 'programs_in_progress_event.dart';
 part 'programs_in_progress_state.dart';
 
 @singleton
-class ProgramsInProgressBloc extends HydratedBloc<ProgramsInProgressEvent, ProgramsInProgressState> {
+class ProgramsInProgressBloc
+    extends HydratedBloc<ProgramsInProgressEvent, ProgramsInProgressState> {
   ProgramsInProgressBloc() : super(ProgramsInProgressState.initial()) {
     on<SetProgram>(_onSetProgram);
     on<RemoveProgram>(_onDeleteProgram);
@@ -28,7 +29,10 @@ class ProgramsInProgressBloc extends HydratedBloc<ProgramsInProgressEvent, Progr
       startDate: DateTime.now().toIso8601String(),
     );
 
-    final Map<String, PhysicalProgram> programs = {...state.programs, activeProgram.id.toString(): activeProgram};
+    final Map<String, PhysicalProgram> programs = {
+      ...state.programs,
+      activeProgram.id.toString(): activeProgram
+    };
 
     emit(state.copyWith(programs: programs));
   }
@@ -46,13 +50,16 @@ class ProgramsInProgressBloc extends HydratedBloc<ProgramsInProgressEvent, Progr
     RemoveExpiredPrograms event,
     Emitter<ProgramsInProgressState> emit,
   ) {
-    final Map<String, PhysicalProgram> programs = {for (var e in state.programsList) e.id.toString(): e};
+    final Map<String, PhysicalProgram> programs = {
+      for (var e in state.programsList) e.id.toString(): e
+    };
 
     emit(state.copyWith(programs: programs));
   }
 
   @override
-  ProgramsInProgressState? fromJson(Map<String, dynamic> json) => ProgramsInProgressState.fromJson(json);
+  ProgramsInProgressState? fromJson(Map<String, dynamic> json) =>
+      ProgramsInProgressState.fromJson(json);
 
   @override
   Map<String, dynamic>? toJson(ProgramsInProgressState state) {

@@ -42,12 +42,15 @@ class AlreadyPlannedCard extends StatelessWidget {
                 if (active)
                   Text(
                     mealCategory.toUpperCase(),
-                    style: Theme.of(context).textTheme.bodySmall?.copyWith(color: AppColors.greyLabel),
+                    style:
+                        Theme.of(context).textTheme.bodySmall?.copyWith(color: AppColors.greyLabel),
                   ),
                 if (!active)
                   Text(
-                    LocalizedTexts.alreadyPlannedCategory.tr({'mealCategory': mealCategory.toUpperCase()}),
-                    style: Theme.of(context).textTheme.bodySmall?.copyWith(color: AppColors.greyLabel),
+                    LocalizedTexts.alreadyPlannedCategory
+                        .tr({'mealCategory': mealCategory.toUpperCase()}),
+                    style:
+                        Theme.of(context).textTheme.bodySmall?.copyWith(color: AppColors.greyLabel),
                   ),
                 const SizedBox(height: 18.0),
                 GroupedMealList(

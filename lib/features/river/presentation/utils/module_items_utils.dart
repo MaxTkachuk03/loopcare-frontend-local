@@ -88,7 +88,6 @@ class ModuleItemsUtils {
     final ranges = RangeBox();
 
     for (final listItems in streams) {
-
       for (int i = 0; i < listItems.length; i++) {
         final item = listItems[i];
 
@@ -107,7 +106,9 @@ class ModuleItemsUtils {
           } else if (biggestRanges.any((e) => e.inRange(0.9)) && (i == 0 || listItems.length > 2)) {
             position = 0.9;
           } else {
-            final range = (item.streamType.streamIndex + page).isOdd ? biggestRanges.first : biggestRanges.last;
+            final range = (item.streamType.streamIndex + page).isOdd
+                ? biggestRanges.first
+                : biggestRanges.last;
             position = range.middle;
           }
 
@@ -181,7 +182,9 @@ class DoubleRange {
 
   const DoubleRange(this.from, this.to);
 
-  const DoubleRange.fill() : from = 0.0, to = 1.0;
+  const DoubleRange.fill()
+      : from = 0.0,
+        to = 1.0;
 
   double get length => (to - from).abs();
 
@@ -197,16 +200,16 @@ class DoubleRange {
     if (position == from || position == to) {
       return [this];
     }
-    return [DoubleRange(from, position - itemWidth/2), DoubleRange(position + itemWidth/2, to)];
+    return [DoubleRange(from, position - itemWidth / 2), DoubleRange(position + itemWidth / 2, to)];
   }
 
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-          other is DoubleRange &&
-              runtimeType == other.runtimeType &&
-              from == other.from &&
-              to == other.to;
+      other is DoubleRange &&
+          runtimeType == other.runtimeType &&
+          from == other.from &&
+          to == other.to;
 
   @override
   int get hashCode => from.hashCode ^ to.hashCode;
