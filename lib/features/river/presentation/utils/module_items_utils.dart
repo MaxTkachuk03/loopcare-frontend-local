@@ -58,7 +58,9 @@ class ModuleItemsUtils {
     final rootItem = items.firstWhereOrNull((i) => i.isRootItem);
     final regularItems = items.where((i) => !i.isRootItem).toList();
 
-    if (rootItem != null) list.add((offset: _zeroPageRootItemPosition, item: rootItem));
+    if (rootItem != null) {
+      list.add((offset: _zeroPageRootItemPosition, item: rootItem));
+    }
 
     for (int i = 0; i < regularItems.length; i++) {
       final item = regularItems[i];

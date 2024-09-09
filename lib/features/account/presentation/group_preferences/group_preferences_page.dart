@@ -79,7 +79,9 @@ class _GroupPreferencesPageState extends State<GroupPreferencesPage> {
 
                   return BlocBuilder<AuthenticationBloc, AuthenticationState>(
                     builder: (context, state) {
-                      if (state.data.groupingState == null) return const SizedBox.shrink();
+                      if (state.data.groupingState == null) {
+                        return const SizedBox.shrink();
+                      }
                       if (state.data.groupingState == UserGroupingState.unlockedPreferences) {
                         return const NotGrouped();
                       }

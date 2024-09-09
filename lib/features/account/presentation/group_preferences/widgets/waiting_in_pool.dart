@@ -55,7 +55,9 @@ class _WaitingInPoolState extends State<WaitingInPool> {
                   builder: (BuildContext context, state) {
                     final groupingStartedAt = state.data.groupingStartedAt;
 
-                    if (groupingStartedAt == null) return const SizedBox.shrink();
+                    if (groupingStartedAt == null) {
+                      return const SizedBox.shrink();
+                    }
 
                     return RichText(
                       text: TextSpan(

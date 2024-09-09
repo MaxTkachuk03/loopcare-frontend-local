@@ -25,8 +25,7 @@ class View extends HookWidget {
       case TargetPlatform.android:
         return PlatformViewLink(
           viewType: viewType,
-          surfaceFactory:
-              (context, controller) {
+          surfaceFactory: (context, controller) {
             return AndroidViewSurface(
               controller: controller as AndroidViewController,
               gestureRecognizers: const <Factory<OneSequenceGestureRecognizer>>{},
@@ -67,7 +66,6 @@ class View extends HookWidget {
   }
 }
 
-
 /// Define parameters that needed by Zoom native view
 abstract class ZoomView extends HookWidget {
   final ZoomVideoSdkUser? user;
@@ -80,16 +78,15 @@ abstract class ZoomView extends HookWidget {
   final bool fullScreen;
   final String resolution;
 
-  const ZoomView({
-    super.key,
-    required this.user,
-    required this.sharing,
-    required this.preview,
-    required this.focused,
-    required this.hasMultiCamera,
-    required this.multiCameraIndex,
-    required this.videoAspect,
-    required this.fullScreen,
-    required this.resolution
-  });
+  const ZoomView(
+      {super.key,
+      required this.user,
+      required this.sharing,
+      required this.preview,
+      required this.focused,
+      required this.hasMultiCamera,
+      required this.multiCameraIndex,
+      required this.videoAspect,
+      required this.fullScreen,
+      required this.resolution});
 }
