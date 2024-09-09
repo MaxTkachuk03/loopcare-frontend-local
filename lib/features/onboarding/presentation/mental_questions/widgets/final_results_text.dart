@@ -59,7 +59,7 @@ class FinalResultsText extends StatelessWidget {
               ),
               const SizedBox(height: 16),
               CustomText.w400(
-                LocalizedTexts.ifYouHaveSuicidalThoughts.tr(),
+                LocalizedTexts.mentalTestResultsIfYouHaveSuicidalThoughts.tr(),
                 style: context.textTheme.bodyMedium,
               ),
               const SizedBox(height: 16),

@@ -58,7 +58,7 @@ class PHQ8ResultText extends StatelessWidget {
                 recognizer: TapGestureRecognizer()..onTap = () => onLinkPressed(context),
               ),
               TextSpan(
-                text: LocalizedTexts.ifYouHaveSuicidalThoughts.tr(),
+                text: LocalizedTexts.mentalTestResultsIfYouHaveSuicidalThoughts.tr(),
                 style: context.textTheme.bodyMedium,
               ),
             ],

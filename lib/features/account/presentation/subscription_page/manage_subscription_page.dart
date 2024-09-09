@@ -75,7 +75,7 @@ class _ManageSubscriptionPageState extends State<ManageSubscriptionPage> {
                             height: 14,
                           ),
                           _DetailsSection(
-                            title: LocalizedTexts.subscriptionVia,
+                            title: LocalizedTexts.subscriptionSubscriptionVia,
                             value: state.data.subscription == null
                                 ? ''
                                 : state.data.subscription!.vendor == 'ios'

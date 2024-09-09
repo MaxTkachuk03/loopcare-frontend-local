@@ -42,7 +42,7 @@ class PHQ15ResultText extends StatelessWidget {
                 ),
               if (isHigh)
                 TextSpan(
-                  text: LocalizedTexts.ifYouHaveSuicidalThoughts.tr(),
+                  text: LocalizedTexts.mentalTestResultsIfYouHaveSuicidalThoughts.tr(),
                   style: context.textTheme.bodyMedium,
                 ),
             ],
