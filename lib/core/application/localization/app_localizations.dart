@@ -6319,6 +6319,24 @@ abstract class AppLocalizations {
   /// **'Now tap the other icons to unlock features and explore.'**
   String get riverGuidanceStartRiverDescription;
 
+  /// No description provided for @riverModuleGraduationTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'There is still something left to do!'**
+  String get riverModuleGraduationTitle;
+
+  /// No description provided for @riverModuleGraduationCompletedItemsMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'You have completed all the tasks, but you need to wait a little longer. Spend this time on yourself and practice what you have learnt.'**
+  String get riverModuleGraduationCompletedItemsMessage;
+
+  /// No description provided for @riverModuleGraduationCompletedTimeMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'Enough time has passed to move on to the next module, but you still have some work to do. Once you have completed all the tasks, you can move on. So hurry up!'**
+  String get riverModuleGraduationCompletedTimeMessage;
+
   /// No description provided for @subscriptionTrialTitle.
   ///
   /// In en, this message translates to:

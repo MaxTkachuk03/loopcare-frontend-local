@@ -20,6 +20,9 @@ class RiverState with _$RiverState {
   const factory RiverState.moduleItemSelected(RiverStateData data) = RiverStateModuleItemSelected;
 
   const factory RiverState.moduleCompleted(RiverStateData data) = RiverStateModuleCompleted;
+
+  const factory RiverState.modulePartlyCompleted(RiverStateData data) =
+      RiverStateModulePartlyCompleted;
 }
 
 @freezed

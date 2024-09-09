@@ -31,5 +31,9 @@
   },
   "lastModuleCompletedDescription": "Take your time to revisit the previous modules and reinforce the practices whenever you need.\nYou've done an amazing job reaching this point! Stay tuned, more exciting content is coming soon!",
   "guidanceStartRiverTitle": "Great!",
-  "guidanceStartRiverDescription": "Now tap the other icons to unlock features and explore."
+  "guidanceStartRiverDescription": "Now tap the other icons to unlock features and explore.",
+  "moduleGraduationTitle": "There is still something left to do!",
+  "moduleGraduationCompletedItemsMessage": "You have completed all the tasks, but you need to wait a little longer. Spend this time on yourself and practice what you have learnt.",
+  "moduleGraduationCompletedTimeMessage": "Enough time has passed to move on to the next module, but you still have some work to do. Once you have completed all the tasks, you can move on. So hurry up!"
+
 }

@@ -6,6 +6,7 @@ import 'package:injectable/injectable.dart';
 import 'package:loopcare_frontend/core/domain/extensions/either.dart';
 import 'package:loopcare_frontend/core/infrastructure/dio_client/request_error.dart';
 import 'package:loopcare_frontend/core/infrastructure/services/app_sync_service/app_sync_service.dart';
+import 'package:loopcare_frontend/core/infrastructure/services/shared_storage/shared_storage_service.dart';
 import 'package:loopcare_frontend/core/presentation/utils/list_extensions.dart';
 import 'package:loopcare_frontend/features/river/domain/river_module_item_state.dart';
 import 'package:loopcare_frontend/features/river/domain/river_service.dart';
@@ -19,6 +20,7 @@ import 'package:loopcare_frontend/features/river/infrastructure/dto/river_module
 import 'package:loopcare_frontend/features/river/infrastructure/dto/river_module_state_data.dart';
 import 'package:loopcare_frontend/features/river/presentation/widgets/painters/river_stream_shaders.dart';
 import 'package:loopcare_frontend/features/river/infrastructure/dto/get_cross_module_items_response.dart';
+import 'package:loopcare_frontend/injection.dart';
 
 part 'river_event.dart';
 part 'river_state.dart';
@@ -233,6 +235,12 @@ class RiverBloc extends Bloc<RiverEvent, RiverState> {
   FutureOr<void> _onCheckCompletion(CheckCompletion event, Emitter<RiverState> emit) async {
     if (await state.data.activeModule.lookCompletion()) {
       emit(RiverState.moduleCompleted(state.data));
+    } else if (await _showPartlyCompletionDialog(event.page)) {
+      if (event.page == null) {
+        getIt<SharedStorageService>().partlyCompletedModule = state.data.currentPage;
+      }
+      emit(RiverState.modulePartlyCompleted(state.data));
+      emit(RiverState.moduleItemLoaded(state.data));
     }
   }
 
@@ -661,4 +669,15 @@ class RiverBloc extends Bloc<RiverEvent, RiverState> {
   bool _noAdditionalBuddyModuleItem(List <RiverModule> modules) =>
       _getActiveModule(modules)?.moduleItems.none((i) => i.isAdditionalBuddyCrossModuleItem)
           ?? true;
+
+  Future<bool> _showPartlyCompletionDialog(int? page) async {
+    final isNextPageOrCurrent = page != null && page == state.data.currentPage + 1 || page == null;
+    final isItemsComplete = state.data.activeModule.isModuleItemsCompleted;
+    final isTimePassed = await state.data.activeModule.isTimePassed;
+    final isNewCompletion = page == null &&
+            getIt<SharedStorageService>().partlyCompletedModule != state.data.currentPage ||
+            page != null;
+
+    return isNextPageOrCurrent && isNewCompletion && (isItemsComplete || isTimePassed);
+  }
 }

@@ -3173,6 +3173,15 @@ class AppLocalizationsEn extends AppLocalizations {
   String get riverGuidanceStartRiverDescription => 'Now tap the other icons to unlock features and explore.';
 
   @override
+  String get riverModuleGraduationTitle => 'There is still something left to do!';
+
+  @override
+  String get riverModuleGraduationCompletedItemsMessage => 'You have completed all the tasks, but you need to wait a little longer. Spend this time on yourself and practice what you have learnt.';
+
+  @override
+  String get riverModuleGraduationCompletedTimeMessage => 'Enough time has passed to move on to the next module, but you still have some work to do. Once you have completed all the tasks, you can move on. So hurry up!';
+
+  @override
   String get subscriptionTrialTitle => 'First 2 weeks for free!';
 
   @override

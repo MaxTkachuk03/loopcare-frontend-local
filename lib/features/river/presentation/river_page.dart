@@ -50,6 +50,7 @@ class _RiverPageState extends State<RiverPage> {
               return state.maybeMap(
                 moduleLoadingError: (state) => ErrorScreen(error: state.data.error!),
                 orElse: () => PageView.builder(
+                  onPageChanged: _onPageChanged,
                   controller: _controller,
                   itemCount: state.data.modules.length,
                   itemBuilder: (context, index) => RiverScreen(
@@ -75,4 +76,6 @@ class _RiverPageState extends State<RiverPage> {
       previous.data.activeModuleItem?.unlocksReflectionId != null &&
       current.data.activeModuleItem == null &&
       (previous.data.activeModuleItem?.states.prevItemState.isUnLocked ?? false);
+
+  void _onPageChanged(int page) => context.read<RiverBloc>().add(RiverEvent.checkCompletion(page: page));
 }
