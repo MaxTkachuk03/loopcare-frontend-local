@@ -14,6 +14,5 @@ abstract class TestResult implements _$TestResult {
     required InterpretationType interpretation,
   }) = _TestResult;
 
-  factory TestResult.fromJson(Map<String, dynamic> json) =>
-      _$TestResultFromJson(json);
+  factory TestResult.fromJson(Map<String, dynamic> json) => _$TestResultFromJson(json);
 }

@@ -20,12 +20,10 @@ class ConsentConfirmationBloc
 
   late final StreamSubscription _authBlocStreamSubscription;
 
-  ConsentConfirmationBloc(this._authenticationCubit)
-      : super(ConsentConfirmationState.initial()) {
+  ConsentConfirmationBloc(this._authenticationCubit) : super(ConsentConfirmationState.initial()) {
     on<PassageChanged>(_onPassageChanged);
 
-    _authBlocStreamSubscription =
-        _authenticationCubit.stream.distinct().listen((s) {
+    _authBlocStreamSubscription = _authenticationCubit.stream.distinct().listen((s) {
       s.mapOrNull(
         authenticated: (_) {
           add(const ConsentConfirmationEvent.passageChanged(false));

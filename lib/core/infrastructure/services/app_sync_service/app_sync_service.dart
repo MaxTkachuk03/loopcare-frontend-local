@@ -37,9 +37,8 @@ class AppSyncService {
     ..add(const AppSyncEvent.showProfileNotificationBadge())
     ..add(const AppSyncEvent.refreshAccount());
 
-  void refreshChatMessages() => _streamController
-    .add(const AppSyncEvent.refreshChatMessages());
+  void refreshChatMessages() => _streamController.add(const AppSyncEvent.refreshChatMessages());
 
-  void showProfileNotificationBadge() => _streamController
-    .add(const AppSyncEvent.showProfileNotificationBadge());
+  void showProfileNotificationBadge() =>
+      _streamController.add(const AppSyncEvent.showProfileNotificationBadge());
 }

@@ -1,12 +1,13 @@
 import 'package:flutter/services.dart';
 import 'package:plugin_platform_interface/plugin_platform_interface.dart';
+
 ///@nodoc
 abstract class ZoomVideoSdkRemoteCameraControlHelperPlatform extends PlatformInterface {
   ZoomVideoSdkRemoteCameraControlHelperPlatform() : super(token: _token);
 
   static final Object _token = Object();
   static ZoomVideoSdkRemoteCameraControlHelperPlatform _instance =
-  ZoomVideoSdkRemoteCameraControlHelper();
+      ZoomVideoSdkRemoteCameraControlHelper();
   static ZoomVideoSdkRemoteCameraControlHelperPlatform get instance => _instance;
   static set instance(ZoomVideoSdkRemoteCameraControlHelperPlatform instance) {
     PlatformInterface.verifyToken(instance, _token);
@@ -44,7 +45,6 @@ abstract class ZoomVideoSdkRemoteCameraControlHelperPlatform extends PlatformInt
   Future<String> zoomOut() async {
     throw UnimplementedError('zoomOut() has not been implemented.');
   }
-
 }
 
 /// Interface to control far-end camera (Only for Android)
@@ -128,5 +128,4 @@ class ZoomVideoSdkRemoteCameraControlHelper extends ZoomVideoSdkRemoteCameraCont
         .invokeMethod<String>('zoomOut')
         .then<String>((String? value) => value ?? "");
   }
-
 }

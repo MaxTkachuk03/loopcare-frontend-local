@@ -64,6 +64,5 @@ class UxcamNavigationObserver extends NavigatorObserver {
     }
   }
 
-  String? screenNameExtractor(Route<dynamic>? route) =>
-      app.getScreenName(route?.settings.name);
+  String? screenNameExtractor(Route<dynamic>? route) => app.getScreenName(route?.settings.name);
 }

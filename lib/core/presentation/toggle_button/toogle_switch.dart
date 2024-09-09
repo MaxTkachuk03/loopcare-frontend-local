@@ -159,7 +159,8 @@ class ToggleSwitch extends StatefulWidget {
   State<ToggleSwitch> createState() => _ToggleSwitchState();
 }
 
-class _ToggleSwitchState extends State<ToggleSwitch> with AutomaticKeepAliveClientMixin<ToggleSwitch> {
+class _ToggleSwitchState extends State<ToggleSwitch>
+    with AutomaticKeepAliveClientMixin<ToggleSwitch> {
   /// Active background color
   List<Color>? activeBgColor;
 
@@ -186,7 +187,8 @@ class _ToggleSwitchState extends State<ToggleSwitch> with AutomaticKeepAliveClie
   Widget build(BuildContext context) {
     /// Searches for largest totalSwitches value
     final int totalSwitches = widget.totalSwitches ??
-        [widget.labels?.length ?? 0, widget.icons?.length ?? 0, widget.customIcons?.length ?? 0].reduce(max);
+        [widget.labels?.length ?? 0, widget.icons?.length ?? 0, widget.customIcons?.length ?? 0]
+            .reduce(max);
     super.build(context);
 
     /// Assigns active background color to default primary theme color if it's null/not provided.
@@ -222,7 +224,8 @@ class _ToggleSwitchState extends State<ToggleSwitch> with AutomaticKeepAliveClie
         ),
         child: Container(
           margin: EdgeInsets.all(borderWidth!),
-          decoration: BoxDecoration(color: inactiveBgColor, borderRadius: BorderRadius.circular(widget.cornerRadius)),
+          decoration: BoxDecoration(
+              color: inactiveBgColor, borderRadius: BorderRadius.circular(widget.cornerRadius)),
           height: !widget.isVertical ? widget.minHeight + borderWidth! : null,
           width: widget.isVertical ? widget.minWidth + borderWidth! : null,
           child: RowToColumn(
@@ -252,8 +255,9 @@ class _ToggleSwitchState extends State<ToggleSwitch> with AutomaticKeepAliveClie
               }
 
               if (index % 2 == 1) {
-                final activeDivider =
-                    active || (widget.initialLabelIndex != null && index ~/ 2 == widget.initialLabelIndex! - 1);
+                final activeDivider = active ||
+                    (widget.initialLabelIndex != null &&
+                        index ~/ 2 == widget.initialLabelIndex! - 1);
 
                 /// Returns item divider
                 return Container(
@@ -261,7 +265,8 @@ class _ToggleSwitchState extends State<ToggleSwitch> with AutomaticKeepAliveClie
                   height: widget.isVertical ? 1 : double.infinity,
                   color: activeDivider ? Colors.transparent : widget.dividerColor,
                   margin: widget.isVertical
-                      ? EdgeInsets.symmetric(horizontal: activeDivider ? 0.0 : widget.dividerMargin!)
+                      ? EdgeInsets.symmetric(
+                          horizontal: activeDivider ? 0.0 : widget.dividerMargin!)
                       : EdgeInsets.symmetric(vertical: activeDivider ? 0.0 : widget.dividerMargin!),
                 );
               } else {
@@ -356,7 +361,8 @@ class _ToggleSwitchState extends State<ToggleSwitch> with AutomaticKeepAliveClie
                 if (widget.customTextStyles != null) {
                   textStyle = widget.customTextStyles!.length == 1
                       ? oneIndexStyle()
-                      : (widget.customTextStyles!.length > index ~/ 2 && widget.customTextStyles![index ~/ 2] != null
+                      : (widget.customTextStyles!.length > index ~/ 2 &&
+                              widget.customTextStyles![index ~/ 2] != null
                           ? multiIndexStyle()
                           : defaultTextStyle);
                 }
@@ -368,7 +374,8 @@ class _ToggleSwitchState extends State<ToggleSwitch> with AutomaticKeepAliveClie
                 if (widget.activeBorders != null) {
                   activeBorder = widget.activeBorders!.length == 1
                       ? widget.activeBorders![0]
-                      : (widget.activeBorders!.length > index ~/ 2 && widget.activeBorders![index ~/ 2] != null
+                      : (widget.activeBorders!.length > index ~/ 2 &&
+                              widget.activeBorders![index ~/ 2] != null
                           ? widget.activeBorders![index ~/ 2]!
                           : null);
                 }
@@ -389,8 +396,9 @@ class _ToggleSwitchState extends State<ToggleSwitch> with AutomaticKeepAliveClie
                     alignment: Alignment.center,
                     decoration: BoxDecoration(
                       border: active ? activeBorder : null,
-                      borderRadius:
-                          widget.radiusStyle ? BorderRadius.all(Radius.circular(widget.cornerRadius)) : cornerRadius,
+                      borderRadius: widget.radiusStyle
+                          ? BorderRadius.all(Radius.circular(widget.cornerRadius))
+                          : cornerRadius,
                       gradient: LinearGradient(
                         colors: bgColor!.length == 1 ? [bgColor[0], bgColor[0]] : bgColor,
                         begin: Alignment.topLeft,

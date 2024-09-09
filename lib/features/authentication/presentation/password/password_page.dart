@@ -230,7 +230,8 @@ class _PasswordPageState extends State<PasswordPage> {
   void _validateForm() => _formValidationNotifier.value =
       _passwordValidationPassed && _termsAndConditionsAreChecked && _privatePolicyAccepted;
 
-  void _onTermsAndConditionsTap() => _launchInBrowser(LocalizedTexts.linksTermsAndConditionsUrl.tr());
+  void _onTermsAndConditionsTap() =>
+      _launchInBrowser(LocalizedTexts.linksTermsAndConditionsUrl.tr());
 
   void _onPrivacyPolicyTap() => _launchInBrowser(LocalizedTexts.linksPrivacyPolicyUrl.tr());
 

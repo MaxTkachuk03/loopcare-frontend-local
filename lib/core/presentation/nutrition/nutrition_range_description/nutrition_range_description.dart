@@ -68,7 +68,8 @@ class NutritionRangeDescription extends StatelessWidget {
                 if (hasValue)
                   Positioned(
                     right: screenMiddle,
-                    child: CustomText.w400(_getLabel(leftValue.first), style: context.textTheme.bodySmall),
+                    child: CustomText.w400(_getLabel(leftValue.first),
+                        style: context.textTheme.bodySmall),
                   ),
                 Center(
                   child: Container(
@@ -82,7 +83,8 @@ class NutritionRangeDescription extends StatelessWidget {
                 ),
                 Positioned(
                   left: screenMiddle,
-                  child: CustomText.w400(item.description ?? '', style: context.textTheme.bodySmall),
+                  child:
+                      CustomText.w400(item.description ?? '', style: context.textTheme.bodySmall),
                 ),
               ],
             );

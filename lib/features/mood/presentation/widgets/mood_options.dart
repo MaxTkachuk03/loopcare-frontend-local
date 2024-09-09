@@ -55,7 +55,8 @@ class MoodOptions extends StatelessWidget {
             valueListenable: controller.emotionValues,
             builder: (context, emotionValues, _) {
               final subTitle = emotionValues.isEmpty
-                  ? CustomText.w600(LocalizedTexts.makeChoice.tr(), style: context.textTheme.bodySmall)
+                  ? CustomText.w600(LocalizedTexts.makeChoice.tr(),
+                      style: context.textTheme.bodySmall)
                   : EmotionsList(data: emotionValues);
 
               return MoodOptionItem(

@@ -23,7 +23,8 @@ class _DashboardWeeklyGoalsState extends State<DashboardWeeklyGoals> {
     context.read<SmartGoalsBloc>().add(const SmartGoalsEvent.getWeeklyGoals());
   }
 
-  void _onErrorRetryHandler() => context.read<SmartGoalsBloc>().add(const SmartGoalsEvent.getWeeklyGoals());
+  void _onErrorRetryHandler() =>
+      context.read<SmartGoalsBloc>().add(const SmartGoalsEvent.getWeeklyGoals());
 
   @override
   Widget build(BuildContext context) {
@@ -41,7 +42,8 @@ class _DashboardWeeklyGoalsState extends State<DashboardWeeklyGoals> {
 
               sessions = sessions
                   .where((session) =>
-                      selectedDate.isAfter(session.startedAt!.dateOnly) || selectedDate == session.startedAt!.dateOnly)
+                      selectedDate.isAfter(session.startedAt!.dateOnly) ||
+                      selectedDate == session.startedAt!.dateOnly)
                   .toList();
             }
             return Column(

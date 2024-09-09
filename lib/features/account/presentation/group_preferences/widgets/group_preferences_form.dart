@@ -31,7 +31,9 @@ class GroupPreferencesForm extends StatelessWidget {
     return WhiteBox(
       child: BlocBuilder<AuthenticationBloc, AuthenticationState>(
         builder: (context, accountState) {
-          if (accountState.data.groupingState == null) return const SizedBox.shrink();
+          if (accountState.data.groupingState == null) {
+            return const SizedBox.shrink();
+          }
 
           return BlocBuilder<GroupPreferencesBloc, GroupPreferencesState>(
             builder: (context, state) {

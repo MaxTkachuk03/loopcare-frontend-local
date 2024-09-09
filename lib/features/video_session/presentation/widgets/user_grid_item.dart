@@ -12,7 +12,8 @@ class UserGridItem extends StatelessWidget {
   final bool isTalking;
   final bool isCameraOff;
 
-  const UserGridItem({super.key, required this.user, required this.isTalking, required this.isCameraOff});
+  const UserGridItem(
+      {super.key, required this.user, required this.isTalking, required this.isCameraOff});
 
   @override
   Widget build(BuildContext context) {
@@ -22,7 +23,8 @@ class UserGridItem extends StatelessWidget {
       children: [
         Container(
           decoration: BoxDecoration(
-            border: Border.all(width: 2.5, color: isTalking ? AppColors.orangeRegular : Colors.transparent),
+            border: Border.all(
+                width: 2.5, color: isTalking ? AppColors.orangeRegular : Colors.transparent),
             color: AppColors.black,
           ),
           child: ClipRect(

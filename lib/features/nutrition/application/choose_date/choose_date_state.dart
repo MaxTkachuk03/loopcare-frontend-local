@@ -108,7 +108,8 @@ class ChooseDateData with _$ChooseDateData {
     if (plannedMeals.isNotEmpty) {
       plannedMeals.forEach((key, value) {
         if (value
-            .where((element) => (element.id != currentMealId && element.mealCategory == mealCategory))
+            .where(
+                (element) => (element.id != currentMealId && element.mealCategory == mealCategory))
             .toList()
             .isNotEmpty) {
           retList.add(DateTime.parse(key));
@@ -131,7 +132,8 @@ class ChooseDateData with _$ChooseDateData {
 
     var currentWeekDays = getDatesByWeekNumber(currentWeekNumber, DateTime.now().year);
     var nextWeekDays = getDatesByWeekNumber(nextWeekNumber, DateTime.now().nextWeekYear);
-    var secondNextWeekDays = getDatesByWeekNumber(secondNextWeekNumber, DateTime.now().secondNextWeekYear);
+    var secondNextWeekDays =
+        getDatesByWeekNumber(secondNextWeekNumber, DateTime.now().secondNextWeekYear);
 
     returnList[currentWeekNumber.toString()] = _weekDayElementMapper(currentWeekDays);
     returnList[nextWeekNumber.toString()] = _weekDayElementMapper(nextWeekDays);

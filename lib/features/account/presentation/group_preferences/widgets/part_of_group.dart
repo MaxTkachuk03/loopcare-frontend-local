@@ -26,7 +26,8 @@ class PartOfGroup extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               CustomText.w400(LocalizedTexts.partOfGroup.tr(), style: context.textTheme.bodyMedium),
-              CustomText.w600(LocalizedTexts.yes.tr().capitalize(), style: context.textTheme.bodySmall),
+              CustomText.w600(LocalizedTexts.yes.tr().capitalize(),
+                  style: context.textTheme.bodySmall),
               const SizedBox(height: 16.0),
               CustomOutlinedButton.blueFullWidth(
                 label: LocalizedTexts.readTheGroupRules.tr(),
@@ -49,8 +50,8 @@ class PartOfGroup extends StatelessWidget {
 
   _onPressed(BuildContext context) {
     context
-      ..read<GroupPreferencesBloc>()
-          .add(const GroupPreferencesEvent.changeGroupPrefsMode(GroupPrefsMode.groupPreferencesFlow))
+      ..read<GroupPreferencesBloc>().add(
+          const GroupPreferencesEvent.changeGroupPrefsMode(GroupPrefsMode.groupPreferencesFlow))
       ..router.push(GroupRulesOneRoute(fromLessonComplete: false));
   }
 }

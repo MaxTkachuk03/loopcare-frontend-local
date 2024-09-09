@@ -15,10 +15,10 @@ enum _BmiExclusionType {
 
   final String text;
 
-  String get lastParagraph => switch(this) {
-    lowBmiYoung || lowBmiOld => LocalizedTexts.bmiExclusionBodyLowBmiEnding,
-    highBmiYoung || highBmiOld => LocalizedTexts.bmiExclusionBodyHighBmiEnding,
-  };
+  String get lastParagraph => switch (this) {
+        lowBmiYoung || lowBmiOld => LocalizedTexts.bmiExclusionBodyLowBmiEnding,
+        highBmiYoung || highBmiOld => LocalizedTexts.bmiExclusionBodyHighBmiEnding,
+      };
 }
 
 _BmiExclusionType _getBmiExclusionTypeFromAgeAndBmi(int age, num bmi) {

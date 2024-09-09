@@ -78,14 +78,14 @@ class MealsList extends StatelessWidget {
 
   void _onTap(BuildContext context, MealItem item) {
     if (item.type == MealItemType.recipe) {
-      context.router
-          .push(RecipeRoute(id: item.id, name: item.name, isMealRecipe: true, isReadOnly: !isActive));
+      context.router.push(
+          RecipeRoute(id: item.id, name: item.name, isMealRecipe: true, isReadOnly: !isActive));
 
       return;
     }
     if (item.type == MealItemType.dish) {
-      context.router.push(
-          DishDetailsRoute(dishId: item.id, canEditDish: false, isMealDish: true, isReadOnly: !isActive));
+      context.router.push(DishDetailsRoute(
+          dishId: item.id, canEditDish: false, isMealDish: true, isReadOnly: !isActive));
 
       return;
     }
@@ -120,8 +120,8 @@ class MealsList extends StatelessWidget {
                 ),
               );
 
-          const AnalyticsEventService().logEvent(eventName:
-            AnalyticsEvents.foodLogged,
+          const AnalyticsEventService().logEvent(
+            eventName: AnalyticsEvents.foodLogged,
             parameters: {
               AnalyticsParameters.timestamp: DateTime.now().toIso8601String(),
               AnalyticsParameters.mealId: mealId.toString(),

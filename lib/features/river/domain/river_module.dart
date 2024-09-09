@@ -34,14 +34,14 @@ extension RiverModuleExtension on RiverModule? {
     return isActiveModuleNotCompleted && isTimePassed && isModuleItemsCompleted;
   }
 
-  bool get isModuleItemsCompleted => this?.moduleItems.every((i) =>
-          i.states.prevItemState.isCompleted || i.isReadCrossModule) ?? false;
+  bool get isModuleItemsCompleted =>
+      this?.moduleItems.every((i) => i.states.prevItemState.isCompleted || i.isReadCrossModule) ??
+      false;
 
   bool get containCompletedCrossModuleItem =>
       this?.moduleItems.any((i) => i.isCompletedCrossModule) ?? false;
 
-  bool get containReadCrossModuleItem =>
-      this?.moduleItems.any((i) => i.isReadCrossModule) ?? false;
+  bool get containReadCrossModuleItem => this?.moduleItems.any((i) => i.isReadCrossModule) ?? false;
 
   bool get containCrossModuleItem => this?.moduleItems.any((i) => i.crossModule) ?? false;
 

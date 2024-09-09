@@ -13,7 +13,8 @@ class AwsCookiesResponse {
     required this.data,
   });
 
-  static AwsCookiesResponse fromJson(Map<String, dynamic> json) => _$AwsCookiesResponseFromJson(json);
+  static AwsCookiesResponse fromJson(Map<String, dynamic> json) =>
+      _$AwsCookiesResponseFromJson(json);
 
   Map<String, dynamic> toJson() => _$AwsCookiesResponseToJson(this);
 }

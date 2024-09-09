@@ -11,7 +11,8 @@ class GoalProgressButton extends StatelessWidget {
   final VoidCallback? onPressed;
   final VoidCallback? onResetProgress;
 
-  const GoalProgressButton({super.key, required this.item, required this.times, this.onPressed, this.onResetProgress});
+  const GoalProgressButton(
+      {super.key, required this.item, required this.times, this.onPressed, this.onResetProgress});
 
   Color get bgColor => times > 0 ? AppColors.greenRegular : AppColors.blueLightest;
 

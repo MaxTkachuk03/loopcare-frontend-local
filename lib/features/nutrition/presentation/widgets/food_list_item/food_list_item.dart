@@ -59,7 +59,8 @@ class FoodListItem extends StatelessWidget {
                 Row(
                   children: [
                     if (onDeletePressed != null)
-                      CustomIconButton.close(onPressed: () => onDeletePressed?.call(context, foodItem)),
+                      CustomIconButton.close(
+                          onPressed: () => onDeletePressed?.call(context, foodItem)),
                     CircleAvatar(
                       radius: 5,
                       backgroundColor: excludedFromCalculations
@@ -81,7 +82,8 @@ class FoodListItem extends StatelessWidget {
                         CustomText.w600(
                           foodItem.foodName,
                           maxLines: 1,
-                          style: context.textTheme.bodySmall?.copyWith(overflow: TextOverflow.ellipsis),
+                          style: context.textTheme.bodySmall
+                              ?.copyWith(overflow: TextOverflow.ellipsis),
                         ),
                         CustomText.w400(
                           '${foodItem.serving.servingSizeLabel} | $label',

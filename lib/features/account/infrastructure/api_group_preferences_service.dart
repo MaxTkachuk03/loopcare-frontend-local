@@ -15,7 +15,8 @@ class APIGroupPreferencesService implements GroupPreferencesService {
   APIGroupPreferencesService(this.client);
 
   @override
-  Future<Either<RequestError, GroupPreferencesResponse>> savePreferences(GroupPreferencesBody data) async {
+  Future<Either<RequestError, GroupPreferencesResponse>> savePreferences(
+      GroupPreferencesBody data) async {
     return await client.post(
       '/grouping/preferences',
       data: data,

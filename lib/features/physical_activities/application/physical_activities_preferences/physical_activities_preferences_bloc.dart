@@ -21,7 +21,8 @@ class PhysicalActivitiesPreferencesBloc
   final PhysicalActivitiesService _physicalActivitiesService;
 
   PhysicalActivitiesPreferencesBloc(this._physicalActivitiesService)
-      : super(const PhysicalActivitiesPreferencesState.initial(PhysicalActivitiesPreferencesData())) {
+      : super(
+            const PhysicalActivitiesPreferencesState.initial(PhysicalActivitiesPreferencesData())) {
     on<_Init>(_onInit);
     on<_GetPreferences>(_onGetPreferences);
     on<_SavePreferences>(_onSavePreferences);
@@ -44,7 +45,8 @@ class PhysicalActivitiesPreferencesBloc
     emit(PhysicalActivitiesPreferencesState.preferencesLoaded(
       state.data.copyWith(
         trainingFrequency: event.data,
-        trainingTargets: event.data == PhysicalActivitiesFrequency.notAble ? null : state.data.trainingTargets,
+        trainingTargets:
+            event.data == PhysicalActivitiesFrequency.notAble ? null : state.data.trainingTargets,
         flexible: event.data == PhysicalActivitiesFrequency.notAble ? null : state.data.flexible,
       ),
     ));
@@ -81,13 +83,15 @@ class PhysicalActivitiesPreferencesBloc
     final response = await _physicalActivitiesService.getPreferences();
 
     response.fold(
-      (l) => emit(PhysicalActivitiesPreferencesState.error(state.data.copyWith(error: l, isLoading: false))),
+      (l) => emit(PhysicalActivitiesPreferencesState.error(
+          state.data.copyWith(error: l, isLoading: false))),
       (r) => emit(
         PhysicalActivitiesPreferencesState.preferencesLoaded(
           state.data.copyWith(
-            trainingFrequency:
-                PhysicalActivitiesFrequency.values.firstWhereOrNull((e) => e.apiValue == r.trainingFrequency),
-            trainingTargets: PhysicalActivitiesType.values.firstWhereOrNull((e) => e.apiValue == r.trainingTargets),
+            trainingFrequency: PhysicalActivitiesFrequency.values
+                .firstWhereOrNull((e) => e.apiValue == r.trainingFrequency),
+            trainingTargets: PhysicalActivitiesType.values
+                .firstWhereOrNull((e) => e.apiValue == r.trainingTargets),
             flexible: r.flexible ?? false,
             isLoading: false,
           ),
@@ -100,7 +104,8 @@ class PhysicalActivitiesPreferencesBloc
     _SavePreferences event,
     Emitter<PhysicalActivitiesPreferencesState> emit,
   ) async {
-    emit(PhysicalActivitiesPreferencesState.saving(state.data.copyWith(isLoading: true, error: null)));
+    emit(PhysicalActivitiesPreferencesState.saving(
+        state.data.copyWith(isLoading: true, error: null)));
 
     final response = await _physicalActivitiesService.setPreferences(
       PhysicalActivitiesPreferencesBody(
@@ -111,7 +116,8 @@ class PhysicalActivitiesPreferencesBloc
     );
 
     response.fold(
-      (l) => emit(PhysicalActivitiesPreferencesState.error(state.data.copyWith(isLoading: false, error: l))),
+      (l) => emit(PhysicalActivitiesPreferencesState.error(
+          state.data.copyWith(isLoading: false, error: l))),
       (r) => emit(
         PhysicalActivitiesPreferencesState.preferencesLoaded(
           state.data.copyWith(

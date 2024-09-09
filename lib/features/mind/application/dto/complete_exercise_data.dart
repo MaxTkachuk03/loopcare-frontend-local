@@ -14,7 +14,8 @@ class CompleteExerciseData {
     this.scaleBeforeAnswer,
   });
 
-  factory CompleteExerciseData.fromJson(Map<String, dynamic> json) => _$CompleteExerciseDataFromJson(json);
+  factory CompleteExerciseData.fromJson(Map<String, dynamic> json) =>
+      _$CompleteExerciseDataFromJson(json);
 
   Map<String, dynamic> toJson() => _$CompleteExerciseDataToJson(this);
 }

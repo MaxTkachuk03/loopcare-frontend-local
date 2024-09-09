@@ -1,4 +1,4 @@
-class  MindUtils {
+class MindUtils {
   const MindUtils._();
 
   static String getDurationLine(int value) {

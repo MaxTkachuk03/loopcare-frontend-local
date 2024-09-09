@@ -67,10 +67,10 @@ class FunctionCoefficients {
   const FunctionCoefficients(this.index);
 
   FunctionCoefficientsValues get values => switch (index) {
-    1 => const FunctionCoefficientsValues.one(),
-    2 => const FunctionCoefficientsValues.two(),
-    3 => const FunctionCoefficientsValues.three(),
-    4 => const FunctionCoefficientsValues.four(),
-    _ => const FunctionCoefficientsValues.five(),
-  };
+        1 => const FunctionCoefficientsValues.one(),
+        2 => const FunctionCoefficientsValues.two(),
+        3 => const FunctionCoefficientsValues.three(),
+        4 => const FunctionCoefficientsValues.four(),
+        _ => const FunctionCoefficientsValues.five(),
+      };
 }

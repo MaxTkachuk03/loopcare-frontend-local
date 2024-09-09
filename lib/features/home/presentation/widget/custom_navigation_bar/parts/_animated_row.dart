@@ -19,7 +19,8 @@ class _AnimatedRowState extends State<_AnimatedRow> with SingleTickerProviderSta
   late int _itemsCount;
   int? _newItemIndex;
 
-  Animation<double> get _completedAnimation => Tween<double>(end: 1.0, begin: 1.0).animate(_controller);
+  Animation<double> get _completedAnimation =>
+      Tween<double>(end: 1.0, begin: 1.0).animate(_controller);
 
   void insertItem(int index) {
     _itemsCount++;
@@ -46,7 +47,7 @@ class _AnimatedRowState extends State<_AnimatedRow> with SingleTickerProviderSta
       mainAxisAlignment: MainAxisAlignment.center,
       children: List.generate(
         _itemsCount,
-            (index) {
+        (index) {
           if (_newItemIndex == index) {
             return AnimatedBuilder(
               animation: _controller,

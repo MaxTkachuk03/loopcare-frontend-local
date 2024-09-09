@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 
-const _baseBorderSide = BorderSide(width: 2, color: AppColors.blueRegular, strokeAlign: BorderSide.strokeAlignOutside);
+const _baseBorderSide =
+    BorderSide(width: 2, color: AppColors.blueRegular, strokeAlign: BorderSide.strokeAlignOutside);
 
 class AvatarContainer extends StatelessWidget {
   const AvatarContainer({

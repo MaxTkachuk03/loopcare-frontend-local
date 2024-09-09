@@ -101,7 +101,8 @@ class _SearchResultListState extends State<SearchResultList> {
           onTap: widget.onItemTap,
         );
       },
-      separatorBuilder: (_, __) => const Divider(color: AppColors.blueLighter, height: 1, thickness: 1),
+      separatorBuilder: (_, __) =>
+          const Divider(color: AppColors.blueLighter, height: 1, thickness: 1),
     );
   }
 
@@ -159,8 +160,9 @@ class _SearchResultListState extends State<SearchResultList> {
                   padding: const EdgeInsets.all(0.0),
                   icon: ImageIcon(
                     AppIcons.detailsLayout,
-                    color:
-                        (selectedLayout == SearchListLayout.detailed) ? AppColors.blueRegular : AppColors.yellowLight,
+                    color: (selectedLayout == SearchListLayout.detailed)
+                        ? AppColors.blueRegular
+                        : AppColors.yellowLight,
                   ),
                 ),
               ),
@@ -175,7 +177,9 @@ class _SearchResultListState extends State<SearchResultList> {
                   padding: const EdgeInsets.all(0.0),
                   icon: ImageIcon(
                     AppIcons.listLayout,
-                    color: (selectedLayout == SearchListLayout.list) ? AppColors.blueRegular : AppColors.yellowLight,
+                    color: (selectedLayout == SearchListLayout.list)
+                        ? AppColors.blueRegular
+                        : AppColors.yellowLight,
                   ),
                 ),
               ),
@@ -231,8 +235,8 @@ class _SearchResultListState extends State<SearchResultList> {
                   final item = recentSearchList[index].split('*-*');
                   final itemName = item[0];
                   final itemType = item.length > 1
-                      ? SearchItemTypes.values
-                          .firstWhere((e) => e.toString() == item[1], orElse: () => SearchItemTypes.recent)
+                      ? SearchItemTypes.values.firstWhere((e) => e.toString() == item[1],
+                          orElse: () => SearchItemTypes.recent)
                       : SearchItemTypes.recent;
 
                   return SearchResultListItem(

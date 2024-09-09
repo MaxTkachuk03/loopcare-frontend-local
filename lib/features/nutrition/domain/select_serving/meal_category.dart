@@ -45,7 +45,7 @@ extension MealCategoryExtension on MealCategory {
         return 'lunch';
       case MealCategory.dinner:
         return 'dinner';
-        // TODO: ask BE make this value "inbetweens"
+      // TODO: ask BE make this value "inbetweens"
       case MealCategory.inbetweens:
         return 'inbetweens & snacks';
       // case MealCategory.drinks:

@@ -26,7 +26,8 @@ class DishBloc extends Bloc<DishEvent, DishState> {
   final MealsBloc mealsBloc;
   final SelectFoodBloc selectFoodBloc;
 
-  DishBloc(this.nutritionService, this.mealsBloc, this.selectFoodBloc) : super(const DishState.initial()) {
+  DishBloc(this.nutritionService, this.mealsBloc, this.selectFoodBloc)
+      : super(const DishState.initial()) {
     on<GetClonedDish>(_onGetClonedDish);
     on<GetDishById>(_onGetDishById);
     on<NutritionItemChanged>(_onNutritionItemChanged);

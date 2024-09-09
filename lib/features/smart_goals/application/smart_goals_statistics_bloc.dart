@@ -30,8 +30,8 @@ class SmartGoalsStatisticsBloc extends Bloc<SmartGoalsStatisticsEvent, SmartGoal
 
     response.fold(
       (l) => emit(SmartGoalsStatisticsState.error(state.data.copyWith(error: l, isLoading: false))),
-      (r) => emit(
-          SmartGoalsStatisticsState.statisticsLoaded(state.data.copyWith(stats: r.data, isLoading: false))),
+      (r) => emit(SmartGoalsStatisticsState.statisticsLoaded(
+          state.data.copyWith(stats: r.data, isLoading: false))),
     );
   }
 }

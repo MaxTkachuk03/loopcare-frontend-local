@@ -57,7 +57,8 @@ class SelectFoodState with _$SelectFoodState {
 
   bool get hasOneSelectedDishCategory {
     return mapOrNull(
-            selectFood: (state) => state.dishFavoritesCategories.where((e) => e.selected).length == 1) ??
+            selectFood: (state) =>
+                state.dishFavoritesCategories.where((e) => e.selected).length == 1) ??
         false;
   }
 }

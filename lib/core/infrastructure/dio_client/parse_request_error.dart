@@ -49,14 +49,18 @@ Either<RequestError, T> handleDioException<T>(dynamic error) {
 }
 
 RequestError _handleError(DioException error) {
-  final ServerErrorData serverError = ServerErrorData.fromJson(jsonDecode(error.response.toString()));
+  final ServerErrorData serverError =
+      ServerErrorData.fromJson(jsonDecode(error.response.toString()));
   switch (serverError.statusCode) {
     case HttpStatus.badRequest:
-      return const RequestError.badRequest(ServerErrorData(message: LocalizedTexts.errorBadRequestDio));
+      return const RequestError.badRequest(
+          ServerErrorData(message: LocalizedTexts.errorBadRequestDio));
     case HttpStatus.unauthorized:
-      return const RequestError.unauthorized(ServerErrorData(message: LocalizedTexts.errorUnauthorizedDio));
+      return const RequestError.unauthorized(
+          ServerErrorData(message: LocalizedTexts.errorUnauthorizedDio));
     case HttpStatus.forbidden:
-      return const RequestError.forbidden(ServerErrorData(message: LocalizedTexts.errorForbiddenDio));
+      return const RequestError.forbidden(
+          ServerErrorData(message: LocalizedTexts.errorForbiddenDio));
     case HttpStatus.notFound:
       return const RequestError.notFound(ServerErrorData(message: LocalizedTexts.errorNotFoundDio));
     case HttpStatus.conflict:
@@ -64,10 +68,13 @@ RequestError _handleError(DioException error) {
     case HttpStatus.internalServerError:
     case HttpStatus.badGateway:
     case HttpStatus.serviceUnavailable:
-      return const RequestError.serverError(ServerErrorData(message: LocalizedTexts.errorServerErrorDio));
+      return const RequestError.serverError(
+          ServerErrorData(message: LocalizedTexts.errorServerErrorDio));
     case HttpStatus.unprocessableEntity:
-      return const RequestError.unprocessableEntity(ServerErrorData(message: LocalizedTexts.errorUnprocessableEntityDio));
+      return const RequestError.unprocessableEntity(
+          ServerErrorData(message: LocalizedTexts.errorUnprocessableEntityDio));
     default:
-      return const RequestError.unhandledResponse(ServerErrorData(message: LocalizedTexts.errorUnhandledResponseDio));
+      return const RequestError.unhandledResponse(
+          ServerErrorData(message: LocalizedTexts.errorUnhandledResponseDio));
   }
 }

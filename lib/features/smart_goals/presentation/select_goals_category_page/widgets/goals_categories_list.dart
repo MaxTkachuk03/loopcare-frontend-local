@@ -16,7 +16,6 @@ class GoalsCategoriesList extends StatefulWidget {
 }
 
 class _GoalsCategoriesListState extends State<GoalsCategoriesList> {
-
   @override
   void initState() {
     super.initState();
@@ -28,7 +27,9 @@ class _GoalsCategoriesListState extends State<GoalsCategoriesList> {
   }
 
   void _onUnlockCategory(SmartGoalCategory category) {
-    context.read<SmartGoalsCategoriesBloc>().add(SmartGoalsCategoriesEvent.unlockCategory(id: category.id));
+    context
+        .read<SmartGoalsCategoriesBloc>()
+        .add(SmartGoalsCategoriesEvent.unlockCategory(id: category.id));
   }
 
   @override
@@ -61,7 +62,7 @@ class _GoalsCategoriesListState extends State<GoalsCategoriesList> {
                       key: UniqueKey(),
                       onPressed: widget.onPressed,
                       category: item,
-                      onUnlocked: () => _onUnlockCategory(item) ,
+                      onUnlocked: () => _onUnlockCategory(item),
                     );
                   },
                   childCount: state.data.goalsCategories.length,

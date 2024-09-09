@@ -38,7 +38,9 @@ class ProgramDifficultyQuestion extends StatelessWidget {
                           label: e.label,
                           selected: state.data.programDifficulty == e,
                           value: e,
-                          onSelected: e.isAvailable ? (ProgramDifficulty value) => _onSelected(context, value) : null,
+                          onSelected: e.isAvailable
+                              ? (ProgramDifficulty value) => _onSelected(context, value)
+                              : null,
                         ),
                       ),
                     ),

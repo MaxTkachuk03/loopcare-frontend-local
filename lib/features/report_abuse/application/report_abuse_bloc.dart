@@ -18,7 +18,8 @@ part 'report_abuse_state.dart';
 class ReportAbuseBloc extends Bloc<ReportAbuseEvent, ReportAbuseState> {
   final AuthenticationService _authenticationService;
 
-  ReportAbuseBloc(this._authenticationService) : super(const ReportAbuseState.initial(ReportAbuseStateData())) {
+  ReportAbuseBloc(this._authenticationService)
+      : super(const ReportAbuseState.initial(ReportAbuseStateData())) {
     on<SendReportInit>(_onInitReportAbuse);
     on<SendReportIssue>(_onSendReportAbuse);
   }

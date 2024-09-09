@@ -51,7 +51,8 @@ class FooterOverlay extends StatelessWidget {
                 width: 14.0,
               ),
               Expanded(
-                child: BlocBuilder<SelectFoodBloc, SelectFoodState>(builder: (BuildContext context, state) {
+                child: BlocBuilder<SelectFoodBloc, SelectFoodState>(
+                    builder: (BuildContext context, state) {
                   return ElevatedButton(
                     onPressed: () => _onAdd(
                       context,

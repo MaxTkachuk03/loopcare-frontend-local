@@ -11,8 +11,7 @@ class GetDishesResponse {
 
   const GetDishesResponse(this.data);
 
-  static GetDishesResponse fromJson(Map<String, dynamic> json) =>
-      _$GetDishesResponseFromJson(json);
+  static GetDishesResponse fromJson(Map<String, dynamic> json) => _$GetDishesResponseFromJson(json);
 
   Map<String, dynamic> toJson() => _$GetDishesResponseToJson(this);
 }

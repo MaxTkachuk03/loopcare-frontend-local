@@ -14,7 +14,8 @@ class VerifyIOSPurchaseData {
     required this.transactionId,
   });
 
-  factory VerifyIOSPurchaseData.fromJson(Map<String, dynamic> json) => _$VerifyIOSPurchaseDataFromJson(json);
+  factory VerifyIOSPurchaseData.fromJson(Map<String, dynamic> json) =>
+      _$VerifyIOSPurchaseDataFromJson(json);
 
   Map<String, dynamic> toJson() => _$VerifyIOSPurchaseDataToJson(this);
 }

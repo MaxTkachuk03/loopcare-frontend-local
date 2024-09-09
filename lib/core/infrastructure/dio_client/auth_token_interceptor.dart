@@ -26,7 +26,8 @@ class AuthTokenInterceptor extends Interceptor {
   int retries = 3;
 
   List<Map<dynamic, dynamic>> unique(List<Map<dynamic, dynamic>> list) {
-    final paths = list.map<String>((e) => (e['err'].requestOptions as RequestOptions).uri.toString()).toSet();
+    final paths =
+        list.map<String>((e) => (e['err'].requestOptions as RequestOptions).uri.toString()).toSet();
     list.retainWhere((Map x) {
       return paths.remove((x['err'].requestOptions as RequestOptions).uri.toString());
     });
@@ -142,7 +143,10 @@ class AuthTokenInterceptor extends Interceptor {
         error: runtimeType,
       );
 
-      requestOptions.headers = {'Authorization': 'Bearer $token', 'Content-Type': 'application/json'};
+      requestOptions.headers = {
+        'Authorization': 'Bearer $token',
+        'Content-Type': 'application/json'
+      };
       await dioOptions.fetch(requestOptions).then(
         failedRequests[i]['handler'].resolve,
         onError: (error) {

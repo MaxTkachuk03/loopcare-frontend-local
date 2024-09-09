@@ -13,7 +13,9 @@ class APIAnalyticsService implements AnalyticsService {
   APIAnalyticsService(this.client);
 
   @override
-  Future<Either<RequestError, SendAnalyticsEventResponse>> sendEvent(SendAnalyticsEventBody data) async {
-    return await client.post('/analytics', data: data, fromJson: SendAnalyticsEventResponse.fromJson);
+  Future<Either<RequestError, SendAnalyticsEventResponse>> sendEvent(
+      SendAnalyticsEventBody data) async {
+    return await client.post('/analytics',
+        data: data, fromJson: SendAnalyticsEventResponse.fromJson);
   }
 }
