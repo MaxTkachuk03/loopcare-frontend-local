@@ -13,5 +13,6 @@ abstract class UpdateFavoriteBody implements _$UpdateFavoriteBody {
     required double? numberOfUnits,
   }) = _UpdateFavoriteBody;
 
-  factory UpdateFavoriteBody.fromJson(Map<String, dynamic> json) => _$UpdateFavoriteBodyFromJson(json);
+  factory UpdateFavoriteBody.fromJson(Map<String, dynamic> json) =>
+      _$UpdateFavoriteBodyFromJson(json);
 }

@@ -8,8 +8,7 @@ abstract class FlutterZoomVideosdkPlatform extends PlatformInterface {
 
   static final Object _token = Object();
 
-  static FlutterZoomVideosdkPlatform _instance =
-      MethodChannelFlutterZoomVideosdk();
+  static FlutterZoomVideosdkPlatform _instance = MethodChannelFlutterZoomVideosdk();
 
   /// The default instance of [FlutterZoomVideosdkPlatform] to use.
   ///

@@ -14,5 +14,6 @@ abstract class GroupingPreferences implements _$GroupingPreferences {
     required String? timezone,
   }) = _GroupingPreferences;
 
-  factory GroupingPreferences.fromJson(Map<String, dynamic> json) => _$GroupingPreferencesFromJson(json);
+  factory GroupingPreferences.fromJson(Map<String, dynamic> json) =>
+      _$GroupingPreferencesFromJson(json);
 }

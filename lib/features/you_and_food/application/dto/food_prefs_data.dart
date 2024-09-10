@@ -19,8 +19,7 @@ class FoodPrefsData {
     this.period,
   });
 
-  factory FoodPrefsData.fromJson(Map<String, dynamic> json) =>
-      _$FoodPrefsDataFromJson(json);
+  factory FoodPrefsData.fromJson(Map<String, dynamic> json) => _$FoodPrefsDataFromJson(json);
 
   Map<String, dynamic> toJson() => _$FoodPrefsDataToJson(this);
 }

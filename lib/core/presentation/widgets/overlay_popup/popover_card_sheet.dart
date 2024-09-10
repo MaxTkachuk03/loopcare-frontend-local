@@ -27,7 +27,9 @@ mixin PopoverCardSheet {
   }) =>
       AppOverlays.onShowMenuPopup(
         context,
-        (needOffset ?? false) ? _defineOffsetBottomPosition(context) : _defineBottomPosition(context),
+        (needOffset ?? false)
+            ? _defineOffsetBottomPosition(context)
+            : _defineBottomPosition(context),
         _generateOptions(
           mode,
           withSeparator: withSeparator,
@@ -62,7 +64,8 @@ List<PopupMenuEntry<SheetItem>> _generateOptions(
               dense: true,
               contentPadding: EdgeInsets.zero,
               textColor: AppColors.white,
-              trailing: (withIcon && mode.items[index].icon != null) ? mode.items[index].icon! : null,
+              trailing:
+                  (withIcon && mode.items[index].icon != null) ? mode.items[index].icon! : null,
               title: CustomText.w400(
                 mode.items[index].title,
                 textAlign: TextAlign.start,
@@ -82,7 +85,8 @@ RelativeRect _defineBottomPosition(BuildContext context) {
   final RenderBox button = context.findRenderObject()! as RenderBox;
   final RenderBox overlay = Navigator.of(context).overlay!.context.findRenderObject()! as RenderBox;
   final offsetButton = button.localToGlobal(button.size.bottomLeft(Offset.zero), ancestor: overlay);
-  final offsetOverlay = button.localToGlobal(button.size.bottomLeft(Offset(offsetButton.dx, 0)), ancestor: overlay);
+  final offsetOverlay =
+      button.localToGlobal(button.size.bottomLeft(Offset(offsetButton.dx, 0)), ancestor: overlay);
   final RelativeRect position = RelativeRect.fromRect(
     Rect.fromPoints(
       offsetButton,
@@ -97,10 +101,12 @@ RelativeRect _defineOffsetBottomPosition(BuildContext context) {
   final RenderBox button = context.findRenderObject()! as RenderBox;
   final RenderBox overlay = Navigator.of(context).overlay!.context.findRenderObject()! as RenderBox;
   final screenWidth = MediaQuery.of(context).size.width;
-  final offsetButton =
-      button.localToGlobal(button.size.bottomRight(Offset(screenWidth - _kItemWidth, 0)), ancestor: overlay);
-  final offsetOverlay =
-      button.localToGlobal(button.size.bottomRight(Offset(offsetButton.dx, offsetButton.dy)), ancestor: overlay);
+  final offsetButton = button.localToGlobal(
+      button.size.bottomRight(Offset(screenWidth - _kItemWidth, 0)),
+      ancestor: overlay);
+  final offsetOverlay = button.localToGlobal(
+      button.size.bottomRight(Offset(offsetButton.dx, offsetButton.dy)),
+      ancestor: overlay);
   final RelativeRect position = RelativeRect.fromRect(
     Rect.fromPoints(
       offsetButton,

@@ -7,7 +7,7 @@ class NavigationBarEvent with _$NavigationBarEvent {
   const factory NavigationBarEvent.setBeginningUncompleted({
     @Default(false) bool isProfileOpened,
     @Default(false) bool isPracticeOpened,
-}) = SetBeginningUncompleted;
+  }) = SetBeginningUncompleted;
 
   const factory NavigationBarEvent.unlockPractise() = UnlockPractise;
 

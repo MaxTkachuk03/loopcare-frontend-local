@@ -11,7 +11,10 @@ abstract class MindService {
 
   Future<Either<RequestError, MindTechniquesResponse>> getTechniques();
 
-  Future<Either<RequestError, MindTechniqueExercisesResponse>> getTechniquesExercises(int techniqueId);
+  Future<Either<RequestError, MindTechniqueExercisesResponse>> getTechniquesExercises(
+      int techniqueId);
 
-  Future<Either<RequestError, MindTechniqueExercise>> completeExercise(int techniqueId, int exerciseId, {required CompleteExerciseData data});
+  Future<Either<RequestError, MindTechniqueExercise>> completeExercise(
+      int techniqueId, int exerciseId,
+      {required CompleteExerciseData data});
 }

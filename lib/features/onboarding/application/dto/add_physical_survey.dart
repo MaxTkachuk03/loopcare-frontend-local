@@ -14,5 +14,6 @@ abstract class AddPhysicalSurvey implements _$AddPhysicalSurvey {
     required double bmi,
   }) = _AddPhysicalSurvey;
 
-  factory AddPhysicalSurvey.fromJson(Map<String, dynamic> json) => _$AddPhysicalSurveyFromJson(json);
+  factory AddPhysicalSurvey.fromJson(Map<String, dynamic> json) =>
+      _$AddPhysicalSurveyFromJson(json);
 }

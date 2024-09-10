@@ -48,8 +48,8 @@ class _WeekSliderCalendarState extends State<WeekSliderCalendar> {
   void _scrollToIndex() {
     WidgetsBinding.instance.addPostFrameCallback(
       (_) {
-        final int scrollIndex =
-            _weeks.lastIndexWhere((e) => e.startDate.isSameDate(_selectedDay.firstDayOfCurrentWeek));
+        final int scrollIndex = _weeks
+            .lastIndexWhere((e) => e.startDate.isSameDate(_selectedDay.firstDayOfCurrentWeek));
 
         final int indexWithOffset = scrollIndex - 2;
 

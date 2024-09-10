@@ -91,7 +91,6 @@ class _GoalCategoryCardState extends State<GoalCategoryCard>
         )
             .animate(controller: controller, autoPlay: false)
             .scaleXY(end: 0, delay: 1500.ms, duration: 600.ms, curve: Curves.easeInOutBack)
-
       ],
     );
   }

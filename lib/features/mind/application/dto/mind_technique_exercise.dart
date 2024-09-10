@@ -27,7 +27,8 @@ class MindTechniqueExercise with _$MindTechniqueExercise {
     required MindContent exercise,
   }) = _MindTechniqueExercise;
 
-  factory MindTechniqueExercise.fromJson(Map<String, dynamic> json) => _$MindTechniqueExerciseFromJson(json);
+  factory MindTechniqueExercise.fromJson(Map<String, dynamic> json) =>
+      _$MindTechniqueExerciseFromJson(json);
 
   int get stepsDuration => exercise.duration ?? 0;
 }

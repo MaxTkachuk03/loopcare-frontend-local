@@ -30,7 +30,8 @@ class SearchResultListItem extends StatelessWidget {
         child: Ink(
           color: AppColors.greenLightest,
           child: Padding(
-            padding: EdgeInsets.symmetric(horizontal: 20.0, vertical: _subTitle.isNotEmpty ? 7.0 : 14.0),
+            padding:
+                EdgeInsets.symmetric(horizontal: 20.0, vertical: _subTitle.isNotEmpty ? 7.0 : 14.0),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               crossAxisAlignment: CrossAxisAlignment.center,

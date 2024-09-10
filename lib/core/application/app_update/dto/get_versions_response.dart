@@ -21,7 +21,8 @@ class GetVersionsResponse {
     this.privacyPolicyVersion = 1,
   });
 
-  static GetVersionsResponse fromJson(Map<String, dynamic> json) => _$GetVersionsResponseFromJson(json);
+  static GetVersionsResponse fromJson(Map<String, dynamic> json) =>
+      _$GetVersionsResponseFromJson(json);
 
   Map<String, dynamic> toJson() => _$GetVersionsResponseToJson(this);
 }

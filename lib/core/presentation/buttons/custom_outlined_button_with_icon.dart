@@ -11,7 +11,12 @@ class CustomOutlinedButtonWithIcon extends StatelessWidget {
   final void Function()? onPressed;
 
   const CustomOutlinedButtonWithIcon(
-      {super.key, required this.label, required this.icon, this.onPressed, this.color, this.styles});
+      {super.key,
+      required this.label,
+      required this.icon,
+      this.onPressed,
+      this.color,
+      this.styles});
 
   factory CustomOutlinedButtonWithIcon.coralFullWidth(
           {OnPressed? onPressed, required String label, required Widget icon}) =>

@@ -18,6 +18,5 @@ abstract class FavoritesItem implements _$FavoritesItem {
     required ServingSize serving,
   }) = _FavoritesItem;
 
-  factory FavoritesItem.fromJson(Map<String, dynamic> json) =>
-      _$FavoritesItemFromJson(json);
+  factory FavoritesItem.fromJson(Map<String, dynamic> json) => _$FavoritesItemFromJson(json);
 }

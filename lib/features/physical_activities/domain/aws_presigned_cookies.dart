@@ -15,5 +15,6 @@ abstract class AwsPresignedCookies implements _$AwsPresignedCookies {
     @Default('') @JsonKey(name: 'CloudFront-Signature') String cloudFrontSignature,
   }) = _AwsPresignedCookies;
 
-  factory AwsPresignedCookies.fromJson(Map<String, dynamic> json) => _$AwsPresignedCookiesFromJson(json);
+  factory AwsPresignedCookies.fromJson(Map<String, dynamic> json) =>
+      _$AwsPresignedCookiesFromJson(json);
 }

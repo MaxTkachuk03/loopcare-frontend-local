@@ -21,7 +21,8 @@ class GroupPreferencesResponse {
     this.nickname,
   );
 
-  static GroupPreferencesResponse fromJson(Map<String, dynamic> json) => _$GroupPreferencesResponseFromJson(json);
+  static GroupPreferencesResponse fromJson(Map<String, dynamic> json) =>
+      _$GroupPreferencesResponseFromJson(json);
 
   Map<String, dynamic> toJson() => _$GroupPreferencesResponseToJson(this);
 }

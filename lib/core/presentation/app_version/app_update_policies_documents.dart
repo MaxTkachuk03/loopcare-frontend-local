@@ -144,14 +144,13 @@ class _AppUpdatePoliciesDocumentsState extends State<AppUpdatePoliciesDocuments>
             ),
           const SizedBox(height: 30.0),
           ValueListenableBuilder<bool>(
-            valueListenable: validateListener,
-            builder: (context, isValid, _) {
-              return CustomElevatedButton.blueFullWidth(
-                label: LocalizedTexts.continueBtn.tr(),
-                onPressed: isValid ? onConfirmed : null,
-              );
-            }
-          ),
+              valueListenable: validateListener,
+              builder: (context, isValid, _) {
+                return CustomElevatedButton.blueFullWidth(
+                  label: LocalizedTexts.continueBtn.tr(),
+                  onPressed: isValid ? onConfirmed : null,
+                );
+              }),
           const SizedBox(height: 30.0),
         ],
       ),
@@ -170,7 +169,7 @@ class _DocumentDottedLine extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return  RichText(
+    return RichText(
       maxLines: 1,
       overflow: TextOverflow.visible,
       text: TextSpan(
@@ -194,7 +193,6 @@ class _DocumentDottedLine extends StatelessWidget {
     );
   }
 }
-
 
 class _AgreedDocumentCheckBox extends StatelessWidget {
   const _AgreedDocumentCheckBox({

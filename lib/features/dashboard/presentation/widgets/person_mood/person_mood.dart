@@ -44,7 +44,8 @@ class PersonMood extends StatelessWidget {
             loading: (_) => const Loader(),
             orElse: () {
               final bool isEditable = DashboardUtils.isEditable(date);
-              final List<Mood> moodValues = state.data.getSelectedDayMoods(date.isoStringWithoutTime);
+              final List<Mood> moodValues =
+                  state.data.getSelectedDayMoods(date.isoStringWithoutTime);
               moodValues.sort((a, b) => a.time.compareTo(b.time));
 
               final Color textColor = isEditable ? AppColors.blueDarker : AppColors.greyLabel;

@@ -14,7 +14,8 @@ class GenderPrefsGuard extends AutoRouteGuard {
     if (gender != GenderType.other) {
       resolver.next(true);
     } else {
-      router.push(TimezonePreferencesRoute(fromLessonComplete: resolver.route.args.fromLessonComplete));
+      router.push(
+          TimezonePreferencesRoute(fromLessonComplete: resolver.route.args.fromLessonComplete));
     }
   }
 }

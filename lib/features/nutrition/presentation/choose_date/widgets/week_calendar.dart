@@ -18,7 +18,8 @@ class ChooseDateCalendar extends StatelessWidget {
         return state.maybeMap(
           loading: (_) {
             return Scaffold(
-              appBar: AppBar(leading: BackButtonHexagon(background: AppColors.white.withOpacity(0.2))),
+              appBar:
+                  AppBar(leading: BackButtonHexagon(background: AppColors.white.withOpacity(0.2))),
               body: const Loader(),
             );
           },

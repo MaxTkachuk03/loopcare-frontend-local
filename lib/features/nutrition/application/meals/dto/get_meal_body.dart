@@ -13,6 +13,5 @@ abstract class GetMealBody implements _$GetMealBody {
 
   const GetMealBody._();
 
-  factory GetMealBody.fromJson(Map<String, dynamic> json) =>
-      _$GetMealBodyFromJson(json);
+  factory GetMealBody.fromJson(Map<String, dynamic> json) => _$GetMealBodyFromJson(json);
 }

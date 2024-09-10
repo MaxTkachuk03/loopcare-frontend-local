@@ -115,9 +115,11 @@ class _MindVideoScreenState extends State<MindVideoScreen> {
   _OrientationsState _getOrientationState(Orientation orientation) {
     if (orientation == Orientation.portrait && widget.videoOrientation == Orientation.portrait) {
       return _OrientationsState.allPortrait;
-    } else if (orientation == Orientation.landscape && widget.videoOrientation == Orientation.landscape) {
+    } else if (orientation == Orientation.landscape &&
+        widget.videoOrientation == Orientation.landscape) {
       return _OrientationsState.allLandscape;
-    } else if (orientation == Orientation.portrait && widget.videoOrientation == Orientation.landscape) {
+    } else if (orientation == Orientation.portrait &&
+        widget.videoOrientation == Orientation.landscape) {
       return _OrientationsState.mixedPortrait;
     } else {
       return _OrientationsState.mixedLandscape;

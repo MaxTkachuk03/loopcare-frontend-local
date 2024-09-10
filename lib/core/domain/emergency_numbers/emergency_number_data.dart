@@ -21,5 +21,6 @@ abstract class EmergencyNumberData implements _$EmergencyNumberData {
     required String number,
   }) = _EmergencyNumberData;
 
-  factory EmergencyNumberData.fromJson(Map<String, dynamic> json) => _$EmergencyNumberDataFromJson(json);
+  factory EmergencyNumberData.fromJson(Map<String, dynamic> json) =>
+      _$EmergencyNumberDataFromJson(json);
 }

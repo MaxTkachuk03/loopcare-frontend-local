@@ -164,7 +164,8 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
         actions: actions,
       );
 
-  Color get _titleColor => textTheme == CustomAppBarTextTheme.dark ? AppColors.blueDarker : Colors.white;
+  Color get _titleColor =>
+      textTheme == CustomAppBarTextTheme.dark ? AppColors.blueDarker : Colors.white;
 
   @override
   Widget build(BuildContext context) {
@@ -211,7 +212,8 @@ class _Title extends StatelessWidget {
             highlightColor: AppColors.transparent,
             child: Text(
               subtitle!,
-              style: const TextStyle(fontSize: ThemeConstants.fontSize14, fontWeight: FontWeight.w400),
+              style:
+                  const TextStyle(fontSize: ThemeConstants.fontSize14, fontWeight: FontWeight.w400),
             ),
           ),
       ],

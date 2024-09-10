@@ -41,8 +41,9 @@ class _WeightContentState extends State<WeightContent> {
     final weightInKg = context.read<PhysicalQuestionsBloc>().state.weightInKg;
 
     kgController = TextEditingController(text: weightInKg ?? '');
-    if ( weightInKg != null) {
-      lbsController = TextEditingController(text: '${WeightConversionUtils.convertKgToLbs(double.parse(weightInKg))}');
+    if (weightInKg != null) {
+      lbsController = TextEditingController(
+          text: '${WeightConversionUtils.convertKgToLbs(double.parse(weightInKg))}');
       valueNotifier.value = true;
     } else {
       lbsController = TextEditingController();
@@ -130,7 +131,6 @@ class _WeightContentState extends State<WeightContent> {
       if (lbsText.isEmpty) return;
       kgFieldFocusNode.requestFocus();
       kgController.text = '${WeightConversionUtils.convertLbsToKg(double.parse(lbsText))}';
-
     } else {
       final kgText = kgController.text;
       if (kgText.isEmpty) return;
@@ -141,7 +141,8 @@ class _WeightContentState extends State<WeightContent> {
     setState(() {});
   }
 
-  String get weight => activeMeasurementType == MeasurementSystemType.metric ? metricWeight : imperialWeight;
+  String get weight =>
+      activeMeasurementType == MeasurementSystemType.metric ? metricWeight : imperialWeight;
 
   String get metricWeight {
     final kgText = kgController.text.replaceAll(',', '.');
@@ -161,11 +162,11 @@ class _WeightContentState extends State<WeightContent> {
     kgFieldFocusNode.unfocus();
     lbsFieldFocusNode.unfocus();
     context.read<PhysicalQuestionsBloc>().add(
-      PhysicalQuestionsEvent.weightChanged(
-        weight: weight,
-        measurementSystemType: activeMeasurementType,
-      ),
-    );
+          PhysicalQuestionsEvent.weightChanged(
+            weight: weight,
+            measurementSystemType: activeMeasurementType,
+          ),
+        );
 
     final isValid = context.read<PhysicalQuestionsBloc>().state.validateBmi(weight);
 

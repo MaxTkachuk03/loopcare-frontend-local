@@ -16,9 +16,12 @@ class GeneralOnboardingEvent with _$GeneralOnboardingEvent {
 
   const factory GeneralOnboardingEvent.resumeTimer() = ResumeTimer;
 
-  const factory GeneralOnboardingEvent.startMentalTestFromBeginning() = StartMentalTestFromBeginning;
+  const factory GeneralOnboardingEvent.startMentalTestFromBeginning() =
+      StartMentalTestFromBeginning;
 
-  const factory GeneralOnboardingEvent.updatePregnancyQuestion({required bool enable}) = UpdatePregnancyQuestion;
+  const factory GeneralOnboardingEvent.updatePregnancyQuestion({required bool enable}) =
+      UpdatePregnancyQuestion;
 
-  const factory GeneralOnboardingEvent.excludeMentalQuestionsByGender({required SexType sex}) = ExcludeMentalQuestionsByGender;
+  const factory GeneralOnboardingEvent.excludeMentalQuestionsByGender({required SexType sex}) =
+      ExcludeMentalQuestionsByGender;
 }

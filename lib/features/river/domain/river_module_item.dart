@@ -21,16 +21,13 @@ class RiverModuleItem with _$RiverModuleItem {
     @Default(0) int lessonId,
     @Default(false) bool isRootItem,
     @Default([]) List<int> unlocksItems,
-    @Default([])
-    @UnlockedFeatureTypeListConverter()
-    List<UnlockedFeatureType> unlocksFeature,
+    @Default([]) @UnlockedFeatureTypeListConverter() List<UnlockedFeatureType> unlocksFeature,
     @Default(null) int? unlocksReflectionId,
     @Default(null) int? unlocksSmartGoalCategoryId,
     @Default(false) bool crossModule,
     @Default([]) List<RiverModuleItemActions> actions,
     required FeaturePlacement? featurePlacement,
-    @RiverModuleItemViewStateConverter()
-    required RiverModuleItemViewState states,
+    @RiverModuleItemViewStateConverter() required RiverModuleItemViewState states,
     @Default(null) int? completedInModuleId,
     @Default(0) int spawnedInModuleId,
   }) = _RiverModuleItem;
@@ -52,13 +49,14 @@ class RiverModuleItem with _$RiverModuleItem {
   bool get isReadCrossModule =>
       crossModule && states.prevItemState.isRead && states.itemState.isRead;
 
-  bool get isBuddyCrossModuleItem => crossModule && unlocksFeature.contains(UnlockedFeatureType.buddy);
+  bool get isBuddyCrossModuleItem =>
+      crossModule && unlocksFeature.contains(UnlockedFeatureType.buddy);
 
-  bool get isGroupingCrossModuleItem => crossModule && unlocksFeature.contains(UnlockedFeatureType.grouping);
+  bool get isGroupingCrossModuleItem =>
+      crossModule && unlocksFeature.contains(UnlockedFeatureType.grouping);
 
-  bool get isAdditionalBuddyCrossModuleItem => crossModule &&
-      unlocksFeature.isEmpty &&
-      actions.any((a) => a.module == 'buddyApprove');
+  bool get isAdditionalBuddyCrossModuleItem =>
+      crossModule && unlocksFeature.isEmpty && actions.any((a) => a.module == 'buddyApprove');
 
   factory RiverModuleItem.fromJson(Map<String, dynamic> json) => _$RiverModuleItemFromJson(json);
 }

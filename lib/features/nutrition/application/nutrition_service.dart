@@ -71,7 +71,8 @@ abstract class NutritionService {
 
   Future<Either<RequestError, RecipeDetailsResponse>> getRecipe(int id);
 
-  Future<Either<RequestError, RecommendationsResponse>> getRecommendations(List<String>? mealCategories);
+  Future<Either<RequestError, RecommendationsResponse>> getRecommendations(
+      List<String>? mealCategories);
 
   Future<Either<RequestError, RecipeResponse>> addFoodItemToRecipeInMeal({
     required int mealId,

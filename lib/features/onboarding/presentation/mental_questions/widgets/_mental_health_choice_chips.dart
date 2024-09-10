@@ -33,24 +33,30 @@ class _MentalHealthChoiceChipState extends State<_MentalHealthChoiceChip> {
   @override
   Widget build(BuildContext context) {
     return Column(
-      children: widget.options.map(
-        (item) => Padding(
-          padding: const EdgeInsets.only(bottom: 8.0),
-          child: CustomChoiceChip.petrol(
-            label: item.title,
-            selected: _selectedOptionId == item.id,
-            onSelected: (value) => _onSelected(value),
-            value: item.id,
-            textAlign: TextAlign.center,
-          ),
-        ),
-      ).toList(),
+      children: widget.options
+          .map(
+            (item) => Padding(
+              padding: const EdgeInsets.only(bottom: 8.0),
+              child: CustomChoiceChip.petrol(
+                label: item.title,
+                selected: _selectedOptionId == item.id,
+                onSelected: (value) => _onSelected(value),
+                value: item.id,
+                textAlign: TextAlign.center,
+              ),
+            ),
+          )
+          .toList(),
     );
   }
 
   void _setSelectedItem() {
-    _selectedOptionId = context.read<MentalQuestionsBloc>().state.answers
-        .firstWhereOrNull((element) => element.questionId == widget.questionId)?.optionId;
+    _selectedOptionId = context
+        .read<MentalQuestionsBloc>()
+        .state
+        .answers
+        .firstWhereOrNull((element) => element.questionId == widget.questionId)
+        ?.optionId;
 
     if (_selectedOptionId != null) {
       WidgetsBinding.instance.addPostFrameCallback((_) => widget.onChanged(_selectedOptionId));

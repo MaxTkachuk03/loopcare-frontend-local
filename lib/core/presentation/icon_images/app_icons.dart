@@ -37,19 +37,22 @@ class AppIcons {
     '$iconsFilePath/dashboard_account.svg',
     colorFilter: ColorFilter.mode(AppColors.white.withOpacity(0.5), BlendMode.srcIn),
   );
-  static SvgPicture dashboardAccountActive = SvgPicture.asset('$iconsFilePath/dashboard_account.svg');
+  static SvgPicture dashboardAccountActive =
+      SvgPicture.asset('$iconsFilePath/dashboard_account.svg');
 
   static SvgPicture dashboardCalendar = SvgPicture.asset(
     '$iconsFilePath/dashboard_calendar.svg',
     colorFilter: ColorFilter.mode(AppColors.white.withOpacity(0.5), BlendMode.srcIn),
   );
-  static SvgPicture dashboardCalendarActive = SvgPicture.asset('$iconsFilePath/dashboard_calendar.svg');
+  static SvgPicture dashboardCalendarActive =
+      SvgPicture.asset('$iconsFilePath/dashboard_calendar.svg');
 
   static SvgPicture dashboardEducation = SvgPicture.asset(
     '$iconsFilePath/dashboard_education.svg',
     colorFilter: ColorFilter.mode(AppColors.white.withOpacity(0.5), BlendMode.srcIn),
   );
-  static SvgPicture dashboardEducationActive = SvgPicture.asset('$iconsFilePath/dashboard_education.svg');
+  static SvgPicture dashboardEducationActive =
+      SvgPicture.asset('$iconsFilePath/dashboard_education.svg');
 
   static SvgPicture dashboardChat = SvgPicture.asset(
     '$iconsFilePath/dashboard_chat.svg',

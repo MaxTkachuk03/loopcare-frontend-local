@@ -45,7 +45,7 @@ class _GroupedState extends State<Grouped> {
                   LocalizedTexts.goodNews.tr(),
                   style: context.textTheme.bodyLarge?.copyWith(fontSize: ThemeConstants.fontSize20),
                 ),
-                 CustomText(LocalizedTexts.youHaveBeenAddedToGroup.tr()),
+                CustomText(LocalizedTexts.youHaveBeenAddedToGroup.tr()),
               ],
             ),
           ),

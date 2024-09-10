@@ -118,6 +118,7 @@ class _SelectGoalsPageState extends State<SelectGoalsPage> {
       context.showError(content: CustomText.w400(state.data.errorKey.tr()));
 
   void _onSetWeeklyGoals(BuildContext context, SmartGoalsState state) => context
-    ..showSuccessBar(content: CustomText.w400(LocalizedTexts.smartGoalsSaveWeeklyGoalsSuccessMessage.tr()))
+    ..showSuccessBar(
+        content: CustomText.w400(LocalizedTexts.smartGoalsSaveWeeklyGoalsSuccessMessage.tr()))
     ..router.maybePop();
 }

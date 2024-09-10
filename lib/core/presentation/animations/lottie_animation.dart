@@ -24,7 +24,8 @@ class LottieAnimation extends StatefulWidget {
     this.delay = Duration.zero,
   });
 
-  factory LottieAnimation.unlock({AnimationController? controller, OnLoadedCb onLoaded, Duration? delay}) =>
+  factory LottieAnimation.unlock(
+          {AnimationController? controller, OnLoadedCb onLoaded, Duration? delay}) =>
       LottieAnimation(
         animationUrl: AppAnimations.unlock,
         controller: controller,
@@ -32,13 +33,15 @@ class LottieAnimation extends StatefulWidget {
         delay: delay ?? 0.ms,
       );
 
-  factory LottieAnimation.achieved({AnimationController? controller, OnLoadedCb onLoaded}) => LottieAnimation(
+  factory LottieAnimation.achieved({AnimationController? controller, OnLoadedCb onLoaded}) =>
+      LottieAnimation(
         animationUrl: AppAnimations.achieved,
         controller: controller,
         onLoaded: onLoaded,
       );
 
-  factory LottieAnimation.noAchieved({AnimationController? controller, OnLoadedCb onLoaded}) => LottieAnimation(
+  factory LottieAnimation.noAchieved({AnimationController? controller, OnLoadedCb onLoaded}) =>
+      LottieAnimation(
         animationUrl: AppAnimations.noAchieved,
         controller: controller,
         onLoaded: onLoaded,

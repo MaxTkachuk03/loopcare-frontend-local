@@ -92,5 +92,6 @@ class _AppLifeCycleStateListenerState extends State<AppLifeCycleStateListener> {
 
   void _syncChatState() => _authenticationBloc?.add(const AuthenticationEvent.syncChatState());
 
-  void _refreshTokenState() => _authenticationBloc?.state.mapOrNull(authenticated: (_) => _refreshToken());
+  void _refreshTokenState() =>
+      _authenticationBloc?.state.mapOrNull(authenticated: (_) => _refreshToken());
 }

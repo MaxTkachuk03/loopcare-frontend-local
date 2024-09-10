@@ -34,7 +34,8 @@ class GroupChatUserAvatar extends UserAvatar {
     return GestureDetector(
       onTap: () => onAvatarTap?.call(author),
       child: HexagonUserAvatar(
-        backgroundColor: hasImage ? InheritedChatTheme.of(context).theme.userAvatarImageBackgroundColor : color,
+        backgroundColor:
+            hasImage ? InheritedChatTheme.of(context).theme.userAvatarImageBackgroundColor : color,
         backgroundImage: hasImage ? NetworkImage(author.imageUrl!, headers: imageHeaders) : null,
         // radius: 16,
         child: !hasImage

@@ -131,7 +131,8 @@ class CustomerIoService {
   static void track({
     required String event,
     Map<String, dynamic>? attributes,
-  }) => CustomerIO.track(name: event, attributes: attributes ?? {});
+  }) =>
+      CustomerIO.track(name: event, attributes: attributes ?? {});
 
   static Future<void> changeUserEmail({
     required String email,

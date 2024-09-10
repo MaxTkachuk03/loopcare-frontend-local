@@ -48,8 +48,7 @@ class _CustomBottomNavigationBarState extends State<CustomBottomNavigationBar> {
     setState(() => _selectedItem = index);
   }
 
-  GlobalKey _getKey(NavigationBarItems item) =>
-      switch (item) {
+  GlobalKey _getKey(NavigationBarItems item) => switch (item) {
         NavigationBarItems.practice => kNavigationBarItemPractice,
         NavigationBarItems.river => kNavigationBarItemRiver,
         NavigationBarItems.account => kNavigationBarItemProfile,
@@ -86,9 +85,8 @@ class _CustomBottomNavigationBarState extends State<CustomBottomNavigationBar> {
   Widget build(BuildContext context) {
     final bottomPadding = Platform.isAndroid ? 8.0 : 0.0;
 
-    final height = kBottomNavigationBarHeight +
-        bottomPadding +
-        MediaQuery.of(context).padding.bottom;
+    final height =
+        kBottomNavigationBarHeight + bottomPadding + MediaQuery.of(context).padding.bottom;
 
     return Container(
       height: height,

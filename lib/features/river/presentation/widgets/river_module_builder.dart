@@ -111,7 +111,8 @@ class RiverModuleBuilder extends StatelessWidget with RiverUtils {
         if (isBeginning && !_containRootItem)
           Positioned(
             top: _itemTopPosition(ModuleItemsUtils.zeroPageRootItemPosition, kRiverRootItemRadius),
-            left: _itemLeftPosition(ModuleItemsUtils.zeroPageRootItemPosition, kRiverRootItemRadius),
+            left:
+                _itemLeftPosition(ModuleItemsUtils.zeroPageRootItemPosition, kRiverRootItemRadius),
             child: startItemBuilder(context),
           ),
         ...positionedModuleItems,

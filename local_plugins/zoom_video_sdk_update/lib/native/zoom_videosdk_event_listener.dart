@@ -28,11 +28,9 @@ class EventType {
   static const onLiveTranscriptionStatus = 'onLiveTranscriptionStatus';
   static const onLiveTranscriptionMsgError = 'onLiveTranscriptionMsgError';
   static const onLiveTranscriptionMsgInfoReceived = 'onLiveTranscriptionMsgInfoReceived';
-  static const onMultiCameraStreamStatusChanged =
-      'onMultiCameraStreamStatusChanged';
+  static const onMultiCameraStreamStatusChanged = 'onMultiCameraStreamStatusChanged';
   static const onRequireSystemPermission = 'onRequireSystemPermission';
-  static const onSSLCertVerifiedFailNotification =
-      'onSSLCertVerifiedFailNotification';
+  static const onSSLCertVerifiedFailNotification = 'onSSLCertVerifiedFailNotification';
   static const onProxySettingNotification = 'onProxySettingNotification';
   static const onUserRecordingConsent = 'onUserRecordingConsent';
   static const onUserVideoNetworkStatusChanged = 'onUserVideoNetworkStatusChanged';

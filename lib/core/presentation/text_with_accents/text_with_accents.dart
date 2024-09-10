@@ -30,8 +30,10 @@ class TextWithAccents extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final parts = _parts(text, accents);
-    final regularStyle = style ?? context.textTheme.bodyMedium?.copyWith(fontWeight: FontWeight.w400);
-    final accentStyle = accentedStyle ?? context.textTheme.bodyMedium?.copyWith(fontWeight: FontWeight.w600);
+    final regularStyle =
+        style ?? context.textTheme.bodyMedium?.copyWith(fontWeight: FontWeight.w400);
+    final accentStyle =
+        accentedStyle ?? context.textTheme.bodyMedium?.copyWith(fontWeight: FontWeight.w600);
 
     return RichText(
       text: TextSpan(

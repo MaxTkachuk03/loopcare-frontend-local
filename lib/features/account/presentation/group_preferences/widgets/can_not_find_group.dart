@@ -54,7 +54,9 @@ class _CanNotFindGroupState extends State<CanNotFindGroup> {
                   builder: (BuildContext context, state) {
                     final groupingStartedAt = state.data.groupingStartedAt;
 
-                    if (groupingStartedAt == null) return const SizedBox.shrink();
+                    if (groupingStartedAt == null) {
+                      return const SizedBox.shrink();
+                    }
 
                     return CustomText.w400(
                       LocalizedTexts.weHaveNotYetFound.tr({

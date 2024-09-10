@@ -11,5 +11,6 @@ class SearchFoodItemType with _$SearchFoodItemType {
     required double calories,
   }) = _SearchFoodItemType;
 
-  factory SearchFoodItemType.fromJson(Map<String, dynamic> json) => _$SearchFoodItemTypeFromJson(json);
+  factory SearchFoodItemType.fromJson(Map<String, dynamic> json) =>
+      _$SearchFoodItemTypeFromJson(json);
 }
