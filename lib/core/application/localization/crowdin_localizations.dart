@@ -1,14 +1,15 @@
 import 'app_localizations.dart';
+
 import 'package:crowdin_sdk/crowdin_sdk.dart';
+
 import 'package:flutter/widgets.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 
 class CrowdinLocalization extends AppLocalizations {
   final AppLocalizations _fallbackTexts;
 
-  CrowdinLocalization(String locale, AppLocalizations fallbackTexts)
-      : _fallbackTexts = fallbackTexts,
-        super(locale);
+  CrowdinLocalization(super.locale, AppLocalizations fallbackTexts)
+      : _fallbackTexts = fallbackTexts;
 
   static const LocalizationsDelegate<AppLocalizations> delegate = _CrowdinLocalizationsDelegate();
 

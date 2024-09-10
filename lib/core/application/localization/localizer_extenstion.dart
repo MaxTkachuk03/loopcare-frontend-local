@@ -2,7 +2,6 @@ import 'dart:convert';
 
 import 'package:crowdin_sdk/crowdin_sdk.dart';
 import 'package:flutter/widgets.dart';
-import 'package:flutter/services.dart' show rootBundle;
 import 'package:intl/intl.dart';
 import 'package:loopcare_frontend/core/domain/local_localization/local_localization_service.dart';
 import 'package:loopcare_frontend/core/infrastructure/services/app_config.dart';
@@ -103,12 +102,4 @@ extension LocalizationExtension on String {
     }
     return messageValue.substring(openingBraceIndex + 1, closingBraceIndex);
   }
-}
-
-// Simulated method to retrieve strings from a JSON or ARB file.
-Future<bool> loadLocalLocalizations() async {
-  String locale = getIt<AppConfig>().language;
-  final jsonString = await rootBundle.loadString('lib/l10n/app_$locale.arb');
-  getIt<LocalLocalizationService>().translations = jsonString;
-  return true;
 }

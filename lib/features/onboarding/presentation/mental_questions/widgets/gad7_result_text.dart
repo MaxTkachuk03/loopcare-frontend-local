@@ -40,24 +40,24 @@ class GAD7ResultText extends StatelessWidget {
               style: context.textTheme.bodyMedium,
             ),
           InterpretationType.high => RichText(
-            text: TextSpan(
-              children: [
-                TextSpan(
-                  text: '${LocalizedTexts.gad7ResultHigh.tr()} \n',
-                  style: context.textTheme.bodyMedium,
-                ),
-                TextSpan(
-                  style: context.textTheme.bodyMedium?.copyWith(color: AppColors.blueAppBar),
-                  text: '${LocalizedTexts.linksPsychologistConsulting.tr()} \n\n',
-                  recognizer: TapGestureRecognizer()..onTap = () => onLinkPressed(context),
-                ),
-                TextSpan(
-                  text: LocalizedTexts.mentalTestResultsIfYouHaveSuicidalThoughts.tr(),
-                  style: context.textTheme.bodyMedium,
-                ),
-              ],
+              text: TextSpan(
+                children: [
+                  TextSpan(
+                    text: '${LocalizedTexts.gad7ResultHigh.tr()} \n',
+                    style: context.textTheme.bodyMedium,
+                  ),
+                  TextSpan(
+                    style: context.textTheme.bodyMedium?.copyWith(color: AppColors.blueAppBar),
+                    text: '${LocalizedTexts.linksPsychologistConsulting.tr()} \n\n',
+                    recognizer: TapGestureRecognizer()..onTap = () => onLinkPressed(context),
+                  ),
+                  TextSpan(
+                    text: LocalizedTexts.mentalTestResultsIfYouHaveSuicidalThoughts.tr(),
+                    style: context.textTheme.bodyMedium,
+                  ),
+                ],
+              ),
             ),
-          ),
           _ => const SizedBox.shrink(),
         };
       },

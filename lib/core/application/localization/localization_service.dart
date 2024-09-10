@@ -1,8 +1,23 @@
 import 'package:crowdin_sdk/crowdin_sdk.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:loopcare_frontend/core/domain/local_localization/local_localization_service.dart';
+import 'package:loopcare_frontend/core/infrastructure/services/app_config.dart';
+import 'package:loopcare_frontend/core/infrastructure/services/logger/logger.dart';
+import 'package:loopcare_frontend/injection.dart';
+import 'package:flutter/services.dart' show rootBundle;
 
 class LocalizationService {
-  static Future<void> initialize() async {
+  Future<bool> loadLocalLocalizations() async {
+    String locale = getIt<AppConfig>().language;
+    final jsonString = await rootBundle.loadString('lib/l10n/app_$locale.arb');
+    getIt<LocalLocalizationService>().translations = jsonString;
+    return true;
+  }
+}
+
+class CrowdinLocalizationService {
+  Future<void> initialize() async {
     await Crowdin.init(
       distributionHash: dotenv.env['CROWDIN_BUNDLE_HASH'] ?? '',
       connectionType: InternetConnectionType.any,
@@ -14,5 +29,8 @@ class LocalizationService {
       ),
       updatesInterval: const Duration(minutes: 15),
     );
+    final currentLocale = Locale(getIt<AppConfig>().language);
+    await Crowdin.loadTranslations(currentLocale);
+    log.i('Current locale: ${currentLocale.languageCode}', error: 'CROWDIN');
   }
 }

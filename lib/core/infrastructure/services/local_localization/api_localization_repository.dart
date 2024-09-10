@@ -2,7 +2,8 @@ import 'package:hive/hive.dart';
 import 'package:injectable/injectable.dart';
 import 'package:loopcare_frontend/core/domain/local_localization/localization_repository.dart';
 import 'package:loopcare_frontend/core/infrastructure/hive_service/hive_constants.dart';
- const repoTranslationsKey = 'translations';
+
+const repoTranslationsKey = 'translations';
 
 @Injectable(as: LocalizationRepository)
 class ApiLocalizationRepository implements LocalizationRepository {
