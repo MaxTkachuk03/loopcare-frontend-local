@@ -1164,10 +1164,14 @@ class LocalizedTexts {
   static const String riverModuleCompletedTitle = 'riverModuleCompletedTitle';
   static const String riverModuleCompletedDescription = 'riverModuleCompletedDescription';
   static const String riverLastModuleCompletedDescription = 'riverLastModuleCompletedDescription';
-  static const String riverModuleGraduationCompletedItemsTitle = 'riverModuleGraduationCompletedItemsTitle';
-  static const String riverModuleGraduationCompletedTimeTitle = 'riverModuleGraduationCompletedTimeTitle';
-  static const String riverModuleGraduationCompletedItemsMessage = 'riverModuleGraduationCompletedItemsMessage';
-  static const String riverModuleGraduationCompletedTimeMessage = 'riverModuleGraduationCompletedTimeMessage';
+  static const String riverModuleGraduationCompletedItemsTitle =
+      'riverModuleGraduationCompletedItemsTitle';
+  static const String riverModuleGraduationCompletedTimeTitle =
+      'riverModuleGraduationCompletedTimeTitle';
+  static const String riverModuleGraduationCompletedItemsMessage =
+      'riverModuleGraduationCompletedItemsMessage';
+  static const String riverModuleGraduationCompletedTimeMessage =
+      'riverModuleGraduationCompletedTimeMessage';
 
   // Maintenance
   static const String maintenanceLabel = 'maintenanceLabel';

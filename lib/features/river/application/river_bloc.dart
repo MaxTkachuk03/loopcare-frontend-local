@@ -665,7 +665,7 @@ class RiverBloc extends Bloc<RiverEvent, RiverState> {
     final isItemsComplete = state.data.activeModule.isModuleItemsCompleted;
     final isTimePassed = await state.data.activeModule.isTimePassed;
     final isNewCompletion = page == null &&
-            getIt<SharedStorageService>().partlyCompletedModule != state.data.currentPage;
+        getIt<SharedStorageService>().partlyCompletedModule != state.data.currentPage;
 
     return (isNextPageOrCurrent || isNewCompletion) && (isItemsComplete || isTimePassed);
   }
