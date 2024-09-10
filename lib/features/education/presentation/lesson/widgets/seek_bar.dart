@@ -48,8 +48,8 @@ class SeekBarState extends State<SeekBar> {
     });
   }
 
-  get _value =>
-      min(_dragValue ?? widget.position.inMilliseconds.toDouble(), widget.duration.inMilliseconds.toDouble());
+  get _value => min(_dragValue ?? widget.position.inMilliseconds.toDouble(),
+      widget.duration.inMilliseconds.toDouble());
 
   @override
   Widget build(BuildContext context) {

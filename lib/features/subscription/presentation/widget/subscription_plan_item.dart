@@ -8,6 +8,7 @@ import 'package:loopcare_frontend/core/presentation/text/custom_text.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 import 'package:loopcare_frontend/core/presentation/utils/build_context_extensions.dart';
 import 'package:loopcare_frontend/features/subscription/presentation/widget/subscription_image.dart';
+
 //Todo will implemented according new requirements in future
 class MultiplePlanItem extends StatelessWidget {
   const MultiplePlanItem({
@@ -85,7 +86,6 @@ class SinglePlanItem extends StatelessWidget {
   final Color titleColor;
   final String? badgeUrl;
 
-
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -156,13 +156,11 @@ class _PricedOfferItem extends StatelessWidget {
 
 class _BadgeWrapper extends StatelessWidget {
   final Widget child;
-  final Widget? accessBadge;
   final bool showBadge;
 
   const _BadgeWrapper({
     required this.child,
     this.showBadge = false,
-    this.accessBadge,
   });
 
   @override
@@ -179,7 +177,6 @@ class _BadgeWrapper extends StatelessWidget {
         position: badge.BadgePosition.topEnd(
           top: -4,
         ),
-        badgeContent: accessBadge,
         child: child,
       );
     } else {

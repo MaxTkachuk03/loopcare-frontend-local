@@ -14,5 +14,6 @@ abstract class MentalHealthQuestion implements _$MentalHealthQuestion {
     required SexType? excludeSex,
   }) = _MentalHealthQuestion;
 
-  factory MentalHealthQuestion.fromJson(Map<String, dynamic> json) => _$MentalHealthQuestionFromJson(json);
+  factory MentalHealthQuestion.fromJson(Map<String, dynamic> json) =>
+      _$MentalHealthQuestionFromJson(json);
 }

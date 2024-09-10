@@ -7,7 +7,6 @@ import 'package:loopcare_frontend/core/presentation/app_bar/custom_app_bar.dart'
 import 'package:loopcare_frontend/core/presentation/buttons/custom_elevated_button.dart';
 import 'package:loopcare_frontend/core/presentation/buttons/custom_filled_icon_button.dart';
 import 'package:loopcare_frontend/core/presentation/buttons/custom_outlined_button.dart';
-import 'package:loopcare_frontend/core/presentation/custom_error_widget/error_invoker.dart';
 import 'package:loopcare_frontend/core/presentation/custom_safe_area.dart';
 import 'package:loopcare_frontend/core/presentation/error/error_screen.dart';
 import 'package:loopcare_frontend/core/presentation/loader/loader.dart';
@@ -132,165 +131,162 @@ class _EditDishPageState extends State<EditDishPage> {
 
   void _showValidationSnackbar(String error) => context.showError(content: CustomText(error));
 
+  Future<void> _onWillPop(_, __) async => _controller.onPop();
+
   void _onDeleteFoodItem(BuildContext context, FoodItem item) => _controller.deleteFoodItem(item);
 
   void _onChangeHandler(MealCategory item) => _controller.selectedMealCategory.value = item;
 
-  void _dishLoadedListener(BuildContext context, EditDishState state) => _controller
-      ..dishNameController.text = state.data.currentDish?.name ?? ''
-      ..servingController.text = state.data.numberOfServings
-      ..portionsController.text = state.data.numberOfPortions
-      ..servingsAmount.value = double.parse(state.data.numberOfServings);
+  void _dishLoadedListener(BuildContext context, EditDishState state) =>
+      _controller.updateFields(state.data);
 
-  void _deleteDishListener(BuildContext context, EditDishState state) =>
-      context.router.maybePop();
+  void _deleteDishListener(BuildContext context, EditDishState state) => context.router.maybePop();
 
   @override
   Widget build(BuildContext context) {
-    return MultiBlocListener(
-      listeners: [
-        BlocListener<EditDishBloc, EditDishState>(
-          listener: _dishLoadedListener,
-          listenWhen: (previous, current) => previous is Loading && current is DishInfo,
-        ),
-        BlocListener<EditDishBloc, EditDishState>(
-          listener: _deleteDishListener,
-          listenWhen: (previous, current) => previous is DishInfo && current is Deleted,
-        )
-      ],
-      child: KeyboardContainerListener(
-        child: CustomScaffold.greenLighter(
-          appBar: CustomAppBar.green(
-            title: '${LocalizedTexts.addToMyDishedAs.tr()}...',
-            leading: CustomFilledIconButton.leadingGreenLighter(),
-            actions: const [CloseAction(), SizedBox(width: 16.0)],
-            bottom: PreferredSize(
-              preferredSize: const Size.fromHeight(150),
-              child: Column(
-                children: [
-                  Container(
-                    padding: const EdgeInsets.symmetric(horizontal: 20.0),
-                    color: AppColors.greenRegular,
-                    child: ValueListenableBuilder<MealCategory>(
-                      valueListenable: _controller.selectedMealCategory,
-                      builder: (context, category, _) {
-                        return MealCategoryChips(
-                          initialCategory: category,
-                          onItemPressHandler: _onChangeHandler,
-                        );
-                      }
+    return PopScope(
+      onPopInvokedWithResult: _onWillPop,
+      child: MultiBlocListener(
+        listeners: [
+          BlocListener<EditDishBloc, EditDishState>(
+            listener: _dishLoadedListener,
+            listenWhen: (previous, current) => previous is Loading && current is DishInfo,
+          ),
+          BlocListener<EditDishBloc, EditDishState>(
+            listener: _deleteDishListener,
+            listenWhen: (previous, current) => previous is DishInfo && current is Deleted,
+          )
+        ],
+        child: KeyboardContainerListener(
+          child: CustomScaffold.greenLighter(
+            appBar: CustomAppBar.green(
+              title: '${LocalizedTexts.addToMyDishedAs.tr()}...',
+              leading: CustomFilledIconButton.leadingGreenLighter(),
+              actions: const [CloseAction(), SizedBox(width: 16.0)],
+              bottom: PreferredSize(
+                preferredSize: const Size.fromHeight(150),
+                child: Column(
+                  children: [
+                    Container(
+                      padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                      color: AppColors.greenRegular,
+                      child: ValueListenableBuilder<MealCategory>(
+                          valueListenable: _controller.selectedMealCategory,
+                          builder: (context, category, _) {
+                            return MealCategoryChips(
+                              initialCategory: category,
+                              onItemPressHandler: _onChangeHandler,
+                            );
+                          }),
                     ),
-                  ),
-                  Container(
-                    padding: const EdgeInsets.all(20.0),
-                    color: AppColors.greenRegular,
-                    child: CustomTextField(
-                      focusNode: _controller.dishNameFocusNode,
-                      controller: _controller.dishNameController,
-                      hintText: LocalizedTexts.giveNameToThisDish.tr(),
+                    Container(
+                      padding: const EdgeInsets.all(20.0),
+                      color: AppColors.greenRegular,
+                      child: CustomTextField(
+                        focusNode: _controller.dishNameFocusNode,
+                        controller: _controller.dishNameController,
+                        hintText: LocalizedTexts.giveNameToThisDish.tr(),
+                      ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
             ),
-          ),
-          body: CustomSafeArea(
-            child: ScrollableContainer(
-              child: BlocBuilder<EditDishBloc, EditDishState>(
-                builder: (BuildContext context, state) {
-                  return state.maybeMap(
-                    orElse: () => const SizedBox.shrink(),
-                    loading: (_) => const Loader(),
-                    error: (state) => ErrorScreen(
+            body: CustomSafeArea(
+              child: ScrollableContainer(
+                child: BlocBuilder<EditDishBloc, EditDishState>(
+                  builder: (BuildContext context, state) {
+                    return state.maybeMap(
+                      orElse: () => const SizedBox.shrink(),
+                      loading: (_) => const Loader(),
+                      error: (state) => ErrorScreen(
                         error: state.data.error!,
                         onButtonPressed: _controller.retry,
                       ),
-                    dishInfo: (dishState) {
-                      final currentDish = dishState.data.currentDish!;
-                      final currentNutritionType = dishState.data.currentNutritionType;
+                      dishInfo: (dishState) {
+                        final currentDish = dishState.data.currentDish!;
+                        final currentNutritionType = dishState.data.currentNutritionType;
 
-                      return Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Column(
-                            children: [
-                              ServingsAmount(
-                                focusNode: _controller.servingFocusNode,
-                                inputController: _controller.servingController,
-                                onValueChangeHandler: _controller.servingChanged,
-                              ),
-                              NutritionValuesBlock(
-                                portionsFocusNode: _controller.portionsFocusNode,
-                                portionsController: _controller.portionsController,
-                                isPortionsEditable: true,
-                                numberOfPortions: currentDish.numberOfServings.toInt(),
-                                nutritionValuesList: currentDish.serving.list,
-                                selectedNutritionType: currentNutritionType,
-                                onNutritionFactSelect: _controller.nutritionFactSelect,
-                              ),
-                              DishList(
-                                list: currentDish.foodItems,
-                                nutritionKey: currentNutritionType.name,
-                                onDeleteHandler: _onDeleteFoodItem,
-                                onListItemTapHandler: _onTapFoodItem,
-                                isScrollable: false,
-                              ),
-                              const SizedBox(height: 20),
-                              ValueListenableBuilder<double>(
-                                valueListenable: _controller.servingsAmount,
-                                builder: (context, amount, _) {
-                                  return NutritionSummary(
-                                    proteinDegree: currentDish.proteinDegreeValue,
-                                    calorieDensity: currentDish.calorieDensityValue,
-                                    fiber: currentDish.fiberSum * amount,
-                                    carbFiberRatio: currentDish.carbFiberRatio,
-                                    carbsPercent: currentDish.carbsPercent,
-                                    totalCalories: currentDish.caloriesSumWithDrinks * amount,
-                                    totalCarbs: currentDish.carbsSum * amount,
-                                  );
-                                }
-                              ),
-                              const SizedBox(height: 15.0),
-                              MainContainer(
-                                child: Row(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    CustomOutlinedButton.blueSmall(
-                                      label: LocalizedTexts.addFoodItem.tr(),
-                                      onPressed: _onAddFoodItemHandler,
-                                    ),
-                                    if (widget.mode == EditDishPageMode.edit)
+                        return Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Column(
+                              children: [
+                                ServingsAmount(
+                                  focusNode: _controller.servingFocusNode,
+                                  inputController: _controller.servingController,
+                                  onValueChangeHandler: _controller.servingChanged,
+                                ),
+                                NutritionValuesBlock(
+                                  portionsFocusNode: _controller.portionsFocusNode,
+                                  portionsController: _controller.portionsController,
+                                  isPortionsEditable: true,
+                                  numberOfPortions: currentDish.numberOfServings.toInt(),
+                                  nutritionValuesList: currentDish.serving.list,
+                                  selectedNutritionType: currentNutritionType,
+                                  onNutritionFactSelect: _controller.nutritionFactSelect,
+                                ),
+                                DishList(
+                                  list: currentDish.foodItems,
+                                  nutritionKey: currentNutritionType.name,
+                                  onDeleteHandler: _onDeleteFoodItem,
+                                  onListItemTapHandler: _onTapFoodItem,
+                                  isScrollable: false,
+                                ),
+                                const SizedBox(height: 20),
+                                ValueListenableBuilder<double>(
+                                    valueListenable: _controller.servingsAmount,
+                                    builder: (context, amount, _) {
+                                      return NutritionSummary(
+                                        proteinDegree: currentDish.proteinDegreeValue,
+                                        calorieDensity: currentDish.calorieDensityValue,
+                                        fiber: currentDish.fiberSum * amount,
+                                        carbFiberRatio: currentDish.carbFiberRatio,
+                                        carbsPercent: currentDish.carbsPercent,
+                                        totalCalories: currentDish.caloriesSumWithDrinks * amount,
+                                        totalCarbs: currentDish.carbsSum * amount,
+                                      );
+                                    }),
+                                const SizedBox(height: 15.0),
+                                MainContainer(
+                                  child: Row(
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                    children: [
                                       CustomOutlinedButton.blueSmall(
-                                        label: LocalizedTexts.deleteDish.tr(),
-                                        onPressed: _controller.deleteDish,
+                                        label: LocalizedTexts.addFoodItem.tr(),
+                                        onPressed: _onAddFoodItemHandler,
                                       ),
-                                  ],
+                                      if (widget.mode == EditDishPageMode.edit)
+                                        CustomOutlinedButton.blueSmall(
+                                          label: LocalizedTexts.deleteDish.tr(),
+                                          onPressed: _controller.deleteDish,
+                                        ),
+                                    ],
+                                  ),
                                 ),
-                              ),
-                              const SizedBox(height: 15.0),
-                            ],
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.only(bottom: 30.0),
-                            child: MainContainer(
-                              child: dishState.maybeMap(
-                                dishInfo: (state) => CustomElevatedButton.blueFullWidth(
-                                  onPressed: state.data.hasFoodItems
-                                      ? _onSaveDishHandler
-                                      : null,
-                                  label: LocalizedTexts.save.tr(),
+                                const SizedBox(height: 15.0),
+                              ],
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.only(bottom: 30.0),
+                              child: MainContainer(
+                                child: dishState.maybeMap(
+                                  dishInfo: (state) => CustomElevatedButton.blueFullWidth(
+                                    onPressed: state.data.hasFoodItems ? _onSaveDishHandler : null,
+                                    label: LocalizedTexts.save.tr(),
+                                  ),
+                                  orElse: () => const SizedBox.shrink(),
                                 ),
-                                orElse: () => const SizedBox.shrink(),
                               ),
                             ),
-                          ),
-                        ],
-                      );
-                    },
-                  );
-                },
+                          ],
+                        );
+                      },
+                    );
+                  },
+                ),
               ),
             ),
           ),

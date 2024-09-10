@@ -11,8 +11,7 @@ class MealsResponse {
 
   const MealsResponse(this.data);
 
-  static MealsResponse fromJson(Map<String, dynamic> json) =>
-      _$MealsResponseFromJson(json);
+  static MealsResponse fromJson(Map<String, dynamic> json) => _$MealsResponseFromJson(json);
 
   Map<String, dynamic> toJson() => _$MealsResponseToJson(this);
 }

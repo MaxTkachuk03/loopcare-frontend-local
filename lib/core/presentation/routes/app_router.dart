@@ -196,10 +196,6 @@ class AppRouter extends $AppRouter {
           page: FoodPreferencesRoute.page,
         ), // added
         AutoRoute(
-          path: AppRoutes.lessonCompleteFoodPreferences,
-          page: LessonCompleteFoodPreferencesRoute.page,
-        ), // added
-        AutoRoute(
           path: AppRoutes.physicalPreferences,
           page: PhysicalPreferencesRoute.page,
         ), // added

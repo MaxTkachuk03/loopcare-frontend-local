@@ -15,12 +15,13 @@ class MentalQuestionsState with _$MentalQuestionsState {
     DateTime? startTestTime,
   }) = _MentalQuestionsState;
 
-
   factory MentalQuestionsState.initial() => const MentalQuestionsState();
 
-  factory MentalQuestionsState.fromJson(Map<String, dynamic> json) => _$MentalQuestionsStateFromJson(json);
+  factory MentalQuestionsState.fromJson(Map<String, dynamic> json) =>
+      _$MentalQuestionsStateFromJson(json);
 
-  bool get isPhq8TestHigh => results[MentalHealthTestType.phq8]?.interpretation == InterpretationType.high;
+  bool get isPhq8TestHigh =>
+      results[MentalHealthTestType.phq8]?.interpretation == InterpretationType.high;
 
   bool showEmergencyBtn(MentalHealthTestType type) {
     if (type == MentalHealthTestType.who5) return false;

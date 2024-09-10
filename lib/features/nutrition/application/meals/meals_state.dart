@@ -206,7 +206,9 @@ class MealsStateData with _$MealsStateData, NutritionUtils {
 
     final selectedDayMeals = mealsMap[currentDateTime.isoStringWithoutTime] ?? <MealsListItem>[];
 
-    return selectedDayMeals.firstWhere((item) => item.mealCategory == currentMealCategory?.originalValue).serving;
+    return selectedDayMeals
+        .firstWhere((item) => item.mealCategory == currentMealCategory?.originalValue)
+        .serving;
   }
 
   List<MealItem> get currentFoodItems {
@@ -216,7 +218,8 @@ class MealsStateData with _$MealsStateData, NutritionUtils {
 
     final selectedDayMeals = mealsMap[currentDateTime.isoStringWithoutTime] ?? <MealsListItem>[];
 
-    final MealsListItem? currentMeal = selectedDayMeals.firstWhereOrNull((item) => item.id == currentMealId);
+    final MealsListItem? currentMeal =
+        selectedDayMeals.firstWhereOrNull((item) => item.id == currentMealId);
 
     if (currentMeal == null) {
       return <MealItem>[];
@@ -230,12 +233,13 @@ class MealsStateData with _$MealsStateData, NutritionUtils {
       return false;
     }
 
-    final MealsListItem? currentMeal =
-        meals[currentDate?.isoStringWithoutTime]?.firstWhereOrNull((item) => item.id == currentMealId);
+    final MealsListItem? currentMeal = meals[currentDate?.isoStringWithoutTime]
+        ?.firstWhereOrNull((item) => item.id == currentMealId);
 
     if (currentMeal == null) return false;
 
-    return currentMeal.mealItems.any((e) => e.type == MealItemType.recipe || e.type == MealItemType.dish);
+    return currentMeal.mealItems
+        .any((e) => e.type == MealItemType.recipe || e.type == MealItemType.dish);
   }
 
   double get currentMealProteinDegree {
@@ -245,7 +249,8 @@ class MealsStateData with _$MealsStateData, NutritionUtils {
 
     final selectedDayMeals = mealsMap[currentDateTime.isoStringWithoutTime] ?? <MealsListItem>[];
 
-    final MealsListItem? currentMeal = selectedDayMeals.firstWhereOrNull((item) => item.id == currentMealId);
+    final MealsListItem? currentMeal =
+        selectedDayMeals.firstWhereOrNull((item) => item.id == currentMealId);
 
     if (currentMeal == null) return 0;
 
@@ -259,7 +264,8 @@ class MealsStateData with _$MealsStateData, NutritionUtils {
 
     final selectedDayMeals = mealsMap[currentDateTime.isoStringWithoutTime] ?? <MealsListItem>[];
 
-    final MealsListItem? currentMeal = selectedDayMeals.firstWhereOrNull((item) => item.id == currentMealId);
+    final MealsListItem? currentMeal =
+        selectedDayMeals.firstWhereOrNull((item) => item.id == currentMealId);
 
     if (currentMeal == null) return 0;
 
@@ -273,7 +279,8 @@ class MealsStateData with _$MealsStateData, NutritionUtils {
 
     final selectedDayMeals = mealsMap[currentDateTime.isoStringWithoutTime] ?? <MealsListItem>[];
 
-    final MealsListItem? currentMeal = selectedDayMeals.firstWhereOrNull((item) => item.id == currentMealId);
+    final MealsListItem? currentMeal =
+        selectedDayMeals.firstWhereOrNull((item) => item.id == currentMealId);
 
     if (currentMeal == null) return 0;
 
@@ -287,7 +294,8 @@ class MealsStateData with _$MealsStateData, NutritionUtils {
 
     final selectedDayMeals = mealsMap[currentDateTime.isoStringWithoutTime] ?? <MealsListItem>[];
 
-    final MealsListItem? currentMeal = selectedDayMeals.firstWhereOrNull((item) => item.id == currentMealId);
+    final MealsListItem? currentMeal =
+        selectedDayMeals.firstWhereOrNull((item) => item.id == currentMealId);
 
     if (currentMeal == null) return 0;
 
@@ -301,7 +309,8 @@ class MealsStateData with _$MealsStateData, NutritionUtils {
 
     final selectedDayMeals = mealsMap[currentDateTime.isoStringWithoutTime] ?? <MealsListItem>[];
 
-    final MealsListItem? currentMeal = selectedDayMeals.firstWhereOrNull((item) => item.id == currentMealId);
+    final MealsListItem? currentMeal =
+        selectedDayMeals.firstWhereOrNull((item) => item.id == currentMealId);
 
     if (currentMeal == null) return 0;
 
@@ -315,7 +324,8 @@ class MealsStateData with _$MealsStateData, NutritionUtils {
 
     final selectedDayMeals = mealsMap[currentDateTime.isoStringWithoutTime] ?? <MealsListItem>[];
 
-    final MealsListItem? currentMeal = selectedDayMeals.firstWhereOrNull((item) => item.id == currentMealId);
+    final MealsListItem? currentMeal =
+        selectedDayMeals.firstWhereOrNull((item) => item.id == currentMealId);
 
     if (currentMeal == null) return 0;
 
@@ -329,7 +339,8 @@ class MealsStateData with _$MealsStateData, NutritionUtils {
 
     final selectedDayMeals = mealsMap[currentDateTime.isoStringWithoutTime] ?? <MealsListItem>[];
 
-    final MealsListItem? currentMeal = selectedDayMeals.firstWhereOrNull((item) => item.id == currentMealId);
+    final MealsListItem? currentMeal =
+        selectedDayMeals.firstWhereOrNull((item) => item.id == currentMealId);
 
     if (currentMeal == null) return 0;
 

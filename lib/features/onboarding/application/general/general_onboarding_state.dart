@@ -20,7 +20,8 @@ class GeneralOnboardingState with _$GeneralOnboardingState {
     MentalHealthQuestion? currentMentalQuestion,
   }) = _GeneralOnboardingState;
 
-  factory GeneralOnboardingState.fromJson(Map<String, dynamic> json) => _$GeneralOnboardingStateFromJson(json);
+  factory GeneralOnboardingState.fromJson(Map<String, dynamic> json) =>
+      _$GeneralOnboardingStateFromJson(json);
 
   PhysicalQuestionStep get currentPhysicalStep =>
       physicalPassedStack.isNotEmpty ? physicalPassedStack.last : PhysicalQuestionStep.intro;
@@ -74,8 +75,9 @@ class GeneralOnboardingState with _$GeneralOnboardingState {
 
   int get _mentalStepIndex {
     final testIndex = mentalTests.indexOf(currentMentalTest ?? mentalTests.first);
-    final questionIndex =
-        currentMentalTest?.questions.indexOf(currentMentalQuestion ?? mentalTests.first.questions.first) ?? 0;
+    final questionIndex = currentMentalTest?.questions
+            .indexOf(currentMentalQuestion ?? mentalTests.first.questions.first) ??
+        0;
 
     int progress = 1;
     for (int i = 0; i <= testIndex; i++) {
@@ -146,12 +148,16 @@ class GeneralOnboardingState with _$GeneralOnboardingState {
         GeneralOnboardingStep.mental => !currentMentalStep.isResult,
       };
 
-  bool get isLastMentalQuestion =>
-      currentMentalTest != null ? currentMentalTest!.questions.isLast(currentMentalQuestion!) : false;
+  bool get isLastMentalQuestion => currentMentalTest != null
+      ? currentMentalTest!.questions.isLast(currentMentalQuestion!)
+      : false;
 
-  bool get isLastMentalTest => mentalTests.isNotEmpty ? mentalTests.isLast(currentMentalTest!) : false;
+  bool get isLastMentalTest =>
+      mentalTests.isNotEmpty ? mentalTests.isLast(currentMentalTest!) : false;
 
-  bool get isStarted => generalStep != GeneralOnboardingStep.physical || !currentPhysicalStep.isIntro;
+  bool get isStarted =>
+      generalStep != GeneralOnboardingStep.physical || !currentPhysicalStep.isIntro;
 
-  bool get isCompleted => generalStep == GeneralOnboardingStep.mental && currentMentalStep == MentalQuestionStep.result;
+  bool get isCompleted =>
+      generalStep == GeneralOnboardingStep.mental && currentMentalStep == MentalQuestionStep.result;
 }

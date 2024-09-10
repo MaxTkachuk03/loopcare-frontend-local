@@ -49,10 +49,11 @@ class CategoryLabel extends StatelessWidget {
   factory CategoryLabel.groupSession() =>
       CategoryLabel(label: LocalizedTexts.groupSession.tr(), color: AppColors.petrolRegular);
 
-  factory CategoryLabel.buddy() =>
-      CategoryLabel( label: LocalizedTexts.buddy.tr(),
+  factory CategoryLabel.buddy() => CategoryLabel(
+        label: LocalizedTexts.buddy.tr(),
         color: AppColors.orangeRegular,
-        textColor: AppColors.blueDarker,);
+        textColor: AppColors.blueDarker,
+      );
 
   factory CategoryLabel.smartGoals({required String label}) =>
       CategoryLabel(label: label, color: AppColors.greenRegular, textColor: AppColors.blueDarker);

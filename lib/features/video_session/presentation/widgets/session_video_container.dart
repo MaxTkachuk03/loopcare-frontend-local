@@ -93,15 +93,18 @@ class _SessionVideoContainerState extends State<SessionVideoContainer> with Widg
     }
 
     if (isVideoInProgress) {
-      _videoPlayerController?.seekTo(Duration(seconds: widget.sessionTimer - currentEvent.eventStartTime));
+      _videoPlayerController
+          ?.seekTo(Duration(seconds: widget.sessionTimer - currentEvent.eventStartTime));
     }
   }
 
   void _checkIfHasVideoForCurrentTime() {
-    final List<GroupSessionProgramEvent> videoEvents = context.read<TopicsBloc>().state.data.videoEvents;
+    final List<GroupSessionProgramEvent> videoEvents =
+        context.read<TopicsBloc>().state.data.videoEvents;
     final videoEventForCurrentTime = videoEvents.lastWhereOrNull(
         (e) => e.eventStartTime <= widget.sessionTimer && widget.sessionTimer <= e.eventEndTime);
-    if (videoEventForCurrentTime == null || _completedEventsIds.contains(videoEventForCurrentTime.id)) return;
+    if (videoEventForCurrentTime == null ||
+        _completedEventsIds.contains(videoEventForCurrentTime.id)) return;
     setState(() {
       _currentVideoEvent = videoEventForCurrentTime;
     });
@@ -139,8 +142,9 @@ class _SessionVideoContainerState extends State<SessionVideoContainer> with Widg
     _videoPlayerController = VideoPlayerController.networkUrl(Uri.parse(videoLink),
         httpHeaders: headers, videoPlayerOptions: VideoPlayerOptions(allowBackgroundPlayback: true))
       ..initialize().then((value) {
-        final bool isVideoInProgress = (_currentVideoEvent?.eventStartTime ?? 0) <= widget.sessionTimer &&
-            widget.sessionTimer <= (_currentVideoEvent?.eventEndTime ?? 0);
+        final bool isVideoInProgress =
+            (_currentVideoEvent?.eventStartTime ?? 0) <= widget.sessionTimer &&
+                widget.sessionTimer <= (_currentVideoEvent?.eventEndTime ?? 0);
         final int startPosition =
             isVideoInProgress ? widget.sessionTimer - (_currentVideoEvent?.eventStartTime ?? 0) : 0;
 
@@ -288,7 +292,8 @@ class _SessionVideoContainerState extends State<SessionVideoContainer> with Widg
                       ValueListenableBuilder(
                         valueListenable: controller,
                         builder: (BuildContext context, VideoPlayerValue value, child) {
-                          final videoFinished = value.isInitialized && value.position == value.duration;
+                          final videoFinished =
+                              value.isInitialized && value.position == value.duration;
 
                           if (videoFinished) _onVideoEnds();
 
@@ -316,7 +321,8 @@ class _SessionVideoContainerState extends State<SessionVideoContainer> with Widg
                                     const SizedBox(width: 10),
                                     CustomText.w400(
                                       (value.duration - value.position).toDurationString,
-                                      style: context.textTheme.bodyMedium?.copyWith(color: AppColors.white),
+                                      style: context.textTheme.bodyMedium
+                                          ?.copyWith(color: AppColors.white),
                                     ),
                                   ],
                                 ),

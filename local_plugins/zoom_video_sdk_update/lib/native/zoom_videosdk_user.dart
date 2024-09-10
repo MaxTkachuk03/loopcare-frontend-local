@@ -8,30 +8,47 @@ import 'package:flutter_zoom_videosdk/native/zoom_videosdk_video_status.dart';
 
 /// Zoom Video SDK User
 class ZoomVideoSdkUser {
-  String userId; /// the identify of the user
-  String customUserId; /// the custom identify of the user
-  String userName; /// the name of the user
-  bool? isHost; /// true: if the user is the host of the session
-  bool? isManager; /// true: if the user is the manager of the session
-  bool isSharing; /// true: if the user is sharing
-  bool? hasMultiCamera; /// true: if the user has multiple cameras
-  String? multiCameraIndex; /// the index of the multiple cameras
-  ZoomVideoSdkAudioStatus? audioStatus; /// the audio status of the user
-  ZoomVideoSdkVideoStatus? videoStatus; /// the video status of the user
-  ZoomVideoSdkVideoStatisticInfo? videoStatisticInfo; /// the video statistic information of the user
-  ZoomVideoSdkShareStatisticInfo? shareStatisticInfo; /// the share statistic information of the user
+  String userId;
+
+  /// the identify of the user
+  String customUserId;
+
+  /// the custom identify of the user
+  String userName;
+
+  /// the name of the user
+  bool? isHost;
+
+  /// true: if the user is the host of the session
+  bool? isManager;
+
+  /// true: if the user is the manager of the session
+  bool isSharing;
+
+  /// true: if the user is sharing
+  bool? hasMultiCamera;
+
+  /// true: if the user has multiple cameras
+  String? multiCameraIndex;
+
+  /// the index of the multiple cameras
+  ZoomVideoSdkAudioStatus? audioStatus;
+
+  /// the audio status of the user
+  ZoomVideoSdkVideoStatus? videoStatus;
+
+  /// the video status of the user
+  ZoomVideoSdkVideoStatisticInfo? videoStatisticInfo;
+
+  /// the video statistic information of the user
+  ZoomVideoSdkShareStatisticInfo? shareStatisticInfo;
+
+  /// the share statistic information of the user
 
   final methodChannel = const MethodChannel('flutter_zoom_videosdk');
 
-  ZoomVideoSdkUser(
-      this.userId,
-      this.customUserId,
-      this.userName,
-      this.isHost,
-      this.isManager,
-      this.hasMultiCamera,
-      this.multiCameraIndex,
-      this.isSharing);
+  ZoomVideoSdkUser(this.userId, this.customUserId, this.userName, this.isHost, this.isManager,
+      this.hasMultiCamera, this.multiCameraIndex, this.isSharing);
 
   ZoomVideoSdkUser.fromJson(Map<String, dynamic> json)
       : userId = json['userId'],

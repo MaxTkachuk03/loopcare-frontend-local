@@ -10,18 +10,20 @@ Follow these steps to set up a project:
 1. Clone project to local machine.
 2. Run command `flutter pub get` to get dependencies listed in the `pubspec.yaml`.
 3. Run command `flutter packages pub run build_runner build` to generate code.
-4. Project contains flutter flavors, please check the documentation to get familiar with the concept [Link](https://docs.flutter.dev/deployment/flavors)
-5. We have `dev`, `stag`, `uat` and `prod` flavors in the project. To run app with specified flutter flavor run `flutter run --flavor <flavor_name> --dart-define FLAVOR="<flavor_name>"`. `--dart-define FLAVOR="<flavor_name>"` used to load right env file
-6. You can setup IDE to run application with the different flavors. Check the [documentation](https://loopcare.atlassian.net/wiki/spaces/LOOPCARE/pages/52035601/Getting+started)
-7. To setup firebase for all environments, download `google-services.json` files for each environment, you can do it from firebase
-8. Create `dev`, `stag`, `uat` and `prod` folders in `android/app/src` folder
-9. Put `google-services.json` to the `android/app/src/<env_name>` (ex. `android/app/src/dev`) folder, if there is no such folder, you have to create it. Folder name should be exact as flavour name, because android by default looks to the folder with the flavour name
-10. Create `config` folder in the `ios` folder, then create `dev`, `stag`, `uat` and `prod` folders in the `config` folder, so next paths should be valid `ios/config/dev` and `ios/config/prod`
-11. Download firebase `GoogleService-Info.plist` files for each environment from the firebase
-12. Put `GoogleService-Info.plist` to the `ios/config<env_name>` (ex. `ios/config/dev`) folder, if there is no such folder, you have to create it. Project has custom build script that will copy right plist file to the runner folder during the build process.
-13. Create `.env.dev`, `.env.stag`, `.env.uat` and `.env.prod` files in the root directory.
-14. File `.env.example` contains needed variable names, copy it to the `.env.dev`, `.env.stag`, `.env.uat` and `.env.prod`.You can find env file variable values in the project [documentation](https://loopcare.atlassian.net/wiki/spaces/LOOPCARE/pages/53739539/Environment+variables). Also firebase variables you can get from the `google-services.json` and `GoogleService-Info.plist` respectively.
-15. Add [keystore.properties](https://loopcare.atlassian.net/wiki/spaces/LOOPCARE/pages/285540355/Keystore.properties) into `android/` folder and [loopcare_cert.jks](https://loopcare.atlassian.net/wiki/spaces/LOOPCARE/pages/285605897/loopcare+cert.jks) into `android/app` folder.
+4. Run command `chmod +x setup.sh` to add executable permissions to the `setup.sh` file.
+5. Run command `./setup.sh` to setup git hooks.
+6. Project contains flutter flavors, please check the documentation to get familiar with the concept [Link](https://docs.flutter.dev/deployment/flavors)
+7. We have `dev`, `stag`, `uat` and `prod` flavors in the project. To run app with specified flutter flavor run `flutter run --flavor <flavor_name> --dart-define FLAVOR="<flavor_name>"`. `--dart-define FLAVOR="<flavor_name>"` used to load right env file
+8. You can setup IDE to run application with the different flavors. Check the [documentation](https://loopcare.atlassian.net/wiki/spaces/LOOPCARE/pages/52035601/Getting+started)
+9. To setup firebase for all environments, download `google-services.json` files for each environment, you can do it from firebase
+10. Create `dev`, `stag`, `uat` and `prod` folders in `android/app/src` folder
+11. Put `google-services.json` to the `android/app/src/<env_name>` (ex. `android/app/src/dev`) folder, if there is no such folder, you have to create it. Folder name should be exact as flavour name, because android by default looks to the folder with the flavour name
+12. Create `config` folder in the `ios` folder, then create `dev`, `stag`, `uat` and `prod` folders in the `config` folder, so next paths should be valid `ios/config/dev` and `ios/config/prod`
+13. Download firebase `GoogleService-Info.plist` files for each environment from the firebase
+14. Put `GoogleService-Info.plist` to the `ios/config<env_name>` (ex. `ios/config/dev`) folder, if there is no such folder, you have to create it. Project has custom build script that will copy right plist file to the runner folder during the build process.
+15. Create `.env.dev`, `.env.stag`, `.env.uat` and `.env.prod` files in the root directory.
+16. File `.env.example` contains needed variable names, copy it to the `.env.dev`, `.env.stag`, `.env.uat` and `.env.prod`.You can find env file variable values in the project [documentation](https://loopcare.atlassian.net/wiki/spaces/LOOPCARE/pages/53739539/Environment+variables). Also firebase variables you can get from the `google-services.json` and `GoogleService-Info.plist` respectively.
+17. Add [keystore.properties](https://loopcare.atlassian.net/wiki/spaces/LOOPCARE/pages/285540355/Keystore.properties) into `android/` folder and [loopcare_cert.jks](https://loopcare.atlassian.net/wiki/spaces/LOOPCARE/pages/285605897/loopcare+cert.jks) into `android/app` folder.
 
 ## Setup fastlane
 

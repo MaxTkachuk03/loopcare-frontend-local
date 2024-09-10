@@ -25,7 +25,8 @@ class AddToFavoritesResponse {
     this.serving,
   );
 
-  static AddToFavoritesResponse fromJson(Map<String, dynamic> json) => _$AddToFavoritesResponseFromJson(json);
+  static AddToFavoritesResponse fromJson(Map<String, dynamic> json) =>
+      _$AddToFavoritesResponseFromJson(json);
 
   Map<String, dynamic> toJson() => _$AddToFavoritesResponseToJson(this);
 }

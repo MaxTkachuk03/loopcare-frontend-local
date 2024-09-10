@@ -39,14 +39,13 @@ class ProgramFooterOverlay extends StatelessWidget {
 
     context.read<ProgramsInProgressBloc>().add(ProgramsInProgressEvent.setProgram(program));
 
-    const AnalyticsEventService().logEvent(eventName:
-    AnalyticsEvents.programStarted,
+    const AnalyticsEventService().logEvent(
+      eventName: AnalyticsEvents.programStarted,
       parameters: {
         AnalyticsParameters.programId: program.id,
         AnalyticsParameters.timestamp: DateTime.now().toIso8601String(),
       },
     );
-
 
     context.router.push(VideoRoute(program: program));
   }

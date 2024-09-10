@@ -113,7 +113,9 @@ class _FavoriteListState extends State<FavoriteList> with AutomaticKeepAliveClie
                                 ),
                               ),
                             ),
-                      state.selectedFavoritesItemsLength > 0 ? const FooterOverlay() : const SizedBox.shrink()
+                      state.selectedFavoritesItemsLength > 0
+                          ? const FooterOverlay()
+                          : const SizedBox.shrink()
                     ],
                   ),
                 );
@@ -128,6 +130,8 @@ class _FavoriteListState extends State<FavoriteList> with AutomaticKeepAliveClie
   }
 
   _onConfirmed(BuildContext context, List<MealCategoryFilter> updatedFiltersList) {
-    context.read<SelectFoodBloc>().add(SelectFoodEvent.filterFavorites(updatedFiltersList.toIList()));
+    context
+        .read<SelectFoodBloc>()
+        .add(SelectFoodEvent.filterFavorites(updatedFiltersList.toIList()));
   }
 }

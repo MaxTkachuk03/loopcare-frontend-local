@@ -53,15 +53,15 @@ class GoalReviewCard extends StatelessWidget {
           height: 12.0,
         ),
         CustomText.w400(
-          LocalizedTexts.smartGoalsGoalLogDays.getPlural(args: {'count': item.requiredCompletions}),
+          LocalizedTexts.smartGoalsGoalLogDays.plural(count: item.requiredCompletions),
           style: context.textTheme.bodyMedium,
         ),
         CustomText.w400(
-          LocalizedTexts.smartGoalsGoalLogged.getPlural(args: {'count': item.completionsDays}),
+          LocalizedTexts.smartGoalsGoalLogged.plural(count: item.completionsDays),
           style: context.textTheme.bodyMedium,
         ),
         CustomText.w400(
-          LocalizedTexts.smartGoalsGoalTotalCompletions.getPlural(args: {'count': item.completionsAmount}),
+          LocalizedTexts.smartGoalsGoalTotalCompletions.plural(count: item.completionsAmount),
           style: context.textTheme.bodyMedium,
         ),
         CustomText.w400(

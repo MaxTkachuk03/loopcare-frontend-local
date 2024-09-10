@@ -13,6 +13,5 @@ abstract class AddWeightBody implements _$AddWeightBody {
     required String date,
   }) = _AddWeightBody;
 
-  factory AddWeightBody.fromJson(Map<String, dynamic> json) =>
-      _$AddWeightBodyFromJson(json);
+  factory AddWeightBody.fromJson(Map<String, dynamic> json) => _$AddWeightBodyFromJson(json);
 }

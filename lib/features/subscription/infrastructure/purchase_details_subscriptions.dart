@@ -1,3 +1,6 @@
+// FIXME: transitive dependencies should be installed if used, check during subscriptions refactoring
+// ignore_for_file: depend_on_referenced_packages
+
 import 'dart:async';
 import 'dart:io';
 

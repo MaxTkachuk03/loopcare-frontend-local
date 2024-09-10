@@ -14,8 +14,7 @@ class EditDishController {
     required EditDishBloc editDishBloc,
     required this.retryEvent,
     required this.mode,
-  }) : _editDishBloc = editDishBloc
-  {
+  }) : _editDishBloc = editDishBloc {
     _editDishBloc.add(retryEvent);
     servingController.text = editDishBloc.state.data.servingAmount;
     portionsController.text = editDishBloc.state.data.numberOfPortions;
@@ -42,10 +41,6 @@ class EditDishController {
   bool _isChangesSaved = false;
 
   void dispose() {
-    if (mode == EditDishPageMode.create && !_isChangesSaved) {
-      deleteDish();
-    }
-
     servingFocusNode.dispose();
     portionsFocusNode.dispose();
     dishNameFocusNode.dispose();
@@ -74,6 +69,12 @@ class EditDishController {
   void servingChanged(String value) {
     servingsAmount.value = double.parse(value.isEmpty ? '0' : value);
     servingController.text = value;
+  }
+
+  void onPop() {
+    if (mode == EditDishPageMode.create && !_isChangesSaved) {
+      deleteDish();
+    }
   }
 
   String? validate() {
@@ -131,9 +132,16 @@ class EditDishController {
 
   void nutritionFactSelect(NutritionValuesTypes item) =>
       _editDishBloc.add(EditDishEvent.nutritionItemChanged(item));
-  
+
   void retry() {
     _editDishBloc.add(retryEvent);
+  }
+
+  void updateFields(EditDishData data) {
+    dishNameController.text = data.currentDish?.name ?? '';
+    servingController.text = data.numberOfServings;
+    portionsController.text = data.numberOfPortions;
+    servingsAmount.value = double.parse(data.numberOfServings);
   }
 
   void deleteDish() => _editDishBloc.add(const EditDishEvent.deleteDish());

@@ -13,7 +13,8 @@ class GroupSessionsResponse {
     required this.data,
   });
 
-  static GroupSessionsResponse fromJson(Map<String, dynamic> json) => _$GroupSessionsResponseFromJson(json);
+  static GroupSessionsResponse fromJson(Map<String, dynamic> json) =>
+      _$GroupSessionsResponseFromJson(json);
 
   Map<String, dynamic> toJson() => _$GroupSessionsResponseToJson(this);
 }

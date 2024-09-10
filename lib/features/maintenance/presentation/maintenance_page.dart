@@ -12,7 +12,7 @@ import 'package:loopcare_frontend/core/presentation/widgets/main_container.dart'
 
 @RoutePage()
 class MaintenancePage extends StatelessWidget {
-  const MaintenancePage ({super.key});
+  const MaintenancePage({super.key});
 
   @override
   Widget build(BuildContext context) {

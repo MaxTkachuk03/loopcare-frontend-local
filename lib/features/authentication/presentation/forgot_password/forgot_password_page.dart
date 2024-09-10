@@ -75,9 +75,7 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
                   ),
                   const SizedBox(height: 30.0),
                   ForgotPasswordForm(
-                    key: const ValueKey('forgot_password_form'),
-                    onFormChanged: _onFormChanged
-                  ),
+                      key: const ValueKey('forgot_password_form'), onFormChanged: _onFormChanged),
                   const SizedBox(height: 28.0),
                 ],
               ),
@@ -98,8 +96,8 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
     );
   }
 
-  void _onContinuePressed() => context.read<AuthenticationBloc>()
-      .add(AuthenticationEvent.forgotPassword(_email));
+  void _onContinuePressed() =>
+      context.read<AuthenticationBloc>().add(AuthenticationEvent.forgotPassword(_email));
 
   void _onFormChanged(String email) {
     _email = email;

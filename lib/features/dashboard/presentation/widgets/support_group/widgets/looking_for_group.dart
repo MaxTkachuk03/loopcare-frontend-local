@@ -13,7 +13,8 @@ import 'package:loopcare_frontend/features/authentication/application/authentica
 class LookingForGroup extends StatelessWidget {
   const LookingForGroup({super.key});
 
-  void _onMoreInfoPressed(BuildContext context) => context.router.pushNamed(AppRoutes.groupPreferences);
+  void _onMoreInfoPressed(BuildContext context) =>
+      context.router.pushNamed(AppRoutes.groupPreferences);
 
   @override
   Widget build(BuildContext context) {

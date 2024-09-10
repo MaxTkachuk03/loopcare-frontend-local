@@ -3,7 +3,7 @@ part of 'physical_questions_bloc.dart';
 @freezed
 class PhysicalQuestionsState with _$PhysicalQuestionsState {
   const PhysicalQuestionsState._();
-  
+
   const factory PhysicalQuestionsState({
     @Default(false) bool isCompletedSuccessfully,
     @Default(false) bool isCompletedWithError,
@@ -29,9 +29,7 @@ class PhysicalQuestionsState with _$PhysicalQuestionsState {
       happiness: happiness,
       gender: genderType!.name,
       weight: double.parse(weightInKg!),
-      sex: sexType != null
-          ? sexType!.name
-          : 'preferNotToSay',
+      sex: sexType != null ? sexType!.name : 'preferNotToSay',
     );
   }
 

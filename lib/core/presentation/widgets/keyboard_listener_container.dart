@@ -11,5 +11,4 @@ class KeyboardContainerListener extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(onTap: () => dismissKeyboard(context), child: child);
   }
-
 }

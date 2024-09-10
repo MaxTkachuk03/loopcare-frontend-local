@@ -6,8 +6,7 @@ part 'add_many_food_items_to_meal_body.freezed.dart';
 part 'add_many_food_items_to_meal_body.g.dart';
 
 @freezed
-abstract class AddManyFoodItemsToMealBody
-    implements _$AddManyFoodItemsToMealBody {
+abstract class AddManyFoodItemsToMealBody implements _$AddManyFoodItemsToMealBody {
   const factory AddManyFoodItemsToMealBody({
     required List<AddFoodItemsListElement> foodItems,
   }) = _AddManyFoodItemsToMealBody;

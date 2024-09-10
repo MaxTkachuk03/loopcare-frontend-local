@@ -34,7 +34,8 @@ Map<String, dynamic> getResponseData(Response? response) {
 
 Either<RequestError, Map<String, dynamic>> handleResponse(Response? response) {
   if (response == null) {
-    return const Left(RequestError.unhandledResponse(ServerErrorData(message: LocalizedTexts.errorSomethingIsIncorrect)));
+    return const Left(RequestError.unhandledResponse(
+        ServerErrorData(message: LocalizedTexts.errorSomethingIsIncorrect)));
   }
 
   // All Error from BE should be handled by statusCode

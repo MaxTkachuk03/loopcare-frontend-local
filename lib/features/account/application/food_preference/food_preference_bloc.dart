@@ -15,8 +15,8 @@ part 'food_preference_state.dart';
 class FoodPreferenceBloc extends Bloc<FoodPreferenceEvent, FoodPreferenceState> {
   final FoodPreferenceService foodPreferenceService;
 
-  FoodPreferenceBloc(this.foodPreferenceService) :
-        super(const FoodPreferenceState.initial(FoodPreferenceData())) {
+  FoodPreferenceBloc(this.foodPreferenceService)
+      : super(const FoodPreferenceState.initial(FoodPreferenceData())) {
     on<FetchFoodPrefsTypes>(_onFetchFoodPrefsTypes);
     on<FoodPrefsPeriods>(_onFoodPrefsPeriods);
     on<FoodPrefsDislikes>(_onFoodPrefsDislikes);

@@ -16,5 +16,6 @@ class SmartGoalCategory with _$SmartGoalCategory {
     @Default(false) bool isNew,
   }) = _SmartGoalCategory;
 
-  factory SmartGoalCategory.fromJson(Map<String, dynamic> json) => _$SmartGoalCategoryFromJson(json);
+  factory SmartGoalCategory.fromJson(Map<String, dynamic> json) =>
+      _$SmartGoalCategoryFromJson(json);
 }

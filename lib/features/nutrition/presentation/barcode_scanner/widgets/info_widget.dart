@@ -23,8 +23,8 @@ class _QRCodeInfoWidgetState extends State<QRCodeInfoWidget> {
 
     context.read<BarcodeScannerBloc>().add((BarcodeScannerEvent.getInformation(widget.code)));
 
-    const AnalyticsEventService().logEvent(eventName:
-      AnalyticsEvents.barcodeScanned,
+    const AnalyticsEventService().logEvent(
+      eventName: AnalyticsEvents.barcodeScanned,
       parameters: {
         AnalyticsParameters.value: widget.code,
         AnalyticsParameters.failedAttempt: widget.code.isEmpty ? 'true' : 'false',

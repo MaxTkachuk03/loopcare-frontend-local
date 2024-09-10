@@ -9,7 +9,8 @@ class MoodOptionItem extends StatelessWidget {
   final String title;
   final Widget subTitle;
 
-  const MoodOptionItem({super.key, required this.onPressed, required this.title, required this.subTitle});
+  const MoodOptionItem(
+      {super.key, required this.onPressed, required this.title, required this.subTitle});
 
   @override
   Widget build(BuildContext context) {

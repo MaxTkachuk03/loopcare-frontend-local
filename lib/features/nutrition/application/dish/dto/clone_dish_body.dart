@@ -12,6 +12,5 @@ abstract class CloneDishBody implements _$CloneDishBody {
     required int dishId,
   }) = _CloneDishBody;
 
-  factory CloneDishBody.fromJson(Map<String, dynamic> json) =>
-      _$CloneDishBodyFromJson(json);
+  factory CloneDishBody.fromJson(Map<String, dynamic> json) => _$CloneDishBodyFromJson(json);
 }

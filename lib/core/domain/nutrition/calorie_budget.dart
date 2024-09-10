@@ -16,9 +16,11 @@ class CalorieBudget {
   static double getNutritionActivityMultiplier(int activitiesFrequency) {
     if (activitiesFrequency.isInRange(_lightMultiplierRange.min, _lightMultiplierRange.max)) {
       return _lightExerciseMultiplier;
-    } else if (activitiesFrequency.isInRange(_moderateMultiplierRange.min, _moderateMultiplierRange.max)) {
+    } else if (activitiesFrequency.isInRange(
+        _moderateMultiplierRange.min, _moderateMultiplierRange.max)) {
       return _moderateExerciseMultiplier;
-    } else if (activitiesFrequency.isInRange(_heavyMultiplierRange.min, _heavyMultiplierRange.max)) {
+    } else if (activitiesFrequency.isInRange(
+        _heavyMultiplierRange.min, _heavyMultiplierRange.max)) {
       return _heavyExerciseMultiplier;
     } else {
       return _noExerciseMultiplier;

@@ -9,10 +9,9 @@ class DeviceData {
   final String uid;
   final String platform;
 
-  const DeviceData({ required this.uid, required this.platform});
+  const DeviceData({required this.uid, required this.platform});
 
-  factory DeviceData.fromJson(Map<String, dynamic> json) =>
-      _$DeviceDataFromJson(json);
+  factory DeviceData.fromJson(Map<String, dynamic> json) => _$DeviceDataFromJson(json);
 
   Map<String, dynamic> toJson() => _$DeviceDataToJson(this);
 }

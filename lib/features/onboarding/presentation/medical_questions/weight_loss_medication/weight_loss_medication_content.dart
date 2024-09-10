@@ -37,7 +37,9 @@ class _WeightLossMedicationContentState extends State<WeightLossMedicationConten
 
   void _onNextPressed(bool value) {
     context.read<GeneralOnboardingBloc>().add(const GeneralOnboardingEvent.nextStep());
-    context.read<MedicalQuestionsBloc>().add(MedicalQuestionsEvent.weightLossMedicationChanged(value));
+    context
+        .read<MedicalQuestionsBloc>()
+        .add(MedicalQuestionsEvent.weightLossMedicationChanged(value));
   }
 
   @override

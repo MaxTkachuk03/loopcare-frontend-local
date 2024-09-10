@@ -138,7 +138,8 @@ class _SubscriptionPageState extends State<SubscriptionPage> {
   void _showPopover() => showDialog<String>(
         context: context,
         builder: (BuildContext context) => AlertDialog(
-          content: CustomText(LocalizedTexts.subscriptionOtherPurchaseVendorCancelAccountSubscription.tr()),
+          content: CustomText(
+              LocalizedTexts.subscriptionOtherPurchaseVendorCancelAccountSubscription.tr()),
           actions: [
             TextButton(
               onPressed: context.router.maybePop,

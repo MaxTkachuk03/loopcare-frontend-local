@@ -83,7 +83,8 @@ abstract class AppLocalizations {
   /// Additional delegates can be added by appending to this list in
   /// MaterialApp. This list does not have to be used at all if a custom list
   /// of delegates is preferred or required.
-  static const List<LocalizationsDelegate<dynamic>> localizationsDelegates = <LocalizationsDelegate<dynamic>>[
+  static const List<LocalizationsDelegate<dynamic>> localizationsDelegates =
+      <LocalizationsDelegate<dynamic>>[
     delegate,
     GlobalMaterialLocalizations.delegate,
     GlobalCupertinoLocalizations.delegate,
@@ -91,11 +92,7 @@ abstract class AppLocalizations {
   ];
 
   /// A list of this localizations delegate's supported locales.
-  static const List<Locale> supportedLocales = <Locale>[
-    Locale('de'),
-    Locale('en'),
-    Locale('nl')
-  ];
+  static const List<Locale> supportedLocales = <Locale>[Locale('de'), Locale('en'), Locale('nl')];
 
   /// No description provided for @errorValidationIosMinVersionNotANumber.
   ///
@@ -6319,6 +6316,30 @@ abstract class AppLocalizations {
   /// **'Now tap the other icons to unlock features and explore.'**
   String get riverGuidanceStartRiverDescription;
 
+  /// No description provided for @riverModuleGraduationCompletedItemsTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Great job. You have completed the lessons in this pool.'**
+  String get riverModuleGraduationCompletedItemsTitle;
+
+  /// No description provided for @riverModuleGraduationCompletedTimeTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Your module is fully colored-in, meaning you  first read the Reflection over 7 days ago.'**
+  String get riverModuleGraduationCompletedTimeTitle;
+
+  /// No description provided for @riverModuleGraduationCompletedItemsMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'You are one step closer to finishing this section. But before you can graduate, we encourage you to practice and reflect on what you have learned in this Pool.\n\nOnce the 7 day timer has has filled this section with color, you can move on to the next pool.'**
+  String get riverModuleGraduationCompletedItemsMessage;
+
+  /// No description provided for @riverModuleGraduationCompletedTimeMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'No rush: Every module takes the time it takes. Keep reflecting! When you’ve completed all the necessary steps, we’ll ask you if you’re ready to move on. Need some help? Reach out by emailing support@lean-on.me, and one of our specialists will be glad to assist.'**
+  String get riverModuleGraduationCompletedTimeMessage;
+
   /// No description provided for @subscriptionTrialTitle.
   ///
   /// In en, this message translates to:
@@ -11730,19 +11751,19 @@ class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> 
 }
 
 AppLocalizations lookupAppLocalizations(Locale locale) {
-
-
   // Lookup logic when only language code is specified.
   switch (locale.languageCode) {
-    case 'de': return AppLocalizationsDe();
-    case 'en': return AppLocalizationsEn();
-    case 'nl': return AppLocalizationsNl();
+    case 'de':
+      return AppLocalizationsDe();
+    case 'en':
+      return AppLocalizationsEn();
+    case 'nl':
+      return AppLocalizationsNl();
   }
 
   throw FlutterError(
-    'AppLocalizations.delegate failed to load unsupported locale "$locale". This is likely '
-    'an issue with the localizations generation tool. Please file an issue '
-    'on GitHub with a reproducible sample app and the gen-l10n configuration '
-    'that was used.'
-  );
+      'AppLocalizations.delegate failed to load unsupported locale "$locale". This is likely '
+      'an issue with the localizations generation tool. Please file an issue '
+      'on GitHub with a reproducible sample app and the gen-l10n configuration '
+      'that was used.');
 }

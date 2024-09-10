@@ -12,5 +12,6 @@ class ProgressSmartGoalLog with _$ProgressSmartGoalLog {
     required int times,
   }) = _ProgressSmartGoalLog;
 
-  factory ProgressSmartGoalLog.fromJson(Map<String, dynamic> json) => _$ProgressSmartGoalLogFromJson(json);
+  factory ProgressSmartGoalLog.fromJson(Map<String, dynamic> json) =>
+      _$ProgressSmartGoalLogFromJson(json);
 }

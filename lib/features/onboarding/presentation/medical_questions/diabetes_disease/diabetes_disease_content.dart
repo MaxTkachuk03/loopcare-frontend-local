@@ -48,7 +48,8 @@ class _DiabetesDiseaseContentState extends State<DiabetesDiseaseContent> {
   void _onNextPressed(DiabetesTypes value) {
     final bloc = context.read<MedicalQuestionsBloc>();
 
-    final diseases = value == DiabetesTypes.typeTwo ? Diseases.diabetesTypeII : Diseases.diabetesTypeI;
+    final diseases =
+        value == DiabetesTypes.typeTwo ? Diseases.diabetesTypeII : Diseases.diabetesTypeI;
 
     bloc.add(MedicalQuestionsEvent.updateDisease(diseases, value: value != DiabetesTypes.no));
     context.read<GeneralOnboardingBloc>().add(const GeneralOnboardingEvent.nextStep());

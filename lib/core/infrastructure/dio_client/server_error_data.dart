@@ -18,7 +18,8 @@ class ServerErrorMessageConverter implements JsonConverter<String, dynamic> {
   const ServerErrorMessageConverter();
 
   @override
-  String fromJson(dynamic message) => message.runtimeType == List ? (message as List).join(', ') : message;
+  String fromJson(dynamic message) =>
+      message.runtimeType == List ? (message as List).join(', ') : message;
 
   @override
   String toJson(String object) => object.toString();

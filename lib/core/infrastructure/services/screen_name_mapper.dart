@@ -92,13 +92,11 @@ final _screenNames = {
   'ExerciseRoute': 'Mind Technique Exercise Screen', // added
 };
 
-String? getScreenName(String? value) => value == null
-    ? null
-    : _screenNames[value] ?? value.replaceLast('Route','Screen').setSpaces();
+String? getScreenName(String? value) =>
+    value == null ? null : _screenNames[value] ?? value.replaceLast('Route', 'Screen').setSpaces();
 
 extension _ScreenNameStringExtension on String {
-  String setSpaces() =>
-      splitMapJoin(RegExp(r'[A-Z]'), onMatch: (s) => ' ${s[0]}').trim();
+  String setSpaces() => splitMapJoin(RegExp(r'[A-Z]'), onMatch: (s) => ' ${s[0]}').trim();
 
   String replaceLast(String from, String to) =>
       replaceFirstMapped(from, (match) => to, length - from.length);

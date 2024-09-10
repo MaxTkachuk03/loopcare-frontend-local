@@ -1,12 +1,12 @@
 import 'package:flutter/services.dart';
 import 'package:plugin_platform_interface/plugin_platform_interface.dart';
+
 ///@nodoc
 abstract class ZoomVideoSdkRecordingHelperPlatform extends PlatformInterface {
   ZoomVideoSdkRecordingHelperPlatform() : super(token: _token);
 
   static final Object _token = Object();
-  static ZoomVideoSdkRecordingHelperPlatform _instance =
-      ZoomVideoSdkRecordingHelper();
+  static ZoomVideoSdkRecordingHelperPlatform _instance = ZoomVideoSdkRecordingHelper();
   static ZoomVideoSdkRecordingHelperPlatform get instance => _instance;
   static set instance(ZoomVideoSdkRecordingHelperPlatform instance) {
     PlatformInterface.verifyToken(instance, _token);
@@ -30,13 +30,11 @@ abstract class ZoomVideoSdkRecordingHelperPlatform extends PlatformInterface {
   }
 
   Future<String> resumeCloudRecording() async {
-    throw UnimplementedError(
-        'resumeCloudRecording() has not been implemented.');
+    throw UnimplementedError('resumeCloudRecording() has not been implemented.');
   }
 
   Future<String> getCloudRecordingStatus() async {
-    throw UnimplementedError(
-        'getCloudRecordingStatus() has not been implemented.');
+    throw UnimplementedError('getCloudRecordingStatus() has not been implemented.');
   }
 }
 

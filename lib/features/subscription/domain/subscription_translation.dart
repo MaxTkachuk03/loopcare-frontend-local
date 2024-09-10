@@ -10,7 +10,6 @@ class SubscriptionTranslation {
   final String? offerDescription;
   final String? badge;
 
-
   const SubscriptionTranslation({
     this.offerDescription,
     this.customBillingPeriodText,

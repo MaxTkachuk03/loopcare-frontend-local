@@ -65,9 +65,12 @@ class NutritionScale extends StatelessWidget {
   factory NutritionScale.calorieDensity({double? value}) => NutritionScale(
         key: _calorieDensityKey,
         topLabel: LocalizedTexts.calorieDensity.tr(),
-        bottomLabel:
-            NutritionValuesDescription.getCalorieDensityItemByValue(value ?? 0).label.tr().capitalize(),
-        color: NutritionIndicatorColorPicker.getIndicatorColor(NutritionIndicatorType.calorieDensity, value),
+        bottomLabel: NutritionValuesDescription.getCalorieDensityItemByValue(value ?? 0)
+            .label
+            .tr()
+            .capitalize(),
+        color: NutritionIndicatorColorPicker.getIndicatorColor(
+            NutritionIndicatorType.calorieDensity, value),
         value: value,
         indicatorLabel: '${value?.toStringAsFixed(1)}',
         isDisabled: value == 0,
@@ -76,9 +79,12 @@ class NutritionScale extends StatelessWidget {
   factory NutritionScale.proteinDegree({double? value}) => NutritionScale(
         key: _proteinDegreeKey,
         topLabel: LocalizedTexts.proteinDegree.tr(),
-        bottomLabel:
-            NutritionValuesDescription.getProteinDegreeItemByValue(value ?? 0).label.tr().capitalize(),
-        color: NutritionIndicatorColorPicker.getIndicatorColor(NutritionIndicatorType.proteinDegree, value),
+        bottomLabel: NutritionValuesDescription.getProteinDegreeItemByValue(value ?? 0)
+            .label
+            .tr()
+            .capitalize(),
+        color: NutritionIndicatorColorPicker.getIndicatorColor(
+            NutritionIndicatorType.proteinDegree, value),
         value: value,
         indicatorLabel: '${value?.round()}%',
         isDisabled: value == 0,
@@ -96,10 +102,14 @@ class NutritionScale extends StatelessWidget {
             '${LocalizedTexts.fiber.tr().capitalize()} ', // add space to make it in 2 two lines with second line empty on the UI
         bottomLabel: isFiberInsignificant
             ? LocalizedTexts.notSignificant.tr()
-            : NutritionValuesDescription.getFiberItemByValue(carbsFiberRatio ?? 0).label.tr().capitalize(),
+            : NutritionValuesDescription.getFiberItemByValue(carbsFiberRatio ?? 0)
+                .label
+                .tr()
+                .capitalize(),
         color: isFiberInsignificant
             ? AppColors.greyLight
-            : NutritionIndicatorColorPicker.getIndicatorColor(NutritionIndicatorType.fiber, carbsFiberRatio),
+            : NutritionIndicatorColorPicker.getIndicatorColor(
+                NutritionIndicatorType.fiber, carbsFiberRatio),
         value: value,
         indicatorLabel: '${value?.toStringAsFixed(1)}g',
         isDisabled: value == 0 || totalCarbs == 0,
@@ -116,8 +126,8 @@ class NutritionScale extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          ...topLabel.split(' ').map(
-              (e) => CustomText.w600(e, style: context.textTheme.bodySmall, textAlign: TextAlign.center)),
+          ...topLabel.split(' ').map((e) =>
+              CustomText.w600(e, style: context.textTheme.bodySmall, textAlign: TextAlign.center)),
           const SizedBox(height: 8.0),
           NutritionIndicator.small(
             label: isDisabled ? '-' : indicatorLabel,

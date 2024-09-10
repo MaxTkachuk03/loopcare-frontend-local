@@ -50,7 +50,8 @@ class RestoreSubscriptionLink extends StatelessWidget {
               ),
               TextSpan(
                 recognizer: TapGestureRecognizer()
-                 ..onTap = () => launchUrl(Uri.parse(LocalizedTexts.linksPrivacyPolicyUrl.tr()), mode: LaunchMode.externalApplication),
+                  ..onTap = () => launchUrl(Uri.parse(LocalizedTexts.linksPrivacyPolicyUrl.tr()),
+                      mode: LaunchMode.externalApplication),
                 text: LocalizedTexts.subscriptionPrivacyLabel.tr(),
                 style: style,
               ),
@@ -63,7 +64,9 @@ class RestoreSubscriptionLink extends StatelessWidget {
             children: <InlineSpan>[
               TextSpan(
                 recognizer: TapGestureRecognizer()
-                 ..onTap = () => launchUrl(Uri.parse(LocalizedTexts.linksTermsAndConditionsUrl.tr()), mode: LaunchMode.externalApplication),
+                  ..onTap = () => launchUrl(
+                      Uri.parse(LocalizedTexts.linksTermsAndConditionsUrl.tr()),
+                      mode: LaunchMode.externalApplication),
                 text: LocalizedTexts.subscriptionTermsLabel.tr(),
                 style: style,
               ),

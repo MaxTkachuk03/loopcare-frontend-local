@@ -53,9 +53,10 @@ class FoodPreferenceData with _$FoodPreferenceData {
       ? foodPeriods.firstWhere((period) => period.id == selectedPeriod).name
       : null;
 
-  bool get userDoesNotEatMeat => selectedHatesNames.contains('Beef') &&
-        selectedHatesNames.contains('Pork') &&
-        selectedHatesNames.contains('Poultry');
+  bool get userDoesNotEatMeat =>
+      selectedHatesNames.contains('Beef') &&
+      selectedHatesNames.contains('Pork') &&
+      selectedHatesNames.contains('Poultry');
 
   bool get userDoesNotEatFish => selectedHatesNames.contains('Fish/shellfish');
 }
