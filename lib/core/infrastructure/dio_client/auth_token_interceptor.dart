@@ -62,7 +62,7 @@ class AuthTokenInterceptor extends Interceptor {
       error: runtimeType,
     );
 
-    if (err.response?.statusCode == 401 || err.response?.statusCode == 402) {
+    if (err.response?.statusCode == 401) {
       log.i(
         'ATTEMPT: ${err.requestOptions.retryAttempt}',
         error: runtimeType,
