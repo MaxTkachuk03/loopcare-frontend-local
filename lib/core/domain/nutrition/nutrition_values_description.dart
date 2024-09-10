@@ -83,15 +83,23 @@ class NutritionValuesDescription {
       fiberDataItems.map((e) => NutritionValueDescriptionItem.fromJson(e)).toList();
 
   static NutritionValueDescriptionItem getCalorieDensityItemByValue(double value) {
-    if (value < calorieDensityItems.first.minValue) return calorieDensityItems.first;
-    if (value > calorieDensityItems.last.maxValue) return calorieDensityItems.last;
+    if (value < calorieDensityItems.first.minValue) {
+      return calorieDensityItems.first;
+    }
+    if (value > calorieDensityItems.last.maxValue) {
+      return calorieDensityItems.last;
+    }
 
     return calorieDensityItems.firstWhere((e) => e.minValue <= value && value <= e.maxValue);
   }
 
   static NutritionValueDescriptionItem getProteinDegreeItemByValue(double value) {
-    if (value < proteinDegreeItems.first.minValue) return proteinDegreeItems.first;
-    if (value > proteinDegreeItems.last.maxValue) return proteinDegreeItems.last;
+    if (value < proteinDegreeItems.first.minValue) {
+      return proteinDegreeItems.first;
+    }
+    if (value > proteinDegreeItems.last.maxValue) {
+      return proteinDegreeItems.last;
+    }
 
     return proteinDegreeItems.firstWhere((e) => e.minValue <= value && value <= e.maxValue);
   }

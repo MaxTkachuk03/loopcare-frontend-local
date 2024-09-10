@@ -60,7 +60,8 @@ class _PaginationListState<T> extends State<PaginationList<T>> {
         SliverPadding(
           padding: EdgeInsets.only(
             top: _kContentPadding,
-            bottom: widget.addBottomPadding ? _kInnerContentPadding + kHolderHeight : _kContentPadding,
+            bottom:
+                widget.addBottomPadding ? _kInnerContentPadding + kHolderHeight : _kContentPadding,
           ),
           sliver: SliverList(
             delegate: SliverChildBuilderDelegate(

@@ -44,21 +44,31 @@ class RiverStateData with _$RiverStateData {
 
   int get currentPage => activeModule != null ? modules.indexOf(activeModule!) : 0;
 
-  bool get isBeginningComplete => modules.isEmpty ||
+  bool get isBeginningComplete =>
+      modules.isEmpty ||
       modules.indexOf(modules.firstWhere(
-        (m) => m.moduleState.isInProgress,
-        orElse: () => modules.last,
-      )) > 0;
+            (m) => m.moduleState.isInProgress,
+            orElse: () => modules.last,
+          )) >
+          0;
 
   bool get isBeginningStarted =>
       currentPage == 0 &&
-          (activeModule?.moduleItems.any((item) => item.states.prevItemState.isCompleted) ?? true);
+      (activeModule?.moduleItems.any((item) => item.states.prevItemState.isCompleted) ?? true);
 
   bool get isProfileCompleted =>
       activeModule?.moduleItems
-          .firstWhereOrNull((item) => item.isProfile)?.states.prevItemState.isCompleted ?? true;
+          .firstWhereOrNull((item) => item.isProfile)
+          ?.states
+          .prevItemState
+          .isCompleted ??
+      true;
 
   bool get isPracticeCompleted =>
       activeModule?.moduleItems
-          .firstWhereOrNull((item) => item.isPractice)?.states.prevItemState.isCompleted ?? true;
+          .firstWhereOrNull((item) => item.isPractice)
+          ?.states
+          .prevItemState
+          .isCompleted ??
+      true;
 }

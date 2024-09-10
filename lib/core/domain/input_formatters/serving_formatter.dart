@@ -19,7 +19,6 @@ class ServingRangeFormatter extends TextInputFormatter {
     TextEditingValue oldValue,
     TextEditingValue newValue,
   ) {
-
     if (newValue.text == '') {
       return const TextEditingValue();
     }

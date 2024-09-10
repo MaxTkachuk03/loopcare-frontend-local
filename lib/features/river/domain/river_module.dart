@@ -32,8 +32,9 @@ extension RiverModuleExtension on RiverModule? {
     return isActiveModuleNotCompleted && timePassed && isModuleItemsCompleted;
   }
 
-  bool get isModuleItemsCompleted => this?.moduleItems.every((i) =>
-          i.states.prevItemState.isCompleted || i.isReadCrossModule) ?? false;
+  bool get isModuleItemsCompleted =>
+      this?.moduleItems.every((i) => i.states.prevItemState.isCompleted || i.isReadCrossModule) ??
+      false;
 
   Future<bool> get isTimePassed async {
     final now = await NTP.now();
@@ -43,8 +44,7 @@ extension RiverModuleExtension on RiverModule? {
   bool get containCompletedCrossModuleItem =>
       this?.moduleItems.any((i) => i.isCompletedCrossModule) ?? false;
 
-  bool get containReadCrossModuleItem =>
-      this?.moduleItems.any((i) => i.isReadCrossModule) ?? false;
+  bool get containReadCrossModuleItem => this?.moduleItems.any((i) => i.isReadCrossModule) ?? false;
 
   bool get containCrossModuleItem => this?.moduleItems.any((i) => i.crossModule) ?? false;
 

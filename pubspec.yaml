@@ -22,7 +22,6 @@ dependencies:
   crowdin_sdk: ^0.6.3
   cupertino_icons: ^1.0.6
   customer_io: ^1.4.0
-  dart_jsonwebtoken: ^2.12.1
   dartz: ^0.10.1
   device_info_plus: 10.1.0
   dio: ^5.5.0+1

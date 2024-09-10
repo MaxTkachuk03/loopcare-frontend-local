@@ -2,13 +2,13 @@ import 'dart:io' show Platform;
 
 import 'package:flutter/services.dart';
 import 'package:plugin_platform_interface/plugin_platform_interface.dart';
+
 ///@nodoc
 abstract class ZoomVideoSdkVideoStatusPlatform extends PlatformInterface {
   ZoomVideoSdkVideoStatusPlatform() : super(token: _token);
 
   static final Object _token = Object();
-  static ZoomVideoSdkVideoStatusPlatform _instance =
-      ZoomVideoSdkVideoStatus("0");
+  static ZoomVideoSdkVideoStatusPlatform _instance = ZoomVideoSdkVideoStatus("0");
   static ZoomVideoSdkVideoStatusPlatform get instance => _instance;
   static set instance(ZoomVideoSdkVideoStatusPlatform instance) {
     PlatformInterface.verifyToken(instance, _token);

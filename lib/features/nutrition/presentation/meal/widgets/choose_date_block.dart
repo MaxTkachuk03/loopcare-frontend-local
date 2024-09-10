@@ -49,7 +49,10 @@ class ChooseDateBlock extends StatelessWidget {
                   children: [
                     Text(
                       LocalizedTexts.thisMealPlannedFor.tr(),
-                      style: Theme.of(context).textTheme.bodySmall?.copyWith(overflow: TextOverflow.ellipsis),
+                      style: Theme.of(context)
+                          .textTheme
+                          .bodySmall
+                          ?.copyWith(overflow: TextOverflow.ellipsis),
                     ),
                     Text(
                       date,

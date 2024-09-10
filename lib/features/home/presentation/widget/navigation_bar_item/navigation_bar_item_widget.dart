@@ -46,4 +46,3 @@ class NavigationBarItemWidget extends StatelessWidget {
     );
   }
 }
-

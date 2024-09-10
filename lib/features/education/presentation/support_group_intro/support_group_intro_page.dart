@@ -40,79 +40,76 @@ class SupportGroupIntroPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return WillPopScope(
-      onWillPop: () => _onWillPop(context),
-      child: CustomScaffold(
-        color: streamType.lightestColor,
-        appBar: CustomAppBar(
-          backgroundColor: streamType.regularColor,
-          textTheme: streamType.appBarTextTheme,
-          title: LocalizedTexts.theSupportGroup.tr(),
-          subtitle: LocalizedTexts.introduction.tr(),
-          leading: CustomFilledIconButton.fromColor(color: streamType.lighterColor),
-          bottom: PreferredSize(
-            preferredSize: const Size.fromHeight(60),
-            child: SimpleProgressBar(
-              backgroundColor: streamType.regularColor,
-              progressFillColor: streamType.lightestColor,
-              progressEmptyColor: AppColors.white.withOpacity(0.45),
-              progress: context.read<EducationLessonBloc>().state.data.progress,
-            ),
+    return CustomScaffold(
+      color: streamType.lightestColor,
+      appBar: CustomAppBar(
+        backgroundColor: streamType.regularColor,
+        textTheme: streamType.appBarTextTheme,
+        title: LocalizedTexts.theSupportGroup.tr(),
+        subtitle: LocalizedTexts.introduction.tr(),
+        leading: CustomFilledIconButton.fromColor(color: streamType.lighterColor),
+        bottom: PreferredSize(
+          preferredSize: const Size.fromHeight(60),
+          child: SimpleProgressBar(
+            backgroundColor: streamType.regularColor,
+            progressFillColor: streamType.lightestColor,
+            progressEmptyColor: AppColors.white.withOpacity(0.45),
+            progress: context.read<EducationLessonBloc>().state.data.progress,
           ),
         ),
-        body: CustomSafeArea(
-          child: ScrollableContainer(
-            child: MainContainer(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Column(
-                    children: [
-                      const SizedBox(height: 30.0),
-                      BlocBuilder<EducationLessonBloc, EducationLessonState>(
-                        builder: (context, state) {
-                          final lesson = state.data;
+      ),
+      body: CustomSafeArea(
+        child: ScrollableContainer(
+          child: MainContainer(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Column(
+                  children: [
+                    const SizedBox(height: 30.0),
+                    BlocBuilder<EducationLessonBloc, EducationLessonState>(
+                      builder: (context, state) {
+                        final lesson = state.data;
 
-                          return SizedBox(
-                              height: 265, child: NetworkImageWithCache(url: lesson.imageUrl));
-                        },
-                      ),
-                      const SizedBox(height: 28.0),
-                    ],
-                  ),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      CategoryLabel.groupSession(),
-                      const SizedBox(height: 18.0),
-                      CustomText.bitter600(
-                        LocalizedTexts.yourSupportSystem.tr(),
-                        style: context.textTheme.displayLarge,
-                      ),
-                      const SizedBox(height: 18.0),
-                      CustomText.w400(
-                        LocalizedTexts.supportGroupIntroDesc.tr(),
-                        style: context.textTheme.bodyMedium,
-                      ),
-                      const SizedBox(height: 30),
-                    ],
-                  ),
-                  Column(
-                    children: [
-                      CustomElevatedButton.blueFullWidth(
-                        onPressed: () => _onJoinPressed(context),
-                        label: LocalizedTexts.yesILikeToJoin.tr(),
-                      ),
-                      const SizedBox(height: 12.0),
-                      CustomOutlinedButton.blueFullWidth(
-                        onPressed: () => _onDoNotJoinPressed(context),
-                        label: LocalizedTexts.joinLater.tr(),
-                      ),
-                      const SizedBox(height: 30),
-                    ],
-                  ),
-                ],
-              ),
+                        return SizedBox(
+                            height: 265, child: NetworkImageWithCache(url: lesson.imageUrl));
+                      },
+                    ),
+                    const SizedBox(height: 28.0),
+                  ],
+                ),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    CategoryLabel.groupSession(),
+                    const SizedBox(height: 18.0),
+                    CustomText.bitter600(
+                      LocalizedTexts.yourSupportSystem.tr(),
+                      style: context.textTheme.displayLarge,
+                    ),
+                    const SizedBox(height: 18.0),
+                    CustomText.w400(
+                      LocalizedTexts.supportGroupIntroDesc.tr(),
+                      style: context.textTheme.bodyMedium,
+                    ),
+                    const SizedBox(height: 30),
+                  ],
+                ),
+                Column(
+                  children: [
+                    CustomElevatedButton.blueFullWidth(
+                      onPressed: () => _onJoinPressed(context),
+                      label: LocalizedTexts.yesILikeToJoin.tr(),
+                    ),
+                    const SizedBox(height: 12.0),
+                    CustomOutlinedButton.blueFullWidth(
+                      onPressed: () => _onDoNotJoinPressed(context),
+                      label: LocalizedTexts.joinLater.tr(),
+                    ),
+                    const SizedBox(height: 30),
+                  ],
+                ),
+              ],
             ),
           ),
         ),
@@ -166,9 +163,5 @@ class SupportGroupIntroPage extends StatelessWidget {
     );
 
     context.router.push(LessonCompleteRoute(streamType: streamType));
-  }
-
-  Future<bool> _onWillPop(BuildContext context) {
-    return Future.value(true);
   }
 }

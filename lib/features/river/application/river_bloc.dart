@@ -48,7 +48,8 @@ class RiverBloc extends Bloc<RiverEvent, RiverState> {
 
     _syncService.stream.listen(
       (event) => event.whenOrNull(
-        refreshActualRiverModule: () => add(const RiverEvent.getActualModule(removeActiveItem: false)),
+        refreshActualRiverModule: () =>
+            add(const RiverEvent.getActualModule(removeActiveItem: false)),
       ),
     );
   }
@@ -62,15 +63,12 @@ class RiverBloc extends Bloc<RiverEvent, RiverState> {
 
     await RiverStreamShader.instance.init('shaders/river_stream_shader.glsl');
 
-    final response = await Future.wait([
-      _riverService.getModules(),
-      _riverService.getDeferredModuleItems()
-    ]);
+    final response =
+        await Future.wait([_riverService.getModules(), _riverService.getDeferredModuleItems()]);
 
     if (response.any((e) => e.isLeft())) {
       final error = response.firstWhereOrNull((r) => r.onlyLeft != null)?.onlyLeft;
       emit(RiverState.moduleLoadingError(state.data.copyWith(error: error, isLoading: false)));
-
     } else {
       final responseModels = response.first.onlyRight as GetModulesResponse;
       final responseCrossModuleItems = response.last.onlyRight as GetCrossModuleItemsResponse;
@@ -302,8 +300,8 @@ class RiverBloc extends Bloc<RiverEvent, RiverState> {
 
   FutureOr<void> _onBounceParentItem(BounceParentItem event, Emitter<RiverState> emit) async {
     var module = state.data.modules.firstWhere((m) => m.id == event.moduleId);
-    var moduleItem = module.moduleItems
-        .firstWhereOrNull((i) => i.unlocksItems.contains(event.moduleItemId));
+    var moduleItem =
+        module.moduleItems.firstWhereOrNull((i) => i.unlocksItems.contains(event.moduleItemId));
 
     if (moduleItem == null) return;
 
@@ -359,11 +357,11 @@ class RiverBloc extends Bloc<RiverEvent, RiverState> {
 
   bool _noNeedUpdateModuleItemStates(RiverModuleItem moduleItem) =>
       moduleItem.states.itemState == moduleItem.states.prevItemState &&
-          !moduleItem.states.itemState.isUnLocked;
+      !moduleItem.states.itemState.isUnLocked;
 
   bool _needCompleteModuleItemStates(RiverModuleItem moduleItem) =>
       moduleItem.states.itemState == moduleItem.states.prevItemState &&
-          moduleItem.states.itemState.isUnLocked;
+      moduleItem.states.itemState.isUnLocked;
 
   RiverModuleItemStateData _getUpdatedItemStateDataFromModuleItem(
     int moduleId,
@@ -421,9 +419,9 @@ class RiverBloc extends Bloc<RiverEvent, RiverState> {
     for (final item in module.moduleItems) {
       if (item.id == moduleItem.id) {
         moduleItems.add(moduleItem);
-      } else if (moduleItem.unlocksItems.contains(item.id)
-          && item.states.prevItemState.isLocked
-          && moduleItem.states.prevItemState.isReadOrHigher) {
+      } else if (moduleItem.unlocksItems.contains(item.id) &&
+          item.states.prevItemState.isLocked &&
+          moduleItem.states.prevItemState.isReadOrHigher) {
         moduleItems.add(item.copyWith(states: RiverModuleItemViewState.unlock()));
       } else {
         moduleItems.add(item);
@@ -435,9 +433,8 @@ class RiverBloc extends Bloc<RiverEvent, RiverState> {
     return [...state.data.modules].update(index, module);
   }
 
-  List<RiverModule> _addCrossModuleItem(List<RiverModule> list, int id, RiverModuleItem item) => list
-        .map((m) => m.id == id ? m.copyWith(moduleItems: [...m.moduleItems, item]) : m)
-        .toList();
+  List<RiverModule> _addCrossModuleItem(List<RiverModule> list, int id, RiverModuleItem item) =>
+      list.map((m) => m.id == id ? m.copyWith(moduleItems: [...m.moduleItems, item]) : m).toList();
 
   List<RiverModule> _insertCrossModuleItems(
     List<RiverModule> list,
@@ -555,8 +552,9 @@ class RiverBloc extends Bloc<RiverEvent, RiverState> {
   ) {
     if (state.data.activeModule.containCrossModuleItem) {
       final items = state.data.activeModule?.moduleItems
-          .where((i) => i.crossModule)
-          .map((i) => crossModuleItems.firstWhereOrNull((c) => c.id == i.id) ?? i) ?? [];
+              .where((i) => i.crossModule)
+              .map((i) => crossModuleItems.firstWhereOrNull((c) => c.id == i.id) ?? i) ??
+          [];
 
       final module = actualModule.copyWith(moduleItems: [...actualModule.moduleItems, ...items]);
 
@@ -572,29 +570,23 @@ class RiverBloc extends Bloc<RiverEvent, RiverState> {
   ) {
     var modules = List.of(list);
 
-    final oldBuddy = state.data.crossModuleItems
-        .firstWhere((i) => i.isBuddyCrossModuleItem);
+    final oldBuddy = state.data.crossModuleItems.firstWhere((i) => i.isBuddyCrossModuleItem);
 
-    final newBuddy = crossModuleItems
-        .firstWhere((i) => i.isBuddyCrossModuleItem);
+    final newBuddy = crossModuleItems.firstWhere((i) => i.isBuddyCrossModuleItem);
 
-    final oldGrouping = state.data.crossModuleItems
-        .firstWhere((i) => i.isGroupingCrossModuleItem);
+    final oldGrouping = state.data.crossModuleItems.firstWhere((i) => i.isGroupingCrossModuleItem);
 
-    final newGrouping = crossModuleItems
-        .firstWhere((i) => i.isGroupingCrossModuleItem);
+    final newGrouping = crossModuleItems.firstWhere((i) => i.isGroupingCrossModuleItem);
 
-    final newAdditional = crossModuleItems
-        .firstWhere((i) => i.isAdditionalBuddyCrossModuleItem);
+    final newAdditional = crossModuleItems.firstWhere((i) => i.isAdditionalBuddyCrossModuleItem);
 
-    final moveBuddy = oldBuddy.states.prevItemState.isCompleted &&
-        newBuddy.states.itemState.isRead;
+    final moveBuddy = oldBuddy.states.prevItemState.isCompleted && newBuddy.states.itemState.isRead;
 
-    final moveGrouping = oldGrouping.states.prevItemState.isCompleted &&
-        newGrouping.states.itemState.isRead;
+    final moveGrouping =
+        oldGrouping.states.prevItemState.isCompleted && newGrouping.states.itemState.isRead;
 
-    final needAddAdditionalItem = newAdditional.states.itemState.isUnLocked &&
-        _noAdditionalBuddyModuleItem(modules);
+    final needAddAdditionalItem =
+        newAdditional.states.itemState.isUnLocked && _noAdditionalBuddyModuleItem(modules);
 
     if (moveBuddy || moveGrouping) {
       modules = _moveModuleItems(modules, moveBuddy, moveGrouping, newBuddy, newGrouping);
@@ -658,17 +650,15 @@ class RiverBloc extends Bloc<RiverEvent, RiverState> {
     RiverModuleItem item,
     bool isCurrent,
     bool Function(RiverModuleItem i) onMach,
-  ) => isCurrent
-      ? module.copyWith(moduleItems: module.moduleItems.map((i) => onMach(i) ? item : i).toList())
-      : module.copyWith(moduleItems: module.moduleItems.where((i) => !onMach(i)).toList());
+  ) =>
+      isCurrent
+          ? module.copyWith(
+              moduleItems: module.moduleItems.map((i) => onMach(i) ? item : i).toList())
+          : module.copyWith(moduleItems: module.moduleItems.where((i) => !onMach(i)).toList());
 
   RiverModule? _getActiveModule(List<RiverModule> models) => models.isNotEmpty
       ? models.firstWhere((module) => module.isInProgress, orElse: () => models.last)
       : null;
-
-  bool _noAdditionalBuddyModuleItem(List <RiverModule> modules) =>
-      _getActiveModule(modules)?.moduleItems.none((i) => i.isAdditionalBuddyCrossModuleItem)
-          ?? true;
 
   Future<bool> _showPartlyCompletionDialog(int? page) async {
     final isNextPageOrCurrent = page != null && page == state.data.currentPage + 1;
@@ -679,4 +669,8 @@ class RiverBloc extends Bloc<RiverEvent, RiverState> {
 
     return (isNextPageOrCurrent || isNewCompletion) && (isItemsComplete || isTimePassed);
   }
+
+  bool _noAdditionalBuddyModuleItem(List<RiverModule> modules) =>
+      _getActiveModule(modules)?.moduleItems.none((i) => i.isAdditionalBuddyCrossModuleItem) ??
+      true;
 }

@@ -11,7 +11,8 @@ class MindTechniquesResponse {
 
   const MindTechniquesResponse(this.data);
 
-  static MindTechniquesResponse fromJson(Map<String, dynamic> json) => _$MindTechniquesResponseFromJson(json);
+  static MindTechniquesResponse fromJson(Map<String, dynamic> json) =>
+      _$MindTechniquesResponseFromJson(json);
 
   Map<String, dynamic> toJson() => _$MindTechniquesResponseToJson(this);
 }

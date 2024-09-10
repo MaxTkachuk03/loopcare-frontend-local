@@ -79,7 +79,7 @@ class _ReflectionsIntroPageState extends State<ReflectionsIntroPage> {
     ));
   }
 
-  Future<bool> _onWillPopHandler() {
+  Future<bool> _onWillPopHandler(_, __) {
     const AnalyticsEventService().finalizeAssignment(
       AnalyticsEvents.userLeftReflection,
       widget.reflectionItem,
@@ -91,8 +91,8 @@ class _ReflectionsIntroPageState extends State<ReflectionsIntroPage> {
 
   @override
   Widget build(BuildContext context) {
-    return WillPopScope(
-      onWillPop: _onWillPopHandler,
+    return PopScope(
+      onPopInvokedWithResult: _onWillPopHandler,
       child: CustomScaffold(
         color: widget.streamType.lightestColor,
         appBar: CustomAppBar(

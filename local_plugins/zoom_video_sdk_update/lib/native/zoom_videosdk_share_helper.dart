@@ -1,5 +1,6 @@
 import 'package:flutter/services.dart';
 import 'package:plugin_platform_interface/plugin_platform_interface.dart';
+
 ///@nodoc
 abstract class ZoomVideoSdkShareHelperPlatform extends PlatformInterface {
   ZoomVideoSdkShareHelperPlatform() : super(token: _token);
@@ -45,8 +46,7 @@ abstract class ZoomVideoSdkShareHelperPlatform extends PlatformInterface {
   }
 
   Future<bool> isShareDeviceAudioEnabled() async {
-    throw UnimplementedError(
-        'isShareDeviceAudioEnabled() has not been implemented.');
+    throw UnimplementedError('isShareDeviceAudioEnabled() has not been implemented.');
   }
 }
 

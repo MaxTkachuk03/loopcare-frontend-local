@@ -19,10 +19,9 @@ class ConnectivityBloc extends Bloc<ConnectivityEvent, ConnectivityState> {
     on<InitConnectivity>(_onInitConnectivity);
 
     listener = _connectivity.onConnectivityChanged.listen((statuses) {
-        add(ConnectivityEvent.updateStatus(statuses));
+      add(ConnectivityEvent.updateStatus(statuses));
     });
   }
-
 
   @override
   Future<void> close() {
@@ -48,7 +47,7 @@ class ConnectivityBloc extends Bloc<ConnectivityEvent, ConnectivityState> {
 
   ConnectivityStatus _getConnectivityStatus(List<ConnectivityResult> statuses) {
     return statuses.contains(ConnectivityResult.mobile) ||
-        statuses.contains(ConnectivityResult.wifi)
+            statuses.contains(ConnectivityResult.wifi)
         ? ConnectivityStatus.online
         : ConnectivityStatus.offline;
   }

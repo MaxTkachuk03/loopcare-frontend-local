@@ -111,7 +111,6 @@ class ExerciseListTile extends StatelessWidget {
   }
 }
 
-
 class _AccessExerciseLine extends StatelessWidget {
   const _AccessExerciseLine({
     super.key,

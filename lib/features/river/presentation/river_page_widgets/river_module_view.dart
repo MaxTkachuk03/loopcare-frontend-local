@@ -119,9 +119,9 @@ class _RiverScreenState extends State<RiverScreen> with RiverUtils {
 
   void _bounceParentItem(RiverModuleItem item) {
     context.read<RiverBloc>().add(RiverEvent.bounceParentItem(
-      moduleItemId: item.id,
-      moduleId: widget.module.id,
-    ));
+          moduleItemId: item.id,
+          moduleId: widget.module.id,
+        ));
   }
 
   void _onStartItemPressed() {
@@ -219,9 +219,9 @@ class _RiverScreenState extends State<RiverScreen> with RiverUtils {
 
   void _onStateChanged(RiverModuleItem item) {
     context.read<RiverBloc>().add(RiverEvent.updateModuleItemById(
-      moduleItemId: item.id,
-      moduleId: widget.module.id,
-    ));
+          moduleItemId: item.id,
+          moduleId: widget.module.id,
+        ));
   }
 
   void _onCompleteTime() {
@@ -237,12 +237,11 @@ class _RiverScreenState extends State<RiverScreen> with RiverUtils {
 
     if (isBeginning) {
       ModalBottomSheet.guidanceCompleted(
-        context: context,
-        onConfirm: () {
-          _onComplete();
-          context.read<NavigationBarBloc>().add(const NavigationBarEvent.completeBeginning());
-        }
-      );
+          context: context,
+          onConfirm: () {
+            _onComplete();
+            context.read<NavigationBarBloc>().add(const NavigationBarEvent.completeBeginning());
+          });
     } else if (riverData.modules.last.id == riverData.activeModule?.id) {
       ModalBottomSheet.lastModuleCompleted(
         context: context,

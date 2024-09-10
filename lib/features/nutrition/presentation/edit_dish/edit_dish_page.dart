@@ -231,8 +231,8 @@ class _EditDishPageState extends State<EditDishPage> {
                 ),
               );
 
-          const AnalyticsEventService().logEvent(eventName:
-          AnalyticsEvents.foodLogged,
+          const AnalyticsEventService().logEvent(
+            eventName: AnalyticsEvents.foodLogged,
             parameters: {
               AnalyticsParameters.timestamp: DateTime.now().toIso8601String(),
               AnalyticsParameters.mealId: item.id.toString(),
@@ -267,7 +267,7 @@ class _EditDishPageState extends State<EditDishPage> {
     context.router.maybePop();
   }
 
-  Future<bool> _onWillPop() {
+  Future<bool> _onWillPop(_, __) {
     if (widget.mode == EditDishPageMode.create && !_isUserSaveChanges) {
       _onDeleteDishHandler();
     }
@@ -277,8 +277,8 @@ class _EditDishPageState extends State<EditDishPage> {
 
   @override
   Widget build(BuildContext context) {
-    return WillPopScope(
-      onWillPop: _onWillPop,
+    return PopScope(
+      onPopInvokedWithResult: _onWillPop,
       child: MultiBlocListener(
         listeners: [
           BlocListener<EditDishBloc, EditDishState>(

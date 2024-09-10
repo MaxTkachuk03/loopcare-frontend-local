@@ -15,7 +15,8 @@ class LeaveGroupResponse {
     this.groupingStartedAt,
   );
 
-  static LeaveGroupResponse fromJson(Map<String, dynamic> json) => _$LeaveGroupResponseFromJson(json);
+  static LeaveGroupResponse fromJson(Map<String, dynamic> json) =>
+      _$LeaveGroupResponseFromJson(json);
 
   Map<String, dynamic> toJson() => _$LeaveGroupResponseToJson(this);
 }

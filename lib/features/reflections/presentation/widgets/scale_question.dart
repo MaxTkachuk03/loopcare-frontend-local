@@ -29,7 +29,6 @@ class _ScaleQuestionState extends State<ScaleQuestion> {
     super.initState();
 
     final answers = widget.question.answers;
-    print(answers);
     if (answers.isEmpty) return;
 
     final answerOption = answers.first.optionId;

@@ -40,7 +40,10 @@ class FoodItemServingsBloc extends Bloc<FoodItemServingsEvent, FoodItemServingsS
   IList<ServingSize> _getUpdatedServingsList(ServingSize serving) {
     return state.maybeMap(
       foodItemServings: (state) {
-        return state.servings.toList().map((e) => e.servingId == serving.servingId ? serving : e).toIList();
+        return state.servings
+            .toList()
+            .map((e) => e.servingId == serving.servingId ? serving : e)
+            .toIList();
       },
       orElse: () => <ServingSize>[].toIList(),
     );
@@ -52,7 +55,9 @@ class FoodItemServingsBloc extends Bloc<FoodItemServingsEvent, FoodItemServingsS
     return state.maybeMap(
       foodItemServings: (state) {
         return state.mealCategoryFilters.map((f) {
-          return f.name == filter.name ? MealCategoryFilter(name: f.name, selected: filter.value) : f;
+          return f.name == filter.name
+              ? MealCategoryFilter(name: f.name, selected: filter.value)
+              : f;
         }).toList();
       },
       orElse: () => <MealCategoryFilter>[],
@@ -76,8 +81,9 @@ class FoodItemServingsBloc extends Bloc<FoodItemServingsEvent, FoodItemServingsS
           servingList = r.data.toIList();
         } else {
           servingList = r.data
-              .map((e) =>
-                  e.servingId == event.selectedServingId ? e.copyWith(numberOfUnits: event.initialServingAmount) : e)
+              .map((e) => e.servingId == event.selectedServingId
+                  ? e.copyWith(numberOfUnits: event.initialServingAmount)
+                  : e)
               .toIList();
         }
 

@@ -8,8 +8,6 @@ class MedicalQuestionsState with _$MedicalQuestionsState {
     @Default(false) bool isCompletedSuccessfully,
     @Default(null) bool? pregnancy,
     @Default(null) bool? weightLossMedication,
-    @Default(null) MedicationPastPeriodAnswer? howLongTakeSemaglutideMedication,
-    @Default(null) MedicationFuturePeriodAnswer? howLongSemaglutideTreatmentLast,
     @Default(null) bool? treatmentByTheDoctor,
     @Default([]) List<String> medicines,
     @Default({}) Map<Diseases, bool> diseases,
@@ -19,7 +17,8 @@ class MedicalQuestionsState with _$MedicalQuestionsState {
 
   factory MedicalQuestionsState.initial() => const MedicalQuestionsState();
 
-  factory MedicalQuestionsState.fromJson(Map<String, dynamic> json) => _$MedicalQuestionsStateFromJson(json);
+  factory MedicalQuestionsState.fromJson(Map<String, dynamic> json) =>
+      _$MedicalQuestionsStateFromJson(json);
 
   List<Diseases> get listDiseasesEnabled {
     final Map<Diseases, bool> map = Map.from(diseases);
@@ -32,8 +31,8 @@ class MedicalQuestionsState with _$MedicalQuestionsState {
 
   bool get containsDiabetesTypeII => diseases[Diseases.diabetesTypeII] ?? false;
 
-  bool get containsDiabetesAnswer => diseases.containsKey(Diseases.diabetesTypeI) ||
-  diseases.containsKey(Diseases.diabetesTypeII);
+  bool get containsDiabetesAnswer =>
+      diseases.containsKey(Diseases.diabetesTypeI) || diseases.containsKey(Diseases.diabetesTypeII);
 
   bool? containsDisease(Diseases disease) => diseases[disease];
 
@@ -53,22 +52,21 @@ class MedicalQuestionsState with _$MedicalQuestionsState {
   }
 
   MedicalOnboarding get registrationData => MedicalOnboarding(
-      pregnant: pregnancy ?? false,
-      medicines: medicines,
-      isUseSemaglutideMedication: weightLossMedication ?? false,
-      treatedByPsychiatrist: treatmentByTheDoctor ?? false,
-      diabetes: diabetesType,
-      obesity: diseases[Diseases.obesity] ?? false,
-      thyroidDesease: diseases[Diseases.thyroidDisease] ?? false,
-      metabolicDesease: diseases[Diseases.metabolicDisease] ?? false,
-      hypertension: diseases[Diseases.hypertension] ?? false,
-      cardiovascularDesease: diseases[Diseases.cardioVascularDisease] ?? false,
-      stomachReduction: diseases[Diseases.stomachReductionDisease] ?? false,
-      renalFailure: diseases[Diseases.renalFailure] ?? false,
-      asthma: diseases[Diseases.asthma] ?? false,
-      liverDesease: diseases[Diseases.liverDisease] ?? false,
-      sleepApneaSyndrome: diseases[Diseases.sleepApneaSyndrome] ?? false,
-      locomotorSystemDesease: diseases[Diseases.locomotorSystemDisease] ?? false,
-    );
+        pregnant: pregnancy ?? false,
+        medicines: medicines,
+        isUseSemaglutideMedication: weightLossMedication ?? false,
+        treatedByPsychiatrist: treatmentByTheDoctor ?? false,
+        diabetes: diabetesType,
+        obesity: diseases[Diseases.obesity] ?? false,
+        thyroidDesease: diseases[Diseases.thyroidDisease] ?? false,
+        metabolicDesease: diseases[Diseases.metabolicDisease] ?? false,
+        hypertension: diseases[Diseases.hypertension] ?? false,
+        cardiovascularDesease: diseases[Diseases.cardioVascularDisease] ?? false,
+        stomachReduction: diseases[Diseases.stomachReductionDisease] ?? false,
+        renalFailure: diseases[Diseases.renalFailure] ?? false,
+        asthma: diseases[Diseases.asthma] ?? false,
+        liverDesease: diseases[Diseases.liverDisease] ?? false,
+        sleepApneaSyndrome: diseases[Diseases.sleepApneaSyndrome] ?? false,
+        locomotorSystemDesease: diseases[Diseases.locomotorSystemDisease] ?? false,
+      );
 }
-

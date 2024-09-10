@@ -15,16 +15,14 @@ class SubscriptionEvent with _$SubscriptionEvent {
 
   const factory SubscriptionEvent.buySubscription(ProductDetails product) = BuySubscription;
 
-
-
   const factory SubscriptionEvent.init() = SubscriptionInit;
 
   const factory SubscriptionEvent.dispose() = SubscriptionDispose;
 
   const factory SubscriptionEvent.logout() = SubscriptionLogout;
 
-  const factory SubscriptionEvent.purchasedSubscription(Subscription subscription, PurchasedProduct purchasedProduct) =
-      PurchasedSubscription;
+  const factory SubscriptionEvent.purchasedSubscription(
+      Subscription subscription, PurchasedProduct purchasedProduct) = PurchasedSubscription;
 
   const factory SubscriptionEvent.restorePurchased() = RestorePurchased;
 

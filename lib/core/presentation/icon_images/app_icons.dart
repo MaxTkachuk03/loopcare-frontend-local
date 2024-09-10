@@ -32,7 +32,6 @@ class AppIcons {
           width: 22,
           height: 22,
           colorFilter: ColorFilter.mode(selected ? selectedColor : regularColor, BlendMode.srcIn));
-
   static SvgPicture dashboardChat = SvgPicture.asset(
     '$iconsFilePath/dashboard_chat.svg',
     colorFilter: ColorFilter.mode(AppColors.white.withOpacity(0.5), BlendMode.srcIn),

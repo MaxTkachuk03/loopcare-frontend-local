@@ -56,7 +56,8 @@ class SessionRulesPage extends StatelessWidget {
                     children: [
                       CustomText.bitter600(
                         LocalizedTexts.groupRulesAttention.tr(),
-                        style: context.textTheme.bodyLarge?.copyWith(fontSize: ThemeConstants.fontSize20),
+                        style: context.textTheme.bodyLarge
+                            ?.copyWith(fontSize: ThemeConstants.fontSize20),
                       ),
                       const SizedBox(height: 24.0),
                       Padding(
@@ -124,24 +125,30 @@ class SessionRulesPage extends StatelessWidget {
                                   style: context.textTheme.bodyLarge,
                                   children: [
                                     TextSpan(
-                                      text: '${LocalizedTexts.groupRulesFourParagraphOnePartOne.tr()} ',
+                                      text:
+                                          '${LocalizedTexts.groupRulesFourParagraphOnePartOne.tr()} ',
                                     ),
                                     TextSpan(
-                                      text: '${LocalizedTexts.groupRulesFourParagraphOneItalicOne.tr()} ',
+                                      text:
+                                          '${LocalizedTexts.groupRulesFourParagraphOneItalicOne.tr()} ',
                                       style: const TextStyle(fontStyle: FontStyle.italic),
                                     ),
                                     TextSpan(
-                                      text: '${LocalizedTexts.groupRulesFourParagraphOnePartTwo.tr()} ',
+                                      text:
+                                          '${LocalizedTexts.groupRulesFourParagraphOnePartTwo.tr()} ',
                                     ),
                                     TextSpan(
-                                      text: '${LocalizedTexts.groupRulesFourParagraphOneItalicTwo.tr()} ',
+                                      text:
+                                          '${LocalizedTexts.groupRulesFourParagraphOneItalicTwo.tr()} ',
                                       style: const TextStyle(fontStyle: FontStyle.italic),
                                     ),
                                     TextSpan(
-                                      text: '${LocalizedTexts.groupRulesFourParagraphOnePartThree.tr()} ',
+                                      text:
+                                          '${LocalizedTexts.groupRulesFourParagraphOnePartThree.tr()} ',
                                     ),
                                     TextSpan(
-                                      text: LocalizedTexts.groupRulesFourParagraphOneItalicThree.tr(),
+                                      text:
+                                          LocalizedTexts.groupRulesFourParagraphOneItalicThree.tr(),
                                       style: const TextStyle(fontStyle: FontStyle.italic),
                                     ),
                                   ],

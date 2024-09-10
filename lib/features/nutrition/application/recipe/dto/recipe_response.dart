@@ -26,8 +26,7 @@ class RecipeResponse {
     required this.numberOfServings,
   });
 
-  static RecipeResponse fromJson(Map<String, dynamic> json) =>
-      _$RecipeResponseFromJson(json);
+  static RecipeResponse fromJson(Map<String, dynamic> json) => _$RecipeResponseFromJson(json);
 
   Map<String, dynamic> toJson() => _$RecipeResponseToJson(this);
 }

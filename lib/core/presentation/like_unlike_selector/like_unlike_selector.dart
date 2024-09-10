@@ -49,7 +49,8 @@ class _LikeUnlikeSelectorState extends State<LikeUnlikeSelector> {
               isSelected ? item.iconSelected : item.icon,
               const SizedBox(height: 8.0),
               CustomText.w500(item.label,
-                  style: context.textTheme.bodySmall?.copyWith(fontSize: ThemeConstants.fontSize12)),
+                  style:
+                      context.textTheme.bodySmall?.copyWith(fontSize: ThemeConstants.fontSize12)),
             ],
           );
         },

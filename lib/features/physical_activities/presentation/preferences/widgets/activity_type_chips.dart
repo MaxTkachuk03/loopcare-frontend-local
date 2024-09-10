@@ -45,7 +45,8 @@ class _ActivityTypeChipsState extends State<ActivityTypeChips> {
                 customWidths: [width / 2, width / 2],
                 inactiveBgColor: AppColors.blueLightest,
                 textStyle: context.textTheme.bodySmall,
-                customActiveTextStyles: context.textTheme.bodySmall?.copyWith(fontWeight: FontWeight.w700),
+                customActiveTextStyles:
+                    context.textTheme.bodySmall?.copyWith(fontWeight: FontWeight.w700),
                 initialIndex: controller.selection,
                 onTap: (index) => controller.jumpToTab(index),
                 children: PhysicalActivitiesType.values
@@ -58,7 +59,8 @@ class _ActivityTypeChipsState extends State<ActivityTypeChips> {
                 customWidths: [width / 2, width / 2],
                 inactiveBgColor: AppColors.blueLightest,
                 textStyle: context.textTheme.bodySmall,
-                customActiveTextStyles: context.textTheme.bodySmall?.copyWith(fontWeight: FontWeight.w700),
+                customActiveTextStyles:
+                    context.textTheme.bodySmall?.copyWith(fontWeight: FontWeight.w700),
                 initialIndex: controller.selection,
                 onTap: (index) => controller.jumpToTab(index),
                 children: PhysicalActivitiesType.values

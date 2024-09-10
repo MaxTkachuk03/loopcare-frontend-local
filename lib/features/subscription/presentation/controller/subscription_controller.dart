@@ -53,7 +53,6 @@ class SubscriptionController {
           selectedPlan.value = products.first;
           isEnableSubscribe.value = true;
         }
-
       }
     }
   }
@@ -122,7 +121,7 @@ class SubscriptionController {
   }
 
   void _pushAnalyticsEvents(PurchasableProduct plan) {
-     CustomerIoService.track(
+    CustomerIoService.track(
       event: CIOEvents.subscriptionSelected,
       attributes: {
         CIOAttributes.identifierOption: plan.details.id,

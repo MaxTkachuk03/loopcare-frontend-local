@@ -19,7 +19,8 @@ import 'package:loopcare_frontend/core/presentation/widgets/scrollable_container
 class OnboardingIntroPage extends StatelessWidget {
   const OnboardingIntroPage({super.key});
 
-  void _onNextPressed(BuildContext context) => context.router.pushNamed(AppRoutes.onboardingIntroMission);
+  void _onNextPressed(BuildContext context) =>
+      context.router.pushNamed(AppRoutes.onboardingIntroMission);
 
   @override
   Widget build(BuildContext context) {

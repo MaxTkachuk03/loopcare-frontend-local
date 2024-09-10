@@ -13,5 +13,6 @@ class WeeklyGoalProgressLog with _$WeeklyGoalProgressLog {
     required int times,
   }) = _WeeklyGoalProgressLog;
 
-  factory WeeklyGoalProgressLog.fromJson(Map<String, dynamic> json) => _$WeeklyGoalProgressLogFromJson(json);
+  factory WeeklyGoalProgressLog.fromJson(Map<String, dynamic> json) =>
+      _$WeeklyGoalProgressLogFromJson(json);
 }

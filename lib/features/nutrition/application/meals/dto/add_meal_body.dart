@@ -13,6 +13,5 @@ abstract class AddMealBody implements _$AddMealBody {
 
   const AddMealBody._();
 
-  factory AddMealBody.fromJson(Map<String, dynamic> json) =>
-      _$AddMealBodyFromJson(json);
+  factory AddMealBody.fromJson(Map<String, dynamic> json) => _$AddMealBodyFromJson(json);
 }

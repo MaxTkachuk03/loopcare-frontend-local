@@ -4,6 +4,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_zoom_videosdk/native/zoom_videosdk_session_statistics_info.dart';
 import 'package:flutter_zoom_videosdk/native/zoom_videosdk_user.dart';
 import 'package:plugin_platform_interface/plugin_platform_interface.dart';
+
 ///@nodoc
 abstract class ZoomVideoSdkSessionPlatform extends PlatformInterface {
   ZoomVideoSdkSessionPlatform() : super(token: _token);
@@ -49,26 +50,19 @@ abstract class ZoomVideoSdkSessionPlatform extends PlatformInterface {
   }
 
   Future<String?> getSessionPhonePasscode() async {
-    throw UnimplementedError(
-        'getSessionPhonePasscode() has not been implemented.');
+    throw UnimplementedError('getSessionPhonePasscode() has not been implemented.');
   }
 
-  Future<ZoomVideoSdkSessionAudioStatisticsInfo?>
-      getAudioStatisticsInfo() async {
-    throw UnimplementedError(
-        'getAudioStatisticsInfo() has not been implemented.');
+  Future<ZoomVideoSdkSessionAudioStatisticsInfo?> getAudioStatisticsInfo() async {
+    throw UnimplementedError('getAudioStatisticsInfo() has not been implemented.');
   }
 
-  Future<ZoomVideoSdkSessionVideoStatisticsInfo?>
-      getVideoStatisticsInfo() async {
-    throw UnimplementedError(
-        'getVideoStatisticsInfo() has not been implemented.');
+  Future<ZoomVideoSdkSessionVideoStatisticsInfo?> getVideoStatisticsInfo() async {
+    throw UnimplementedError('getVideoStatisticsInfo() has not been implemented.');
   }
 
-  Future<ZoomVideoSdkSessionShareStatisticsInfo?>
-      getShareStatisticsInfo() async {
-    throw UnimplementedError(
-        'getShareStatisticsInfo() has not been implemented.');
+  Future<ZoomVideoSdkSessionShareStatisticsInfo?> getShareStatisticsInfo() async {
+    throw UnimplementedError('getShareStatisticsInfo() has not been implemented.');
   }
 }
 
@@ -117,9 +111,8 @@ class ZoomVideoSdkSession extends ZoomVideoSdkSessionPlatform {
         .then<String?>((String? value) => value);
 
     var userListJson = jsonDecode(userListString!) as List;
-    List<ZoomVideoSdkUser> userList = userListJson
-        .map((userJson) => ZoomVideoSdkUser.fromJson(userJson))
-        .toList();
+    List<ZoomVideoSdkUser> userList =
+        userListJson.map((userJson) => ZoomVideoSdkUser.fromJson(userJson)).toList();
 
     return userList;
   }
@@ -177,45 +170,39 @@ class ZoomVideoSdkSession extends ZoomVideoSdkSessionPlatform {
   /// Get the session's audio statistic information.
   /// <br />Return [ZoomVideoSdkSessionAudioStatisticsInfo]
   @override
-  Future<ZoomVideoSdkSessionAudioStatisticsInfo?>
-      getAudioStatisticsInfo() async {
+  Future<ZoomVideoSdkSessionAudioStatisticsInfo?> getAudioStatisticsInfo() async {
     var infoString = await methodChannel
         .invokeMethod<String?>('getAudioStatisticsInfo')
         .then<String?>((String? value) => value);
 
     Map<String, dynamic> infoMap = jsonDecode(infoString!);
-    var sessionAudioStatisticsInfo =
-        ZoomVideoSdkSessionAudioStatisticsInfo.fromJson(infoMap);
+    var sessionAudioStatisticsInfo = ZoomVideoSdkSessionAudioStatisticsInfo.fromJson(infoMap);
     return sessionAudioStatisticsInfo;
   }
 
   /// Get the session's video statistic information.
   /// <br />Return [ZoomVideoSdkSessionVideoStatisticsInfo]
   @override
-  Future<ZoomVideoSdkSessionVideoStatisticsInfo?>
-      getVideoStatisticsInfo() async {
+  Future<ZoomVideoSdkSessionVideoStatisticsInfo?> getVideoStatisticsInfo() async {
     var infoString = await methodChannel
         .invokeMethod<String?>('getVideoStatisticsInfo')
         .then<String?>((String? value) => value);
 
     Map<String, dynamic> infoMap = jsonDecode(infoString!);
-    var sessionVideoStatisticsInfo =
-        ZoomVideoSdkSessionVideoStatisticsInfo.fromJson(infoMap);
+    var sessionVideoStatisticsInfo = ZoomVideoSdkSessionVideoStatisticsInfo.fromJson(infoMap);
     return sessionVideoStatisticsInfo;
   }
 
   /// Get the session's screen share statistic information.
   /// <br />Return [ZoomVideoSDKSessionASVStatisticInfo]
   @override
-  Future<ZoomVideoSdkSessionShareStatisticsInfo?>
-      getShareStatisticsInfo() async {
+  Future<ZoomVideoSdkSessionShareStatisticsInfo?> getShareStatisticsInfo() async {
     var infoString = await methodChannel
         .invokeMethod<String?>('getShareStatisticsInfo')
         .then<String?>((String? value) => value);
 
     Map<String, dynamic> infoMap = jsonDecode(infoString!);
-    var sessionShareStatisticsInfo =
-        ZoomVideoSdkSessionShareStatisticsInfo.fromJson(infoMap);
+    var sessionShareStatisticsInfo = ZoomVideoSdkSessionShareStatisticsInfo.fromJson(infoMap);
     return sessionShareStatisticsInfo;
   }
 }

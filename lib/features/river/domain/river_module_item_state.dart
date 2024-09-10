@@ -23,11 +23,11 @@ enum RiverModuleItemState {
 
   bool get isReadOrHigher => isRead || isCompleted;
 
-  RiverModuleItemState get nextState => switch(this) {
-    locked => RiverModuleItemState.unlocked,
-    unlocked => RiverModuleItemState.read,
-    _ => RiverModuleItemState.completed,
-  };
+  RiverModuleItemState get nextState => switch (this) {
+        locked => RiverModuleItemState.unlocked,
+        unlocked => RiverModuleItemState.read,
+        _ => RiverModuleItemState.completed,
+      };
 
   Color bgColor(RiverModuleStreamType streamType) {
     switch (this) {

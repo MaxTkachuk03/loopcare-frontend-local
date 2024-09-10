@@ -25,7 +25,8 @@ class AppVersionInterceptor extends QueuedInterceptor {
     }
   }
 
-  String get headerVersionProperty => Platform.isAndroid ? 'android-app-version' : 'ios-app-version';
+  String get headerVersionProperty =>
+      Platform.isAndroid ? 'android-app-version' : 'ios-app-version';
 
   bool _checkHeaderVersion(Map<String, List<String>> headers) {
     if (headers.containsKey(headerVersionProperty) && _storage.localVersion > 1) {
@@ -41,4 +42,3 @@ class AppVersionInterceptor extends QueuedInterceptor {
     return false;
   }
 }
-

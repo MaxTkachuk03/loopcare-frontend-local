@@ -7,9 +7,11 @@ class PhysicalActivitiesPreferencesEvent with _$PhysicalActivitiesPreferencesEve
 
   const factory PhysicalActivitiesPreferencesEvent.savePreferences() = _SavePreferences;
 
-  const factory PhysicalActivitiesPreferencesEvent.setFrequency(PhysicalActivitiesFrequency data) = _SetFrequency;
+  const factory PhysicalActivitiesPreferencesEvent.setFrequency(PhysicalActivitiesFrequency data) =
+      _SetFrequency;
 
-  const factory PhysicalActivitiesPreferencesEvent.setTargets(PhysicalActivitiesType data) = _SetTargets;
+  const factory PhysicalActivitiesPreferencesEvent.setTargets(PhysicalActivitiesType data) =
+      _SetTargets;
 
   const factory PhysicalActivitiesPreferencesEvent.setFlexible(bool data) = _SetFlexible;
 }

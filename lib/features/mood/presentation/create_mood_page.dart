@@ -58,16 +58,11 @@ class _CreateMoodPageState extends State<CreateMoodPage> {
     );
 
     _moodPageController = widget.mode.map(
-      create: (_) => MoodController()
-        ..setTimeValue(initialDateTime)
-        ..addFocusNodeListeners(),
-      edit: (s) => MoodController()
-        ..setMoodInitialValues(s.moodRecord)
-        ..addFocusNodeListeners(),
+      create: (_) => MoodController()..setTimeValue(initialDateTime),
+      edit: (s) => MoodController()..setMoodInitialValues(s.moodRecord),
     );
-    CustomerIO.track(
-      name: CIOEvents.moodWidget,
-    );
+
+    CustomerIO.track(name: CIOEvents.moodWidget);
 
     WidgetsBinding.instance.addPostFrameCallback((_) {
       _moodPageController.isFormValid;
@@ -117,6 +112,8 @@ class _CreateMoodPageState extends State<CreateMoodPage> {
 
   _onUpdateHandler(MoodState s) => context.router.maybePop();
 
+  void _onFormChangeHandler() => _moodPageController.isFormValid;
+
   @override
   Widget build(BuildContext context) {
     return CustomScaffold.orangeLightest(
@@ -138,7 +135,7 @@ class _CreateMoodPageState extends State<CreateMoodPage> {
                     loading: (_) => const Loader(),
                     orElse: () => Form(
                       key: _moodPageController.formKey,
-                      onChanged: () => _moodPageController.isFormValid,
+                      onChanged: _onFormChangeHandler,
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
@@ -155,8 +152,9 @@ class _CreateMoodPageState extends State<CreateMoodPage> {
                           ValueListenableBuilder<MoodPickerListItem?>(
                             valueListenable: _moodPageController.moodValue,
                             builder: (context, moodValue, _) => MoodPicker(
-                                onItemPressed: isEditable ? _onMoodValueChangeHandler : null,
-                                value: moodValue),
+                              onItemPressed: isEditable ? _onMoodValueChangeHandler : null,
+                              value: moodValue,
+                            ),
                           ),
                           const SizedBox(height: 12.0),
                           MoodOptions(controller: _moodPageController, isEditable: isEditable),
@@ -166,7 +164,7 @@ class _CreateMoodPageState extends State<CreateMoodPage> {
                             style: context.textTheme.displayMedium,
                           ),
                           const SizedBox(height: 12.0),
-                          MoodNoteField(_moodPageController, !isEditable),
+                          MoodNoteField(controller: _moodPageController, readOnly: !isEditable),
                           const SizedBox(height: 24.0),
                           widget.mode.map(
                             create: (_) => const SizedBox.shrink(),

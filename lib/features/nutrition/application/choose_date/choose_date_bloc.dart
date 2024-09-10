@@ -66,7 +66,8 @@ class ChooseDateBloc extends Bloc<ChooseDateEvent, ChooseDateState> {
     Map<String, List<MealsListItem>>? previousMealsData,
     List<MealsListItem> data,
   ) {
-    Map<String, List<MealsListItem>> meals = Map<String, List<MealsListItem>>.from(previousMealsData ?? {});
+    Map<String, List<MealsListItem>> meals =
+        Map<String, List<MealsListItem>>.from(previousMealsData ?? {});
 
     for (var element in data) {
       final loggingDates = element.planningDates;

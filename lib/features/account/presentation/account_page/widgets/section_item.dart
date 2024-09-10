@@ -46,8 +46,7 @@ class SectionItem extends StatelessWidget {
                 ],
               ),
             ),
-            if (showNews)
-              CategoryLabel.news(),
+            if (showNews) CategoryLabel.news(),
             const ImageIcon(
               AppIcons.arrow,
               color: AppColors.greyLabel,

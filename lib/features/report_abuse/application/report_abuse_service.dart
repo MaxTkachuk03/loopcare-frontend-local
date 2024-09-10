@@ -1,4 +1,1 @@
- abstract class ReportAbuseService{
-
-
- }
+abstract class ReportAbuseService {}

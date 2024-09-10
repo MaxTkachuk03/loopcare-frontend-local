@@ -32,8 +32,9 @@ class PhysicalProgramsPage extends StatelessWidget {
 
             return ErrorScreen(
               error: error!,
-              onButtonPressed: () =>
-                  context.read<PhysicalProgramsBloc>().add(const PhysicalProgramsEvent.getAllPrograms()),
+              onButtonPressed: () => context
+                  .read<PhysicalProgramsBloc>()
+                  .add(const PhysicalProgramsEvent.getAllPrograms()),
             );
           },
           loading: (_) => CustomScaffold.yellowLightest(
@@ -81,7 +82,8 @@ class PhysicalProgramsPage extends StatelessWidget {
                                 LocalizedTexts.alternatives.tr(),
                                 style: context.textTheme.bodySmall,
                               ),
-                            if (state.data.getAlternativePrograms.isNotEmpty) const SizedBox(height: 16.0),
+                            if (state.data.getAlternativePrograms.isNotEmpty)
+                              const SizedBox(height: 16.0),
                           ],
                         ),
                       if (state.data.getAlternativePrograms.isNotEmpty)

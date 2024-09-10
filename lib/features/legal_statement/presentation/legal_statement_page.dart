@@ -31,71 +31,72 @@ class LegalStatementPage extends StatefulWidget {
 
 class _LegalStatementPageState extends State<LegalStatementPage> {
   final valueListener = ValueNotifier<bool>(false);
+  late ConsentConfirmationBloc _consentBloc;
 
   @override
   void initState() {
-    CustomerIoService.track(event: CIOEvents.onboardingLegalStatement);
     super.initState();
+    _consentBloc = context.read<ConsentConfirmationBloc>();
+    CustomerIoService.track(event: CIOEvents.onboardingLegalStatement);
   }
 
   @override
   void dispose() {
-    valueListener.dispose();
     super.dispose();
+
+    _consentBloc.add(const ConsentConfirmationEvent.passageChanged(false));
+    valueListener.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-    return WillPopScope(
-      onWillPop: onWillPop,
-      child: CustomScaffold.blueLightest(
-        appBar: CustomAppBar.blue(
-          title: LocalizedTexts.legalStatement.tr(),
-          leading: CustomFilledIconButton.leadingBlueLighter(),
-        ),
-        body: CustomSafeArea(
-          child: BottomPlacedButton.blueLightest(
-            body: MainContainer(
-              child: ListView(
-                physics: const ClampingScrollPhysics(),
-                children: [
-                  const SizedBox(height: 32.0),
-                  CustomText.bitter600(
-                    LocalizedTexts.legalStatement.tr(),
-                    style: context.textTheme.displayMedium,
-                  ),
-                  const SizedBox(height: 32.0),
-                  CustomText.w400(
-                    '${LocalizedTexts.legalStatementTextOne.tr()}.',
-                    style: context.textTheme.bodyMedium,
-                  ),
-                  // TODO removed during LOOPCARE-2000 task 25.01.2024
-                  // const SizedBox(height: 16.0),
-                  // CustomText.w400(
-                  //   '${LocalizedTexts.legalStatementTextTwo.tr()}.',
-                  //   style: context.textTheme.bodyMedium,
-                  // ),
-                  // const SizedBox(height: 38.0),
-                  // CustomElevatedButton.coralSmall(
-                  //   onPressed: () => _onReadLegalStatement(context),
-                  //   label: LocalizedTexts.readLegalStatement,
-                  // ),
-                  const SizedBox(height: 27.0),
-                  LegalStatementConfirmationBox(
-                    onChanged: onChanged,
-                  ),
-                ],
-              ),
+    return CustomScaffold.blueLightest(
+      appBar: CustomAppBar.blue(
+        title: LocalizedTexts.legalStatement.tr(),
+        leading: CustomFilledIconButton.leadingBlueLighter(),
+      ),
+      body: CustomSafeArea(
+        child: BottomPlacedButton.blueLightest(
+          body: MainContainer(
+            child: ListView(
+              physics: const ClampingScrollPhysics(),
+              children: [
+                const SizedBox(height: 32.0),
+                CustomText.bitter600(
+                  LocalizedTexts.legalStatement.tr(),
+                  style: context.textTheme.displayMedium,
+                ),
+                const SizedBox(height: 32.0),
+                CustomText.w400(
+                  '${LocalizedTexts.legalStatementTextOne.tr()}.',
+                  style: context.textTheme.bodyMedium,
+                ),
+                // TODO removed during LOOPCARE-2000 task 25.01.2024
+                // const SizedBox(height: 16.0),
+                // CustomText.w400(
+                //   '${LocalizedTexts.legalStatementTextTwo.tr()}.',
+                //   style: context.textTheme.bodyMedium,
+                // ),
+                // const SizedBox(height: 38.0),
+                // CustomElevatedButton.coralSmall(
+                //   onPressed: () => _onReadLegalStatement(context),
+                //   label: LocalizedTexts.readLegalStatement,
+                // ),
+                const SizedBox(height: 27.0),
+                LegalStatementConfirmationBox(
+                  onChanged: onChanged,
+                ),
+              ],
             ),
-            button: ValueListenableBuilder<bool>(
-              valueListenable: valueListener,
-              builder: (context, value, _) {
-                return CustomElevatedButton.blueFullWidth(
-                  onPressed: value ? onConfirm : null,
-                  label: LocalizedTexts.confirm.tr(),
-                );
-              },
-            ),
+          ),
+          button: ValueListenableBuilder<bool>(
+            valueListenable: valueListener,
+            builder: (context, value, _) {
+              return CustomElevatedButton.blueFullWidth(
+                onPressed: value ? onConfirm : null,
+                label: LocalizedTexts.confirm.tr(),
+              );
+            },
           ),
         ),
       ),
@@ -117,13 +118,5 @@ class _LegalStatementPageState extends State<LegalStatementPage> {
     context
       ..read<LegalStatementBloc>().add(const LegalStatementEvent.passageChanged(true))
       ..router.pushNamed(AppRoutes.signUpWelcome);
-  }
-
-  Future<bool> onWillPop() async {
-    context
-        .read<ConsentConfirmationBloc>()
-        .add(const ConsentConfirmationEvent.passageChanged(false));
-
-    return Future.value(true);
   }
 }

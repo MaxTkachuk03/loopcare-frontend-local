@@ -19,8 +19,7 @@ class MindInfoResponse {
     required this.explanation,
   });
 
-  static MindInfoResponse fromJson(Map<String, dynamic> json) =>
-      _$MindInfoResponseFromJson(json);
+  static MindInfoResponse fromJson(Map<String, dynamic> json) => _$MindInfoResponseFromJson(json);
 
   Map<String, dynamic> toJson() => _$MindInfoResponseToJson(this);
 }

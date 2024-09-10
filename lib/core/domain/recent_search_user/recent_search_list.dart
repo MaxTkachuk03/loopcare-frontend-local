@@ -8,8 +8,8 @@ part 'recent_search_list.g.dart';
 
 @unfreezed
 class RecentSearchList with _$RecentSearchList {
-   factory RecentSearchList({
-     required List<RecentSearchData> list,
+  factory RecentSearchList({
+    required List<RecentSearchData> list,
   }) = _RecentSearchList;
 
   factory RecentSearchList.fromJson(Map<String, dynamic> json) => _$RecentSearchListFromJson(json);

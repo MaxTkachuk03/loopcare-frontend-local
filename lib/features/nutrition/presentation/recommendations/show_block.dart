@@ -25,8 +25,10 @@ class ShowBlock extends StatelessWidget {
             child: Text(
               LocalizedTexts.show.tr(),
               textAlign: TextAlign.end,
-              style:
-                  Theme.of(context).textTheme.bodyMedium?.copyWith(fontSize: 14.0, color: AppColors.blueDark),
+              style: Theme.of(context)
+                  .textTheme
+                  .bodyMedium
+                  ?.copyWith(fontSize: 14.0, color: AppColors.blueDark),
             ),
           ),
           const SizedBox(

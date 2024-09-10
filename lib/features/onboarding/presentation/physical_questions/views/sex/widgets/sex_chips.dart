@@ -26,30 +26,31 @@ class _SexChipsState extends State<SexChips> {
     _selectedValue = widget.initValue;
   }
 
-
   void _onSelectedSexHandler(SexType value) {
     setState(() {
       _selectedValue = value;
     });
 
-   widget.onChanged(value);
+    widget.onChanged(value);
   }
 
   @override
   Widget build(BuildContext context) {
     return Column(
-      children: SexType.values.map(
-          (item) => Padding(
-            padding: const EdgeInsets.only(top: 8.0),
-            child: CustomChoiceChip.yellow(
-              label: item.title.tr(),
-              selected: item == _selectedValue,
-              onSelected: _onSelectedSexHandler,
-              value: item,
-              textAlign: TextAlign.center,
+      children: SexType.values
+          .map(
+            (item) => Padding(
+              padding: const EdgeInsets.only(top: 8.0),
+              child: CustomChoiceChip.yellow(
+                label: item.title.tr(),
+                selected: item == _selectedValue,
+                onSelected: _onSelectedSexHandler,
+                value: item,
+                textAlign: TextAlign.center,
+              ),
             ),
-          ),
-        ).toList(),
+          )
+          .toList(),
     );
   }
 }

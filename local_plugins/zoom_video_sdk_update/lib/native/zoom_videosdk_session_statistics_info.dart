@@ -1,15 +1,35 @@
 /// Zoom Video SDK Session Audio Statistics Information
 class ZoomVideoSdkSessionAudioStatisticsInfo {
-  num recvFrequency; /// session receive frequency
-  num recvJitter; /// session receive jitter
-  num recvLatency; /// session receive latency
-  num recvPacketLossAvg; /// session receive packet loss average value
-  num recvPacketLossMax; /// session receive packet loss max value
-  num sendFrequency; /// session send frequency
-  num sendJitter; /// session send jitter
-  num sendLatency; /// session send latency
-  num sendPacketLossAvg; /// session send packet loss average value
-  num sendPacketLossMax; /// session send packet loss max value
+  num recvFrequency;
+
+  /// session receive frequency
+  num recvJitter;
+
+  /// session receive jitter
+  num recvLatency;
+
+  /// session receive latency
+  num recvPacketLossAvg;
+
+  /// session receive packet loss average value
+  num recvPacketLossMax;
+
+  /// session receive packet loss max value
+  num sendFrequency;
+
+  /// session send frequency
+  num sendJitter;
+
+  /// session send jitter
+  num sendLatency;
+
+  /// session send latency
+  num sendPacketLossAvg;
+
+  /// session send packet loss average value
+  num sendPacketLossMax;
+
+  /// session send packet loss max value
 
   ZoomVideoSdkSessionAudioStatisticsInfo(
       this.recvFrequency,
@@ -51,20 +71,48 @@ class ZoomVideoSdkSessionAudioStatisticsInfo {
 
 /// Zoom Video SDK Session Video Statistics Information
 class ZoomVideoSdkSessionVideoStatisticsInfo {
-  num recvFps; /// the video's Frames Per Second session receive
-  num recvFrameHeight; /// the video's frame height in pixels session receive
-  num recvFrameWidth; /// the video's frame width in pixels session receive
-  num recvJitter; /// session receive jitter
-  num recvLatency; /// session receive latency
-  num recvPacketLossAvg; /// session receive packet loss average value
-  num recvPacketLossMax; /// session receive packet loss max value
-  num sendFps; /// the video's Frames Per Second session send
-  num sendFrameHeight; /// the video's frame height in pixels session send
-  num sendFrameWidth; /// the video's frame width in pixels session send
-  num sendJitter; /// session send jitter
-  num sendLatency; /// session send latency
-  num sendPacketLossAvg; /// session send packet loss average value
-  num sendPacketLossMax; /// session send packet loss max value
+  num recvFps;
+
+  /// the video's Frames Per Second session receive
+  num recvFrameHeight;
+
+  /// the video's frame height in pixels session receive
+  num recvFrameWidth;
+
+  /// the video's frame width in pixels session receive
+  num recvJitter;
+
+  /// session receive jitter
+  num recvLatency;
+
+  /// session receive latency
+  num recvPacketLossAvg;
+
+  /// session receive packet loss average value
+  num recvPacketLossMax;
+
+  /// session receive packet loss max value
+  num sendFps;
+
+  /// the video's Frames Per Second session send
+  num sendFrameHeight;
+
+  /// the video's frame height in pixels session send
+  num sendFrameWidth;
+
+  /// the video's frame width in pixels session send
+  num sendJitter;
+
+  /// session send jitter
+  num sendLatency;
+
+  /// session send latency
+  num sendPacketLossAvg;
+
+  /// session send packet loss average value
+  num sendPacketLossMax;
+
+  /// session send packet loss max value
 
   ZoomVideoSdkSessionVideoStatisticsInfo(
       this.recvFps,
@@ -117,20 +165,48 @@ class ZoomVideoSdkSessionVideoStatisticsInfo {
 }
 
 class ZoomVideoSdkSessionShareStatisticsInfo {
-  num recvFps; /// the video's Frames Per Second session receive
-  num recvFrameHeight; /// the video's frame height in pixels session receive
-  num recvFrameWidth; /// the video's frame width in pixels session receive
-  num recvJitter; /// session receive jitter
-  num recvLatency; /// session receive latency
-  num recvPacketLossAvg; /// session receive packet loss average value
-  num recvPacketLossMax; /// session receive packet loss max value
-  num sendFps; /// the video's Frames Per Second session send
-  num sendFrameHeight; /// the video's frame height in pixels session send
-  num sendFrameWidth; /// the video's frame width in pixels session send
-  num sendJitter; /// session send jitter
-  num sendLatency; /// session send latency
-  num sendPacketLossAvg; /// session send packet loss average value
-  num sendPacketLossMax; /// session send packet loss max value
+  num recvFps;
+
+  /// the video's Frames Per Second session receive
+  num recvFrameHeight;
+
+  /// the video's frame height in pixels session receive
+  num recvFrameWidth;
+
+  /// the video's frame width in pixels session receive
+  num recvJitter;
+
+  /// session receive jitter
+  num recvLatency;
+
+  /// session receive latency
+  num recvPacketLossAvg;
+
+  /// session receive packet loss average value
+  num recvPacketLossMax;
+
+  /// session receive packet loss max value
+  num sendFps;
+
+  /// the video's Frames Per Second session send
+  num sendFrameHeight;
+
+  /// the video's frame height in pixels session send
+  num sendFrameWidth;
+
+  /// the video's frame width in pixels session send
+  num sendJitter;
+
+  /// session send jitter
+  num sendLatency;
+
+  /// session send latency
+  num sendPacketLossAvg;
+
+  /// session send packet loss average value
+  num sendPacketLossMax;
+
+  /// session send packet loss max value
 
   ZoomVideoSdkSessionShareStatisticsInfo(
       this.recvFps,

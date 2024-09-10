@@ -80,7 +80,9 @@ class ErrorScreen extends StatelessWidget {
       orElse: () => ErrorTypes.somethingWentWrong,
     );
 
-    if (errorType == ErrorTypes.requestCancelled) return const SizedBox(height: 0.0);
+    if (errorType == ErrorTypes.requestCancelled) {
+      return const SizedBox(height: 0.0);
+    }
 
     return Center(
       child: Padding(

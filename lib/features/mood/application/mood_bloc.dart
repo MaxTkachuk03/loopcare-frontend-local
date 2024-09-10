@@ -32,11 +32,13 @@ class MoodBloc extends Bloc<MoodEvent, MoodState> {
   FutureOr<void> _onGetMoods(GetMoods event, Emitter<MoodState> emit) async {
     emit(MoodState.loading(state.data.copyWith(isLoading: true)));
 
-    final response = await _moodService.getMoods(startDate: event.startDate, endDate: event.endDate);
+    final response =
+        await _moodService.getMoods(startDate: event.startDate, endDate: event.endDate);
 
     response.fold(
       (l) => emit(MoodState.error(state.data.copyWith(error: l, isLoading: false))),
-      (r) => emit(MoodState.updated(state.data.copyWith(moods: _combineMoodsByDate(null, r.data), isLoading: false))),
+      (r) => emit(MoodState.updated(
+          state.data.copyWith(moods: _combineMoodsByDate(null, r.data), isLoading: false))),
     );
   }
 
@@ -62,7 +64,8 @@ class MoodBloc extends Bloc<MoodEvent, MoodState> {
 
     response.fold(
       (l) => emit(MoodState.error(state.data.copyWith(error: l, isLoading: false))),
-      (r) => emit(MoodState.updated(state.data.copyWith(moods: _updateMoodRecord(r), isLoading: false))),
+      (r) => emit(
+          MoodState.updated(state.data.copyWith(moods: _updateMoodRecord(r), isLoading: false))),
     );
   }
 
@@ -71,7 +74,8 @@ class MoodBloc extends Bloc<MoodEvent, MoodState> {
 
     final response = await _moodService.createMood(event.data);
 
-    response.fold((l) => emit(MoodState.error(state.data.copyWith(error: l, isLoading: false))), (r) {
+    response.fold((l) => emit(MoodState.error(state.data.copyWith(error: l, isLoading: false))),
+        (r) {
       CustomerIO.track(
         name: CIOEvents.moodLogged,
         attributes: {
@@ -82,7 +86,8 @@ class MoodBloc extends Bloc<MoodEvent, MoodState> {
           CIOAttributes.note: event.data.note,
         },
       );
-      emit(MoodState.updated(state.data.copyWith(moods: _combineMoodsByDate(state.data.moods, [r]), isLoading: false)));
+      emit(MoodState.updated(state.data
+          .copyWith(moods: _combineMoodsByDate(state.data.moods, [r]), isLoading: false)));
     });
   }
 
@@ -110,13 +115,14 @@ class MoodBloc extends Bloc<MoodEvent, MoodState> {
     response.fold(
       (l) => emit(MoodState.error(state.data.copyWith(isLoading: false, error: l))),
       (r) => emit(
-        MoodState.updated(
-            state.data.copyWith(isLoading: false, error: null, moods: _combineMoodsByDate(moods, r.data))),
+        MoodState.updated(state.data
+            .copyWith(isLoading: false, error: null, moods: _combineMoodsByDate(moods, r.data))),
       ),
     );
   }
 
-  Map<String, List<Mood>> _combineMoodsByDate(Map<String, List<Mood>>? previousWeightsData, List<Mood> data) {
+  Map<String, List<Mood>> _combineMoodsByDate(
+      Map<String, List<Mood>>? previousWeightsData, List<Mood> data) {
     Map<String, List<Mood>> moods = Map<String, List<Mood>>.from(previousWeightsData ?? {});
 
     for (Mood element in data) {

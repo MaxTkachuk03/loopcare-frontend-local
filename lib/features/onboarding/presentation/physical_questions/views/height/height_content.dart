@@ -165,8 +165,8 @@ class _HeightContentState extends State<HeightContent> {
     setState(() {
       heightFT = int.parse(value);
 
-      heightInCm =
-          HeightConversionUtils.doubleConvertFeetAndInchesToCM(heightFT.toDouble(), heightIN.toDouble());
+      heightInCm = HeightConversionUtils.doubleConvertFeetAndInchesToCM(
+          heightFT.toDouble(), heightIN.toDouble());
     });
 
     _validateInput(value);
@@ -177,8 +177,8 @@ class _HeightContentState extends State<HeightContent> {
     setState(() {
       heightIN = int.parse(value);
 
-      heightInCm =
-          HeightConversionUtils.doubleConvertFeetAndInchesToCM(heightFT.toDouble(), heightIN.toDouble());
+      heightInCm = HeightConversionUtils.doubleConvertFeetAndInchesToCM(
+          heightFT.toDouble(), heightIN.toDouble());
     });
   }
 

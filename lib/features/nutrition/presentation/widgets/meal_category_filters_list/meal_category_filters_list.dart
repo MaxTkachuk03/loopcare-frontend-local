@@ -17,7 +17,8 @@ class MealCategoryFiltersList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<FoodItemServingsBloc, FoodItemServingsState>(builder: (BuildContext context, state) {
+    return BlocBuilder<FoodItemServingsBloc, FoodItemServingsState>(
+        builder: (BuildContext context, state) {
       return state.maybeMap(
           orElse: () => const SizedBox.shrink(),
           foodItemServings: (foodItemServingsState) {

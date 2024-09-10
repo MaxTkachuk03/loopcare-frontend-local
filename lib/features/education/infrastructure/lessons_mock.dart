@@ -2,7 +2,12 @@ var lessons = [
   {
     "completedAt": "2024-04-04T11:23:18.743Z",
     "isLocked": false,
-    "unlockingConfig": {"extraAction": null, "requiredFeatures": [], "unlockedFeatures": [], "nextStepUnlockDelay": 0},
+    "unlockingConfig": {
+      "extraAction": null,
+      "requiredFeatures": [],
+      "unlockedFeatures": [],
+      "nextStepUnlockDelay": 0
+    },
     "questions": [],
     "id": 1,
     "category": "general",
@@ -18,7 +23,12 @@ var lessons = [
   {
     "completedAt": "2024-04-04T11:23:33.115Z",
     "isLocked": false,
-    "unlockingConfig": {"extraAction": null, "requiredFeatures": [], "unlockedFeatures": [], "nextStepUnlockDelay": 0},
+    "unlockingConfig": {
+      "extraAction": null,
+      "requiredFeatures": [],
+      "unlockedFeatures": [],
+      "nextStepUnlockDelay": 0
+    },
     "questions": [
       {
         "introduction": null,
@@ -35,7 +45,13 @@ var lessons = [
         "lessonId": 2,
         "lessonQuestionOptions": [
           {"value": null, "isCorrect": false, "id": 1, "label": "< 23", "lessonQuestionId": 1},
-          {"value": null, "isCorrect": false, "id": 43, "label": "≥ 25 and < 30", "lessonQuestionId": 1},
+          {
+            "value": null,
+            "isCorrect": false,
+            "id": 43,
+            "label": "≥ 25 and < 30",
+            "lessonQuestionId": 1
+          },
           {"value": null, "isCorrect": true, "id": 85, "label": " ≥ 30", "lessonQuestionId": 1}
         ],
         "lessonQuestionFeedbacks": [],
@@ -55,9 +71,11 @@ var lessons = [
         "id": 1,
         "answerType": "multipleChoiceValidation",
         "type": "quiz",
-        "title": "Let's do a short knowledge quiz with three questions to see what you have learned!",
+        "title":
+            "Let's do a short knowledge quiz with three questions to see what you have learned!",
         "visual": "https://dev.loopcare.app/education/content/2/images/lesson.png",
-        "instruction": "Let's do a short knowledge quiz with three questions to see what you have learned!",
+        "instruction":
+            "Let's do a short knowledge quiz with three questions to see what you have learned!",
         "extraInstruction": null
       },
       {
@@ -75,9 +93,27 @@ var lessons = [
         "completedAt": "2024-04-04T11:23:32.952Z",
         "lessonId": 2,
         "lessonQuestionOptions": [
-          {"value": null, "isCorrect": true, "id": 137, "label": "Waist circumference", "lessonQuestionId": 51},
-          {"value": null, "isCorrect": false, "id": 169, "label": "Thigh circumference", "lessonQuestionId": 51},
-          {"value": null, "isCorrect": false, "id": 206, "label": "Chest circumference", "lessonQuestionId": 51}
+          {
+            "value": null,
+            "isCorrect": true,
+            "id": 137,
+            "label": "Waist circumference",
+            "lessonQuestionId": 51
+          },
+          {
+            "value": null,
+            "isCorrect": false,
+            "id": 169,
+            "label": "Thigh circumference",
+            "lessonQuestionId": 51
+          },
+          {
+            "value": null,
+            "isCorrect": false,
+            "id": 206,
+            "label": "Chest circumference",
+            "lessonQuestionId": 51
+          }
         ],
         "lessonQuestionFeedbacks": [],
         "lessonQuestionAnswers": [
@@ -96,9 +132,11 @@ var lessons = [
         "id": 51,
         "answerType": "multipleChoiceValidation",
         "type": "quiz",
-        "title": "Let's do a short knowledge quiz with three questions to see what you have learned!",
+        "title":
+            "Let's do a short knowledge quiz with three questions to see what you have learned!",
         "visual": "https://dev.loopcare.app/education/content/2/images/lesson.png",
-        "instruction": "Let's do a short knowledge quiz with three questions to see what you have learned!",
+        "instruction":
+            "Let's do a short knowledge quiz with three questions to see what you have learned!",
         "extraInstruction": null
       },
       {
@@ -146,9 +184,11 @@ var lessons = [
         "id": 86,
         "answerType": "multipleChoiceValidation",
         "type": "quiz",
-        "title": "Let's do a short knowledge quiz with three questions to see what you have learned!",
+        "title":
+            "Let's do a short knowledge quiz with three questions to see what you have learned!",
         "visual": "https://dev.loopcare.app/education/content/2/images/lesson.png",
-        "instruction": "Let's do a short knowledge quiz with three questions to see what you have learned!",
+        "instruction":
+            "Let's do a short knowledge quiz with three questions to see what you have learned!",
         "extraInstruction": null
       }
     ],
@@ -166,7 +206,12 @@ var lessons = [
   {
     "completedAt": "2024-04-04T11:23:46.425Z",
     "isLocked": false,
-    "unlockingConfig": {"extraAction": null, "requiredFeatures": [], "unlockedFeatures": [], "nextStepUnlockDelay": 0},
+    "unlockingConfig": {
+      "extraAction": null,
+      "requiredFeatures": [],
+      "unlockedFeatures": [],
+      "nextStepUnlockDelay": 0
+    },
     "questions": [
       {
         "introduction": null,
@@ -206,7 +251,8 @@ var lessons = [
         "type": "quiz",
         "title": "Let's do a short knowledge quiz with two questions to see what you have learned!",
         "visual": "https://dev.loopcare.app/education/content/3/images/lesson.png",
-        "instruction": "Let's do a short knowledge quiz with two questions to see what you have learned!",
+        "instruction":
+            "Let's do a short knowledge quiz with two questions to see what you have learned!",
         "extraInstruction": null
       },
       {
@@ -264,7 +310,8 @@ var lessons = [
         "type": "quiz",
         "title": "Let's do a short knowledge quiz with two questions to see what you have learned!",
         "visual": "https://dev.loopcare.app/education/content/3/images/lesson.png",
-        "instruction": "Let's do a short knowledge quiz with two questions to see what you have learned!",
+        "instruction":
+            "Let's do a short knowledge quiz with two questions to see what you have learned!",
         "extraInstruction": null
       }
     ],
@@ -282,7 +329,12 @@ var lessons = [
   {
     "completedAt": "2024-04-04T11:24:01.475Z",
     "isLocked": false,
-    "unlockingConfig": {"extraAction": null, "requiredFeatures": [], "unlockedFeatures": [], "nextStepUnlockDelay": 0},
+    "unlockingConfig": {
+      "extraAction": null,
+      "requiredFeatures": [],
+      "unlockedFeatures": [],
+      "nextStepUnlockDelay": 0
+    },
     "questions": [
       {
         "introduction": null,
@@ -302,11 +354,24 @@ var lessons = [
             "value": null,
             "isCorrect": true,
             "id": 3,
-            "label": "Forcing yourself to adhere to unsustainable dietary practices for the sake of losing weight.",
+            "label":
+                "Forcing yourself to adhere to unsustainable dietary practices for the sake of losing weight.",
             "lessonQuestionId": 3
           },
-          {"value": null, "isCorrect": false, "id": 45, "label": "Not eating enough calories.", "lessonQuestionId": 3},
-          {"value": null, "isCorrect": false, "id": 87, "label": "Not exercising enough.", "lessonQuestionId": 3}
+          {
+            "value": null,
+            "isCorrect": false,
+            "id": 45,
+            "label": "Not eating enough calories.",
+            "lessonQuestionId": 3
+          },
+          {
+            "value": null,
+            "isCorrect": false,
+            "id": 87,
+            "label": "Not exercising enough.",
+            "lessonQuestionId": 3
+          }
         ],
         "lessonQuestionFeedbacks": [],
         "lessonQuestionAnswers": [
@@ -327,7 +392,8 @@ var lessons = [
         "type": "quiz",
         "title": "Let's do a short knowledge quiz with two questions to see what you have learned!",
         "visual": "https://dev.loopcare.app/education/content/4/images/lesson.png",
-        "instruction": "Let's do a short knowledge quiz with two questions to see what you have learned!",
+        "instruction":
+            "Let's do a short knowledge quiz with two questions to see what you have learned!",
         "extraInstruction": null
       },
       {
@@ -338,7 +404,8 @@ var lessons = [
             "Your weight is the combination of your water, bone, muscle, and fat mass. There are many reasons why this can fluctuate, making weight loss look a bit bumpy when tracked. In the face of a weight-loss stall, it is important to remember this, and continue to work on making sustainable, healthy lifestyle changes.",
         "lowestText": null,
         "highestText": null,
-        "question": "True or false: A stall in weight loss means that you aren’t trying hard enough.",
+        "question":
+            "True or false: A stall in weight loss means that you aren’t trying hard enough.",
         "openedAt": "2024-04-04T11:24:01.475Z",
         "answeredAt": "2024-04-04T11:24:01.306Z",
         "completedAt": "2024-04-04T11:24:01.306Z",
@@ -366,7 +433,8 @@ var lessons = [
         "type": "quiz",
         "title": "Let's do a short knowledge quiz with two questions to see what you have learned!",
         "visual": "https://dev.loopcare.app/education/content/4/images/lesson.png",
-        "instruction": "Let's do a short knowledge quiz with two questions to see what you have learned!",
+        "instruction":
+            "Let's do a short knowledge quiz with two questions to see what you have learned!",
         "extraInstruction": null
       }
     ],
@@ -400,7 +468,8 @@ var lessons = [
         "explanationIncorrect": null,
         "lowestText": "not very motivated",
         "highestText": "very motivated",
-        "question": "How motivated are you to change your behavior in order to achieve these goals?",
+        "question":
+            "How motivated are you to change your behavior in order to achieve these goals?",
         "openedAt": "2024-04-04T11:24:08.866Z",
         "answeredAt": null,
         "completedAt": null,
@@ -523,11 +592,17 @@ var lessons = [
   {
     "completedAt": "2024-04-04T11:24:21.750Z",
     "isLocked": false,
-    "unlockingConfig": {"extraAction": null, "requiredFeatures": [], "unlockedFeatures": [], "nextStepUnlockDelay": 0},
+    "unlockingConfig": {
+      "extraAction": null,
+      "requiredFeatures": [],
+      "unlockedFeatures": [],
+      "nextStepUnlockDelay": 0
+    },
     "questions": [
       {
         "introduction": null,
-        "explanationCorrect": "The SMART model helps you formulate achievable goals in a structured way.",
+        "explanationCorrect":
+            "The SMART model helps you formulate achievable goals in a structured way.",
         "explanationIncorrect":
             "While it can help to visualize your process and can help you make smarter decisions, the SMART model is designed to make you set achievable goals in a structured way.",
         "lowestText": null,
@@ -538,7 +613,13 @@ var lessons = [
         "completedAt": "2024-04-04T11:24:21.616Z",
         "lessonId": 6,
         "lessonQuestionOptions": [
-          {"value": null, "isCorrect": false, "id": 4, "label": "It visualizes your progress.", "lessonQuestionId": 4},
+          {
+            "value": null,
+            "isCorrect": false,
+            "id": 4,
+            "label": "It visualizes your progress.",
+            "lessonQuestionId": 4
+          },
           {
             "value": null,
             "isCorrect": true,
@@ -573,7 +654,8 @@ var lessons = [
         "type": "quiz",
         "title": "Let's do a short knowledge quiz with two questions to see what you have learned!",
         "visual": "https://dev.loopcare.app/education/content/7/images/lesson.png",
-        "instruction": "Let's do a short knowledge quiz with two questions to see what you have learned!",
+        "instruction":
+            "Let's do a short knowledge quiz with two questions to see what you have learned!",
         "extraInstruction": null
       },
       {
@@ -589,8 +671,20 @@ var lessons = [
         "completedAt": "2024-04-04T11:24:21.616Z",
         "lessonId": 6,
         "lessonQuestionOptions": [
-          {"value": null, "isCorrect": true, "id": 140, "label": "Measureable", "lessonQuestionId": 54},
-          {"value": null, "isCorrect": false, "id": 172, "label": "Motivational", "lessonQuestionId": 54},
+          {
+            "value": null,
+            "isCorrect": true,
+            "id": 140,
+            "label": "Measureable",
+            "lessonQuestionId": 54
+          },
+          {
+            "value": null,
+            "isCorrect": false,
+            "id": 172,
+            "label": "Motivational",
+            "lessonQuestionId": 54
+          },
           {"value": null, "isCorrect": false, "id": 208, "label": "Motto", "lessonQuestionId": 54}
         ],
         "lessonQuestionFeedbacks": [],
@@ -612,7 +706,8 @@ var lessons = [
         "type": "quiz",
         "title": "Let's do a short knowledge quiz with two questions to see what you have learned!",
         "visual": "https://dev.loopcare.app/education/content/7/images/lesson.png",
-        "instruction": "Let's do a short knowledge quiz with two questions to see what you have learned!",
+        "instruction":
+            "Let's do a short knowledge quiz with two questions to see what you have learned!",
         "extraInstruction": null
       }
     ],
@@ -729,7 +824,8 @@ var lessons = [
         "type": "quiz",
         "title": "Let's do a short knowledge quiz with two questions to see what you have learned!",
         "visual": "https://dev.loopcare.app/education/content/15/images/lesson.png",
-        "instruction": "Let's do a short knowledge quiz with two questions to see what you have learned!",
+        "instruction":
+            "Let's do a short knowledge quiz with two questions to see what you have learned!",
         "extraInstruction": null
       },
       {
@@ -740,7 +836,8 @@ var lessons = [
             "Reducing the calorie density of your diet is not about eliminating fats from your diet. It is about balancing your fats and high dense foods with enough low dense foods to stay full. This teaches you how to properly portion your foods so you don’t have to completely restrict anything.",
         "lowestText": null,
         "highestText": null,
-        "question": "True or false: Because fats increase calorie density, I should eat a low-fat diet.",
+        "question":
+            "True or false: Because fats increase calorie density, I should eat a low-fat diet.",
         "openedAt": "2024-04-04T11:24:53.743Z",
         "answeredAt": "2024-04-04T11:24:53.618Z",
         "completedAt": "2024-04-04T11:24:53.618Z",
@@ -768,7 +865,8 @@ var lessons = [
         "type": "quiz",
         "title": "Let's do a short knowledge quiz with two questions to see what you have learned!",
         "visual": "https://dev.loopcare.app/education/content/15/images/lesson.png",
-        "instruction": "Let's do a short knowledge quiz with two questions to see what you have learned!",
+        "instruction":
+            "Let's do a short knowledge quiz with two questions to see what you have learned!",
         "extraInstruction": null
       }
     ],
@@ -786,7 +884,12 @@ var lessons = [
   {
     "completedAt": "2024-04-04T11:25:00.221Z",
     "isLocked": false,
-    "unlockingConfig": {"extraAction": null, "requiredFeatures": [], "unlockedFeatures": [], "nextStepUnlockDelay": 0},
+    "unlockingConfig": {
+      "extraAction": null,
+      "requiredFeatures": [],
+      "unlockedFeatures": [],
+      "nextStepUnlockDelay": 0
+    },
     "questions": [],
     "id": 9,
     "category": "mind",
@@ -802,7 +905,12 @@ var lessons = [
   {
     "completedAt": "2024-04-04T11:25:05.633Z",
     "isLocked": false,
-    "unlockingConfig": {"extraAction": null, "requiredFeatures": [], "unlockedFeatures": [], "nextStepUnlockDelay": 0},
+    "unlockingConfig": {
+      "extraAction": null,
+      "requiredFeatures": [],
+      "unlockedFeatures": [],
+      "nextStepUnlockDelay": 0
+    },
     "questions": [],
     "id": 10,
     "category": "mind",
@@ -866,7 +974,12 @@ var lessons = [
   {
     "completedAt": "2024-04-04T11:25:49.934Z",
     "isLocked": false,
-    "unlockingConfig": {"extraAction": null, "requiredFeatures": [], "unlockedFeatures": [], "nextStepUnlockDelay": 0},
+    "unlockingConfig": {
+      "extraAction": null,
+      "requiredFeatures": [],
+      "unlockedFeatures": [],
+      "nextStepUnlockDelay": 0
+    },
     "questions": [
       {
         "introduction": null,
@@ -876,13 +989,20 @@ var lessons = [
             "When your eyes take in sunlight in the morning, it activates specific nerves that run to your brain that sets your internal clock to the morning. This tells your brain that it's morning, which helps you wake up more easily in the morning and feel sleepy in the evening.",
         "lowestText": null,
         "highestText": null,
-        "question": "Why is it important to get 10-20 minutes of natural sunlight each morning after you wake up?",
+        "question":
+            "Why is it important to get 10-20 minutes of natural sunlight each morning after you wake up?",
         "openedAt": "2024-04-04T11:25:49.934Z",
         "answeredAt": "2024-04-04T11:25:46.430Z",
         "completedAt": "2024-04-04T11:25:49.754Z",
         "lessonId": 13,
         "lessonQuestionOptions": [
-          {"value": null, "isCorrect": false, "id": 6, "label": "It will reduce your appetite.", "lessonQuestionId": 6},
+          {
+            "value": null,
+            "isCorrect": false,
+            "id": 6,
+            "label": "It will reduce your appetite.",
+            "lessonQuestionId": 6
+          },
           {
             "value": null,
             "isCorrect": true,
@@ -924,7 +1044,8 @@ var lessons = [
         "type": "quiz",
         "title": "Let's do a short knowledge quiz with two questions to see what you have learned!",
         "visual": "https://dev.loopcare.app/education/content/8/images/lesson.png",
-        "instruction": "Let's do a short knowledge quiz with two questions to see what you have learned!",
+        "instruction":
+            "Let's do a short knowledge quiz with two questions to see what you have learned!",
         "extraInstruction": null
       },
       {
@@ -989,7 +1110,8 @@ var lessons = [
         "type": "quiz",
         "title": "Let's do a short knowledge quiz with two questions to see what you have learned!",
         "visual": "https://dev.loopcare.app/education/content/8/images/lesson.png",
-        "instruction": "Let's do a short knowledge quiz with two questions to see what you have learned!",
+        "instruction":
+            "Let's do a short knowledge quiz with two questions to see what you have learned!",
         "extraInstruction": null
       }
     ],
@@ -1071,7 +1193,8 @@ var lessons = [
         "type": "quiz",
         "title": "Let's do a short knowledge quiz with two questions to see what you have learned!",
         "visual": "https://dev.loopcare.app/education/content/9/images/lesson.png",
-        "instruction": "Let's do a short knowledge quiz with two questions to see what you have learned!",
+        "instruction":
+            "Let's do a short knowledge quiz with two questions to see what you have learned!",
         "extraInstruction": null
       },
       {
@@ -1099,7 +1222,8 @@ var lessons = [
         "type": "quiz",
         "title": "Let's do a short knowledge quiz with two questions to see what you have learned!",
         "visual": "https://dev.loopcare.app/education/content/9/images/lesson.png",
-        "instruction": "Let's do a short knowledge quiz with two questions to see what you have learned!",
+        "instruction":
+            "Let's do a short knowledge quiz with two questions to see what you have learned!",
         "extraInstruction": null
       }
     ],
@@ -1117,7 +1241,12 @@ var lessons = [
   {
     "completedAt": null,
     "isLocked": true,
-    "unlockingConfig": {"extraAction": null, "requiredFeatures": [], "unlockedFeatures": [], "nextStepUnlockDelay": 0},
+    "unlockingConfig": {
+      "extraAction": null,
+      "requiredFeatures": [],
+      "unlockedFeatures": [],
+      "nextStepUnlockDelay": 0
+    },
     "questions": [
       {
         "introduction": null,
@@ -1147,7 +1276,13 @@ var lessons = [
             "label": "It strengthens the heart and supports blood circulation.",
             "lessonQuestionId": 8
           },
-          {"value": null, "isCorrect": false, "id": 92, "label": "It builds up muscles.", "lessonQuestionId": 8}
+          {
+            "value": null,
+            "isCorrect": false,
+            "id": 92,
+            "label": "It builds up muscles.",
+            "lessonQuestionId": 8
+          }
         ],
         "lessonQuestionFeedbacks": [],
         "lessonQuestionAnswers": [],
@@ -1156,7 +1291,8 @@ var lessons = [
         "type": "quiz",
         "title": "Let's do a short knowledge quiz with two questions to see what you have learned!",
         "visual": "https://dev.loopcare.app/education/content/16/images/lesson.png",
-        "instruction": "Let's do a short knowledge quiz with two questions to see what you have learned!",
+        "instruction":
+            "Let's do a short knowledge quiz with two questions to see what you have learned!",
         "extraInstruction": null
       },
       {
@@ -1180,8 +1316,20 @@ var lessons = [
             "label": "Promotion of mental strength",
             "lessonQuestionId": 55
           },
-          {"value": null, "isCorrect": false, "id": 176, "label": "Improved endurance", "lessonQuestionId": 55},
-          {"value": null, "isCorrect": false, "id": 212, "label": "A decrease in bone density", "lessonQuestionId": 55}
+          {
+            "value": null,
+            "isCorrect": false,
+            "id": 176,
+            "label": "Improved endurance",
+            "lessonQuestionId": 55
+          },
+          {
+            "value": null,
+            "isCorrect": false,
+            "id": 212,
+            "label": "A decrease in bone density",
+            "lessonQuestionId": 55
+          }
         ],
         "lessonQuestionFeedbacks": [],
         "lessonQuestionAnswers": [],
@@ -1190,7 +1338,8 @@ var lessons = [
         "type": "quiz",
         "title": "Let's do a short knowledge quiz with two questions to see what you have learned!",
         "visual": "https://dev.loopcare.app/education/content/16/images/lesson.png",
-        "instruction": "Let's do a short knowledge quiz with two questions to see what you have learned!",
+        "instruction":
+            "Let's do a short knowledge quiz with two questions to see what you have learned!",
         "extraInstruction": null
       }
     ],
@@ -1244,7 +1393,13 @@ var lessons = [
             "label": "It improves your overall health",
             "lessonQuestionId": 9
           },
-          {"value": null, "isCorrect": false, "id": 93, "label": "It's bad for your knees", "lessonQuestionId": 9}
+          {
+            "value": null,
+            "isCorrect": false,
+            "id": 93,
+            "label": "It's bad for your knees",
+            "lessonQuestionId": 9
+          }
         ],
         "lessonQuestionFeedbacks": [],
         "lessonQuestionAnswers": [],
@@ -1253,7 +1408,8 @@ var lessons = [
         "type": "quiz",
         "title": "Let's do a short knowledge quiz with two questions to see what you have learned!",
         "visual": "https://dev.loopcare.app/education/content/17/images/lesson.png",
-        "instruction": "Let's do a short knowledge quiz with two questions to see what you have learned!",
+        "instruction":
+            "Let's do a short knowledge quiz with two questions to see what you have learned!",
         "extraInstruction": null
       },
       {
@@ -1299,7 +1455,8 @@ var lessons = [
         "type": "quiz",
         "title": "Let's do a short knowledge quiz with two questions to see what you have learned!",
         "visual": "https://dev.loopcare.app/education/content/17/images/lesson.png",
-        "instruction": "Let's do a short knowledge quiz with two questions to see what you have learned!",
+        "instruction":
+            "Let's do a short knowledge quiz with two questions to see what you have learned!",
         "extraInstruction": null
       }
     ],
@@ -1317,7 +1474,12 @@ var lessons = [
   {
     "completedAt": null,
     "isLocked": true,
-    "unlockingConfig": {"extraAction": null, "requiredFeatures": [], "unlockedFeatures": [], "nextStepUnlockDelay": 0},
+    "unlockingConfig": {
+      "extraAction": null,
+      "requiredFeatures": [],
+      "unlockedFeatures": [],
+      "nextStepUnlockDelay": 0
+    },
     "questions": [],
     "id": 17,
     "category": "mind",
@@ -1333,7 +1495,12 @@ var lessons = [
   {
     "completedAt": null,
     "isLocked": true,
-    "unlockingConfig": {"extraAction": null, "requiredFeatures": [], "unlockedFeatures": [], "nextStepUnlockDelay": 0},
+    "unlockingConfig": {
+      "extraAction": null,
+      "requiredFeatures": [],
+      "unlockedFeatures": [],
+      "nextStepUnlockDelay": 0
+    },
     "questions": [],
     "id": 18,
     "category": "mind",
@@ -1349,7 +1516,12 @@ var lessons = [
   {
     "completedAt": null,
     "isLocked": true,
-    "unlockingConfig": {"extraAction": null, "requiredFeatures": [], "unlockedFeatures": [], "nextStepUnlockDelay": 0},
+    "unlockingConfig": {
+      "extraAction": null,
+      "requiredFeatures": [],
+      "unlockedFeatures": [],
+      "nextStepUnlockDelay": 0
+    },
     "questions": [
       {
         "introduction": null,
@@ -1490,10 +1662,34 @@ var lessons = [
         "completedAt": null,
         "lessonId": 20,
         "lessonQuestionOptions": [
-          {"value": null, "isCorrect": false, "id": 10, "label": "Between 6:00am and 9:00am", "lessonQuestionId": 10},
-          {"value": null, "isCorrect": false, "id": 52, "label": "Between 8:00am adn 10:00am", "lessonQuestionId": 10},
-          {"value": null, "isCorrect": false, "id": 94, "label": "Exactly at 9:00am", "lessonQuestionId": 10},
-          {"value": null, "isCorrect": true, "id": 122, "label": "Between 8:30am and 9:30am", "lessonQuestionId": 10}
+          {
+            "value": null,
+            "isCorrect": false,
+            "id": 10,
+            "label": "Between 6:00am and 9:00am",
+            "lessonQuestionId": 10
+          },
+          {
+            "value": null,
+            "isCorrect": false,
+            "id": 52,
+            "label": "Between 8:00am adn 10:00am",
+            "lessonQuestionId": 10
+          },
+          {
+            "value": null,
+            "isCorrect": false,
+            "id": 94,
+            "label": "Exactly at 9:00am",
+            "lessonQuestionId": 10
+          },
+          {
+            "value": null,
+            "isCorrect": true,
+            "id": 122,
+            "label": "Between 8:30am and 9:30am",
+            "lessonQuestionId": 10
+          }
         ],
         "lessonQuestionFeedbacks": [],
         "lessonQuestionAnswers": [],
@@ -1502,7 +1698,8 @@ var lessons = [
         "type": "quiz",
         "title": "Let's do a short knowledge quiz with two questions to see what you have learned!",
         "visual": "https://dev.loopcare.app/education/content/22/images/lesson.png",
-        "instruction": "Let's do a short knowledge quiz with two questions to see what you have learned!",
+        "instruction":
+            "Let's do a short knowledge quiz with two questions to see what you have learned!",
         "extraInstruction": null
       },
       {
@@ -1519,10 +1716,34 @@ var lessons = [
         "completedAt": null,
         "lessonId": 20,
         "lessonQuestionOptions": [
-          {"value": null, "isCorrect": false, "id": 178, "label": "3 meals a day.", "lessonQuestionId": 78},
-          {"value": null, "isCorrect": false, "id": 214, "label": "2 meals a day.", "lessonQuestionId": 78},
-          {"value": null, "isCorrect": true, "id": 240, "label": "Personal preference", "lessonQuestionId": 78},
-          {"value": null, "isCorrect": false, "id": 248, "label": "5 meals a day.", "lessonQuestionId": 78}
+          {
+            "value": null,
+            "isCorrect": false,
+            "id": 178,
+            "label": "3 meals a day.",
+            "lessonQuestionId": 78
+          },
+          {
+            "value": null,
+            "isCorrect": false,
+            "id": 214,
+            "label": "2 meals a day.",
+            "lessonQuestionId": 78
+          },
+          {
+            "value": null,
+            "isCorrect": true,
+            "id": 240,
+            "label": "Personal preference",
+            "lessonQuestionId": 78
+          },
+          {
+            "value": null,
+            "isCorrect": false,
+            "id": 248,
+            "label": "5 meals a day.",
+            "lessonQuestionId": 78
+          }
         ],
         "lessonQuestionFeedbacks": [],
         "lessonQuestionAnswers": [],
@@ -1531,7 +1752,8 @@ var lessons = [
         "type": "quiz",
         "title": "Let's do a short knowledge quiz with two questions to see what you have learned!",
         "visual": "https://dev.loopcare.app/education/content/22/images/lesson.png",
-        "instruction": "Let's do a short knowledge quiz with two questions to see what you have learned!",
+        "instruction":
+            "Let's do a short knowledge quiz with two questions to see what you have learned!",
         "extraInstruction": null
       }
     ],
@@ -1549,7 +1771,12 @@ var lessons = [
   {
     "completedAt": null,
     "isLocked": true,
-    "unlockingConfig": {"extraAction": null, "requiredFeatures": [], "unlockedFeatures": [], "nextStepUnlockDelay": 0},
+    "unlockingConfig": {
+      "extraAction": null,
+      "requiredFeatures": [],
+      "unlockedFeatures": [],
+      "nextStepUnlockDelay": 0
+    },
     "questions": [
       {
         "introduction": null,
@@ -1572,7 +1799,13 @@ var lessons = [
             "label": "To improve self-control and willpower.",
             "lessonQuestionId": 11
           },
-          {"value": null, "isCorrect": false, "id": 53, "label": "To achieve quick results.", "lessonQuestionId": 11},
+          {
+            "value": null,
+            "isCorrect": false,
+            "id": 53,
+            "label": "To achieve quick results.",
+            "lessonQuestionId": 11
+          },
           {
             "value": null,
             "isCorrect": true,
@@ -1588,12 +1821,14 @@ var lessons = [
         "type": "quiz",
         "title": "Let's do a short knowledge quiz with two questions to see what you have learned!",
         "visual": "https://dev.loopcare.app/education/content/23/images/lesson.png",
-        "instruction": "Let's do a short knowledge quiz with two questions to see what you have learned!",
+        "instruction":
+            "Let's do a short knowledge quiz with two questions to see what you have learned!",
         "extraInstruction": null
       },
       {
         "introduction": null,
-        "explanationCorrect": "Only a measurable goal is clearly formulated and can therefore be achieved.",
+        "explanationCorrect":
+            "Only a measurable goal is clearly formulated and can therefore be achieved.",
         "explanationIncorrect":
             "Setting unrealistic goals as a challenge as well as not setting a timeframe for your goals makes it harder to achieve them.",
         "lowestText": null,
@@ -1633,7 +1868,8 @@ var lessons = [
         "type": "quiz",
         "title": "Let's do a short knowledge quiz with two questions to see what you have learned!",
         "visual": "https://dev.loopcare.app/education/content/23/images/lesson.png",
-        "instruction": "Let's do a short knowledge quiz with two questions to see what you have learned!",
+        "instruction":
+            "Let's do a short knowledge quiz with two questions to see what you have learned!",
         "extraInstruction": null
       }
     ],
@@ -1651,11 +1887,17 @@ var lessons = [
   {
     "completedAt": null,
     "isLocked": true,
-    "unlockingConfig": {"extraAction": null, "requiredFeatures": [], "unlockedFeatures": [], "nextStepUnlockDelay": 0},
+    "unlockingConfig": {
+      "extraAction": null,
+      "requiredFeatures": [],
+      "unlockedFeatures": [],
+      "nextStepUnlockDelay": 0
+    },
     "questions": [
       {
         "introduction": null,
-        "explanationCorrect": "It is important to increase your exercise load slowly to minimize the risk of injury.",
+        "explanationCorrect":
+            "It is important to increase your exercise load slowly to minimize the risk of injury.",
         "explanationIncorrect":
             "Slowly increasing your exercise load doesn't make training less demanding or produce the quickest results. What it does do is minimize the risk that you injure yourself while training.",
         "lowestText": null,
@@ -1695,7 +1937,8 @@ var lessons = [
         "type": "quiz",
         "title": "Let's do a short knowledge quiz with two questions to see what you have learned!",
         "visual": "https://dev.loopcare.app/education/content/24/images/lesson.png",
-        "instruction": "Let's do a short knowledge quiz with two questions to see what you have learned!",
+        "instruction":
+            "Let's do a short knowledge quiz with two questions to see what you have learned!",
         "extraInstruction": null
       },
       {
@@ -1712,7 +1955,13 @@ var lessons = [
         "completedAt": null,
         "lessonId": 22,
         "lessonQuestionOptions": [
-          {"value": null, "isCorrect": false, "id": 144, "label": "To accelerate progress", "lessonQuestionId": 58},
+          {
+            "value": null,
+            "isCorrect": false,
+            "id": 144,
+            "label": "To accelerate progress",
+            "lessonQuestionId": 58
+          },
           {
             "value": null,
             "isCorrect": true,
@@ -1735,7 +1984,8 @@ var lessons = [
         "type": "quiz",
         "title": "Let's do a short knowledge quiz with two questions to see what you have learned!",
         "visual": "https://dev.loopcare.app/education/content/24/images/lesson.png",
-        "instruction": "Let's do a short knowledge quiz with two questions to see what you have learned!",
+        "instruction":
+            "Let's do a short knowledge quiz with two questions to see what you have learned!",
         "extraInstruction": null
       }
     ],
@@ -1768,15 +2018,34 @@ var lessons = [
             "Types like health promoters as well as nature lovers generally do not have limited time for workouts. The type that usually has limited time for working out are workaholics.",
         "lowestText": null,
         "highestText": null,
-        "question": "Which type might fit busy people that have limited time for extended workouts?",
+        "question":
+            "Which type might fit busy people that have limited time for extended workouts?",
         "openedAt": null,
         "answeredAt": null,
         "completedAt": null,
         "lessonId": 23,
         "lessonQuestionOptions": [
-          {"value": null, "isCorrect": false, "id": 13, "label": "Health promoter", "lessonQuestionId": 13},
-          {"value": null, "isCorrect": true, "id": 55, "label": "Workaholic", "lessonQuestionId": 13},
-          {"value": null, "isCorrect": false, "id": 97, "label": "Nature lover", "lessonQuestionId": 13}
+          {
+            "value": null,
+            "isCorrect": false,
+            "id": 13,
+            "label": "Health promoter",
+            "lessonQuestionId": 13
+          },
+          {
+            "value": null,
+            "isCorrect": true,
+            "id": 55,
+            "label": "Workaholic",
+            "lessonQuestionId": 13
+          },
+          {
+            "value": null,
+            "isCorrect": false,
+            "id": 97,
+            "label": "Nature lover",
+            "lessonQuestionId": 13
+          }
         ],
         "lessonQuestionFeedbacks": [],
         "lessonQuestionAnswers": [],
@@ -1785,7 +2054,8 @@ var lessons = [
         "type": "quiz",
         "title": "Let's do a short knowledge quiz with two questions to see what you have learned!",
         "visual": "https://dev.loopcare.app/education/content/25/images/lesson.png",
-        "instruction": "Let's do a short knowledge quiz with two questions to see what you have learned!",
+        "instruction":
+            "Let's do a short knowledge quiz with two questions to see what you have learned!",
         "extraInstruction": null
       },
       {
@@ -1831,7 +2101,8 @@ var lessons = [
         "type": "quiz",
         "title": "Let's do a short knowledge quiz with two questions to see what you have learned!",
         "visual": "https://dev.loopcare.app/education/content/25/images/lesson.png",
-        "instruction": "Let's do a short knowledge quiz with two questions to see what you have learned!",
+        "instruction":
+            "Let's do a short knowledge quiz with two questions to see what you have learned!",
         "extraInstruction": null
       }
     ],
@@ -1849,7 +2120,12 @@ var lessons = [
   {
     "completedAt": null,
     "isLocked": true,
-    "unlockingConfig": {"extraAction": null, "requiredFeatures": [], "unlockedFeatures": [], "nextStepUnlockDelay": 0},
+    "unlockingConfig": {
+      "extraAction": null,
+      "requiredFeatures": [],
+      "unlockedFeatures": [],
+      "nextStepUnlockDelay": 0
+    },
     "questions": [],
     "id": 24,
     "category": "mind",
@@ -1865,7 +2141,12 @@ var lessons = [
   {
     "completedAt": null,
     "isLocked": true,
-    "unlockingConfig": {"extraAction": null, "requiredFeatures": [], "unlockedFeatures": [], "nextStepUnlockDelay": 0},
+    "unlockingConfig": {
+      "extraAction": null,
+      "requiredFeatures": [],
+      "unlockedFeatures": [],
+      "nextStepUnlockDelay": 0
+    },
     "questions": [
       {
         "introduction": null,
@@ -1879,14 +2160,56 @@ var lessons = [
         "completedAt": null,
         "lessonId": 25,
         "lessonQuestionOptions": [
-          {"value": null, "isCorrect": null, "id": 289, "label": "Time pressure", "lessonQuestionId": 108},
+          {
+            "value": null,
+            "isCorrect": null,
+            "id": 289,
+            "label": "Time pressure",
+            "lessonQuestionId": 108
+          },
           {"value": null, "isCorrect": null, "id": 290, "label": "Stress", "lessonQuestionId": 108},
-          {"value": null, "isCorrect": null, "id": 291, "label": "Eating with other people", "lessonQuestionId": 108},
-          {"value": null, "isCorrect": null, "id": 292, "label": "Argument", "lessonQuestionId": 108},
-          {"value": null, "isCorrect": null, "id": 293, "label": "Tiredness", "lessonQuestionId": 108},
-          {"value": null, "isCorrect": null, "id": 294, "label": "Being bored", "lessonQuestionId": 108},
-          {"value": null, "isCorrect": null, "id": 295, "label": "Loneliness", "lessonQuestionId": 108},
-          {"value": null, "isCorrect": null, "id": 296, "label": "Sadness", "lessonQuestionId": 108},
+          {
+            "value": null,
+            "isCorrect": null,
+            "id": 291,
+            "label": "Eating with other people",
+            "lessonQuestionId": 108
+          },
+          {
+            "value": null,
+            "isCorrect": null,
+            "id": 292,
+            "label": "Argument",
+            "lessonQuestionId": 108
+          },
+          {
+            "value": null,
+            "isCorrect": null,
+            "id": 293,
+            "label": "Tiredness",
+            "lessonQuestionId": 108
+          },
+          {
+            "value": null,
+            "isCorrect": null,
+            "id": 294,
+            "label": "Being bored",
+            "lessonQuestionId": 108
+          },
+          {
+            "value": null,
+            "isCorrect": null,
+            "id": 295,
+            "label": "Loneliness",
+            "lessonQuestionId": 108
+          },
+          {
+            "value": null,
+            "isCorrect": null,
+            "id": 296,
+            "label": "Sadness",
+            "lessonQuestionId": 108
+          },
           {"value": null, "isCorrect": null, "id": 297, "label": "Anger", "lessonQuestionId": 108},
           {
             "value": null,
@@ -1902,7 +2225,13 @@ var lessons = [
             "label": "Giving in to pressure from others",
             "lessonQuestionId": 108
           },
-          {"value": null, "isCorrect": null, "id": 300, "label": "Shopping while hungry", "lessonQuestionId": 108}
+          {
+            "value": null,
+            "isCorrect": null,
+            "id": 300,
+            "label": "Shopping while hungry",
+            "lessonQuestionId": 108
+          }
         ],
         "lessonQuestionFeedbacks": [],
         "lessonQuestionAnswers": [],
@@ -1935,8 +2264,20 @@ var lessons = [
             "label": "Make sure you eat regular meals",
             "lessonQuestionId": 110
           },
-          {"value": null, "isCorrect": null, "id": 302, "label": "Check your time management", "lessonQuestionId": 110},
-          {"value": null, "isCorrect": null, "id": 303, "label": "Drink a lot of water", "lessonQuestionId": 110},
+          {
+            "value": null,
+            "isCorrect": null,
+            "id": 302,
+            "label": "Check your time management",
+            "lessonQuestionId": 110
+          },
+          {
+            "value": null,
+            "isCorrect": null,
+            "id": 303,
+            "label": "Drink a lot of water",
+            "lessonQuestionId": 110
+          },
           {
             "value": null,
             "isCorrect": null,
@@ -1944,7 +2285,13 @@ var lessons = [
             "label": "Don't eat after you stop feeling hungry",
             "lessonQuestionId": 110
           },
-          {"value": null, "isCorrect": null, "id": 305, "label": "Have small portions", "lessonQuestionId": 110},
+          {
+            "value": null,
+            "isCorrect": null,
+            "id": 305,
+            "label": "Have small portions",
+            "lessonQuestionId": 110
+          },
           {
             "value": null,
             "isCorrect": null,
@@ -1952,10 +2299,34 @@ var lessons = [
             "label": "Take your time and sit at a properly set table",
             "lessonQuestionId": 110
           },
-          {"value": null, "isCorrect": null, "id": 307, "label": "Don't eat between meals", "lessonQuestionId": 110},
-          {"value": null, "isCorrect": null, "id": 308, "label": "Eat mindfully and slowly", "lessonQuestionId": 110},
-          {"value": null, "isCorrect": null, "id": 309, "label": "Make a meal plan", "lessonQuestionId": 110},
-          {"value": null, "isCorrect": null, "id": 310, "label": "Prepare food for the day", "lessonQuestionId": 110},
+          {
+            "value": null,
+            "isCorrect": null,
+            "id": 307,
+            "label": "Don't eat between meals",
+            "lessonQuestionId": 110
+          },
+          {
+            "value": null,
+            "isCorrect": null,
+            "id": 308,
+            "label": "Eat mindfully and slowly",
+            "lessonQuestionId": 110
+          },
+          {
+            "value": null,
+            "isCorrect": null,
+            "id": 309,
+            "label": "Make a meal plan",
+            "lessonQuestionId": 110
+          },
+          {
+            "value": null,
+            "isCorrect": null,
+            "id": 310,
+            "label": "Prepare food for the day",
+            "lessonQuestionId": 110
+          },
           {
             "value": null,
             "isCorrect": null,
@@ -1963,7 +2334,13 @@ var lessons = [
             "label": "Think about an alternative before going to a restaurant",
             "lessonQuestionId": 110
           },
-          {"value": null, "isCorrect": null, "id": 312, "label": "Have healthy snacks ready", "lessonQuestionId": 110},
+          {
+            "value": null,
+            "isCorrect": null,
+            "id": 312,
+            "label": "Have healthy snacks ready",
+            "lessonQuestionId": 110
+          },
           {
             "value": null,
             "isCorrect": null,
@@ -2085,7 +2462,12 @@ var lessons = [
   {
     "completedAt": null,
     "isLocked": true,
-    "unlockingConfig": {"extraAction": null, "requiredFeatures": [], "unlockedFeatures": [], "nextStepUnlockDelay": 0},
+    "unlockingConfig": {
+      "extraAction": null,
+      "requiredFeatures": [],
+      "unlockedFeatures": [],
+      "nextStepUnlockDelay": 0
+    },
     "questions": [
       {
         "introduction": null,
@@ -2131,7 +2513,8 @@ var lessons = [
         "visual": "https://dev.loopcare.app/education/content/28/images/lesson.png",
         "instruction":
             "Make your journey more personal. The more you become aware of habits and your personality, the easier it will be to change. Reflect on the following questions.\n\nThis assignment is part of the Mind lesson \"Past weight-loss attempts\".",
-        "extraInstruction": "Was this preceded by a specific event or a long period when you were under stress?"
+        "extraInstruction":
+            "Was this preceded by a specific event or a long period when you were under stress?"
       },
       {
         "introduction": null,
@@ -2278,17 +2661,25 @@ var lessons = [
             "value": null,
             "isCorrect": false,
             "id": 56,
-            "label": "More calories from protein are burned during digestion compared to carbohydrates or fats.",
+            "label":
+                "More calories from protein are burned during digestion compared to carbohydrates or fats.",
             "lessonQuestionId": 14
           },
           {
             "value": null,
             "isCorrect": false,
             "id": 98,
-            "label": "Protein intake can help reduce muscle loss and increase fat loss when in a calorie deficit.",
+            "label":
+                "Protein intake can help reduce muscle loss and increase fat loss when in a calorie deficit.",
             "lessonQuestionId": 14
           },
-          {"value": null, "isCorrect": true, "id": 123, "label": "All of the above.", "lessonQuestionId": 14}
+          {
+            "value": null,
+            "isCorrect": true,
+            "id": 123,
+            "label": "All of the above.",
+            "lessonQuestionId": 14
+          }
         ],
         "lessonQuestionFeedbacks": [],
         "lessonQuestionAnswers": [],
@@ -2297,7 +2688,8 @@ var lessons = [
         "type": "quiz",
         "title": "Let's do a short knowledge quiz with two questions to see what you have learned!",
         "visual": "https://dev.loopcare.app/education/content/29/images/lesson.png",
-        "instruction": "Let's do a short knowledge quiz with two questions to see what you have learned!",
+        "instruction":
+            "Let's do a short knowledge quiz with two questions to see what you have learned!",
         "extraInstruction": null
       },
       {
@@ -2321,7 +2713,13 @@ var lessons = [
             "label": "With every meal, especially the first meal of the day.",
             "lessonQuestionId": 79
           },
-          {"value": null, "isCorrect": false, "id": 218, "label": "Breakfast", "lessonQuestionId": 79},
+          {
+            "value": null,
+            "isCorrect": false,
+            "id": 218,
+            "label": "Breakfast",
+            "lessonQuestionId": 79
+          },
           {"value": null, "isCorrect": false, "id": 241, "label": "Lunch", "lessonQuestionId": 79},
           {"value": null, "isCorrect": false, "id": 249, "label": "Dinner", "lessonQuestionId": 79}
         ],
@@ -2332,7 +2730,8 @@ var lessons = [
         "type": "quiz",
         "title": "Let's do a short knowledge quiz with two questions to see what you have learned!",
         "visual": "https://dev.loopcare.app/education/content/29/images/lesson.png",
-        "instruction": "Let's do a short knowledge quiz with two questions to see what you have learned!",
+        "instruction":
+            "Let's do a short knowledge quiz with two questions to see what you have learned!",
         "extraInstruction": null
       }
     ],
@@ -2350,7 +2749,12 @@ var lessons = [
   {
     "completedAt": null,
     "isLocked": true,
-    "unlockingConfig": {"extraAction": null, "requiredFeatures": [], "unlockedFeatures": [], "nextStepUnlockDelay": 0},
+    "unlockingConfig": {
+      "extraAction": null,
+      "requiredFeatures": [],
+      "unlockedFeatures": [],
+      "nextStepUnlockDelay": 0
+    },
     "questions": [
       {
         "introduction": null,
@@ -2394,7 +2798,8 @@ var lessons = [
         "type": "quiz",
         "title": "Let's do a short knowledge quiz with two questions to see what you have learned!",
         "visual": "https://dev.loopcare.app/education/content/30/images/lesson.png",
-        "instruction": "Let's do a short knowledge quiz with two questions to see what you have learned!",
+        "instruction":
+            "Let's do a short knowledge quiz with two questions to see what you have learned!",
         "extraInstruction": null
       },
       {
@@ -2415,7 +2820,8 @@ var lessons = [
             "value": null,
             "isCorrect": true,
             "id": 146,
-            "label": "It helps to get rid of metabolic end products faster and initiates regeneration phase",
+            "label":
+                "It helps to get rid of metabolic end products faster and initiates regeneration phase",
             "lessonQuestionId": 60
           },
           {
@@ -2425,7 +2831,13 @@ var lessons = [
             "label": "It helps to cope with hot summer weather",
             "lessonQuestionId": 60
           },
-          {"value": null, "isCorrect": false, "id": 219, "label": "Just to improve your mood", "lessonQuestionId": 60}
+          {
+            "value": null,
+            "isCorrect": false,
+            "id": 219,
+            "label": "Just to improve your mood",
+            "lessonQuestionId": 60
+          }
         ],
         "lessonQuestionFeedbacks": [],
         "lessonQuestionAnswers": [],
@@ -2434,7 +2846,8 @@ var lessons = [
         "type": "quiz",
         "title": "Let's do a short knowledge quiz with two questions to see what you have learned!",
         "visual": "https://dev.loopcare.app/education/content/30/images/lesson.png",
-        "instruction": "Let's do a short knowledge quiz with two questions to see what you have learned!",
+        "instruction":
+            "Let's do a short knowledge quiz with two questions to see what you have learned!",
         "extraInstruction": null
       }
     ],
@@ -2461,7 +2874,8 @@ var lessons = [
     "questions": [
       {
         "introduction": null,
-        "explanationCorrect": "Carrying out your routine correctly always takes first priority during training.",
+        "explanationCorrect":
+            "Carrying out your routine correctly always takes first priority during training.",
         "explanationIncorrect":
             "The intensity of an exercise as well as the number of times you repeat the exercise are important. However, without the correct execution, intensity and repetitions don't matter. Thus, execution is the first priority in training.",
         "lowestText": null,
@@ -2486,7 +2900,13 @@ var lessons = [
             "label": "The correct execution of the exercises",
             "lessonQuestionId": 16
           },
-          {"value": null, "isCorrect": false, "id": 100, "label": "The number of repetitions", "lessonQuestionId": 16}
+          {
+            "value": null,
+            "isCorrect": false,
+            "id": 100,
+            "label": "The number of repetitions",
+            "lessonQuestionId": 16
+          }
         ],
         "lessonQuestionFeedbacks": [],
         "lessonQuestionAnswers": [],
@@ -2495,7 +2915,8 @@ var lessons = [
         "type": "quiz",
         "title": "Let's do a short knowledge quiz with two questions to see what you have learned!",
         "visual": "https://dev.loopcare.app/education/content/31/images/lesson.png",
-        "instruction": "Let's do a short knowledge quiz with two questions to see what you have learned!",
+        "instruction":
+            "Let's do a short knowledge quiz with two questions to see what you have learned!",
         "extraInstruction": null
       },
       {
@@ -2506,13 +2927,20 @@ var lessons = [
             "When you don't rest sufficiently in between exercise sessions, your muscles won't grow faster. Soreness in your muscles is likely to occur more often rather than less. Injuries and muscle strains are also more likely.",
         "lowestText": null,
         "highestText": null,
-        "question": "What can happen if you start to exercise again without a sufficient recovery period?",
+        "question":
+            "What can happen if you start to exercise again without a sufficient recovery period?",
         "openedAt": null,
         "answeredAt": null,
         "completedAt": null,
         "lessonId": 29,
         "lessonQuestionOptions": [
-          {"value": null, "isCorrect": false, "id": 147, "label": "The muscles grow faster", "lessonQuestionId": 61},
+          {
+            "value": null,
+            "isCorrect": false,
+            "id": 147,
+            "label": "The muscles grow faster",
+            "lessonQuestionId": 61
+          },
           {
             "value": null,
             "isCorrect": false,
@@ -2535,7 +2963,8 @@ var lessons = [
         "type": "quiz",
         "title": "Let's do a short knowledge quiz with two questions to see what you have learned!",
         "visual": "https://dev.loopcare.app/education/content/31/images/lesson.png",
-        "instruction": "Let's do a short knowledge quiz with two questions to see what you have learned!",
+        "instruction":
+            "Let's do a short knowledge quiz with two questions to see what you have learned!",
         "extraInstruction": null
       }
     ],
@@ -2553,7 +2982,12 @@ var lessons = [
   {
     "completedAt": null,
     "isLocked": true,
-    "unlockingConfig": {"extraAction": null, "requiredFeatures": [], "unlockedFeatures": [], "nextStepUnlockDelay": 0},
+    "unlockingConfig": {
+      "extraAction": null,
+      "requiredFeatures": [],
+      "unlockedFeatures": [],
+      "nextStepUnlockDelay": 0
+    },
     "questions": [
       {
         "introduction":
@@ -2643,7 +3077,8 @@ var lessons = [
         "visual": "https://dev.loopcare.app/education/content/33/images/lesson.png",
         "instruction":
             "Check your motivation at this point. \n\nThis assignment is part of the Mind lesson \"Keep on going - check your motivation\".",
-        "extraInstruction": "If you want, you can adjust your personal reasons for wanting to lose weight here."
+        "extraInstruction":
+            "If you want, you can adjust your personal reasons for wanting to lose weight here."
       }
     ],
     "id": 30,
@@ -2660,7 +3095,12 @@ var lessons = [
   {
     "completedAt": null,
     "isLocked": true,
-    "unlockingConfig": {"extraAction": null, "requiredFeatures": [], "unlockedFeatures": [], "nextStepUnlockDelay": 0},
+    "unlockingConfig": {
+      "extraAction": null,
+      "requiredFeatures": [],
+      "unlockedFeatures": [],
+      "nextStepUnlockDelay": 0
+    },
     "questions": [],
     "id": 31,
     "category": "mind",
@@ -2676,7 +3116,12 @@ var lessons = [
   {
     "completedAt": null,
     "isLocked": true,
-    "unlockingConfig": {"extraAction": null, "requiredFeatures": [], "unlockedFeatures": [], "nextStepUnlockDelay": 0},
+    "unlockingConfig": {
+      "extraAction": null,
+      "requiredFeatures": [],
+      "unlockedFeatures": [],
+      "nextStepUnlockDelay": 0
+    },
     "questions": [
       {
         "introduction": null,
@@ -2703,7 +3148,8 @@ var lessons = [
         "type": "quiz",
         "title": "Let's do a short knowledge quiz with two questions to see what you have learned!",
         "visual": "https://dev.loopcare.app/education/content/34/images/lesson.png",
-        "instruction": "Let's do a short knowledge quiz with two questions to see what you have learned!",
+        "instruction":
+            "Let's do a short knowledge quiz with two questions to see what you have learned!",
         "extraInstruction": null
       },
       {
@@ -2731,7 +3177,8 @@ var lessons = [
         "type": "quiz",
         "title": "Let's do a short knowledge quiz with two questions to see what you have learned!",
         "visual": "https://dev.loopcare.app/education/content/34/images/lesson.png",
-        "instruction": "Let's do a short knowledge quiz with two questions to see what you have learned!",
+        "instruction":
+            "Let's do a short knowledge quiz with two questions to see what you have learned!",
         "extraInstruction": null
       }
     ],
@@ -2749,7 +3196,12 @@ var lessons = [
   {
     "completedAt": null,
     "isLocked": true,
-    "unlockingConfig": {"extraAction": null, "requiredFeatures": [], "unlockedFeatures": [], "nextStepUnlockDelay": 0},
+    "unlockingConfig": {
+      "extraAction": null,
+      "requiredFeatures": [],
+      "unlockedFeatures": [],
+      "nextStepUnlockDelay": 0
+    },
     "questions": [
       {
         "introduction": null,
@@ -2759,7 +3211,8 @@ var lessons = [
             "No, moderate training frequency is ideal for achieving the majority of your potential.",
         "lowestText": null,
         "highestText": null,
-        "question": "Do you need to maintain a very high weekly training frequency to achieve beneficial results?",
+        "question":
+            "Do you need to maintain a very high weekly training frequency to achieve beneficial results?",
         "openedAt": null,
         "answeredAt": null,
         "completedAt": null,
@@ -2773,9 +3226,11 @@ var lessons = [
         "id": 18,
         "answerType": "multipleChoiceValidation",
         "type": "quiz",
-        "title": "Let's do a short knowledge quiz with three questions to see what you have learned!",
+        "title":
+            "Let's do a short knowledge quiz with three questions to see what you have learned!",
         "visual": "https://dev.loopcare.app/education/content/35/images/lesson.png",
-        "instruction": "Let's do a short knowledge quiz with three questions to see what you have learned!",
+        "instruction":
+            "Let's do a short knowledge quiz with three questions to see what you have learned!",
         "extraInstruction": null
       },
       {
@@ -2801,9 +3256,11 @@ var lessons = [
         "id": 44,
         "answerType": "multipleChoiceValidation",
         "type": "quiz",
-        "title": "Let's do a short knowledge quiz with three questions to see what you have learned!",
+        "title":
+            "Let's do a short knowledge quiz with three questions to see what you have learned!",
         "visual": "https://dev.loopcare.app/education/content/35/images/lesson.png",
-        "instruction": "Let's do a short knowledge quiz with three questions to see what you have learned!",
+        "instruction":
+            "Let's do a short knowledge quiz with three questions to see what you have learned!",
         "extraInstruction": null
       },
       {
@@ -2821,17 +3278,31 @@ var lessons = [
         "lessonId": 33,
         "lessonQuestionOptions": [
           {"value": null, "isCorrect": false, "id": 242, "label": "One", "lessonQuestionId": 84},
-          {"value": null, "isCorrect": true, "id": 250, "label": "Two or three", "lessonQuestionId": 84},
-          {"value": null, "isCorrect": false, "id": 259, "label": "Four or five", "lessonQuestionId": 84}
+          {
+            "value": null,
+            "isCorrect": true,
+            "id": 250,
+            "label": "Two or three",
+            "lessonQuestionId": 84
+          },
+          {
+            "value": null,
+            "isCorrect": false,
+            "id": 259,
+            "label": "Four or five",
+            "lessonQuestionId": 84
+          }
         ],
         "lessonQuestionFeedbacks": [],
         "lessonQuestionAnswers": [],
         "id": 84,
         "answerType": "multipleChoiceValidation",
         "type": "quiz",
-        "title": "Let's do a short knowledge quiz with three questions to see what you have learned!",
+        "title":
+            "Let's do a short knowledge quiz with three questions to see what you have learned!",
         "visual": "https://dev.loopcare.app/education/content/35/images/lesson.png",
-        "instruction": "Let's do a short knowledge quiz with three questions to see what you have learned!",
+        "instruction":
+            "Let's do a short knowledge quiz with three questions to see what you have learned!",
         "extraInstruction": null
       }
     ],
@@ -2870,7 +3341,13 @@ var lessons = [
         "lessonId": 34,
         "lessonQuestionOptions": [
           {"value": null, "isCorrect": true, "id": 19, "label": "Increase", "lessonQuestionId": 19},
-          {"value": null, "isCorrect": false, "id": 61, "label": "Maximum strength", "lessonQuestionId": 19},
+          {
+            "value": null,
+            "isCorrect": false,
+            "id": 61,
+            "label": "Maximum strength",
+            "lessonQuestionId": 19
+          },
           {"value": null, "isCorrect": false, "id": 101, "label": "Load", "lessonQuestionId": 19}
         ],
         "lessonQuestionFeedbacks": [],
@@ -2878,9 +3355,11 @@ var lessons = [
         "id": 19,
         "answerType": "multipleChoiceValidation",
         "type": "quiz",
-        "title": "Let's do a short knowledge quiz with three questions to see what you have learned!",
+        "title":
+            "Let's do a short knowledge quiz with three questions to see what you have learned!",
         "visual": "https://dev.loopcare.app/education/content/36/images/lesson.png",
-        "instruction": "Let's do a short knowledge quiz with three questions to see what you have learned!",
+        "instruction":
+            "Let's do a short knowledge quiz with three questions to see what you have learned!",
         "extraInstruction": null
       },
       {
@@ -2924,14 +3403,17 @@ var lessons = [
         "id": 62,
         "answerType": "multipleChoiceValidation",
         "type": "quiz",
-        "title": "Let's do a short knowledge quiz with three questions to see what you have learned!",
+        "title":
+            "Let's do a short knowledge quiz with three questions to see what you have learned!",
         "visual": "https://dev.loopcare.app/education/content/36/images/lesson.png",
-        "instruction": "Let's do a short knowledge quiz with three questions to see what you have learned!",
+        "instruction":
+            "Let's do a short knowledge quiz with three questions to see what you have learned!",
         "extraInstruction": null
       },
       {
         "introduction": null,
-        "explanationCorrect": "The order of priority for increasing training is frequency, duration, intensity.",
+        "explanationCorrect":
+            "The order of priority for increasing training is frequency, duration, intensity.",
         "explanationIncorrect":
             "The priority when increasing your training should be: frequency (raising the number of times you train per week); duration (extending the length of each session); and  intensity (boosting  the exercise load). Following this order gives you the best possible progress and protects you from injury.",
         "lowestText": null,
@@ -2969,9 +3451,11 @@ var lessons = [
         "id": 87,
         "answerType": "multipleChoiceValidation",
         "type": "quiz",
-        "title": "Let's do a short knowledge quiz with three questions to see what you have learned!",
+        "title":
+            "Let's do a short knowledge quiz with three questions to see what you have learned!",
         "visual": "https://dev.loopcare.app/education/content/36/images/lesson.png",
-        "instruction": "Let's do a short knowledge quiz with three questions to see what you have learned!",
+        "instruction":
+            "Let's do a short knowledge quiz with three questions to see what you have learned!",
         "extraInstruction": null
       }
     ],
@@ -3021,28 +3505,32 @@ var lessons = [
             "value": null,
             "isCorrect": true,
             "id": 20,
-            "label": "Fats – 10g; Carbohydrates – 20g; added sugar – 10g; Fiber – 1g; Protein – 0g; sodium – 500mg",
+            "label":
+                "Fats – 10g; Carbohydrates – 20g; added sugar – 10g; Fiber – 1g; Protein – 0g; sodium – 500mg",
             "lessonQuestionId": 20
           },
           {
             "value": null,
             "isCorrect": false,
             "id": 62,
-            "label": "Fats – 3g; Carbohydrates – 15g; added sugar – 0g; Fiber – 5g; Protein – 15g; sodium – 150mg",
+            "label":
+                "Fats – 3g; Carbohydrates – 15g; added sugar – 0g; Fiber – 5g; Protein – 15g; sodium – 150mg",
             "lessonQuestionId": 20
           },
           {
             "value": null,
             "isCorrect": false,
             "id": 102,
-            "label": "Fats – 9g; Carbohydrates – 20g; added sugar – 4g; Fiber – 2g; Protein – 5g; sodium – 800mg",
+            "label":
+                "Fats – 9g; Carbohydrates – 20g; added sugar – 4g; Fiber – 2g; Protein – 5g; sodium – 800mg",
             "lessonQuestionId": 20
           },
           {
             "value": null,
             "isCorrect": false,
             "id": 126,
-            "label": "Fats – 7g; Carbohydrates – 10g; added sugar – 8g; Fiber – 0g; Protein – 2g; sodium – 1000mg",
+            "label":
+                "Fats – 7g; Carbohydrates – 10g; added sugar – 8g; Fiber – 0g; Protein – 2g; sodium – 1000mg",
             "lessonQuestionId": 20
           }
         ],
@@ -3053,7 +3541,8 @@ var lessons = [
         "type": "quiz",
         "title": "Let's do a short knowledge quiz with two questions to see what you have learned!",
         "visual": "https://dev.loopcare.app/education/content/38/images/lesson.png",
-        "instruction": "Let's do a short knowledge quiz with two questions to see what you have learned!",
+        "instruction":
+            "Let's do a short knowledge quiz with two questions to see what you have learned!",
         "extraInstruction": null
       },
       {
@@ -3081,7 +3570,8 @@ var lessons = [
         "type": "quiz",
         "title": "Let's do a short knowledge quiz with two questions to see what you have learned!",
         "visual": "https://dev.loopcare.app/education/content/38/images/lesson.png",
-        "instruction": "Let's do a short knowledge quiz with two questions to see what you have learned!",
+        "instruction":
+            "Let's do a short knowledge quiz with two questions to see what you have learned!",
         "extraInstruction": null
       }
     ],
@@ -3099,7 +3589,12 @@ var lessons = [
   {
     "completedAt": null,
     "isLocked": true,
-    "unlockingConfig": {"extraAction": null, "requiredFeatures": [], "unlockedFeatures": [], "nextStepUnlockDelay": 0},
+    "unlockingConfig": {
+      "extraAction": null,
+      "requiredFeatures": [],
+      "unlockedFeatures": [],
+      "nextStepUnlockDelay": 0
+    },
     "questions": [
       {
         "introduction": null,
@@ -3232,7 +3727,12 @@ var lessons = [
   {
     "completedAt": null,
     "isLocked": true,
-    "unlockingConfig": {"extraAction": null, "requiredFeatures": [], "unlockedFeatures": [], "nextStepUnlockDelay": 0},
+    "unlockingConfig": {
+      "extraAction": null,
+      "requiredFeatures": [],
+      "unlockedFeatures": [],
+      "nextStepUnlockDelay": 0
+    },
     "questions": [],
     "id": 37,
     "category": "mind",
@@ -3248,7 +3748,12 @@ var lessons = [
   {
     "completedAt": null,
     "isLocked": true,
-    "unlockingConfig": {"extraAction": null, "requiredFeatures": [], "unlockedFeatures": [], "nextStepUnlockDelay": 0},
+    "unlockingConfig": {
+      "extraAction": null,
+      "requiredFeatures": [],
+      "unlockedFeatures": [],
+      "nextStepUnlockDelay": 0
+    },
     "questions": [
       {
         "introduction": null,
@@ -3280,7 +3785,8 @@ var lessons = [
             "value": null,
             "isCorrect": null,
             "id": 318,
-            "label": "Pre-cook healthy meals when you have time and freeze them for stressful times",
+            "label":
+                "Pre-cook healthy meals when you have time and freeze them for stressful times",
             "lessonQuestionId": 122
           },
           {
@@ -3297,7 +3803,13 @@ var lessons = [
             "label": "Take time to relax and regenerate",
             "lessonQuestionId": 122
           },
-          {"value": null, "isCorrect": null, "id": 321, "label": "Do things you enjoy", "lessonQuestionId": 122},
+          {
+            "value": null,
+            "isCorrect": null,
+            "id": 321,
+            "label": "Do things you enjoy",
+            "lessonQuestionId": 122
+          },
           {
             "value": null,
             "isCorrect": null,
@@ -3357,7 +3869,12 @@ var lessons = [
   {
     "completedAt": null,
     "isLocked": true,
-    "unlockingConfig": {"extraAction": null, "requiredFeatures": [], "unlockedFeatures": [], "nextStepUnlockDelay": 0},
+    "unlockingConfig": {
+      "extraAction": null,
+      "requiredFeatures": [],
+      "unlockedFeatures": [],
+      "nextStepUnlockDelay": 0
+    },
     "questions": [
       {
         "introduction": null,
@@ -3374,9 +3891,27 @@ var lessons = [
         "completedAt": null,
         "lessonId": 39,
         "lessonQuestionOptions": [
-          {"value": null, "isCorrect": false, "id": 21, "label": "Strength training", "lessonQuestionId": 21},
-          {"value": null, "isCorrect": true, "id": 63, "label": "Endurance activities", "lessonQuestionId": 21},
-          {"value": null, "isCorrect": false, "id": 103, "label": "Competitive activities", "lessonQuestionId": 21}
+          {
+            "value": null,
+            "isCorrect": false,
+            "id": 21,
+            "label": "Strength training",
+            "lessonQuestionId": 21
+          },
+          {
+            "value": null,
+            "isCorrect": true,
+            "id": 63,
+            "label": "Endurance activities",
+            "lessonQuestionId": 21
+          },
+          {
+            "value": null,
+            "isCorrect": false,
+            "id": 103,
+            "label": "Competitive activities",
+            "lessonQuestionId": 21
+          }
         ],
         "lessonQuestionFeedbacks": [],
         "lessonQuestionAnswers": [],
@@ -3385,7 +3920,8 @@ var lessons = [
         "type": "quiz",
         "title": "Let's do a short knowledge quiz with two questions to see what you have learned!",
         "visual": "https://dev.loopcare.app/education/content/42/images/lesson.png",
-        "instruction": "Let's do a short knowledge quiz with two questions to see what you have learned!",
+        "instruction":
+            "Let's do a short knowledge quiz with two questions to see what you have learned!",
         "extraInstruction": null
       },
       {
@@ -3402,7 +3938,13 @@ var lessons = [
         "completedAt": null,
         "lessonId": 39,
         "lessonQuestionOptions": [
-          {"value": null, "isCorrect": false, "id": 151, "label": "Intense physical activity", "lessonQuestionId": 63},
+          {
+            "value": null,
+            "isCorrect": false,
+            "id": 151,
+            "label": "Intense physical activity",
+            "lessonQuestionId": 63
+          },
           {
             "value": null,
             "isCorrect": false,
@@ -3410,7 +3952,13 @@ var lessons = [
             "label": "Competitive and challenging activities",
             "lessonQuestionId": 63
           },
-          {"value": null, "isCorrect": true, "id": 223, "label": "Light to moderate movements", "lessonQuestionId": 63}
+          {
+            "value": null,
+            "isCorrect": true,
+            "id": 223,
+            "label": "Light to moderate movements",
+            "lessonQuestionId": 63
+          }
         ],
         "lessonQuestionFeedbacks": [],
         "lessonQuestionAnswers": [],
@@ -3419,7 +3967,8 @@ var lessons = [
         "type": "quiz",
         "title": "Let's do a short knowledge quiz with two questions to see what you have learned!",
         "visual": "https://dev.loopcare.app/education/content/42/images/lesson.png",
-        "instruction": "Let's do a short knowledge quiz with two questions to see what you have learned!",
+        "instruction":
+            "Let's do a short knowledge quiz with two questions to see what you have learned!",
         "extraInstruction": null
       }
     ],
@@ -3437,7 +3986,12 @@ var lessons = [
   {
     "completedAt": null,
     "isLocked": true,
-    "unlockingConfig": {"extraAction": null, "requiredFeatures": [], "unlockedFeatures": [], "nextStepUnlockDelay": 0},
+    "unlockingConfig": {
+      "extraAction": null,
+      "requiredFeatures": [],
+      "unlockedFeatures": [],
+      "nextStepUnlockDelay": 0
+    },
     "questions": [
       {
         "introduction": null,
@@ -3452,9 +4006,21 @@ var lessons = [
         "completedAt": null,
         "lessonId": 40,
         "lessonQuestionOptions": [
-          {"value": null, "isCorrect": false, "id": 22, "label": "Repetition", "lessonQuestionId": 22},
+          {
+            "value": null,
+            "isCorrect": false,
+            "id": 22,
+            "label": "Repetition",
+            "lessonQuestionId": 22
+          },
           {"value": null, "isCorrect": true, "id": 64, "label": "Duration", "lessonQuestionId": 22},
-          {"value": null, "isCorrect": false, "id": 104, "label": "Interval", "lessonQuestionId": 22}
+          {
+            "value": null,
+            "isCorrect": false,
+            "id": 104,
+            "label": "Interval",
+            "lessonQuestionId": 22
+          }
         ],
         "lessonQuestionFeedbacks": [],
         "lessonQuestionAnswers": [],
@@ -3463,12 +4029,14 @@ var lessons = [
         "type": "quiz",
         "title": "Let's do a short knowledge quiz with two questions to see what you have learned!",
         "visual": "https://dev.loopcare.app/education/content/43/images/lesson.png",
-        "instruction": "Let's do a short knowledge quiz with two questions to see what you have learned!",
+        "instruction":
+            "Let's do a short knowledge quiz with two questions to see what you have learned!",
         "extraInstruction": null
       },
       {
         "introduction": null,
-        "explanationCorrect": "The duration method is highly suitable for activities such as walking and jogging.",
+        "explanationCorrect":
+            "The duration method is highly suitable for activities such as walking and jogging.",
         "explanationIncorrect":
             "The duration method is not suitable for intense activities such as weightlifting and sprinting. It is most useful for consistent activities that last for long periods of time.",
         "lowestText": null,
@@ -3479,9 +4047,27 @@ var lessons = [
         "completedAt": null,
         "lessonId": 40,
         "lessonQuestionOptions": [
-          {"value": null, "isCorrect": false, "id": 152, "label": "Sprinting", "lessonQuestionId": 64},
-          {"value": null, "isCorrect": false, "id": 189, "label": "Weightlifting", "lessonQuestionId": 64},
-          {"value": null, "isCorrect": true, "id": 224, "label": "Walking and jogging", "lessonQuestionId": 64}
+          {
+            "value": null,
+            "isCorrect": false,
+            "id": 152,
+            "label": "Sprinting",
+            "lessonQuestionId": 64
+          },
+          {
+            "value": null,
+            "isCorrect": false,
+            "id": 189,
+            "label": "Weightlifting",
+            "lessonQuestionId": 64
+          },
+          {
+            "value": null,
+            "isCorrect": true,
+            "id": 224,
+            "label": "Walking and jogging",
+            "lessonQuestionId": 64
+          }
         ],
         "lessonQuestionFeedbacks": [],
         "lessonQuestionAnswers": [],
@@ -3490,7 +4076,8 @@ var lessons = [
         "type": "quiz",
         "title": "Let's do a short knowledge quiz with two questions to see what you have learned!",
         "visual": "https://dev.loopcare.app/education/content/43/images/lesson.png",
-        "instruction": "Let's do a short knowledge quiz with two questions to see what you have learned!",
+        "instruction":
+            "Let's do a short knowledge quiz with two questions to see what you have learned!",
         "extraInstruction": null
       }
     ],
@@ -3537,15 +4124,18 @@ var lessons = [
         "id": 23,
         "answerType": "multipleChoiceValidation",
         "type": "quiz",
-        "title": "Let's do a short knowledge quiz with three questions to see what you have learned!",
+        "title":
+            "Let's do a short knowledge quiz with three questions to see what you have learned!",
         "visual": "https://dev.loopcare.app/education/content/44/images/lesson.png",
-        "instruction": "Let's do a short knowledge quiz with three questions to see what you have learned!",
+        "instruction":
+            "Let's do a short knowledge quiz with three questions to see what you have learned!",
         "extraInstruction": null
       },
       {
         "introduction": null,
         "explanationCorrect": "The lighter you are, the harder on the joints the activity can be.",
-        "explanationIncorrect": "The lighter you are, the harder on the joints the activity can be.",
+        "explanationIncorrect":
+            "The lighter you are, the harder on the joints the activity can be.",
         "lowestText": null,
         "highestText": null,
         "question": "The lighter you are, the ____ the activity can be.",
@@ -3554,8 +4144,20 @@ var lessons = [
         "completedAt": null,
         "lessonId": 41,
         "lessonQuestionOptions": [
-          {"value": null, "isCorrect": true, "id": 127, "label": "Harder on the joints", "lessonQuestionId": 45},
-          {"value": null, "isCorrect": false, "id": 153, "label": "Gentler on the joints", "lessonQuestionId": 45},
+          {
+            "value": null,
+            "isCorrect": true,
+            "id": 127,
+            "label": "Harder on the joints",
+            "lessonQuestionId": 45
+          },
+          {
+            "value": null,
+            "isCorrect": false,
+            "id": 153,
+            "label": "Gentler on the joints",
+            "lessonQuestionId": 45
+          },
           {"value": null, "isCorrect": false, "id": 190, "label": "Easier", "lessonQuestionId": 45}
         ],
         "lessonQuestionFeedbacks": [],
@@ -3563,15 +4165,18 @@ var lessons = [
         "id": 45,
         "answerType": "multipleChoiceValidation",
         "type": "quiz",
-        "title": "Let's do a short knowledge quiz with three questions to see what you have learned!",
+        "title":
+            "Let's do a short knowledge quiz with three questions to see what you have learned!",
         "visual": "https://dev.loopcare.app/education/content/44/images/lesson.png",
-        "instruction": "Let's do a short knowledge quiz with three questions to see what you have learned!",
+        "instruction":
+            "Let's do a short knowledge quiz with three questions to see what you have learned!",
         "extraInstruction": null
       },
       {
         "introduction": null,
         "explanationCorrect": "The older you are, the more joint-friendly the activity should be.",
-        "explanationIncorrect": "The older you are, the more joint-friendly the activity should be.",
+        "explanationIncorrect":
+            "The older you are, the more joint-friendly the activity should be.",
         "lowestText": null,
         "highestText": null,
         "question": "The older you are, the _____  the activity should be.",
@@ -3580,18 +4185,38 @@ var lessons = [
         "completedAt": null,
         "lessonId": 41,
         "lessonQuestionOptions": [
-          {"value": null, "isCorrect": false, "id": 243, "label": "More strenuous", "lessonQuestionId": 85},
-          {"value": null, "isCorrect": true, "id": 252, "label": "Gentler on the joints", "lessonQuestionId": 85},
-          {"value": null, "isCorrect": false, "id": 261, "label": "More attractively designed", "lessonQuestionId": 85}
+          {
+            "value": null,
+            "isCorrect": false,
+            "id": 243,
+            "label": "More strenuous",
+            "lessonQuestionId": 85
+          },
+          {
+            "value": null,
+            "isCorrect": true,
+            "id": 252,
+            "label": "Gentler on the joints",
+            "lessonQuestionId": 85
+          },
+          {
+            "value": null,
+            "isCorrect": false,
+            "id": 261,
+            "label": "More attractively designed",
+            "lessonQuestionId": 85
+          }
         ],
         "lessonQuestionFeedbacks": [],
         "lessonQuestionAnswers": [],
         "id": 85,
         "answerType": "multipleChoiceValidation",
         "type": "quiz",
-        "title": "Let's do a short knowledge quiz with three questions to see what you have learned!",
+        "title":
+            "Let's do a short knowledge quiz with three questions to see what you have learned!",
         "visual": "https://dev.loopcare.app/education/content/44/images/lesson.png",
-        "instruction": "Let's do a short knowledge quiz with three questions to see what you have learned!",
+        "instruction":
+            "Let's do a short knowledge quiz with three questions to see what you have learned!",
         "extraInstruction": null
       }
     ],
@@ -3609,7 +4234,12 @@ var lessons = [
   {
     "completedAt": null,
     "isLocked": true,
-    "unlockingConfig": {"extraAction": null, "requiredFeatures": [], "unlockedFeatures": [], "nextStepUnlockDelay": 0},
+    "unlockingConfig": {
+      "extraAction": null,
+      "requiredFeatures": [],
+      "unlockedFeatures": [],
+      "nextStepUnlockDelay": 0
+    },
     "questions": [],
     "id": 42,
     "category": "mind",
@@ -3625,7 +4255,12 @@ var lessons = [
   {
     "completedAt": null,
     "isLocked": true,
-    "unlockingConfig": {"extraAction": null, "requiredFeatures": [], "unlockedFeatures": [], "nextStepUnlockDelay": 0},
+    "unlockingConfig": {
+      "extraAction": null,
+      "requiredFeatures": [],
+      "unlockedFeatures": [],
+      "nextStepUnlockDelay": 0
+    },
     "questions": [],
     "id": 43,
     "category": "mind",
@@ -3641,7 +4276,12 @@ var lessons = [
   {
     "completedAt": null,
     "isLocked": true,
-    "unlockingConfig": {"extraAction": null, "requiredFeatures": [], "unlockedFeatures": [], "nextStepUnlockDelay": 0},
+    "unlockingConfig": {
+      "extraAction": null,
+      "requiredFeatures": [],
+      "unlockedFeatures": [],
+      "nextStepUnlockDelay": 0
+    },
     "questions": [
       {
         "introduction": null,
@@ -3743,7 +4383,8 @@ var lessons = [
         "type": "quiz",
         "title": "Let's do a short knowledge quiz with two questions to see what you have learned!",
         "visual": "https://dev.loopcare.app/education/content/47/images/lesson.png",
-        "instruction": "Let's do a short knowledge quiz with two questions to see what you have learned!",
+        "instruction":
+            "Let's do a short knowledge quiz with two questions to see what you have learned!",
         "extraInstruction": null
       },
       {
@@ -3801,7 +4442,8 @@ var lessons = [
         "type": "quiz",
         "title": "Let's do a short knowledge quiz with two questions to see what you have learned!",
         "visual": "https://dev.loopcare.app/education/content/47/images/lesson.png",
-        "instruction": "Let's do a short knowledge quiz with two questions to see what you have learned!",
+        "instruction":
+            "Let's do a short knowledge quiz with two questions to see what you have learned!",
         "extraInstruction": null
       }
     ],
@@ -3847,7 +4489,13 @@ var lessons = [
             "label": "As a pre-workout to increase flexibility and body temperature",
             "lessonQuestionId": 25
           },
-          {"value": null, "isCorrect": false, "id": 67, "label": "To hold a certain position", "lessonQuestionId": 25},
+          {
+            "value": null,
+            "isCorrect": false,
+            "id": 67,
+            "label": "To hold a certain position",
+            "lessonQuestionId": 25
+          },
           {
             "value": null,
             "isCorrect": false,
@@ -3863,7 +4511,8 @@ var lessons = [
         "type": "quiz",
         "title": "Let's do a short knowledge quiz with two questions to see what you have learned!",
         "visual": "https://dev.loopcare.app/education/content/48/images/lesson.png",
-        "instruction": "Let's do a short knowledge quiz with two questions to see what you have learned!",
+        "instruction":
+            "Let's do a short knowledge quiz with two questions to see what you have learned!",
         "extraInstruction": null
       },
       {
@@ -3893,7 +4542,13 @@ var lessons = [
             "label": "To raise the body temperature",
             "lessonQuestionId": 65
           },
-          {"value": null, "isCorrect": true, "id": 226, "label": "To support regeneration", "lessonQuestionId": 65}
+          {
+            "value": null,
+            "isCorrect": true,
+            "id": 226,
+            "label": "To support regeneration",
+            "lessonQuestionId": 65
+          }
         ],
         "lessonQuestionFeedbacks": [],
         "lessonQuestionAnswers": [],
@@ -3902,7 +4557,8 @@ var lessons = [
         "type": "quiz",
         "title": "Let's do a short knowledge quiz with two questions to see what you have learned!",
         "visual": "https://dev.loopcare.app/education/content/48/images/lesson.png",
-        "instruction": "Let's do a short knowledge quiz with two questions to see what you have learned!",
+        "instruction":
+            "Let's do a short knowledge quiz with two questions to see what you have learned!",
         "extraInstruction": null
       }
     ],
@@ -3920,7 +4576,12 @@ var lessons = [
   {
     "completedAt": null,
     "isLocked": true,
-    "unlockingConfig": {"extraAction": null, "requiredFeatures": [], "unlockedFeatures": [], "nextStepUnlockDelay": 0},
+    "unlockingConfig": {
+      "extraAction": null,
+      "requiredFeatures": [],
+      "unlockedFeatures": [],
+      "nextStepUnlockDelay": 0
+    },
     "questions": [
       {
         "introduction": null,
@@ -3961,7 +4622,12 @@ var lessons = [
   {
     "completedAt": null,
     "isLocked": true,
-    "unlockingConfig": {"extraAction": null, "requiredFeatures": [], "unlockedFeatures": [], "nextStepUnlockDelay": 0},
+    "unlockingConfig": {
+      "extraAction": null,
+      "requiredFeatures": [],
+      "unlockedFeatures": [],
+      "nextStepUnlockDelay": 0
+    },
     "questions": [
       {
         "introduction": null,
@@ -4013,7 +4679,8 @@ var lessons = [
         "type": "quiz",
         "title": "Let's do a short knowledge quiz with a question to see what you have learned!",
         "visual": "https://dev.loopcare.app/education/content/51/images/lesson.png",
-        "instruction": "Let's do a short knowledge quiz with a question to see what you have learned!",
+        "instruction":
+            "Let's do a short knowledge quiz with a question to see what you have learned!",
         "extraInstruction": null
       }
     ],
@@ -4052,7 +4719,8 @@ var lessons = [
             "Carbohydrates that are whole grains, and unprocessed take longer to break down, which helps keep your blood sugar stable. A good indicator of whole grains is the amount of fiber, and added sugar on the products food label.",
         "lowestText": null,
         "highestText": null,
-        "question": "Looking at a nutrition label, which product is least likely to spike your blood sugar?",
+        "question":
+            "Looking at a nutrition label, which product is least likely to spike your blood sugar?",
         "openedAt": null,
         "answeredAt": null,
         "completedAt": null,
@@ -4094,7 +4762,8 @@ var lessons = [
         "type": "quiz",
         "title": "Let's do a short knowledge quiz with two questions to see what you have learned!",
         "visual": "https://dev.loopcare.app/education/content/52/images/lesson.png",
-        "instruction": "Let's do a short knowledge quiz with two questions to see what you have learned!",
+        "instruction":
+            "Let's do a short knowledge quiz with two questions to see what you have learned!",
         "extraInstruction": null
       },
       {
@@ -4105,7 +4774,8 @@ var lessons = [
             "Not only does high quality carbohydrates keep your blood sugar stable, so does protein and healthy fats. They dilute the sugar in the meal, and slow down the speed glucose is absorbed into your blood stream, preventing it from spiking your blood sugar.",
         "lowestText": null,
         "highestText": null,
-        "question": "Looking at the nutritional information, which meal is least likely to spike your blood sugar?",
+        "question":
+            "Looking at the nutritional information, which meal is least likely to spike your blood sugar?",
         "openedAt": null,
         "answeredAt": null,
         "completedAt": null,
@@ -4147,7 +4817,8 @@ var lessons = [
         "type": "quiz",
         "title": "Let's do a short knowledge quiz with two questions to see what you have learned!",
         "visual": "https://dev.loopcare.app/education/content/52/images/lesson.png",
-        "instruction": "Let's do a short knowledge quiz with two questions to see what you have learned!",
+        "instruction":
+            "Let's do a short knowledge quiz with two questions to see what you have learned!",
         "extraInstruction": null
       }
     ],
@@ -4213,9 +4884,11 @@ var lessons = [
         "id": 28,
         "answerType": "multipleChoiceValidation",
         "type": "quiz",
-        "title": "Let's do a short knowledge quiz with three questions to see what you have learned!",
+        "title":
+            "Let's do a short knowledge quiz with three questions to see what you have learned!",
         "visual": "https://dev.loopcare.app/education/content/53/images/lesson.png",
-        "instruction": "Let's do a short knowledge quiz with three questions to see what you have learned!",
+        "instruction":
+            "Let's do a short knowledge quiz with three questions to see what you have learned!",
         "extraInstruction": null
       },
       {
@@ -4226,7 +4899,8 @@ var lessons = [
             "Muscle-building (hypertrophy) training is known to specifically increase the size of muscles. Thus, it is more suitable than other methods that focus on maximum strength or strength endurance.",
         "lowestText": null,
         "highestText": null,
-        "question": "In what ways is muscle-building (hypertrophy) training superior to other methods?",
+        "question":
+            "In what ways is muscle-building (hypertrophy) training superior to other methods?",
         "openedAt": null,
         "answeredAt": null,
         "completedAt": null,
@@ -4259,9 +4933,11 @@ var lessons = [
         "id": 66,
         "answerType": "multipleChoiceValidation",
         "type": "quiz",
-        "title": "Let's do a short knowledge quiz with three questions to see what you have learned!",
+        "title":
+            "Let's do a short knowledge quiz with three questions to see what you have learned!",
         "visual": "https://dev.loopcare.app/education/content/53/images/lesson.png",
-        "instruction": "Let's do a short knowledge quiz with three questions to see what you have learned!",
+        "instruction":
+            "Let's do a short knowledge quiz with three questions to see what you have learned!",
         "extraInstruction": null
       },
       {
@@ -4305,9 +4981,11 @@ var lessons = [
         "id": 88,
         "answerType": "multipleChoiceValidation",
         "type": "quiz",
-        "title": "Let's do a short knowledge quiz with three questions to see what you have learned!",
+        "title":
+            "Let's do a short knowledge quiz with three questions to see what you have learned!",
         "visual": "https://dev.loopcare.app/education/content/53/images/lesson.png",
-        "instruction": "Let's do a short knowledge quiz with three questions to see what you have learned!",
+        "instruction":
+            "Let's do a short knowledge quiz with three questions to see what you have learned!",
         "extraInstruction": null
       }
     ],
@@ -4325,7 +5003,12 @@ var lessons = [
   {
     "completedAt": null,
     "isLocked": true,
-    "unlockingConfig": {"extraAction": null, "requiredFeatures": [], "unlockedFeatures": [], "nextStepUnlockDelay": 0},
+    "unlockingConfig": {
+      "extraAction": null,
+      "requiredFeatures": [],
+      "unlockedFeatures": [],
+      "nextStepUnlockDelay": 0
+    },
     "questions": [
       {
         "introduction": null,
@@ -4393,7 +5076,13 @@ var lessons = [
         "completedAt": null,
         "lessonId": 52,
         "lessonQuestionOptions": [
-          {"value": null, "isCorrect": false, "id": 29, "label": "Eat fat free.", "lessonQuestionId": 29},
+          {
+            "value": null,
+            "isCorrect": false,
+            "id": 29,
+            "label": "Eat fat free.",
+            "lessonQuestionId": 29
+          },
           {
             "value": null,
             "isCorrect": false,
@@ -4423,7 +5112,8 @@ var lessons = [
         "type": "quiz",
         "title": "Let's do a short knowledge quiz with two questions to see what you have learned!",
         "visual": "https://dev.loopcare.app/education/content/56/images/lesson.png",
-        "instruction": "Let's do a short knowledge quiz with two questions to see what you have learned!",
+        "instruction":
+            "Let's do a short knowledge quiz with two questions to see what you have learned!",
         "extraInstruction": null
       },
       {
@@ -4441,9 +5131,27 @@ var lessons = [
         "lessonId": 52,
         "lessonQuestionOptions": [
           {"value": null, "isCorrect": true, "id": 195, "label": "Omega-3", "lessonQuestionId": 82},
-          {"value": null, "isCorrect": false, "id": 229, "label": "Omega-6", "lessonQuestionId": 82},
-          {"value": null, "isCorrect": false, "id": 245, "label": "Polyunsaturated", "lessonQuestionId": 82},
-          {"value": null, "isCorrect": false, "id": 255, "label": "Monounsaturated", "lessonQuestionId": 82}
+          {
+            "value": null,
+            "isCorrect": false,
+            "id": 229,
+            "label": "Omega-6",
+            "lessonQuestionId": 82
+          },
+          {
+            "value": null,
+            "isCorrect": false,
+            "id": 245,
+            "label": "Polyunsaturated",
+            "lessonQuestionId": 82
+          },
+          {
+            "value": null,
+            "isCorrect": false,
+            "id": 255,
+            "label": "Monounsaturated",
+            "lessonQuestionId": 82
+          }
         ],
         "lessonQuestionFeedbacks": [],
         "lessonQuestionAnswers": [],
@@ -4452,7 +5160,8 @@ var lessons = [
         "type": "quiz",
         "title": "Let's do a short knowledge quiz with two questions to see what you have learned!",
         "visual": "https://dev.loopcare.app/education/content/56/images/lesson.png",
-        "instruction": "Let's do a short knowledge quiz with two questions to see what you have learned!",
+        "instruction":
+            "Let's do a short knowledge quiz with two questions to see what you have learned!",
         "extraInstruction": null
       }
     ],
@@ -4470,7 +5179,12 @@ var lessons = [
   {
     "completedAt": null,
     "isLocked": true,
-    "unlockingConfig": {"extraAction": null, "requiredFeatures": [], "unlockedFeatures": [], "nextStepUnlockDelay": 0},
+    "unlockingConfig": {
+      "extraAction": null,
+      "requiredFeatures": [],
+      "unlockedFeatures": [],
+      "nextStepUnlockDelay": 0
+    },
     "questions": [
       {
         "introduction": null,
@@ -4493,8 +5207,20 @@ var lessons = [
             "label": "Single training session, week, or month",
             "lessonQuestionId": 30
           },
-          {"value": null, "isCorrect": false, "id": 72, "label": "Monthly only", "lessonQuestionId": 30},
-          {"value": null, "isCorrect": false, "id": 110, "label": "Single session and month", "lessonQuestionId": 30}
+          {
+            "value": null,
+            "isCorrect": false,
+            "id": 72,
+            "label": "Monthly only",
+            "lessonQuestionId": 30
+          },
+          {
+            "value": null,
+            "isCorrect": false,
+            "id": 110,
+            "label": "Single session and month",
+            "lessonQuestionId": 30
+          }
         ],
         "lessonQuestionFeedbacks": [],
         "lessonQuestionAnswers": [],
@@ -4503,7 +5229,8 @@ var lessons = [
         "type": "quiz",
         "title": "Let's do a short knowledge quiz with two questions to see what you have learned!",
         "visual": "https://dev.loopcare.app/education/content/57/images/lesson.png",
-        "instruction": "Let's do a short knowledge quiz with two questions to see what you have learned!",
+        "instruction":
+            "Let's do a short knowledge quiz with two questions to see what you have learned!",
         "extraInstruction": null
       },
       {
@@ -4549,7 +5276,8 @@ var lessons = [
         "type": "quiz",
         "title": "Let's do a short knowledge quiz with two questions to see what you have learned!",
         "visual": "https://dev.loopcare.app/education/content/57/images/lesson.png",
-        "instruction": "Let's do a short knowledge quiz with two questions to see what you have learned!",
+        "instruction":
+            "Let's do a short knowledge quiz with two questions to see what you have learned!",
         "extraInstruction": null
       }
     ],
@@ -4595,22 +5323,37 @@ var lessons = [
             "label": "As a percentage of your maximum heart rate",
             "lessonQuestionId": 31
           },
-          {"value": null, "isCorrect": false, "id": 73, "label": "Your blood pressure", "lessonQuestionId": 31},
-          {"value": null, "isCorrect": false, "id": 111, "label": "In Kelvin", "lessonQuestionId": 31}
+          {
+            "value": null,
+            "isCorrect": false,
+            "id": 73,
+            "label": "Your blood pressure",
+            "lessonQuestionId": 31
+          },
+          {
+            "value": null,
+            "isCorrect": false,
+            "id": 111,
+            "label": "In Kelvin",
+            "lessonQuestionId": 31
+          }
         ],
         "lessonQuestionFeedbacks": [],
         "lessonQuestionAnswers": [],
         "id": 31,
         "answerType": "multipleChoiceValidation",
         "type": "quiz",
-        "title": "Let's do a short knowledge quiz with three questions to see what you have learned!",
+        "title":
+            "Let's do a short knowledge quiz with three questions to see what you have learned!",
         "visual": "https://dev.loopcare.app/education/content/58/images/lesson.png",
-        "instruction": "Let's do a short knowledge quiz with three questions to see what you have learned!",
+        "instruction":
+            "Let's do a short knowledge quiz with three questions to see what you have learned!",
         "extraInstruction": null
       },
       {
         "introduction": null,
-        "explanationCorrect": "The optimum repetition range for bodyweight training is usually 8 to 15 repetitions.",
+        "explanationCorrect":
+            "The optimum repetition range for bodyweight training is usually 8 to 15 repetitions.",
         "explanationIncorrect":
             "A moderate repetition range is 8 to 15 repetitions. A higher repetition range has the risk of not being as effective. Any lower repetition range increases the risk of injury for beginners.",
         "lowestText": null,
@@ -4621,18 +5364,32 @@ var lessons = [
         "completedAt": null,
         "lessonId": 54,
         "lessonQuestionOptions": [
-          {"value": null, "isCorrect": false, "id": 158, "label": "more than 15", "lessonQuestionId": 68},
+          {
+            "value": null,
+            "isCorrect": false,
+            "id": 158,
+            "label": "more than 15",
+            "lessonQuestionId": 68
+          },
           {"value": null, "isCorrect": true, "id": 197, "label": "8 to 15", "lessonQuestionId": 68},
-          {"value": null, "isCorrect": false, "id": 231, "label": "less than 15", "lessonQuestionId": 68}
+          {
+            "value": null,
+            "isCorrect": false,
+            "id": 231,
+            "label": "less than 15",
+            "lessonQuestionId": 68
+          }
         ],
         "lessonQuestionFeedbacks": [],
         "lessonQuestionAnswers": [],
         "id": 68,
         "answerType": "multipleChoiceValidation",
         "type": "quiz",
-        "title": "Let's do a short knowledge quiz with three questions to see what you have learned!",
+        "title":
+            "Let's do a short knowledge quiz with three questions to see what you have learned!",
         "visual": "https://dev.loopcare.app/education/content/58/images/lesson.png",
-        "instruction": "Let's do a short knowledge quiz with three questions to see what you have learned!",
+        "instruction":
+            "Let's do a short knowledge quiz with three questions to see what you have learned!",
         "extraInstruction": null
       },
       {
@@ -4676,9 +5433,11 @@ var lessons = [
         "id": 89,
         "answerType": "multipleChoiceValidation",
         "type": "quiz",
-        "title": "Let's do a short knowledge quiz with three questions to see what you have learned!",
+        "title":
+            "Let's do a short knowledge quiz with three questions to see what you have learned!",
         "visual": "https://dev.loopcare.app/education/content/58/images/lesson.png",
-        "instruction": "Let's do a short knowledge quiz with three questions to see what you have learned!",
+        "instruction":
+            "Let's do a short knowledge quiz with three questions to see what you have learned!",
         "extraInstruction": null
       }
     ],
@@ -4696,7 +5455,12 @@ var lessons = [
   {
     "completedAt": null,
     "isLocked": true,
-    "unlockingConfig": {"extraAction": null, "requiredFeatures": [], "unlockedFeatures": [], "nextStepUnlockDelay": 0},
+    "unlockingConfig": {
+      "extraAction": null,
+      "requiredFeatures": [],
+      "unlockedFeatures": [],
+      "nextStepUnlockDelay": 0
+    },
     "questions": [
       {
         "introduction": null,
@@ -4758,15 +5522,34 @@ var lessons = [
             "Research has shown that both increasing potassium or reducing sodium intake can significantly improve your blood pressure. Instead of prioritizing one over the other, being aware of both will give you more options and flexibility.",
         "lowestText": null,
         "highestText": null,
-        "question": "Is reducing sodium or increasing potassium more effective at lowering your blood pressure?",
+        "question":
+            "Is reducing sodium or increasing potassium more effective at lowering your blood pressure?",
         "openedAt": null,
         "answeredAt": null,
         "completedAt": null,
         "lessonId": 56,
         "lessonQuestionOptions": [
-          {"value": null, "isCorrect": false, "id": 32, "label": "Reducing sodium", "lessonQuestionId": 32},
-          {"value": null, "isCorrect": false, "id": 74, "label": "Increasing potassium", "lessonQuestionId": 32},
-          {"value": null, "isCorrect": true, "id": 112, "label": "They are equally effective", "lessonQuestionId": 32},
+          {
+            "value": null,
+            "isCorrect": false,
+            "id": 32,
+            "label": "Reducing sodium",
+            "lessonQuestionId": 32
+          },
+          {
+            "value": null,
+            "isCorrect": false,
+            "id": 74,
+            "label": "Increasing potassium",
+            "lessonQuestionId": 32
+          },
+          {
+            "value": null,
+            "isCorrect": true,
+            "id": 112,
+            "label": "They are equally effective",
+            "lessonQuestionId": 32
+          },
           {
             "value": null,
             "isCorrect": false,
@@ -4780,9 +5563,11 @@ var lessons = [
         "id": 32,
         "answerType": "multipleChoiceValidation",
         "type": "quiz",
-        "title": "Let's do a short knowledge quiz with two quiz questions to see what you have learned!",
+        "title":
+            "Let's do a short knowledge quiz with two quiz questions to see what you have learned!",
         "visual": "https://dev.loopcare.app/education/content/62/images/lesson.png",
-        "instruction": "Let's do a short knowledge quiz with two quiz questions to see what you have learned!",
+        "instruction":
+            "Let's do a short knowledge quiz with two quiz questions to see what you have learned!",
         "extraInstruction": null
       },
       {
@@ -4808,9 +5593,11 @@ var lessons = [
         "id": 83,
         "answerType": "multipleChoiceValidation",
         "type": "quiz",
-        "title": "Let's do a short knowledge quiz with two quiz questions to see what you have learned!",
+        "title":
+            "Let's do a short knowledge quiz with two quiz questions to see what you have learned!",
         "visual": "https://dev.loopcare.app/education/content/62/images/lesson.png",
-        "instruction": "Let's do a short knowledge quiz with two quiz questions to see what you have learned!",
+        "instruction":
+            "Let's do a short knowledge quiz with two quiz questions to see what you have learned!",
         "extraInstruction": null
       }
     ],
@@ -4828,11 +5615,17 @@ var lessons = [
   {
     "completedAt": null,
     "isLocked": true,
-    "unlockingConfig": {"extraAction": null, "requiredFeatures": [], "unlockedFeatures": [], "nextStepUnlockDelay": 0},
+    "unlockingConfig": {
+      "extraAction": null,
+      "requiredFeatures": [],
+      "unlockedFeatures": [],
+      "nextStepUnlockDelay": 0
+    },
     "questions": [
       {
         "introduction": null,
-        "explanationCorrect": "The main benefits of endurance training include improved heart function.",
+        "explanationCorrect":
+            "The main benefits of endurance training include improved heart function.",
         "explanationIncorrect":
             "Endurance training does not usually focus on strength. While endurance training can better your mood, the most direct benefit is improved heart function.",
         "lowestText": null,
@@ -4843,9 +5636,27 @@ var lessons = [
         "completedAt": null,
         "lessonId": 57,
         "lessonQuestionOptions": [
-          {"value": null, "isCorrect": true, "id": 33, "label": "Improved heart function", "lessonQuestionId": 33},
-          {"value": null, "isCorrect": false, "id": 75, "label": "Strong arms", "lessonQuestionId": 33},
-          {"value": null, "isCorrect": false, "id": 113, "label": "It can better your mood", "lessonQuestionId": 33}
+          {
+            "value": null,
+            "isCorrect": true,
+            "id": 33,
+            "label": "Improved heart function",
+            "lessonQuestionId": 33
+          },
+          {
+            "value": null,
+            "isCorrect": false,
+            "id": 75,
+            "label": "Strong arms",
+            "lessonQuestionId": 33
+          },
+          {
+            "value": null,
+            "isCorrect": false,
+            "id": 113,
+            "label": "It can better your mood",
+            "lessonQuestionId": 33
+          }
         ],
         "lessonQuestionFeedbacks": [],
         "lessonQuestionAnswers": [],
@@ -4854,7 +5665,8 @@ var lessons = [
         "type": "quiz",
         "title": "Let's do a short knowledge quiz with two questions to see what you have learned!",
         "visual": "https://dev.loopcare.app/education/content/63/images/lesson.png",
-        "instruction": "Let's do a short knowledge quiz with two questions to see what you have learned!",
+        "instruction":
+            "Let's do a short knowledge quiz with two questions to see what you have learned!",
         "extraInstruction": null
       },
       {
@@ -4870,9 +5682,27 @@ var lessons = [
         "completedAt": null,
         "lessonId": 57,
         "lessonQuestionOptions": [
-          {"value": null, "isCorrect": false, "id": 159, "label": "Cause of stress", "lessonQuestionId": 69},
-          {"value": null, "isCorrect": false, "id": 199, "label": "Muscle building", "lessonQuestionId": 69},
-          {"value": null, "isCorrect": true, "id": 233, "label": "Improved fat metabolism", "lessonQuestionId": 69}
+          {
+            "value": null,
+            "isCorrect": false,
+            "id": 159,
+            "label": "Cause of stress",
+            "lessonQuestionId": 69
+          },
+          {
+            "value": null,
+            "isCorrect": false,
+            "id": 199,
+            "label": "Muscle building",
+            "lessonQuestionId": 69
+          },
+          {
+            "value": null,
+            "isCorrect": true,
+            "id": 233,
+            "label": "Improved fat metabolism",
+            "lessonQuestionId": 69
+          }
         ],
         "lessonQuestionFeedbacks": [],
         "lessonQuestionAnswers": [],
@@ -4881,7 +5711,8 @@ var lessons = [
         "type": "quiz",
         "title": "Let's do a short knowledge quiz with two questions to see what you have learned!",
         "visual": "https://dev.loopcare.app/education/content/63/images/lesson.png",
-        "instruction": "Let's do a short knowledge quiz with two questions to see what you have learned!",
+        "instruction":
+            "Let's do a short knowledge quiz with two questions to see what you have learned!",
         "extraInstruction": null
       }
     ],
@@ -4909,7 +5740,8 @@ var lessons = [
       {
         "introduction": null,
         "explanationCorrect": "Weight training increases the metabolism.",
-        "explanationIncorrect": "Weight training affects your metabolism by increasing it, not decreasing it.",
+        "explanationIncorrect":
+            "Weight training affects your metabolism by increasing it, not decreasing it.",
         "lowestText": null,
         "highestText": null,
         "question": "How does weight training affect metabolism?",
@@ -4932,7 +5764,13 @@ var lessons = [
             "label": "It has no effect on the metabolism",
             "lessonQuestionId": 34
           },
-          {"value": null, "isCorrect": true, "id": 114, "label": "It increases the metabolism", "lessonQuestionId": 34}
+          {
+            "value": null,
+            "isCorrect": true,
+            "id": 114,
+            "label": "It increases the metabolism",
+            "lessonQuestionId": 34
+          }
         ],
         "lessonQuestionFeedbacks": [],
         "lessonQuestionAnswers": [],
@@ -4941,7 +5779,8 @@ var lessons = [
         "type": "quiz",
         "title": "Let's do a short knowledge quiz with two questions to see what you have learned!",
         "visual": "https://dev.loopcare.app/education/content/64/images/lesson.png",
-        "instruction": "Let's do a short knowledge quiz with two questions to see what you have learned!",
+        "instruction":
+            "Let's do a short knowledge quiz with two questions to see what you have learned!",
         "extraInstruction": null
       },
       {
@@ -4965,8 +5804,20 @@ var lessons = [
             "label": "Train the cardiovascular system effectively",
             "lessonQuestionId": 70
           },
-          {"value": null, "isCorrect": false, "id": 200, "label": "Define the body", "lessonQuestionId": 70},
-          {"value": null, "isCorrect": false, "id": 234, "label": "Actively improve posture", "lessonQuestionId": 70}
+          {
+            "value": null,
+            "isCorrect": false,
+            "id": 200,
+            "label": "Define the body",
+            "lessonQuestionId": 70
+          },
+          {
+            "value": null,
+            "isCorrect": false,
+            "id": 234,
+            "label": "Actively improve posture",
+            "lessonQuestionId": 70
+          }
         ],
         "lessonQuestionFeedbacks": [],
         "lessonQuestionAnswers": [],
@@ -4975,7 +5826,8 @@ var lessons = [
         "type": "quiz",
         "title": "Let's do a short knowledge quiz with two questions to see what you have learned!",
         "visual": "https://dev.loopcare.app/education/content/64/images/lesson.png",
-        "instruction": "Let's do a short knowledge quiz with two questions to see what you have learned!",
+        "instruction":
+            "Let's do a short knowledge quiz with two questions to see what you have learned!",
         "extraInstruction": null
       }
     ],
@@ -4993,7 +5845,12 @@ var lessons = [
   {
     "completedAt": null,
     "isLocked": true,
-    "unlockingConfig": {"extraAction": null, "requiredFeatures": [], "unlockedFeatures": [], "nextStepUnlockDelay": 0},
+    "unlockingConfig": {
+      "extraAction": null,
+      "requiredFeatures": [],
+      "unlockedFeatures": [],
+      "nextStepUnlockDelay": 0
+    },
     "questions": [],
     "id": 59,
     "category": "mind",
@@ -5009,7 +5866,12 @@ var lessons = [
   {
     "completedAt": null,
     "isLocked": true,
-    "unlockingConfig": {"extraAction": null, "requiredFeatures": [], "unlockedFeatures": [], "nextStepUnlockDelay": 0},
+    "unlockingConfig": {
+      "extraAction": null,
+      "requiredFeatures": [],
+      "unlockedFeatures": [],
+      "nextStepUnlockDelay": 0
+    },
     "questions": [
       {
         "introduction": null,
@@ -5050,7 +5912,12 @@ var lessons = [
   {
     "completedAt": null,
     "isLocked": true,
-    "unlockingConfig": {"extraAction": null, "requiredFeatures": [], "unlockedFeatures": [], "nextStepUnlockDelay": 0},
+    "unlockingConfig": {
+      "extraAction": null,
+      "requiredFeatures": [],
+      "unlockedFeatures": [],
+      "nextStepUnlockDelay": 0
+    },
     "questions": [],
     "id": 61,
     "category": "mind",
@@ -5087,7 +5954,8 @@ var lessons = [
             "If your urine is clear, you are likely overhydrated. Overhydration causes you to pee more, which can cause you to expel important minerals. It also isn’t fun to have to pee a lot. Urine that is pale yellow is a good indicator of being hydrated.",
         "lowestText": null,
         "highestText": null,
-        "question": "True or false: Drink as much water as possible, because you can’t be overhydrated",
+        "question":
+            "True or false: Drink as much water as possible, because you can’t be overhydrated",
         "openedAt": null,
         "answeredAt": null,
         "completedAt": null,
@@ -5103,7 +5971,8 @@ var lessons = [
         "type": "quiz",
         "title": "Let's do a short knowledge quiz with two questions to see what you have learned!",
         "visual": "https://dev.loopcare.app/education/content/69/images/lesson.png",
-        "instruction": "Let's do a short knowledge quiz with two questions to see what you have learned!",
+        "instruction":
+            "Let's do a short knowledge quiz with two questions to see what you have learned!",
         "extraInstruction": null
       },
       {
@@ -5130,7 +5999,8 @@ var lessons = [
         "type": "quiz",
         "title": "Let's do a short knowledge quiz with two questions to see what you have learned!",
         "visual": "https://dev.loopcare.app/education/content/69/images/lesson.png",
-        "instruction": "Let's do a short knowledge quiz with two questions to see what you have learned!",
+        "instruction":
+            "Let's do a short knowledge quiz with two questions to see what you have learned!",
         "extraInstruction": null
       }
     ],
@@ -5169,7 +6039,13 @@ var lessons = [
         "completedAt": null,
         "lessonId": 63,
         "lessonQuestionOptions": [
-          {"value": null, "isCorrect": false, "id": 36, "label": "To load the stomach", "lessonQuestionId": 36},
+          {
+            "value": null,
+            "isCorrect": false,
+            "id": 36,
+            "label": "To load the stomach",
+            "lessonQuestionId": 36
+          },
           {
             "value": null,
             "isCorrect": true,
@@ -5177,7 +6053,13 @@ var lessons = [
             "label": "To improve the way your muscles function and prepare the body",
             "lessonQuestionId": 36
           },
-          {"value": null, "isCorrect": false, "id": 115, "label": "To increase endurance", "lessonQuestionId": 36}
+          {
+            "value": null,
+            "isCorrect": false,
+            "id": 115,
+            "label": "To increase endurance",
+            "lessonQuestionId": 36
+          }
         ],
         "lessonQuestionFeedbacks": [],
         "lessonQuestionAnswers": [],
@@ -5186,7 +6068,8 @@ var lessons = [
         "type": "quiz",
         "title": "Let's do a short knowledge quiz with two questions to see what you have learned!",
         "visual": "https://dev.loopcare.app/education/content/70/images/lesson.png",
-        "instruction": "Let's do a short knowledge quiz with two questions to see what you have learned!",
+        "instruction":
+            "Let's do a short knowledge quiz with two questions to see what you have learned!",
         "extraInstruction": null
       },
       {
@@ -5203,9 +6086,27 @@ var lessons = [
         "completedAt": null,
         "lessonId": 63,
         "lessonQuestionOptions": [
-          {"value": null, "isCorrect": false, "id": 162, "label": "Improved muscle function", "lessonQuestionId": 71},
-          {"value": null, "isCorrect": false, "id": 201, "label": "Increase in endurance", "lessonQuestionId": 71},
-          {"value": null, "isCorrect": true, "id": 235, "label": "Strain on the stomach", "lessonQuestionId": 71}
+          {
+            "value": null,
+            "isCorrect": false,
+            "id": 162,
+            "label": "Improved muscle function",
+            "lessonQuestionId": 71
+          },
+          {
+            "value": null,
+            "isCorrect": false,
+            "id": 201,
+            "label": "Increase in endurance",
+            "lessonQuestionId": 71
+          },
+          {
+            "value": null,
+            "isCorrect": true,
+            "id": 235,
+            "label": "Strain on the stomach",
+            "lessonQuestionId": 71
+          }
         ],
         "lessonQuestionFeedbacks": [],
         "lessonQuestionAnswers": [],
@@ -5214,7 +6115,8 @@ var lessons = [
         "type": "quiz",
         "title": "Let's do a short knowledge quiz with two questions to see what you have learned!",
         "visual": "https://dev.loopcare.app/education/content/70/images/lesson.png",
-        "instruction": "Let's do a short knowledge quiz with two questions to see what you have learned!",
+        "instruction":
+            "Let's do a short knowledge quiz with two questions to see what you have learned!",
         "extraInstruction": null
       }
     ],
@@ -5232,7 +6134,12 @@ var lessons = [
   {
     "completedAt": null,
     "isLocked": true,
-    "unlockingConfig": {"extraAction": null, "requiredFeatures": [], "unlockedFeatures": [], "nextStepUnlockDelay": 0},
+    "unlockingConfig": {
+      "extraAction": null,
+      "requiredFeatures": [],
+      "unlockedFeatures": [],
+      "nextStepUnlockDelay": 0
+    },
     "questions": [],
     "id": 64,
     "category": "mind",
@@ -5248,7 +6155,12 @@ var lessons = [
   {
     "completedAt": null,
     "isLocked": true,
-    "unlockingConfig": {"extraAction": null, "requiredFeatures": [], "unlockedFeatures": [], "nextStepUnlockDelay": 0},
+    "unlockingConfig": {
+      "extraAction": null,
+      "requiredFeatures": [],
+      "unlockedFeatures": [],
+      "nextStepUnlockDelay": 0
+    },
     "questions": [
       {
         "introduction": null,
@@ -5289,7 +6201,12 @@ var lessons = [
   {
     "completedAt": null,
     "isLocked": true,
-    "unlockingConfig": {"extraAction": null, "requiredFeatures": [], "unlockedFeatures": [], "nextStepUnlockDelay": 0},
+    "unlockingConfig": {
+      "extraAction": null,
+      "requiredFeatures": [],
+      "unlockedFeatures": [],
+      "nextStepUnlockDelay": 0
+    },
     "questions": [],
     "id": 66,
     "category": "mind",
@@ -5343,7 +6260,8 @@ var lessons = [
         "type": "quiz",
         "title": "Let's do a short knowledge quiz with two questions to see what you have learned!",
         "visual": "https://dev.loopcare.app/education/content/75/images/lesson.png",
-        "instruction": "Let's do a short knowledge quiz with two questions to see what you have learned!",
+        "instruction":
+            "Let's do a short knowledge quiz with two questions to see what you have learned!",
         "extraInstruction": null
       },
       {
@@ -5354,7 +6272,8 @@ var lessons = [
             "Cooking every  meal every day is unrealistic for most of us. Instead, it is worth planning healthy convenient meals/snacks alongside cooking so you can give yourself a break, and fit healthy meals into busy days.",
         "lowestText": null,
         "highestText": null,
-        "question": "True or false: Cooking all of my meals is the ultimate goal to building a healthy diet.",
+        "question":
+            "True or false: Cooking all of my meals is the ultimate goal to building a healthy diet.",
         "openedAt": null,
         "answeredAt": null,
         "completedAt": null,
@@ -5370,7 +6289,8 @@ var lessons = [
         "type": "quiz",
         "title": "Let's do a short knowledge quiz with two questions to see what you have learned!",
         "visual": "https://dev.loopcare.app/education/content/75/images/lesson.png",
-        "instruction": "Let's do a short knowledge quiz with two questions to see what you have learned!",
+        "instruction":
+            "Let's do a short knowledge quiz with two questions to see what you have learned!",
         "extraInstruction": null
       }
     ],
@@ -5388,7 +6308,12 @@ var lessons = [
   {
     "completedAt": null,
     "isLocked": true,
-    "unlockingConfig": {"extraAction": null, "requiredFeatures": [], "unlockedFeatures": [], "nextStepUnlockDelay": 0},
+    "unlockingConfig": {
+      "extraAction": null,
+      "requiredFeatures": [],
+      "unlockedFeatures": [],
+      "nextStepUnlockDelay": 0
+    },
     "questions": [
       {
         "introduction": null,
@@ -5398,7 +6323,8 @@ var lessons = [
             "Family sporting activities create bonds. shared memories, and enhance motivation for exercise. There is no need for any financial benefits.",
         "lowestText": null,
         "highestText": null,
-        "question": "How can participating in sporting activities with the family build stronger bonds?",
+        "question":
+            "How can participating in sporting activities with the family build stronger bonds?",
         "openedAt": null,
         "answeredAt": null,
         "completedAt": null,
@@ -5433,7 +6359,8 @@ var lessons = [
         "type": "quiz",
         "title": "Let's do a short knowledge quiz with two questions to see what you have learned!",
         "visual": "https://dev.loopcare.app/education/content/76/images/lesson.png",
-        "instruction": "Let's do a short knowledge quiz with two questions to see what you have learned!",
+        "instruction":
+            "Let's do a short knowledge quiz with two questions to see what you have learned!",
         "extraInstruction": null
       },
       {
@@ -5444,7 +6371,8 @@ var lessons = [
             "Generally, parents won't set a bad example by being active. Nor are children less likely to be motivated if their parents are active.",
         "lowestText": null,
         "highestText": null,
-        "question": "What is the significance of parents as role models in integrating sports into family life?",
+        "question":
+            "What is the significance of parents as role models in integrating sports into family life?",
         "openedAt": null,
         "answeredAt": null,
         "completedAt": null,
@@ -5479,7 +6407,8 @@ var lessons = [
         "type": "quiz",
         "title": "Let's do a short knowledge quiz with two questions to see what you have learned!",
         "visual": "https://dev.loopcare.app/education/content/76/images/lesson.png",
-        "instruction": "Let's do a short knowledge quiz with two questions to see what you have learned!",
+        "instruction":
+            "Let's do a short knowledge quiz with two questions to see what you have learned!",
         "extraInstruction": null
       }
     ],
@@ -5529,7 +6458,8 @@ var lessons = [
             "value": null,
             "isCorrect": true,
             "id": 81,
-            "label": "Extra exercise burns extra calories and is good for your health and for losing weight.",
+            "label":
+                "Extra exercise burns extra calories and is good for your health and for losing weight.",
             "lessonQuestionId": 39
           }
         ],
@@ -5540,7 +6470,8 @@ var lessons = [
         "type": "quiz",
         "title": "Let's do a short knowledge quiz with two questions to see what you have learned!",
         "visual": "https://dev.loopcare.app/education/content/77/images/lesson.png",
-        "instruction": "Let's do a short knowledge quiz with two questions to see what you have learned!",
+        "instruction":
+            "Let's do a short knowledge quiz with two questions to see what you have learned!",
         "extraInstruction": null
       },
       {
@@ -5564,7 +6495,13 @@ var lessons = [
             "label": "Replace targeted progressive training.",
             "lessonQuestionId": 49
           },
-          {"value": null, "isCorrect": false, "id": 165, "label": "Boost your body and mind.", "lessonQuestionId": 49},
+          {
+            "value": null,
+            "isCorrect": false,
+            "id": 165,
+            "label": "Boost your body and mind.",
+            "lessonQuestionId": 49
+          },
           {
             "value": null,
             "isCorrect": false,
@@ -5580,7 +6517,8 @@ var lessons = [
         "type": "quiz",
         "title": "Let's do a short knowledge quiz with two questions to see what you have learned!",
         "visual": "https://dev.loopcare.app/education/content/77/images/lesson.png",
-        "instruction": "Let's do a short knowledge quiz with two questions to see what you have learned!",
+        "instruction":
+            "Let's do a short knowledge quiz with two questions to see what you have learned!",
         "extraInstruction": null
       }
     ],
@@ -5598,7 +6536,12 @@ var lessons = [
   {
     "completedAt": null,
     "isLocked": true,
-    "unlockingConfig": {"extraAction": null, "requiredFeatures": [], "unlockedFeatures": [], "nextStepUnlockDelay": 0},
+    "unlockingConfig": {
+      "extraAction": null,
+      "requiredFeatures": [],
+      "unlockedFeatures": [],
+      "nextStepUnlockDelay": 0
+    },
     "questions": [],
     "id": 70,
     "category": "mind",
@@ -5614,7 +6557,12 @@ var lessons = [
   {
     "completedAt": null,
     "isLocked": true,
-    "unlockingConfig": {"extraAction": null, "requiredFeatures": [], "unlockedFeatures": [], "nextStepUnlockDelay": 0},
+    "unlockingConfig": {
+      "extraAction": null,
+      "requiredFeatures": [],
+      "unlockedFeatures": [],
+      "nextStepUnlockDelay": 0
+    },
     "questions": [
       {
         "introduction": null,
@@ -5655,7 +6603,12 @@ var lessons = [
   {
     "completedAt": null,
     "isLocked": true,
-    "unlockingConfig": {"extraAction": null, "requiredFeatures": [], "unlockedFeatures": [], "nextStepUnlockDelay": 0},
+    "unlockingConfig": {
+      "extraAction": null,
+      "requiredFeatures": [],
+      "unlockedFeatures": [],
+      "nextStepUnlockDelay": 0
+    },
     "questions": [],
     "id": 72,
     "category": "mind",
@@ -5708,7 +6661,8 @@ var lessons = [
         "type": "quiz",
         "title": "Let's do a short knowledge quiz with two questions to see what you have learned!",
         "visual": "https://dev.loopcare.app/education/content/82/images/lesson.png",
-        "instruction": "Let's do a short knowledge quiz with two questions to see what you have learned!",
+        "instruction":
+            "Let's do a short knowledge quiz with two questions to see what you have learned!",
         "extraInstruction": null
       },
       {
@@ -5719,7 +6673,8 @@ var lessons = [
             "Initially, it might taste more bland. However, your sense of taste becomes more sensitive as you eat lower concentrations of salt, sugar, and fat. Eventually, these foods won’t taste bland since your sense of taste has strengthened.",
         "lowestText": null,
         "highestText": null,
-        "question": "True or false: In order to eat healthier, you have to get used to eating food that tastes bland.",
+        "question":
+            "True or false: In order to eat healthier, you have to get used to eating food that tastes bland.",
         "openedAt": null,
         "answeredAt": null,
         "completedAt": null,
@@ -5735,7 +6690,8 @@ var lessons = [
         "type": "quiz",
         "title": "Let's do a short knowledge quiz with two questions to see what you have learned!",
         "visual": "https://dev.loopcare.app/education/content/82/images/lesson.png",
-        "instruction": "Let's do a short knowledge quiz with two questions to see what you have learned!",
+        "instruction":
+            "Let's do a short knowledge quiz with two questions to see what you have learned!",
         "extraInstruction": null
       }
     ],
@@ -5753,7 +6709,12 @@ var lessons = [
   {
     "completedAt": null,
     "isLocked": true,
-    "unlockingConfig": {"extraAction": null, "requiredFeatures": [], "unlockedFeatures": [], "nextStepUnlockDelay": 0},
+    "unlockingConfig": {
+      "extraAction": null,
+      "requiredFeatures": [],
+      "unlockedFeatures": [],
+      "nextStepUnlockDelay": 0
+    },
     "questions": [
       {
         "introduction": null,
@@ -5763,13 +6724,20 @@ var lessons = [
             "\"Health\" doesn't only refer to bodily health and the absence of disease. It encompasses physical and mental well-being.",
         "lowestText": null,
         "highestText": null,
-        "question": "What does \"health\" encompass, according to the World Health Organization's definition?",
+        "question":
+            "What does \"health\" encompass, according to the World Health Organization's definition?",
         "openedAt": null,
         "answeredAt": null,
         "completedAt": null,
         "lessonId": 74,
         "lessonQuestionOptions": [
-          {"value": null, "isCorrect": false, "id": 41, "label": "Refers only to the body", "lessonQuestionId": 41},
+          {
+            "value": null,
+            "isCorrect": false,
+            "id": 41,
+            "label": "Refers only to the body",
+            "lessonQuestionId": 41
+          },
           {
             "value": null,
             "isCorrect": false,
@@ -5792,7 +6760,8 @@ var lessons = [
         "type": "quiz",
         "title": "Let's do a short knowledge quiz with two questions to see what you have learned!",
         "visual": "https://dev.loopcare.app/education/content/83/images/lesson.png",
-        "instruction": "Let's do a short knowledge quiz with two questions to see what you have learned!",
+        "instruction":
+            "Let's do a short knowledge quiz with two questions to see what you have learned!",
         "extraInstruction": null
       },
       {
@@ -5809,7 +6778,13 @@ var lessons = [
         "completedAt": null,
         "lessonId": 74,
         "lessonQuestionOptions": [
-          {"value": null, "isCorrect": false, "id": 167, "label": "Fitness affects health.", "lessonQuestionId": 73},
+          {
+            "value": null,
+            "isCorrect": false,
+            "id": 167,
+            "label": "Fitness affects health.",
+            "lessonQuestionId": 73
+          },
           {
             "value": null,
             "isCorrect": true,
@@ -5832,7 +6807,8 @@ var lessons = [
         "type": "quiz",
         "title": "Let's do a short knowledge quiz with two questions to see what you have learned!",
         "visual": "https://dev.loopcare.app/education/content/83/images/lesson.png",
-        "instruction": "Let's do a short knowledge quiz with two questions to see what you have learned!",
+        "instruction":
+            "Let's do a short knowledge quiz with two questions to see what you have learned!",
         "extraInstruction": null
       }
     ],
@@ -5871,18 +6847,38 @@ var lessons = [
         "completedAt": null,
         "lessonId": 75,
         "lessonQuestionOptions": [
-          {"value": null, "isCorrect": false, "id": 42, "label": "Train again straight away", "lessonQuestionId": 42},
-          {"value": null, "isCorrect": false, "id": 84, "label": "Never train again", "lessonQuestionId": 42},
-          {"value": null, "isCorrect": true, "id": 118, "label": "Fully recover and then train", "lessonQuestionId": 42}
+          {
+            "value": null,
+            "isCorrect": false,
+            "id": 42,
+            "label": "Train again straight away",
+            "lessonQuestionId": 42
+          },
+          {
+            "value": null,
+            "isCorrect": false,
+            "id": 84,
+            "label": "Never train again",
+            "lessonQuestionId": 42
+          },
+          {
+            "value": null,
+            "isCorrect": true,
+            "id": 118,
+            "label": "Fully recover and then train",
+            "lessonQuestionId": 42
+          }
         ],
         "lessonQuestionFeedbacks": [],
         "lessonQuestionAnswers": [],
         "id": 42,
         "answerType": "multipleChoiceValidation",
         "type": "quiz",
-        "title": "Let's do a short knowledge quiz with three questions to see what you have learned!",
+        "title":
+            "Let's do a short knowledge quiz with three questions to see what you have learned!",
         "visual": "https://dev.loopcare.app/education/content/84/images/lesson.png",
-        "instruction": "Let's do a short knowledge quiz with three questions to see what you have learned!",
+        "instruction":
+            "Let's do a short knowledge quiz with three questions to see what you have learned!",
         "extraInstruction": null
       },
       {
@@ -5898,18 +6894,38 @@ var lessons = [
         "completedAt": null,
         "lessonId": 75,
         "lessonQuestionOptions": [
-          {"value": null, "isCorrect": false, "id": 168, "label": "The normal state", "lessonQuestionId": 74},
-          {"value": null, "isCorrect": true, "id": 205, "label": "Microtrauma in the muscle", "lessonQuestionId": 74},
-          {"value": null, "isCorrect": false, "id": 238, "label": "Muscle disease", "lessonQuestionId": 74}
+          {
+            "value": null,
+            "isCorrect": false,
+            "id": 168,
+            "label": "The normal state",
+            "lessonQuestionId": 74
+          },
+          {
+            "value": null,
+            "isCorrect": true,
+            "id": 205,
+            "label": "Microtrauma in the muscle",
+            "lessonQuestionId": 74
+          },
+          {
+            "value": null,
+            "isCorrect": false,
+            "id": 238,
+            "label": "Muscle disease",
+            "lessonQuestionId": 74
+          }
         ],
         "lessonQuestionFeedbacks": [],
         "lessonQuestionAnswers": [],
         "id": 74,
         "answerType": "multipleChoiceValidation",
         "type": "quiz",
-        "title": "Let's do a short knowledge quiz with three questions to see what you have learned!",
+        "title":
+            "Let's do a short knowledge quiz with three questions to see what you have learned!",
         "visual": "https://dev.loopcare.app/education/content/84/images/lesson.png",
-        "instruction": "Let's do a short knowledge quiz with three questions to see what you have learned!",
+        "instruction":
+            "Let's do a short knowledge quiz with three questions to see what you have learned!",
         "extraInstruction": null
       },
       {
@@ -5924,8 +6940,20 @@ var lessons = [
         "completedAt": null,
         "lessonId": 75,
         "lessonQuestionOptions": [
-          {"value": null, "isCorrect": true, "id": 257, "label": "Seven days", "lessonQuestionId": 90},
-          {"value": null, "isCorrect": false, "id": 264, "label": "Three days", "lessonQuestionId": 90},
+          {
+            "value": null,
+            "isCorrect": true,
+            "id": 257,
+            "label": "Seven days",
+            "lessonQuestionId": 90
+          },
+          {
+            "value": null,
+            "isCorrect": false,
+            "id": 264,
+            "label": "Three days",
+            "lessonQuestionId": 90
+          },
           {"value": null, "isCorrect": false, "id": 268, "label": "One day", "lessonQuestionId": 90}
         ],
         "lessonQuestionFeedbacks": [],
@@ -5933,9 +6961,11 @@ var lessons = [
         "id": 90,
         "answerType": "multipleChoiceValidation",
         "type": "quiz",
-        "title": "Let's do a short knowledge quiz with three questions to see what you have learned!",
+        "title":
+            "Let's do a short knowledge quiz with three questions to see what you have learned!",
         "visual": "https://dev.loopcare.app/education/content/84/images/lesson.png",
-        "instruction": "Let's do a short knowledge quiz with three questions to see what you have learned!",
+        "instruction":
+            "Let's do a short knowledge quiz with three questions to see what you have learned!",
         "extraInstruction": null
       }
     ],

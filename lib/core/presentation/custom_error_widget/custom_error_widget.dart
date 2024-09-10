@@ -17,16 +17,15 @@ import 'package:loopcare_frontend/features/onboarding/application/physical_quest
 class CustomErrorWidget extends StatelessWidget {
   const CustomErrorWidget({super.key, required this.errorDetails});
 
-  String get _message => kReleaseMode
-      ? errorDetails.summary.toDescription()
-      : errorDetails.summary.toString();
+  String get _message =>
+      kReleaseMode ? errorDetails.summary.toDescription() : errorDetails.summary.toString();
 
   final FlutterErrorDetails errorDetails;
 
   void _copyToClipBoard() async =>
       await Clipboard.setData(ClipboardData(text: errorDetails.toString()));
 
-  void _resetDataAndNavigateToRoot(BuildContext context)  {
+  void _resetDataAndNavigateToRoot(BuildContext context) {
     // Clean all data
     context
       ..read<GeneralOnboardingBloc>().add(const GeneralOnboardingEvent.resetData())
@@ -47,18 +46,14 @@ class CustomErrorWidget extends StatelessWidget {
         margin: const EdgeInsets.all(16.0),
         padding: const EdgeInsets.all(16.0),
         decoration: const BoxDecoration(
-          color: AppColors.greyDarker,
-          borderRadius: BorderRadius.all(Radius.circular(12))
-        ),
+            color: AppColors.greyDarker, borderRadius: BorderRadius.all(Radius.circular(12))),
         child: Center(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             mainAxisSize: MainAxisSize.min,
             children: [
               Text(
-                kIsDev
-                    ? _message
-                    : 'Oops! Something went wrong!',
+                kIsDev ? _message : 'Oops! Something went wrong!',
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   color: kIsDev ? Colors.red : Colors.white,

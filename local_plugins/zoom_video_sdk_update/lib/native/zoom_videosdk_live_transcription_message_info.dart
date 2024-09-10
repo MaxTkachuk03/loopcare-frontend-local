@@ -9,14 +9,8 @@ class ZoomVideoSdkLiveTranscriptionMessageInfo {
   String speakerID;
   String timeStamp;
 
-  ZoomVideoSdkLiveTranscriptionMessageInfo(
-      this.messageID,
-      this.messageContent,
-      this.messageType,
-      this.speakerName,
-      this.speakerID,
-      this.timeStamp
-      );
+  ZoomVideoSdkLiveTranscriptionMessageInfo(this.messageID, this.messageContent, this.messageType,
+      this.speakerName, this.speakerID, this.timeStamp);
 
   ZoomVideoSdkLiveTranscriptionMessageInfo.fromJson(Map<String, dynamic> json)
       : messageID = json['messageID'],
@@ -27,11 +21,11 @@ class ZoomVideoSdkLiveTranscriptionMessageInfo {
         timeStamp = json['timeStamp'];
 
   Map<String, dynamic> toJson() => {
-    'messageID': messageID,
-    'messageContent': messageContent,
-    'messageType': messageType,
-    'speakerName': speakerName,
-    'speakerID': speakerID,
-    'timeStamp': timeStamp,
-  };
+        'messageID': messageID,
+        'messageContent': messageContent,
+        'messageType': messageType,
+        'speakerName': speakerName,
+        'speakerID': speakerID,
+        'timeStamp': timeStamp,
+      };
 }

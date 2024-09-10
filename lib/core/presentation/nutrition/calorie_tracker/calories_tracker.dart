@@ -40,7 +40,9 @@ class CaloriesTracker extends StatelessWidget {
   num bottomOfCaloriesRange(double caloriesMaintenance) {
     final double bottomRange = caloriesMaintenance - Constants.calorieMaintenanceBottomRange;
 
-    return bottomRange < _account!.minCalorieRangeValue ? _account!.minCalorieRangeValue : bottomRange;
+    return bottomRange < _account!.minCalorieRangeValue
+        ? _account!.minCalorieRangeValue
+        : bottomRange;
   }
 
   void _onTapHandler(BuildContext context) => ModalBottomSheet.nutritionIndicatorOverlay(
@@ -72,9 +74,11 @@ class CaloriesTracker extends StatelessWidget {
                     children: [
                       Stack(
                         children: [
-                          RangeItem(position: topRangePosition, label: topRangeValue.toStringAsFixed(0)),
                           RangeItem(
-                              position: bottomRangePosition, label: bottomRangeValue.toStringAsFixed(0)),
+                              position: topRangePosition, label: topRangeValue.toStringAsFixed(0)),
+                          RangeItem(
+                              position: bottomRangePosition,
+                              label: bottomRangeValue.toStringAsFixed(0)),
                         ],
                       ),
                       Stack(
@@ -86,7 +90,8 @@ class CaloriesTracker extends StatelessWidget {
                               border: Border.all(color: AppColors.white, style: BorderStyle.solid),
                             ),
                           ),
-                          CaloriesProgressIndicator(value: _getCaloriesMaintenanceRatio(caloriesMaintenance)),
+                          CaloriesProgressIndicator(
+                              value: _getCaloriesMaintenanceRatio(caloriesMaintenance)),
                         ],
                       ),
                       const SizedBox(height: 16.0),
