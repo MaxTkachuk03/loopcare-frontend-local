@@ -25,20 +25,20 @@ enum Diseases {
 
 extension DiseasesExtension on Diseases {
   String get label => switch (this) {
-    Diseases.cardioVascularDisease => LocalizedTexts.cardioVascularDisease,
-    Diseases.stomachReductionDisease => LocalizedTexts.stomachReductionDisease,
-    Diseases.obesity => LocalizedTexts.obesity,
-    Diseases.thyroidDisease => LocalizedTexts.thyroidDisease,
-    Diseases.metabolicDisease => LocalizedTexts.metabolicDisease,
-    Diseases.hypertension => LocalizedTexts.hypertension,
-    Diseases.diabetesTypeI => LocalizedTexts.diabetesTypeI,
-    Diseases.diabetesTypeII => LocalizedTexts.diabetesTypeII,
-    Diseases.renalFailure => LocalizedTexts.renalFailure,
-    Diseases.asthma => LocalizedTexts.asthma,
-    Diseases.liverDisease => LocalizedTexts.liverDisease,
-    Diseases.sleepApneaSyndrome => LocalizedTexts.sleepApneaSyndrome,
-    Diseases.locomotorSystemDisease => LocalizedTexts.locomotorSystemDisease,
-  };
+        Diseases.cardioVascularDisease => LocalizedTexts.cardioVascularDisease,
+        Diseases.stomachReductionDisease => LocalizedTexts.stomachReductionDisease,
+        Diseases.obesity => LocalizedTexts.obesity,
+        Diseases.thyroidDisease => LocalizedTexts.thyroidDisease,
+        Diseases.metabolicDisease => LocalizedTexts.metabolicDisease,
+        Diseases.hypertension => LocalizedTexts.hypertension,
+        Diseases.diabetesTypeI => LocalizedTexts.diabetesTypeI,
+        Diseases.diabetesTypeII => LocalizedTexts.diabetesTypeII,
+        Diseases.renalFailure => LocalizedTexts.renalFailure,
+        Diseases.asthma => LocalizedTexts.asthma,
+        Diseases.liverDisease => LocalizedTexts.liverDisease,
+        Diseases.sleepApneaSyndrome => LocalizedTexts.sleepApneaSyndrome,
+        Diseases.locomotorSystemDisease => LocalizedTexts.locomotorSystemDisease,
+      };
 
   String get question {
     if (this == Diseases.obesity) {

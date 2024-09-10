@@ -15,5 +15,6 @@ class MentalHealthTests with _$MentalHealthTests {
     required String gad7,
   }) = _MentalHealthTests;
 
-  factory MentalHealthTests.fromJson(Map<String, dynamic> json) => _$MentalHealthTestsFromJson(json);
+  factory MentalHealthTests.fromJson(Map<String, dynamic> json) =>
+      _$MentalHealthTestsFromJson(json);
 }

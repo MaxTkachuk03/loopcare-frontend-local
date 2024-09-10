@@ -38,14 +38,14 @@ class GroupChatBloc extends Bloc<GroupChatEvent, GroupChatState> {
     on<GetUnreadCount>(_onGetUnreadCount);
 
     _syncService.stream.listen(
-     (event) {
-       event.whenOrNull(
-         refreshChatMessages: () {
-           add(const GroupChatEvent.getUnreadCount());
-           add(const GroupChatEvent.getMessages(refresh: true));
-         },
-       );
-     },
+      (event) {
+        event.whenOrNull(
+          refreshChatMessages: () {
+            add(const GroupChatEvent.getUnreadCount());
+            add(const GroupChatEvent.getMessages(refresh: true));
+          },
+        );
+      },
     );
   }
 
@@ -79,7 +79,8 @@ class GroupChatBloc extends Bloc<GroupChatEvent, GroupChatState> {
     emit(GroupChatState.loading(state.data.copyWith(isLoadingMembers: false)));
     final response = await chatService.readPointer(fromMessageId: event.fromMessageId);
     response.fold(
-      (error) => emit(GroupChatState.error(GroupChatStateData(error: error, isLoadingMembers: false))),
+      (error) =>
+          emit(GroupChatState.error(GroupChatStateData(error: error, isLoadingMembers: false))),
       (r) {
         add(const GroupChatEvent.getUnreadCount());
         emit(GroupChatState.pointedSuccess(state.data.copyWith(isLoadingMembers: false)));
@@ -231,7 +232,9 @@ class GroupChatBloc extends Bloc<GroupChatEvent, GroupChatState> {
     if (!_hasReachedMessagesMax || (event.refresh ?? false)) {
       emit(GroupChatState.loading(state.data.copyWith(isLoading: true)));
       final response = await chatService.getMessages(
-          fromMessageId: (event.refresh ?? false) ? null : _fromMessageId, limit: _limit, order: _order);
+          fromMessageId: (event.refresh ?? false) ? null : _fromMessageId,
+          limit: _limit,
+          order: _order);
       response.fold(
         (error) {
           emit(GroupChatState.error(GroupChatStateData(error: error, isLoading: false)));
@@ -240,7 +243,8 @@ class GroupChatBloc extends Bloc<GroupChatEvent, GroupChatState> {
           r.data.sort((a, b) {
             return b.createdAt!.compareTo(a.createdAt!);
           });
-          final List<GroupMessage> result = (event.refresh ?? false) ? r.data : [..._currentMessages, ...r.data];
+          final List<GroupMessage> result =
+              (event.refresh ?? false) ? r.data : [..._currentMessages, ...r.data];
           final uniqueData = unique(result);
           emit(
             GroupChatState.uploadSuccess(

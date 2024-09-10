@@ -17,7 +17,8 @@ class GroupPreferencesBody {
     this.rulesAccepted,
   });
 
-  factory GroupPreferencesBody.fromJson(Map<String, dynamic> json) => _$GroupPreferencesBodyFromJson(json);
+  factory GroupPreferencesBody.fromJson(Map<String, dynamic> json) =>
+      _$GroupPreferencesBodyFromJson(json);
 
   Map<String, dynamic> toJson() => _$GroupPreferencesBodyToJson(this);
 }

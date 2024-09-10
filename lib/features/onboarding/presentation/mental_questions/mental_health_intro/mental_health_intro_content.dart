@@ -82,5 +82,6 @@ class MentalHealthIntroContent extends StatelessWidget {
     context.read<GeneralOnboardingBloc>().add(const GeneralOnboardingEvent.startTimer());
   }
 
-  _onMoreInfoPressed(BuildContext context) => ModalBottomSheet.mentalHealthMoreInfo(context: context);
+  _onMoreInfoPressed(BuildContext context) =>
+      ModalBottomSheet.mentalHealthMoreInfo(context: context);
 }

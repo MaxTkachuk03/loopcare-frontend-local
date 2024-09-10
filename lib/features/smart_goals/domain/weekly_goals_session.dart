@@ -18,7 +18,8 @@ class WeeklyGoalsSession with _$WeeklyGoalsSession {
     bool? isActive,
   }) = _WeeklyGoalsSession;
 
-  factory WeeklyGoalsSession.fromJson(Map<String, dynamic> json) => _$WeeklyGoalsSessionFromJson(json);
+  factory WeeklyGoalsSession.fromJson(Map<String, dynamic> json) =>
+      _$WeeklyGoalsSessionFromJson(json);
 
   bool get sessionHasGoal => goal != null;
 

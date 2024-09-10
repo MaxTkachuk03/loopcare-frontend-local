@@ -48,15 +48,15 @@ class _DiabetesChipsState extends State<DiabetesChips> {
     return Column(
       children: DiabetesTypes.values
           .map((item) => Padding(
-              padding: const EdgeInsets.only(bottom: 8.0),
-              child: CustomChoiceChip.coral(
-                label: item.label,
-                selected: item == _selectedValue,
-                onSelected: _onSelected,
-                value: item,
-                textAlign: TextAlign.center,
-              ),
-            ))
+                padding: const EdgeInsets.only(bottom: 8.0),
+                child: CustomChoiceChip.coral(
+                  label: item.label,
+                  selected: item == _selectedValue,
+                  onSelected: _onSelected,
+                  value: item,
+                  textAlign: TextAlign.center,
+                ),
+              ))
           .toList(),
     );
   }

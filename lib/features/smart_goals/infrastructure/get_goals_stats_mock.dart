@@ -15,7 +15,12 @@ var goalsStats = [
     "total": 5
   },
   {
-    "category": {"id": 3, "externalId": "3", "name": "Calorie density", "image": "/images/icon.png"},
+    "category": {
+      "id": 3,
+      "externalId": "3",
+      "name": "Calorie density",
+      "image": "/images/icon.png"
+    },
     "completed": 7,
     "total": 8
   },

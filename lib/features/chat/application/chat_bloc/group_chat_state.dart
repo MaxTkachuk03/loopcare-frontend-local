@@ -10,7 +10,8 @@ class GroupChatState with _$GroupChatState {
 
   const factory GroupChatState.sentSuccess(GroupChatStateData data) = _SentSuccess;
 
-  const factory GroupChatState.gotMessageFromSocket(GroupChatStateData data) = _GotMessageFromSocket;
+  const factory GroupChatState.gotMessageFromSocket(GroupChatStateData data) =
+      _GotMessageFromSocket;
 
   const factory GroupChatState.uploadSuccess(GroupChatStateData data) = _UploadSuccess;
 

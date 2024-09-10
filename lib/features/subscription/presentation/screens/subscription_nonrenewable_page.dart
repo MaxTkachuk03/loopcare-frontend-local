@@ -13,8 +13,6 @@ import 'package:loopcare_frontend/features/subscription/presentation/widget/subs
 import 'package:loopcare_frontend/features/subscription/presentation/widget/subscription_header_label.dart';
 
 class SubscriptionNonrenewablePage extends StatelessWidget {
-
-
   const SubscriptionNonrenewablePage({
     super.key,
   });
@@ -23,7 +21,7 @@ class SubscriptionNonrenewablePage extends StatelessWidget {
     return CustomScaffold.blueLightest(
       body: BottomPlacedButton.blueLightest(
         body: ScrollableContainer(
-          child:  Column(
+          child: Column(
             children: [
               AppImages.subscriptionTop,
               CustomText.bitter600(

@@ -16,6 +16,5 @@ abstract class UpdateDishBody implements _$UpdateDishBody {
     required String name,
   }) = _UpdateDishBody;
 
-  factory UpdateDishBody.fromJson(Map<String, dynamic> json) =>
-      _$UpdateDishBodyFromJson(json);
+  factory UpdateDishBody.fromJson(Map<String, dynamic> json) => _$UpdateDishBodyFromJson(json);
 }

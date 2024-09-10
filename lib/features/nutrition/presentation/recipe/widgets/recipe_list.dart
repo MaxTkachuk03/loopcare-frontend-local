@@ -59,7 +59,8 @@ class RecipeList extends StatelessWidget {
     final recipeId = !isMealRecipe
         ? mealState.data.currentFoodItems
             .firstWhere((element) =>
-                element.type == MealItemType.recipe && element.externalId == recipeState.externalRecipeId)
+                element.type == MealItemType.recipe &&
+                element.externalId == recipeState.externalRecipeId)
             .id
         : recipeState.recipeId;
 
@@ -111,8 +112,8 @@ class RecipeList extends StatelessWidget {
                 ),
               );
 
-          const AnalyticsEventService().logEvent(eventName:
-            AnalyticsEvents.foodLogged,
+          const AnalyticsEventService().logEvent(
+            eventName: AnalyticsEvents.foodLogged,
             parameters: {
               AnalyticsParameters.timestamp: DateTime.now().toIso8601String(),
               AnalyticsParameters.mealId: mealId.toString(),

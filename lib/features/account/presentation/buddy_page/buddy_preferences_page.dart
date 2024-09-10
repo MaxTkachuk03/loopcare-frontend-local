@@ -36,7 +36,10 @@ class _BuddyPreferencesPageState extends State<BuddyPreferencesPage> {
     final buddyState = context.read<BuddyBloc>().state.data.buddyState;
     return switch (buddyState) {
       BuddyStatus.invited => LocalizedTexts.removeInvite.tr(),
-      BuddyStatus.rejected || BuddyStatus.left || BuddyStatus.expired => LocalizedTexts.inviteBuddy.tr(),
+      BuddyStatus.rejected ||
+      BuddyStatus.left ||
+      BuddyStatus.expired =>
+        LocalizedTexts.inviteBuddy.tr(),
       BuddyStatus.approved => LocalizedTexts.removeBuddy.tr(),
       _ => '',
     };

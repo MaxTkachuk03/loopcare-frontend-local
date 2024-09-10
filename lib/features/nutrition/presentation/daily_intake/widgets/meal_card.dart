@@ -61,11 +61,13 @@ class MealCard extends StatelessWidget {
                       ),
                     ),
                     const SizedBox(width: 10.0),
-                    CustomText.bitter600(category.title.capitalize(), style: Theme.of(context).textTheme.bodyLarge),
+                    CustomText.bitter600(category.title.capitalize(),
+                        style: Theme.of(context).textTheme.bodyLarge),
                   ],
                 ),
                 if (!isDisabled || mealId != null)
-                  ImageIcon(mealId == null ? AppIcons.plus : AppIcons.arrow, color: AppColors.blueDarker)
+                  ImageIcon(mealId == null ? AppIcons.plus : AppIcons.arrow,
+                      color: AppColors.blueDarker)
               ],
             ),
           ],

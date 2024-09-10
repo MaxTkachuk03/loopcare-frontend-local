@@ -29,45 +29,42 @@ class _MentalHealthQuestionContentState extends State<MentalHealthQuestionConten
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<GeneralOnboardingBloc, GeneralOnboardingState>(
-      builder: (context, state) {
-        final question = state.currentMentalQuestion;
-        final test = state.currentMentalTest;
+    return BlocBuilder<GeneralOnboardingBloc, GeneralOnboardingState>(builder: (context, state) {
+      final question = state.currentMentalQuestion;
+      final test = state.currentMentalTest;
 
-        return BottomPlacedButton.petrolLightest(
-          body: MainContainer(
-            child: ListView(
-              physics: const ClampingScrollPhysics(),
-              children: [
-                const SizedBox(height: 50.0),
-                QuestionText(currentTest: test),
-                const SizedBox(height: 28.0),
-                CustomText.bitter600(
-                  question?.title ?? '',
-                  style: context.textTheme.displayMedium,
-                ),
-                const SizedBox(height: 28.0),
-                _MentalHealthChoiceChip(
-                  onChanged: _onSelected,
-                  options: test?.options ?? [],
-                  questionId: question!.id,
-                ),
-                const SizedBox(height: 30.0),
-              ],
-            ),
+      return BottomPlacedButton.petrolLightest(
+        body: MainContainer(
+          child: ListView(
+            physics: const ClampingScrollPhysics(),
+            children: [
+              const SizedBox(height: 50.0),
+              QuestionText(currentTest: test),
+              const SizedBox(height: 28.0),
+              CustomText.bitter600(
+                question?.title ?? '',
+                style: context.textTheme.displayMedium,
+              ),
+              const SizedBox(height: 28.0),
+              _MentalHealthChoiceChip(
+                onChanged: _onSelected,
+                options: test?.options ?? [],
+                questionId: question!.id,
+              ),
+              const SizedBox(height: 30.0),
+            ],
           ),
-          button: ValueListenableBuilder<int?>(
+        ),
+        button: ValueListenableBuilder<int?>(
             valueListenable: _selectedOption,
             builder: (context, value, _) {
               return CustomElevatedButton.blueFullWidth(
                 label: LocalizedTexts.next.tr(),
                 onPressed: value != null ? () => _onNextPressed() : null,
               );
-            }
-          ),
-        );
-      }
-    );
+            }),
+      );
+    });
   }
 
   void _onSelected(int? value) {
@@ -78,23 +75,26 @@ class _MentalHealthQuestionContentState extends State<MentalHealthQuestionConten
     final state = context.read<GeneralOnboardingBloc>().state;
 
     context.read<MentalQuestionsBloc>().add(
-      MentalQuestionsEvent.setAnswer(
-        answer: MentalHealthAnswer(
-          questionId: state.currentMentalQuestion!.id,
-          optionId: _selectedOption.value!,
-        ),
-        testName: state.currentMentalTest?.title ?? '',
-        question: state.currentMentalQuestion?.title ?? '',
-        selectedOption: state.currentMentalTest?.options.firstWhere((o) => o.id == _selectedOption.value).title ?? '',
-      ),
-    );
+          MentalQuestionsEvent.setAnswer(
+            answer: MentalHealthAnswer(
+              questionId: state.currentMentalQuestion!.id,
+              optionId: _selectedOption.value!,
+            ),
+            testName: state.currentMentalTest?.title ?? '',
+            question: state.currentMentalQuestion?.title ?? '',
+            selectedOption: state.currentMentalTest?.options
+                    .firstWhere((o) => o.id == _selectedOption.value)
+                    .title ??
+                '',
+          ),
+        );
 
     if (state.isLastMentalQuestion) {
       context.read<MentalQuestionsBloc>().add(
-        MentalQuestionsEvent.getTestResults(
-          test: state.currentMentalTest!,
-        ),
-      );
+            MentalQuestionsEvent.getTestResults(
+              test: state.currentMentalTest!,
+            ),
+          );
     }
 
     _selectedOption.value = null;

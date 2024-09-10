@@ -1,7 +1,7 @@
-# Comment arb-dir: lib/l10n when run flutter gen-l10n
+# Comment arb-dir: lib/l10n when run: flutter gen-l10n
 # or
-#flutter pub run crowdin_sdk:gen
-#use  only for flutter pub run split_intl:generate
+# dart run crowdin_sdk:gen
+# use only for: dart run split_intl:generate
 #arb-dir: lib/l10n
 synthetic-package: false
 nullable-getter: false

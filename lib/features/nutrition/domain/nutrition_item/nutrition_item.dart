@@ -15,6 +15,5 @@ abstract class NutritionItem implements _$NutritionItem {
     required String unitLabel,
   }) = _NutritionItem;
 
-  factory NutritionItem.fromJson(Map<String, dynamic> json) =>
-      _$NutritionItemFromJson(json);
+  factory NutritionItem.fromJson(Map<String, dynamic> json) => _$NutritionItemFromJson(json);
 }

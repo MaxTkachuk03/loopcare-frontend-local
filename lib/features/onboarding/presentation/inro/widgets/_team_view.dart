@@ -46,14 +46,14 @@ class _TeamViewState extends State<_TeamView> {
                 child: const Image(image: AppImages.onboardingIntro),
               ),
               ..._Member.values.map((member) => Positioned(
-                  left: constraints.maxWidth * member.position.dx,
-                  top: constraints.maxWidth * member.position.dy,
-                  child: _TeamMemberAvatar(
-                    onTap: () => widget.controller.jumpToPage(member.index),
-                    radius: radius,
-                    member: member,
-                  ),
-                )),
+                    left: constraints.maxWidth * member.position.dx,
+                    top: constraints.maxWidth * member.position.dy,
+                    child: _TeamMemberAvatar(
+                      onTap: () => widget.controller.jumpToPage(member.index),
+                      radius: radius,
+                      member: member,
+                    ),
+                  )),
               ValueListenableBuilder<int>(
                 valueListenable: pageListener,
                 builder: (context, value, _) {
@@ -114,7 +114,6 @@ class _PositionedArrow extends StatelessWidget {
 
   final _Member member;
   final double maxWidth;
-
 
   @override
   Widget build(BuildContext context) {

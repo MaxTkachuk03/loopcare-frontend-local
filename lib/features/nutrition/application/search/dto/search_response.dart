@@ -11,8 +11,7 @@ class SearchResponse {
 
   const SearchResponse(this.data);
 
-  static SearchResponse fromJson(Map<String, dynamic> json) =>
-      _$SearchResponseFromJson(json);
+  static SearchResponse fromJson(Map<String, dynamic> json) => _$SearchResponseFromJson(json);
 
   Map<String, dynamic> toJson() => _$SearchResponseToJson(this);
 }

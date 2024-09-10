@@ -12,9 +12,11 @@ class PhysicalProgramsEvent with _$PhysicalProgramsEvent {
 
   const factory PhysicalProgramsEvent.setProgramPlace(ProgramPlace programPlace) = _SetProgramPlace;
 
-  const factory PhysicalProgramsEvent.setCurrentProgram(PhysicalProgram? program) = _SetCurrentProgram;
+  const factory PhysicalProgramsEvent.setCurrentProgram(PhysicalProgram? program) =
+      _SetCurrentProgram;
 
-  const factory PhysicalProgramsEvent.setProgramDifficulty(ProgramDifficulty programDifficulty) = _SetProgramDifficulty;
+  const factory PhysicalProgramsEvent.setProgramDifficulty(ProgramDifficulty programDifficulty) =
+      _SetProgramDifficulty;
 
   const factory PhysicalProgramsEvent.logAssessment(int score, bool like) = _LogAssessment;
 }

@@ -14,7 +14,8 @@ class MoodList extends StatelessWidget {
 
   final void Function(Mood item) onPressItem;
 
-  const MoodList({super.key, required this.list, required this.onPressItem, required this.isEditable});
+  const MoodList(
+      {super.key, required this.list, required this.onPressItem, required this.isEditable});
 
   @override
   Widget build(BuildContext context) {

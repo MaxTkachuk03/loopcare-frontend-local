@@ -13,7 +13,7 @@ import 'package:loopcare_frontend/features/onboarding/domain/diseases.dart';
 import 'package:loopcare_frontend/features/onboarding/presentation/widgets/questions_chips.dart';
 
 class MedicalDiseaseContent extends StatefulWidget {
-  const MedicalDiseaseContent(this. disease, {super.key});
+  const MedicalDiseaseContent(this.disease, {super.key});
 
   final Diseases disease;
 
@@ -27,7 +27,8 @@ class _MedicalDiseaseContentState extends State<MedicalDiseaseContent> {
   @override
   void initState() {
     super.initState();
-    _diseaseListener.value = context.read<MedicalQuestionsBloc>().state.containsDisease(widget.disease);
+    _diseaseListener.value =
+        context.read<MedicalQuestionsBloc>().state.containsDisease(widget.disease);
   }
 
   @override
@@ -41,7 +42,9 @@ class _MedicalDiseaseContentState extends State<MedicalDiseaseContent> {
   }
 
   void _onNextPressed(bool value) {
-    context.read<MedicalQuestionsBloc>().add(MedicalQuestionsEvent.updateDisease(widget.disease, value: value));
+    context
+        .read<MedicalQuestionsBloc>()
+        .add(MedicalQuestionsEvent.updateDisease(widget.disease, value: value));
     context.read<GeneralOnboardingBloc>().add(const GeneralOnboardingEvent.nextStep());
   }
 

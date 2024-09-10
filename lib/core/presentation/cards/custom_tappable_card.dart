@@ -137,9 +137,9 @@ class CustomTappableCard extends StatelessWidget {
     final effectiveSelectedColor = selectedColor ?? Theme.of(context).colorScheme.primary;
     final effectiveBorderRadius = borderRadius ?? _defaultBorderRadius;
 
-
     final elevationState = isSelected || disable ? 0.0 : (elevation ?? _defaultElevation);
-    final highlightColor = isSelected ? effectiveColor.withOpacity(0.2) : effectiveSelectedColor.withOpacity(0.2);
+    final highlightColor =
+        isSelected ? effectiveColor.withOpacity(0.2) : effectiveSelectedColor.withOpacity(0.2);
 
     Color colorState;
     if (isSelected) {

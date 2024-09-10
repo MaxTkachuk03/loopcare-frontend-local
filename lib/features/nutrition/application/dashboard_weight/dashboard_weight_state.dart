@@ -4,13 +4,16 @@ part of 'dashboard_weight_bloc.dart';
 class DashboardWeightState with _$DashboardWeightState {
   const DashboardWeightState._();
 
-  const factory DashboardWeightState.initial(DashBoardWeightData data) = DashboardWeightStateInitial;
+  const factory DashboardWeightState.initial(DashBoardWeightData data) =
+      DashboardWeightStateInitial;
 
-  const factory DashboardWeightState.loading(DashBoardWeightData data) = DashboardWeightStateLoading;
+  const factory DashboardWeightState.loading(DashBoardWeightData data) =
+      DashboardWeightStateLoading;
 
   const factory DashboardWeightState.error(DashBoardWeightData data) = DashboardWeightStateError;
 
-  const factory DashboardWeightState.updated(DashBoardWeightData data) = DashboardWeightStateUpdated;
+  const factory DashboardWeightState.updated(DashBoardWeightData data) =
+      DashboardWeightStateUpdated;
 
   isToday(DateTime date) {
     final todayMidnight = DateTime.now().midnightTime;

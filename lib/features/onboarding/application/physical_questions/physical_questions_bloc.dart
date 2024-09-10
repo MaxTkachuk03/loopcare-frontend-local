@@ -190,7 +190,7 @@ class PhysicalQuestionsBloc extends HydratedBloc<PhysicalQuestionsEvent, Physica
     SexChanged event,
     Emitter<PhysicalQuestionsState> emit,
   ) {
-    const  AnalyticsEventService().logEvent(
+    const AnalyticsEventService().logEvent(
       eventName: AnalyticsEvents.onboardingSex,
       parameters: {
         AnalyticsParameters.value: event.sexType.name,

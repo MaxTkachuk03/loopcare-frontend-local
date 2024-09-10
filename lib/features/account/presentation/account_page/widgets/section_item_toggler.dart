@@ -26,7 +26,8 @@ class SectionItemToggler extends StatelessWidget {
             children: [
               Text(
                 title.tr(),
-                style: Theme.of(context).textTheme.bodyMedium!.copyWith(fontWeight: FontWeight.w500),
+                style:
+                    Theme.of(context).textTheme.bodyMedium!.copyWith(fontWeight: FontWeight.w500),
               ),
             ],
           ),

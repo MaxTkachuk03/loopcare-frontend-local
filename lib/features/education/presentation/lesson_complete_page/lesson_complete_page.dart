@@ -42,7 +42,6 @@ class LessonCompletePage extends StatefulWidget {
 }
 
 class _LessonCompletePageState extends State<LessonCompletePage> {
-
   @override
   void initState() {
     super.initState();
@@ -63,7 +62,6 @@ class _LessonCompletePageState extends State<LessonCompletePage> {
         errorCompleteLesson: (state) => context.showError(
           content: CustomText(state.data.errorKey.tr()),
         ),
-
       );
 
   CustomAppBarTextTheme get _theme => widget.streamType.appBarTextTheme;
@@ -101,17 +99,15 @@ class _LessonCompletePageState extends State<LessonCompletePage> {
                             children: [
                               CircleAvatar(
                                 radius: 22.0,
-                                backgroundColor: _isLightTheme
-                                    ? AppColors.greenRegular
-                                    : AppColors.blueRegular,
+                                backgroundColor:
+                                    _isLightTheme ? AppColors.greenRegular : AppColors.blueRegular,
                                 child: const Icon(Icons.check, size: 24, color: AppColors.white),
                               ),
                               const SizedBox(height: 22.0),
                               CustomText.bitter600(
                                 '${LocalizedTexts.lessonCompleted.tr()}!',
                                 style: context.textTheme.displayMedium?.copyWith(
-                                    color:
-                                        _isLightTheme ? AppColors.white : AppColors.blueDarker),
+                                    color: _isLightTheme ? AppColors.white : AppColors.blueDarker),
                                 textAlign: TextAlign.center,
                               ),
                             ],

@@ -14,7 +14,8 @@ class VerifyAndroidPurchaseData {
     required this.purchaseToken,
   });
 
-  factory VerifyAndroidPurchaseData.fromJson(Map<String, dynamic> json) => _$VerifyAndroidPurchaseDataFromJson(json);
+  factory VerifyAndroidPurchaseData.fromJson(Map<String, dynamic> json) =>
+      _$VerifyAndroidPurchaseDataFromJson(json);
 
   Map<String, dynamic> toJson() => _$VerifyAndroidPurchaseDataToJson(this);
 }

@@ -25,7 +25,8 @@ class GroupedMealList extends StatelessWidget {
         final item = mealItems[index];
         final type = item.type;
 
-        final recipeNotation = type == MealItemType.recipe ? ' (${LocalizedTexts.recipe.tr()})' : '';
+        final recipeNotation =
+            type == MealItemType.recipe ? ' (${LocalizedTexts.recipe.tr()})' : '';
 
         return Row(
           crossAxisAlignment: CrossAxisAlignment.start,

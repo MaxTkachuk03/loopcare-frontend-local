@@ -116,7 +116,8 @@ class APINutritionService implements NutritionService {
   }
 
   @override
-  Future<Either<RequestError, BarcodeInformationResponse>> getBarcodeInformation(String barCode) async {
+  Future<Either<RequestError, BarcodeInformationResponse>> getBarcodeInformation(
+      String barCode) async {
     return await client.get(
       '/food-items/barcode/$barCode',
       fromJson: BarcodeInformationResponse.fromJson,
@@ -132,7 +133,8 @@ class APINutritionService implements NutritionService {
   }
 
   @override
-  Future<Either<RequestError, RecommendationsResponse>> getRecommendations(List<String>? mealCategories) async {
+  Future<Either<RequestError, RecommendationsResponse>> getRecommendations(
+      List<String>? mealCategories) async {
     return await client.get(
       '/recipes/recommendations',
       queryParameters: {

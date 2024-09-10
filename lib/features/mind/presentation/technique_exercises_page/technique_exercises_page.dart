@@ -24,7 +24,6 @@ class TechniqueExercisesPage extends StatefulWidget {
 }
 
 class _TechniqueExercisesPageState extends State<TechniqueExercisesPage> with MindAnalyticsMixin {
-
   @override
   void initState() {
     super.initState();
@@ -35,7 +34,7 @@ class _TechniqueExercisesPageState extends State<TechniqueExercisesPage> with Mi
 
   @override
   void dispose() {
-    track(AnalyticsEvents.mindCloseTechnique );
+    track(AnalyticsEvents.mindCloseTechnique);
     super.dispose();
   }
 

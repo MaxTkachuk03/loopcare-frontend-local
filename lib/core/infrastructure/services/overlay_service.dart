@@ -35,7 +35,8 @@ class OverlayService {
       (event) {
         event.when(
             chatPopCard: (BuildContext context, OverlayServiceMode mode, needOffset) =>
-                PopoverCardSheet.showMenuPopup(context, mode, withSeparator: true, needOffset: needOffset));
+                PopoverCardSheet.showMenuPopup(context, mode,
+                    withSeparator: true, needOffset: needOffset));
       },
     );
   }

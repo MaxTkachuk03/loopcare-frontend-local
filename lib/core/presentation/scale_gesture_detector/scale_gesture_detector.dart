@@ -27,8 +27,9 @@ class _ScaleGestureDetectorState extends State<ScaleGestureDetector> {
   void _onScaleEnd(ScaleEndDetails details) {
     if (!_handeled) {
       _handeled = true;
-     (_scale > 1 ?  widget.onZoomIn : widget.onZoomOut)
-         ?.call().whenComplete(() => _handeled = false);
+      (_scale > 1 ? widget.onZoomIn : widget.onZoomOut)
+          ?.call()
+          .whenComplete(() => _handeled = false);
     }
   }
 

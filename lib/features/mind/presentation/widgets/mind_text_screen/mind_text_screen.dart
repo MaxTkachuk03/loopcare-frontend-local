@@ -33,9 +33,8 @@ class MindTextScreen extends StatelessWidget {
         ? AppColors.petrolOffRegular
         : AppColors.petrolLightest;
 
-    final textColor = backgroundBrightness == Brightness.dark
-        ? AppColors.white
-        : AppColors.blueDarker;
+    final textColor =
+        backgroundBrightness == Brightness.dark ? AppColors.white : AppColors.blueDarker;
 
     return CustomScaffold(
       withBg: false,

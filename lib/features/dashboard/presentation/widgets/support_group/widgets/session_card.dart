@@ -75,11 +75,13 @@ class SessionCard extends StatelessWidget {
                     const SizedBox(height: 10.0),
                     if (state.data.isSigned)
                       CustomText.w400(
-                        LocalizedTexts.dayFromTo.tr( {
-                          'day': day,
-                          'startTime': startTime,
-                          'endTime': endTime,
-                        },),
+                        LocalizedTexts.dayFromTo.tr(
+                          {
+                            'day': day,
+                            'startTime': startTime,
+                            'endTime': endTime,
+                          },
+                        ),
                         style: context.textTheme.bodySmall,
                       ),
                     const SizedBox(height: 10.0),

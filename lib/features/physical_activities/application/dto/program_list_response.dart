@@ -13,7 +13,8 @@ class ProgramListResponse {
     required this.data,
   });
 
-  static ProgramListResponse fromJson(Map<String, dynamic> json) => _$ProgramListResponseFromJson(json);
+  static ProgramListResponse fromJson(Map<String, dynamic> json) =>
+      _$ProgramListResponseFromJson(json);
 
   Map<String, dynamic> toJson() => _$ProgramListResponseToJson(this);
 }

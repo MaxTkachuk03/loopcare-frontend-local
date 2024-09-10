@@ -1,4 +1,3 @@
-
 import 'package:loopcare_frontend/features/onboarding/utils/fixed_value_to.dart';
 import 'package:loopcare_frontend/features/onboarding/utils/is_zero_after_decimal.dart';
 
@@ -14,7 +13,9 @@ class WeightConversionUtils {
 
   static num convertLbsToKg(double weight) {
     final fixedValue = fixedValueToTwo(weight * lbsInKg);
-    return isZeroAfterDecimal(fixedValue) ? fixedValue.toInt() : num.parse(fixedValue.toStringAsFixed(2));
+    return isZeroAfterDecimal(fixedValue)
+        ? fixedValue.toInt()
+        : num.parse(fixedValue.toStringAsFixed(2));
   }
 
   static num convertOzToGrams(num weight) {

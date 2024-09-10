@@ -18,8 +18,8 @@ const double _endGradientPosition = 0.83;
 const double _spawnedGradientPosition = 0.0;
 const double _startGradientPosition = -0.12;
 
-const double _completeBeginningPageStep = 1/50;
-const double _defaultStep = 1/100;
+const double _completeBeginningPageStep = 1 / 50;
+const double _defaultStep = 1 / 100;
 
 class AnimatedRiverStreams extends StatefulWidget {
   const AnimatedRiverStreams({
@@ -45,7 +45,8 @@ class AnimatedRiverStreams extends StatefulWidget {
   State<AnimatedRiverStreams> createState() => AnimatedRiverStreamsState();
 }
 
-class AnimatedRiverStreamsState extends State<AnimatedRiverStreams> with SingleTickerProviderStateMixin {
+class AnimatedRiverStreamsState extends State<AnimatedRiverStreams>
+    with SingleTickerProviderStateMixin {
   late AnimationController _controller;
   late Animation<double> _animation;
 
@@ -60,7 +61,8 @@ class AnimatedRiverStreamsState extends State<AnimatedRiverStreams> with SingleT
   void initState() {
     super.initState();
     _fillColor = widget.isCompleted;
-    _enableGradient = widget.completedDate != null || isBeginning || (widget.enableGradient ?? false);
+    _enableGradient =
+        widget.completedDate != null || isBeginning || (widget.enableGradient ?? false);
     _setupPosition();
     _setupAnimationControllers();
     _startTimer();
@@ -122,7 +124,7 @@ class AnimatedRiverStreamsState extends State<AnimatedRiverStreams> with SingleT
 
   double _definePosition(DateTime dateTime) {
     final leftDuration = widget.completedDate!.difference(dateTime);
-    final position =  1 - leftDuration.inMilliseconds.safeDivide(widget.totalDelay * 1000);
+    final position = 1 - leftDuration.inMilliseconds.safeDivide(widget.totalDelay * 1000);
 
     if (widget.driving) {
       return position;
@@ -136,7 +138,8 @@ class AnimatedRiverStreamsState extends State<AnimatedRiverStreams> with SingleT
         !widget.isCompleted &&
         widget.driving) {
       _timer?.cancel();
-      _timer = Timer.periodic(_updatePositionDuration, (_) => _position = _definePosition(DateTime.now()));
+      _timer = Timer.periodic(
+          _updatePositionDuration, (_) => _position = _definePosition(DateTime.now()));
     }
   }
 
@@ -151,7 +154,7 @@ class AnimatedRiverStreamsState extends State<AnimatedRiverStreams> with SingleT
         .chain(CurveTween(curve: Curves.easeInOut))
         .animate(_controller);
 
-     _controller.addListener(() {
+    _controller.addListener(() {
       if (_position >= 1) {
         _fillColor = true;
         _stopAnimation();
@@ -218,57 +221,57 @@ class _RiverStreamsPainter extends StatelessWidget {
 
     return switch (i) {
       1 => CustomPaint(
-        painter: RiverStreamsOnePainter(
-          gradientPosition: gradientPosition,
-          time: time,
-          enableGradient: enableGradient,
-          fillColor: fillColor,
+          painter: RiverStreamsOnePainter(
+            gradientPosition: gradientPosition,
+            time: time,
+            enableGradient: enableGradient,
+            fillColor: fillColor,
+          ),
         ),
-      ),
       2 => CustomPaint(
-        painter: RiverStreamsTwoPainter(
-          gradientPosition: gradientPosition,
-          time: time,
-          enableGradient: enableGradient,
-          fillColor: fillColor,
+          painter: RiverStreamsTwoPainter(
+            gradientPosition: gradientPosition,
+            time: time,
+            enableGradient: enableGradient,
+            fillColor: fillColor,
+          ),
         ),
-      ),
       3 => CustomPaint(
-        painter: RiverStreamsThreePainter(
-          gradientPosition: gradientPosition,
-          time: time,
-          enableGradient: enableGradient,
-          fillColor: fillColor,
+          painter: RiverStreamsThreePainter(
+            gradientPosition: gradientPosition,
+            time: time,
+            enableGradient: enableGradient,
+            fillColor: fillColor,
+          ),
         ),
-      ),
       4 => CustomPaint(
-        painter: RiverStreamsFourPainter(
-          gradientPosition: gradientPosition,
-          time: time,
-          enableGradient: enableGradient,
-          fillColor: fillColor,
+          painter: RiverStreamsFourPainter(
+            gradientPosition: gradientPosition,
+            time: time,
+            enableGradient: enableGradient,
+            fillColor: fillColor,
+          ),
         ),
-      ),
       5 => CustomPaint(
-        painter: RiverStreamsFivePainter(
-          gradientPosition: gradientPosition,
-          time: time,
-          enableGradient: enableGradient,
-          fillColor: fillColor,
+          painter: RiverStreamsFivePainter(
+            gradientPosition: gradientPosition,
+            time: time,
+            enableGradient: enableGradient,
+            fillColor: fillColor,
+          ),
         ),
-      ),
       _ => CustomPaint(
-        painter: RiverStreamsStartPainter(
-          gradientPosition: gradientPosition,
-          time: time,
-          enableGradient: enableGradient,
-          fillColor: fillColor,
+          painter: RiverStreamsStartPainter(
+            gradientPosition: gradientPosition,
+            time: time,
+            enableGradient: enableGradient,
+            fillColor: fillColor,
+          ),
         ),
-      ),
     };
   }
 }
 
 extension _SafeDivideDouble on num {
-  double  safeDivide(num other) => other == 0 ? 0 : this / other;
+  double safeDivide(num other) => other == 0 ? 0 : this / other;
 }

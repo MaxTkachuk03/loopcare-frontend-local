@@ -1,7 +1,5 @@
 import 'app_localizations.dart';
-
 import 'package:crowdin_sdk/crowdin_sdk.dart';
-
 import 'package:flutter/widgets.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 
@@ -5112,6 +5110,26 @@ class CrowdinLocalization extends AppLocalizations {
   String get riverGuidanceStartRiverDescription =>
       Crowdin.getText(localeName, 'riverGuidanceStartRiverDescription') ??
       _fallbackTexts.riverGuidanceStartRiverDescription;
+
+  @override
+  String get riverModuleGraduationCompletedItemsTitle =>
+      Crowdin.getText(localeName, 'riverModuleGraduationCompletedItemsTitle') ??
+      _fallbackTexts.riverModuleGraduationCompletedItemsTitle;
+
+  @override
+  String get riverModuleGraduationCompletedTimeTitle =>
+      Crowdin.getText(localeName, 'riverModuleGraduationCompletedTimeTitle') ??
+      _fallbackTexts.riverModuleGraduationCompletedTimeTitle;
+
+  @override
+  String get riverModuleGraduationCompletedItemsMessage =>
+      Crowdin.getText(localeName, 'riverModuleGraduationCompletedItemsMessage') ??
+      _fallbackTexts.riverModuleGraduationCompletedItemsMessage;
+
+  @override
+  String get riverModuleGraduationCompletedTimeMessage =>
+      Crowdin.getText(localeName, 'riverModuleGraduationCompletedTimeMessage') ??
+      _fallbackTexts.riverModuleGraduationCompletedTimeMessage;
 
   @override
   String get subscriptionTrialTitle =>

@@ -11,11 +11,13 @@ class GroupPreferencesEvent with _$GroupPreferencesEvent {
 
   const factory GroupPreferencesEvent.initClear() = InitClear;
 
-  const factory GroupPreferencesEvent.setGenderPreferences(GenderPreferences gender) = SetGenderPreferences;
+  const factory GroupPreferencesEvent.setGenderPreferences(GenderPreferences gender) =
+      SetGenderPreferences;
 
   const factory GroupPreferencesEvent.acceptRules() = AcceptRules;
 
-  const factory GroupPreferencesEvent.setWouldLikeJoinGroup(YesNoAnswer value) = SetWouldLikeJoinGroup;
+  const factory GroupPreferencesEvent.setWouldLikeJoinGroup(YesNoAnswer value) =
+      SetWouldLikeJoinGroup;
 
   const factory GroupPreferencesEvent.setTimezone(String timezone) = SetTimezone;
 
@@ -25,5 +27,6 @@ class GroupPreferencesEvent with _$GroupPreferencesEvent {
 
   const factory GroupPreferencesEvent.cancelGrouping() = CancelGrouping;
 
-  const factory GroupPreferencesEvent.changeGroupPrefsMode(GroupPrefsMode groupPrefsMode) = ChangeGroupPrefsMode;
+  const factory GroupPreferencesEvent.changeGroupPrefsMode(GroupPrefsMode groupPrefsMode) =
+      ChangeGroupPrefsMode;
 }

@@ -56,9 +56,9 @@ class WeeklyGoalCancelReason extends StatelessWidget {
               label: LocalizedTexts.smartGoalsCancelGoal.tr(),
               onPressed: state.data.reason != null
                   ? () {
-                    context.router.maybePop();
-                    onRemove();
-                  }
+                      context.router.maybePop();
+                      onRemove();
+                    }
                   : null,
             );
           },

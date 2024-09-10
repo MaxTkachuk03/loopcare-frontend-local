@@ -1,5 +1,6 @@
 import 'package:flutter/services.dart';
 import 'package:plugin_platform_interface/plugin_platform_interface.dart';
+
 ///@nodoc
 abstract class ZoomVideoSdkCmdChannelPlatform extends PlatformInterface {
   ZoomVideoSdkCmdChannelPlatform() : super(token: _token);

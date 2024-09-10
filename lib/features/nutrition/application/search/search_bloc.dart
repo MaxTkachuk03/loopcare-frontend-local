@@ -63,7 +63,8 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
   List<String> _getRecentSearch({SearchMode? type}) {
     var list = <String>[];
     final userId = _authenticationBloc.state.data.id;
-    List<String> savedList = _sharedStorageService.searchValues(userId, type: type ?? SearchMode.food);
+    List<String> savedList =
+        _sharedStorageService.searchValues(userId, type: type ?? SearchMode.food);
 
     list.add('header');
 
@@ -83,7 +84,8 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
     var searchMode = <String>[];
 
     if (mode != null && mode.isNotEmpty) {
-      searchMode = mode == SearchMode.dish.name ? [SearchMode.dish.name, SearchMode.favorite.name] : [mode];
+      searchMode =
+          mode == SearchMode.dish.name ? [SearchMode.dish.name, SearchMode.favorite.name] : [mode];
     }
     if (filteredMode != null) {
       searchMode = [
@@ -199,6 +201,7 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
   }
 
   FutureOr<void> _onResetData(ResetData event, Emitter<SearchState> emit) async {
-    emit(SearchState.initial(state.data.copyWith(recentSearch: _getRecentSearch(type: event.mode))));
+    emit(
+        SearchState.initial(state.data.copyWith(recentSearch: _getRecentSearch(type: event.mode))));
   }
 }

@@ -1,12 +1,12 @@
 import 'package:flutter/services.dart';
 import 'package:plugin_platform_interface/plugin_platform_interface.dart';
+
 ///@nodoc
 abstract class ZoomVideoSdkAudioStatusPlatform extends PlatformInterface {
   ZoomVideoSdkAudioStatusPlatform() : super(token: _token);
 
   static final Object _token = Object();
-  static ZoomVideoSdkAudioStatusPlatform _instance =
-      ZoomVideoSdkAudioStatus("0");
+  static ZoomVideoSdkAudioStatusPlatform _instance = ZoomVideoSdkAudioStatus("0");
   static ZoomVideoSdkAudioStatusPlatform get instance => _instance;
   static set instance(ZoomVideoSdkAudioStatusPlatform instance) {
     PlatformInterface.verifyToken(instance, _token);

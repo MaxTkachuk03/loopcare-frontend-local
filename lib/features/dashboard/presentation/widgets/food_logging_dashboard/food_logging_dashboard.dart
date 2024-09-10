@@ -23,8 +23,9 @@ class FoodLoggingDashboard extends StatelessWidget {
 
   void _onPressHandler(BuildContext context) => context.router.pushNamed(AppRoutes.dailyIntake);
 
-  void onErrorHandler(BuildContext context) =>
-      context.read<MealsBloc>().add(MealsEvent.fetchMeals(startDate: selectedDay, endDate: selectedDay));
+  void onErrorHandler(BuildContext context) => context
+      .read<MealsBloc>()
+      .add(MealsEvent.fetchMeals(startDate: selectedDay, endDate: selectedDay));
 
   Color get _textColor => !selectedDay.isFuture ? AppColors.blueDarker : AppColors.greyLabel;
 

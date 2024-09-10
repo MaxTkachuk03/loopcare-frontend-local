@@ -144,11 +144,10 @@ class _RecipeDetailsPageState extends State<RecipeDetailsPage> {
   void _onSaveToMyDishesHandler() {
     final state = context.read<MealsBloc>().state;
 
-    final mealCategory = DishFavoritesCategory.values
-            .asNameMap()
-            .containsKey(state.data.currentMealCategory?.name)
-        ? state.data.currentMealCategory?.name
-        : MealCategory.breakfast.originalValue;
+    final mealCategory =
+        DishFavoritesCategory.values.asNameMap().containsKey(state.data.currentMealCategory?.name)
+            ? state.data.currentMealCategory?.name
+            : MealCategory.breakfast.originalValue;
 
     if (mealCategory == null) return;
 
@@ -198,7 +197,8 @@ class _RecipeDetailsPageState extends State<RecipeDetailsPage> {
             .logEvent(eventName: AnalyticsEvents.recipeDetailsScreenIngredients);
         break;
       default:
-        const AnalyticsEventService().logEvent(eventName: AnalyticsEvents.recipeDetailsScreenSummary);
+        const AnalyticsEventService()
+            .logEvent(eventName: AnalyticsEvents.recipeDetailsScreenSummary);
         break;
     }
   }

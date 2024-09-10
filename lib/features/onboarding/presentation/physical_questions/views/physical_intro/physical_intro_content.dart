@@ -15,8 +15,8 @@ class PhysicalIntroContent extends StatelessWidget {
 
   void _onNextPressed(BuildContext context) {
     context.read<GeneralOnboardingBloc>()
-        ..add(const GeneralOnboardingEvent.start())
-        ..add(const GeneralOnboardingEvent.nextStep());
+      ..add(const GeneralOnboardingEvent.start())
+      ..add(const GeneralOnboardingEvent.nextStep());
   }
 
   @override

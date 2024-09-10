@@ -12,7 +12,6 @@ class QuestionsChips extends StatefulWidget {
   final void Function(bool value) onSelected;
   final bool? initialValue;
 
-
   @override
   State<QuestionsChips> createState() => _QuestionsChipsState();
 }
@@ -51,15 +50,15 @@ class _QuestionsChipsState extends State<QuestionsChips> {
       mainAxisSize: MainAxisSize.min,
       children: YesNoAnswer.values
           .map((item) => Padding(
-            padding: const EdgeInsets.only(bottom: 8.0),
-            child: CustomChoiceChip.coral(
-              label: item.label,
-              selected: item == _selectedValue,
-              onSelected: _onSelected,
-              value: item,
-              textAlign: TextAlign.center,
-            ),
-          ))
+                padding: const EdgeInsets.only(bottom: 8.0),
+                child: CustomChoiceChip.coral(
+                  label: item.label,
+                  selected: item == _selectedValue,
+                  onSelected: _onSelected,
+                  value: item,
+                  textAlign: TextAlign.center,
+                ),
+              ))
           .toList(),
     );
   }
