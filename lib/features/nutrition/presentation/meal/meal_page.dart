@@ -1,7 +1,7 @@
 import 'package:auto_route/auto_route.dart';
-import 'package:loopcare_frontend/core/application/localization/localizer_extenstion.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:loopcare_frontend/core/application/localization/localizer_extenstion.dart';
 import 'package:loopcare_frontend/core/infrastructure/services/analytics_service.dart';
 import 'package:loopcare_frontend/core/presentation/alerting/modal_bottom_sheet.dart';
 import 'package:loopcare_frontend/core/presentation/alerting/show_app_snackbar.dart';
@@ -109,25 +109,9 @@ class _MealPageState extends State<MealPage> {
   String get _appBarSubTitle {
     final state = context.read<MealsBloc>().state;
 
-    final date =
-        state.data.currentDateTime.isoStringWithoutTime != DateTime.now().isoStringWithoutTime
-            ? state.data.currentDateTime.shortDate
-            : LocalizedTexts.today.tr().capitalize();
-    return date;
-  }
-
-  void _onChooseDates(BuildContext context) {
-    final state = context.read<MealsBloc>().state.data;
-
-    if (state.currentFoodItems.isNotEmpty) {
-      context.router.push(
-        ChooseDateCalendarRoute(
-          mealCategory: state.currentMealCategory ?? MealCategory.breakfast,
-          dates: state.currentMeal?.planningDates,
-          mealId: state.getCurrentMealId ?? -1,
-        ),
-      );
-    }
+    return state.data.currentDateTime.dateOnly.isSameDate(DateTime.now().dateOnly)
+        ? state.data.currentDateTime.shortDate
+        : LocalizedTexts.today.tr().capitalize();
   }
 
   void _onNutritionFactSelect(NutritionValuesTypes item) {
@@ -162,7 +146,6 @@ class _MealPageState extends State<MealPage> {
         context: context,
         onCanceled: () {
           context.router.maybePop();
-          _onChooseDates(context);
         },
         onDeleted: () {
           context
@@ -219,7 +202,7 @@ class _MealPageState extends State<MealPage> {
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<MealsBloc, MealsState>(
-      builder: (BuildContext context, state) {
+      builder: (context, state) {
         return PopScope(
           onPopInvokedWithResult: _onWillPop,
           child: CustomScaffold.greenLighter(

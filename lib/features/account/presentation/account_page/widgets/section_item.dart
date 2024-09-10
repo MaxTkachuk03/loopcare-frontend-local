@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:loopcare_frontend/core/presentation/category_label/category_label.dart';
 import 'package:loopcare_frontend/core/presentation/icon_images/app_icons.dart';
 import 'package:loopcare_frontend/core/presentation/text/custom_text.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 import 'package:loopcare_frontend/core/presentation/utils/build_context_extensions.dart';
-import 'package:loopcare_frontend/features/education/presentation/education_page/widgets/category_label.dart';
 
 class SectionItem extends StatelessWidget {
   final String title;

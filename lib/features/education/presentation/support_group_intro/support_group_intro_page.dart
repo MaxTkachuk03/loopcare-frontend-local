@@ -11,6 +11,7 @@ import 'package:loopcare_frontend/core/presentation/app_bar/custom_app_bar.dart'
 import 'package:loopcare_frontend/core/presentation/buttons/custom_elevated_button.dart';
 import 'package:loopcare_frontend/core/presentation/buttons/custom_filled_icon_button.dart';
 import 'package:loopcare_frontend/core/presentation/buttons/custom_outlined_button.dart';
+import 'package:loopcare_frontend/core/presentation/category_label/category_label.dart';
 import 'package:loopcare_frontend/core/presentation/custom_safe_area.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/core/presentation/network_image_with_cache/network_image_with_cache.dart';
@@ -22,10 +23,9 @@ import 'package:loopcare_frontend/core/presentation/utils/build_context_extensio
 import 'package:loopcare_frontend/core/presentation/widgets/main_container.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/scrollable_container.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/simple_progress_bar.dart';
-import 'package:loopcare_frontend/features/account/application/group_preferences_bloc.dart';
+import 'package:loopcare_frontend/features/account/application/group_preferences/group_preferences_bloc.dart';
 import 'package:loopcare_frontend/features/education/application/education_lesson/education_lesson_bloc.dart';
 import 'package:loopcare_frontend/features/education/domain/extra_action_page_mode.dart';
-import 'package:loopcare_frontend/features/education/presentation/education_page/widgets/category_label.dart';
 import 'package:loopcare_frontend/features/river/domain/river_module_stream_type.dart';
 import 'package:loopcare_frontend/injection.dart';
 
@@ -68,12 +68,10 @@ class SupportGroupIntroPage extends StatelessWidget {
                   children: [
                     const SizedBox(height: 30.0),
                     BlocBuilder<EducationLessonBloc, EducationLessonState>(
-                      builder: (context, state) {
-                        final lesson = state.data;
-
-                        return SizedBox(
-                            height: 265, child: NetworkImageWithCache(url: lesson.imageUrl));
-                      },
+                      builder: (context, state) => SizedBox(
+                        height: 265,
+                        child: NetworkImageWithCache(url: state.data.imageUrl),
+                      ),
                     ),
                     const SizedBox(height: 28.0),
                   ],

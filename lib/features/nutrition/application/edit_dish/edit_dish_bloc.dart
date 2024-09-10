@@ -3,7 +3,10 @@ import 'dart:async';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
+import 'package:loopcare_frontend/core/domain/analytics/analytics_events.dart';
+import 'package:loopcare_frontend/core/domain/analytics/analytics_parameters.dart';
 import 'package:loopcare_frontend/core/infrastructure/dio_client/request_error.dart';
+import 'package:loopcare_frontend/core/infrastructure/services/analytics_service.dart';
 import 'package:loopcare_frontend/features/nutrition/application/dish/dto/add_food_item_to_dish_body.dart';
 import 'package:loopcare_frontend/features/nutrition/application/dish/dto/update_dish_food_item_response.dart';
 import 'package:loopcare_frontend/features/nutrition/application/dish/dto/update_food_item_in_dish_body.dart';
@@ -18,14 +21,16 @@ import 'package:loopcare_frontend/features/nutrition/domain/nutrition_values_typ
 import 'package:loopcare_frontend/features/nutrition/domain/select_serving/meal_category.dart';
 
 part 'edit_dish_event.dart';
+
 part 'edit_dish_state.dart';
+
 part 'edit_dish_bloc.freezed.dart';
 
 @singleton
 class EditDishBloc extends Bloc<EditDishEvent, EditDishState> {
   final NutritionService nutritionService;
 
-  EditDishBloc(this.nutritionService) : super(const EditDishState.initial()) {
+  EditDishBloc(this.nutritionService) : super(const EditDishState.initial(EditDishData())) {
     on<GetDish>(_onGetDish);
     on<CreateDishFromRecipe>(_onCreateDishFromRecipe);
     on<CreateDishFromExternalRecipe>(_onCreateDishFromExternalRecipe);
@@ -38,6 +43,7 @@ class EditDishBloc extends Bloc<EditDishEvent, EditDishState> {
     on<DeleteDish>(_onDeleteDish);
     on<UpdateDish>(_onUpdateDish);
   }
+
   // TODO ask backend to wrap server response into data object so we can use Dish model as a response type
   Dish _createDish(UpdateDishFoodItemResponse data) {
     return Dish(
@@ -59,19 +65,20 @@ class EditDishBloc extends Bloc<EditDishEvent, EditDishState> {
     GetDish event,
     Emitter<EditDishState> emit,
   ) async {
-    emit(const EditDishState.loading());
+    emit(EditDishState.loading(state.data.copyWith(isLoading: true)));
 
     final response = await nutritionService.getDishById(event.id);
 
     response.fold(
-      (l) => emit(EditDishState.error(l)),
-      (r) {
-        final Dish dish = _createDish(r);
-
-        emit(EditDishState.dishInfo(
-          currentDish: dish,
-        ));
-      },
+      (l) => emit(EditDishState.error(state.data.copyWith(isLoading: false, error: l))),
+      (r) => emit(
+        EditDishState.dishInfo(
+          state.data.copyWith(
+            currentDish: _createDish(r),
+            isLoading: true,
+          ),
+        ),
+      ),
     );
   }
 
@@ -79,7 +86,7 @@ class EditDishBloc extends Bloc<EditDishEvent, EditDishState> {
     CreateDishFromExternalRecipe event,
     Emitter<EditDishState> emit,
   ) async {
-    emit(const EditDishState.loading());
+    emit(EditDishState.loading(state.data.copyWith(isLoading: true)));
 
     final data = CreateDishFromRecipeBody(
       recipeId: event.mealRecipeId,
@@ -90,12 +97,15 @@ class EditDishBloc extends Bloc<EditDishEvent, EditDishState> {
     final response = await nutritionService.createDishFromRecipe(data);
 
     response.fold(
-      (l) => emit(EditDishState.error(l)),
-      (r) {
-        final Dish dish = _createDish(r);
-
-        emit(EditDishState.dishInfo(currentDish: dish));
-      },
+      (l) => emit(EditDishState.error(state.data.copyWith(isLoading: false, error: l))),
+      (r) => emit(
+        EditDishState.dishInfo(
+          state.data.copyWith(
+            currentDish: _createDish(r),
+            isLoading: true,
+          ),
+        ),
+      ),
     );
   }
 
@@ -103,7 +113,7 @@ class EditDishBloc extends Bloc<EditDishEvent, EditDishState> {
     CreateDishFromRecipe event,
     Emitter<EditDishState> emit,
   ) async {
-    emit(const EditDishState.loading());
+    emit(EditDishState.loading(state.data.copyWith(isLoading: true)));
 
     final data = CreateDishFromRecipeBody(
       mealRecipeId: event.mealRecipeId,
@@ -114,12 +124,15 @@ class EditDishBloc extends Bloc<EditDishEvent, EditDishState> {
     final response = await nutritionService.createDishFromRecipe(data);
 
     response.fold(
-      (l) => emit(EditDishState.error(l)),
-      (r) {
-        final Dish dish = _createDish(r);
-
-        emit(EditDishState.dishInfo(currentDish: dish));
-      },
+      (l) => emit(EditDishState.error(state.data.copyWith(isLoading: false, error: l))),
+      (r) => emit(
+        EditDishState.dishInfo(
+          state.data.copyWith(
+            currentDish: _createDish(r),
+            isLoading: true,
+          ),
+        ),
+      ),
     );
   }
 
@@ -127,7 +140,7 @@ class EditDishBloc extends Bloc<EditDishEvent, EditDishState> {
     CreateDishFromMeal event,
     Emitter<EditDishState> emit,
   ) async {
-    emit(const EditDishState.loading());
+    emit(EditDishState.loading(state.data.copyWith(isLoading: true)));
 
     final data = CreateDishFromMealBody(
       mealId: event.mealId,
@@ -139,12 +152,15 @@ class EditDishBloc extends Bloc<EditDishEvent, EditDishState> {
     final response = await nutritionService.createDishFromMeal(data);
 
     response.fold(
-      (l) => emit(EditDishState.error(l)),
-      (r) {
-        final Dish dish = _createDish(r);
-
-        emit(EditDishState.dishInfo(currentDish: dish));
-      },
+      (l) => emit(EditDishState.error(state.data.copyWith(isLoading: false, error: l))),
+      (r) => emit(
+        EditDishState.dishInfo(
+          state.data.copyWith(
+            currentDish: _createDish(r),
+            isLoading: true,
+          ),
+        ),
+      ),
     );
   }
 
@@ -152,7 +168,7 @@ class EditDishBloc extends Bloc<EditDishEvent, EditDishState> {
     CreateDish event,
     Emitter<EditDishState> emit,
   ) async {
-    emit(const EditDishState.loading());
+    emit(EditDishState.loading(state.data.copyWith(isLoading: true)));
 
     final data = CreateDishBody(
       numberOfUnits: event.numberOfUnits,
@@ -163,12 +179,15 @@ class EditDishBloc extends Bloc<EditDishEvent, EditDishState> {
     final response = await nutritionService.createDish(data);
 
     response.fold(
-      (l) => emit(EditDishState.error(l)),
-      (r) {
-        final Dish dish = _createDish(r);
-
-        emit(EditDishState.dishInfo(currentDish: dish));
-      },
+      (l) => emit(EditDishState.error(state.data.copyWith(isLoading: false, error: l))),
+      (r) => emit(
+        EditDishState.dishInfo(
+          state.data.copyWith(
+            currentDish: _createDish(r),
+            isLoading: true,
+          ),
+        ),
+      ),
     );
   }
 
@@ -176,36 +195,51 @@ class EditDishBloc extends Bloc<EditDishEvent, EditDishState> {
     NutritionItemChanged event,
     Emitter<EditDishState> emit,
   ) async {
-    state.mapOrNull(dishInfo: (state) {
-      emit(state.copyWith(currentNutritionType: event.item));
-    });
+    emit(
+      EditDishState.dishInfo(
+        state.data.copyWith(
+          currentNutritionType: event.item,
+        ),
+      ),
+    );
   }
 
   FutureOr<void> _onAddFoodItemToDish(
     AddFoodItemToDish event,
     Emitter<EditDishState> emit,
   ) async {
-    await state.mapOrNull(
-      dishInfo: (state) async {
-        final dishId = state.currentDish.id;
+    final dishId = state.data.currentDish?.id ?? -1;
 
-        final data = AddFoodItemToDishBody(
-          numberOfUnits: event.numberOfUnits,
-          servingId: event.servingId,
-          externalFoodItemId: event.externalFoodItemId,
-        );
+    final data = AddFoodItemToDishBody(
+      numberOfUnits: event.numberOfUnits,
+      servingId: event.servingId,
+      externalFoodItemId: event.externalFoodItemId,
+    );
 
-        final response = await nutritionService.addFoodItemToDish(dishId, data);
+    final response = await nutritionService.addFoodItemToDish(dishId, data);
 
-        response.fold(
-          (l) => emit(EditDishState.error(l)),
-          (r) {
-            final Dish selectedDish = _createDish(r);
-
-            emit(state.copyWith(currentDish: selectedDish));
-          },
-        );
+    const AnalyticsEventService().logEvent(
+      eventName: AnalyticsEvents.foodLogged,
+      parameters: {
+        AnalyticsParameters.timestamp: DateTime.now().toIso8601String(),
+        AnalyticsParameters.mealId: event.externalFoodItemId,
+        AnalyticsParameters.foodItem: event.externalFoodItemId,
+        AnalyticsParameters.servingId: event.servingId,
+        AnalyticsParameters.numberOfUnits: event.numberOfUnits.toString(),
+        AnalyticsParameters.isDishes: 'true',
       },
+    );
+
+    response.fold(
+      (l) => emit(EditDishState.error(state.data.copyWith(isLoading: false, error: l))),
+      (r) => emit(
+        EditDishState.dishInfo(
+          state.data.copyWith(
+            currentDish: _createDish(r),
+            isLoading: true,
+          ),
+        ),
+      ),
     );
   }
 
@@ -213,84 +247,93 @@ class EditDishBloc extends Bloc<EditDishEvent, EditDishState> {
     DeleteFoodItemFromDish event,
     Emitter<EditDishState> emit,
   ) async {
-    await state.mapOrNull(dishInfo: (state) async {
-      final response = await nutritionService.deleteFoodItemFromDish(
-        event.dishId,
-        event.internalFoodItemId,
-      );
+    final response = await nutritionService.deleteFoodItemFromDish(
+      event.dishId,
+      event.internalFoodItemId,
+    );
 
-      response.fold(
-        (l) => emit(EditDishState.error(l)),
-        (r) {
-          final Dish selectedDish = _createDish(r);
-
-          emit(state.copyWith(currentDish: selectedDish));
-        },
-      );
-    });
+    response.fold(
+      (l) => emit(EditDishState.error(state.data.copyWith(isLoading: false, error: l))),
+      (r) => emit(
+        EditDishState.dishInfo(
+          state.data.copyWith(
+            currentDish: _createDish(r),
+            isLoading: true,
+          ),
+        ),
+      ),
+    );
   }
 
   FutureOr<void> _onUpdateFoodItemInDish(
     UpdateFoodItemInDish event,
     Emitter<EditDishState> emit,
   ) async {
-    await state.mapOrNull(dishInfo: (state) async {
-      final response = await nutritionService.updateFoodItemInDish(
-        event.dishId,
-        event.internalFoodItemId,
-        UpdateFoodItemInDishBody(
-          numberOfUnits: event.numberOfUnits,
-          servingId: event.servingId,
+    const AnalyticsEventService().logEvent(
+      eventName: AnalyticsEvents.foodLogged,
+      parameters: {
+        AnalyticsParameters.timestamp: DateTime.now().toIso8601String(),
+        AnalyticsParameters.mealId: event.internalFoodItemId,
+        AnalyticsParameters.servingId: event.servingId,
+        AnalyticsParameters.numberOfUnits: event.numberOfUnits.toString(),
+        AnalyticsParameters.isDishes: 'true',
+      },
+    );
+
+    final response = await nutritionService.updateFoodItemInDish(
+      event.dishId,
+      event.internalFoodItemId,
+      UpdateFoodItemInDishBody(
+        numberOfUnits: event.numberOfUnits,
+        servingId: event.servingId,
+      ),
+    );
+
+    response.fold(
+      (l) => emit(EditDishState.error(state.data.copyWith(isLoading: false, error: l))),
+      (r) => emit(
+        EditDishState.dishInfo(
+          state.data.copyWith(
+            currentDish: _createDish(r),
+            isLoading: true,
+          ),
         ),
-      );
-
-      response.fold(
-        (l) => emit(EditDishState.error(l)),
-        (r) {
-          final Dish selectedDish = _createDish(r);
-
-          emit(state.copyWith(currentDish: selectedDish));
-        },
-      );
-    });
+      ),
+    );
   }
 
   FutureOr<void> _onDeleteDish(
     DeleteDish event,
     Emitter<EditDishState> emit,
   ) async {
-    await state.mapOrNull(dishInfo: (state) async {
-      final dishId = state.currentDish.id;
+    final dishId = state.data.currentDish?.id ?? -1;
 
-      final response = await nutritionService.deleteDish(dishId);
+    final response = await nutritionService.deleteDish(dishId);
 
-      response.fold(
-        (l) => emit(EditDishState.error(l)),
-        (r) => emit(const EditDishState.deleted()),
-      );
-    });
+    response.fold(
+      (l) => emit(EditDishState.error(state.data.copyWith(isLoading: false, error: l))),
+      (r) => emit(const EditDishState.deleted(EditDishData(isLoading: false))),
+    );
   }
 
   FutureOr<void> _onUpdateDish(
     UpdateDish event,
     Emitter<EditDishState> emit,
   ) async {
-    await state.mapOrNull(dishInfo: (state) async {
-      final dishId = state.currentDish.id;
+    final dishId = state.data.currentDish?.id ?? -1;
 
-      final data = UpdateDishBody(
-        numberOfUnits: event.numberOfUnits,
-        numberOfServings: event.numberOfServings,
-        mealCategories: event.mealCategories,
-        name: event.name,
-      );
+    final data = UpdateDishBody(
+      numberOfUnits: event.numberOfUnits,
+      numberOfServings: event.numberOfServings,
+      mealCategories: event.mealCategories,
+      name: event.name,
+    );
 
-      final response = await nutritionService.updateDishById(dishId, data);
+    final response = await nutritionService.updateDishById(dishId, data);
 
-      response.fold(
-        (l) => emit(EditDishState.error(l)),
-        (r) => emit(const EditDishState.saved()),
-      );
-    });
+    response.fold(
+      (l) => emit(EditDishState.error(state.data.copyWith(isLoading: false, error: l))),
+      (r) => emit(const EditDishState.saved(EditDishData(isLoading: false))),
+    );
   }
 }
