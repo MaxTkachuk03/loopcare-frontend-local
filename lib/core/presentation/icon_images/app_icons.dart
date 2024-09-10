@@ -32,28 +32,6 @@ class AppIcons {
           width: 22,
           height: 22,
           colorFilter: ColorFilter.mode(selected ? selectedColor : regularColor, BlendMode.srcIn));
-
-  static SvgPicture dashboardAccount = SvgPicture.asset(
-    '$iconsFilePath/dashboard_account.svg',
-    colorFilter: ColorFilter.mode(AppColors.white.withOpacity(0.5), BlendMode.srcIn),
-  );
-  static SvgPicture dashboardAccountActive =
-      SvgPicture.asset('$iconsFilePath/dashboard_account.svg');
-
-  static SvgPicture dashboardCalendar = SvgPicture.asset(
-    '$iconsFilePath/dashboard_calendar.svg',
-    colorFilter: ColorFilter.mode(AppColors.white.withOpacity(0.5), BlendMode.srcIn),
-  );
-  static SvgPicture dashboardCalendarActive =
-      SvgPicture.asset('$iconsFilePath/dashboard_calendar.svg');
-
-  static SvgPicture dashboardEducation = SvgPicture.asset(
-    '$iconsFilePath/dashboard_education.svg',
-    colorFilter: ColorFilter.mode(AppColors.white.withOpacity(0.5), BlendMode.srcIn),
-  );
-  static SvgPicture dashboardEducationActive =
-      SvgPicture.asset('$iconsFilePath/dashboard_education.svg');
-
   static SvgPicture dashboardChat = SvgPicture.asset(
     '$iconsFilePath/dashboard_chat.svg',
     colorFilter: ColorFilter.mode(AppColors.white.withOpacity(0.5), BlendMode.srcIn),
@@ -71,8 +49,6 @@ class AppIcons {
   // TODO replace with svg version
   // <--
   static const AssetImage cutlery = AssetImage('$iconsFilePath/cutlery.png');
-  static const AssetImage dashboardPlanMeals =
-      AssetImage('$iconsFilePath/dashboard_plan_meals.png');
   static const AssetImage exclamationMark = AssetImage('$iconsFilePath/exclamation_mark.png');
   static const AssetImage exclamationPoint = AssetImage('$iconsFilePath/exclamation_point.png');
   static const AssetImage cook = AssetImage('$iconsFilePath/icon_cook.png');
@@ -271,6 +247,8 @@ class AppIcons {
 
   static const String avatarIconPhotoPath = '$iconsFilePath/user_avatar_icon_photo.svg';
   static const String avatarIconBluePath = '$iconsFilePath/user_avatar_icon_blue.svg';
+
+  static SvgPicture confetti = SvgPicture.asset('$iconsFilePath/confetti.svg');
 
   AppIcons._();
 }

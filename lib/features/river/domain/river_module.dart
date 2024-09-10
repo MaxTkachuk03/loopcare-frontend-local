@@ -27,16 +27,19 @@ extension RiverModuleExtension on RiverModule? {
     if (this == null) return false;
 
     final isActiveModuleNotCompleted = this?.moduleState.isInProgress ?? false;
+    final timePassed = await isTimePassed;
 
-    final now = await NTP.now();
-    final isTimePassed = this?.nextModuleUnlocksAt?.isBefore(now) ?? false;
-
-    return isActiveModuleNotCompleted && isTimePassed && isModuleItemsCompleted;
+    return isActiveModuleNotCompleted && timePassed && isModuleItemsCompleted;
   }
 
   bool get isModuleItemsCompleted =>
       this?.moduleItems.every((i) => i.states.prevItemState.isCompleted || i.isReadCrossModule) ??
       false;
+
+  Future<bool> get isTimePassed async {
+    final now = await NTP.now();
+    return this?.nextModuleUnlocksAt?.isBefore(now) ?? false;
+  }
 
   bool get containCompletedCrossModuleItem =>
       this?.moduleItems.any((i) => i.isCompletedCrossModule) ?? false;

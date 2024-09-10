@@ -73,7 +73,8 @@ class _RiverScreenState extends State<RiverScreen> with RiverUtils {
 
     return BlocListener<RiverBloc, RiverState>(
       listener: (context, state) => state.mapOrNull(
-        moduleCompleted: (_) => _onCompleteModule(),
+        moduleCompleted: _onCompleteModule,
+        modulePartlyCompleted: _onPartlyCompleteModule,
       ),
       child: VisibilityDetector(
         key: ValueKey('module_page_${widget.page}'),
@@ -201,9 +202,19 @@ class _RiverScreenState extends State<RiverScreen> with RiverUtils {
     }
   }
 
-  void _onCompleteModule() {
+  void _onCompleteModule(RiverState state) {
     _showPopup = true;
     _showCompleteDialog();
+  }
+
+  void _onPartlyCompleteModule(RiverState state) {
+    if (!(ModalRoute.of(context)?.isCurrent ?? false)) return;
+
+    if (state.data.activeModule.isModuleItemsCompleted) {
+      ModalBottomSheet.moduleGraduationCompletedItems(context: context);
+    } else {
+      ModalBottomSheet.moduleGraduationCompletedTime(context: context);
+    }
   }
 
   void _onStateChanged(RiverModuleItem item) {
