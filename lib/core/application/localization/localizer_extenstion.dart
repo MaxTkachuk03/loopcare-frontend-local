@@ -2,10 +2,9 @@ import 'dart:convert';
 
 import 'package:crowdin_sdk/crowdin_sdk.dart';
 import 'package:flutter/widgets.dart';
-import 'package:flutter/services.dart' show rootBundle;
 import 'package:intl/intl.dart';
+import 'package:loopcare_frontend/core/domain/local_localization/local_localization_service.dart';
 import 'package:loopcare_frontend/core/infrastructure/services/app_config.dart';
-import 'package:loopcare_frontend/core/infrastructure/services/shared_storage/shared_storage_service.dart';
 import 'package:loopcare_frontend/injection.dart';
 
 const List<String> _pluralIds = ['=0', '=1', '=2', 'few', 'many', 'other'];
@@ -20,7 +19,7 @@ extension LocalizationExtension on String {
   }
 
   String _getLocalizedString(String key, {Map<String, dynamic>? params}) {
-    final jsonString = getIt<SharedStorageService>().localTranslations;
+    final jsonString = getIt<LocalLocalizationService>().translations;
     if (jsonString == null || jsonString.isEmpty) {
       return key;
     }
@@ -103,12 +102,4 @@ extension LocalizationExtension on String {
     }
     return messageValue.substring(openingBraceIndex + 1, closingBraceIndex);
   }
-}
-
-// Simulated method to retrieve strings from a JSON or ARB file.
-Future<bool> loadLocalLocalizations() async {
-  String locale = getIt<AppConfig>().language;
-  final jsonString = await rootBundle.loadString('lib/l10n/app_$locale.arb');
-  getIt<SharedStorageService>().localTranslations = jsonString;
-  return true;
 }

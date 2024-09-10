@@ -2939,7 +2939,7 @@ class AppLocalizationsDe extends AppLocalizations {
   String get errorCoreInternalServer => 'Interner Serverfehler.';
 
   @override
-  String get errorRetry => 'Wiederholung';
+  String get errorRetry => 'Wiederholen';
 
   @override
   String get errorNoConnectionTitle => 'Keine Verbindung';
@@ -3102,7 +3102,7 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String get mentalTestResultsFeelLimited4 =>
-      'Es hat sich herausgestellt, dass du im Moment in mehreren Bereichen belastet fühlst.';
+      'Es hat sich herausgestellt, dass du dich im Moment in mehreren Bereichen belastet fühlst.';
 
   @override
   String get mentalTestResultsNotATherapy => 'Bitte beachte, dass LeanOnMe keine Therapie ist.';
@@ -3159,7 +3159,7 @@ class AppLocalizationsDe extends AppLocalizations {
   String get smartGoalsSetGoal => 'Ziel setzen';
 
   @override
-  String get smartGoalsSelectGoalsCategoryTitle => 'Wähle eine Zielkategorie';
+  String get smartGoalsSelectGoalsCategoryTitle => 'Wähle eine Kategorie';
 
   @override
   String get smartGoalsNewLabel => 'Neu';
@@ -3169,7 +3169,7 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String get smartGoalsSelectGoalsSubtitle =>
-      'Du hast 7 Tage Zeit, um dein Ziel zu erreichen, mit einem zählbaren Log pro Tag.';
+      'Du hast 7 Tage Zeit, um dein Ziel zu erreichen. Gezählt werden die einzelnen Tage, an denen du Einträge machst.';
 
   @override
   String get smartGoalsSaveWeeklyGoalsSuccessMessage =>
@@ -3194,7 +3194,7 @@ class AppLocalizationsDe extends AppLocalizations {
       count,
       locale: localeName,
       other: 'Ziel: $count geloggte Tage in einer Woche',
-      one: 'Ziel: $count geloggte Tage in einer Woche',
+      one: 'Ziel: $count  geloggte Tage in einer Woche',
       zero: 'Ziel: $count geloggte Tage in einer Woche',
     );
     return '$_temp0';
@@ -3234,10 +3234,10 @@ class AppLocalizationsDe extends AppLocalizations {
   String get smartGoalsHowHardWasTheGoal => 'Wie schwierig war dieses Ziel für dich?';
 
   @override
-  String get smartGoalsWantToTryInFuture => 'Willst du es in Zukunft noch einmal versuchen?';
+  String get smartGoalsWantToTryInFuture => 'Willst du es in Zukunft noch einmal machen?';
 
   @override
-  String get smartGoalsGoalReview => 'Zielüberblicken';
+  String get smartGoalsGoalReview => 'Überblick';
 
   @override
   String smartGoalsWeeklyDaysLeft(int count) {
@@ -3262,7 +3262,7 @@ class AppLocalizationsDe extends AppLocalizations {
     String _temp0 = intl.Intl.pluralLogic(
       count,
       locale: localeName,
-      other: '# Mal',
+      other: '$count Mal',
       one: '1 Mal',
       zero: 'Keine Male',
     );
@@ -3307,10 +3307,10 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String get buddyIntroBody =>
-      'Mit einem Buddy an deiner Seite ist es nicht nur wahrscheinlicher, dass du deine Ziele einhältst, sondern auch, dass du jemanden hast, der deinen Weg mit dir teilt und ihn angenehmer gestaltet. \n\nUm auf Kurs zu bleiben, ist ein Buddy sehr zu empfehlen. Das gilt vor allem, wenn du dich auch einer Gruppe anschließen willst. Mache dein soziales Netzwerk so stark wie möglich.';
+      'Mit einem Buddy an deiner Seite ist es nicht nur wahrscheinlicher, dass du deine Ziele erreichst, sondern auch, dass du jemanden hast, der deinen Weg mit dir teilt und es dadurch leichter wird. \n\nUm auf Kurs zu bleiben, ist ein Buddy sehr zu empfehlen. Das gilt vor allem, wenn du dich auch einer Gruppe anschließen willst. Mache dein soziales Netzwerk so stark wie möglich';
 
   @override
-  String get buddyIntroYesBtn => 'Ja, ich möchte Buddy-Unterstützung haben';
+  String get buddyIntroYesBtn => 'Ja, ich möchte einen Buddy';
 
   @override
   String get buddyIntroNoBtn => 'Vielleicht mache ich das später';
@@ -3330,13 +3330,13 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String get buddyCompletedContent =>
-      'Dein Buddy wird in Kürze eine Einladung erhalten. Wir werden dich benachrichtigen, sobald dein Buddy geantwortet hat.';
+      'Dein Buddy wird in Kürze eine Einladung erhalten. Du wirst benachrichtigt, sobald dein Buddy geantwortet hat.';
 
   @override
   String get buddyLiveTogetherTitle => 'Wohnst du mit deinem Buddy zusammen?';
 
   @override
-  String get buddyRelationTitle => 'Wie ist dein Buddy mit dir verwandt?';
+  String get buddyRelationTitle => 'Welches Verhältnis hast du zu deinem Buddy?';
 
   @override
   String get buddyEmailTitle => 'Wie lautet die E-Mail Adresse deines Buddys?';
@@ -3349,7 +3349,7 @@ class AppLocalizationsDe extends AppLocalizations {
   String get buddyEmailHint => 'Buddy-E-Mail-Adresse';
 
   @override
-  String get buddyPartner => 'Partner oder Partnerin';
+  String get buddyPartner => 'Partner/in';
 
   @override
   String get buddyChild => 'Kind';
@@ -3368,7 +3368,7 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String buddyPendingSubTitle(String date, String time) {
-    return 'Wir haben diese Einladung auf\n$date an $time gesendet.\n\nWir werden dich benachrichtigen, sobald dein Buddy geantwortet hat.';
+    return 'Diese Einladung wurde am\n$date um $time gesendet.\n\nDu wirst benachrichtigt, sobald dein Buddy geantwortet hat.';
   }
 
   @override
@@ -3448,14 +3448,14 @@ class AppLocalizationsDe extends AppLocalizations {
       'https://loopcare-pdf-instructions.s3.eu-central-1.amazonaws.com/Dokument2-2.pdf';
 
   @override
-  String get riverOverviewTitle => 'River Übersicht';
+  String get riverOverviewTitle => 'Meine Reise';
 
   @override
   String get riverGuidancePracticeTitle => 'Übung macht den Meister.';
 
   @override
   String get riverGuidancePracticeDescription =>
-      'Der Kalender wird dein täglicher Eingangspunkt sein, um das Gelernte zu üben.';
+      'Der Kalender wird dein täglicher Anker sein, um das Gelernte zu üben.';
 
   @override
   String get riverGuidanceProfileTitle => 'Dein Profil und deine Accounteinstellungen.';
@@ -3469,7 +3469,7 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String get riverGuidanceCompletedDescription =>
-      'Du kannst jetzt mit der ersten Praxis fortfahren: Was ist deine Motivation?.';
+      'Du kannst jetzt mit dem ersten Pool fortfahren: Was ist deine Motivation?';
 
   @override
   String riverModuleCompletedTitle(String module) {
@@ -3478,7 +3478,7 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String riverModuleCompletedDescription(String nextModule) {
-    return 'Keine Eile, du kannst in diesem Modul bleiben und die Übungen so oft wiederholen, wie du willst. Wenn du wohlfühlst, kannst du zum nächsten Modul übergehen: „$nextModule“.';
+    return 'Keine Eile, du kannst in diesem Modul bleiben und die Übungen so oft wiederholen, wie du willst. Wenn du bereit bist, kannst du zum nächsten Modul übergehen: „$nextModule“.';
   }
 
   @override
@@ -3669,7 +3669,7 @@ class AppLocalizationsDe extends AppLocalizations {
   String get subscriptionGenericTitle => 'Deine Reise beginnt jetzt.';
 
   @override
-  String get emergencyAssistanceTitle => 'Medizinische Notfallhilfe:';
+  String get emergencyAssistanceTitle => 'Medizinische Notfallhilfe';
 
   @override
   String get emergencyAssistanceNumber => '112';
@@ -3681,10 +3681,10 @@ class AppLocalizationsDe extends AppLocalizations {
   String get emergencyUsLifelineTitle => 'Telefonseelsorge';
 
   @override
-  String get emergencyUsLifelineTitleNumber => '08001110111 oder 08001110222';
+  String get emergencyUsLifelineTitleNumber => '08001110111';
 
   @override
-  String get emergencyUsLifelineTitleLabel => '08001110111 oder 08001110222';
+  String get emergencyUsLifelineTitleLabel => '08001110111';
 
   @override
   String get emergencyCrisisChatTitle => '';
@@ -3738,7 +3738,7 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String get introBodyTextFirst =>
-      'Dieses Programm wurde speziell für Menschen mit Übergewicht und Adipositas entwickelt, die nachhaltig abnehmen und ihren Lebensstil ändern wollen.';
+      'Dieses Programm wurde speziell für Menschen mit Übergewicht und Adipositas entwickelt, die nachhaltig abnehmen und ihren Lebensstil ändern wollen';
 
   @override
   String get introBodyTextSecond =>
@@ -3778,7 +3778,7 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String get forgotPasswordBody =>
-      'Gib deine E-Mail-Adresse ein und wir schicken dir dann eine Anleitung zum Zurücksetzen deines Passworts';
+      'Gib deine E-Mail-Adresse ein. Du erhältst eine Anleitung zum Zurücksetzen deines Passworts';
 
   @override
   String get onboardingIntroTitle =>
@@ -3790,7 +3790,7 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String get onboardingIntroProgram2 =>
-      'Ernährung, Bewegung, medizinisches Wissen und Unterstützung durch die Gemeinschaft werden mit Psychologie kombiniert, um dir zu helfen, deine Ziele zu erreichen.';
+      'Ernährung, Bewegung, medizinisches Wissen und Unterstützung durch die Community werden mit Psychologie kombiniert, um dir zu helfen, deine Ziele zu erreichen.';
 
   @override
   String get onboardingIntroMissionTitle =>
@@ -3810,7 +3810,7 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String get onboardingIntroMissionJoshua =>
-      'Mit seiner Liebe zum Sport und zur physischen Gesundheit hat Josh einen Abschluss in Sportwissenschaften und jahrelange Erfahrung als Gesundheitstrainer mit Schwerpunkt Gewichtsabnahme. Er kann Menschen helfen, sich besser zu bewegen und sich besser zu fühlen.';
+      'Josh hat einen Abschluss in Sportwissenschaften und jahrelange Erfahrung als Gesundheitstrainer mit Schwerpunkt Gewichtsabnahme. Er kann Menschen helfen, sich besser zu bewegen und sich besser zu fühlen.';
 
   @override
   String get onboardingIntroMissionDenise =>
@@ -3831,14 +3831,14 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String get physicalIntroBody =>
-      'Joshua muss die Antworten auf einige grundlegende Fragen wissen, damit wir dein Programm individuell gestalten können.';
+      'Joshua möchte die Antworten auf einige grundlegende Fragen wissen, damit wir dein Programm individuell gestalten können.';
 
   @override
   String get minutes => 'Minuten';
 
   @override
   String get ageCheckFailedTitle =>
-      'Es tut uns leid. Leider ist deine Registrierung im Moment nicht möglich';
+      'Es tut uns leid. Leider ist deine Registrierung im Moment nicht möglich.';
 
   @override
   String get ageCheckFailedBody => 'Unser Programm ist nicht für Personen unter 18 Jahren geeignet';
@@ -3857,10 +3857,10 @@ class AppLocalizationsDe extends AppLocalizations {
   String get sex => 'Biologisches Geschlecht';
 
   @override
-  String get genderPageTitle => 'Was ist dein Geschlecht';
+  String get genderPageTitle => 'Was ist dein soziales Geschlecht';
 
   @override
-  String get happinessTitle => 'Wie empfindest du deinen derzeitigen Lebensstil';
+  String get happinessTitle => 'Wie empfindest du deinen derzeitigen Lebensstil?';
 
   @override
   String get happinessBody1 =>
@@ -3931,17 +3931,17 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String get bmiDescription1 =>
-      'Der Body-Mass-Index (BMI) misst, anhand deiner Größe und deines Gewichts, ob dein Gewicht für deinen Körper in einem gesunden Bereich liegt';
+      'Der Body-Mass-Index (BMI) misst, anhand deiner Größe und deines Gewichts, ob dein Gewicht für deinen Körper in einem gesunden Bereich liegt.';
 
   @override
   String get bmiDescriptionAccent => 'Body Mass Index (BMI)';
 
   @override
   String get bmiDescription2 =>
-      'Der BMI hat jedoch seine Grenzen - zum Beispiel kann er nicht zwischen Fett-, Muskel- und Knochengewicht unterscheiden. Wir verwenden ihn zusammen mit anderen Messwerten, um dein Programm anzupassen. Aber keine Sorge: Er wird nicht der einzige Faktor sein, der berücksichtigt wird';
+      'Der BMI hat jedoch seine Grenzen - zum Beispiel kann er nicht zwischen Fett-, Muskel- und Knochengewicht unterscheiden. Wir verwenden ihn zusammen mit anderen Messwerten, um dein Programm anzupassen. Aber keine Sorge: Er wird nicht der einzige Faktor sein, der berücksichtigt wird.';
 
   @override
-  String get bmiExclusionBodyTitle => 'Body Mass Index (BMI) ist';
+  String get bmiExclusionBodyTitle => 'Dein Body Mass Index (BMI) ist';
 
   @override
   String get bmiExclusionBodyOlder19LowBmi =>
@@ -3996,7 +3996,7 @@ class AppLocalizationsDe extends AppLocalizations {
       'Es tut uns leid. Leider ist deine Registrierung im Moment nicht möglich.';
 
   @override
-  String get failedPregnancyBody1 => 'Du bekommst ein Baby.';
+  String get failedPregnancyBody1 => 'Du erwartest ein Baby.';
 
   @override
   String get failedPregnancyBody2 => 'Dieses Programm ist nicht für Schwangere geeignet.';
@@ -4087,7 +4087,7 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String get obesityQuestion =>
-      'Wurde bei dir eine sekundäre Form der Fettleibigkeit diagnostiziert (z. B. Cushing-Syndrom, Prader-Willi-Syndrom oder Hypogonadismus)';
+      'Wurde bei dir eine sekundäre Form der Adipositas diagnostiziert (z. B. Cushing-Syndrom, Prader-Willi-Syndrom oder Hypogonadismus)';
 
   @override
   String get thyroidDiseaseQuestion =>
@@ -4130,7 +4130,7 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String get treatmentByTheDoctorQuestion =>
-      'Bist du zurzeit in Behandlung eine/r Psychologin/Psychologen oder Psychiaterin/Psychiater behandelt';
+      'Wirst du derzeit von einem Psychologen/einer Psychologin behandelt';
 
   @override
   String get medicalCheckPassedTitle => 'Medizinischer Check abgeschlossen';
@@ -4148,7 +4148,7 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String get medicalCheckFailedBody2 =>
-      'Bitte beachte, dass wir zusätzlich Selbsthilfegruppen anbieten. Wenn du im weiteren Verlauf des Programms an einer dieser Gruppen teilnehmen möchtest, brauchst du zunächst die Erlaubnis deiner Psychologin/ deines Psychologen';
+      'Bitte beachte, dass wir zusätzlich Selbsthilfegruppen anbieten. Wenn du im weiteren Verlauf des Programms an einer dieser Gruppen teilnehmen möchtest, brauchst du zunächst die Erlaubnis deiner Psychologin/ deines Psychologen.';
 
   @override
   String get cardioVascularDisease => 'Herz-Kreislauf-Erkrankungen';
@@ -4247,7 +4247,7 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String get who8Question =>
-      'Bitte markiere bei jeder Aussage die Antwort, die deiner Meinung nach am besten beschreibt, wie du dich in den letzten Wochen gefühlt hast';
+      'Bitte markiere bei jeder Aussage die Antwort, die deiner Meinung nach am besten beschreibt, wie du dich in den letzten zwei Wochen gefühlt hast';
 
   @override
   String get lastTwoWeeks => 'letzte zwei Wochen';
@@ -4260,18 +4260,18 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String get phq15Question =>
-      'Wie stark fühltest du dich im Verlauf der letzten 4 Wochen durch die folgenden Beschwerden beeinträchtigt';
+      'Wie stark fühltest du dich im Verlauf der letzten 4 Wochen durch die folgenden Beschwerden beeinträchtigt?';
 
   @override
   String get overThe => 'über die';
 
   @override
   String get phq8Question =>
-      'Wie oft fühltest du dich im Verlauf der letzten 2 Wochen durch die folgenden Beschwerden beeinträchtigt';
+      'Wie oft fühltest du dich im Verlauf der letzten 2 Wochen durch die folgenden Beschwerden beeinträchtigt?';
 
   @override
   String get who5ResultTestMinimal =>
-      'In Bezug auf dein allgemeines Wohlbefinden hast du angegeben, dass du dich in den letzten zwei Wochen die meiste Zeit über unwohl und energielos gefühlt hast. Wenn deine Stimmung über einen längeren Zeitraum eingschränkt ist und dein allgemeines Wohlbefinden beeinträchtigt ist, empfehlen wir dir eine/n Psychologin/ Psychologen oder deine/n Hausärztin/Hausarzt aufzusuchen, um diese Symptome abzukären. \nPsychologinnen/Psychologen findest du hier:';
+      'In Bezug auf dein allgemeines Wohlbefinden hast du angegeben, dass du dich in den letzten zwei Wochen die meiste Zeit unwohl und energielos gefühlt hast. Wenn deine Stimmung über einen längeren Zeitraum eingschränkt ist und dein allgemeines Wohlbefinden beeinträchtigt ist, empfehlen wir dir eine/n Psychologin/ Psychologen oder deine/n Hausärztin/Hausarzt aufzusuchen, um diese Symptome abzukären. \nPsychologinnen/Psychologen findest du hier:';
 
   @override
   String get who5ResultTestHigh =>
@@ -4303,7 +4303,7 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String get gad7ResultMedium =>
-      'Du hast angegeben, dass du dich in den letzten zwei Wochen mehr als die Hälfte der Tage nervös oder ängstlich gefühlt hast. Möglicherweise hast du dir viele Sorgen gemacht und hattest das Gefühl, diese nicht kontrollieren zu können. Das kann für dich im Alltag eine Belastung sein. \n\nWenn die Symptome anhalten oder sich verschlimmern, empfehlen wir ein Gespräch mit er Psychologin oder einem Psychologen.';
+      'Du hast angegeben, dass du dich in den letzten zwei Wochen mehr als die Hälfte der Tage nervös oder ängstlich gefühlt hast. Möglicherweise hast du dir viele Sorgen gemacht und hattest das Gefühl, diese nicht kontrollieren zu können. Das kann für dich im Alltag eine Belastung sein. \n\nWenn die Symptome anhalten oder sich verschlimmern, empfehlen wir ein Gespräch mit einer Psychologin oder einem Psychologen.';
 
   @override
   String get gad7ResultHigh =>
@@ -4319,15 +4319,15 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String get phq8ResultMedium =>
-      'Du hast angegeben, dass du in den letzten zwei Wochen mehr als die Hälfte der Tage deprimiert warst. Vielleicht hattest du auch Gefühle der Hoffnungslosigkeit oder hast dich niedergeschlagen gefühlt. Im Laufe des LeanOnMe-Programms lernst du den Zusammenhang zwischen Gedanken und Gefühlen kennen und erfährst, was du tun kannst, um deine psychische Gesundheit zu verbessern. Wenn die Symptome anhalten oder sich verschlimmern, empfehlen wir dir ein Gespräch mit einer Psychologin oder einem Psychologen.';
+      'Du hast angegeben, dass du in den letzten zwei Wochen mehr als die Hälfte der Tage deprimiert warst. Vielleicht hattest du auch Gefühle der Hoffnungslosigkeit oder hast dich niedergeschlagen gefühlt. Im Laufe des LeanOnMe-Programms lernst du den Zusammenhang zwischen Gedanken und Gefühlen kennen und erfährst, was du tun kannst, um deine psychische Gesundheit zu verbessern. \n\nWenn die Symptome anhalten oder sich verschlimmern, empfehlen wir dir ein Gespräch mit einer Psychologin oder einem Psychologen.';
 
   @override
   String get phq8ResultHigh =>
-      'Du hast angegeben, dass deine Stimmung in den letzten zwei Wochen oft stark beeinträchtigt war. Du hast angeben, dass du dich deprimiert gefühlt hast und in den letzten Wochen oft unter Lustlosigkeit oder Niedergeschlagenheit gelitten hast. Die Symptome deuten auf eine akute psychische Belastung mit emotionaler Beeinträchtigung hin. Dies können Anzeichen für eine vorübergehende depressive Episode sein. \n\nDieses Programm ist kein Ersatz für eine medizinische Diagnose oder psychologische Behandlung. Um die Symptome genauer zu überprüfen und ggf. zu behandeln, empfehlen wir dir, deine/n Hausärztin/Hausarzt oder eine/n Psychologin/Psychologen aufzusuchen. Adressen findest du hier:';
+      'Du hast angegeben, dass deine Stimmung in den letzten zwei Wochen oft stark beeinträchtigt war. Du hast angegeben, dass du dich deprimiert gefühlt hast und in den letzten Wochen oft unter Lustlosigkeit oder Niedergeschlagenheit gelitten hast. Die Symptome deuten auf eine akute psychische Belastung mit emotionaler Beeinträchtigung hin. Dies können Anzeichen für eine vorübergehende depressive Episode sein. \n\nDieses Programm ist kein Ersatz für eine medizinische Diagnose oder psychologische Behandlung. Um die Symptome genauer zu überprüfen und ggf. zu behandeln, empfehlen wir dir, deine/n Hausärztin/Hausarzt oder eine/n Psychologin/Psychologen aufzusuchen. Adressen findest du hier:';
 
   @override
   String get phq8ResultHighest =>
-      'Du hast angegeben, dass deine Stimmung in den letzten zwei Wochen jeden Tag erheblich beeinträchtigt war. Du hast angeben, dass du dich deprimiert gefühlt hast und in den letzten Wochen oft unter Lustlosigkeit oder Niedergeschlagenheit gelitten hast. Diese Symptome deuten auf ein hohes Maß an psychischer Belastung mit emotionaler Beeinträchtigung hin und könnten ein Hinweis auf eine Depression sein. \n\nDieses Programm ist kein Ersatz für eine medizinische Diagnose oder psychologische Behandlung. Um die Symptome genauer zu überprüfen und ggf. zu behandeln, empfehlen wir dir, deine/n Hausärztin/Hausarzt oder eine/n Psychologin/Psychologen aufzusuchen. Adressen findest du hier:';
+      'Du hast angegeben, dass deine Stimmung in den letzten zwei Wochen jeden Tag erheblich beeinträchtigt war. Du hast angegeben, dass du dich deprimiert gefühlt hast und in den letzten Wochen oft unter Lustlosigkeit oder Niedergeschlagenheit gelitten hast. Diese Symptome deuten auf ein hohes Maß an psychischer Belastung mit emotionaler Beeinträchtigung hin und könnten ein Hinweis auf eine Depression sein. \n\nDieses Programm ist kein Ersatz für eine medizinische Diagnose oder psychologische Behandlung. Um die Symptome genauer zu überprüfen und ggf. zu behandeln, empfehlen wir dir, deine/n Hausärztin/Hausarzt oder eine/n Psychologin/Psychologen aufzusuchen. Adressen findest du hier:';
 
   @override
   String get generalWellBeingSummary => 'Zusammenfassung: Allgemeines Wohlbefinden';
@@ -4391,7 +4391,7 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String get signUpWelcomeBody =>
-      'Schön, dass du dabei bist. Erstelle ein Konto, um deine Reise zu beginnen';
+      'Schön, dass du dabei bist. Erstelle deinen Account, um deine Reise zu beginnen';
 
   @override
   String get createAccount => 'Account erstellen';
@@ -4510,10 +4510,10 @@ class AppLocalizationsDe extends AppLocalizations {
       'Danke, dass du deine E-Mail-Adresse bestätigt hast. Du kannst die App jetzt benutzen';
 
   @override
-  String get logMood => 'Stimmung loggen';
+  String get logMood => 'Bestätigen';
 
   @override
-  String get yourNote => 'Deine Anmerkung';
+  String get yourNote => 'Dein Eintrag';
 
   @override
   String get educationTitle =>
@@ -4560,7 +4560,7 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String get consultYourTherapistBody1 =>
-      'Wirst du derzeit von einem Psychologen oder Psychiater behandelt';
+      'Du hast angegeben, dass du derzeit von einem Psychologen/einer Psychologin behandelt wirst. ';
 
   @override
   String get consultYourTherapistBody2 =>
@@ -4646,7 +4646,7 @@ class AppLocalizationsDe extends AppLocalizations {
   String get yourBirthday => 'Dein Geburtstag';
 
   @override
-  String get continueBtn => 'Fortfahren';
+  String get continueBtn => 'Weiter';
 
   @override
   String get downloadInstructions => 'Anleitung herunterladen';
@@ -4706,16 +4706,16 @@ class AppLocalizationsDe extends AppLocalizations {
   String get youAndFoodItemThree => 'Allergien';
 
   @override
-  String get start => 'Beginnen';
+  String get start => 'Start';
 
   @override
-  String get iDoNotEatOrDrink => 'Ich esse oder trinke kein:';
+  String get iDoNotEatOrDrink => 'Was ich nicht esse oder trinke:';
 
   @override
   String get iAmAllergicTo => 'Ich bin allergisch gegen:';
 
   @override
-  String get iDoNotLike => 'Ich mag kein:';
+  String get iDoNotLike => 'Was ich nicht mag:';
 
   @override
   String get typeOne => 'Ja, Typ 1';
@@ -4742,13 +4742,13 @@ class AppLocalizationsDe extends AppLocalizations {
   String get calorieDensity => 'Kaloriendichte';
 
   @override
-  String get proteinDegree => 'Protein Anteil';
+  String get proteinDegree => 'Proteingehalt';
 
   @override
   String get whatIsCalorieDensity => 'Was ist die Kaloriendichte';
 
   @override
-  String get whatIsProtein => 'Was ist Protein Grad';
+  String get whatIsProtein => 'Was ist Proteingehalt';
 
   @override
   String get calorieDensityExplanation =>
@@ -4803,13 +4803,13 @@ class AppLocalizationsDe extends AppLocalizations {
   String get myFavorites => 'Meine Favoriten';
 
   @override
-  String get my => 'Mein';
+  String get my => 'Meine';
 
   @override
   String get myDishes => 'Meine Gerichte';
 
   @override
-  String get dishes => 'Meine Gerichte';
+  String get dishes => 'Gerichte';
 
   @override
   String get scan => 'Scannen';
@@ -4822,11 +4822,11 @@ class AppLocalizationsDe extends AppLocalizations {
       'Halte den Barcode direkt vor die Kamera und achte darauf, dass er sich innerhalb des angegebenen Bereichs befindet.';
 
   @override
-  String get qrCodeSubtext_2 => 'Wenn der Barcode erkannt wird, hörst du einen Piepton ';
+  String get qrCodeSubtext_2 => 'Wenn der Barcode erkannt wird, hörst du einen Piepton. ';
 
   @override
   String get qrCodeSubtext_3 =>
-      'Wenn das Kamerabild unscharf ist, dann bewege das Produkt ein wenig, damit die Kamera es wieder scharf stellen kann';
+      'Wenn das Kamerabild unscharf ist, dann bewege das Produkt ein wenig, damit die Kamera es wieder scharf stellen kann.';
 
   @override
   String get scanOtherProduct => 'Anderes Produkt scannen';
@@ -4870,10 +4870,10 @@ class AppLocalizationsDe extends AppLocalizations {
   String get addFoodItem => 'Lebensmittel hinzufügen';
 
   @override
-  String get saveToMyDishes => 'In Meine Gerichte speichern';
+  String get saveToMyDishes => 'In „Meine Gerichte” speichern';
 
   @override
-  String get addToDishes => 'In Meine Gerichte speichern';
+  String get addToDishes => 'In „Meine Gerichte” speichern';
 
   @override
   String get viewRecipe => 'Rezept ansehen';
@@ -4883,7 +4883,7 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String portionMeal(String numberOfPortion) {
-    return '$numberOfPortion Portion Mahlzeit';
+    return '$numberOfPortion Portion';
   }
 
   @override
@@ -4929,11 +4929,11 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String get favoritesExplain =>
-      'Mit den Favoriten kannst du deine am häufigsten verwendeten Lebensmittel schnell auflisten';
+      'Mit den Favoriten kannst du deine am häufigsten verwendeten Lebensmittel\nschnell auflisten';
 
   @override
   String get favoritesList =>
-      '1. Suche ein Lebensmittel \n2. Sieh dir seine Details an \n3. Tippe auf den Stern auf der rechten Seite, um es als Favorit zu markieren';
+      '1. Suche ein Lebensmittel aus. \n2. Sieh dir die Details an. \n3. Tippe auf den Stern auf der rechten Seite, um es als Favorit zu markieren.';
 
   @override
   String get dishesExplain =>
@@ -4941,10 +4941,10 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String get dishesList =>
-      '1. Protokolliere die gewünschten Lebensmittel \n2. Erstelle ein Mein Gericht direkt aus deiner Log-Zusammenfassung';
+      '1. Protokolliere die gewünschten Lebensmittel \n2. Erstelle ein Mein Gericht direkt aus deinen Einträgen';
 
   @override
-  String get groupPreferences => 'Gruppenpräferenzen';
+  String get groupPreferences => 'Gruppen-Präferenzen';
 
   @override
   String get groupRules => 'Gruppenregeln';
@@ -4977,10 +4977,10 @@ class AppLocalizationsDe extends AppLocalizations {
   String get timezone => 'Zeitzone';
 
   @override
-  String get yourNickname => 'Dein (Spitz)-name';
+  String get yourNickname => 'Dein (Spitz-) Name';
 
   @override
-  String get partOfGroup => 'Teil der Gruppe';
+  String get partOfGroup => 'Mitglied einer Gruppe';
 
   @override
   String get iNoLongerWantToJoin => 'Ich möchte einer Gruppe nicht mehr beitreten';
@@ -5019,7 +5019,7 @@ class AppLocalizationsDe extends AppLocalizations {
   String get groupRulesOneTitle => 'Sich sicher fühlen in einer vertrauensvollen Umgebung';
 
   @override
-  String get groupRulesAttention => 'Bitte lies die 14 Gruppenregeln sorgfältig durch';
+  String get groupRulesAttention => 'Bitte lies die 14 Gruppenregeln sorgfältig durch.';
 
   @override
   String get groupRulesOneParagraphOne =>
@@ -5036,7 +5036,7 @@ class AppLocalizationsDe extends AppLocalizations {
   String get yesIAgree => 'Ja, ich stimme zu';
 
   @override
-  String get supportGroupPreferences => 'Gruppenpräferenzen';
+  String get supportGroupPreferences => 'Gruppen-Präferenzen';
 
   @override
   String get groupRulesTwoParagraphOne =>
@@ -5048,11 +5048,11 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String get groupRulesTwoParagraphThree =>
-      'Wir lassen einander reden und kritisieren uns nicht gegenseitig.';
+      'Wir lassen einander ausreden und kritisieren uns nicht gegenseitig.';
 
   @override
   String get groupRulesThreeParagraphOne =>
-      'Gemeinsam sorgen wir dafür, dass alle Mitglieder die gleiche Chance zum Teilen bekommen.';
+      'Gemeinsam sorgen wir dafür, dass alle Mitglieder die gleiche Chance zum Reden bekommen.';
 
   @override
   String get groupRulesThreeParagraphTwo =>
@@ -5079,7 +5079,7 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String get groupRulesFourParagraphOneItalicThree =>
-      '\"Ich habe positive Erfahrungen gemacht mit.../Ich fand es hilfreich, wenn...\".';
+      '\"Ich habe positive Erfahrungen gemacht mit.../Ich fand es hilfreich, als...\".';
 
   @override
   String get groupRulesFourParagraphTwo =>
@@ -5087,11 +5087,11 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String get groupRulesFiveParagraphOne =>
-      'Wir reden auch miteinander, nicht übereinander. Abwesende Gruppenmitglieder werden nicht zum Thema der Unterhaltung.';
+      'Wir reden miteinander, nicht übereinander. Abwesende Gruppenmitglieder werden nicht zum Thema der Unterhaltung.';
 
   @override
   String get groupRulesFiveParagraphTwo =>
-      'Individuelle Verantwortung: Jedes Mitglied einer Gruppe ist für das verantwortlich, was es tut und/oder sagt. Wertschätzung und Respekt für sich selbst und andere ist wichtig, das heißt, ich respektiere meine eigenen Grenzen, die ich mir selbst setze, sowie die meiner Gruppenmitglieder.';
+      'Individuelle Verantwortung: Jedes Mitglied einer Gruppe ist für das verantwortlich, was es tut und/oder sagt. Wertschätzung und Respekt für sich selbst und andere ist wichtig. Das bedeutet, ich respektiere meine eigenen Grenzen, die ich mir selbst setze, sowie die meiner Gruppenmitglieder.';
 
   @override
   String get groupRulesSixParagraphOne =>
@@ -5109,7 +5109,7 @@ class AppLocalizationsDe extends AppLocalizations {
   String get groupRulesSixParagraphFour => 'Zu guter Letzt: Viel Spaß!';
 
   @override
-  String get noPreference => 'Gruppenpräferenzen';
+  String get noPreference => 'keine Präferenz';
 
   @override
   String get femaleOnly => 'nur weiblich';
@@ -5127,10 +5127,10 @@ class AppLocalizationsDe extends AppLocalizations {
   String get male => 'Männlich';
 
   @override
-  String get woman => 'Frau';
+  String get woman => 'Weiblich';
 
   @override
-  String get man => 'Mann';
+  String get man => 'Männlich';
 
   @override
   String get other => 'Divers';
@@ -5155,7 +5155,7 @@ class AppLocalizationsDe extends AppLocalizations {
   String get bookYourSeat => 'Buche deinen Sitzplatz';
 
   @override
-  String get comingUpThisWeek => 'Diese Woche im Kommen';
+  String get comingUpThisWeek => 'Diese Woche';
 
   @override
   String get happeningNow => 'Happening Now';
@@ -5195,12 +5195,12 @@ class AppLocalizationsDe extends AppLocalizations {
       'Für diese Woche sind keine weiteren Zeitfenster verfügbar. Das Thema der nächsten Woche folgt in Kürze';
 
   @override
-  String noMinMemberCount(int number) {
+  String noMinMemberCount(int count) {
     String _temp0 = intl.Intl.pluralLogic(
-      number,
+      count,
       locale: localeName,
       other:
-          'Weniger als $number Nutzer haben sich für diese Sitzung angemeldet, daher wird sie möglicherweise abgesagt.',
+          'Weniger als $count Nutzer haben sich für diese Sitzung angemeldet, daher wird sie möglicherweise abgesagt.',
       one: 'Nur 1 Benutzer hat sich für diese Sitzung angemeldet, daher kann sie abgesagt werden.',
       zero:
           'Es haben sich keine Nutzer für diese Sitzung angemeldet, daher kann sie abgesagt werden.',
@@ -5381,7 +5381,7 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String get emergencySubtitle =>
-      'Dieses Programm ist keine Psychotherapie und kann auch keine Psychotherapie ersetzen. \n\nSollest du eine akute psychische Krise haben oder das Gefühl haben, psychologische Unterstützung zu brauchen oder Gedanken haben, dir das Leben nehmen zu wollen, dann suche bitte umgehend ärztliche oder psychologische Hilfe auf. \n\nIm Notfall kannst Du Dich auch an folgende Nummern wenden, die du 24h/Tag gebührenfrei erreichen kannst:';
+      'Dieses Programm ist keine Psychotherapie und kann auch keine Psychotherapie ersetzen. \n\nSollest du eine akute psychische Krise haben oder das Gefühl haben, psychologische Unterstützung zu brauchen oder Gedanken haben, dir das Leben nehmen zu wollen, dann suche bitte umgehend ärztliche oder psychologische Hilfe auf. \n\nIm Notfall kannst du dich auch an folgende Nummern wenden, die du 24h/Tag gebührenfrei erreichen kannst:';
 
   @override
   String get subjectReport => 'Betreff';
@@ -5435,7 +5435,7 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String yourPreferencesUpdated(String prefName) {
-    return 'Deine $prefName Präferenzen wurden aktualisiert';
+    return 'Deine Präferenzen wurden aktualisiert';
   }
 
   @override
@@ -5516,14 +5516,14 @@ class AppLocalizationsDe extends AppLocalizations {
   String get mindTraining => 'Achtsamkeit';
 
   @override
-  String get learnMoreButton => 'Mehr lernen';
+  String get learnMoreButton => 'Weiter lesen';
 
   @override
   String get lock => 'Sperren';
 
   @override
   String unlocksOn(String date) {
-    return 'Wird freigeschaltet am $date';
+    return 'Freigeschaltet am \n$date';
   }
 
   @override
@@ -5544,8 +5544,8 @@ class AppLocalizationsDe extends AppLocalizations {
     String _temp0 = intl.Intl.pluralLogic(
       count,
       locale: localeName,
-      other: '# mins',
-      one: '# min',
+      other: '$count mins',
+      one: '$count min',
     );
     return '$_temp0';
   }
@@ -5619,7 +5619,7 @@ class AppLocalizationsDe extends AppLocalizations {
   String get correct => 'Richtig!';
 
   @override
-  String get incorrect => 'Das ist nicht korrekt';
+  String get incorrect => 'Falsch';
 
   @override
   String get assignmentAddedTitle => 'Reflexion wurde zu deinem Kalender hinzugefügt';
@@ -5665,7 +5665,7 @@ class AppLocalizationsDe extends AppLocalizations {
   }
 
   @override
-  String get pastReflections => 'Vergangene Reflektionen';
+  String get pastReflections => 'Vergangene Reflexionen';
 
   @override
   String get iWantToLogMy => 'Ich möchte meine';
@@ -5686,7 +5686,7 @@ class AppLocalizationsDe extends AppLocalizations {
   String get descriptionFood => 'Wähle aus, welches Essen du gegessen hast?';
 
   @override
-  String get logWeight => 'Gewicht';
+  String get logWeight => 'Bestätigen';
 
   @override
   String get foodLoggingUnlocked => 'Mein Essen freigeschaltet';
@@ -5705,13 +5705,13 @@ class AppLocalizationsDe extends AppLocalizations {
   String get groupChatTitle => 'Gruppenmitglieder';
 
   @override
-  String groupChatLabel(int users) {
+  String groupChatLabel(int count) {
     String _temp0 = intl.Intl.pluralLogic(
-      users,
+      count,
       locale: localeName,
-      other: 'Es gibt $users Mitglieder in deiner Selbsthilfegruppe',
-      one: 'Es gibt 1 Mitglied in deiner Selbsthilfegruppe',
-      zero: 'Es gibt keine Mitglieder in deiner Selbsthilfegruppe',
+      other: 'Es gibt $count Mitglieder in deiner Gruppe',
+      one: 'Es gibt 1 Mitglied in deiner Gruppe',
+      zero: 'Es gibt keine Mitglieder in deiner Gruppe',
     );
     return '$_temp0';
   }
@@ -5772,19 +5772,19 @@ class AppLocalizationsDe extends AppLocalizations {
   String get serving => 'Portion';
 
   @override
-  String get logList => 'logge';
+  String get logList => 'eintragen';
 
   @override
-  String get clearMealList => 'Log-Liste löschen';
+  String get clearMealList => 'Liste löschen';
 
   @override
-  String get logListEmptyMessage => 'Noch nichts protokolliert\n Was hast du zum Mittag gegessen?';
+  String get logListEmptyMessage => 'Noch nichts protokolliert?\n Was hast du zum Mittag gegessen?';
 
   @override
   String get backToDashboard => 'Zurück zum Dashboard';
 
   @override
-  String get backToTodayLogging => 'Zurück auf Heute';
+  String get backToTodayLogging => 'Zurück zu Heute';
 
   @override
   String get hello => 'Hallo';
@@ -5799,7 +5799,7 @@ class AppLocalizationsDe extends AppLocalizations {
   String get goodEvening => 'Guten Abend';
 
   @override
-  String get logYourWeight => 'Deine Geweicht loggen';
+  String get logYourWeight => 'Mein Gewicht';
 
   @override
   String get mealLog => 'Mein Essen';
@@ -5922,7 +5922,7 @@ class AppLocalizationsDe extends AppLocalizations {
       'Du bekommst Übungen empfohlen, basierend auf deine Präferenzen.';
 
   @override
-  String get physicalExercises => 'Übungen';
+  String get physicalExercises => 'Bewegung';
 
   @override
   String get perWeek => 'pro Woche';
@@ -5943,7 +5943,7 @@ class AppLocalizationsDe extends AppLocalizations {
   String get noWeightLogged => 'Kein Gewicht geloggt';
 
   @override
-  String get ok => 'ok';
+  String get ok => 'OK';
 
   @override
   String get todaysWeight => 'Heutiges Gewicht';
@@ -6063,7 +6063,7 @@ class AppLocalizationsDe extends AppLocalizations {
   String get openDatepicker => 'Datepicker öffnen';
 
   @override
-  String get remove => 'Entfernen';
+  String get remove => 'Entferne';
 
   @override
   String get recommendations => 'Empfehlungen';
@@ -6072,7 +6072,7 @@ class AppLocalizationsDe extends AppLocalizations {
   String get noCancel => 'Nein, abbrechen';
 
   @override
-  String get recentSearch => 'Letzte Suchen';
+  String get recentSearch => 'Letzte Suche';
 
   @override
   String get dishWasSaved => 'Das Gericht wurde gespeichert';
@@ -6116,7 +6116,7 @@ class AppLocalizationsDe extends AppLocalizations {
   String get readText => 'Textversion öffnen';
 
   @override
-  String get backToToday => 'Zurück auf Heute';
+  String get backToToday => 'Zurück zu Heute';
 
   @override
   String get backToEducation => 'Zurück zu Wissen';
@@ -6128,7 +6128,7 @@ class AppLocalizationsDe extends AppLocalizations {
   String get completed => 'Abgeschlossen';
 
   @override
-  String get complete => 'Vollständig';
+  String get complete => 'Zurück zu Mein Plan ';
 
   @override
   String get todo => 'Todo';
@@ -6146,7 +6146,7 @@ class AppLocalizationsDe extends AppLocalizations {
   String get selectExerciseType => 'Übungstyp';
 
   @override
-  String get yourOwnActivity => 'Deine eigene Aktivität';
+  String get yourOwnActivity => 'Andere Aktivität';
 
   @override
   String countExercises(int count) {
@@ -6169,7 +6169,7 @@ class AppLocalizationsDe extends AppLocalizations {
   String get mobility => 'Beweglichkeit';
 
   @override
-  String get yourLocation => 'Dein Standort';
+  String get yourLocation => 'Umgebung';
 
   @override
   String get home => 'Zuhause';
@@ -6205,7 +6205,7 @@ class AppLocalizationsDe extends AppLocalizations {
   String get strengthPrograms => 'Kraftprogramme';
 
   @override
-  String get yourProfile => 'Dein Profil';
+  String get yourProfile => 'Mein Profil';
 
   @override
   String get reportAbuse => 'Problem melden';
@@ -6250,10 +6250,10 @@ class AppLocalizationsDe extends AppLocalizations {
   String get groupSessions => 'Gruppe';
 
   @override
-  String get foodPreferences => 'Essenpräferenzen';
+  String get foodPreferences => 'Essens-Präferenzen';
 
   @override
-  String get dontEat => 'Esse nicht';
+  String get dontEat => 'Was ich nicht esse';
 
   @override
   String get dontLike => 'Gefällt mir nicht';
@@ -6268,7 +6268,7 @@ class AppLocalizationsDe extends AppLocalizations {
   String get veryHard => 'sehr schwierig';
 
   @override
-  String get rotateDevice => 'Bitte drehe dein Gerät und verwende deinen LeanOnMe Telefonständer';
+  String get rotateDevice => 'Bitte drehe dein Gerät';
 
   @override
   String get skipExplanation => 'Erklärung überspringen';
@@ -6352,7 +6352,7 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String get supportGroupPaidSubscriptionNotGrouped =>
-      'Du hast ein bezahltes Abonnement, bist aber der keiner Gruppe beigetreten';
+      'Du hast ein bezahltes Abonnement, bist aber keiner Gruppe beigetreten';
 
   @override
   String get supportGroupTrialSubscriptionNotGrouped =>
@@ -6455,7 +6455,7 @@ class AppLocalizationsDe extends AppLocalizations {
       'Der Prozentsatz an Eiweiß in dieser Mahlzeit ist sehr niedrig. Du wirst wahrscheinlich den ganzen Tag mit übermäßigem Hunger und Heißhunger zu kämpfen haben. Wenn du den Eiweißanteil in dieser Mahlzeit auf über 25% erhöhst, wird sich die Qualität verbessern.';
 
   @override
-  String get proteinDegreeLowQualityLabel => 'Verbesserung wird benötigt';
+  String get proteinDegreeLowQualityLabel => 'Verbesserung nötig';
 
   @override
   String get proteinDegreeLowMidQualityDescription =>

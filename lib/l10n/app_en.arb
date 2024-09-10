@@ -959,7 +959,7 @@
   "smartGoalsAccomplishedInTotal": "goals accomplished in total.",
   "smartGoalsAccomplishedEmptyMessage": "Once you start completing goals your favourite goal categories will appear here.",
   "smartGoalsAccomplished": "goals accomplished",
-  "smartGoalsGoalLogDays": "{count, plural, =0{Goal: {count} logged days in a week} one{Goal: {count} logged day in a week} other{Goal: {count} logged days in a week}}",
+  "smartGoalsGoalLogDays": "{count, plural, =0{Goal: {count} logged days in a week} =1{Goal: {count} logged day in a week} other{Goal: {count} logged days in a week}}",
   "@smartGoalsGoalLogDays": {
     "description": "The text shown for the goal of logging days in a week",
     "placeholders": {
@@ -969,7 +969,7 @@
       }
     }
   },
-  "smartGoalsGoalLogged": "{count, plural, =0{Logged days: {count}} one{Logged day: {count}} other{Logged days: {count}}}",
+  "smartGoalsGoalLogged": "{count, plural, =0{Logged days: {count}} =1{Logged day: {count}} other{Logged days: {count}}}",
   "@smartGoalsGoalLogged": {
     "description": "The text shown for the number of logged days",
     "placeholders": {
@@ -979,7 +979,7 @@
       }
     }
   },
-  "smartGoalsGoalTotalCompletions": "{count, plural, =0{Total logs: {count}} one{Total log: {count}} other{Total logs: {count}}}",
+  "smartGoalsGoalTotalCompletions": "{count, plural, =0{Total logs: {count}} =1{Total log: {count}} other{Total logs: {count}}}",
   "@smartGoalsGoalTotalCompletions": {
     "description": "The text shown for the total number of completions/logs",
     "placeholders": {
@@ -994,7 +994,7 @@
   "smartGoalsHowHardWasTheGoal": "How hard was this goal for you?",
   "smartGoalsWantToTryInFuture": "Want to try this again in the future?",
   "smartGoalsGoalReview": "Goal review",
-  "smartGoalsWeeklyDaysLeft": "{count, plural, =0{No days left to complete} one{1 day left to complete} other{{count} days left to complete}}",
+  "smartGoalsWeeklyDaysLeft": "{count, plural, =0{No days left to complete} =1{1 day left to complete} other{{count} days left to complete}}",
   "@smartGoalsWeeklyDaysLeft": {
     "description": "Text indicating how many days are left to complete the goal",
     "placeholders": {
@@ -1006,7 +1006,7 @@
   },
   "smartGoalsWeeklyDayLeft": "1 day to complete",
   "smartGoalsWeeklyDaysReview": "Finished",
-  "smartGoalsWeeklyTimes": "{count, plural, =0{No times} one{1 time} other{# times}}",
+  "smartGoalsWeeklyTimes": "{count, plural, =0{No times} =1{1 time} other{{count} times}}",
   "@smartGoalsWeeklyTimes": {
     "description": "Text indicating how many times something has occurred",
     "placeholders": {
@@ -1819,12 +1819,12 @@
   "timeslotMissed": "Sorry, you missed this time slot",
   "chooseAnotherTimeslot": "Choose another time slot",
   "noOtherTimeslotsAvailable": "No other time slots are available for this week. Next week’s topic is coming soon",
-  "noMinMemberCount": "{number, plural, =0{No users have signed up to this session, so it might be canceled.} =1{Only 1 user has signed up to this session, so it might be canceled.} other{Less than {number} users have signed up to this session, so it might be canceled.}}",
+  "noMinMemberCount": "{count, plural, =0{No users have signed up to this session, so it might be canceled.} =1{Only 1 user has signed up to this session, so it might be canceled.} other{Less than {count} users have signed up to this session, so it might be canceled.}}",
   "@noMinMemberCount": {
     "description": "Indicates that the session might be canceled due to insufficient user sign-ups.",
     "placeholders": {
-      "number": {
-        "description": "The number of users who signed up.",
+      "count": {
+        "description": "The amount of users who signed up.",
         "type": "int"
       }
     }
@@ -2062,7 +2062,7 @@
   "intro": "Intro",
   "exercises": "Exercises",
   "startExercise": "Start exercise",
-  "countMins": "{count, plural, =1 {# min} other {# mins}}",
+  "countMins": "{count, plural, =1{{count} min} other {{count} mins}}",
   "@countMins": {
     "description": "Shows the number of minutes",
     "placeholders": {
@@ -2156,11 +2156,11 @@
   "reportIssueAndEmergencyTitle": "Report issue and emergency",
   "groupChat": "Group chat",
   "groupChatTitle": "Group members",
-  "groupChatLabel": "{users, plural, =0{There are no members in your support group} =1{There is 1 member in your support group} other{There are {users} members in your support group}}",
+  "groupChatLabel": "{count, plural, =0{There are no members in your support group} =1{There is 1 member in your support group} other{There are {count} members in your support group}}",
   "@groupChatLabel": {
     "description": "Message indicating the number of members in the support group",
     "placeholders": {
-      "users": {
+      "count": {
         "description": "Number of members in the support group",
         "type": "int"
       }
@@ -2314,7 +2314,7 @@
   "selectYourProgram": "Select your program",
   "selectExerciseType": "Exercise type",
   "yourOwnActivity": "Your own activity",
-  "countExercises": "{count, plural, one{Contains the following {count} exercise} other{Contains the following {count} exercises}}",
+  "countExercises": "{count, plural, =1{Contains the following {count} exercise} other{Contains the following {count} exercises}}",
   "@countExercises": {
     "description": "Message indicating the number of exercises contained",
     "placeholders": {

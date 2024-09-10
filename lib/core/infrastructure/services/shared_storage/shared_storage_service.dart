@@ -71,8 +71,6 @@ class SharedStorageService {
 
   set account(Account? account) => setString('account', json.encode(account));
 
-  set localTranslations(String? translations) => setString('translations', translations ?? '');
-
   bool get isRiverOverviewVisited => _prefs.getValue<bool?>('river_overview_visited') ?? false;
 
   void riverOverviewVisited() {
@@ -80,8 +78,6 @@ class SharedStorageService {
       _prefs.setValue<bool>('river_overview_visited', true);
     }
   }
-
-  String? get localTranslations => getString('translations');
 
   Account? get account => containsKey('account')
       ? Account.fromJson(json.decode(getString('account') ?? '') as Map<String, dynamic>)

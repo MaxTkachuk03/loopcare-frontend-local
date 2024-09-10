@@ -1,5 +1,7 @@
 import 'app_localizations.dart';
+
 import 'package:crowdin_sdk/crowdin_sdk.dart';
+
 import 'package:flutter/widgets.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 
@@ -7253,9 +7255,9 @@ class CrowdinLocalization extends AppLocalizations {
       _fallbackTexts.noOtherTimeslotsAvailable;
 
   @override
-  String noMinMemberCount(int number) =>
-      Crowdin.getText(localeName, 'noMinMemberCount', {'number': number}) ??
-      _fallbackTexts.noMinMemberCount(number);
+  String noMinMemberCount(int count) =>
+      Crowdin.getText(localeName, 'noMinMemberCount', {'count': count}) ??
+      _fallbackTexts.noMinMemberCount(count);
 
   @override
   String get noGroupThisWeek =>
@@ -7826,9 +7828,9 @@ class CrowdinLocalization extends AppLocalizations {
       Crowdin.getText(localeName, 'groupChatTitle') ?? _fallbackTexts.groupChatTitle;
 
   @override
-  String groupChatLabel(int users) =>
-      Crowdin.getText(localeName, 'groupChatLabel', {'users': users}) ??
-      _fallbackTexts.groupChatLabel(users);
+  String groupChatLabel(int count) =>
+      Crowdin.getText(localeName, 'groupChatLabel', {'count': count}) ??
+      _fallbackTexts.groupChatLabel(count);
 
   @override
   String get copyGroupMessage =>

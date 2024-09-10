@@ -116,7 +116,6 @@ flutter:
     - assets/audio/
     - assets/animations/
     - assets/images/
-    - assets/translations/
     - .env.dev
     - .env.stag
     - .env.uat

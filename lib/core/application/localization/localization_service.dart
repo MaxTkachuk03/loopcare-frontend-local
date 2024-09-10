@@ -1,18 +1,13 @@
-import 'package:crowdin_sdk/crowdin_sdk.dart';
-import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:loopcare_frontend/core/domain/local_localization/local_localization_service.dart';
+import 'package:loopcare_frontend/core/infrastructure/services/app_config.dart';
+import 'package:loopcare_frontend/injection.dart';
+import 'package:flutter/services.dart' show rootBundle;
 
 class LocalizationService {
-  static Future<void> initialize() async {
-    await Crowdin.init(
-      distributionHash: dotenv.env['CROWDIN_BUNDLE_HASH'] ?? '',
-      connectionType: InternetConnectionType.any,
-      withRealTimeUpdates: true,
-      authConfigurations: CrowdinAuthConfig(
-        clientId: dotenv.env['CROWDIN_CLIENT_ID'] ?? '',
-        clientSecret: dotenv.env['CROWDIN_CLIENT_SECRET'] ?? '',
-        redirectUri: dotenv.env['CROWDIN_REDIRECT_URL'] ?? '',
-      ),
-      updatesInterval: const Duration(minutes: 15),
-    );
+  Future<bool> loadLocalLocalizations() async {
+    String locale = getIt<AppConfig>().language;
+    final jsonString = await rootBundle.loadString('lib/l10n/app_$locale.arb');
+    getIt<LocalLocalizationService>().translations = jsonString;
+    return true;
   }
 }

@@ -5851,19 +5851,19 @@ abstract class AppLocalizations {
   /// The text shown for the goal of logging days in a week
   ///
   /// In en, this message translates to:
-  /// **'{count, plural, =0{Goal: {count} logged days in a week} one{Goal: {count} logged day in a week} other{Goal: {count} logged days in a week}}'**
+  /// **'{count, plural, =0{Goal: {count} logged days in a week} =1{Goal: {count} logged day in a week} other{Goal: {count} logged days in a week}}'**
   String smartGoalsGoalLogDays(int count);
 
   /// The text shown for the number of logged days
   ///
   /// In en, this message translates to:
-  /// **'{count, plural, =0{Logged days: {count}} one{Logged day: {count}} other{Logged days: {count}}}'**
+  /// **'{count, plural, =0{Logged days: {count}} =1{Logged day: {count}} other{Logged days: {count}}}'**
   String smartGoalsGoalLogged(int count);
 
   /// The text shown for the total number of completions/logs
   ///
   /// In en, this message translates to:
-  /// **'{count, plural, =0{Total logs: {count}} one{Total log: {count}} other{Total logs: {count}}}'**
+  /// **'{count, plural, =0{Total logs: {count}} =1{Total log: {count}} other{Total logs: {count}}}'**
   String smartGoalsGoalTotalCompletions(int count);
 
   /// No description provided for @smartGoalsGoalCompleted.
@@ -5899,7 +5899,7 @@ abstract class AppLocalizations {
   /// Text indicating how many days are left to complete the goal
   ///
   /// In en, this message translates to:
-  /// **'{count, plural, =0{No days left to complete} one{1 day left to complete} other{{count} days left to complete}}'**
+  /// **'{count, plural, =0{No days left to complete} =1{1 day left to complete} other{{count} days left to complete}}'**
   String smartGoalsWeeklyDaysLeft(int count);
 
   /// No description provided for @smartGoalsWeeklyDayLeft.
@@ -5917,7 +5917,7 @@ abstract class AppLocalizations {
   /// Text indicating how many times something has occurred
   ///
   /// In en, this message translates to:
-  /// **'{count, plural, =0{No times} one{1 time} other{# times}}'**
+  /// **'{count, plural, =0{No times} =1{1 time} other{{count} times}}'**
   String smartGoalsWeeklyTimes(int count);
 
   /// No description provided for @smartGoalsReasonGoalNotLike.
@@ -9337,8 +9337,8 @@ abstract class AppLocalizations {
   /// Indicates that the session might be canceled due to insufficient user sign-ups.
   ///
   /// In en, this message translates to:
-  /// **'{number, plural, =0{No users have signed up to this session, so it might be canceled.} =1{Only 1 user has signed up to this session, so it might be canceled.} other{Less than {number} users have signed up to this session, so it might be canceled.}}'**
-  String noMinMemberCount(int number);
+  /// **'{count, plural, =0{No users have signed up to this session, so it might be canceled.} =1{Only 1 user has signed up to this session, so it might be canceled.} other{Less than {count} users have signed up to this session, so it might be canceled.}}'**
+  String noMinMemberCount(int count);
 
   /// No description provided for @noGroupThisWeek.
   ///
@@ -9919,7 +9919,7 @@ abstract class AppLocalizations {
   /// Shows the number of minutes
   ///
   /// In en, this message translates to:
-  /// **'{count, plural, =1 {# min} other {# mins}}'**
+  /// **'{count, plural, =1{{count} min} other {{count} mins}}'**
   String countMins(int count);
 
   /// No description provided for @chooseAnExercise.
@@ -10213,8 +10213,8 @@ abstract class AppLocalizations {
   /// Message indicating the number of members in the support group
   ///
   /// In en, this message translates to:
-  /// **'{users, plural, =0{There are no members in your support group} =1{There is 1 member in your support group} other{There are {users} members in your support group}}'**
-  String groupChatLabel(int users);
+  /// **'{count, plural, =0{There are no members in your support group} =1{There is 1 member in your support group} other{There are {count} members in your support group}}'**
+  String groupChatLabel(int count);
 
   /// No description provided for @copyGroupMessage.
   ///
@@ -11053,7 +11053,7 @@ abstract class AppLocalizations {
   /// Message indicating the number of exercises contained
   ///
   /// In en, this message translates to:
-  /// **'{count, plural, one{Contains the following {count} exercise} other{Contains the following {count} exercises}}'**
+  /// **'{count, plural, =1{Contains the following {count} exercise} other{Contains the following {count} exercises}}'**
   String countExercises(int count);
 
   /// No description provided for @strength.
