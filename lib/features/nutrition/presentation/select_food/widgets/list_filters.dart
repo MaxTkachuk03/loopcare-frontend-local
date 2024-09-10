@@ -28,9 +28,11 @@ class ListFilters extends StatelessWidget {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            CustomText.w600(
-              title,
-              style: context.textTheme.bodyMedium,
+            Expanded(
+              child: CustomText.w600(
+                title,
+                style: context.textTheme.bodyMedium,
+              ),
             ),
             IconButton(
               icon: const Icon(
