@@ -1,6 +1,6 @@
 import 'package:injectable/injectable.dart';
 import 'package:loopcare_frontend/core/infrastructure/services/shared_storage/shared_storage_service.dart';
-import 'package:loopcare_frontend/core/infrastructure/services/user_states_service/src/contracts/user_states_repository.dart';
+import 'package:loopcare_frontend/core/infrastructure/services/user_states_service/src/user_states_repository/user_states_repository.dart';
 import 'package:loopcare_frontend/core/infrastructure/services/user_states_service/src/user_states_model/user_states_model.dart';
 import 'package:loopcare_frontend/features/account/presentation/buddy_page/application/buddy_status.dart';
 
