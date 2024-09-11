@@ -14,6 +14,7 @@ import 'package:loopcare_frontend/features/river/presentation/widgets/river_modu
 import 'package:visibility_detector/visibility_detector.dart';
 
 part 'parts/_flying_item.dart';
+
 part 'parts/_river_item_footprint.dart';
 
 const _defaultItemRadius = 25.0;
@@ -99,8 +100,9 @@ class _RiverAnimationModuleItemWidgetState extends State<RiverAnimationModuleIte
   @override
   void didUpdateWidget(covariant RiverAnimationModuleItemWidget oldWidget) {
     super.didUpdateWidget(oldWidget);
-    _setUpItemColorAnimation(widget.item);
+    if (oldWidget.item.states.itemState == widget.item.states.itemState) return;
     _setUpAnimations();
+    _setUpItemColorAnimation(widget.item);
 
     _itemAnimation = widget.item.states.animationState;
     _startAnimation();
@@ -209,6 +211,8 @@ class _RiverAnimationModuleItemWidgetState extends State<RiverAnimationModuleIte
   }
 
   void _setUpItemColorAnimation(RiverModuleItem item) {
+    _colorController.reset();
+
     _colorIconAnimation = ColorTween(
       begin: getIconColor(item.states.prevItemState, item.streamType, item.isRootItem),
       end: getIconColor(item.states.itemState, item.streamType, item.isRootItem),

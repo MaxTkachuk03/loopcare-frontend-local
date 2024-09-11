@@ -23,7 +23,9 @@ import 'package:loopcare_frontend/features/river/infrastructure/dto/get_cross_mo
 import 'package:loopcare_frontend/injection.dart';
 
 part 'river_event.dart';
+
 part 'river_state.dart';
+
 part 'river_bloc.freezed.dart';
 
 @singleton
@@ -124,8 +126,9 @@ class RiverBloc extends Bloc<RiverEvent, RiverState> {
     UpdateActiveModuleItemStatus event,
     Emitter<RiverState> emit,
   ) async {
-    var moduleItem = state.data.activeModuleItem;
     var module = state.data.activeModule;
+    var moduleItem = state.data.activeModuleItem ??
+        module?.moduleItems.firstWhereOrNull((i) => i.lessonId == event.lessonId);
 
     if (moduleItem == null || moduleItem.states.prevItemState.isCompleted || module == null) {
       emit(

@@ -46,11 +46,12 @@ class _LessonCompletePageState extends State<LessonCompletePage> {
   void initState() {
     super.initState();
 
-    context.read<RiverBloc>().add(const RiverEvent.updateActiveModuleItemStatus());
+    final lessonId = context.read<EducationLessonBloc>().state.data.id;
+    context.read<RiverBloc>().add(RiverEvent.updateActiveModuleItemStatus(lessonId: lessonId));
 
     const AnalyticsEventService().logLessonCompletedEvent(
       AnalyticsEvents.lessonCompletedScreen,
-      context.read<EducationLessonBloc>().state.data.id,
+      lessonId,
     );
   }
 
@@ -107,7 +108,8 @@ class _LessonCompletePageState extends State<LessonCompletePage> {
                               CustomText.bitter600(
                                 '${LocalizedTexts.lessonCompleted.tr()}!',
                                 style: context.textTheme.displayMedium?.copyWith(
-                                    color: _isLightTheme ? AppColors.white : AppColors.blueDarker),
+                                  color: _isLightTheme ? AppColors.white : AppColors.blueDarker,
+                                ),
                                 textAlign: TextAlign.center,
                               ),
                             ],
