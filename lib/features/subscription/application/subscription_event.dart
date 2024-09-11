@@ -32,5 +32,6 @@ class SubscriptionEvent with _$SubscriptionEvent {
 
   const factory SubscriptionEvent.checkEligibility() = CheckEligibility;
 
-  const factory SubscriptionEvent.setEligibility({required bool isEligible}) = SetEligibility;
+  const factory SubscriptionEvent.setEligibility(
+      {required bool isEligible, PurchaseDetails? purchase}) = SetEligibility;
 }
