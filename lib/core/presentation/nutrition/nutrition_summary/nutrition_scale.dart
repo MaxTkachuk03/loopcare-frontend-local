@@ -126,8 +126,13 @@ class NutritionScale extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          ...topLabel.split(' ').map((e) =>
-              CustomText.w600(e, style: context.textTheme.bodySmall, textAlign: TextAlign.center)),
+          ...topLabel.split(' ').map((e) => CustomText.w600(
+                e,
+                style: context.textTheme.bodySmall,
+                maxLines: 1,
+                overflow: TextOverflow.ellipsis,
+                textAlign: TextAlign.center,
+              )),
           const SizedBox(height: 8.0),
           NutritionIndicator.small(
             label: isDisabled ? '-' : indicatorLabel,
