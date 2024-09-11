@@ -15,4 +15,6 @@ class AppSyncEvent with _$AppSyncEvent {
   const factory AppSyncEvent.refreshActualRiverModule() = _RefreshActualRiverModuleSyncEvent;
 
   const factory AppSyncEvent.showProfileNotificationBadge() = _ShowProfileNotificationSyncEvent;
+
+  const factory AppSyncEvent.updateBuddyStatus() = _UpdateBuddyStatusSyncEvent;
 }

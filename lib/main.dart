@@ -76,6 +76,7 @@ Future<void> main() async {
   await initHive();
   await CrowdinLocalizationService().initialize();
   await LocalizationService().loadLocalLocalizations();
+
   return runApp(const AppLifeCycleStateListener(child: App()));
 }
 

@@ -41,4 +41,6 @@ class AppSyncService {
 
   void showProfileNotificationBadge() =>
       _streamController.add(const AppSyncEvent.showProfileNotificationBadge());
+
+  void updateBuddyStatus() => _streamController.add(const AppSyncEvent.updateBuddyStatus());
 }

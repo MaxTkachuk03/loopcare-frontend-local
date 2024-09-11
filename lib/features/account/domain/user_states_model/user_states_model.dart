@@ -10,6 +10,7 @@ class UserStatesModel with _$UserStatesModel {
 
   const factory UserStatesModel({
     required int id,
+    @Default(false) bool showBuddyBadge,
     BuddyStatus? buddyStatus,
   }) = _UserStatesModel;
 
