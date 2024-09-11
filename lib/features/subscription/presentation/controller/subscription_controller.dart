@@ -153,7 +153,9 @@ class SubscriptionController {
     bloc.add(SubscriptionEvent.verifyLastPurchase(selectedPlan.value!.details));
   }
 
-  void restorePurchase() => bloc.add(const SubscriptionEvent.restorePurchased());
+  void restorePurchase() {
+    bloc.add(const SubscriptionEvent.restorePurchased());
+  }
 
   void getSubscriptionPlansFromServer() => bloc.add(const SubscriptionEvent.getPlansFromServer());
 

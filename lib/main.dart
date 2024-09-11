@@ -17,9 +17,7 @@ import 'package:loopcare_frontend/core/infrastructure/app_lifecycle_observer.dar
 import 'package:loopcare_frontend/core/infrastructure/hive_service/hive_service.dart';
 import 'package:loopcare_frontend/core/infrastructure/services/analytics_service.dart';
 import 'package:loopcare_frontend/core/infrastructure/services/country_code_service/country_code_service.dart';
-import 'package:loopcare_frontend/core/infrastructure/services/events.dart';
 import 'package:loopcare_frontend/core/infrastructure/services/logger/logger.dart';
-import 'package:loopcare_frontend/core/infrastructure/services/mixpanel_event_service.dart';
 import 'package:loopcare_frontend/core/infrastructure/services/mixpanel_manager.dart';
 import 'package:loopcare_frontend/core/presentation/custom_error_widget/custom_error_widget.dart';
 import 'package:loopcare_frontend/firebase_options.dart';
@@ -68,10 +66,6 @@ Future<void> main() async {
   configureDependencies();
 
   const AnalyticsEventService().init();
-
-  MixpanelEventService.instance.trackVisit(
-    "${AppMixpanelEvents.appStart} main",
-  );
 
   await JustAudioBackground.init(
     androidNotificationChannelId: 'com.ryanheise.bg_demo.channel.audio',
