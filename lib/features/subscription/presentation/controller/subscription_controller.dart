@@ -45,7 +45,7 @@ class SubscriptionController {
           showBadge: false,
           subscriptionTranslation: serverPlan.subscriptionTranslation,
           carouselImages: serverPlan.carouselImages,
-          isOfferEligible: data.isEligible,
+          isOfferEligible: data.isEligible && skuProduct.offerId != null,
         );
         products.add(product);
         if (data.plans.length == 1) {
