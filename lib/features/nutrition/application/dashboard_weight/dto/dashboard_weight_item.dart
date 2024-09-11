@@ -11,5 +11,6 @@ class DashboardWeightItem with _$DashboardWeightItem {
     required DateTime date,
   }) = _DashboardWeightItem;
 
-  factory DashboardWeightItem.fromJson(Map<String, dynamic> json) => _$DashboardWeightItemFromJson(json);
+  factory DashboardWeightItem.fromJson(Map<String, dynamic> json) =>
+      _$DashboardWeightItemFromJson(json);
 }

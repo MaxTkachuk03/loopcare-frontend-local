@@ -29,8 +29,8 @@ class SmartGoalsCategoriesBloc extends Bloc<SmartGoalsCategoriesEvent, SmartGoal
     final response = await _smartGoalsService.getGoalsCategories();
 
     response.fold(
-      (l) => emit(
-          SmartGoalsCategoriesState.goalsCategoriesError(state.data.copyWith(error: l, isLoading: false))),
+      (l) => emit(SmartGoalsCategoriesState.goalsCategoriesError(
+          state.data.copyWith(error: l, isLoading: false))),
       (r) => emit(SmartGoalsCategoriesState.goalsCategoriesLoaded(
           state.data.copyWith(goalsCategories: r.data, isLoading: false))),
     );
@@ -43,8 +43,9 @@ class SmartGoalsCategoriesBloc extends Bloc<SmartGoalsCategoriesEvent, SmartGoal
     final response = await _smartGoalsService.unlockCategory(id: event.id);
 
     response.fold(
-       (l) => emit(SmartGoalsCategoriesState.goalsCategoriesError(state.data.copyWith(error: l, isLoading: false))),
-       (r) => null,
+      (l) => emit(SmartGoalsCategoriesState.goalsCategoriesError(
+          state.data.copyWith(error: l, isLoading: false))),
+      (r) => null,
     );
   }
 }

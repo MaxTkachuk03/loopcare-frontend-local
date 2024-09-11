@@ -45,7 +45,7 @@ class SubscriptionController {
           showBadge: false,
           subscriptionTranslation: serverPlan.subscriptionTranslation,
           carouselImages: serverPlan.carouselImages,
-          isOfferEligible: data.isEligible,
+          isOfferEligible: data.isEligible && skuProduct.offerId != null,
         );
         products.add(product);
         if (data.plans.length == 1) {
@@ -53,7 +53,6 @@ class SubscriptionController {
           selectedPlan.value = products.first;
           isEnableSubscribe.value = true;
         }
-
       }
     }
   }
@@ -122,7 +121,7 @@ class SubscriptionController {
   }
 
   void _pushAnalyticsEvents(PurchasableProduct plan) {
-     CustomerIoService.track(
+    CustomerIoService.track(
       event: CIOEvents.subscriptionSelected,
       attributes: {
         CIOAttributes.identifierOption: plan.details.id,

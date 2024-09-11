@@ -14,5 +14,6 @@ abstract class LessonWithCountdown implements _$LessonWithCountdown {
     required EducationLesson lesson,
   }) = _LessonWithCountdown;
 
-  factory LessonWithCountdown.fromJson(Map<String, dynamic> json) => _$LessonWithCountdownFromJson(json);
+  factory LessonWithCountdown.fromJson(Map<String, dynamic> json) =>
+      _$LessonWithCountdownFromJson(json);
 }

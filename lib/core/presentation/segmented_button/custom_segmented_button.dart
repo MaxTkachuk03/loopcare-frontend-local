@@ -89,7 +89,9 @@ class _CustomSegmentedButtonState<T> extends State<CustomSegmentedButton> {
                       child: AnimatedContainer(
                         duration: _animationDuration,
                         height: item == _value ? itemHeight + 8 : itemHeight,
-                        width: item == _value ? itemWidth + 4 : itemWidth, //_calculateWidth(item, itemWidth),
+                        width: item == _value
+                            ? itemWidth + 4
+                            : itemWidth, //_calculateWidth(item, itemWidth),
                         // padding: _calculatePadding(item),
                         decoration: BoxDecoration(
                           color: item == _value ? widget.selectedColor : Colors.transparent,

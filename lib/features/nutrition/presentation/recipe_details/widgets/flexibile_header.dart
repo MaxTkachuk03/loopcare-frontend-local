@@ -34,7 +34,8 @@ class FlexibleHeaderState extends State<FlexibleHeader> {
   final ValueNotifier<bool> showTitle = ValueNotifier(false);
 
   bool get _isAppBarCollapsed {
-    return widget.scrollController.hasClients && widget.scrollController.offset > (kExpandedHeight - kToolbarHeight);
+    return widget.scrollController.hasClients &&
+        widget.scrollController.offset > (kExpandedHeight - kToolbarHeight);
   }
 
   @override

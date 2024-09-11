@@ -23,9 +23,6 @@ import 'package:loopcare_frontend/features/onboarding/presentation/medical_quest
 import 'package:loopcare_frontend/features/onboarding/presentation/medical_questions/medical_check_passed/medical_check_passed_content.dart';
 import 'package:loopcare_frontend/features/onboarding/presentation/medical_questions/medical_disease_question/medical_disease_question_content.dart';
 import 'package:loopcare_frontend/features/onboarding/presentation/medical_questions/medical_intro/medical_intro_content.dart';
-import 'package:loopcare_frontend/features/onboarding/presentation/medical_questions/medication_explanation/medication_past_period_content.dart';
-import 'package:loopcare_frontend/features/onboarding/presentation/medical_questions/medication_future_period/medication_future_period_content.dart';
-import 'package:loopcare_frontend/features/onboarding/presentation/medical_questions/medication_past_period/medication_past_period_content.dart';
 import 'package:loopcare_frontend/features/onboarding/presentation/medical_questions/medicines/medicines_content.dart';
 import 'package:loopcare_frontend/features/onboarding/presentation/medical_questions/pregnancy/pregnancy_content.dart';
 import 'package:loopcare_frontend/features/onboarding/presentation/medical_questions/pregnancy_failed/pregnancy_failed_content.dart';
@@ -172,7 +169,8 @@ class GeneralOnboardingBloc extends HydratedBloc<GeneralOnboardingEvent, General
     _timer = Timer(
       Duration(seconds: durationTime),
       () {
-        const AnalyticsEventService().logEvent(eventName: AnalyticsEvents.showPopupAboutExceededTime);
+        const AnalyticsEventService()
+            .logEvent(eventName: AnalyticsEvents.showPopupAboutExceededTime);
         add(const GeneralOnboardingEvent.stopTimer(isTimeUp: true));
         _timer?.cancel();
       },

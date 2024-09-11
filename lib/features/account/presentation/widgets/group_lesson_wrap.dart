@@ -2,19 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loopcare_frontend/core/presentation/error/error_screen.dart';
 import 'package:loopcare_frontend/core/presentation/loader/loader.dart';
-import 'package:loopcare_frontend/features/account/application/group_preferences_bloc.dart';
-import 'package:loopcare_frontend/features/account/domain/group_prefs_mode.dart';
+import 'package:loopcare_frontend/features/account/application/group_preferences/group_preferences_bloc.dart';
 import 'package:loopcare_frontend/features/account/presentation/widgets/group_prefs_page_wrap.dart';
 
 class GroupLessonWrap extends StatelessWidget {
   final Widget child;
   final bool fromLessonComplete;
 
-  const GroupLessonWrap({
-    super.key,
-    required this.child,
-    required this.fromLessonComplete,
-  });
+  const GroupLessonWrap({super.key, required this.child, required this.fromLessonComplete});
 
   @override
   Widget build(BuildContext context) {
@@ -37,22 +32,9 @@ class GroupLessonWrap extends StatelessWidget {
               ),
             );
           },
-          orElse: () {
-            if (state.data.groupPrefsMode == GroupPrefsMode.groupingLesson) {
-              return WillPopScope(
-                onWillPop: () => _onWillPop(context),
-                child: child,
-              );
-            }
-
-            return child;
-          },
+          orElse: () => child,
         );
       },
     );
-  }
-
-  Future<bool> _onWillPop(BuildContext context) {
-    return Future.value(true);
   }
 }

@@ -1,7 +1,7 @@
 import 'package:auto_route/auto_route.dart';
-import 'package:loopcare_frontend/core/application/localization/localizer_extenstion.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:loopcare_frontend/core/application/localization/localizer_extenstion.dart';
 import 'package:loopcare_frontend/core/infrastructure/services/analytics_service.dart';
 import 'package:loopcare_frontend/core/presentation/alerting/modal_bottom_sheet.dart';
 import 'package:loopcare_frontend/core/presentation/alerting/show_app_snackbar.dart';
@@ -43,26 +43,13 @@ class MealPage extends StatefulWidget {
 class _MealPageState extends State<MealPage> {
   static const double _defaultNumberOfUnitsForDish = 1.0;
 
-  @override
-  void initState() {
-    super.initState();
-
-    // TODO hide recommendations after discussion with Diana 16.05.2024
-    // final mealState = context.read<MealsBloc>().state;
-    // final mealCategory = mealState.data.currentMealCategory;
-    // if (mealCategory != null) {
-    //   context.read<RecipeBloc>().add(RecipeEvent.getRecommendations(mealCategory));
-    // }
-  }
-
   void _onSaveToMyDishesHandler() {
     final state = context.read<MealsBloc>().state;
 
-    final mealCategory = DishFavoritesCategory.values
-            .asNameMap()
-            .containsKey(state.data.currentMealCategory?.name)
-        ? state.data.currentMealCategory?.name
-        : MealCategory.breakfast.originalValue;
+    final mealCategory =
+        DishFavoritesCategory.values.asNameMap().containsKey(state.data.currentMealCategory?.name)
+            ? state.data.currentMealCategory?.name
+            : MealCategory.breakfast.originalValue;
 
     final mealId = state.data.getCurrentMealId;
 
@@ -110,46 +97,14 @@ class _MealPageState extends State<MealPage> {
   String get _appBarSubTitle {
     final state = context.read<MealsBloc>().state;
 
-    final date =
-        state.data.currentDateTime.isoStringWithoutTime != DateTime.now().isoStringWithoutTime
-            ? state.data.currentDateTime.shortDate
-            : LocalizedTexts.today.tr().capitalize();
-    return date;
-  }
-
-  void _onChooseDates(BuildContext context) {
-    final state = context.read<MealsBloc>().state.data;
-
-    if (state.currentFoodItems.isNotEmpty) {
-      context.router.push(
-        ChooseDateCalendarRoute(
-          mealCategory: state.currentMealCategory ?? MealCategory.breakfast,
-          dates: state.currentMeal?.planningDates,
-          mealId: state.getCurrentMealId ?? -1,
-        ),
-      );
-    }
+    return state.data.currentDateTime.dateOnly.isSameDate(DateTime.now().dateOnly)
+        ? state.data.currentDateTime.shortDate
+        : LocalizedTexts.today.tr().capitalize();
   }
 
   void _onNutritionFactSelect(NutritionValuesTypes item) {
     context.read<MealsBloc>().add(MealsEvent.nutritionItemChanged(item));
   }
-
-  // TODO hide recommendations after discussion with Diana 16.05.2024
-  // _onRecommendationsPressed(BuildContext context) {
-  //   final mealState = context.read<MealsBloc>().state;
-  //   final mealCategory = mealState.data.currentMealCategory;
-  //
-  //   if (mealCategory != null) {
-  //     context.router.push(
-  //       RecommendationsRoute(
-  //         mealCategory: mealCategory,
-  //         date: mealState.data.currentDateTime,
-  //         fromMealPage: true,
-  //       ),
-  //     );
-  //   }
-  // }
 
   _onDeleteMealPressed(BuildContext context) {
     final mealsState = context.read<MealsBloc>().state;
@@ -163,7 +118,6 @@ class _MealPageState extends State<MealPage> {
         context: context,
         onCanceled: () {
           context.router.maybePop();
-          _onChooseDates(context);
         },
         onDeleted: () {
           context
@@ -211,7 +165,7 @@ class _MealPageState extends State<MealPage> {
     context.router.popUntilRouteWithName(HomeRoute.name);
   }
 
-  Future<bool> _onWillPop() async {
+  Future<bool> _onWillPop(_, __) {
     _onBack();
 
     return Future.value(true);
@@ -220,9 +174,9 @@ class _MealPageState extends State<MealPage> {
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<MealsBloc, MealsState>(
-      builder: (BuildContext context, state) {
-        return WillPopScope(
-          onWillPop: _onWillPop,
+      builder: (context, state) {
+        return PopScope(
+          onPopInvokedWithResult: _onWillPop,
           child: CustomScaffold.greenLighter(
             appBar: CustomAppBar.green(
               title: _appBarTitle,
@@ -303,28 +257,6 @@ class _MealPageState extends State<MealPage> {
                                           ),
                                         ],
                                       ),
-                                      // TODO hide recommendations after discussion with Diana 16.05.2024
-                                      // const SizedBox(height: 10.0),
-
-                                      // if (currentDate.isTodayOrFuture)
-                                      //   BlocBuilder<RecipeBloc, RecipeState>(
-                                      //     builder: (BuildContext context, recipeState) {
-                                      //       return Row(
-                                      //         children: [
-                                      //           Expanded(
-                                      //             child: CustomOutlinedButton.blueSmall(
-                                      //               label: LocalizedTexts.recommendations.tr(),
-                                      //               onPressed: () =>
-                                      //                   recipeState.data.recommendationRecipe.isEmpty
-                                      //                       ? null
-                                      //                       : _onRecommendationsPressed(context),
-                                      //             ),
-                                      //           ),
-                                      //           const Expanded(child: SizedBox(width: 10.0)),
-                                      //         ],
-                                      //       );
-                                      //     },
-                                      //   ),
                                     ],
                                   ),
                                 ),

@@ -17,5 +17,6 @@ class RiverModuleItemActions with _$RiverModuleItemActions {
     String? event,
   }) = _RiverModuleItemActions;
 
-  factory RiverModuleItemActions.fromJson(Map<String, dynamic> json) => _$RiverModuleItemActionsFromJson(json);
+  factory RiverModuleItemActions.fromJson(Map<String, dynamic> json) =>
+      _$RiverModuleItemActionsFromJson(json);
 }

@@ -53,7 +53,8 @@ class MealsBloc extends Bloc<MealsEvent, MealsState> {
     Map<String, List<MealsListItem>>? previousMealsData,
     List<MealsListItem> data,
   ) {
-    Map<String, List<MealsListItem>> meals = Map<String, List<MealsListItem>>.from(previousMealsData ?? {});
+    Map<String, List<MealsListItem>> meals =
+        Map<String, List<MealsListItem>>.from(previousMealsData ?? {});
 
     for (var element in data) {
       final loggingDate = element.loggingDate;
@@ -118,7 +119,8 @@ class MealsBloc extends Bloc<MealsEvent, MealsState> {
     response.fold(
       (l) => emit(MealsState.error(state.data.copyWith(error: l, isLoading: false))),
       (r) {
-        emit(MealsState.mealsInfo(state.data.copyWith(meals: _getUpdatedMealsList(r), isLoading: false)));
+        emit(MealsState.mealsInfo(
+            state.data.copyWith(meals: _getUpdatedMealsList(r), isLoading: false)));
       },
     );
   }
@@ -131,13 +133,14 @@ class MealsBloc extends Bloc<MealsEvent, MealsState> {
 
     const data = AddRecipeToMealBody(numberOfUnits: 1);
 
-    final response =
-        await nutritionService.addRecipeToMeal(mealId: event.mealId, recipeId: event.recipeId, data: data);
+    final response = await nutritionService.addRecipeToMeal(
+        mealId: event.mealId, recipeId: event.recipeId, data: data);
 
     response.fold(
       (l) => emit(MealsState.error(state.data.copyWith(error: l, isLoading: false))),
       (r) {
-        emit(MealsState.mealsInfo(state.data.copyWith(meals: _getUpdatedMealsList(r), isLoading: false)));
+        emit(MealsState.mealsInfo(
+            state.data.copyWith(meals: _getUpdatedMealsList(r), isLoading: false)));
       },
     );
   }
@@ -148,14 +151,15 @@ class MealsBloc extends Bloc<MealsEvent, MealsState> {
   ) async {
     emit(MealsState.loading(state.data.copyWith(isLoading: true)));
 
-    final data = AddDishToMealBody(dishId: event.dishId, numberOfUnits: double.parse(event.numberOfServings));
+    final data = AddDishToMealBody(
+        dishId: event.dishId, numberOfUnits: double.parse(event.numberOfServings));
 
     final response = await nutritionService.addDishToMeal(event.mealId, data);
 
     response.fold(
       (l) => emit(MealsState.error(state.data.copyWith(error: l, isLoading: false))),
-      (r) =>
-          emit(MealsState.mealsInfo(state.data.copyWith(meals: _getUpdatedMealsList(r), isLoading: false))),
+      (r) => emit(MealsState.mealsInfo(
+          state.data.copyWith(meals: _getUpdatedMealsList(r), isLoading: false))),
     );
   }
 
@@ -165,12 +169,14 @@ class MealsBloc extends Bloc<MealsEvent, MealsState> {
   ) async {
     emit(MealsState.loading(state.data.copyWith(isLoading: true)));
 
-    final response = await nutritionService.addFoodItemToMeal(event.mealId, event.foodItemId, event.data);
+    final response =
+        await nutritionService.addFoodItemToMeal(event.mealId, event.foodItemId, event.data);
 
     response.fold(
       (l) => emit(MealsState.error(state.data.copyWith(error: l, isLoading: false))),
       (r) {
-        emit(MealsState.mealsInfo(state.data.copyWith(meals: _getUpdatedMealsList(r), isLoading: false)));
+        emit(MealsState.mealsInfo(
+            state.data.copyWith(meals: _getUpdatedMealsList(r), isLoading: false)));
       },
     );
   }
@@ -185,12 +191,14 @@ class MealsBloc extends Bloc<MealsEvent, MealsState> {
 
     if (data.numberOfUnits == null || data.servingId.isEmpty) return;
 
-    final response = await nutritionService.updateFoodItemInMeal(event.mealId, event.foodItemId, data);
+    final response =
+        await nutritionService.updateFoodItemInMeal(event.mealId, event.foodItemId, data);
 
     response.fold(
       (l) => emit(MealsState.error(state.data.copyWith(error: l, isLoading: false))),
       (r) {
-        emit(MealsState.mealsInfo(state.data.copyWith(meals: _getUpdatedMealsList(r), isLoading: false)));
+        emit(MealsState.mealsInfo(
+            state.data.copyWith(meals: _getUpdatedMealsList(r), isLoading: false)));
       },
     );
   }
@@ -210,7 +218,8 @@ class MealsBloc extends Bloc<MealsEvent, MealsState> {
     response.fold(
       (l) => emit(MealsState.error(state.data.copyWith(error: l, isLoading: false))),
       (r) {
-        emit(MealsState.mealsInfo(state.data.copyWith(meals: _getUpdatedMealsList(r), isLoading: false)));
+        emit(MealsState.mealsInfo(
+            state.data.copyWith(meals: _getUpdatedMealsList(r), isLoading: false)));
       },
     );
   }
@@ -230,7 +239,8 @@ class MealsBloc extends Bloc<MealsEvent, MealsState> {
     response.fold(
       (l) => emit(MealsState.error(state.data.copyWith(error: l, isLoading: false))),
       (r) {
-        emit(MealsState.mealsInfo(state.data.copyWith(meals: _getUpdatedMealsList(r), isLoading: false)));
+        emit(MealsState.mealsInfo(
+            state.data.copyWith(meals: _getUpdatedMealsList(r), isLoading: false)));
       },
     );
   }
@@ -250,7 +260,8 @@ class MealsBloc extends Bloc<MealsEvent, MealsState> {
     response.fold(
       (l) => emit(MealsState.error(state.data.copyWith(error: l, isLoading: false))),
       (r) {
-        emit(MealsState.mealsInfo(state.data.copyWith(meals: _getUpdatedMealsList(r), isLoading: false)));
+        emit(MealsState.mealsInfo(
+            state.data.copyWith(meals: _getUpdatedMealsList(r), isLoading: false)));
       },
     );
   }
@@ -269,8 +280,8 @@ class MealsBloc extends Bloc<MealsEvent, MealsState> {
 
     response.fold(
       (l) => emit(MealsState.error(state.data.copyWith(error: l, isLoading: false))),
-      (r) => emit(
-          MealsState.mealsInfo(state.data.copyWith(meals: _deleteMealFromList(mealId), isLoading: false))),
+      (r) => emit(MealsState.mealsInfo(
+          state.data.copyWith(meals: _deleteMealFromList(mealId), isLoading: false))),
     );
   }
 
@@ -332,7 +343,8 @@ class MealsBloc extends Bloc<MealsEvent, MealsState> {
 
     var loggingDate = state.data.currentDateTime.midnightTime.toIso8601String();
 
-    final data = AddMealBody(loggingDate: loggingDate, mealCategory: event.mealCategory.originalValue);
+    final data =
+        AddMealBody(loggingDate: loggingDate, mealCategory: event.mealCategory.originalValue);
 
     final response = await nutritionService.addMeal(data);
 
@@ -344,7 +356,8 @@ class MealsBloc extends Bloc<MealsEvent, MealsState> {
 
         if (loggingDate == null) return;
 
-        Map<String, List<MealsListItem>> meals = Map<String, List<MealsListItem>>.from(state.data.meals);
+        Map<String, List<MealsListItem>> meals =
+            Map<String, List<MealsListItem>>.from(state.data.meals);
 
         var selectedDayMeals = meals[loggingDate.isoStringWithoutTime] ?? <MealsListItem>[];
 
@@ -379,9 +392,11 @@ class MealsBloc extends Bloc<MealsEvent, MealsState> {
 
     if (date == null) return state.data.mealsMap;
 
-    Map<String, List<MealsListItem>> meals = Map<String, List<MealsListItem>>.from(state.data.mealsMap);
+    Map<String, List<MealsListItem>> meals =
+        Map<String, List<MealsListItem>>.from(state.data.mealsMap);
     var selectedDayMeals = meals[date.isoStringWithoutTime] ?? <MealsListItem>[];
-    var updatedSelectedDayMeals = selectedDayMeals.map((e) => e.id == mealItem.id ? mealItem : e).toList();
+    var updatedSelectedDayMeals =
+        selectedDayMeals.map((e) => e.id == mealItem.id ? mealItem : e).toList();
 
     meals[date.isoStringWithoutTime] = updatedSelectedDayMeals;
 

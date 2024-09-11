@@ -3,9 +3,6 @@ import 'package:loopcare_frontend/core/application/localization/localizer_extens
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loopcare_frontend/core/application/customer_io_service/customer_io_service.dart';
-import 'package:loopcare_frontend/core/domain/analytics/analytics_events.dart';
-import 'package:loopcare_frontend/core/domain/analytics/analytics_parameters.dart';
-import 'package:loopcare_frontend/core/infrastructure/services/analytics_service.dart';
 import 'package:loopcare_frontend/core/presentation/app_bar/custom_app_bar.dart';
 import 'package:loopcare_frontend/core/presentation/bottom_placed_button/bottom_placed_button.dart';
 import 'package:loopcare_frontend/core/presentation/buttons/custom_elevated_button.dart';
@@ -17,7 +14,6 @@ import 'package:loopcare_frontend/core/presentation/scaffold/custom_scaffold.dar
 import 'package:loopcare_frontend/core/presentation/text/custom_text.dart';
 import 'package:loopcare_frontend/core/presentation/utils/build_context_extensions.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/main_container.dart';
-import 'package:loopcare_frontend/features/consent_confirmation/application/consent_confirmation_bloc.dart';
 import 'package:loopcare_frontend/features/legal_statement/application/legal_statement_bloc.dart';
 import 'package:loopcare_frontend/features/legal_statement/presentation/widgets/legal_statement_confirmation_box.dart';
 
@@ -34,68 +30,54 @@ class _LegalStatementPageState extends State<LegalStatementPage> {
 
   @override
   void initState() {
-    CustomerIoService.track(event: CIOEvents.onboardingLegalStatement);
     super.initState();
+    CustomerIoService.track(event: CIOEvents.onboardingLegalStatement);
   }
 
   @override
   void dispose() {
-    valueListener.dispose();
     super.dispose();
+    valueListener.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-    return WillPopScope(
-      onWillPop: onWillPop,
-      child: CustomScaffold.blueLightest(
-        appBar: CustomAppBar.blue(
-          title: LocalizedTexts.legalStatement.tr(),
-          leading: CustomFilledIconButton.leadingBlueLighter(),
-        ),
-        body: CustomSafeArea(
-          child: BottomPlacedButton.blueLightest(
-            body: MainContainer(
-              child: ListView(
-                physics: const ClampingScrollPhysics(),
-                children: [
-                  const SizedBox(height: 32.0),
-                  CustomText.bitter600(
-                    LocalizedTexts.legalStatement.tr(),
-                    style: context.textTheme.displayMedium,
-                  ),
-                  const SizedBox(height: 32.0),
-                  CustomText.w400(
-                    '${LocalizedTexts.legalStatementTextOne.tr()}.',
-                    style: context.textTheme.bodyMedium,
-                  ),
-                  // TODO removed during LOOPCARE-2000 task 25.01.2024
-                  // const SizedBox(height: 16.0),
-                  // CustomText.w400(
-                  //   '${LocalizedTexts.legalStatementTextTwo.tr()}.',
-                  //   style: context.textTheme.bodyMedium,
-                  // ),
-                  // const SizedBox(height: 38.0),
-                  // CustomElevatedButton.coralSmall(
-                  //   onPressed: () => _onReadLegalStatement(context),
-                  //   label: LocalizedTexts.readLegalStatement,
-                  // ),
-                  const SizedBox(height: 27.0),
-                  LegalStatementConfirmationBox(
-                    onChanged: onChanged,
-                  ),
-                ],
-              ),
+    return CustomScaffold.blueLightest(
+      appBar: CustomAppBar.blue(
+        title: LocalizedTexts.legalStatement.tr(),
+        leading: CustomFilledIconButton.leadingBlueLighter(),
+      ),
+      body: CustomSafeArea(
+        child: BottomPlacedButton.blueLightest(
+          body: MainContainer(
+            child: ListView(
+              physics: const ClampingScrollPhysics(),
+              children: [
+                const SizedBox(height: 32.0),
+                CustomText.bitter600(
+                  LocalizedTexts.legalStatement.tr(),
+                  style: context.textTheme.displayMedium,
+                ),
+                const SizedBox(height: 32.0),
+                CustomText.w400(
+                  '${LocalizedTexts.legalStatementTextOne.tr()}.',
+                  style: context.textTheme.bodyMedium,
+                ),
+                const SizedBox(height: 27.0),
+                LegalStatementConfirmationBox(
+                  onChanged: onChanged,
+                ),
+              ],
             ),
-            button: ValueListenableBuilder<bool>(
-              valueListenable: valueListener,
-              builder: (context, value, _) {
-                return CustomElevatedButton.blueFullWidth(
-                  onPressed: value ? onConfirm : null,
-                  label: LocalizedTexts.confirm.tr(),
-                );
-              },
-            ),
+          ),
+          button: ValueListenableBuilder<bool>(
+            valueListenable: valueListener,
+            builder: (context, value, _) {
+              return CustomElevatedButton.blueFullWidth(
+                onPressed: value ? onConfirm : null,
+                label: LocalizedTexts.confirm.tr(),
+              );
+            },
           ),
         ),
       ),
@@ -105,25 +87,8 @@ class _LegalStatementPageState extends State<LegalStatementPage> {
   void onChanged(bool value) => valueListener.value = value;
 
   void onConfirm() {
-    const AnalyticsEventService().logEvent(
-      eventName: AnalyticsEvents.legalStatement,
-      parameters: {
-        AnalyticsParameters.value: 'true',
-      },
-    );
-
-    CustomerIoService.track(event: CIOEvents.onboardingRegisterIntro);
-
     context
       ..read<LegalStatementBloc>().add(const LegalStatementEvent.passageChanged(true))
       ..router.pushNamed(AppRoutes.signUpWelcome);
-  }
-
-  Future<bool> onWillPop() async {
-    context
-        .read<ConsentConfirmationBloc>()
-        .add(const ConsentConfirmationEvent.passageChanged(false));
-
-    return Future.value(true);
   }
 }

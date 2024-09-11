@@ -15,7 +15,8 @@ class DashboardUtils {
     final todayMidnight = DateTime.now().midnightTime;
 
     final isPastDate = date.isBefore(todayMidnight);
-    final isLessThanSevenDaysPastDate = todayMidnight.difference(date.midnightTime) <= _editableDuration;
+    final isLessThanSevenDaysPastDate =
+        todayMidnight.difference(date.midnightTime) <= _editableDuration;
 
     return isToday(date) || (isPastDate && isLessThanSevenDaysPastDate);
   }

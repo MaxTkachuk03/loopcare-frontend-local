@@ -2,7 +2,6 @@ part of 'mental_questions_bloc.dart';
 
 @freezed
 class MentalQuestionsEvent with _$MentalQuestionsEvent {
-
   const factory MentalQuestionsEvent.setAnswer({
     required MentalHealthAnswer answer,
     required String testName,

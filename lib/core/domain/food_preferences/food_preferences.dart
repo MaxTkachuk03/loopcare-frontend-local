@@ -1,8 +1,7 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:loopcare_frontend/features/you_and_food/application/dto/food_preference.dart';
+import 'package:loopcare_frontend/features/account/infrastructure/food_preference/dto/food_preference.dart';
 
 part 'food_preferences.freezed.dart';
-
 part 'food_preferences.g.dart';
 
 @freezed

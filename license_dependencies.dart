@@ -671,7 +671,8 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 ''',
         version: r'^5.0.2',
         homepage: r'https://plus.fluttercommunity.dev/',
-        repository: r'https://github.com/fluttercommunity/plus_plugins/tree/main/packages/connectivity_plus/connectivity_plus',
+        repository:
+            r'https://github.com/fluttercommunity/plus_plugins/tree/main/packages/connectivity_plus/connectivity_plus',
       ),
       const License(
         name: r'cupertino_icons',
@@ -697,7 +698,8 @@ IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
 CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.''',
         version: r'^1.0.6',
         homepage: null,
-        repository: r'https://github.com/flutter/packages/tree/main/third_party/packages/cupertino_icons',
+        repository:
+            r'https://github.com/flutter/packages/tree/main/third_party/packages/cupertino_icons',
       ),
       const License(
         name: r'customer_io',
@@ -842,7 +844,8 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 ''',
         version: r'10.1.0',
         homepage: r'https://plus.fluttercommunity.dev/',
-        repository: r'https://github.com/fluttercommunity/plus_plugins/tree/main/packages/device_info_plus/device_info_plus',
+        repository:
+            r'https://github.com/fluttercommunity/plus_plugins/tree/main/packages/device_info_plus/device_info_plus',
       ),
       const License(
         name: r'dio',
@@ -984,7 +987,8 @@ THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
 OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.''',
         version: r'10.7.0',
         homepage: r'https://firebase.google.com/docs/analytics',
-        repository: r'https://github.com/firebase/flutterfire/tree/master/packages/firebase_analytics/firebase_analytics',
+        repository:
+            r'https://github.com/firebase/flutterfire/tree/master/packages/firebase_analytics/firebase_analytics',
       ),
       const License(
         name: r'firebase_core',
@@ -1017,7 +1021,8 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.''',
 // OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.''',
         version: r'2.27.2',
         homepage: r'https://firebase.google.com/docs/flutter/setup',
-        repository: r'https://github.com/firebase/flutterfire/tree/master/packages/firebase_core/firebase_core',
+        repository:
+            r'https://github.com/firebase/flutterfire/tree/master/packages/firebase_core/firebase_core',
       ),
       const License(
         name: r'firebase_crashlytics',
@@ -1050,7 +1055,8 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.''',
 // OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.''',
         version: r'3.4.20',
         homepage: r'https://firebase.google.com/docs/crashlytics',
-        repository: r'https://github.com/firebase/flutterfire/tree/master/packages/firebase_crashlytics/firebase_crashlytics',
+        repository:
+            r'https://github.com/firebase/flutterfire/tree/master/packages/firebase_crashlytics/firebase_crashlytics',
       ),
       const License(
         name: r'firebase_messaging',
@@ -1083,7 +1089,8 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.''',
 // OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.''',
         version: r'14.7.21',
         homepage: r'https://firebase.google.com/docs/cloud-messaging',
-        repository: r'https://github.com/firebase/flutterfire/tree/master/packages/firebase_messaging/firebase_messaging',
+        repository:
+            r'https://github.com/firebase/flutterfire/tree/master/packages/firebase_messaging/firebase_messaging',
       ),
       const License(
         name: r'firebase_performance',
@@ -1117,7 +1124,8 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.''',
 ''',
         version: r'0.9.3+19',
         homepage: r'https://firebase.google.com/docs/perf-mon',
-        repository: r'https://github.com/firebase/flutterfire/tree/master/packages/firebase_performance/firebase_performance',
+        repository:
+            r'https://github.com/firebase/flutterfire/tree/master/packages/firebase_performance/firebase_performance',
       ),
       const License(
         name: r'flash',
@@ -2430,7 +2438,8 @@ OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.''',
         version: r'8.1.0',
         homepage: null,
-        repository: r'https://github.com/mogol/flutter_secure_storage/tree/develop/flutter_secure_storage',
+        repository:
+            r'https://github.com/mogol/flutter_secure_storage/tree/develop/flutter_secure_storage',
       ),
       const License(
         name: r'flutter_svg',
@@ -2898,7 +2907,8 @@ aFileChooser
 ''',
         version: r'^1.0.0',
         homepage: null,
-        repository: r'https://github.com/flutter/packages/tree/main/packages/image_picker/image_picker',
+        repository:
+            r'https://github.com/flutter/packages/tree/main/packages/image_picker/image_picker',
       ),
       const License(
         name: r'in_app_purchase',
@@ -2930,7 +2940,8 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 ''',
         version: r'^3.1.13',
         homepage: null,
-        repository: r'https://github.com/flutter/packages/tree/main/packages/in_app_purchase/in_app_purchase',
+        repository:
+            r'https://github.com/flutter/packages/tree/main/packages/in_app_purchase/in_app_purchase',
       ),
       const License(
         name: r'injectable',
@@ -3084,7 +3095,8 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 ''',
         version: r'^6.7.1',
         homepage: null,
-        repository: r'https://github.com/google/json_serializable.dart/tree/master/json_serializable',
+        repository:
+            r'https://github.com/google/json_serializable.dart/tree/master/json_serializable',
       ),
       const License(
         name: r'just_audio',
@@ -3958,7 +3970,8 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 ''',
         version: r'^8.0.0',
         homepage: r'https://plus.fluttercommunity.dev/',
-        repository: r'https://github.com/fluttercommunity/plus_plugins/tree/main/packages/package_info_plus/package_info_plus',
+        repository:
+            r'https://github.com/fluttercommunity/plus_plugins/tree/main/packages/package_info_plus/package_info_plus',
       ),
       const License(
         name: r'path_provider',
@@ -3990,7 +4003,8 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 ''',
         version: r'^2.1.1',
         homepage: null,
-        repository: r'https://github.com/flutter/packages/tree/main/packages/path_provider/path_provider',
+        repository:
+            r'https://github.com/flutter/packages/tree/main/packages/path_provider/path_provider',
       ),
       const License(
         name: r'permission_handler',
@@ -4195,7 +4209,8 @@ THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
 (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.''',
         version: r'^0.3.8',
-        homepage: r'https://github.com/google/flutter.widgets/tree/master/packages/scrollable_positioned_list',
+        homepage:
+            r'https://github.com/google/flutter.widgets/tree/master/packages/scrollable_positioned_list',
         repository: null,
       ),
       const License(
@@ -4228,7 +4243,8 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 ''',
         version: r'^2.2.2',
         homepage: null,
-        repository: r'https://github.com/flutter/packages/tree/main/packages/shared_preferences/shared_preferences',
+        repository:
+            r'https://github.com/flutter/packages/tree/main/packages/shared_preferences/shared_preferences',
       ),
       const License(
         name: r'shimmer',
@@ -4385,7 +4401,8 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 ''',
         version: r'^6.2.1',
         homepage: null,
-        repository: r'https://github.com/flutter/packages/tree/main/packages/url_launcher/url_launcher',
+        repository:
+            r'https://github.com/flutter/packages/tree/main/packages/url_launcher/url_launcher',
       ),
       const License(
         name: r'uuid',
@@ -4430,7 +4447,8 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 ''',
         version: r'^2.8.1',
         homepage: null,
-        repository: r'https://github.com/flutter/packages/tree/main/packages/video_player/video_player',
+        repository:
+            r'https://github.com/flutter/packages/tree/main/packages/video_player/video_player',
       ),
       const License(
         name: r'wakelock_plus',

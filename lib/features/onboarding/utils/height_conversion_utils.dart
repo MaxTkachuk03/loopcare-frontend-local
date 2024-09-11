@@ -12,7 +12,8 @@ class HeightConversionUtils {
 
   static double doubleConvertINtoCM(double inches) => inches * cmInInch;
 
-  static double doubleConvertCMtoFT(double lengthInCm) => (lengthInCm / cmInInch ~/ inchesInFoot).toDouble();
+  static double doubleConvertCMtoFT(double lengthInCm) =>
+      (lengthInCm / cmInInch ~/ inchesInFoot).toDouble();
 
   static double doubleConvertFTtoIN(double foot) => foot * inchesInFoot;
 

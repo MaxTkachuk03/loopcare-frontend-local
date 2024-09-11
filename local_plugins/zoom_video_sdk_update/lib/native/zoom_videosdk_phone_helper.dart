@@ -4,6 +4,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_zoom_videosdk/native/zoom_videosdk_phone_support_country_info.dart';
 import 'package:flutter_zoom_videosdk/native/zoom_videosdk_session_dial_in_number_info.dart';
 import 'package:plugin_platform_interface/plugin_platform_interface.dart';
+
 ///@nodoc
 abstract class ZoomVideoSdkPhoneHelperPlatform extends PlatformInterface {
   ZoomVideoSdkPhoneHelperPlatform() : super(token: _token);
@@ -21,29 +22,23 @@ abstract class ZoomVideoSdkPhoneHelperPlatform extends PlatformInterface {
   }
 
   Future<String> getInviteByPhoneStatus() async {
-    throw UnimplementedError(
-        'getInviteByPhoneStatus() has not been implemented.');
+    throw UnimplementedError('getInviteByPhoneStatus() has not been implemented.');
   }
 
   Future<List<ZoomVideoSdkSupportCountryInfo>> getSupportCountryInfo() async {
-    throw UnimplementedError(
-        'getSupportCountryInfo() has not been implemented.');
+    throw UnimplementedError('getSupportCountryInfo() has not been implemented.');
   }
 
-  Future<String> inviteByPhone(
-      String countryCode, String phoneNumber, String name) async {
-    throw UnimplementedError(
-        'getSupportCountryInfo() has not been implemented.');
+  Future<String> inviteByPhone(String countryCode, String phoneNumber, String name) async {
+    throw UnimplementedError('getSupportCountryInfo() has not been implemented.');
   }
 
   Future<bool> isSupportPhoneFeature() async {
-    throw UnimplementedError(
-        'isSupportPhoneFeature() has not been implemented.');
+    throw UnimplementedError('isSupportPhoneFeature() has not been implemented.');
   }
 
   Future<ZoomVideoSdkSessionDialInNumberInfo?> getSessionDialInNumbers() async {
-    throw UnimplementedError(
-        'getSessionDialInNumbers() has not been implemented.');
+    throw UnimplementedError('getSessionDialInNumbers() has not been implemented.');
   }
 }
 
@@ -91,8 +86,7 @@ class ZoomVideoSdkPhoneHelper extends ZoomVideoSdkPhoneHelperPlatform {
   /// <br />[name] The screen name of the specified user in the session.
   /// <br />Return [ZoomVideoSDKError_Success] if the function succeeds. Otherwise, this function returns an error.
   @override
-  Future<String> inviteByPhone(
-      String countryCode, String phoneNumber, String name) async {
+  Future<String> inviteByPhone(String countryCode, String phoneNumber, String name) async {
     var params = <String, dynamic>{};
     params.putIfAbsent("countryCode", () => countryCode);
     params.putIfAbsent("phoneNumber", () => phoneNumber);
@@ -122,8 +116,7 @@ class ZoomVideoSdkPhoneHelper extends ZoomVideoSdkPhoneHelperPlatform {
         .then<String?>((String? value) => value);
 
     Map<String, dynamic> dialInNumberMap = jsonDecode(dialInNumberString!);
-    var dialInNumber =
-        ZoomVideoSdkSessionDialInNumberInfo.fromJson(dialInNumberMap);
+    var dialInNumber = ZoomVideoSdkSessionDialInNumberInfo.fromJson(dialInNumberMap);
     return dialInNumber;
   }
 }

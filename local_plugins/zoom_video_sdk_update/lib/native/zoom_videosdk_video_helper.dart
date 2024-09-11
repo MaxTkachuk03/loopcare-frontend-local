@@ -1,5 +1,6 @@
 import 'package:flutter/services.dart';
 import 'package:plugin_platform_interface/plugin_platform_interface.dart';
+
 ///@nodoc
 abstract class ZoomVideoSdkVideoHelperPlatform extends PlatformInterface {
   ZoomVideoSdkVideoHelperPlatform() : super(token: _token);
@@ -51,7 +52,6 @@ abstract class ZoomVideoSdkVideoHelperPlatform extends PlatformInterface {
   Future<bool> enableOriginalAspectRatio(bool enable) async {
     throw UnimplementedError('enableOriginalAspectRatio() has not been implemented.');
   }
-
 }
 
 /// Zoom Video SDK Video Helper
@@ -163,5 +163,4 @@ class ZoomVideoSdkVideoHelper extends ZoomVideoSdkVideoHelperPlatform {
         .invokeMethod<bool>('enableOriginalAspectRatio', params)
         .then<bool>((bool? value) => value ?? false);
   }
-
 }

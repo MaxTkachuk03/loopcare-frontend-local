@@ -18,6 +18,5 @@ abstract class MentalHealthTest implements _$MentalHealthTest {
     required List<MentalHealthOption> options,
   }) = _MentalHealthTest;
 
-  factory MentalHealthTest.fromJson(Map<String, dynamic> json) =>
-      _$MentalHealthTestFromJson(json);
+  factory MentalHealthTest.fromJson(Map<String, dynamic> json) => _$MentalHealthTestFromJson(json);
 }

@@ -67,7 +67,8 @@ class _UnitTabsState extends State<UnitTabs> with SingleTickerProviderStateMixin
           child: TabBarView(controller: _tabController, children: widget.tabBarViewChildren),
         ),
         const SizedBox(height: 64.0),
-        CustomTabBar.yellow(tabs: tabs.map((e) => Tab(text: e.text)).toList(), tabController: _tabController),
+        CustomTabBar.yellow(
+            tabs: tabs.map((e) => Tab(text: e.text)).toList(), tabController: _tabController),
       ],
     );
   }

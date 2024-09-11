@@ -12,7 +12,8 @@ class GroupChatEvent with _$GroupChatEvent {
 
   const factory GroupChatEvent.removeMessage({required String fromMessageId}) = RemoveMessages;
 
-  const factory GroupChatEvent.removeMessageFromSocket({required String fromMessageId}) = RemoveMessageFromSocket;
+  const factory GroupChatEvent.removeMessageFromSocket({required String fromMessageId}) =
+      RemoveMessageFromSocket;
 
   const factory GroupChatEvent.newMessage({required GroupMessage message}) = NewMessage;
 

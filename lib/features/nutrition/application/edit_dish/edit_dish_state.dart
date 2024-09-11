@@ -4,46 +4,35 @@ part of 'edit_dish_bloc.dart';
 class EditDishState with _$EditDishState {
   const EditDishState._();
 
-  const factory EditDishState.initial() = Initial;
+  const factory EditDishState.initial(EditDishData data) = Initial;
 
-  const factory EditDishState.loading() = Loading;
+  const factory EditDishState.loading(EditDishData data) = Loading;
 
-  const factory EditDishState.deleted() = Deleted;
+  const factory EditDishState.deleted(EditDishData data) = Deleted;
 
-  const factory EditDishState.saved() = Saved;
-//TODO: old state style
-  const factory EditDishState.error(RequestError fetchError) = Error;
+  const factory EditDishState.saved(EditDishData data) = Saved;
 
-  const factory EditDishState.dishInfo({
-    required Dish currentDish,
+  const factory EditDishState.error(EditDishData data) = Error;
+
+  const factory EditDishState.dishInfo(EditDishData data) = DishInfo;
+}
+
+@freezed
+class EditDishData with _$EditDishData {
+  const EditDishData._();
+
+  const factory EditDishData({
+    Dish? currentDish,
     @Default(NutritionValuesTypes.calories) NutritionValuesTypes currentNutritionType,
-  }) = DishInfo;
+    @Default(false) isLoading,
+    RequestError? error,
+  }) = _EditDishData;
 
-  String get servingAmount {
-    return maybeMap(
-      dishInfo: (s) => s.currentDish.serving.numberOfUnits.toString(),
-      orElse: () => '1',
-    );
-  }
+  String get servingAmount => currentDish?.serving.numberOfUnits.toString() ?? '1';
 
-  bool get hasFoodItems {
-    return maybeMap(
-      dishInfo: (s) => s.currentDish.foodItems.isNotEmpty,
-      orElse: () => false,
-    );
-  }
+  bool get hasFoodItems => currentDish?.foodItems.isNotEmpty ?? false;
 
-  String get numberOfServings {
-    return maybeMap(
-      dishInfo: (s) => s.currentDish.serving.numberOfUnits.toString(),
-      orElse: () => '1',
-    );
-  }
+  String get numberOfServings => currentDish?.serving.numberOfUnits.toString() ?? '1';
 
-  String get numberOfPortions {
-    return maybeMap(
-      dishInfo: (s) => s.currentDish.numberOfServings.toString(),
-      orElse: () => '1',
-    );
-  }
+  String get numberOfPortions => currentDish?.numberOfServings.toString() ?? '1';
 }

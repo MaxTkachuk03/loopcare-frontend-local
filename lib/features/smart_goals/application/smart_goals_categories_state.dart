@@ -5,11 +5,11 @@ class SmartGoalsCategoriesState with _$SmartGoalsCategoriesState {
   const factory SmartGoalsCategoriesState.initial(SmartGoalsCategoriesStateData data) =
       SmartGoalsCategoriesStateInitial;
 
-  const factory SmartGoalsCategoriesState.goalsCategoriesLoading(SmartGoalsCategoriesStateData data) =
-      SmartGoalsCategoriesStateLoading;
+  const factory SmartGoalsCategoriesState.goalsCategoriesLoading(
+      SmartGoalsCategoriesStateData data) = SmartGoalsCategoriesStateLoading;
 
-  const factory SmartGoalsCategoriesState.goalsCategoriesLoaded(SmartGoalsCategoriesStateData data) =
-      SmartGoalsCategoriesStateLoaded;
+  const factory SmartGoalsCategoriesState.goalsCategoriesLoaded(
+      SmartGoalsCategoriesStateData data) = SmartGoalsCategoriesStateLoaded;
 
   const factory SmartGoalsCategoriesState.goalsCategoriesError(SmartGoalsCategoriesStateData data) =
       SmartGoalsCategoriesStateError;

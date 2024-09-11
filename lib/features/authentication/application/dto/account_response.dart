@@ -11,7 +11,7 @@ import 'package:loopcare_frontend/features/account/domain/user_grouping_state.da
 import 'package:loopcare_frontend/features/account/presentation/buddy_page/application/buddy_status.dart';
 import 'package:loopcare_frontend/features/authentication/domain/subscription/subscription.dart';
 import 'package:loopcare_frontend/features/buddy/domain/buddy.dart';
-import 'package:loopcare_frontend/features/diabetes/application/dto/diabetes_type.dart';
+import 'package:loopcare_frontend/core/domain/diabetes_type/diabetes_type.dart';
 import 'package:loopcare_frontend/features/physical_activities/domain/physical_activities_preferences.dart';
 
 part 'account_response.g.dart';

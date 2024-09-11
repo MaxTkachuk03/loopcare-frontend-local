@@ -26,7 +26,8 @@ class AppInputDecoration extends InputDecoration {
     double? radius,
   }) : super(
           fillColor: AppColors.white,
-          border: OutlineInputBorder(borderRadius: BorderRadius.all(Radius.circular(radius ?? 4.0))),
+          border:
+              OutlineInputBorder(borderRadius: BorderRadius.all(Radius.circular(radius ?? 4.0))),
           focusColor: focusedColor ?? _kFocused,
           enabledBorder: enableBorder ??
               OutlineInputBorder(
@@ -128,7 +129,8 @@ class AppInputDecoration extends InputDecoration {
             color: _kError,
             fontSize: ThemeConstants.fontSize12,
           ),
-          contentPadding: contentPadding ?? const EdgeInsets.symmetric(vertical: 19.0, horizontal: 16.0),
+          contentPadding:
+              contentPadding ?? const EdgeInsets.symmetric(vertical: 19.0, horizontal: 16.0),
         );
 }
 

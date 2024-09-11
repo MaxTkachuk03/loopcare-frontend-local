@@ -11,6 +11,7 @@ import 'package:loopcare_frontend/core/presentation/app_bar/custom_app_bar.dart'
 import 'package:loopcare_frontend/core/presentation/buttons/custom_elevated_button.dart';
 import 'package:loopcare_frontend/core/presentation/buttons/custom_filled_icon_button.dart';
 import 'package:loopcare_frontend/core/presentation/buttons/custom_outlined_button.dart';
+import 'package:loopcare_frontend/core/presentation/category_label/category_label.dart';
 import 'package:loopcare_frontend/core/presentation/custom_safe_area.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/core/presentation/network_image_with_cache/network_image_with_cache.dart';
@@ -22,10 +23,9 @@ import 'package:loopcare_frontend/core/presentation/utils/build_context_extensio
 import 'package:loopcare_frontend/core/presentation/widgets/main_container.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/scrollable_container.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/simple_progress_bar.dart';
-import 'package:loopcare_frontend/features/account/application/group_preferences_bloc.dart';
+import 'package:loopcare_frontend/features/account/application/group_preferences/group_preferences_bloc.dart';
 import 'package:loopcare_frontend/features/education/application/education_lesson/education_lesson_bloc.dart';
 import 'package:loopcare_frontend/features/education/domain/extra_action_page_mode.dart';
-import 'package:loopcare_frontend/features/education/presentation/education_page/widgets/category_label.dart';
 import 'package:loopcare_frontend/features/river/domain/river_module_stream_type.dart';
 import 'package:loopcare_frontend/injection.dart';
 
@@ -40,79 +40,74 @@ class SupportGroupIntroPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return WillPopScope(
-      onWillPop: () => _onWillPop(context),
-      child: CustomScaffold(
-        color: streamType.lightestColor,
-        appBar: CustomAppBar(
-          backgroundColor: streamType.regularColor,
-          textTheme: streamType.appBarTextTheme,
-          title: LocalizedTexts.theSupportGroup.tr(),
-          subtitle: LocalizedTexts.introduction.tr(),
-          leading: CustomFilledIconButton.fromColor(color: streamType.lighterColor),
-          bottom: PreferredSize(
-            preferredSize: const Size.fromHeight(60),
-            child: SimpleProgressBar(
-              backgroundColor: streamType.regularColor,
-              progressFillColor: streamType.lightestColor,
-              progressEmptyColor: AppColors.white.withOpacity(0.45),
-              progress: context.read<EducationLessonBloc>().state.data.progress,
-            ),
+    return CustomScaffold(
+      color: streamType.lightestColor,
+      appBar: CustomAppBar(
+        backgroundColor: streamType.regularColor,
+        textTheme: streamType.appBarTextTheme,
+        title: LocalizedTexts.theSupportGroup.tr(),
+        subtitle: LocalizedTexts.introduction.tr(),
+        leading: CustomFilledIconButton.fromColor(color: streamType.lighterColor),
+        bottom: PreferredSize(
+          preferredSize: const Size.fromHeight(60),
+          child: SimpleProgressBar(
+            backgroundColor: streamType.regularColor,
+            progressFillColor: streamType.lightestColor,
+            progressEmptyColor: AppColors.white.withOpacity(0.45),
+            progress: context.read<EducationLessonBloc>().state.data.progress,
           ),
         ),
-        body: CustomSafeArea(
-          child: ScrollableContainer(
-            child: MainContainer(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Column(
-                    children: [
-                      const SizedBox(height: 30.0),
-                      BlocBuilder<EducationLessonBloc, EducationLessonState>(
-                        builder: (context, state) {
-                          final lesson = state.data;
-
-                          return SizedBox(
-                              height: 265, child: NetworkImageWithCache(url: lesson.imageUrl));
-                        },
+      ),
+      body: CustomSafeArea(
+        child: ScrollableContainer(
+          child: MainContainer(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Column(
+                  children: [
+                    const SizedBox(height: 30.0),
+                    BlocBuilder<EducationLessonBloc, EducationLessonState>(
+                      builder: (context, state) => SizedBox(
+                        height: 265,
+                        child: NetworkImageWithCache(url: state.data.imageUrl),
                       ),
-                      const SizedBox(height: 28.0),
-                    ],
-                  ),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      CategoryLabel.groupSession(),
-                      const SizedBox(height: 18.0),
-                      CustomText.bitter600(
-                        LocalizedTexts.yourSupportSystem.tr(),
-                        style: context.textTheme.displayLarge,
-                      ),
-                      const SizedBox(height: 18.0),
-                      CustomText.w400(
-                        LocalizedTexts.supportGroupIntroDesc.tr(),
-                        style: context.textTheme.bodyMedium,
-                      ),
-                      const SizedBox(height: 30),
-                    ],
-                  ),
-                  Column(
-                    children: [
-                      CustomElevatedButton.blueFullWidth(
-                        onPressed: () => _onJoinPressed(context),
-                        label: LocalizedTexts.yesILikeToJoin.tr(),
-                      ),
-                      const SizedBox(height: 12.0),
-                      CustomOutlinedButton.blueFullWidth(
-                        onPressed: () => _onDoNotJoinPressed(context),
-                        label: LocalizedTexts.joinLater.tr(),
-                      ),
-                      const SizedBox(height: 30),
-                    ],
-                  ),
-                ],
-              ),
+                    ),
+                    const SizedBox(height: 28.0),
+                  ],
+                ),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    CategoryLabel.groupSession(),
+                    const SizedBox(height: 18.0),
+                    CustomText.bitter600(
+                      LocalizedTexts.yourSupportSystem.tr(),
+                      style: context.textTheme.displayLarge,
+                    ),
+                    const SizedBox(height: 18.0),
+                    CustomText.w400(
+                      LocalizedTexts.supportGroupIntroDesc.tr(),
+                      style: context.textTheme.bodyMedium,
+                    ),
+                    const SizedBox(height: 30),
+                  ],
+                ),
+                Column(
+                  children: [
+                    CustomElevatedButton.blueFullWidth(
+                      onPressed: () => _onJoinPressed(context),
+                      label: LocalizedTexts.yesILikeToJoin.tr(),
+                    ),
+                    const SizedBox(height: 12.0),
+                    CustomOutlinedButton.blueFullWidth(
+                      onPressed: () => _onDoNotJoinPressed(context),
+                      label: LocalizedTexts.joinLater.tr(),
+                    ),
+                    const SizedBox(height: 30),
+                  ],
+                ),
+              ],
             ),
           ),
         ),
@@ -166,9 +161,5 @@ class SupportGroupIntroPage extends StatelessWidget {
     );
 
     context.router.push(LessonCompleteRoute(streamType: streamType));
-  }
-
-  Future<bool> _onWillPop(BuildContext context) {
-    return Future.value(true);
   }
 }

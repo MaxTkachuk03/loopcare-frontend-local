@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loopcare_frontend/core/presentation/choice_chip/custom_choice_chip.dart';
-import 'package:loopcare_frontend/features/you_and_food/application/dto/food_preference.dart';
-import 'package:loopcare_frontend/features/you_and_food/application/you_and_food_bloc.dart';
+import 'package:loopcare_frontend/features/account/application/food_preference/food_preference_bloc.dart';
+import 'package:loopcare_frontend/features/account/infrastructure/food_preference/dto/food_preference.dart';
 
 class TypesOfFoodChips extends StatefulWidget {
   final bool fromLessonComplete;
@@ -19,7 +19,7 @@ class TypesOfFoodChips extends StatefulWidget {
 class _TypesOfFoodChipsState extends State<TypesOfFoodChips> {
   @override
   void initState() {
-    context.read<YouAndFoodBloc>().add(const YouAndFoodEvent.fetchFoodPrefsTypes());
+    context.read<FoodPreferenceBloc>().add(const FoodPreferenceEvent.fetchFoodPrefsTypes());
     super.initState();
   }
 
@@ -49,14 +49,14 @@ class _TypesOfFoodChipsState extends State<TypesOfFoodChips> {
     return LayoutBuilder(
       builder: (BuildContext context, BoxConstraints constraints) {
         final width = constraints.maxWidth / 2 - 5;
-        return BlocBuilder<YouAndFoodBloc, YouAndFoodState>(
+        return BlocBuilder<FoodPreferenceBloc, FoodPreferenceState>(
           builder: (BuildContext context, state) {
-            final selectedHates = state.selectedHates;
+            final selectedHates = state.data.selectedHates;
 
             return Wrap(
               spacing: 10.0,
               runSpacing: 10.0,
-              children: state.foodTypes
+              children: state.data.foodTypes
                   .map(
                     (e) => SizedBox(
                       width: width,
@@ -76,6 +76,6 @@ class _TypesOfFoodChipsState extends State<TypesOfFoodChips> {
   }
 
   void _onSelected(FoodPreference value) {
-    context.read<YouAndFoodBloc>().add(YouAndFoodEvent.setHates(value));
+    context.read<FoodPreferenceBloc>().add(FoodPreferenceEvent.setHates(value));
   }
 }

@@ -41,12 +41,12 @@ class DailyIntakePage extends StatelessWidget {
                     shrinkWrap: true,
                     itemCount: MealCategory.values.length,
                     itemBuilder: (context, index) {
-                      final selectedDayMeals =
-                          mealsState.data.meals[mealsState.data.currentDateTime.isoStringWithoutTime];
+                      final selectedDayMeals = mealsState
+                          .data.meals[mealsState.data.currentDateTime.isoStringWithoutTime];
                       var category = MealCategory.values[index];
 
-                      var mealForCurrentCategory = selectedDayMeals?.firstWhereOrNull(
-                          (m) => m.mealCategory.toLowerCase() == MealCategory.values[index].name);
+                      var mealForCurrentCategory = selectedDayMeals?.firstWhereOrNull((m) =>
+                          m.mealCategory.toLowerCase() == MealCategory.values[index].originalValue);
 
                       final mealItems = mealForCurrentCategory?.mealItems;
                       final isEnabled = mealItems != null && mealItems.isNotEmpty;
@@ -55,7 +55,8 @@ class DailyIntakePage extends StatelessWidget {
                         category: category,
                         isDisabled: !mealsState.data.isEditable,
                         mealItems: isEnabled ? mealItems : null,
-                        calorieDensity: isEnabled ? mealsState.data.calorieDensitySum(mealItems) : null,
+                        calorieDensity:
+                            isEnabled ? mealsState.data.calorieDensitySum(mealItems) : null,
                       );
                     },
                     separatorBuilder: (_, __) =>

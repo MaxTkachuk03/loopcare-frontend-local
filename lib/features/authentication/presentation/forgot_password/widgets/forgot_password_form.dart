@@ -61,7 +61,7 @@ class _ForgotPasswordFormState extends State<ForgotPasswordForm> {
       actions: [
         TextButton(
           onPressed: context.router.maybePop,
-          child:  CustomText(LocalizedTexts.ok.tr().capitalize()),
+          child: CustomText(LocalizedTexts.ok.tr().capitalize()),
         ),
       ],
     );

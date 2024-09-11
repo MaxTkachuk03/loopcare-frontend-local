@@ -2,16 +2,20 @@ part of 'physical_activities_preferences_bloc.dart';
 
 @freezed
 class PhysicalActivitiesPreferencesState with _$PhysicalActivitiesPreferencesState {
-  const factory PhysicalActivitiesPreferencesState.initial(PhysicalActivitiesPreferencesData data) = Initial;
+  const factory PhysicalActivitiesPreferencesState.initial(PhysicalActivitiesPreferencesData data) =
+      Initial;
 
-  const factory PhysicalActivitiesPreferencesState.loading(PhysicalActivitiesPreferencesData data) = Loading;
+  const factory PhysicalActivitiesPreferencesState.loading(PhysicalActivitiesPreferencesData data) =
+      Loading;
 
-  const factory PhysicalActivitiesPreferencesState.saving(PhysicalActivitiesPreferencesData data) = Saving;
+  const factory PhysicalActivitiesPreferencesState.saving(PhysicalActivitiesPreferencesData data) =
+      Saving;
 
-  const factory PhysicalActivitiesPreferencesState.preferencesLoaded(PhysicalActivitiesPreferencesData data) =
-      PreferencesLoaded;
+  const factory PhysicalActivitiesPreferencesState.preferencesLoaded(
+      PhysicalActivitiesPreferencesData data) = PreferencesLoaded;
 
-  const factory PhysicalActivitiesPreferencesState.error(PhysicalActivitiesPreferencesData data) = Error;
+  const factory PhysicalActivitiesPreferencesState.error(PhysicalActivitiesPreferencesData data) =
+      Error;
 
   const PhysicalActivitiesPreferencesState._();
 }
@@ -44,6 +48,7 @@ class PhysicalActivitiesPreferencesData with _$PhysicalActivitiesPreferencesData
     return trainingFrequency != PhysicalActivitiesFrequency.oneTime &&
         trainingFrequency != PhysicalActivitiesFrequency.twoTimes;
   }
+
   String get errorKey => error?.message ?? LocalizedTexts.errorSomethingWentWrong;
 
   PhysicalActivitiesFrequency? get currentTrainingFrequency => trainingFrequency;

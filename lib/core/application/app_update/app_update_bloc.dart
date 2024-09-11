@@ -47,7 +47,8 @@ class AppUpdateBloc extends Bloc<AppUpdateEvent, AppUpdateState> {
         final needToForceUpdate = localVersion < platformMinVersion && isForceUpdate;
 
         final displayPopup = storage.storeVersion < platformMinVersion;
-        final needToMinorUpdate = !isForceUpdate && localVersion < platformMinVersion && displayPopup;
+        final needToMinorUpdate =
+            !isForceUpdate && localVersion < platformMinVersion && displayPopup;
 
         storage.localVersion = localVersion;
         storage.storeVersion = platformMinVersion;

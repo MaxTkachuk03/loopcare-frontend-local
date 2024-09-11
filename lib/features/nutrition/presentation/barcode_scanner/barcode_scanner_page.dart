@@ -73,18 +73,16 @@ class _BarcodeScannerPageState extends State<BarcodeScannerPage> {
   }
 
   void showModal(String code) {
-    controller?.pauseCamera().then(
-          (value) => showModalBottomSheet<void>(
-            isScrollControlled: true,
-            context: context,
-            backgroundColor: Colors.transparent,
-            builder: (BuildContext context) => QRCodeInfoWidget(code: code),
-          ).whenComplete(
-            () {
-              controller?.resumeCamera();
-            },
-          ),
-        );
+    controller?.pauseCamera().then((_) {
+      if (mounted) {
+        showModalBottomSheet<void>(
+          isScrollControlled: true,
+          context: context,
+          backgroundColor: Colors.transparent,
+          builder: (BuildContext context) => QRCodeInfoWidget(code: code),
+        ).whenComplete(() => controller?.resumeCamera());
+      }
+    });
   }
 
   void _flashPressed() {

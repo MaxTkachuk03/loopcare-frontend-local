@@ -1,13 +1,11 @@
 import 'package:flutter/services.dart';
 import 'package:plugin_platform_interface/plugin_platform_interface.dart';
 
-abstract class ZoomVideoSdkShareStatisticInfoPlatform
-    extends PlatformInterface {
+abstract class ZoomVideoSdkShareStatisticInfoPlatform extends PlatformInterface {
   ZoomVideoSdkShareStatisticInfoPlatform() : super(token: _token);
 
   static final Object _token = Object();
-  static ZoomVideoSdkShareStatisticInfoPlatform _instance =
-      ZoomVideoSdkShareStatisticInfo("0");
+  static ZoomVideoSdkShareStatisticInfoPlatform _instance = ZoomVideoSdkShareStatisticInfo("0");
   static ZoomVideoSdkShareStatisticInfoPlatform get instance => _instance;
   static set instance(ZoomVideoSdkShareStatisticInfoPlatform instance) {
     PlatformInterface.verifyToken(instance, _token);
@@ -32,8 +30,7 @@ abstract class ZoomVideoSdkShareStatisticInfoPlatform
 }
 
 /// Zoom Video SDK Share Statistic Information
-class ZoomVideoSdkShareStatisticInfo
-    extends ZoomVideoSdkShareStatisticInfoPlatform {
+class ZoomVideoSdkShareStatisticInfo extends ZoomVideoSdkShareStatisticInfoPlatform {
   final String userId;
 
   ZoomVideoSdkShareStatisticInfo(this.userId);

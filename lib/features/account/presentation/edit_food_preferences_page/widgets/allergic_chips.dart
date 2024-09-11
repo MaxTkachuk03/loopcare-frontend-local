@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loopcare_frontend/core/presentation/choice_chip/custom_choice_chip.dart';
-import 'package:loopcare_frontend/features/you_and_food/application/dto/food_preference.dart';
-import 'package:loopcare_frontend/features/you_and_food/application/you_and_food_bloc.dart';
+import 'package:loopcare_frontend/features/account/application/food_preference/food_preference_bloc.dart';
+import 'package:loopcare_frontend/features/account/infrastructure/food_preference/dto/food_preference.dart';
 
 class AllergicChips extends StatefulWidget {
   final bool fromLessonComplete;
@@ -19,7 +19,7 @@ class AllergicChips extends StatefulWidget {
 class _AllergicChipsState extends State<AllergicChips> {
   @override
   void initState() {
-    context.read<YouAndFoodBloc>().add(const YouAndFoodEvent.foodPrefsAllergens());
+    context.read<FoodPreferenceBloc>().add(const FoodPreferenceEvent.foodPrefsAllergens());
     super.initState();
   }
 
@@ -49,14 +49,14 @@ class _AllergicChipsState extends State<AllergicChips> {
     return LayoutBuilder(
       builder: (BuildContext context, BoxConstraints constraints) {
         final width = constraints.maxWidth / 2 - 5;
-        return BlocBuilder<YouAndFoodBloc, YouAndFoodState>(
+        return BlocBuilder<FoodPreferenceBloc, FoodPreferenceState>(
           builder: (BuildContext context, state) {
-            final selectedAllergic = state.selectedAllergic;
+            final selectedAllergic = state.data.selectedAllergic;
 
             return Wrap(
               spacing: 10.0,
               runSpacing: 10.0,
-              children: state.foodAllergens
+              children: state.data.foodAllergens
                   .map(
                     (e) => SizedBox(
                       width: width,
@@ -76,6 +76,6 @@ class _AllergicChipsState extends State<AllergicChips> {
   }
 
   void _onSelected(FoodPreference value) {
-    context.read<YouAndFoodBloc>().add(YouAndFoodEvent.setAllergic(value));
+    context.read<FoodPreferenceBloc>().add(FoodPreferenceEvent.setAllergic(value));
   }
 }

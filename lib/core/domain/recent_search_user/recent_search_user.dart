@@ -9,11 +9,10 @@ part 'recent_search_user.g.dart';
 
 @unfreezed
 abstract class RecentSearchUser with _$RecentSearchUser {
-   factory RecentSearchUser({
-     required int id,
-     required  RecentSearchList data,
-   }
-  ) = _RecentSearchUser;
+  factory RecentSearchUser({
+    required int id,
+    required RecentSearchList data,
+  }) = _RecentSearchUser;
 
   factory RecentSearchUser.fromJson(Map<String, dynamic> json) => _$RecentSearchUserFromJson(json);
 }

@@ -2,11 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:loopcare_frontend/core/presentation/animations/lottie_animation.dart';
 import 'package:loopcare_frontend/core/presentation/cards/custom_tappable_card.dart';
+import 'package:loopcare_frontend/core/presentation/category_label/category_label.dart';
 import 'package:loopcare_frontend/core/presentation/network_image_with_cache/network_image_with_cache.dart';
 import 'package:loopcare_frontend/core/presentation/text/custom_text.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 import 'package:loopcare_frontend/core/presentation/utils/build_context_extensions.dart';
-import 'package:loopcare_frontend/features/education/presentation/education_page/widgets/category_label.dart';
 import 'package:loopcare_frontend/features/smart_goals/domain/smart_goal_category.dart';
 import 'package:visibility_detector/visibility_detector.dart';
 
@@ -91,7 +91,6 @@ class _GoalCategoryCardState extends State<GoalCategoryCard>
         )
             .animate(controller: controller, autoPlay: false)
             .scaleXY(end: 0, delay: 1500.ms, duration: 600.ms, curve: Curves.easeInOutBack)
-
       ],
     );
   }

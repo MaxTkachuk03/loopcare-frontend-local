@@ -24,7 +24,8 @@ class _ErrorInvokerState extends State<ErrorInvoker> {
 
   late final StreamSubscription<ErrorServiceEvent> _subscription;
 
-  bool Function(ErrorServiceEvent event) get _throwWhen => widget.throwWhen ?? _defaultThrowCondition;
+  bool Function(ErrorServiceEvent event) get _throwWhen =>
+      widget.throwWhen ?? _defaultThrowCondition;
 
   bool _defaultThrowCondition(ErrorServiceEvent event) =>
       (ModalRoute.of(context)?.isCurrent ?? false) && !kIsProd;
@@ -41,8 +42,8 @@ class _ErrorInvokerState extends State<ErrorInvoker> {
   void initState() {
     super.initState();
     _subscription = getIt<ErrorInvokeService>().steam.listen(
-      _onData,
-    );
+          _onData,
+        );
   }
 
   @override
@@ -54,7 +55,7 @@ class _ErrorInvokerState extends State<ErrorInvoker> {
 
   @override
   Widget build(BuildContext context) {
-    return switch(_event) {
+    return switch (_event) {
       ThrowArtificialError() => throw FlutterError('Artificial error'),
       _ => widget.child,
     };

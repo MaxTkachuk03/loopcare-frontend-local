@@ -68,7 +68,6 @@ app.*.map.json
 .fvm/*
 /ios/IAPTest.storekit
 /ios/StoreKitTestCertificate.cer
-/env.stag
 /local_plugins/advertising_id/example/
 /fastlane/*.p8
 /fastlane/leanonme-prod-d047bc57140e.json

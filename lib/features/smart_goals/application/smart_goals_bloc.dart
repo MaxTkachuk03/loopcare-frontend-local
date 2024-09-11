@@ -132,14 +132,14 @@ class SmartGoalsBloc extends Bloc<SmartGoalsEvent, SmartGoalsState> {
 
     response.fold(
       (l) => emit(
-          SmartGoalsState.errorSaveGoals(
-            state.data.copyWith(
-              error: l,
-              isLoading: false,
-              reason: null,
-            ),
+        SmartGoalsState.errorSaveGoals(
+          state.data.copyWith(
+            error: l,
+            isLoading: false,
+            reason: null,
           ),
         ),
+      ),
       (r) {
         var sessions = [...state.data.weeklyGoalsSessions];
         sessions.removeWhere((session) => session.id == r.id);
@@ -294,7 +294,7 @@ class SmartGoalsBloc extends Bloc<SmartGoalsEvent, SmartGoalsState> {
           AnalyticsParameters.goalCategoryTitle: goal.smartGoal.category.name,
           //Discussed with Souni and Paul  limit custom dimensions
           if (session.startedAt != null)
-          AnalyticsParameters.timestamp: session.startedAt!.toIso8601String(),
+            AnalyticsParameters.timestamp: session.startedAt!.toIso8601String(),
           if (session.finishedAt != null)
             AnalyticsParameters.timePassed: session.finishedAt!.toIso8601String(),
         },

@@ -1,6 +1,5 @@
 import 'package:flutter/widgets.dart';
 import 'package:loopcare_frontend/features/river/presentation/widgets/painters/river_stream_shaders.dart';
-import 'package:meta/meta.dart';
 
 const Color _green = Color(0xffAECA5F);
 const Color _greenDark = Color(0xff93B23C);
@@ -20,70 +19,7 @@ const Color _blueDark = Color(0xff1D4978);
 const Color _blueDarker = Color(0xff163F6C);
 const Color _blueDarkest = Color(0xff10355F);
 
-abstract class FunctionCoefficientsValues {
-  const FunctionCoefficientsValues();
-
-  @mustBeOverridden
-  List<double> get green => [];
-
-  @mustBeOverridden
-  List<double> get blue => [];
-
-  @mustBeOverridden
-  List<double> get red => [];
-
-  @mustBeOverridden
-  List<double> get orange => [];
-
-  @mustBeOverridden
-  List<double> get yellow => [];
-
-  List<double> elementAt(int i) {
-    assert(i < 5);
-
-    return switch (i) {
-      0 => yellow,
-      1 => orange,
-      2 => red,
-      3 => blue,
-      _ => green,
-    };
-  }
-}
-
-abstract class ItemsPositionValues {
-  const ItemsPositionValues();
-
-  @mustBeOverridden
-  List<double> get green => [];
-
-  @mustBeOverridden
-  List<double> get blue => [];
-
-  @mustBeOverridden
-  List<double> get red => [];
-
-  @mustBeOverridden
-  List<double> get orange => [];
-
-  @mustBeOverridden
-  List<double> get yellow => [];
-
-  double elementAt(int stream, int index) {
-    assert(stream < 5);
-
-    return switch (stream) {
-      0 => yellow[index],
-      1 => orange[index],
-      2 => red[index],
-      3 => blue[index],
-      _ => green[index],
-    };
-  }
-}
-
 abstract class RenderRiverStreamPainter extends CustomPainter {
-
   final bool enableGradient;
   final bool fillColor;
   final double gradientPosition;
@@ -96,86 +32,70 @@ abstract class RenderRiverStreamPainter extends CustomPainter {
     required this.fillColor,
   });
 
-  @mustBeOverridden
-  final double greenHeightCoefficient = 0;
+  // HEIGHT ==================================================================>
+  double get greenHeightCoefficient;
 
-  @mustBeOverridden
-  final double greenDarkHeightCoefficient = 0;
+  double get greenDarkHeightCoefficient;
 
-  @mustBeOverridden
-  final double petrolHeightCoefficient = 0;
+  double get petrolHeightCoefficient;
 
-  @mustBeOverridden
-  final double petrolDarkHeightCoefficient = 0;
+  double get petrolDarkHeightCoefficient;
 
-  @mustBeOverridden
-  final double coralHeightCoefficient = 0;
+  double get coralHeightCoefficient;
 
-  @mustBeOverridden
-  final double coralDarkHeightCoefficient = 0;
+  double get coralDarkHeightCoefficient;
 
-  @mustBeOverridden
-  final double orangeHeightCoefficient = 0;
+  double get orangeHeightCoefficient;
 
-  @mustBeOverridden
-  final double orangeDarkHeightCoefficient = 0;
+  double get orangeDarkHeightCoefficient;
 
-  @mustBeOverridden
-  final double yellowHeightCoefficient = 0;
+  double get yellowHeightCoefficient;
 
-  @mustBeOverridden
-  final double yellowDarkHeightCoefficient = 0;
+  double get yellowDarkHeightCoefficient;
 
-  @mustBeOverridden
-  final double greenOffsetCoefficient = 0;
+  // OFFSET ==================================================================>
+  double get greenOffsetCoefficient;
 
-  @mustBeOverridden
-  final double greenDarkOffsetCoefficient = 0;
+  double get greenDarkOffsetCoefficient;
 
-  @mustBeOverridden
-  final double petrolOffsetCoefficient = 0;
+  double get petrolOffsetCoefficient;
 
-  @mustBeOverridden
-  final double petrolDarkOffsetCoefficient = 0;
+  double get petrolDarkOffsetCoefficient;
 
-  @mustBeOverridden
-  final double coralOffsetCoefficient = 0;
+  double get coralOffsetCoefficient;
 
-  @mustBeOverridden
-  final double coralDarkOffsetCoefficient = 0;
+  double get coralDarkOffsetCoefficient;
 
-  @mustBeOverridden
-  final double orangeOffsetCoefficient = 0;
+  double get orangeOffsetCoefficient;
 
-  @mustBeOverridden
-  final double orangeDarkOffsetCoefficient = 0;
+  double get orangeDarkOffsetCoefficient;
 
-  @mustBeOverridden
-  final double yellowOffsetCoefficient = 0;
+  double get yellowOffsetCoefficient;
 
-  @mustBeOverridden
-  final double yellowDarkOffsetCoefficient = 0;
+  double get yellowDarkOffsetCoefficient;
 
-  final double greenHorizontalOffsetCoefficient = 0;
+  // HORIZONTAL OFFSET =======================================================>
+  double get greenHorizontalOffsetCoefficient => 0;
 
-  final double greenDarkHorizontalOffsetCoefficient = 0;
+  double get greenDarkHorizontalOffsetCoefficient => 0;
 
-  final double petrolHorizontalOffsetCoefficient = 0;
+  double get petrolHorizontalOffsetCoefficient => 0;
 
-  final double petrolDarkHorizontalOffsetCoefficient = 0;
+  double get petrolDarkHorizontalOffsetCoefficient => 0;
 
-  final double coralHorizontalOffsetCoefficient = 0;
+  double get coralHorizontalOffsetCoefficient => 0;
 
-  final double coralDarkHorizontalOffsetCoefficient = 0;
+  double get coralDarkHorizontalOffsetCoefficient => 0;
 
-  final double orangeHorizontalOffsetCoefficient = 0;
+  double get orangeHorizontalOffsetCoefficient => 0;
 
-  final double orangeDarkHorizontalOffsetCoefficient = 0;
+  double get orangeDarkHorizontalOffsetCoefficient => 0;
 
-  final double yellowHorizontalOffsetCoefficient = 0;
+  double get yellowHorizontalOffsetCoefficient => 0;
 
-  final double yellowDarkHorizontalOffsetCoefficient = 0;
+  double get yellowDarkHorizontalOffsetCoefficient => 0;
 
+  // PATH ====================================================================>
   Path green(Size size);
 
   Path greenDark(Size size);
@@ -202,8 +122,8 @@ abstract class RenderRiverStreamPainter extends CustomPainter {
 
       final shader = RiverStreamShader.instance;
 
-      return Paint()..shader = shader
-          .createShader(step: step, time: time, size: size, begin: fill, end: empty);
+      return Paint()
+        ..shader = shader.createShader(step: step, time: time, size: size, begin: fill, end: empty);
     } else if (fillColor) {
       return Paint()..color = fill;
     } else {
@@ -213,54 +133,79 @@ abstract class RenderRiverStreamPainter extends CustomPainter {
 
   @override
   void paint(Canvas canvas, Size size) {
-    final greenSize = Size(size.width * (1 - greenHorizontalOffsetCoefficient), size.height * greenHeightCoefficient);
-    final greenOffset = Offset(size.width * greenHorizontalOffsetCoefficient, size.height * greenOffsetCoefficient);
+    final greenSize = Size(
+        size.width * (1 - greenHorizontalOffsetCoefficient), size.height * greenHeightCoefficient);
+    final greenOffset =
+        Offset(size.width * greenHorizontalOffsetCoefficient, size.height * greenOffsetCoefficient);
     final greenPaint = _pathPaint(size, _green, _blueDarkest, greenHorizontalOffsetCoefficient);
     final greenPath = Path()..addPath(green(greenSize), greenOffset);
 
-    final greenDarkSize = Size(size.width * (1 - greenDarkHorizontalOffsetCoefficient), size.height * greenDarkHeightCoefficient);
-    final greenDarkOffset = Offset(size.width * greenDarkHorizontalOffsetCoefficient, size.height * greenDarkOffsetCoefficient);
-    final greenDarkPaint = _pathPaint(size, _greenDark, _blueDarker, greenDarkHorizontalOffsetCoefficient);
+    final greenDarkSize = Size(size.width * (1 - greenDarkHorizontalOffsetCoefficient),
+        size.height * greenDarkHeightCoefficient);
+    final greenDarkOffset = Offset(size.width * greenDarkHorizontalOffsetCoefficient,
+        size.height * greenDarkOffsetCoefficient);
+    final greenDarkPaint =
+        _pathPaint(size, _greenDark, _blueDarker, greenDarkHorizontalOffsetCoefficient);
     final greenDarkPath = Path()..addPath(greenDark(greenDarkSize), greenDarkOffset);
 
-    final petrolSize = Size(size.width * (1 - petrolHorizontalOffsetCoefficient), size.height * petrolHeightCoefficient);
-    final petrolOffset = Offset(size.width * petrolHorizontalOffsetCoefficient, size.height * petrolOffsetCoefficient);
+    final petrolSize = Size(size.width * (1 - petrolHorizontalOffsetCoefficient),
+        size.height * petrolHeightCoefficient);
+    final petrolOffset = Offset(
+        size.width * petrolHorizontalOffsetCoefficient, size.height * petrolOffsetCoefficient);
     final petrolPaint = _pathPaint(size, _petrol, _blueDark, petrolHorizontalOffsetCoefficient);
     final petrolPath = Path()..addPath(petrol(petrolSize), petrolOffset);
 
-    final petrolDarkSize = Size(size.width * (1 - petrolDarkHorizontalOffsetCoefficient), size.height * petrolDarkHeightCoefficient);
-    final petrolDarkOffset = Offset(size.width * petrolDarkHorizontalOffsetCoefficient, size.height * petrolDarkOffsetCoefficient);
-    final petrolDarkPaint = _pathPaint(size, _petrolDark, _blue, petrolDarkHorizontalOffsetCoefficient);
+    final petrolDarkSize = Size(size.width * (1 - petrolDarkHorizontalOffsetCoefficient),
+        size.height * petrolDarkHeightCoefficient);
+    final petrolDarkOffset = Offset(size.width * petrolDarkHorizontalOffsetCoefficient,
+        size.height * petrolDarkOffsetCoefficient);
+    final petrolDarkPaint =
+        _pathPaint(size, _petrolDark, _blue, petrolDarkHorizontalOffsetCoefficient);
     final petrolDarkPath = Path()..addPath(petrolDark(petrolDarkSize), petrolDarkOffset);
 
-    final coralSize = Size(size.width * (1 - coralHorizontalOffsetCoefficient), size.height * coralHeightCoefficient);
-    final coralOffset = Offset(size.width * coralHorizontalOffsetCoefficient, size.height * coralOffsetCoefficient);
+    final coralSize = Size(
+        size.width * (1 - coralHorizontalOffsetCoefficient), size.height * coralHeightCoefficient);
+    final coralOffset =
+        Offset(size.width * coralHorizontalOffsetCoefficient, size.height * coralOffsetCoefficient);
     final coralPaint = _pathPaint(size, _coral, _blueLightest, coralHorizontalOffsetCoefficient);
     final coralPath = Path()..addPath(coral(coralSize), coralOffset);
 
-    final coralDarkSize = Size(size.width * (1 - coralDarkHorizontalOffsetCoefficient), size.height * coralDarkHeightCoefficient);
-    final coralDarkOffset = Offset(size.width * coralDarkHorizontalOffsetCoefficient, size.height * coralDarkOffsetCoefficient);
-    final coralDarkPaint = _pathPaint(size, _coralDark, _blueLighter, coralDarkHorizontalOffsetCoefficient);
+    final coralDarkSize = Size(size.width * (1 - coralDarkHorizontalOffsetCoefficient),
+        size.height * coralDarkHeightCoefficient);
+    final coralDarkOffset = Offset(size.width * coralDarkHorizontalOffsetCoefficient,
+        size.height * coralDarkOffsetCoefficient);
+    final coralDarkPaint =
+        _pathPaint(size, _coralDark, _blueLighter, coralDarkHorizontalOffsetCoefficient);
     final coralDarkPath = Path()..addPath(coralDark(coralDarkSize), coralDarkOffset);
 
-    final orangeSize = Size(size.width * (1 - orangeHorizontalOffsetCoefficient), size.height * orangeHeightCoefficient);
-    final orangeOffset = Offset(size.width * orangeHorizontalOffsetCoefficient, size.height * orangeOffsetCoefficient);
+    final orangeSize = Size(size.width * (1 - orangeHorizontalOffsetCoefficient),
+        size.height * orangeHeightCoefficient);
+    final orangeOffset = Offset(
+        size.width * orangeHorizontalOffsetCoefficient, size.height * orangeOffsetCoefficient);
     final orangePaint = _pathPaint(size, _orange, _blue, orangeHorizontalOffsetCoefficient);
     final orangePath = Path()..addPath(orange(orangeSize), orangeOffset);
 
-    final orangeDarkSize = Size(size.width * (1 - orangeDarkHorizontalOffsetCoefficient), size.height * orangeDarkHeightCoefficient);
-    final orangeDarkOffset = Offset(size.width * orangeDarkHorizontalOffsetCoefficient, size.height * orangeDarkOffsetCoefficient);
-    final orangeDarkPaint = _pathPaint(size, _orangeDark, _blueDark, orangeDarkHorizontalOffsetCoefficient);
+    final orangeDarkSize = Size(size.width * (1 - orangeDarkHorizontalOffsetCoefficient),
+        size.height * orangeDarkHeightCoefficient);
+    final orangeDarkOffset = Offset(size.width * orangeDarkHorizontalOffsetCoefficient,
+        size.height * orangeDarkOffsetCoefficient);
+    final orangeDarkPaint =
+        _pathPaint(size, _orangeDark, _blueDark, orangeDarkHorizontalOffsetCoefficient);
     final orangeDarkPath = Path()..addPath(orangeDark(orangeDarkSize), orangeDarkOffset);
 
-    final yellowSize = Size(size.width * (1 - yellowHorizontalOffsetCoefficient), size.height * yellowHeightCoefficient);
-    final yellowOffset = Offset(size.width * yellowHorizontalOffsetCoefficient, size.height * yellowOffsetCoefficient);
+    final yellowSize = Size(size.width * (1 - yellowHorizontalOffsetCoefficient),
+        size.height * yellowHeightCoefficient);
+    final yellowOffset = Offset(
+        size.width * yellowHorizontalOffsetCoefficient, size.height * yellowOffsetCoefficient);
     final yellowPaint = _pathPaint(size, _yellow, _blueDarkest, yellowHorizontalOffsetCoefficient);
     final yellowPath = Path()..addPath(yellow(yellowSize), yellowOffset);
 
-    final yellowDarkSize = Size(size.width * (1 - yellowDarkHorizontalOffsetCoefficient), size.height * yellowDarkHeightCoefficient);
-    final yellowDarkOffset = Offset(size.width * yellowDarkHorizontalOffsetCoefficient, size.height * yellowDarkOffsetCoefficient);
-    final yellowDarkPaint = _pathPaint(size, _yellowDark, _blueDarker, yellowDarkHorizontalOffsetCoefficient);
+    final yellowDarkSize = Size(size.width * (1 - yellowDarkHorizontalOffsetCoefficient),
+        size.height * yellowDarkHeightCoefficient);
+    final yellowDarkOffset = Offset(size.width * yellowDarkHorizontalOffsetCoefficient,
+        size.height * yellowDarkOffsetCoefficient);
+    final yellowDarkPaint =
+        _pathPaint(size, _yellowDark, _blueDarker, yellowDarkHorizontalOffsetCoefficient);
     final yellowDarkPath = Path()..addPath(yellowDark(yellowDarkSize), yellowDarkOffset);
 
     canvas.drawPath(yellowPath, yellowPaint);

@@ -95,7 +95,8 @@ class _PhysicalPreferencesPageState extends State<PhysicalPreferencesPage> {
   void _onPhysicalActivitiesFrequencyHandler(BuildContext context) =>
       context.router.push(PhysicalActivitiesFrequencyRoute(profileInvoke: true));
 
-  void _onPhysicalActivitiesHandler(BuildContext context, PhysicalActivitiesPreferencesState state) {
+  void _onPhysicalActivitiesHandler(
+      BuildContext context, PhysicalActivitiesPreferencesState state) {
     if (state.data.needActivitiesType) {
       context.router.push(PhysicalActivitiesActivityTypeRoute(profileInvoke: true));
     }

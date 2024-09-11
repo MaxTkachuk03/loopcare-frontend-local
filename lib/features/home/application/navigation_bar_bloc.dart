@@ -14,7 +14,8 @@ part 'navigation_bar_state.dart';
 class NavigationBarBloc extends HydratedBloc<NavigationBarEvent, NavigationBarState> {
   final AppSyncService _syncService;
 
-  NavigationBarBloc(this._syncService) : super(const NavigationBarState.initialised(NavigationBarStateData())) {
+  NavigationBarBloc(this._syncService)
+      : super(const NavigationBarState.initialised(NavigationBarStateData())) {
     on<InitNavigationBar>(_onInitNavigationBar);
     on<SetBeginningUncompleted>(_onSetBeginningUncompleted);
     on<UnlockPractise>(_onUnlockPractise);

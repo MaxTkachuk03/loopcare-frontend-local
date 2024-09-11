@@ -25,17 +25,18 @@ class TopicsBloc extends Bloc<TopicsEvent, TopicsState> {
   final TopicsService _topicsService;
   final AppSyncService _syncService;
 
-  TopicsBloc(this._topicsService, this._syncService) : super(const TopicsState.initial(TopicsData())) {
+  TopicsBloc(this._topicsService, this._syncService)
+      : super(const TopicsState.initial(TopicsData())) {
     on<FetchTopics>(_onFetchTopics);
     on<GetSessionSignature>(_onGetSessionSignature);
     on<SignUpToSession>(_onSignUpToSession);
     on<SignOutFromSession>(_onSignOutFromSession);
 
     _syncService.stream.listen(
-          (event) => event.whenOrNull(
-            refreshTopics: () => add(const TopicsEvent.fetchTopics()),
-          ),
-        );
+      (event) => event.whenOrNull(
+        refreshTopics: () => add(const TopicsEvent.fetchTopics()),
+      ),
+    );
   }
 
   FutureOr<void> _onFetchTopics(

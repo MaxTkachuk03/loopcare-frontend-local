@@ -2,11 +2,13 @@ const exercises = [
   {
     "id": 1,
     "title": "Basic breathing",
-    "image": "https://img.freepik.com/premium-vector/dreamy-gradient-wallpaper-with-mandala-pattern-vector-background-yoga-meditation-poster_317038-294.jpg",
+    "image":
+        "https://img.freepik.com/premium-vector/dreamy-gradient-wallpaper-with-mandala-pattern-vector-background-yoga-meditation-poster_317038-294.jpg",
     "shortDescription": "Healthy breathing for everyday situations",
     "explanation": {
       "type": "text",
-      "image": "https://img.freepik.com/premium-vector/dreamy-gradient-wallpaper-with-mandala-pattern-vector-background-yoga-meditation-poster_317038-294.jpg",
+      "image":
+          "https://img.freepik.com/premium-vector/dreamy-gradient-wallpaper-with-mandala-pattern-vector-background-yoga-meditation-poster_317038-294.jpg",
       "src": """<html lang="en">
 <body>
 <p>There are a range of benefits from using pursed lip breathing. The technique is effective in reducing stress and improving shortness of breath. In addition, it can assist with slowing down your breathing and relaxation.</p>
@@ -25,11 +27,7 @@ const exercises = [
  """,
       "duration": 30
     },
-    "exercise": {
-      "type": "video",
-      "duration": 180,
-      "src": "/exerciseVideo/hls/in1dex.m3u8"
-    },
+    "exercise": {"type": "video", "duration": 180, "src": "/exerciseVideo/hls/in1dex.m3u8"},
     "isLocked": false,
     "difficulty": "easy"
   },
@@ -37,18 +35,16 @@ const exercises = [
     "id": 2,
     "title": "Box breathing",
     "shortDescription": "To reduce stress and boost concentration",
-    "image": "https://img.freepik.com/premium-vector/dreamy-gradient-wallpaper-with-mandala-pattern-vector-background-yoga-meditation-poster_317038-294.jpg",
+    "image":
+        "https://img.freepik.com/premium-vector/dreamy-gradient-wallpaper-with-mandala-pattern-vector-background-yoga-meditation-poster_317038-294.jpg",
     "explanation": {
       "type": "text",
-      "image": "https://img.freepik.com/premium-vector/dreamy-gradient-wallpaper-with-mandala-pattern-vector-background-yoga-meditation-poster_317038-294.jpg",
+      "image":
+          "https://img.freepik.com/premium-vector/dreamy-gradient-wallpaper-with-mandala-pattern-vector-background-yoga-meditation-poster_317038-294.jpg",
       "src": "explanation.html",
       "duration": 60
     },
-    "exercise": {
-      "type": "video",
-      "duration": 240,
-      "src": "/exerciseVideo/hls/in1dex.m3u8"
-    },
+    "exercise": {"type": "video", "duration": 240, "src": "/exerciseVideo/hls/in1dex.m3u8"},
     "isLocked": false,
     "difficulty": "easy"
   },
@@ -56,18 +52,16 @@ const exercises = [
     "id": 3,
     "title": "4-7-8 breathing",
     "shortDescription": "Relieves cravings and anxiety",
-    "image": "https://img.freepik.com/premium-vector/dreamy-gradient-wallpaper-with-mandala-pattern-vector-background-yoga-meditation-poster_317038-294.jpg",
+    "image":
+        "https://img.freepik.com/premium-vector/dreamy-gradient-wallpaper-with-mandala-pattern-vector-background-yoga-meditation-poster_317038-294.jpg",
     "explanation": {
       "type": "text",
       "duration": 60,
-      "image": "https://img.freepik.com/premium-vector/dreamy-gradient-wallpaper-with-mandala-pattern-vector-background-yoga-meditation-poster_317038-294.jpg",
+      "image":
+          "https://img.freepik.com/premium-vector/dreamy-gradient-wallpaper-with-mandala-pattern-vector-background-yoga-meditation-poster_317038-294.jpg",
       "src": "explanation.html"
     },
-    "exercise": {
-      "type": "video",
-      "duration": 199,
-      "src": "/exerciseVideo/hls/in1dex.m3u8"
-    },
+    "exercise": {"type": "video", "duration": 199, "src": "/exerciseVideo/hls/in1dex.m3u8"},
     "isLocked": false,
     "difficulty": "easy"
   },
@@ -75,18 +69,16 @@ const exercises = [
     "id": 4,
     "title": "Mindful breathing",
     "shortDescription": "To reduce stress and calm down",
-    "image": "https://img.freepik.com/premium-vector/dreamy-gradient-wallpaper-with-mandala-pattern-vector-background-yoga-meditation-poster_317038-294.jpg",
+    "image":
+        "https://img.freepik.com/premium-vector/dreamy-gradient-wallpaper-with-mandala-pattern-vector-background-yoga-meditation-poster_317038-294.jpg",
     "explanation": {
       "type": "text",
-      "image": "https://img.freepik.com/premium-vector/dreamy-gradient-wallpaper-with-mandala-pattern-vector-background-yoga-meditation-poster_317038-294.jpg",
+      "image":
+          "https://img.freepik.com/premium-vector/dreamy-gradient-wallpaper-with-mandala-pattern-vector-background-yoga-meditation-poster_317038-294.jpg",
       "src": "explanation.html",
       "duration": 30
     },
-    "exercise": {
-      "type": "video",
-      "duration": 150,
-      "src": "/exerciseVideo/hls/in1dex.m3u8"
-    },
+    "exercise": {"type": "video", "duration": 150, "src": "/exerciseVideo/hls/in1dex.m3u8"},
     "isLocked": false,
     "difficulty": "easy"
   },
@@ -94,18 +86,16 @@ const exercises = [
     "id": 5,
     "title": "Pursed lip breathing",
     "shortDescription": "Improves shortness of breath",
-    "image": "https://img.freepik.com/premium-vector/dreamy-gradient-wallpaper-with-mandala-pattern-vector-background-yoga-meditation-poster_317038-294.jpg",
+    "image":
+        "https://img.freepik.com/premium-vector/dreamy-gradient-wallpaper-with-mandala-pattern-vector-background-yoga-meditation-poster_317038-294.jpg",
     "explanation": {
       "type": "text",
-      "image": "https://img.freepik.com/premium-vector/dreamy-gradient-wallpaper-with-mandala-pattern-vector-background-yoga-meditation-poster_317038-294.jpg",
+      "image":
+          "https://img.freepik.com/premium-vector/dreamy-gradient-wallpaper-with-mandala-pattern-vector-background-yoga-meditation-poster_317038-294.jpg",
       "src": "explanation.html",
       "duration": 60
     },
-    "exercise": {
-      "type": "video",
-      "duration": 120,
-      "src": "/exerciseVideo/hls/in1dex.m3u8"
-    },
+    "exercise": {"type": "video", "duration": 120, "src": "/exerciseVideo/hls/in1dex.m3u8"},
     "isLocked": false,
     "difficulty": "easy"
   }

@@ -73,7 +73,8 @@ class _RiverScreenState extends State<RiverScreen> with RiverUtils {
 
     return BlocListener<RiverBloc, RiverState>(
       listener: (context, state) => state.mapOrNull(
-        moduleCompleted: (_) => _onCompleteModule(),
+        moduleCompleted: _onCompleteModule,
+        modulePartlyCompleted: _onPartlyCompleteModule,
       ),
       child: VisibilityDetector(
         key: ValueKey('module_page_${widget.page}'),
@@ -118,9 +119,9 @@ class _RiverScreenState extends State<RiverScreen> with RiverUtils {
 
   void _bounceParentItem(RiverModuleItem item) {
     context.read<RiverBloc>().add(RiverEvent.bounceParentItem(
-      moduleItemId: item.id,
-      moduleId: widget.module.id,
-    ));
+          moduleItemId: item.id,
+          moduleId: widget.module.id,
+        ));
   }
 
   void _onStartItemPressed() {
@@ -201,16 +202,26 @@ class _RiverScreenState extends State<RiverScreen> with RiverUtils {
     }
   }
 
-  void _onCompleteModule() {
+  void _onCompleteModule(RiverState state) {
     _showPopup = true;
     _showCompleteDialog();
   }
 
+  void _onPartlyCompleteModule(RiverState state) {
+    if (!(ModalRoute.of(context)?.isCurrent ?? false)) return;
+
+    if (state.data.activeModule.isModuleItemsCompleted) {
+      ModalBottomSheet.moduleGraduationCompletedItems(context: context);
+    } else {
+      ModalBottomSheet.moduleGraduationCompletedTime(context: context);
+    }
+  }
+
   void _onStateChanged(RiverModuleItem item) {
     context.read<RiverBloc>().add(RiverEvent.updateModuleItemById(
-      moduleItemId: item.id,
-      moduleId: widget.module.id,
-    ));
+          moduleItemId: item.id,
+          moduleId: widget.module.id,
+        ));
   }
 
   void _onCompleteTime() {
@@ -226,12 +237,11 @@ class _RiverScreenState extends State<RiverScreen> with RiverUtils {
 
     if (isBeginning) {
       ModalBottomSheet.guidanceCompleted(
-        context: context,
-        onConfirm: () {
-          _onComplete();
-          context.read<NavigationBarBloc>().add(const NavigationBarEvent.completeBeginning());
-        }
-      );
+          context: context,
+          onConfirm: () {
+            _onComplete();
+            context.read<NavigationBarBloc>().add(const NavigationBarEvent.completeBeginning());
+          });
     } else if (riverData.modules.last.id == riverData.activeModule?.id) {
       ModalBottomSheet.lastModuleCompleted(
         context: context,

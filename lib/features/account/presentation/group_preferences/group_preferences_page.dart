@@ -12,7 +12,7 @@ import 'package:loopcare_frontend/core/presentation/localization/localized_texts
 import 'package:loopcare_frontend/core/presentation/scaffold/custom_scaffold.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/main_container.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/scrollable_container.dart';
-import 'package:loopcare_frontend/features/account/application/group_preferences_bloc.dart';
+import 'package:loopcare_frontend/features/account/application/group_preferences/group_preferences_bloc.dart';
 import 'package:loopcare_frontend/features/account/domain/user_grouping_state.dart';
 import 'package:loopcare_frontend/features/account/presentation/group_preferences/widgets/can_not_find_group.dart';
 import 'package:loopcare_frontend/features/account/presentation/group_preferences/widgets/grouped.dart';
@@ -39,8 +39,9 @@ class _GroupPreferencesPageState extends State<GroupPreferencesPage> {
 
     context.read<GroupPreferencesBloc>().add(
           GroupPreferencesEvent.setInitialData(
-            value:
-                authState.data.groupingState == UserGroupingState.grouped ? YesNoAnswer.yes : YesNoAnswer.no,
+            value: authState.data.groupingState == UserGroupingState.grouped
+                ? YesNoAnswer.yes
+                : YesNoAnswer.no,
             gender: genderPreferences ?? authState.data.genderPreferences,
             nickname: nickname ?? authState.data.nickname,
             timezone: timezone ?? authState.data.timezone,
@@ -78,16 +79,24 @@ class _GroupPreferencesPageState extends State<GroupPreferencesPage> {
 
                   return BlocBuilder<AuthenticationBloc, AuthenticationState>(
                     builder: (context, state) {
-                      if (state.data.groupingState == null) return const SizedBox.shrink();
+                      if (state.data.groupingState == null) {
+                        return const SizedBox.shrink();
+                      }
                       if (state.data.groupingState == UserGroupingState.unlockedPreferences) {
                         return const NotGrouped();
                       }
-                      if (state.data.groupingState == UserGroupingState.refused) return const NotGrouped();
-                      if (state.data.groupingState == UserGroupingState.left) return const NotGrouped();
+                      if (state.data.groupingState == UserGroupingState.refused) {
+                        return const NotGrouped();
+                      }
+                      if (state.data.groupingState == UserGroupingState.left) {
+                        return const NotGrouped();
+                      }
                       if (state.data.groupingState == UserGroupingState.waitingInPool) {
                         return const WaitingInPool();
                       }
-                      if (state.data.groupingState == UserGroupingState.grouped) return const Grouped();
+                      if (state.data.groupingState == UserGroupingState.grouped) {
+                        return const Grouped();
+                      }
                       if (state.data.groupingState == UserGroupingState.loopedOnGenderPreferences) {
                         return const CanNotFindGroup();
                       }

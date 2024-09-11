@@ -27,8 +27,8 @@ class ProgramDetailsPage extends StatelessWidget {
   Widget build(BuildContext context) {
     final exercisesLength = program.exercises.length;
 
-    return WillPopScope(
-      onWillPop: () => _onWillPop(context),
+    return PopScope(
+      onPopInvokedWithResult: (_, __) => _onWillPop(context),
       child: CustomScaffold.yellowLightest(
         appBar: CustomAppBar.yellow(
           title: program.name,
@@ -66,11 +66,7 @@ class ProgramDetailsPage extends StatelessWidget {
                           ),
                           const SizedBox(height: 20.0),
                           CustomText(
-                            LocalizedTexts.countExercises.getPlural(
-                              args: {
-                                'count': exercisesLength,
-                              },
-                            ),
+                            LocalizedTexts.countExercises.plural(count: exercisesLength),
                             style: context.textTheme.bodySmall,
                           ),
                           const SizedBox(height: 20.0),

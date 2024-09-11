@@ -95,13 +95,17 @@ class _PlayerOverlayState extends State<PlayerOverlay> {
   double get _videoWidth {
     final width = widget.controller.value.size.width;
 
-    return width == 0 || width < PlayerOverlay._defaultVideoWidth ? PlayerOverlay._defaultVideoWidth : width;
+    return width == 0 || width < PlayerOverlay._defaultVideoWidth
+        ? PlayerOverlay._defaultVideoWidth
+        : width;
   }
 
   double get _videoHeight {
     final height = widget.controller.value.size.height;
 
-    return height != 0 || height < PlayerOverlay._defaultVideoHeight ? PlayerOverlay._defaultVideoHeight : height;
+    return height != 0 || height < PlayerOverlay._defaultVideoHeight
+        ? PlayerOverlay._defaultVideoHeight
+        : height;
   }
 
   @override
@@ -129,7 +133,8 @@ class _PlayerOverlayState extends State<PlayerOverlay> {
                 height: _videoHeight,
                 color: Colors.black45,
                 padding: EdgeInsets.symmetric(
-                    horizontal: _isPortraitOrientation ? 20.0 : 40.0, vertical: _isPortraitOrientation ? 10.0 : 30.0),
+                    horizontal: _isPortraitOrientation ? 20.0 : 40.0,
+                    vertical: _isPortraitOrientation ? 10.0 : 30.0),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
@@ -141,8 +146,9 @@ class _PlayerOverlayState extends State<PlayerOverlay> {
                               '${widget.exercise.order}. ${widget.exercise.name}',
                               style: context.textTheme.bodyMedium?.copyWith(
                                 color: AppColors.white,
-                                fontSize:
-                                    _isPortraitOrientation ? ThemeConstants.fontSize16 : ThemeConstants.fontSize32,
+                                fontSize: _isPortraitOrientation
+                                    ? ThemeConstants.fontSize16
+                                    : ThemeConstants.fontSize32,
                               ),
                             ),
                             const SizedBox(width: 16.0),
@@ -156,19 +162,22 @@ class _PlayerOverlayState extends State<PlayerOverlay> {
                               widget.programType.toUpperCase(),
                               style: context.textTheme.bodySmall?.copyWith(
                                 color: AppColors.white,
-                                fontSize:
-                                    _isPortraitOrientation ? ThemeConstants.fontSize10 : ThemeConstants.fontSize12,
+                                fontSize: _isPortraitOrientation
+                                    ? ThemeConstants.fontSize10
+                                    : ThemeConstants.fontSize12,
                               ),
                             ),
                             const SizedBox(width: 16.0),
                             AppIcons.clockWhite,
                             const SizedBox(width: 6.0),
                             CustomText.w600(
-                              formatSecondsToDurationString(widget.exercise.duration, alwaysShowSeconds: true),
+                              formatSecondsToDurationString(widget.exercise.duration,
+                                  alwaysShowSeconds: true),
                               style: context.textTheme.bodySmall?.copyWith(
                                 color: AppColors.white,
-                                fontSize:
-                                    _isPortraitOrientation ? ThemeConstants.fontSize10 : ThemeConstants.fontSize12,
+                                fontSize: _isPortraitOrientation
+                                    ? ThemeConstants.fontSize10
+                                    : ThemeConstants.fontSize12,
                               ),
                             ),
                           ],
@@ -198,7 +207,8 @@ class _PlayerOverlayState extends State<PlayerOverlay> {
             child: ValueListenableBuilder(
               valueListenable: widget.controller,
               builder: (BuildContext context, VideoPlayerValue value, child) {
-                final bool isVisible = value.position.inSeconds < widget.exercise.explanationSkipTime;
+                final bool isVisible =
+                    value.position.inSeconds < widget.exercise.explanationSkipTime;
 
                 return Visibility(
                   visible: isVisible,

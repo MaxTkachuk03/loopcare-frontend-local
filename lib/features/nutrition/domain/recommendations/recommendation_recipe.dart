@@ -25,5 +25,6 @@ class RecommendationRecipe with _$RecommendationRecipe {
     required DateTime updatedAt,
   }) = _RecommendationRecipe;
 
-  factory RecommendationRecipe.fromJson(Map<String, dynamic> json) => _$RecommendationRecipeFromJson(json);
+  factory RecommendationRecipe.fromJson(Map<String, dynamic> json) =>
+      _$RecommendationRecipeFromJson(json);
 }

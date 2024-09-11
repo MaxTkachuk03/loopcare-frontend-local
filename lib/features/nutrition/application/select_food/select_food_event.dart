@@ -2,8 +2,7 @@ part of 'select_food_bloc.dart';
 
 @freezed
 class SelectFoodEvent with _$SelectFoodEvent {
-  const factory SelectFoodEvent.fetchFavorites(String mealCategory) =
-      FetchFavorites;
+  const factory SelectFoodEvent.fetchFavorites(String mealCategory) = FetchFavorites;
 
   const factory SelectFoodEvent.fetchDishes(String mealCategory) = FetchDishes;
 
@@ -21,6 +20,5 @@ class SelectFoodEvent with _$SelectFoodEvent {
 
   const factory SelectFoodEvent.itemsDeselectAll() = ItemsDeselectAll;
 
-  const factory SelectFoodEvent.removeDish(UpdateDishFoodItemResponse dish) =
-      RemoveDish;
+  const factory SelectFoodEvent.removeDish(UpdateDishFoodItemResponse dish) = RemoveDish;
 }

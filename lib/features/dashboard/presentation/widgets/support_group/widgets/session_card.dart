@@ -1,6 +1,7 @@
 import 'package:loopcare_frontend/core/application/localization/localizer_extenstion.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:loopcare_frontend/core/presentation/category_label/category_label.dart';
 import 'package:loopcare_frontend/core/presentation/clippers/education_clipper.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/core/presentation/network_image_with_cache/network_image_with_cache.dart';
@@ -9,7 +10,6 @@ import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 import 'package:loopcare_frontend/core/presentation/utils/build_context_extensions.dart';
 import 'package:loopcare_frontend/features/dashboard/domain/grouped_session_widget_state.dart';
 import 'package:loopcare_frontend/features/dashboard/presentation/widgets/support_group/widgets/session_card_button.dart';
-import 'package:loopcare_frontend/features/education/presentation/education_page/widgets/category_label.dart';
 import 'package:loopcare_frontend/features/group_sessions/application/topics_bloc.dart';
 import 'package:loopcare_frontend/core/presentation/utils/date_time_extensions.dart';
 
@@ -75,11 +75,13 @@ class SessionCard extends StatelessWidget {
                     const SizedBox(height: 10.0),
                     if (state.data.isSigned)
                       CustomText.w400(
-                        LocalizedTexts.dayFromTo.tr( {
-                          'day': day,
-                          'startTime': startTime,
-                          'endTime': endTime,
-                        },),
+                        LocalizedTexts.dayFromTo.tr(
+                          {
+                            'day': day,
+                            'startTime': startTime,
+                            'endTime': endTime,
+                          },
+                        ),
                         style: context.textTheme.bodySmall,
                       ),
                     const SizedBox(height: 10.0),

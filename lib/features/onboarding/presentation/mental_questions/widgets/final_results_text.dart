@@ -59,7 +59,7 @@ class FinalResultsText extends StatelessWidget {
               ),
               const SizedBox(height: 16),
               CustomText.w400(
-                LocalizedTexts.ifYouHaveSuicidalThoughts.tr(),
+                LocalizedTexts.mentalTestResultsIfYouHaveSuicidalThoughts.tr(),
                 style: context.textTheme.bodyMedium,
               ),
               const SizedBox(height: 16),
@@ -107,19 +107,23 @@ class FinalResultsText extends StatelessWidget {
               const SizedBox(height: 16),
               BulletListItem(
                 bulletSize: 14.0,
-                text: CustomText.w400(LocalizedTexts.nutrition.tr(), style: context.textTheme.bodyMedium),
+                text: CustomText.w400(LocalizedTexts.nutrition.tr(),
+                    style: context.textTheme.bodyMedium),
               ),
               BulletListItem(
                 bulletSize: 14.0,
-                text: CustomText.w400(LocalizedTexts.exercise.tr(), style: context.textTheme.bodyMedium),
+                text: CustomText.w400(LocalizedTexts.exercise.tr(),
+                    style: context.textTheme.bodyMedium),
               ),
               BulletListItem(
                 bulletSize: 14.0,
-                text: CustomText.w400(LocalizedTexts.mentalHealth.tr(), style: context.textTheme.bodyMedium),
+                text: CustomText.w400(LocalizedTexts.mentalHealth.tr(),
+                    style: context.textTheme.bodyMedium),
               ),
               BulletListItem(
                 bulletSize: 14.0,
-                text: CustomText.w400(LocalizedTexts.mentalTestResultsUnlockBuddyMessage.tr(), style: context.textTheme.bodyMedium),
+                text: CustomText.w400(LocalizedTexts.mentalTestResultsUnlockBuddyMessage.tr(),
+                    style: context.textTheme.bodyMedium),
               ),
               const SizedBox(height: 16),
               CustomText.w400(

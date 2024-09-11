@@ -20,7 +20,9 @@ class CustomTabBar extends StatelessWidget {
   });
 
   factory CustomTabBar.coral(
-          {required List<Widget> tabs, required TabController tabController, VoidCallback? onTap}) =>
+          {required List<Widget> tabs,
+          required TabController tabController,
+          VoidCallback? onTap}) =>
       CustomTabBar(
         tabs: tabs,
         tabController: tabController,
@@ -30,7 +32,9 @@ class CustomTabBar extends StatelessWidget {
       );
 
   factory CustomTabBar.orange(
-          {required List<Widget> tabs, required TabController tabController, VoidCallback? onTap}) =>
+          {required List<Widget> tabs,
+          required TabController tabController,
+          VoidCallback? onTap}) =>
       CustomTabBar(
         tabs: tabs,
         tabController: tabController,
@@ -40,7 +44,9 @@ class CustomTabBar extends StatelessWidget {
       );
 
   factory CustomTabBar.yellow(
-          {required List<Widget> tabs, required TabController tabController, VoidCallback? onTap}) =>
+          {required List<Widget> tabs,
+          required TabController tabController,
+          VoidCallback? onTap}) =>
       CustomTabBar(
         tabs: tabs,
         tabController: tabController,
@@ -50,7 +56,9 @@ class CustomTabBar extends StatelessWidget {
       );
 
   factory CustomTabBar.green(
-          {required List<Widget> tabs, required TabController tabController, VoidCallback? onTap}) =>
+          {required List<Widget> tabs,
+          required TabController tabController,
+          VoidCallback? onTap}) =>
       CustomTabBar(
         tabs: tabs,
         tabController: tabController,
@@ -60,7 +68,9 @@ class CustomTabBar extends StatelessWidget {
       );
 
   factory CustomTabBar.petrol(
-          {required List<Widget> tabs, required TabController tabController, VoidCallback? onTap}) =>
+          {required List<Widget> tabs,
+          required TabController tabController,
+          VoidCallback? onTap}) =>
       CustomTabBar(
         tabs: tabs,
         tabController: tabController,
@@ -71,7 +81,9 @@ class CustomTabBar extends StatelessWidget {
       );
 
   factory CustomTabBar.blue(
-          {required List<Widget> tabs, required TabController tabController, VoidCallback? onTap}) =>
+          {required List<Widget> tabs,
+          required TabController tabController,
+          VoidCallback? onTap}) =>
       CustomTabBar(
         tabs: tabs,
         tabController: tabController,

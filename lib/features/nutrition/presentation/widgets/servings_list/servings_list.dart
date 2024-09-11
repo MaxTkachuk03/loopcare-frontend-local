@@ -17,7 +17,9 @@ class _ServingListState extends State<ServingList> {
 
   void _onListItemPressedHandler(ServingSize item) {
     _amountFieldController.text = item.numberOfUnits.toString();
-    context.read<FoodItemServingsBloc>().add(FoodItemServingsEvent.setSelectedFoodItemServing(item));
+    context
+        .read<FoodItemServingsBloc>()
+        .add(FoodItemServingsEvent.setSelectedFoodItemServing(item));
   }
 
   @override
@@ -42,7 +44,8 @@ class _ServingListState extends State<ServingList> {
                 itemCount: foodItemServingsState.servingsIList.length,
                 itemBuilder: (BuildContext context, int index) {
                   final ServingSize listItem = foodItemServingsState.servingsIList[index];
-                  final isSelected = foodItemServingsState.selectedServingItem?.servingId == listItem.servingId;
+                  final isSelected =
+                      foodItemServingsState.selectedServingItem?.servingId == listItem.servingId;
 
                   return ServingListItem(
                     item: listItem,
@@ -60,7 +63,8 @@ class _ServingListState extends State<ServingList> {
   }
 
   void _foodServingListener(BuildContext context, FoodItemServingsState state) {
-    final initialValue = context.read<FoodItemServingsBloc>().state.selectedServingItem?.numberOfUnits ?? '1';
+    final initialValue =
+        context.read<FoodItemServingsBloc>().state.selectedServingItem?.numberOfUnits ?? '1';
 
     _amountFieldController.text = '$initialValue';
   }

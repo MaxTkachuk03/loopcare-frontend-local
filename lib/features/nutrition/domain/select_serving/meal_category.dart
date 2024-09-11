@@ -8,7 +8,6 @@ enum MealCategory {
   lunch,
   dinner,
   inbetweens;
-  // drinks,
 
   String get title => switch (this) {
         breakfast => LocalizedTexts.breakfast.tr(),
@@ -17,39 +16,18 @@ enum MealCategory {
         inbetweens => LocalizedTexts.inbetweens.tr(),
         //drinks => LocalizedTexts.drinks.tr(),
       };
-}
 
-extension MealCategoryExtension on MealCategory {
-  SvgPicture get icon {
-    switch (this) {
-      case MealCategory.breakfast:
-        return AppIcons.restaurant;
-      case MealCategory.lunch:
-        return AppIcons.restaurant;
-      case MealCategory.dinner:
-        return AppIcons.restaurant;
-      case MealCategory.inbetweens:
-        return AppIcons.fruit;
-      // case MealCategory.drinks:
-      //   return AppIcons.drinkSVG;
-      default:
-        return AppIcons.checkmarkSVG;
-    }
-  }
+  SvgPicture get icon => switch (this) {
+        MealCategory.breakfast => AppIcons.restaurant,
+        MealCategory.lunch => AppIcons.restaurant,
+        MealCategory.dinner => AppIcons.restaurant,
+        MealCategory.inbetweens => AppIcons.fruit,
+      };
 
-  String get originalValue {
-    switch (this) {
-      case MealCategory.breakfast:
-        return 'breakfast';
-      case MealCategory.lunch:
-        return 'lunch';
-      case MealCategory.dinner:
-        return 'dinner';
-        // TODO: ask BE make this value "inbetweens"
-      case MealCategory.inbetweens:
-        return 'inbetweens & snacks';
-      // case MealCategory.drinks:
-      //   return 'drinks';
-    }
-  }
+  String get originalValue => switch (this) {
+        MealCategory.breakfast => 'breakfast',
+        MealCategory.lunch => 'lunch',
+        MealCategory.dinner => 'dinner',
+        MealCategory.inbetweens => 'inbetweens & snacks',
+      };
 }

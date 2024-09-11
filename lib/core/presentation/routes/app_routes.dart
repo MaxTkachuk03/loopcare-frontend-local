@@ -42,7 +42,6 @@ class AppRoutes {
   static const String account = 'account'; // added
 
   // Nutrition
-  static const String recommendations = '/recommendations'; //added
   static const String selectFood = '/select-food'; // added
   static const String selectServing = '/select-serving'; // added
   static const String search = '/search'; // added

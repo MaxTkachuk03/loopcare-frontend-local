@@ -52,9 +52,7 @@ class SubscriptionBloc extends Bloc<SubscriptionEvent, SubscriptionState> {
   final AuthenticationService _authenticationService;
   final PurchaseService _purchaseService;
   final AuthTokenManager _authTokenManager;
-  bool _isValidatePastIOSPurchase = false;
-  bool _checkEligibility = true;
-  ProductDetails? buyingProduct;
+  bool _checkEligibility = false;
 
   SubscriptionBloc(this._authenticationService, this._purchaseService, this._authTokenManager,
       this._inAppPurchaseService)
@@ -83,7 +81,7 @@ class SubscriptionBloc extends Bloc<SubscriptionEvent, SubscriptionState> {
       _purchaseDetailsStreamSubscription = PurchaseDetailsStreamSubscription(
         onError: (error) => add(SubscriptionEvent.errorPurchase(error)),
         onRestored: (purchase) => _checkEligibility
-            ? add(const SubscriptionEvent.setEligibility(isEligible: false))
+            ? add(SubscriptionEvent.setEligibility(isEligible: false, purchase: purchase))
             : _restoreTransactionData(purchase),
         onPurchased: (PurchaseDetails purchaseDetails) async => _handlePurchase(purchaseDetails),
         onCanceled: () => add(const SubscriptionEvent.canceledByUser()),
@@ -100,18 +98,38 @@ class SubscriptionBloc extends Bloc<SubscriptionEvent, SubscriptionState> {
   FutureOr<void> _onCheckEligibility(
     CheckEligibility event,
     Emitter<SubscriptionState> emit,
-  ) {
+  ) async {
     initPurchaseStream();
-    _checkEligibility = true;
+
     emit(const SubscriptionState.initial(SubscriptionStateData()));
-    _inAppPurchaseService.restorePurchase();
+    _checkEligibility = true;
+    if (Platform.isAndroid) {
+      await _checkAndroidEligible();
+    } else {
+      _inAppPurchaseService.restorePurchase();
+    }
+  }
+
+  Future<void> _checkAndroidEligible() async {
+    final InAppPurchaseAndroidPlatformAddition androidAddition =
+        _inAppPurchaseService.instance.getPlatformAddition<InAppPurchaseAndroidPlatformAddition>();
+    final QueryPurchaseDetailsResponse oldPurchases = await androidAddition.queryPastPurchases();
+    if (oldPurchases.pastPurchases.isNotEmpty) {
+      add(SubscriptionEvent.setEligibility(
+          isEligible: false, purchase: oldPurchases.pastPurchases.last));
+    } else {
+      _onEmptyRestore();
+    }
   }
 
   Future<void> _onEmptyRestore() async {
-    if (_isValidatePastIOSPurchase && buyingProduct != null) {
-      return _verifyOldPurchase(null, buyingProduct!);
-    } else if (_checkEligibility) {
-      add(const SubscriptionEvent.setEligibility(isEligible: true));
+    if (_checkEligibility) {
+      add(
+        const SubscriptionEvent.setEligibility(
+          isEligible: true,
+          purchase: null,
+        ),
+      );
     }
   }
 
@@ -119,7 +137,15 @@ class SubscriptionBloc extends Bloc<SubscriptionEvent, SubscriptionState> {
     SetEligibility event,
     Emitter<SubscriptionState> emit,
   ) {
-    emit(SubscriptionState.setEligibility(state.data.copyWith(isEligible: event.isEligible)));
+    _checkEligibility = false;
+    emit(
+      SubscriptionState.setEligibility(
+        state.data.copyWith(
+          isEligible: event.isEligible,
+          lastPurchase: event.purchase,
+        ),
+      ),
+    );
   }
 
   FutureOr<void> _onVerifyLastPurchase(
@@ -127,11 +153,6 @@ class SubscriptionBloc extends Bloc<SubscriptionEvent, SubscriptionState> {
     Emitter<SubscriptionState> emit,
   ) async {
     emit(SubscriptionState.loading(state.data.copyWith(isLoading: true)));
-    _isValidatePastIOSPurchase = true;
-    _getOldPurchase(event.product);
-  }
-
-  void _getOldPurchase(ProductDetails product) async {
     PurchaseDetails? oldPurchaseDetails;
     if (Platform.isAndroid) {
       final InAppPurchaseAndroidPlatformAddition androidAddition = _inAppPurchaseService.instance
@@ -140,17 +161,14 @@ class SubscriptionBloc extends Bloc<SubscriptionEvent, SubscriptionState> {
       if (oldPurchases.pastPurchases.isNotEmpty) {
         oldPurchaseDetails = oldPurchases.pastPurchases.last;
       }
-      await _verifyOldPurchase(oldPurchaseDetails, product);
+      await _verifyOldPurchase(oldPurchaseDetails, event.product);
     } else {
-      _isValidatePastIOSPurchase = true;
-      buyingProduct = product;
-      _inAppPurchaseService.instance.restorePurchases();
+      await _verifyOldPurchase(state.data.lastPurchase, event.product);
     }
   }
 
   Future<void> _verifyOldPurchase(
       PurchaseDetails? oldPurchaseDetails, ProductDetails product) async {
-    _isValidatePastIOSPurchase = false;
     late Either<RequestError, ValidStatus> response;
     response = await _verifyPurchaseFromHistory(oldPurchaseDetails);
     response.fold(
@@ -306,15 +324,10 @@ class SubscriptionBloc extends Bloc<SubscriptionEvent, SubscriptionState> {
   }
 
   void _restoreTransactionData(PurchaseDetails purchaseDetails) async {
-    if (purchaseDetails.status != PurchaseStatus.restored ||
-        _isValidatePastIOSPurchase && (buyingProduct == null)) {
+    if (purchaseDetails.status != PurchaseStatus.restored) {
       return;
     }
-    if (_isValidatePastIOSPurchase) {
-      await _verifyOldPurchase(purchaseDetails, buyingProduct!);
-    } else {
-      await _verifyPurchasedOrRestore(purchaseDetails);
-    }
+    await _verifyPurchasedOrRestore(purchaseDetails);
   }
 
   String? _getTransactionId(PurchaseDetails purchaseDetails) {
@@ -360,7 +373,6 @@ class SubscriptionBloc extends Bloc<SubscriptionEvent, SubscriptionState> {
   ) {
     _checkEligibility = false;
     emit(SubscriptionState.loading(state.data.copyWith(isLoading: true)));
-    _isValidatePastIOSPurchase = false;
     _inAppPurchaseService.restorePurchase();
   }
 

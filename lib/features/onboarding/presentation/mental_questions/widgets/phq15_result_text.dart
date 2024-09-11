@@ -42,7 +42,7 @@ class PHQ15ResultText extends StatelessWidget {
                 ),
               if (isHigh)
                 TextSpan(
-                  text: LocalizedTexts.ifYouHaveSuicidalThoughts.tr(),
+                  text: LocalizedTexts.mentalTestResultsIfYouHaveSuicidalThoughts.tr(),
                   style: context.textTheme.bodyMedium,
                 ),
             ],
@@ -53,10 +53,10 @@ class PHQ15ResultText extends StatelessWidget {
   }
 
   String _getText(InterpretationType? interpretation) => switch (interpretation) {
-      InterpretationType.minimal => LocalizedTexts.phq15ResultMinimal.tr(),
-      InterpretationType.mild => LocalizedTexts.phq15ResultMild.tr(),
-      InterpretationType.moderate => LocalizedTexts.phq15ResultMedium.tr(),
-      InterpretationType.high => LocalizedTexts.phq15ResultHigh.tr(),
-      _ => '',
-    };
+        InterpretationType.minimal => LocalizedTexts.phq15ResultMinimal.tr(),
+        InterpretationType.mild => LocalizedTexts.phq15ResultMild.tr(),
+        InterpretationType.moderate => LocalizedTexts.phq15ResultMedium.tr(),
+        InterpretationType.high => LocalizedTexts.phq15ResultHigh.tr(),
+        _ => '',
+      };
 }

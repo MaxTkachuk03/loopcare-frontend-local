@@ -14,7 +14,6 @@ import 'package:loopcare_frontend/features/onboarding/domain/mental_health_answe
 import 'package:loopcare_frontend/features/onboarding/domain/mental_health_answer/mental_health_test_type.dart';
 import 'package:loopcare_frontend/features/onboarding/domain/mental_health_answer/test_result.dart';
 
-
 part 'mental_questions_bloc.freezed.dart';
 part 'mental_questions_bloc.g.dart';
 part 'mental_questions_event.dart';
@@ -72,7 +71,6 @@ class MentalQuestionsBloc extends HydratedBloc<MentalQuestionsEvent, MentalQuest
         isLoading: true,
       ),
     );
-
 
     final answers = event.isCompleted
         ? state.answers

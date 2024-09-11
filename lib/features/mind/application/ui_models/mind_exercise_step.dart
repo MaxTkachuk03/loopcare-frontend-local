@@ -25,7 +25,6 @@ class MindExerciseStep extends MindContent {
     this.highestText,
   });
 
-
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
@@ -52,12 +51,13 @@ extension MindContentUpcast on MindContent {
   MindExerciseStep toStep({
     String? lowestText,
     String? highestText,
-  }) => MindExerciseStep(
-          type: type,
-          src: src,
-          duration: duration,
-          orientation: orientation,
-          highestText: highestText,
-          lowestText: lowestText,
-        );
+  }) =>
+      MindExerciseStep(
+        type: type,
+        src: src,
+        duration: duration,
+        orientation: orientation,
+        highestText: highestText,
+        lowestText: lowestText,
+      );
 }

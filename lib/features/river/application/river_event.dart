@@ -10,7 +10,9 @@ class RiverEvent with _$RiverEvent {
     @Default(true) bool removeActiveItem,
   }) = GetActualModule;
 
-  const factory RiverEvent.checkCompletion() = CheckCompletion;
+  const factory RiverEvent.checkCompletion({
+    int? page,
+  }) = CheckCompletion;
 
   const factory RiverEvent.completeActiveModule() = CompleteActiveModule;
 

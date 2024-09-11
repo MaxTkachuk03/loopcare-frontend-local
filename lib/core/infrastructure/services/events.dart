@@ -6,7 +6,8 @@ class AppMixpanelEvents {
   static String get loginSuccess => 'AuthenticationCubit_login_success ';
   static String get sessionVideoSuccess => 'SessionVideoContainer_video_playing_success';
   static String get sessionVideoPlayerInitStart => 'SessionVideoContainer_video_player_init_start';
-  static String get sessionVideoPlayerInitFinished => 'SessionVideoContainer_video_player_init_finished';
+  static String get sessionVideoPlayerInitFinished =>
+      'SessionVideoContainer_video_player_init_finished';
   static String get sessionVideoEnd => 'SessionVideoContainer_video_playing_end';
   static String get sessionVideoClose => 'SessionVideoContainer_video_playing_close';
 

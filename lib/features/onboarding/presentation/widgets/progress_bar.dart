@@ -24,78 +24,84 @@ class ProgressBar extends StatelessWidget implements PreferredSizeWidget {
     required int segments,
     required int value,
     required int progress,
-  }) => ProgressBar(
-          backgroundColor: backgroundColor,
-          segments: segments,
-          value: value,
-          progress: progress,
-          progressFillColor: AppColors.coralRegular,
-        );
+  }) =>
+      ProgressBar(
+        backgroundColor: backgroundColor,
+        segments: segments,
+        value: value,
+        progress: progress,
+        progressFillColor: AppColors.coralRegular,
+      );
 
   factory ProgressBar.orange({
     required Color backgroundColor,
     required int segments,
     required int value,
     required int progress,
-  }) => ProgressBar(
-          backgroundColor: backgroundColor,
-          segments: segments,
-          value: value,
-          progress: progress,
-          progressFillColor: AppColors.orangeRegular,
-        );
+  }) =>
+      ProgressBar(
+        backgroundColor: backgroundColor,
+        segments: segments,
+        value: value,
+        progress: progress,
+        progressFillColor: AppColors.orangeRegular,
+      );
 
   factory ProgressBar.yellow({
     required Color backgroundColor,
     required int segments,
     required int value,
     required int progress,
-  }) => ProgressBar(
-          backgroundColor: backgroundColor,
-          segments: segments,
-          value: value,
-          progress: progress,
-          progressFillColor: AppColors.yellowRegular,
-        );
+  }) =>
+      ProgressBar(
+        backgroundColor: backgroundColor,
+        segments: segments,
+        value: value,
+        progress: progress,
+        progressFillColor: AppColors.yellowRegular,
+      );
 
   factory ProgressBar.green({
     required Color backgroundColor,
     required int segments,
     required int value,
     required int progress,
-  }) => ProgressBar(
-          backgroundColor: backgroundColor,
-          segments: segments,
-          value: value,
-          progress: progress,
-          progressFillColor: AppColors.greenRegular,
-        );
+  }) =>
+      ProgressBar(
+        backgroundColor: backgroundColor,
+        segments: segments,
+        value: value,
+        progress: progress,
+        progressFillColor: AppColors.greenRegular,
+      );
 
   factory ProgressBar.petrol({
     required Color backgroundColor,
     required int segments,
     required int value,
     required int progress,
-  }) => ProgressBar(
-          backgroundColor: backgroundColor,
-          segments: segments,
-          value: value,
-          progress: progress,
-          progressFillColor: AppColors.petrolRegular,
-        );
+  }) =>
+      ProgressBar(
+        backgroundColor: backgroundColor,
+        segments: segments,
+        value: value,
+        progress: progress,
+        progressFillColor: AppColors.petrolRegular,
+      );
 
   factory ProgressBar.blue({
     required Color backgroundColor,
     required int segments,
     required int value,
     required int progress,
-  }) => ProgressBar(
-          backgroundColor: backgroundColor,
-          segments: segments,
-          value: value,
-          progress: progress,
-          progressFillColor: AppColors.blueRegular,
-        );
+  }) =>
+      ProgressBar(
+        backgroundColor: backgroundColor,
+        segments: segments,
+        value: value,
+        progress: progress,
+        progressFillColor: AppColors.blueRegular,
+      );
 
   @override
   Widget build(BuildContext context) {
@@ -167,9 +173,7 @@ class _Item extends StatelessWidget {
               ),
             DecoratedBox(
               decoration: BoxDecoration(
-                shape: BoxShape.circle,
-                color: progress == 100 ? fillColor : emptyColor
-              ),
+                  shape: BoxShape.circle, color: progress == 100 ? fillColor : emptyColor),
               child: const SizedBox.square(dimension: 10),
             ),
           ],
