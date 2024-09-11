@@ -48,7 +48,7 @@ class _FavoriteListState extends State<FavoriteList> with AutomaticKeepAliveClie
     return context.read<SelectFoodBloc>().add(SelectFoodEvent.fetchFavorites(_defaultMealCategory));
   }
 
-  String get _defaultMealCategory => widget.mealCategory?.name ?? '';
+  String get _defaultMealCategory => widget.mealCategory?.originalValue ?? '';
 
   @override
   Widget build(BuildContext context) {

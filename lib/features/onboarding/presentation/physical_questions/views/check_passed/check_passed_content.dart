@@ -65,7 +65,7 @@ class CheckPassedContent extends StatelessWidget {
           UnderAppbar.yellow(
             child: Center(
               child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 120.0),
+                padding: const EdgeInsets.symmetric(horizontal: 60.0),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
