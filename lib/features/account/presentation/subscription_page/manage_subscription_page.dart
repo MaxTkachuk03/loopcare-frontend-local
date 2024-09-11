@@ -69,7 +69,7 @@ class _ManageSubscriptionPageState extends State<ManageSubscriptionPage> {
                           ),
                           _DetailsSection(
                             title: LocalizedTexts.subscriptionType,
-                            value: state.data.purchased?.productID ?? '',
+                            value: state.data.subscription?.subscriptionPlan?.title ?? '',
                           ),
                           const SizedBox(
                             height: 14,
