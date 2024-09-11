@@ -14,6 +14,7 @@ import 'package:loopcare_frontend/core/application/customer_io_service/customer_
 import 'package:loopcare_frontend/core/application/localization/localization_service.dart';
 import 'package:loopcare_frontend/core/application/system_service.dart';
 import 'package:loopcare_frontend/core/infrastructure/app_lifecycle_observer.dart';
+import 'package:loopcare_frontend/core/infrastructure/hive_service/hive_service.dart';
 import 'package:loopcare_frontend/core/infrastructure/services/analytics_service.dart';
 import 'package:loopcare_frontend/core/infrastructure/services/country_code_service/country_code_service.dart';
 import 'package:loopcare_frontend/core/infrastructure/services/events.dart';
@@ -21,12 +22,11 @@ import 'package:loopcare_frontend/core/infrastructure/services/logger/logger.dar
 import 'package:loopcare_frontend/core/infrastructure/services/mixpanel_event_service.dart';
 import 'package:loopcare_frontend/core/infrastructure/services/mixpanel_manager.dart';
 import 'package:loopcare_frontend/core/presentation/custom_error_widget/custom_error_widget.dart';
+import 'package:loopcare_frontend/features/account/domain/user_states_model/user_states_model.dart';
 import 'package:loopcare_frontend/firebase_options.dart';
 import 'package:loopcare_frontend/injection.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:timezone/data/latest.dart' as tz;
-
-import 'core/infrastructure/services/user_states_service/src/user_states_model/user_states_model.dart';
 
 Future<void> main() async {
   final widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
@@ -82,9 +82,7 @@ Future<void> main() async {
     androidNotificationOngoing: true,
   );
 
-  final directory = await getApplicationDocumentsDirectory();
-  Hive.init(directory.path);
-  await Hive.openBox<UserStatesModel>('user_states');
+  await initHive();
 
   return runApp(const AppLifeCycleStateListener(child: App()));
 }

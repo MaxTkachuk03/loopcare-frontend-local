@@ -13,7 +13,7 @@ analyzer:
     build/**,
     lib/**.freezed.dart,
     lib/**.g.dart,
-    local_plugins,
+    local_plugins/**,
     license_dependencies.dart
   ]
 

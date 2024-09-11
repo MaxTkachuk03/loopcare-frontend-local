@@ -3,6 +3,7 @@ import 'package:loopcare_frontend/core/application/analytics_bloc.dart';
 import 'package:loopcare_frontend/core/application/app_update/app_update_bloc.dart';
 import 'package:loopcare_frontend/core/application/connectivity_bloc/connectivity_bloc.dart';
 import 'package:loopcare_frontend/features/account/application/group_preferences_bloc.dart';
+import 'package:loopcare_frontend/features/account/application/user_states/user_states_bloc.dart';
 import 'package:loopcare_frontend/features/account/presentation/buddy_page/application/buddy_bloc.dart';
 import 'package:loopcare_frontend/features/authentication/application/authentication_bloc.dart';
 import 'package:loopcare_frontend/features/chat/application/chat_bloc/group_chat_bloc.dart';
@@ -192,6 +193,9 @@ class AppBlocProvider {
         ),
         BlocProvider<RiverBloc>(
           create: (_) => getIt<RiverBloc>(),
+        ),
+        BlocProvider<UserStatesBloc>(
+          create: (_) => getIt<UserStatesBloc>(),
         ),
       ];
 }
