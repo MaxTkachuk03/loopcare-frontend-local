@@ -8,6 +8,7 @@ import 'package:hydrated_bloc/hydrated_bloc.dart';
 import 'package:injectable/injectable.dart';
 import 'package:loopcare_frontend/core/application/auth_token_manager.dart';
 import 'package:loopcare_frontend/core/application/customer_io_service/customer_io_service.dart';
+import 'package:loopcare_frontend/core/application/permissions_service.dart';
 import 'package:loopcare_frontend/core/domain/account/account.dart';
 import 'package:loopcare_frontend/core/domain/account/gender_preferences.dart';
 import 'package:loopcare_frontend/core/domain/account/gender_type.dart';
@@ -262,6 +263,8 @@ class AuthenticationBloc extends HydratedBloc<AuthenticationEvent, Authenticatio
       password: event.password,
       isConsentApproved: true,
       isLegalApproved: true,
+      consentToEmail: state.data.consentToEmail,
+      enablePushNotifications: state.data.enablePushNotifications,
       happiness: event.registrationPhysicalFitnessData.happiness,
       bmi: event.registrationPhysicalFitnessData.bmi,
       height: event.registrationPhysicalFitnessData.height,
@@ -589,6 +592,7 @@ class AuthenticationBloc extends HydratedBloc<AuthenticationEvent, Authenticatio
       ),
       (result) {
         String cioId = state.data.customerIoId;
+        final isNotificationGranted = PermissionsService.instance.isNotificationGranted;
 
         if (cioId.isEmpty) {
           cioId = const Uuid().v4();
@@ -603,7 +607,8 @@ class AuthenticationBloc extends HydratedBloc<AuthenticationEvent, Authenticatio
             id: cioId,
             name: state.data.name,
             email: event.email,
-            receiveAnEmails: event.receiveAnEmails ?? false,
+            receiveEmails: event.receiveAnEmails ?? false,
+            receiveNotification: isNotificationGranted,
           );
         }
 
@@ -613,6 +618,8 @@ class AuthenticationBloc extends HydratedBloc<AuthenticationEvent, Authenticatio
               customerIoId: cioId,
               email: event.email,
               emailVerified: true,
+              consentToEmail: event.receiveAnEmails ?? false,
+              enablePushNotifications: isNotificationGranted,
             ),
           ),
         );
