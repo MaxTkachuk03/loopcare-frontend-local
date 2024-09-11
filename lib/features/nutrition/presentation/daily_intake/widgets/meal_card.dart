@@ -6,7 +6,6 @@ import 'package:loopcare_frontend/core/presentation/icon_images/app_icons.dart';
 import 'package:loopcare_frontend/core/presentation/routes/app_router.dart';
 import 'package:loopcare_frontend/core/presentation/text/custom_text.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
-import 'package:loopcare_frontend/core/presentation/utils/string_extensions.dart';
 import 'package:loopcare_frontend/features/nutrition/application/meals/dto/meal_item.dart';
 import 'package:loopcare_frontend/features/nutrition/application/meals/meals_bloc.dart';
 import 'package:loopcare_frontend/features/nutrition/domain/select_serving/meal_category.dart';
@@ -61,7 +60,7 @@ class MealCard extends StatelessWidget {
                       ),
                     ),
                     const SizedBox(width: 10.0),
-                    CustomText.bitter600(category.title.capitalize(),
+                    CustomText.bitter600(category.title,
                         style: Theme.of(context).textTheme.bodyLarge),
                   ],
                 ),
