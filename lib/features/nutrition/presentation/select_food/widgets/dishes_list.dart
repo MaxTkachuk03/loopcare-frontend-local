@@ -66,7 +66,7 @@ class _DishesListState extends State<DishesList> with AutomaticKeepAliveClientMi
   }
 
   String get _defaultMealCategory => _canCreateDishWithSelectedMealCategory
-      ? widget.mealCategory?.name ?? ''
+      ? widget.mealCategory?.originalValue ?? ''
       : MealCategory.breakfast.name;
 
   @override

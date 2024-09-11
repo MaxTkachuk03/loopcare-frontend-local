@@ -43,18 +43,6 @@ class MealPage extends StatefulWidget {
 class _MealPageState extends State<MealPage> {
   static const double _defaultNumberOfUnitsForDish = 1.0;
 
-  @override
-  void initState() {
-    super.initState();
-
-    // TODO hide recommendations after discussion with Diana 16.05.2024
-    // final mealState = context.read<MealsBloc>().state;
-    // final mealCategory = mealState.data.currentMealCategory;
-    // if (mealCategory != null) {
-    //   context.read<RecipeBloc>().add(RecipeEvent.getRecommendations(mealCategory));
-    // }
-  }
-
   void _onSaveToMyDishesHandler() {
     final state = context.read<MealsBloc>().state;
 
@@ -117,22 +105,6 @@ class _MealPageState extends State<MealPage> {
   void _onNutritionFactSelect(NutritionValuesTypes item) {
     context.read<MealsBloc>().add(MealsEvent.nutritionItemChanged(item));
   }
-
-  // TODO hide recommendations after discussion with Diana 16.05.2024
-  // _onRecommendationsPressed(BuildContext context) {
-  //   final mealState = context.read<MealsBloc>().state;
-  //   final mealCategory = mealState.data.currentMealCategory;
-  //
-  //   if (mealCategory != null) {
-  //     context.router.push(
-  //       RecommendationsRoute(
-  //         mealCategory: mealCategory,
-  //         date: mealState.data.currentDateTime,
-  //         fromMealPage: true,
-  //       ),
-  //     );
-  //   }
-  // }
 
   _onDeleteMealPressed(BuildContext context) {
     final mealsState = context.read<MealsBloc>().state;
@@ -285,28 +257,6 @@ class _MealPageState extends State<MealPage> {
                                           ),
                                         ],
                                       ),
-                                      // TODO hide recommendations after discussion with Diana 16.05.2024
-                                      // const SizedBox(height: 10.0),
-
-                                      // if (currentDate.isTodayOrFuture)
-                                      //   BlocBuilder<RecipeBloc, RecipeState>(
-                                      //     builder: (BuildContext context, recipeState) {
-                                      //       return Row(
-                                      //         children: [
-                                      //           Expanded(
-                                      //             child: CustomOutlinedButton.blueSmall(
-                                      //               label: LocalizedTexts.recommendations.tr(),
-                                      //               onPressed: () =>
-                                      //                   recipeState.data.recommendationRecipe.isEmpty
-                                      //                       ? null
-                                      //                       : _onRecommendationsPressed(context),
-                                      //             ),
-                                      //           ),
-                                      //           const Expanded(child: SizedBox(width: 10.0)),
-                                      //         ],
-                                      //       );
-                                      //     },
-                                      //   ),
                                     ],
                                   ),
                                 ),
