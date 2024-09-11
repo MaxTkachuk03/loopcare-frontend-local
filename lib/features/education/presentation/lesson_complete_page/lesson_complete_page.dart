@@ -21,9 +21,9 @@ import 'package:loopcare_frontend/core/presentation/widgets/main_container.dart'
 import 'package:loopcare_frontend/core/presentation/widgets/scrollable_container.dart';
 import 'package:loopcare_frontend/features/education/application/education_lesson/education_lesson_bloc.dart';
 import 'package:loopcare_frontend/features/education/domain/extra_action_types.dart';
-import 'package:loopcare_frontend/features/education/presentation/education_page/utils/get_label_by_stream_type.dart';
 import 'package:loopcare_frontend/features/education/presentation/lesson_complete_page/widgets/feature_unlock.dart';
 import 'package:loopcare_frontend/features/education/presentation/lesson_complete_page/widgets/unlock_group_session_feature.dart';
+import 'package:loopcare_frontend/features/education/presentation/widgets/get_label_by_stream_type.dart';
 import 'package:loopcare_frontend/features/river/application/river_bloc.dart';
 import 'package:loopcare_frontend/features/river/domain/river_module_stream_type.dart';
 import 'package:loopcare_frontend/injection.dart';
@@ -42,16 +42,16 @@ class LessonCompletePage extends StatefulWidget {
 }
 
 class _LessonCompletePageState extends State<LessonCompletePage> {
-
   @override
   void initState() {
     super.initState();
 
-    context.read<RiverBloc>().add(const RiverEvent.updateActiveModuleItemStatus());
+    final lessonId = context.read<EducationLessonBloc>().state.data.id;
+    context.read<RiverBloc>().add(RiverEvent.updateActiveModuleItemStatus(lessonId: lessonId));
 
     const AnalyticsEventService().logLessonCompletedEvent(
       AnalyticsEvents.lessonCompletedScreen,
-      context.read<EducationLessonBloc>().state.data.id,
+      lessonId,
     );
   }
 
@@ -63,7 +63,6 @@ class _LessonCompletePageState extends State<LessonCompletePage> {
         errorCompleteLesson: (state) => context.showError(
           content: CustomText(state.data.errorKey.tr()),
         ),
-
       );
 
   CustomAppBarTextTheme get _theme => widget.streamType.appBarTextTheme;
@@ -101,17 +100,16 @@ class _LessonCompletePageState extends State<LessonCompletePage> {
                             children: [
                               CircleAvatar(
                                 radius: 22.0,
-                                backgroundColor: _isLightTheme
-                                    ? AppColors.greenRegular
-                                    : AppColors.blueRegular,
+                                backgroundColor:
+                                    _isLightTheme ? AppColors.greenRegular : AppColors.blueRegular,
                                 child: const Icon(Icons.check, size: 24, color: AppColors.white),
                               ),
                               const SizedBox(height: 22.0),
                               CustomText.bitter600(
                                 '${LocalizedTexts.lessonCompleted.tr()}!',
                                 style: context.textTheme.displayMedium?.copyWith(
-                                    color:
-                                        _isLightTheme ? AppColors.white : AppColors.blueDarker),
+                                  color: _isLightTheme ? AppColors.white : AppColors.blueDarker,
+                                ),
                                 textAlign: TextAlign.center,
                               ),
                             ],

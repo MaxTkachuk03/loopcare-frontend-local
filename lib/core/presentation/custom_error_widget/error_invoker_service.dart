@@ -22,6 +22,5 @@ class ErrorInvokeService {
   void throwArtificialError() =>
       _behaviorSubject.add(const ErrorServiceEvent.throwArtificialError());
 
-  void clean() =>
-      _behaviorSubject.add(const ErrorServiceEvent.clean());
+  void clean() => _behaviorSubject.add(const ErrorServiceEvent.clean());
 }

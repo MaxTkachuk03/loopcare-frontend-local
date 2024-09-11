@@ -117,8 +117,8 @@ class ProductInformation extends StatelessWidget {
               ),
             );
 
-            const AnalyticsEventService().logEvent(eventName:
-            AnalyticsEvents.foodLogged,
+            const AnalyticsEventService().logEvent(
+              eventName: AnalyticsEvents.foodLogged,
               parameters: {
                 AnalyticsParameters.timestamp: DateTime.now().toIso8601String(),
                 AnalyticsParameters.mealId: mealId.toString(),

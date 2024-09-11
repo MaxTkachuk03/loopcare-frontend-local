@@ -387,7 +387,7 @@ class LocalizedTexts {
   static const String avatarGaleryPermissionsMessage = 'avatarGaleryPermissionsMessage';
   static const String avatarGaleryPermissionsMessageAndroid =
       'avatarGaleryPermissionsMessageAndroid';
-  static const String  avatarCropper = 'avatarCropper';
+  static const String avatarCropper = 'avatarCropper';
 
   // Emergency Numbers
   static const String emergencySubtitle = 'emergencySubtitle';
@@ -599,7 +599,7 @@ class LocalizedTexts {
   static const String subscriptionSubTitlePrice = "subscriptionSubTitlePrice";
   static const String subscriptionTitlePrice = "subscriptionTitlePrice";
   static const String subscriptionType = "subscriptionType";
-  static const String subscriptionVia = "subscriptionVia";
+  static const String subscriptionSubscriptionVia = "subscriptionSubscriptionVia";
   static const String subscriptionMemberSince = "subscriptionMemberSince";
   static const String subscriptionAutomaticRenewalOn = "subscriptionAutomaticRenewalOn";
   static const String subscriptionOtherPurchaseVendor = "subscriptionOtherPurchaseVendor";
@@ -906,7 +906,6 @@ class LocalizedTexts {
   static const String gad7ResultMild = "gad7ResultMild";
   static const String gad7ResultMedium = "gad7ResultMedium";
   static const String gad7ResultHigh = "gad7ResultHigh";
-  static const String ifYouHaveSuicidalThoughts = "ifYouHaveSuicidalThoughts";
   static const String phq8ResultMinimal = "phq8ResultMinimal";
   static const String phq8ResultMild = "phq8ResultMild";
   static const String phq8ResultMedium = "phq8ResultMedium";
@@ -914,6 +913,9 @@ class LocalizedTexts {
   static const String phq8ResultHighest = "phq8ResultHighest";
 
   // Mental final results
+  static const String mentalTestResultsIfYouHaveSuicidalThoughts =
+      "mentalTestResultsIfYouHaveSuicidalThoughts";
+
   static const String mentalTestResultsPhq8FinalResultHigh1 =
       "mentalTestResultsPhq8FinalResultHigh1";
   static const String mentalTestResultsPhq8FinalResultHigh2 =
@@ -1164,6 +1166,14 @@ class LocalizedTexts {
   static const String riverModuleCompletedTitle = 'riverModuleCompletedTitle';
   static const String riverModuleCompletedDescription = 'riverModuleCompletedDescription';
   static const String riverLastModuleCompletedDescription = 'riverLastModuleCompletedDescription';
+  static const String riverModuleGraduationCompletedItemsTitle =
+      'riverModuleGraduationCompletedItemsTitle';
+  static const String riverModuleGraduationCompletedTimeTitle =
+      'riverModuleGraduationCompletedTimeTitle';
+  static const String riverModuleGraduationCompletedItemsMessage =
+      'riverModuleGraduationCompletedItemsMessage';
+  static const String riverModuleGraduationCompletedTimeMessage =
+      'riverModuleGraduationCompletedTimeMessage';
 
   // Maintenance
   static const String maintenanceLabel = 'maintenanceLabel';

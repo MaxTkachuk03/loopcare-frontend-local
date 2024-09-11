@@ -11,8 +11,6 @@ import 'package:loopcare_frontend/core/domain/medical_onboarding.dart';
 import 'package:loopcare_frontend/core/infrastructure/services/analytics_service.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/features/onboarding/domain/diseases.dart';
-import 'package:loopcare_frontend/features/onboarding/domain/medication_future_period_answer.dart';
-import 'package:loopcare_frontend/features/onboarding/domain/medication_past_period_answer.dart';
 import 'package:loopcare_frontend/features/onboarding/utils/date_helpers.dart';
 
 part 'medical_questions_bloc.freezed.dart';
@@ -34,8 +32,6 @@ class MedicalQuestionsBloc extends HydratedBloc<MedicalQuestionsEvent, MedicalQu
     on<HandleSexType>(_onHandleSexType);
     on<HandleBirthday>(_onHandleBirthday);
     on<WeightLossMedicationChanged>(_onWeightLossMedicationChanged);
-    on<MedicationFuturePeriodChanged>(_onMedicationFuturePeriodChanged);
-    on<MedicationPastPeriodChanged>(_onMedicationPastPeriodChanged);
   }
 
   FutureOr<void> _onHandleBirthday(
@@ -123,46 +119,6 @@ class MedicalQuestionsBloc extends HydratedBloc<MedicalQuestionsEvent, MedicalQu
     );
 
     emit(state.copyWith(medicines: event.medicines));
-  }
-
-  FutureOr<void> _onMedicationFuturePeriodChanged(
-    MedicationFuturePeriodChanged event,
-    Emitter<MedicalQuestionsState> emit,
-  ) {
-    const AnalyticsEventService().logEvent(
-      eventName: AnalyticsEvents.onboardingTreatmentPeriod,
-      parameters: {
-        AnalyticsParameters.value: event.value.name,
-      },
-    );
-
-    CustomerIoService.track(
-      event: CIOEvents.onboardingTreatmentPeriod,
-      attributes: {
-        CIOAttributes.medicine: event.value.name,
-      },
-    );
-
-    emit(state.copyWith(howLongSemaglutideTreatmentLast: event.value));
-  }
-
-  FutureOr<void> _onMedicationPastPeriodChanged(
-    MedicationPastPeriodChanged event,
-    Emitter<MedicalQuestionsState> emit,
-  ) {
-    const AnalyticsEventService().logEvent(
-      eventName: AnalyticsEvents.onboardingTakingPeriod,
-      parameters: {
-        AnalyticsParameters.value: event.value.name,
-      },
-    );
-
-    CustomerIoService.track(
-      event: CIOEvents.onboardingTakingPeriod,
-      attributes: {CIOAttributes.medicine: event.value.name},
-    );
-
-    emit(state.copyWith(howLongTakeSemaglutideMedication: event.value));
   }
 
   FutureOr<void> _onWeightLossMedicationChanged(

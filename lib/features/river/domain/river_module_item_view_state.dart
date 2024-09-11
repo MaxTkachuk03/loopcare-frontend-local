@@ -12,20 +12,21 @@ class RiverModuleItemViewState with _$RiverModuleItemViewState {
   const factory RiverModuleItemViewState({
     @Default(RiverModuleItemState.locked) RiverModuleItemState itemState,
     @Default(RiverModuleItemState.locked) RiverModuleItemState prevItemState,
-    @Default(RiverModuleItemAnimationState.no)  RiverModuleItemAnimationState animationState,
+    @Default(RiverModuleItemAnimationState.no) RiverModuleItemAnimationState animationState,
   }) = _RiverModuleItemViewState;
 
   factory RiverModuleItemViewState.unlock() => const RiverModuleItemViewState(
-    itemState: RiverModuleItemState.unlocked,
-    prevItemState: RiverModuleItemState.locked,
-    animationState: RiverModuleItemAnimationState.unlock,
-  );
+        itemState: RiverModuleItemState.unlocked,
+        prevItemState: RiverModuleItemState.locked,
+        animationState: RiverModuleItemAnimationState.unlock,
+      );
 
   factory RiverModuleItemViewState.fromJson(Map<String, dynamic> json) =>
       _$RiverModuleItemViewStateFromJson(json);
 }
 
-class RiverModuleItemViewStateConverter implements JsonConverter<RiverModuleItemViewState, Map<String, dynamic>> {
+class RiverModuleItemViewStateConverter
+    implements JsonConverter<RiverModuleItemViewState, Map<String, dynamic>> {
   const RiverModuleItemViewStateConverter();
 
   @override
@@ -43,7 +44,7 @@ class RiverModuleItemViewStateConverter implements JsonConverter<RiverModuleItem
 
   RiverModuleItemState _stateFromRaw(String? rawPrevItemState, RiverModuleItemState state) {
     if (rawPrevItemState != null) {
-     return RiverModuleItemState.values.byName(rawPrevItemState);
+      return RiverModuleItemState.values.byName(rawPrevItemState);
     } else if (state.isReadOrHigher) {
       return state;
     } else {

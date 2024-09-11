@@ -12,7 +12,7 @@ import 'package:loopcare_frontend/core/presentation/loader/loader.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/core/presentation/routes/app_router.gr.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/divider_light.dart';
-import 'package:loopcare_frontend/features/account/application/group_preferences_bloc.dart';
+import 'package:loopcare_frontend/features/account/application/group_preferences/group_preferences_bloc.dart';
 import 'package:loopcare_frontend/features/account/domain/group_prefs_mode.dart';
 import 'package:loopcare_frontend/features/account/domain/user_grouping_state.dart';
 import 'package:loopcare_frontend/features/account/presentation/group_preferences/widgets/part_of_group.dart';
@@ -31,7 +31,9 @@ class GroupPreferencesForm extends StatelessWidget {
     return WhiteBox(
       child: BlocBuilder<AuthenticationBloc, AuthenticationState>(
         builder: (context, accountState) {
-          if (accountState.data.groupingState == null) return const SizedBox.shrink();
+          if (accountState.data.groupingState == null) {
+            return const SizedBox.shrink();
+          }
 
           return BlocBuilder<GroupPreferencesBloc, GroupPreferencesState>(
             builder: (context, state) {

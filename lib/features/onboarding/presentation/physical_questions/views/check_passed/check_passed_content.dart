@@ -21,9 +21,11 @@ class CheckPassedContent extends StatelessWidget {
   const CheckPassedContent({super.key});
 
   String _getHeightValue(bool useMetric, String heightInCm) {
-    final int heightFt = HeightConversionUtils.doubleConvertCMtoFT(double.parse(heightInCm)).round();
+    final int heightFt =
+        HeightConversionUtils.doubleConvertCMtoFT(double.parse(heightInCm)).round();
 
-    final int heightInches = HeightConversionUtils.doubleConvertCMtoFtIn(double.parse(heightInCm)).round();
+    final int heightInches =
+        HeightConversionUtils.doubleConvertCMtoFtIn(double.parse(heightInCm)).round();
     final int intHeightInCm = double.parse(heightInCm).round();
 
     final heightValue = useMetric ? '$intHeightInCm cm' : '$heightFt ft $heightInches in';
@@ -40,7 +42,9 @@ class CheckPassedContent extends StatelessWidget {
   void _onContinuePressed(BuildContext context) {
     final state = context.read<PhysicalQuestionsBloc>().state;
     context.read<GeneralOnboardingBloc>().add(const GeneralOnboardingEvent.nextStep());
-    context.read<GeneralOnboardingBloc>().add(GeneralOnboardingEvent.excludeMentalQuestionsByGender(sex: state.sexType!));
+    context
+        .read<GeneralOnboardingBloc>()
+        .add(GeneralOnboardingEvent.excludeMentalQuestionsByGender(sex: state.sexType!));
   }
 
   @override
@@ -61,7 +65,7 @@ class CheckPassedContent extends StatelessWidget {
           UnderAppbar.yellow(
             child: Center(
               child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 120.0),
+                padding: const EdgeInsets.symmetric(horizontal: 60.0),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [

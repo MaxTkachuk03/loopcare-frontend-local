@@ -45,7 +45,7 @@ class SubscriptionController {
           showBadge: false,
           subscriptionTranslation: serverPlan.subscriptionTranslation,
           carouselImages: serverPlan.carouselImages,
-          isOfferEligible: data.isEligible,
+          isOfferEligible: data.isEligible && skuProduct.offerId != null,
         );
         products.add(product);
         if (data.plans.length == 1) {
@@ -53,7 +53,6 @@ class SubscriptionController {
           selectedPlan.value = products.first;
           isEnableSubscribe.value = true;
         }
-
       }
     }
   }
@@ -122,7 +121,7 @@ class SubscriptionController {
   }
 
   void _pushAnalyticsEvents(PurchasableProduct plan) {
-     CustomerIoService.track(
+    CustomerIoService.track(
       event: CIOEvents.subscriptionSelected,
       attributes: {
         CIOAttributes.identifierOption: plan.details.id,
@@ -154,7 +153,9 @@ class SubscriptionController {
     bloc.add(SubscriptionEvent.verifyLastPurchase(selectedPlan.value!.details));
   }
 
-  void restorePurchase() => bloc.add(const SubscriptionEvent.restorePurchased());
+  void restorePurchase() {
+    bloc.add(const SubscriptionEvent.restorePurchased());
+  }
 
   void getSubscriptionPlansFromServer() => bloc.add(const SubscriptionEvent.getPlansFromServer());
 

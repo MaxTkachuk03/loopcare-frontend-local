@@ -5,28 +5,25 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
-import 'package:hive/hive.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
 import 'package:just_audio_background/just_audio_background.dart';
 import 'package:loopcare_frontend/build_type.dart';
 import 'package:loopcare_frontend/core/app.dart';
 import 'package:loopcare_frontend/core/application/customer_io_service/customer_io_service.dart';
+import 'package:loopcare_frontend/core/application/localization/crowdin_localization_service.dart';
 import 'package:loopcare_frontend/core/application/localization/localization_service.dart';
 import 'package:loopcare_frontend/core/application/system_service.dart';
 import 'package:loopcare_frontend/core/infrastructure/app_lifecycle_observer.dart';
+import 'package:loopcare_frontend/core/infrastructure/hive_service/hive_service.dart';
 import 'package:loopcare_frontend/core/infrastructure/services/analytics_service.dart';
 import 'package:loopcare_frontend/core/infrastructure/services/country_code_service/country_code_service.dart';
-import 'package:loopcare_frontend/core/infrastructure/services/events.dart';
 import 'package:loopcare_frontend/core/infrastructure/services/logger/logger.dart';
-import 'package:loopcare_frontend/core/infrastructure/services/mixpanel_event_service.dart';
 import 'package:loopcare_frontend/core/infrastructure/services/mixpanel_manager.dart';
 import 'package:loopcare_frontend/core/presentation/custom_error_widget/custom_error_widget.dart';
 import 'package:loopcare_frontend/firebase_options.dart';
 import 'package:loopcare_frontend/injection.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:timezone/data/latest.dart' as tz;
-
-import 'core/infrastructure/services/user_states_service/src/user_states_model/user_states_model.dart';
 
 Future<void> main() async {
   final widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
@@ -54,8 +51,6 @@ Future<void> main() async {
 
   tz.initializeTimeZones();
 
-  await LocalizationService.initialize();
-
   SystemService.allowOnlyPortraitOrientation();
 
   await CountryCodeService.instance.init();
@@ -72,19 +67,15 @@ Future<void> main() async {
 
   const AnalyticsEventService().init();
 
-  MixpanelEventService.instance.trackVisit(
-    "${AppMixpanelEvents.appStart} main",
-  );
-
   await JustAudioBackground.init(
     androidNotificationChannelId: 'com.ryanheise.bg_demo.channel.audio',
     androidNotificationChannelName: 'Audio playback',
     androidNotificationOngoing: true,
   );
 
-  final directory = await getApplicationDocumentsDirectory();
-  Hive.init(directory.path);
-  await Hive.openBox<UserStatesModel>('user_states');
+  await initHive();
+  await CrowdinLocalizationService().initialize();
+  await LocalizationService().loadLocalLocalizations();
 
   return runApp(const AppLifeCycleStateListener(child: App()));
 }

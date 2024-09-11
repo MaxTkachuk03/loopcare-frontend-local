@@ -4,9 +4,7 @@ import 'package:loopcare_frontend/features/authentication/domain/email/email_val
 
 class Email {
   static Either<EmailValidationErrors, Email> create(String string) {
-    return validateEmpty(string)
-        .flatMap(validateEmail)
-        .map((String string) => Email(string));
+    return validateEmpty(string).flatMap(validateEmail).map((String string) => Email(string));
   }
 
   final String value;

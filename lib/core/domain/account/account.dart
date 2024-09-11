@@ -8,13 +8,13 @@ import 'package:loopcare_frontend/core/domain/mental_health_tests.dart';
 import 'package:loopcare_frontend/core/domain/unlocked_feature_type.dart';
 import 'package:loopcare_frontend/core/presentation/utils/string_extensions.dart';
 import 'package:loopcare_frontend/features/account/domain/user_grouping_state.dart';
+import 'package:loopcare_frontend/features/account/infrastructure/food_preference/dto/food_preference.dart';
 import 'package:loopcare_frontend/features/account/presentation/buddy_page/application/buddy_status.dart';
 import 'package:loopcare_frontend/features/authentication/domain/subscription/subscription.dart';
 import 'package:loopcare_frontend/features/buddy/domain/buddy.dart';
 import 'package:loopcare_frontend/features/onboarding/domain/interpretation_type.dart';
 import 'package:loopcare_frontend/features/physical_activities/domain/physical_activities_preferences.dart';
 import 'package:loopcare_frontend/features/subscription/domain/subscription_state.dart';
-import 'package:loopcare_frontend/features/you_and_food/application/dto/food_preference.dart';
 
 part 'account.freezed.dart';
 part 'account.g.dart';

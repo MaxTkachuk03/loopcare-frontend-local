@@ -12,6 +12,5 @@ abstract class LogWeightBody implements _$LogWeightBody {
   }) = _LogWeightBody;
   const LogWeightBody._();
 
-  factory LogWeightBody.fromJson(Map<String, dynamic> json) =>
-      _$LogWeightBodyFromJson(json);
+  factory LogWeightBody.fromJson(Map<String, dynamic> json) => _$LogWeightBodyFromJson(json);
 }

@@ -14,14 +14,12 @@ abstract class FoodItemBarCode implements _$FoodItemBarCode {
     required String id,
     required String foodName,
     // ignore: invalid_annotation_target
-    @JsonKey(unknownEnumValue: MealItemType.unknown)
-    required MealItemType foodType,
+    @JsonKey(unknownEnumValue: MealItemType.unknown) required MealItemType foodType,
     required String foodUrl,
     required String? brandName,
     required String? foodDescription,
     required List<ServingSize> servings,
   }) = _FoodItemBarCode;
 
-  factory FoodItemBarCode.fromJson(Map<String, dynamic> json) =>
-      _$FoodItemBarCodeFromJson(json);
+  factory FoodItemBarCode.fromJson(Map<String, dynamic> json) => _$FoodItemBarCodeFromJson(json);
 }

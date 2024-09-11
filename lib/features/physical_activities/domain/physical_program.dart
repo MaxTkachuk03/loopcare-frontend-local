@@ -32,7 +32,9 @@ class PhysicalProgram with _$PhysicalProgram {
   const factory PhysicalProgram.placeholder({required String name}) = PhysicalProgramPlaceholder;
 
   const factory PhysicalProgram.programInProgress(
-      {required int id, required String name, required String startDate}) = PhysicalProgramInProgress;
+      {required int id,
+      required String name,
+      required String startDate}) = PhysicalProgramInProgress;
 
   int get id => maybeMap(basic: (s) => s.id, orElse: () => 0);
 
@@ -60,9 +62,11 @@ class PhysicalProgram with _$PhysicalProgram {
 
   String get startDate => maybeMap(basic: (s) => s.startDate, orElse: () => '');
 
-  PhysicalProgramAssessment? get assessment => maybeMap(basic: (s) => s.assessment, orElse: () => null);
+  PhysicalProgramAssessment? get assessment =>
+      maybeMap(basic: (s) => s.assessment, orElse: () => null);
 
-  List<PhysicalProgramExercise> get exercises => maybeMap(basic: (s) => s.exercises, orElse: () => []);
+  List<PhysicalProgramExercise> get exercises =>
+      maybeMap(basic: (s) => s.exercises, orElse: () => []);
 
   factory PhysicalProgram.fromJson(Map<String, dynamic> json) => _$PhysicalProgramFromJson(json);
 }

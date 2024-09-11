@@ -34,18 +34,21 @@ class NutritionValuesBlock extends StatelessWidget {
     if (nutritionValuesList.isEmpty) {
       return const SizedBox.shrink();
     }
+
     final nutritionItem =
         nutritionValuesList.firstWhere((element) => element.key == selectedNutritionType.name);
     final totalValue = (numberOfPortions * nutritionItem.value).toStringAsFixed(2);
 
     return Container(
       decoration: const BoxDecoration(
-          color: AppColors.greenLightest,
-          border: Border(
-              bottom: BorderSide(
+        color: AppColors.greenLightest,
+        border: Border(
+          bottom: BorderSide(
             width: 1,
             color: AppColors.greenLight,
-          ))),
+          ),
+        ),
+      ),
       padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 14.0),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,

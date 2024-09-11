@@ -3,6 +3,10 @@ import 'dart:async';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
 import 'package:injectable/injectable.dart';
+import 'package:loopcare_frontend/core/application/customer_io_service/customer_io_service.dart';
+import 'package:loopcare_frontend/core/domain/analytics/analytics_events.dart';
+import 'package:loopcare_frontend/core/domain/analytics/analytics_parameters.dart';
+import 'package:loopcare_frontend/core/infrastructure/services/analytics_service.dart';
 import 'package:loopcare_frontend/features/authentication/application/authentication_bloc.dart';
 
 part 'legal_statement_bloc.freezed.dart';
@@ -14,18 +18,15 @@ part 'legal_statement_event.dart';
 part 'legal_statement_state.dart';
 
 @singleton
-class LegalStatementBloc
-    extends HydratedBloc<LegalStatementEvent, LegalStatementState> {
+class LegalStatementBloc extends HydratedBloc<LegalStatementEvent, LegalStatementState> {
   final AuthenticationBloc _authenticationBloc;
 
   late final StreamSubscription _authBlocStreamSubscription;
 
-  LegalStatementBloc(this._authenticationBloc)
-      : super(LegalStatementState.initial()) {
+  LegalStatementBloc(this._authenticationBloc) : super(LegalStatementState.initial()) {
     on<PassageChanged>(_onPassageChanged);
 
-    _authBlocStreamSubscription =
-        _authenticationBloc.stream.distinct().listen((s) {
+    _authBlocStreamSubscription = _authenticationBloc.stream.distinct().listen((s) {
       s.mapOrNull(
         authenticated: (_) {
           add(const LegalStatementEvent.passageChanged(false));
@@ -45,12 +46,20 @@ class LegalStatementBloc
     PassageChanged event,
     Emitter<LegalStatementState> emit,
   ) {
+    const AnalyticsEventService().logEvent(
+      eventName: AnalyticsEvents.legalStatement,
+      parameters: {
+        AnalyticsParameters.value: 'true',
+      },
+    );
+
+    CustomerIoService.track(event: CIOEvents.onboardingRegisterIntro);
+
     emit(state.copyWith(pageWasPassed: event.value));
   }
 
   @override
-  LegalStatementState? fromJson(Map<String, dynamic> json) =>
-      LegalStatementState.fromJson(json);
+  LegalStatementState? fromJson(Map<String, dynamic> json) => LegalStatementState.fromJson(json);
 
   @override
   Map<String, dynamic>? toJson(LegalStatementState state) {

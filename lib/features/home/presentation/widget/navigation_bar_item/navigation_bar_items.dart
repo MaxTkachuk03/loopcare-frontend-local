@@ -16,17 +16,18 @@ enum NavigationBarItems {
 
   static Color getColorByIndex(int index) => values.elementAt(index).color;
 
-  static SystemUiOverlayStyle getOverlayStyleByIndex(int index) => values.elementAt(index).systemOverlayStyle;
+  static SystemUiOverlayStyle getOverlayStyleByIndex(int index) =>
+      values.elementAt(index).systemOverlayStyle;
 
   bool get isPractice => this == practice;
 
   bool get isProfile => this == account;
 
   String label(String userName) => switch (this) {
-    practice => LocalizedTexts.practice.tr(),
-    river => LocalizedTexts.pool.tr(),
-    account => userName,
-  };
+        practice => LocalizedTexts.practice.tr(),
+        river => LocalizedTexts.pool.tr(),
+        account => userName,
+      };
 
   Color get color => switch (this) {
         practice => AppColors.blueRegular,

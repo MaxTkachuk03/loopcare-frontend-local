@@ -14,6 +14,7 @@ import 'package:loopcare_frontend/features/river/presentation/widgets/river_modu
 import 'package:visibility_detector/visibility_detector.dart';
 
 part 'parts/_flying_item.dart';
+
 part 'parts/_river_item_footprint.dart';
 
 const _defaultItemRadius = 25.0;
@@ -99,8 +100,9 @@ class _RiverAnimationModuleItemWidgetState extends State<RiverAnimationModuleIte
   @override
   void didUpdateWidget(covariant RiverAnimationModuleItemWidget oldWidget) {
     super.didUpdateWidget(oldWidget);
-    _setUpItemColorAnimation(widget.item);
+    if (oldWidget.item.states.itemState == widget.item.states.itemState) return;
     _setUpAnimations();
+    _setUpItemColorAnimation(widget.item);
 
     _itemAnimation = widget.item.states.animationState;
     _startAnimation();
@@ -175,15 +177,16 @@ class _RiverAnimationModuleItemWidgetState extends State<RiverAnimationModuleIte
 
   Offset get _translatePractice => isBeginning
       ? Offset(widget.radius - 2, 0)
-      : Offset(widget.radius / 2, - widget.radius / 2 + 2);
+      : Offset(widget.radius / 2, -widget.radius / 2 + 2);
 
-  Offset get _translateProfile => isBeginning
-      ? Offset(widget.radius + 2, 0)
-      : Offset(widget.radius / 2 + 4, -1);
+  Offset get _translateProfile =>
+      isBeginning ? Offset(widget.radius + 2, 0) : Offset(widget.radius / 2 + 4, -1);
 
-  Offset get _endPosition  => widget.item.featurePlacement?.isDashboard ?? false
-      ? _definePosition(kNavigationBarItemPractice).translate(_translatePractice.dx, _translatePractice.dy)
-      : _definePosition(kNavigationBarItemProfile).translate(_translateProfile.dx, _translateProfile.dy);
+  Offset get _endPosition => widget.item.featurePlacement?.isDashboard ?? false
+      ? _definePosition(kNavigationBarItemPractice)
+          .translate(_translatePractice.dx, _translatePractice.dy)
+      : _definePosition(kNavigationBarItemProfile)
+          .translate(_translateProfile.dx, _translateProfile.dy);
 
   Offset get _startPosition => _definePosition(_buttonKey);
 
@@ -208,6 +211,8 @@ class _RiverAnimationModuleItemWidgetState extends State<RiverAnimationModuleIte
   }
 
   void _setUpItemColorAnimation(RiverModuleItem item) {
+    _colorController.reset();
+
     _colorIconAnimation = ColorTween(
       begin: getIconColor(item.states.prevItemState, item.streamType, item.isRootItem),
       end: getIconColor(item.states.itemState, item.streamType, item.isRootItem),
@@ -374,7 +379,8 @@ Offset _definePosition(GlobalKey key) {
   }
 
   final RenderBox button = itemContext.findRenderObject()! as RenderBox;
-  final RenderBox overlay = Navigator.of(kOverlayContext).overlay!.context.findRenderObject()! as RenderBox;
+  final RenderBox overlay =
+      Navigator.of(kOverlayContext).overlay!.context.findRenderObject()! as RenderBox;
 
   return button.localToGlobal(Offset.zero, ancestor: overlay);
 }

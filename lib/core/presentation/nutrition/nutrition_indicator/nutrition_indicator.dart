@@ -35,7 +35,8 @@ class NutritionIndicator extends StatelessWidget {
         decoration: BoxDecoration(
           color: AppColors.blueDarker,
           borderRadius: BorderRadius.all(Radius.circular(layoutSize.width / 2)),
-          border: Border.all(width: layoutSize.borderThickness, color: color, style: BorderStyle.solid),
+          border:
+              Border.all(width: layoutSize.borderThickness, color: color, style: BorderStyle.solid),
         ),
         child: Align(
           alignment: Alignment.center,

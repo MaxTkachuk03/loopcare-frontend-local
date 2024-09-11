@@ -95,7 +95,8 @@ class APISmartGoalsService implements SmartGoalsService {
   }
 
   @override
-  Future<Either<RequestError, WeeklyGoalsSession>> confirmProgress({required ProgressGoalData progress}) async {
+  Future<Either<RequestError, WeeklyGoalsSession>> confirmProgress(
+      {required ProgressGoalData progress}) async {
     return await client.post(
       '/smart-goal/progress',
       data: progress.toJson(),
@@ -117,7 +118,8 @@ class APISmartGoalsService implements SmartGoalsService {
 
   @override
   Future<Either<RequestError, WeeklyGoalsSession>> resetProgress({required int progressId}) async {
-    return await client.delete('/smart-goal/progress/$progressId', fromJson: WeeklyGoalsSession.fromJson);
+    return await client.delete('/smart-goal/progress/$progressId',
+        fromJson: WeeklyGoalsSession.fromJson);
   }
 
   @override

@@ -6,7 +6,8 @@ class PhysicalActivitiesState with _$PhysicalActivitiesState {
 
   const factory PhysicalActivitiesState.loading(PhysicalActivitiesData data) = Loading;
 
-  const factory PhysicalActivitiesState.activitiesLoaded(PhysicalActivitiesData data) = ActivitiesLoaded;
+  const factory PhysicalActivitiesState.activitiesLoaded(PhysicalActivitiesData data) =
+      ActivitiesLoaded;
 
   const factory PhysicalActivitiesState.error(PhysicalActivitiesData data) = Error;
 }

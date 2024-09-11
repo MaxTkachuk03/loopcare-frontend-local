@@ -13,10 +13,10 @@ import 'package:loopcare_frontend/core/presentation/scaffold/custom_scaffold.dar
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/main_container.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/scrollable_container.dart';
+import 'package:loopcare_frontend/features/account/application/food_preference/food_preference_bloc.dart';
 import 'package:loopcare_frontend/features/account/presentation/account_page/widgets/account_container.dart';
 import 'package:loopcare_frontend/features/account/presentation/edit_food_preferences_page/edit_food_preferences_page.dart';
 import 'package:loopcare_frontend/features/account/presentation/food_preferences_page/widgets/section_item.dart';
-import 'package:loopcare_frontend/features/you_and_food/application/you_and_food_bloc.dart';
 
 @RoutePage()
 class FoodPreferencesPage extends StatefulWidget {
@@ -35,12 +35,12 @@ class _FoodPreferencesPageState extends State<FoodPreferencesPage> {
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
-    final state = context.read<YouAndFoodBloc>().state;
+    final state = context.read<FoodPreferenceBloc>().state;
     const AnalyticsEventService().logFoodPreferencesEvent(
       AnalyticsEvents.foodPreferencesScreen,
-      state.selectedHatesNames,
-      state.selectedAllergicNames,
-      state.selectedDislikesNames,
+      state.data.selectedHatesNames,
+      state.data.selectedAllergicNames,
+      state.data.selectedDislikesNames,
     );
   }
 
@@ -83,14 +83,14 @@ class _FoodPreferencesPageState extends State<FoodPreferencesPage> {
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
                 const SizedBox(height: 32.0),
-                BlocBuilder<YouAndFoodBloc, YouAndFoodState>(
-                  builder: (BuildContext context, state) {
+                BlocBuilder<FoodPreferenceBloc, FoodPreferenceState>(
+                  builder: (context, state) {
                     return AccountContainer(
                       child: Column(
                         children: [
                           SectionItem(
                             title: LocalizedTexts.iDoNotEatOrDrink.tr(),
-                            options: state.selectedHatesNames,
+                            options: state.data.selectedHatesNames,
                             onPressHandler: () => context.router.push(
                               EditFoodPreferencesRoute(
                                 mode: const EditFoodPreferencesPageMode.hates(),
@@ -103,7 +103,7 @@ class _FoodPreferencesPageState extends State<FoodPreferencesPage> {
                           const SizedBox(height: 16.0),
                           SectionItem(
                             title: LocalizedTexts.iAmAllergicTo.tr(),
-                            options: state.selectedAllergicNames,
+                            options: state.data.selectedAllergicNames,
                             onPressHandler: () => context.router.push(
                               EditFoodPreferencesRoute(
                                 mode: const EditFoodPreferencesPageMode.allergies(),
@@ -116,7 +116,7 @@ class _FoodPreferencesPageState extends State<FoodPreferencesPage> {
                           const SizedBox(height: 16.0),
                           SectionItem(
                             title: LocalizedTexts.iDoNotLike.tr(),
-                            options: state.selectedDislikesNames,
+                            options: state.data.selectedDislikesNames,
                             onPressHandler: () => context.router.push(
                               EditFoodPreferencesRoute(
                                 mode: const EditFoodPreferencesPageMode.dislikes(),

@@ -10,7 +10,9 @@ import 'package:loopcare_frontend/core/presentation/text/custom_text.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 import 'package:loopcare_frontend/core/presentation/utils/build_context_extensions.dart';
 import 'package:loopcare_frontend/core/presentation/utils/string_extensions.dart';
-import 'package:loopcare_frontend/features/account/application/group_preferences_bloc.dart';
+import 'package:loopcare_frontend/features/account/application/food_preference/food_preference_bloc.dart';
+import 'package:loopcare_frontend/features/account/application/group_preferences/group_preferences_bloc.dart';
+import 'package:loopcare_frontend/features/account/application/user_states/user_states_bloc.dart';
 import 'package:loopcare_frontend/features/account/presentation/account_page/widgets/account_container.dart';
 import 'package:loopcare_frontend/features/account/presentation/account_page/widgets/section_item.dart';
 import 'package:loopcare_frontend/features/account/presentation/account_page/widgets/section_title.dart';
@@ -18,7 +20,6 @@ import 'package:loopcare_frontend/features/account/presentation/buddy_page/appli
 import 'package:loopcare_frontend/features/authentication/application/authentication_bloc.dart';
 import 'package:loopcare_frontend/features/home/application/navigation_bar_bloc.dart';
 import 'package:loopcare_frontend/features/physical_activities/application/physical_activities_preferences/physical_activities_preferences_bloc.dart';
-import 'package:loopcare_frontend/features/you_and_food/application/you_and_food_bloc.dart';
 
 class PreferencesSection extends StatefulWidget {
   const PreferencesSection({super.key});
@@ -42,7 +43,7 @@ class _PreferencesSectionState extends State<PreferencesSection> {
   }
 
   void _onBuddyHandler(BuildContext context) {
-    context.read<AuthenticationBloc>().add(const AuthenticationEvent.buddyVisited());
+    context.read<UserStatesBloc>().add(const UserStatesEvent.hideBuddyBadge());
     context.read<NavigationBarBloc>().add(const NavigationBarEvent.removeProfileNotification());
 
     final buddyWasNotInvited = context.read<BuddyBloc>().state.data.buddyState == null;
@@ -67,20 +68,15 @@ class _PreferencesSectionState extends State<PreferencesSection> {
     return "${LocalizedTexts.partOfGroup.tr()}: $grouped";
   }
 
-  bool _whenFoodUpdated(
-    YouAndFoodState previous,
-    YouAndFoodState current,
-  ) {
-    return !previous.saved && current.saved;
-  }
-
-  Future<void> _foodUpdatedListener(BuildContext context, YouAndFoodState state) async {
-    context.showCustomSuccessBar(
-      content: CustomText.w600(
-        LocalizedTexts.yourPreferencesUpdated.tr({
-          'prefName': LocalizedTexts.food.tr(),
-        }),
-        style: context.textTheme.bodySmall,
+  void _foodUpdatedListener(BuildContext context, FoodPreferenceState state) {
+    state.mapOrNull(
+      saved: (state) => context.showCustomSuccessBar(
+        content: CustomText.w600(
+          LocalizedTexts.yourPreferencesUpdated.tr({
+            'prefName': LocalizedTexts.food.tr(),
+          }),
+          style: context.textTheme.bodySmall,
+        ),
       ),
     );
   }
@@ -135,8 +131,7 @@ class _PreferencesSectionState extends State<PreferencesSection> {
   Widget build(BuildContext context) {
     return MultiBlocListener(
       listeners: [
-        BlocListener<YouAndFoodBloc, YouAndFoodState>(
-          listenWhen: _whenFoodUpdated,
+        BlocListener<FoodPreferenceBloc, FoodPreferenceState>(
           listener: _foodUpdatedListener,
         ),
         BlocListener<PhysicalActivitiesPreferencesBloc, PhysicalActivitiesPreferencesState>(
@@ -163,11 +158,13 @@ class _PreferencesSectionState extends State<PreferencesSection> {
                       state.data.isFoodLoggingUnlocked ? () => _onFoodHandler(context) : null,
                 ),
                 const Divider(height: 1.0, color: AppColors.blueLighter),
-                SectionItem(
-                  title: LocalizedTexts.buddyTitle.tr(),
-                  showNews: state.data.showBuddyNews,
-                  onPressHandler:
-                      state.data.isBuddyUnlocked ? () => _onBuddyHandler(context) : null,
+                BlocBuilder<UserStatesBloc, UserStatesState>(
+                  builder: (context, statesState) => SectionItem(
+                    title: LocalizedTexts.buddyTitle.tr(),
+                    showNews: statesState.data.showBuddyBadgeForUser(state.data.account?.id),
+                    onPressHandler:
+                        state.data.isBuddyUnlocked ? () => _onBuddyHandler(context) : null,
+                  ),
                 ),
                 const Divider(height: 1.0, color: AppColors.blueLighter),
                 SectionItem(

@@ -19,7 +19,7 @@
   "accomplishedInTotal": "goals accomplished in total.",
   "accomplishedEmptyMessage": "Once you start completing goals your favourite goal categories will appear here.",
   "accomplished": "goals accomplished",
-  "goalLogDays": "{count, plural, =0{Goal: {count} logged days in a week} one{Goal: {count} logged day in a week} other{Goal: {count} logged days in a week}}",
+  "goalLogDays": "{count, plural, =0{Goal: {count} logged days in a week} =1{Goal: {count} logged day in a week} other{Goal: {count} logged days in a week}}",
   "@goalLogDays": {
     "description": "The text shown for the goal of logging days in a week",
     "placeholders": {
@@ -29,7 +29,7 @@
       }
     }
   },
-  "goalLogged": "{count, plural, =0{Logged days: {count}} one{Logged day: {count}} other{Logged days: {count}}}",
+  "goalLogged": "{count, plural, =0{Logged days: {count}} =1{Logged day: {count}} other{Logged days: {count}}}",
   "@goalLogged": {
     "description": "The text shown for the number of logged days",
     "placeholders": {
@@ -39,7 +39,7 @@
       }
     }
   },
-  "goalTotalCompletions": "{count, plural, =0{Total logs: {count}} one{Total log: {count}} other{Total logs: {count}}}",
+  "goalTotalCompletions": "{count, plural, =0{Total logs: {count}} =1{Total log: {count}} other{Total logs: {count}}}",
   "@goalTotalCompletions": {
     "description": "The text shown for the total number of completions/logs",
     "placeholders": {
@@ -54,7 +54,7 @@
   "howHardWasTheGoal": "How hard was this goal for you?",
   "wantToTryInFuture": "Want to try this again in the future?",
   "goalReview": "Goal review",
-  "weeklyDaysLeft": "{count, plural, =0{No days left to complete} one{1 day left to complete} other{{count} days left to complete}}",
+  "weeklyDaysLeft": "{count, plural, =0{No days left to complete} =1{1 day left to complete} other{{count} days left to complete}}",
   "@weeklyDaysLeft": {
     "description": "Text indicating how many days are left to complete the goal",
     "placeholders": {
@@ -66,7 +66,7 @@
   },
   "weeklyDayLeft": "1 day to complete",
   "weeklyDaysReview": "Finished",
-  "weeklyTimes": "{count, plural, =0{No times} one{1 time} other{# times}}",
+  "weeklyTimes": "{count, plural, =0{No times} =1{1 time} other{{count} times}}",
   "@weeklyTimes": {
     "description": "Text indicating how many times something has occurred",
     "placeholders": {

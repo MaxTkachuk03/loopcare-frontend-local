@@ -1,4 +1,3 @@
-import 'package:fast_immutable_collections/fast_immutable_collections.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
@@ -121,23 +120,24 @@ class AnalyticsEventService {
 
     FlutterUxcam.optIntoSchematicRecordings();
     FlutterUxConfig config = FlutterUxConfig(
-      userAppKey: dotenv.env['UXCAM_APP_KEY'] ?? '',
-    );
+        userAppKey: kIsAnalyticTestingEnv
+            ? dotenv.env['UXCAM_APP_KEY'] ?? ''
+            : dotenv.env['PROD_UXCAM_APP_KEY'] ?? '');
     await FlutterUxcam.startWithConfiguration(config);
   }
 
   void logFoodPreferencesEvent(
     String eventName,
-    IList<String> selectedHatesNames,
-    IList<String> selectedAllergicNames,
-    IList<String> selectedDislikesNames,
+    List<String> selectedHatesNames,
+    List<String> selectedAllergicNames,
+    List<String> selectedDislikesNames,
   ) async {
     logFoodPreferencesHateEvent(eventName, selectedHatesNames);
     logFoodPreferencesAllergicEvent(eventName, selectedAllergicNames);
     logFoodPreferencesDislikeEvent(eventName, selectedDislikesNames);
   }
 
-  void logFoodPreferencesHateEvent(String eventName, IList<String> selectedHatesNames) async {
+  void logFoodPreferencesHateEvent(String eventName, List<String> selectedHatesNames) async {
     for (var item in selectedHatesNames) {
       logEvent(
         eventName: '${eventName}_${AnalyticsParameters.hated}',
@@ -150,7 +150,7 @@ class AnalyticsEventService {
 
   void logFoodPreferencesAllergicEvent(
     String eventName,
-    IList<String> selectedAllergicNames,
+    List<String> selectedAllergicNames,
   ) async {
     for (var item in selectedAllergicNames) {
       logEvent(
@@ -164,7 +164,7 @@ class AnalyticsEventService {
 
   void logFoodPreferencesDislikeEvent(
     String eventName,
-    IList<String> selectedDislikeNames,
+    List<String> selectedDislikeNames,
   ) async {
     for (var item in selectedDislikeNames) {
       logEvent(

@@ -43,11 +43,11 @@ class _MindRatingScreenState extends State<MindRatingScreen> {
 
   void _onNextPressed(int? value) {
     context.read<MindBloc>().add(
-      MindEvent.addRating(
-        value: value,
-        isAfter: widget.isFinish,
-      ),
-    );
+          MindEvent.addRating(
+            value: value,
+            isAfter: widget.isFinish,
+          ),
+        );
 
     widget.onCompleted();
   }
@@ -76,7 +76,8 @@ class _MindRatingScreenState extends State<MindRatingScreen> {
                   padding: const EdgeInsets.symmetric(horizontal: 20.0),
                   child: CustomText.bitter400(
                     widget.question,
-                    style: context.textTheme.displayLarge?.copyWith(color: AppColors.white, height: 1.3),
+                    style: context.textTheme.displayLarge
+                        ?.copyWith(color: AppColors.white, height: 1.3),
                     textAlign: TextAlign.center,
                   ),
                 ),
@@ -116,12 +117,13 @@ class _MindRatingScreenState extends State<MindRatingScreen> {
               ],
             ),
           ),
-          button:  ValueListenableBuilder<int?>(
+          button: ValueListenableBuilder<int?>(
             valueListenable: _scoreListener,
             builder: (context, value, _) {
               return CustomElevatedButton.yellowFullWidth(
                 onPressed: value != null ? () => _onNextPressed(value) : null,
-                label: widget.isFinish ? LocalizedTexts.next.tr() : LocalizedTexts.startExercise.tr(),
+                label:
+                    widget.isFinish ? LocalizedTexts.next.tr() : LocalizedTexts.startExercise.tr(),
               );
             },
           ),

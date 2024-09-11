@@ -1,4 +1,1 @@
-enum MeasurementType {
-  height,
-  weight
-}
+enum MeasurementType { height, weight }

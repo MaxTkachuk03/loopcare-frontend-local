@@ -11,13 +11,14 @@ import 'package:loopcare_frontend/core/presentation/localization/localized_texts
 import 'package:loopcare_frontend/core/presentation/scaffold/custom_scaffold.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/main_container.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/scrollable_container.dart';
+import 'package:loopcare_frontend/features/account/application/food_preference/food_preference_bloc.dart';
 import 'package:loopcare_frontend/features/account/presentation/account_page/widgets/account_section.dart';
 import 'package:loopcare_frontend/features/account/presentation/account_page/widgets/delete_account_section.dart';
 import 'package:loopcare_frontend/features/account/presentation/account_page/widgets/preferences_section.dart';
 import 'package:loopcare_frontend/features/account/presentation/account_page/widgets/report_abuse_section.dart';
 import 'package:loopcare_frontend/features/account/presentation/subscription_page/widgets/subscription_sactions.dart';
+import 'package:loopcare_frontend/features/authentication/application/authentication_bloc.dart';
 import 'package:loopcare_frontend/features/physical_activities/application/physical_activities_preferences/physical_activities_preferences_bloc.dart';
-import 'package:loopcare_frontend/features/you_and_food/application/you_and_food_bloc.dart';
 
 @RoutePage()
 class AccountPage extends StatefulWidget {
@@ -31,10 +32,18 @@ class _AccountPageState extends State<AccountPage> {
   @override
   void initState() {
     super.initState();
-    context.read<YouAndFoodBloc>().add(const YouAndFoodEvent.fetchFoodPreferences());
-    context
-        .read<PhysicalActivitiesPreferencesBloc>()
-        .add(const PhysicalActivitiesPreferencesEvent.getPreferences());
+    final authData = context.read<AuthenticationBloc>().state.data;
+
+    if (authData.isFoodLoggingUnlocked) {
+      context.read<FoodPreferenceBloc>().add(const FoodPreferenceEvent.fetchFoodPreferences());
+    }
+
+    if (authData.isPhysicalActivitiesUnlocked) {
+      context
+          .read<PhysicalActivitiesPreferencesBloc>()
+          .add(const PhysicalActivitiesPreferencesEvent.getPreferences());
+    }
+
     CustomerIO.track(
       name: CIOEvents.profilePage,
     );

@@ -47,7 +47,8 @@ class _EmailAddressPageState extends State<EmailAddressPage> {
           listener: _navigationListener,
         ),
         BlocListener<AuthenticationBloc, AuthenticationState>(
-          listenWhen: (previous, current) => !previous.data.emailWasSend && current.data.emailWasSend,
+          listenWhen: (previous, current) =>
+              !previous.data.emailWasSend && current.data.emailWasSend,
           listener: _blockButtonListener,
         ),
       ],
@@ -117,8 +118,8 @@ class _EmailAddressPageState extends State<EmailAddressPage> {
 
   bool _listenWhen(AuthenticationState previous, AuthenticationState current) =>
       (ModalRoute.of(context)?.isCurrent ?? false) &&
-          !previous.data.emailVerified &&
-          current.data.emailVerified;
+      !previous.data.emailVerified &&
+      current.data.emailVerified;
 
   void _navigationListener(BuildContext context, AuthenticationState state) =>
       context.router.pushNamed(AppRoutes.onboardingQuestions);

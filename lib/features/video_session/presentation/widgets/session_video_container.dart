@@ -1,8 +1,6 @@
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:loopcare_frontend/core/infrastructure/services/events.dart';
-import 'package:loopcare_frontend/core/infrastructure/services/mixpanel_event_service.dart';
 import 'package:loopcare_frontend/core/infrastructure/services/shared_storage/shared_storage_service.dart';
 import 'package:loopcare_frontend/core/presentation/text/custom_text.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
@@ -43,7 +41,9 @@ class _SessionVideoContainerState extends State<SessionVideoContainer> with Widg
   final List<int> _completedEventsIds = [];
 
   int get userId => getIt<SharedStorageService>().account!.id;
+
   String get userName => getIt<SharedStorageService>().account!.name;
+
   String get userNickname => getIt<SharedStorageService>().account!.nickname ?? '';
 
   bool get _shouldNotUpdate => _videoIsPlaying || _closedVideo;
@@ -93,15 +93,18 @@ class _SessionVideoContainerState extends State<SessionVideoContainer> with Widg
     }
 
     if (isVideoInProgress) {
-      _videoPlayerController?.seekTo(Duration(seconds: widget.sessionTimer - currentEvent.eventStartTime));
+      _videoPlayerController
+          ?.seekTo(Duration(seconds: widget.sessionTimer - currentEvent.eventStartTime));
     }
   }
 
   void _checkIfHasVideoForCurrentTime() {
-    final List<GroupSessionProgramEvent> videoEvents = context.read<TopicsBloc>().state.data.videoEvents;
+    final List<GroupSessionProgramEvent> videoEvents =
+        context.read<TopicsBloc>().state.data.videoEvents;
     final videoEventForCurrentTime = videoEvents.lastWhereOrNull(
         (e) => e.eventStartTime <= widget.sessionTimer && widget.sessionTimer <= e.eventEndTime);
-    if (videoEventForCurrentTime == null || _completedEventsIds.contains(videoEventForCurrentTime.id)) return;
+    if (videoEventForCurrentTime == null ||
+        _completedEventsIds.contains(videoEventForCurrentTime.id)) return;
     setState(() {
       _currentVideoEvent = videoEventForCurrentTime;
     });
@@ -124,41 +127,19 @@ class _SessionVideoContainerState extends State<SessionVideoContainer> with Widg
   }
 
   void _initVideoController(String videoLink) {
-    MixpanelEventService.instance.track(
-      AppMixpanelEvents.sessionVideoPlayerInitStart,
-      {
-        "userId": userId,
-        "userName": userName,
-        "userNickname": userNickname,
-        "sessionCurrentTime": widget.sessionTimer,
-        "userLocalTime": DateTime.now().toLocal().toIso8601String(),
-      },
-    );
-
     final headers = context.read<VideoPlayerBloc>().state.data.videoHttpHeaders;
     _videoPlayerController = VideoPlayerController.networkUrl(Uri.parse(videoLink),
         httpHeaders: headers, videoPlayerOptions: VideoPlayerOptions(allowBackgroundPlayback: true))
       ..initialize().then((value) {
-        final bool isVideoInProgress = (_currentVideoEvent?.eventStartTime ?? 0) <= widget.sessionTimer &&
-            widget.sessionTimer <= (_currentVideoEvent?.eventEndTime ?? 0);
+        final bool isVideoInProgress =
+            (_currentVideoEvent?.eventStartTime ?? 0) <= widget.sessionTimer &&
+                widget.sessionTimer <= (_currentVideoEvent?.eventEndTime ?? 0);
         final int startPosition =
             isVideoInProgress ? widget.sessionTimer - (_currentVideoEvent?.eventStartTime ?? 0) : 0;
 
         _videoPlayerController
           ?..seekTo(Duration(seconds: startPosition))
           ..play();
-
-        MixpanelEventService.instance.track(
-          AppMixpanelEvents.sessionVideoPlayerInitFinished,
-          {
-            "userId": userId,
-            "userName": userName,
-            "userNickname": userNickname,
-            "sessionCurrentTime": widget.sessionTimer,
-            "userLocalTime": DateTime.now().toLocal().toIso8601String(),
-            "videoStartPosition": startPosition,
-          },
-        );
       }).whenComplete(() {
         final currentVideoEvent = _currentVideoEvent;
 
@@ -171,17 +152,6 @@ class _SessionVideoContainerState extends State<SessionVideoContainer> with Widg
           _visibility = true;
         });
         widget.onVideoPlayingListener(true);
-        MixpanelEventService.instance.track(
-          AppMixpanelEvents.sessionVideoSuccess,
-          {
-            "userId": userId,
-            "videoLink": videoLink,
-            "userName": userName,
-            "userNickname": userNickname,
-            "sessionCurrentTime": widget.sessionTimer,
-            "userLocalTime": DateTime.now().toLocal().toIso8601String(),
-          },
-        );
       });
   }
 
@@ -200,17 +170,6 @@ class _SessionVideoContainerState extends State<SessionVideoContainer> with Widg
       });
 
       widget.onVideoPlayingListener(false);
-      MixpanelEventService.instance.track(
-        AppMixpanelEvents.sessionVideoEnd,
-        {
-          "userId": userId,
-          "videoLink": _currentVideoEvent?.videoPath ?? '',
-          "userName": userName,
-          "userNickname": userNickname,
-          "sessionCurrentTime": widget.sessionTimer,
-          "userLocalTime": DateTime.now().toLocal().toIso8601String(),
-        },
-      );
     });
   }
 
@@ -220,18 +179,6 @@ class _SessionVideoContainerState extends State<SessionVideoContainer> with Widg
     if (controller == null) return;
 
     if (controller.value.isPlaying) controller.pause();
-    MixpanelEventService.instance.track(
-      AppMixpanelEvents.sessionVideoClose,
-      {
-        "userId": userId,
-        "videoLink": _currentVideoEvent?.videoPath ?? '',
-        "userName": userName,
-        "userNickname": userNickname,
-        "sessionCurrentTime": widget.sessionTimer,
-        "userLocalTime": DateTime.now().toLocal().toIso8601String(),
-      },
-    );
-
     WidgetsBinding.instance.addPostFrameCallback((_) {
       setState(() {
         _videoIsPlaying = false;
@@ -288,7 +235,8 @@ class _SessionVideoContainerState extends State<SessionVideoContainer> with Widg
                       ValueListenableBuilder(
                         valueListenable: controller,
                         builder: (BuildContext context, VideoPlayerValue value, child) {
-                          final videoFinished = value.isInitialized && value.position == value.duration;
+                          final videoFinished =
+                              value.isInitialized && value.position == value.duration;
 
                           if (videoFinished) _onVideoEnds();
 
@@ -316,7 +264,8 @@ class _SessionVideoContainerState extends State<SessionVideoContainer> with Widg
                                     const SizedBox(width: 10),
                                     CustomText.w400(
                                       (value.duration - value.position).toDurationString,
-                                      style: context.textTheme.bodyMedium?.copyWith(color: AppColors.white),
+                                      style: context.textTheme.bodyMedium
+                                          ?.copyWith(color: AppColors.white),
                                     ),
                                   ],
                                 ),

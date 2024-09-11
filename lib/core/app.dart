@@ -1,5 +1,4 @@
 import 'package:auto_route/auto_route.dart';
-import 'package:crowdin_sdk/crowdin_sdk.dart';
 import 'package:loopcare_frontend/core/application/localization/localizer_extenstion.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
@@ -13,12 +12,9 @@ import 'package:loopcare_frontend/core/infrastructure/services/app_bloc_provider
 import 'package:loopcare_frontend/core/infrastructure/services/app_config.dart';
 import 'package:loopcare_frontend/core/infrastructure/services/facebook_events_service.dart';
 import 'package:loopcare_frontend/core/infrastructure/services/firebase_navigator_observer.dart';
-import 'package:loopcare_frontend/core/infrastructure/services/logger/logger.dart';
-import 'package:loopcare_frontend/core/infrastructure/services/shared_storage/shared_storage_service.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/core/presentation/alerting/show_app_snackbar.dart';
 import 'package:loopcare_frontend/core/presentation/routes/app_router.dart';
-import 'package:loopcare_frontend/core/presentation/text/custom_text.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 import 'package:loopcare_frontend/injection.dart';
 
@@ -57,61 +53,30 @@ class _AppState extends State<_App> {
     FacebookEventsService();
   }
 
-  Future<void> _initializeCrowdin() async {
-    await loadLocalLocalizations();
-    await Crowdin.loadTranslations(currentLocale);
-
-    log.i('Current locale: ${currentLocale.languageCode}', error: 'CROWDIN');
-  }
-
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder<void>(
-      future: _initializeCrowdin(),
-      builder: (context, snapshot) {
-        if (snapshot.connectionState == ConnectionState.done ||
-            getIt<SharedStorageService>().localTranslations != null) {
-          return BlocListener<ConnectivityBloc, ConnectivityState>(
-            listener: (context, state) => state.whenOrNull(
-              statusChanged: _connectivityListener,
+    return BlocListener<ConnectivityBloc, ConnectivityState>(
+      listener: (context, state) => state.whenOrNull(
+        statusChanged: _connectivityListener,
+      ),
+      child: MaterialApp.router(
+        debugShowCheckedModeBanner: false,
+        title: 'Loop care',
+        theme: appThemeData,
+        routerDelegate: _appRouter.delegate(
+          navigatorObservers: () => [
+            RouteObserverUtils(),
+            UxcamNavigationObserver(),
+            FirebaseNavigatorObserver(
+              analytics: _analytics,
             ),
-            child: MaterialApp.router(
-              debugShowCheckedModeBanner: false,
-              title: 'Loop care',
-              theme: appThemeData,
-              routerDelegate: _appRouter.delegate(
-                navigatorObservers: () => [
-                  RouteObserverUtils(),
-                  UxcamNavigationObserver(),
-                  FirebaseNavigatorObserver(
-                    analytics: _analytics,
-                  ),
-                ],
-              ),
-              routeInformationParser: _appRouter.defaultRouteParser(),
-              localizationsDelegates: CrowdinLocalization.localizationsDelegates,
-              supportedLocales: AppLocalizations.supportedLocales,
-              locale: currentLocale,
-            ),
-          );
-        } else if (snapshot.hasError) {
-          return MaterialApp(
-            home: Scaffold(
-              body: Center(
-                child: CustomText(
-                  LocalizedTexts.errorLoadTranslations.tr(),
-                ),
-              ),
-            ),
-          );
-        } else {
-          return const MaterialApp(
-            home: Scaffold(
-              body: Center(child: CircularProgressIndicator()),
-            ),
-          );
-        }
-      },
+          ],
+        ),
+        routeInformationParser: _appRouter.defaultRouteParser(),
+        localizationsDelegates: CrowdinLocalization.localizationsDelegates,
+        supportedLocales: AppLocalizations.supportedLocales,
+        locale: currentLocale,
+      ),
     );
   }
 

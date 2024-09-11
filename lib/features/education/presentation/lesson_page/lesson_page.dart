@@ -35,6 +35,16 @@ class LessonPage extends StatefulWidget {
 }
 
 class _LessonPageState extends State<LessonPage> {
+  late EducationLessonData educationLessonBlocStateData;
+  late AnalyticsBloc analyticsBloc;
+
+  @override
+  void initState() {
+    super.initState();
+    educationLessonBlocStateData = context.read<EducationLessonBloc>().state.data;
+    analyticsBloc = context.read<AnalyticsBloc>();
+  }
+
   void _onNextPressed() {
     final lessonBlocData = context.read<EducationLessonBloc>().state.data;
 
@@ -43,31 +53,6 @@ class _LessonPageState extends State<LessonPage> {
     } else {
       context.router.push(LessonCompleteRoute(streamType: widget.streamType));
     }
-  }
-
-  Future<bool> _onWillPop() {
-    final stateData = context.read<EducationLessonBloc>().state.data;
-
-    context.read<AnalyticsBloc>().add(
-          AnalyticsEvent.sendAnalytics(
-            AnalyticsEvents.leaveLessonScreen,
-            {
-              AnalyticsParameters.lessonId: widget.lessonId.toString(),
-              AnalyticsParameters.lessonType: stateData.contentType.name,
-              AnalyticsParameters.timestamp: DateTime.now().toIso8601String(),
-            },
-          ),
-        );
-
-    const AnalyticsEventService().logLessonEvent(
-      AnalyticsEvents.leaveLessonScreen,
-      widget.lessonId,
-      stateData.contentType,
-      stateData.title,
-      stateData.hasQuiz,
-    );
-
-    return Future.value(true);
   }
 
   void _onRetryHandler() => context
@@ -87,47 +72,68 @@ class _LessonPageState extends State<LessonPage> {
   }
 
   @override
+  void dispose() {
+    super.dispose();
+
+    analyticsBloc.add(
+      AnalyticsEvent.sendAnalytics(
+        AnalyticsEvents.leaveLessonScreen,
+        {
+          AnalyticsParameters.lessonId: widget.lessonId.toString(),
+          AnalyticsParameters.lessonType: educationLessonBlocStateData.contentType.name,
+          AnalyticsParameters.timestamp: DateTime.now().toIso8601String(),
+        },
+      ),
+    );
+
+    const AnalyticsEventService().logLessonEvent(
+      AnalyticsEvents.leaveLessonScreen,
+      widget.lessonId,
+      educationLessonBlocStateData.contentType,
+      educationLessonBlocStateData.title,
+      educationLessonBlocStateData.hasQuiz,
+    );
+  }
+
+  @override
   Widget build(BuildContext context) {
-    return WillPopScope(
-      onWillPop: _onWillPop,
-      child: CustomScaffold(
-        color: widget.streamType.lightestColor,
-        appBar: CustomAppBar(
-          backgroundColor: widget.streamType.regularColor,
-          title: LocalizedTexts.lesson.tr(),
-          textTheme: widget.streamType.appBarTextTheme,
-          leading: CustomFilledIconButton.fromColor(color: widget.streamType.lighterColor),
-        ),
-        body: CustomSafeArea(
-          child: BlocConsumer<EducationLessonBloc, EducationLessonState>(
-            listener: _onContentLoaded,
-            listenWhen: (prev, cur) => cur is ContentLoaded,
-            builder: (context, state) {
-              return state.maybeMap(
-                initial: (_) => const Loader(),
-                contentIsLoading: (_) => const Loader(),
-                errorGettingContent: (s) =>
-                    ErrorScreen(error: s.data.error!, onButtonPressed: _onRetryHandler),
-                orElse: () {
-                  if (state.data.isArticlePage) {
-                    return LessonTextBody(
-                      onNextPressed: _onNextPressed,
-                      streamType: widget.streamType,
-                    );
-                  }
+    return CustomScaffold(
+      color: widget.streamType.lightestColor,
+      appBar: CustomAppBar(
+        backgroundColor: widget.streamType.regularColor,
+        title: LocalizedTexts.lesson.tr(),
+        textTheme: widget.streamType.appBarTextTheme,
+        leading: CustomFilledIconButton.fromColor(color: widget.streamType.lighterColor),
+      ),
+      body: CustomSafeArea(
+        child: BlocConsumer<EducationLessonBloc, EducationLessonState>(
+          listener: _onContentLoaded,
+          listenWhen: (prev, cur) => cur is ContentLoaded,
+          builder: (context, state) {
+            return state.maybeMap(
+              initial: (_) => const Loader(),
+              contentIsLoading: (_) => const Loader(),
+              errorGettingContent: (s) =>
+                  ErrorScreen(error: s.data.error!, onButtonPressed: _onRetryHandler),
+              orElse: () {
+                if (state.data.isArticlePage) {
+                  return LessonTextBody(
+                    onNextPressed: _onNextPressed,
+                    streamType: widget.streamType,
+                  );
+                }
 
-                  if (state.data.isAudioPage) {
-                    return LessonAudioBody(
-                      onNextPressed: _onNextPressed,
-                      streamType: widget.streamType,
-                    );
-                  }
+                if (state.data.isAudioPage) {
+                  return LessonAudioBody(
+                    onNextPressed: _onNextPressed,
+                    streamType: widget.streamType,
+                  );
+                }
 
-                  return const SizedBox.shrink();
-                },
-              );
-            },
-          ),
+                return const SizedBox.shrink();
+              },
+            );
+          },
         ),
       ),
     );

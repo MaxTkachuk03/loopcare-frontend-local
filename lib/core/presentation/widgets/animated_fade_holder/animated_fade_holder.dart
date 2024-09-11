@@ -76,23 +76,23 @@ class _AnimatedFadeHolderState extends State<AnimatedFadeHolder> with TickerProv
       duration: const Duration(milliseconds: 150),
       vsync: this,
     )..addListener(() {
-      if (_forwardController.status == AnimationStatus.completed) {
-        setState(() {
-          _oldChild = widget.child;
-          _reverseController.reset();
-          _forwardController.reset();
-        });
-      }
-    });
+        if (_forwardController.status == AnimationStatus.completed) {
+          setState(() {
+            _oldChild = widget.child;
+            _reverseController.reset();
+            _forwardController.reset();
+          });
+        }
+      });
 
     _reverseController = AnimationController(
       duration: const Duration(milliseconds: 150),
       vsync: this,
     )..addListener(() {
-      if (_reverseController.status == AnimationStatus.completed) {
-        _forwardController.forward(from: 0);
-      }
-    });
+        if (_reverseController.status == AnimationStatus.completed) {
+          _forwardController.forward(from: 0);
+        }
+      });
 
     _forwardOpacityAnimation = Tween<double>(begin: 0.0, end: 1.0).animate(_forwardController);
 

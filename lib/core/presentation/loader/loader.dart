@@ -20,8 +20,8 @@ class _LoaderState extends State<Loader> with TickerProviderStateMixin {
 
     controller = AnimationController(vsync: this, duration: const Duration(seconds: 2));
 
-    _colorTween = controller
-        .drive(ColorTween(begin: AppColors.blueRegular.withOpacity(0.1), end: AppColors.blueRegular));
+    _colorTween = controller.drive(
+        ColorTween(begin: AppColors.blueRegular.withOpacity(0.1), end: AppColors.blueRegular));
 
     controller.repeat();
   }

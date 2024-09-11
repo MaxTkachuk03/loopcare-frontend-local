@@ -43,9 +43,11 @@ class NutritionSummary extends StatelessWidget {
                   state.data.isCalorieDensityUnlocked
                       ? Expanded(child: NutritionScale.calorieDensity(value: calorieDensity))
                       : const Spacer(),
+                  const SizedBox(width: 6),
                   state.data.isProteinDegreeUnlocked
                       ? Expanded(child: NutritionScale.proteinDegree(value: proteinDegree))
                       : const Spacer(),
+                  const SizedBox(width: 6),
                   state.data.isCarbohydrateRatioUnlocked
                       ? Expanded(
                           child: NutritionScale.fiber(

@@ -1,11 +1,17 @@
+// FIXME: transitive dependencies should be installed if used, check during subscriptions refactoring
+// ignore_for_file: depend_on_referenced_packages
+
 import 'dart:async';
 import 'dart:io';
 
 import 'package:in_app_purchase/in_app_purchase.dart';
 import 'package:in_app_purchase_storekit/in_app_purchase_storekit.dart';
 import 'package:in_app_purchase_storekit/store_kit_wrappers.dart';
+import 'package:loopcare_frontend/core/domain/analytics/analytics_parameters.dart';
 import 'package:loopcare_frontend/core/infrastructure/dio_client/request_error.dart';
 import 'package:loopcare_frontend/core/infrastructure/dio_client/server_error_data.dart';
+import 'package:loopcare_frontend/core/infrastructure/services/events.dart';
+import 'package:loopcare_frontend/core/infrastructure/services/mixpanel_event_service.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/features/subscription/infrastructure/subscription_service.dart';
 import 'package:loopcare_frontend/injection.dart';
@@ -41,8 +47,12 @@ class PurchaseDetailsStreamSubscription {
       _streamListener,
       onDone: close,
       onError: (e) {
-        onError?.call(const RequestError.streamSubscription(
-            ServerErrorData(message: LocalizedTexts.errorPurchaseStreamError)));
+        _mixpanelSubscriptionPurchaseErrorEvent(message: '$e');
+        onError?.call(
+          const RequestError.streamSubscription(
+            ServerErrorData(message: LocalizedTexts.errorPurchaseStreamError),
+          ),
+        );
         close();
       },
     );
@@ -50,6 +60,7 @@ class PurchaseDetailsStreamSubscription {
 
   void _streamListener(List<PurchaseDetails> events) async {
     if (events.isEmpty) {
+      _mixpanelLastTransactionEvent();
       onEmpty?.call();
       return;
     }
@@ -59,6 +70,7 @@ class PurchaseDetailsStreamSubscription {
       for (var purchaseDetails in events) {
         await inAppPurchaseService.completePurchase(purchaseDetails);
       }
+      _mixpanelLastTransactionEvent(data: events.last);
       onRestored?.call(events.last);
       if (Platform.isIOS) {
         await inAppPurchaseService.finishTransactionIOS();
@@ -81,7 +93,8 @@ class PurchaseDetailsStreamSubscription {
             onCanceled?.call();
             break;
           case PurchaseStatus.error:
-            // TODO handle this type error IAPError? error;
+            _mixpanelSubscriptionPurchaseErrorEvent(
+                data: purchaseDetails, message: 'error_purchase_stream_error');
             onError?.call(const RequestError.streamSubscription(
                 ServerErrorData(message: LocalizedTexts.errorPurchaseStreamError)));
             if (Platform.isIOS) {
@@ -92,6 +105,36 @@ class PurchaseDetailsStreamSubscription {
             break;
         }
         await inAppPurchaseService.completePurchase(purchaseDetails);
+      },
+    );
+  }
+
+  void _mixpanelSubscriptionPurchaseErrorEvent({PurchaseDetails? data, String? message}) {
+    MixpanelEventService.instance.track(
+      AppMixpanelEvents.subscriptionPurchaseError,
+      parameters: {
+        if (data != null) ...{
+          AnalyticsParameters.productIdentifier: data.productID,
+          AnalyticsParameters.purchaseIdentifier: data.purchaseID,
+          if (data.error != null) AnalyticsParameters.iapErrorMessage: data.error!.message,
+        },
+        if (message != null) AnalyticsParameters.errorMessage: message,
+      },
+    );
+  }
+
+  void _mixpanelLastTransactionEvent({PurchaseDetails? data}) {
+    MixpanelEventService.instance.track(
+      AppMixpanelEvents.getTransactionHistoryByUser,
+      parameters: {
+        if (data != null) ...{
+          AnalyticsParameters.productIdentifier: data.productID,
+          AnalyticsParameters.purchaseIdentifier: data.purchaseID,
+          AnalyticsParameters.purchaseStatus: data.status.name,
+          if (data.transactionDate != null)
+            AnalyticsParameters.transactionDate:
+                DateTime.fromMillisecondsSinceEpoch(int.parse(data.transactionDate!) * 1000),
+        },
       },
     );
   }

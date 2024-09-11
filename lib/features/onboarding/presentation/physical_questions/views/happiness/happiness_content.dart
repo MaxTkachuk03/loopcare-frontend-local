@@ -30,7 +30,8 @@ class _HappinessContentState extends State<HappinessContent> {
     _selectMood = ValueNotifier(null);
     final bloc = context.read<PhysicalQuestionsBloc>();
     if (bloc.state.happiness > 0) {
-      _selectMood.value = moodPickerList.firstWhere((element) => element.value == bloc.state.happiness);
+      _selectMood.value =
+          moodPickerList.firstWhere((element) => element.value == bloc.state.happiness);
     }
   }
 

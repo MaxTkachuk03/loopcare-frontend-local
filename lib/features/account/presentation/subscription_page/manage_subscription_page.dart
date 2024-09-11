@@ -75,7 +75,7 @@ class _ManageSubscriptionPageState extends State<ManageSubscriptionPage> {
                             height: 14,
                           ),
                           _DetailsSection(
-                            title: LocalizedTexts.subscriptionVia,
+                            title: LocalizedTexts.subscriptionSubscriptionVia,
                             value: state.data.subscription == null
                                 ? ''
                                 : state.data.subscription!.vendor == 'ios'
@@ -157,7 +157,7 @@ class _ManageSubscriptionPageState extends State<ManageSubscriptionPage> {
   }
 
   _errorListener(BuildContext context, SubscriptionState state) {
-    final errorMessage = state.data.errorKey ;
+    final errorMessage = state.data.errorKey;
     context.showErrorBar(
       content: CustomText(errorMessage.tr()),
       position: FlashPosition.top,

@@ -83,7 +83,8 @@ abstract class AppLocalizations {
   /// Additional delegates can be added by appending to this list in
   /// MaterialApp. This list does not have to be used at all if a custom list
   /// of delegates is preferred or required.
-  static const List<LocalizationsDelegate<dynamic>> localizationsDelegates = <LocalizationsDelegate<dynamic>>[
+  static const List<LocalizationsDelegate<dynamic>> localizationsDelegates =
+      <LocalizationsDelegate<dynamic>>[
     delegate,
     GlobalMaterialLocalizations.delegate,
     GlobalCupertinoLocalizations.delegate,
@@ -91,11 +92,7 @@ abstract class AppLocalizations {
   ];
 
   /// A list of this localizations delegate's supported locales.
-  static const List<Locale> supportedLocales = <Locale>[
-    Locale('de'),
-    Locale('en'),
-    Locale('nl')
-  ];
+  static const List<Locale> supportedLocales = <Locale>[Locale('de'), Locale('en'), Locale('nl')];
 
   /// No description provided for @errorValidationIosMinVersionNotANumber.
   ///
@@ -5854,19 +5851,19 @@ abstract class AppLocalizations {
   /// The text shown for the goal of logging days in a week
   ///
   /// In en, this message translates to:
-  /// **'{count, plural, =0{Goal: {count} logged days in a week} one{Goal: {count} logged day in a week} other{Goal: {count} logged days in a week}}'**
+  /// **'{count, plural, =0{Goal: {count} logged days in a week} =1{Goal: {count} logged day in a week} other{Goal: {count} logged days in a week}}'**
   String smartGoalsGoalLogDays(int count);
 
   /// The text shown for the number of logged days
   ///
   /// In en, this message translates to:
-  /// **'{count, plural, =0{Logged days: {count}} one{Logged day: {count}} other{Logged days: {count}}}'**
+  /// **'{count, plural, =0{Logged days: {count}} =1{Logged day: {count}} other{Logged days: {count}}}'**
   String smartGoalsGoalLogged(int count);
 
   /// The text shown for the total number of completions/logs
   ///
   /// In en, this message translates to:
-  /// **'{count, plural, =0{Total logs: {count}} one{Total log: {count}} other{Total logs: {count}}}'**
+  /// **'{count, plural, =0{Total logs: {count}} =1{Total log: {count}} other{Total logs: {count}}}'**
   String smartGoalsGoalTotalCompletions(int count);
 
   /// No description provided for @smartGoalsGoalCompleted.
@@ -5902,7 +5899,7 @@ abstract class AppLocalizations {
   /// Text indicating how many days are left to complete the goal
   ///
   /// In en, this message translates to:
-  /// **'{count, plural, =0{No days left to complete} one{1 day left to complete} other{{count} days left to complete}}'**
+  /// **'{count, plural, =0{No days left to complete} =1{1 day left to complete} other{{count} days left to complete}}'**
   String smartGoalsWeeklyDaysLeft(int count);
 
   /// No description provided for @smartGoalsWeeklyDayLeft.
@@ -5920,7 +5917,7 @@ abstract class AppLocalizations {
   /// Text indicating how many times something has occurred
   ///
   /// In en, this message translates to:
-  /// **'{count, plural, =0{No times} one{1 time} other{# times}}'**
+  /// **'{count, plural, =0{No times} =1{1 time} other{{count} times}}'**
   String smartGoalsWeeklyTimes(int count);
 
   /// No description provided for @smartGoalsReasonGoalNotLike.
@@ -6318,6 +6315,30 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Now tap the other icons to unlock features and explore.'**
   String get riverGuidanceStartRiverDescription;
+
+  /// No description provided for @riverModuleGraduationCompletedItemsTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Great job. You have completed the lessons in this pool.'**
+  String get riverModuleGraduationCompletedItemsTitle;
+
+  /// No description provided for @riverModuleGraduationCompletedTimeTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Your module is fully colored-in, meaning you  first read the Reflection over 7 days ago.'**
+  String get riverModuleGraduationCompletedTimeTitle;
+
+  /// No description provided for @riverModuleGraduationCompletedItemsMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'You are one step closer to finishing this section. But before you can graduate, we encourage you to practice and reflect on what you have learned in this Pool.\n\nOnce the 7 day timer has has filled this section with color, you can move on to the next pool.'**
+  String get riverModuleGraduationCompletedItemsMessage;
+
+  /// No description provided for @riverModuleGraduationCompletedTimeMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'No rush: Every module takes the time it takes. Keep reflecting! When you’ve completed all the necessary steps, we’ll ask you if you’re ready to move on. Need some help? Reach out by emailing support@lean-on.me, and one of our specialists will be glad to assist.'**
+  String get riverModuleGraduationCompletedTimeMessage;
 
   /// No description provided for @subscriptionTrialTitle.
   ///
@@ -9316,8 +9337,8 @@ abstract class AppLocalizations {
   /// Indicates that the session might be canceled due to insufficient user sign-ups.
   ///
   /// In en, this message translates to:
-  /// **'{number, plural, =0{No users have signed up to this session, so it might be canceled.} =1{Only 1 user has signed up to this session, so it might be canceled.} other{Less than {number} users have signed up to this session, so it might be canceled.}}'**
-  String noMinMemberCount(int number);
+  /// **'{count, plural, =0{No users have signed up to this session, so it might be canceled.} =1{Only 1 user has signed up to this session, so it might be canceled.} other{Less than {count} users have signed up to this session, so it might be canceled.}}'**
+  String noMinMemberCount(int count);
 
   /// No description provided for @noGroupThisWeek.
   ///
@@ -9898,7 +9919,7 @@ abstract class AppLocalizations {
   /// Shows the number of minutes
   ///
   /// In en, this message translates to:
-  /// **'{count, plural, =1 {# min} other {# mins}}'**
+  /// **'{count, plural, =1{{count} min} other {{count} mins}}'**
   String countMins(int count);
 
   /// No description provided for @chooseAnExercise.
@@ -10192,8 +10213,8 @@ abstract class AppLocalizations {
   /// Message indicating the number of members in the support group
   ///
   /// In en, this message translates to:
-  /// **'{users, plural, =0{There are no members in your support group} =1{There is 1 member in your support group} other{There are {users} members in your support group}}'**
-  String groupChatLabel(int users);
+  /// **'{count, plural, =0{There are no members in your support group} =1{There is 1 member in your support group} other{There are {count} members in your support group}}'**
+  String groupChatLabel(int count);
 
   /// No description provided for @copyGroupMessage.
   ///
@@ -11032,7 +11053,7 @@ abstract class AppLocalizations {
   /// Message indicating the number of exercises contained
   ///
   /// In en, this message translates to:
-  /// **'{count, plural, one{Contains the following {count} exercise} other{Contains the following {count} exercises}}'**
+  /// **'{count, plural, =1{Contains the following {count} exercise} other{Contains the following {count} exercises}}'**
   String countExercises(int count);
 
   /// No description provided for @strength.
@@ -11730,19 +11751,19 @@ class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> 
 }
 
 AppLocalizations lookupAppLocalizations(Locale locale) {
-
-
   // Lookup logic when only language code is specified.
   switch (locale.languageCode) {
-    case 'de': return AppLocalizationsDe();
-    case 'en': return AppLocalizationsEn();
-    case 'nl': return AppLocalizationsNl();
+    case 'de':
+      return AppLocalizationsDe();
+    case 'en':
+      return AppLocalizationsEn();
+    case 'nl':
+      return AppLocalizationsNl();
   }
 
   throw FlutterError(
-    'AppLocalizations.delegate failed to load unsupported locale "$locale". This is likely '
-    'an issue with the localizations generation tool. Please file an issue '
-    'on GitHub with a reproducible sample app and the gen-l10n configuration '
-    'that was used.'
-  );
+      'AppLocalizations.delegate failed to load unsupported locale "$locale". This is likely '
+      'an issue with the localizations generation tool. Please file an issue '
+      'on GitHub with a reproducible sample app and the gen-l10n configuration '
+      'that was used.');
 }

@@ -66,7 +66,12 @@ var accountMock = {
     "trainingTargets": "Build up muscles",
     "flexible": true
   },
-  "mentalHealthTests": {"who5": "minimal", "phq8": "minimal", "phq15": "minimal", "gad7": "minimal"},
+  "mentalHealthTests": {
+    "who5": "minimal",
+    "phq8": "minimal",
+    "phq15": "minimal",
+    "gad7": "minimal"
+  },
   "subscription": {
     "isActive": true,
     "serverDate": "2024-03-26T11:25:29.251Z",

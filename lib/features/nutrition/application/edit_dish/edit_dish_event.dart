@@ -29,7 +29,8 @@ class EditDishEvent with _$EditDishEvent {
     List<MealCategory> mealCategories,
   ) = CreateDish;
 
-  const factory EditDishEvent.nutritionItemChanged(NutritionValuesTypes item) = NutritionItemChanged;
+  const factory EditDishEvent.nutritionItemChanged(NutritionValuesTypes item) =
+      NutritionItemChanged;
 
   const factory EditDishEvent.addFoodItemToDish({
     required double numberOfUnits,

@@ -33,9 +33,10 @@ class _SelectFoodPageState extends State<SelectFoodPage> with TickerProviderStat
   String _appBarTitle(BuildContext context) {
     final state = context.read<MealsBloc>().state;
 
-    final date = state.data.currentDateTime.isoStringWithoutTime != DateTime.now().isoStringWithoutTime
-        ? state.data.currentDateTime.shortDate
-        : 'today';
+    final date =
+        state.data.currentDateTime.isoStringWithoutTime != DateTime.now().isoStringWithoutTime
+            ? state.data.currentDateTime.shortDate
+            : 'today';
 
     return '${widget.mealCategory?.title.capitalizeOnlyFirstLetter() ?? ''} $date';
   }

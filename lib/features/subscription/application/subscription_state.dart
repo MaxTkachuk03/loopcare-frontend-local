@@ -64,6 +64,7 @@ class SubscriptionStateData with _$SubscriptionStateData {
     @Default(<ServerProduct>[]) List<ServerProduct> serverPlans,
     @Default(<PurchaseDetails>[]) List<PurchaseDetails> purchases,
     PurchasedProduct? purchased,
+    PurchaseDetails? lastPurchase,
     Subscription? subscription,
     ProductDetails? product,
     @Default(false) bool isEligible,

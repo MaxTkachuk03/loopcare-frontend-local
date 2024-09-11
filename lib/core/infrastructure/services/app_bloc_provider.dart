@@ -2,25 +2,23 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loopcare_frontend/core/application/analytics_bloc.dart';
 import 'package:loopcare_frontend/core/application/app_update/app_update_bloc.dart';
 import 'package:loopcare_frontend/core/application/connectivity_bloc/connectivity_bloc.dart';
-import 'package:loopcare_frontend/features/account/application/group_preferences_bloc.dart';
+import 'package:loopcare_frontend/features/account/application/food_preference/food_preference_bloc.dart';
+import 'package:loopcare_frontend/features/account/application/group_preferences/group_preferences_bloc.dart';
+import 'package:loopcare_frontend/features/account/application/user_states/user_states_bloc.dart';
 import 'package:loopcare_frontend/features/account/presentation/buddy_page/application/buddy_bloc.dart';
 import 'package:loopcare_frontend/features/authentication/application/authentication_bloc.dart';
 import 'package:loopcare_frontend/features/chat/application/chat_bloc/group_chat_bloc.dart';
 import 'package:loopcare_frontend/features/chat/application/chat_watcher_bloc/chat_watcher_bloc.dart';
-import 'package:loopcare_frontend/features/consent_confirmation/application/consent_confirmation_bloc.dart';
 import 'package:loopcare_frontend/features/dashboard/application/physical_activities_bloc.dart';
 import 'package:loopcare_frontend/features/dashboard/application/programs_in_progress_bloc.dart';
 import 'package:loopcare_frontend/features/education/application/education_lesson/education_lesson_bloc.dart';
-import 'package:loopcare_frontend/features/education/application/education_program/education_program_bloc.dart';
 import 'package:loopcare_frontend/features/group_sessions/application/topics_bloc.dart';
 import 'package:loopcare_frontend/features/home/application/navigation_bar_bloc.dart';
 import 'package:loopcare_frontend/features/legal_statement/application/legal_statement_bloc.dart';
-import 'package:loopcare_frontend/features/lesson_quiz/application/quizzes_bloc.dart';
 import 'package:loopcare_frontend/features/mind/application/mind_bloc.dart';
 import 'package:loopcare_frontend/features/mood/application/mood_bloc.dart';
 import 'package:loopcare_frontend/features/nutrition/application/barcode_scanner/barcode_scanner_bloc.dart';
 import 'package:loopcare_frontend/features/nutrition/application/bmr/bmr_bloc.dart';
-import 'package:loopcare_frontend/features/nutrition/application/choose_date/choose_date_bloc.dart';
 import 'package:loopcare_frontend/features/nutrition/application/dashboard_weight/dashboard_weight_bloc.dart';
 import 'package:loopcare_frontend/features/nutrition/application/dish/dish_bloc.dart';
 import 'package:loopcare_frontend/features/nutrition/application/edit_dish/edit_dish_bloc.dart';
@@ -45,7 +43,6 @@ import 'package:loopcare_frontend/features/smart_goals/application/smart_goals_s
 import 'package:loopcare_frontend/features/subscription/application/subscription_bloc.dart';
 import 'package:loopcare_frontend/features/video_player/application/video_player_bloc.dart';
 import 'package:loopcare_frontend/features/video_session/application/session_call_bloc.dart';
-import 'package:loopcare_frontend/features/you_and_food/application/you_and_food_bloc.dart';
 import 'package:loopcare_frontend/injection.dart';
 
 class AppBlocProvider {
@@ -76,11 +73,8 @@ class AppBlocProvider {
         BlocProvider<LegalStatementBloc>(
           create: (_) => getIt<LegalStatementBloc>(),
         ),
-        BlocProvider<ConsentConfirmationBloc>(
-          create: (_) => getIt<ConsentConfirmationBloc>(),
-        ),
-        BlocProvider<YouAndFoodBloc>(
-          create: (_) => getIt<YouAndFoodBloc>(),
+        BlocProvider<FoodPreferenceBloc>(
+          create: (_) => getIt<FoodPreferenceBloc>(),
         ),
         BlocProvider<SelectFoodBloc>(
           create: (_) => getIt<SelectFoodBloc>(),
@@ -111,9 +105,6 @@ class AppBlocProvider {
         ),
         BlocProvider<EditDishBloc>(
           create: (_) => getIt<EditDishBloc>(),
-        ),
-        BlocProvider<EducationProgramBloc>(
-          create: (_) => getIt<EducationProgramBloc>(),
         ),
         BlocProvider<EducationLessonBloc>(
           create: (_) => getIt<EducationLessonBloc>()..add(const EducationLessonEvent.init()),
@@ -148,9 +139,6 @@ class AppBlocProvider {
         BlocProvider<AnalyticsBloc>(
           create: (_) => getIt<AnalyticsBloc>(),
         ),
-        BlocProvider<ChooseDateBloc>(
-          create: (_) => getIt<ChooseDateBloc>(),
-        ),
         BlocProvider<MindBloc>(
           create: (_) => getIt<MindBloc>(),
         ),
@@ -159,9 +147,6 @@ class AppBlocProvider {
         ),
         BlocProvider<SubscriptionBloc>(
           create: (_) => getIt<SubscriptionBloc>(),
-        ),
-        BlocProvider<QuizzesBloc>(
-          create: (_) => getIt<QuizzesBloc>(),
         ),
         BlocProvider<ReflectionsBloc>(
           create: (_) => getIt<ReflectionsBloc>(),
@@ -192,6 +177,9 @@ class AppBlocProvider {
         ),
         BlocProvider<RiverBloc>(
           create: (_) => getIt<RiverBloc>(),
+        ),
+        BlocProvider<UserStatesBloc>(
+          create: (_) => getIt<UserStatesBloc>(),
         ),
       ];
 }

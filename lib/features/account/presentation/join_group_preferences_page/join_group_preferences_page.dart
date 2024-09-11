@@ -16,7 +16,7 @@ import 'package:loopcare_frontend/core/presentation/text/custom_text.dart';
 import 'package:loopcare_frontend/core/presentation/utils/build_context_extensions.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/main_container.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/scrollable_container.dart';
-import 'package:loopcare_frontend/features/account/application/group_preferences_bloc.dart';
+import 'package:loopcare_frontend/features/account/application/group_preferences/group_preferences_bloc.dart';
 import 'package:loopcare_frontend/features/account/presentation/widgets/group_prefs_page_wrap.dart';
 import 'package:loopcare_frontend/features/education/domain/extra_action_page_mode.dart';
 import 'package:loopcare_frontend/injection.dart';

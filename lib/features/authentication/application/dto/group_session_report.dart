@@ -13,5 +13,6 @@ class GroupSessionReport with _$GroupSessionReport {
     required String time,
   }) = _GroupSessionReport;
 
-  factory GroupSessionReport.fromJson(Map<String, dynamic> json) => _$GroupSessionReportFromJson(json);
+  factory GroupSessionReport.fromJson(Map<String, dynamic> json) =>
+      _$GroupSessionReportFromJson(json);
 }

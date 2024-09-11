@@ -42,7 +42,7 @@ class MindContentScreen extends StatefulWidget {
     required this.onExerciseCompleted,
     required this.onRepeat,
     required this.stepIndex,
-  }) : onComplete = null,
+  })  : onComplete = null,
         exercise = null,
         _type = _MindContentScreenType.exercise;
 
@@ -53,7 +53,7 @@ class MindContentScreen extends StatefulWidget {
     required this.contentTitle,
     required this.exercise,
     required this.onComplete,
-  }) : onExerciseCompleted = null,
+  })  : onExerciseCompleted = null,
         stepIndex = 1,
         onRepeat = null,
         difficulty = null,
@@ -65,7 +65,7 @@ class MindContentScreen extends StatefulWidget {
     required this.steps,
     required this.onComplete,
     required this.contentTitle,
-  }) : onExerciseCompleted = null,
+  })  : onExerciseCompleted = null,
         stepIndex = 1,
         onRepeat = null,
         exercise = null,
@@ -154,8 +154,7 @@ class _MindContentScreenState extends State<MindContentScreen> {
     );
   }
 
-  void _defaultCompletion() =>
-      context.router.popUntilRouteWithName(TechniqueExercisesRoute.name);
+  void _defaultCompletion() => context.router.popUntilRouteWithName(TechniqueExercisesRoute.name);
 
   @override
   void initState() {
@@ -193,40 +192,43 @@ class _MindContentScreenState extends State<MindContentScreen> {
     }
 
     final currentStep = steps[widget.stepIndex - 1];
-    final skipButtonLabel = _type.isIntro ? LocalizedTexts.skipIntro.tr() : LocalizedTexts.skipExplanation.tr();
+    final skipButtonLabel =
+        _type.isIntro ? LocalizedTexts.skipIntro.tr() : LocalizedTexts.skipExplanation.tr();
 
     return switch (currentStep.type) {
       TechniqueExplanationType.video => MindVideoScreen(
-        title: widget.title,
-        url: currentStep.src,
-        onCompleted: onStepComplete,
-        videoOrientation: (currentStep.orientation?.isPortrait ?? false) ? Orientation.portrait : Orientation.landscape,
-        onSkip: widget.onComplete,
-        skipButtonLabel: skipButtonLabel,
-        contentTitle: _getContentTitle(),
-        onCompleteOverlay: !_type.isExercise ? completesWidget : null,
-      ),
-      TechniqueExplanationType.text => MindTextScreen(
-        title: widget.title,
-        url: currentStep.src,
-        buttonLabel: _buttonLabel,
-        onCompleted: widget.onComplete,
-        backgroundBrightness: _type.isIntro ? Brightness.dark : Brightness.light,
-        leading: _TextExplanationLeadingWidget(
-          key: const ValueKey('headline_explanation_widget'),
-          type: _type,
-          url: currentStep.image,
-          exercise: widget.exercise,
+          title: widget.title,
+          url: currentStep.src,
+          onCompleted: onStepComplete,
+          videoOrientation: (currentStep.orientation?.isPortrait ?? false)
+              ? Orientation.portrait
+              : Orientation.landscape,
+          onSkip: widget.onComplete,
+          skipButtonLabel: skipButtonLabel,
+          contentTitle: _getContentTitle(),
+          onCompleteOverlay: !_type.isExercise ? completesWidget : null,
         ),
-      ),
+      TechniqueExplanationType.text => MindTextScreen(
+          title: widget.title,
+          url: currentStep.src,
+          buttonLabel: _buttonLabel,
+          onCompleted: widget.onComplete,
+          backgroundBrightness: _type.isIntro ? Brightness.dark : Brightness.light,
+          leading: _TextExplanationLeadingWidget(
+            key: const ValueKey('headline_explanation_widget'),
+            type: _type,
+            url: currentStep.image,
+            exercise: widget.exercise,
+          ),
+        ),
       TechniqueExplanationType.rating => MindRatingScreen(
-        title: widget.title,
-        question: (currentStep as MindExerciseStep).src,
-        lowestText: currentStep.lowestText,
-        highestText: currentStep.highestText,
-        isFinish: widget.stepIndex == steps.length,
-        onCompleted: onStepComplete,
-      ),
+          title: widget.title,
+          question: (currentStep as MindExerciseStep).src,
+          lowestText: currentStep.lowestText,
+          highestText: currentStep.highestText,
+          isFinish: widget.stepIndex == steps.length,
+          onCompleted: onStepComplete,
+        ),
     };
   }
 }

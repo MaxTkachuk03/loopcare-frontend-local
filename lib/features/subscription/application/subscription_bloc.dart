@@ -15,8 +15,10 @@ import 'package:loopcare_frontend/core/domain/extensions/iterable_extentions.dar
 import 'package:loopcare_frontend/core/infrastructure/dio_client/request_error.dart';
 import 'package:loopcare_frontend/core/infrastructure/dio_client/server_error_data.dart';
 import 'package:loopcare_frontend/core/infrastructure/services/analytics_service.dart';
+import 'package:loopcare_frontend/core/infrastructure/services/events.dart';
 import 'package:loopcare_frontend/core/infrastructure/services/facebook_events_service.dart';
 import 'package:loopcare_frontend/core/infrastructure/services/logger/logger.dart';
+import 'package:loopcare_frontend/core/infrastructure/services/mixpanel_event_service.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/features/authentication/application/authentication_service.dart';
 import 'package:loopcare_frontend/features/authentication/domain/subscription/subscription.dart';
@@ -52,9 +54,7 @@ class SubscriptionBloc extends Bloc<SubscriptionEvent, SubscriptionState> {
   final AuthenticationService _authenticationService;
   final PurchaseService _purchaseService;
   final AuthTokenManager _authTokenManager;
-  bool _isValidatePastIOSPurchase = false;
   bool _checkEligibility = false;
-  ProductDetails? buyingProduct;
 
   SubscriptionBloc(this._authenticationService, this._purchaseService, this._authTokenManager,
       this._inAppPurchaseService)
@@ -83,7 +83,7 @@ class SubscriptionBloc extends Bloc<SubscriptionEvent, SubscriptionState> {
       _purchaseDetailsStreamSubscription = PurchaseDetailsStreamSubscription(
         onError: (error) => add(SubscriptionEvent.errorPurchase(error)),
         onRestored: (purchase) => _checkEligibility
-            ? add(const SubscriptionEvent.setEligibility(isEligible: false))
+            ? add(SubscriptionEvent.setEligibility(isEligible: false, purchase: purchase))
             : _restoreTransactionData(purchase),
         onPurchased: (PurchaseDetails purchaseDetails) async => _handlePurchase(purchaseDetails),
         onCanceled: () => add(const SubscriptionEvent.canceledByUser()),
@@ -100,18 +100,38 @@ class SubscriptionBloc extends Bloc<SubscriptionEvent, SubscriptionState> {
   FutureOr<void> _onCheckEligibility(
     CheckEligibility event,
     Emitter<SubscriptionState> emit,
-  ) {
+  ) async {
     initPurchaseStream();
-    _checkEligibility = true;
+
     emit(const SubscriptionState.initial(SubscriptionStateData()));
-    _inAppPurchaseService.restorePurchase();
+    _checkEligibility = true;
+    if (Platform.isAndroid) {
+      await _checkAndroidEligible();
+    } else {
+      _inAppPurchaseService.restorePurchase();
+    }
+  }
+
+  Future<void> _checkAndroidEligible() async {
+    final InAppPurchaseAndroidPlatformAddition androidAddition =
+        _inAppPurchaseService.instance.getPlatformAddition<InAppPurchaseAndroidPlatformAddition>();
+    final QueryPurchaseDetailsResponse oldPurchases = await androidAddition.queryPastPurchases();
+    if (oldPurchases.pastPurchases.isNotEmpty) {
+      add(SubscriptionEvent.setEligibility(
+          isEligible: false, purchase: oldPurchases.pastPurchases.last));
+    } else {
+      _onEmptyRestore();
+    }
   }
 
   Future<void> _onEmptyRestore() async {
-    if (_isValidatePastIOSPurchase && buyingProduct != null) {
-      return _verifyOldPurchase(null, buyingProduct!);
-    } else if (_checkEligibility) {
-      add(const SubscriptionEvent.setEligibility(isEligible: true));
+    if (_checkEligibility) {
+      add(
+        const SubscriptionEvent.setEligibility(
+          isEligible: true,
+          purchase: null,
+        ),
+      );
     }
   }
 
@@ -120,7 +140,14 @@ class SubscriptionBloc extends Bloc<SubscriptionEvent, SubscriptionState> {
     Emitter<SubscriptionState> emit,
   ) {
     _checkEligibility = false;
-    emit(SubscriptionState.setEligibility(state.data.copyWith(isEligible: event.isEligible)));
+    emit(
+      SubscriptionState.setEligibility(
+        state.data.copyWith(
+          isEligible: event.isEligible,
+          lastPurchase: event.purchase,
+        ),
+      ),
+    );
   }
 
   FutureOr<void> _onVerifyLastPurchase(
@@ -128,11 +155,6 @@ class SubscriptionBloc extends Bloc<SubscriptionEvent, SubscriptionState> {
     Emitter<SubscriptionState> emit,
   ) async {
     emit(SubscriptionState.loading(state.data.copyWith(isLoading: true)));
-    _isValidatePastIOSPurchase = true;
-    _getOldPurchase(event.product);
-  }
-
-  void _getOldPurchase(ProductDetails product) async {
     PurchaseDetails? oldPurchaseDetails;
     if (Platform.isAndroid) {
       final InAppPurchaseAndroidPlatformAddition androidAddition = _inAppPurchaseService.instance
@@ -141,17 +163,14 @@ class SubscriptionBloc extends Bloc<SubscriptionEvent, SubscriptionState> {
       if (oldPurchases.pastPurchases.isNotEmpty) {
         oldPurchaseDetails = oldPurchases.pastPurchases.last;
       }
-      await _verifyOldPurchase(oldPurchaseDetails, product);
+      await _verifyOldPurchase(oldPurchaseDetails, event.product);
     } else {
-      _isValidatePastIOSPurchase = true;
-      buyingProduct = product;
-      _inAppPurchaseService.instance.restorePurchases();
+      await _verifyOldPurchase(state.data.lastPurchase, event.product);
     }
   }
 
   Future<void> _verifyOldPurchase(
       PurchaseDetails? oldPurchaseDetails, ProductDetails product) async {
-    _isValidatePastIOSPurchase = false;
     late Either<RequestError, ValidStatus> response;
     response = await _verifyPurchaseFromHistory(oldPurchaseDetails);
     response.fold(
@@ -160,6 +179,7 @@ class SubscriptionBloc extends Bloc<SubscriptionEvent, SubscriptionState> {
         add(SubscriptionEvent.errorPurchase(error));
       },
       (r) async {
+        _mixpanelVerifyLastPurchaseEvent(data: oldPurchaseDetails, isValid: r.valid ?? true);
         if (r.valid ?? true) {
           add(SubscriptionEvent.buySubscription(product));
         } else {
@@ -188,6 +208,7 @@ class SubscriptionBloc extends Bloc<SubscriptionEvent, SubscriptionState> {
     BuySubscription event,
     Emitter<SubscriptionState> emit,
   ) async {
+    _pushAnalyticStartPurchase(event);
     try {
       _pushAnalyticStartPurchase(event);
       final purchased = await _inAppPurchaseService.buyItemInStore(event.product);
@@ -200,6 +221,13 @@ class SubscriptionBloc extends Bloc<SubscriptionEvent, SubscriptionState> {
           ),
         );
       } else {
+        MixpanelEventService.instance.track(
+          AppMixpanelEvents.subscriptionPurchaseError,
+          parameters: {
+            AnalyticsParameters.productIdentifier: event.product.id,
+            AnalyticsParameters.errorMessage: 'error_purchase_message',
+          },
+        );
         emit(
           SubscriptionState.error(
             state.data.copyWith(
@@ -227,6 +255,16 @@ class SubscriptionBloc extends Bloc<SubscriptionEvent, SubscriptionState> {
   }
 
   Future<void> _handlePurchase(PurchaseDetails purchaseDetails) async {
+    MixpanelEventService.instance.track(
+      AppMixpanelEvents.userPurchasedSubscription,
+      parameters: {
+        AnalyticsParameters.productIdentifier: purchaseDetails.productID,
+        AnalyticsParameters.purchaseIdentifier: purchaseDetails.purchaseID,
+        AnalyticsParameters.purchaseStatus: purchaseDetails.status.name,
+        AnalyticsParameters.transactionDate:
+            DateTime.fromMillisecondsSinceEpoch(int.parse(purchaseDetails.transactionDate!) * 1000),
+      },
+    );
     await _verifyPurchasedOrRestore(purchaseDetails);
   }
 
@@ -235,9 +273,12 @@ class SubscriptionBloc extends Bloc<SubscriptionEvent, SubscriptionState> {
     response.fold(
       (error) {
         _pushAnalyticErrorVerifyOnServer(purchaseDetails);
+        MixpanelEventService.instance.track(AppMixpanelEvents.sendValidationPurchaseOnBackendError);
         add(SubscriptionEvent.errorPurchase(error));
       },
       (r) async {
+        MixpanelEventService.instance
+            .track(AppMixpanelEvents.sendValidationPurchaseOnBackendSuccess);
         final accessTokenUpdated = await _authTokenManager.updateAccessToken();
         if (accessTokenUpdated) {
           _pushAnalyticBoughtEvent(purchaseDetails, r);
@@ -252,6 +293,8 @@ class SubscriptionBloc extends Bloc<SubscriptionEvent, SubscriptionState> {
             ),
           );
         } else {
+          MixpanelEventService.instance
+              .track(AppMixpanelEvents.getAccessTokenWithSubscriptionError);
           add(
             const SubscriptionEvent.errorPurchase(
               RequestError.streamSubscription(
@@ -268,6 +311,17 @@ class SubscriptionBloc extends Bloc<SubscriptionEvent, SubscriptionState> {
       PurchaseDetails purchaseDetails) async {
     var isIOS = purchaseDetails is AppStorePurchaseDetails;
     final identifier = _getTransactionId(purchaseDetails) ?? '';
+    MixpanelEventService.instance.track(
+      AppMixpanelEvents.sendValidationPurchaseOnBackend,
+      parameters: {
+        AnalyticsParameters.productIdentifier: purchaseDetails.productID,
+        AnalyticsParameters.purchaseIdentifier: purchaseDetails.purchaseID,
+        AnalyticsParameters.purchaseStatus: purchaseDetails.status.name,
+        if (purchaseDetails.transactionDate != null)
+          AnalyticsParameters.transactionDate: DateTime.fromMillisecondsSinceEpoch(
+              int.parse(purchaseDetails.transactionDate!) * 1000),
+      },
+    );
     var response = isIOS
         ? await _purchaseService.purchaseIOS(
             VerifyIOSPurchaseData(
@@ -307,15 +361,10 @@ class SubscriptionBloc extends Bloc<SubscriptionEvent, SubscriptionState> {
   }
 
   void _restoreTransactionData(PurchaseDetails purchaseDetails) async {
-    if (purchaseDetails.status != PurchaseStatus.restored ||
-        _isValidatePastIOSPurchase && (buyingProduct == null)) {
+    if (purchaseDetails.status != PurchaseStatus.restored) {
       return;
     }
-    if (_isValidatePastIOSPurchase) {
-      await _verifyOldPurchase(purchaseDetails, buyingProduct!);
-    } else {
-      await _verifyPurchasedOrRestore(purchaseDetails);
-    }
+    await _verifyPurchasedOrRestore(purchaseDetails);
   }
 
   String? _getTransactionId(PurchaseDetails purchaseDetails) {
@@ -361,7 +410,7 @@ class SubscriptionBloc extends Bloc<SubscriptionEvent, SubscriptionState> {
   ) {
     _checkEligibility = false;
     emit(SubscriptionState.loading(state.data.copyWith(isLoading: true)));
-    _isValidatePastIOSPurchase = false;
+    MixpanelEventService.instance.track(AppMixpanelEvents.userClickRestore);
     _inAppPurchaseService.restorePurchase();
   }
 
@@ -385,6 +434,13 @@ class SubscriptionBloc extends Bloc<SubscriptionEvent, SubscriptionState> {
     }, (r) {
       List<ServerProduct> serverList = [...r.data];
       serverList.sort((a, b) => a.price!.toInt().compareTo(b.price!.toInt()));
+      MixpanelEventService.instance.track(
+        AppMixpanelEvents.getSubscriptionIdsBackend,
+        parameters: {
+          AnalyticsParameters.purchaseProductIds:
+              serverList.map((plan) => plan.productId).toString(),
+        },
+      );
       emit(
         SubscriptionState.loading(state.data.copyWith(isLoading: false, serverPlans: serverList)),
       );
@@ -410,9 +466,22 @@ class SubscriptionBloc extends Bloc<SubscriptionEvent, SubscriptionState> {
     if (plans.isEmpty) {
       emit(SubscriptionState.serviceSubscriptionUnavailable(state.data.copyWith(isLoading: false)));
     } else {
+      MixpanelEventService.instance.track(
+        AppMixpanelEvents.getSubscriptionPansStore,
+        parameters: {
+          AnalyticsParameters.purchaseProductIds: plans.map((plan) => plan.id).toString(),
+        },
+      );
       List<ProductDetails> list = [
         ...(Platform.isAndroid ? _getUniqueAndroidPlans(plans) : _getIosPlans(plans))
       ];
+
+      MixpanelEventService.instance.track(
+        AppMixpanelEvents.getUserAvailableSubscriptions,
+        parameters: {
+          AnalyticsParameters.purchaseProductIds: list.map((plan) => plan.id).toString(),
+        },
+      );
       emit(
         SubscriptionState.successInPlans(state.data.copyWith(isLoading: false, plans: list)),
       );
@@ -560,6 +629,9 @@ class SubscriptionBloc extends Bloc<SubscriptionEvent, SubscriptionState> {
         AnalyticsParameters.timestamp: DateTime.now().toIso8601String(),
       },
     );
+    MixpanelEventService.instance.track(
+      AppMixpanelEvents.userCancelSubscriptionPurchase,
+    );
     emit(
       SubscriptionState.loading(state.data.copyWith(isLoading: false)),
     );
@@ -611,6 +683,13 @@ class SubscriptionBloc extends Bloc<SubscriptionEvent, SubscriptionState> {
         AnalyticsParameters.productIdentifier: event.product.id,
       },
     );
+    MixpanelEventService.instance.track(
+      AppMixpanelEvents.subscriptionPurchaseError,
+      parameters: {
+        AnalyticsParameters.productIdentifier: event.product.id,
+        AnalyticsParameters.errorMessage: 'store_subscription_duplicate_purchase',
+      },
+    );
   }
 
   void _pushAnalyticErrorVerifyOnServer(PurchaseDetails purchaseDetails) {
@@ -659,6 +738,34 @@ class SubscriptionBloc extends Bloc<SubscriptionEvent, SubscriptionState> {
         AnalyticsParameters.subscriptionTransactionId: identifier,
         AnalyticsParameters.subscriptionContentType: purchaseDetails.productID,
         AnalyticsParameters.subscriptionEventTime: r.purchasedAt,
+      },
+    );
+    MixpanelEventService.instance.track(AppMixpanelEvents.getAccessTokenWithSubscriptionSuccess);
+  }
+
+  String _getMixpanelEventName(bool? isValid) {
+    if (isValid == null) {
+      return AppMixpanelEvents.userLastTransactionValidationBackend;
+    }
+    if (isValid) {
+      return AppMixpanelEvents.userLastTransactionValidationSuccess;
+    }
+    return AppMixpanelEvents.userLastTransactionValidationError;
+  }
+
+  void _mixpanelVerifyLastPurchaseEvent({PurchaseDetails? data, bool? isValid}) {
+    MixpanelEventService.instance.track(
+      _getMixpanelEventName(isValid),
+      parameters: {
+        if (data != null) ...{
+          AnalyticsParameters.productIdentifier: data.productID,
+          AnalyticsParameters.purchaseIdentifier: data.purchaseID,
+          AnalyticsParameters.purchaseStatus: data.status.name,
+          if (data.transactionDate != null)
+            AnalyticsParameters.transactionDate:
+                DateTime.fromMillisecondsSinceEpoch(int.parse(data.transactionDate!) * 1000),
+        },
+        if (isValid != null) AnalyticsParameters.lastPurchaseValid: isValid,
       },
     );
   }

@@ -16,8 +16,6 @@ import 'package:loopcare_frontend/core/application/system_service.dart';
 import 'package:loopcare_frontend/core/domain/analytics/analytics_events.dart';
 import 'package:loopcare_frontend/core/domain/analytics/analytics_parameters.dart';
 import 'package:loopcare_frontend/core/infrastructure/services/analytics_service.dart';
-import 'package:loopcare_frontend/core/infrastructure/services/events.dart';
-import 'package:loopcare_frontend/core/infrastructure/services/mixpanel_event_service.dart';
 import 'package:loopcare_frontend/core/infrastructure/services/shared_storage/shared_storage_service.dart';
 import 'package:loopcare_frontend/core/presentation/alerting/modal_bottom_sheet.dart';
 import 'package:loopcare_frontend/core/presentation/alerting/show_app_snackbar.dart';
@@ -116,44 +114,17 @@ class _SessionCallPageState extends State<SessionCallPage> with WidgetsBindingOb
 
   _setInactiveUserState() async {
     ZoomVideoSdkUser? mySelf = await zoom.session.getMySelf();
-
     final userMuteState = await zoom.audioHelper.muteAudio(mySelf!.userId);
-    final userVideoOffState = await zoom.videoHelper.stopVideo();
-
+    await zoom.videoHelper.stopVideo();
     _showToggleMicPopup(status: userMuteState, isOn: false);
-
-    MixpanelEventService.instance.track(
-      AppMixpanelEvents.sessionInactiveState,
-      {
-        "userId": userId,
-        "userName": mySelf.userName,
-        "userMuteState": userMuteState,
-        "userVideoOffState": userVideoOffState,
-        "userLocalTime": DateTime.now().toLocal().toIso8601String(),
-      },
-    );
   }
 
   _setActiveUserState(bool isVideoPlaying) async {
     if (isVideoPlaying) return;
-
     ZoomVideoSdkUser? mySelf = await zoom.session.getMySelf();
-
     final userMuteState = await zoom.audioHelper.unMuteAudio(mySelf!.userId);
-    final userVideoOffState = await zoom.videoHelper.startVideo();
-
+    await zoom.videoHelper.startVideo();
     _showToggleMicPopup(status: userMuteState, isOn: true);
-
-    MixpanelEventService.instance.track(
-      AppMixpanelEvents.sessionActiveState,
-      {
-        "userId": userId,
-        "userName": mySelf.userName,
-        "userMuteState": userMuteState,
-        "userVideoOffState": userVideoOffState,
-        "userLocalTime": DateTime.now().toLocal().toIso8601String(),
-      },
-    );
   }
 
   void _showToggleMicPopup({String status = '', bool isOn = false}) {
@@ -207,15 +178,6 @@ class _SessionCallPageState extends State<SessionCallPage> with WidgetsBindingOb
       try {
         await zoom.joinSession(joinSession);
       } catch (e) {
-        MixpanelEventService.instance.track(
-          AppMixpanelEvents.joinSessionFail,
-          {
-            "userId": userId,
-            "userName": joinSession.userName,
-            "sessionToken": joinSession.token,
-            "error": e.toString(),
-          },
-        );
         log('Error while join session $e', name: 'zoomSessionLog');
         const AlertDialog(title: Text("Error"), content: Text("Failed to join the session"));
       }
@@ -273,20 +235,6 @@ class _SessionCallPageState extends State<SessionCallPage> with WidgetsBindingOb
       isMuted = muted!;
       isSpeakerOn = speakerOn;
       isVideoOn = videoOn!;
-
-      if (mounted) {
-        MixpanelEventService.instance.track(
-          AppMixpanelEvents.onSessionJoin,
-          {
-            "userId": userId,
-            "isMuted": muted,
-            "videoOn": videoOn,
-            "speakerOn": speakerOn,
-            "currentLocalTime": DateTime.now().toLocal().toIso8601String(),
-            "sessionTime": context.read<SessionCallBloc>().state.data.sessionTime,
-          },
-        );
-      }
 
       setState(() {});
     });
@@ -447,17 +395,7 @@ class _SessionCallPageState extends State<SessionCallPage> with WidgetsBindingOb
 
     _eventErrorListener = emitter.on(EventType.onError, (Map data) async {
       String errorType = data['errorType'];
-
       log('_eventErrorListener called with $errorType', name: 'zoomSessionLog');
-
-      MixpanelEventService.instance.track(
-        AppMixpanelEvents.sessionFail,
-        {
-          "userId": userId,
-          "errorType": errorType,
-        },
-      );
-
       if (_error == errorType) return;
 
       setState(() {

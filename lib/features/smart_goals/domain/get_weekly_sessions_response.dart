@@ -11,7 +11,8 @@ class GetWeeklySessionsResponse {
 
   const GetWeeklySessionsResponse({required this.data});
 
-  static GetWeeklySessionsResponse fromJson(Map<String, dynamic> json) => _$GetWeeklySessionsResponseFromJson(json);
+  static GetWeeklySessionsResponse fromJson(Map<String, dynamic> json) =>
+      _$GetWeeklySessionsResponseFromJson(json);
 
   Map<String, dynamic> toJson() => _$GetWeeklySessionsResponseToJson(this);
 }

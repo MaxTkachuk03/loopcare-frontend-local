@@ -5,4 +5,3 @@ extension DoubleExtension on double {
     return toString().replaceAll(regex, '');
   }
 }
-

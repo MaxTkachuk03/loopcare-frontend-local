@@ -22,7 +22,8 @@ class VideoPlayerData with _$VideoPlayerData {
   }) = _VideoPlayerData;
 
   Map<String, String> get videoHttpHeaders {
-    final String cookiesString = awsCookies.toJson().entries.map((e) => '${e.key}=${e.value}').join('; ');
+    final String cookiesString =
+        awsCookies.toJson().entries.map((e) => '${e.key}=${e.value}').join('; ');
 
     return {'Cookie': cookiesString};
   }

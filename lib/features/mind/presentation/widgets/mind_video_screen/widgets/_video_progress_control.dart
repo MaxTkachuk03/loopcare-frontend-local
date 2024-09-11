@@ -39,14 +39,13 @@ class _VideoProgressControl extends StatelessWidget {
       ),
       decoration: const BoxDecoration(
           gradient: LinearGradient(
-            colors: [
-              Colors.transparent,
-              Colors.black54,
-            ],
-            begin: Alignment.topCenter,
-            end: Alignment.bottomCenter,
-          )
-      ),
+        colors: [
+          Colors.transparent,
+          Colors.black54,
+        ],
+        begin: Alignment.topCenter,
+        end: Alignment.bottomCenter,
+      )),
       child: Column(
         children: [
           ValueListenableBuilder<bool>(
@@ -140,8 +139,7 @@ class _CustomVideoScrubberState extends State<_CustomVideoScrubber> {
         seekToRelativePosition(details.globalPosition);
       },
       onHorizontalDragEnd: (DragEndDetails details) {
-        if (_controllerWasPlaying &&
-            controller.value.position != controller.value.duration) {
+        if (_controllerWasPlaying && controller.value.position != controller.value.duration) {
           controller.play();
         }
       },
@@ -258,7 +256,8 @@ class _CustomVideoProgressIndicatorState extends State<_CustomVideoProgressIndic
 
       final timer = Duration(milliseconds: duration - position);
 
-      time = '${timer.inMinutes.toString().padLeft(2, '0')} : ${(timer.inSeconds - timer.inMinutes * 60).toString().padLeft(2, '0')}';
+      time =
+          '${timer.inMinutes.toString().padLeft(2, '0')} : ${(timer.inSeconds - timer.inMinutes * 60).toString().padLeft(2, '0')}';
     } else {
       progressIndicator = const LinearProgressIndicator(
         valueColor: AlwaysStoppedAnimation<Color>(_playedColor),

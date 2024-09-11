@@ -12,5 +12,6 @@ abstract class UpdatePlannedMealBody implements _$UpdatePlannedMealBody {
     required List<String> planningDates,
   }) = _UpdatePlannedMealBody;
 
-  factory UpdatePlannedMealBody.fromJson(Map<String, dynamic> json) => _$UpdatePlannedMealBodyFromJson(json);
+  factory UpdatePlannedMealBody.fromJson(Map<String, dynamic> json) =>
+      _$UpdatePlannedMealBodyFromJson(json);
 }

@@ -1,5 +1,9 @@
 import 'package:firebase_performance/firebase_performance.dart';
+import 'package:loopcare_frontend/build_type.dart';
+import 'package:loopcare_frontend/core/domain/analytics/analytics_parameters.dart';
+import 'package:loopcare_frontend/core/infrastructure/services/country_code_service/country_code_service.dart';
 import 'package:loopcare_frontend/core/infrastructure/services/mixpanel_manager.dart';
+import 'package:loopcare_frontend/core/infrastructure/services/stored_account_service/stored_account_service.dart';
 
 class MixpanelEventService {
   static final instance = MixpanelEventService._();
@@ -9,29 +13,20 @@ class MixpanelEventService {
 
   final Map<String, Trace> _traces = {};
 
-  Future<void> track(String eventName, Map<String, dynamic> data) async {
-    mixpanel.track(eventName, data);
-    return;
+  String get userId {
+    final accountId = StoredAccountService.getAccount()?.id ?? -1;
+    final userIdPrefix = CountryCodeService.instance.serverCountryCode;
+    final id = '$accountId-$userIdPrefix';
+    return id;
   }
 
-  Future<void> trackUserEvent(String eventName, int userId, Map<String, dynamic> data) async {
-    data.addAll({
-      'userId': userId,
-    });
-
-    mixpanel.track(eventName, data);
-
-    return;
-  }
-
-  Future<void> trackVisit(String eventName, {int userId = -1}) async {
-    mixpanel.track(
-      eventName,
-      {
-        'userId': userId,
-      },
-    );
-
+  Future<void> track(String eventName, {Map<String, dynamic>? parameters}) async {
+    if (!kIsProd) {
+      return;
+    }
+    Map<String, dynamic> tmpParameters = Map.from(parameters ?? {});
+    tmpParameters[AnalyticsParameters.userId] = userId;
+    mixpanel.track(eventName, tmpParameters);
     return;
   }
 
