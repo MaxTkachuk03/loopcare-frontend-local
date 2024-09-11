@@ -26,7 +26,6 @@ import 'package:loopcare_frontend/core/infrastructure/services/shared_storage/sh
 import 'package:loopcare_frontend/core/infrastructure/services/socket_service/socket_service.dart';
 import 'package:loopcare_frontend/core/infrastructure/services/socket_service_buddy/buddy_socket_service.dart';
 import 'package:loopcare_frontend/core/infrastructure/services/socket_service_chat/chat_socket_service.dart';
-import 'package:loopcare_frontend/core/infrastructure/services/user_states_service/user_states_service.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/core/presentation/utils/string_extensions.dart';
 import 'package:loopcare_frontend/features/account/domain/user_grouping_state.dart';
@@ -58,7 +57,6 @@ class AuthenticationBloc extends HydratedBloc<AuthenticationEvent, Authenticatio
   final ChatSocketService _chatSocketService = ChatSocketService.instance;
   final BuddySocketService _socketServiceBuddy = BuddySocketService.instance;
   final SocketService _socketService = SocketService.instance;
-  final UserStatesService _statesService;
 
   AccessTokenSubscription? _accessTokenSubscription;
 
@@ -67,7 +65,6 @@ class AuthenticationBloc extends HydratedBloc<AuthenticationEvent, Authenticatio
     this._authTokenManager,
     this._sharedPref,
     this._syncService,
-    this._statesService,
   ) : super(const AuthenticationState.guest(AuthenticationData())) {
     on<AuthenticationInit>(_onAuthenticationInit);
     on<Login>(_onLogin);
@@ -89,7 +86,6 @@ class AuthenticationBloc extends HydratedBloc<AuthenticationEvent, Authenticatio
     on<UpdatePolicy>(_onUpdatePolicy);
     on<SendAppsFlyerData>(_onSendAppsFlyerData);
     on<UploadAvatar>(_onUploadAvatar);
-    on<BuddyVisited>(_onBuddyVisited);
 
     hydrate();
     _accessTokenSubscription = _authTokenManager.addListener((token) {
@@ -678,20 +674,12 @@ class AuthenticationBloc extends HydratedBloc<AuthenticationEvent, Authenticatio
             _sharedPref.termsAndConditionsVersion > account.termsAndConditionsVersion) {
           emit(AuthenticationState.needUpdatePolicies(state.data.copyWith(account: account)));
         } else {
-          final showBuddyNews = _statesService.buddyStatus != account.buddyState &&
-              !account.buddyState.isInvited;
-
-          if (showBuddyNews) {
-            _syncService.showProfileNotificationBadge();
-          } else {
-            _statesService.buddyStatus = account.buddyState;
-          }
+          _syncService.updateBuddyStatus();
 
           emit(
             AuthenticationState.gotAccount(
               state.data.copyWith(
                 account: account,
-                showBuddyNews: showBuddyNews,
               ),
             ),
           );
@@ -742,19 +730,6 @@ class AuthenticationBloc extends HydratedBloc<AuthenticationEvent, Authenticatio
           ),
         );
       },
-    );
-  }
-
-  FutureOr<void> _onBuddyVisited(
-    BuddyVisited event,
-    Emitter<AuthenticationState> emit,
-  ) async {
-    if (!state.data.showBuddyNews) return;
-
-    _statesService.buddyStatus = state.data.account?.buddyState;
-
-    emit(
-      state.copyWith(data: state.data.copyWith(showBuddyNews: false)),
     );
   }
 

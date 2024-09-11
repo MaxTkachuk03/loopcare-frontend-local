@@ -11,6 +11,7 @@ import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 import 'package:loopcare_frontend/core/presentation/utils/build_context_extensions.dart';
 import 'package:loopcare_frontend/core/presentation/utils/string_extensions.dart';
 import 'package:loopcare_frontend/features/account/application/group_preferences_bloc.dart';
+import 'package:loopcare_frontend/features/account/application/user_states/user_states_bloc.dart';
 import 'package:loopcare_frontend/features/account/presentation/account_page/widgets/account_container.dart';
 import 'package:loopcare_frontend/features/account/presentation/account_page/widgets/section_item.dart';
 import 'package:loopcare_frontend/features/account/presentation/account_page/widgets/section_title.dart';
@@ -42,7 +43,7 @@ class _PreferencesSectionState extends State<PreferencesSection> {
   }
 
   void _onBuddyHandler(BuildContext context) {
-    context.read<AuthenticationBloc>().add(const AuthenticationEvent.buddyVisited());
+    context.read<UserStatesBloc>().add(const UserStatesEvent.hideBuddyBadge());
     context.read<NavigationBarBloc>().add(const NavigationBarEvent.removeProfileNotification());
 
     final buddyWasNotInvited = context.read<BuddyBloc>().state.data.buddyState == null;
@@ -163,11 +164,13 @@ class _PreferencesSectionState extends State<PreferencesSection> {
                       state.data.isFoodLoggingUnlocked ? () => _onFoodHandler(context) : null,
                 ),
                 const Divider(height: 1.0, color: AppColors.blueLighter),
-                SectionItem(
-                  title: LocalizedTexts.buddyTitle.tr(),
-                  showNews: state.data.showBuddyNews,
-                  onPressHandler:
-                      state.data.isBuddyUnlocked ? () => _onBuddyHandler(context) : null,
+                BlocBuilder<UserStatesBloc, UserStatesState>(
+                  builder: (context, statesState) => SectionItem(
+                    title: LocalizedTexts.buddyTitle.tr(),
+                    showNews: statesState.data.showBuddyBadgeForUser(state.data.account?.id),
+                    onPressHandler:
+                        state.data.isBuddyUnlocked ? () => _onBuddyHandler(context) : null,
+                  ),
                 ),
                 const Divider(height: 1.0, color: AppColors.blueLighter),
                 SectionItem(
