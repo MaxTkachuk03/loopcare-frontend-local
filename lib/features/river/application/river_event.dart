@@ -14,7 +14,9 @@ class RiverEvent with _$RiverEvent {
 
   const factory RiverEvent.completeActiveModule() = CompleteActiveModule;
 
-  const factory RiverEvent.updateActiveModuleItemStatus() = UpdateActiveModuleItemStatus;
+  const factory RiverEvent.updateActiveModuleItemStatus({
+    required int lessonId,
+  }) = UpdateActiveModuleItemStatus;
 
   const factory RiverEvent.updateModuleItemById({
     required int moduleId,

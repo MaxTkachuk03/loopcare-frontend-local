@@ -38,7 +38,10 @@ class CustomNavigationBar extends StatelessWidget {
   }
 
   void _navigateTo(BuildContext context, int index) {
+    final isSamePage = tabsRouter.activeIndex == index;
     tabsRouter.setActiveIndex(index);
+
+    if (isSamePage) return;
 
     if (index == 0) {
       context.read<NavigationBarBloc>().add(const NavigationBarEvent.removePractiseNotification());
