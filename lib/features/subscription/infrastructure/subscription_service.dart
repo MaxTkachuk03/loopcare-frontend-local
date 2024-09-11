@@ -9,7 +9,9 @@ import 'package:loopcare_frontend/core/application/customer_io_service/customer_
 import 'package:loopcare_frontend/core/domain/analytics/analytics_events.dart';
 import 'package:loopcare_frontend/core/domain/analytics/analytics_parameters.dart';
 import 'package:loopcare_frontend/core/infrastructure/services/analytics_service.dart';
+import 'package:loopcare_frontend/core/infrastructure/services/events.dart';
 import 'package:loopcare_frontend/core/infrastructure/services/logger/logger.dart';
+import 'package:loopcare_frontend/core/infrastructure/services/mixpanel_event_service.dart';
 import 'package:loopcare_frontend/core/infrastructure/services/shared_storage/shared_storage_service.dart';
 import 'package:loopcare_frontend/injection.dart';
 
@@ -75,7 +77,14 @@ class AppSubscriptionService {
     return;
   }
 
-  Future<void> restorePurchase() async => await instance.restorePurchases();
+  Future<void> restorePurchase() async {
+    final bool isAvailable = await _inAppPurchase.isAvailable();
+    if (!isAvailable) {
+      _pushAnalyticServiceUnAvailable();
+      return;
+    }
+    await instance.restorePurchases();
+  }
 
   void _pushAnalyticServiceUnAvailable({String? productId}) {
     CustomerIoService.track(
@@ -86,6 +95,13 @@ class AppSubscriptionService {
       parameters: {
         AnalyticsParameters.timestamp: DateTime.now().toIso8601String(),
         if (productId != null) AnalyticsParameters.productIdentifier: productId,
+      },
+    );
+    MixpanelEventService.instance.track(
+      AppMixpanelEvents.subscriptionPurchaseError,
+      parameters: {
+        if (productId != null) AnalyticsParameters.productIdentifier: productId,
+        AnalyticsParameters.errorMessage: 'subscription_service_unavailable',
       },
     );
   }

@@ -1,7 +1,6 @@
 import 'dart:io';
 
 import 'package:device_info_plus/device_info_plus.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:loopcare_frontend/build_type.dart';
 import 'package:mixpanel_flutter/mixpanel_flutter.dart';
@@ -19,10 +18,14 @@ class MixpanelManager {
   static final DeviceInfoPlugin deviceInfoPlugin = DeviceInfoPlugin();
 
   Future<void> init() async {
-    _kToken = dotenv.env['MIXPANEL_TOKEN'] ?? '';
-    if (!kIsWeb) {
-      _initMobile();
+    if (!kIsProd) {
+      return;
     }
+    _kToken = kIsAnalyticTestingEnv
+        ? dotenv.env['MIXPANEL_TOKEN'] ?? ''
+        : dotenv.env['PROD_MIXPANEL_TOKEN'] ?? '';
+
+    _initMobile();
   }
 
   Future<void> _initMobile() async {

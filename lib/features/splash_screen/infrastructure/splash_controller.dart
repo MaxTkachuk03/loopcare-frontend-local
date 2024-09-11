@@ -4,8 +4,6 @@ import 'package:loopcare_frontend/core/application/app_update/app_update_bloc.da
 import 'package:loopcare_frontend/core/application/auth_token_manager.dart';
 import 'package:loopcare_frontend/core/application/permissions_service.dart';
 import 'package:loopcare_frontend/core/infrastructure/services/apps_flyer_service.dart';
-import 'package:loopcare_frontend/core/infrastructure/services/events.dart';
-import 'package:loopcare_frontend/core/infrastructure/services/mixpanel_event_service.dart';
 import 'package:loopcare_frontend/core/infrastructure/services/shared_storage/shared_storage_service.dart';
 import 'package:loopcare_frontend/core/infrastructure/services/stored_account_service/stored_account_service.dart';
 import 'package:loopcare_frontend/core/presentation/routes/app_router.gr.dart';
@@ -53,7 +51,7 @@ class SplashController {
     await getIt<DeviceInfoService>().onRequestTrackingAuthorization();
     await PermissionsService.instance.requestNotificationPermissions();
 
-    if (kIsProd) await AppsFlyerService.start();
+    if (kIsProd && !kIsAnalyticTestingEnv) await AppsFlyerService.start();
   }
 
   Future<List<PageRouteInfo>> getRoute() async {
@@ -66,11 +64,6 @@ class SplashController {
 
     final authorisedRoute = await _getAuthorisedRoute(account?.hasActiveSubscription ?? false);
     final routes = [authorisedRoute];
-
-    MixpanelEventService.instance.trackVisit(
-      "${AppMixpanelEvents.appRote}: ${routes.last.routeName}",
-      userId: account?.id ?? -1,
-    );
 
     return routes;
   }
@@ -162,12 +155,6 @@ class SplashController {
     if (authState.data.emailWasSend) {
       needRoutes.add(const WaitingForConfirmationRoute());
     }
-
-    MixpanelEventService.instance.trackVisit(
-      "${AppMixpanelEvents.appRote}: ${needRoutes.last.routeName}",
-      userId: -1,
-    );
-
     return needRoutes;
   }
 

@@ -180,7 +180,7 @@ class _LoginFormState extends State<LoginForm> {
 
     MixpanelEventService.instance.track(
       AppMixpanelEvents.loginSuccess,
-      {
+      parameters: {
         'userId': authState.data.accountId,
         'email': authState.data.email,
         'nextRoute': route,

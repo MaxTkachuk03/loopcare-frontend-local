@@ -6,6 +6,7 @@ import 'package:customer_io/customer_io_enums.dart';
 import 'package:device_info_plus/device_info_plus.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_timezone/flutter_timezone.dart';
+import 'package:loopcare_frontend/build_type.dart';
 import 'package:loopcare_frontend/core/application/customer_io_service/customer_io_attributes.dart';
 import 'package:loopcare_frontend/core/application/customer_io_service/customer_io_events.dart';
 import 'package:loopcare_frontend/core/application/firebase/mesaging/firebase_messaging.dart';
@@ -22,8 +23,12 @@ class CustomerIoService {
   static Future<void> initialize() async {
     await CustomerIO.initialize(
       config: CustomerIOConfig(
-        siteId: dotenv.env['CUSTOMER_IO_SITE_ID'] ?? '',
-        apiKey: dotenv.env['CUSTOMER_IO_API_KEY'] ?? '',
+        siteId: kIsAnalyticTestingEnv
+            ? dotenv.env['CUSTOMER_IO_SITE_ID'] ?? ''
+            : dotenv.env['PROD_CUSTOMER_IO_SITE_ID'] ?? '',
+        apiKey: kIsAnalyticTestingEnv
+            ? dotenv.env['CUSTOMER_IO_API_KEY'] ?? ''
+            : dotenv.env['PROD_CUSTOMER_IO_API_KEY'] ?? '',
         region: Region.eu,
         autoTrackDeviceAttributes: true,
         enableInApp: true,

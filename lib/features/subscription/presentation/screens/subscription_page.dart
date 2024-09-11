@@ -7,7 +7,10 @@ import 'package:flash/flash_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loopcare_frontend/core/application/customer_io_service/customer_io_service.dart';
+import 'package:loopcare_frontend/core/domain/analytics/analytics_parameters.dart';
 import 'package:loopcare_frontend/core/domain/url_constants.dart';
+import 'package:loopcare_frontend/core/infrastructure/services/events.dart';
+import 'package:loopcare_frontend/core/infrastructure/services/mixpanel_event_service.dart';
 import 'package:loopcare_frontend/core/presentation/alerting/modal_bottom_sheet.dart';
 import 'package:loopcare_frontend/core/presentation/app_bar/custom_app_bar.dart';
 import 'package:loopcare_frontend/core/presentation/custom_safe_area.dart';
@@ -43,6 +46,12 @@ class _SubscriptionPageState extends State<SubscriptionPage> {
     _controller = SubscriptionController(bloc: context.read<SubscriptionBloc>());
     CustomerIoService.track(
       event: CIOEvents.subscriptionPage,
+    );
+    MixpanelEventService.instance.track(
+      AppMixpanelEvents.openSubscriptionScreen,
+      parameters: {
+        AnalyticsParameters.timestamp: DateTime.now().toIso8601String(),
+      },
     );
   }
 

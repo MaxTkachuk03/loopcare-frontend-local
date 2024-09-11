@@ -15,8 +15,10 @@ import 'package:loopcare_frontend/core/domain/extensions/iterable_extentions.dar
 import 'package:loopcare_frontend/core/infrastructure/dio_client/request_error.dart';
 import 'package:loopcare_frontend/core/infrastructure/dio_client/server_error_data.dart';
 import 'package:loopcare_frontend/core/infrastructure/services/analytics_service.dart';
+import 'package:loopcare_frontend/core/infrastructure/services/events.dart';
 import 'package:loopcare_frontend/core/infrastructure/services/facebook_events_service.dart';
 import 'package:loopcare_frontend/core/infrastructure/services/logger/logger.dart';
+import 'package:loopcare_frontend/core/infrastructure/services/mixpanel_event_service.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/features/authentication/application/authentication_service.dart';
 import 'package:loopcare_frontend/features/authentication/domain/subscription/subscription.dart';
@@ -177,6 +179,7 @@ class SubscriptionBloc extends Bloc<SubscriptionEvent, SubscriptionState> {
         add(SubscriptionEvent.errorPurchase(error));
       },
       (r) async {
+        _mixpanelVerifyLastPurchaseEvent(data: oldPurchaseDetails, isValid: r.valid ?? true);
         if (r.valid ?? true) {
           add(SubscriptionEvent.buySubscription(product));
         } else {
@@ -205,6 +208,7 @@ class SubscriptionBloc extends Bloc<SubscriptionEvent, SubscriptionState> {
     BuySubscription event,
     Emitter<SubscriptionState> emit,
   ) async {
+    _pushAnalyticStartPurchase(event);
     try {
       _pushAnalyticStartPurchase(event);
       final purchased = await _inAppPurchaseService.buyItemInStore(event.product);
@@ -217,6 +221,13 @@ class SubscriptionBloc extends Bloc<SubscriptionEvent, SubscriptionState> {
           ),
         );
       } else {
+        MixpanelEventService.instance.track(
+          AppMixpanelEvents.subscriptionPurchaseError,
+          parameters: {
+            AnalyticsParameters.productIdentifier: event.product.id,
+            AnalyticsParameters.errorMessage: 'error_purchase_message',
+          },
+        );
         emit(
           SubscriptionState.error(
             state.data.copyWith(
@@ -244,6 +255,16 @@ class SubscriptionBloc extends Bloc<SubscriptionEvent, SubscriptionState> {
   }
 
   Future<void> _handlePurchase(PurchaseDetails purchaseDetails) async {
+    MixpanelEventService.instance.track(
+      AppMixpanelEvents.userPurchasedSubscription,
+      parameters: {
+        AnalyticsParameters.productIdentifier: purchaseDetails.productID,
+        AnalyticsParameters.purchaseIdentifier: purchaseDetails.purchaseID,
+        AnalyticsParameters.purchaseStatus: purchaseDetails.status.name,
+        AnalyticsParameters.transactionDate:
+            DateTime.fromMillisecondsSinceEpoch(int.parse(purchaseDetails.transactionDate!) * 1000),
+      },
+    );
     await _verifyPurchasedOrRestore(purchaseDetails);
   }
 
@@ -252,9 +273,12 @@ class SubscriptionBloc extends Bloc<SubscriptionEvent, SubscriptionState> {
     response.fold(
       (error) {
         _pushAnalyticErrorVerifyOnServer(purchaseDetails);
+        MixpanelEventService.instance.track(AppMixpanelEvents.sendValidationPurchaseOnBackendError);
         add(SubscriptionEvent.errorPurchase(error));
       },
       (r) async {
+        MixpanelEventService.instance
+            .track(AppMixpanelEvents.sendValidationPurchaseOnBackendSuccess);
         final accessTokenUpdated = await _authTokenManager.updateAccessToken();
         if (accessTokenUpdated) {
           _pushAnalyticBoughtEvent(purchaseDetails, r);
@@ -269,6 +293,8 @@ class SubscriptionBloc extends Bloc<SubscriptionEvent, SubscriptionState> {
             ),
           );
         } else {
+          MixpanelEventService.instance
+              .track(AppMixpanelEvents.getAccessTokenWithSubscriptionError);
           add(
             const SubscriptionEvent.errorPurchase(
               RequestError.streamSubscription(
@@ -285,6 +311,17 @@ class SubscriptionBloc extends Bloc<SubscriptionEvent, SubscriptionState> {
       PurchaseDetails purchaseDetails) async {
     var isIOS = purchaseDetails is AppStorePurchaseDetails;
     final identifier = _getTransactionId(purchaseDetails) ?? '';
+    MixpanelEventService.instance.track(
+      AppMixpanelEvents.sendValidationPurchaseOnBackend,
+      parameters: {
+        AnalyticsParameters.productIdentifier: purchaseDetails.productID,
+        AnalyticsParameters.purchaseIdentifier: purchaseDetails.purchaseID,
+        AnalyticsParameters.purchaseStatus: purchaseDetails.status.name,
+        if (purchaseDetails.transactionDate != null)
+          AnalyticsParameters.transactionDate: DateTime.fromMillisecondsSinceEpoch(
+              int.parse(purchaseDetails.transactionDate!) * 1000),
+      },
+    );
     var response = isIOS
         ? await _purchaseService.purchaseIOS(
             VerifyIOSPurchaseData(
@@ -373,6 +410,7 @@ class SubscriptionBloc extends Bloc<SubscriptionEvent, SubscriptionState> {
   ) {
     _checkEligibility = false;
     emit(SubscriptionState.loading(state.data.copyWith(isLoading: true)));
+    MixpanelEventService.instance.track(AppMixpanelEvents.userClickRestore);
     _inAppPurchaseService.restorePurchase();
   }
 
@@ -396,6 +434,13 @@ class SubscriptionBloc extends Bloc<SubscriptionEvent, SubscriptionState> {
     }, (r) {
       List<ServerProduct> serverList = [...r.data];
       serverList.sort((a, b) => a.price!.toInt().compareTo(b.price!.toInt()));
+      MixpanelEventService.instance.track(
+        AppMixpanelEvents.getSubscriptionIdsBackend,
+        parameters: {
+          AnalyticsParameters.purchaseProductIds:
+              serverList.map((plan) => plan.productId).toString(),
+        },
+      );
       emit(
         SubscriptionState.loading(state.data.copyWith(isLoading: false, serverPlans: serverList)),
       );
@@ -421,9 +466,22 @@ class SubscriptionBloc extends Bloc<SubscriptionEvent, SubscriptionState> {
     if (plans.isEmpty) {
       emit(SubscriptionState.serviceSubscriptionUnavailable(state.data.copyWith(isLoading: false)));
     } else {
+      MixpanelEventService.instance.track(
+        AppMixpanelEvents.getSubscriptionPansStore,
+        parameters: {
+          AnalyticsParameters.purchaseProductIds: plans.map((plan) => plan.id).toString(),
+        },
+      );
       List<ProductDetails> list = [
         ...(Platform.isAndroid ? _getUniqueAndroidPlans(plans) : _getIosPlans(plans))
       ];
+
+      MixpanelEventService.instance.track(
+        AppMixpanelEvents.getUserAvailableSubscriptions,
+        parameters: {
+          AnalyticsParameters.purchaseProductIds: list.map((plan) => plan.id).toString(),
+        },
+      );
       emit(
         SubscriptionState.successInPlans(state.data.copyWith(isLoading: false, plans: list)),
       );
@@ -571,6 +629,9 @@ class SubscriptionBloc extends Bloc<SubscriptionEvent, SubscriptionState> {
         AnalyticsParameters.timestamp: DateTime.now().toIso8601String(),
       },
     );
+    MixpanelEventService.instance.track(
+      AppMixpanelEvents.userCancelSubscriptionPurchase,
+    );
     emit(
       SubscriptionState.loading(state.data.copyWith(isLoading: false)),
     );
@@ -622,6 +683,13 @@ class SubscriptionBloc extends Bloc<SubscriptionEvent, SubscriptionState> {
         AnalyticsParameters.productIdentifier: event.product.id,
       },
     );
+    MixpanelEventService.instance.track(
+      AppMixpanelEvents.subscriptionPurchaseError,
+      parameters: {
+        AnalyticsParameters.productIdentifier: event.product.id,
+        AnalyticsParameters.errorMessage: 'store_subscription_duplicate_purchase',
+      },
+    );
   }
 
   void _pushAnalyticErrorVerifyOnServer(PurchaseDetails purchaseDetails) {
@@ -670,6 +738,34 @@ class SubscriptionBloc extends Bloc<SubscriptionEvent, SubscriptionState> {
         AnalyticsParameters.subscriptionTransactionId: identifier,
         AnalyticsParameters.subscriptionContentType: purchaseDetails.productID,
         AnalyticsParameters.subscriptionEventTime: r.purchasedAt,
+      },
+    );
+    MixpanelEventService.instance.track(AppMixpanelEvents.getAccessTokenWithSubscriptionSuccess);
+  }
+
+  String _getMixpanelEventName(bool? isValid) {
+    if (isValid == null) {
+      return AppMixpanelEvents.userLastTransactionValidationBackend;
+    }
+    if (isValid) {
+      return AppMixpanelEvents.userLastTransactionValidationSuccess;
+    }
+    return AppMixpanelEvents.userLastTransactionValidationError;
+  }
+
+  void _mixpanelVerifyLastPurchaseEvent({PurchaseDetails? data, bool? isValid}) {
+    MixpanelEventService.instance.track(
+      _getMixpanelEventName(isValid),
+      parameters: {
+        if (data != null) ...{
+          AnalyticsParameters.productIdentifier: data.productID,
+          AnalyticsParameters.purchaseIdentifier: data.purchaseID,
+          AnalyticsParameters.purchaseStatus: data.status.name,
+          if (data.transactionDate != null)
+            AnalyticsParameters.transactionDate:
+                DateTime.fromMillisecondsSinceEpoch(int.parse(data.transactionDate!) * 1000),
+        },
+        if (isValid != null) AnalyticsParameters.lastPurchaseValid: isValid,
       },
     );
   }

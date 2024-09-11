@@ -120,8 +120,9 @@ class AnalyticsEventService {
 
     FlutterUxcam.optIntoSchematicRecordings();
     FlutterUxConfig config = FlutterUxConfig(
-      userAppKey: dotenv.env['UXCAM_APP_KEY'] ?? '',
-    );
+        userAppKey: kIsAnalyticTestingEnv
+            ? dotenv.env['UXCAM_APP_KEY'] ?? ''
+            : dotenv.env['PROD_UXCAM_APP_KEY'] ?? '');
     await FlutterUxcam.startWithConfiguration(config);
   }
 

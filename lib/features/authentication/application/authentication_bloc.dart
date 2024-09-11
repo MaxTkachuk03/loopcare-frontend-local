@@ -45,8 +45,11 @@ import 'package:loopcare_frontend/features/onboarding/application/dto/registrati
 import 'package:uuid/uuid.dart';
 
 part 'authentication_bloc.freezed.dart';
+
 part 'authentication_bloc.g.dart';
+
 part 'authentication_event.dart';
+
 part 'authentication_state.dart';
 
 @singleton
@@ -179,7 +182,7 @@ class AuthenticationBloc extends HydratedBloc<AuthenticationEvent, Authenticatio
       (error) {
         MixpanelEventService.instance.track(
           AppMixpanelEvents.loginFail,
-          {
+          parameters: {
             'email': event.email,
             'message': error.message.tr(),
           },

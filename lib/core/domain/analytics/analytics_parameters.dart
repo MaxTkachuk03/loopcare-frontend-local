@@ -120,4 +120,11 @@ class AnalyticsParameters {
   static String get subscriptionEventTime => 'event_time';
 
   static const String productIdentifier = 'product_identifier';
+  static const String purchaseIdentifier = 'purchase_identifier';
+  static const String purchaseStatus = 'purchase_status';
+  static const String transactionDate = 'transaction_date';
+  static const String purchaseProductIds = 'product_ids';
+  static const String lastPurchaseValid = 'is_valid';
+  static const String errorMessage = 'message';
+  static const String iapErrorMessage = 'iapMessage';
 }
