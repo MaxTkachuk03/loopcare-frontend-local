@@ -1,6 +1,5 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:loopcare_frontend/core/application/localization/localizer_extenstion.dart';
-import 'package:fast_immutable_collections/fast_immutable_collections.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loopcare_frontend/core/domain/analytics/analytics_events.dart';
@@ -57,7 +56,7 @@ class _QuizQuestionPageState extends State<QuizQuestionPage> {
 
     _totalSteps = lessonStateData.quizQuestionsAmount;
 
-    _currentQuestion = quiz.questions.get(widget.step);
+    _currentQuestion = quiz.questions.elementAt(widget.step);
 
     _selectedAnswer =
         _currentQuestion.answers.isEmpty ? 0 : _currentQuestion.answers.first.optionId;

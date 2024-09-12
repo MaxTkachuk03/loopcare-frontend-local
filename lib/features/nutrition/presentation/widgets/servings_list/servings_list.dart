@@ -41,9 +41,9 @@ class _ServingListState extends State<ServingList> {
             loading: (_) => const Loader(),
             foodItemServings: (foodItemServingsState) {
               return ListView.builder(
-                itemCount: foodItemServingsState.servingsIList.length,
+                itemCount: foodItemServingsState.servingsList.length,
                 itemBuilder: (BuildContext context, int index) {
-                  final ServingSize listItem = foodItemServingsState.servingsIList[index];
+                  final ServingSize listItem = foodItemServingsState.servingsList[index];
                   final isSelected =
                       foodItemServingsState.selectedServingItem?.servingId == listItem.servingId;
 

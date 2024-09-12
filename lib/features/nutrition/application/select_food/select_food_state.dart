@@ -9,11 +9,11 @@ class SelectFoodState with _$SelectFoodState {
   const factory SelectFoodState.loading() = _Loading;
 
   const factory SelectFoodState.selectFood({
-    required IList<FavoritesItem> favorites,
-    required IList<Dish> dishes,
-    required IList<FavoritesItem> selectedFavoritesItems,
-    required IList<MealCategoryFilter> mealFavoritesCategories,
-    required IList<MealCategoryFilter> dishFavoritesCategories,
+    required List<FavoritesItem> favorites,
+    required List<Dish> dishes,
+    required List<FavoritesItem> selectedFavoritesItems,
+    required List<MealCategoryFilter> mealFavoritesCategories,
+    required List<MealCategoryFilter> dishFavoritesCategories,
   }) = _SelectFood;
 
 //TODO: old state style
