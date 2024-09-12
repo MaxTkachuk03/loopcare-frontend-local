@@ -392,14 +392,14 @@ class GeneralOnboardingBloc extends HydratedBloc<GeneralOnboardingEvent, General
     if (mentalStep == MentalQuestionStep.result) {
       return state;
     } else if (mentalStep == MentalQuestionStep.test) {
-      if (currentMentalTest.questions.isLast(currentQuestion)) {
+      if (currentMentalTest.questions.last == currentQuestion) {
         mentalStack = [...mentalStack, MentalQuestionStep.testSummery];
       } else {
         currentQuestion =
             currentMentalTest.questions[currentMentalTest.questions.indexOf(currentQuestion) + 1];
       }
     } else if (mentalStep == MentalQuestionStep.testSummery) {
-      if (mentalTests.isLast(currentMentalTest)) {
+      if (mentalTests.last == currentMentalTest) {
         if (isExclude) {
           mentalStack = [...mentalStack, MentalQuestionStep.resultFailed];
         } else {
