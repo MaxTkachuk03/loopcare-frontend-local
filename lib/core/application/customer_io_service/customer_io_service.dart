@@ -10,7 +10,6 @@ import 'package:loopcare_frontend/build_type.dart';
 import 'package:loopcare_frontend/core/application/customer_io_service/customer_io_attributes.dart';
 import 'package:loopcare_frontend/core/application/customer_io_service/customer_io_events.dart';
 import 'package:loopcare_frontend/core/application/firebase/mesaging/firebase_messaging.dart';
-import 'package:loopcare_frontend/core/application/permissions_service.dart';
 import 'package:loopcare_frontend/core/infrastructure/services/country_code_service/country_code_service.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 
@@ -40,9 +39,9 @@ class CustomerIoService {
     required String id,
     required String email,
     required String name,
-    required bool receiveAnEmails,
+    required bool receiveEmails,
+    required bool receiveNotification,
   }) async {
-    final isNotificationGranted = PermissionsService.instance.isNotificationGranted;
     final timezone = await FlutterTimezone.getLocalTimezone();
 
     CustomerIO.identify(
@@ -53,12 +52,12 @@ class CustomerIoService {
         'timezone': timezone,
         'created_at': _timestamp,
         'system_locale': Platform.localeName,
-        'consent_to_email': receiveAnEmails,
-        'enable_push_notifications': isNotificationGranted,
+        'consent_to_email': receiveEmails,
+        'enable_push_notifications': receiveNotification,
         'cio_subscription_preferences': {
           'topics': {
-            'topic_1': receiveAnEmails,
-            'topic_2': isNotificationGranted,
+            'topic_1': receiveEmails,
+            'topic_2': receiveNotification,
           },
         },
       },
@@ -67,7 +66,7 @@ class CustomerIoService {
     CustomerIO.track(
       name: CIOEvents.onboardingNewUser,
       attributes: {
-        CIOAttributes.consentToEmail: receiveAnEmails,
+        CIOAttributes.consentToEmail: receiveEmails,
       },
     );
 

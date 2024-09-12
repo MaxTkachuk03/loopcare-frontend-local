@@ -14,6 +14,8 @@ class SignUpData {
   final String password;
   final bool isConsentApproved;
   final bool isLegalApproved;
+  final bool consentToEmail;
+  final bool enablePushNotifications;
 
   final int happiness;
   final double height;
@@ -33,6 +35,8 @@ class SignUpData {
     required this.password,
     required this.isConsentApproved,
     required this.isLegalApproved,
+    required this.consentToEmail,
+    required this.enablePushNotifications,
     required this.happiness,
     required this.height,
     required this.weight,
