@@ -14,7 +14,6 @@ enum MealCategory {
         lunch => LocalizedTexts.lunch.tr(),
         dinner => LocalizedTexts.dinner.tr(),
         inbetweens => LocalizedTexts.inbetweens.tr(),
-        //drinks => LocalizedTexts.drinks.tr(),
       };
 
   SvgPicture get icon => switch (this) {
