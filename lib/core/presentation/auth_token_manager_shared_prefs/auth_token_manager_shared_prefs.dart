@@ -1,6 +1,10 @@
+import 'package:flutter/services.dart';
 import 'package:injectable/injectable.dart';
 import 'package:loopcare_frontend/core/application/auth_token_manager.dart';
 import 'package:loopcare_frontend/core/application/auth_token_service.dart';
+import 'package:loopcare_frontend/core/domain/analytics/analytics_parameters.dart';
+import 'package:loopcare_frontend/core/infrastructure/services/events.dart';
+import 'package:loopcare_frontend/core/infrastructure/services/mixpanel_event_service.dart';
 import 'package:loopcare_frontend/core/infrastructure/services/secure_storage/secure_storage_service.dart';
 import 'package:loopcare_frontend/core/infrastructure/services/shared_storage/shared_storage_service.dart';
 
@@ -33,7 +37,19 @@ class TokenManagerSharedPrefs extends AuthTokenManager {
       await setAccessToken(accessTokenFromShared);
     }
 
-    return await _secureStorage.getAccessToken();
+    String? accessToken;
+    try {
+      accessToken = await _secureStorage.getAccessToken();
+    } on PlatformException catch (e) {
+      MixpanelEventService.instance.track(
+        AppMixpanelEvents.accessTokenSecureStorageError,
+        parameters: {
+          AnalyticsParameters.errorMessage: e.message,
+        },
+      );
+    }
+
+    return accessToken;
   }
 
   @override

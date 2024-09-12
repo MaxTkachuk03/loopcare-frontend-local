@@ -14,7 +14,9 @@ class SecureStorage {
 
   Future<void> cleanStorage() => _storage.deleteAll();
 
-  Future<String?> getValue(String key) => _storage.read(key: key);
+  // https://github.com/mogol/flutter_secure_storage/issues/709
+  // issue with ios secure storage
+  Future<String?> getValue(String key) => _storage.readAll().then((values) => values[key]);
 
   Future<void> remove(String key) => _storage.delete(key: key);
 
