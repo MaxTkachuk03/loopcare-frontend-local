@@ -36,4 +36,6 @@ class AppMixpanelEvents {
   static String get userClickRestore => 'user_clicks_restore_purchase';
 
   static String get appflyerSdkStartError => 'appflyer_sdk_start_error';
+
+  static String get accessTokenSecureStorageError => 'access_token_secure_storage_error';
 }
