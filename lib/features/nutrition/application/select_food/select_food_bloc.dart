@@ -36,13 +36,15 @@ class SelectFoodBloc extends Bloc<SelectFoodEvent, SelectFoodState> {
 
   IList<MealCategoryFilter> _getMealFavoriteCategories(String defaultSelected) {
     return MealFavoritesCategory.values
-        .map((e) => MealCategoryFilter(name: e.name, selected: e.value == defaultSelected))
+        .map((e) => MealCategoryFilter(
+            name: e.name, selected: e.value == defaultSelected, title: e.label ?? ''))
         .toIList();
   }
 
   IList<MealCategoryFilter> _getDishFavoriteCategories(String defaultSelected) {
     return DishFavoritesCategory.values
-        .map((e) => MealCategoryFilter(name: e.name, selected: e.value == defaultSelected))
+        .map((e) => MealCategoryFilter(
+            name: e.name, selected: e.value == defaultSelected, title: e.label ?? ''))
         .toIList();
   }
 

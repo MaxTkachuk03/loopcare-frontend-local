@@ -72,6 +72,7 @@ class FoodItemServingsState with _$FoodItemServingsState {
 
           return MealCategoryFilter(
             name: f.name.toLowerCase(),
+            title: f.title,
             selected: selectedFiltersValues == null
                 ? false
                 : selectedFiltersValues.contains(f.name.toLowerCase()),

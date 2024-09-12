@@ -31,11 +31,9 @@ class FoodItemServingsBloc extends Bloc<FoodItemServingsEvent, FoodItemServingsS
     on<UpdateMealCategoryFilter>(_onUpdateMealCategoryFilter);
   }
 
-  List<MealCategoryFilter> _initializeMealCategoryFilters() {
-    return MealCategory.values.map((v) {
-      return MealCategoryFilter(name: v.originalValue, selected: false);
-    }).toList();
-  }
+  List<MealCategoryFilter> _initializeMealCategoryFilters() => MealCategory.values
+      .map((v) => MealCategoryFilter(name: v.originalValue, selected: false, title: v.title))
+      .toList();
 
   IList<ServingSize> _getUpdatedServingsList(ServingSize serving) {
     return state.maybeMap(
@@ -56,7 +54,7 @@ class FoodItemServingsBloc extends Bloc<FoodItemServingsEvent, FoodItemServingsS
       foodItemServings: (state) {
         return state.mealCategoryFilters.map((f) {
           return f.name == filter.name
-              ? MealCategoryFilter(name: f.name, selected: filter.value)
+              ? MealCategoryFilter(name: f.name, selected: filter.value, title: f.title)
               : f;
         }).toList();
       },

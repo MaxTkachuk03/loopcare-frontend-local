@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:loopcare_frontend/core/application/localization/localizer_extenstion.dart';
 import 'package:loopcare_frontend/core/presentation/checkbox/custom_checkbox.dart';
+
+import 'package:loopcare_frontend/core/presentation/text/custom_text.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
-import 'package:loopcare_frontend/core/presentation/utils/string_extensions.dart';
+
 import 'package:loopcare_frontend/features/nutrition/application/select_serving/food_item_servings_bloc.dart';
 
 typedef OnFilterPressedCb = void Function(BuildContext context, bool value, String name);
@@ -47,7 +50,7 @@ class MealCategoryFiltersList extends StatelessWidget {
                       ),
                     ),
                     const SizedBox(width: 16.0),
-                    Expanded(child: Text(filter.name.capitalizeOnlyFirstLetter()))
+                    Expanded(child: CustomText.w400(filter.title.tr()))
                   ],
                 ),
               );
