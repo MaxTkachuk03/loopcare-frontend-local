@@ -7394,6 +7394,25 @@ class CrowdinLocalization extends AppLocalizations {
   String get exercise => Crowdin.getText(localeName, 'exercise') ?? _fallbackTexts.exercise;
 
   @override
+  String get noMicrophoneAccessTitle =>
+      Crowdin.getText(localeName, 'noMicrophoneAccessTitle') ??
+      _fallbackTexts.noMicrophoneAccessTitle;
+
+  @override
+  String get noMicrophoneAccessDescription =>
+      Crowdin.getText(localeName, 'noMicrophoneAccessDescription') ??
+      _fallbackTexts.noMicrophoneAccessDescription;
+
+  @override
+  String get noCameraAccessTitle =>
+      Crowdin.getText(localeName, 'noCameraAccessTitle') ?? _fallbackTexts.noCameraAccessTitle;
+
+  @override
+  String get noCameraAccessDescription =>
+      Crowdin.getText(localeName, 'noCameraAccessDescription') ??
+      _fallbackTexts.noCameraAccessDescription;
+
+  @override
   String get startAgain => Crowdin.getText(localeName, 'startAgain') ?? _fallbackTexts.startAgain;
 
   @override

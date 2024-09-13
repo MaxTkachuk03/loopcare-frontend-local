@@ -1,7 +1,9 @@
 import 'package:auto_route/auto_route.dart';
-import 'package:loopcare_frontend/core/application/localization/localizer_extenstion.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:loopcare_frontend/core/application/localization/localizer_extenstion.dart';
+import 'package:loopcare_frontend/core/domain/account/gender_preferences.dart';
+import 'package:loopcare_frontend/core/domain/account/gender_type.dart';
 import 'package:loopcare_frontend/core/domain/analytics/analytics_events.dart';
 import 'package:loopcare_frontend/core/domain/analytics/analytics_parameters.dart';
 import 'package:loopcare_frontend/core/infrastructure/services/analytics_service.dart';
@@ -10,7 +12,7 @@ import 'package:loopcare_frontend/core/presentation/buttons/custom_outlined_butt
 import 'package:loopcare_frontend/core/presentation/error/error_screen.dart';
 import 'package:loopcare_frontend/core/presentation/loader/loader.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
-import 'package:loopcare_frontend/core/presentation/routes/app_router.gr.dart';
+import 'package:loopcare_frontend/core/presentation/routes/app_router.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/divider_light.dart';
 import 'package:loopcare_frontend/features/account/application/group_preferences/group_preferences_bloc.dart';
 import 'package:loopcare_frontend/features/account/domain/group_prefs_mode.dart';
@@ -19,8 +21,6 @@ import 'package:loopcare_frontend/features/account/presentation/group_preference
 import 'package:loopcare_frontend/features/account/presentation/group_preferences/widgets/tapped_item.dart';
 import 'package:loopcare_frontend/features/account/presentation/group_preferences/widgets/white_box.dart';
 import 'package:loopcare_frontend/features/authentication/application/authentication_bloc.dart';
-import 'package:loopcare_frontend/core/domain/account/gender_preferences.dart';
-import 'package:loopcare_frontend/core/domain/account/gender_type.dart';
 import 'package:loopcare_frontend/injection.dart';
 
 class GroupPreferencesForm extends StatelessWidget {
@@ -131,21 +131,21 @@ class GroupPreferencesForm extends StatelessWidget {
     context
       ..read<GroupPreferencesBloc>()
           .add(const GroupPreferencesEvent.changeGroupPrefsMode(GroupPrefsMode.singlePage))
-      ..router.push(GenderPreferencesRoute(fromLessonComplete: false));
+      ..router.pushNamed(AppRoutes.genderPreferences);
   }
 
   void _onTimezoneTap(BuildContext context) {
     context
       ..read<GroupPreferencesBloc>()
           .add(const GroupPreferencesEvent.changeGroupPrefsMode(GroupPrefsMode.singlePage))
-      ..router.push(TimezonePreferencesRoute(fromLessonComplete: false));
+      ..router.pushNamed(AppRoutes.timezone);
   }
 
   void _onNicknamePreferencesTap(BuildContext context) {
     context
       ..read<GroupPreferencesBloc>()
           .add(const GroupPreferencesEvent.changeGroupPrefsMode(GroupPrefsMode.singlePage))
-      ..router.push(NicknamePreferencesRoute(fromLessonComplete: false));
+      ..router.pushNamed(AppRoutes.nicknamePreferences);
   }
 
   _onLeaveGroupPressed(BuildContext context) {

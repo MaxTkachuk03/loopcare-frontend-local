@@ -122,7 +122,7 @@ class PlayerEndVideoOverlay extends StatelessWidget {
               ],
             ),
           ),
-          if ((!isLastVideo))
+          if (!isLastVideo)
             Padding(
               padding: const EdgeInsets.only(right: 10.0, bottom: 6.0),
               child: Row(
@@ -182,7 +182,7 @@ class PlayerEndVideoOverlay extends StatelessWidget {
                     Container(
                       alignment: Alignment.center,
                       width: _isPortraitOrientation ? 70 : 130,
-                      child: (!isLastVideo)
+                      child: !isLastVideo
                           ? CountDown(
                               controller: countDownController,
                               duration: exercise.delayBeforeNext,
@@ -199,7 +199,7 @@ class PlayerEndVideoOverlay extends StatelessWidget {
           ),
           const SizedBox(
             height: 10.0,
-          )
+          ),
         ],
       ),
     );

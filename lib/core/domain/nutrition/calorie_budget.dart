@@ -1,4 +1,4 @@
-import 'package:fast_immutable_collections/fast_immutable_collections.dart';
+import 'package:loopcare_frontend/core/domain/extensions/number.dart';
 import 'package:loopcare_frontend/core/domain/nutrition/phisical_frequency_range.dart';
 
 class CalorieBudget {

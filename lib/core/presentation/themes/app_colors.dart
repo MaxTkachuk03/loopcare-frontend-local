@@ -91,8 +91,6 @@ class AppColors {
   static const Color wrongRed = Color(0xFFC10100);
   static const Color inactiveChipBg = Color(0xFFDDE1D2);
 
-  // TODO new colors
-
   // Base  colors
   static const Color transparent = Color(0x00FFFFFF);
   static const Color white = Color(0xFFFFFFFF);

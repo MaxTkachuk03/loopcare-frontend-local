@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loopcare_frontend/core/presentation/buttons/custom_outlined_button.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
-import 'package:loopcare_frontend/core/presentation/routes/app_router.gr.dart';
+import 'package:loopcare_frontend/core/presentation/routes/app_router.dart';
 import 'package:loopcare_frontend/core/presentation/text/custom_text.dart';
 import 'package:loopcare_frontend/core/presentation/utils/build_context_extensions.dart';
 import 'package:loopcare_frontend/core/presentation/utils/string_extensions.dart';
@@ -52,6 +52,6 @@ class PartOfGroup extends StatelessWidget {
     context
       ..read<GroupPreferencesBloc>().add(
           const GroupPreferencesEvent.changeGroupPrefsMode(GroupPrefsMode.groupPreferencesFlow))
-      ..router.push(GroupRulesOneRoute(fromLessonComplete: false));
+      ..router.pushNamed(AppRoutes.groupRulesOne);
   }
 }

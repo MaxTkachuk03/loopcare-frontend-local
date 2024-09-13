@@ -9,7 +9,6 @@ import 'package:loopcare_frontend/features/mind/application/dto/mind_technique_e
 import 'package:loopcare_frontend/features/mind/application/dto/mind_techniques_response.dart';
 import 'package:loopcare_frontend/features/mind/application/mind_service.dart';
 
-// TODO import mock data
 // import 'techniques_mock.dart';
 // import 'mind_info_mock.dart';
 // import 'exercises_mock.dart';
@@ -22,7 +21,6 @@ class APIMindService implements MindService {
 
   @override
   Future<Either<RequestError, MindInfoResponse>> getMindInfo() async {
-    // TODO use to mock info server response
     // return right(MindInfoResponse.fromJson(program));
 
     return await client.get(
@@ -33,7 +31,6 @@ class APIMindService implements MindService {
 
   @override
   Future<Either<RequestError, MindTechniquesResponse>> getTechniques() async {
-    // TODO use to mock techniques server response
     // return right(MindTechniquesResponse.fromJson({'data': techniques}));
 
     return await client.get(
@@ -45,7 +42,6 @@ class APIMindService implements MindService {
   @override
   Future<Either<RequestError, MindTechniqueExercisesResponse>> getTechniquesExercises(
       int techniqueId) async {
-    // TODO use to mock exercises server response
     // return right(MindTechniqueExercisesResponse.fromJson({'data': exercises}));
 
     return await client.get(

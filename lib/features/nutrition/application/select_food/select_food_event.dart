@@ -7,11 +7,11 @@ class SelectFoodEvent with _$SelectFoodEvent {
   const factory SelectFoodEvent.fetchDishes(String mealCategory) = FetchDishes;
 
   const factory SelectFoodEvent.filterFavorites(
-    IList<MealCategoryFilter> filtersList,
+    List<MealCategoryFilter> filtersList,
   ) = FilterFavorites;
 
   const factory SelectFoodEvent.filterDishes(
-    IList<MealCategoryFilter> filtersList,
+    List<MealCategoryFilter> filtersList,
   ) = FilterDishes;
 
   const factory SelectFoodEvent.itemAdded(FavoritesItem foodItem) = ItemAdded;

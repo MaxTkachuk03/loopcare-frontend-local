@@ -1,5 +1,4 @@
 import 'package:loopcare_frontend/core/application/localization/localizer_extenstion.dart';
-import 'package:fast_immutable_collections/fast_immutable_collections.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loopcare_frontend/core/domain/analytics/analytics_events.dart';
@@ -35,16 +34,11 @@ class _FavoriteListState extends State<FavoriteList> with AutomaticKeepAliveClie
   @override
   void initState() {
     context.read<SelectFoodBloc>().add(SelectFoodEvent.fetchFavorites(_defaultMealCategory));
+    const AnalyticsEventService().logEvent(eventName: AnalyticsEvents.selectFoodScreenMyFavorites);
     super.initState();
   }
 
-  @override
-  void didChangeDependencies() {
-    super.didChangeDependencies();
-    const AnalyticsEventService().logEvent(eventName: AnalyticsEvents.selectFoodScreenMyFavorites);
-  }
-
-  Future _onRefresh() async {
+  Future<void> _onRefresh() async {
     return context.read<SelectFoodBloc>().add(SelectFoodEvent.fetchFavorites(_defaultMealCategory));
   }
 
@@ -84,7 +78,7 @@ class _FavoriteListState extends State<FavoriteList> with AutomaticKeepAliveClie
                       ListFilters(
                         title: title,
                         mealsList: selectFoodState.mealFavoritesCategories.toList(),
-                        onConfirmed: (list) => _onConfirmed(context, list),
+                        onConfirmed: _onConfirmed,
                       ),
                       selectFoodState.favorites.isEmpty
                           ? Padding(
@@ -104,7 +98,7 @@ class _FavoriteListState extends State<FavoriteList> with AutomaticKeepAliveClie
                                       foodItem: selectFoodState.favorites[index],
                                     );
                                   },
-                                  separatorBuilder: (BuildContext context, int _) {
+                                  separatorBuilder: (_, __) {
                                     return const Divider(
                                       height: 1,
                                       color: AppColors.blueLighter,
@@ -129,9 +123,6 @@ class _FavoriteListState extends State<FavoriteList> with AutomaticKeepAliveClie
     );
   }
 
-  _onConfirmed(BuildContext context, List<MealCategoryFilter> updatedFiltersList) {
-    context
-        .read<SelectFoodBloc>()
-        .add(SelectFoodEvent.filterFavorites(updatedFiltersList.toIList()));
-  }
+  void _onConfirmed(List<MealCategoryFilter> list) =>
+      context.read<SelectFoodBloc>().add(SelectFoodEvent.filterFavorites(list));
 }

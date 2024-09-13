@@ -9544,6 +9544,30 @@ abstract class AppLocalizations {
   /// **'Exercise'**
   String get exercise;
 
+  /// No description provided for @noMicrophoneAccessTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Can\'t Access Microphone'**
+  String get noMicrophoneAccessTitle;
+
+  /// No description provided for @noMicrophoneAccessDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'Please turn on the toggle in system settings to grant permission'**
+  String get noMicrophoneAccessDescription;
+
+  /// No description provided for @noCameraAccessTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Can\'t Access Camera'**
+  String get noCameraAccessTitle;
+
+  /// No description provided for @noCameraAccessDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'Please turn on the toggle in system settings to grant permission'**
+  String get noCameraAccessDescription;
+
   /// No description provided for @startAgain.
   ///
   /// In en, this message translates to:

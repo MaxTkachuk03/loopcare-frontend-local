@@ -1,6 +1,5 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:loopcare_frontend/core/application/localization/localizer_extenstion.dart';
-import 'package:fast_immutable_collections/fast_immutable_collections.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loopcare_frontend/core/domain/analytics/analytics_events.dart';
@@ -199,7 +198,6 @@ class _DishesListState extends State<DishesList> with AutomaticKeepAliveClientMi
     return defaultMealCategories;
   }
 
-  _onConfirmed(BuildContext context, List<MealCategoryFilter> updatedFiltersList) {
-    context.read<SelectFoodBloc>().add(SelectFoodEvent.filterDishes(updatedFiltersList.toIList()));
-  }
+  void _onConfirmed(BuildContext context, List<MealCategoryFilter> updatedFiltersList) =>
+      context.read<SelectFoodBloc>().add(SelectFoodEvent.filterDishes(updatedFiltersList.toList()));
 }

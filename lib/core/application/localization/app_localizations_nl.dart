@@ -5158,6 +5158,20 @@ class AppLocalizationsNl extends AppLocalizations {
   String get exercise => 'Exercise';
 
   @override
+  String get noMicrophoneAccessTitle => 'Can\'t Access Microphone';
+
+  @override
+  String get noMicrophoneAccessDescription =>
+      'Please turn on the toggle in system settings to grant permission';
+
+  @override
+  String get noCameraAccessTitle => 'Can\'t Access Camera';
+
+  @override
+  String get noCameraAccessDescription =>
+      'Please turn on the toggle in system settings to grant permission';
+
+  @override
   String get startAgain => 'Start again';
 
   @override

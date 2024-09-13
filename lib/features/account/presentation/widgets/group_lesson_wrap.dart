@@ -7,24 +7,21 @@ import 'package:loopcare_frontend/features/account/presentation/widgets/group_pr
 
 class GroupLessonWrap extends StatelessWidget {
   final Widget child;
-  final bool fromLessonComplete;
 
-  const GroupLessonWrap({super.key, required this.child, required this.fromLessonComplete});
+  const GroupLessonWrap({super.key, required this.child});
 
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<GroupPreferencesBloc, GroupPreferencesState>(
       builder: (context, state) {
         return state.maybeMap(
-          loading: (_) => GroupPrefsPageWrap(
-            fromLessonComplete: fromLessonComplete,
-            child: const Loader(),
+          loading: (_) => const GroupPrefsPageWrap(
+            child: Loader(),
           ),
           error: (errorState) {
             final error = errorState.data.error;
 
             return GroupPrefsPageWrap(
-              fromLessonComplete: fromLessonComplete,
               child: Center(
                 child: ErrorScreen(
                   error: error!,

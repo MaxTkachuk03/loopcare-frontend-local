@@ -134,13 +134,6 @@ class _RecipeDetailsPageState extends State<RecipeDetailsPage> {
     );
   }
 
-  // String get _genericDishName {
-  //   // TODO dish name cant be empty, so get generic name for now
-  //   final mealCategory = context.read<MealsBloc>().state.data.currentMealCategory;
-  //   final mealId = context.read<MealsBloc>().state.data.getCurrentMealId;
-  //   return '$mealCategory dish from meal $mealId';
-  // }
-
   void _onSaveToMyDishesHandler() {
     final state = context.read<MealsBloc>().state;
 

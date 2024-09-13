@@ -145,10 +145,7 @@ class SupportGroupIntroPage extends StatelessWidget {
     context
       ..read<GroupPreferencesBloc>()
           .add(const GroupPreferencesEvent.setWouldLikeJoinGroup(YesNoAnswer.yes))
-      ..router.push(GenderPreferencesRoute(
-        fromLessonComplete: true,
-        streamType: streamType,
-      ));
+      ..router.push(const GenderPreferencesRoute());
   }
 
   void _onDoNotJoinPressed(BuildContext context) {
