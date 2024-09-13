@@ -83,8 +83,7 @@ abstract class AppLocalizations {
   /// Additional delegates can be added by appending to this list in
   /// MaterialApp. This list does not have to be used at all if a custom list
   /// of delegates is preferred or required.
-  static const List<LocalizationsDelegate<dynamic>> localizationsDelegates =
-      <LocalizationsDelegate<dynamic>>[
+  static const List<LocalizationsDelegate<dynamic>> localizationsDelegates = <LocalizationsDelegate<dynamic>>[
     delegate,
     GlobalMaterialLocalizations.delegate,
     GlobalCupertinoLocalizations.delegate,
@@ -92,7 +91,11 @@ abstract class AppLocalizations {
   ];
 
   /// A list of this localizations delegate's supported locales.
-  static const List<Locale> supportedLocales = <Locale>[Locale('de'), Locale('en'), Locale('nl')];
+  static const List<Locale> supportedLocales = <Locale>[
+    Locale('de'),
+    Locale('en'),
+    Locale('nl')
+  ];
 
   /// No description provided for @errorValidationIosMinVersionNotANumber.
   ///
@@ -5950,6 +5953,24 @@ abstract class AppLocalizations {
   /// **'No specific reason.'**
   String get smartGoalsReasonGoalSpecific;
 
+  /// No description provided for @nutritionProteinDegree.
+  ///
+  /// In en, this message translates to:
+  /// **'Protein\n degree'**
+  String get nutritionProteinDegree;
+
+  /// No description provided for @nutritionFiber.
+  ///
+  /// In en, this message translates to:
+  /// **'Fiber\n'**
+  String get nutritionFiber;
+
+  /// No description provided for @nutritionCalorieDensity.
+  ///
+  /// In en, this message translates to:
+  /// **'Calorie\n density'**
+  String get nutritionCalorieDensity;
+
   /// No description provided for @buddyTitle.
   ///
   /// In en, this message translates to:
@@ -9526,6 +9547,30 @@ abstract class AppLocalizations {
   /// **'Exercise'**
   String get exercise;
 
+  /// No description provided for @noMicrophoneAccessTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Can\'t Access Microphone'**
+  String get noMicrophoneAccessTitle;
+
+  /// No description provided for @noMicrophoneAccessDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'Please turn on the toggle in system settings to grant permission'**
+  String get noMicrophoneAccessDescription;
+
+  /// No description provided for @noCameraAccessTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Can\'t Access Camera'**
+  String get noCameraAccessTitle;
+
+  /// No description provided for @noCameraAccessDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'Please turn on the toggle in system settings to grant permission'**
+  String get noCameraAccessDescription;
+
   /// No description provided for @startAgain.
   ///
   /// In en, this message translates to:
@@ -11751,19 +11796,19 @@ class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> 
 }
 
 AppLocalizations lookupAppLocalizations(Locale locale) {
+
+
   // Lookup logic when only language code is specified.
   switch (locale.languageCode) {
-    case 'de':
-      return AppLocalizationsDe();
-    case 'en':
-      return AppLocalizationsEn();
-    case 'nl':
-      return AppLocalizationsNl();
+    case 'de': return AppLocalizationsDe();
+    case 'en': return AppLocalizationsEn();
+    case 'nl': return AppLocalizationsNl();
   }
 
   throw FlutterError(
-      'AppLocalizations.delegate failed to load unsupported locale "$locale". This is likely '
-      'an issue with the localizations generation tool. Please file an issue '
-      'on GitHub with a reproducible sample app and the gen-l10n configuration '
-      'that was used.');
+    'AppLocalizations.delegate failed to load unsupported locale "$locale". This is likely '
+    'an issue with the localizations generation tool. Please file an issue '
+    'on GitHub with a reproducible sample app and the gen-l10n configuration '
+    'that was used.'
+  );
 }

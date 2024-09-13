@@ -1,7 +1,7 @@
 import 'package:auto_route/auto_route.dart';
-import 'package:loopcare_frontend/core/application/localization/localizer_extenstion.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:loopcare_frontend/core/application/localization/localizer_extenstion.dart';
 import 'package:loopcare_frontend/core/domain/analytics/analytics_events.dart';
 import 'package:loopcare_frontend/core/domain/analytics/analytics_parameters.dart';
 import 'package:loopcare_frontend/core/infrastructure/services/analytics_service.dart';
@@ -9,6 +9,7 @@ import 'package:loopcare_frontend/core/presentation/alerting/show_app_snackbar.d
 import 'package:loopcare_frontend/core/presentation/buttons/custom_elevated_button.dart';
 import 'package:loopcare_frontend/core/presentation/custom_safe_area.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
+import 'package:loopcare_frontend/core/presentation/routes/app_router.dart';
 import 'package:loopcare_frontend/core/presentation/routes/app_router.gr.dart';
 import 'package:loopcare_frontend/core/presentation/text/custom_text.dart';
 import 'package:loopcare_frontend/core/presentation/text_field/custom_text_field.dart';
@@ -20,18 +21,10 @@ import 'package:loopcare_frontend/features/account/application/group_preferences
 import 'package:loopcare_frontend/features/account/domain/group_prefs_mode.dart';
 import 'package:loopcare_frontend/features/account/presentation/widgets/group_lesson_wrap.dart';
 import 'package:loopcare_frontend/features/account/presentation/widgets/group_prefs_page_wrap.dart';
-import 'package:loopcare_frontend/features/river/domain/river_module_stream_type.dart';
 
 @RoutePage()
 class NicknamePreferencesPage extends StatefulWidget {
-  final RiverModuleStreamType streamType;
-  final bool fromLessonComplete;
-
-  const NicknamePreferencesPage({
-    super.key,
-    required this.fromLessonComplete,
-    this.streamType = RiverModuleStreamType.psychology,
-  });
+  const NicknamePreferencesPage({super.key});
 
   @override
   State<NicknamePreferencesPage> createState() => _NicknamePreferencesPageState();
@@ -83,8 +76,7 @@ class _NicknamePreferencesPageState extends State<NicknamePreferencesPage> {
     const AnalyticsEventService().logEvent(
       eventName: AnalyticsEvents.userFillsOutNicknamePreferences,
       parameters: {
-        AnalyticsParameters.navigatedFrom:
-            widget.fromLessonComplete ? 'Lesson content' : 'User profile',
+        AnalyticsParameters.navigatedFrom: 'User profile',
         AnalyticsParameters.value: _nicknameController.text,
       },
     );
@@ -92,8 +84,7 @@ class _NicknamePreferencesPageState extends State<NicknamePreferencesPage> {
     if (groupPrefsMode == GroupPrefsMode.singlePage) {
       context.router.maybePop();
     } else {
-      context.router.push(GroupRulesOneRoute(
-          fromLessonComplete: widget.fromLessonComplete, streamType: widget.streamType));
+      context.router.pushNamed(AppRoutes.groupRulesOne);
     }
   }
 
@@ -104,10 +95,7 @@ class _NicknamePreferencesPageState extends State<NicknamePreferencesPage> {
       listener: _onChangeListener,
       builder: (BuildContext context, GroupPreferencesState state) {
         return GroupLessonWrap(
-          fromLessonComplete: widget.fromLessonComplete,
           child: GroupPrefsPageWrap(
-            streamType: widget.streamType,
-            fromLessonComplete: widget.fromLessonComplete,
             child: CustomSafeArea(
               child: MainContainer(
                 child: ScrollableContainer(
@@ -135,9 +123,7 @@ class _NicknamePreferencesPageState extends State<NicknamePreferencesPage> {
                           CustomElevatedButton.blueFullWidth(
                             onPressed:
                                 _nicknameController.text.isEmpty ? null : _onNextPressedHandler,
-                            label: widget.fromLessonComplete
-                                ? LocalizedTexts.next.tr()
-                                : LocalizedTexts.save.tr(),
+                            label: LocalizedTexts.save.tr(),
                           ),
                           const SizedBox(height: 30.0),
                         ],

@@ -50,6 +50,9 @@ class LocalizedTexts {
   static const String nutritionSummary = 'nutritionSummary';
   static const String calorieDensity = 'calorieDensity';
   static const String proteinDegree = 'proteinDegree';
+  static const String nutritionProteinDegree = 'nutritionProteinDegree';
+  static const String nutritionCalorieDensity = 'nutritionCalorieDensity';
+  static const String nutritionFiber = 'nutritionFiber';
   static const String dailyCalorieBudget = 'dailyCalorieBudget';
   static const String dailyCalorieBudgetDescription = 'dailyCalorieBudgetDescription';
   static const String dailyCalorieBudgetLink = 'dailyCalorieBudgetLink';
@@ -526,6 +529,10 @@ class LocalizedTexts {
   static const String duration = "duration";
   static const String badConnectionMessage = "badConnectionMessage";
   static const String exercise = "exercise";
+  static const String noMicrophoneAccessTitle = "noMicrophoneAccessTitle";
+  static const String noMicrophoneAccessDescription = "noMicrophoneAccessDescription";
+  static const String noCameraAccessTitle = "noCameraAccessTitle";
+  static const String noCameraAccessDescription = "noCameraAccessDescription";
 
   // Book a seat
   static const String pickADateAndTime = "pickADateAndTime";

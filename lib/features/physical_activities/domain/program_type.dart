@@ -2,44 +2,22 @@ import 'package:loopcare_frontend/core/application/localization/localizer_extens
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/core/presentation/utils/string_extensions.dart';
 
-//Todo commented according MMP design, will be improved further
 enum ProgramType {
   strength,
   endurance,
-  mobility,
-}
+  mobility;
 
-extension ProgramTypeX on ProgramType {
-  String get label {
-    switch (this) {
-      case ProgramType.strength:
-        return LocalizedTexts.strength.tr().capitalize();
-      case ProgramType.endurance:
-        return LocalizedTexts.endurance.tr().capitalize();
-      case ProgramType.mobility:
-        return LocalizedTexts.mobility.tr().capitalize();
-    }
-  }
+  String get label => switch (this) {
+        strength => LocalizedTexts.strength.tr().capitalize(),
+        endurance => LocalizedTexts.endurance.tr().capitalize(),
+        mobility => LocalizedTexts.mobility.tr().capitalize(),
+      };
 
-  String get title {
-    switch (this) {
-      case ProgramType.strength:
-        return LocalizedTexts.strengthPrograms.tr();
-      case ProgramType.endurance:
-        return LocalizedTexts.endurance.tr();
-      case ProgramType.mobility:
-        return LocalizedTexts.mobility.tr();
-    }
-  }
+  String get title => switch (this) {
+        strength => LocalizedTexts.strengthPrograms.tr(),
+        endurance => LocalizedTexts.endurance.tr(),
+        mobility => LocalizedTexts.mobility.tr(),
+      };
 
-  bool get isAvailable {
-    switch (this) {
-      case ProgramType.strength:
-        return true;
-      case ProgramType.endurance:
-        return false;
-      case ProgramType.mobility:
-        return false;
-    }
-  }
+  bool get isAvailable => this == ProgramType.strength;
 }

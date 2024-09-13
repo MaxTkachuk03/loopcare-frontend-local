@@ -56,6 +56,7 @@ class _AppLifeCycleStateListenerState extends State<AppLifeCycleStateListener> {
   }
 
   _onResume() {
+    // TODO https://loopcare.atlassian.net/browse/LOOPCARE-3167 event should be added here
     _refreshTokenState();
     _syncChatState();
   }

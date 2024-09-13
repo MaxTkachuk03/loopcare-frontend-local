@@ -11,6 +11,7 @@ import 'package:loopcare_frontend/core/presentation/buttons/custom_elevated_butt
 import 'package:loopcare_frontend/core/presentation/choice_chip/custom_choice_chip.dart';
 import 'package:loopcare_frontend/core/presentation/custom_safe_area.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
+import 'package:loopcare_frontend/core/presentation/routes/app_router.dart';
 import 'package:loopcare_frontend/core/presentation/routes/app_router.gr.dart';
 import 'package:loopcare_frontend/core/presentation/text/custom_text.dart';
 import 'package:loopcare_frontend/core/presentation/utils/build_context_extensions.dart';
@@ -23,13 +24,7 @@ import 'package:loopcare_frontend/injection.dart';
 
 @RoutePage()
 class JoinGroupPreferencesPage extends StatefulWidget {
-  // TODO route is called only from one place with false value, so we don't need it as a param cause it always the same
-  final bool fromLessonComplete;
-
-  const JoinGroupPreferencesPage({
-    super.key,
-    required this.fromLessonComplete,
-  });
+  const JoinGroupPreferencesPage({super.key});
 
   @override
   State<JoinGroupPreferencesPage> createState() => _JoinGroupPreferencesPageState();
@@ -59,8 +54,7 @@ class _JoinGroupPreferencesPageState extends State<JoinGroupPreferencesPage> {
       const AnalyticsEventService().logEvent(
         eventName: AnalyticsEvents.iWantToJoinToGroup,
         parameters: {
-          AnalyticsParameters.navigatedFrom:
-              widget.fromLessonComplete ? 'Lesson content' : 'User profile',
+          AnalyticsParameters.navigatedFrom: 'User profile',
         },
       );
 
@@ -75,7 +69,7 @@ class _JoinGroupPreferencesPageState extends State<JoinGroupPreferencesPage> {
         return;
       }
 
-      context.router.push(GenderPreferencesRoute(fromLessonComplete: widget.fromLessonComplete));
+      context.router.pushNamed(AppRoutes.genderPreferences);
     }
 
     context
@@ -86,7 +80,6 @@ class _JoinGroupPreferencesPageState extends State<JoinGroupPreferencesPage> {
   @override
   Widget build(BuildContext context) {
     return GroupPrefsPageWrap(
-      fromLessonComplete: widget.fromLessonComplete,
       child: CustomSafeArea(
         child: MainContainer(
           child: ScrollableContainer(

@@ -1,6 +1,5 @@
 import 'dart:async';
 
-import 'package:fast_immutable_collections/fast_immutable_collections.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
@@ -160,21 +159,7 @@ class GeneralOnboardingBloc extends HydratedBloc<GeneralOnboardingEvent, General
       ),
     );
 
-    final mentalHealthTime = int.parse(dotenv.env['MENTAL_HEALTH_TEST_TIME_IN_MINUTES']!) * 60;
-
-    final localTime = await NTP.now();
-
-    final durationTime = mentalHealthTime - localTime.difference(startedTime).inSeconds;
-
-    _timer = Timer(
-      Duration(seconds: durationTime),
-      () {
-        const AnalyticsEventService()
-            .logEvent(eventName: AnalyticsEvents.showPopupAboutExceededTime);
-        add(const GeneralOnboardingEvent.stopTimer(isTimeUp: true));
-        _timer?.cancel();
-      },
-    );
+    _startTimer(startedTime);
   }
 
   FutureOr<void> _onStopTimer(
@@ -256,10 +241,19 @@ class GeneralOnboardingBloc extends HydratedBloc<GeneralOnboardingEvent, General
   }
 
   FutureOr<void> _onNextStep(NextStep event, Emitter<GeneralOnboardingState> emit) {
-    final nextStepState = _nextStepState(isExclude: event.excluded);
-
-    emit(nextStepState);
+    emit(_nextStepState(isExclude: event.excluded));
   }
+
+  FutureOr<void> _onPreviousStep(
+    PreviousStep event,
+    Emitter<GeneralOnboardingState> emit,
+  ) {
+    final previousStepState = _previousStepState();
+
+    emit(previousStepState);
+  }
+
+  // METHODS ==================================================================>
 
   GeneralOnboardingState _nextStepState({bool isExclude = false}) {
     if (state.generalStep == GeneralOnboardingStep.physical) {
@@ -272,165 +266,220 @@ class GeneralOnboardingBloc extends HydratedBloc<GeneralOnboardingEvent, General
   }
 
   GeneralOnboardingState _nextPhysicalStep({bool isExclude = false}) {
-    GeneralOnboardingStep generalStep = state.generalStep;
-
-    PhysicalQuestionStep physicalStep = state.currentPhysicalStep;
-
-    List<PhysicalQuestionStep> physicalStack = state.physicalPassedStack;
-    List<PhysicalQuestionStep> physicalQuestions = state.physicalQuestions;
-
-    List<MedicalQuestionStep> medicalStack = [];
-
-    if (physicalStep == PhysicalQuestionStep.result) {
-      generalStep = GeneralOnboardingStep.medical;
-      medicalStack = [MedicalQuestionStep.intro];
-      CustomerIoService.track(
-        event: CIOEvents.onboardingMedicalIntro,
-      );
+    if (state.currentPhysicalStep == PhysicalQuestionStep.result) {
+      return _handlePhysicalResultStep();
     } else if (isExclude) {
-      if (physicalStep == PhysicalQuestionStep.birthday) {
-        physicalQuestions =
-            physicalQuestions.insertAfter(physicalStep, PhysicalQuestionStep.ageExclusion);
-        physicalStack = [...physicalStack, PhysicalQuestionStep.ageExclusion];
-
-        _trackExclusion(AnalyticsEvents.onboardingAgeExclusion);
-      } else if (physicalStep == PhysicalQuestionStep.weight) {
-        physicalQuestions =
-            physicalQuestions.insertAfter(physicalStep, PhysicalQuestionStep.bmiExclusion);
-        physicalStack = [...physicalStack, PhysicalQuestionStep.bmiExclusion];
-
-        _trackExclusion(AnalyticsEvents.onboardingBmiExclusion);
-      }
+      return _handlePhysicalExclusionStep();
     } else {
-      final nextStepIndex = state.physicalQuestions.indexWhere((e) => e == physicalStep) + 1;
-      physicalStep = state.physicalQuestions[nextStepIndex];
-      physicalStack = [...physicalStack, physicalStep];
-
-      if (physicalStep == PhysicalQuestionStep.result) {
-        CustomerIoService.track(
-          event: CIOEvents.onboardingBasicsCompleted,
-        );
-      }
+      return _handlePhysicalNextStep();
     }
+  }
 
-    _sendScreenView(physicalStack.last.screenName);
+  GeneralOnboardingState _handlePhysicalResultStep() {
+    CustomerIoService.track(
+      event: CIOEvents.onboardingMedicalIntro,
+    );
+
+    _sendScreenView(MedicalQuestionStep.intro.screenName);
 
     return state.copyWith(
-      generalStep: generalStep,
-      physicalPassedStack: physicalStack,
-      physicalQuestions: physicalQuestions,
-      medicalPassedStack: medicalStack,
+      generalStep: GeneralOnboardingStep.medical,
+      medicalPassedStack: [MedicalQuestionStep.intro],
+    );
+  }
+
+  GeneralOnboardingState _handlePhysicalExclusionStep() {
+    PhysicalQuestionStep step = state.currentPhysicalStep;
+    List<PhysicalQuestionStep> questions = state.physicalQuestions;
+    List<PhysicalQuestionStep> stack = state.physicalPassedStack;
+
+    if (step == PhysicalQuestionStep.birthday) {
+      questions = questions.insertAfter(step, PhysicalQuestionStep.ageExclusion);
+      stack = [...stack, PhysicalQuestionStep.ageExclusion];
+
+      _trackExclusion(AnalyticsEvents.onboardingAgeExclusion);
+    } else if (step == PhysicalQuestionStep.weight) {
+      questions = questions.insertAfter(step, PhysicalQuestionStep.bmiExclusion);
+      stack = [...stack, PhysicalQuestionStep.bmiExclusion];
+
+      _trackExclusion(AnalyticsEvents.onboardingBmiExclusion);
+    }
+
+    _sendScreenView(stack.last.screenName);
+
+    return state.copyWith(
+      physicalPassedStack: stack,
+      physicalQuestions: questions,
+    );
+  }
+
+  GeneralOnboardingState _handlePhysicalNextStep() {
+    PhysicalQuestionStep step = state.currentPhysicalStep;
+    List<PhysicalQuestionStep> stack = state.physicalPassedStack;
+
+    final nextStepIndex = state.physicalQuestions.indexWhere((e) => e == step) + 1;
+    step = state.physicalQuestions[nextStepIndex];
+    stack = [...stack, step];
+
+    if (step == PhysicalQuestionStep.result) {
+      CustomerIoService.track(
+        event: CIOEvents.onboardingBasicsCompleted,
+      );
+    }
+
+    _sendScreenView(stack.last.screenName);
+
+    return state.copyWith(
+      physicalPassedStack: stack,
     );
   }
 
   GeneralOnboardingState _nextMedicalStep({bool isExclude = false}) {
-    GeneralOnboardingStep generalStep = state.generalStep;
-
-    MedicalQuestionStep medicalStep = state.currentMedicalStep;
-
-    List<MedicalQuestionStep> medicalStack = state.medicalPassedStack;
-    List<MedicalQuestionStep> medicalQuestions = state.medicalQuestions;
-
-    List<MentalQuestionStep> mentalStack = [];
-
-    if (medicalStep == MedicalQuestionStep.result) {
-      generalStep = GeneralOnboardingStep.mental;
-      mentalStack = [MentalQuestionStep.introStepOne];
-
-      CustomerIoService.track(
-        event: CIOEvents.onboardingMentalIntro,
-      );
+    if (state.currentMedicalStep == MedicalQuestionStep.result) {
+      return _handleMedicalResultStep();
     } else if (isExclude) {
-      if (medicalStep == MedicalQuestionStep.pregnancy) {
-        medicalQuestions =
-            medicalQuestions.insertAfter(medicalStep, MedicalQuestionStep.pregnancyExclusion);
-        medicalStack = [...medicalStack, MedicalQuestionStep.pregnancyExclusion];
-
-        _trackExclusion(AnalyticsEvents.onboardingPregnancyExclusion);
-      } else if (medicalStep == MedicalQuestionStep.treatmentByTheDoctor) {
-        medicalQuestions =
-            medicalQuestions.insertAfter(medicalStep, MedicalQuestionStep.completedDisease);
-        medicalStack = [...medicalStack, MedicalQuestionStep.completedDisease];
-      }
+      return _handleMedicalExclusionStep();
     } else {
-      final nextStepIndex = state.medicalQuestions.indexWhere((e) => e == medicalStep) + 1;
-      medicalStep = state.medicalQuestions[nextStepIndex];
-      medicalStack = [...medicalStack, medicalStep];
-
-      if (medicalStep == MedicalQuestionStep.result) {
-        CustomerIoService.track(
-          event: CIOEvents.onboardingMedicalCompleted,
-        );
-      }
+      return _handleMedicalNextStep();
     }
+  }
 
-    _sendScreenView(medicalStack.last.screenName);
+  GeneralOnboardingState _handleMedicalResultStep() {
+    CustomerIoService.track(
+      event: CIOEvents.onboardingMentalIntro,
+    );
+
+    _sendScreenView(MentalQuestionStep.introStepOne
+        .getScreenName(state.mentalTests.first.type.name.toUpperCase()));
 
     return state.copyWith(
-      generalStep: generalStep,
-      medicalPassedStack: medicalStack,
-      medicalQuestions: medicalQuestions,
-      mentalPassedStack: mentalStack,
+      generalStep: GeneralOnboardingStep.mental,
+      mentalPassedStack: [MentalQuestionStep.introStepOne],
+    );
+  }
+
+  GeneralOnboardingState _handleMedicalExclusionStep() {
+    MedicalQuestionStep step = state.currentMedicalStep;
+    List<MedicalQuestionStep> stack = state.medicalPassedStack;
+    List<MedicalQuestionStep> questions = state.medicalQuestions;
+
+    if (step == MedicalQuestionStep.pregnancy) {
+      questions = questions.insertAfter(step, MedicalQuestionStep.pregnancyExclusion);
+      stack = [...stack, MedicalQuestionStep.pregnancyExclusion];
+
+      _trackExclusion(AnalyticsEvents.onboardingPregnancyExclusion);
+    } else if (step == MedicalQuestionStep.treatmentByTheDoctor) {
+      questions = questions.insertAfter(step, MedicalQuestionStep.completedDisease);
+      stack = [...stack, MedicalQuestionStep.completedDisease];
+    }
+
+    _sendScreenView(stack.last.screenName);
+
+    return state.copyWith(
+      medicalPassedStack: stack,
+      medicalQuestions: questions,
+    );
+  }
+
+  GeneralOnboardingState _handleMedicalNextStep() {
+    MedicalQuestionStep step = state.currentMedicalStep;
+    List<MedicalQuestionStep> stack = state.medicalPassedStack;
+
+    final nextStepIndex = state.medicalQuestions.indexWhere((e) => e == step) + 1;
+    step = state.medicalQuestions[nextStepIndex];
+    stack = [...stack, step];
+
+    if (step == MedicalQuestionStep.result) {
+      CustomerIoService.track(
+        event: CIOEvents.onboardingMedicalCompleted,
+      );
+    }
+
+    _sendScreenView(stack.last.screenName);
+
+    return state.copyWith(
+      medicalPassedStack: stack,
     );
   }
 
   GeneralOnboardingState _nextMentalStep({bool isExclude = false}) {
-    MentalQuestionStep mentalStep = state.currentMentalStep;
+    final mentalStep = state.currentMentalStep;
 
-    List<MentalQuestionStep> mentalStack = state.mentalPassedStack;
-    List<MentalQuestionStep> mentalQuestions = state.mentalQuestions;
-
-    List<MentalHealthTest> mentalTests = state.mentalTests;
-
-    MentalHealthTest currentMentalTest = state.currentMentalTest ?? mentalTests.first;
-    MentalHealthQuestion currentQuestion =
-        state.currentMentalQuestion ?? currentMentalTest.questions.first;
-
-    if (mentalStep == MentalQuestionStep.testSummery && mentalTests.last == currentMentalTest) {
-      add(const GeneralOnboardingEvent.stopTimer());
-    }
     if (mentalStep == MentalQuestionStep.result) {
       return state;
     } else if (mentalStep == MentalQuestionStep.test) {
-      if (currentMentalTest.questions.isLast(currentQuestion)) {
-        mentalStack = [...mentalStack, MentalQuestionStep.testSummery];
-      } else {
-        currentQuestion =
-            currentMentalTest.questions[currentMentalTest.questions.indexOf(currentQuestion) + 1];
-      }
+      return _handleMentalTestStep();
     } else if (mentalStep == MentalQuestionStep.testSummery) {
-      if (mentalTests.isLast(currentMentalTest)) {
-        if (isExclude) {
-          mentalStack = [...mentalStack, MentalQuestionStep.resultFailed];
-        } else {
-          mentalStack = [...mentalStack, MentalQuestionStep.result];
-        }
-      } else {
-        mentalStack = [...mentalStack, MentalQuestionStep.test];
-        currentMentalTest = mentalTests[mentalTests.indexOf(currentMentalTest) + 1];
-        currentQuestion = currentMentalTest.questions.first;
-      }
+      return _handleMentalTestSummeryStep(isExclude: isExclude);
     } else {
-      final nextStep = mentalQuestions[mentalQuestions.indexOf(mentalStack.last) + 1];
-      mentalStack = [...mentalStack, nextStep];
+      return _handleMentalNextStep();
+    }
+  }
+
+  GeneralOnboardingState _handleMentalTestStep() {
+    List<MentalQuestionStep> stack = state.mentalPassedStack;
+    List<MentalHealthTest> tests = state.mentalTests;
+    MentalHealthTest test = state.currentMentalTest ?? tests.first;
+    MentalHealthQuestion question = state.currentMentalQuestion ?? test.questions.first;
+
+    if (test.questions.last.id == question.id) {
+      stack = [...stack, MentalQuestionStep.testSummery];
+    } else {
+      question = test.questions[test.questions.indexOf(question) + 1];
     }
 
-    _sendScreenView(mentalStack.last.getScreenName(currentMentalTest.type.name.toUpperCase()));
+    _sendScreenView(stack.last.getScreenName(test.type.name.toUpperCase()));
 
     return state.copyWith(
-      mentalPassedStack: mentalStack,
-      currentMentalTest: currentMentalTest,
-      currentMentalQuestion: currentQuestion,
+      mentalPassedStack: stack,
+      currentMentalTest: test,
+      currentMentalQuestion: question,
     );
   }
 
-  FutureOr<void> _onPreviousStep(
-    PreviousStep event,
-    Emitter<GeneralOnboardingState> emit,
-  ) {
-    final previousStepState = _previousStepState();
+  GeneralOnboardingState _handleMentalTestSummeryStep({bool isExclude = false}) {
+    List<MentalQuestionStep> stack = state.mentalPassedStack;
+    List<MentalHealthTest> tests = state.mentalTests;
+    MentalHealthTest currentTest = state.currentMentalTest ?? tests.first;
+    MentalHealthQuestion question = state.currentMentalQuestion ?? currentTest.questions.first;
 
-    emit(previousStepState);
+    if (tests.last.id == currentTest.id) {
+      add(const GeneralOnboardingEvent.stopTimer());
+
+      if (isExclude) {
+        stack = [...stack, MentalQuestionStep.resultFailed];
+      } else {
+        stack = [...stack, MentalQuestionStep.result];
+      }
+    } else {
+      stack = [...stack, MentalQuestionStep.test];
+      currentTest = tests[tests.indexOf(currentTest) + 1];
+      question = currentTest.questions.first;
+    }
+
+    _sendScreenView(stack.last.getScreenName(currentTest.type.name.toUpperCase()));
+
+    return state.copyWith(
+      mentalPassedStack: stack,
+      currentMentalTest: currentTest,
+      currentMentalQuestion: question,
+    );
+  }
+
+  GeneralOnboardingState _handleMentalNextStep() {
+    List<MentalQuestionStep> stack = state.mentalPassedStack;
+    List<MentalHealthTest> tests = state.mentalTests;
+    MentalHealthTest test = state.currentMentalTest ?? tests.first;
+    List<MentalQuestionStep> questions = state.mentalQuestions;
+
+    final nextStep = questions[questions.indexOf(stack.last) + 1];
+    stack = [...stack, nextStep];
+
+    _sendScreenView(stack.last.getScreenName(test.type.name.toUpperCase()));
+
+    return state.copyWith(
+      mentalPassedStack: stack,
+    );
   }
 
   GeneralOnboardingState _previousStepState() {
@@ -444,22 +493,20 @@ class GeneralOnboardingBloc extends HydratedBloc<GeneralOnboardingEvent, General
   }
 
   GeneralOnboardingState _previousPhysicalStepState() {
-    List<PhysicalQuestionStep> physicalQuestions = state.physicalQuestions;
+    List<PhysicalQuestionStep> questions = state.physicalQuestions;
+
     if (state.currentPhysicalStep == PhysicalQuestionStep.ageExclusion) {
-      physicalQuestions = List.from(state.physicalQuestions)
-        ..remove(PhysicalQuestionStep.ageExclusion);
+      questions = List.from(state.physicalQuestions)..remove(PhysicalQuestionStep.ageExclusion);
     } else if (state.currentPhysicalStep == PhysicalQuestionStep.bmiExclusion) {
-      physicalQuestions = List.from(state.physicalQuestions)
-        ..remove(PhysicalQuestionStep.bmiExclusion);
+      questions = List.from(state.physicalQuestions)..remove(PhysicalQuestionStep.bmiExclusion);
     }
 
-    final List<PhysicalQuestionStep> physicalPassedStack = List.from(state.physicalPassedStack)
-      ..removeLast();
-    _sendScreenView(physicalPassedStack.last.screenName);
+    final List<PhysicalQuestionStep> stack = List.from(state.physicalPassedStack)..removeLast();
+    _sendScreenView(stack.last.screenName);
 
     return state.copyWith(
-      physicalPassedStack: physicalPassedStack,
-      physicalQuestions: physicalQuestions,
+      physicalPassedStack: stack,
+      physicalQuestions: questions,
     );
   }
 
@@ -470,8 +517,12 @@ class GeneralOnboardingBloc extends HydratedBloc<GeneralOnboardingEvent, General
 
     if (state.currentMedicalStep == MedicalQuestionStep.intro) {
       generalStep = GeneralOnboardingStep.physical;
+
+      _sendScreenView(state.physicalPassedStack.last.screenName);
     } else {
       medicalStack = List.from(state.medicalPassedStack)..removeLast();
+
+      _sendScreenView(medicalStack.last.screenName);
     }
 
     if (state.currentMedicalStep == MedicalQuestionStep.pregnancyExclusion) {
@@ -482,8 +533,6 @@ class GeneralOnboardingBloc extends HydratedBloc<GeneralOnboardingEvent, General
         ..remove(MedicalQuestionStep.completedDisease);
     }
 
-    _sendScreenView(medicalStack.last.screenName);
-
     return state.copyWith(
       generalStep: generalStep,
       medicalPassedStack: medicalStack,
@@ -492,46 +541,84 @@ class GeneralOnboardingBloc extends HydratedBloc<GeneralOnboardingEvent, General
   }
 
   GeneralOnboardingState _previousMentalStepState() {
-    GeneralOnboardingStep generalStep = state.generalStep;
-    MentalQuestionStep mentalStep = state.currentMentalStep;
-    List<MentalQuestionStep> mentalStack = state.mentalPassedStack;
-    List<MentalHealthTest> mentalTests = state.mentalTests;
-    MentalHealthTest currentMentalTest = state.currentMentalTest ?? mentalTests.first;
-    MentalHealthQuestion currentQuestion =
-        state.currentMentalQuestion ?? currentMentalTest.questions.first;
+    final mentalStep = state.currentMentalStep;
+    final test = state.currentMentalTest ?? state.mentalTests.first;
 
-    if (mentalStep == MentalQuestionStep.testSummery && mentalTests.last == currentMentalTest) {
+    if (mentalStep == MentalQuestionStep.testSummery && state.mentalTests.last == test) {
       add(const GeneralOnboardingEvent.resumeTimer());
     }
 
     if (mentalStep == MentalQuestionStep.introStepOne) {
-      generalStep = GeneralOnboardingStep.medical;
-
-      add(const GeneralOnboardingEvent.stopTimer());
+      return _handleMentalPreviousIntroStep();
     } else if (mentalStep == MentalQuestionStep.test) {
-      if (currentMentalTest.questions.first == currentQuestion) {
-        if (mentalTests.first != currentMentalTest) {
-          currentMentalTest = mentalTests[mentalTests.indexOf(currentMentalTest) - 1];
-          currentQuestion = currentMentalTest.questions.last;
-        }
-
-        mentalStack = List.from(mentalStack)..removeLast();
-      } else {
-        currentQuestion =
-            currentMentalTest.questions[currentMentalTest.questions.indexOf(currentQuestion) - 1];
-      }
+      return _handleMentalPreviousTestStep();
     } else {
-      mentalStack = List.from(mentalStack)..removeLast();
+      return _handleMentalPreviousStep();
     }
+  }
 
-    _sendScreenView(mentalStack.last.getScreenName(currentMentalTest.type.name.toUpperCase()));
+  GeneralOnboardingState _handleMentalPreviousIntroStep() {
+    add(const GeneralOnboardingEvent.stopTimer());
+
+    _sendScreenView(state.medicalPassedStack.last.screenName);
 
     return state.copyWith(
-      generalStep: generalStep,
-      mentalPassedStack: mentalStack,
-      currentMentalTest: currentMentalTest,
-      currentMentalQuestion: currentQuestion,
+      generalStep: GeneralOnboardingStep.medical,
     );
+  }
+
+  GeneralOnboardingState _handleMentalPreviousTestStep() {
+    List<MentalQuestionStep> stack = state.mentalPassedStack;
+    List<MentalHealthTest> mentalTests = state.mentalTests;
+    MentalHealthTest test = state.currentMentalTest ?? mentalTests.first;
+    MentalHealthQuestion question = state.currentMentalQuestion ?? test.questions.first;
+
+    if (test.questions.first.id == question.id) {
+      if (mentalTests.first.id != test.id) {
+        test = mentalTests[mentalTests.indexOf(test) - 1];
+        question = test.questions.last;
+      }
+
+      stack = List.from(stack)..removeLast();
+    } else {
+      question = test.questions[test.questions.indexOf(question) - 1];
+    }
+
+    _sendScreenView(stack.last.getScreenName(test.type.name.toUpperCase()));
+
+    return state.copyWith(
+      mentalPassedStack: stack,
+      currentMentalTest: test,
+      currentMentalQuestion: question,
+    );
+  }
+
+  GeneralOnboardingState _handleMentalPreviousStep() {
+    final test = state.currentMentalTest ?? state.mentalTests.first;
+    final stack = List<MentalQuestionStep>.from(state.mentalPassedStack)..removeLast();
+
+    _sendScreenView(stack.last.getScreenName(test.type.name.toUpperCase()));
+
+    return state.copyWith(
+      mentalPassedStack: stack,
+    );
+  }
+
+  Future<void> _startTimer(DateTime startedTime) async {
+    final mentalHealthTime = int.parse(dotenv.env['MENTAL_HEALTH_TEST_TIME_IN_MINUTES']!) * 60;
+    final localTime = await NTP.now();
+    final durationTime = mentalHealthTime - localTime.difference(startedTime).inSeconds;
+
+    _timer = Timer(Duration(seconds: durationTime), _stopTimer);
+  }
+
+  void _stopTimer() {
+    const AnalyticsEventService().logEvent(
+      eventName: AnalyticsEvents.showPopupAboutExceededTime,
+    );
+
+    add(const GeneralOnboardingEvent.stopTimer(isTimeUp: true));
+    _timer?.cancel();
   }
 
   void _sendScreenView(String screenName) {

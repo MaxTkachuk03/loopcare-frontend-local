@@ -1,6 +1,5 @@
 import 'dart:async';
 
-import 'package:fast_immutable_collections/fast_immutable_collections.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
@@ -13,7 +12,9 @@ import 'package:loopcare_frontend/features/nutrition/domain/select_serving/meal_
 import 'package:loopcare_frontend/features/nutrition/domain/serving_size/serving_size.dart';
 
 part 'food_item_servings_bloc.freezed.dart';
+
 part 'food_item_servings_event.dart';
+
 part 'food_item_servings_state.dart';
 
 @singleton
@@ -31,21 +32,19 @@ class FoodItemServingsBloc extends Bloc<FoodItemServingsEvent, FoodItemServingsS
     on<UpdateMealCategoryFilter>(_onUpdateMealCategoryFilter);
   }
 
-  List<MealCategoryFilter> _initializeMealCategoryFilters() {
-    return MealCategory.values.map((v) {
-      return MealCategoryFilter(name: v.originalValue, selected: false);
-    }).toList();
-  }
+  List<MealCategoryFilter> _initializeMealCategoryFilters() => MealCategory.values
+      .map((v) => MealCategoryFilter(name: v.originalValue, selected: false, title: v.title))
+      .toList();
 
-  IList<ServingSize> _getUpdatedServingsList(ServingSize serving) {
+  List<ServingSize> _getUpdatedServingsList(ServingSize serving) {
     return state.maybeMap(
       foodItemServings: (state) {
         return state.servings
             .toList()
             .map((e) => e.servingId == serving.servingId ? serving : e)
-            .toIList();
+            .toList();
       },
-      orElse: () => <ServingSize>[].toIList(),
+      orElse: () => <ServingSize>[].toList(),
     );
   }
 
@@ -56,7 +55,7 @@ class FoodItemServingsBloc extends Bloc<FoodItemServingsEvent, FoodItemServingsS
       foodItemServings: (state) {
         return state.mealCategoryFilters.map((f) {
           return f.name == filter.name
-              ? MealCategoryFilter(name: f.name, selected: filter.value)
+              ? MealCategoryFilter(name: f.name, selected: filter.value, title: f.title)
               : f;
         }).toList();
       },
@@ -75,17 +74,11 @@ class FoodItemServingsBloc extends Bloc<FoodItemServingsEvent, FoodItemServingsS
     response.fold(
       (l) => emit(FoodItemServingsState.error(l)),
       (r) {
-        IList<ServingSize> servingList;
-        // TODO how to refactor this code
-        if (event.selectedServingId == null) {
-          servingList = r.data.toIList();
-        } else {
-          servingList = r.data
-              .map((e) => e.servingId == event.selectedServingId
-                  ? e.copyWith(numberOfUnits: event.initialServingAmount)
-                  : e)
-              .toIList();
-        }
+        final servingList = _serveList(
+          r.data,
+          event.selectedServingId,
+          event.initialServingAmount,
+        );
 
         final selectedServing = event.selectedServingId == null
             ? servingList[0]
@@ -146,7 +139,7 @@ class FoodItemServingsBloc extends Bloc<FoodItemServingsEvent, FoodItemServingsS
 
             emit(
               state.copyWith(
-                servings: updatedList.toIList(),
+                servings: updatedList.toList(),
                 selectedServing: updatedList.firstWhere((e) => e.servingId == r.serving.servingId),
               ),
             );
@@ -260,4 +253,15 @@ class FoodItemServingsBloc extends Bloc<FoodItemServingsEvent, FoodItemServingsS
       );
     });
   }
+
+  List<ServingSize> _serveList(
+    List<ServingSize> list,
+    String? id,
+    double initialAmount,
+  ) =>
+      id == null
+          ? list
+          : list
+              .map((e) => e.servingId == id ? e.copyWith(numberOfUnits: initialAmount) : e)
+              .toList();
 }

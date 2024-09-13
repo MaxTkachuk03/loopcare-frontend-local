@@ -1,15 +1,19 @@
+import 'dart:convert';
+
 import 'app_localizations.dart';
 
 import 'package:crowdin_sdk/crowdin_sdk.dart';
 
 import 'package:flutter/widgets.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 
 class CrowdinLocalization extends AppLocalizations {
   final AppLocalizations _fallbackTexts;
 
-  CrowdinLocalization(super.locale, AppLocalizations fallbackTexts)
-      : _fallbackTexts = fallbackTexts;
+  CrowdinLocalization(String locale, AppLocalizations fallbackTexts)
+      : _fallbackTexts = fallbackTexts,
+        super(locale);
 
   static const LocalizationsDelegate<AppLocalizations> delegate = _CrowdinLocalizationsDelegate();
 
@@ -4849,6 +4853,20 @@ class CrowdinLocalization extends AppLocalizations {
       _fallbackTexts.smartGoalsReasonGoalSpecific;
 
   @override
+  String get nutritionProteinDegree =>
+      Crowdin.getText(localeName, 'nutritionProteinDegree') ??
+      _fallbackTexts.nutritionProteinDegree;
+
+  @override
+  String get nutritionFiber =>
+      Crowdin.getText(localeName, 'nutritionFiber') ?? _fallbackTexts.nutritionFiber;
+
+  @override
+  String get nutritionCalorieDensity =>
+      Crowdin.getText(localeName, 'nutritionCalorieDensity') ??
+      _fallbackTexts.nutritionCalorieDensity;
+
+  @override
   String get buddyTitle => Crowdin.getText(localeName, 'buddyTitle') ?? _fallbackTexts.buddyTitle;
 
   @override
@@ -7374,6 +7392,25 @@ class CrowdinLocalization extends AppLocalizations {
 
   @override
   String get exercise => Crowdin.getText(localeName, 'exercise') ?? _fallbackTexts.exercise;
+
+  @override
+  String get noMicrophoneAccessTitle =>
+      Crowdin.getText(localeName, 'noMicrophoneAccessTitle') ??
+      _fallbackTexts.noMicrophoneAccessTitle;
+
+  @override
+  String get noMicrophoneAccessDescription =>
+      Crowdin.getText(localeName, 'noMicrophoneAccessDescription') ??
+      _fallbackTexts.noMicrophoneAccessDescription;
+
+  @override
+  String get noCameraAccessTitle =>
+      Crowdin.getText(localeName, 'noCameraAccessTitle') ?? _fallbackTexts.noCameraAccessTitle;
+
+  @override
+  String get noCameraAccessDescription =>
+      Crowdin.getText(localeName, 'noCameraAccessDescription') ??
+      _fallbackTexts.noCameraAccessDescription;
 
   @override
   String get startAgain => Crowdin.getText(localeName, 'startAgain') ?? _fallbackTexts.startAgain;

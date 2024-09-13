@@ -10,6 +10,7 @@ abstract class MealCategoryFilter implements _$MealCategoryFilter {
 
   const factory MealCategoryFilter({
     required String name,
+    required String title,
     required bool selected,
   }) = _MealCategoryFilter;
 

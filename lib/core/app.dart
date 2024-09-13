@@ -48,6 +48,7 @@ class _AppState extends State<_App> {
   @override
   void initState() {
     super.initState();
+    // TODO https://loopcare.atlassian.net/browse/LOOPCARE-3167 event should be added here
     _appRouter = AppRouter();
     kNavigatorKey = _appRouter.navigatorKey;
     FacebookEventsService();

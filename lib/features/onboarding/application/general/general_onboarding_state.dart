@@ -149,11 +149,11 @@ class GeneralOnboardingState with _$GeneralOnboardingState {
       };
 
   bool get isLastMentalQuestion => currentMentalTest != null
-      ? currentMentalTest!.questions.isLast(currentMentalQuestion!)
+      ? currentMentalTest!.questions.last.id == currentMentalQuestion?.id
       : false;
 
   bool get isLastMentalTest =>
-      mentalTests.isNotEmpty ? mentalTests.isLast(currentMentalTest!) : false;
+      mentalTests.isNotEmpty ? mentalTests.last.id == currentMentalTest?.id : false;
 
   bool get isStarted =>
       generalStep != GeneralOnboardingStep.physical || !currentPhysicalStep.isIntro;

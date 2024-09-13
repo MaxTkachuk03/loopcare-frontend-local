@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:loopcare_frontend/core/presentation/text/custom_text.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 
 class CustomOutlinedButton extends StatelessWidget {
@@ -289,7 +290,7 @@ class CustomOutlinedButton extends StatelessWidget {
     return OutlinedButton(
       onPressed: onPressed,
       style: styles,
-      child: Text(label),
+      child: CustomText(label, maxLines: 1, overflow: TextOverflow.ellipsis),
     );
   }
 }
