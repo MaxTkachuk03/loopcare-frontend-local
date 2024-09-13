@@ -3,9 +3,11 @@ import 'dart:io';
 import 'package:device_info_plus/device_info_plus.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:loopcare_frontend/build_type.dart';
+import 'package:loopcare_frontend/core/infrastructure/services/country_code_service/country_code_service.dart';
+import 'package:loopcare_frontend/core/infrastructure/services/logger/logger.dart';
+import 'package:loopcare_frontend/core/infrastructure/services/stored_account_service/stored_account_service.dart';
 import 'package:mixpanel_flutter/mixpanel_flutter.dart';
 import 'package:package_info_plus/package_info_plus.dart';
-import 'package:uuid/uuid.dart';
 
 String _kToken = '';
 
@@ -13,9 +15,14 @@ class MixpanelManager {
   late Mixpanel _mixpanel;
   late PackageInfo packageInfo;
 
-  String distinctId = const Uuid().v4();
-  Map<String, dynamic> deviceData = <String, dynamic>{};
+  String get _userServer => CountryCodeService.instance.serverCountryCode;
+
+  int get _userId => StoredAccountService.getAccount()?.id ?? -1;
+
+  Map<String, dynamic> _deviceData = <String, dynamic>{};
   static final DeviceInfoPlugin deviceInfoPlugin = DeviceInfoPlugin();
+
+  String get _email => StoredAccountService.getAccount()?.email ?? '';
 
   Future<void> init() async {
     if (!kIsProd) {
@@ -33,6 +40,24 @@ class MixpanelManager {
     packageInfo = await PackageInfo.fromPlatform();
   }
 
+  void reset() => _mixpanel.reset();
+
+  void identify({int? id}) {
+    try {
+      _mixpanel.identify('${id ?? _userId}-$_userServer');
+    } catch (e) {
+      log.e(e.toString(), error: 'ERROR identify MIXPANEL');
+    }
+  }
+
+  void alias(int id) {
+    try {
+      _mixpanel.alias('$id-$_userServer', '$id-$_userServer');
+    } catch (e) {
+      log.e(e.toString(), error: 'ERROR alias MIXPANEL');
+    }
+  }
+
   void track(String eventName, Map<String, dynamic>? data) => _trackForMobile(eventName, data);
 
   void _trackForMobile(
@@ -44,7 +69,8 @@ class MixpanelManager {
     // ignore: parameter_assignments
     data ??= {};
     data.addAll({
-      'distinct_id': distinctId,
+      'distinct_id': '$_userId-$_userServer',
+      '\$email': _email,
       '\$os': Platform.isAndroid ? 'Android' : 'iOs',
       '\$build_type': EnvironmentType.currentType.name,
       '\$app_build_number': packageInfo.buildNumber,
@@ -52,12 +78,12 @@ class MixpanelManager {
     });
 
     if (Platform.isAndroid) {
-      deviceData = _readAndroidBuildData(await deviceInfoPlugin.androidInfo);
+      _deviceData = _readAndroidBuildData(await deviceInfoPlugin.androidInfo);
     } else if (Platform.isIOS) {
-      deviceData = _readIosDeviceInfo(await deviceInfoPlugin.iosInfo);
+      _deviceData = _readIosDeviceInfo(await deviceInfoPlugin.iosInfo);
     }
 
-    data.addAll(deviceData);
+    data.addAll(_deviceData);
 
     _mixpanel.track(eventName, properties: data);
   }

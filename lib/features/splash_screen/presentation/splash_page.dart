@@ -5,6 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:loopcare_frontend/core/application/app_update/app_update_bloc.dart';
 import 'package:loopcare_frontend/core/application/app_update/app_update_bottom_sheet.dart';
+import 'package:loopcare_frontend/core/infrastructure/services/mixpanel_event_service.dart';
 import 'package:loopcare_frontend/core/presentation/alerting/show_app_snackbar.dart';
 import 'package:loopcare_frontend/core/presentation/routes/app_router.dart';
 import 'package:loopcare_frontend/core/presentation/scaffold/custom_scaffold.dart';
@@ -60,7 +61,7 @@ class _SplashPageState extends State<SplashPage> {
 
   Future<void> _navigateAuthorized() async {
     _controller.setUpBottomNavigationBar();
-
+    MixpanelEventService.instance.identify();
     final routes = await _controller.getRoute();
 
     if (context.mounted) {

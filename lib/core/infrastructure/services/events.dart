@@ -9,6 +9,7 @@ class AppMixpanelEvents {
   static String get getSubscriptionIdsBackend => 'get_user_subscription_ids_backend';
   static String get getSubscriptionPansStore => 'get_user_subscription_plans_store';
   static String get getUserAvailableSubscriptions => 'get_user_available_subscription_plans';
+  static String get getUserAvailableProductsOffers => 'get_user_available_products_offers';
   static String get getUserTapSubscribeBtn => 'user_clicks_subscribe_btn';
 
   static String get userLastTransactionValidationBackend => 'user_last_transaction_validation';
