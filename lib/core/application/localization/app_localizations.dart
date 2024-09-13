@@ -5950,6 +5950,24 @@ abstract class AppLocalizations {
   /// **'No specific reason.'**
   String get smartGoalsReasonGoalSpecific;
 
+  /// No description provided for @nutritionProteinDegree.
+  ///
+  /// In en, this message translates to:
+  /// **'Protein\n degree'**
+  String get nutritionProteinDegree;
+
+  /// No description provided for @nutritionFiber.
+  ///
+  /// In en, this message translates to:
+  /// **'Fiber\n'**
+  String get nutritionFiber;
+
+  /// No description provided for @nutritionCalorieDensity.
+  ///
+  /// In en, this message translates to:
+  /// **'Calorie\n density'**
+  String get nutritionCalorieDensity;
+
   /// No description provided for @buddyTitle.
   ///
   /// In en, this message translates to:

@@ -1,15 +1,19 @@
+import 'dart:convert';
+
 import 'app_localizations.dart';
 
 import 'package:crowdin_sdk/crowdin_sdk.dart';
 
 import 'package:flutter/widgets.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 
 class CrowdinLocalization extends AppLocalizations {
   final AppLocalizations _fallbackTexts;
 
-  CrowdinLocalization(super.locale, AppLocalizations fallbackTexts)
-      : _fallbackTexts = fallbackTexts;
+  CrowdinLocalization(String locale, AppLocalizations fallbackTexts)
+      : _fallbackTexts = fallbackTexts,
+        super(locale);
 
   static const LocalizationsDelegate<AppLocalizations> delegate = _CrowdinLocalizationsDelegate();
 
@@ -4847,6 +4851,20 @@ class CrowdinLocalization extends AppLocalizations {
   String get smartGoalsReasonGoalSpecific =>
       Crowdin.getText(localeName, 'smartGoalsReasonGoalSpecific') ??
       _fallbackTexts.smartGoalsReasonGoalSpecific;
+
+  @override
+  String get nutritionProteinDegree =>
+      Crowdin.getText(localeName, 'nutritionProteinDegree') ??
+      _fallbackTexts.nutritionProteinDegree;
+
+  @override
+  String get nutritionFiber =>
+      Crowdin.getText(localeName, 'nutritionFiber') ?? _fallbackTexts.nutritionFiber;
+
+  @override
+  String get nutritionCalorieDensity =>
+      Crowdin.getText(localeName, 'nutritionCalorieDensity') ??
+      _fallbackTexts.nutritionCalorieDensity;
 
   @override
   String get buddyTitle => Crowdin.getText(localeName, 'buddyTitle') ?? _fallbackTexts.buddyTitle;
