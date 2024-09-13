@@ -45,6 +45,7 @@ class MixpanelManager {
   void identify({int? id}) {
     try {
       _mixpanel.identify('${id ?? _userId}-$_userServer');
+      _mixpanel.getPeople().set('\$email', _email);
     } catch (e) {
       log.e(e.toString(), error: 'ERROR identify MIXPANEL');
     }
