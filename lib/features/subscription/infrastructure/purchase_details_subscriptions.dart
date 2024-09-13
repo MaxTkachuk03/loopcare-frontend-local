@@ -116,7 +116,10 @@ class PurchaseDetailsStreamSubscription {
         if (data != null) ...{
           AnalyticsParameters.productIdentifier: data.productID,
           AnalyticsParameters.purchaseIdentifier: data.purchaseID,
-          if (data.error != null) AnalyticsParameters.iapErrorMessage: data.error!.message,
+          if (data.error != null)
+            AnalyticsParameters.iapErrorMessage:
+                'message: ${data.error!.message};code: ${data.error!.code};'
+                    ' details: ${data.error!.details}; source:message: ${data.error!.source}',
         },
         if (message != null) AnalyticsParameters.errorMessage: message,
       },

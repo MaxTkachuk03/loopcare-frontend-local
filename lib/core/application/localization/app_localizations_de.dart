@@ -3503,19 +3503,19 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String get riverModuleGraduationCompletedItemsTitle =>
-      'Great job. You have completed the lessons in this pool.';
+      'Super! Du hast alle Abschnitte in diesem Modul abgeschlossen.';
 
   @override
   String get riverModuleGraduationCompletedTimeTitle =>
-      'Your module is fully colored-in, meaning you  first read the Reflection over 7 days ago.';
+      'Dein Modul ist vollständig eingefärbt, d.h. du hast die Reflexion vor über 7 Tagen zum ersten Mal gelesen.';
 
   @override
   String get riverModuleGraduationCompletedItemsMessage =>
-      'You are one step closer to finishing this section. But before you can graduate, we encourage you to practice and reflect on what you have learned in this Pool.\n\nOnce the 7 day timer has has filled this section with color, you can move on to the next pool.';
+      'Du bist dem Abschluss dieses Abschnitts einen Schritt näher gekommen. Aber bevor du zum nächsten Modul übergehen kannst, solltest du noch einmal üben und darüber nachdenken, was du in diesem Pool gelernt hast.\n\nSobald der 7-Tage-Timer diesen Pool mit Farbe gefüllt hat, kannst du zum nächsten Pool übergehen.';
 
   @override
   String get riverModuleGraduationCompletedTimeMessage =>
-      'No rush: Every module takes the time it takes. Keep reflecting! When you’ve completed all the necessary steps, we’ll ask you if you’re ready to move on. Need some help? Reach out by emailing support@lean-on.me, and one of our specialists will be glad to assist.';
+      'Keine Eile: Jedes Modul braucht seine Zeit. Denke weiter nach! Wenn du alle notwendigen Schritte abgeschlossen hast, fragen wir dich, ob du bereit bist, weiterzumachen. Brauchst du Hilfe? Wende dich per E-Mail an support@lean-on.me und einer unserer Experten hilft dir gerne weiter.';
 
   @override
   String get subscriptionTrialTitle => 'Die ersten 2 Wochen kostenlos!';
@@ -3869,7 +3869,7 @@ class AppLocalizationsDe extends AppLocalizations {
   String get genderPageTitle => 'Was ist dein soziales Geschlecht';
 
   @override
-  String get happinessTitle => 'Wie empfindest du deinen derzeitigen Lebensstil?';
+  String get happinessTitle => 'Wie empfindest du deinen derzeitigen Lebensstil';
 
   @override
   String get happinessBody1 =>
@@ -4989,7 +4989,7 @@ class AppLocalizationsDe extends AppLocalizations {
   String get yourNickname => 'Dein (Spitz-) Name';
 
   @override
-  String get partOfGroup => 'Mitglied einer Gruppe';
+  String get partOfGroup => 'Gruppenmitglied';
 
   @override
   String get iNoLongerWantToJoin => 'Ich möchte einer Gruppe nicht mehr beitreten';
@@ -5028,7 +5028,7 @@ class AppLocalizationsDe extends AppLocalizations {
   String get groupRulesOneTitle => 'Sich sicher fühlen in einer vertrauensvollen Umgebung';
 
   @override
-  String get groupRulesAttention => 'Bitte lies die 14 Gruppenregeln sorgfältig durch.';
+  String get groupRulesAttention => 'Bitte lies die 14 Gruppenregeln sorgfältig durch';
 
   @override
   String get groupRulesOneParagraphOne =>
