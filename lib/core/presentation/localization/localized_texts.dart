@@ -526,6 +526,10 @@ class LocalizedTexts {
   static const String duration = "duration";
   static const String badConnectionMessage = "badConnectionMessage";
   static const String exercise = "exercise";
+  static const String noMicrophoneAccessTitle = "noMicrophoneAccessTitle";
+  static const String noMicrophoneAccessDescription = "noMicrophoneAccessDescription";
+  static const String noCameraAccessTitle = "noCameraAccessTitle";
+  static const String noCameraAccessDescription = "noCameraAccessDescription";
 
   // Book a seat
   static const String pickADateAndTime = "pickADateAndTime";

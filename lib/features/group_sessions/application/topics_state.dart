@@ -108,7 +108,7 @@ class TopicsData with _$TopicsData {
     return groupSessions;
   }
 
-  // TODO move to the GroupSession model
+  // TODO move to the GroupSession model or Bloc
   Future<Duration> get timePassedSinceSessionStart async {
     final startTime = signedGroupSessionStartTime;
 
@@ -119,7 +119,7 @@ class TopicsData with _$TopicsData {
     return ntpTime.difference(startTime);
   }
 
-  // TODO move to the GroupSession model
+  // TODO move to the GroupSession model or Bloc
   Future<Duration> get timeLeftToSessionStart async {
     final startTime = signedGroupSessionStartTime;
 

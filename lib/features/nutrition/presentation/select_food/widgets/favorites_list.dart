@@ -34,16 +34,11 @@ class _FavoriteListState extends State<FavoriteList> with AutomaticKeepAliveClie
   @override
   void initState() {
     context.read<SelectFoodBloc>().add(SelectFoodEvent.fetchFavorites(_defaultMealCategory));
+    const AnalyticsEventService().logEvent(eventName: AnalyticsEvents.selectFoodScreenMyFavorites);
     super.initState();
   }
 
-  @override
-  void didChangeDependencies() {
-    super.didChangeDependencies();
-    const AnalyticsEventService().logEvent(eventName: AnalyticsEvents.selectFoodScreenMyFavorites);
-  }
-
-  Future _onRefresh() async {
+  Future<void> _onRefresh() async {
     return context.read<SelectFoodBloc>().add(SelectFoodEvent.fetchFavorites(_defaultMealCategory));
   }
 
@@ -83,7 +78,7 @@ class _FavoriteListState extends State<FavoriteList> with AutomaticKeepAliveClie
                       ListFilters(
                         title: title,
                         mealsList: selectFoodState.mealFavoritesCategories.toList(),
-                        onConfirmed: (list) => _onConfirmed(context, list),
+                        onConfirmed: _onConfirmed,
                       ),
                       selectFoodState.favorites.isEmpty
                           ? Padding(
@@ -103,7 +98,7 @@ class _FavoriteListState extends State<FavoriteList> with AutomaticKeepAliveClie
                                       foodItem: selectFoodState.favorites[index],
                                     );
                                   },
-                                  separatorBuilder: (BuildContext context, int _) {
+                                  separatorBuilder: (_, __) {
                                     return const Divider(
                                       height: 1,
                                       color: AppColors.blueLighter,
@@ -128,7 +123,6 @@ class _FavoriteListState extends State<FavoriteList> with AutomaticKeepAliveClie
     );
   }
 
-  void _onConfirmed(BuildContext context, List<MealCategoryFilter> updatedFiltersList) => context
-      .read<SelectFoodBloc>()
-      .add(SelectFoodEvent.filterFavorites(updatedFiltersList.toList()));
+  void _onConfirmed(List<MealCategoryFilter> list) =>
+      context.read<SelectFoodBloc>().add(SelectFoodEvent.filterFavorites(list));
 }

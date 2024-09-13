@@ -5,7 +5,7 @@ import 'package:lottie/lottie.dart';
 
 typedef OnLoadedCb = Function(LottieComposition)?;
 
-// TODO very basic widget, will be extended in future
+/// Very basic widget, will be extended in future
 class LottieAnimation extends StatefulWidget {
   final String animationUrl;
   final bool repeat;

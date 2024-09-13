@@ -34,6 +34,8 @@ class _BirthdayFieldState extends State<BirthdayField> {
 
   @override
   Widget build(BuildContext context) {
+    // final l =
+
     return Column(
       children: [
         MainContainer(
@@ -41,8 +43,7 @@ class _BirthdayFieldState extends State<BirthdayField> {
             children: [
               SizedBox(
                 child: CustomText.bitter500(
-                  // TODO DateFormat.yMMMMd(Intl.getCurrentLocale()).format(value), - return when localization translations will be finished
-                  DateFormat.yMMMMd('en_EN').format(value),
+                  DateFormat.yMMMMd(Localizations.localeOf(context).toString()).format(value),
                   style: context.textTheme.headlineLarge,
                 ),
               ),

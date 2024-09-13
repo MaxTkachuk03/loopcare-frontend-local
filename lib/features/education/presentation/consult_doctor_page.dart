@@ -12,7 +12,6 @@ import 'package:loopcare_frontend/core/presentation/checkbox/custom_checkbox.dar
 import 'package:loopcare_frontend/core/presentation/custom_safe_area.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/core/presentation/routes/app_router.dart';
-import 'package:loopcare_frontend/core/presentation/routes/app_router.gr.dart';
 import 'package:loopcare_frontend/core/presentation/scaffold/custom_scaffold.dart';
 import 'package:loopcare_frontend/core/presentation/text/custom_text.dart';
 import 'package:loopcare_frontend/core/presentation/utils/build_context_extensions.dart';
@@ -53,7 +52,7 @@ class _ConsultDoctorPageState extends State<ConsultDoctorPage> {
       },
     );
 
-    context.router.push(GenderPreferencesRoute(fromLessonComplete: false));
+    context.router.pushNamed(AppRoutes.genderPreferences);
   }
 
   void _onCompleteLessonHandler() => widget.mode.map(
@@ -69,44 +68,45 @@ class _ConsultDoctorPageState extends State<ConsultDoctorPage> {
 
   Widget _getBottomWidget() {
     return widget.mode.map(
-        afterLesson: (_) => Column(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: [
-                CustomElevatedButton.blueFullWidth(
-                  label: LocalizedTexts.completeLesson.tr(),
-                  onPressed: _onCompleteLessonHandler,
-                ),
-                const SizedBox(height: 30.0),
-              ],
-            ),
-        userProfile: (_) => Column(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: [
-                CustomText.w700(
-                  LocalizedTexts.didYouCheckWithSpecialist.tr(),
-                  style: context.textTheme.bodyMedium,
-                ),
-                const SizedBox(height: 12.0),
-                Row(
-                  children: [
-                    CustomCheckbox.green(
-                      onChanged: _onConsentHandler,
-                      value: _isConsulted,
-                    ),
-                    CustomText.w400(
-                      LocalizedTexts.iConsultedTherapist.tr(),
-                      style: context.textTheme.bodyMedium,
-                    ),
-                  ],
-                ),
-                const SizedBox(height: 30.0),
-                CustomElevatedButton.blueFullWidth(
-                  label: LocalizedTexts.next.tr(),
-                  onPressed: _isConsulted ? _onCompleteLessonHandler : null,
-                ),
-                const SizedBox(height: 30.0),
-              ],
-            ));
+      afterLesson: (_) => Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          CustomElevatedButton.blueFullWidth(
+            label: LocalizedTexts.completeLesson.tr(),
+            onPressed: _onCompleteLessonHandler,
+          ),
+          const SizedBox(height: 30.0),
+        ],
+      ),
+      userProfile: (_) => Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          CustomText.w700(
+            LocalizedTexts.didYouCheckWithSpecialist.tr(),
+            style: context.textTheme.bodyMedium,
+          ),
+          const SizedBox(height: 12.0),
+          Row(
+            children: [
+              CustomCheckbox.green(
+                onChanged: _onConsentHandler,
+                value: _isConsulted,
+              ),
+              CustomText.w400(
+                LocalizedTexts.iConsultedTherapist.tr(),
+                style: context.textTheme.bodyMedium,
+              ),
+            ],
+          ),
+          const SizedBox(height: 30.0),
+          CustomElevatedButton.blueFullWidth(
+            label: LocalizedTexts.next.tr(),
+            onPressed: _isConsulted ? _onCompleteLessonHandler : null,
+          ),
+          const SizedBox(height: 30.0),
+        ],
+      ),
+    );
   }
 
   _getScaffold(Widget body) => widget.mode.map(

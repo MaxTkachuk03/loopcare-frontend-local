@@ -74,17 +74,11 @@ class FoodItemServingsBloc extends Bloc<FoodItemServingsEvent, FoodItemServingsS
     response.fold(
       (l) => emit(FoodItemServingsState.error(l)),
       (r) {
-        List<ServingSize> servingList;
-        // TODO how to refactor this code
-        if (event.selectedServingId == null) {
-          servingList = r.data.toList();
-        } else {
-          servingList = r.data
-              .map((e) => e.servingId == event.selectedServingId
-                  ? e.copyWith(numberOfUnits: event.initialServingAmount)
-                  : e)
-              .toList();
-        }
+        final servingList = _serveList(
+          r.data,
+          event.selectedServingId,
+          event.initialServingAmount,
+        );
 
         final selectedServing = event.selectedServingId == null
             ? servingList[0]
@@ -259,4 +253,15 @@ class FoodItemServingsBloc extends Bloc<FoodItemServingsEvent, FoodItemServingsS
       );
     });
   }
+
+  List<ServingSize> _serveList(
+    List<ServingSize> list,
+    String? id,
+    double initialAmount,
+  ) =>
+      id == null
+          ? list
+          : list
+              .map((e) => e.servingId == id ? e.copyWith(numberOfUnits: initialAmount) : e)
+              .toList();
 }

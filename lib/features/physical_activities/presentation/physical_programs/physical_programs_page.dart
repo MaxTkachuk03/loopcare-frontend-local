@@ -15,7 +15,6 @@ import 'package:loopcare_frontend/core/presentation/utils/build_context_extensio
 import 'package:loopcare_frontend/core/presentation/widgets/main_container.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/scrollable_container.dart';
 import 'package:loopcare_frontend/features/physical_activities/application/physical_programs_bloc.dart';
-import 'package:loopcare_frontend/features/physical_activities/domain/program_type.dart';
 import 'package:loopcare_frontend/features/physical_activities/presentation/physical_programs/widgets/program_card.dart';
 
 @RoutePage()

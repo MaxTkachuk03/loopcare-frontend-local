@@ -101,17 +101,12 @@ class SelectFoodBloc extends Bloc<SelectFoodEvent, SelectFoodState> {
   ) async {
     await state.mapOrNull(selectFood: (state) async {
       // TODO refactor logic to get filter values fron the popup
-      final selectedFiltersValues = event.filtersList.where((e) => e.selected).map((element) {
-        final label =
-            MealFavoritesCategory.values.firstWhereOrNull((e) => e.name == element.name)?.value;
-
-        return label;
-      });
+      final selectedFiltersValues = event.filtersList.where((e) => e.selected).map((element) =>
+          MealFavoritesCategory.values.firstWhereOrNull((e) => e.name == element.name)?.value);
 
       final isSelectedAll = selectedFiltersValues.contains(null);
 
-      final filters =
-          isSelectedAll ? <String>[].toList() : selectedFiltersValues.whereNotNull().toList();
+      final filters = isSelectedAll ? <String>[] : selectedFiltersValues.whereNotNull().toList();
 
       final response = await nutritionService.getFavorites(filters);
 
@@ -133,17 +128,12 @@ class SelectFoodBloc extends Bloc<SelectFoodEvent, SelectFoodState> {
   ) async {
     await state.mapOrNull(
       selectFood: (state) async {
-        final selectedFiltersValues = event.filtersList.where((e) => e.selected).map((element) {
-          final label =
-              DishFavoritesCategory.values.firstWhereOrNull((e) => e.name == element.name)?.value;
-
-          return label;
-        });
+        final selectedFiltersValues = event.filtersList.where((e) => e.selected).map((element) =>
+            DishFavoritesCategory.values.firstWhereOrNull((e) => e.name == element.name)?.value);
 
         final isSelectedAll = selectedFiltersValues.contains(null);
 
-        final filters =
-            isSelectedAll ? <String>[].toList() : selectedFiltersValues.whereNotNull().toList();
+        final filters = isSelectedAll ? <String>[] : selectedFiltersValues.whereNotNull().toList();
 
         final response = await nutritionService.getDishes(filters);
 

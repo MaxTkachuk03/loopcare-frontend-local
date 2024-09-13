@@ -33,6 +33,7 @@ import 'package:loopcare_frontend/features/video_session/application/session_cal
 import 'package:loopcare_frontend/features/video_session/domain/zoom_config.dart';
 import 'package:loopcare_frontend/features/video_session/presentation/widgets/call_controls.dart';
 import 'package:loopcare_frontend/features/video_session/presentation/widgets/error_dialog.dart';
+import 'package:loopcare_frontend/features/video_session/presentation/widgets/info_dialog.dart';
 import 'package:loopcare_frontend/features/video_session/presentation/widgets/prompts_container.dart';
 import 'package:loopcare_frontend/features/video_session/presentation/widgets/report_issue.dart';
 import 'package:loopcare_frontend/features/video_session/presentation/widgets/session_app_bar.dart';
@@ -51,10 +52,8 @@ class SessionCallPage extends StatefulWidget {
 }
 
 class _SessionCallPageState extends State<SessionCallPage> with WidgetsBindingObserver {
-  ZoomVideoSdk zoom = ZoomVideoSdk();
-  ZoomVideoSdkEventListener eventListener = ZoomVideoSdkEventListener();
-
-  int get userId => getIt<SharedStorageService>().account!.id;
+  final ZoomVideoSdk _zoom = ZoomVideoSdk();
+  final ZoomVideoSdkEventListener _eventListener = ZoomVideoSdkEventListener();
 
   late final dynamic _sessionJoinListener;
   late final dynamic _userJoinListener;
@@ -71,10 +70,10 @@ class _SessionCallPageState extends State<SessionCallPage> with WidgetsBindingOb
   List<ZoomVideoSdkUser> _sessionParticipants = [];
   List<String> _talkingUsers = [];
   List<String> _usersWithCameraOff = [];
-  bool isMuted = false;
-  bool isSpeakerOn = false;
-  bool isVideoOn = false;
-  bool isInSession = false;
+  bool _isMuted = false;
+  bool _isSpeakerOn = false;
+  bool _isVideoOn = false;
+  bool _isInSession = false;
   bool _isCloudRecordingActive = false;
 
   String _error = '';
@@ -113,17 +112,17 @@ class _SessionCallPageState extends State<SessionCallPage> with WidgetsBindingOb
   }
 
   _setInactiveUserState() async {
-    ZoomVideoSdkUser? mySelf = await zoom.session.getMySelf();
-    final userMuteState = await zoom.audioHelper.muteAudio(mySelf!.userId);
-    await zoom.videoHelper.stopVideo();
+    ZoomVideoSdkUser? mySelf = await _zoom.session.getMySelf();
+    final userMuteState = await _zoom.audioHelper.muteAudio(mySelf!.userId);
+    await _zoom.videoHelper.stopVideo();
     _showToggleMicPopup(status: userMuteState, isOn: false);
   }
 
   _setActiveUserState(bool isVideoPlaying) async {
     if (isVideoPlaying) return;
-    ZoomVideoSdkUser? mySelf = await zoom.session.getMySelf();
-    final userMuteState = await zoom.audioHelper.unMuteAudio(mySelf!.userId);
-    await zoom.videoHelper.startVideo();
+    ZoomVideoSdkUser? mySelf = await _zoom.session.getMySelf();
+    final userMuteState = await _zoom.audioHelper.unMuteAudio(mySelf!.userId);
+    await _zoom.videoHelper.startVideo();
     _showToggleMicPopup(status: userMuteState, isOn: true);
   }
 
@@ -176,7 +175,7 @@ class _SessionCallPageState extends State<SessionCallPage> with WidgetsBindingOb
       );
 
       try {
-        await zoom.joinSession(joinSession);
+        await _zoom.joinSession(joinSession);
       } catch (e) {
         log('Error while join session $e', name: 'zoomSessionLog');
         const AlertDialog(title: Text("Error"), content: Text("Failed to join the session"));
@@ -187,7 +186,7 @@ class _SessionCallPageState extends State<SessionCallPage> with WidgetsBindingOb
   void _reconnectToTheSession() {
     _timer?.cancel();
     Timer(const Duration(milliseconds: 500), () async {
-      await zoom.leaveSession(false);
+      await _zoom.leaveSession(false);
       _joinSession();
     });
   }
@@ -206,213 +205,210 @@ class _SessionCallPageState extends State<SessionCallPage> with WidgetsBindingOb
   }
 
   _initSessionListeners() {
-    eventListener.addEventListener();
+    _eventListener.addEventListener();
 
-    var emitter = eventListener.eventEmitter;
+    var emitter = _eventListener.eventEmitter;
 
-    _sessionJoinListener = emitter.on(EventType.onSessionJoin, (sessionUser) async {
-      isInSession = true;
+    _sessionJoinListener = emitter.on(EventType.onSessionJoin, _onSessionJoin);
+    _sessionLeaveListener = emitter.on(EventType.onSessionLeave, _onSessionLeave);
+    _userJoinListener = emitter.on(EventType.onUserJoin, _onUserJoin);
+    _userLeaveListener = emitter.on(EventType.onUserLeave, _onUserLeave);
+    _userActiveAudioChangedListener =
+        emitter.on(EventType.onUserActiveAudioChanged, _onUserAudioChanged);
+    _userAudioStatusChangedListener =
+        emitter.on(EventType.onUserAudioStatusChanged, _onUserAudioStatusChanged);
+    _userVideoStatusChangedListener =
+        emitter.on(EventType.onUserVideoStatusChanged, _onUserVideoStatusChanged);
+    _cloudRecordingStatusListener =
+        emitter.on(EventType.onCloudRecordingStatus, _onCloudRecordingStatus);
+    _networkStatusChangeListener =
+        emitter.on(EventType.onUserVideoNetworkStatusChanged, _onUserVideoNetworkStatusChanged);
+    _requireSystemPermission =
+        emitter.on(EventType.onRequireSystemPermission, _onRequiredSystemPermissions);
+    _eventErrorListener = emitter.on(EventType.onError, _onError);
+  }
 
-      const AnalyticsEventService().logEvent(eventName: AnalyticsEvents.userEntersSession);
+  Future<void> _onSessionJoin(sessionUser) async {
+    _isInSession = true;
 
-      _startTimer();
+    const AnalyticsEventService().logEvent(eventName: AnalyticsEvents.userEntersSession);
 
-      log('_sessionJoinListener', name: 'zoomSessionLog');
+    _startTimer();
 
-      ZoomVideoSdkUser mySelf = ZoomVideoSdkUser.fromJson(jsonDecode(sessionUser.toString()));
-      List<ZoomVideoSdkUser>? remoteUsers = await zoom.session.getRemoteUsers();
-      var muted = await mySelf.audioStatus?.isMuted();
-      var videoOn = await mySelf.videoStatus?.isOn();
-      var speakerOn = await zoom.audioHelper.getSpeakerStatus();
+    log('_sessionJoinListener', name: 'zoomSessionLog');
 
-      if (!_isCloudRecordingActive) {
-        await zoom.recordingHelper.startCloudRecording();
-      }
+    ZoomVideoSdkUser mySelf = ZoomVideoSdkUser.fromJson(jsonDecode(sessionUser.toString()));
+    List<ZoomVideoSdkUser>? remoteUsers = await _zoom.session.getRemoteUsers();
+    var muted = await mySelf.audioStatus?.isMuted();
+    var videoOn = await mySelf.videoStatus?.isOn();
+    var speakerOn = await _zoom.audioHelper.getSpeakerStatus();
 
-      await zoom.audioHelper.setSpeaker(true);
+    if (!_isCloudRecordingActive) {
+      await _zoom.recordingHelper.startCloudRecording();
+    }
 
-      _sessionParticipants = [mySelf, ...?remoteUsers];
-      isMuted = muted!;
-      isSpeakerOn = speakerOn;
-      isVideoOn = videoOn!;
+    await _zoom.audioHelper.setSpeaker(true);
 
-      setState(() {});
+    _sessionParticipants = [mySelf, ...?remoteUsers];
+    _isMuted = muted!;
+    _isSpeakerOn = speakerOn;
+    _isVideoOn = videoOn!;
+
+    setState(() {});
+  }
+
+  Future<void> _onSessionLeave(data) async {
+    _isInSession = false;
+
+    if (_isCloudRecordingActive) {
+      await _zoom.recordingHelper.stopCloudRecording();
+    }
+
+    log('_sessionLeaveListener $data', name: 'zoomSessionLog');
+
+    _timer?.cancel();
+
+    _sessionParticipants = <ZoomVideoSdkUser>[];
+
+    setState(() {});
+  }
+
+  Future<void> _onUserJoin(Map data) async {
+    log('_userJoinListener $data', name: 'zoomSessionLog');
+
+    ZoomVideoSdkUser? mySelf = await _zoom.session.getMySelf();
+    var userListJson = jsonDecode(data['remoteUsers']) as List;
+
+    setState(() {
+      _sessionParticipants = [
+        mySelf!,
+        ...userListJson.map((userJson) => ZoomVideoSdkUser.fromJson(userJson))
+      ];
     });
+  }
 
-    _sessionLeaveListener = emitter.on(EventType.onSessionLeave, (data) async {
-      isInSession = false;
+  Future<void> _onUserLeave(Map data) async {
+    log('_userLeaveListener $data', name: 'zoomSessionLog');
 
-      if (_isCloudRecordingActive) {
-        await zoom.recordingHelper.stopCloudRecording();
-      }
+    ZoomVideoSdkUser? mySelf = await _zoom.session.getMySelf();
+    var remoteUserListJson = jsonDecode(data['remoteUsers']) as List;
 
-      log('_sessionLeaveListener $data', name: 'zoomSessionLog');
-
-      _timer?.cancel();
-
-      _sessionParticipants = <ZoomVideoSdkUser>[];
-
-      setState(() {});
-    });
-
-    _userJoinListener = emitter.on(EventType.onUserJoin, (Map data) async {
-      log('_userJoinListener $data', name: 'zoomSessionLog');
-
-      ZoomVideoSdkUser? mySelf = await zoom.session.getMySelf();
-      var userListJson = jsonDecode(data['remoteUsers']) as List;
-
+    if (context.mounted) {
       setState(() {
         _sessionParticipants = [
           mySelf!,
-          ...userListJson.map((userJson) => ZoomVideoSdkUser.fromJson(userJson))
+          ...remoteUserListJson.map((userJson) => ZoomVideoSdkUser.fromJson(userJson)),
         ];
       });
-    });
+    }
+  }
 
-    _userLeaveListener = emitter.on(EventType.onUserLeave, (Map data) async {
-      log('_userLeaveListener $data', name: 'zoomSessionLog');
+  void _onUserAudioChanged(Map data) {
+    // Gets list of user who are speaking at the moment
+    final List<ZoomVideoSdkUser> userList = _getSessionChangedUsers(data);
 
-      ZoomVideoSdkUser? mySelf = await zoom.session.getMySelf();
-      var remoteUserListJson = jsonDecode(data['remoteUsers']) as List;
+    _talkingUsers = userList.map((u) => u.userId).toList();
 
-      if (context.mounted) {
-        setState(() {
-          _sessionParticipants = [
-            mySelf!,
-            ...remoteUserListJson.map((userJson) => ZoomVideoSdkUser.fromJson(userJson)),
-          ];
-        });
-      }
-    });
+    setState(() {});
+  }
 
-    _userActiveAudioChangedListener =
-        emitter.on(EventType.onUserActiveAudioChanged, (Map data) async {
-      // Gets list of user who are speaking at the moment
-      final List<ZoomVideoSdkUser> userList = _getSessionChangedUsers(data);
+  Future<void> _onUserAudioStatusChanged(Map data) async {
+    log('_userAudioStatusChangedListener $data', name: 'zoomSessionLog');
 
-      _talkingUsers = userList.map((u) => u.userId).toList();
+    final ZoomVideoSdkUser? mySelf = await _zoom.session.getMySelf();
 
-      setState(() {});
-    });
+    final List<ZoomVideoSdkUser> userList = _getSessionChangedUsers(data);
 
-    _userAudioStatusChangedListener =
-        emitter.on(EventType.onUserAudioStatusChanged, (Map data) async {
-      log('_userAudioStatusChangedListener $data', name: 'zoomSessionLog');
+    for (var user in userList) {
+      if (user.userId != mySelf?.userId) return;
+      mySelf?.audioStatus?.isMuted().then((muted) => _isMuted = muted);
+    }
 
-      final ZoomVideoSdkUser? mySelf = await zoom.session.getMySelf();
+    setState(() {});
+  }
 
-      final List<ZoomVideoSdkUser> userList = _getSessionChangedUsers(data);
+  Future<void> _onUserVideoStatusChanged(Map data) async {
+    log('_userVideoStatusChangedListener $data', name: 'zoomSessionLog');
 
-      for (var user in userList) {
-        if (user.userId != mySelf?.userId) return;
-        mySelf?.audioStatus?.isMuted().then((muted) => isMuted = muted);
-      }
+    final ZoomVideoSdkUser? mySelf = await _zoom.session.getMySelf();
 
-      setState(() {});
-    });
+    final List<ZoomVideoSdkUser> userList = _getSessionChangedUsers(data);
 
-    _userVideoStatusChangedListener =
-        emitter.on(EventType.onUserVideoStatusChanged, (Map data) async {
-      log('_userVideoStatusChangedListener $data', name: 'zoomSessionLog');
+    List<String> usersWithCameraOff = [];
 
-      final ZoomVideoSdkUser? mySelf = await zoom.session.getMySelf();
-
-      final List<ZoomVideoSdkUser> userList = _getSessionChangedUsers(data);
-
-      List<String> usersWithCameraOff = [];
-
-      for (var user in userList) {
-        user.videoStatus?.isOn().then((value) {
-          if (!value) usersWithCameraOff.add(user.userId);
-          if (user.userId == mySelf?.userId) isVideoOn = value;
-        });
-      }
-
-      _usersWithCameraOff = usersWithCameraOff;
-
-      setState(() {});
-    });
-
-    _cloudRecordingStatusListener = emitter.on(EventType.onCloudRecordingStatus, (Map data) async {
-      _isCloudRecordingActive = data['status'] == 'ZoomVideoSDKRecordingStatus_Start';
-      setState(() {});
-
-      log('_cloudRecordingStatusListener - ${data['status']}', name: 'zoomSessionLog');
-    });
-
-    _networkStatusChangeListener =
-        emitter.on(EventType.onUserVideoNetworkStatusChanged, (Map data) async {
-      ZoomVideoSdkUser? networkUser = ZoomVideoSdkUser.fromJson(jsonDecode(data['user']));
-
-      log('_networkStatusChangeListener - $networkUser ${data['status']}', name: 'zoomSessionLog');
-
-      if (data['status'] == NetworkStatus.Bad) {
-        context.showError(content: CustomText(LocalizedTexts.badConnectionMessage.tr()));
-      }
-    });
-
-    _requireSystemPermission = emitter.on(EventType.onRequireSystemPermission, (Map data) async {
-      log('_requireSystemPermission - $data', name: 'zoomSessionLog');
-      //FIXME refactor this listener
-      // ZoomVideoSdkUser? changedUser = ZoomVideoSdkUser.fromJson(jsonDecode(data['changedUser']));
-
-      var permissionType = data['permissionType'];
-      switch (permissionType) {
-        case SystemPermissionType.Camera:
-          showDialog<String>(
-            context: context,
-            builder: (BuildContext context) => AlertDialog(
-              title: const Text("Can't Access Camera"),
-              content:
-                  const Text("please turn on the toggle in system settings to grant permission"),
-              actions: <Widget>[
-                TextButton(
-                  onPressed: () => Navigator.pop(context, 'OK'),
-                  child: const Text('OK'),
-                ),
-              ],
-            ),
-          );
-          break;
-        case SystemPermissionType.Microphone:
-          showDialog<String>(
-            context: context,
-            builder: (BuildContext context) => AlertDialog(
-              title: const Text("Can't Access Microphone"),
-              content:
-                  const Text("please turn on the toggle in system settings to grant permission"),
-              actions: <Widget>[
-                TextButton(
-                  onPressed: () => Navigator.pop(context, 'OK'),
-                  child: const Text('OK'),
-                ),
-              ],
-            ),
-          );
-          break;
-      }
-    });
-
-    _eventErrorListener = emitter.on(EventType.onError, (Map data) async {
-      String errorType = data['errorType'];
-      log('_eventErrorListener called with $errorType', name: 'zoomSessionLog');
-      if (_error == errorType) return;
-
-      setState(() {
-        _error = errorType;
+    for (var user in userList) {
+      user.videoStatus?.isOn().then((value) {
+        if (!value) usersWithCameraOff.add(user.userId);
+        if (user.userId == mySelf?.userId) _isVideoOn = value;
       });
+    }
 
-      showDialog<String>(
-        context: context,
-        builder: (BuildContext context) => ErrorDialog(
-          errorText: errorType,
-          onErrorHandler: () {
-            context.router.maybePop();
-            if (!isInSession) _onErrorHandler(errorType);
-          },
-        ),
-      );
-    });
+    _usersWithCameraOff = usersWithCameraOff;
+
+    setState(() {});
+  }
+
+  void _onCloudRecordingStatus(Map data) {
+    log('_cloudRecordingStatusListener - ${data['status']}', name: 'zoomSessionLog');
+
+    _isCloudRecordingActive = data['status'] == 'ZoomVideoSDKRecordingStatus_Start';
+    setState(() {});
+  }
+
+  void _onUserVideoNetworkStatusChanged(Map data) {
+    ZoomVideoSdkUser? networkUser = ZoomVideoSdkUser.fromJson(jsonDecode(data['user']));
+
+    log('_networkStatusChangeListener - $networkUser ${data['status']}', name: 'zoomSessionLog');
+
+    if (data['status'] == NetworkStatus.Bad) {
+      context.showError(content: CustomText(LocalizedTexts.badConnectionMessage.tr()));
+    }
+  }
+
+  void _onRequiredSystemPermissions(Map data) {
+    log('_requireSystemPermission - $data', name: 'zoomSessionLog');
+
+    var permissionType = data['permissionType'];
+
+    switch (permissionType) {
+      case SystemPermissionType.Camera:
+        showDialog<String>(
+          context: context,
+          builder: (BuildContext context) => InformationDialog(
+            title: LocalizedTexts.noCameraAccessTitle.tr(),
+            content: LocalizedTexts.noCameraAccessDescription.tr(),
+          ),
+        );
+        break;
+      case SystemPermissionType.Microphone:
+        showDialog<String>(
+          context: context,
+          builder: (BuildContext context) => InformationDialog(
+            title: LocalizedTexts.noMicrophoneAccessTitle.tr(),
+            content: LocalizedTexts.noMicrophoneAccessDescription.tr(),
+          ),
+        );
+        break;
+    }
+  }
+
+  void _onError(Map data) async {
+    String errorType = data['errorType'];
+    log('_eventErrorListener called with $errorType', name: 'zoomSessionLog');
+    if (_error == errorType) return;
+
+    _error = errorType;
+
+    showDialog<String>(
+      context: context,
+      builder: (BuildContext context) => ErrorDialog(
+        errorText: errorType,
+        onErrorHandler: () {
+          context.router.maybePop();
+          if (!_isInSession) _onErrorHandler(errorType);
+        },
+      ),
+    );
   }
 
   Future _enableLandscapeOrientation() async {
@@ -449,14 +445,14 @@ class _SessionCallPageState extends State<SessionCallPage> with WidgetsBindingOb
 
   _leaveSessionHandler() async {
     const AnalyticsEventService().logEvent(eventName: AnalyticsEvents.userLeaveSession);
-    await zoom.leaveSession(false);
+    await _zoom.leaveSession(false);
     if (context.mounted) {
       context.router.maybePop();
     }
   }
 
   _forceEndSession() async {
-    await zoom.leaveSession(true);
+    await _zoom.leaveSession(true);
 
     if (context.mounted) {
       context.router.popUntilRouteWithPath(AppRoutes.home);
@@ -465,7 +461,7 @@ class _SessionCallPageState extends State<SessionCallPage> with WidgetsBindingOb
   }
 
   void onPressAudio() async {
-    ZoomVideoSdkUser? mySelf = await zoom.session.getMySelf();
+    ZoomVideoSdkUser? mySelf = await _zoom.session.getMySelf();
     if (mySelf == null) return;
 
     final audioStatus = mySelf.audioStatus;
@@ -475,14 +471,14 @@ class _SessionCallPageState extends State<SessionCallPage> with WidgetsBindingOb
     final bool muted = await audioStatus.isMuted();
 
     if (muted) {
-      await zoom.audioHelper.unMuteAudio(mySelf.userId);
+      await _zoom.audioHelper.unMuteAudio(mySelf.userId);
     } else {
-      await zoom.audioHelper.muteAudio(mySelf.userId);
+      await _zoom.audioHelper.muteAudio(mySelf.userId);
     }
   }
 
   void onPressVideo() async {
-    ZoomVideoSdkUser? mySelf = await zoom.session.getMySelf();
+    ZoomVideoSdkUser? mySelf = await _zoom.session.getMySelf();
     if (mySelf == null) return;
 
     final videoStatus = mySelf.videoStatus;
@@ -492,25 +488,25 @@ class _SessionCallPageState extends State<SessionCallPage> with WidgetsBindingOb
     final bool videoOn = await videoStatus.isOn();
 
     if (videoOn) {
-      await zoom.videoHelper.stopVideo();
+      await _zoom.videoHelper.stopVideo();
     } else {
-      await zoom.videoHelper.startVideo();
+      await _zoom.videoHelper.startVideo();
     }
   }
 
   void onToggleSpeaker() async {
-    ZoomVideoSdkUser? mySelf = await zoom.session.getMySelf();
+    ZoomVideoSdkUser? mySelf = await _zoom.session.getMySelf();
 
     if (mySelf == null) return;
 
-    if (!await zoom.audioHelper.canSwitchSpeaker()) _showNotSupportSnack();
+    if (!await _zoom.audioHelper.canSwitchSpeaker()) _showNotSupportSnack();
 
-    await zoom.audioHelper.setSpeaker(!isSpeakerOn);
+    await _zoom.audioHelper.setSpeaker(!_isSpeakerOn);
 
-    final isOn = await zoom.audioHelper.getSpeakerStatus();
+    final isOn = await _zoom.audioHelper.getSpeakerStatus();
 
     setState(() {
-      isSpeakerOn = isOn;
+      _isSpeakerOn = isOn;
     });
   }
 
@@ -521,11 +517,11 @@ class _SessionCallPageState extends State<SessionCallPage> with WidgetsBindingOb
     showDialog(
       context: context,
       builder: (context) =>
-          SettingsDialog(onToggleSpeaker: onToggleSpeaker, isSpeakerOn: isSpeakerOn),
+          SettingsDialog(onToggleSpeaker: onToggleSpeaker, isSpeakerOn: _isSpeakerOn),
     );
   }
 
-  bool get userJoinedToSession => isInSession && _sessionParticipants.isNotEmpty;
+  bool get userJoinedToSession => _isInSession && _sessionParticipants.isNotEmpty;
 
   void _onVideoPlayingHandler(bool isVideoPlaying) async {
     if (isVideoPlaying) {
@@ -533,7 +529,7 @@ class _SessionCallPageState extends State<SessionCallPage> with WidgetsBindingOb
       _setInactiveUserState();
     } else {
       _enablePortraitOrientation();
-      await zoom.videoHelper.startVideo();
+      await _zoom.videoHelper.startVideo();
     }
 
     setState(() {
@@ -586,37 +582,34 @@ class _SessionCallPageState extends State<SessionCallPage> with WidgetsBindingOb
             bottom: !hideAppBar,
             child: Stack(
               children: [
-                if (!_isVideoPlaying)
-                  if (userJoinedToSession)
-                    Container(
-                      color: AppColors.ff313030,
-                      child: CustomScrollView(
-                        physics: const NeverScrollableScrollPhysics(),
-                        slivers: [
-                          UsersGrid(
-                            users: _sessionParticipants,
-                            talkingUsers: _talkingUsers,
-                            usersWithCameraOff: _usersWithCameraOff,
-                          ),
-                          SliverFillRemaining(
-                            child: BlocBuilder<SessionCallBloc, SessionCallState>(
-                              builder: (context, state) {
-                                final textEvents = context.read<TopicsBloc>().state.data.textEvents;
+                if (!_isVideoPlaying && userJoinedToSession)
+                  Container(
+                    color: AppColors.ff313030,
+                    child: CustomScrollView(
+                      physics: const NeverScrollableScrollPhysics(),
+                      slivers: [
+                        UsersGrid(
+                          users: _sessionParticipants,
+                          talkingUsers: _talkingUsers,
+                          usersWithCameraOff: _usersWithCameraOff,
+                        ),
+                        SliverFillRemaining(
+                          child: BlocBuilder<SessionCallBloc, SessionCallState>(
+                            builder: (context, state) {
+                              final textEvents = context.read<TopicsBloc>().state.data.textEvents;
 
-                                final text = textEvents
-                                        .lastWhereOrNull(
-                                            (e) => state.data.sessionTime >= e.timestamp)
-                                        ?.text ??
-                                    '';
+                              final text = textEvents
+                                      .lastWhereOrNull((e) => state.data.sessionTime >= e.timestamp)
+                                      ?.text ??
+                                  '';
 
-                                return PromptsContainer(text: text);
-                              },
-                            ),
+                              return PromptsContainer(text: text);
+                            },
                           ),
-                        ],
-                      ),
+                        ),
+                      ],
                     ),
-                if (!userJoinedToSession) const Loader(),
+                  ),
                 if (userJoinedToSession)
                   BlocBuilder<SessionCallBloc, SessionCallState>(
                     builder: (context, state) {
@@ -638,7 +631,9 @@ class _SessionCallPageState extends State<SessionCallPage> with WidgetsBindingOb
                         orElse: () => const SizedBox.shrink(),
                       );
                     },
-                  ),
+                  )
+                else
+                  const Loader()
               ],
             ),
           ),
@@ -655,8 +650,8 @@ class _SessionCallPageState extends State<SessionCallPage> with WidgetsBindingOb
                         child: CallControls(
                           onMuteHandler: onPressAudio,
                           onStopVideoHandler: onPressVideo,
-                          isMuted: isMuted,
-                          isCameraOn: isVideoOn,
+                          isMuted: _isMuted,
+                          isCameraOn: _isVideoOn,
                           onSettingsHandler: onSettingsHandler,
                         ),
                       ),
@@ -677,21 +672,21 @@ class _SessionCallPageState extends State<SessionCallPage> with WidgetsBindingOb
 
     _enablePortraitOrientation();
 
-    zoom.leaveSession(false);
+    _zoom.leaveSession(false);
 
-    eventListener.eventEmitter.listeners.map((e) => e.cancel());
+    _eventListener.eventEmitter.listeners.map((e) => e.cancel());
 
-    eventListener.eventEmitter.removeEventListener(_sessionJoinListener);
-    eventListener.eventEmitter.removeEventListener(_userJoinListener);
-    eventListener.eventEmitter.removeEventListener(_userLeaveListener);
-    eventListener.eventEmitter.removeEventListener(_sessionLeaveListener);
-    eventListener.eventEmitter.removeEventListener(_userAudioStatusChangedListener);
-    eventListener.eventEmitter.removeEventListener(_userActiveAudioChangedListener);
-    eventListener.eventEmitter.removeEventListener(_userVideoStatusChangedListener);
-    eventListener.eventEmitter.removeEventListener(_cloudRecordingStatusListener);
-    eventListener.eventEmitter.removeEventListener(_networkStatusChangeListener);
-    eventListener.eventEmitter.removeEventListener(_requireSystemPermission);
-    eventListener.eventEmitter.removeEventListener(_eventErrorListener);
+    _eventListener.eventEmitter.removeEventListener(_sessionJoinListener);
+    _eventListener.eventEmitter.removeEventListener(_userJoinListener);
+    _eventListener.eventEmitter.removeEventListener(_userLeaveListener);
+    _eventListener.eventEmitter.removeEventListener(_sessionLeaveListener);
+    _eventListener.eventEmitter.removeEventListener(_userAudioStatusChangedListener);
+    _eventListener.eventEmitter.removeEventListener(_userActiveAudioChangedListener);
+    _eventListener.eventEmitter.removeEventListener(_userVideoStatusChangedListener);
+    _eventListener.eventEmitter.removeEventListener(_cloudRecordingStatusListener);
+    _eventListener.eventEmitter.removeEventListener(_networkStatusChangeListener);
+    _eventListener.eventEmitter.removeEventListener(_requireSystemPermission);
+    _eventListener.eventEmitter.removeEventListener(_eventErrorListener);
 
     _timer?.cancel();
     _inactivityTimer?.cancel();
