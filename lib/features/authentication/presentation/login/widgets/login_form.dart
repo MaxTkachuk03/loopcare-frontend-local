@@ -111,18 +111,23 @@ class _LoginFormState extends State<LoginForm> {
     );
   }
 
-  _onChangedForm() {
+  void _onChangedForm() {
     final isValidForm = Email.create(_emailController.text).isRight() &&
         LoginPassword.create(_passwordController.text).isRight();
 
     _formValidationNotifier.value = isValidForm;
   }
 
-  _onLogin() {
+  void _onLogin() {
     TextInput.finishAutofillContext();
 
-    context.read<AuthenticationBloc>().add(AuthenticationEvent.login(
-        email: _emailController.text, password: _passwordController.text));
+    context.read<NavigationBarBloc>().add(const NavigationBarEvent.init());
+    context.read<AuthenticationBloc>().add(
+          AuthenticationEvent.login(
+            email: _emailController.text,
+            password: _passwordController.text,
+          ),
+        );
   }
 
   void _authenticationListener(BuildContext context, AuthenticationState state) {
