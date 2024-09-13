@@ -3146,6 +3146,15 @@ class AppLocalizationsEn extends AppLocalizations {
   String get smartGoalsReasonGoalSpecific => 'No specific reason.';
 
   @override
+  String get nutritionProteinDegree => 'Protein\n degree';
+
+  @override
+  String get nutritionFiber => 'Fiber\n';
+
+  @override
+  String get nutritionCalorieDensity => 'Calorie\n density';
+
+  @override
   String get buddyTitle => 'Buddy';
 
   @override

@@ -64,7 +64,7 @@ class NutritionScale extends StatelessWidget {
 
   factory NutritionScale.calorieDensity({double? value}) => NutritionScale(
         key: _calorieDensityKey,
-        topLabel: LocalizedTexts.calorieDensity.tr(),
+        topLabel: LocalizedTexts.nutritionCalorieDensity.tr(),
         bottomLabel: NutritionValuesDescription.getCalorieDensityItemByValue(value ?? 0)
             .label
             .tr()
@@ -78,7 +78,7 @@ class NutritionScale extends StatelessWidget {
 
   factory NutritionScale.proteinDegree({double? value}) => NutritionScale(
         key: _proteinDegreeKey,
-        topLabel: LocalizedTexts.proteinDegree.tr(),
+        topLabel: LocalizedTexts.nutritionProteinDegree.tr(),
         bottomLabel: NutritionValuesDescription.getProteinDegreeItemByValue(value ?? 0)
             .label
             .tr()
@@ -98,8 +98,7 @@ class NutritionScale extends StatelessWidget {
   }) =>
       NutritionScale(
         key: _fiberKey,
-        topLabel:
-            '${LocalizedTexts.fiber.tr().capitalize()} ', // add space to make it in 2 two lines with second line empty on the UI
+        topLabel: LocalizedTexts.nutritionFiber.tr().capitalize(),
         bottomLabel: isFiberInsignificant
             ? LocalizedTexts.notSignificant.tr()
             : NutritionValuesDescription.getFiberItemByValue(carbsFiberRatio ?? 0)
@@ -120,19 +119,21 @@ class NutritionScale extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final hasNewLine = topLabel.contains('\n');
+
     return InkWell(
       onTap: isDisabled ? null : () => _onTapHandller(context),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          ...topLabel.split(' ').map((e) => CustomText.w600(
-                e,
-                style: context.textTheme.bodySmall,
-                maxLines: 1,
-                overflow: TextOverflow.ellipsis,
-                textAlign: TextAlign.center,
-              )),
+          CustomText.w600(
+            topLabel,
+            maxLines: hasNewLine ? 2 : 1,
+            overflow: TextOverflow.ellipsis,
+            style: context.textTheme.bodySmall,
+            textAlign: TextAlign.center,
+          ),
           const SizedBox(height: 8.0),
           NutritionIndicator.small(
             label: isDisabled ? '-' : indicatorLabel,
