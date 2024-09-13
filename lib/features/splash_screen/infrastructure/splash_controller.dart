@@ -45,7 +45,6 @@ class SplashController {
   void initApp() {
     _getVersion();
     _connectSockets();
-    navigationBarBloc.add(const NavigationBarEvent.init());
   }
 
   void requestPermissions() async {
