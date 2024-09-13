@@ -127,4 +127,6 @@ class AnalyticsParameters {
   static const String lastPurchaseValid = 'is_valid';
   static const String errorMessage = 'message';
   static const String iapErrorMessage = 'iapMessage';
+  static const String productOfferID = 'product_offer_id';
+  static const String productOfferPrice = 'product_offer_price';
 }

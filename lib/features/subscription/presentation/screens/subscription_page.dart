@@ -47,6 +47,7 @@ class _SubscriptionPageState extends State<SubscriptionPage> {
     CustomerIoService.track(
       event: CIOEvents.subscriptionPage,
     );
+
     MixpanelEventService.instance.track(
       AppMixpanelEvents.openSubscriptionScreen,
       parameters: {

@@ -1,8 +1,11 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:loopcare_frontend/core/application/localization/localizer_extenstion.dart';
+import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/features/authentication/domain/subscription/subscription_plan.dart';
 import 'package:loopcare_frontend/features/subscription/domain/subscription_state.dart';
 
 part 'subscription.freezed.dart';
+
 part 'subscription.g.dart';
 
 @freezed
@@ -18,8 +21,19 @@ class Subscription with _$Subscription {
     @Default(false) bool isActive,
     String? vendor,
     SubscriptionStatus? state,
+    String? productId,
     SubscriptionPlan? subscriptionPlan,
   }) = _Subscription;
 
   factory Subscription.fromJson(Map<String, dynamic> json) => _$SubscriptionFromJson(json);
+
+//Todo discuss  with backend team -> return localization subscription type
+  String get subscriptionType => switch (productId ?? '') {
+        'daily' => LocalizedTexts.subscriptionDaily.tr(),
+        'weekly' => LocalizedTexts.subscriptionWeekly.tr(),
+        'monthly' => LocalizedTexts.subscriptionMonth.tr(),
+        'quarterly' => LocalizedTexts.subscriptionQuarterly.tr(),
+        'annual' => LocalizedTexts.subscriptionAnnually.tr(),
+        _ => ''
+      };
 }

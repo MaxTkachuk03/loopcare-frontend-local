@@ -6,6 +6,8 @@ import 'package:loopcare_frontend/core/application/customer_io_service/customer_
 import 'package:loopcare_frontend/core/application/localization/localizer_extenstion.dart';
 import 'package:loopcare_frontend/core/domain/analytics/analytics_parameters.dart';
 import 'package:loopcare_frontend/core/infrastructure/services/analytics_service.dart';
+import 'package:loopcare_frontend/core/infrastructure/services/events.dart';
+import 'package:loopcare_frontend/core/infrastructure/services/mixpanel_event_service.dart';
 import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/features/subscription/application/subscription_bloc.dart';
 import 'package:loopcare_frontend/features/subscription/domain/purchasable_product.dart';
@@ -55,6 +57,18 @@ class SubscriptionController {
         }
       }
     }
+
+    MixpanelEventService.instance.track(
+      AppMixpanelEvents.getUserAvailableProductsOffers,
+      parameters: {
+        AnalyticsParameters.purchaseProductIds:
+            products.map((product) => product.details.id).toString(),
+        AnalyticsParameters.productOfferID:
+            products.map((product) => product.skuProduct.offerId).toString(),
+        AnalyticsParameters.productOfferPrice:
+            products.map((product) => product.skuProduct.offerPriceAmount).toString(),
+      },
+    );
   }
 
   SkuProduct _getProductDetailsFromStore(ProductDetails product) {

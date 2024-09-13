@@ -227,6 +227,7 @@ class AuthenticationBloc extends HydratedBloc<AuthenticationEvent, Authenticatio
             ),
           ),
         );
+        MixpanelEventService.instance.identify(id: response.id);
       },
     );
   }
@@ -248,6 +249,7 @@ class AuthenticationBloc extends HydratedBloc<AuthenticationEvent, Authenticatio
     _socketServiceBuddy.disconnect();
     _socketService.disconnect();
     _chatSocketService.disconnect();
+    MixpanelEventService.instance.reset();
   }
 
   FutureOr<void> _onSignUp(
@@ -307,6 +309,8 @@ class AuthenticationBloc extends HydratedBloc<AuthenticationEvent, Authenticatio
         CustomerIoService.track(event: CIOEvents.onboardingNewUserCreated);
         CustomerIoService.setUserVerifiedState(verified: false);
         CustomerIoService.setUserId(id: response.id);
+
+        MixpanelEventService.instance.alias(response.id);
 
         final account = _sharedPref.account = Account(
           id: response.id,
