@@ -7,7 +7,6 @@ import 'package:intl/intl.dart' as intl;
 
 import 'app_localizations_de.dart';
 import 'app_localizations_en.dart';
-import 'app_localizations_nl.dart';
 
 // ignore_for_file: type=lint
 
@@ -83,7 +82,8 @@ abstract class AppLocalizations {
   /// Additional delegates can be added by appending to this list in
   /// MaterialApp. This list does not have to be used at all if a custom list
   /// of delegates is preferred or required.
-  static const List<LocalizationsDelegate<dynamic>> localizationsDelegates = <LocalizationsDelegate<dynamic>>[
+  static const List<LocalizationsDelegate<dynamic>> localizationsDelegates =
+      <LocalizationsDelegate<dynamic>>[
     delegate,
     GlobalMaterialLocalizations.delegate,
     GlobalCupertinoLocalizations.delegate,
@@ -91,11 +91,7 @@ abstract class AppLocalizations {
   ];
 
   /// A list of this localizations delegate's supported locales.
-  static const List<Locale> supportedLocales = <Locale>[
-    Locale('de'),
-    Locale('en'),
-    Locale('nl')
-  ];
+  static const List<Locale> supportedLocales = <Locale>[Locale('de'), Locale('en')];
 
   /// No description provided for @errorValidationIosMinVersionNotANumber.
   ///
@@ -6352,7 +6348,7 @@ abstract class AppLocalizations {
   /// No description provided for @riverModuleGraduationCompletedItemsMessage.
   ///
   /// In en, this message translates to:
-  /// **'You are one step closer to finishing this section. But before you can graduate, we encourage you to practice and reflect on what you have learned in this Pool.\n\nOnce the 7 day timer has has filled this section with color, you can move on to the next pool.'**
+  /// **'You are one step closer to finishing this section. But before you can graduate, we encourage you to practice and reflect on what you have learned in this Pool.\n\nOnce the 7 day timer has filled this section with color, you can move on to the next pool.'**
   String get riverModuleGraduationCompletedItemsMessage;
 
   /// No description provided for @riverModuleGraduationCompletedTimeMessage.
@@ -11789,26 +11785,24 @@ class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> 
   }
 
   @override
-  bool isSupported(Locale locale) => <String>['de', 'en', 'nl'].contains(locale.languageCode);
+  bool isSupported(Locale locale) => <String>['de', 'en'].contains(locale.languageCode);
 
   @override
   bool shouldReload(_AppLocalizationsDelegate old) => false;
 }
 
 AppLocalizations lookupAppLocalizations(Locale locale) {
-
-
   // Lookup logic when only language code is specified.
   switch (locale.languageCode) {
-    case 'de': return AppLocalizationsDe();
-    case 'en': return AppLocalizationsEn();
-    case 'nl': return AppLocalizationsNl();
+    case 'de':
+      return AppLocalizationsDe();
+    case 'en':
+      return AppLocalizationsEn();
   }
 
   throw FlutterError(
-    'AppLocalizations.delegate failed to load unsupported locale "$locale". This is likely '
-    'an issue with the localizations generation tool. Please file an issue '
-    'on GitHub with a reproducible sample app and the gen-l10n configuration '
-    'that was used.'
-  );
+      'AppLocalizations.delegate failed to load unsupported locale "$locale". This is likely '
+      'an issue with the localizations generation tool. Please file an issue '
+      'on GitHub with a reproducible sample app and the gen-l10n configuration '
+      'that was used.');
 }

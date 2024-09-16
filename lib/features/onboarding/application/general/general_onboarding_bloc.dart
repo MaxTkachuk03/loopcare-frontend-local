@@ -233,9 +233,14 @@ class GeneralOnboardingBloc extends HydratedBloc<GeneralOnboardingEvent, General
             ))
         .toList();
 
+    final mentalTest = testsWithGenderExclusions.first;
+    final question = mentalTest.questions.first;
+
     emit(
       state.copyWith(
         mentalTests: testsWithGenderExclusions,
+        currentMentalTest: mentalTest,
+        currentMentalQuestion: question,
       ),
     );
   }
