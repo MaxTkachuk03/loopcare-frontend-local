@@ -15,9 +15,7 @@ import 'package:loopcare_frontend/features/account/presentation/widgets/group_pr
 
 @RoutePage()
 class GroupRulesFivePage extends StatelessWidget {
-  const GroupRulesFivePage({
-    super.key,
-  });
+  const GroupRulesFivePage({super.key});
 
   void _onIAgreePressHandler(BuildContext context) =>
       context.router.pushNamed(AppRoutes.groupRulesSix);

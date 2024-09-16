@@ -12,18 +12,10 @@ import 'package:loopcare_frontend/core/presentation/widgets/main_container.dart'
 import 'package:loopcare_frontend/core/presentation/widgets/scrollable_container.dart';
 import 'package:loopcare_frontend/features/account/presentation/widgets/group_lesson_wrap.dart';
 import 'package:loopcare_frontend/features/account/presentation/widgets/group_prefs_page_wrap.dart';
-import 'package:loopcare_frontend/features/river/domain/river_module_stream_type.dart';
 
 @RoutePage()
 class GroupRulesThreePage extends StatelessWidget {
-  final RiverModuleStreamType streamType;
-  final bool fromLessonComplete;
-
-  const GroupRulesThreePage({
-    super.key,
-    required this.fromLessonComplete,
-    this.streamType = RiverModuleStreamType.psychology,
-  });
+  const GroupRulesThreePage({super.key});
 
   void _onIAgreePressHandler(BuildContext context) =>
       context.router.pushNamed(AppRoutes.groupRulesFour);
