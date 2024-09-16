@@ -27,29 +27,13 @@ class ReflectionsStateData with _$ReflectionsStateData {
       getSelectedWeekUndoneReflections(selectedDay).isNotEmpty ||
       getSelectedDayDoneReflections(selectedDay).isNotEmpty;
 
-  List<Reflection> getSelectedWeekReflections(DateTime selectedDay) {
-    final startDate = selectedDay.firstDayOfCurrentWeek;
-    final endDate = selectedDay.lastDayOfCurrentWeek;
-
-    return reflections.where((r) {
-      final unlockedDate = r.unlockedAt;
-
-      if (unlockedDate == null) return false;
-
-      return unlockedDate.inRange(startDate, endDate);
-    }).toList();
-  }
-
   List<Reflection> getSelectedWeekUndoneReflections(DateTime selectedDay) {
-    final startDate = selectedDay.firstDayOfCurrentWeek;
-    final endDate = selectedDay.lastDayOfCurrentWeek;
-
     return reflections.where((r) {
       final unlockedDate = r.unlockedAt;
 
       if (unlockedDate == null) return false;
 
-      return unlockedDate.inRange(startDate, endDate) && r.completedAt == null;
+      return unlockedDate.isBefore(selectedDay) && r.completedAt == null;
     }).toList();
   }
 

@@ -100,7 +100,8 @@ class _RiverAnimationModuleItemWidgetState extends State<RiverAnimationModuleIte
   @override
   void didUpdateWidget(covariant RiverAnimationModuleItemWidget oldWidget) {
     super.didUpdateWidget(oldWidget);
-    if (oldWidget.item.states == widget.item.states) return;
+    if (oldWidget.item.states.animationState == widget.item.states.animationState &&
+        oldWidget.item.states.itemState == widget.item.states.itemState) return;
     _setUpAnimations();
     _setUpItemColorAnimation(widget.item);
 
