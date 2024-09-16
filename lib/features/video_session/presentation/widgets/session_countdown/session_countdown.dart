@@ -151,7 +151,7 @@ class _SessionCountdownState extends State<SessionCountdown> {
 
     if (startTime == null) return Duration.zero;
 
-    return startTime.difference(await TimeService.now);
+    return await TimeService.beforeNtp(startTime);
   }
 
   @override

@@ -196,22 +196,14 @@ class _SessionCallPageState extends State<SessionCallPage> with WidgetsBindingOb
     if (_timer != null) _timer?.cancel();
 
     _timer = Timer.periodic(const Duration(seconds: 1), (timer) async {
-      final Duration passedTime = await timePassedSinceSessionStart;
+      final startTime = context.read<TopicsBloc>().state.data.signedGroupSessionStartTime;
+      final Duration passedTime =
+          startTime != null ? await TimeService.passedFromNtp(startTime) : Duration.zero;
 
       if (mounted) {
         context.read<SessionCallBloc>().add(SessionCallEvent.setTimerValue(passedTime.inSeconds));
       }
     });
-  }
-
-  Future<Duration> get timePassedSinceSessionStart async {
-    final startTime = context.read<TopicsBloc>().state.data.signedGroupSessionStartTime;
-
-    if (startTime == null) return Duration.zero;
-
-    final ntpTime = await TimeService.now;
-
-    return ntpTime.difference(startTime);
   }
 
   _initSessionListeners() {
@@ -552,7 +544,9 @@ class _SessionCallPageState extends State<SessionCallPage> with WidgetsBindingOb
     if (signedSessionId == null) return;
 
     context.read<ReportAbuseBloc>().add(const ReportAbuseEvent.init());
-    final Duration timePassed = await timePassedSinceSessionStart;
+    final startTime = context.read<TopicsBloc>().state.data.signedGroupSessionStartTime;
+    final Duration timePassed =
+        startTime != null ? await TimeService.passedFromNtp(startTime) : Duration.zero;
 
     final sessionReport = GroupSessionReport(
       id: signedSessionId,

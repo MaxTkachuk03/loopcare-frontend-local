@@ -50,19 +50,13 @@ class _SessionTimerState extends State<SessionTimer> with WidgetsBindingObserver
 
     if (state == AppLifecycleState.resumed) {
       _sessionTimer.cancel();
-      final Duration duration = await timeLeftToSessionStart;
+      final startTime = context.read<TopicsBloc>().state.data.signedGroupSessionStartTime;
+      final Duration duration =
+          startTime == null ? Duration.zero : await TimeService.beforeNtp(startTime);
 
       _timeBeforeStart = duration.inSeconds;
       _sessionTimer = Timer.periodic(_timerPeriod, timerCb);
     }
-  }
-
-  Future<Duration> get timeLeftToSessionStart async {
-    final startTime = context.read<TopicsBloc>().state.data.signedGroupSessionStartTime;
-
-    if (startTime == null) return Duration.zero;
-
-    return startTime.difference(await TimeService.now);
   }
 
   void timerCb(_) {
