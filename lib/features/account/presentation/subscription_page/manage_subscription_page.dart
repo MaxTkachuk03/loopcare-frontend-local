@@ -17,6 +17,7 @@ import 'package:loopcare_frontend/core/presentation/scaffold/custom_scaffold.dar
 import 'package:loopcare_frontend/core/presentation/text/custom_text.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 import 'package:loopcare_frontend/core/presentation/utils/build_context_extensions.dart';
+import 'package:loopcare_frontend/core/presentation/utils/string_extensions.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/main_container.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/scrollable_container.dart';
 import 'package:loopcare_frontend/features/account/presentation/account_page/widgets/account_container.dart';
@@ -69,7 +70,7 @@ class _ManageSubscriptionPageState extends State<ManageSubscriptionPage> {
                           ),
                           _DetailsSection(
                             title: LocalizedTexts.subscriptionType,
-                            value: state.data.subscription?.subscriptionType,
+                            value: state.data.subscription?.subscriptionType.capitalize(),
                           ),
                           const SizedBox(
                             height: 14,
