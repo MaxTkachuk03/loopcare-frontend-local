@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:loopcare_frontend/core/infrastructure/services/time_service/time_service.dart';
 import 'package:loopcare_frontend/core/presentation/text/custom_text.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 import 'package:loopcare_frontend/core/presentation/utils/build_context_extensions.dart';
@@ -49,11 +50,19 @@ class _SessionTimerState extends State<SessionTimer> with WidgetsBindingObserver
 
     if (state == AppLifecycleState.resumed) {
       _sessionTimer.cancel();
-      final Duration duration = await context.read<TopicsBloc>().state.data.timeLeftToSessionStart;
+      final Duration duration = await timeLeftToSessionStart;
 
       _timeBeforeStart = duration.inSeconds;
       _sessionTimer = Timer.periodic(_timerPeriod, timerCb);
     }
+  }
+
+  Future<Duration> get timeLeftToSessionStart async {
+    final startTime = context.read<TopicsBloc>().state.data.signedGroupSessionStartTime;
+
+    if (startTime == null) return Duration.zero;
+
+    return startTime.difference(await TimeService.now);
   }
 
   void timerCb(_) {
