@@ -1,14 +1,10 @@
 import 'package:auto_route/auto_route.dart';
-import 'package:loopcare_frontend/core/application/localization/localizer_extenstion.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loopcare_frontend/core/domain/nutrition/nutrition_description_item.dart';
 import 'package:loopcare_frontend/core/domain/nutrition/nutrition_indicator_color_picker.dart';
 import 'package:loopcare_frontend/core/domain/nutrition/nutrition_values_description.dart';
-import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/core/presentation/nutrition/nutrition_indicator/nutrition_indicator.dart';
 import 'package:loopcare_frontend/core/presentation/nutrition/nutrition_range_description/nutrition_range_description.dart';
 import 'package:loopcare_frontend/core/presentation/text/custom_text.dart';
@@ -16,6 +12,8 @@ import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 import 'package:loopcare_frontend/core/presentation/utils/build_context_extensions.dart';
 import 'package:loopcare_frontend/core/presentation/utils/string_extensions.dart';
 import 'package:loopcare_frontend/features/education/application/education_lesson/education_lesson_bloc.dart';
+import 'package:loopcare_frontend/localization/service/localization_extension.dart';
+import 'package:loopcare_frontend/localization/service/localized_texts.dart';
 
 class CalorieDensityDescription extends StatelessWidget {
   final double? calorieDensityValue;

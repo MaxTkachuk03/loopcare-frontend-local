@@ -1,6 +1,5 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:customer_io/customer_io.dart';
-import 'package:loopcare_frontend/core/application/localization/localizer_extenstion.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loopcare_frontend/core/application/customer_io_service/customer_io_attributes.dart';
@@ -12,7 +11,6 @@ import 'package:loopcare_frontend/core/presentation/app_bar/custom_app_bar.dart'
 import 'package:loopcare_frontend/core/presentation/buttons/custom_elevated_button.dart';
 import 'package:loopcare_frontend/core/presentation/buttons/custom_filled_icon_button.dart';
 import 'package:loopcare_frontend/core/presentation/custom_safe_area.dart';
-import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/core/presentation/scaffold/custom_scaffold.dart';
 import 'package:loopcare_frontend/core/presentation/text/custom_text.dart';
 import 'package:loopcare_frontend/core/presentation/utils/build_context_extensions.dart';
@@ -24,6 +22,8 @@ import 'package:loopcare_frontend/core/presentation/widgets/unit_tabs/measuremen
 import 'package:loopcare_frontend/core/presentation/widgets/unit_tabs/unit_field.dart';
 import 'package:loopcare_frontend/features/nutrition/application/dashboard_weight/dashboard_weight_bloc.dart';
 import 'package:loopcare_frontend/features/onboarding/utils/weight_conversion_utils.dart';
+import 'package:loopcare_frontend/localization/service/localization_extension.dart';
+import 'package:loopcare_frontend/localization/service/localized_texts.dart';
 
 @RoutePage()
 class LogWeightPage extends StatefulWidget {
@@ -124,10 +124,11 @@ class _LogWeightPageState extends State<LogWeightPage> {
 
   @override
   Widget build(BuildContext context) {
-    final title = _isToday ? LocalizedTexts.todaysWeight.tr() : LocalizedTexts.yourWeight.tr();
+    final title =
+        _isToday ? LocalizedTexts.todaysWeight.tr() : LocalizedTexts.onboardingYourWeight.tr();
     final yourWeight = _isToday
-        ? LocalizedTexts.yourWeight.tr()
-        : '${LocalizedTexts.yourWeight.tr()} ${LocalizedTexts.on.tr()}';
+        ? LocalizedTexts.onboardingYourWeight.tr()
+        : '${LocalizedTexts.onboardingYourWeight.tr()} ${LocalizedTexts.on.tr()}';
 
     return CustomScaffold.coralLightest(
       appBar: CustomAppBar.coral(

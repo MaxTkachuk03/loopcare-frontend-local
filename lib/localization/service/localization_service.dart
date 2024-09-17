@@ -7,7 +7,7 @@ class LocalizationService {
   Future<bool> loadLocalLocalizations() async {
     String locale = getIt<AppConfig>().language;
     final currentLocale = ['en', 'de'].contains(locale) ? locale : 'en';
-    final jsonString = await rootBundle.loadString('lib/l10n/app_$currentLocale.arb');
+    final jsonString = await rootBundle.loadString('lib/localization/l10n/app_$currentLocale.arb');
     getIt<LocalLocalizationService>().translations = jsonString;
     return true;
   }

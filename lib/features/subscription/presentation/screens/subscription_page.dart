@@ -1,7 +1,6 @@
 import 'dart:io';
 
 import 'package:auto_route/auto_route.dart';
-import 'package:loopcare_frontend/core/application/localization/localizer_extenstion.dart';
 import 'package:flash/flash.dart';
 import 'package:flash/flash_helper.dart';
 import 'package:flutter/material.dart';
@@ -15,7 +14,6 @@ import 'package:loopcare_frontend/core/presentation/alerting/modal_bottom_sheet.
 import 'package:loopcare_frontend/core/presentation/app_bar/custom_app_bar.dart';
 import 'package:loopcare_frontend/core/presentation/custom_safe_area.dart';
 import 'package:loopcare_frontend/core/presentation/loader/loader.dart';
-import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/core/presentation/routes/app_router.dart';
 import 'package:loopcare_frontend/core/presentation/routes/app_router.gr.dart';
 import 'package:loopcare_frontend/core/presentation/scaffold/custom_scaffold.dart';
@@ -27,6 +25,8 @@ import 'package:loopcare_frontend/features/subscription/presentation/controller/
 import 'package:loopcare_frontend/features/subscription/presentation/screens/subscription_nonrenewable_page.dart';
 import 'package:loopcare_frontend/features/subscription/presentation/screens/subscription_service_unavailable_page.dart';
 import 'package:loopcare_frontend/features/subscription/presentation/screens/subscription_single_plan_page.dart';
+import 'package:loopcare_frontend/localization/service/localization_extension.dart';
+import 'package:loopcare_frontend/localization/service/localized_texts.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 @RoutePage()
@@ -149,7 +149,8 @@ class _SubscriptionPageState extends State<SubscriptionPage> {
         context: context,
         builder: (BuildContext context) => AlertDialog(
           content: CustomText(
-              LocalizedTexts.subscriptionOtherPurchaseVendorCancelAccountSubscription.tr()),
+            LocalizedTexts.subscriptionOtherPurchaseVendorCancelAccountSubscription.tr(),
+          ),
           actions: [
             TextButton(
               onPressed: context.router.maybePop,

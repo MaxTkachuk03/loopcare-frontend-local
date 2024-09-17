@@ -3,7 +3,7 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:injectable/injectable.dart';
 import 'package:loopcare_frontend/core/domain/constants.dart';
 import 'package:loopcare_frontend/core/infrastructure/services/country_code_service/country_code_service.dart';
-import 'package:loopcare_frontend/core/presentation/localization/localization_constants.dart';
+import 'package:loopcare_frontend/localization/service/localization_constants.dart';
 
 GlobalKey<NavigatorState> kNavigatorKey = GlobalKey<NavigatorState>();
 

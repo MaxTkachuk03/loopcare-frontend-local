@@ -1,6 +1,6 @@
-import 'package:loopcare_frontend/core/application/localization/localizer_extenstion.dart';
-import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/core/presentation/utils/string_extensions.dart';
+import 'package:loopcare_frontend/localization/service/localization_extension.dart';
+import 'package:loopcare_frontend/localization/service/localized_texts.dart';
 
 enum YesNoAnswer {
   yes(value: true),
@@ -9,24 +9,9 @@ enum YesNoAnswer {
   const YesNoAnswer({required this.value});
 
   final bool value;
-}
 
-extension YesNoAnswerX on YesNoAnswer {
-  String get label {
-    switch (this) {
-      case YesNoAnswer.yes:
-        return LocalizedTexts.yes.tr().capitalize();
-      case YesNoAnswer.no:
-        return LocalizedTexts.no.tr().capitalize();
-    }
-  }
-
-  bool get boolValue {
-    switch (this) {
-      case YesNoAnswer.yes:
-        return true;
-      case YesNoAnswer.no:
-        return false;
-    }
-  }
+  String get label => switch (this) {
+        yes => LocalizedTexts.yes.tr().capitalize(),
+        no => LocalizedTexts.no.tr().capitalize(),
+      };
 }

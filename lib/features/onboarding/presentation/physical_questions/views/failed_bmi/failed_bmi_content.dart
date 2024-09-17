@@ -1,7 +1,5 @@
-import 'package:loopcare_frontend/core/application/localization/localizer_extenstion.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/core/presentation/shapes/under_appbar.dart';
 import 'package:loopcare_frontend/core/presentation/text/custom_text.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
@@ -10,6 +8,8 @@ import 'package:loopcare_frontend/core/presentation/widgets/main_container.dart'
 import 'package:loopcare_frontend/features/onboarding/application/physical_questions/physical_questions_bloc.dart';
 import 'package:loopcare_frontend/features/onboarding/presentation/physical_questions/views/failed_bmi/widgets/failed_bmi_body.dart';
 import 'package:loopcare_frontend/features/onboarding/utils/bmi_calculator.dart';
+import 'package:loopcare_frontend/localization/service/localization_extension.dart';
+import 'package:loopcare_frontend/localization/service/localized_texts.dart';
 
 class FailedBmiContent extends StatelessWidget {
   const FailedBmiContent({super.key});
@@ -24,7 +24,7 @@ class FailedBmiContent extends StatelessWidget {
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 65.0),
               child: CustomText.bitter600(
-                LocalizedTexts.ageCheckFailedTitle.tr(),
+                LocalizedTexts.onboardingAgeCheckFailedTitle.tr(),
                 style: context.textTheme.displayMedium,
                 textAlign: TextAlign.center,
               ),

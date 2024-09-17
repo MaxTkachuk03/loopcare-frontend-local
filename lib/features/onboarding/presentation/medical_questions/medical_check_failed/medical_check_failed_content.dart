@@ -1,9 +1,7 @@
-import 'package:loopcare_frontend/core/application/localization/localizer_extenstion.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loopcare_frontend/core/presentation/bottom_placed_button/bottom_placed_button.dart';
 import 'package:loopcare_frontend/core/presentation/buttons/custom_elevated_button.dart';
-import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/core/presentation/shapes/under_appbar.dart';
 import 'package:loopcare_frontend/core/presentation/text/custom_text.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
@@ -13,6 +11,8 @@ import 'package:loopcare_frontend/core/presentation/widgets/main_container.dart'
 import 'package:loopcare_frontend/features/onboarding/application/general/general_onboarding_bloc.dart';
 import 'package:loopcare_frontend/features/onboarding/application/medical_questions/medical_questions_bloc.dart';
 import 'package:loopcare_frontend/features/onboarding/domain/diseases.dart';
+import 'package:loopcare_frontend/localization/service/localization_extension.dart';
+import 'package:loopcare_frontend/localization/service/localized_texts.dart';
 
 class MedicalCheckFailedContent extends StatelessWidget {
   const MedicalCheckFailedContent({super.key});
@@ -43,7 +43,7 @@ class MedicalCheckFailedContent extends StatelessWidget {
                     ),
                     const SizedBox(height: 22.0),
                     CustomText.bitter600(
-                      '${LocalizedTexts.medicalCheckFailedTitle.tr()}!',
+                      LocalizedTexts.onboardingMedicalCheckFailedTitle.tr(),
                       style: context.textTheme.displayMedium?.copyWith(color: AppColors.blueDarker),
                       textAlign: TextAlign.center,
                     ),
@@ -63,7 +63,7 @@ class MedicalCheckFailedContent extends StatelessWidget {
               child: Column(
                 children: [
                   CustomText.w400(
-                    LocalizedTexts.medicalCheckFailedBody.tr(),
+                    LocalizedTexts.onboardingMedicalCheckFailedBody.tr(),
                     style: context.textTheme.bodyMedium,
                   ),
                   const SizedBox(height: 30.0),
@@ -81,7 +81,7 @@ class MedicalCheckFailedContent extends StatelessWidget {
                   const SizedBox(height: 30.0),
                   if (state.treatmentByTheDoctor ?? false)
                     CustomText.w400(
-                      LocalizedTexts.medicalCheckFailedBody2.tr(),
+                      LocalizedTexts.onboardingMedicalCheckFailedBody2.tr(),
                       style: context.textTheme.bodyMedium,
                     ),
                 ],

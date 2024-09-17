@@ -1,9 +1,7 @@
-import 'package:loopcare_frontend/core/application/localization/localizer_extenstion.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loopcare_frontend/core/presentation/bottom_placed_button/bottom_placed_button.dart';
 import 'package:loopcare_frontend/core/presentation/buttons/custom_elevated_button.dart';
-import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/core/presentation/text/custom_text.dart';
 import 'package:loopcare_frontend/core/presentation/text_field/custom_text_field.dart';
 import 'package:loopcare_frontend/core/presentation/utils/build_context_extensions.dart';
@@ -11,6 +9,8 @@ import 'package:loopcare_frontend/core/presentation/utils/scroll_controller_exte
 import 'package:loopcare_frontend/core/presentation/widgets/main_container.dart';
 import 'package:loopcare_frontend/features/onboarding/application/general/general_onboarding_bloc.dart';
 import 'package:loopcare_frontend/features/onboarding/application/medical_questions/medical_questions_bloc.dart';
+import 'package:loopcare_frontend/localization/service/localization_extension.dart';
+import 'package:loopcare_frontend/localization/service/localized_texts.dart';
 
 const _scrollValue = 64; // input height + sizedBox
 
@@ -81,7 +81,7 @@ class _MedicinesContentState extends State<MedicinesContent> {
           children: [
             const SizedBox(height: 50.0),
             CustomText.bitter600(
-              '${LocalizedTexts.medicinesTitle.tr()}?',
+              LocalizedTexts.onboardingMedicinesTitle.tr(),
               style: context.textTheme.displayMedium,
             ),
             const SizedBox(height: 28.0),
@@ -97,7 +97,7 @@ class _MedicinesContentState extends State<MedicinesContent> {
 
                     return CustomTextField(
                       controller: controller,
-                      hintText: LocalizedTexts.medicinesPlaceholder.tr(),
+                      hintText: LocalizedTexts.onboardingMedicinesPlaceholder.tr(),
                       textInputAction: isLast ? TextInputAction.done : TextInputAction.next,
                       onEditingComplete: _onEditingComplete,
                       maxLength: 30,

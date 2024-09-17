@@ -1,9 +1,7 @@
-import 'package:loopcare_frontend/core/application/localization/localizer_extenstion.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loopcare_frontend/core/presentation/bottom_placed_button/bottom_placed_button.dart';
 import 'package:loopcare_frontend/core/presentation/buttons/custom_elevated_button.dart';
-import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/core/presentation/text/custom_text.dart';
 import 'package:loopcare_frontend/core/presentation/utils/build_context_extensions.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/main_container.dart';
@@ -14,6 +12,8 @@ import 'package:loopcare_frontend/core/presentation/widgets/unit_tabs/unit_tabs.
 import 'package:loopcare_frontend/features/onboarding/application/general/general_onboarding_bloc.dart';
 import 'package:loopcare_frontend/features/onboarding/application/physical_questions/physical_questions_bloc.dart';
 import 'package:loopcare_frontend/features/onboarding/utils/weight_conversion_utils.dart';
+import 'package:loopcare_frontend/localization/service/localization_extension.dart';
+import 'package:loopcare_frontend/localization/service/localized_texts.dart';
 
 const _kg = 'kg';
 const _lbs = 'lbs';
@@ -73,7 +73,7 @@ class _WeightContentState extends State<WeightContent> {
           children: [
             const SizedBox(height: 80.0),
             CustomText.bitter600(
-              LocalizedTexts.yourWeight.tr(),
+              LocalizedTexts.onboardingYourWeight.tr(),
               textAlign: TextAlign.center,
               style: context.textTheme.displayMedium,
             ),

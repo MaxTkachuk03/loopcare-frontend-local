@@ -1,12 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:loopcare_frontend/core/application/localization/localizer_extenstion.dart';
 import 'package:loopcare_frontend/core/presentation/checkbox/custom_checkbox.dart';
-
 import 'package:loopcare_frontend/core/presentation/text/custom_text.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
-
 import 'package:loopcare_frontend/features/nutrition/application/select_serving/food_item_servings_bloc.dart';
+import 'package:loopcare_frontend/localization/service/localization_extension.dart';
 
 typedef OnFilterPressedCb = void Function(BuildContext context, bool value, String name);
 
@@ -21,8 +19,8 @@ class MealCategoryFiltersList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<FoodItemServingsBloc, FoodItemServingsState>(
-        builder: (BuildContext context, state) {
-      return state.maybeMap(
+      builder: (BuildContext context, state) {
+        return state.maybeMap(
           orElse: () => const SizedBox.shrink(),
           foodItemServings: (foodItemServingsState) {
             return Column(
@@ -55,7 +53,9 @@ class MealCategoryFiltersList extends StatelessWidget {
                 ),
               );
             }).toList());
-          });
-    });
+          },
+        );
+      },
+    );
   }
 }

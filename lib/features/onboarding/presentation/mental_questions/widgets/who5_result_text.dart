@@ -1,13 +1,13 @@
-import 'package:loopcare_frontend/core/application/localization/localizer_extenstion.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 import 'package:loopcare_frontend/core/presentation/utils/build_context_extensions.dart';
 import 'package:loopcare_frontend/features/onboarding/application/general/general_onboarding_bloc.dart';
 import 'package:loopcare_frontend/features/onboarding/application/mental_questions/mental_questions_bloc.dart';
 import 'package:loopcare_frontend/features/onboarding/domain/interpretation_type.dart';
+import 'package:loopcare_frontend/localization/service/localization_extension.dart';
+import 'package:loopcare_frontend/localization/service/localized_texts.dart';
 
 class WHO5ResultText extends StatelessWidget {
   final Function onLinkPressed;
@@ -25,8 +25,8 @@ class WHO5ResultText extends StatelessWidget {
         final currentResult = state.results[currentTestType];
         final interpretation = currentResult?.interpretation;
         final text = interpretation == InterpretationType.minimal
-            ? LocalizedTexts.who5ResultTestMinimal.tr()
-            : LocalizedTexts.who5ResultTestHigh.tr();
+            ? LocalizedTexts.onboardingWho5ResultTestMinimal.tr()
+            : LocalizedTexts.onboardingWho5ResultTestHigh.tr();
 
         return RichText(
           text: TextSpan(

@@ -1,0 +1,16 @@
+{
+  "@@locale": "en",
+  "title": "Welcome to {projectName}!",
+  "@title": {
+    "description": "This is a welcome message.",
+    "placeholders": {
+      "projectName": {
+        "type": "String",
+        "example": "LeanOnMe"
+      }
+    },
+    "type": "text"
+  },
+  "bodyTextFirst": "This program is specifically designed for people living with overweight and obesity that want to sustainably lose weight and change their lifestyle.",
+  "bodyTextSecond": "If this description fits you, let’s start your journey."
+}

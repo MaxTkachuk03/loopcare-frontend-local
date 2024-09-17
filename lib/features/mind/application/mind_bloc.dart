@@ -8,7 +8,6 @@ import 'package:loopcare_frontend/core/domain/analytics/analytics_events.dart';
 import 'package:loopcare_frontend/core/domain/analytics/analytics_parameters.dart';
 import 'package:loopcare_frontend/core/infrastructure/dio_client/request_error.dart';
 import 'package:loopcare_frontend/core/infrastructure/services/analytics_service.dart';
-import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/features/mind/application/dto/complete_exercise_data.dart';
 import 'package:loopcare_frontend/features/mind/application/dto/mind_info_response.dart';
 import 'package:loopcare_frontend/features/mind/application/dto/mind_technique.dart';
@@ -17,11 +16,10 @@ import 'package:loopcare_frontend/features/mind/application/dto/mind_techniques_
 import 'package:loopcare_frontend/features/mind/application/dto/technique_unlock_style.dart';
 import 'package:loopcare_frontend/features/mind/application/mind_service.dart';
 import 'package:loopcare_frontend/features/mind/application/ui_models/mind_exercise_step.dart';
+import 'package:loopcare_frontend/localization/service/localized_texts.dart';
 
 part 'mind_bloc.freezed.dart';
-
 part 'mind_event.dart';
-
 part 'mind_state.dart';
 
 @singleton

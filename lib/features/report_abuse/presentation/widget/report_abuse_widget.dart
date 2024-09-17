@@ -1,4 +1,3 @@
-import 'package:loopcare_frontend/core/application/localization/localizer_extenstion.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loopcare_frontend/core/domain/analytics/analytics_events.dart';
@@ -6,7 +5,6 @@ import 'package:loopcare_frontend/core/domain/analytics/analytics_parameters.dar
 import 'package:loopcare_frontend/core/infrastructure/services/analytics_service.dart';
 import 'package:loopcare_frontend/core/presentation/alerting/show_app_snackbar.dart';
 import 'package:loopcare_frontend/core/presentation/buttons/custom_elevated_button.dart';
-import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/core/presentation/scaffold/custom_scaffold.dart';
 import 'package:loopcare_frontend/core/presentation/text/custom_text.dart';
 import 'package:loopcare_frontend/core/presentation/text_field/custom_text_field.dart';
@@ -18,6 +16,8 @@ import 'package:loopcare_frontend/features/report_abuse/application/report_abuse
 import 'package:loopcare_frontend/features/report_abuse/domain/report_abuse_description_validator.dart';
 import 'package:loopcare_frontend/features/report_abuse/domain/report_abuse_subject_validator.dart';
 import 'package:loopcare_frontend/features/report_abuse/presentation/report_abuse_controller.dart';
+import 'package:loopcare_frontend/localization/service/localization_extension.dart';
+import 'package:loopcare_frontend/localization/service/localized_texts.dart';
 
 class ReportAbuseWidget extends StatefulWidget {
   final GroupSessionReport? groupSession;
@@ -142,7 +142,7 @@ class _ReportFormWidget extends StatelessWidget {
                 children: [
                   const SizedBox(height: 16),
                   CustomText.w400(
-                    '${LocalizedTexts.reportSubTitle.tr()}.',
+                    LocalizedTexts.reportSubTitle.tr(),
                     textAlign: TextAlign.start,
                     style: context.textTheme.bodyMedium,
                   ),

@@ -1,5 +1,5 @@
 import 'package:loopcare_frontend/core/domain/nutrition/nutrition_description_item.dart';
-import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
+import 'package:loopcare_frontend/localization/service/localized_texts.dart';
 
 const calorieDensityDataItems = [
   {

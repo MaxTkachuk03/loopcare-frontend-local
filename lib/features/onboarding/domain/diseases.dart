@@ -1,4 +1,4 @@
-import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
+import 'package:loopcare_frontend/localization/service/localized_texts.dart';
 
 enum Diseases {
   cardioVascularDisease(1, 'cardiovascular disease'),
@@ -25,46 +25,46 @@ enum Diseases {
 
 extension DiseasesExtension on Diseases {
   String get label => switch (this) {
-        Diseases.cardioVascularDisease => LocalizedTexts.cardioVascularDisease,
-        Diseases.stomachReductionDisease => LocalizedTexts.stomachReductionDisease,
-        Diseases.obesity => LocalizedTexts.obesity,
-        Diseases.thyroidDisease => LocalizedTexts.thyroidDisease,
-        Diseases.metabolicDisease => LocalizedTexts.metabolicDisease,
-        Diseases.hypertension => LocalizedTexts.hypertension,
-        Diseases.diabetesTypeI => LocalizedTexts.diabetesTypeI,
-        Diseases.diabetesTypeII => LocalizedTexts.diabetesTypeII,
-        Diseases.renalFailure => LocalizedTexts.renalFailure,
-        Diseases.asthma => LocalizedTexts.asthma,
-        Diseases.liverDisease => LocalizedTexts.liverDisease,
-        Diseases.sleepApneaSyndrome => LocalizedTexts.sleepApneaSyndrome,
-        Diseases.locomotorSystemDisease => LocalizedTexts.locomotorSystemDisease,
+        Diseases.cardioVascularDisease => LocalizedTexts.onboardingCardioVascularDisease,
+        Diseases.stomachReductionDisease => LocalizedTexts.onboardingStomachReductionDisease,
+        Diseases.obesity => LocalizedTexts.onboardingObesity,
+        Diseases.thyroidDisease => LocalizedTexts.onboardingThyroidDisease,
+        Diseases.metabolicDisease => LocalizedTexts.onboardingMetabolicDisease,
+        Diseases.hypertension => LocalizedTexts.onboardingHypertension,
+        Diseases.diabetesTypeI => LocalizedTexts.onboardingDiabetesTypeI,
+        Diseases.diabetesTypeII => LocalizedTexts.onboardingDiabetesTypeII,
+        Diseases.renalFailure => LocalizedTexts.onboardingRenalFailure,
+        Diseases.asthma => LocalizedTexts.onboardingAsthma,
+        Diseases.liverDisease => LocalizedTexts.onboardingLiverDisease,
+        Diseases.sleepApneaSyndrome => LocalizedTexts.onboardingSleepApneaSyndrome,
+        Diseases.locomotorSystemDisease => LocalizedTexts.onboardingLocomotorSystemDisease,
       };
 
   String get question {
     if (this == Diseases.obesity) {
-      return LocalizedTexts.obesityQuestion;
+      return LocalizedTexts.onboardingObesityQuestion;
     } else if (this == Diseases.cardioVascularDisease) {
-      return LocalizedTexts.cardiovascularDiseaseQuestion;
+      return LocalizedTexts.onboardingCardiovascularDiseaseQuestion;
     } else if (this == Diseases.stomachReductionDisease) {
-      return LocalizedTexts.stomachReductionQuestion;
+      return LocalizedTexts.onboardingStomachReductionQuestion;
     } else if (this == Diseases.thyroidDisease) {
-      return LocalizedTexts.thyroidDiseaseQuestion;
+      return LocalizedTexts.onboardingThyroidDiseaseQuestion;
     } else if (this == Diseases.metabolicDisease) {
-      return LocalizedTexts.metabolicDiseaseQuestion;
+      return LocalizedTexts.onboardingMetabolicDiseaseQuestion;
     } else if (this == Diseases.hypertension) {
-      return LocalizedTexts.hypertensionQuestion;
+      return LocalizedTexts.onboardingHypertensionQuestion;
     } else if (this == Diseases.diabetesTypeI || this == Diseases.diabetesTypeII) {
-      return LocalizedTexts.diabetesQuestion;
+      return LocalizedTexts.onboardingDiabetesQuestion;
     } else if (this == Diseases.renalFailure) {
-      return LocalizedTexts.renalFailureQuestion;
+      return LocalizedTexts.onboardingRenalFailureQuestion;
     } else if (this == Diseases.asthma) {
-      return LocalizedTexts.asthmaQuestion;
+      return LocalizedTexts.onboardingAsthmaQuestion;
     } else if (this == Diseases.liverDisease) {
-      return LocalizedTexts.liverDiseaseQuestion;
+      return LocalizedTexts.onboardingLiverDiseaseQuestion;
     } else if (this == Diseases.sleepApneaSyndrome) {
-      return LocalizedTexts.sleepApneaSyndromeQuestion;
+      return LocalizedTexts.onboardingSleepApneaSyndromeQuestion;
     } else if (this == Diseases.locomotorSystemDisease) {
-      return LocalizedTexts.locomotorSystemDiseaseQuestion;
+      return LocalizedTexts.onboardingLocomotorSystemDiseaseQuestion;
     } else {
       return '';
     }

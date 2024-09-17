@@ -15,7 +15,6 @@ import 'package:loopcare_frontend/features/river/presentation/utils/module_items
 import 'package:loopcare_frontend/features/river/presentation/utils/river_utils.dart';
 import 'package:loopcare_frontend/features/river/presentation/widgets/river_module_builder.dart';
 import 'package:loopcare_frontend/features/river/presentation/widgets/river_module_item_widget/river_animation_module_item_widget.dart';
-import 'package:loopcare_frontend/features/river/presentation/widgets/river_module_item_widget/start_river_module_item.dart';
 import 'package:visibility_detector/visibility_detector.dart';
 
 class RiverScreen extends StatefulWidget {
@@ -99,9 +98,6 @@ class _RiverScreenState extends State<RiverScreen> with RiverUtils {
               onAnimationComplete: (placement) => _onAnimationCompleted(item, placement),
             );
           },
-          startItemBuilder: (context) => StartRiverModuleItem(
-            onTap: _onStartItemPressed,
-          ),
         ),
       ),
     );
@@ -122,12 +118,6 @@ class _RiverScreenState extends State<RiverScreen> with RiverUtils {
           moduleItemId: item.id,
           moduleId: widget.module.id,
         ));
-  }
-
-  void _onStartItemPressed() {
-    if (!context.read<NavigationBarBloc>().state.data.isBeginningCompleted) {
-      ModalBottomSheet.guidanceStartRiver(context: context);
-    }
   }
 
   void _updateModuleItem(int id) {

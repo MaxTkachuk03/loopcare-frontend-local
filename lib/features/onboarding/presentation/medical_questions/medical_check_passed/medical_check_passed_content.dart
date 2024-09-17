@@ -1,15 +1,15 @@
-import 'package:loopcare_frontend/core/application/localization/localizer_extenstion.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loopcare_frontend/core/presentation/bottom_placed_button/bottom_placed_button.dart';
 import 'package:loopcare_frontend/core/presentation/buttons/custom_elevated_button.dart';
-import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/core/presentation/shapes/under_appbar.dart';
 import 'package:loopcare_frontend/core/presentation/text/custom_text.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 import 'package:loopcare_frontend/core/presentation/utils/build_context_extensions.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/main_container.dart';
 import 'package:loopcare_frontend/features/onboarding/application/general/general_onboarding_bloc.dart';
+import 'package:loopcare_frontend/localization/service/localization_extension.dart';
+import 'package:loopcare_frontend/localization/service/localized_texts.dart';
 
 class MedicalCheckPassedContent extends StatelessWidget {
   const MedicalCheckPassedContent({super.key});
@@ -38,7 +38,7 @@ class MedicalCheckPassedContent extends StatelessWidget {
                     ),
                     const SizedBox(height: 22.0),
                     CustomText.bitter600(
-                      '${LocalizedTexts.medicalCheckPassedTitle.tr()}!',
+                      LocalizedTexts.onboardingMedicalCheckPassedTitle.tr(),
                       style: context.textTheme.displayMedium?.copyWith(color: AppColors.blueDarker),
                       textAlign: TextAlign.center,
                     ),
@@ -57,7 +57,7 @@ class MedicalCheckPassedContent extends StatelessWidget {
                 borderRadius: BorderRadius.all(Radius.circular(16)),
               ),
               child: CustomText.w600(
-                '${LocalizedTexts.medicalCheckPassedBody.tr()}!',
+                LocalizedTexts.onboardingMedicalCheckPassedBody.tr(),
                 style: context.textTheme.bodyMedium,
               ),
             ),

@@ -4543,6 +4543,752 @@ class CrowdinLocalization extends AppLocalizations {
       Crowdin.getText(localeName, 'errorOtherDio') ?? _fallbackTexts.errorOtherDio;
 
   @override
+  String get onboardingIntroTitle =>
+      Crowdin.getText(localeName, 'onboardingIntroTitle') ?? _fallbackTexts.onboardingIntroTitle;
+
+  @override
+  String get onboardingIntroProgram1 =>
+      Crowdin.getText(localeName, 'onboardingIntroProgram1') ??
+      _fallbackTexts.onboardingIntroProgram1;
+
+  @override
+  String get onboardingIntroProgram2 =>
+      Crowdin.getText(localeName, 'onboardingIntroProgram2') ??
+      _fallbackTexts.onboardingIntroProgram2;
+
+  @override
+  String get onboardingIntroMissionTitle =>
+      Crowdin.getText(localeName, 'onboardingIntroMissionTitle') ??
+      _fallbackTexts.onboardingIntroMissionTitle;
+
+  @override
+  String get onboardingIntroMissionAndrew =>
+      Crowdin.getText(localeName, 'onboardingIntroMissionAndrew') ??
+      _fallbackTexts.onboardingIntroMissionAndrew;
+
+  @override
+  String get onboardingIntroMissionMaria =>
+      Crowdin.getText(localeName, 'onboardingIntroMissionMaria') ??
+      _fallbackTexts.onboardingIntroMissionMaria;
+
+  @override
+  String get onboardingIntroMissionShalu =>
+      Crowdin.getText(localeName, 'onboardingIntroMissionShalu') ??
+      _fallbackTexts.onboardingIntroMissionShalu;
+
+  @override
+  String get onboardingIntroMissionJoshua =>
+      Crowdin.getText(localeName, 'onboardingIntroMissionJoshua') ??
+      _fallbackTexts.onboardingIntroMissionJoshua;
+
+  @override
+  String get onboardingIntroMissionDenise =>
+      Crowdin.getText(localeName, 'onboardingIntroMissionDenise') ??
+      _fallbackTexts.onboardingIntroMissionDenise;
+
+  @override
+  String get onboardingPacingTitle =>
+      Crowdin.getText(localeName, 'onboardingPacingTitle') ?? _fallbackTexts.onboardingPacingTitle;
+
+  @override
+  String get onboardingPacingMessage =>
+      Crowdin.getText(localeName, 'onboardingPacingMessage') ??
+      _fallbackTexts.onboardingPacingMessage;
+
+  @override
+  String get onboardingIAmReady =>
+      Crowdin.getText(localeName, 'onboardingIAmReady') ?? _fallbackTexts.onboardingIAmReady;
+
+  @override
+  String get onboardingPhysicalIntroTitle =>
+      Crowdin.getText(localeName, 'onboardingPhysicalIntroTitle') ??
+      _fallbackTexts.onboardingPhysicalIntroTitle;
+
+  @override
+  String get onboardingPhysicalIntroBody =>
+      Crowdin.getText(localeName, 'onboardingPhysicalIntroBody') ??
+      _fallbackTexts.onboardingPhysicalIntroBody;
+
+  @override
+  String get onboardingAgeCheckFailedTitle =>
+      Crowdin.getText(localeName, 'onboardingAgeCheckFailedTitle') ??
+      _fallbackTexts.onboardingAgeCheckFailedTitle;
+
+  @override
+  String get onboardingAgeCheckFailedBody =>
+      Crowdin.getText(localeName, 'onboardingAgeCheckFailedBody') ??
+      _fallbackTexts.onboardingAgeCheckFailedBody;
+
+  @override
+  String get onboardingWhatYourSex =>
+      Crowdin.getText(localeName, 'onboardingWhatYourSex') ?? _fallbackTexts.onboardingWhatYourSex;
+
+  @override
+  String get onboardingSexQuestionBody =>
+      Crowdin.getText(localeName, 'onboardingSexQuestionBody') ??
+      _fallbackTexts.onboardingSexQuestionBody;
+
+  @override
+  String get onboardingSex =>
+      Crowdin.getText(localeName, 'onboardingSex') ?? _fallbackTexts.onboardingSex;
+
+  @override
+  String get onboardingGenderPageTitle =>
+      Crowdin.getText(localeName, 'onboardingGenderPageTitle') ??
+      _fallbackTexts.onboardingGenderPageTitle;
+
+  @override
+  String get onboardingHappinessTitle =>
+      Crowdin.getText(localeName, 'onboardingHappinessTitle') ??
+      _fallbackTexts.onboardingHappinessTitle;
+
+  @override
+  String get onboardingHappinessBody1 =>
+      Crowdin.getText(localeName, 'onboardingHappinessBody1') ??
+      _fallbackTexts.onboardingHappinessBody1;
+
+  @override
+  String get onboardingHappinessBody2 =>
+      Crowdin.getText(localeName, 'onboardingHappinessBody2') ??
+      _fallbackTexts.onboardingHappinessBody2;
+
+  @override
+  String get onboardingYourHeight =>
+      Crowdin.getText(localeName, 'onboardingYourHeight') ?? _fallbackTexts.onboardingYourHeight;
+
+  @override
+  String get onboardingMetric =>
+      Crowdin.getText(localeName, 'onboardingMetric') ?? _fallbackTexts.onboardingMetric;
+
+  @override
+  String get onboardingImperial =>
+      Crowdin.getText(localeName, 'onboardingImperial') ?? _fallbackTexts.onboardingImperial;
+
+  @override
+  String get onboardingNext =>
+      Crowdin.getText(localeName, 'onboardingNext') ?? _fallbackTexts.onboardingNext;
+
+  @override
+  String get onboardingChangeYourHeight =>
+      Crowdin.getText(localeName, 'onboardingChangeYourHeight') ??
+      _fallbackTexts.onboardingChangeYourHeight;
+
+  @override
+  String get onboardingHeightSmall =>
+      Crowdin.getText(localeName, 'onboardingHeightSmall') ?? _fallbackTexts.onboardingHeightSmall;
+
+  @override
+  String get onboardingHeightLarge =>
+      Crowdin.getText(localeName, 'onboardingHeightLarge') ?? _fallbackTexts.onboardingHeightLarge;
+
+  @override
+  String get onboardingCorrectHeight =>
+      Crowdin.getText(localeName, 'onboardingCorrectHeight') ??
+      _fallbackTexts.onboardingCorrectHeight;
+
+  @override
+  String get onboardingYourWeight =>
+      Crowdin.getText(localeName, 'onboardingYourWeight') ?? _fallbackTexts.onboardingYourWeight;
+
+  @override
+  String get onboardingBmiExclusionBodyTitle =>
+      Crowdin.getText(localeName, 'onboardingBmiExclusionBodyTitle') ??
+      _fallbackTexts.onboardingBmiExclusionBodyTitle;
+
+  @override
+  String get onboardingBmiExclusionBodyOlder19LowBmi =>
+      Crowdin.getText(localeName, 'onboardingBmiExclusionBodyOlder19LowBmi') ??
+      _fallbackTexts.onboardingBmiExclusionBodyOlder19LowBmi;
+
+  @override
+  String get onboardingBmiExclusionBodyOlder19HighBmi =>
+      Crowdin.getText(localeName, 'onboardingBmiExclusionBodyOlder19HighBmi') ??
+      _fallbackTexts.onboardingBmiExclusionBodyOlder19HighBmi;
+
+  @override
+  String get onboardingBmiExclusionBodyYounger19LowBmi =>
+      Crowdin.getText(localeName, 'onboardingBmiExclusionBodyYounger19LowBmi') ??
+      _fallbackTexts.onboardingBmiExclusionBodyYounger19LowBmi;
+
+  @override
+  String get onboardingBmiExclusionBodyYounger19HighBmi =>
+      Crowdin.getText(localeName, 'onboardingBmiExclusionBodyYounger19HighBmi') ??
+      _fallbackTexts.onboardingBmiExclusionBodyYounger19HighBmi;
+
+  @override
+  String get onboardingBmiExclusionBodyHighBmiEnding =>
+      Crowdin.getText(localeName, 'onboardingBmiExclusionBodyHighBmiEnding') ??
+      _fallbackTexts.onboardingBmiExclusionBodyHighBmiEnding;
+
+  @override
+  String get onboardingBmiExclusionBodyLowBmiEnding =>
+      Crowdin.getText(localeName, 'onboardingBmiExclusionBodyLowBmiEnding') ??
+      _fallbackTexts.onboardingBmiExclusionBodyLowBmiEnding;
+
+  @override
+  String get onboardingPhysicalCheckPassedTitle =>
+      Crowdin.getText(localeName, 'onboardingPhysicalCheckPassedTitle') ??
+      _fallbackTexts.onboardingPhysicalCheckPassedTitle;
+
+  @override
+  String get onboardingAge =>
+      Crowdin.getText(localeName, 'onboardingAge') ?? _fallbackTexts.onboardingAge;
+
+  @override
+  String get onboardingHeight =>
+      Crowdin.getText(localeName, 'onboardingHeight') ?? _fallbackTexts.onboardingHeight;
+
+  @override
+  String get onboardingWeight =>
+      Crowdin.getText(localeName, 'onboardingWeight') ?? _fallbackTexts.onboardingWeight;
+
+  @override
+  String get onboardingBmi =>
+      Crowdin.getText(localeName, 'onboardingBmi') ?? _fallbackTexts.onboardingBmi;
+
+  @override
+  String get onboardingYears =>
+      Crowdin.getText(localeName, 'onboardingYears') ?? _fallbackTexts.onboardingYears;
+
+  @override
+  String get onboardingBmiDescription1 =>
+      Crowdin.getText(localeName, 'onboardingBmiDescription1') ??
+      _fallbackTexts.onboardingBmiDescription1;
+
+  @override
+  String get onboardingBmiDescriptionAccent =>
+      Crowdin.getText(localeName, 'onboardingBmiDescriptionAccent') ??
+      _fallbackTexts.onboardingBmiDescriptionAccent;
+
+  @override
+  String get onboardingBmiDescription2 =>
+      Crowdin.getText(localeName, 'onboardingBmiDescription2') ??
+      _fallbackTexts.onboardingBmiDescription2;
+
+  @override
+  String get onboardingLetsMoveOn =>
+      Crowdin.getText(localeName, 'onboardingLetsMoveOn') ?? _fallbackTexts.onboardingLetsMoveOn;
+
+  @override
+  String get onboardingMedicalIntroTitle =>
+      Crowdin.getText(localeName, 'onboardingMedicalIntroTitle') ??
+      _fallbackTexts.onboardingMedicalIntroTitle;
+
+  @override
+  String get onboardingMedicalIntroBody =>
+      Crowdin.getText(localeName, 'onboardingMedicalIntroBody') ??
+      _fallbackTexts.onboardingMedicalIntroBody;
+
+  @override
+  String get onboardingAreYouPregnant =>
+      Crowdin.getText(localeName, 'onboardingAreYouPregnant') ??
+      _fallbackTexts.onboardingAreYouPregnant;
+
+  @override
+  String get onboardingFailedPregnancyTitle =>
+      Crowdin.getText(localeName, 'onboardingFailedPregnancyTitle') ??
+      _fallbackTexts.onboardingFailedPregnancyTitle;
+
+  @override
+  String get onboardingFailedPregnancyBody1 =>
+      Crowdin.getText(localeName, 'onboardingFailedPregnancyBody1') ??
+      _fallbackTexts.onboardingFailedPregnancyBody1;
+
+  @override
+  String get onboardingFailedPregnancyBody2 =>
+      Crowdin.getText(localeName, 'onboardingFailedPregnancyBody2') ??
+      _fallbackTexts.onboardingFailedPregnancyBody2;
+
+  @override
+  String get onboardingFailedPregnancyBody3 =>
+      Crowdin.getText(localeName, 'onboardingFailedPregnancyBody3') ??
+      _fallbackTexts.onboardingFailedPregnancyBody3;
+
+  @override
+  String get onboardingFailedPregnancyBody4 =>
+      Crowdin.getText(localeName, 'onboardingFailedPregnancyBody4') ??
+      _fallbackTexts.onboardingFailedPregnancyBody4;
+
+  @override
+  String get onboardingMedicinesTitle =>
+      Crowdin.getText(localeName, 'onboardingMedicinesTitle') ??
+      _fallbackTexts.onboardingMedicinesTitle;
+
+  @override
+  String get onboardingMedicinesPlaceholder =>
+      Crowdin.getText(localeName, 'onboardingMedicinesPlaceholder') ??
+      _fallbackTexts.onboardingMedicinesPlaceholder;
+
+  @override
+  String get onboardingWeightLossMedicationQuestion =>
+      Crowdin.getText(localeName, 'onboardingWeightLossMedicationQuestion') ??
+      _fallbackTexts.onboardingWeightLossMedicationQuestion;
+
+  @override
+  String get onboardingObesityQuestion =>
+      Crowdin.getText(localeName, 'onboardingObesityQuestion') ??
+      _fallbackTexts.onboardingObesityQuestion;
+
+  @override
+  String get onboardingThyroidDiseaseQuestion =>
+      Crowdin.getText(localeName, 'onboardingThyroidDiseaseQuestion') ??
+      _fallbackTexts.onboardingThyroidDiseaseQuestion;
+
+  @override
+  String get onboardingMetabolicDiseaseQuestion =>
+      Crowdin.getText(localeName, 'onboardingMetabolicDiseaseQuestion') ??
+      _fallbackTexts.onboardingMetabolicDiseaseQuestion;
+
+  @override
+  String get onboardingHypertensionQuestion =>
+      Crowdin.getText(localeName, 'onboardingHypertensionQuestion') ??
+      _fallbackTexts.onboardingHypertensionQuestion;
+
+  @override
+  String get onboardingCardiovascularDiseaseQuestion =>
+      Crowdin.getText(localeName, 'onboardingCardiovascularDiseaseQuestion') ??
+      _fallbackTexts.onboardingCardiovascularDiseaseQuestion;
+
+  @override
+  String get onboardingStomachReductionQuestion =>
+      Crowdin.getText(localeName, 'onboardingStomachReductionQuestion') ??
+      _fallbackTexts.onboardingStomachReductionQuestion;
+
+  @override
+  String get onboardingDiabetesQuestion =>
+      Crowdin.getText(localeName, 'onboardingDiabetesQuestion') ??
+      _fallbackTexts.onboardingDiabetesQuestion;
+
+  @override
+  String get onboardingRenalFailureQuestion =>
+      Crowdin.getText(localeName, 'onboardingRenalFailureQuestion') ??
+      _fallbackTexts.onboardingRenalFailureQuestion;
+
+  @override
+  String get onboardingAsthmaQuestion =>
+      Crowdin.getText(localeName, 'onboardingAsthmaQuestion') ??
+      _fallbackTexts.onboardingAsthmaQuestion;
+
+  @override
+  String get onboardingLiverDiseaseQuestion =>
+      Crowdin.getText(localeName, 'onboardingLiverDiseaseQuestion') ??
+      _fallbackTexts.onboardingLiverDiseaseQuestion;
+
+  @override
+  String get onboardingSleepApneaSyndromeQuestion =>
+      Crowdin.getText(localeName, 'onboardingSleepApneaSyndromeQuestion') ??
+      _fallbackTexts.onboardingSleepApneaSyndromeQuestion;
+
+  @override
+  String get onboardingLocomotorSystemDiseaseQuestion =>
+      Crowdin.getText(localeName, 'onboardingLocomotorSystemDiseaseQuestion') ??
+      _fallbackTexts.onboardingLocomotorSystemDiseaseQuestion;
+
+  @override
+  String get onboardingTreatmentByTheDoctorQuestion =>
+      Crowdin.getText(localeName, 'onboardingTreatmentByTheDoctorQuestion') ??
+      _fallbackTexts.onboardingTreatmentByTheDoctorQuestion;
+
+  @override
+  String get onboardingMedicalCheckPassedTitle =>
+      Crowdin.getText(localeName, 'onboardingMedicalCheckPassedTitle') ??
+      _fallbackTexts.onboardingMedicalCheckPassedTitle;
+
+  @override
+  String get onboardingMedicalCheckPassedBody =>
+      Crowdin.getText(localeName, 'onboardingMedicalCheckPassedBody') ??
+      _fallbackTexts.onboardingMedicalCheckPassedBody;
+
+  @override
+  String get onboardingMedicalCheckFailedTitle =>
+      Crowdin.getText(localeName, 'onboardingMedicalCheckFailedTitle') ??
+      _fallbackTexts.onboardingMedicalCheckFailedTitle;
+
+  @override
+  String get onboardingMedicalCheckFailedBody =>
+      Crowdin.getText(localeName, 'onboardingMedicalCheckFailedBody') ??
+      _fallbackTexts.onboardingMedicalCheckFailedBody;
+
+  @override
+  String get onboardingMedicalCheckFailedBody2 =>
+      Crowdin.getText(localeName, 'onboardingMedicalCheckFailedBody2') ??
+      _fallbackTexts.onboardingMedicalCheckFailedBody2;
+
+  @override
+  String get onboardingCardioVascularDisease =>
+      Crowdin.getText(localeName, 'onboardingCardioVascularDisease') ??
+      _fallbackTexts.onboardingCardioVascularDisease;
+
+  @override
+  String get onboardingStomachReductionDisease =>
+      Crowdin.getText(localeName, 'onboardingStomachReductionDisease') ??
+      _fallbackTexts.onboardingStomachReductionDisease;
+
+  @override
+  String get onboardingObesity =>
+      Crowdin.getText(localeName, 'onboardingObesity') ?? _fallbackTexts.onboardingObesity;
+
+  @override
+  String get onboardingThyroidDisease =>
+      Crowdin.getText(localeName, 'onboardingThyroidDisease') ??
+      _fallbackTexts.onboardingThyroidDisease;
+
+  @override
+  String get onboardingMetabolicDisease =>
+      Crowdin.getText(localeName, 'onboardingMetabolicDisease') ??
+      _fallbackTexts.onboardingMetabolicDisease;
+
+  @override
+  String get onboardingHypertension =>
+      Crowdin.getText(localeName, 'onboardingHypertension') ??
+      _fallbackTexts.onboardingHypertension;
+
+  @override
+  String get onboardingDiabetes =>
+      Crowdin.getText(localeName, 'onboardingDiabetes') ?? _fallbackTexts.onboardingDiabetes;
+
+  @override
+  String get onboardingDiabetesTypeI =>
+      Crowdin.getText(localeName, 'onboardingDiabetesTypeI') ??
+      _fallbackTexts.onboardingDiabetesTypeI;
+
+  @override
+  String get onboardingDiabetesTypeII =>
+      Crowdin.getText(localeName, 'onboardingDiabetesTypeII') ??
+      _fallbackTexts.onboardingDiabetesTypeII;
+
+  @override
+  String get onboardingRenalFailure =>
+      Crowdin.getText(localeName, 'onboardingRenalFailure') ??
+      _fallbackTexts.onboardingRenalFailure;
+
+  @override
+  String get onboardingAsthma =>
+      Crowdin.getText(localeName, 'onboardingAsthma') ?? _fallbackTexts.onboardingAsthma;
+
+  @override
+  String get onboardingLiverDisease =>
+      Crowdin.getText(localeName, 'onboardingLiverDisease') ??
+      _fallbackTexts.onboardingLiverDisease;
+
+  @override
+  String get onboardingSleepApneaSyndrome =>
+      Crowdin.getText(localeName, 'onboardingSleepApneaSyndrome') ??
+      _fallbackTexts.onboardingSleepApneaSyndrome;
+
+  @override
+  String get onboardingLocomotorSystemDisease =>
+      Crowdin.getText(localeName, 'onboardingLocomotorSystemDisease') ??
+      _fallbackTexts.onboardingLocomotorSystemDisease;
+
+  @override
+  String get onboardingYourMentalHealth =>
+      Crowdin.getText(localeName, 'onboardingYourMentalHealth') ??
+      _fallbackTexts.onboardingYourMentalHealth;
+
+  @override
+  String get onboardingMentalIntroBody1 =>
+      Crowdin.getText(localeName, 'onboardingMentalIntroBody1') ??
+      _fallbackTexts.onboardingMentalIntroBody1;
+
+  @override
+  String get onboardingMentalIntroBody2 =>
+      Crowdin.getText(localeName, 'onboardingMentalIntroBody2') ??
+      _fallbackTexts.onboardingMentalIntroBody2;
+
+  @override
+  String get onboardingMentalHealthIntroTextOne =>
+      Crowdin.getText(localeName, 'onboardingMentalHealthIntroTextOne') ??
+      _fallbackTexts.onboardingMentalHealthIntroTextOne;
+
+  @override
+  String get onboardingMentalHealthIntroTextTwo =>
+      Crowdin.getText(localeName, 'onboardingMentalHealthIntroTextTwo') ??
+      _fallbackTexts.onboardingMentalHealthIntroTextTwo;
+
+  @override
+  String get onboardingMentalHealthIntroTextTwoAccent =>
+      Crowdin.getText(localeName, 'onboardingMentalHealthIntroTextTwoAccent') ??
+      _fallbackTexts.onboardingMentalHealthIntroTextTwoAccent;
+
+  @override
+  String get onboardingMentalHealthIntroTextThree =>
+      Crowdin.getText(localeName, 'onboardingMentalHealthIntroTextThree') ??
+      _fallbackTexts.onboardingMentalHealthIntroTextThree;
+
+  @override
+  String get onboardingMentalHealthIntroTextThreeAccent =>
+      Crowdin.getText(localeName, 'onboardingMentalHealthIntroTextThreeAccent') ??
+      _fallbackTexts.onboardingMentalHealthIntroTextThreeAccent;
+
+  @override
+  String get onboardingMentalHealthIntroTextFour =>
+      Crowdin.getText(localeName, 'onboardingMentalHealthIntroTextFour') ??
+      _fallbackTexts.onboardingMentalHealthIntroTextFour;
+
+  @override
+  String get onboardingMentalHealthIntroTextFive =>
+      Crowdin.getText(localeName, 'onboardingMentalHealthIntroTextFive') ??
+      _fallbackTexts.onboardingMentalHealthIntroTextFive;
+
+  @override
+  String get onboardingMentalHealthIntroTextSix =>
+      Crowdin.getText(localeName, 'onboardingMentalHealthIntroTextSix') ??
+      _fallbackTexts.onboardingMentalHealthIntroTextSix;
+
+  @override
+  String onboardingMentalHealthMoreInfo(String appName) =>
+      Crowdin.getText(localeName, 'onboardingMentalHealthMoreInfo', {'appName': appName}) ??
+      _fallbackTexts.onboardingMentalHealthMoreInfo(appName);
+
+  @override
+  String get onboardingMentalHealthMoreInfoBold1 =>
+      Crowdin.getText(localeName, 'onboardingMentalHealthMoreInfoBold1') ??
+      _fallbackTexts.onboardingMentalHealthMoreInfoBold1;
+
+  @override
+  String get onboardingMentalHealthMoreInfoBold2 =>
+      Crowdin.getText(localeName, 'onboardingMentalHealthMoreInfoBold2') ??
+      _fallbackTexts.onboardingMentalHealthMoreInfoBold2;
+
+  @override
+  String get onboardingWho8Question =>
+      Crowdin.getText(localeName, 'onboardingWho8Question') ??
+      _fallbackTexts.onboardingWho8Question;
+
+  @override
+  String get onboardingLastTwoWeeks =>
+      Crowdin.getText(localeName, 'onboardingLastTwoWeeks') ??
+      _fallbackTexts.onboardingLastTwoWeeks;
+
+  @override
+  String get onboardingPastFourWeeks =>
+      Crowdin.getText(localeName, 'onboardingPastFourWeeks') ??
+      _fallbackTexts.onboardingPastFourWeeks;
+
+  @override
+  String get onboardingPhq15Question =>
+      Crowdin.getText(localeName, 'onboardingPhq15Question') ??
+      _fallbackTexts.onboardingPhq15Question;
+
+  @override
+  String get onboardingPhq8Question =>
+      Crowdin.getText(localeName, 'onboardingPhq8Question') ??
+      _fallbackTexts.onboardingPhq8Question;
+
+  @override
+  String get onboardingStartAgain =>
+      Crowdin.getText(localeName, 'onboardingStartAgain') ?? _fallbackTexts.onboardingStartAgain;
+
+  @override
+  String get onboardingWho5ResultTestMinimal =>
+      Crowdin.getText(localeName, 'onboardingWho5ResultTestMinimal') ??
+      _fallbackTexts.onboardingWho5ResultTestMinimal;
+
+  @override
+  String get onboardingWho5ResultTestHigh =>
+      Crowdin.getText(localeName, 'onboardingWho5ResultTestHigh') ??
+      _fallbackTexts.onboardingWho5ResultTestHigh;
+
+  @override
+  String get onboardingPhq15ResultMinimal =>
+      Crowdin.getText(localeName, 'onboardingPhq15ResultMinimal') ??
+      _fallbackTexts.onboardingPhq15ResultMinimal;
+
+  @override
+  String get onboardingPhq15ResultMild =>
+      Crowdin.getText(localeName, 'onboardingPhq15ResultMild') ??
+      _fallbackTexts.onboardingPhq15ResultMild;
+
+  @override
+  String get onboardingPhq15ResultMedium =>
+      Crowdin.getText(localeName, 'onboardingPhq15ResultMedium') ??
+      _fallbackTexts.onboardingPhq15ResultMedium;
+
+  @override
+  String get onboardingPhq15ResultHigh =>
+      Crowdin.getText(localeName, 'onboardingPhq15ResultHigh') ??
+      _fallbackTexts.onboardingPhq15ResultHigh;
+
+  @override
+  String get onboardingGad7ResultMinimal =>
+      Crowdin.getText(localeName, 'onboardingGad7ResultMinimal') ??
+      _fallbackTexts.onboardingGad7ResultMinimal;
+
+  @override
+  String get onboardingGad7ResultMild =>
+      Crowdin.getText(localeName, 'onboardingGad7ResultMild') ??
+      _fallbackTexts.onboardingGad7ResultMild;
+
+  @override
+  String get onboardingGad7ResultMedium =>
+      Crowdin.getText(localeName, 'onboardingGad7ResultMedium') ??
+      _fallbackTexts.onboardingGad7ResultMedium;
+
+  @override
+  String get onboardingGad7ResultHigh =>
+      Crowdin.getText(localeName, 'onboardingGad7ResultHigh') ??
+      _fallbackTexts.onboardingGad7ResultHigh;
+
+  @override
+  String get onboardingPhq8ResultMinimal =>
+      Crowdin.getText(localeName, 'onboardingPhq8ResultMinimal') ??
+      _fallbackTexts.onboardingPhq8ResultMinimal;
+
+  @override
+  String get onboardingPhq8ResultMild =>
+      Crowdin.getText(localeName, 'onboardingPhq8ResultMild') ??
+      _fallbackTexts.onboardingPhq8ResultMild;
+
+  @override
+  String get onboardingPhq8ResultMedium =>
+      Crowdin.getText(localeName, 'onboardingPhq8ResultMedium') ??
+      _fallbackTexts.onboardingPhq8ResultMedium;
+
+  @override
+  String get onboardingPhq8ResultHigh =>
+      Crowdin.getText(localeName, 'onboardingPhq8ResultHigh') ??
+      _fallbackTexts.onboardingPhq8ResultHigh;
+
+  @override
+  String get onboardingPhq8ResultHighest =>
+      Crowdin.getText(localeName, 'onboardingPhq8ResultHighest') ??
+      _fallbackTexts.onboardingPhq8ResultHighest;
+
+  @override
+  String get onboardingPhq8FinalResultHigh1 =>
+      Crowdin.getText(localeName, 'onboardingPhq8FinalResultHigh1') ??
+      _fallbackTexts.onboardingPhq8FinalResultHigh1;
+
+  @override
+  String get onboardingPhq8FinalResultHigh2 =>
+      Crowdin.getText(localeName, 'onboardingPhq8FinalResultHigh2') ??
+      _fallbackTexts.onboardingPhq8FinalResultHigh2;
+
+  @override
+  String get onboardingPhq8FinalResultHigh3 =>
+      Crowdin.getText(localeName, 'onboardingPhq8FinalResultHigh3') ??
+      _fallbackTexts.onboardingPhq8FinalResultHigh3;
+
+  @override
+  String get onboardingPhq8FinalResultHigh4 =>
+      Crowdin.getText(localeName, 'onboardingPhq8FinalResultHigh4') ??
+      _fallbackTexts.onboardingPhq8FinalResultHigh4;
+
+  @override
+  String get onboardingIfYouHaveSuicidalThoughts =>
+      Crowdin.getText(localeName, 'onboardingIfYouHaveSuicidalThoughts') ??
+      _fallbackTexts.onboardingIfYouHaveSuicidalThoughts;
+
+  @override
+  String get onboardingPersonalProgram =>
+      Crowdin.getText(localeName, 'onboardingPersonalProgram') ??
+      _fallbackTexts.onboardingPersonalProgram;
+
+  @override
+  String get onboardingSupportMessage =>
+      Crowdin.getText(localeName, 'onboardingSupportMessage') ??
+      _fallbackTexts.onboardingSupportMessage;
+
+  @override
+  String get onboardingFeelLimited1 =>
+      Crowdin.getText(localeName, 'onboardingFeelLimited1') ??
+      _fallbackTexts.onboardingFeelLimited1;
+
+  @override
+  String get onboardingFeelLimited2 =>
+      Crowdin.getText(localeName, 'onboardingFeelLimited2') ??
+      _fallbackTexts.onboardingFeelLimited2;
+
+  @override
+  String get onboardingFeelLimited3 =>
+      Crowdin.getText(localeName, 'onboardingFeelLimited3') ??
+      _fallbackTexts.onboardingFeelLimited3;
+
+  @override
+  String get onboardingFeelLimited4 =>
+      Crowdin.getText(localeName, 'onboardingFeelLimited4') ??
+      _fallbackTexts.onboardingFeelLimited4;
+
+  @override
+  String get onboardingNotATherapy =>
+      Crowdin.getText(localeName, 'onboardingNotATherapy') ?? _fallbackTexts.onboardingNotATherapy;
+
+  @override
+  String get onboardingLearnManyThings =>
+      Crowdin.getText(localeName, 'onboardingLearnManyThings') ??
+      _fallbackTexts.onboardingLearnManyThings;
+
+  @override
+  String get onboardingUnlockAllSections =>
+      Crowdin.getText(localeName, 'onboardingUnlockAllSections') ??
+      _fallbackTexts.onboardingUnlockAllSections;
+
+  @override
+  String get onboardingAwailableAreas =>
+      Crowdin.getText(localeName, 'onboardingAwailableAreas') ??
+      _fallbackTexts.onboardingAwailableAreas;
+
+  @override
+  String get onboardingUnlockBuddyMessage =>
+      Crowdin.getText(localeName, 'onboardingUnlockBuddyMessage') ??
+      _fallbackTexts.onboardingUnlockBuddyMessage;
+
+  @override
+  String get onboardingWeWillGuideYou =>
+      Crowdin.getText(localeName, 'onboardingWeWillGuideYou') ??
+      _fallbackTexts.onboardingWeWillGuideYou;
+
+  @override
+  String get onboardingPhq8Fail =>
+      Crowdin.getText(localeName, 'onboardingPhq8Fail') ?? _fallbackTexts.onboardingPhq8Fail;
+
+  @override
+  String get onboardingGeneralWellBeingSummary =>
+      Crowdin.getText(localeName, 'onboardingGeneralWellBeingSummary') ??
+      _fallbackTexts.onboardingGeneralWellBeingSummary;
+
+  @override
+  String get onboardingBodyAndMindBalanceSummary =>
+      Crowdin.getText(localeName, 'onboardingBodyAndMindBalanceSummary') ??
+      _fallbackTexts.onboardingBodyAndMindBalanceSummary;
+
+  @override
+  String get onboardingStateOfMindSummary =>
+      Crowdin.getText(localeName, 'onboardingStateOfMindSummary') ??
+      _fallbackTexts.onboardingStateOfMindSummary;
+
+  @override
+  String get onboardingCheckCompleted =>
+      Crowdin.getText(localeName, 'onboardingCheckCompleted') ??
+      _fallbackTexts.onboardingCheckCompleted;
+
+  @override
+  String get onboardingYouExceededTimeMessage =>
+      Crowdin.getText(localeName, 'onboardingYouExceededTimeMessage') ??
+      _fallbackTexts.onboardingYouExceededTimeMessage;
+
+  @override
+  String get onboardingNoWorriesYouCanDoItLater =>
+      Crowdin.getText(localeName, 'onboardingNoWorriesYouCanDoItLater') ??
+      _fallbackTexts.onboardingNoWorriesYouCanDoItLater;
+
+  @override
+  String get onboardingMentalResultSubText1 =>
+      Crowdin.getText(localeName, 'onboardingMentalResultSubText1') ??
+      _fallbackTexts.onboardingMentalResultSubText1;
+
+  @override
+  String get onboardingMentalResultSubText2 =>
+      Crowdin.getText(localeName, 'onboardingMentalResultSubText2') ??
+      _fallbackTexts.onboardingMentalResultSubText2;
+
+  @override
+  String get onboardingMentalResultSubText3 =>
+      Crowdin.getText(localeName, 'onboardingMentalResultSubText3') ??
+      _fallbackTexts.onboardingMentalResultSubText3;
+
+  @override
   String get avatarAvatar =>
       Crowdin.getText(localeName, 'avatarAvatar') ?? _fallbackTexts.avatarAvatar;
 
@@ -4591,91 +5337,6 @@ class CrowdinLocalization extends AppLocalizations {
   @override
   String get avatarCropper =>
       Crowdin.getText(localeName, 'avatarCropper') ?? _fallbackTexts.avatarCropper;
-
-  @override
-  String get mentalTestResultsPhq8FinalResultHigh1 =>
-      Crowdin.getText(localeName, 'mentalTestResultsPhq8FinalResultHigh1') ??
-      _fallbackTexts.mentalTestResultsPhq8FinalResultHigh1;
-
-  @override
-  String get mentalTestResultsPhq8FinalResultHigh2 =>
-      Crowdin.getText(localeName, 'mentalTestResultsPhq8FinalResultHigh2') ??
-      _fallbackTexts.mentalTestResultsPhq8FinalResultHigh2;
-
-  @override
-  String get mentalTestResultsPhq8FinalResultHigh3 =>
-      Crowdin.getText(localeName, 'mentalTestResultsPhq8FinalResultHigh3') ??
-      _fallbackTexts.mentalTestResultsPhq8FinalResultHigh3;
-
-  @override
-  String get mentalTestResultsPhq8FinalResultHigh4 =>
-      Crowdin.getText(localeName, 'mentalTestResultsPhq8FinalResultHigh4') ??
-      _fallbackTexts.mentalTestResultsPhq8FinalResultHigh4;
-
-  @override
-  String get mentalTestResultsIfYouHaveSuicidalThoughts =>
-      Crowdin.getText(localeName, 'mentalTestResultsIfYouHaveSuicidalThoughts') ??
-      _fallbackTexts.mentalTestResultsIfYouHaveSuicidalThoughts;
-
-  @override
-  String get mentalTestResultsPersonalProgram =>
-      Crowdin.getText(localeName, 'mentalTestResultsPersonalProgram') ??
-      _fallbackTexts.mentalTestResultsPersonalProgram;
-
-  @override
-  String get mentalTestResultsSupportMessage =>
-      Crowdin.getText(localeName, 'mentalTestResultsSupportMessage') ??
-      _fallbackTexts.mentalTestResultsSupportMessage;
-
-  @override
-  String get mentalTestResultsFeelLimited1 =>
-      Crowdin.getText(localeName, 'mentalTestResultsFeelLimited1') ??
-      _fallbackTexts.mentalTestResultsFeelLimited1;
-
-  @override
-  String get mentalTestResultsFeelLimited2 =>
-      Crowdin.getText(localeName, 'mentalTestResultsFeelLimited2') ??
-      _fallbackTexts.mentalTestResultsFeelLimited2;
-
-  @override
-  String get mentalTestResultsFeelLimited3 =>
-      Crowdin.getText(localeName, 'mentalTestResultsFeelLimited3') ??
-      _fallbackTexts.mentalTestResultsFeelLimited3;
-
-  @override
-  String get mentalTestResultsFeelLimited4 =>
-      Crowdin.getText(localeName, 'mentalTestResultsFeelLimited4') ??
-      _fallbackTexts.mentalTestResultsFeelLimited4;
-
-  @override
-  String get mentalTestResultsNotATherapy =>
-      Crowdin.getText(localeName, 'mentalTestResultsNotATherapy') ??
-      _fallbackTexts.mentalTestResultsNotATherapy;
-
-  @override
-  String get mentalTestResultsLearnManyThings =>
-      Crowdin.getText(localeName, 'mentalTestResultsLearnManyThings') ??
-      _fallbackTexts.mentalTestResultsLearnManyThings;
-
-  @override
-  String get mentalTestResultsUnlockAllSections =>
-      Crowdin.getText(localeName, 'mentalTestResultsUnlockAllSections') ??
-      _fallbackTexts.mentalTestResultsUnlockAllSections;
-
-  @override
-  String get mentalTestResultsAwailableAreas =>
-      Crowdin.getText(localeName, 'mentalTestResultsAwailableAreas') ??
-      _fallbackTexts.mentalTestResultsAwailableAreas;
-
-  @override
-  String get mentalTestResultsUnlockBuddyMessage =>
-      Crowdin.getText(localeName, 'mentalTestResultsUnlockBuddyMessage') ??
-      _fallbackTexts.mentalTestResultsUnlockBuddyMessage;
-
-  @override
-  String get mentalTestResultsWeWillGuideYou =>
-      Crowdin.getText(localeName, 'mentalTestResultsWeWillGuideYou') ??
-      _fallbackTexts.mentalTestResultsWeWillGuideYou;
 
   @override
   String get smartGoalsMyGoals =>
@@ -5499,30 +6160,6 @@ class CrowdinLocalization extends AppLocalizations {
       Crowdin.getText(localeName, 'introBodyTextSecond') ?? _fallbackTexts.introBodyTextSecond;
 
   @override
-  String get intro2Title =>
-      Crowdin.getText(localeName, 'intro2Title') ?? _fallbackTexts.intro2Title;
-
-  @override
-  String get intro2BodyTextFirst =>
-      Crowdin.getText(localeName, 'intro2BodyTextFirst') ?? _fallbackTexts.intro2BodyTextFirst;
-
-  @override
-  String get intro2BodyTextSecond =>
-      Crowdin.getText(localeName, 'intro2BodyTextSecond') ?? _fallbackTexts.intro2BodyTextSecond;
-
-  @override
-  String get intro3Title =>
-      Crowdin.getText(localeName, 'intro3Title') ?? _fallbackTexts.intro3Title;
-
-  @override
-  String get intro3BodyTextFirst =>
-      Crowdin.getText(localeName, 'intro3BodyTextFirst') ?? _fallbackTexts.intro3BodyTextFirst;
-
-  @override
-  String get intro3BodyTextSecond =>
-      Crowdin.getText(localeName, 'intro3BodyTextSecond') ?? _fallbackTexts.intro3BodyTextSecond;
-
-  @override
   String loginTitle(String projectName) =>
       Crowdin.getText(localeName, 'loginTitle', {'projectName': projectName}) ??
       _fallbackTexts.loginTitle(projectName);
@@ -5541,228 +6178,7 @@ class CrowdinLocalization extends AppLocalizations {
       Crowdin.getText(localeName, 'forgotPasswordBody') ?? _fallbackTexts.forgotPasswordBody;
 
   @override
-  String get onboardingIntroTitle =>
-      Crowdin.getText(localeName, 'onboardingIntroTitle') ?? _fallbackTexts.onboardingIntroTitle;
-
-  @override
-  String get onboardingIntroProgram1 =>
-      Crowdin.getText(localeName, 'onboardingIntroProgram1') ??
-      _fallbackTexts.onboardingIntroProgram1;
-
-  @override
-  String get onboardingIntroProgram2 =>
-      Crowdin.getText(localeName, 'onboardingIntroProgram2') ??
-      _fallbackTexts.onboardingIntroProgram2;
-
-  @override
-  String get onboardingIntroMissionTitle =>
-      Crowdin.getText(localeName, 'onboardingIntroMissionTitle') ??
-      _fallbackTexts.onboardingIntroMissionTitle;
-
-  @override
-  String get onboardingIntroMissionAndrew =>
-      Crowdin.getText(localeName, 'onboardingIntroMissionAndrew') ??
-      _fallbackTexts.onboardingIntroMissionAndrew;
-
-  @override
-  String get onboardingIntroMissionMaria =>
-      Crowdin.getText(localeName, 'onboardingIntroMissionMaria') ??
-      _fallbackTexts.onboardingIntroMissionMaria;
-
-  @override
-  String get onboardingIntroMissionShalu =>
-      Crowdin.getText(localeName, 'onboardingIntroMissionShalu') ??
-      _fallbackTexts.onboardingIntroMissionShalu;
-
-  @override
-  String get onboardingIntroMissionJoshua =>
-      Crowdin.getText(localeName, 'onboardingIntroMissionJoshua') ??
-      _fallbackTexts.onboardingIntroMissionJoshua;
-
-  @override
-  String get onboardingIntroMissionDenise =>
-      Crowdin.getText(localeName, 'onboardingIntroMissionDenise') ??
-      _fallbackTexts.onboardingIntroMissionDenise;
-
-  @override
-  String get onboardingPacingTitle =>
-      Crowdin.getText(localeName, 'onboardingPacingTitle') ?? _fallbackTexts.onboardingPacingTitle;
-
-  @override
-  String get onboardingPacingMessage =>
-      Crowdin.getText(localeName, 'onboardingPacingMessage') ??
-      _fallbackTexts.onboardingPacingMessage;
-
-  @override
-  String get iAmReady => Crowdin.getText(localeName, 'iAmReady') ?? _fallbackTexts.iAmReady;
-
-  @override
-  String get physicalIntroTitle =>
-      Crowdin.getText(localeName, 'physicalIntroTitle') ?? _fallbackTexts.physicalIntroTitle;
-
-  @override
-  String get physicalIntroBody =>
-      Crowdin.getText(localeName, 'physicalIntroBody') ?? _fallbackTexts.physicalIntroBody;
-
-  @override
   String get minutes => Crowdin.getText(localeName, 'minutes') ?? _fallbackTexts.minutes;
-
-  @override
-  String get ageCheckFailedTitle =>
-      Crowdin.getText(localeName, 'ageCheckFailedTitle') ?? _fallbackTexts.ageCheckFailedTitle;
-
-  @override
-  String get ageCheckFailedBody =>
-      Crowdin.getText(localeName, 'ageCheckFailedBody') ?? _fallbackTexts.ageCheckFailedBody;
-
-  @override
-  String get yourSex => Crowdin.getText(localeName, 'yourSex') ?? _fallbackTexts.yourSex;
-
-  @override
-  String get whatYourSex =>
-      Crowdin.getText(localeName, 'whatYourSex') ?? _fallbackTexts.whatYourSex;
-
-  @override
-  String get sexQuestionBody =>
-      Crowdin.getText(localeName, 'sexQuestionBody') ?? _fallbackTexts.sexQuestionBody;
-
-  @override
-  String get sex => Crowdin.getText(localeName, 'sex') ?? _fallbackTexts.sex;
-
-  @override
-  String get genderPageTitle =>
-      Crowdin.getText(localeName, 'genderPageTitle') ?? _fallbackTexts.genderPageTitle;
-
-  @override
-  String get happinessTitle =>
-      Crowdin.getText(localeName, 'happinessTitle') ?? _fallbackTexts.happinessTitle;
-
-  @override
-  String get happinessBody1 =>
-      Crowdin.getText(localeName, 'happinessBody1') ?? _fallbackTexts.happinessBody1;
-
-  @override
-  String get happinessBody2 =>
-      Crowdin.getText(localeName, 'happinessBody2') ?? _fallbackTexts.happinessBody2;
-
-  @override
-  String get yourHeight => Crowdin.getText(localeName, 'yourHeight') ?? _fallbackTexts.yourHeight;
-
-  @override
-  String get metric => Crowdin.getText(localeName, 'metric') ?? _fallbackTexts.metric;
-
-  @override
-  String get imperial => Crowdin.getText(localeName, 'imperial') ?? _fallbackTexts.imperial;
-
-  @override
-  String get next => Crowdin.getText(localeName, 'next') ?? _fallbackTexts.next;
-
-  @override
-  String get changeYourHeight =>
-      Crowdin.getText(localeName, 'changeYourHeight') ?? _fallbackTexts.changeYourHeight;
-
-  @override
-  String get heightSmall =>
-      Crowdin.getText(localeName, 'heightSmall') ?? _fallbackTexts.heightSmall;
-
-  @override
-  String get heightLarge =>
-      Crowdin.getText(localeName, 'heightLarge') ?? _fallbackTexts.heightLarge;
-
-  @override
-  String get correctHeight =>
-      Crowdin.getText(localeName, 'correctHeight') ?? _fallbackTexts.correctHeight;
-
-  @override
-  String get yourWeight => Crowdin.getText(localeName, 'yourWeight') ?? _fallbackTexts.yourWeight;
-
-  @override
-  String get yourBodyMassIndex =>
-      Crowdin.getText(localeName, 'yourBodyMassIndex') ?? _fallbackTexts.yourBodyMassIndex;
-
-  @override
-  String fitnessCheckFailedInformationText(String bmiMinIndex, String bmiMaxIndex) =>
-      Crowdin.getText(localeName, 'fitnessCheckFailedInformationText',
-          {'bmiMinIndex': bmiMinIndex, 'bmiMaxIndex': bmiMaxIndex}) ??
-      _fallbackTexts.fitnessCheckFailedInformationText(bmiMinIndex, bmiMaxIndex);
-
-  @override
-  String get fitnessCheckFailedInformationText2 =>
-      Crowdin.getText(localeName, 'fitnessCheckFailedInformationText2') ??
-      _fallbackTexts.fitnessCheckFailedInformationText2;
-
-  @override
-  String get physicalCheckPassedTitle =>
-      Crowdin.getText(localeName, 'physicalCheckPassedTitle') ??
-      _fallbackTexts.physicalCheckPassedTitle;
-
-  @override
-  String get age => Crowdin.getText(localeName, 'age') ?? _fallbackTexts.age;
-
-  @override
-  String get height => Crowdin.getText(localeName, 'height') ?? _fallbackTexts.height;
-
-  @override
-  String get weight => Crowdin.getText(localeName, 'weight') ?? _fallbackTexts.weight;
-
-  @override
-  String get bmi => Crowdin.getText(localeName, 'bmi') ?? _fallbackTexts.bmi;
-
-  @override
-  String get years => Crowdin.getText(localeName, 'years') ?? _fallbackTexts.years;
-
-  @override
-  String get bmiDescription1 =>
-      Crowdin.getText(localeName, 'bmiDescription1') ?? _fallbackTexts.bmiDescription1;
-
-  @override
-  String get bmiDescriptionAccent =>
-      Crowdin.getText(localeName, 'bmiDescriptionAccent') ?? _fallbackTexts.bmiDescriptionAccent;
-
-  @override
-  String get bmiDescription2 =>
-      Crowdin.getText(localeName, 'bmiDescription2') ?? _fallbackTexts.bmiDescription2;
-
-  @override
-  String get bmiExclusionBodyTitle =>
-      Crowdin.getText(localeName, 'bmiExclusionBodyTitle') ?? _fallbackTexts.bmiExclusionBodyTitle;
-
-  @override
-  String get bmiExclusionBodyOlder19LowBmi =>
-      Crowdin.getText(localeName, 'bmiExclusionBodyOlder19LowBmi') ??
-      _fallbackTexts.bmiExclusionBodyOlder19LowBmi;
-
-  @override
-  String get bmiExclusionBodyOlder19HighBmi =>
-      Crowdin.getText(localeName, 'bmiExclusionBodyOlder19HighBmi') ??
-      _fallbackTexts.bmiExclusionBodyOlder19HighBmi;
-
-  @override
-  String get bmiExclusionBodyYounger19LowBmi =>
-      Crowdin.getText(localeName, 'bmiExclusionBodyYounger19LowBmi') ??
-      _fallbackTexts.bmiExclusionBodyYounger19LowBmi;
-
-  @override
-  String get bmiExclusionBodyYounger19HighBmi =>
-      Crowdin.getText(localeName, 'bmiExclusionBodyYounger19HighBmi') ??
-      _fallbackTexts.bmiExclusionBodyYounger19HighBmi;
-
-  @override
-  String get bmiExclusionBodyHighBmiEnding =>
-      Crowdin.getText(localeName, 'bmiExclusionBodyHighBmiEnding') ??
-      _fallbackTexts.bmiExclusionBodyHighBmiEnding;
-
-  @override
-  String get bmiExclusionBodyLowBmiEnding =>
-      Crowdin.getText(localeName, 'bmiExclusionBodyLowBmiEnding') ??
-      _fallbackTexts.bmiExclusionBodyLowBmiEnding;
-
-  @override
-  String get letsMoveOn => Crowdin.getText(localeName, 'letsMoveOn') ?? _fallbackTexts.letsMoveOn;
-
-  @override
-  String get medicalIntroTitle =>
-      Crowdin.getText(localeName, 'medicalIntroTitle') ?? _fallbackTexts.medicalIntroTitle;
 
   @override
   String stepCounter(String currentStep, String totalSteps) =>
@@ -5771,470 +6187,10 @@ class CrowdinLocalization extends AppLocalizations {
       _fallbackTexts.stepCounter(currentStep, totalSteps);
 
   @override
-  String get medicalIntroBody =>
-      Crowdin.getText(localeName, 'medicalIntroBody') ?? _fallbackTexts.medicalIntroBody;
-
-  @override
-  String get areYouPregnant =>
-      Crowdin.getText(localeName, 'areYouPregnant') ?? _fallbackTexts.areYouPregnant;
-
-  @override
   String get yes => Crowdin.getText(localeName, 'yes') ?? _fallbackTexts.yes;
 
   @override
   String get no => Crowdin.getText(localeName, 'no') ?? _fallbackTexts.no;
-
-  @override
-  String get failedPregnancyTitle =>
-      Crowdin.getText(localeName, 'failedPregnancyTitle') ?? _fallbackTexts.failedPregnancyTitle;
-
-  @override
-  String get failedPregnancyBody1 =>
-      Crowdin.getText(localeName, 'failedPregnancyBody1') ?? _fallbackTexts.failedPregnancyBody1;
-
-  @override
-  String get failedPregnancyBody2 =>
-      Crowdin.getText(localeName, 'failedPregnancyBody2') ?? _fallbackTexts.failedPregnancyBody2;
-
-  @override
-  String get failedPregnancyBody3 =>
-      Crowdin.getText(localeName, 'failedPregnancyBody3') ?? _fallbackTexts.failedPregnancyBody3;
-
-  @override
-  String get failedPregnancyBody4 =>
-      Crowdin.getText(localeName, 'failedPregnancyBody4') ?? _fallbackTexts.failedPregnancyBody4;
-
-  @override
-  String get medicinesTitle =>
-      Crowdin.getText(localeName, 'medicinesTitle') ?? _fallbackTexts.medicinesTitle;
-
-  @override
-  String get medicinesPlaceholder =>
-      Crowdin.getText(localeName, 'medicinesPlaceholder') ?? _fallbackTexts.medicinesPlaceholder;
-
-  @override
-  String get weightLossMedicationQuestion =>
-      Crowdin.getText(localeName, 'weightLossMedicationQuestion') ??
-      _fallbackTexts.weightLossMedicationQuestion;
-
-  @override
-  String get medicationPastPeriodQuestion =>
-      Crowdin.getText(localeName, 'medicationPastPeriodQuestion') ??
-      _fallbackTexts.medicationPastPeriodQuestion;
-
-  @override
-  String get medicationPastPeriodQuestion2 =>
-      Crowdin.getText(localeName, 'medicationPastPeriodQuestion2') ??
-      _fallbackTexts.medicationPastPeriodQuestion2;
-
-  @override
-  String get medicationTitle =>
-      Crowdin.getText(localeName, 'medicationTitle') ?? _fallbackTexts.medicationTitle;
-
-  @override
-  String get medicationExplanationBody1 =>
-      Crowdin.getText(localeName, 'medicationExplanationBody1') ??
-      _fallbackTexts.medicationExplanationBody1;
-
-  @override
-  String get medicationExplanationBody2 =>
-      Crowdin.getText(localeName, 'medicationExplanationBody2') ??
-      _fallbackTexts.medicationExplanationBody2;
-
-  @override
-  String get medicationExplanationBody3 =>
-      Crowdin.getText(localeName, 'medicationExplanationBody3') ??
-      _fallbackTexts.medicationExplanationBody3;
-
-  @override
-  String get medicationExplanationBody4 =>
-      Crowdin.getText(localeName, 'medicationExplanationBody4') ??
-      _fallbackTexts.medicationExplanationBody4;
-
-  @override
-  String get medicationExplanationBody5 =>
-      Crowdin.getText(localeName, 'medicationExplanationBody5') ??
-      _fallbackTexts.medicationExplanationBody5;
-
-  @override
-  String get medicationExplanationBody6 =>
-      Crowdin.getText(localeName, 'medicationExplanationBody6') ??
-      _fallbackTexts.medicationExplanationBody6;
-
-  @override
-  String get medicationExplanationBody7 =>
-      Crowdin.getText(localeName, 'medicationExplanationBody7') ??
-      _fallbackTexts.medicationExplanationBody7;
-
-  @override
-  String get medicationExplanationBody8 =>
-      Crowdin.getText(localeName, 'medicationExplanationBody8') ??
-      _fallbackTexts.medicationExplanationBody8;
-
-  @override
-  String get medicationExplanationBody9 =>
-      Crowdin.getText(localeName, 'medicationExplanationBody9') ??
-      _fallbackTexts.medicationExplanationBody9;
-
-  @override
-  String get mounjaro => Crowdin.getText(localeName, 'mounjaro') ?? _fallbackTexts.mounjaro;
-
-  @override
-  String get ozempic => Crowdin.getText(localeName, 'ozempic') ?? _fallbackTexts.ozempic;
-
-  @override
-  String get rybelsus => Crowdin.getText(localeName, 'rybelsus') ?? _fallbackTexts.rybelsus;
-
-  @override
-  String get wegovy => Crowdin.getText(localeName, 'wegovy') ?? _fallbackTexts.wegovy;
-
-  @override
-  String get otherBrand => Crowdin.getText(localeName, 'otherBrand') ?? _fallbackTexts.otherBrand;
-
-  @override
-  String get lessThanMonth =>
-      Crowdin.getText(localeName, 'lessThanMonth') ?? _fallbackTexts.lessThanMonth;
-
-  @override
-  String lessThanCertainMonths(String number) =>
-      Crowdin.getText(localeName, 'lessThanCertainMonths', {'number': number}) ??
-      _fallbackTexts.lessThanCertainMonths(number);
-
-  @override
-  String get obesityQuestion =>
-      Crowdin.getText(localeName, 'obesityQuestion') ?? _fallbackTexts.obesityQuestion;
-
-  @override
-  String get thyroidDiseaseQuestion =>
-      Crowdin.getText(localeName, 'thyroidDiseaseQuestion') ??
-      _fallbackTexts.thyroidDiseaseQuestion;
-
-  @override
-  String get metabolicDiseaseQuestion =>
-      Crowdin.getText(localeName, 'metabolicDiseaseQuestion') ??
-      _fallbackTexts.metabolicDiseaseQuestion;
-
-  @override
-  String get hypertensionQuestion =>
-      Crowdin.getText(localeName, 'hypertensionQuestion') ?? _fallbackTexts.hypertensionQuestion;
-
-  @override
-  String get cardiovascularDiseaseQuestion =>
-      Crowdin.getText(localeName, 'cardiovascularDiseaseQuestion') ??
-      _fallbackTexts.cardiovascularDiseaseQuestion;
-
-  @override
-  String get stomachReductionQuestion =>
-      Crowdin.getText(localeName, 'stomachReductionQuestion') ??
-      _fallbackTexts.stomachReductionQuestion;
-
-  @override
-  String get diabetesQuestion =>
-      Crowdin.getText(localeName, 'diabetesQuestion') ?? _fallbackTexts.diabetesQuestion;
-
-  @override
-  String get renalFailureQuestion =>
-      Crowdin.getText(localeName, 'renalFailureQuestion') ?? _fallbackTexts.renalFailureQuestion;
-
-  @override
-  String get asthmaQuestion =>
-      Crowdin.getText(localeName, 'asthmaQuestion') ?? _fallbackTexts.asthmaQuestion;
-
-  @override
-  String get liverDiseaseQuestion =>
-      Crowdin.getText(localeName, 'liverDiseaseQuestion') ?? _fallbackTexts.liverDiseaseQuestion;
-
-  @override
-  String get sleepApneaSyndromeQuestion =>
-      Crowdin.getText(localeName, 'sleepApneaSyndromeQuestion') ??
-      _fallbackTexts.sleepApneaSyndromeQuestion;
-
-  @override
-  String get locomotorSystemDiseaseQuestion =>
-      Crowdin.getText(localeName, 'locomotorSystemDiseaseQuestion') ??
-      _fallbackTexts.locomotorSystemDiseaseQuestion;
-
-  @override
-  String get treatmentByTheDoctorQuestion =>
-      Crowdin.getText(localeName, 'treatmentByTheDoctorQuestion') ??
-      _fallbackTexts.treatmentByTheDoctorQuestion;
-
-  @override
-  String get medicalCheckPassedTitle =>
-      Crowdin.getText(localeName, 'medicalCheckPassedTitle') ??
-      _fallbackTexts.medicalCheckPassedTitle;
-
-  @override
-  String get medicalCheckPassedBody =>
-      Crowdin.getText(localeName, 'medicalCheckPassedBody') ??
-      _fallbackTexts.medicalCheckPassedBody;
-
-  @override
-  String get medicalCheckFailedTitle =>
-      Crowdin.getText(localeName, 'medicalCheckFailedTitle') ??
-      _fallbackTexts.medicalCheckFailedTitle;
-
-  @override
-  String get medicalCheckFailedBody =>
-      Crowdin.getText(localeName, 'medicalCheckFailedBody') ??
-      _fallbackTexts.medicalCheckFailedBody;
-
-  @override
-  String get medicalCheckFailedBody2 =>
-      Crowdin.getText(localeName, 'medicalCheckFailedBody2') ??
-      _fallbackTexts.medicalCheckFailedBody2;
-
-  @override
-  String get cardioVascularDisease =>
-      Crowdin.getText(localeName, 'cardioVascularDisease') ?? _fallbackTexts.cardioVascularDisease;
-
-  @override
-  String get stomachReductionDisease =>
-      Crowdin.getText(localeName, 'stomachReductionDisease') ??
-      _fallbackTexts.stomachReductionDisease;
-
-  @override
-  String get obesity => Crowdin.getText(localeName, 'obesity') ?? _fallbackTexts.obesity;
-
-  @override
-  String get thyroidDisease =>
-      Crowdin.getText(localeName, 'thyroidDisease') ?? _fallbackTexts.thyroidDisease;
-
-  @override
-  String get metabolicDisease =>
-      Crowdin.getText(localeName, 'metabolicDisease') ?? _fallbackTexts.metabolicDisease;
-
-  @override
-  String get hypertension =>
-      Crowdin.getText(localeName, 'hypertension') ?? _fallbackTexts.hypertension;
-
-  @override
-  String get diabetes => Crowdin.getText(localeName, 'diabetes') ?? _fallbackTexts.diabetes;
-
-  @override
-  String get diabetesTypeI =>
-      Crowdin.getText(localeName, 'diabetesTypeI') ?? _fallbackTexts.diabetesTypeI;
-
-  @override
-  String get diabetesTypeII =>
-      Crowdin.getText(localeName, 'diabetesTypeII') ?? _fallbackTexts.diabetesTypeII;
-
-  @override
-  String get renalFailure =>
-      Crowdin.getText(localeName, 'renalFailure') ?? _fallbackTexts.renalFailure;
-
-  @override
-  String get asthma => Crowdin.getText(localeName, 'asthma') ?? _fallbackTexts.asthma;
-
-  @override
-  String get liverDisease =>
-      Crowdin.getText(localeName, 'liverDisease') ?? _fallbackTexts.liverDisease;
-
-  @override
-  String get sleepApneaSyndrome =>
-      Crowdin.getText(localeName, 'sleepApneaSyndrome') ?? _fallbackTexts.sleepApneaSyndrome;
-
-  @override
-  String get locomotorSystemDisease =>
-      Crowdin.getText(localeName, 'locomotorSystemDisease') ??
-      _fallbackTexts.locomotorSystemDisease;
-
-  @override
-  String get mentalHealth =>
-      Crowdin.getText(localeName, 'mentalHealth') ?? _fallbackTexts.mentalHealth;
-
-  @override
-  String get mentalIntroBody1 =>
-      Crowdin.getText(localeName, 'mentalIntroBody1') ?? _fallbackTexts.mentalIntroBody1;
-
-  @override
-  String get mentalIntroBody2 =>
-      Crowdin.getText(localeName, 'mentalIntroBody2') ?? _fallbackTexts.mentalIntroBody2;
-
-  @override
-  String get yourMentalHealth =>
-      Crowdin.getText(localeName, 'yourMentalHealth') ?? _fallbackTexts.yourMentalHealth;
-
-  @override
-  String get mentalHealthIntroTextOne =>
-      Crowdin.getText(localeName, 'mentalHealthIntroTextOne') ??
-      _fallbackTexts.mentalHealthIntroTextOne;
-
-  @override
-  String get mentalHealthIntroTextTwo =>
-      Crowdin.getText(localeName, 'mentalHealthIntroTextTwo') ??
-      _fallbackTexts.mentalHealthIntroTextTwo;
-
-  @override
-  String get mentalHealthIntroTextTwoAccent =>
-      Crowdin.getText(localeName, 'mentalHealthIntroTextTwoAccent') ??
-      _fallbackTexts.mentalHealthIntroTextTwoAccent;
-
-  @override
-  String get mentalHealthIntroTextThree =>
-      Crowdin.getText(localeName, 'mentalHealthIntroTextThree') ??
-      _fallbackTexts.mentalHealthIntroTextThree;
-
-  @override
-  String get mentalHealthIntroTextThreeAccent =>
-      Crowdin.getText(localeName, 'mentalHealthIntroTextThreeAccent') ??
-      _fallbackTexts.mentalHealthIntroTextThreeAccent;
-
-  @override
-  String get mentalHealthIntroTextFour =>
-      Crowdin.getText(localeName, 'mentalHealthIntroTextFour') ??
-      _fallbackTexts.mentalHealthIntroTextFour;
-
-  @override
-  String get mentalHealthIntroTextFive =>
-      Crowdin.getText(localeName, 'mentalHealthIntroTextFive') ??
-      _fallbackTexts.mentalHealthIntroTextFive;
-
-  @override
-  String get mentalHealthIntroTextSix =>
-      Crowdin.getText(localeName, 'mentalHealthIntroTextSix') ??
-      _fallbackTexts.mentalHealthIntroTextSix;
-
-  @override
-  String mentalHealthMoreInfo(String appName) =>
-      Crowdin.getText(localeName, 'mentalHealthMoreInfo', {'appName': appName}) ??
-      _fallbackTexts.mentalHealthMoreInfo(appName);
-
-  @override
-  String get mentalHealthMoreInfoBold1 =>
-      Crowdin.getText(localeName, 'mentalHealthMoreInfoBold1') ??
-      _fallbackTexts.mentalHealthMoreInfoBold1;
-
-  @override
-  String get mentalHealthMoreInfoBold2 =>
-      Crowdin.getText(localeName, 'mentalHealthMoreInfoBold2') ??
-      _fallbackTexts.mentalHealthMoreInfoBold2;
-
-  @override
-  String get who8Question =>
-      Crowdin.getText(localeName, 'who8Question') ?? _fallbackTexts.who8Question;
-
-  @override
-  String get lastTwoWeeks =>
-      Crowdin.getText(localeName, 'lastTwoWeeks') ?? _fallbackTexts.lastTwoWeeks;
-
-  @override
-  String get duringThe => Crowdin.getText(localeName, 'duringThe') ?? _fallbackTexts.duringThe;
-
-  @override
-  String get pastFourWeeks =>
-      Crowdin.getText(localeName, 'pastFourWeeks') ?? _fallbackTexts.pastFourWeeks;
-
-  @override
-  String get phq15Question =>
-      Crowdin.getText(localeName, 'phq15Question') ?? _fallbackTexts.phq15Question;
-
-  @override
-  String get overThe => Crowdin.getText(localeName, 'overThe') ?? _fallbackTexts.overThe;
-
-  @override
-  String get phq8Question =>
-      Crowdin.getText(localeName, 'phq8Question') ?? _fallbackTexts.phq8Question;
-
-  @override
-  String get who5ResultTestMinimal =>
-      Crowdin.getText(localeName, 'who5ResultTestMinimal') ?? _fallbackTexts.who5ResultTestMinimal;
-
-  @override
-  String get who5ResultTestHigh =>
-      Crowdin.getText(localeName, 'who5ResultTestHigh') ?? _fallbackTexts.who5ResultTestHigh;
-
-  @override
-  String get phq15ResultMinimal =>
-      Crowdin.getText(localeName, 'phq15ResultMinimal') ?? _fallbackTexts.phq15ResultMinimal;
-
-  @override
-  String get phq15ResultMild =>
-      Crowdin.getText(localeName, 'phq15ResultMild') ?? _fallbackTexts.phq15ResultMild;
-
-  @override
-  String get phq15ResultMedium =>
-      Crowdin.getText(localeName, 'phq15ResultMedium') ?? _fallbackTexts.phq15ResultMedium;
-
-  @override
-  String get phq15ResultHigh =>
-      Crowdin.getText(localeName, 'phq15ResultHigh') ?? _fallbackTexts.phq15ResultHigh;
-
-  @override
-  String get gad7ResultMinimal =>
-      Crowdin.getText(localeName, 'gad7ResultMinimal') ?? _fallbackTexts.gad7ResultMinimal;
-
-  @override
-  String get gad7ResultMild =>
-      Crowdin.getText(localeName, 'gad7ResultMild') ?? _fallbackTexts.gad7ResultMild;
-
-  @override
-  String get gad7ResultMedium =>
-      Crowdin.getText(localeName, 'gad7ResultMedium') ?? _fallbackTexts.gad7ResultMedium;
-
-  @override
-  String get gad7ResultHigh =>
-      Crowdin.getText(localeName, 'gad7ResultHigh') ?? _fallbackTexts.gad7ResultHigh;
-
-  @override
-  String get phq8ResultMinimal =>
-      Crowdin.getText(localeName, 'phq8ResultMinimal') ?? _fallbackTexts.phq8ResultMinimal;
-
-  @override
-  String get phq8ResultMild =>
-      Crowdin.getText(localeName, 'phq8ResultMild') ?? _fallbackTexts.phq8ResultMild;
-
-  @override
-  String get phq8ResultMedium =>
-      Crowdin.getText(localeName, 'phq8ResultMedium') ?? _fallbackTexts.phq8ResultMedium;
-
-  @override
-  String get phq8ResultHigh =>
-      Crowdin.getText(localeName, 'phq8ResultHigh') ?? _fallbackTexts.phq8ResultHigh;
-
-  @override
-  String get phq8ResultHighest =>
-      Crowdin.getText(localeName, 'phq8ResultHighest') ?? _fallbackTexts.phq8ResultHighest;
-
-  @override
-  String get generalWellBeingSummary =>
-      Crowdin.getText(localeName, 'generalWellBeingSummary') ??
-      _fallbackTexts.generalWellBeingSummary;
-
-  @override
-  String get bodyAndMindBalanceSummary =>
-      Crowdin.getText(localeName, 'bodyAndMindBalanceSummary') ??
-      _fallbackTexts.bodyAndMindBalanceSummary;
-
-  @override
-  String get stateOfMindSummary =>
-      Crowdin.getText(localeName, 'stateOfMindSummary') ?? _fallbackTexts.stateOfMindSummary;
-
-  @override
-  String get checkCompleted =>
-      Crowdin.getText(localeName, 'checkCompleted') ?? _fallbackTexts.checkCompleted;
-
-  @override
-  String get youExceededTimeMessage =>
-      Crowdin.getText(localeName, 'youExceededTimeMessage') ??
-      _fallbackTexts.youExceededTimeMessage;
-
-  @override
-  String get noWorriesYouCanDoItLater =>
-      Crowdin.getText(localeName, 'noWorriesYouCanDoItLater') ??
-      _fallbackTexts.noWorriesYouCanDoItLater;
-
-  @override
-  String get mentalResultSubText1 =>
-      Crowdin.getText(localeName, 'mentalResultSubText1') ?? _fallbackTexts.mentalResultSubText1;
-
-  @override
-  String get mentalResultSubText2 =>
-      Crowdin.getText(localeName, 'mentalResultSubText2') ?? _fallbackTexts.mentalResultSubText2;
-
-  @override
-  String get mentalResultSubText3 =>
-      Crowdin.getText(localeName, 'mentalResultSubText3') ?? _fallbackTexts.mentalResultSubText3;
 
   @override
   String get legalStatement =>
@@ -6666,15 +6622,6 @@ class CrowdinLocalization extends AppLocalizations {
   String forgotEmailSuccessMessage(String email) =>
       Crowdin.getText(localeName, 'forgotEmailSuccessMessage', {'email': email}) ??
       _fallbackTexts.forgotEmailSuccessMessage(email);
-
-  @override
-  String get twelveMonthsOrLonger =>
-      Crowdin.getText(localeName, 'twelveMonthsOrLonger') ?? _fallbackTexts.twelveMonthsOrLonger;
-
-  @override
-  String get betweenSixAndTwelveMonths =>
-      Crowdin.getText(localeName, 'betweenSixAndTwelveMonths') ??
-      _fallbackTexts.betweenSixAndTwelveMonths;
 
   @override
   String get close => Crowdin.getText(localeName, 'close') ?? _fallbackTexts.close;
@@ -7413,9 +7360,6 @@ class CrowdinLocalization extends AppLocalizations {
       _fallbackTexts.noCameraAccessDescription;
 
   @override
-  String get startAgain => Crowdin.getText(localeName, 'startAgain') ?? _fallbackTexts.startAgain;
-
-  @override
   String get sessionGreeting =>
       Crowdin.getText(localeName, 'sessionGreeting') ?? _fallbackTexts.sessionGreeting;
 
@@ -7900,9 +7844,6 @@ class CrowdinLocalization extends AppLocalizations {
 
   @override
   String get yourUser => Crowdin.getText(localeName, 'yourUser') ?? _fallbackTexts.yourUser;
-
-  @override
-  String get phq8Fail => Crowdin.getText(localeName, 'phq8Fail') ?? _fallbackTexts.phq8Fail;
 
   @override
   String get passwordValidationRule4 =>

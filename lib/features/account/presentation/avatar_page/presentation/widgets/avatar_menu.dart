@@ -1,14 +1,14 @@
-import 'package:loopcare_frontend/core/application/localization/localizer_extenstion.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:loopcare_frontend/core/presentation/buttons/custom_outlined_button.dart';
-import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 import 'package:loopcare_frontend/features/account/presentation/account_page/widgets/avatar_container.dart';
 import 'package:loopcare_frontend/features/account/presentation/avatar_page/domain/avatar_controller.dart';
 import 'package:loopcare_frontend/features/account/presentation/avatar_page/domain/avatar_lists.dart';
 import 'package:loopcare_frontend/features/account/presentation/avatar_page/domain/avatar_type_key.dart';
 import 'package:loopcare_frontend/features/account/presentation/avatar_page/domain/avatar_variant_option.dart';
+import 'package:loopcare_frontend/localization/service/localization_extension.dart';
+import 'package:loopcare_frontend/localization/service/localized_texts.dart';
 
 class AvatarMenu extends StatelessWidget {
   final AvatarController controller;

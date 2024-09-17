@@ -1,11 +1,11 @@
-import 'package:loopcare_frontend/core/application/localization/localizer_extenstion.dart';
 import 'package:flutter/material.dart';
-import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/core/presentation/shapes/under_appbar.dart';
 import 'package:loopcare_frontend/core/presentation/text/custom_text.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 import 'package:loopcare_frontend/core/presentation/utils/build_context_extensions.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/main_container.dart';
+import 'package:loopcare_frontend/localization/service/localization_extension.dart';
+import 'package:loopcare_frontend/localization/service/localized_texts.dart';
 
 class FailedAgeContent extends StatelessWidget {
   const FailedAgeContent({super.key});
@@ -20,7 +20,7 @@ class FailedAgeContent extends StatelessWidget {
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 65.0),
               child: CustomText.bitter600(
-                LocalizedTexts.ageCheckFailedTitle.tr(),
+                LocalizedTexts.onboardingAgeCheckFailedTitle.tr(),
                 style: context.textTheme.displayMedium,
                 textAlign: TextAlign.center,
               ),
@@ -36,7 +36,7 @@ class FailedAgeContent extends StatelessWidget {
               borderRadius: BorderRadius.all(Radius.circular(16)),
             ),
             child: CustomText.w400(
-              LocalizedTexts.ageCheckFailedBody.tr(),
+              LocalizedTexts.onboardingAgeCheckFailedBody.tr(),
               style: context.textTheme.bodyMedium,
             ),
           ),

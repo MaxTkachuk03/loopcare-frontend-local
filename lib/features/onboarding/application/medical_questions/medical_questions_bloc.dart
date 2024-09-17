@@ -9,16 +9,13 @@ import 'package:loopcare_frontend/core/domain/analytics/analytics_events.dart';
 import 'package:loopcare_frontend/core/domain/analytics/analytics_parameters.dart';
 import 'package:loopcare_frontend/core/domain/medical_onboarding.dart';
 import 'package:loopcare_frontend/core/infrastructure/services/analytics_service.dart';
-import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/features/onboarding/domain/diseases.dart';
 import 'package:loopcare_frontend/features/onboarding/utils/date_helpers.dart';
+import 'package:loopcare_frontend/localization/service/localized_texts.dart';
 
 part 'medical_questions_bloc.freezed.dart';
-
 part 'medical_questions_bloc.g.dart';
-
 part 'medical_questions_event.dart';
-
 part 'medical_questions_state.dart';
 
 @singleton

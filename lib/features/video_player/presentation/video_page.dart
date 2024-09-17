@@ -2,7 +2,6 @@ import 'dart:async';
 
 import 'package:auto_route/auto_route.dart';
 import 'package:circular_countdown_timer/circular_countdown_timer.dart';
-import 'package:loopcare_frontend/core/application/localization/localizer_extenstion.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loopcare_frontend/core/application/system_service.dart';
@@ -15,7 +14,6 @@ import 'package:loopcare_frontend/core/presentation/buttons/custom_elevated_butt
 import 'package:loopcare_frontend/core/presentation/buttons/custom_filled_icon_button.dart';
 import 'package:loopcare_frontend/core/presentation/custom_safe_area.dart';
 import 'package:loopcare_frontend/core/presentation/loader/loader.dart';
-import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/core/presentation/routes/app_router.gr.dart';
 import 'package:loopcare_frontend/core/presentation/scaffold/custom_scaffold.dart';
 import 'package:loopcare_frontend/features/physical_activities/domain/physical_program.dart';
@@ -24,6 +22,8 @@ import 'package:loopcare_frontend/features/video_player/application/video_player
 import 'package:loopcare_frontend/features/video_player/infrastructure/video_page_controller.dart';
 import 'package:loopcare_frontend/features/video_player/presentation/widgets/rotate_device_message.dart';
 import 'package:loopcare_frontend/features/video_player/presentation/widgets/video_player_widget.dart';
+import 'package:loopcare_frontend/localization/service/localization_extension.dart';
+import 'package:loopcare_frontend/localization/service/localized_texts.dart';
 import 'package:video_player/video_player.dart';
 import 'package:wakelock_plus/wakelock_plus.dart';
 
@@ -216,7 +216,7 @@ class _VideoPageState extends State<VideoPage> {
                             child: controller != null
                                 ? ValueListenableBuilder(
                                     valueListenable: controller,
-                                    builder: (BuildContext context, VideoPlayerValue value, child) {
+                                    builder: (context, value, child) {
                                       final bool isVisible = value.position.inSeconds <
                                           widget.program.exercises[_videoIndex].explanationSkipTime;
 

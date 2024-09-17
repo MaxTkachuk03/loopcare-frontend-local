@@ -1,10 +1,7 @@
 import 'package:auto_route/auto_route.dart';
-import 'package:loopcare_frontend/core/application/localization/localizer_extenstion.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:loopcare_frontend/core/application/localization/app_localizations.dart';
-import 'package:loopcare_frontend/core/application/localization/crowdin_localizations.dart';
 import 'package:loopcare_frontend/core/application/connectivity_bloc/connectivity_bloc.dart';
 import 'package:loopcare_frontend/core/domain/analytics/uxcam/uxcam_navigation_observer.dart';
 import 'package:loopcare_frontend/core/infrastructure/route_observers/route_observer_utils.dart';
@@ -12,11 +9,14 @@ import 'package:loopcare_frontend/core/infrastructure/services/app_bloc_provider
 import 'package:loopcare_frontend/core/infrastructure/services/app_config.dart';
 import 'package:loopcare_frontend/core/infrastructure/services/facebook_events_service.dart';
 import 'package:loopcare_frontend/core/infrastructure/services/firebase_navigator_observer.dart';
-import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/core/presentation/alerting/show_app_snackbar.dart';
 import 'package:loopcare_frontend/core/presentation/routes/app_router.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 import 'package:loopcare_frontend/injection.dart';
+import 'package:loopcare_frontend/localization/service/localization_extension.dart';
+import 'package:loopcare_frontend/localization/service/localized_texts.dart';
+import 'package:loopcare_frontend/localization/src/app_localizations.dart';
+import 'package:loopcare_frontend/localization/src/crowdin_localizations.dart';
 
 final autoRouteObserver = AutoRouteObserver();
 
