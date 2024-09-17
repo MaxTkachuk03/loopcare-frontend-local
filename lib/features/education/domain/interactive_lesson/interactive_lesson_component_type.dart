@@ -1,0 +1,16 @@
+enum InteractiveLessonComponentType {
+  heading1,
+  heading2,
+  heading3,
+  paragraph,
+  bulletedList,
+  numberedList,
+  image,
+  scale,
+  singleSelect,
+  multipleSelect,
+  singleSelectWithFeedback,
+  ordering,
+  textArea,
+  textField,
+}

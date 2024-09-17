@@ -12,6 +12,7 @@ import 'package:loopcare_frontend/features/chat/application/chat_watcher_bloc/ch
 import 'package:loopcare_frontend/features/dashboard/application/physical_activities_bloc.dart';
 import 'package:loopcare_frontend/features/dashboard/application/programs_in_progress_bloc.dart';
 import 'package:loopcare_frontend/features/education/application/education_lesson/education_lesson_bloc.dart';
+import 'package:loopcare_frontend/features/education/application/interactive_lessons/bloc/interactive_lessons_bloc.dart';
 import 'package:loopcare_frontend/features/group_sessions/application/topics_bloc.dart';
 import 'package:loopcare_frontend/features/home/application/navigation_bar_bloc.dart';
 import 'package:loopcare_frontend/features/legal_statement/application/legal_statement_bloc.dart';
@@ -180,6 +181,9 @@ class AppBlocProvider {
         ),
         BlocProvider<UserStatesBloc>(
           create: (_) => getIt<UserStatesBloc>(),
+        ),
+        BlocProvider<InteractiveLessonsBloc>(
+          create: (_) => getIt<InteractiveLessonsBloc>(),
         ),
       ];
 }

@@ -6,6 +6,7 @@ import 'package:loopcare_frontend/core/application/customer_io_service/customer_
 import 'package:loopcare_frontend/core/presentation/alerting/modal_bottom_sheet.dart';
 import 'package:loopcare_frontend/core/presentation/routes/app_router.gr.dart';
 import 'package:loopcare_frontend/features/education/application/education_lesson/education_lesson_bloc.dart';
+import 'package:loopcare_frontend/features/education/application/interactive_lessons/bloc/interactive_lessons_bloc.dart';
 import 'package:loopcare_frontend/features/home/application/navigation_bar_bloc.dart';
 import 'package:loopcare_frontend/features/river/application/river_bloc.dart';
 import 'package:loopcare_frontend/features/river/domain/river_module.dart';
@@ -174,11 +175,17 @@ class _RiverScreenState extends State<RiverScreen> with RiverUtils {
 
     context.read<RiverBloc>().add(RiverEvent.selectModuleItem(item: item));
 
-    context.read<EducationLessonBloc>().add(
-          EducationLessonEvent.getLessonContent(lessonId: item.lessonId),
-        );
+    if (item.isRegularLesson) {
+      context
+          .read<EducationLessonBloc>()
+          .add(EducationLessonEvent.getLessonContent(lessonId: item.lessonId));
 
-    context.router.push(LessonRoute(lessonId: item.lessonId, streamType: item.streamType));
+      context.router.push(LessonRoute(lessonId: item.lessonId, streamType: item.streamType));
+    } else if (item.isInteractiveLesson) {
+      context
+          .read<InteractiveLessonsBloc>()
+          .add(InteractiveLessonsEvent.getInteractiveLesson(lessonId: item.lessonId));
+    }
   }
 
   void _onAnimationCompleted(RiverModuleItem item, FeaturePlacement? placement) {

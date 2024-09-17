@@ -1,0 +1,37 @@
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:injectable/injectable.dart';
+import 'package:loopcare_frontend/core/infrastructure/dio_client/request_error.dart';
+import 'package:loopcare_frontend/features/education/application/education_service.dart';
+import 'package:loopcare_frontend/features/education/domain/interactive_lesson/interactive_lesson.dart';
+
+part 'interactive_lessons_event.dart';
+part 'interactive_lessons_state.dart';
+part 'interactive_lessons_bloc.freezed.dart';
+
+@singleton
+class InteractiveLessonsBloc extends Bloc<InteractiveLessonsEvent, InteractiveLessonsState> {
+  final EducationService _educationService;
+
+  InteractiveLessonsBloc(this._educationService)
+      : super(const InteractiveLessonsState.initial(InteractiveLessonsStateData())) {
+    on<GetInteractiveLesson>(_onGetInteractiveLesson);
+  }
+
+  Future<void> _onGetInteractiveLesson(
+    GetInteractiveLesson event,
+    Emitter<InteractiveLessonsState> emit,
+  ) async {
+    emit(InteractiveLessonsState.loading(state.data.copyWith(isLoading: true)));
+
+    final response = await _educationService.getInteractiveLesson(event.lessonId);
+
+    response.fold(
+      (l) => emit(InteractiveLessonsState.error(state.data.copyWith(error: l, isLoading: false))),
+      (r) => emit(InteractiveLessonsState.lessonLoaded(state.data.copyWith(
+        interactiveLesson: r,
+        isLoading: false,
+      ))),
+    );
+  }
+}
