@@ -264,10 +264,6 @@ class AppRouter extends $AppRouter {
           page: GroupRulesSixRoute.page,
         ), // added
         AutoRoute(
-          path: AppRoutes.supportGroupIntro,
-          page: SupportGroupIntroRoute.page,
-        ),
-        AutoRoute(
           path: AppRoutes.consultDoctor,
           page: ConsultDoctorRoute.page,
         ),
