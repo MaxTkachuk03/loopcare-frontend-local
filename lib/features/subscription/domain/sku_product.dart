@@ -38,7 +38,7 @@ class SkuProduct {
   final Unit unitOffer;
   final int unitOfferCount;
   final String? offerPrice;
-  final int offerPriceAmount;
+  final double offerPriceAmount;
   final double regularPrice;
   final String? offerId;
 

@@ -30,13 +30,12 @@ class SubscriptionSinglePlanPage extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              const SizedBox(height: 16.0),
               CustomText.bitter600(
                 LocalizedTexts.subscriptionGenericTitle.tr(),
                 textAlign: TextAlign.start,
                 style: context.textTheme.displayLarge?.copyWith(color: textColor),
               ),
-              const SizedBox(height: 24.0),
+              const SizedBox(height: 16.0),
               SubscriptionGallery(
                 images: controller.products.first.images,
               ),
@@ -44,9 +43,8 @@ class SubscriptionSinglePlanPage extends StatelessWidget {
               if (!controller.products.first.isPricedOffer)
                 Center(
                   child: SubscriptionAccessBadge.limited(),
-                )
-              else
-                const SizedBox(height: 12.0),
+                ),
+
               SinglePlanItem(
                 title: controller.products.first.title,
                 titleColor: textColor,
