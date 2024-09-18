@@ -583,11 +583,12 @@ class SubscriptionBloc extends Bloc<SubscriptionEvent, SubscriptionState> {
   }
 
   void _emitSubscriptionState(Emitter<SubscriptionState> emit, Subscription subscription) {
-    if (state.data.plans.length == 1) {
+    // Todo will bw updated with new requirements for multiple subscriptionSubscribe
+    // if (state.data.plans.length == 1) {
       emit(SubscriptionState.singlePlan(state.data.copyWith(subscription: subscription)));
-    } else {
-      emit(SubscriptionState.multiplePlans(state.data.copyWith(subscription: subscription)));
-    }
+    // } else {
+    //   emit(SubscriptionState.multiplePlans(state.data.copyWith(subscription: subscription)));
+    // }
   }
 
   FutureOr<void> _onInitSubscription(
