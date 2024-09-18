@@ -1,4 +1,5 @@
 import 'dart:async';
+
 import 'package:collection/collection.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
@@ -8,25 +9,23 @@ import 'package:loopcare_frontend/core/infrastructure/dio_client/request_error.d
 import 'package:loopcare_frontend/core/infrastructure/services/app_sync_service/app_sync_service.dart';
 import 'package:loopcare_frontend/core/infrastructure/services/shared_storage/shared_storage_service.dart';
 import 'package:loopcare_frontend/core/presentation/utils/list_extensions.dart';
-import 'package:loopcare_frontend/features/river/domain/river_module_item_state.dart';
-import 'package:loopcare_frontend/features/river/domain/river_service.dart';
 import 'package:loopcare_frontend/features/river/domain/river_module.dart';
 import 'package:loopcare_frontend/features/river/domain/river_module_item.dart';
-import 'package:loopcare_frontend/features/river/domain/river_module_item_view_state.dart';
 import 'package:loopcare_frontend/features/river/domain/river_module_item_animation_state.dart';
+import 'package:loopcare_frontend/features/river/domain/river_module_item_state.dart';
+import 'package:loopcare_frontend/features/river/domain/river_module_item_view_state.dart';
 import 'package:loopcare_frontend/features/river/domain/river_module_state.dart';
+import 'package:loopcare_frontend/features/river/domain/river_service.dart';
+import 'package:loopcare_frontend/features/river/infrastructure/dto/get_cross_module_items_response.dart';
 import 'package:loopcare_frontend/features/river/infrastructure/dto/get_modules_response.dart';
 import 'package:loopcare_frontend/features/river/infrastructure/dto/river_module_item_state_data.dart';
 import 'package:loopcare_frontend/features/river/infrastructure/dto/river_module_state_data.dart';
 import 'package:loopcare_frontend/features/river/presentation/widgets/painters/river_stream_shaders.dart';
-import 'package:loopcare_frontend/features/river/infrastructure/dto/get_cross_module_items_response.dart';
 import 'package:loopcare_frontend/injection.dart';
 
-part 'river_event.dart';
-
-part 'river_state.dart';
-
 part 'river_bloc.freezed.dart';
+part 'river_event.dart';
+part 'river_state.dart';
 
 @singleton
 class RiverBloc extends Bloc<RiverEvent, RiverState> {
@@ -249,7 +248,8 @@ class RiverBloc extends Bloc<RiverEvent, RiverState> {
     CompleteActiveModule event,
     Emitter<RiverState> emit,
   ) async {
-    if (state.data.activeModule == null) return;
+    final isModuleCompleted = await _isModuleCompleted();
+    if (state.data.activeModule == null || !isModuleCompleted) return;
 
     emit(RiverState.moduleLoading(state.data.copyWith(isLoading: true)));
 
@@ -674,6 +674,13 @@ class RiverBloc extends Bloc<RiverEvent, RiverState> {
         getIt<SharedStorageService>().partlyCompletedModule != state.data.currentPage;
 
     return (isNextPageOrCurrent || isNewCompletion) && (isItemsComplete || isTimePassed);
+  }
+
+  Future<bool> _isModuleCompleted() async {
+    final isItemsComplete = state.data.activeModule.isModuleItemsCompleted;
+    final isTimePassed = await state.data.activeModule.isTimePassed;
+
+    return isItemsComplete && isTimePassed;
   }
 
   bool _noAdditionalBuddyModuleItem(List<RiverModule> modules) =>
