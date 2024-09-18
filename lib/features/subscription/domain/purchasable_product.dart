@@ -39,8 +39,7 @@ class PurchasableProduct {
 
   String get title => isEligible ? _titleOffer : _titleRegular;
 
-  bool get isPricedOffer =>
-      skuProduct.offerPriceAmount > 0 && isEligible;
+  bool get isPricedOffer => skuProduct.offerPriceAmount > 0 && isEligible;
 
   String? get badgeUrl => isPricedOffer ? subscriptionTranslation?.badge : null;
 
