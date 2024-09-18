@@ -44,7 +44,6 @@ class SubscriptionSinglePlanPage extends StatelessWidget {
                 Center(
                   child: SubscriptionAccessBadge.limited(),
                 ),
-
               SinglePlanItem(
                 title: controller.products.first.title,
                 titleColor: textColor,
