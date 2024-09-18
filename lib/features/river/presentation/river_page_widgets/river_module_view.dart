@@ -8,9 +8,9 @@ import 'package:loopcare_frontend/core/presentation/routes/app_router.gr.dart';
 import 'package:loopcare_frontend/features/education/application/education_lesson/education_lesson_bloc.dart';
 import 'package:loopcare_frontend/features/home/application/navigation_bar_bloc.dart';
 import 'package:loopcare_frontend/features/river/application/river_bloc.dart';
+import 'package:loopcare_frontend/features/river/domain/feature_placement.dart';
 import 'package:loopcare_frontend/features/river/domain/river_module.dart';
 import 'package:loopcare_frontend/features/river/domain/river_module_item.dart';
-import 'package:loopcare_frontend/features/river/domain/feature_placement.dart';
 import 'package:loopcare_frontend/features/river/presentation/utils/module_items_utils.dart';
 import 'package:loopcare_frontend/features/river/presentation/utils/river_utils.dart';
 import 'package:loopcare_frontend/features/river/presentation/widgets/river_module_builder.dart';
@@ -202,9 +202,11 @@ class _RiverScreenState extends State<RiverScreen> with RiverUtils {
     }
   }
 
-  void _onCompleteModule(RiverState state) {
-    _showPopup = true;
-    _showCompleteDialog();
+  void _onCompleteModule(RiverState state) async {
+    if (widget.module.isModuleItemsCompleted && await widget.module.isTimePassed) {
+      _showPopup = true;
+      _showCompleteDialog();
+    }
   }
 
   void _onPartlyCompleteModule(RiverState state) {
