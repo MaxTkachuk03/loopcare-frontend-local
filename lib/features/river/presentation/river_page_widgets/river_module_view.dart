@@ -48,8 +48,11 @@ class _RiverScreenState extends State<RiverScreen> with RiverUtils {
     _page = getIndex(widget.page);
     _positionedItems = ModuleItemsUtils.getAllocatedItems(_page, widget.module.moduleItems);
 
-    final activeModule = context.read<RiverBloc>().state.data.activeModule;
-    if (activeModule.isModuleItemsCompleted && activeModule.isInProgress && isBeginning) {
+    final state = context.read<RiverBloc>().state;
+    final activeModule = state.data.activeModule;
+    if (activeModule.isModuleItemsCompleted &&
+        activeModule.isInProgress &&
+        activeModule?.id == state.data.modules.firstOrNull?.id) {
       _showPopup = true;
       _showCompleteDialog();
     }
@@ -239,11 +242,12 @@ class _RiverScreenState extends State<RiverScreen> with RiverUtils {
 
     if (isBeginning) {
       ModalBottomSheet.guidanceCompleted(
-          context: context,
-          onConfirm: () {
-            _onComplete();
-            context.read<NavigationBarBloc>().add(const NavigationBarEvent.completeBeginning());
-          });
+        context: context,
+        onConfirm: () {
+          _onComplete();
+          context.read<NavigationBarBloc>().add(const NavigationBarEvent.completeBeginning());
+        },
+      );
     } else if (riverData.modules.last.id == riverData.activeModule?.id) {
       ModalBottomSheet.lastModuleCompleted(
         context: context,
