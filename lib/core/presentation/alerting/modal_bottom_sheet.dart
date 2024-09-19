@@ -1,10 +1,9 @@
 import 'dart:io';
 
 import 'package:auto_route/auto_route.dart';
-import 'package:loopcare_frontend/core/application/localization/localizer_extenstion.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
+import 'package:loopcare_frontend/core/application/localization/localizer_extenstion.dart';
 import 'package:loopcare_frontend/core/domain/analytics/analytics_events.dart';
 import 'package:loopcare_frontend/core/domain/analytics/analytics_parameters.dart';
 import 'package:loopcare_frontend/core/domain/emergency_numbers/emergency_numbers.dart';
@@ -1674,7 +1673,6 @@ class ModalBottomSheet {
                 label: LocalizedTexts.ok.tr().toUpperCase(),
                 onPressed: () {
                   context.router.maybePop();
-                  onConfirm?.call();
                 },
               ),
               const SizedBox(height: 30.0),
@@ -1682,7 +1680,7 @@ class ModalBottomSheet {
           ),
         );
       },
-    );
+    ).whenComplete(() => onConfirm?.call());
   }
 
   static void guidanceStartRiver({
@@ -1802,17 +1800,14 @@ class ModalBottomSheet {
               const SizedBox(height: 20.0),
               CustomElevatedButton.blueFullWidth(
                 label: LocalizedTexts.ok.tr().toUpperCase(),
-                onPressed: () {
-                  context.router.maybePop();
-                  onConfirm?.call();
-                },
+                onPressed: context.router.maybePop,
               ),
               const SizedBox(height: 30.0),
             ],
           ),
         );
       },
-    );
+    ).whenComplete(() => onConfirm?.call());
   }
 
   static void lastModuleCompleted({
@@ -1855,17 +1850,14 @@ class ModalBottomSheet {
               const SizedBox(height: 20.0),
               CustomElevatedButton.blueFullWidth(
                 label: LocalizedTexts.ok.tr().toUpperCase(),
-                onPressed: () {
-                  context.router.maybePop();
-                  onConfirm?.call();
-                },
+                onPressed: context.router.maybePop,
               ),
               const SizedBox(height: 30.0),
             ],
           ),
         );
       },
-    );
+    ).whenComplete(() => onConfirm?.call());
   }
 
   static void moduleGraduationCompletedItems({

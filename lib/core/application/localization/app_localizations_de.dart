@@ -5317,18 +5317,18 @@ class AppLocalizationsDe extends AppLocalizations {
   String get exercise => 'Übung';
 
   @override
-  String get noMicrophoneAccessTitle => 'Can\'t Access Microphone';
+  String get noMicrophoneAccessTitle => 'Kein Mikrofon Zugriff';
 
   @override
   String get noMicrophoneAccessDescription =>
-      'Please turn on the toggle in system settings to grant permission';
+      'Bitte aktiviere das in den Systemeinstellungen, um die Erlaubnis zu erteilen';
 
   @override
-  String get noCameraAccessTitle => 'Can\'t Access Camera';
+  String get noCameraAccessTitle => 'Kann nicht auf die Kamera zugreifen';
 
   @override
   String get noCameraAccessDescription =>
-      'Please turn on the toggle in system settings to grant permission';
+      'Bitte aktiviere das Kontrollkästchen in den Systemeinstellungen, um die Erlaubnis zu erteilen';
 
   @override
   String get startAgain => 'Neu beginnen';
@@ -5659,7 +5659,7 @@ class AppLocalizationsDe extends AppLocalizations {
   String get reflection => 'Reflexion';
 
   @override
-  String get reflections => 'Reflexionen';
+  String get reflections => 'Meine Reflexionen';
 
   @override
   String get seeLesson => 'Siehe Abschnitt';
