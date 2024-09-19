@@ -234,7 +234,7 @@ class RiverBloc extends Bloc<RiverEvent, RiverState> {
 
   FutureOr<void> _onCheckCompletion(CheckCompletion event, Emitter<RiverState> emit) async {
     if (await state.data.activeModule.lookCompletion()) {
-      emit(RiverState.moduleCompleted(state.data));
+      add(const RiverEvent.completeActiveModule());
     } else if (await _showPartlyCompletionDialog(event.page)) {
       if (event.page == null) {
         getIt<SharedStorageService>().partlyCompletedModule = state.data.currentPage;
@@ -250,8 +250,6 @@ class RiverBloc extends Bloc<RiverEvent, RiverState> {
   ) async {
     final isModuleCompleted = await _isModuleCompleted();
     if (state.data.activeModule == null || !isModuleCompleted) return;
-
-    emit(RiverState.moduleLoading(state.data.copyWith(isLoading: true)));
 
     final response = await _riverService.updateModuleState(
       moduleId: state.data.activeModule?.id ?? -1,
@@ -269,7 +267,7 @@ class RiverBloc extends Bloc<RiverEvent, RiverState> {
             : activeModule;
 
         emit(
-          RiverState.moduleLoaded(
+          RiverState.moduleCompleted(
             state.data.copyWith(
               activeModule: nextModule,
               modules: modules,

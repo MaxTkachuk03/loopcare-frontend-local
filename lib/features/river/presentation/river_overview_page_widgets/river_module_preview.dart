@@ -4,7 +4,6 @@ import 'package:loopcare_frontend/features/river/presentation/utils/module_items
 import 'package:loopcare_frontend/features/river/presentation/utils/river_utils.dart';
 import 'package:loopcare_frontend/features/river/presentation/widgets/river_module_builder.dart';
 import 'package:loopcare_frontend/features/river/presentation/widgets/river_module_item_widget/river_module_item_preview.dart';
-import 'package:loopcare_frontend/features/river/presentation/widgets/river_module_item_widget/start_river_module_item.dart';
 
 class RiverModulePreview extends StatelessWidget with RiverUtils {
   const RiverModulePreview({
@@ -52,7 +51,6 @@ class RiverModulePreview extends StatelessWidget with RiverUtils {
             isBeginning: isBeginning,
           );
         },
-        startItemBuilder: (context) => const StartRiverModuleItem(),
       ),
     );
   }
