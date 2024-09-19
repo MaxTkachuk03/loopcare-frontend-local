@@ -1,11 +1,8 @@
 import 'dart:async';
-
 import 'package:get_it/get_it.dart';
 import 'package:loopcare_frontend/core/application/auth_token_manager.dart';
 import 'package:loopcare_frontend/core/infrastructure/services/app_config.dart';
 import 'package:loopcare_frontend/core/infrastructure/services/app_sync_service/app_sync_service.dart';
-// ignore: unused_import
-import 'package:loopcare_frontend/core/infrastructure/services/logger/logger.dart';
 import 'package:loopcare_frontend/core/infrastructure/services/socket_service_buddy/buddy_events.dart';
 import 'package:socket_io_client/socket_io_client.dart' as io;
 
@@ -29,26 +26,12 @@ class BuddySocketService {
     _baseUrl = 'wss://${_appConfig?.baseHost}/buddy';
   }
 
-  Future<void> startListen() async {
-    final token = await _initToken();
-    if (token == null) return;
-
+  Future<void> startListen(String accessToken) async {
     if (_socket == null) {
-      _initSocket(token);
+      _initSocket(accessToken);
     } else {
-      connect(token);
+      connect(accessToken);
     }
-  }
-
-  Future<String?> _initToken() async {
-    final token = await _tokenManager?.getAccessToken();
-
-    if (token == null) {
-      disconnect();
-      return null;
-    }
-
-    return token;
   }
 
   bool get isConnected => _socket?.connected ?? false;
@@ -62,9 +45,10 @@ class BuddySocketService {
     _socket?.connect();
   }
 
-  void reconnect() {
+  void reconnect() async {
+    final token = await _tokenManager?.getAccessToken();
     disconnect();
-    startListen();
+    startListen(token ?? '');
   }
 
   void _initSocket(String token) {

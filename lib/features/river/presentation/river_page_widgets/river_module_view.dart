@@ -75,6 +75,7 @@ class _RiverScreenState extends State<RiverScreen> with RiverUtils {
         (isBeginning && widget.module.isModuleItemsCompleted);
 
     return BlocListener<RiverBloc, RiverState>(
+      // todo: move to river_page.dart
       listener: (context, state) => state.mapOrNull(
         moduleCompleted: _onCompleteModule,
         modulePartlyCompleted: _onPartlyCompleteModule,
