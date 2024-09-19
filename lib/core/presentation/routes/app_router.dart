@@ -158,6 +158,10 @@ class AppRouter extends $AppRouter {
           page: LessonCompleteRoute.page,
           guards: const [UnlockFeatureGuard()],
         ), // added
+        AutoRoute(
+          path: AppRoutes.interactiveLesson,
+          page: InteractiveLessonRoute.page,
+        ),
 
         // Dish
         AutoRoute(

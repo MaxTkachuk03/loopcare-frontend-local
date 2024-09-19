@@ -3,6 +3,9 @@ var interactiveLesson = {
   "title": "Calorie Density",
   "jumpBoardTitle": "Calorie Density Overview",
   "jumpBoardDescription": "Explore various aspects of calorie density through these topics.",
+  "conclusion": 'conclusion text',
+  "unlockTitle": 'unlock title text',
+  "unlockDescription": 'unlock description text',
   "topics": [
     {
       "id": 1,
@@ -58,7 +61,7 @@ var interactiveLesson = {
                   "needsValidation": false,
                   "isValid": true,
                   "content": {
-                    "paragraph": "/test/img.png",
+                    "src": "/test/img.png",
                   },
                 }
               ]

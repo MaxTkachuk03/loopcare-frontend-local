@@ -34,9 +34,10 @@ class RiverModuleItem with _$RiverModuleItem {
     @Default(0) int spawnedInModuleId,
   }) = _RiverModuleItem;
 
-  get isRegularLesson => lessonType == LessonType.regular;
+  get isRegularLesson => false; // TODO for testing purposes lessonType == LessonType.regular;
 
-  get isInteractiveLesson => lessonType == LessonType.interactive;
+  get isInteractiveLesson =>
+      true; // TODO for testing purposes lessonType == LessonType.interactive;
 
   Color get bgColor => states.prevItemState.bgColor(streamType);
 

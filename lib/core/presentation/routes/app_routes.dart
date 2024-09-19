@@ -64,6 +64,7 @@ class AppRoutes {
   static const String consultDoctor = '/consult-doctor'; // added
   static const String needPaidSubscription = '/need-paid-subscription'; // added
   static const String lessonComplete = '/lesson-complete'; // added
+  static const String interactiveLesson = '/interactive-lesson';
 
   // Physical activities
   static const String selectExercise = '/select-exercise'; // added

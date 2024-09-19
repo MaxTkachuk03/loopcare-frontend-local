@@ -13,6 +13,9 @@ class InteractiveLesson with _$InteractiveLesson {
     required String title,
     required String jumpBoardTitle,
     required String jumpBoardDescription,
+    required String conclusion,
+    required String unlockTitle,
+    required String unlockDescription,
     required List<InteractiveLessonTopic> topics,
   }) = _InteractiveLesson;
 
