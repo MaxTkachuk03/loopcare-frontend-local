@@ -239,27 +239,22 @@ class _RiverScreenState extends State<RiverScreen> with RiverUtils {
     _showPopup = false;
 
     final riverData = context.read<RiverBloc>().state.data;
+    _onComplete();
 
     if (isBeginning) {
-      ModalBottomSheet.guidanceCompleted(
-        context: context,
-        onConfirm: () {
-          _onComplete();
-          context.read<NavigationBarBloc>().add(const NavigationBarEvent.completeBeginning());
-        },
-      );
+      context.read<NavigationBarBloc>().add(const NavigationBarEvent.completeBeginning());
+
+      ModalBottomSheet.guidanceCompleted(context: context);
     } else if (riverData.modules.last.id == riverData.activeModule?.id) {
       ModalBottomSheet.lastModuleCompleted(
         context: context,
         moduleTitle: riverData.activeModule?.title ?? '',
-        onConfirm: _onComplete,
       );
     } else {
       ModalBottomSheet.moduleCompleted(
         context: context,
         currentModule: riverData.activeModule?.title ?? '',
         nextModule: riverData.nextModule?.title ?? '',
-        onConfirm: _onComplete,
       );
     }
   }
