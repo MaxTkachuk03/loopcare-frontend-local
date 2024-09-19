@@ -27,26 +27,12 @@ class ChatSocketService {
     _baseUrl = 'wss://${_appConfig?.baseHost}/chat';
   }
 
-  Future<void> startListen() async {
-    final token = await _initToken();
-    if (token == null) return;
-
+  Future<void> startListen(String accessToken) async {
     if (_socket == null) {
-      _initSocket(token);
+      _initSocket(accessToken);
     } else {
-      connect(token);
+      connect(accessToken);
     }
-  }
-
-  Future<String?> _initToken() async {
-    final token = await _tokenManager?.getAccessToken();
-
-    if (token == null) {
-      disconnect();
-      return null;
-    }
-
-    return token;
   }
 
   bool get isConnected => _socket?.connected ?? false;
@@ -60,9 +46,10 @@ class ChatSocketService {
     _socket?.connect();
   }
 
-  void reconnect() {
+  void reconnect() async {
+    final token = await _tokenManager?.getAccessToken();
     disconnect();
-    startListen();
+    startListen(token ?? '');
   }
 
   void _onConnectTimeout(data) {

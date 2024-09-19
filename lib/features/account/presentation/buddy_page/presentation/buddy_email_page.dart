@@ -49,7 +49,8 @@ class _BuddyEmailPageState extends State<BuddyEmailPage> {
   bool _onListenWhenHandler(prev, cur) {
     if (!(ModalRoute.of(context)?.isCurrent ?? false)) return false;
 
-    final isLoadingOrGotBuddy = prev is BuddyStateLoading || prev is BuddyStateGotBuddy;
+    final isLoadingOrGotBuddy =
+        prev is BuddyStateLoading || prev is BuddyStateGotBuddy || prev is BuddyStateLeft;
 
     return isLoadingOrGotBuddy && cur is BuddyStateInvited ||
         isLoadingOrGotBuddy && cur is BuddyStateError;
