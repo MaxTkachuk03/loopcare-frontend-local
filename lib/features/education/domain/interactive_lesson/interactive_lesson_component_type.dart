@@ -3,6 +3,7 @@ enum InteractiveLessonComponentType {
   heading2,
   heading3,
   paragraph,
+  markdown,
   bulletedList,
   numberedList,
   image,

@@ -6,9 +6,8 @@ part 'scale_content_value.g.dart';
 @freezed
 class ScaleContentValue with _$ScaleContentValue {
   const factory ScaleContentValue({
-    required int id,
     required String label,
-    required String value,
+    required int value,
   }) = _ScaleContentValue;
 
   factory ScaleContentValue.fromJson(Map<String, dynamic> json) =>

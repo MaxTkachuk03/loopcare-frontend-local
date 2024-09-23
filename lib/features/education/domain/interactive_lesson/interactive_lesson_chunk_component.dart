@@ -3,6 +3,7 @@ import 'package:loopcare_frontend/features/education/domain/interactive_lesson/h
 import 'package:loopcare_frontend/features/education/domain/interactive_lesson/image_content/image_content.dart';
 import 'package:loopcare_frontend/features/education/domain/interactive_lesson/interactive_lesson_component_type.dart';
 import 'package:loopcare_frontend/features/education/domain/interactive_lesson/list_content/list_content.dart';
+import 'package:loopcare_frontend/features/education/domain/interactive_lesson/markdown_content/markdown_content.dart';
 import 'package:loopcare_frontend/features/education/domain/interactive_lesson/ordering_content/ordering_content.dart';
 import 'package:loopcare_frontend/features/education/domain/interactive_lesson/paragraph_content/paragraph_content.dart';
 import 'package:loopcare_frontend/features/education/domain/interactive_lesson/scale_content/scale_content.dart';
@@ -23,6 +24,14 @@ class InteractiveLessonChunkComponent with _$InteractiveLessonChunkComponent {
     required bool isValid,
     required HeadingContent content,
   }) = InteractiveLessonChunkComponentHeading1;
+
+  const factory InteractiveLessonChunkComponent.markdown({
+    required int id,
+    required InteractiveLessonComponentType type,
+    required bool needsValidation,
+    required bool isValid,
+    required MarkdownContent content,
+  }) = InteractiveLessonChunkComponentMarkdown;
 
   const factory InteractiveLessonChunkComponent.heading2({
     required int id,

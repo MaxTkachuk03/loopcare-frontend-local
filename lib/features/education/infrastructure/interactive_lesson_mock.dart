@@ -23,32 +23,104 @@ var interactiveLesson = {
               "components": [
                 {
                   "id": 1,
-                  "type": "heading1",
+                  "type": "markdown",
                   "needsValidation": false,
                   "isValid": true,
                   "content": {
-                    "title": "However, the benefits from food logging should go beyond calories",
+                    "markdown": """
+# Heading 1 
+## Heading 2 
+### Heading 3 
+#### Heading 4 
+##### Heading 5 
+###### Heading 6 
+paragraph with some text and some **bold text** and some *italic text* and so on.
+Ordered list
+1. Item 1
+2. Item 2
+3. Item 3
+
+Unordered list
+- Item 1
+- Item 2
+- Item 3
+""",
                   }
                 },
                 {
                   "id": 2,
-                  "type": "heading2",
-                  "needsValidation": false,
-                  "isValid": true,
+                  "type": "scale",
+                  "needsValidation": true,
+                  "isValid": false,
                   "content": {
-                    "title": "However, the benefits from food logging should go beyond calories",
+                    "question":
+                        "How motivated are you to change your behavior in order to achieve these goals?",
+                    "lowestText": "not very motivated",
+                    "highestText": "very motivated",
+                    "values": [
+                      {"label": "1", "value": 1},
+                      {"label": "2", "value": 2},
+                      {"label": "3", "value": 3},
+                      {"label": "4", "value": 4},
+                      {"label": "5", "value": 5},
+                      {"label": "6", "value": 6},
+                      {"label": "7", "value": 7},
+                      {"label": "8", "value": 8},
+                      {"label": "9", "value": 9},
+                      {"label": "10", "value": 10}
+                    ],
+                    "feedback": [
+                      {
+                        "minValue": 1,
+                        "maxValue": 3,
+                        "text":
+                            "It looks like you are not very motivated at the moment. Consider identifying specific factors that might increase your motivation."
+                      },
+                      {
+                        "minValue": 4,
+                        "maxValue": 7,
+                        "text":
+                            "You have a moderate level of motivation. Think about setting small, achievable goals to boost your drive."
+                      },
+                      {
+                        "minValue": 8,
+                        "maxValue": 10,
+                        "text":
+                            "Fantastic! You are highly motivated and confident. Keep up the great work and continue setting ambitious goals."
+                      }
+                    ]
                   }
                 },
-                {
-                  "id": 3,
-                  "type": "paragraph",
-                  "needsValidation": false,
-                  "isValid": true,
-                  "content": {
-                    "paragraph":
-                        "In addition **to calories**, different foods affect your appetite, cravings, metabolism, and overall health. A good food log should give you insight into these aspects as well.",
-                  }
-                }
+                // {
+                //   "id": 3,
+                //   "type": "heading3",
+                //   "needsValidation": false,
+                //   "isValid": true,
+                //   "content": {
+                //     "title":
+                //         "However, the benefits from food logging should go beyond calories heading 3",
+                //   }
+                // },
+                // {
+                //   "id": 4,
+                //   "type": "paragraph",
+                //   "needsValidation": false,
+                //   "isValid": true,
+                //   "content": {
+                //     "paragraph":
+                //         "In addition **to calories**, different foods affect your appetite, cravings, metabolism, and overall health. A good food log should give you insight into these aspects as well.",
+                //   }
+                // },
+                // {
+                //   "id": 5,
+                //   "type": "image",
+                //   "needsValidation": false,
+                //   "isValid": true,
+                //   "content": {
+                //     "src":
+                //         "https://www.google.com/imgres?q=image&imgurl=https%3A%2F%2Fplus.unsplash.com%2Fpremium_photo-1664474619075-644dd191935f%3Ffm%3Djpg%26q%3D60%26w%3D3000%26ixlib%3Drb-4.0.3%26ixid%3DM3wxMjA3fDB8MHxzZWFyY2h8MXx8aW1hZ2V8ZW58MHx8MHx8fDA%253D&imgrefurl=https%3A%2F%2Funsplash.com%2Fs%2Fphotos%2Fimage&docid=ExDvm63D_wCvSM&tbnid=2brKLR3s5kTpPM&vet=12ahUKEwiXg5CUg9GIAxU0BdsEHfj_FfsQM3oECBsQAA..i&w=3000&h=2003&hcb=2&itg=1&ved=2ahUKEwiXg5CUg9GIAxU0BdsEHfj_FfsQM3oECBsQAA",
+                //   }
+                // },
               ]
             },
             {
@@ -61,7 +133,8 @@ var interactiveLesson = {
                   "needsValidation": false,
                   "isValid": true,
                   "content": {
-                    "src": "/test/img.png",
+                    "src":
+                        "https://www.google.com/imgres?q=image&imgurl=https%3A%2F%2Fplus.unsplash.com%2Fpremium_photo-1664474619075-644dd191935f%3Ffm%3Djpg%26q%3D60%26w%3D3000%26ixlib%3Drb-4.0.3%26ixid%3DM3wxMjA3fDB8MHxzZWFyY2h8MXx8aW1hZ2V8ZW58MHx8MHx8fDA%253D&imgrefurl=https%3A%2F%2Funsplash.com%2Fs%2Fphotos%2Fimage&docid=ExDvm63D_wCvSM&tbnid=2brKLR3s5kTpPM&vet=12ahUKEwiXg5CUg9GIAxU0BdsEHfj_FfsQM3oECBsQAA..i&w=3000&h=2003&hcb=2&itg=1&ved=2ahUKEwiXg5CUg9GIAxU0BdsEHfj_FfsQM3oECBsQAA",
                   },
                 }
               ]
