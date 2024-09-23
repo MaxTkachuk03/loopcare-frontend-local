@@ -76,8 +76,8 @@ class CategoryLabel extends StatelessWidget {
         textColor: AppColors.blueRegular,
       );
 
-  factory CategoryLabel.scale() => CategoryLabel(
-        label: LocalizedTexts.news.tr(),
+  factory CategoryLabel.interactiveLesson({required String label}) => CategoryLabel(
+        label: label,
         color: AppColors.greenRegular,
         textColor: AppColors.black,
       );

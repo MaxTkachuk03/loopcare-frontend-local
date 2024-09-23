@@ -1,0 +1,9 @@
+{
+  "@@locale": "en",
+  "scaleLabel": "Rate on a scale",
+  "singleSelectLabel": "Single answer",
+  "multipleSelectLabel": "Choose All That Apply",
+  "correctFeedbackTitle": "This is correct",
+  "incorrectFeedbackTitle": "This is incorrect",
+  "scaleFeedbackTitle": "Scale selection feedback"
+}

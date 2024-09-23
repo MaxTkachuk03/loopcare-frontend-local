@@ -1,6 +1,6 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:loopcare_frontend/features/education/domain/interactive_lesson/content_feedback.dart';
-import 'package:loopcare_frontend/features/education/domain/interactive_lesson/select_content/content_select_answer.dart';
+import 'content_select_answer.dart';
 
 part 'select_content.freezed.dart';
 part 'select_content.g.dart';
@@ -10,7 +10,7 @@ class SelectContent with _$SelectContent {
   const factory SelectContent({
     required String question,
     required List<ContentSelectAnswer> answers,
-    @Default(null) List<ContentFeedback>? feedback,
+    @Default(null) ContentFeedback? feedback,
   }) = _SelectContent;
 
   factory SelectContent.fromJson(Map<String, dynamic> json) => _$SelectContentFromJson(json);

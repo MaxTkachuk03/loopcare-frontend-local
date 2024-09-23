@@ -34,6 +34,7 @@ class ScoringScale extends StatelessWidget {
             ? Expanded(
                 child: SelectedCell(
                   textColor: textColor,
+                  onPress: onScoreTap,
                   selectedColor: selectedColor,
                   index: index,
                   label: labels?.elementAt(index),

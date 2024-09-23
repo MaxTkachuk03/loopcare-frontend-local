@@ -7,7 +7,6 @@ import 'package:loopcare_frontend/core/presentation/buttons/custom_filled_icon_b
 import 'package:loopcare_frontend/core/presentation/custom_safe_area.dart';
 import 'package:loopcare_frontend/core/presentation/scaffold/custom_scaffold.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/main_container.dart';
-import 'package:loopcare_frontend/core/presentation/widgets/scrollable_container.dart';
 import 'package:loopcare_frontend/features/education/application/interactive_lessons/bloc/interactive_lessons_bloc.dart';
 import 'package:loopcare_frontend/features/education/domain/interactive_lesson/interactive_lesson_chunk.dart';
 import 'package:loopcare_frontend/features/education/domain/interactive_lesson/interactive_lesson_chunk_component.dart';
@@ -41,6 +40,10 @@ class _InteractiveLessonPageState extends State<InteractiveLessonPage> {
               InteractiveLessonChunkComponentMarkdown() => Markdown(component: c),
               InteractiveLessonChunkComponentImage() => CachedNetworkImage(imageUrl: c.content.src),
               InteractiveLessonChunkComponentScale() => Scale(component: c),
+              InteractiveLessonChunkComponentSingleSelect() => SingleSelect(component: c),
+              InteractiveLessonChunkComponentMultipleSelect() => MultipleSelect(component: c),
+              InteractiveLessonChunkComponentSingleSelectWithFeedback() =>
+                SingleSelectWithFeedback(component: c),
               _ => const SizedBox.shrink(),
             })
         .toList();
@@ -50,7 +53,13 @@ class _InteractiveLessonPageState extends State<InteractiveLessonPage> {
     return ValueListenableBuilder<List<InteractiveLessonChunk>>(
       valueListenable: _navigationController.renderedChunks,
       builder: (context, chunks, _) {
-        return Column(children: chunks.expand(_renderChunk).toList());
+        final chunksList = chunks.expand(_renderChunk).toList();
+
+        return ListView.separated(
+          itemCount: chunksList.length,
+          separatorBuilder: (_, __) => const SizedBox(height: 20),
+          itemBuilder: (context, index) => chunksList[index],
+        );
       },
     );
   }
@@ -62,17 +71,15 @@ class _InteractiveLessonPageState extends State<InteractiveLessonPage> {
       child: CustomScaffold.greenLightest(
         appBar: CustomAppBar.green(leading: CustomFilledIconButton.leadingGreenLighter()),
         body: CustomSafeArea(
-          child: ScrollableContainer(
-            child: MainContainer(
-              child: BlocBuilder<InteractiveLessonsBloc, InteractiveLessonsState>(
-                builder: (context, state) {
-                  return state.maybeWhen(
-                    error: (_) => const SizedBox.shrink(),
-                    loading: (_) => const Center(child: CircularProgressIndicator()),
-                    orElse: _buildLessonContent,
-                  );
-                },
-              ),
+          child: MainContainer(
+            child: BlocBuilder<InteractiveLessonsBloc, InteractiveLessonsState>(
+              builder: (context, state) {
+                return state.maybeWhen(
+                  error: (_) => const SizedBox.shrink(),
+                  loading: (_) => const Center(child: CircularProgressIndicator()),
+                  orElse: _buildLessonContent,
+                );
+              },
             ),
           ),
         ),

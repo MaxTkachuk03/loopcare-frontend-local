@@ -5,6 +5,10 @@ import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 import 'package:loopcare_frontend/core/presentation/utils/build_context_extensions.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/scoring_scale.dart';
 import 'package:loopcare_frontend/features/education/domain/interactive_lesson/interactive_lesson_chunk_component.dart';
+import 'package:loopcare_frontend/features/education/presentation/interactive_lessons/widgets/components/scale/scale_bottom.dart';
+import 'package:loopcare_frontend/features/education/presentation/interactive_lessons/widgets/components/scale/scale_feeback.dart';
+import 'package:loopcare_frontend/localization/service/localization_extension.dart';
+import 'package:loopcare_frontend/localization/service/localized_texts.dart';
 
 class Scale extends StatefulWidget {
   final InteractiveLessonChunkComponentScale component;
@@ -16,16 +20,23 @@ class Scale extends StatefulWidget {
 }
 
 class _ScaleState extends State<Scale> {
-  final int _selectedScore = 0;
+  int? _selectedScore;
 
-  void _onSelectedHandler(int value) {}
+  void _onSelectedHandler(int value) {
+    setState(() {
+      _selectedScore = _selectedScore == value ? null : value;
+    });
+  }
+
+  bool get hasFeedback =>
+      widget.component.content.feedback != null && widget.component.content.feedback!.isNotEmpty;
 
   @override
   Widget build(BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        CategoryLabel.scale(),
+        CategoryLabel.interactiveLesson(label: LocalizedTexts.interactiveLessonsScaleLabel.tr()),
         const SizedBox(height: 20),
         CustomText(
           widget.component.content.question,
@@ -41,19 +52,9 @@ class _ScaleState extends State<Scale> {
           borderColor: AppColors.blueDarker,
         ),
         const SizedBox(height: 14),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            CustomText(
-              widget.component.content.lowestText,
-              style: context.textTheme.bodySmall!.copyWith(fontWeight: FontWeight.w600),
-            ),
-            CustomText(
-              widget.component.content.highestText,
-              style: context.textTheme.bodySmall!.copyWith(fontWeight: FontWeight.w600),
-            ),
-          ],
-        ),
+        ScaleBottom(content: widget.component.content),
+        if (hasFeedback && _selectedScore != null)
+          ScaleFeedback(component: widget.component, selectedScore: _selectedScore! + 1),
       ],
     );
   }

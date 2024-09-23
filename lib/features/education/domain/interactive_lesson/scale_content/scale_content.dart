@@ -7,13 +7,17 @@ part 'scale_content.g.dart';
 
 @freezed
 class ScaleContent with _$ScaleContent {
+  const ScaleContent._();
+
   const factory ScaleContent({
     required String question,
     required String lowestText,
     required String highestText,
     required List<ScaleContentValue> values,
-    required List<ScaleContentFeedback> feedback,
+    required List<ScaleContentFeedback>? feedback,
   }) = _ScaleContent;
+
+  bool get hasFeedback => feedback != null && feedback!.isNotEmpty;
 
   factory ScaleContent.fromJson(Map<String, dynamic> json) => _$ScaleContentFromJson(json);
 }
