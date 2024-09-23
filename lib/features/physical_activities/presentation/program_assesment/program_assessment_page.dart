@@ -1,5 +1,4 @@
 import 'package:auto_route/auto_route.dart';
-import 'package:loopcare_frontend/core/application/localization/localizer_extenstion.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loopcare_frontend/core/domain/analytics/analytics_events.dart';
@@ -12,7 +11,6 @@ import 'package:loopcare_frontend/core/presentation/buttons/custom_filled_icon_b
 import 'package:loopcare_frontend/core/presentation/buttons/custom_outlined_button.dart';
 import 'package:loopcare_frontend/core/presentation/custom_safe_area.dart';
 import 'package:loopcare_frontend/core/presentation/loader/loader.dart';
-import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/core/presentation/routes/app_router.gr.dart';
 import 'package:loopcare_frontend/core/presentation/scaffold/custom_scaffold.dart';
 import 'package:loopcare_frontend/core/presentation/text/custom_text.dart';
@@ -25,6 +23,8 @@ import 'package:loopcare_frontend/features/physical_activities/application/physi
 import 'package:loopcare_frontend/features/physical_activities/presentation/physical_programs/widgets/program_card.dart';
 import 'package:loopcare_frontend/features/physical_activities/presentation/program_assesment/widgets/assesment_block.dart';
 import 'package:loopcare_frontend/features/physical_activities/presentation/program_assesment/widgets/like_unlike_block.dart';
+import 'package:loopcare_frontend/localization/service/localization_extension.dart';
+import 'package:loopcare_frontend/localization/service/localized_texts.dart';
 
 @RoutePage()
 class ProgramAssessmentPage extends StatefulWidget {
@@ -58,7 +58,7 @@ class _ProgramAssessmentPageState extends State<ProgramAssessmentPage> {
           if (state.data.isLoading) {
             return CustomScaffold.yellowLightest(
               appBar: CustomAppBar.yellow(
-                title: '${LocalizedTexts.didItWorkOutForYou.tr()}?',
+                title: LocalizedTexts.didItWorkOutForYou.tr(),
                 leading: CustomFilledIconButton.leadingYellowLighter(),
               ),
               body: const CustomSafeArea(
@@ -69,7 +69,7 @@ class _ProgramAssessmentPageState extends State<ProgramAssessmentPage> {
 
           return CustomScaffold.yellowLightest(
             appBar: CustomAppBar.yellow(
-              title: '${LocalizedTexts.didItWorkOutForYou.tr()}?',
+              title: LocalizedTexts.didItWorkOutForYou.tr(),
               leading: CustomFilledIconButton.leadingYellowLighter(),
             ),
             body: ScrollableContainer(
@@ -95,7 +95,7 @@ class _ProgramAssessmentPageState extends State<ProgramAssessmentPage> {
                         const SizedBox(height: 25),
                         Center(
                           child: CustomText.bitter600(
-                            '${LocalizedTexts.didYouLikeThisProgram.tr()}?',
+                            LocalizedTexts.didYouLikeThisProgram.tr(),
                             style: context.textTheme.bodyLarge,
                           ),
                         ),

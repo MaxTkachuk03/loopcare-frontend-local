@@ -1,13 +1,13 @@
-import 'package:loopcare_frontend/core/application/localization/localizer_extenstion.dart';
 import 'package:flutter/material.dart';
 import 'package:loopcare_frontend/core/presentation/category_label/category_label.dart';
-import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/core/presentation/text/custom_text.dart';
 import 'package:loopcare_frontend/core/presentation/utils/build_context_extensions.dart';
 import 'package:loopcare_frontend/features/dashboard/presentation/widgets/smart_goals/widgets/goal_progress_button.dart';
 import 'package:loopcare_frontend/features/smart_goals/domain/weekly_smart_goal.dart';
 import 'package:loopcare_frontend/features/smart_goals/presentation/widgets/goal_achieved_widget.dart';
 import 'package:loopcare_frontend/features/smart_goals/presentation/widgets/goal_progress_indicator.dart';
+import 'package:loopcare_frontend/localization/service/localization_extension.dart';
+import 'package:loopcare_frontend/localization/service/localized_texts.dart';
 
 class GoalReviewCard extends StatelessWidget {
   final WeeklySmartGoal item;

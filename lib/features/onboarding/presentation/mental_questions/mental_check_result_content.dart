@@ -1,4 +1,3 @@
-import 'package:loopcare_frontend/core/application/localization/localizer_extenstion.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loopcare_frontend/core/application/customer_io_service/customer_io_service.dart';
@@ -10,7 +9,6 @@ import 'package:loopcare_frontend/core/presentation/bottom_placed_button/bottom_
 import 'package:loopcare_frontend/core/presentation/buttons/custom_elevated_button.dart';
 import 'package:loopcare_frontend/core/presentation/error/error_screen.dart';
 import 'package:loopcare_frontend/core/presentation/loader/loader.dart';
-import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/core/presentation/shapes/under_appbar.dart';
 import 'package:loopcare_frontend/core/presentation/text/custom_text.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
@@ -25,6 +23,8 @@ import 'package:loopcare_frontend/features/onboarding/presentation/mental_questi
 import 'package:loopcare_frontend/features/onboarding/presentation/mental_questions/widgets/phq15_result_text.dart';
 import 'package:loopcare_frontend/features/onboarding/presentation/mental_questions/widgets/phq8_result_text.dart';
 import 'package:loopcare_frontend/features/onboarding/presentation/mental_questions/widgets/who5_result_text.dart';
+import 'package:loopcare_frontend/localization/service/localization_extension.dart';
+import 'package:loopcare_frontend/localization/service/localized_texts.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class MentalCheckResultContent extends StatefulWidget {
@@ -78,7 +78,7 @@ class _MentalCheckResultContentState extends State<MentalCheckResultContent> {
 
         final resultText = _getResultTextWidget(currentTest);
 
-        final subText = _getSubText(currentTest);
+        final subText = currentTest.type.subTitle;
 
         return BottomPlacedButton.petrol(
           body: ListView(
@@ -89,7 +89,7 @@ class _MentalCheckResultContentState extends State<MentalCheckResultContent> {
                   child: Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 80.0),
                     child: CustomText.bitter600(
-                      _getTitleText(currentTest),
+                      currentTest.type.title,
                       style: context.textTheme.displayMedium?.copyWith(color: AppColors.white),
                       textAlign: TextAlign.center,
                     ),
@@ -141,33 +141,6 @@ class _MentalCheckResultContentState extends State<MentalCheckResultContent> {
         );
       },
     );
-  }
-
-  String _getSubText(MentalHealthTest test) {
-    switch (test.type) {
-      case MentalHealthTestType.who5:
-        return '${LocalizedTexts.mentalResultSubText1.tr()}!';
-      case MentalHealthTestType.phq15:
-        return '${LocalizedTexts.mentalResultSubText2.tr()}!';
-      case MentalHealthTestType.gad7:
-        return '${LocalizedTexts.mentalResultSubText3.tr()}!';
-      default:
-        return '';
-    }
-  }
-
-  String _getTitleText(MentalHealthTest test) {
-    switch (test.type) {
-      case MentalHealthTestType.who5:
-        return LocalizedTexts.generalWellBeingSummary.tr();
-      case MentalHealthTestType.phq15:
-        return LocalizedTexts.bodyAndMindBalanceSummary.tr();
-      case MentalHealthTestType.gad7:
-      case MentalHealthTestType.phq8:
-        return LocalizedTexts.stateOfMindSummary.tr();
-      default:
-        return '';
-    }
   }
 
   _onNextPressed(BuildContext context) {

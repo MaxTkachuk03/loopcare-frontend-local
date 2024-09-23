@@ -7,7 +7,7 @@ import 'package:injectable/injectable.dart';
 import 'package:loopcare_frontend/core/application/app_update/app_version_service.dart';
 import 'package:loopcare_frontend/core/infrastructure/dio_client/request_error.dart';
 import 'package:loopcare_frontend/core/infrastructure/services/shared_storage/shared_storage_service.dart';
-import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
+import 'package:loopcare_frontend/localization/service/localized_texts.dart';
 import 'package:loopcare_frontend/injection.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 

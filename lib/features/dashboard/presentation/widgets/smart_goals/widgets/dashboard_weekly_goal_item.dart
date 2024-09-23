@@ -1,11 +1,9 @@
 import 'package:auto_route/auto_route.dart';
-import 'package:loopcare_frontend/core/application/localization/localizer_extenstion.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:loopcare_frontend/core/presentation/alerting/modal_bottom_sheet.dart';
-import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/core/presentation/routes/app_router.gr.dart';
 import 'package:loopcare_frontend/core/presentation/text/custom_text.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
@@ -17,8 +15,10 @@ import 'package:loopcare_frontend/features/smart_goals/domain/weekly_smart_goal.
 import 'package:loopcare_frontend/features/smart_goals/presentation/widgets/goal_progress_indicator.dart';
 import 'package:loopcare_frontend/features/smart_goals/presentation/widgets/weekly_goal_cancel_reason.dart';
 import 'package:loopcare_frontend/features/smart_goals/presentation/widgets/weekly_goal_info.dart';
+import 'package:loopcare_frontend/localization/service/localization_extension.dart';
+import 'package:loopcare_frontend/localization/service/localized_texts.dart';
 
-const maxCompletions = 99;
+const _maxCompletions = 99;
 
 class DashboardWeeklyGoalItem extends StatefulWidget {
   final int sessionId;
@@ -139,7 +139,7 @@ class _DashboardWeeklyGoalItemState extends State<DashboardWeeklyGoalItem> {
                 ? GoalProgressButton(
                     item: widget.item,
                     times: times,
-                    onPressed: times < maxCompletions
+                    onPressed: times < _maxCompletions
                         ? () => _onProgressHandler(context, widget.item)
                         : null,
                     onResetProgress:

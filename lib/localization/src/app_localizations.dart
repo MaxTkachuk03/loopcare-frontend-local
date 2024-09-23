@@ -18,7 +18,7 @@ import 'app_localizations_en.dart';
 /// `supportedLocales` list. For example:
 ///
 /// ```dart
-/// import 'localization/app_localizations.dart';
+/// import 'src/app_localizations.dart';
 ///
 /// return MaterialApp(
 ///   localizationsDelegates: AppLocalizations.localizationsDelegates,
@@ -5565,6 +5565,930 @@ abstract class AppLocalizations {
   /// **'Something went wrong'**
   String get errorOtherDio;
 
+  /// No description provided for @onboardingIntroTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'LeanOnMe gives you the tools to lose weight sustainably.'**
+  String get onboardingIntroTitle;
+
+  /// No description provided for @onboardingIntroProgram1.
+  ///
+  /// In en, this message translates to:
+  /// **'Based on a psychology driven program which successfully helped people to lose weight and feel better, long term.'**
+  String get onboardingIntroProgram1;
+
+  /// No description provided for @onboardingIntroProgram2.
+  ///
+  /// In en, this message translates to:
+  /// **'Nutrition, physical activity, medical knowledge, and community support combine with psychology to help you reach your goals.'**
+  String get onboardingIntroProgram2;
+
+  /// No description provided for @onboardingIntroMissionTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Our team of experts  brings the success of the clinical program to you!'**
+  String get onboardingIntroMissionTitle;
+
+  /// No description provided for @onboardingIntroMissionAndrew.
+  ///
+  /// In en, this message translates to:
+  /// **'Andrew has a PHD in Bio-Chemistry and is the brains behind our nutrition program. With curated recipes, customized goals, and NO FOCUS ON CALORIE TRACKING, our nutrition program is one-of-a-kind.'**
+  String get onboardingIntroMissionAndrew;
+
+  /// No description provided for @onboardingIntroMissionMaria.
+  ///
+  /// In en, this message translates to:
+  /// **'Maria has an MSc in Digital Psychology, and is the link between the successful clinical program and our digitalized version.'**
+  String get onboardingIntroMissionMaria;
+
+  /// No description provided for @onboardingIntroMissionShalu.
+  ///
+  /// In en, this message translates to:
+  /// **'Shalu is an MD specialized in Psychiatry. With her focus on addiction and addictive-behaviors, she is intrinsically qualified to oversee and encourage your journey to happier, healthier lifestyle.'**
+  String get onboardingIntroMissionShalu;
+
+  /// No description provided for @onboardingIntroMissionJoshua.
+  ///
+  /// In en, this message translates to:
+  /// **'With a love for sports and the human body, Josh has a Sports Science degree and years of experience as a physiotherapist focusing on weight loss. He\'s great at helping people move better and feel their best.'**
+  String get onboardingIntroMissionJoshua;
+
+  /// No description provided for @onboardingIntroMissionDenise.
+  ///
+  /// In en, this message translates to:
+  /// **'Denise is an experienced clinical psychologist, who is also trained in Cognitive Behaviour Therapy, Meditation, and Mindfulness Based Therapy. Her passion is to give people the courage to change, and to guide them through the process step-by step.'**
+  String get onboardingIntroMissionDenise;
+
+  /// No description provided for @onboardingPacingTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Go slow to go fast.'**
+  String get onboardingPacingTitle;
+
+  /// No description provided for @onboardingPacingMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'Our program is split up into modules, called “pools”. You should aim to spend a minimum of 1 week in each pool, absorbing knowledge and practicing new habits.'**
+  String get onboardingPacingMessage;
+
+  /// No description provided for @onboardingIAmReady.
+  ///
+  /// In en, this message translates to:
+  /// **'I’m ready'**
+  String get onboardingIAmReady;
+
+  /// No description provided for @onboardingPhysicalIntroTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Basics first'**
+  String get onboardingPhysicalIntroTitle;
+
+  /// No description provided for @onboardingPhysicalIntroBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Joshua needs to know the answers to some basics so we can customize your program.'**
+  String get onboardingPhysicalIntroBody;
+
+  /// No description provided for @onboardingAgeCheckFailedTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'We are sorry. Unfortunately, your enrollment is not possible now.'**
+  String get onboardingAgeCheckFailedTitle;
+
+  /// No description provided for @onboardingAgeCheckFailedBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Our program is not set up for people under the age of 18'**
+  String get onboardingAgeCheckFailedBody;
+
+  /// No description provided for @onboardingWhatYourSex.
+  ///
+  /// In en, this message translates to:
+  /// **'What is your sex?'**
+  String get onboardingWhatYourSex;
+
+  /// No description provided for @onboardingSexQuestionBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Please indicate what biological sex should be used to calculate certain metrics that will help to properly tailor the program to you.'**
+  String get onboardingSexQuestionBody;
+
+  /// No description provided for @onboardingSex.
+  ///
+  /// In en, this message translates to:
+  /// **'Sex'**
+  String get onboardingSex;
+
+  /// No description provided for @onboardingGenderPageTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'What is your gender?'**
+  String get onboardingGenderPageTitle;
+
+  /// No description provided for @onboardingHappinessTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'How do you feel about your current lifestyle?'**
+  String get onboardingHappinessTitle;
+
+  /// No description provided for @onboardingHappinessBody1.
+  ///
+  /// In en, this message translates to:
+  /// **'Take a moment to reflect on your lifestyle right now.'**
+  String get onboardingHappinessBody1;
+
+  /// No description provided for @onboardingHappinessBody2.
+  ///
+  /// In en, this message translates to:
+  /// **'Using the scale below, please indicate how you generally feel, when you think about your current lifestyle.'**
+  String get onboardingHappinessBody2;
+
+  /// No description provided for @onboardingYourHeight.
+  ///
+  /// In en, this message translates to:
+  /// **'Your height'**
+  String get onboardingYourHeight;
+
+  /// No description provided for @onboardingMetric.
+  ///
+  /// In en, this message translates to:
+  /// **'Metric'**
+  String get onboardingMetric;
+
+  /// No description provided for @onboardingImperial.
+  ///
+  /// In en, this message translates to:
+  /// **'Imperial'**
+  String get onboardingImperial;
+
+  /// No description provided for @onboardingNext.
+  ///
+  /// In en, this message translates to:
+  /// **'Next'**
+  String get onboardingNext;
+
+  /// No description provided for @onboardingChangeYourHeight.
+  ///
+  /// In en, this message translates to:
+  /// **'Change your height'**
+  String get onboardingChangeYourHeight;
+
+  /// No description provided for @onboardingHeightSmall.
+  ///
+  /// In en, this message translates to:
+  /// **'Are you sure this is the correct height? Seems rather small. Please correct your input'**
+  String get onboardingHeightSmall;
+
+  /// No description provided for @onboardingHeightLarge.
+  ///
+  /// In en, this message translates to:
+  /// **'Are you sure this is the correct height? Seems rather large. Please correct your input'**
+  String get onboardingHeightLarge;
+
+  /// No description provided for @onboardingCorrectHeight.
+  ///
+  /// In en, this message translates to:
+  /// **'Please correct your answer'**
+  String get onboardingCorrectHeight;
+
+  /// No description provided for @onboardingYourWeight.
+  ///
+  /// In en, this message translates to:
+  /// **'Your weight'**
+  String get onboardingYourWeight;
+
+  /// No description provided for @onboardingBmiExclusionBodyTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Body Mass Index (BMI) is:'**
+  String get onboardingBmiExclusionBodyTitle;
+
+  /// No description provided for @onboardingBmiExclusionBodyOlder19LowBmi.
+  ///
+  /// In en, this message translates to:
+  /// **'Our program is not yet optimized for people with a BMI under 25. We\'ll reach out to you as soon as we\'re ready!'**
+  String get onboardingBmiExclusionBodyOlder19LowBmi;
+
+  /// No description provided for @onboardingBmiExclusionBodyOlder19HighBmi.
+  ///
+  /// In en, this message translates to:
+  /// **'Our program is not yet optimized for people with a BMI over 39.9.'**
+  String get onboardingBmiExclusionBodyOlder19HighBmi;
+
+  /// No description provided for @onboardingBmiExclusionBodyYounger19LowBmi.
+  ///
+  /// In en, this message translates to:
+  /// **'Our program is not yet optimized for people with a BMI under 25. We\'ll reach out to you as soon as we\'re ready!'**
+  String get onboardingBmiExclusionBodyYounger19LowBmi;
+
+  /// No description provided for @onboardingBmiExclusionBodyYounger19HighBmi.
+  ///
+  /// In en, this message translates to:
+  /// **'Our program is not suitable for people with a BMI over 38.5.'**
+  String get onboardingBmiExclusionBodyYounger19HighBmi;
+
+  /// No description provided for @onboardingBmiExclusionBodyHighBmiEnding.
+  ///
+  /// In en, this message translates to:
+  /// **'Please consult your doctor to find a suitable alternative.'**
+  String get onboardingBmiExclusionBodyHighBmiEnding;
+
+  /// No description provided for @onboardingBmiExclusionBodyLowBmiEnding.
+  ///
+  /// In en, this message translates to:
+  /// **'Please consult your doctor if you feel you urgently need a suitable alternative.'**
+  String get onboardingBmiExclusionBodyLowBmiEnding;
+
+  /// No description provided for @onboardingPhysicalCheckPassedTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Basics completed!'**
+  String get onboardingPhysicalCheckPassedTitle;
+
+  /// No description provided for @onboardingAge.
+  ///
+  /// In en, this message translates to:
+  /// **'Age'**
+  String get onboardingAge;
+
+  /// No description provided for @onboardingHeight.
+  ///
+  /// In en, this message translates to:
+  /// **'Height'**
+  String get onboardingHeight;
+
+  /// No description provided for @onboardingWeight.
+  ///
+  /// In en, this message translates to:
+  /// **'Weight'**
+  String get onboardingWeight;
+
+  /// No description provided for @onboardingBmi.
+  ///
+  /// In en, this message translates to:
+  /// **'BMI'**
+  String get onboardingBmi;
+
+  /// No description provided for @onboardingYears.
+  ///
+  /// In en, this message translates to:
+  /// **'years'**
+  String get onboardingYears;
+
+  /// No description provided for @onboardingBmiDescription1.
+  ///
+  /// In en, this message translates to:
+  /// **'The Body Mass Index (BMI) is a measure  that uses your height and weight to calculate if your weight for your body is within a healthy range'**
+  String get onboardingBmiDescription1;
+
+  /// No description provided for @onboardingBmiDescriptionAccent.
+  ///
+  /// In en, this message translates to:
+  /// **'Body Mass Index (BMI)'**
+  String get onboardingBmiDescriptionAccent;
+
+  /// No description provided for @onboardingBmiDescription2.
+  ///
+  /// In en, this message translates to:
+  /// **'However, BMI has limitations - for example it can\'t differentiate between fat, muscle, and bone weight. We\'ll use it along with other metrics to customize your program, but don\'t worry: It won\'t be the only factor that is taken into account'**
+  String get onboardingBmiDescription2;
+
+  /// No description provided for @onboardingLetsMoveOn.
+  ///
+  /// In en, this message translates to:
+  /// **'Let’s move on'**
+  String get onboardingLetsMoveOn;
+
+  /// No description provided for @onboardingMedicalIntroTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Medical check'**
+  String get onboardingMedicalIntroTitle;
+
+  /// No description provided for @onboardingMedicalIntroBody.
+  ///
+  /// In en, this message translates to:
+  /// **'To ensure that this program is suitable for your current circumstances and to tailor it specifically to you, please answer the next set of questions regarding your health conditions.'**
+  String get onboardingMedicalIntroBody;
+
+  /// No description provided for @onboardingAreYouPregnant.
+  ///
+  /// In en, this message translates to:
+  /// **'Are you pregnant?'**
+  String get onboardingAreYouPregnant;
+
+  /// No description provided for @onboardingFailedPregnancyTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'We are sorry. Unfortunately, your enrollment is not possible for now.'**
+  String get onboardingFailedPregnancyTitle;
+
+  /// No description provided for @onboardingFailedPregnancyBody1.
+  ///
+  /// In en, this message translates to:
+  /// **'You are having a baby.'**
+  String get onboardingFailedPregnancyBody1;
+
+  /// No description provided for @onboardingFailedPregnancyBody2.
+  ///
+  /// In en, this message translates to:
+  /// **'This program is not suitable for people who are pregnant.'**
+  String get onboardingFailedPregnancyBody2;
+
+  /// No description provided for @onboardingFailedPregnancyBody3.
+  ///
+  /// In en, this message translates to:
+  /// **'We would be happy to welcome you back here after your pregnancy.'**
+  String get onboardingFailedPregnancyBody3;
+
+  /// No description provided for @onboardingFailedPregnancyBody4.
+  ///
+  /// In en, this message translates to:
+  /// **'Wishing you all the best for you and your baby-to-be!'**
+  String get onboardingFailedPregnancyBody4;
+
+  /// No description provided for @onboardingMedicinesTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Which medicines do you take regularly?'**
+  String get onboardingMedicinesTitle;
+
+  /// No description provided for @onboardingMedicinesPlaceholder.
+  ///
+  /// In en, this message translates to:
+  /// **'Write down one medicine here'**
+  String get onboardingMedicinesPlaceholder;
+
+  /// No description provided for @onboardingWeightLossMedicationQuestion.
+  ///
+  /// In en, this message translates to:
+  /// **'Are you taking any medication to help you on your weight-loss journey?'**
+  String get onboardingWeightLossMedicationQuestion;
+
+  /// No description provided for @onboardingObesityQuestion.
+  ///
+  /// In en, this message translates to:
+  /// **'Have you been diagnosed with a secondary form of obesity (e.g. Cushing syndrome, Prader-Willi syndrome or hypogonadism)?'**
+  String get onboardingObesityQuestion;
+
+  /// No description provided for @onboardingThyroidDiseaseQuestion.
+  ///
+  /// In en, this message translates to:
+  /// **'Have you been diagnosed with a thyroid disease (e.g. Hashimoto’s disease or hypothyroidism)?'**
+  String get onboardingThyroidDiseaseQuestion;
+
+  /// No description provided for @onboardingMetabolicDiseaseQuestion.
+  ///
+  /// In en, this message translates to:
+  /// **'Have you been diagnosed with a form of metabolic disease?'**
+  String get onboardingMetabolicDiseaseQuestion;
+
+  /// No description provided for @onboardingHypertensionQuestion.
+  ///
+  /// In en, this message translates to:
+  /// **'Have you been diagnosed with hypertension?'**
+  String get onboardingHypertensionQuestion;
+
+  /// No description provided for @onboardingCardiovascularDiseaseQuestion.
+  ///
+  /// In en, this message translates to:
+  /// **'Have you been diagnosed with a cardiovascular disease or did you have heart surgery in the last 12 months?'**
+  String get onboardingCardiovascularDiseaseQuestion;
+
+  /// No description provided for @onboardingStomachReductionQuestion.
+  ///
+  /// In en, this message translates to:
+  /// **'Did you have a stomach reduction or bariatric surgery in the last 3 years or are you in a preparatory phase for such surgery?'**
+  String get onboardingStomachReductionQuestion;
+
+  /// No description provided for @onboardingDiabetesQuestion.
+  ///
+  /// In en, this message translates to:
+  /// **'Have you been diagnosed with diabetes?'**
+  String get onboardingDiabetesQuestion;
+
+  /// No description provided for @onboardingRenalFailureQuestion.
+  ///
+  /// In en, this message translates to:
+  /// **'Have you been diagnosed with renal failure?'**
+  String get onboardingRenalFailureQuestion;
+
+  /// No description provided for @onboardingAsthmaQuestion.
+  ///
+  /// In en, this message translates to:
+  /// **'Have you been diagnosed with asthma or COPD?'**
+  String get onboardingAsthmaQuestion;
+
+  /// No description provided for @onboardingLiverDiseaseQuestion.
+  ///
+  /// In en, this message translates to:
+  /// **'Have you been diagnosed with hepatitis or liver disease?'**
+  String get onboardingLiverDiseaseQuestion;
+
+  /// No description provided for @onboardingSleepApneaSyndromeQuestion.
+  ///
+  /// In en, this message translates to:
+  /// **'Have you been diagnosed with sleep apnea syndrome?'**
+  String get onboardingSleepApneaSyndromeQuestion;
+
+  /// No description provided for @onboardingLocomotorSystemDiseaseQuestion.
+  ///
+  /// In en, this message translates to:
+  /// **'Have you been diagnosed with any disease of the locomotor system (e.g. arthritis, osteoporosis, back/neck pains or inflammatory disease)?'**
+  String get onboardingLocomotorSystemDiseaseQuestion;
+
+  /// No description provided for @onboardingTreatmentByTheDoctorQuestion.
+  ///
+  /// In en, this message translates to:
+  /// **'Are you currently being treated by a psychologist or psychiatrist?'**
+  String get onboardingTreatmentByTheDoctorQuestion;
+
+  /// No description provided for @onboardingMedicalCheckPassedTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Medical check completed!'**
+  String get onboardingMedicalCheckPassedTitle;
+
+  /// No description provided for @onboardingMedicalCheckPassedBody.
+  ///
+  /// In en, this message translates to:
+  /// **'You already completed 2 out of 3 sections. Great, you’re nearly done!'**
+  String get onboardingMedicalCheckPassedBody;
+
+  /// No description provided for @onboardingMedicalCheckFailedTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Please check with your doctor or specialist!'**
+  String get onboardingMedicalCheckFailedTitle;
+
+  /// No description provided for @onboardingMedicalCheckFailedBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Please ask your doctor, specialist or psychologist before you use this app if it fits to your medical condition and / or treatment of:'**
+  String get onboardingMedicalCheckFailedBody;
+
+  /// No description provided for @onboardingMedicalCheckFailedBody2.
+  ///
+  /// In en, this message translates to:
+  /// **'Please note, we additionally offer support groups. If you would like to take part in one of these groups later on in the program, you will need permission from your psychologist/psychiatrist first'**
+  String get onboardingMedicalCheckFailedBody2;
+
+  /// No description provided for @onboardingCardioVascularDisease.
+  ///
+  /// In en, this message translates to:
+  /// **'Cardiovascular disease'**
+  String get onboardingCardioVascularDisease;
+
+  /// No description provided for @onboardingStomachReductionDisease.
+  ///
+  /// In en, this message translates to:
+  /// **'Stomach reduction disease'**
+  String get onboardingStomachReductionDisease;
+
+  /// No description provided for @onboardingObesity.
+  ///
+  /// In en, this message translates to:
+  /// **'Obesity disease'**
+  String get onboardingObesity;
+
+  /// No description provided for @onboardingThyroidDisease.
+  ///
+  /// In en, this message translates to:
+  /// **'Thyroid disease'**
+  String get onboardingThyroidDisease;
+
+  /// No description provided for @onboardingMetabolicDisease.
+  ///
+  /// In en, this message translates to:
+  /// **'Metabolic disease'**
+  String get onboardingMetabolicDisease;
+
+  /// No description provided for @onboardingHypertension.
+  ///
+  /// In en, this message translates to:
+  /// **'Hypertension'**
+  String get onboardingHypertension;
+
+  /// No description provided for @onboardingDiabetes.
+  ///
+  /// In en, this message translates to:
+  /// **'Diabetes disease'**
+  String get onboardingDiabetes;
+
+  /// No description provided for @onboardingDiabetesTypeI.
+  ///
+  /// In en, this message translates to:
+  /// **'Diabetes type I disease'**
+  String get onboardingDiabetesTypeI;
+
+  /// No description provided for @onboardingDiabetesTypeII.
+  ///
+  /// In en, this message translates to:
+  /// **'Diabetes type II disease'**
+  String get onboardingDiabetesTypeII;
+
+  /// No description provided for @onboardingRenalFailure.
+  ///
+  /// In en, this message translates to:
+  /// **'Renal failure'**
+  String get onboardingRenalFailure;
+
+  /// No description provided for @onboardingAsthma.
+  ///
+  /// In en, this message translates to:
+  /// **'Asthma'**
+  String get onboardingAsthma;
+
+  /// No description provided for @onboardingLiverDisease.
+  ///
+  /// In en, this message translates to:
+  /// **'Liver disease'**
+  String get onboardingLiverDisease;
+
+  /// No description provided for @onboardingSleepApneaSyndrome.
+  ///
+  /// In en, this message translates to:
+  /// **'Sleep apnea syndrome'**
+  String get onboardingSleepApneaSyndrome;
+
+  /// No description provided for @onboardingLocomotorSystemDisease.
+  ///
+  /// In en, this message translates to:
+  /// **'Locomotor system disease'**
+  String get onboardingLocomotorSystemDisease;
+
+  /// No description provided for @onboardingYourMentalHealth.
+  ///
+  /// In en, this message translates to:
+  /// **'Your mental health'**
+  String get onboardingYourMentalHealth;
+
+  /// No description provided for @onboardingMentalIntroBody1.
+  ///
+  /// In en, this message translates to:
+  /// **'In this section you will be asked questions regarding your current well-being, physiological symptoms and mood.'**
+  String get onboardingMentalIntroBody1;
+
+  /// No description provided for @onboardingMentalIntroBody2.
+  ///
+  /// In en, this message translates to:
+  /// **'Based on these results, the program will be adjusted to suit your needs.'**
+  String get onboardingMentalIntroBody2;
+
+  /// No description provided for @onboardingMentalHealthIntroTextOne.
+  ///
+  /// In en, this message translates to:
+  /// **'A good mental health is vital to successfully improve your lifestyle.'**
+  String get onboardingMentalHealthIntroTextOne;
+
+  /// No description provided for @onboardingMentalHealthIntroTextTwo.
+  ///
+  /// In en, this message translates to:
+  /// **'This section will take around 15 minutes.'**
+  String get onboardingMentalHealthIntroTextTwo;
+
+  /// No description provided for @onboardingMentalHealthIntroTextTwoAccent.
+  ///
+  /// In en, this message translates to:
+  /// **'15 minutes'**
+  String get onboardingMentalHealthIntroTextTwoAccent;
+
+  /// No description provided for @onboardingMentalHealthIntroTextThree.
+  ///
+  /// In en, this message translates to:
+  /// **'You can take a break in between as long as you finish this section within one hour.'**
+  String get onboardingMentalHealthIntroTextThree;
+
+  /// No description provided for @onboardingMentalHealthIntroTextThreeAccent.
+  ///
+  /// In en, this message translates to:
+  /// **'within one hour'**
+  String get onboardingMentalHealthIntroTextThreeAccent;
+
+  /// No description provided for @onboardingMentalHealthIntroTextFour.
+  ///
+  /// In en, this message translates to:
+  /// **'If you do take more than an hour, you will need to start this section over again.'**
+  String get onboardingMentalHealthIntroTextFour;
+
+  /// No description provided for @onboardingMentalHealthIntroTextFive.
+  ///
+  /// In en, this message translates to:
+  /// **'You will receive your results immediately after the questions.'**
+  String get onboardingMentalHealthIntroTextFive;
+
+  /// No description provided for @onboardingMentalHealthIntroTextSix.
+  ///
+  /// In en, this message translates to:
+  /// **'Please note that these test results are not a diagnosis. A diagnosis can only be made by a doctor or psychologist.'**
+  String get onboardingMentalHealthIntroTextSix;
+
+  /// Information about the mental health section and how to get more details.
+  ///
+  /// In en, this message translates to:
+  /// **'In this section you will be asked questions from scientifically validated questionnaires, carefully chosen by our clinical psychologist. \n\nIf you would like to get more information on the questionnaires that are used, please contact {appName}.'**
+  String onboardingMentalHealthMoreInfo(String appName);
+
+  /// No description provided for @onboardingMentalHealthMoreInfoBold1.
+  ///
+  /// In en, this message translates to:
+  /// **'scientifically validated questionnaires'**
+  String get onboardingMentalHealthMoreInfoBold1;
+
+  /// No description provided for @onboardingMentalHealthMoreInfoBold2.
+  ///
+  /// In en, this message translates to:
+  /// **'our clinical psychologist'**
+  String get onboardingMentalHealthMoreInfoBold2;
+
+  /// No description provided for @onboardingWho8Question.
+  ///
+  /// In en, this message translates to:
+  /// **'Please indicate for each of the given statements which is closest to how you have been feeling over the last two weeks.'**
+  String get onboardingWho8Question;
+
+  /// No description provided for @onboardingLastTwoWeeks.
+  ///
+  /// In en, this message translates to:
+  /// **'last two weeks'**
+  String get onboardingLastTwoWeeks;
+
+  /// No description provided for @onboardingPastFourWeeks.
+  ///
+  /// In en, this message translates to:
+  /// **'past four weeks'**
+  String get onboardingPastFourWeeks;
+
+  /// No description provided for @onboardingPhq15Question.
+  ///
+  /// In en, this message translates to:
+  /// **'During the past four weeks, how much have you been bothered by any of the following problems?'**
+  String get onboardingPhq15Question;
+
+  /// No description provided for @onboardingPhq8Question.
+  ///
+  /// In en, this message translates to:
+  /// **'Over the last two weeks, how often have you been bothered by any of the following problems?'**
+  String get onboardingPhq8Question;
+
+  /// No description provided for @onboardingStartAgain.
+  ///
+  /// In en, this message translates to:
+  /// **'Start again'**
+  String get onboardingStartAgain;
+
+  /// No description provided for @onboardingWho5ResultTestMinimal.
+  ///
+  /// In en, this message translates to:
+  /// **'Regarding your general well-being, you have indicated that in the last two weeks your well-being has been severely limited, and you have felt unwell most of the time. If you feel unwell for a longer period, we recommend that you consult a psychologist or your doctor to check these symptoms. You can find psychologists here:'**
+  String get onboardingWho5ResultTestMinimal;
+
+  /// No description provided for @onboardingWho5ResultTestHigh.
+  ///
+  /// In en, this message translates to:
+  /// **'In terms of your general well-being, you indicated that you have generally felt balanced, joyful, and relaxed over the past two weeks. This result indicates a good state of well-being.'**
+  String get onboardingWho5ResultTestHigh;
+
+  /// No description provided for @onboardingPhq15ResultMinimal.
+  ///
+  /// In en, this message translates to:
+  /// **'You have stated that you have had no or few physical ailments in the last four weeks. That’s great.'**
+  String get onboardingPhq15ResultMinimal;
+
+  /// No description provided for @onboardingPhq15ResultMild.
+  ///
+  /// In en, this message translates to:
+  /// **'You have stated that you have been bothered by a few physical problems in the last four weeks. Mild physical problems can also be a sign of stress. It could be helpful to reduce stress. \nTo clarify whether these ailments are related to stress, please consult your doctor.'**
+  String get onboardingPhq15ResultMild;
+
+  /// No description provided for @onboardingPhq15ResultMedium.
+  ///
+  /// In en, this message translates to:
+  /// **'You have stated that a number of physical ailments have bothered you over the past four weeks. A consultation with your doctor is recommended to check whether these are temporary. The symptoms can be a reaction of your body to stress or emotional issues.'**
+  String get onboardingPhq15ResultMedium;
+
+  /// No description provided for @onboardingPhq15ResultHigh.
+  ///
+  /// In en, this message translates to:
+  /// **'You have stated that many physical ailments have bothered you in the last four weeks. Please consult your doctor to check these symptoms. These symptoms may have a medical cause or indicate a somatization disorder. \n\nThis program is not a substitute for mental health diagnosis or psychological treatment. In order to have a closer look at the symptoms and to treat them, if necessary, we recommend consulting your doctor or a psychologist. You can find addresses here:'**
+  String get onboardingPhq15ResultHigh;
+
+  /// No description provided for @onboardingGad7ResultMinimal.
+  ///
+  /// In en, this message translates to:
+  /// **'You have stated that you were at ease most of the time in the last two weeks. Your everyday life is not affected by anxiety. Great, keep it up.'**
+  String get onboardingGad7ResultMinimal;
+
+  /// No description provided for @onboardingGad7ResultMild.
+  ///
+  /// In en, this message translates to:
+  /// **'You have stated that in the last two weeks you have had problems to relax from time to time. You may also have felt nervous, anxious, or on edge. Don’t be concerned about it. These may be temporary symptoms. Give yourself a break to relax more often. \nBut if the symptoms worsen, we recommend consulting your doctor or a psychologist.'**
+  String get onboardingGad7ResultMild;
+
+  /// No description provided for @onboardingGad7ResultMedium.
+  ///
+  /// In en, this message translates to:
+  /// **'You have stated that you have felt nervous or anxious more than half the time in the last two weeks. You may also have not been able to stop or control worrying. This can be a burden for you in your daily life.\n\nIf the symptoms persist or worsen, we recommend consulting your doctor or a psychologist.'**
+  String get onboardingGad7ResultMedium;
+
+  /// No description provided for @onboardingGad7ResultHigh.
+  ///
+  /// In en, this message translates to:
+  /// **'You have stated that you have felt nervous or anxious nearly every day in the last two weeks. You may also have not been able to stop or control worrying. These symptoms could indicate an anxiety disorder.\n\nIn order to have a closer look at the symptoms and to treat them, if necessary, we recommend consulting your doctor or a psychologist. You can find addresses here:'**
+  String get onboardingGad7ResultHigh;
+
+  /// No description provided for @onboardingPhq8ResultMinimal.
+  ///
+  /// In en, this message translates to:
+  /// **'You have stated that your mood was not affected most days in the last two weeks. Great, keep it up and look out for all the positive things you will come across on your journey.'**
+  String get onboardingPhq8ResultMinimal;
+
+  /// No description provided for @onboardingPhq8ResultMild.
+  ///
+  /// In en, this message translates to:
+  /// **'You have stated that in the last two weeksYou have stated that in the last two weeks you have felt down from time to time. You may also have had feelings of hopelessness or a lack of energy. Throughout the LeanOnMe program, you will learn about the connection between thoughts and feelings and what you can do to improve your mental health.\nIf the symptoms worsen, we recommend a consultation with a psychologist or your doctor.'**
+  String get onboardingPhq8ResultMild;
+
+  /// No description provided for @onboardingPhq8ResultMedium.
+  ///
+  /// In en, this message translates to:
+  /// **'You have stated that you have been depressed more than half the time in the last two weeks. You may also have had feelings of hopelessness or have felt down. Throughout the LeanOnMe program, you will learn about the connection between thoughts and feelings and what you can do to improve your mental health.\nIf the symptoms persist or worsen, we recommend a consultation with a psychologist or your doctor.'**
+  String get onboardingPhq8ResultMedium;
+
+  /// No description provided for @onboardingPhq8ResultHigh.
+  ///
+  /// In en, this message translates to:
+  /// **'You have stated that your mood has often been significantly affected in the last two weeks. You have indicated that you have felt depressed and have often suffered from listlessness or dejection. The symptoms indicate current psychological distress with emotional impairment. These may be indications of a temporary depressive episode. \n\nThis program is not a substitute for mental health diagnosis or psychological treatment. In order to have a closer look at the symptoms and to treat them, if necessary, we recommend consulting your doctor or a psychologist. You can find addresses here:'**
+  String get onboardingPhq8ResultHigh;
+
+  /// No description provided for @onboardingPhq8ResultHighest.
+  ///
+  /// In en, this message translates to:
+  /// **'You have stated that your mood has been significantly affected almost every day for the past two weeks. You have indicated that you have felt depressed and have often or constantly suffered from listlessness or dejection. These symptoms currently indicate a high level of psychological distress with emotional impairment and could be an indication of depression.\n\nThis program is not a substitute for mental health diagnosis or psychological treatment. In order to have a closer look at the symptoms and to treat them, if necessary, we recommend consulting your doctor and a clarification by a psychologist. You can find addresses here:'**
+  String get onboardingPhq8ResultHighest;
+
+  /// No description provided for @onboardingPhq8FinalResultHigh1.
+  ///
+  /// In en, this message translates to:
+  /// **'The questionnaire results indicate that you are currently experiencing notable mental distress.'**
+  String get onboardingPhq8FinalResultHigh1;
+
+  /// No description provided for @onboardingPhq8FinalResultHigh2.
+  ///
+  /// In en, this message translates to:
+  /// **'Unfortunately, the program is not suitable for people who are currently experiencing considerable mental distress, as participation in this program could place additional stress on you.'**
+  String get onboardingPhq8FinalResultHigh2;
+
+  /// No description provided for @onboardingPhq8FinalResultHigh3.
+  ///
+  /// In en, this message translates to:
+  /// **'In order to have a closer look at these symptoms and to treat them, we recommend consulting a psychologist. You can find addresses here:'**
+  String get onboardingPhq8FinalResultHigh3;
+
+  /// No description provided for @onboardingPhq8FinalResultHigh4.
+  ///
+  /// In en, this message translates to:
+  /// **'We invite you to repeat the test when these symptoms have subsided so that you can focus all your energy on your weight-loss journey.'**
+  String get onboardingPhq8FinalResultHigh4;
+
+  /// No description provided for @onboardingIfYouHaveSuicidalThoughts.
+  ///
+  /// In en, this message translates to:
+  /// **'If you are in an acute crisis or having suicidal thoughts, please contact one of the 24-hour toll-free emergency numbers immediately:'**
+  String get onboardingIfYouHaveSuicidalThoughts;
+
+  /// No description provided for @onboardingPersonalProgram.
+  ///
+  /// In en, this message translates to:
+  /// **'Based on your information, we tailor the program to you personally.'**
+  String get onboardingPersonalProgram;
+
+  /// No description provided for @onboardingSupportMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'We would like to support you on your journey in the best possible way and tailor the program to you personally.'**
+  String get onboardingSupportMessage;
+
+  /// No description provided for @onboardingFeelLimited1.
+  ///
+  /// In en, this message translates to:
+  /// **'It turned out that you currently feel limited by anxiety and physical symptoms. We recommend you talk to a primary care physician or psychologist.'**
+  String get onboardingFeelLimited1;
+
+  /// No description provided for @onboardingFeelLimited2.
+  ///
+  /// In en, this message translates to:
+  /// **'It turned out that you currently feel limited by physical symptoms. We recommend you talk to a primary care physician or psychologist.'**
+  String get onboardingFeelLimited2;
+
+  /// No description provided for @onboardingFeelLimited3.
+  ///
+  /// In en, this message translates to:
+  /// **'It turned out that you currently feel limited by anxiety symptoms. We recommend you talk to a primary care physician or psychologist.'**
+  String get onboardingFeelLimited3;
+
+  /// No description provided for @onboardingFeelLimited4.
+  ///
+  /// In en, this message translates to:
+  /// **'It turned out that you are troubled in several areas at the moment.'**
+  String get onboardingFeelLimited4;
+
+  /// No description provided for @onboardingNotATherapy.
+  ///
+  /// In en, this message translates to:
+  /// **'Please keep in mind that LeanOnMe is not a therapy.'**
+  String get onboardingNotATherapy;
+
+  /// No description provided for @onboardingLearnManyThings.
+  ///
+  /// In en, this message translates to:
+  /// **'However, you will learn many things that will support you in your mental and physical well-being.'**
+  String get onboardingLearnManyThings;
+
+  /// No description provided for @onboardingUnlockAllSections.
+  ///
+  /// In en, this message translates to:
+  /// **'You will have access to all sections of the program.'**
+  String get onboardingUnlockAllSections;
+
+  /// No description provided for @onboardingAwailableAreas.
+  ///
+  /// In en, this message translates to:
+  /// **'The following areas will be available to you as you progress through the program:'**
+  String get onboardingAwailableAreas;
+
+  /// No description provided for @onboardingUnlockBuddyMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'Find a Buddy and get into a Support Group'**
+  String get onboardingUnlockBuddyMessage;
+
+  /// No description provided for @onboardingWeWillGuideYou.
+  ///
+  /// In en, this message translates to:
+  /// **'We will guide you step by step in your weight-loss journey.\n\nHave fun with exploring!'**
+  String get onboardingWeWillGuideYou;
+
+  /// No description provided for @onboardingPhq8Fail.
+  ///
+  /// In en, this message translates to:
+  /// **'We are sorry! Unfortunately, your enrollment is not possible now.'**
+  String get onboardingPhq8Fail;
+
+  /// No description provided for @onboardingGeneralWellBeingSummary.
+  ///
+  /// In en, this message translates to:
+  /// **'General well-being summary'**
+  String get onboardingGeneralWellBeingSummary;
+
+  /// No description provided for @onboardingBodyAndMindBalanceSummary.
+  ///
+  /// In en, this message translates to:
+  /// **'Body and mind balance summary'**
+  String get onboardingBodyAndMindBalanceSummary;
+
+  /// No description provided for @onboardingStateOfMindSummary.
+  ///
+  /// In en, this message translates to:
+  /// **'State of mind summary'**
+  String get onboardingStateOfMindSummary;
+
+  /// No description provided for @onboardingCheckCompleted.
+  ///
+  /// In en, this message translates to:
+  /// **'Check completed!'**
+  String get onboardingCheckCompleted;
+
+  /// No description provided for @onboardingYouExceededTimeMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'Sorry, but you exceeded the time limit of one hour'**
+  String get onboardingYouExceededTimeMessage;
+
+  /// No description provided for @onboardingNoWorriesYouCanDoItLater.
+  ///
+  /// In en, this message translates to:
+  /// **'But don’t worry, you can start over'**
+  String get onboardingNoWorriesYouCanDoItLater;
+
+  /// No description provided for @onboardingMentalResultSubText1.
+  ///
+  /// In en, this message translates to:
+  /// **'You’ve completed the first part. Keep going. You’re doing great!'**
+  String get onboardingMentalResultSubText1;
+
+  /// No description provided for @onboardingMentalResultSubText2.
+  ///
+  /// In en, this message translates to:
+  /// **'You\'re breezing through these questions. Nicely done! You’ve reached the halfway point!'**
+  String get onboardingMentalResultSubText2;
+
+  /// No description provided for @onboardingMentalResultSubText3.
+  ///
+  /// In en, this message translates to:
+  /// **'Three down, one to go! Just a few last questions!'**
+  String get onboardingMentalResultSubText3;
+
   /// No description provided for @avatarAvatar.
   ///
   /// In en, this message translates to:
@@ -5630,108 +6554,6 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Cropper'**
   String get avatarCropper;
-
-  /// No description provided for @mentalTestResultsPhq8FinalResultHigh1.
-  ///
-  /// In en, this message translates to:
-  /// **'The questionnaire results indicate that you are currently experiencing notable mental distress.'**
-  String get mentalTestResultsPhq8FinalResultHigh1;
-
-  /// No description provided for @mentalTestResultsPhq8FinalResultHigh2.
-  ///
-  /// In en, this message translates to:
-  /// **'Unfortunately, the program is not suitable for people who are currently experiencing considerable mental distress, as participation in this program could place additional stress on you.'**
-  String get mentalTestResultsPhq8FinalResultHigh2;
-
-  /// No description provided for @mentalTestResultsPhq8FinalResultHigh3.
-  ///
-  /// In en, this message translates to:
-  /// **'In order to have a closer look at these symptoms and to treat them, we recommend consulting a psychologist. You can find addresses here:'**
-  String get mentalTestResultsPhq8FinalResultHigh3;
-
-  /// No description provided for @mentalTestResultsPhq8FinalResultHigh4.
-  ///
-  /// In en, this message translates to:
-  /// **'We invite you to repeat the test when these symptoms have subsided so that you can focus all your energy on your weight-loss journey.'**
-  String get mentalTestResultsPhq8FinalResultHigh4;
-
-  /// No description provided for @mentalTestResultsIfYouHaveSuicidalThoughts.
-  ///
-  /// In en, this message translates to:
-  /// **'If you are in an acute crisis or having suicidal thoughts, please contact one of the 24-hour toll-free emergency numbers immediately:'**
-  String get mentalTestResultsIfYouHaveSuicidalThoughts;
-
-  /// No description provided for @mentalTestResultsPersonalProgram.
-  ///
-  /// In en, this message translates to:
-  /// **'Based on your information, we tailor the program to you personally.'**
-  String get mentalTestResultsPersonalProgram;
-
-  /// No description provided for @mentalTestResultsSupportMessage.
-  ///
-  /// In en, this message translates to:
-  /// **'We would like to support you on your journey in the best possible way and tailor the program to you personally.'**
-  String get mentalTestResultsSupportMessage;
-
-  /// No description provided for @mentalTestResultsFeelLimited1.
-  ///
-  /// In en, this message translates to:
-  /// **'It turned out that you currently feel limited by anxiety and physical symptoms. We recommend you talk to a primary care physician or psychologist.'**
-  String get mentalTestResultsFeelLimited1;
-
-  /// No description provided for @mentalTestResultsFeelLimited2.
-  ///
-  /// In en, this message translates to:
-  /// **'It turned out that you currently feel limited by physical symptoms. We recommend you talk to a primary care physician or psychologist.'**
-  String get mentalTestResultsFeelLimited2;
-
-  /// No description provided for @mentalTestResultsFeelLimited3.
-  ///
-  /// In en, this message translates to:
-  /// **'It turned out that you currently feel limited by anxiety symptoms. We recommend you talk to a primary care physician or psychologist.'**
-  String get mentalTestResultsFeelLimited3;
-
-  /// No description provided for @mentalTestResultsFeelLimited4.
-  ///
-  /// In en, this message translates to:
-  /// **'It turned out that you are troubled in several areas at the moment.'**
-  String get mentalTestResultsFeelLimited4;
-
-  /// No description provided for @mentalTestResultsNotATherapy.
-  ///
-  /// In en, this message translates to:
-  /// **'Please keep in mind that LeanOnMe is not a therapy.'**
-  String get mentalTestResultsNotATherapy;
-
-  /// No description provided for @mentalTestResultsLearnManyThings.
-  ///
-  /// In en, this message translates to:
-  /// **'However, you will learn many things that will support you in your mental and physical well-being.'**
-  String get mentalTestResultsLearnManyThings;
-
-  /// No description provided for @mentalTestResultsUnlockAllSections.
-  ///
-  /// In en, this message translates to:
-  /// **'You will have access to all sections of the program.'**
-  String get mentalTestResultsUnlockAllSections;
-
-  /// No description provided for @mentalTestResultsAwailableAreas.
-  ///
-  /// In en, this message translates to:
-  /// **'The following areas will be available to you as you progress through the program:'**
-  String get mentalTestResultsAwailableAreas;
-
-  /// No description provided for @mentalTestResultsUnlockBuddyMessage.
-  ///
-  /// In en, this message translates to:
-  /// **'Find a Buddy and get into a Support Group'**
-  String get mentalTestResultsUnlockBuddyMessage;
-
-  /// No description provided for @mentalTestResultsWeWillGuideYou.
-  ///
-  /// In en, this message translates to:
-  /// **'We will guide you step by step in your weight-loss journey.\n\nHave fun with exploring!'**
-  String get mentalTestResultsWeWillGuideYou;
 
   /// No description provided for @smartGoalsMyGoals.
   ///
@@ -6774,7 +7596,7 @@ abstract class AppLocalizations {
   /// This is a welcome message.
   ///
   /// In en, this message translates to:
-  /// **'Welcome to {projectName}'**
+  /// **'Welcome to {projectName}!'**
   String introTitle(String projectName);
 
   /// No description provided for @introBodyTextFirst.
@@ -6786,44 +7608,8 @@ abstract class AppLocalizations {
   /// No description provided for @introBodyTextSecond.
   ///
   /// In en, this message translates to:
-  /// **'If this description fits you, let’s start your journey'**
+  /// **'If this description fits you, let’s start your journey.'**
   String get introBodyTextSecond;
-
-  /// No description provided for @intro2Title.
-  ///
-  /// In en, this message translates to:
-  /// **'It’s time to embrace a new you'**
-  String get intro2Title;
-
-  /// No description provided for @intro2BodyTextFirst.
-  ///
-  /// In en, this message translates to:
-  /// **'Great to see that you want to join the LeanOnMe community'**
-  String get intro2BodyTextFirst;
-
-  /// No description provided for @intro2BodyTextSecond.
-  ///
-  /// In en, this message translates to:
-  /// **'Let’s start with some basics, like your name and email address'**
-  String get intro2BodyTextSecond;
-
-  /// No description provided for @intro3Title.
-  ///
-  /// In en, this message translates to:
-  /// **'Congratulations'**
-  String get intro3Title;
-
-  /// No description provided for @intro3BodyTextFirst.
-  ///
-  /// In en, this message translates to:
-  /// **'You have just taken the first step to embracing your true self'**
-  String get intro3BodyTextFirst;
-
-  /// No description provided for @intro3BodyTextSecond.
-  ///
-  /// In en, this message translates to:
-  /// **'To check if the program is suitable for you and your needs, please answer the upcoming questions regarding your physical, medical and mental health'**
-  String get intro3BodyTextSecond;
 
   /// A greeting message that includes the project name.
   ///
@@ -6849,353 +7635,17 @@ abstract class AppLocalizations {
   /// **'Enter your email address and we will send you instructions to reset your password'**
   String get forgotPasswordBody;
 
-  /// No description provided for @onboardingIntroTitle.
-  ///
-  /// In en, this message translates to:
-  /// **'LeanOnMe gives you the tools to lose weight sustainably.'**
-  String get onboardingIntroTitle;
-
-  /// No description provided for @onboardingIntroProgram1.
-  ///
-  /// In en, this message translates to:
-  /// **'Based on a psychology driven program which successfully helped people to lose weight and feel better, long term.'**
-  String get onboardingIntroProgram1;
-
-  /// No description provided for @onboardingIntroProgram2.
-  ///
-  /// In en, this message translates to:
-  /// **'Nutrition, physical activity, medical knowledge, and community support combine with psychology to help you reach your goals.'**
-  String get onboardingIntroProgram2;
-
-  /// No description provided for @onboardingIntroMissionTitle.
-  ///
-  /// In en, this message translates to:
-  /// **'Our team of experts  brings the success of the clinical program to you!'**
-  String get onboardingIntroMissionTitle;
-
-  /// No description provided for @onboardingIntroMissionAndrew.
-  ///
-  /// In en, this message translates to:
-  /// **'Andrew has a PHD in Bio-Chemistry and is the brains behind our nutrition program. With curated recipes, customized goals, and NO FOCUS ON CALORIE TRACKING, our nutrition program is one-of-a-kind.'**
-  String get onboardingIntroMissionAndrew;
-
-  /// No description provided for @onboardingIntroMissionMaria.
-  ///
-  /// In en, this message translates to:
-  /// **'Maria has an MSc in Digital Psychology, and is the link between the successful clinical program and our digitalized version.'**
-  String get onboardingIntroMissionMaria;
-
-  /// No description provided for @onboardingIntroMissionShalu.
-  ///
-  /// In en, this message translates to:
-  /// **'Shalu is an MD specialized in Psychiatry. With her focus on addiction and addictive-behaviors, she is intrinsically qualified to oversee and encourage your journey to happier, healthier lifestyle.'**
-  String get onboardingIntroMissionShalu;
-
-  /// No description provided for @onboardingIntroMissionJoshua.
-  ///
-  /// In en, this message translates to:
-  /// **'With a love for sports and the human body, Josh has a Sports Science degree and years of experience as a physiotherapist focusing on weight loss. He\'s great at helping people move better and feel their best.'**
-  String get onboardingIntroMissionJoshua;
-
-  /// No description provided for @onboardingIntroMissionDenise.
-  ///
-  /// In en, this message translates to:
-  /// **'Denise is an experienced clinical psychologist, who is also trained in Cognitive Behaviour Therapy, Meditation, and Mindfulness Based Therapy. Her passion is to give people the courage to change, and to guide them through the process step-by step.'**
-  String get onboardingIntroMissionDenise;
-
-  /// No description provided for @onboardingPacingTitle.
-  ///
-  /// In en, this message translates to:
-  /// **'Go slow to go fast.'**
-  String get onboardingPacingTitle;
-
-  /// No description provided for @onboardingPacingMessage.
-  ///
-  /// In en, this message translates to:
-  /// **'Our program is split up into modules, called “pools”. You should aim to spend a minimum of 1 week in each pool, absorbing knowledge and practicing new habits.'**
-  String get onboardingPacingMessage;
-
-  /// No description provided for @iAmReady.
-  ///
-  /// In en, this message translates to:
-  /// **'I’m ready'**
-  String get iAmReady;
-
-  /// No description provided for @physicalIntroTitle.
-  ///
-  /// In en, this message translates to:
-  /// **'Basics first'**
-  String get physicalIntroTitle;
-
-  /// No description provided for @physicalIntroBody.
-  ///
-  /// In en, this message translates to:
-  /// **'Joshua needs to know the answers to some basics so we can customize your program.'**
-  String get physicalIntroBody;
-
   /// No description provided for @minutes.
   ///
   /// In en, this message translates to:
   /// **'minutes'**
   String get minutes;
 
-  /// No description provided for @ageCheckFailedTitle.
-  ///
-  /// In en, this message translates to:
-  /// **'We are sorry. Unfortunately, your enrollment is not possible now'**
-  String get ageCheckFailedTitle;
-
-  /// No description provided for @ageCheckFailedBody.
-  ///
-  /// In en, this message translates to:
-  /// **'Our program is not set up for people under the age of 18'**
-  String get ageCheckFailedBody;
-
-  /// No description provided for @yourSex.
-  ///
-  /// In en, this message translates to:
-  /// **'Your sex'**
-  String get yourSex;
-
-  /// No description provided for @whatYourSex.
-  ///
-  /// In en, this message translates to:
-  /// **'What is your sex'**
-  String get whatYourSex;
-
-  /// No description provided for @sexQuestionBody.
-  ///
-  /// In en, this message translates to:
-  /// **'Please indicate what biological sex should be used to calculate certain metrics that will help to properly tailor the program to you'**
-  String get sexQuestionBody;
-
-  /// No description provided for @sex.
-  ///
-  /// In en, this message translates to:
-  /// **'Sex'**
-  String get sex;
-
-  /// No description provided for @genderPageTitle.
-  ///
-  /// In en, this message translates to:
-  /// **'What is your gender'**
-  String get genderPageTitle;
-
-  /// No description provided for @happinessTitle.
-  ///
-  /// In en, this message translates to:
-  /// **'How do you feel about your current lifestyle'**
-  String get happinessTitle;
-
-  /// No description provided for @happinessBody1.
-  ///
-  /// In en, this message translates to:
-  /// **'Take a moment to reflect on your lifestyle right now'**
-  String get happinessBody1;
-
-  /// No description provided for @happinessBody2.
-  ///
-  /// In en, this message translates to:
-  /// **'Using the scale below, please indicate how you generally feel, when you think about your current lifestyle'**
-  String get happinessBody2;
-
-  /// No description provided for @yourHeight.
-  ///
-  /// In en, this message translates to:
-  /// **'Your height'**
-  String get yourHeight;
-
-  /// No description provided for @metric.
-  ///
-  /// In en, this message translates to:
-  /// **'Metric'**
-  String get metric;
-
-  /// No description provided for @imperial.
-  ///
-  /// In en, this message translates to:
-  /// **'Imperial'**
-  String get imperial;
-
-  /// No description provided for @next.
-  ///
-  /// In en, this message translates to:
-  /// **'Next'**
-  String get next;
-
-  /// No description provided for @changeYourHeight.
-  ///
-  /// In en, this message translates to:
-  /// **'Change your height'**
-  String get changeYourHeight;
-
-  /// No description provided for @heightSmall.
-  ///
-  /// In en, this message translates to:
-  /// **'Are you sure this is the correct height? Seems rather small. Please correct your input'**
-  String get heightSmall;
-
-  /// No description provided for @heightLarge.
-  ///
-  /// In en, this message translates to:
-  /// **'Are you sure this is the correct height? Seems rather large. Please correct your input'**
-  String get heightLarge;
-
-  /// No description provided for @correctHeight.
-  ///
-  /// In en, this message translates to:
-  /// **'Please correct your answer'**
-  String get correctHeight;
-
-  /// No description provided for @yourWeight.
-  ///
-  /// In en, this message translates to:
-  /// **'Your weight'**
-  String get yourWeight;
-
-  /// No description provided for @yourBodyMassIndex.
-  ///
-  /// In en, this message translates to:
-  /// **'Your Body Mass Index is'**
-  String get yourBodyMassIndex;
-
-  /// Message displayed when a user's BMI is outside the supported range for the program.
-  ///
-  /// In en, this message translates to:
-  /// **'We are sorry, but unfortunately our program is not set up for people with a BMI lower than {bmiMinIndex} and higher than {bmiMaxIndex}'**
-  String fitnessCheckFailedInformationText(String bmiMinIndex, String bmiMaxIndex);
-
-  /// No description provided for @fitnessCheckFailedInformationText2.
-  ///
-  /// In en, this message translates to:
-  /// **'Please consult your doctor to find a suitable alternative'**
-  String get fitnessCheckFailedInformationText2;
-
-  /// No description provided for @physicalCheckPassedTitle.
-  ///
-  /// In en, this message translates to:
-  /// **'Basics completed'**
-  String get physicalCheckPassedTitle;
-
-  /// No description provided for @age.
-  ///
-  /// In en, this message translates to:
-  /// **'Age'**
-  String get age;
-
-  /// No description provided for @height.
-  ///
-  /// In en, this message translates to:
-  /// **'Height'**
-  String get height;
-
-  /// No description provided for @weight.
-  ///
-  /// In en, this message translates to:
-  /// **'Weight'**
-  String get weight;
-
-  /// No description provided for @bmi.
-  ///
-  /// In en, this message translates to:
-  /// **'BMI'**
-  String get bmi;
-
-  /// No description provided for @years.
-  ///
-  /// In en, this message translates to:
-  /// **'years'**
-  String get years;
-
-  /// No description provided for @bmiDescription1.
-  ///
-  /// In en, this message translates to:
-  /// **'The Body Mass Index (BMI) is a measure  that uses your height and weight to calculate if your weight for your body is within a healthy range'**
-  String get bmiDescription1;
-
-  /// No description provided for @bmiDescriptionAccent.
-  ///
-  /// In en, this message translates to:
-  /// **'Body Mass Index (BMI)'**
-  String get bmiDescriptionAccent;
-
-  /// No description provided for @bmiDescription2.
-  ///
-  /// In en, this message translates to:
-  /// **'However, BMI has limitations - for example it can\'t differentiate between fat, muscle, and bone weight. We\'ll use it along with other metrics to customize your program, but don\'t worry: It won\'t be the only factor that is taken into account'**
-  String get bmiDescription2;
-
-  /// No description provided for @bmiExclusionBodyTitle.
-  ///
-  /// In en, this message translates to:
-  /// **'Body Mass Index (BMI) is'**
-  String get bmiExclusionBodyTitle;
-
-  /// No description provided for @bmiExclusionBodyOlder19LowBmi.
-  ///
-  /// In en, this message translates to:
-  /// **'Our program is not yet optimized for people with a BMI under 25. We\'ll reach out to you as soon as we\'re ready!'**
-  String get bmiExclusionBodyOlder19LowBmi;
-
-  /// No description provided for @bmiExclusionBodyOlder19HighBmi.
-  ///
-  /// In en, this message translates to:
-  /// **'Our program is not yet optimized for people with a BMI over 39.9.'**
-  String get bmiExclusionBodyOlder19HighBmi;
-
-  /// No description provided for @bmiExclusionBodyYounger19LowBmi.
-  ///
-  /// In en, this message translates to:
-  /// **'Our program is not yet optimized for people with a BMI under 25. We\'ll reach out to you as soon as we\'re ready!'**
-  String get bmiExclusionBodyYounger19LowBmi;
-
-  /// No description provided for @bmiExclusionBodyYounger19HighBmi.
-  ///
-  /// In en, this message translates to:
-  /// **'Our program is not suitable for people with a BMI over 38.5.'**
-  String get bmiExclusionBodyYounger19HighBmi;
-
-  /// No description provided for @bmiExclusionBodyHighBmiEnding.
-  ///
-  /// In en, this message translates to:
-  /// **'Please consult your doctor to find a suitable alternative.'**
-  String get bmiExclusionBodyHighBmiEnding;
-
-  /// No description provided for @bmiExclusionBodyLowBmiEnding.
-  ///
-  /// In en, this message translates to:
-  /// **'Please consult your doctor if you feel you urgently need a suitable alternative.'**
-  String get bmiExclusionBodyLowBmiEnding;
-
-  /// No description provided for @letsMoveOn.
-  ///
-  /// In en, this message translates to:
-  /// **'Let’s move on'**
-  String get letsMoveOn;
-
-  /// No description provided for @medicalIntroTitle.
-  ///
-  /// In en, this message translates to:
-  /// **'Medical check'**
-  String get medicalIntroTitle;
-
   /// Indicates the current step out of the total number of steps.
   ///
   /// In en, this message translates to:
   /// **'Step {currentStep} of {totalSteps}'**
   String stepCounter(String currentStep, String totalSteps);
-
-  /// No description provided for @medicalIntroBody.
-  ///
-  /// In en, this message translates to:
-  /// **'To ensure that this program is suitable for your current circumstances and to tailor it specifically to you, please answer the next set of questions regarding your health conditions'**
-  String get medicalIntroBody;
-
-  /// No description provided for @areYouPregnant.
-  ///
-  /// In en, this message translates to:
-  /// **'Are you pregnant?'**
-  String get areYouPregnant;
 
   /// No description provided for @yes.
   ///
@@ -7208,636 +7658,6 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'no'**
   String get no;
-
-  /// No description provided for @failedPregnancyTitle.
-  ///
-  /// In en, this message translates to:
-  /// **'We are sorry. Unfortunately, your enrollment is not possible for now.'**
-  String get failedPregnancyTitle;
-
-  /// No description provided for @failedPregnancyBody1.
-  ///
-  /// In en, this message translates to:
-  /// **'You are having a baby.'**
-  String get failedPregnancyBody1;
-
-  /// No description provided for @failedPregnancyBody2.
-  ///
-  /// In en, this message translates to:
-  /// **'This program is not suitable for people who are pregnant.'**
-  String get failedPregnancyBody2;
-
-  /// No description provided for @failedPregnancyBody3.
-  ///
-  /// In en, this message translates to:
-  /// **'We would be happy to welcome you back here after your pregnancy.'**
-  String get failedPregnancyBody3;
-
-  /// No description provided for @failedPregnancyBody4.
-  ///
-  /// In en, this message translates to:
-  /// **'Wishing you all the best for you and your baby-to-be!'**
-  String get failedPregnancyBody4;
-
-  /// No description provided for @medicinesTitle.
-  ///
-  /// In en, this message translates to:
-  /// **'Which medicines do you take regularly'**
-  String get medicinesTitle;
-
-  /// No description provided for @medicinesPlaceholder.
-  ///
-  /// In en, this message translates to:
-  /// **'Write down one medicine here'**
-  String get medicinesPlaceholder;
-
-  /// No description provided for @weightLossMedicationQuestion.
-  ///
-  /// In en, this message translates to:
-  /// **'Are you taking any medication to help you on your weight-loss journey?'**
-  String get weightLossMedicationQuestion;
-
-  /// No description provided for @medicationPastPeriodQuestion.
-  ///
-  /// In en, this message translates to:
-  /// **'How long have you been taking your semaglutide medication'**
-  String get medicationPastPeriodQuestion;
-
-  /// No description provided for @medicationPastPeriodQuestion2.
-  ///
-  /// In en, this message translates to:
-  /// **'How long will your semaglutide treatment last'**
-  String get medicationPastPeriodQuestion2;
-
-  /// No description provided for @medicationTitle.
-  ///
-  /// In en, this message translates to:
-  /// **'Our program compliments your GLP-1 treatment'**
-  String get medicationTitle;
-
-  /// No description provided for @medicationExplanationBody1.
-  ///
-  /// In en, this message translates to:
-  /// **'You have indicated that you are currently taking GLP-1 medications.'**
-  String get medicationExplanationBody1;
-
-  /// No description provided for @medicationExplanationBody2.
-  ///
-  /// In en, this message translates to:
-  /// **'Although GLP-1 medications help with weight-loss, '**
-  String get medicationExplanationBody2;
-
-  /// No description provided for @medicationExplanationBody3.
-  ///
-  /// In en, this message translates to:
-  /// **'clinical trial data strongly suggest that the weight returns when the medications are stopped'**
-  String get medicationExplanationBody3;
-
-  /// No description provided for @medicationExplanationBody4.
-  ///
-  /// In en, this message translates to:
-  /// **'. The weight-regain is most likely because a person typically falls back into their old habits.'**
-  String get medicationExplanationBody4;
-
-  /// No description provided for @medicationExplanationBody5.
-  ///
-  /// In en, this message translates to:
-  /// **'Your GLP-1 medications will help with weight-loss in the short term! Meanwhile, our program will help you '**
-  String get medicationExplanationBody5;
-
-  /// No description provided for @medicationExplanationBody6.
-  ///
-  /// In en, this message translates to:
-  /// **'create healthier habits'**
-  String get medicationExplanationBody6;
-
-  /// No description provided for @medicationExplanationBody7.
-  ///
-  /// In en, this message translates to:
-  /// **', to develop a  lifestyle that help with weight-loss in the long term.'**
-  String get medicationExplanationBody7;
-
-  /// No description provided for @medicationExplanationBody8.
-  ///
-  /// In en, this message translates to:
-  /// **'Use the medication now, so that you can focus on the important things the program teaches you and '**
-  String get medicationExplanationBody8;
-
-  /// No description provided for @medicationExplanationBody9.
-  ///
-  /// In en, this message translates to:
-  /// **'be off the medication for a lifetime.'**
-  String get medicationExplanationBody9;
-
-  /// No description provided for @mounjaro.
-  ///
-  /// In en, this message translates to:
-  /// **'Mounjaro'**
-  String get mounjaro;
-
-  /// No description provided for @ozempic.
-  ///
-  /// In en, this message translates to:
-  /// **'Ozempic'**
-  String get ozempic;
-
-  /// No description provided for @rybelsus.
-  ///
-  /// In en, this message translates to:
-  /// **'Rybelsus'**
-  String get rybelsus;
-
-  /// No description provided for @wegovy.
-  ///
-  /// In en, this message translates to:
-  /// **'Wegovy'**
-  String get wegovy;
-
-  /// No description provided for @otherBrand.
-  ///
-  /// In en, this message translates to:
-  /// **'Other brand'**
-  String get otherBrand;
-
-  /// No description provided for @lessThanMonth.
-  ///
-  /// In en, this message translates to:
-  /// **'Less than a month'**
-  String get lessThanMonth;
-
-  /// Indicates a duration of less than a specified number of months.
-  ///
-  /// In en, this message translates to:
-  /// **'Less than {number} months'**
-  String lessThanCertainMonths(String number);
-
-  /// No description provided for @obesityQuestion.
-  ///
-  /// In en, this message translates to:
-  /// **'Have you been diagnosed with a secondary form of obesity (e.g. Cushing syndrome, Prader-Willi syndrome or hypogonadism)'**
-  String get obesityQuestion;
-
-  /// No description provided for @thyroidDiseaseQuestion.
-  ///
-  /// In en, this message translates to:
-  /// **'Have you been diagnosed with a thyroid disease (e.g. Hashimoto’s disease or hypothyroidism)'**
-  String get thyroidDiseaseQuestion;
-
-  /// No description provided for @metabolicDiseaseQuestion.
-  ///
-  /// In en, this message translates to:
-  /// **'Have you been diagnosed with a form of metabolic disease'**
-  String get metabolicDiseaseQuestion;
-
-  /// No description provided for @hypertensionQuestion.
-  ///
-  /// In en, this message translates to:
-  /// **'Have you been diagnosed with hypertension'**
-  String get hypertensionQuestion;
-
-  /// No description provided for @cardiovascularDiseaseQuestion.
-  ///
-  /// In en, this message translates to:
-  /// **'Have you been diagnosed with a cardiovascular disease or did you have heart surgery in the last 12 months'**
-  String get cardiovascularDiseaseQuestion;
-
-  /// No description provided for @stomachReductionQuestion.
-  ///
-  /// In en, this message translates to:
-  /// **'Did you have a stomach reduction or bariatric surgery in the last 3 years or are you in a preparatory phase for such surgery'**
-  String get stomachReductionQuestion;
-
-  /// No description provided for @diabetesQuestion.
-  ///
-  /// In en, this message translates to:
-  /// **'Have you been diagnosed with diabetes'**
-  String get diabetesQuestion;
-
-  /// No description provided for @renalFailureQuestion.
-  ///
-  /// In en, this message translates to:
-  /// **'Have you been diagnosed with renal failure'**
-  String get renalFailureQuestion;
-
-  /// No description provided for @asthmaQuestion.
-  ///
-  /// In en, this message translates to:
-  /// **'Have you been diagnosed with asthma or COPD'**
-  String get asthmaQuestion;
-
-  /// No description provided for @liverDiseaseQuestion.
-  ///
-  /// In en, this message translates to:
-  /// **'Have you been diagnosed with hepatitis or liver disease'**
-  String get liverDiseaseQuestion;
-
-  /// No description provided for @sleepApneaSyndromeQuestion.
-  ///
-  /// In en, this message translates to:
-  /// **'Have you been diagnosed with sleep apnea syndrome'**
-  String get sleepApneaSyndromeQuestion;
-
-  /// No description provided for @locomotorSystemDiseaseQuestion.
-  ///
-  /// In en, this message translates to:
-  /// **'Have you been diagnosed with any disease of the locomotor system (e.g. arthritis, osteoporosis, back/neck pains or inflammatory disease)'**
-  String get locomotorSystemDiseaseQuestion;
-
-  /// No description provided for @treatmentByTheDoctorQuestion.
-  ///
-  /// In en, this message translates to:
-  /// **'Are you currently being treated by a psychologist or psychiatrist'**
-  String get treatmentByTheDoctorQuestion;
-
-  /// No description provided for @medicalCheckPassedTitle.
-  ///
-  /// In en, this message translates to:
-  /// **'Medical check completed'**
-  String get medicalCheckPassedTitle;
-
-  /// No description provided for @medicalCheckPassedBody.
-  ///
-  /// In en, this message translates to:
-  /// **'You already completed 2 out of 3 sections. Great, you’re nearly done'**
-  String get medicalCheckPassedBody;
-
-  /// No description provided for @medicalCheckFailedTitle.
-  ///
-  /// In en, this message translates to:
-  /// **'Please check with your doctor or specialist'**
-  String get medicalCheckFailedTitle;
-
-  /// No description provided for @medicalCheckFailedBody.
-  ///
-  /// In en, this message translates to:
-  /// **'Please ask your doctor, specialist or psychologist before you use this app if it fits to your medical condition and / or treatment of:'**
-  String get medicalCheckFailedBody;
-
-  /// No description provided for @medicalCheckFailedBody2.
-  ///
-  /// In en, this message translates to:
-  /// **'Please note, we additionally offer support groups. If you would like to take part in one of these groups later on in the program, you will need permission from your psychologist/psychiatrist first'**
-  String get medicalCheckFailedBody2;
-
-  /// No description provided for @cardioVascularDisease.
-  ///
-  /// In en, this message translates to:
-  /// **'Cardiovascular disease'**
-  String get cardioVascularDisease;
-
-  /// No description provided for @stomachReductionDisease.
-  ///
-  /// In en, this message translates to:
-  /// **'Stomach reduction disease'**
-  String get stomachReductionDisease;
-
-  /// No description provided for @obesity.
-  ///
-  /// In en, this message translates to:
-  /// **'Obesity disease'**
-  String get obesity;
-
-  /// No description provided for @thyroidDisease.
-  ///
-  /// In en, this message translates to:
-  /// **'Thyroid disease'**
-  String get thyroidDisease;
-
-  /// No description provided for @metabolicDisease.
-  ///
-  /// In en, this message translates to:
-  /// **'Metabolic disease'**
-  String get metabolicDisease;
-
-  /// No description provided for @hypertension.
-  ///
-  /// In en, this message translates to:
-  /// **'Hypertension'**
-  String get hypertension;
-
-  /// No description provided for @diabetes.
-  ///
-  /// In en, this message translates to:
-  /// **'Diabetes disease'**
-  String get diabetes;
-
-  /// No description provided for @diabetesTypeI.
-  ///
-  /// In en, this message translates to:
-  /// **'Diabetes type I disease'**
-  String get diabetesTypeI;
-
-  /// No description provided for @diabetesTypeII.
-  ///
-  /// In en, this message translates to:
-  /// **'Diabetes type II disease'**
-  String get diabetesTypeII;
-
-  /// No description provided for @renalFailure.
-  ///
-  /// In en, this message translates to:
-  /// **'Renal failure'**
-  String get renalFailure;
-
-  /// No description provided for @asthma.
-  ///
-  /// In en, this message translates to:
-  /// **'Asthma'**
-  String get asthma;
-
-  /// No description provided for @liverDisease.
-  ///
-  /// In en, this message translates to:
-  /// **'Liver disease'**
-  String get liverDisease;
-
-  /// No description provided for @sleepApneaSyndrome.
-  ///
-  /// In en, this message translates to:
-  /// **'Sleep apnea syndrome'**
-  String get sleepApneaSyndrome;
-
-  /// No description provided for @locomotorSystemDisease.
-  ///
-  /// In en, this message translates to:
-  /// **'Locomotor system disease'**
-  String get locomotorSystemDisease;
-
-  /// No description provided for @mentalHealth.
-  ///
-  /// In en, this message translates to:
-  /// **'Mental health'**
-  String get mentalHealth;
-
-  /// No description provided for @mentalIntroBody1.
-  ///
-  /// In en, this message translates to:
-  /// **'In this section you will be asked questions regarding your current well-being, physiological symptoms and mood'**
-  String get mentalIntroBody1;
-
-  /// No description provided for @mentalIntroBody2.
-  ///
-  /// In en, this message translates to:
-  /// **'Based on these results, the program will be adjusted to suit your needs'**
-  String get mentalIntroBody2;
-
-  /// No description provided for @yourMentalHealth.
-  ///
-  /// In en, this message translates to:
-  /// **'Your mental health'**
-  String get yourMentalHealth;
-
-  /// No description provided for @mentalHealthIntroTextOne.
-  ///
-  /// In en, this message translates to:
-  /// **'A good mental health is vital to successfully improve your lifestyle'**
-  String get mentalHealthIntroTextOne;
-
-  /// No description provided for @mentalHealthIntroTextTwo.
-  ///
-  /// In en, this message translates to:
-  /// **'This section will take around 15 minutes'**
-  String get mentalHealthIntroTextTwo;
-
-  /// No description provided for @mentalHealthIntroTextTwoAccent.
-  ///
-  /// In en, this message translates to:
-  /// **'15 minutes'**
-  String get mentalHealthIntroTextTwoAccent;
-
-  /// No description provided for @mentalHealthIntroTextThree.
-  ///
-  /// In en, this message translates to:
-  /// **'You can take a break in between as long as you finish this section within one hour'**
-  String get mentalHealthIntroTextThree;
-
-  /// No description provided for @mentalHealthIntroTextThreeAccent.
-  ///
-  /// In en, this message translates to:
-  /// **'within one hour'**
-  String get mentalHealthIntroTextThreeAccent;
-
-  /// No description provided for @mentalHealthIntroTextFour.
-  ///
-  /// In en, this message translates to:
-  /// **'If you do take more than an hour, you will need to start this section over again'**
-  String get mentalHealthIntroTextFour;
-
-  /// No description provided for @mentalHealthIntroTextFive.
-  ///
-  /// In en, this message translates to:
-  /// **'You will receive your results immediately after the questions'**
-  String get mentalHealthIntroTextFive;
-
-  /// No description provided for @mentalHealthIntroTextSix.
-  ///
-  /// In en, this message translates to:
-  /// **'Please note that these test results are not a diagnosis. A diagnosis can only be made by a doctor or psychologist'**
-  String get mentalHealthIntroTextSix;
-
-  /// Information about the mental health section and how to get more details.
-  ///
-  /// In en, this message translates to:
-  /// **'In this section you will be asked questions from scientifically validated questionnaires, carefully chosen by our clinical psychologist. \n\nIf you would like to get more information on the questionnaires that are used, please contact {appName}.'**
-  String mentalHealthMoreInfo(String appName);
-
-  /// No description provided for @mentalHealthMoreInfoBold1.
-  ///
-  /// In en, this message translates to:
-  /// **'scientifically validated questionnaires'**
-  String get mentalHealthMoreInfoBold1;
-
-  /// No description provided for @mentalHealthMoreInfoBold2.
-  ///
-  /// In en, this message translates to:
-  /// **'our clinical psychologist'**
-  String get mentalHealthMoreInfoBold2;
-
-  /// No description provided for @who8Question.
-  ///
-  /// In en, this message translates to:
-  /// **'Please indicate for each of the given statements which is closest to how you have been feeling over the last two weeks'**
-  String get who8Question;
-
-  /// No description provided for @lastTwoWeeks.
-  ///
-  /// In en, this message translates to:
-  /// **'last two weeks'**
-  String get lastTwoWeeks;
-
-  /// No description provided for @duringThe.
-  ///
-  /// In en, this message translates to:
-  /// **'During the'**
-  String get duringThe;
-
-  /// No description provided for @pastFourWeeks.
-  ///
-  /// In en, this message translates to:
-  /// **'past four weeks'**
-  String get pastFourWeeks;
-
-  /// No description provided for @phq15Question.
-  ///
-  /// In en, this message translates to:
-  /// **'During the past four weeks, how much have you been bothered by any of the following problems'**
-  String get phq15Question;
-
-  /// No description provided for @overThe.
-  ///
-  /// In en, this message translates to:
-  /// **'Over the'**
-  String get overThe;
-
-  /// No description provided for @phq8Question.
-  ///
-  /// In en, this message translates to:
-  /// **'Over the last two weeks, how often have you been bothered by any of the following problems'**
-  String get phq8Question;
-
-  /// No description provided for @who5ResultTestMinimal.
-  ///
-  /// In en, this message translates to:
-  /// **'Regarding your general well-being, you have indicated that in the last two weeks your well-being has been severely limited, and you have felt unwell most of the time. If you feel unwell for a longer period, we recommend that you consult a psychologist or your doctor to check these symptoms. You can find psychologists here:'**
-  String get who5ResultTestMinimal;
-
-  /// No description provided for @who5ResultTestHigh.
-  ///
-  /// In en, this message translates to:
-  /// **'In terms of your general well-being, you indicated that you have generally felt balanced, joyful, and relaxed over the past two weeks. This result indicates a good state of well-being.'**
-  String get who5ResultTestHigh;
-
-  /// No description provided for @phq15ResultMinimal.
-  ///
-  /// In en, this message translates to:
-  /// **'You have stated that you have had no or few physical ailments in the last four weeks. That’s great.'**
-  String get phq15ResultMinimal;
-
-  /// No description provided for @phq15ResultMild.
-  ///
-  /// In en, this message translates to:
-  /// **'You have stated that you have been bothered by a few physical problems in the last four weeks. Mild physical problems can also be a sign of stress. It could be helpful to reduce stress. \nTo clarify whether these ailments are related to stress, please consult your doctor.'**
-  String get phq15ResultMild;
-
-  /// No description provided for @phq15ResultMedium.
-  ///
-  /// In en, this message translates to:
-  /// **'You have stated that a number of physical ailments have bothered you over the past four weeks. A consultation with your doctor is recommended to check whether these are temporary. The symptoms can be a reaction of your body to stress or emotional issues.'**
-  String get phq15ResultMedium;
-
-  /// No description provided for @phq15ResultHigh.
-  ///
-  /// In en, this message translates to:
-  /// **'You have stated that many physical ailments have bothered you in the last four weeks. Please consult your doctor to check these symptoms. These symptoms may have a medical cause or indicate a somatization disorder. \n\nThis program is not a substitute for mental health diagnosis or psychological treatment. In order to have a closer look at the symptoms and to treat them, if necessary, we recommend consulting your doctor or a psychologist. You can find addresses here:'**
-  String get phq15ResultHigh;
-
-  /// No description provided for @gad7ResultMinimal.
-  ///
-  /// In en, this message translates to:
-  /// **'You have stated that you were at ease most of the time in the last two weeks. Your everyday life is not affected by anxiety. Great, keep it up.'**
-  String get gad7ResultMinimal;
-
-  /// No description provided for @gad7ResultMild.
-  ///
-  /// In en, this message translates to:
-  /// **'You have stated that in the last two weeks you have had problems to relax from time to time. You may also have felt nervous, anxious, or on edge. Don’t be concerned about it. These may be temporary symptoms. Give yourself a break to relax more often. \nBut if the symptoms worsen, we recommend consulting your doctor or a psychologist.'**
-  String get gad7ResultMild;
-
-  /// No description provided for @gad7ResultMedium.
-  ///
-  /// In en, this message translates to:
-  /// **'You have stated that you have felt nervous or anxious more than half the time in the last two weeks. You may also have not been able to stop or control worrying. This can be a burden for you in your daily life.\n\nIf the symptoms persist or worsen, we recommend consulting your doctor or a psychologist.'**
-  String get gad7ResultMedium;
-
-  /// No description provided for @gad7ResultHigh.
-  ///
-  /// In en, this message translates to:
-  /// **'You have stated that you have felt nervous or anxious nearly every day in the last two weeks. You may also have not been able to stop or control worrying. These symptoms could indicate an anxiety disorder.\n\nIn order to have a closer look at the symptoms and to treat them, if necessary, we recommend consulting your doctor or a psychologist. You can find addresses here:'**
-  String get gad7ResultHigh;
-
-  /// No description provided for @phq8ResultMinimal.
-  ///
-  /// In en, this message translates to:
-  /// **'You have stated that your mood was not affected most days in the last two weeks. Great, keep it up and look out for all the positive things you will come across on your journey.'**
-  String get phq8ResultMinimal;
-
-  /// No description provided for @phq8ResultMild.
-  ///
-  /// In en, this message translates to:
-  /// **'You have stated that in the last two weeksYou have stated that in the last two weeks you have felt down from time to time. You may also have had feelings of hopelessness or a lack of energy. Throughout the LeanOnMe program, you will learn about the connection between thoughts and feelings and what you can do to improve your mental health.\nIf the symptoms worsen, we recommend a consultation with a psychologist or your doctor.'**
-  String get phq8ResultMild;
-
-  /// No description provided for @phq8ResultMedium.
-  ///
-  /// In en, this message translates to:
-  /// **'You have stated that you have been depressed more than half the time in the last two weeks. You may also have had feelings of hopelessness or have felt down. Throughout the LeanOnMe program, you will learn about the connection between thoughts and feelings and what you can do to improve your mental health.\nIf the symptoms persist or worsen, we recommend a consultation with a psychologist or your doctor.'**
-  String get phq8ResultMedium;
-
-  /// No description provided for @phq8ResultHigh.
-  ///
-  /// In en, this message translates to:
-  /// **'You have stated that your mood has often been significantly affected in the last two weeks. You have indicated that you have felt depressed and have often suffered from listlessness or dejection. The symptoms indicate current psychological distress with emotional impairment. These may be indications of a temporary depressive episode. \n\nThis program is not a substitute for mental health diagnosis or psychological treatment. In order to have a closer look at the symptoms and to treat them, if necessary, we recommend consulting your doctor or a psychologist. You can find addresses here:'**
-  String get phq8ResultHigh;
-
-  /// No description provided for @phq8ResultHighest.
-  ///
-  /// In en, this message translates to:
-  /// **'You have stated that your mood has been significantly affected almost every day for the past two weeks. You have indicated that you have felt depressed and have often or constantly suffered from listlessness or dejection. These symptoms currently indicate a high level of psychological distress with emotional impairment and could be an indication of depression.\n\nThis program is not a substitute for mental health diagnosis or psychological treatment. In order to have a closer look at the symptoms and to treat them, if necessary, we recommend consulting your doctor and a clarification by a psychologist. You can find addresses here:'**
-  String get phq8ResultHighest;
-
-  /// No description provided for @generalWellBeingSummary.
-  ///
-  /// In en, this message translates to:
-  /// **'General well-being summary'**
-  String get generalWellBeingSummary;
-
-  /// No description provided for @bodyAndMindBalanceSummary.
-  ///
-  /// In en, this message translates to:
-  /// **'Body and mind balance summary'**
-  String get bodyAndMindBalanceSummary;
-
-  /// No description provided for @stateOfMindSummary.
-  ///
-  /// In en, this message translates to:
-  /// **'State of mind summary'**
-  String get stateOfMindSummary;
-
-  /// No description provided for @checkCompleted.
-  ///
-  /// In en, this message translates to:
-  /// **'Check completed!'**
-  String get checkCompleted;
-
-  /// No description provided for @youExceededTimeMessage.
-  ///
-  /// In en, this message translates to:
-  /// **'Sorry, but you exceeded the time limit of one hour'**
-  String get youExceededTimeMessage;
-
-  /// No description provided for @noWorriesYouCanDoItLater.
-  ///
-  /// In en, this message translates to:
-  /// **'But don’t worry, you can start over'**
-  String get noWorriesYouCanDoItLater;
-
-  /// No description provided for @mentalResultSubText1.
-  ///
-  /// In en, this message translates to:
-  /// **'You’ve completed the first part. Keep going. You’re doing great'**
-  String get mentalResultSubText1;
-
-  /// No description provided for @mentalResultSubText2.
-  ///
-  /// In en, this message translates to:
-  /// **'You\'re breezing through these questions. Nicely done! You’ve reached the halfway point'**
-  String get mentalResultSubText2;
-
-  /// No description provided for @mentalResultSubText3.
-  ///
-  /// In en, this message translates to:
-  /// **'Three down, one to go! Just a few last questions'**
-  String get mentalResultSubText3;
 
   /// No description provided for @legalStatement.
   ///
@@ -7866,13 +7686,13 @@ abstract class AppLocalizations {
   /// No description provided for @legalStatementCheckboxTitle.
   ///
   /// In en, this message translates to:
-  /// **'I hereby declare, that'**
+  /// **'I hereby declare, that:'**
   String get legalStatementCheckboxTitle;
 
   /// No description provided for @legalStatementCheckboxItemOne.
   ///
   /// In en, this message translates to:
-  /// **'my answers are true to the best of my knowledge and I will continue to answer questions truthfully in future'**
+  /// **'my answers are true to the best of my knowledge and I will continue to answer questions truthfully in future.'**
   String get legalStatementCheckboxItemOne;
 
   /// No description provided for @confirm.
@@ -8154,7 +7974,7 @@ abstract class AppLocalizations {
   /// No description provided for @lessonCompleted.
   ///
   /// In en, this message translates to:
-  /// **'Lesson completed'**
+  /// **'Lesson completed!'**
   String get lessonCompleted;
 
   /// No description provided for @groupSessionsUnlocked.
@@ -8196,7 +8016,7 @@ abstract class AppLocalizations {
   /// No description provided for @assignmentCompleted.
   ///
   /// In en, this message translates to:
-  /// **'Assignment completed'**
+  /// **'Assignment completed!'**
   String get assignmentCompleted;
 
   /// No description provided for @assignmentCompleteDescription.
@@ -8444,18 +8264,6 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'If there is an account associated with the {email}, an email with further instructions will be sent to that address.'**
   String forgotEmailSuccessMessage(String email);
-
-  /// No description provided for @twelveMonthsOrLonger.
-  ///
-  /// In en, this message translates to:
-  /// **'12 months or longer'**
-  String get twelveMonthsOrLonger;
-
-  /// No description provided for @betweenSixAndTwelveMonths.
-  ///
-  /// In en, this message translates to:
-  /// **'Between 6 and 12 months'**
-  String get betweenSixAndTwelveMonths;
 
   /// No description provided for @close.
   ///
@@ -9567,12 +9375,6 @@ abstract class AppLocalizations {
   /// **'Please turn on the toggle in system settings to grant permission'**
   String get noCameraAccessDescription;
 
-  /// No description provided for @startAgain.
-  ///
-  /// In en, this message translates to:
-  /// **'Start again'**
-  String get startAgain;
-
   /// No description provided for @sessionGreeting.
   ///
   /// In en, this message translates to:
@@ -9720,7 +9522,7 @@ abstract class AppLocalizations {
   /// No description provided for @reportSubTitle.
   ///
   /// In en, this message translates to:
-  /// **'Please describe the matter'**
+  /// **'Please describe the matter.'**
   String get reportSubTitle;
 
   /// No description provided for @reportSuccessTitle.
@@ -10305,12 +10107,6 @@ abstract class AppLocalizations {
   /// **'You'**
   String get yourUser;
 
-  /// No description provided for @phq8Fail.
-  ///
-  /// In en, this message translates to:
-  /// **'We are sorry! Unfortunately, your enrollment is not possible now.'**
-  String get phq8Fail;
-
   /// No description provided for @passwordValidationRule4.
   ///
   /// In en, this message translates to:
@@ -10488,7 +10284,7 @@ abstract class AppLocalizations {
   /// No description provided for @didItWorkOutForYou.
   ///
   /// In en, this message translates to:
-  /// **'Did it work out for you'**
+  /// **'Did it work out for you?'**
   String get didItWorkOutForYou;
 
   /// No description provided for @foodPreferencesDesc.
@@ -11298,7 +11094,7 @@ abstract class AppLocalizations {
   /// No description provided for @howHard.
   ///
   /// In en, this message translates to:
-  /// **'How hard was this program for you'**
+  /// **'How hard was this program for you?'**
   String get howHard;
 
   /// No description provided for @veryEasy.
@@ -11346,7 +11142,7 @@ abstract class AppLocalizations {
   /// No description provided for @didYouLikeThisProgram.
   ///
   /// In en, this message translates to:
-  /// **'Did you like the program'**
+  /// **'Did you like the program?'**
   String get didYouLikeThisProgram;
 
   /// No description provided for @backToTodayNotLogged.

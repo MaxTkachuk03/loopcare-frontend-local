@@ -1,10 +1,10 @@
-import 'package:loopcare_frontend/core/application/localization/localizer_extenstion.dart';
 import 'package:flutter/material.dart';
 import 'package:loopcare_frontend/core/presentation/icon_images/app_icons.dart';
-import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/core/presentation/text/custom_text.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 import 'package:loopcare_frontend/core/presentation/utils/build_context_extensions.dart';
+import 'package:loopcare_frontend/localization/service/localization_extension.dart';
+import 'package:loopcare_frontend/localization/service/localized_texts.dart';
 
 const _kRegularHeight = 68.0;
 const _kSelectedHeight = 74.0;

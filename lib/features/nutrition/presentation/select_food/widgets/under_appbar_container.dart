@@ -1,12 +1,10 @@
 import 'package:auto_route/auto_route.dart';
-import 'package:loopcare_frontend/core/application/localization/localizer_extenstion.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loopcare_frontend/core/domain/analytics/analytics_events.dart';
 import 'package:loopcare_frontend/core/domain/analytics/analytics_parameters.dart';
 import 'package:loopcare_frontend/core/infrastructure/services/analytics_service.dart';
 import 'package:loopcare_frontend/core/presentation/icon_images/app_icons.dart';
-import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/core/presentation/routes/app_router.dart';
 import 'package:loopcare_frontend/core/presentation/routes/app_router.gr.dart';
 import 'package:loopcare_frontend/core/presentation/tab_bar/custom_underlined_tab_bar.dart';
@@ -19,6 +17,8 @@ import 'package:loopcare_frontend/features/nutrition/application/meals/meals_blo
 import 'package:loopcare_frontend/features/nutrition/application/search/dto/search_item.dart';
 import 'package:loopcare_frontend/features/nutrition/application/search/dto/search_item_types.dart';
 import 'package:loopcare_frontend/features/nutrition/application/search/search_bloc.dart';
+import 'package:loopcare_frontend/localization/service/localization_extension.dart';
+import 'package:loopcare_frontend/localization/service/localized_texts.dart';
 
 class UnderAppBarContainer extends StatelessWidget {
   final TabController tabController;

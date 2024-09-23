@@ -1,5 +1,4 @@
 import 'package:auto_route/auto_route.dart';
-import 'package:loopcare_frontend/core/application/localization/localizer_extenstion.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
@@ -7,7 +6,6 @@ import 'package:loopcare_frontend/core/presentation/app_bar/custom_app_bar.dart'
 import 'package:loopcare_frontend/core/presentation/buttons/custom_elevated_button.dart';
 import 'package:loopcare_frontend/core/presentation/buttons/custom_filled_icon_button.dart';
 import 'package:loopcare_frontend/core/presentation/custom_safe_area.dart';
-import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/core/presentation/routes/app_router.gr.dart';
 import 'package:loopcare_frontend/core/presentation/scaffold/custom_scaffold.dart';
 import 'package:loopcare_frontend/core/presentation/text/custom_text.dart';
@@ -16,10 +14,12 @@ import 'package:loopcare_frontend/core/presentation/utils/build_context_extensio
 import 'package:loopcare_frontend/core/presentation/widgets/main_container.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/scrollable_container.dart';
 import 'package:loopcare_frontend/features/account/application/food_preference/food_preference_bloc.dart';
-import 'package:loopcare_frontend/features/river/domain/river_module_stream_type.dart';
 import 'package:loopcare_frontend/features/account/presentation/edit_food_preferences_page/widgets/allergic_chips.dart';
 import 'package:loopcare_frontend/features/account/presentation/edit_food_preferences_page/widgets/do_not_like_chips.dart';
 import 'package:loopcare_frontend/features/account/presentation/edit_food_preferences_page/widgets/types_of_food_chips.dart';
+import 'package:loopcare_frontend/features/river/domain/river_module_stream_type.dart';
+import 'package:loopcare_frontend/localization/service/localization_extension.dart';
+import 'package:loopcare_frontend/localization/service/localized_texts.dart';
 
 part 'edit_food_preferences_page.freezed.dart';
 
@@ -45,36 +45,31 @@ class EditFoodPreferencesPage extends StatelessWidget {
     this.streamType,
   });
 
-  get _title {
-    return mode.map(
-      hates: (_) => LocalizedTexts.dontEat.tr(),
-      allergies: (_) => LocalizedTexts.youAndFoodItemThree.tr(),
-      dislikes: (_) => LocalizedTexts.dontLike.tr(),
-    );
-  }
+  String get _title => mode.map(
+        hates: (_) => LocalizedTexts.dontEat.tr(),
+        allergies: (_) => LocalizedTexts.youAndFoodItemThree.tr(),
+        dislikes: (_) => LocalizedTexts.dontLike.tr(),
+      );
 
-  get _header {
-    return mode.map(
-      hates: (_) => LocalizedTexts.iDoNotEatOrDrink.tr(),
-      allergies: (_) => LocalizedTexts.iAmAllergicTo.tr(),
-      dislikes: (_) => LocalizedTexts.iDoNotLike.tr(),
-    );
-  }
+  String get _header => mode.map(
+        hates: (_) => LocalizedTexts.iDoNotEatOrDrink.tr(),
+        allergies: (_) => LocalizedTexts.iAmAllergicTo.tr(),
+        dislikes: (_) => LocalizedTexts.iDoNotLike.tr(),
+      );
 
-  get content {
-    return mode.map(
+  Widget get _content => mode.map(
         hates: (_) => TypesOfFoodChips(fromLessonComplete: fromLessonComplete),
         allergies: (_) => AllergicChips(fromLessonComplete: fromLessonComplete),
-        dislikes: (_) => DoYouLikeChips(fromLessonComplete: fromLessonComplete));
-  }
+        dislikes: (_) => DoYouLikeChips(fromLessonComplete: fromLessonComplete),
+      );
 
-  _onOkHandler(BuildContext context) {
+  void _onOkHandler(BuildContext context) {
     context.read<FoodPreferenceBloc>().add(const FoodPreferenceEvent.saveFoodPreferences());
 
     context.router.maybePop();
   }
 
-  _onNextHandler(BuildContext context) {
+  void _onNextHandler(BuildContext context) {
     context.read<FoodPreferenceBloc>().add(const FoodPreferenceEvent.saveFoodPreferences());
 
     mode.map(
@@ -141,7 +136,7 @@ class EditFoodPreferencesPage extends StatelessWidget {
               ),
               const SizedBox(height: 22.0),
               Expanded(
-                child: ScrollableContainer(child: content),
+                child: ScrollableContainer(child: _content),
               ),
               Column(
                 children: [

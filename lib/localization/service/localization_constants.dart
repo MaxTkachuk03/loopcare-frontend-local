@@ -1,6 +1,6 @@
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
-import 'package:loopcare_frontend/core/application/localization/app_localizations.dart';
+import 'package:loopcare_frontend/localization/src/app_localizations.dart';
 
 class LocalizationConstants {
   LocalizationConstants._();

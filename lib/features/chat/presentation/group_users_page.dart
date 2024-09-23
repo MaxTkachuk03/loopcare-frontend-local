@@ -1,12 +1,10 @@
 import 'package:auto_route/annotations.dart';
-import 'package:loopcare_frontend/core/application/localization/localizer_extenstion.dart';
 import 'package:flash/flash.dart';
 import 'package:flash/flash_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loopcare_frontend/core/presentation/app_bar/custom_app_bar.dart';
 import 'package:loopcare_frontend/core/presentation/buttons/custom_filled_icon_button.dart';
-import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/core/presentation/scaffold/custom_scaffold.dart';
 import 'package:loopcare_frontend/core/presentation/text/custom_text.dart';
 import 'package:loopcare_frontend/core/presentation/utils/build_context_extensions.dart';
@@ -16,6 +14,8 @@ import 'package:loopcare_frontend/features/chat/application/chat_bloc/group_chat
 import 'package:loopcare_frontend/features/chat/domain/group_member.dart';
 import 'package:loopcare_frontend/features/chat/presentation/group_chat_controller.dart';
 import 'package:loopcare_frontend/features/chat/presentation/widget/group_member_holder.dart';
+import 'package:loopcare_frontend/localization/service/localization_extension.dart';
+import 'package:loopcare_frontend/localization/service/localized_texts.dart';
 
 @RoutePage()
 class GroupUsersPage extends StatefulWidget {

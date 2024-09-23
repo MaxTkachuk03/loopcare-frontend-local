@@ -1,13 +1,13 @@
-import 'package:loopcare_frontend/core/application/localization/localizer_extenstion.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 import 'package:loopcare_frontend/core/presentation/utils/build_context_extensions.dart';
 import 'package:loopcare_frontend/features/onboarding/application/general/general_onboarding_bloc.dart';
 import 'package:loopcare_frontend/features/onboarding/application/mental_questions/mental_questions_bloc.dart';
 import 'package:loopcare_frontend/features/onboarding/domain/interpretation_type.dart';
+import 'package:loopcare_frontend/localization/service/localization_extension.dart';
+import 'package:loopcare_frontend/localization/service/localized_texts.dart';
 
 class PHQ15ResultText extends StatelessWidget {
   final Function onLinkPressed;
@@ -34,17 +34,17 @@ class PHQ15ResultText extends StatelessWidget {
                 text: _getText(interpretation),
                 style: context.textTheme.bodyMedium,
               ),
-              if (isHigh)
+              if (isHigh) ...[
                 TextSpan(
                   style: context.textTheme.bodyMedium?.copyWith(color: AppColors.blueAppBar),
                   text: '\n${LocalizedTexts.linksPsychologistConsulting.tr()} \n\n',
                   recognizer: TapGestureRecognizer()..onTap = () => onLinkPressed(context),
                 ),
-              if (isHigh)
                 TextSpan(
-                  text: LocalizedTexts.mentalTestResultsIfYouHaveSuicidalThoughts.tr(),
+                  text: LocalizedTexts.onboardingIfYouHaveSuicidalThoughts.tr(),
                   style: context.textTheme.bodyMedium,
                 ),
+              ],
             ],
           ),
         );
@@ -53,10 +53,10 @@ class PHQ15ResultText extends StatelessWidget {
   }
 
   String _getText(InterpretationType? interpretation) => switch (interpretation) {
-        InterpretationType.minimal => LocalizedTexts.phq15ResultMinimal.tr(),
-        InterpretationType.mild => LocalizedTexts.phq15ResultMild.tr(),
-        InterpretationType.moderate => LocalizedTexts.phq15ResultMedium.tr(),
-        InterpretationType.high => LocalizedTexts.phq15ResultHigh.tr(),
+        InterpretationType.minimal => LocalizedTexts.onboardingPhq15ResultMinimal.tr(),
+        InterpretationType.mild => LocalizedTexts.onboardingPhq15ResultMild.tr(),
+        InterpretationType.moderate => LocalizedTexts.onboardingPhq15ResultMedium.tr(),
+        InterpretationType.high => LocalizedTexts.onboardingPhq15ResultHigh.tr(),
         _ => '',
       };
 }

@@ -8,11 +8,11 @@ import 'package:loopcare_frontend/core/domain/analytics/analytics_events.dart';
 import 'package:loopcare_frontend/core/domain/yes_no_answer.dart';
 import 'package:loopcare_frontend/core/infrastructure/dio_client/request_error.dart';
 import 'package:loopcare_frontend/core/infrastructure/services/analytics_service.dart';
-import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/features/account/domain/group_preferences_service.dart';
 import 'package:loopcare_frontend/features/account/domain/group_prefs_mode.dart';
 import 'package:loopcare_frontend/features/account/infrastructure/group_preferences/dto/group_preferences_body.dart';
 import 'package:loopcare_frontend/features/authentication/application/authentication_bloc.dart';
+import 'package:loopcare_frontend/localization/service/localized_texts.dart';
 
 part 'group_preferences_bloc.freezed.dart';
 part 'group_preferences_event.dart';

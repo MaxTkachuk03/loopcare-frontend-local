@@ -2,7 +2,6 @@ import 'dart:async';
 import 'dart:io';
 
 import 'package:dio/dio.dart';
-import 'package:loopcare_frontend/core/application/localization/localizer_extenstion.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
 import 'package:injectable/injectable.dart';
@@ -27,7 +26,6 @@ import 'package:loopcare_frontend/core/infrastructure/services/shared_storage/sh
 import 'package:loopcare_frontend/core/infrastructure/services/socket_service/socket_service.dart';
 import 'package:loopcare_frontend/core/infrastructure/services/socket_service_buddy/buddy_socket_service.dart';
 import 'package:loopcare_frontend/core/infrastructure/services/socket_service_chat/chat_socket_service.dart';
-import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/core/presentation/utils/string_extensions.dart';
 import 'package:loopcare_frontend/features/account/domain/user_grouping_state.dart';
 import 'package:loopcare_frontend/features/account/presentation/buddy_page/application/buddy_status.dart';
@@ -42,14 +40,13 @@ import 'package:loopcare_frontend/features/authentication/application/dto/update
 import 'package:loopcare_frontend/features/authentication/application/dto/validate_email_data.dart';
 import 'package:loopcare_frontend/features/buddy/domain/buddy.dart';
 import 'package:loopcare_frontend/features/onboarding/application/dto/registration_physical_fitness_data.dart';
+import 'package:loopcare_frontend/localization/service/localization_extension.dart';
+import 'package:loopcare_frontend/localization/service/localized_texts.dart';
 import 'package:uuid/uuid.dart';
 
 part 'authentication_bloc.freezed.dart';
-
 part 'authentication_bloc.g.dart';
-
 part 'authentication_event.dart';
-
 part 'authentication_state.dart';
 
 @singleton

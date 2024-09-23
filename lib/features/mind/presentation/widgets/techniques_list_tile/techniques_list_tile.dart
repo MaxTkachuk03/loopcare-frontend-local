@@ -1,14 +1,12 @@
 import 'dart:async';
 
 import 'package:auto_route/auto_route.dart';
-import 'package:intl/intl.dart';
-import 'package:loopcare_frontend/core/application/localization/localizer_extenstion.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:intl/intl.dart';
 import 'package:loopcare_frontend/core/presentation/buttons/custom_elevated_button.dart';
 import 'package:loopcare_frontend/core/presentation/clippers/education_clipper.dart';
 import 'package:loopcare_frontend/core/presentation/icon_images/app_icons.dart';
-import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/core/presentation/network_image_with_cache/network_image_with_cache.dart';
 import 'package:loopcare_frontend/core/presentation/routes/app_router.dart';
 import 'package:loopcare_frontend/core/presentation/text/custom_text.dart';
@@ -16,6 +14,8 @@ import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 import 'package:loopcare_frontend/core/presentation/utils/build_context_extensions.dart';
 import 'package:loopcare_frontend/features/mind/application/dto/mind_technique.dart';
 import 'package:loopcare_frontend/features/mind/application/mind_bloc.dart';
+import 'package:loopcare_frontend/localization/service/localization_extension.dart';
+import 'package:loopcare_frontend/localization/service/localized_texts.dart';
 
 class TechniquesListTile extends StatefulWidget {
   const TechniquesListTile({

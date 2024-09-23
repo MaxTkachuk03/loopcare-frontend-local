@@ -1,13 +1,11 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:loopcare_frontend/core/application/localization/localizer_extenstion.dart';
 import 'package:loopcare_frontend/core/domain/analytics/analytics_events.dart';
 import 'package:loopcare_frontend/core/domain/analytics/analytics_parameters.dart';
 import 'package:loopcare_frontend/core/infrastructure/services/analytics_service.dart';
 import 'package:loopcare_frontend/core/presentation/buttons/custom_elevated_button.dart';
 import 'package:loopcare_frontend/core/presentation/custom_safe_area.dart';
-import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/core/presentation/routes/app_router.gr.dart';
 import 'package:loopcare_frontend/core/presentation/text/custom_text.dart';
 import 'package:loopcare_frontend/core/presentation/utils/build_context_extensions.dart';
@@ -17,6 +15,8 @@ import 'package:loopcare_frontend/core/presentation/widgets/scrollable_container
 import 'package:loopcare_frontend/features/account/application/group_preferences/group_preferences_bloc.dart';
 import 'package:loopcare_frontend/features/account/presentation/widgets/group_lesson_wrap.dart';
 import 'package:loopcare_frontend/features/account/presentation/widgets/group_prefs_page_wrap.dart';
+import 'package:loopcare_frontend/localization/service/localization_extension.dart';
+import 'package:loopcare_frontend/localization/service/localized_texts.dart';
 
 @RoutePage()
 class GroupRulesSixPage extends StatelessWidget {

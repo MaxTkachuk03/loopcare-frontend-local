@@ -1,14 +1,14 @@
-import 'package:loopcare_frontend/core/application/localization/localizer_extenstion.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loopcare_frontend/core/presentation/bottom_placed_button/bottom_placed_button.dart';
 import 'package:loopcare_frontend/core/presentation/buttons/custom_elevated_button.dart';
 import 'package:loopcare_frontend/core/presentation/icon_images/app_images.dart';
-import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/core/presentation/text/custom_text.dart';
 import 'package:loopcare_frontend/core/presentation/utils/build_context_extensions.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/main_container.dart';
 import 'package:loopcare_frontend/features/onboarding/application/general/general_onboarding_bloc.dart';
+import 'package:loopcare_frontend/localization/service/localization_extension.dart';
+import 'package:loopcare_frontend/localization/service/localized_texts.dart';
 
 class PhysicalIntroContent extends StatelessWidget {
   const PhysicalIntroContent({super.key});
@@ -35,7 +35,7 @@ class PhysicalIntroContent extends StatelessWidget {
             Column(
               children: [
                 CustomText.bitter600(
-                  LocalizedTexts.physicalIntroTitle.tr(),
+                  LocalizedTexts.onboardingPhysicalIntroTitle.tr(),
                   style: context.textTheme.displayLarge,
                   textAlign: TextAlign.center,
                 ),
@@ -54,7 +54,7 @@ class PhysicalIntroContent extends StatelessWidget {
                 ),
                 const SizedBox(height: 20.0),
                 CustomText.w400(
-                  LocalizedTexts.physicalIntroBody.tr(),
+                  LocalizedTexts.onboardingPhysicalIntroBody.tr(),
                   style: context.textTheme.bodyMedium,
                   textAlign: TextAlign.center,
                 ),

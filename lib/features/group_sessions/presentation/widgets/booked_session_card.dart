@@ -1,5 +1,4 @@
 import 'package:auto_route/auto_route.dart';
-import 'package:loopcare_frontend/core/application/localization/localizer_extenstion.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loopcare_frontend/core/application/analytics_bloc.dart';
@@ -9,7 +8,6 @@ import 'package:loopcare_frontend/core/infrastructure/services/analytics_service
 import 'package:loopcare_frontend/core/presentation/buttons/custom_elevated_button.dart';
 import 'package:loopcare_frontend/core/presentation/buttons/custom_outlined_button.dart';
 import 'package:loopcare_frontend/core/presentation/icon_images/app_icons.dart';
-import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/core/presentation/routes/app_router.dart';
 import 'package:loopcare_frontend/core/presentation/text/custom_text.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
@@ -17,6 +15,8 @@ import 'package:loopcare_frontend/core/presentation/utils/build_context_extensio
 import 'package:loopcare_frontend/core/presentation/utils/date_time_extensions.dart';
 import 'package:loopcare_frontend/features/group_sessions/application/dto/group_session.dart';
 import 'package:loopcare_frontend/features/group_sessions/application/topics_bloc.dart';
+import 'package:loopcare_frontend/localization/service/localization_extension.dart';
+import 'package:loopcare_frontend/localization/service/localized_texts.dart';
 
 class BookedSessionCard extends StatelessWidget {
   final GroupSession groupSession;

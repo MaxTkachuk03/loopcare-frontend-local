@@ -1,5 +1,4 @@
 import 'package:auto_route/auto_route.dart';
-import 'package:loopcare_frontend/core/application/localization/localizer_extenstion.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loopcare_frontend/core/domain/analytics/analytics_events.dart';
@@ -7,7 +6,6 @@ import 'package:loopcare_frontend/core/infrastructure/services/analytics_service
 import 'package:loopcare_frontend/core/presentation/buttons/custom_outlined_button.dart';
 import 'package:loopcare_frontend/core/presentation/error/error_screen.dart';
 import 'package:loopcare_frontend/core/presentation/loader/loader.dart';
-import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/core/presentation/routes/app_router.gr.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/main_container.dart';
@@ -20,6 +18,8 @@ import 'package:loopcare_frontend/features/nutrition/presentation/edit_dish/edit
 import 'package:loopcare_frontend/features/nutrition/presentation/select_food/widgets/dish_list_item.dart';
 import 'package:loopcare_frontend/features/nutrition/presentation/select_food/widgets/empty_list_widget.dart';
 import 'package:loopcare_frontend/features/nutrition/presentation/select_food/widgets/list_filters.dart';
+import 'package:loopcare_frontend/localization/service/localization_extension.dart';
+import 'package:loopcare_frontend/localization/service/localized_texts.dart';
 
 class DishesList extends StatefulWidget {
   final MealCategory? mealCategory;

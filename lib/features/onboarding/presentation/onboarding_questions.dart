@@ -1,5 +1,4 @@
 import 'package:auto_route/auto_route.dart';
-import 'package:loopcare_frontend/core/application/localization/localizer_extenstion.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loopcare_frontend/core/domain/account/sex_type.dart';
@@ -8,13 +7,14 @@ import 'package:loopcare_frontend/core/presentation/app_bar/custom_app_bar.dart'
 import 'package:loopcare_frontend/core/presentation/buttons/custom_filled_icon_button.dart';
 import 'package:loopcare_frontend/core/presentation/custom_error_widget/error_invoker.dart';
 import 'package:loopcare_frontend/core/presentation/custom_safe_area.dart';
-import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/core/presentation/scaffold/custom_scaffold.dart';
 import 'package:loopcare_frontend/features/onboarding/application/general/general_onboarding_bloc.dart';
 import 'package:loopcare_frontend/features/onboarding/application/medical_questions/medical_questions_bloc.dart';
 import 'package:loopcare_frontend/features/onboarding/application/mental_questions/mental_questions_bloc.dart';
 import 'package:loopcare_frontend/features/onboarding/domain/timer_state.dart';
 import 'package:loopcare_frontend/features/onboarding/presentation/widgets/progress_bar.dart';
+import 'package:loopcare_frontend/localization/service/localization_extension.dart';
+import 'package:loopcare_frontend/localization/service/localized_texts.dart';
 
 @RoutePage()
 class OnboardingQuestionsPage extends StatefulWidget {

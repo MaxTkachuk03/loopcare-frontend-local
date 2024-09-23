@@ -1,7 +1,6 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:loopcare_frontend/core/application/localization/localizer_extenstion.dart';
 import 'package:loopcare_frontend/core/infrastructure/services/analytics_service.dart';
 import 'package:loopcare_frontend/core/presentation/alerting/modal_bottom_sheet.dart';
 import 'package:loopcare_frontend/core/presentation/alerting/show_app_snackbar.dart';
@@ -12,7 +11,6 @@ import 'package:loopcare_frontend/core/presentation/buttons/custom_outlined_butt
 import 'package:loopcare_frontend/core/presentation/custom_safe_area.dart';
 import 'package:loopcare_frontend/core/presentation/error/error_screen.dart';
 import 'package:loopcare_frontend/core/presentation/loader/loader.dart';
-import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/core/presentation/nutrition/nutrition_summary/nutrition_summary.dart';
 import 'package:loopcare_frontend/core/presentation/routes/app_router.gr.dart';
 import 'package:loopcare_frontend/core/presentation/scaffold/custom_scaffold.dart';
@@ -31,6 +29,8 @@ import 'package:loopcare_frontend/features/nutrition/presentation/edit_dish/edit
 import 'package:loopcare_frontend/features/nutrition/presentation/meal/widgets/meals_list.dart';
 import 'package:loopcare_frontend/features/nutrition/presentation/widgets/circle_plus_button/circle_plus_button.dart';
 import 'package:loopcare_frontend/features/nutrition/presentation/widgets/meal_portions/nutrition_values_block.dart';
+import 'package:loopcare_frontend/localization/service/localization_extension.dart';
+import 'package:loopcare_frontend/localization/service/localized_texts.dart';
 
 @RoutePage()
 class MealPage extends StatefulWidget {

@@ -1,14 +1,14 @@
-import 'package:loopcare_frontend/core/application/localization/localizer_extenstion.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loopcare_frontend/core/presentation/alerting/modal_bottom_sheet.dart';
-import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 import 'package:loopcare_frontend/features/account/presentation/account_page/widgets/account_container.dart';
 import 'package:loopcare_frontend/features/account/presentation/account_page/widgets/emergency_btn.dart';
 import 'package:loopcare_frontend/features/account/presentation/account_page/widgets/section_item.dart';
 import 'package:loopcare_frontend/features/account/presentation/account_page/widgets/section_title.dart';
 import 'package:loopcare_frontend/features/report_abuse/application/report_abuse_bloc.dart';
+import 'package:loopcare_frontend/localization/service/localization_extension.dart';
+import 'package:loopcare_frontend/localization/service/localized_texts.dart';
 
 class ReportAbuseSection extends StatelessWidget {
   const ReportAbuseSection({super.key});

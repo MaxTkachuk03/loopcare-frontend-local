@@ -1,10 +1,10 @@
 import 'package:in_app_purchase/in_app_purchase.dart';
 import 'package:intl/intl.dart';
-import 'package:loopcare_frontend/core/application/localization/localizer_extenstion.dart';
-import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/features/subscription/domain/sku_product.dart';
 import 'package:loopcare_frontend/features/subscription/domain/subscription_image_data.dart';
 import 'package:loopcare_frontend/features/subscription/domain/subscription_translation.dart';
+import 'package:loopcare_frontend/localization/service/localization_extension.dart';
+import 'package:loopcare_frontend/localization/service/localized_texts.dart';
 
 class PurchasableProduct {
   final bool showBadge;

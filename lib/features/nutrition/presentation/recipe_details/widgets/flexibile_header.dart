@@ -1,17 +1,17 @@
-import 'package:loopcare_frontend/core/application/localization/localizer_extenstion.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loopcare_frontend/core/presentation/buttons/custom_filled_icon_button.dart';
 import 'package:loopcare_frontend/core/presentation/icon_images/app_images.dart';
-import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/core/presentation/network_image_with_cache/network_image_with_cache.dart';
 import 'package:loopcare_frontend/core/presentation/text/custom_text.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 import 'package:loopcare_frontend/core/presentation/utils/build_context_extensions.dart';
 import 'package:loopcare_frontend/features/nutrition/application/recipe_details/recipe_details_bloc.dart';
+import 'package:loopcare_frontend/localization/service/localization_extension.dart';
+import 'package:loopcare_frontend/localization/service/localized_texts.dart';
 
-const double kExpandedHeight = 270.0;
+const double _kExpandedHeight = 270.0;
 const double _kCollapsedHeight = kToolbarHeight;
 
 class FlexibleHeader extends StatefulWidget {
@@ -35,7 +35,7 @@ class FlexibleHeaderState extends State<FlexibleHeader> {
 
   bool get _isAppBarCollapsed {
     return widget.scrollController.hasClients &&
-        widget.scrollController.offset > (kExpandedHeight - kToolbarHeight);
+        widget.scrollController.offset > (_kExpandedHeight - kToolbarHeight);
   }
 
   @override
@@ -76,7 +76,7 @@ class FlexibleHeaderState extends State<FlexibleHeader> {
 
             return SliverAppBar(
               primary: true,
-              expandedHeight: kExpandedHeight,
+              expandedHeight: _kExpandedHeight,
               collapsedHeight: _kCollapsedHeight,
               toolbarHeight: kToolbarHeight,
               pinned: true,
@@ -128,8 +128,8 @@ class FlexibleHeaderState extends State<FlexibleHeader> {
   }
 
   double _getOpacity(double currentHeight) {
-    const double offset = kExpandedHeight / 2;
-    double opacity = (currentHeight - offset) / (kExpandedHeight - offset);
+    const double offset = _kExpandedHeight / 2;
+    double opacity = (currentHeight - offset) / (_kExpandedHeight - offset);
     if (opacity < 0.1) {
       opacity = 0;
     } else if (opacity > 1) {

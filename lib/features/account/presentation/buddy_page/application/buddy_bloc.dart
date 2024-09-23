@@ -5,11 +5,11 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
 import 'package:loopcare_frontend/core/domain/account/account.dart';
 import 'package:loopcare_frontend/core/infrastructure/dio_client/request_error.dart';
-import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/features/account/presentation/buddy_page/application/buddy_status.dart';
 import 'package:loopcare_frontend/features/buddy/domain/buddy.dart';
 import 'package:loopcare_frontend/features/buddy/domain/request_buddy.dart';
 import 'package:loopcare_frontend/features/buddy/infrastrucure/buddy_service.dart';
+import 'package:loopcare_frontend/localization/service/localized_texts.dart';
 
 part 'buddy_bloc.freezed.dart';
 part 'buddy_event.dart';

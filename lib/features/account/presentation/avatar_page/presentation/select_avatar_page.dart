@@ -1,6 +1,5 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:dio/dio.dart';
-import 'package:loopcare_frontend/core/application/localization/localizer_extenstion.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loopcare_frontend/core/infrastructure/services/image_helper/image_helper.dart';
@@ -11,7 +10,6 @@ import 'package:loopcare_frontend/core/presentation/buttons/custom_elevated_butt
 import 'package:loopcare_frontend/core/presentation/buttons/custom_filled_icon_button.dart';
 import 'package:loopcare_frontend/core/presentation/custom_safe_area.dart';
 import 'package:loopcare_frontend/core/presentation/loader/loader.dart';
-import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/core/presentation/routes/app_router.gr.dart';
 import 'package:loopcare_frontend/core/presentation/scaffold/custom_scaffold.dart';
 import 'package:loopcare_frontend/core/presentation/text/custom_text.dart';
@@ -27,6 +25,8 @@ import 'package:loopcare_frontend/features/account/presentation/avatar_page/pres
 import 'package:loopcare_frontend/features/account/presentation/avatar_page/presentation/widgets/avatars_list.dart';
 import 'package:loopcare_frontend/features/authentication/application/authentication_bloc.dart';
 import 'package:loopcare_frontend/features/river/application/river_bloc.dart';
+import 'package:loopcare_frontend/localization/service/localization_extension.dart';
+import 'package:loopcare_frontend/localization/service/localized_texts.dart';
 import 'package:permission_handler/permission_handler.dart';
 
 @RoutePage()

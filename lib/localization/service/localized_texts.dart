@@ -15,6 +15,7 @@ class LocalizedTexts {
   static const String pleaseEnterYourPassword = 'pleaseEnterYourPassword';
   static const String yourName = 'yourName';
   static const String close = 'close';
+  static const String next = 'next';
 
   // Connection
   static const String connectionLost = 'connectionLost';
@@ -678,12 +679,6 @@ class LocalizedTexts {
   static const String introTitle = 'introTitle';
   static const String introBodyTextFirst = 'introBodyTextFirst';
   static const String introBodyTextSecond = 'introBodyTextSecond';
-  static const String intro2Title = 'intro2Title';
-  static const String intro2BodyTextFirst = 'intro2BodyTextFirst';
-  static const String intro2BodyTextSecond = 'intro2BodyTextSecond';
-  static const String intro3Title = 'intro3Title';
-  static const String intro3BodyTextFirst = 'intro3BodyTextFirst';
-  static const String intro3BodyTextSecond = 'intro3BodyTextSecond';
 
   // Login
   static const String loginTitle = 'loginTitle';
@@ -721,241 +716,209 @@ class LocalizedTexts {
   static const String onboardingIntroMissionDenise = 'onboardingIntroMissionDenise';
   static const String onboardingPacingTitle = 'onboardingPacingTitle';
   static const String onboardingPacingMessage = 'onboardingPacingMessage';
-  static const String iAmReady = 'iAmReady';
+  static const String onboardingIAmReady = 'onboardingIAmReady';
   static const String riverOverviewTitle = 'riverOverviewTitle';
 
   // Onboarding Physical
   // Intro
-  static const String physicalIntroTitle = 'physicalIntroTitle';
-  static const String physicalIntroBody = 'physicalIntroBody';
+  static const String onboardingPhysicalIntroTitle = 'onboardingPhysicalIntroTitle';
+  static const String onboardingPhysicalIntroBody = 'onboardingPhysicalIntroBody';
   static const String minutes = 'minutes';
 
   // Age check failed
-  static const String ageCheckFailedTitle = 'ageCheckFailedTitle';
-  static const String ageCheckFailedBody = 'ageCheckFailedBody';
+  static const String onboardingAgeCheckFailedTitle = 'onboardingAgeCheckFailedTitle';
+  static const String onboardingAgeCheckFailedBody = 'onboardingAgeCheckFailedBody';
 
   // Sex
-  static const String yourSex = 'yourSex';
-  static const String whatYourSex = 'whatYourSex';
-  static const String sexQuestionBody = 'sexQuestionBody';
-  static const String sex = 'sex';
+  static const String onboardingWhatYourSex = 'onboardingWhatYourSex';
+  static const String onboardingSexQuestionBody = 'onboardingSexQuestionBody';
 
   // Bio gender
-  static const String genderPageTitle = 'genderPageTitle';
+  static const String onboardingGenderPageTitle = 'onboardingGenderPageTitle';
   static const String woman = "woman";
   static const String man = "man";
   static const String other = "other";
 
   // Happiness
-  static const String happinessTitle = 'happinessTitle';
-  static const String happinessBody1 = 'happinessBody1';
-  static const String happinessBody2 = 'happinessBody2';
+  static const String onboardingHappinessTitle = 'onboardingHappinessTitle';
+  static const String onboardingHappinessBody1 = 'onboardingHappinessBody1';
+  static const String onboardingHappinessBody2 = 'onboardingHappinessBody2';
 
   // Height
-  static const String yourHeight = 'yourHeight';
-  static const String metric = 'metric';
-  static const String imperial = 'imperial';
-  static const String next = 'next';
-  static const String changeYourHeight = 'changeYourHeight';
-  static const String heightSmall = 'heightSmall';
-  static const String heightLarge = 'heightLarge';
-  static const String correctHeight = 'correctHeight';
+  static const String onboardingYourHeight = 'onboardingYourHeight';
+  static const String onboardingMetric = 'onboardingMetric';
+  static const String onboardingImperial = 'onboardingImperial';
+  static const String onboardingChangeYourHeight = 'onboardingChangeYourHeight';
+  static const String onboardingHeightSmall = 'onboardingHeightSmall';
+  static const String onboardingHeightLarge = 'onboardingHeightLarge';
+  static const String onboardingCorrectHeight = 'onboardingCorrectHeight';
 
   // Weight
-  static const String yourWeight = 'yourWeight';
+  static const String onboardingYourWeight = 'onboardingYourWeight';
 
   // Bmi failed
-  static const String yourBodyMassIndex = 'yourBodyMassIndex';
-  static const String fitnessCheckFailedInformationText = 'fitnessCheckFailedInformationText';
-  static const String fitnessCheckFailedInformationText2 = 'fitnessCheckFailedInformationText2';
-  static const String bmiExclusionBodyTitle = 'bmiExclusionBodyTitle';
-  static const String bmiExclusionBodyOlder19LowBmi = 'bmiExclusionBodyOlder19LowBmi';
-  static const String bmiExclusionBodyOlder19HighBmi = 'bmiExclusionBodyOlder19HighBmi';
-  static const String bmiExclusionBodyYounger19LowBmi = 'bmiExclusionBodyYounger19LowBmi';
-  static const String bmiExclusionBodyYounger19HighBmi = 'bmiExclusionBodyYounger19HighBmi';
-  static const String bmiExclusionBodyHighBmiEnding = 'bmiExclusionBodyHighBmiEnding';
-  static const String bmiExclusionBodyLowBmiEnding = 'bmiExclusionBodyLowBmiEnding';
+  static const String onboardingBmiExclusionBodyTitle = 'onboardingBmiExclusionBodyTitle';
+  static const String onboardingBmiExclusionBodyOlder19LowBmi =
+      'onboardingBmiExclusionBodyOlder19LowBmi';
+  static const String onboardingBmiExclusionBodyOlder19HighBmi = 'bmiExclusionBodyOlder19HighBmi';
+  static const String onboardingBmiExclusionBodyYounger19LowBmi = 'bmiExclusionBodyYounger19LowBmi';
+  static const String onboardingBmiExclusionBodyYounger19HighBmi =
+      'bmiExclusionBodyYounger19HighBmi';
+  static const String onboardingBmiExclusionBodyHighBmiEnding = 'bmiExclusionBodyHighBmiEnding';
+  static const String onboardingBmiExclusionBodyLowBmiEnding = 'bmiExclusionBodyLowBmiEnding';
 
   // Physical check completed
-  static const String physicalCheckPassedTitle = 'physicalCheckPassedTitle';
-  static const String age = 'age';
-  static const String height = 'height';
-  static const String weight = 'weight';
-  static const String bmi = 'bmi';
-  static const String years = 'years';
-  static const String bmiDescription1 = 'bmiDescription1';
-  static const String bmiDescription2 = 'bmiDescription2';
-  static const String bmiDescriptionAccent = 'bmiDescriptionAccent';
-  static const String letsMoveOn = 'letsMoveOn';
+  static const String onboardingPhysicalCheckPassedTitle = 'onboardingPhysicalCheckPassedTitle';
+  static const String onboardingAge = 'onboardingAge';
+  static const String onboardingSex = 'onboardingSex';
+  static const String onboardingHeight = 'onboardingHeight';
+  static const String onboardingWeight = 'onboardingWeight';
+  static const String onboardingBmi = 'onboardingBmi';
+  static const String onboardingYears = 'onboardingYears';
+  static const String onboardingBmiDescription1 = 'onboardingBmiDescription1';
+  static const String onboardingBmiDescription2 = 'onboardingBmiDescription2';
+  static const String onboardingBmiDescriptionAccent = 'onboardingBmiDescriptionAccent';
+  static const String onboardingLetsMoveOn = 'onboardingLetsMoveOn';
 
   // Profile screen
   static const String reportIssueAndEmergencyTitle = 'reportIssueAndEmergencyTitle';
 
   // Onboarding Medical
   // Intro
-  static const String medicalIntroTitle = 'medicalIntroTitle';
+  static const String onboardingMedicalIntroTitle = 'onboardingMedicalIntroTitle';
   static const String stepCounter = 'stepCounter';
-  static const String medicalIntroBody = 'medicalIntroBody';
+  static const String onboardingMedicalIntroBody = 'onboardingMedicalIntroBody';
 
   // Pregnant
-  static const String areYouPregnant = 'areYouPregnant';
+  static const String onboardingAreYouPregnant = 'onboardingAreYouPregnant';
   static const String yes = 'yes';
   static const String no = 'no';
 
   // Pregnant failed
-  static const String failedPregnancyTitle = 'failedPregnancyTitle';
-  static const String failedPregnancyBody1 = 'failedPregnancyBody1';
-  static const String failedPregnancyBody2 = 'failedPregnancyBody2';
-  static const String failedPregnancyBody3 = 'failedPregnancyBody3';
-  static const String failedPregnancyBody4 = 'failedPregnancyBody4';
+  static const String onboardingFailedPregnancyTitle = 'onboardingFailedPregnancyTitle';
+  static const String onboardingFailedPregnancyBody1 = 'onboardingFailedPregnancyBody1';
+  static const String onboardingFailedPregnancyBody2 = 'onboardingFailedPregnancyBody2';
+  static const String onboardingFailedPregnancyBody3 = 'onboardingFailedPregnancyBody3';
+  static const String onboardingFailedPregnancyBody4 = 'onboardingFailedPregnancyBody4';
 
-  static const String medicinesTitle = 'medicinesTitle';
-  static const String medicinesPlaceholder = 'medicinesPlaceholder';
+  static const String onboardingMedicinesTitle = 'onboardingMedicinesTitle';
+  static const String onboardingMedicinesPlaceholder = 'onboardingMedicinesPlaceholder';
 
   // Taking medication
-  static const String weightLossMedicationQuestion = 'weightLossMedicationQuestion';
-  @Deprecated('Not include in River Onboarding')
-  static const String medicationPastPeriodQuestion = 'medicationPastPeriodQuestion';
-  @Deprecated('Not include in River Onboarding')
-  static const String medicationPastPeriodQuestion2 = 'medicationPastPeriodQuestion2';
-  static const String mounjaro = 'mounjaro';
-  static const String ozempic = 'ozempic';
-  static const String rybelsus = 'rybelsus';
-  static const String wegovy = 'wegovy';
-  static const String otherBrand = 'otherBrand';
-  static const String lessThanMonth = 'lessThanMonth';
-  static const String lessThanCertainMonths = 'lessThanCertainMonths';
-  static const String treatmentByTheDoctorQuestion = 'treatmentByTheDoctorQuestion';
-  static const String twelveMonthsOrLonger = 'twelveMonthsOrLonger';
-  static const String betweenSixAndTwelveMonths = 'betweenSixAndTwelveMonths';
-  static const String obesityQuestion = 'obesityQuestion';
-  static const String thyroidDiseaseQuestion = 'thyroidDiseaseQuestion';
-  static const String metabolicDiseaseQuestion = 'metabolicDiseaseQuestion';
-  static const String hypertensionQuestion = 'hypertensionQuestion';
-  static const String cardiovascularDiseaseQuestion = 'cardiovascularDiseaseQuestion';
-  static const String stomachReductionQuestion = 'stomachReductionQuestion';
-  static const String diabetesQuestion = 'diabetesQuestion';
-  static const String renalFailureQuestion = 'renalFailureQuestion';
-  static const String asthmaQuestion = 'asthmaQuestion';
-  static const String liverDiseaseQuestion = 'liverDiseaseQuestion';
-  static const String sleepApneaSyndromeQuestion = 'sleepApneaSyndromeQuestion';
-  static const String locomotorSystemDiseaseQuestion = 'locomotorSystemDiseaseQuestion';
-  static const String medicalCheckPassedTitle = 'medicalCheckPassedTitle';
-  static const String medicalCheckPassedBody = 'medicalCheckPassedBody';
-  static const String medicalCheckFailedTitle = 'medicalCheckFailedTitle';
-  static const String medicalCheckFailedBody = 'medicalCheckFailedBody';
-  static const String medicalCheckFailedBody2 = 'medicalCheckFailedBody2';
-
-  // Medication explanation
-  static const String medicationExplanationTitle = 'medicationTitle';
-  static const String medicationExplanationBody1 = 'medicationExplanationBody1';
-  static const String medicationExplanationBody2 = 'medicationExplanationBody2';
-  static const String medicationExplanationBody3 = 'medicationExplanationBody3';
-  static const String medicationExplanationBody4 = 'medicationExplanationBody4';
-  static const String medicationExplanationBody5 = 'medicationExplanationBody5';
-  static const String medicationExplanationBody6 = 'medicationExplanationBody6';
-  static const String medicationExplanationBody7 = 'medicationExplanationBody7';
-  static const String medicationExplanationBody8 = 'medicationExplanationBody8';
-  static const String medicationExplanationBody9 = 'medicationExplanationBody9';
+  static const String onboardingWeightLossMedicationQuestion =
+      'onboardingWeightLossMedicationQuestion';
+  static const String onboardingTreatmentByTheDoctorQuestion =
+      'onboardingTreatmentByTheDoctorQuestion';
+  static const String onboardingObesityQuestion = 'obesityQuestion';
+  static const String onboardingThyroidDiseaseQuestion = 'thyroidDiseaseQuestion';
+  static const String onboardingMetabolicDiseaseQuestion = 'metabolicDiseaseQuestion';
+  static const String onboardingHypertensionQuestion = 'hypertensionQuestion';
+  static const String onboardingCardiovascularDiseaseQuestion = 'cardiovascularDiseaseQuestion';
+  static const String onboardingStomachReductionQuestion = 'stomachReductionQuestion';
+  static const String onboardingDiabetesQuestion = 'diabetesQuestion';
+  static const String onboardingRenalFailureQuestion = 'renalFailureQuestion';
+  static const String onboardingAsthmaQuestion = 'asthmaQuestion';
+  static const String onboardingLiverDiseaseQuestion = 'liverDiseaseQuestion';
+  static const String onboardingSleepApneaSyndromeQuestion = 'sleepApneaSyndromeQuestion';
+  static const String onboardingLocomotorSystemDiseaseQuestion = 'locomotorSystemDiseaseQuestion';
+  static const String onboardingMedicalCheckPassedTitle = 'onboardingMedicalCheckPassedTitle';
+  static const String onboardingMedicalCheckPassedBody = 'onboardingMedicalCheckPassedBody';
+  static const String onboardingMedicalCheckFailedTitle = 'onboardingMedicalCheckFailedTitle';
+  static const String onboardingMedicalCheckFailedBody = 'onboardingMedicalCheckFailedBody';
+  static const String onboardingMedicalCheckFailedBody2 = 'onboardingMedicalCheckFailedBody2';
 
   // Diseases
-  static const String cardioVascularDisease = 'cardioVascularDisease';
-  static const String stomachReductionDisease = 'stomachReductionDisease';
-  static const String obesity = 'obesity';
-  static const String thyroidDisease = 'thyroidDisease';
-  static const String metabolicDisease = 'metabolicDisease';
-  static const String hypertension = 'hypertension';
-  static const String diabetes = 'diabetes';
-  static const String diabetesTypeI = 'diabetesTypeI';
-  static const String diabetesTypeII = 'diabetesTypeII';
-  static const String renalFailure = 'renalFailure';
-  static const String asthma = 'asthma';
-  static const String liverDisease = 'liverDisease';
-  static const String sleepApneaSyndrome = 'sleepApneaSyndrome';
-  static const String locomotorSystemDisease = 'locomotorSystemDisease';
+  static const String onboardingCardioVascularDisease = 'onboardingCardioVascularDisease';
+  static const String onboardingStomachReductionDisease = 'onboardingStomachReductionDisease';
+  static const String onboardingObesity = 'onboardingObesity';
+  static const String onboardingThyroidDisease = 'onboardingThyroidDisease';
+  static const String onboardingMetabolicDisease = 'onboardingMetabolicDisease';
+  static const String onboardingHypertension = 'onboardingHypertension';
+  static const String onboardingDiabetes = 'onboardingDiabetes';
+  static const String onboardingDiabetesTypeI = 'onboardingDiabetesTypeI';
+  static const String onboardingDiabetesTypeII = 'onboardingDiabetesTypeII';
+  static const String onboardingRenalFailure = 'onboardingRenalFailure';
+  static const String onboardingAsthma = 'onboardingAsthma';
+  static const String onboardingLiverDisease = 'onboardingLiverDisease';
+  static const String onboardingSleepApneaSyndrome = 'onboardingSleepApneaSyndrome';
+  static const String onboardingLocomotorSystemDisease = 'onboardingLocomotorSystemDisease';
 
   // Onboarding mental
   // Intro
-  static const String mentalHealth = 'mentalHealth';
-  static const String mentalIntroBody1 = "mentalIntroBody1";
-  static const String mentalIntroBody2 = "mentalIntroBody2";
+  static const String onboardingMentalHealth = 'onboardingMentalHealth';
+  static const String onboardingMentalIntroBody1 = "onboardingMentalIntroBody1";
+  static const String onboardingMentalIntroBody2 = "onboardingMentalIntroBody2";
 
-  static const String yourMentalHealth = "yourMentalHealth";
-  static const String mentalHealthMoreInfo = "mentalHealthMoreInfo";
-  static const String mentalHealthMoreInfoBold1 = "mentalHealthMoreInfoBold1";
-  static const String mentalHealthMoreInfoBold2 = "mentalHealthMoreInfoBold2";
-  static const String mentalHealthIntroTextOne = "mentalHealthIntroTextOne";
-  static const String mentalHealthIntroTextTwo = "mentalHealthIntroTextTwo";
-  static const String mentalHealthIntroTextTwoAccent = "mentalHealthIntroTextTwoAccent";
-  static const String mentalHealthIntroTextThree = "mentalHealthIntroTextThree";
-  static const String mentalHealthIntroTextThreeAccent = "mentalHealthIntroTextThreeAccent";
-  static const String mentalHealthIntroTextFour = "mentalHealthIntroTextFour";
-  static const String mentalHealthIntroTextFive = "mentalHealthIntroTextFive";
-  static const String mentalHealthIntroTextSix = "mentalHealthIntroTextSix";
-  static const String who8Question = "who8Question";
-  static const String lastTwoWeeks = "lastTwoWeeks";
-  static const String duringThe = "duringThe";
-  static const String pastFourWeeks = "pastFourWeeks";
-  static const String phq15Question = "phq15Question";
-  static const String gad7Question = "gad7Question";
-  static const String overThe = "overThe";
-  static const String phq8Question = "phq8Question";
-  static const String startAgain = "startAgain";
+  static const String onboardingYourMentalHealth = "onboardingYourMentalHealth";
+  static const String onboardingMentalHealthMoreInfo = "onboardingMentalHealthMoreInfo";
+  static const String onboardingMentalHealthMoreInfoBold1 = "onboardingMentalHealthMoreInfoBold1";
+  static const String onboardingMentalHealthMoreInfoBold2 = "onboardingMentalHealthMoreInfoBold2";
+  static const String onboardingMentalHealthIntroTextOne = "onboardingMentalHealthIntroTextOne";
+  static const String onboardingMentalHealthIntroTextTwo = "onboardingMentalHealthIntroTextTwo";
+  static const String onboardingMentalHealthIntroTextTwoAccent =
+      "onboardingMentalHealthIntroTextTwoAccent";
+  static const String onboardingMentalHealthIntroTextThree = "onboardingMentalHealthIntroTextThree";
+  static const String onboardingMentalHealthIntroTextThreeAccent =
+      "onboardingMentalHealthIntroTextThreeAccent";
+  static const String onboardingMentalHealthIntroTextFour = "onboardingMentalHealthIntroTextFour";
+  static const String onboardingMentalHealthIntroTextFive = "onboardingMentalHealthIntroTextFive";
+  static const String onboardingMentalHealthIntroTextSix = "onboardingMentalHealthIntroTextSix";
+  static const String onboardingWho8Question = "onboardingWho8Question";
+  static const String onboardingLastTwoWeeks = "onboardingLastTwoWeeks";
+  static const String onboardingPastFourWeeks = "onboardingPastFourWeeks";
+  static const String onboardingPhq15Question = "onboardingPhq15Question";
+  static const String onboardingPhq8Question = "onboardingPhq8Question";
+  static const String onboardingStartAgain = "onboardingStartAgain";
 
   // Mental texts results
-  static const String who5ResultTestMinimal = "who5ResultTestMinimal";
-  static const String who5ResultTestHigh = "who5ResultTestHigh";
-  static const String phq15ResultMinimal = "phq15ResultMinimal";
-  static const String phq15ResultMild = "phq15ResultMild";
-  static const String phq15ResultMedium = "phq15ResultMedium";
-  static const String phq15ResultHigh = "phq15ResultHigh";
-  static const String gad7ResultMinimal = "gad7ResultMinimal";
-  static const String gad7ResultMild = "gad7ResultMild";
-  static const String gad7ResultMedium = "gad7ResultMedium";
-  static const String gad7ResultHigh = "gad7ResultHigh";
-  static const String phq8ResultMinimal = "phq8ResultMinimal";
-  static const String phq8ResultMild = "phq8ResultMild";
-  static const String phq8ResultMedium = "phq8ResultMedium";
-  static const String phq8ResultHigh = "phq8ResultHigh";
-  static const String phq8ResultHighest = "phq8ResultHighest";
+  static const String onboardingWho5ResultTestMinimal = "onboardingWho5ResultTestMinimal";
+  static const String onboardingWho5ResultTestHigh = "onboardingWho5ResultTestHigh";
+  static const String onboardingPhq15ResultMinimal = "onboardingPhq15ResultMinimal";
+  static const String onboardingPhq15ResultMild = "onboardingPhq15ResultMild";
+  static const String onboardingPhq15ResultMedium = "onboardingPhq15ResultMedium";
+  static const String onboardingPhq15ResultHigh = "onboardingPhq15ResultHigh";
+  static const String onboardingGad7ResultMinimal = "onboardingGad7ResultMinimal";
+  static const String onboardingGad7ResultMild = "onboardingGad7ResultMild";
+  static const String onboardingGad7ResultMedium = "onboardingGad7ResultMedium";
+  static const String onboardingGad7ResultHigh = "onboardingGad7ResultHigh";
+  static const String onboardingPhq8ResultMinimal = "onboardingPhq8ResultMinimal";
+  static const String onboardingPhq8ResultMild = "onboardingPhq8ResultMild";
+  static const String onboardingPhq8ResultMedium = "onboardingPhq8ResultMedium";
+  static const String onboardingPhq8ResultHigh = "onboardingPhq8ResultHigh";
+  static const String onboardingPhq8ResultHighest = "onboardingPhq8ResultHighest";
 
   // Mental final results
-  static const String mentalTestResultsIfYouHaveSuicidalThoughts =
-      "mentalTestResultsIfYouHaveSuicidalThoughts";
+  static const String onboardingIfYouHaveSuicidalThoughts = "onboardingIfYouHaveSuicidalThoughts";
 
-  static const String mentalTestResultsPhq8FinalResultHigh1 =
-      "mentalTestResultsPhq8FinalResultHigh1";
-  static const String mentalTestResultsPhq8FinalResultHigh2 =
-      "mentalTestResultsPhq8FinalResultHigh2";
-  static const String mentalTestResultsPhq8FinalResultHigh3 =
-      "mentalTestResultsPhq8FinalResultHigh3";
-  static const String mentalTestResultsPhq8FinalResultHigh4 =
-      "mentalTestResultsPhq8FinalResultHigh4";
-  static const String mentalTestResultsPersonalProgram = "mentalTestResultsPersonalProgram";
-  static const String mentalTestResultsSupportMessage = "mentalTestResultsSupportMessage";
-  static const String mentalTestResultsFeelLimited1 = "mentalTestResultsFeelLimited1";
-  static const String mentalTestResultsFeelLimited2 = "mentalTestResultsFeelLimited2";
-  static const String mentalTestResultsFeelLimited3 = "mentalTestResultsFeelLimited3";
-  static const String mentalTestResultsFeelLimited4 = "mentalTestResultsFeelLimited4";
-  static const String mentalTestResultsNotATherapy = "mentalTestResultsNotATherapy";
-  static const String mentalTestResultsLearnManyThings = "mentalTestResultsLearnManyThings";
-  static const String mentalTestResultsUnlockAllSections = "mentalTestResultsUnlockAllSections";
-  static const String mentalTestResultsAwailableAreas = "mentalTestResultsAwailableAreas";
-  static const String mentalTestResultsUnlockBuddyMessage = "mentalTestResultsUnlockBuddyMessage";
-  static const String mentalTestResultsWeWillGuideYou = "mentalTestResultsWeWillGuideYou";
+  static const String onboardingPhq8FinalResultHigh1 = "onboardingPhq8FinalResultHigh1";
+  static const String onboardingPhq8FinalResultHigh2 = "onboardingPhq8FinalResultHigh2";
+  static const String onboardingPhq8FinalResultHigh3 = "onboardingPhq8FinalResultHigh3";
+  static const String onboardingPhq8FinalResultHigh4 = "onboardingPhq8FinalResultHigh4";
+  static const String onboardingPersonalProgram = "onboardingPersonalProgram";
+  static const String onboardingSupportMessage = "onboardingSupportMessage";
+  static const String onboardingFeelLimited1 = "onboardingFeelLimited1";
+  static const String onboardingFeelLimited2 = "onboardingFeelLimited2";
+  static const String onboardingFeelLimited3 = "onboardingFeelLimited3";
+  static const String onboardingFeelLimited4 = "onboardingFeelLimited4";
+  static const String onboardingNotATherapy = "onboardingNotATherapy";
+  static const String onboardingLearnManyThings = "onboardingLearnManyThings";
+  static const String onboardingUnlockAllSections = "onboardingUnlockAllSections";
+  static const String onboardingAwailableAreas = "onboardingAwailableAreas";
+  static const String onboardingUnlockBuddyMessage = "onboardingUnlockBuddyMessage";
+  static const String onboardingWeWillGuideYou = "onboardingWeWillGuideYou";
 
-  static const String phq8Fail = "phq8Fail";
-  static const String generalWellBeingSummary = "generalWellBeingSummary";
-  static const String bodyAndMindBalanceSummary = "bodyAndMindBalanceSummary";
-  static const String stateOfMindSummary = "stateOfMindSummary";
-  static const String checkCompleted = "checkCompleted";
-  static const String mentalResultSubText1 = "mentalResultSubText1";
-  static const String mentalResultSubText2 = "mentalResultSubText2";
-  static const String mentalResultSubText3 = "mentalResultSubText3";
+  static const String onboardingPhq8Fail = "onboardingPhq8Fail";
+  static const String onboardingGeneralWellBeingSummary = "onboardingGeneralWellBeingSummary";
+  static const String onboardingBodyAndMindBalanceSummary = "onboardingBodyAndMindBalanceSummary";
+  static const String onboardingStateOfMindSummary = "onboardingStateOfMindSummary";
+  static const String onboardingCheckCompleted = "onboardingCheckCompleted";
+  static const String onboardingMentalResultSubText1 = "onboardingMentalResultSubText1";
+  static const String onboardingMentalResultSubText2 = "onboardingMentalResultSubText2";
+  static const String onboardingMentalResultSubText3 = "onboardingMentalResultSubText3";
 
   // Time ends message
-  static const String youExceededTimeMessage = "youExceededTimeMessage";
-  static const String noWorriesYouCanDoItLater = "noWorriesYouCanDoItLater";
+  static const String onboardingYouExceededTimeMessage = "onboardingYouExceededTimeMessage";
+  static const String onboardingNoWorriesYouCanDoItLater = "onboardingNoWorriesYouCanDoItLater";
 
   // Legal Statement
   static const String legalStatement = 'legalStatement';

@@ -1,5 +1,4 @@
 import 'package:auto_route/auto_route.dart';
-import 'package:loopcare_frontend/core/application/localization/localizer_extenstion.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loopcare_frontend/core/domain/analytics/analytics_events.dart';
@@ -8,7 +7,6 @@ import 'package:loopcare_frontend/core/presentation/alerting/show_app_snackbar.d
 import 'package:loopcare_frontend/core/presentation/app_bar/custom_app_bar.dart';
 import 'package:loopcare_frontend/core/presentation/buttons/custom_filled_icon_button.dart';
 import 'package:loopcare_frontend/core/presentation/loader/loader.dart';
-import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/core/presentation/routes/app_router.gr.dart';
 import 'package:loopcare_frontend/core/presentation/scaffold/custom_scaffold.dart';
 import 'package:loopcare_frontend/core/presentation/text/custom_text.dart';
@@ -24,6 +22,8 @@ import 'package:loopcare_frontend/features/nutrition/presentation/recipe_details
 import 'package:loopcare_frontend/features/nutrition/presentation/recipe_details/widgets/ingredients.dart';
 import 'package:loopcare_frontend/features/nutrition/presentation/recipe_details/widgets/instructions.dart';
 import 'package:loopcare_frontend/features/nutrition/presentation/recipe_details/widgets/summary.dart';
+import 'package:loopcare_frontend/localization/service/localization_extension.dart';
+import 'package:loopcare_frontend/localization/service/localized_texts.dart';
 
 @RoutePage()
 class RecipeDetailsPage extends StatefulWidget {

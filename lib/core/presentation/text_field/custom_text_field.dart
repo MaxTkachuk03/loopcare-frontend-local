@@ -1,13 +1,12 @@
-import 'package:loopcare_frontend/core/application/localization/localizer_extenstion.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 import 'package:loopcare_frontend/core/presentation/utils/build_context_extensions.dart';
 import 'package:loopcare_frontend/core/presentation/validators/email_validator.dart';
 import 'package:loopcare_frontend/core/presentation/validators/login_password_validator.dart';
 import 'package:loopcare_frontend/core/presentation/validators/name_validator.dart';
+import 'package:loopcare_frontend/localization/service/localization_extension.dart';
+import 'package:loopcare_frontend/localization/service/localized_texts.dart';
 
 class CustomTextField extends StatefulWidget {
   final TextInputType? keyboardType;
@@ -292,7 +291,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
       );
     } else if (widget.isClearField ?? false) {
       return IconButton(
-        icon: const Icon(CupertinoIcons.clear_thick_circled, size: 24),
+        icon: const Icon(Icons.cancel, size: 24),
         color: AppColors.greyRegular,
         onPressed: _clearField,
       );

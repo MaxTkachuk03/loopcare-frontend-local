@@ -12,9 +12,9 @@ import 'package:loopcare_frontend/core/infrastructure/dio_client/request_error.d
 import 'package:loopcare_frontend/core/infrastructure/dio_client/server_error_data.dart';
 import 'package:loopcare_frontend/core/infrastructure/services/events.dart';
 import 'package:loopcare_frontend/core/infrastructure/services/mixpanel_event_service.dart';
-import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/features/subscription/infrastructure/subscription_service.dart';
 import 'package:loopcare_frontend/injection.dart';
+import 'package:loopcare_frontend/localization/service/localized_texts.dart';
 
 class PurchaseDetailsStreamSubscription {
   final AppSubscriptionService inAppPurchaseService = getIt<AppSubscriptionService>();

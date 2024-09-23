@@ -1,7 +1,5 @@
 import 'package:auto_route/auto_route.dart';
-import 'package:loopcare_frontend/core/application/localization/localizer_extenstion.dart';
 import 'package:flutter/material.dart';
-import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/core/presentation/routes/app_router.gr.dart';
 import 'package:loopcare_frontend/core/presentation/text/custom_text.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
@@ -15,6 +13,8 @@ import 'package:loopcare_frontend/features/mood/infrastructure/mood_where.dart';
 import 'package:loopcare_frontend/features/mood/infrastructure/mood_with_who.dart';
 import 'package:loopcare_frontend/features/mood/presentation/widgets/emotions_list.dart';
 import 'package:loopcare_frontend/features/mood/presentation/widgets/mood_option_item.dart';
+import 'package:loopcare_frontend/localization/service/localization_extension.dart';
+import 'package:loopcare_frontend/localization/service/localized_texts.dart';
 
 class MoodOptions extends StatelessWidget {
   final MoodController controller;

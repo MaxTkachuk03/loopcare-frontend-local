@@ -6,7 +6,7 @@ import 'package:dio/dio.dart';
 import 'package:loopcare_frontend/core/infrastructure/dio_client/request_error.dart';
 import 'package:loopcare_frontend/core/infrastructure/dio_client/server_error_data.dart';
 import 'package:loopcare_frontend/core/infrastructure/services/logger/logger.dart';
-import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
+import 'package:loopcare_frontend/localization/service/localized_texts.dart';
 
 RequestError createParsingError(dynamic e, StackTrace stackTrace) {
   log.e(e.toString(), error: LogTitle.parsingError, stackTrace: stackTrace);

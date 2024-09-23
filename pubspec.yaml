@@ -120,7 +120,7 @@ flutter:
     - .env.stag
     - .env.uat
     - .env.prod
-    - lib/l10n/
+    - lib/localization/l10n/
   fonts:
     - family: OpenSans
       fonts:

@@ -1,23 +1,23 @@
-import 'package:loopcare_frontend/core/application/localization/localizer_extenstion.dart';
 import 'package:flutter/material.dart';
-import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/core/presentation/text/custom_text.dart';
 import 'package:loopcare_frontend/core/presentation/utils/build_context_extensions.dart';
 import 'package:loopcare_frontend/features/onboarding/utils/bmi_validator.dart';
+import 'package:loopcare_frontend/localization/service/localization_extension.dart';
+import 'package:loopcare_frontend/localization/service/localized_texts.dart';
 
 enum _BmiExclusionType {
-  highBmiYoung(LocalizedTexts.bmiExclusionBodyYounger19HighBmi),
-  lowBmiYoung(LocalizedTexts.bmiExclusionBodyYounger19LowBmi),
-  highBmiOld(LocalizedTexts.bmiExclusionBodyOlder19HighBmi),
-  lowBmiOld(LocalizedTexts.bmiExclusionBodyOlder19LowBmi);
+  highBmiYoung(LocalizedTexts.onboardingBmiExclusionBodyYounger19HighBmi),
+  lowBmiYoung(LocalizedTexts.onboardingBmiExclusionBodyYounger19LowBmi),
+  highBmiOld(LocalizedTexts.onboardingBmiExclusionBodyOlder19HighBmi),
+  lowBmiOld(LocalizedTexts.onboardingBmiExclusionBodyOlder19LowBmi);
 
   const _BmiExclusionType(this.text);
 
   final String text;
 
   String get lastParagraph => switch (this) {
-        lowBmiYoung || lowBmiOld => LocalizedTexts.bmiExclusionBodyLowBmiEnding,
-        highBmiYoung || highBmiOld => LocalizedTexts.bmiExclusionBodyHighBmiEnding,
+        lowBmiYoung || lowBmiOld => LocalizedTexts.onboardingBmiExclusionBodyLowBmiEnding,
+        highBmiYoung || highBmiOld => LocalizedTexts.onboardingBmiExclusionBodyHighBmiEnding,
       };
 }
 
@@ -52,7 +52,7 @@ class FailedBmiBody extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         CustomText.w400(
-          '${LocalizedTexts.bmiExclusionBodyTitle.tr()}:',
+          LocalizedTexts.onboardingBmiExclusionBodyTitle.tr(),
           style: context.textTheme.bodyMedium,
         ),
         const SizedBox(height: 10.0),

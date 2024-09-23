@@ -1,5 +1,4 @@
 import 'package:auto_route/auto_route.dart';
-import 'package:loopcare_frontend/core/application/localization/localizer_extenstion.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loopcare_frontend/core/domain/analytics/analytics_events.dart';
@@ -12,11 +11,10 @@ import 'package:loopcare_frontend/core/presentation/custom_error_widget/error_in
 import 'package:loopcare_frontend/core/presentation/custom_safe_area.dart';
 import 'package:loopcare_frontend/core/presentation/routes/app_router.gr.dart';
 import 'package:loopcare_frontend/core/presentation/scaffold/custom_scaffold.dart';
-import 'package:loopcare_frontend/core/presentation/widgets/main_container.dart';
-import 'package:loopcare_frontend/core/presentation/widgets/simple_progress_bar.dart';
-import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
+import 'package:loopcare_frontend/core/presentation/widgets/main_container.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/scrollable_container.dart';
+import 'package:loopcare_frontend/core/presentation/widgets/simple_progress_bar.dart';
 import 'package:loopcare_frontend/features/education/application/education_lesson/education_lesson_bloc.dart';
 import 'package:loopcare_frontend/features/lesson_quiz/domain/quiz_question.dart';
 import 'package:loopcare_frontend/features/lesson_quiz/domain/quiz_question_option.dart';
@@ -24,6 +22,8 @@ import 'package:loopcare_frontend/features/lesson_quiz/infrastructure/questions_
 import 'package:loopcare_frontend/features/lesson_quiz/presentation/widgets/answer_explanation.dart';
 import 'package:loopcare_frontend/features/lesson_quiz/presentation/widgets/quiz_question_options_list.dart';
 import 'package:loopcare_frontend/features/river/domain/river_module_stream_type.dart';
+import 'package:loopcare_frontend/localization/service/localization_extension.dart';
+import 'package:loopcare_frontend/localization/service/localized_texts.dart';
 
 @RoutePage()
 class QuizQuestionPage extends StatefulWidget {

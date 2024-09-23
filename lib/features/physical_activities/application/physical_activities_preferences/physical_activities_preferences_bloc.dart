@@ -7,9 +7,9 @@ import 'package:injectable/injectable.dart';
 import 'package:loopcare_frontend/core/domain/physical_activities_frequency.dart';
 import 'package:loopcare_frontend/core/domain/physical_activities_type.dart';
 import 'package:loopcare_frontend/core/infrastructure/dio_client/request_error.dart';
-import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/features/physical_activities/application/physical_activities_preferences/dto/physical_activities_preferences_body.dart';
 import 'package:loopcare_frontend/features/physical_activities/application/physical_activities_service.dart';
+import 'package:loopcare_frontend/localization/service/localized_texts.dart';
 
 part 'physical_activities_preferences_bloc.freezed.dart';
 part 'physical_activities_preferences_event.dart';

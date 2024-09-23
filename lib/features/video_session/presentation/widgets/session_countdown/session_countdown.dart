@@ -2,19 +2,19 @@ import 'dart:async';
 import 'dart:io';
 
 import 'package:auto_route/auto_route.dart';
-import 'package:loopcare_frontend/core/application/localization/localizer_extenstion.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:loopcare_frontend/core/presentation/alerting/show_app_snackbar.dart';
 import 'package:loopcare_frontend/core/presentation/buttons/custom_elevated_button.dart';
-import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/core/presentation/routes/app_router.dart';
 import 'package:loopcare_frontend/core/presentation/text/custom_text.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 import 'package:loopcare_frontend/features/group_sessions/application/topics_bloc.dart';
 import 'package:loopcare_frontend/features/video_session/domain/zoom_config.dart';
 import 'package:loopcare_frontend/features/video_session/presentation/widgets/session_countdown/session_timer.dart';
+import 'package:loopcare_frontend/localization/service/localization_extension.dart';
+import 'package:loopcare_frontend/localization/service/localized_texts.dart';
 import 'package:permission_handler/permission_handler.dart';
 
 part 'session_countdown.freezed.dart';

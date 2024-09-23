@@ -1,5 +1,4 @@
 import 'package:auto_route/auto_route.dart';
-import 'package:loopcare_frontend/core/application/localization/localizer_extenstion.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
@@ -8,7 +7,6 @@ import 'package:loopcare_frontend/core/infrastructure/services/analytics_service
 import 'package:loopcare_frontend/core/presentation/category_label/category_label.dart';
 import 'package:loopcare_frontend/core/presentation/clippers/education_clipper.dart';
 import 'package:loopcare_frontend/core/presentation/icon_images/app_icons.dart';
-import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/core/presentation/network_image_with_cache/network_image_with_cache.dart';
 import 'package:loopcare_frontend/core/presentation/routes/app_router.gr.dart';
 import 'package:loopcare_frontend/core/presentation/text/custom_text.dart';
@@ -17,6 +15,8 @@ import 'package:loopcare_frontend/core/presentation/utils/build_context_extensio
 import 'package:loopcare_frontend/core/presentation/utils/date_time_utils.dart';
 import 'package:loopcare_frontend/features/physical_activities/application/physical_programs_bloc.dart';
 import 'package:loopcare_frontend/features/physical_activities/domain/physical_program.dart';
+import 'package:loopcare_frontend/localization/service/localization_extension.dart';
+import 'package:loopcare_frontend/localization/service/localized_texts.dart';
 
 part 'program_card.freezed.dart';
 

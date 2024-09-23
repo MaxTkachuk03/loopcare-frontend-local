@@ -6,6 +6,10 @@ import 'package:dartz/dartz.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:in_app_purchase/in_app_purchase.dart';
+//import for SKProductWrapper
+import 'package:in_app_purchase_android/in_app_purchase_android.dart';
+//import for AppStoreProductDetails
+import 'package:in_app_purchase_storekit/in_app_purchase_storekit.dart';
 import 'package:injectable/injectable.dart';
 import 'package:loopcare_frontend/core/application/auth_token_manager.dart';
 import 'package:loopcare_frontend/core/application/customer_io_service/customer_io_service.dart';
@@ -19,30 +23,22 @@ import 'package:loopcare_frontend/core/infrastructure/services/events.dart';
 import 'package:loopcare_frontend/core/infrastructure/services/facebook_events_service.dart';
 import 'package:loopcare_frontend/core/infrastructure/services/logger/logger.dart';
 import 'package:loopcare_frontend/core/infrastructure/services/mixpanel_event_service.dart';
-import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/features/authentication/application/authentication_service.dart';
 import 'package:loopcare_frontend/features/authentication/domain/subscription/subscription.dart';
-import 'package:loopcare_frontend/features/subscription/infrastructure/purchase_details_subscriptions.dart';
-import 'package:loopcare_frontend/features/subscription/domain/services/purchase_service.dart';
-import 'package:loopcare_frontend/features/subscription/infrastructure/subscription_service.dart';
 import 'package:loopcare_frontend/features/subscription/domain/purchased_product.dart';
 import 'package:loopcare_frontend/features/subscription/domain/server_product.dart';
+import 'package:loopcare_frontend/features/subscription/domain/services/purchase_service.dart';
 import 'package:loopcare_frontend/features/subscription/domain/subscription_state.dart';
 import 'package:loopcare_frontend/features/subscription/domain/valid_status.dart';
 import 'package:loopcare_frontend/features/subscription/domain/verify_purchase_data_android.dart';
 import 'package:loopcare_frontend/features/subscription/domain/verify_purchase_data_ios.dart';
+import 'package:loopcare_frontend/features/subscription/infrastructure/purchase_details_subscriptions.dart';
+import 'package:loopcare_frontend/features/subscription/infrastructure/subscription_service.dart';
 import 'package:loopcare_frontend/features/subscription/utils/date_utils.dart';
-
-//import for AppStoreProductDetails
-import 'package:in_app_purchase_storekit/in_app_purchase_storekit.dart';
-
-//import for SKProductWrapper
-import 'package:in_app_purchase_android/in_app_purchase_android.dart';
+import 'package:loopcare_frontend/localization/service/localized_texts.dart';
 
 part 'subscription_bloc.freezed.dart';
-
 part 'subscription_event.dart';
-
 part 'subscription_state.dart';
 
 const delayDuration = 60;

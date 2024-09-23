@@ -1,5 +1,4 @@
 import 'package:auto_route/annotations.dart';
-import 'package:loopcare_frontend/core/application/localization/localizer_extenstion.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loopcare_frontend/core/presentation/app_bar/custom_app_bar.dart';
@@ -7,7 +6,6 @@ import 'package:loopcare_frontend/core/presentation/bottom_placed_button/bottom_
 import 'package:loopcare_frontend/core/presentation/buttons/custom_elevated_button.dart';
 import 'package:loopcare_frontend/core/presentation/buttons/custom_filled_icon_button.dart';
 import 'package:loopcare_frontend/core/presentation/custom_safe_area.dart';
-import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/core/presentation/scaffold/custom_scaffold.dart';
 import 'package:loopcare_frontend/core/presentation/text/custom_text.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
@@ -16,6 +14,8 @@ import 'package:loopcare_frontend/core/presentation/widgets/main_container.dart'
 import 'package:loopcare_frontend/features/authentication/application/authentication_bloc.dart';
 import 'package:loopcare_frontend/features/authentication/domain/email/email.dart';
 import 'package:loopcare_frontend/features/authentication/presentation/forgot_password/widgets/forgot_password_form.dart';
+import 'package:loopcare_frontend/localization/service/localization_extension.dart';
+import 'package:loopcare_frontend/localization/service/localized_texts.dart';
 
 @RoutePage()
 class ForgotPasswordPage extends StatefulWidget {
