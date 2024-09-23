@@ -241,6 +241,12 @@ class AuthenticationBloc extends HydratedBloc<AuthenticationEvent, Authenticatio
     await _authenticationService.logout();
     await _authTokenManager.removeAccessToken();
     await _authTokenManager.removeRefreshToken();
+    MixpanelEventService.instance.track(
+      AppMixpanelEvents.logoutUser,
+      parameters: {
+        AnalyticsParameters.timestamp: DateTime.now().toIso8601String(),
+      },
+    );
 
     _sharedPref.removeAccount();
 

@@ -42,9 +42,9 @@ class DioClient {
     dio = dioOptions;
 
     dio.interceptors.addAll([
+      _errorInterceptor,
       _authTokenInterceptor,
       _appVersionInterceptor,
-      _errorInterceptor,
     ]);
 
     _configureRetryConnection();

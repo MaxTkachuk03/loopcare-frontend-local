@@ -150,8 +150,9 @@ class SubscriptionController {
   }
 
   void resetState() {
-    selectedPlan.value = null;
-    isEnableSubscribe.value = false;
+    //Todo will be uncommented in multiple subscription implementation
+    // selectedPlan.value = null;
+    // isEnableSubscribe.value = false;
     loading.value = false;
   }
 

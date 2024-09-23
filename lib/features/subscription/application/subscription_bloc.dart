@@ -75,6 +75,7 @@ class SubscriptionBloc extends Bloc<SubscriptionEvent, SubscriptionState> {
     on<CanceledByUser>(_cancelledByUser);
     on<SubscriptionLogout>(_onLogout);
     on<SubscriptionDispose>(_onSubscriptionDispose);
+    on<NotifySubscriptionExpired>(_onNotifySubscriptionExpired);
   }
 
   String get vendor => Platform.isIOS ? 'ios' : 'android';
@@ -89,6 +90,16 @@ class SubscriptionBloc extends Bloc<SubscriptionEvent, SubscriptionState> {
         onCanceled: () => add(const SubscriptionEvent.canceledByUser()),
         onEmpty: _onEmptyRestore,
       )..init();
+
+  FutureOr<void> _onNotifySubscriptionExpired(
+    NotifySubscriptionExpired event,
+    Emitter<SubscriptionState> emit,
+  ) async {
+    log.i(
+      'PURCHASED PRODUCT ${event.subscription.id} IS EXPIRED; timestamp: ${event.subscription.purchasedAt}',
+      error: runtimeType,
+    );
+  }
 
   FutureOr<void> _processingDataPlans(
     ProcessingDataPlans event,
@@ -105,6 +116,12 @@ class SubscriptionBloc extends Bloc<SubscriptionEvent, SubscriptionState> {
 
     emit(const SubscriptionState.initial(SubscriptionStateData()));
     _checkEligibility = true;
+    MixpanelEventService.instance.track(
+      AppMixpanelEvents.checkEligibilityByUser,
+      parameters: {
+        AnalyticsParameters.timestamp: DateTime.now().toIso8601String(),
+      },
+    );
     if (Platform.isAndroid) {
       await _checkAndroidEligible();
     } else {
@@ -255,34 +272,35 @@ class SubscriptionBloc extends Bloc<SubscriptionEvent, SubscriptionState> {
   }
 
   Future<void> _handlePurchase(PurchaseDetails purchaseDetails) async {
-    MixpanelEventService.instance.track(
-      AppMixpanelEvents.userPurchasedSubscription,
-      parameters: {
-        AnalyticsParameters.productIdentifier: purchaseDetails.productID,
-        AnalyticsParameters.purchaseIdentifier: purchaseDetails.purchaseID,
-        AnalyticsParameters.purchaseStatus: purchaseDetails.status.name,
-        AnalyticsParameters.transactionDate:
-            DateTime.fromMillisecondsSinceEpoch(int.parse(purchaseDetails.transactionDate!) * 1000),
-      },
-    );
     await _verifyPurchasedOrRestore(purchaseDetails);
   }
 
   Future<void> _verifyPurchasedOrRestore(PurchaseDetails purchaseDetails) async {
     final response = await _apiPurchaseOrRestore(purchaseDetails);
-    response.fold(
-      (error) {
-        _pushAnalyticErrorVerifyOnServer(purchaseDetails);
-        MixpanelEventService.instance.track(AppMixpanelEvents.sendValidationPurchaseOnBackendError);
-        add(SubscriptionEvent.errorPurchase(error));
-      },
-      (r) async {
+    response.fold((error) {
+      _pushAnalyticErrorVerifyOnServer(purchaseDetails);
+      MixpanelEventService.instance.track(
+        AppMixpanelEvents.sendValidationPurchaseOnBackendError,
+        parameters: {AnalyticsParameters.errorMessage: error.message},
+      );
+      add(SubscriptionEvent.errorPurchase(error));
+    }, (r) async {
+      if (r.isActive) {
+        MixpanelEventService.instance.track(
+          AppMixpanelEvents.userPurchasedSubscription,
+          parameters: {
+            AnalyticsParameters.productIdentifier: purchaseDetails.productID,
+            AnalyticsParameters.purchaseIdentifier: purchaseDetails.purchaseID,
+            AnalyticsParameters.purchaseStatus: purchaseDetails.status.name,
+            AnalyticsParameters.transactionDate: DateTime.fromMillisecondsSinceEpoch(
+                int.parse(purchaseDetails.transactionDate!) * 1000),
+          },
+        );
         MixpanelEventService.instance
             .track(AppMixpanelEvents.sendValidationPurchaseOnBackendSuccess);
         final accessTokenUpdated = await _authTokenManager.updateAccessToken();
         if (accessTokenUpdated) {
           _pushAnalyticBoughtEvent(purchaseDetails, r);
-
           add(
             SubscriptionEvent.purchasedSubscription(
               r,
@@ -303,8 +321,10 @@ class SubscriptionBloc extends Bloc<SubscriptionEvent, SubscriptionState> {
             ),
           );
         }
-      },
-    );
+      } else {
+        add(SubscriptionEvent.notifySubscriptionExpired(subscription: r));
+      }
+    });
   }
 
   Future<Either<RequestError, Subscription>> _apiPurchaseOrRestore(

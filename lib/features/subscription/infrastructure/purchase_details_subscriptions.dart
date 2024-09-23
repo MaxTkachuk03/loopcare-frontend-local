@@ -87,6 +87,7 @@ class PurchaseDetailsStreamSubscription {
             onPurchased?.call(purchaseDetails);
             if (Platform.isIOS) {
               await inAppPurchaseService.finishTransactionIOS();
+              await inAppPurchaseService.completePurchase(purchaseDetails);
             }
             break;
           case PurchaseStatus.canceled:

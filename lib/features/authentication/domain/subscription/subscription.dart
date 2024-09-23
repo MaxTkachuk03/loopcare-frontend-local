@@ -30,6 +30,7 @@ class Subscription with _$Subscription {
 //Todo discuss  with backend team -> return localization subscription type
   String get subscriptionType => switch (productId ?? '') {
         'daily' => LocalizedTexts.subscriptionDaily.tr(),
+        'testDaily' => LocalizedTexts.subscriptionDaily.tr(),
         'weekly' => LocalizedTexts.subscriptionWeekly.tr(),
         'monthly' => LocalizedTexts.subscriptionMonth.tr(),
         'quarterly' => LocalizedTexts.subscriptionQuarterly.tr(),
