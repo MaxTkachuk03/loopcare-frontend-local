@@ -275,7 +275,8 @@ class SubscriptionBloc extends Bloc<SubscriptionEvent, SubscriptionState> {
     await _verifyPurchasedOrRestore(purchaseDetails);
   }
 
-  Future<void> _verifyPurchasedOrRestore(PurchaseDetails purchaseDetails) async {
+  Future<void> _verifyPurchasedOrRestore(PurchaseDetails purchaseDetails,
+      {bool isRestore = false}) async {
     final response = await _apiPurchaseOrRestore(purchaseDetails);
     response.fold((error) {
       _pushAnalyticErrorVerifyOnServer(purchaseDetails);
@@ -286,45 +287,55 @@ class SubscriptionBloc extends Bloc<SubscriptionEvent, SubscriptionState> {
       add(SubscriptionEvent.errorPurchase(error));
     }, (r) async {
       if (r.isActive) {
-        MixpanelEventService.instance.track(
-          AppMixpanelEvents.userPurchasedSubscription,
-          parameters: {
-            AnalyticsParameters.productIdentifier: purchaseDetails.productID,
-            AnalyticsParameters.purchaseIdentifier: purchaseDetails.purchaseID,
-            AnalyticsParameters.purchaseStatus: purchaseDetails.status.name,
-            AnalyticsParameters.transactionDate: DateTime.fromMillisecondsSinceEpoch(
-                int.parse(purchaseDetails.transactionDate!) * 1000),
-          },
+        await _purchasedSuccess(purchaseDetails, r);
+      } else if (!r.isActive && isRestore) {
+        add(
+          const SubscriptionEvent.errorPurchase(
+            RequestError.streamSubscription(
+              ServerErrorData(message: LocalizedTexts.subscriptionEndedTitle),
+            ),
+          ),
         );
-        MixpanelEventService.instance
-            .track(AppMixpanelEvents.sendValidationPurchaseOnBackendSuccess);
-        final accessTokenUpdated = await _authTokenManager.updateAccessToken();
-        if (accessTokenUpdated) {
-          _pushAnalyticBoughtEvent(purchaseDetails, r);
-          add(
-            SubscriptionEvent.purchasedSubscription(
-              r,
-              PurchasedProduct(
-                purchaseDetails: purchaseDetails,
-                memberSince: SubscriptionDateUtils.getTransactionDate(r.purchasedAt),
-              ),
-            ),
-          );
-        } else {
-          MixpanelEventService.instance
-              .track(AppMixpanelEvents.getAccessTokenWithSubscriptionError);
-          add(
-            const SubscriptionEvent.errorPurchase(
-              RequestError.streamSubscription(
-                ServerErrorData(message: LocalizedTexts.errorPurchaseVerificationError),
-              ),
-            ),
-          );
-        }
       } else {
         add(SubscriptionEvent.notifySubscriptionExpired(subscription: r));
       }
     });
+  }
+
+  Future<void> _purchasedSuccess(PurchaseDetails purchaseDetails, Subscription r) async {
+    MixpanelEventService.instance.track(
+      AppMixpanelEvents.userPurchasedSubscription,
+      parameters: {
+        AnalyticsParameters.productIdentifier: purchaseDetails.productID,
+        AnalyticsParameters.purchaseIdentifier: purchaseDetails.purchaseID,
+        AnalyticsParameters.purchaseStatus: purchaseDetails.status.name,
+        AnalyticsParameters.transactionDate:
+            DateTime.fromMillisecondsSinceEpoch(int.parse(purchaseDetails.transactionDate!) * 1000),
+      },
+    );
+    MixpanelEventService.instance.track(AppMixpanelEvents.sendValidationPurchaseOnBackendSuccess);
+    final accessTokenUpdated = await _authTokenManager.updateAccessToken();
+    if (accessTokenUpdated) {
+      _pushAnalyticBoughtEvent(purchaseDetails, r);
+      add(
+        SubscriptionEvent.purchasedSubscription(
+          r,
+          PurchasedProduct(
+            purchaseDetails: purchaseDetails,
+            memberSince: SubscriptionDateUtils.getTransactionDate(r.purchasedAt),
+          ),
+        ),
+      );
+    } else {
+      MixpanelEventService.instance.track(AppMixpanelEvents.getAccessTokenWithSubscriptionError);
+      add(
+        const SubscriptionEvent.errorPurchase(
+          RequestError.streamSubscription(
+            ServerErrorData(message: LocalizedTexts.errorPurchaseVerificationError),
+          ),
+        ),
+      );
+    }
   }
 
   Future<Either<RequestError, Subscription>> _apiPurchaseOrRestore(
@@ -384,7 +395,7 @@ class SubscriptionBloc extends Bloc<SubscriptionEvent, SubscriptionState> {
     if (purchaseDetails.status != PurchaseStatus.restored) {
       return;
     }
-    await _verifyPurchasedOrRestore(purchaseDetails);
+    await _verifyPurchasedOrRestore(purchaseDetails, isRestore: true);
   }
 
   String? _getTransactionId(PurchaseDetails purchaseDetails) {
@@ -632,7 +643,6 @@ class SubscriptionBloc extends Bloc<SubscriptionEvent, SubscriptionState> {
   ) async {
     emit(SubscriptionState.loading(state.data.copyWith(isLoading: true)));
     _purchaseDetailsStreamSubscription.close();
-    await _authenticationService.logout();
     CustomerIoService.logOut();
     emit(SubscriptionState.logout(state.data.copyWith(isLoading: false)));
   }

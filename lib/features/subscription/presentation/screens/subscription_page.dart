@@ -21,6 +21,7 @@ import 'package:loopcare_frontend/core/presentation/routes/app_router.gr.dart';
 import 'package:loopcare_frontend/core/presentation/scaffold/custom_scaffold.dart';
 import 'package:loopcare_frontend/core/presentation/text/custom_text.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
+import 'package:loopcare_frontend/features/authentication/application/authentication_bloc.dart';
 import 'package:loopcare_frontend/features/river/application/river_bloc.dart';
 import 'package:loopcare_frontend/features/subscription/application/subscription_bloc.dart';
 import 'package:loopcare_frontend/features/subscription/presentation/controller/subscription_controller.dart';
@@ -71,37 +72,39 @@ class _SubscriptionPageState extends State<SubscriptionPage> {
   @override
   Widget build(BuildContext context) {
     Widget content = const Loader();
-    return CustomSafeArea(
-      child: CustomScaffold(
-        color: AppColors.blueDarker,
-        appBar: CustomAppBar.transparent(
-          leading: const SizedBox.shrink(),
-          actions: [_LogoutWidget()],
-          title: null,
-        ),
-        body: BlocConsumer<SubscriptionBloc, SubscriptionState>(
-          listener: (context, state) => state.maybeWhen(
-            setEligibility: (data) => _controller.getSubscriptionPlansFromServer(),
-            successInPlans: (data) => _controller.setupPlans(data),
-            subscriptionActive: (data) => context.router.replaceNamed(AppRoutes.home),
-            purchaseDuplicateSubscription: (data) => _onDuplicateSettings(context),
-            purchasedSubscription: (data) => (data.subscription?.isActive ?? false)
-                ? _navigateToHome()
-                : _onRestoreFromSettings(data),
-            askRestoredSubscription: (data) => _showAskRestorePopover(),
-            loading: (data) => _controller.handleLoading(data.isLoading),
-            logout: (_) => context.router.replaceAll([const IntroRoute()]),
-            error: (_) => _errorListener(context, state),
-            orElse: () => null,
+    return BlocListener<AuthenticationBloc, AuthenticationState>(
+      listener: _logoutListener,
+      child: CustomSafeArea(
+        child: CustomScaffold(
+          color: AppColors.blueDarker,
+          appBar: CustomAppBar.transparent(
+            leading: const SizedBox.shrink(),
+            actions: [_LogoutWidget()],
+            title: null,
           ),
-          builder: (context, state) => state.maybeWhen(
-            orElse: () => content,
-            singlePlan: (_) => content = SubscriptionSinglePlanPage(
-              controller: _controller,
+          body: BlocConsumer<SubscriptionBloc, SubscriptionState>(
+            listener: (context, state) => state.maybeWhen(
+              setEligibility: (data) => _controller.getSubscriptionPlansFromServer(),
+              successInPlans: (data) => _controller.setupPlans(data),
+              subscriptionActive: (data) => context.router.replaceNamed(AppRoutes.home),
+              purchaseDuplicateSubscription: (data) => _onDuplicateSettings(context),
+              purchasedSubscription: (data) => (data.subscription?.isActive ?? false)
+                  ? _navigateToHome()
+                  : _onRestoreFromSettings(data),
+              askRestoredSubscription: (data) => _showAskRestorePopover(),
+              loading: (data) => _controller.handleLoading(data.isLoading),
+              error: (_) => _errorListener(context, state),
+              orElse: () => null,
             ),
-            subscriptionUnRenewed: (_) => content = const SubscriptionNonrenewablePage(),
-            serviceSubscriptionUnavailable: (_) =>
-                content = const SubscriptionServiceUnavailablePage(),
+            builder: (context, state) => state.maybeWhen(
+              orElse: () => content,
+              singlePlan: (_) => content = SubscriptionSinglePlanPage(
+                controller: _controller,
+              ),
+              subscriptionUnRenewed: (_) => content = const SubscriptionNonrenewablePage(),
+              serviceSubscriptionUnavailable: (_) =>
+                  content = const SubscriptionServiceUnavailablePage(),
+            ),
           ),
         ),
       ),
@@ -138,6 +141,7 @@ class _SubscriptionPageState extends State<SubscriptionPage> {
       onSubscriptionPref: () {
         launchUrl(Uri.parse(link), mode: LaunchMode.externalApplication);
         context.read<SubscriptionBloc>().add(const SubscriptionEvent.logout());
+        context.read<AuthenticationBloc>().add(const AuthenticationEvent.logout());
       },
     );
   }
@@ -176,7 +180,7 @@ class _SubscriptionPageState extends State<SubscriptionPage> {
   }
 
   void _errorListener(BuildContext context, SubscriptionState state) {
-    _controller.resetState();
+    _controller.handleLoading(state.data.isLoading);
     context.showErrorBar(
       content: CustomText(state.data.errorKey.tr()),
       position: FlashPosition.top,
@@ -191,6 +195,14 @@ class _SubscriptionPageState extends State<SubscriptionPage> {
 
     context.router.replaceAll([path]);
   }
+
+  void _logoutListener(BuildContext context, AuthenticationState state) {
+    state.mapOrNull(
+      guest: (state) {
+        context.router.replaceAll([const IntroRoute()]);
+      },
+    );
+  }
 }
 
 class _LogoutWidget extends StatelessWidget {
@@ -202,12 +214,14 @@ class _LogoutWidget extends StatelessWidget {
         radius: 22,
         backgroundColor: AppColors.blueLighter,
         child: IconButton(
-          icon: const Icon(
-            Icons.logout,
-            color: AppColors.blueDarkest,
-          ),
-          onPressed: () => context.read<SubscriptionBloc>().add(const SubscriptionEvent.logout()),
-        ),
+            icon: const Icon(
+              Icons.logout,
+              color: AppColors.blueDarkest,
+            ),
+            onPressed: () {
+              context.read<SubscriptionBloc>().add(const SubscriptionEvent.logout());
+              context.read<AuthenticationBloc>().add(const AuthenticationEvent.logout());
+            }),
       ),
     );
   }
