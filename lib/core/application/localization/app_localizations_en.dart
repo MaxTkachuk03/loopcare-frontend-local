@@ -15,44 +15,34 @@ class AppLocalizationsEn extends AppLocalizations {
   String get errorValidationIosMinVersionNotAnInteger => 'iOS minimum version must be an integer.';
 
   @override
-  String get errorValidationIosMinVersionNotAPositiveNumber =>
-      'iOS minimum version must be a positive number.';
+  String get errorValidationIosMinVersionNotAPositiveNumber => 'iOS minimum version must be a positive number.';
 
   @override
-  String get errorValidationAndroidMinVersionNotANumber =>
-      'Android minimum version must be a number.';
+  String get errorValidationAndroidMinVersionNotANumber => 'Android minimum version must be a number.';
 
   @override
-  String get errorValidationAndroidMinVersionNotAnInteger =>
-      'Android minimum version must be an integer.';
+  String get errorValidationAndroidMinVersionNotAnInteger => 'Android minimum version must be an integer.';
 
   @override
-  String get errorValidationAndroidMinVersionNotAPositiveNumber =>
-      'Android minimum version must be a positive number.';
+  String get errorValidationAndroidMinVersionNotAPositiveNumber => 'Android minimum version must be a positive number.';
 
   @override
-  String get errorValidationTermsAndConditionsVersionNotANumber =>
-      'Terms and conditions version must be a number.';
+  String get errorValidationTermsAndConditionsVersionNotANumber => 'Terms and conditions version must be a number.';
 
   @override
-  String get errorValidationTermsAndConditionsVersionNotAnInteger =>
-      'Terms and conditions version must be an integer.';
+  String get errorValidationTermsAndConditionsVersionNotAnInteger => 'Terms and conditions version must be an integer.';
 
   @override
-  String get errorValidationTermsAndConditionsVersionNotAPositiveNumber =>
-      'Terms and conditions version must be a positive number.';
+  String get errorValidationTermsAndConditionsVersionNotAPositiveNumber => 'Terms and conditions version must be a positive number.';
 
   @override
-  String get errorValidationPrivacyPolicyVersionNotANumber =>
-      'Privacy policy version must be a number.';
+  String get errorValidationPrivacyPolicyVersionNotANumber => 'Privacy policy version must be a number.';
 
   @override
-  String get errorValidationPrivacyPolicyVersionNotAnInteger =>
-      'Privacy policy version must be an integer.';
+  String get errorValidationPrivacyPolicyVersionNotAnInteger => 'Privacy policy version must be an integer.';
 
   @override
-  String get errorValidationPrivacyPolicyVersionNotAPositiveNumber =>
-      'Privacy policy version must be a positive number.';
+  String get errorValidationPrivacyPolicyVersionNotAPositiveNumber => 'Privacy policy version must be a positive number.';
 
   @override
   String get errorValidationRefreshTokenNotAJwt => 'Refresh token must be a valid JWT.';
@@ -85,12 +75,10 @@ class AppLocalizationsEn extends AppLocalizations {
   String get errorValidationPackageNameNotAString => 'Package name must be a string.';
 
   @override
-  String get errorValidationEventTimeMillisNotANumberString =>
-      'Event time must be a valid number string.';
+  String get errorValidationEventTimeMillisNotANumberString => 'Event time must be a valid number string.';
 
   @override
-  String get errorValidationSubscriptionNotificationEmptyObject =>
-      'Subscription notification cannot be an empty object.';
+  String get errorValidationSubscriptionNotificationEmptyObject => 'Subscription notification cannot be an empty object.';
 
   @override
   String get errorValidationFilenameStringTooShort => 'Filename is too short.';
@@ -120,8 +108,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get errorValidationFieldnameNotAString => 'Field name must be a string.';
 
   @override
-  String get errorValidationPasswordPasswordTooWeak =>
-      'We were unable to update your email address. Please check your credentials and try again';
+  String get errorValidationPasswordPasswordTooWeak => 'We were unable to update your email address. Please check your credentials and try again';
 
   @override
   String get errorValidationPasswordEmpty => 'Password cannot be empty.';
@@ -169,8 +156,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get errorValidationNumberOfUnitsNotANumber => 'Number of units must be a number.';
 
   @override
-  String get errorValidationNumberOfUnitsNotAPositiveNumber =>
-      'Number of units must be a positive number.';
+  String get errorValidationNumberOfUnitsNotAPositiveNumber => 'Number of units must be a positive number.';
 
   @override
   String get errorValidationNumberOfUnitsNumberTooBig => 'Number of units is too big.';
@@ -182,15 +168,13 @@ class AppLocalizationsEn extends AppLocalizations {
   String get errorValidationFoodItemIdEmpty => 'Food item ID cannot be empty.';
 
   @override
-  String get errorValidationFoodItemIdNotANumberString =>
-      'Food item ID must be a valid number string.';
+  String get errorValidationFoodItemIdNotANumberString => 'Food item ID must be a valid number string.';
 
   @override
   String get errorValidationServingIdEmpty => 'Serving ID cannot be empty.';
 
   @override
-  String get errorValidationServingIdNotANumberString =>
-      'Serving ID must be a valid number string.';
+  String get errorValidationServingIdNotANumberString => 'Serving ID must be a valid number string.';
 
   @override
   String get errorValidationMealCategoriesEmpty => 'Meal categories cannot be empty.';
@@ -202,8 +186,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get errorValidationMealCategoriesEmptyArray => 'Meal categories cannot be an empty array.';
 
   @override
-  String get errorValidationMealCategoriesInvalidEnum =>
-      'Meal categories contain an invalid value.';
+  String get errorValidationMealCategoriesInvalidEnum => 'Meal categories contain an invalid value.';
 
   @override
   String get errorValidationNicknameEmpty => 'Nickname cannot be empty.';
@@ -254,8 +237,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get errorValidationMealRecipeIdNotAnInteger => 'Meal recipe ID must be an integer.';
 
   @override
-  String get errorValidationMealRecipeIdNotAPositiveNumber =>
-      'Meal recipe ID must be a positive number.';
+  String get errorValidationMealRecipeIdNotAPositiveNumber => 'Meal recipe ID must be a positive number.';
 
   @override
   String get errorValidationTypeInvalidEnum => 'Type is invalid.';
@@ -288,20 +270,16 @@ class AppLocalizationsEn extends AppLocalizations {
   String get errorValidationMedicinesEmptyArray => 'Medicines cannot be an empty array.';
 
   @override
-  String get errorValidationUseSemaglutideMedicationNotAString =>
-      'Use of semaglutide medication must be a string.';
+  String get errorValidationUseSemaglutideMedicationNotAString => 'Use of semaglutide medication must be a string.';
 
   @override
-  String get errorValidationHowLongTakeSemaglutideMedicationNotAString =>
-      'Duration of taking semaglutide medication must be a string.';
+  String get errorValidationHowLongTakeSemaglutideMedicationNotAString => 'Duration of taking semaglutide medication must be a string.';
 
   @override
-  String get errorValidationHowLongSemaglutideTreatmentLastNotAString =>
-      'Duration of semaglutide treatment must be a string.';
+  String get errorValidationHowLongSemaglutideTreatmentLastNotAString => 'Duration of semaglutide treatment must be a string.';
 
   @override
-  String get errorValidationIsUseSemaglutideMedicationNotABoolean =>
-      'Use of semaglutide medication must be a boolean.';
+  String get errorValidationIsUseSemaglutideMedicationNotABoolean => 'Use of semaglutide medication must be a boolean.';
 
   @override
   String get errorValidationObesityNotABoolean => 'Obesity field must be a boolean.';
@@ -319,8 +297,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get errorValidationMetabolicDiseaseEmpty => 'Metabolic disease field cannot be empty.';
 
   @override
-  String get errorValidationMetabolicDiseaseNotABoolean =>
-      'Metabolic disease field must be a boolean.';
+  String get errorValidationMetabolicDiseaseNotABoolean => 'Metabolic disease field must be a boolean.';
 
   @override
   String get errorValidationHypertensionEmpty => 'Hypertension field cannot be empty.';
@@ -329,19 +306,16 @@ class AppLocalizationsEn extends AppLocalizations {
   String get errorValidationHypertensionNotABoolean => 'Hypertension field must be a boolean.';
 
   @override
-  String get errorValidationCardiovascularDiseaseEmpty =>
-      'Cardiovascular disease field cannot be empty.';
+  String get errorValidationCardiovascularDiseaseEmpty => 'Cardiovascular disease field cannot be empty.';
 
   @override
-  String get errorValidationCardiovascularDiseaseNotABoolean =>
-      'Cardiovascular disease field must be a boolean.';
+  String get errorValidationCardiovascularDiseaseNotABoolean => 'Cardiovascular disease field must be a boolean.';
 
   @override
   String get errorValidationStomachReductionEmpty => 'Stomach reduction field cannot be empty.';
 
   @override
-  String get errorValidationStomachReductionNotABoolean =>
-      'Stomach reduction field must be a boolean.';
+  String get errorValidationStomachReductionNotABoolean => 'Stomach reduction field must be a boolean.';
 
   @override
   String get errorValidationDiabetesEmpty => 'Diabetes field cannot be empty.';
@@ -368,32 +342,25 @@ class AppLocalizationsEn extends AppLocalizations {
   String get errorValidationLiverDiseaseNotABoolean => 'Liver disease field must be a boolean.';
 
   @override
-  String get errorValidationSleepApneaSyndromeEmpty =>
-      'Sleep apnea syndrome field cannot be empty.';
+  String get errorValidationSleepApneaSyndromeEmpty => 'Sleep apnea syndrome field cannot be empty.';
 
   @override
-  String get errorValidationSleepApneaSyndromeNotABoolean =>
-      'Sleep apnea syndrome field must be a boolean.';
+  String get errorValidationSleepApneaSyndromeNotABoolean => 'Sleep apnea syndrome field must be a boolean.';
 
   @override
-  String get errorValidationLocomotorSystemDiseaseEmpty =>
-      'Locomotor system disease field cannot be empty.';
+  String get errorValidationLocomotorSystemDiseaseEmpty => 'Locomotor system disease field cannot be empty.';
 
   @override
-  String get errorValidationLocomotorSystemDiseaseNotABoolean =>
-      'Locomotor system disease field must be a boolean.';
+  String get errorValidationLocomotorSystemDiseaseNotABoolean => 'Locomotor system disease field must be a boolean.';
 
   @override
-  String get errorValidationTreatedByPsychiatristEmpty =>
-      'Treated by psychiatrist field cannot be empty.';
+  String get errorValidationTreatedByPsychiatristEmpty => 'Treated by psychiatrist field cannot be empty.';
 
   @override
-  String get errorValidationTreatedByPsychiatristNotABoolean =>
-      'Treated by psychiatrist field must be a boolean.';
+  String get errorValidationTreatedByPsychiatristNotABoolean => 'Treated by psychiatrist field must be a boolean.';
 
   @override
-  String get errorValidationItemStateNotFromDefinedList =>
-      'Item state must be from the defined list.';
+  String get errorValidationItemStateNotFromDefinedList => 'Item state must be from the defined list.';
 
   @override
   String get errorValidationItemStateNotAString => 'Item state must be a string.';
@@ -426,8 +393,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get errorValidationAllergicNotAnInteger => 'Allergic field must be an integer.';
 
   @override
-  String get errorValidationAllergicNotAPositiveNumber =>
-      'Allergic field must be a positive number.';
+  String get errorValidationAllergicNotAPositiveNumber => 'Allergic field must be a positive number.';
 
   @override
   String get errorValidationDislikeEmpty => 'Dislike field cannot be empty.';
@@ -454,8 +420,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get errorValidationQuestionIdNotAnInteger => 'Question ID must be an integer.';
 
   @override
-  String get errorValidationQuestionIdNotAPositiveNumber =>
-      'Question ID must be a positive number.';
+  String get errorValidationQuestionIdNotAPositiveNumber => 'Question ID must be a positive number.';
 
   @override
   String get errorValidationOptionIdEmpty => 'Option ID cannot be empty.';
@@ -482,8 +447,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get errorValidationIsConsentApprovedEmpty => 'Consent approved field cannot be empty.';
 
   @override
-  String get errorValidationIsConsentApprovedNotABoolean =>
-      'Consent approved field must be a boolean.';
+  String get errorValidationIsConsentApprovedNotABoolean => 'Consent approved field must be a boolean.';
 
   @override
   String get errorValidationIsLegalApprovedEmpty => 'Legal approved field cannot be empty.';
@@ -552,12 +516,10 @@ class AppLocalizationsEn extends AppLocalizations {
   String get errorValidationHappinessInvalidEnum => 'Happiness field is invalid.';
 
   @override
-  String get errorValidationMentalHealthTestEmptyObject =>
-      'Mental health test field cannot be an empty object.';
+  String get errorValidationMentalHealthTestEmptyObject => 'Mental health test field cannot be an empty object.';
 
   @override
-  String get errorValidationMedicalOnboardingEmptyObject =>
-      'Medical onboarding field cannot be an empty object.';
+  String get errorValidationMedicalOnboardingEmptyObject => 'Medical onboarding field cannot be an empty object.';
 
   @override
   String get errorValidationCustomerIoIdEmpty => 'Customer IO ID cannot be empty.';
@@ -566,15 +528,13 @@ class AppLocalizationsEn extends AppLocalizations {
   String get errorValidationCustomerIoIdNotAString => 'Customer IO ID must be a string.';
 
   @override
-  String get errorValidationNameLettersAndNumbersRequired =>
-      'Name must contain letters and numbers.';
+  String get errorValidationNameLettersAndNumbersRequired => 'Name must contain letters and numbers.';
 
   @override
   String get errorValidationBucketStringTooShort => 'Bucket string is too short.';
 
   @override
-  String get errorValidationBucketLettersAndNumbersRequired =>
-      'Bucket must contain letters and numbers.';
+  String get errorValidationBucketLettersAndNumbersRequired => 'Bucket must contain letters and numbers.';
 
   @override
   String get errorValidationBucketEmpty => 'Bucket field cannot be empty.';
@@ -583,8 +543,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get errorValidationBucketNotAString => 'Bucket field must be a string.';
 
   @override
-  String get errorValidationDistributionUrlNotUrlAddress =>
-      'Distribution URL must be a valid URL address.';
+  String get errorValidationDistributionUrlNotUrlAddress => 'Distribution URL must be a valid URL address.';
 
   @override
   String get errorValidationDistributionUrlEmpty => 'Distribution URL cannot be empty.';
@@ -644,22 +603,19 @@ class AppLocalizationsEn extends AppLocalizations {
   String get errorValidationTransactionIdEmpty => 'Transaction ID cannot be empty.';
 
   @override
-  String get errorValidationTransactionIdNotANumberString =>
-      'Transaction ID must be a valid number string.';
+  String get errorValidationTransactionIdNotANumberString => 'Transaction ID must be a valid number string.';
 
   @override
   String get errorValidationBaseTransactionIdEmpty => 'Base transaction ID cannot be empty.';
 
   @override
-  String get errorValidationBaseTransactionIdNotANumberString =>
-      'Base transaction ID must be a valid number string.';
+  String get errorValidationBaseTransactionIdNotANumberString => 'Base transaction ID must be a valid number string.';
 
   @override
   String get errorValidationLinkedPurchaseTokenEmpty => 'Linked purchase token cannot be empty.';
 
   @override
-  String get errorValidationLinkedPurchaseTokenNotAString =>
-      'Linked purchase token must be a string.';
+  String get errorValidationLinkedPurchaseTokenNotAString => 'Linked purchase token must be a string.';
 
   @override
   String get errorValidationDataEmptyObject => 'Data cannot be an empty object.';
@@ -674,8 +630,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get errorValidationMessageIdEmpty => 'Message ID cannot be empty.';
 
   @override
-  String get errorValidationMessageIdNotANumberString =>
-      'Message ID must be a valid number string.';
+  String get errorValidationMessageIdNotANumberString => 'Message ID must be a valid number string.';
 
   @override
   String get errorValidationDataEmpty => 'Data cannot be empty.';
@@ -798,15 +753,13 @@ class AppLocalizationsEn extends AppLocalizations {
   String get errorValidationNumberOfServingsNotANumber => 'Number of servings must be a number.';
 
   @override
-  String get errorValidationNumberOfServingsNotAPositiveNumber =>
-      'Number of servings must be a positive number.';
+  String get errorValidationNumberOfServingsNotAPositiveNumber => 'Number of servings must be a positive number.';
 
   @override
   String get errorValidationExternalFoodItemIdEmpty => 'External food item ID cannot be empty.';
 
   @override
-  String get errorValidationExternalFoodItemIdNotANumberString =>
-      'External food item ID must be a valid number string.';
+  String get errorValidationExternalFoodItemIdNotANumberString => 'External food item ID must be a valid number string.';
 
   @override
   String get errorValidationFoodItemsEmpty => 'Food items cannot be empty.';
@@ -821,16 +774,13 @@ class AppLocalizationsEn extends AppLocalizations {
   String get errorValidationInternalFoodItemIdEmpty => 'Internal food item ID cannot be empty.';
 
   @override
-  String get errorValidationInternalFoodItemIdNotANumber =>
-      'Internal food item ID must be a number.';
+  String get errorValidationInternalFoodItemIdNotANumber => 'Internal food item ID must be a number.';
 
   @override
-  String get errorValidationInternalFoodItemIdNotAnInteger =>
-      'Internal food item ID must be an integer.';
+  String get errorValidationInternalFoodItemIdNotAnInteger => 'Internal food item ID must be an integer.';
 
   @override
-  String get errorValidationInternalFoodItemIdNotAPositiveNumber =>
-      'Internal food item ID must be a positive number.';
+  String get errorValidationInternalFoodItemIdNotAPositiveNumber => 'Internal food item ID must be a positive number.';
 
   @override
   String get errorValidationMealRecipeIdNumberTooBig => 'Meal recipe ID number is too big.';
@@ -869,8 +819,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get errorValidationBarcodeStringTooShort => 'Barcode string is too short.';
 
   @override
-  String get errorValidationExternalFoodItemIdNotAString =>
-      'External food item ID must be a string.';
+  String get errorValidationExternalFoodItemIdNotAString => 'External food item ID must be a string.';
 
   @override
   String get errorValidationServingIdNotAString => 'Serving ID must be a string.';
@@ -885,26 +834,22 @@ class AppLocalizationsEn extends AppLocalizations {
   String get errorValidationInternalRecipeIdNotANumber => 'Internal recipe ID must be a number.';
 
   @override
-  String get errorValidationInternalRecipeIdNotAnInteger =>
-      'Internal recipe ID must be an integer.';
+  String get errorValidationInternalRecipeIdNotAnInteger => 'Internal recipe ID must be an integer.';
 
   @override
-  String get errorValidationInternalRecipeIdNotAPositiveNumber =>
-      'Internal recipe ID must be a positive number.';
+  String get errorValidationInternalRecipeIdNotAPositiveNumber => 'Internal recipe ID must be a positive number.';
 
   @override
   String get errorValidationLoggingDateEmpty => 'Logging date cannot be empty.';
 
   @override
-  String get errorValidationLoggingDateNotADateString =>
-      'Logging date must be a valid date string.';
+  String get errorValidationLoggingDateNotADateString => 'Logging date must be a valid date string.';
 
   @override
   String get errorValidationMealCategoryEmpty => 'Meal category cannot be empty.';
 
   @override
-  String get errorValidationInternalFoodItemIdNotANumberString =>
-      'Internal food item ID must be a valid number string.';
+  String get errorValidationInternalFoodItemIdNotANumberString => 'Internal food item ID must be a valid number string.';
 
   @override
   String get errorValidationDateEmpty => 'Date cannot be empty.';
@@ -961,8 +906,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get errorValidationPlanningDatesEmptyArray => 'Planning dates cannot be an empty array.';
 
   @override
-  String get errorValidationPlanningDatesNotADateString =>
-      'Planning dates must be a valid date string.';
+  String get errorValidationPlanningDatesNotADateString => 'Planning dates must be a valid date string.';
 
   @override
   String get errorValidationStartDateDateEmptyPeriod => 'Start date cannot be empty or invalid.';
@@ -977,8 +921,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get errorValidationPlannedMealIdNotAnInteger => 'Planned meal ID must be an integer.';
 
   @override
-  String get errorValidationPlannedMealIdNotAPositiveNumber =>
-      'Planned meal ID must be a positive number.';
+  String get errorValidationPlannedMealIdNotAPositiveNumber => 'Planned meal ID must be a positive number.';
 
   @override
   String get errorValidationLoggingDateDateTooBig => 'Logging date is too big.';
@@ -1035,16 +978,13 @@ class AppLocalizationsEn extends AppLocalizations {
   String get errorValidationGenderPreferenceIdEmpty => 'Gender preference ID cannot be empty.';
 
   @override
-  String get errorValidationGenderPreferenceIdNotANumber =>
-      'Gender preference ID must be a number.';
+  String get errorValidationGenderPreferenceIdNotANumber => 'Gender preference ID must be a number.';
 
   @override
-  String get errorValidationGenderPreferenceIdNotAnInteger =>
-      'Gender preference ID must be an integer.';
+  String get errorValidationGenderPreferenceIdNotAnInteger => 'Gender preference ID must be an integer.';
 
   @override
-  String get errorValidationGenderPreferenceIdNotAPositiveNumber =>
-      'Gender preference ID must be a positive number.';
+  String get errorValidationGenderPreferenceIdNotAPositiveNumber => 'Gender preference ID must be a positive number.';
 
   @override
   String get errorValidationTypeIdEmpty => 'Type ID cannot be empty.';
@@ -1095,8 +1035,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get errorValidationGroupSessionIdNotAnInteger => 'Group session ID must be an integer.';
 
   @override
-  String get errorValidationGroupSessionIdNotAPositiveNumber =>
-      'Group session ID must be a positive number.';
+  String get errorValidationGroupSessionIdNotAPositiveNumber => 'Group session ID must be a positive number.';
 
   @override
   String get errorValidationEventInvalidEnum => 'Event is invalid.';
@@ -1108,12 +1047,10 @@ class AppLocalizationsEn extends AppLocalizations {
   String get errorValidationEventEmpty => 'Event cannot be empty.';
 
   @override
-  String get errorValidationStartDateNotAnIsoDateString =>
-      'Start date must be a valid ISO date string.';
+  String get errorValidationStartDateNotAnIsoDateString => 'Start date must be a valid ISO date string.';
 
   @override
-  String get errorValidationEndDateNotAnIsoDateString =>
-      'End date must be a valid ISO date string.';
+  String get errorValidationEndDateNotAnIsoDateString => 'End date must be a valid ISO date string.';
 
   @override
   String get errorValidationStatusEmpty => 'Status cannot be empty.';
@@ -1140,16 +1077,13 @@ class AppLocalizationsEn extends AppLocalizations {
   String get errorValidationPasswordStringTooShort => 'Password string is too short.';
 
   @override
-  String get errorValidationGroupSessionProgramIdNotAPositiveNumber =>
-      'Group session program ID must be a positive number.';
+  String get errorValidationGroupSessionProgramIdNotAPositiveNumber => 'Group session program ID must be a positive number.';
 
   @override
-  String get errorValidationGroupSessionProgramIdNotAnInteger =>
-      'Group session program ID must be an integer.';
+  String get errorValidationGroupSessionProgramIdNotAnInteger => 'Group session program ID must be an integer.';
 
   @override
-  String get errorValidationGroupSessionProgramIdNotANumber =>
-      'Group session program ID must be a number.';
+  String get errorValidationGroupSessionProgramIdNotANumber => 'Group session program ID must be a number.';
 
   @override
   String get errorValidationPreparationNotAString => 'Preparation must be a string.';
@@ -1233,12 +1167,10 @@ class AppLocalizationsEn extends AppLocalizations {
   String get errorValidationPhysicalProgramIdNotANumber => 'Physical program ID must be a number.';
 
   @override
-  String get errorValidationPhysicalProgramIdNotAnInteger =>
-      'Physical program ID must be an integer.';
+  String get errorValidationPhysicalProgramIdNotAnInteger => 'Physical program ID must be an integer.';
 
   @override
-  String get errorValidationPhysicalProgramIdNotAPositiveNumber =>
-      'Physical program ID must be a positive number.';
+  String get errorValidationPhysicalProgramIdNotAPositiveNumber => 'Physical program ID must be a positive number.';
 
   @override
   String get errorValidationScoreEmpty => 'Score cannot be empty.';
@@ -1313,8 +1245,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get errorValidationExerciseIdNotAnInteger => 'Exercise ID must be an integer.';
 
   @override
-  String get errorValidationExerciseIdNotAPositiveNumber =>
-      'Exercise ID must be a positive number.';
+  String get errorValidationExerciseIdNotAPositiveNumber => 'Exercise ID must be a positive number.';
 
   @override
   String get errorValidationCategoryInvalidEnum => 'Category is invalid.';
@@ -1380,8 +1311,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get errorValidationModuleIdEmpty => 'Module ID cannot be empty.';
 
   @override
-  String get errorValidationExternalIdNotAPositiveNumber =>
-      'External ID must be a positive number.';
+  String get errorValidationExternalIdNotAPositiveNumber => 'External ID must be a positive number.';
 
   @override
   String get errorValidationExternalIdNotAnInteger => 'External ID must be an integer.';
@@ -1411,12 +1341,10 @@ class AppLocalizationsEn extends AppLocalizations {
   String get errorValidationIsRootItemEmpty => 'Is root item cannot be empty.';
 
   @override
-  String get errorValidationLessonExternalIdNotAPositiveNumber =>
-      'Lesson external ID must be a positive number.';
+  String get errorValidationLessonExternalIdNotAPositiveNumber => 'Lesson external ID must be a positive number.';
 
   @override
-  String get errorValidationLessonExternalIdNotAnInteger =>
-      'Lesson external ID must be an integer.';
+  String get errorValidationLessonExternalIdNotAnInteger => 'Lesson external ID must be an integer.';
 
   @override
   String get errorValidationLessonExternalIdNotANumber => 'Lesson external ID must be a number.';
@@ -1425,16 +1353,13 @@ class AppLocalizationsEn extends AppLocalizations {
   String get errorValidationLessonExternalIdEmpty => 'Lesson external ID cannot be empty.';
 
   @override
-  String get errorValidationUnlocksItemExternalIdsNotANumber =>
-      'Unlocks item external IDs must be numbers.';
+  String get errorValidationUnlocksItemExternalIdsNotANumber => 'Unlocks item external IDs must be numbers.';
 
   @override
-  String get errorValidationUnlocksItemExternalIdsNotAnArray =>
-      'Unlocks item external IDs must be an array.';
+  String get errorValidationUnlocksItemExternalIdsNotAnArray => 'Unlocks item external IDs must be an array.';
 
   @override
-  String get errorValidationUnlocksItemExternalIdsEmpty =>
-      'Unlocks item external IDs cannot be empty.';
+  String get errorValidationUnlocksItemExternalIdsEmpty => 'Unlocks item external IDs cannot be empty.';
 
   @override
   String get errorValidationUnlocksFeatureNotAString => 'Unlocks feature must be a string.';
@@ -1446,20 +1371,16 @@ class AppLocalizationsEn extends AppLocalizations {
   String get errorValidationUnlocksFeatureEmpty => 'Unlocks feature cannot be empty.';
 
   @override
-  String get errorValidationUnlocksReflectionExternalIdNotANumber =>
-      'Unlocks reflection external ID must be a number.';
+  String get errorValidationUnlocksReflectionExternalIdNotANumber => 'Unlocks reflection external ID must be a number.';
 
   @override
-  String get errorValidationUnlocksReflectionExternalIdEmpty =>
-      'Unlocks reflection external ID cannot be empty.';
+  String get errorValidationUnlocksReflectionExternalIdEmpty => 'Unlocks reflection external ID cannot be empty.';
 
   @override
-  String get errorValidationUnlocksSmartGoalCategoryExternalIdNotANumber =>
-      'Unlocks smart goal category external ID must be a number.';
+  String get errorValidationUnlocksSmartGoalCategoryExternalIdNotANumber => 'Unlocks smart goal category external ID must be a number.';
 
   @override
-  String get errorValidationUnlocksSmartGoalCategoryExternalIdEmpty =>
-      'Unlocks smart goal category external ID cannot be empty.';
+  String get errorValidationUnlocksSmartGoalCategoryExternalIdEmpty => 'Unlocks smart goal category external ID cannot be empty.';
 
   @override
   String get errorValidationCrossModuleNotABoolean => 'Cross module must be a boolean.';
@@ -1489,8 +1410,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get errorValidationRiverModuleIdNotAnInteger => 'River module ID must be an integer.';
 
   @override
-  String get errorValidationRiverModuleIdNotAPositiveNumber =>
-      'River module ID must be a positive number.';
+  String get errorValidationRiverModuleIdNotAPositiveNumber => 'River module ID must be a positive number.';
 
   @override
   String get errorValidationRiverModuleItemIdEmpty => 'River module item ID cannot be empty.';
@@ -1499,12 +1419,10 @@ class AppLocalizationsEn extends AppLocalizations {
   String get errorValidationRiverModuleItemIdNotANumber => 'River module item ID must be a number.';
 
   @override
-  String get errorValidationRiverModuleItemIdNotAnInteger =>
-      'River module item ID must be an integer.';
+  String get errorValidationRiverModuleItemIdNotAnInteger => 'River module item ID must be an integer.';
 
   @override
-  String get errorValidationRiverModuleItemIdNotAPositiveNumber =>
-      'River module item ID must be a positive number.';
+  String get errorValidationRiverModuleItemIdNotAPositiveNumber => 'River module item ID must be a positive number.';
 
   @override
   String get errorValidationLanguageNotAString => 'Language must be a string.';
@@ -1543,8 +1461,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get errorValidationTextNotAString => 'Text must be a string.';
 
   @override
-  String get errorValidationReplyMessageIdNotANumberString =>
-      'Reply message ID must be a number string.';
+  String get errorValidationReplyMessageIdNotANumberString => 'Reply message ID must be a number string.';
 
   @override
   String get errorValidationMessageIdNotANumber => 'Message ID must be a number.';
@@ -1613,16 +1530,13 @@ class AppLocalizationsEn extends AppLocalizations {
   String get errorValidationEmailTokenNotAJwt => 'Email token must be a JWT.';
 
   @override
-  String get errorValidationExtraAccountsCountNumberTooSmall =>
-      'Extra accounts count is too small.';
+  String get errorValidationExtraAccountsCountNumberTooSmall => 'Extra accounts count is too small.';
 
   @override
-  String get errorValidationExtraAccountsCountNotAnInteger =>
-      'Extra accounts count must be an integer.';
+  String get errorValidationExtraAccountsCountNotAnInteger => 'Extra accounts count must be an integer.';
 
   @override
-  String get errorValidationExtraAccountsCountNotANumber =>
-      'Extra accounts count must be a number.';
+  String get errorValidationExtraAccountsCountNotANumber => 'Extra accounts count must be a number.';
 
   @override
   String get errorValidationUidNotAString => 'UID must be a string.';
@@ -1655,15 +1569,13 @@ class AppLocalizationsEn extends AppLocalizations {
   String get errorValidationLimitNumberTooBig => 'Limit number is too big.';
 
   @override
-  String get errorValidationFromMessageIdNotANumberString =>
-      'From message ID must be a number string.';
+  String get errorValidationFromMessageIdNotANumberString => 'From message ID must be a number string.';
 
   @override
   String get errorValidationChatMessageIdNotAString => 'Chat message ID must be a string.';
 
   @override
-  String get errorValidationChatMessageIdNotANumberString =>
-      'Chat message ID must be a number string.';
+  String get errorValidationChatMessageIdNotANumberString => 'Chat message ID must be a number string.';
 
   @override
   String get errorValidationReflectionIdEmpty => 'Reflection ID cannot be empty.';
@@ -1675,51 +1587,40 @@ class AppLocalizationsEn extends AppLocalizations {
   String get errorValidationReflectionIdNotAnInteger => 'Reflection ID must be an integer.';
 
   @override
-  String get errorValidationReflectionIdNotAPositiveNumber =>
-      'Reflection ID must be a positive number.';
+  String get errorValidationReflectionIdNotAPositiveNumber => 'Reflection ID must be a positive number.';
 
   @override
   String get errorValidationReflectionQuestionIdEmpty => 'Reflection question ID cannot be empty.';
 
   @override
-  String get errorValidationReflectionQuestionIdNotANumber =>
-      'Reflection question ID must be a number.';
+  String get errorValidationReflectionQuestionIdNotANumber => 'Reflection question ID must be a number.';
 
   @override
-  String get errorValidationReflectionQuestionIdNotAnInteger =>
-      'Reflection question ID must be an integer.';
+  String get errorValidationReflectionQuestionIdNotAnInteger => 'Reflection question ID must be an integer.';
 
   @override
-  String get errorValidationReflectionQuestionIdNotAPositiveNumber =>
-      'Reflection question ID must be a positive number.';
+  String get errorValidationReflectionQuestionIdNotAPositiveNumber => 'Reflection question ID must be a positive number.';
 
   @override
-  String get errorValidationReflectionQuestionOptionIdsNumberTooBig =>
-      'Reflection question option IDs number is too big.';
+  String get errorValidationReflectionQuestionOptionIdsNumberTooBig => 'Reflection question option IDs number is too big.';
 
   @override
-  String get errorValidationReflectionQuestionOptionIdsNumberTooSmall =>
-      'Reflection question option IDs number is too small.';
+  String get errorValidationReflectionQuestionOptionIdsNumberTooSmall => 'Reflection question option IDs number is too small.';
 
   @override
-  String get errorValidationReflectionQuestionOptionIdsNotAPositiveNumber =>
-      'Reflection question option IDs must be a positive number.';
+  String get errorValidationReflectionQuestionOptionIdsNotAPositiveNumber => 'Reflection question option IDs must be a positive number.';
 
   @override
-  String get errorValidationReflectionQuestionOptionIdsNotAnInteger =>
-      'Reflection question option IDs must be an integer.';
+  String get errorValidationReflectionQuestionOptionIdsNotAnInteger => 'Reflection question option IDs must be an integer.';
 
   @override
-  String get errorValidationReflectionQuestionOptionIdsNotANumber =>
-      'Reflection question option IDs must be a number.';
+  String get errorValidationReflectionQuestionOptionIdsNotANumber => 'Reflection question option IDs must be a number.';
 
   @override
-  String get errorValidationReflectionQuestionOptionIdsEmptyArray =>
-      'Reflection question option IDs cannot be an empty array.';
+  String get errorValidationReflectionQuestionOptionIdsEmptyArray => 'Reflection question option IDs cannot be an empty array.';
 
   @override
-  String get errorValidationReflectionQuestionOptionIdsNotAnArray =>
-      'Reflection question option IDs must be an array.';
+  String get errorValidationReflectionQuestionOptionIdsNotAnArray => 'Reflection question option IDs must be an array.';
 
   @override
   String get errorValidationValueNumberTooBig => 'Value number is too big.';
@@ -1806,12 +1707,10 @@ class AppLocalizationsEn extends AppLocalizations {
   String get errorValidationCategoryNotAString => 'Category must be a string.';
 
   @override
-  String get errorValidationExternalLessonIdNotAPositiveNumber =>
-      'External lesson ID must be a positive number.';
+  String get errorValidationExternalLessonIdNotAPositiveNumber => 'External lesson ID must be a positive number.';
 
   @override
-  String get errorValidationExternalLessonIdNotAnInteger =>
-      'External lesson ID must be an integer.';
+  String get errorValidationExternalLessonIdNotAnInteger => 'External lesson ID must be an integer.';
 
   @override
   String get errorValidationExternalLessonIdNotANumber => 'External lesson ID must be a number.';
@@ -1901,32 +1800,25 @@ class AppLocalizationsEn extends AppLocalizations {
   String get errorValidationLessonQuizIdNotAnInteger => 'Lesson quiz ID must be an integer.';
 
   @override
-  String get errorValidationLessonQuizIdNotAPositiveNumber =>
-      'Lesson quiz ID must be a positive number.';
+  String get errorValidationLessonQuizIdNotAPositiveNumber => 'Lesson quiz ID must be a positive number.';
 
   @override
-  String get errorValidationLessonQuizQuestionOptionIdsNumberTooBig =>
-      'Lesson quiz question option IDs number is too big.';
+  String get errorValidationLessonQuizQuestionOptionIdsNumberTooBig => 'Lesson quiz question option IDs number is too big.';
 
   @override
-  String get errorLessonQuizQuestionOptionIdsNumberTooSmall =>
-      'Lesson quiz question option IDs number is too small.';
+  String get errorLessonQuizQuestionOptionIdsNumberTooSmall => 'Lesson quiz question option IDs number is too small.';
 
   @override
-  String get errorLessonQuizQuestionOptionIdsNotAPositiveNumber =>
-      'Lesson quiz question option IDs must be positive numbers.';
+  String get errorLessonQuizQuestionOptionIdsNotAPositiveNumber => 'Lesson quiz question option IDs must be positive numbers.';
 
   @override
-  String get errorLessonQuizQuestionOptionIdsNotAnInteger =>
-      'Lesson quiz question option IDs must be integers.';
+  String get errorLessonQuizQuestionOptionIdsNotAnInteger => 'Lesson quiz question option IDs must be integers.';
 
   @override
-  String get errorLessonQuizQuestionOptionIdsNotANumber =>
-      'Lesson quiz question option IDs must be numbers.';
+  String get errorLessonQuizQuestionOptionIdsNotANumber => 'Lesson quiz question option IDs must be numbers.';
 
   @override
-  String get errorLessonQuizQuestionOptionIdsNotAnArray =>
-      'Lesson quiz question option IDs must be an array.';
+  String get errorLessonQuizQuestionOptionIdsNotAnArray => 'Lesson quiz question option IDs must be an array.';
 
   @override
   String get errorLessonQuizQuestionIdEmpty => 'Lesson quiz question ID cannot be empty.';
@@ -1938,8 +1830,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get errorLessonQuizQuestionIdNotAnInteger => 'Lesson quiz question ID must be an integer.';
 
   @override
-  String get errorLessonQuizQuestionIdNotAPositiveNumber =>
-      'Lesson quiz question ID must be a positive number.';
+  String get errorLessonQuizQuestionIdNotAPositiveNumber => 'Lesson quiz question ID must be a positive number.';
 
   @override
   String get errorExplanationTypeInvalidEnum => 'Explanation type is invalid.';
@@ -1957,8 +1848,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get errorExplanationSrcEmpty => 'Explanation source cannot be empty.';
 
   @override
-  String get errorExplanationDurationNotAPositiveNumber =>
-      'Explanation duration must be a positive number.';
+  String get errorExplanationDurationNotAPositiveNumber => 'Explanation duration must be a positive number.';
 
   @override
   String get errorExplanationDurationNotANumber => 'Explanation duration must be a number.';
@@ -1991,8 +1881,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get errorExerciseOrientationEmpty => 'Exercise orientation cannot be empty.';
 
   @override
-  String get errorExerciseDurationNotAPositiveNumber =>
-      'Exercise duration must be a positive number.';
+  String get errorExerciseDurationNotAPositiveNumber => 'Exercise duration must be a positive number.';
 
   @override
   String get errorExerciseDurationNotANumber => 'Exercise duration must be a number.';
@@ -2070,8 +1959,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get errorTechniquesNotAnArray => 'Techniques must be an array.';
 
   @override
-  String get errorExternalTechniqueIdNotAPositiveNumber =>
-      'External technique ID must be a positive number.';
+  String get errorExternalTechniqueIdNotAPositiveNumber => 'External technique ID must be a positive number.';
 
   @override
   String get errorExternalTechniqueIdNotAnInteger => 'External technique ID must be an integer.';
@@ -2230,12 +2118,10 @@ class AppLocalizationsEn extends AppLocalizations {
   String get errorRequiredCompletionDaysNotANumber => 'Required completion days must be a number.';
 
   @override
-  String get errorRequiredCompletionDaysNotAnInteger =>
-      'Required completion days must be an integer.';
+  String get errorRequiredCompletionDaysNotAnInteger => 'Required completion days must be an integer.';
 
   @override
-  String get errorRequiredCompletionDaysNotAPositiveNumber =>
-      'Required completion days must be a positive number.';
+  String get errorRequiredCompletionDaysNotAPositiveNumber => 'Required completion days must be a positive number.';
 
   @override
   String get errorLengthInDaysNotANumber => 'Length in days must be a number.';
@@ -2250,12 +2136,10 @@ class AppLocalizationsEn extends AppLocalizations {
   String get errorLengthInDaysNumberTooBig => 'Length in days number is too big.';
 
   @override
-  String get errorRelatedExternalGoalIdsNotAPositiveNumber =>
-      'Related external goal IDs must be positive numbers.';
+  String get errorRelatedExternalGoalIdsNotAPositiveNumber => 'Related external goal IDs must be positive numbers.';
 
   @override
-  String get errorRelatedExternalGoalIdsNotAnInteger =>
-      'Related external goal IDs must be integers.';
+  String get errorRelatedExternalGoalIdsNotAnInteger => 'Related external goal IDs must be integers.';
 
   @override
   String get errorRelatedExternalGoalIdsNotANumber => 'Related external goal IDs must be numbers.';
@@ -2276,20 +2160,16 @@ class AppLocalizationsEn extends AppLocalizations {
   String get errorGoalIdNotAPositiveNumber => 'Goal ID must be a positive number.';
 
   @override
-  String get errorCompletionDaysPer7DaysNotANumber =>
-      'Completion days per 7 days must be a number.';
+  String get errorCompletionDaysPer7DaysNotANumber => 'Completion days per 7 days must be a number.';
 
   @override
-  String get errorCompletionDaysPer7DaysNotAnInteger =>
-      'Completion days per 7 days must be an integer.';
+  String get errorCompletionDaysPer7DaysNotAnInteger => 'Completion days per 7 days must be an integer.';
 
   @override
-  String get errorCompletionDaysPer7DaysNotAPositiveNumber =>
-      'Completion days per 7 days must be a positive number.';
+  String get errorCompletionDaysPer7DaysNotAPositiveNumber => 'Completion days per 7 days must be a positive number.';
 
   @override
-  String get errorCompletionDaysPer7DaysNumberTooBig =>
-      'Completion days per 7 days number is too big.';
+  String get errorCompletionDaysPer7DaysNumberTooBig => 'Completion days per 7 days number is too big.';
 
   @override
   String get errorFilePathEmpty => 'File path cannot be empty.';
@@ -2424,8 +2304,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get errorAuthRefreshTokenNotFound => 'Auth refresh token not found.';
 
   @override
-  String get errorAccountEmailOrPasswordInvalid =>
-      'We were unable to update your email address. Please check your credentials and try again';
+  String get errorAccountEmailOrPasswordInvalid => 'We were unable to update your email address. Please check your credentials and try again';
 
   @override
   String get errorAccountIdAlreadyExists => 'This email address is incorrect or already taken.';
@@ -2467,12 +2346,10 @@ class AppLocalizationsEn extends AppLocalizations {
   String get errorCoreFileInvalid => 'Core file is invalid.';
 
   @override
-  String get errorAccountEmailLessThanADayFromLastChange =>
-      'Account email change must be more than a day ago.';
+  String get errorAccountEmailLessThanADayFromLastChange => 'Account email change must be more than a day ago.';
 
   @override
-  String get errorPurchaseVerificationError =>
-      'Something went wrong with verification subscription, please try restore';
+  String get errorPurchaseVerificationError => 'Something went wrong with verification subscription, please try restore';
 
   @override
   String get errorSubscriptionIdAbsent => 'Subscription ID is absent.';
@@ -2481,8 +2358,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get errorSubscriptionIosProductIdNotFound => 'Subscription iOS product ID not found.';
 
   @override
-  String get errorSubscriptionAndroidProductIdNotFound =>
-      'Subscription Android product ID not found.';
+  String get errorSubscriptionAndroidProductIdNotFound => 'Subscription Android product ID not found.';
 
   @override
   String get errorSubscriptionAccountIdAbsent => 'Subscription account ID is absent.';
@@ -2506,8 +2382,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get errorSubscriptionEnvironmentInvalid => 'Subscription environment is invalid.';
 
   @override
-  String get errorSubscriptionBaseTransactionIdInvalid =>
-      'Subscription base transaction ID is invalid.';
+  String get errorSubscriptionBaseTransactionIdInvalid => 'Subscription base transaction ID is invalid.';
 
   @override
   String get errorSubscriptionTransactionIdInvalid => 'Subscription transaction ID is invalid.';
@@ -2522,8 +2397,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get errorGroupingAccountIdAppFeatureLocked => 'Grouping account ID app feature is locked.';
 
   @override
-  String get errorGroupingDataOneOptionalFieldRequired =>
-      'Grouping data requires one optional field.';
+  String get errorGroupingDataOneOptionalFieldRequired => 'Grouping data requires one optional field.';
 
   @override
   String get errorGroupingGenderPreferenceInvalid => 'Grouping gender preference is invalid.';
@@ -2535,8 +2409,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get errorGroupingAgeRangeCanNotCalculate => 'Grouping age range cannot be calculated.';
 
   @override
-  String get errorGroupingAccountGroupingStateCanNotCancel =>
-      'Grouping account grouping state cannot be canceled.';
+  String get errorGroupingAccountGroupingStateCanNotCancel => 'Grouping account grouping state cannot be canceled.';
 
   @override
   String get errorGroupingGroupIdNotFound => 'Grouping group ID not found.';
@@ -2587,8 +2460,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get errorBuddyInvitationAlreadyApproved => 'Buddy invitation has already been approved.';
 
   @override
-  String get errorBuddyInvitationBuddyOccupied =>
-      'Sorry, this person isn’t available for the buddy program. Can you think of someone else who could help you? Reach out to support if you need a hand';
+  String get errorBuddyInvitationBuddyOccupied => 'Sorry, this person isn’t available for the buddy program. Can you think of someone else who could help you? Reach out to support if you need a hand';
 
   @override
   String get errorDiabetesTypeNotFound => 'Diabetes type not found.';
@@ -2606,8 +2478,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get errorNutritionMealDishIdNotFound => 'Nutrition meal dish ID not found.';
 
   @override
-  String get errorNutritionFavoriteFoodItemIdNotFound =>
-      'Nutrition favorite food item ID not found.';
+  String get errorNutritionFavoriteFoodItemIdNotFound => 'Nutrition favorite food item ID not found.';
 
   @override
   String get errorNutritionFavoriteServingIdNotFound => 'Nutrition favorite serving ID not found.';
@@ -2658,19 +2529,16 @@ class AppLocalizationsEn extends AppLocalizations {
   String get errorMentalHealthTypeInvalid => 'Mental health type is invalid.';
 
   @override
-  String get errorMedicalOnboardingQuestionTypeInvalid =>
-      'Medical onboarding question type is invalid.';
+  String get errorMedicalOnboardingQuestionTypeInvalid => 'Medical onboarding question type is invalid.';
 
   @override
   String get errorPhysicalActivitiesPhysicalProgramIdNotFound => 'Physical program ID not found.';
 
   @override
-  String get errorPhysicalActivitiesPhysicalProgramExerciseIdNotFound =>
-      'Physical program exercise ID not found.';
+  String get errorPhysicalActivitiesPhysicalProgramExerciseIdNotFound => 'Physical program exercise ID not found.';
 
   @override
-  String get errorPhysicalActivitiesPreferencesNotFound =>
-      'Physical activities preferences not found.';
+  String get errorPhysicalActivitiesPreferencesNotFound => 'Physical activities preferences not found.';
 
   @override
   String get errorRiverModuleNotFound => 'River module not found.';
@@ -2709,8 +2577,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get errorEducationReflectionAlreadySubmitted => 'Education reflection already submitted.';
 
   @override
-  String get errorEducationReflectionFeedbackAlreadySubmitted =>
-      'Education reflection feedback already submitted.';
+  String get errorEducationReflectionFeedbackAlreadySubmitted => 'Education reflection feedback already submitted.';
 
   @override
   String get errorNutritionPlannedMealIdNotFound => 'Nutrition planned meal ID not found.';
@@ -2728,8 +2595,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get errorGroupSessionAccountIdNotFound => 'Group session account ID not found.';
 
   @override
-  String get errorGroupSessionAccountIdAlreadySigned =>
-      'Account ID is already signed in the session.';
+  String get errorGroupSessionAccountIdAlreadySigned => 'Account ID is already signed in the session.';
 
   @override
   String get errorGroupSessionAccountIdWasNotSigned => 'Account ID was not signed in the session.';
@@ -2738,16 +2604,13 @@ class AppLocalizationsEn extends AppLocalizations {
   String get errorGroupSessionProgramImageNotFound => 'Group session program image not found.';
 
   @override
-  String get errorGroupSessionProgramImageInvalidMimeType =>
-      'Group session program image has an invalid MIME type.';
+  String get errorGroupSessionProgramImageInvalidMimeType => 'Group session program image has an invalid MIME type.';
 
   @override
-  String get errorGroupSessionStatusMismatchUpdateFlow =>
-      'Group session status mismatch in update flow.';
+  String get errorGroupSessionStatusMismatchUpdateFlow => 'Group session status mismatch in update flow.';
 
   @override
-  String get errorChatAccountIdNotAssignedToGroup =>
-      'Chat account ID is not assigned to the group.';
+  String get errorChatAccountIdNotAssignedToGroup => 'Chat account ID is not assigned to the group.';
 
   @override
   String get errorChatMessageIdNotFound => 'Chat message ID not found.';
@@ -2765,8 +2628,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get errorMoodCreatedAyIsOld => 'Mood created day is too old.';
 
   @override
-  String get errorSmartGoalStartDateActiveSessionExists =>
-      'Smart goal start date has an active session.';
+  String get errorSmartGoalStartDateActiveSessionExists => 'Smart goal start date has an active session.';
 
   @override
   String get errorSmartGoalIdNotFound => 'Smart goal ID not found.';
@@ -2787,8 +2649,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get errorSmartGoalCategoryIdLocked => 'Smart goal category ID is locked.';
 
   @override
-  String get errorSmartGoalSessionIdActiveLimitExceeded =>
-      'Smart goal session ID active limit exceeded.';
+  String get errorSmartGoalSessionIdActiveLimitExceeded => 'Smart goal session ID active limit exceeded.';
 
   @override
   String get errorSmartGoalCategoryIdNotFound => 'Smart goal category ID not found.';
@@ -2809,8 +2670,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get errorNoConnectionTitle => 'No connection';
 
   @override
-  String get errorNoConnectionText =>
-      'Your internet connection was interrupted. \nRestore the connection and try again';
+  String get errorNoConnectionText => 'Your internet connection was interrupted. \nRestore the connection and try again';
 
   @override
   String get errorInvalidIngredientText => 'Sorry, invalid ingredients data';
@@ -2822,12 +2682,10 @@ class AppLocalizationsEn extends AppLocalizations {
   String get errorSomethingWentWrong => 'Something went wrong \nPlease try again later';
 
   @override
-  String get errorSubscriptionServiceUnavailable =>
-      'Something went wrong with service, please try again';
+  String get errorSubscriptionServiceUnavailable => 'Something went wrong with service, please try again';
 
   @override
-  String get errorPurchaseStreamError =>
-      'Something went wrong with stream subscription, please try again';
+  String get errorPurchaseStreamError => 'Something went wrong with stream subscription, please try again';
 
   @override
   String get errorPurchaseErrorMessage => 'Product was not purchased, please try again';
@@ -2851,8 +2709,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get errorTimeoutDio => 'Something went wrong.';
 
   @override
-  String get errorConnectionDio =>
-      'Your internet connection was interrupted. \nRestore the connection and try again';
+  String get errorConnectionDio => 'Your internet connection was interrupted. \nRestore the connection and try again';
 
   @override
   String get errorRequestCancelledDio => 'Something went wrong.';
@@ -2903,8 +2760,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get avatarAddPhoto => 'Add photo';
 
   @override
-  String get avatarSizeErrorMessageTitle =>
-      'Oops! It looks like the picture you’re trying to upload is over the 10 MB size limit.';
+  String get avatarSizeErrorMessageTitle => 'Oops! It looks like the picture you’re trying to upload is over the 10 MB size limit.';
 
   @override
   String get avatarSizeErrorMessageSubtitle => 'Please choose a smaller file and try again.';
@@ -2916,77 +2772,61 @@ class AppLocalizationsEn extends AppLocalizations {
   String get avatarGaleryPermissionsMessage => 'Please allow access to your gallery';
 
   @override
-  String get avatarGaleryPermissionsMessageAndroid =>
-      'Please allow access to your media gallery and camera';
+  String get avatarGaleryPermissionsMessageAndroid => 'Please allow access to your media gallery and camera';
 
   @override
   String get avatarCropper => 'Cropper';
 
   @override
-  String get mentalTestResultsPhq8FinalResultHigh1 =>
-      'The questionnaire results indicate that you are currently experiencing notable mental distress.';
+  String get mentalTestResultsPhq8FinalResultHigh1 => 'The questionnaire results indicate that you are currently experiencing notable mental distress.';
 
   @override
-  String get mentalTestResultsPhq8FinalResultHigh2 =>
-      'Unfortunately, the program is not suitable for people who are currently experiencing considerable mental distress, as participation in this program could place additional stress on you.';
+  String get mentalTestResultsPhq8FinalResultHigh2 => 'Unfortunately, the program is not suitable for people who are currently experiencing considerable mental distress, as participation in this program could place additional stress on you.';
 
   @override
-  String get mentalTestResultsPhq8FinalResultHigh3 =>
-      'In order to have a closer look at these symptoms and to treat them, we recommend consulting a psychologist. You can find addresses here:';
+  String get mentalTestResultsPhq8FinalResultHigh3 => 'In order to have a closer look at these symptoms and to treat them, we recommend consulting a psychologist. You can find addresses here:';
 
   @override
-  String get mentalTestResultsPhq8FinalResultHigh4 =>
-      'We invite you to repeat the test when these symptoms have subsided so that you can focus all your energy on your weight-loss journey.';
+  String get mentalTestResultsPhq8FinalResultHigh4 => 'We invite you to repeat the test when these symptoms have subsided so that you can focus all your energy on your weight-loss journey.';
 
   @override
-  String get mentalTestResultsIfYouHaveSuicidalThoughts =>
-      'If you are in an acute crisis or having suicidal thoughts, please contact one of the 24-hour toll-free emergency numbers immediately:';
+  String get mentalTestResultsIfYouHaveSuicidalThoughts => 'If you are in an acute crisis or having suicidal thoughts, please contact one of the 24-hour toll-free emergency numbers immediately:';
 
   @override
-  String get mentalTestResultsPersonalProgram =>
-      'Based on your information, we tailor the program to you personally.';
+  String get mentalTestResultsPersonalProgram => 'Based on your information, we tailor the program to you personally.';
 
   @override
-  String get mentalTestResultsSupportMessage =>
-      'We would like to support you on your journey in the best possible way and tailor the program to you personally.';
+  String get mentalTestResultsSupportMessage => 'We would like to support you on your journey in the best possible way and tailor the program to you personally.';
 
   @override
-  String get mentalTestResultsFeelLimited1 =>
-      'It turned out that you currently feel limited by anxiety and physical symptoms. We recommend you talk to a primary care physician or psychologist.';
+  String get mentalTestResultsFeelLimited1 => 'It turned out that you currently feel limited by anxiety and physical symptoms. We recommend you talk to a primary care physician or psychologist.';
 
   @override
-  String get mentalTestResultsFeelLimited2 =>
-      'It turned out that you currently feel limited by physical symptoms. We recommend you talk to a primary care physician or psychologist.';
+  String get mentalTestResultsFeelLimited2 => 'It turned out that you currently feel limited by physical symptoms. We recommend you talk to a primary care physician or psychologist.';
 
   @override
-  String get mentalTestResultsFeelLimited3 =>
-      'It turned out that you currently feel limited by anxiety symptoms. We recommend you talk to a primary care physician or psychologist.';
+  String get mentalTestResultsFeelLimited3 => 'It turned out that you currently feel limited by anxiety symptoms. We recommend you talk to a primary care physician or psychologist.';
 
   @override
-  String get mentalTestResultsFeelLimited4 =>
-      'It turned out that you are troubled in several areas at the moment.';
+  String get mentalTestResultsFeelLimited4 => 'It turned out that you are troubled in several areas at the moment.';
 
   @override
   String get mentalTestResultsNotATherapy => 'Please keep in mind that LeanOnMe is not a therapy.';
 
   @override
-  String get mentalTestResultsLearnManyThings =>
-      'However, you will learn many things that will support you in your mental and physical well-being.';
+  String get mentalTestResultsLearnManyThings => 'However, you will learn many things that will support you in your mental and physical well-being.';
 
   @override
-  String get mentalTestResultsUnlockAllSections =>
-      'You will have access to all sections of the program.';
+  String get mentalTestResultsUnlockAllSections => 'You will have access to all sections of the program.';
 
   @override
-  String get mentalTestResultsAwailableAreas =>
-      'The following areas will be available to you as you progress through the program:';
+  String get mentalTestResultsAwailableAreas => 'The following areas will be available to you as you progress through the program:';
 
   @override
   String get mentalTestResultsUnlockBuddyMessage => 'Find a Buddy and get into a Support Group';
 
   @override
-  String get mentalTestResultsWeWillGuideYou =>
-      'We will guide you step by step in your weight-loss journey.\n\nHave fun with exploring!';
+  String get mentalTestResultsWeWillGuideYou => 'We will guide you step by step in your weight-loss journey.\n\nHave fun with exploring!';
 
   @override
   String get smartGoalsMyGoals => 'My goals';
@@ -3004,8 +2844,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get smartGoalsUpcomingGoalsTitle => 'Let’s set goals';
 
   @override
-  String get smartGoalsUpcomingGoalsDescription =>
-      'You can choose up to 2 goals for the upcoming 7 days.';
+  String get smartGoalsUpcomingGoalsDescription => 'You can choose up to 2 goals for the upcoming 7 days.';
 
   @override
   String get smartGoalsCancelGoal => 'Cancel goal';
@@ -3014,8 +2853,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get smartGoalsCancelGoalTitle => 'Cancel your goal?';
 
   @override
-  String get smartGoalsCancelGoalSubTitle =>
-      'Please tell us the reason why you want to cancel this goal.';
+  String get smartGoalsCancelGoalSubTitle => 'Please tell us the reason why you want to cancel this goal.';
 
   @override
   String get smartGoalsSetGoal => 'Set goal';
@@ -3030,8 +2868,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get smartGoalsSelectGoalsTitle => 'Select a Goal';
 
   @override
-  String get smartGoalsSelectGoalsSubtitle =>
-      'You have 7 days to complete your goal with one countable log per day.';
+  String get smartGoalsSelectGoalsSubtitle => 'You have 7 days to complete your goal with one countable log per day.';
 
   @override
   String get smartGoalsSaveWeeklyGoalsSuccessMessage => 'Goals were added to your weekly list';
@@ -3043,8 +2880,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get smartGoalsAccomplishedInTotal => 'goals accomplished in total.';
 
   @override
-  String get smartGoalsAccomplishedEmptyMessage =>
-      'Once you start completing goals your favourite goal categories will appear here.';
+  String get smartGoalsAccomplishedEmptyMessage => 'Once you start completing goals your favourite goal categories will appear here.';
 
   @override
   String get smartGoalsAccomplished => 'goals accomplished';
@@ -3176,8 +3012,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get buddyDescriptionTitle => 'How to find a Buddy?';
 
   @override
-  String get buddyIntroBody =>
-      'With a Buddy at your side not only are you more likely to stick to your goals, but also have someone to share your journey and make it more enjoyable. \n\nTo stay on track, a buddy is strongly recommended. This is especially the case if you also want to join a support group. Make your social network as strong as possible.';
+  String get buddyIntroBody => 'With a Buddy at your side not only are you more likely to stick to your goals, but also have someone to share your journey and make it more enjoyable. \n\nTo stay on track, a buddy is strongly recommended. This is especially the case if you also want to join a support group. Make your social network as strong as possible.';
 
   @override
   String get buddyIntroYesBtn => 'Yes, I’d like to have buddy support';
@@ -3186,8 +3021,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get buddyIntroNoBtn => 'I may do this later';
 
   @override
-  String get buddyDescriptionContent =>
-      'It’s great that you want to share your journey! \nBut how do you actually find a Buddy? \n\nConsider testing the waters by talking to people about being a Buddy in your immediate social circle. \n\nHere are a few things that you can mention when talking to a friend that is interested: \n• the role a Buddy has in your journey\n• what you would need from a Buddy and discuss boundaries for your potential Buddy relationship\n• as a Buddy, they would gain access to the Buddy Network to help them learn about the best way to provide support\n\nThe previous lesson “Finding a Buddy” can also provide some insight on how to go about this. \n\nOnce you have found a loved one that is open to joining you, go to your profile and fill out the Buddy preferences. Once completed, your friend will receive an invitation to join the Buddy Network. \n\n';
+  String get buddyDescriptionContent => 'It’s great that you want to share your journey! \nBut how do you actually find a Buddy? \n\nConsider testing the waters by talking to people about being a Buddy in your immediate social circle. \n\nHere are a few things that you can mention when talking to a friend that is interested: \n• the role a Buddy has in your journey\n• what you would need from a Buddy and discuss boundaries for your potential Buddy relationship\n• as a Buddy, they would gain access to the Buddy Network to help them learn about the best way to provide support\n\nThe previous lesson “Finding a Buddy” can also provide some insight on how to go about this. \n\nOnce you have found a loved one that is open to joining you, go to your profile and fill out the Buddy preferences. Once completed, your friend will receive an invitation to join the Buddy Network. \n\n';
 
   @override
   String get buddyPreferences => 'Buddy preferences';
@@ -3199,8 +3033,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get buddyCompleted => 'Buddy preferences\ncompleted';
 
   @override
-  String get buddyCompletedContent =>
-      'Your Buddy will receive an invite shortly. We will notify you once your Buddy has responded.';
+  String get buddyCompletedContent => 'Your Buddy will receive an invite shortly. We will notify you once your Buddy has responded.';
 
   @override
   String get buddyLiveTogetherTitle => 'Do you live together with your Buddy?';
@@ -3212,8 +3045,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get buddyEmailTitle => 'What is your Buddy’s email address?';
 
   @override
-  String get buddyEmailLabel =>
-      'We will invite your Buddy to share in your journey via this email address.';
+  String get buddyEmailLabel => 'We will invite your Buddy to share in your journey via this email address.';
 
   @override
   String get buddyEmailHint => 'Buddy email address';
@@ -3245,15 +3077,13 @@ class AppLocalizationsEn extends AppLocalizations {
   String get buddyRejectTitle => 'Your Buddy did not accept the invite';
 
   @override
-  String get buddyRejectSubTitle =>
-      'Unfortunately, your friend cannot join you on your journey. There can be many different reasons why they couldn’t join you, but don’t let this discourage you! Try to find another Buddy.\n\nPlease talk to friends and loved ones about whether they are open to being your Buddy before you send the next invite. \n\nAre you having trouble finding a Buddy? The article “Finding a Buddy” can provide some insight on how to approach this topic with others.\n\nYou can easily invite another person to share in your journey.';
+  String get buddyRejectSubTitle => 'Unfortunately, your friend cannot join you on your journey. There can be many different reasons why they couldn’t join you, but don’t let this discourage you! Try to find another Buddy.\n\nPlease talk to friends and loved ones about whether they are open to being your Buddy before you send the next invite. \n\nAre you having trouble finding a Buddy? The article “Finding a Buddy” can provide some insight on how to approach this topic with others.\n\nYou can easily invite another person to share in your journey.';
 
   @override
   String get buddyNotAvailableTitle => 'Your Buddy is no longer able to support you';
 
   @override
-  String get buddyNotAvailableSubTitle =>
-      'Unfortunately, your current Buddy cannot be there to support you in the way that a Buddy does. \n\nNo need to worry, there is another Buddy out there. Talk to your close friends and ask around whether one of them would like to join you.\n\nThe education lesson “Finding a Buddy” can also help you to find a new Buddy. \n\nYou can easily invite another person to share in your journey.';
+  String get buddyNotAvailableSubTitle => 'Unfortunately, your current Buddy cannot be there to support you in the way that a Buddy does. \n\nNo need to worry, there is another Buddy out there. Talk to your close friends and ask around whether one of them would like to join you.\n\nThe education lesson “Finding a Buddy” can also help you to find a new Buddy. \n\nYou can easily invite another person to share in your journey.';
 
   @override
   String get buddyResendInvitation => 'Resend invitation';
@@ -3262,8 +3092,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get buddyInviteAnotherBuddy => 'Invite another buddy';
 
   @override
-  String get buddyFindAnotherBuddyContent =>
-      'Please note: if you do want a new Buddy. your current Buddy will be notified that you have made this request.';
+  String get buddyFindAnotherBuddyContent => 'Please note: if you do want a new Buddy. your current Buddy will be notified that you have made this request.';
 
   @override
   String get buddyFindAnotherBuddy => 'Yes, I want another buddy';
@@ -3295,12 +3124,10 @@ class AppLocalizationsEn extends AppLocalizations {
   }
 
   @override
-  String get buddyFindAnotherBuddyContentOne =>
-      'We believe in our Buddy program and recommend keeping your buddy or inviting someone else who can offer you better encouragement.';
+  String get buddyFindAnotherBuddyContentOne => 'We believe in our Buddy program and recommend keeping your buddy or inviting someone else who can offer you better encouragement.';
 
   @override
-  String get buddyFindAnotherBuddyContentTwo =>
-      'Please note: if you do want a new Buddy. your current Buddy will be notified that you have made this request.';
+  String get buddyFindAnotherBuddyContentTwo => 'Please note: if you do want a new Buddy. your current Buddy will be notified that you have made this request.';
 
   @override
   String get linksTermsAndConditionsUrl => 'https://lean-on.me/terms-and-conditions';
@@ -3312,8 +3139,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get linksPsychologistConsulting => 'https://locator.apa.org/';
 
   @override
-  String get linksInstructionsUrl =>
-      'https://loopcare-pdf-instructions.s3.eu-central-1.amazonaws.com/Dokument2-2.pdf';
+  String get linksInstructionsUrl => 'https://loopcare-pdf-instructions.s3.eu-central-1.amazonaws.com/Dokument2-2.pdf';
 
   @override
   String get riverOverviewTitle => 'The River Overview';
@@ -3322,22 +3148,19 @@ class AppLocalizationsEn extends AppLocalizations {
   String get riverGuidancePracticeTitle => 'Practice makes progression.';
 
   @override
-  String get riverGuidancePracticeDescription =>
-      'The calendar will be your daily entry point to practice what you’ve learned.';
+  String get riverGuidancePracticeDescription => 'The calendar will be your daily entry point to practice what you’ve learned.';
 
   @override
   String get riverGuidanceProfileTitle => 'Your profile and account settings.';
 
   @override
-  String get riverGuidanceProfileDescription =>
-      'In the profile, you can customize your account settings, change personal preferences and access past assignments and features.';
+  String get riverGuidanceProfileDescription => 'In the profile, you can customize your account settings, change personal preferences and access past assignments and features.';
 
   @override
   String get riverGuidanceCompletedTitle => 'Congratulation, you finished the Beginning.';
 
   @override
-  String get riverGuidanceCompletedDescription =>
-      'You can now move on to the first Practice session: What’s your why?.';
+  String get riverGuidanceCompletedDescription => 'You can now move on to the first Practice session: What’s your why?.';
 
   @override
   String riverModuleCompletedTitle(String module) {
@@ -3350,38 +3173,31 @@ class AppLocalizationsEn extends AppLocalizations {
   }
 
   @override
-  String get riverLastModuleCompletedDescription =>
-      'Take your time to revisit the previous modules and reinforce the practices whenever you need.\nYou\'ve done an amazing job reaching this point! Stay tuned, more exciting content is coming soon!';
+  String get riverLastModuleCompletedDescription => 'Take your time to revisit the previous modules and reinforce the practices whenever you need.\nYou\'ve done an amazing job reaching this point! Stay tuned, more exciting content is coming soon!';
 
   @override
   String get riverGuidanceStartRiverTitle => 'Great!';
 
   @override
-  String get riverGuidanceStartRiverDescription =>
-      'Now tap the other icons to unlock features and explore.';
+  String get riverGuidanceStartRiverDescription => 'Now tap the other icons to unlock features and explore.';
 
   @override
-  String get riverModuleGraduationCompletedItemsTitle =>
-      'Great job. You have completed the lessons in this pool.';
+  String get riverModuleGraduationCompletedItemsTitle => 'Great job. You have completed the lessons in this pool.';
 
   @override
-  String get riverModuleGraduationCompletedTimeTitle =>
-      'Your module is fully colored-in, meaning you  first read the Reflection over 7 days ago.';
+  String get riverModuleGraduationCompletedTimeTitle => 'Your module is fully colored-in, meaning you  first read the Reflection over 7 days ago.';
 
   @override
-  String get riverModuleGraduationCompletedItemsMessage =>
-      'You are one step closer to finishing this section. But before you can graduate, we encourage you to practice and reflect on what you have learned in this Pool.\n\nOnce the 7 day timer has filled this section with color, you can move on to the next pool.';
+  String get riverModuleGraduationCompletedItemsMessage => 'You are one step closer to finishing this section. But before you can graduate, we encourage you to practice and reflect on what you have learned in this Pool.\n\nOnce the 7 day timer has filled this section with color, you can move on to the next pool.';
 
   @override
-  String get riverModuleGraduationCompletedTimeMessage =>
-      'No rush: Every module takes the time it takes. Keep reflecting! When you’ve completed all the necessary steps, we’ll ask you if you’re ready to move on. Need some help? Reach out by emailing support@lean-on.me, and one of our specialists will be glad to assist.';
+  String get riverModuleGraduationCompletedTimeMessage => 'No rush: Every module takes the time it takes. Keep reflecting! When you’ve completed all the necessary steps, we’ll ask you if you’re ready to move on. Need some help? Reach out by emailing support@lean-on.me, and one of our specialists will be glad to assist.';
 
   @override
   String get subscriptionTrialTitle => 'First 2 weeks for free!';
 
   @override
-  String get subscriptionTrialLabel =>
-      'After your trial period you are enrolled and \nyou can cancel on a monthly basis.';
+  String get subscriptionTrialLabel => 'After your trial period you are enrolled and \nyou can cancel on a monthly basis.';
 
   @override
   String get subscriptionTrialExpiredTitle => 'Your trial has expired';
@@ -3390,15 +3206,13 @@ class AppLocalizationsEn extends AppLocalizations {
   String get subscriptionTrialExpiredLabel1 => 'We hope you enjoyed our program.';
 
   @override
-  String get subscriptionTrialExpiredLabel2 =>
-      'If you want to continue,\nrefresh your subscription here:';
+  String get subscriptionTrialExpiredLabel2 => 'If you want to continue,\nrefresh your subscription here:';
 
   @override
   String get subscriptionEndedTitle => 'Your subscription \nhas ended';
 
   @override
-  String get subscriptionEmptyToRestore =>
-      'Sorry, the store didn\'t return a subscription for us to restore. If you think this is an error, please send proof of subscription to support@lean-on.me.';
+  String get subscriptionEmptyToRestore => 'Sorry, the store didn\'t return a subscription for us to restore. If you think this is an error, please send proof of subscription to support@lean-on.me.';
 
   @override
   String get subscriptionEndedLabel1 => 'We hope you enjoyed our program.';
@@ -3413,15 +3227,13 @@ class AppLocalizationsEn extends AppLocalizations {
   String get subscriptionCancelledLabel1 => 'We hope you enjoyed our program.';
 
   @override
-  String get subscriptionCancelledLabel2 =>
-      'If you want to continue,\nrefresh your subscription here:';
+  String get subscriptionCancelledLabel2 => 'If you want to continue,\nrefresh your subscription here:';
 
   @override
   String get subscriptionRenewedTitle => 'Your subscription \ncould not be renewed';
 
   @override
-  String get subscriptionRenewedLabel =>
-      'We want to let you know that your\nsubscription could not be automatically\nrenewed. \n\nYou will get a couple of days to look into this.\nDuring this time you can still use the app.';
+  String get subscriptionRenewedLabel => 'We want to let you know that your\nsubscription could not be automatically\nrenewed. \n\nYou will get a couple of days to look into this.\nDuring this time you can still use the app.';
 
   @override
   String get subscriptionRestoreLabel => 'Restore Purchase';
@@ -3476,8 +3288,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get subscriptionServiceUnavailable => 'Service is unavailable,\nplease try later.';
 
   @override
-  String get subscriptionOtherPurchaseVendor =>
-      'Sorry, your subscription seems to be purchased from a different store.';
+  String get subscriptionOtherPurchaseVendor => 'Sorry, your subscription seems to be purchased from a different store.';
 
   @override
   String get subscriptionAppStore => 'App Store';
@@ -3486,24 +3297,19 @@ class AppLocalizationsEn extends AppLocalizations {
   String get subscriptionGoogleMarket => 'Play Market';
 
   @override
-  String get subscriptionCancelAccountSubscription =>
-      'Before you delete your account with LeanOnMe, please take a moment to cancel your subscription. This will prevent any future charges. If you\'re ready to proceed, tap \'Manage Subscription\' to go to your device settings';
+  String get subscriptionCancelAccountSubscription => 'Before you delete your account with LeanOnMe, please take a moment to cancel your subscription. This will prevent any future charges. If you\'re ready to proceed, tap \'Manage Subscription\' to go to your device settings';
 
   @override
-  String get subscriptionOtherPurchaseVendorCancelAccountSubscription =>
-      'Your subscription seems to be purchased from a different store.';
+  String get subscriptionOtherPurchaseVendorCancelAccountSubscription => 'Your subscription seems to be purchased from a different store.';
 
   @override
-  String get subscriptionRestoreSubscriptionFromSettings =>
-      'Please take a moment to resubscribe your subscription plan from Subscription Settings. If you\'re ready to proceed, tap \'Manage Subscription\' to go to your device settings';
+  String get subscriptionRestoreSubscriptionFromSettings => 'Please take a moment to resubscribe your subscription plan from Subscription Settings. If you\'re ready to proceed, tap \'Manage Subscription\' to go to your device settings';
 
   @override
-  String get subscriptionAskRestoreSubscription =>
-      'Sorry, your subscription seems to be purchased but is not verified, please, tap on Restore Purchase to verify it.';
+  String get subscriptionAskRestoreSubscription => 'Sorry, your subscription seems to be purchased but is not verified, please, tap on Restore Purchase to verify it.';
 
   @override
-  String get subscriptionDuplicateSubscriptionFromSettings =>
-      'This subscription seems to be purchased before. Please take a moment to resubscribe your subscription plan from Subscription Settings. If you\'re ready to proceed, tap \'Manage Subscription\' to go to your device settings';
+  String get subscriptionDuplicateSubscriptionFromSettings => 'This subscription seems to be purchased before. Please take a moment to resubscribe your subscription plan from Subscription Settings. If you\'re ready to proceed, tap \'Manage Subscription\' to go to your device settings';
 
   @override
   String get subscriptionRecommendedAccess => 'recommended';
@@ -3607,8 +3413,7 @@ class AppLocalizationsEn extends AppLocalizations {
   }
 
   @override
-  String get introBodyTextFirst =>
-      'This program is specifically designed for people living with overweight and obesity that want to sustainably lose weight and change their lifestyle.';
+  String get introBodyTextFirst => 'This program is specifically designed for people living with overweight and obesity that want to sustainably lose weight and change their lifestyle.';
 
   @override
   String get introBodyTextSecond => 'If this description fits you, let’s start your journey';
@@ -3620,19 +3425,16 @@ class AppLocalizationsEn extends AppLocalizations {
   String get intro2BodyTextFirst => 'Great to see that you want to join the LeanOnMe community';
 
   @override
-  String get intro2BodyTextSecond =>
-      'Let’s start with some basics, like your name and email address';
+  String get intro2BodyTextSecond => 'Let’s start with some basics, like your name and email address';
 
   @override
   String get intro3Title => 'Congratulations';
 
   @override
-  String get intro3BodyTextFirst =>
-      'You have just taken the first step to embracing your true self';
+  String get intro3BodyTextFirst => 'You have just taken the first step to embracing your true self';
 
   @override
-  String get intro3BodyTextSecond =>
-      'To check if the program is suitable for you and your needs, please answer the upcoming questions regarding your physical, medical and mental health';
+  String get intro3BodyTextSecond => 'To check if the program is suitable for you and your needs, please answer the upcoming questions regarding your physical, medical and mental health';
 
   @override
   String loginTitle(String projectName) {
@@ -3646,50 +3448,40 @@ class AppLocalizationsEn extends AppLocalizations {
   String get forgotPasswordSubTitle => 'Your email address';
 
   @override
-  String get forgotPasswordBody =>
-      'Enter your email address and we will send you instructions to reset your password';
+  String get forgotPasswordBody => 'Enter your email address and we will send you instructions to reset your password';
 
   @override
   String get onboardingIntroTitle => 'LeanOnMe gives you the tools to lose weight sustainably.';
 
   @override
-  String get onboardingIntroProgram1 =>
-      'Based on a psychology driven program which successfully helped people to lose weight and feel better, long term.';
+  String get onboardingIntroProgram1 => 'Based on a psychology driven program which successfully helped people to lose weight and feel better, long term.';
 
   @override
-  String get onboardingIntroProgram2 =>
-      'Nutrition, physical activity, medical knowledge, and community support combine with psychology to help you reach your goals.';
+  String get onboardingIntroProgram2 => 'Nutrition, physical activity, medical knowledge, and community support combine with psychology to help you reach your goals.';
 
   @override
-  String get onboardingIntroMissionTitle =>
-      'Our team of experts  brings the success of the clinical program to you!';
+  String get onboardingIntroMissionTitle => 'Our team of experts  brings the success of the clinical program to you!';
 
   @override
-  String get onboardingIntroMissionAndrew =>
-      'Andrew has a PHD in Bio-Chemistry and is the brains behind our nutrition program. With curated recipes, customized goals, and NO FOCUS ON CALORIE TRACKING, our nutrition program is one-of-a-kind.';
+  String get onboardingIntroMissionAndrew => 'Andrew has a PHD in Bio-Chemistry and is the brains behind our nutrition program. With curated recipes, customized goals, and NO FOCUS ON CALORIE TRACKING, our nutrition program is one-of-a-kind.';
 
   @override
-  String get onboardingIntroMissionMaria =>
-      'Maria has an MSc in Digital Psychology, and is the link between the successful clinical program and our digitalized version.';
+  String get onboardingIntroMissionMaria => 'Maria has an MSc in Digital Psychology, and is the link between the successful clinical program and our digitalized version.';
 
   @override
-  String get onboardingIntroMissionShalu =>
-      'Shalu is an MD specialized in Psychiatry. With her focus on addiction and addictive-behaviors, she is intrinsically qualified to oversee and encourage your journey to happier, healthier lifestyle.';
+  String get onboardingIntroMissionShalu => 'Shalu is an MD specialized in Psychiatry. With her focus on addiction and addictive-behaviors, she is intrinsically qualified to oversee and encourage your journey to happier, healthier lifestyle.';
 
   @override
-  String get onboardingIntroMissionJoshua =>
-      'With a love for sports and the human body, Josh has a Sports Science degree and years of experience as a physiotherapist focusing on weight loss. He\'s great at helping people move better and feel their best.';
+  String get onboardingIntroMissionJoshua => 'With a love for sports and the human body, Josh has a Sports Science degree and years of experience as a physiotherapist focusing on weight loss. He\'s great at helping people move better and feel their best.';
 
   @override
-  String get onboardingIntroMissionDenise =>
-      'Denise is an experienced clinical psychologist, who is also trained in Cognitive Behaviour Therapy, Meditation, and Mindfulness Based Therapy. Her passion is to give people the courage to change, and to guide them through the process step-by step.';
+  String get onboardingIntroMissionDenise => 'Denise is an experienced clinical psychologist, who is also trained in Cognitive Behaviour Therapy, Meditation, and Mindfulness Based Therapy. Her passion is to give people the courage to change, and to guide them through the process step-by step.';
 
   @override
   String get onboardingPacingTitle => 'Go slow to go fast.';
 
   @override
-  String get onboardingPacingMessage =>
-      'Our program is split up into modules, called “pools”. You should aim to spend a minimum of 1 week in each pool, absorbing knowledge and practicing new habits.';
+  String get onboardingPacingMessage => 'Our program is split up into modules, called “pools”. You should aim to spend a minimum of 1 week in each pool, absorbing knowledge and practicing new habits.';
 
   @override
   String get iAmReady => 'I’m ready';
@@ -3698,15 +3490,13 @@ class AppLocalizationsEn extends AppLocalizations {
   String get physicalIntroTitle => 'Basics first';
 
   @override
-  String get physicalIntroBody =>
-      'Joshua needs to know the answers to some basics so we can customize your program.';
+  String get physicalIntroBody => 'Joshua needs to know the answers to some basics so we can customize your program.';
 
   @override
   String get minutes => 'minutes';
 
   @override
-  String get ageCheckFailedTitle =>
-      'We are sorry. Unfortunately, your enrollment is not possible now';
+  String get ageCheckFailedTitle => 'We are sorry. Unfortunately, your enrollment is not possible now';
 
   @override
   String get ageCheckFailedBody => 'Our program is not set up for people under the age of 18';
@@ -3718,8 +3508,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get whatYourSex => 'What is your sex';
 
   @override
-  String get sexQuestionBody =>
-      'Please indicate what biological sex should be used to calculate certain metrics that will help to properly tailor the program to you';
+  String get sexQuestionBody => 'Please indicate what biological sex should be used to calculate certain metrics that will help to properly tailor the program to you';
 
   @override
   String get sex => 'Sex';
@@ -3734,8 +3523,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get happinessBody1 => 'Take a moment to reflect on your lifestyle right now';
 
   @override
-  String get happinessBody2 =>
-      'Using the scale below, please indicate how you generally feel, when you think about your current lifestyle';
+  String get happinessBody2 => 'Using the scale below, please indicate how you generally feel, when you think about your current lifestyle';
 
   @override
   String get yourHeight => 'Your height';
@@ -3753,12 +3541,10 @@ class AppLocalizationsEn extends AppLocalizations {
   String get changeYourHeight => 'Change your height';
 
   @override
-  String get heightSmall =>
-      'Are you sure this is the correct height? Seems rather small. Please correct your input';
+  String get heightSmall => 'Are you sure this is the correct height? Seems rather small. Please correct your input';
 
   @override
-  String get heightLarge =>
-      'Are you sure this is the correct height? Seems rather large. Please correct your input';
+  String get heightLarge => 'Are you sure this is the correct height? Seems rather large. Please correct your input';
 
   @override
   String get correctHeight => 'Please correct your answer';
@@ -3775,8 +3561,7 @@ class AppLocalizationsEn extends AppLocalizations {
   }
 
   @override
-  String get fitnessCheckFailedInformationText2 =>
-      'Please consult your doctor to find a suitable alternative';
+  String get fitnessCheckFailedInformationText2 => 'Please consult your doctor to find a suitable alternative';
 
   @override
   String get physicalCheckPassedTitle => 'Basics completed';
@@ -3797,42 +3582,34 @@ class AppLocalizationsEn extends AppLocalizations {
   String get years => 'years';
 
   @override
-  String get bmiDescription1 =>
-      'The Body Mass Index (BMI) is a measure  that uses your height and weight to calculate if your weight for your body is within a healthy range';
+  String get bmiDescription1 => 'The Body Mass Index (BMI) is a measure  that uses your height and weight to calculate if your weight for your body is within a healthy range';
 
   @override
   String get bmiDescriptionAccent => 'Body Mass Index (BMI)';
 
   @override
-  String get bmiDescription2 =>
-      'However, BMI has limitations - for example it can\'t differentiate between fat, muscle, and bone weight. We\'ll use it along with other metrics to customize your program, but don\'t worry: It won\'t be the only factor that is taken into account';
+  String get bmiDescription2 => 'However, BMI has limitations - for example it can\'t differentiate between fat, muscle, and bone weight. We\'ll use it along with other metrics to customize your program, but don\'t worry: It won\'t be the only factor that is taken into account';
 
   @override
   String get bmiExclusionBodyTitle => 'Body Mass Index (BMI) is';
 
   @override
-  String get bmiExclusionBodyOlder19LowBmi =>
-      'Our program is not yet optimized for people with a BMI under 25. We\'ll reach out to you as soon as we\'re ready!';
+  String get bmiExclusionBodyOlder19LowBmi => 'Our program is not yet optimized for people with a BMI under 25. We\'ll reach out to you as soon as we\'re ready!';
 
   @override
-  String get bmiExclusionBodyOlder19HighBmi =>
-      'Our program is not yet optimized for people with a BMI over 39.9.';
+  String get bmiExclusionBodyOlder19HighBmi => 'Our program is not yet optimized for people with a BMI over 39.9.';
 
   @override
-  String get bmiExclusionBodyYounger19LowBmi =>
-      'Our program is not yet optimized for people with a BMI under 25. We\'ll reach out to you as soon as we\'re ready!';
+  String get bmiExclusionBodyYounger19LowBmi => 'Our program is not yet optimized for people with a BMI under 25. We\'ll reach out to you as soon as we\'re ready!';
 
   @override
-  String get bmiExclusionBodyYounger19HighBmi =>
-      'Our program is not suitable for people with a BMI over 38.5.';
+  String get bmiExclusionBodyYounger19HighBmi => 'Our program is not suitable for people with a BMI over 38.5.';
 
   @override
-  String get bmiExclusionBodyHighBmiEnding =>
-      'Please consult your doctor to find a suitable alternative.';
+  String get bmiExclusionBodyHighBmiEnding => 'Please consult your doctor to find a suitable alternative.';
 
   @override
-  String get bmiExclusionBodyLowBmiEnding =>
-      'Please consult your doctor if you feel you urgently need a suitable alternative.';
+  String get bmiExclusionBodyLowBmiEnding => 'Please consult your doctor if you feel you urgently need a suitable alternative.';
 
   @override
   String get letsMoveOn => 'Let’s move on';
@@ -3846,8 +3623,7 @@ class AppLocalizationsEn extends AppLocalizations {
   }
 
   @override
-  String get medicalIntroBody =>
-      'To ensure that this program is suitable for your current circumstances and to tailor it specifically to you, please answer the next set of questions regarding your health conditions';
+  String get medicalIntroBody => 'To ensure that this program is suitable for your current circumstances and to tailor it specifically to you, please answer the next set of questions regarding your health conditions';
 
   @override
   String get areYouPregnant => 'Are you pregnant?';
@@ -3859,8 +3635,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get no => 'no';
 
   @override
-  String get failedPregnancyTitle =>
-      'We are sorry. Unfortunately, your enrollment is not possible for now.';
+  String get failedPregnancyTitle => 'We are sorry. Unfortunately, your enrollment is not possible for now.';
 
   @override
   String get failedPregnancyBody1 => 'You are having a baby.';
@@ -3869,8 +3644,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get failedPregnancyBody2 => 'This program is not suitable for people who are pregnant.';
 
   @override
-  String get failedPregnancyBody3 =>
-      'We would be happy to welcome you back here after your pregnancy.';
+  String get failedPregnancyBody3 => 'We would be happy to welcome you back here after your pregnancy.';
 
   @override
   String get failedPregnancyBody4 => 'Wishing you all the best for you and your baby-to-be!';
@@ -3882,12 +3656,10 @@ class AppLocalizationsEn extends AppLocalizations {
   String get medicinesPlaceholder => 'Write down one medicine here';
 
   @override
-  String get weightLossMedicationQuestion =>
-      'Are you taking any medication to help you on your weight-loss journey?';
+  String get weightLossMedicationQuestion => 'Are you taking any medication to help you on your weight-loss journey?';
 
   @override
-  String get medicationPastPeriodQuestion =>
-      'How long have you been taking your semaglutide medication';
+  String get medicationPastPeriodQuestion => 'How long have you been taking your semaglutide medication';
 
   @override
   String get medicationPastPeriodQuestion2 => 'How long will your semaglutide treatment last';
@@ -3896,34 +3668,28 @@ class AppLocalizationsEn extends AppLocalizations {
   String get medicationTitle => 'Our program compliments your GLP-1 treatment';
 
   @override
-  String get medicationExplanationBody1 =>
-      'You have indicated that you are currently taking GLP-1 medications.';
+  String get medicationExplanationBody1 => 'You have indicated that you are currently taking GLP-1 medications.';
 
   @override
   String get medicationExplanationBody2 => 'Although GLP-1 medications help with weight-loss, ';
 
   @override
-  String get medicationExplanationBody3 =>
-      'clinical trial data strongly suggest that the weight returns when the medications are stopped';
+  String get medicationExplanationBody3 => 'clinical trial data strongly suggest that the weight returns when the medications are stopped';
 
   @override
-  String get medicationExplanationBody4 =>
-      '. The weight-regain is most likely because a person typically falls back into their old habits.';
+  String get medicationExplanationBody4 => '. The weight-regain is most likely because a person typically falls back into their old habits.';
 
   @override
-  String get medicationExplanationBody5 =>
-      'Your GLP-1 medications will help with weight-loss in the short term! Meanwhile, our program will help you ';
+  String get medicationExplanationBody5 => 'Your GLP-1 medications will help with weight-loss in the short term! Meanwhile, our program will help you ';
 
   @override
   String get medicationExplanationBody6 => 'create healthier habits';
 
   @override
-  String get medicationExplanationBody7 =>
-      ', to develop a  lifestyle that help with weight-loss in the long term.';
+  String get medicationExplanationBody7 => ', to develop a  lifestyle that help with weight-loss in the long term.';
 
   @override
-  String get medicationExplanationBody8 =>
-      'Use the medication now, so that you can focus on the important things the program teaches you and ';
+  String get medicationExplanationBody8 => 'Use the medication now, so that you can focus on the important things the program teaches you and ';
 
   @override
   String get medicationExplanationBody9 => 'be off the medication for a lifetime.';
@@ -3952,12 +3718,10 @@ class AppLocalizationsEn extends AppLocalizations {
   }
 
   @override
-  String get obesityQuestion =>
-      'Have you been diagnosed with a secondary form of obesity (e.g. Cushing syndrome, Prader-Willi syndrome or hypogonadism)';
+  String get obesityQuestion => 'Have you been diagnosed with a secondary form of obesity (e.g. Cushing syndrome, Prader-Willi syndrome or hypogonadism)';
 
   @override
-  String get thyroidDiseaseQuestion =>
-      'Have you been diagnosed with a thyroid disease (e.g. Hashimoto’s disease or hypothyroidism)';
+  String get thyroidDiseaseQuestion => 'Have you been diagnosed with a thyroid disease (e.g. Hashimoto’s disease or hypothyroidism)';
 
   @override
   String get metabolicDiseaseQuestion => 'Have you been diagnosed with a form of metabolic disease';
@@ -3966,12 +3730,10 @@ class AppLocalizationsEn extends AppLocalizations {
   String get hypertensionQuestion => 'Have you been diagnosed with hypertension';
 
   @override
-  String get cardiovascularDiseaseQuestion =>
-      'Have you been diagnosed with a cardiovascular disease or did you have heart surgery in the last 12 months';
+  String get cardiovascularDiseaseQuestion => 'Have you been diagnosed with a cardiovascular disease or did you have heart surgery in the last 12 months';
 
   @override
-  String get stomachReductionQuestion =>
-      'Did you have a stomach reduction or bariatric surgery in the last 3 years or are you in a preparatory phase for such surgery';
+  String get stomachReductionQuestion => 'Did you have a stomach reduction or bariatric surgery in the last 3 years or are you in a preparatory phase for such surgery';
 
   @override
   String get diabetesQuestion => 'Have you been diagnosed with diabetes';
@@ -3989,30 +3751,25 @@ class AppLocalizationsEn extends AppLocalizations {
   String get sleepApneaSyndromeQuestion => 'Have you been diagnosed with sleep apnea syndrome';
 
   @override
-  String get locomotorSystemDiseaseQuestion =>
-      'Have you been diagnosed with any disease of the locomotor system (e.g. arthritis, osteoporosis, back/neck pains or inflammatory disease)';
+  String get locomotorSystemDiseaseQuestion => 'Have you been diagnosed with any disease of the locomotor system (e.g. arthritis, osteoporosis, back/neck pains or inflammatory disease)';
 
   @override
-  String get treatmentByTheDoctorQuestion =>
-      'Are you currently being treated by a psychologist or psychiatrist';
+  String get treatmentByTheDoctorQuestion => 'Are you currently being treated by a psychologist or psychiatrist';
 
   @override
   String get medicalCheckPassedTitle => 'Medical check completed';
 
   @override
-  String get medicalCheckPassedBody =>
-      'You already completed 2 out of 3 sections. Great, you’re nearly done';
+  String get medicalCheckPassedBody => 'You already completed 2 out of 3 sections. Great, you’re nearly done';
 
   @override
   String get medicalCheckFailedTitle => 'Please check with your doctor or specialist';
 
   @override
-  String get medicalCheckFailedBody =>
-      'Please ask your doctor, specialist or psychologist before you use this app if it fits to your medical condition and / or treatment of:';
+  String get medicalCheckFailedBody => 'Please ask your doctor, specialist or psychologist before you use this app if it fits to your medical condition and / or treatment of:';
 
   @override
-  String get medicalCheckFailedBody2 =>
-      'Please note, we additionally offer support groups. If you would like to take part in one of these groups later on in the program, you will need permission from your psychologist/psychiatrist first';
+  String get medicalCheckFailedBody2 => 'Please note, we additionally offer support groups. If you would like to take part in one of these groups later on in the program, you will need permission from your psychologist/psychiatrist first';
 
   @override
   String get cardioVascularDisease => 'Cardiovascular disease';
@@ -4060,19 +3817,16 @@ class AppLocalizationsEn extends AppLocalizations {
   String get mentalHealth => 'Mental health';
 
   @override
-  String get mentalIntroBody1 =>
-      'In this section you will be asked questions regarding your current well-being, physiological symptoms and mood';
+  String get mentalIntroBody1 => 'In this section you will be asked questions regarding your current well-being, physiological symptoms and mood';
 
   @override
-  String get mentalIntroBody2 =>
-      'Based on these results, the program will be adjusted to suit your needs';
+  String get mentalIntroBody2 => 'Based on these results, the program will be adjusted to suit your needs';
 
   @override
   String get yourMentalHealth => 'Your mental health';
 
   @override
-  String get mentalHealthIntroTextOne =>
-      'A good mental health is vital to successfully improve your lifestyle';
+  String get mentalHealthIntroTextOne => 'A good mental health is vital to successfully improve your lifestyle';
 
   @override
   String get mentalHealthIntroTextTwo => 'This section will take around 15 minutes';
@@ -4081,23 +3835,19 @@ class AppLocalizationsEn extends AppLocalizations {
   String get mentalHealthIntroTextTwoAccent => '15 minutes';
 
   @override
-  String get mentalHealthIntroTextThree =>
-      'You can take a break in between as long as you finish this section within one hour';
+  String get mentalHealthIntroTextThree => 'You can take a break in between as long as you finish this section within one hour';
 
   @override
   String get mentalHealthIntroTextThreeAccent => 'within one hour';
 
   @override
-  String get mentalHealthIntroTextFour =>
-      'If you do take more than an hour, you will need to start this section over again';
+  String get mentalHealthIntroTextFour => 'If you do take more than an hour, you will need to start this section over again';
 
   @override
-  String get mentalHealthIntroTextFive =>
-      'You will receive your results immediately after the questions';
+  String get mentalHealthIntroTextFive => 'You will receive your results immediately after the questions';
 
   @override
-  String get mentalHealthIntroTextSix =>
-      'Please note that these test results are not a diagnosis. A diagnosis can only be made by a doctor or psychologist';
+  String get mentalHealthIntroTextSix => 'Please note that these test results are not a diagnosis. A diagnosis can only be made by a doctor or psychologist';
 
   @override
   String mentalHealthMoreInfo(String appName) {
@@ -4111,8 +3861,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get mentalHealthMoreInfoBold2 => 'our clinical psychologist';
 
   @override
-  String get who8Question =>
-      'Please indicate for each of the given statements which is closest to how you have been feeling over the last two weeks';
+  String get who8Question => 'Please indicate for each of the given statements which is closest to how you have been feeling over the last two weeks';
 
   @override
   String get lastTwoWeeks => 'last two weeks';
@@ -4124,75 +3873,58 @@ class AppLocalizationsEn extends AppLocalizations {
   String get pastFourWeeks => 'past four weeks';
 
   @override
-  String get phq15Question =>
-      'During the past four weeks, how much have you been bothered by any of the following problems';
+  String get phq15Question => 'During the past four weeks, how much have you been bothered by any of the following problems';
 
   @override
   String get overThe => 'Over the';
 
   @override
-  String get phq8Question =>
-      'Over the last two weeks, how often have you been bothered by any of the following problems';
+  String get phq8Question => 'Over the last two weeks, how often have you been bothered by any of the following problems';
 
   @override
-  String get who5ResultTestMinimal =>
-      'Regarding your general well-being, you have indicated that in the last two weeks your well-being has been severely limited, and you have felt unwell most of the time. If you feel unwell for a longer period, we recommend that you consult a psychologist or your doctor to check these symptoms. You can find psychologists here:';
+  String get who5ResultTestMinimal => 'Regarding your general well-being, you have indicated that in the last two weeks your well-being has been severely limited, and you have felt unwell most of the time. If you feel unwell for a longer period, we recommend that you consult a psychologist or your doctor to check these symptoms. You can find psychologists here:';
 
   @override
-  String get who5ResultTestHigh =>
-      'In terms of your general well-being, you indicated that you have generally felt balanced, joyful, and relaxed over the past two weeks. This result indicates a good state of well-being.';
+  String get who5ResultTestHigh => 'In terms of your general well-being, you indicated that you have generally felt balanced, joyful, and relaxed over the past two weeks. This result indicates a good state of well-being.';
 
   @override
-  String get phq15ResultMinimal =>
-      'You have stated that you have had no or few physical ailments in the last four weeks. That’s great.';
+  String get phq15ResultMinimal => 'You have stated that you have had no or few physical ailments in the last four weeks. That’s great.';
 
   @override
-  String get phq15ResultMild =>
-      'You have stated that you have been bothered by a few physical problems in the last four weeks. Mild physical problems can also be a sign of stress. It could be helpful to reduce stress. \nTo clarify whether these ailments are related to stress, please consult your doctor.';
+  String get phq15ResultMild => 'You have stated that you have been bothered by a few physical problems in the last four weeks. Mild physical problems can also be a sign of stress. It could be helpful to reduce stress. \nTo clarify whether these ailments are related to stress, please consult your doctor.';
 
   @override
-  String get phq15ResultMedium =>
-      'You have stated that a number of physical ailments have bothered you over the past four weeks. A consultation with your doctor is recommended to check whether these are temporary. The symptoms can be a reaction of your body to stress or emotional issues.';
+  String get phq15ResultMedium => 'You have stated that a number of physical ailments have bothered you over the past four weeks. A consultation with your doctor is recommended to check whether these are temporary. The symptoms can be a reaction of your body to stress or emotional issues.';
 
   @override
-  String get phq15ResultHigh =>
-      'You have stated that many physical ailments have bothered you in the last four weeks. Please consult your doctor to check these symptoms. These symptoms may have a medical cause or indicate a somatization disorder. \n\nThis program is not a substitute for mental health diagnosis or psychological treatment. In order to have a closer look at the symptoms and to treat them, if necessary, we recommend consulting your doctor or a psychologist. You can find addresses here:';
+  String get phq15ResultHigh => 'You have stated that many physical ailments have bothered you in the last four weeks. Please consult your doctor to check these symptoms. These symptoms may have a medical cause or indicate a somatization disorder. \n\nThis program is not a substitute for mental health diagnosis or psychological treatment. In order to have a closer look at the symptoms and to treat them, if necessary, we recommend consulting your doctor or a psychologist. You can find addresses here:';
 
   @override
-  String get gad7ResultMinimal =>
-      'You have stated that you were at ease most of the time in the last two weeks. Your everyday life is not affected by anxiety. Great, keep it up.';
+  String get gad7ResultMinimal => 'You have stated that you were at ease most of the time in the last two weeks. Your everyday life is not affected by anxiety. Great, keep it up.';
 
   @override
-  String get gad7ResultMild =>
-      'You have stated that in the last two weeks you have had problems to relax from time to time. You may also have felt nervous, anxious, or on edge. Don’t be concerned about it. These may be temporary symptoms. Give yourself a break to relax more often. \nBut if the symptoms worsen, we recommend consulting your doctor or a psychologist.';
+  String get gad7ResultMild => 'You have stated that in the last two weeks you have had problems to relax from time to time. You may also have felt nervous, anxious, or on edge. Don’t be concerned about it. These may be temporary symptoms. Give yourself a break to relax more often. \nBut if the symptoms worsen, we recommend consulting your doctor or a psychologist.';
 
   @override
-  String get gad7ResultMedium =>
-      'You have stated that you have felt nervous or anxious more than half the time in the last two weeks. You may also have not been able to stop or control worrying. This can be a burden for you in your daily life.\n\nIf the symptoms persist or worsen, we recommend consulting your doctor or a psychologist.';
+  String get gad7ResultMedium => 'You have stated that you have felt nervous or anxious more than half the time in the last two weeks. You may also have not been able to stop or control worrying. This can be a burden for you in your daily life.\n\nIf the symptoms persist or worsen, we recommend consulting your doctor or a psychologist.';
 
   @override
-  String get gad7ResultHigh =>
-      'You have stated that you have felt nervous or anxious nearly every day in the last two weeks. You may also have not been able to stop or control worrying. These symptoms could indicate an anxiety disorder.\n\nIn order to have a closer look at the symptoms and to treat them, if necessary, we recommend consulting your doctor or a psychologist. You can find addresses here:';
+  String get gad7ResultHigh => 'You have stated that you have felt nervous or anxious nearly every day in the last two weeks. You may also have not been able to stop or control worrying. These symptoms could indicate an anxiety disorder.\n\nIn order to have a closer look at the symptoms and to treat them, if necessary, we recommend consulting your doctor or a psychologist. You can find addresses here:';
 
   @override
-  String get phq8ResultMinimal =>
-      'You have stated that your mood was not affected most days in the last two weeks. Great, keep it up and look out for all the positive things you will come across on your journey.';
+  String get phq8ResultMinimal => 'You have stated that your mood was not affected most days in the last two weeks. Great, keep it up and look out for all the positive things you will come across on your journey.';
 
   @override
-  String get phq8ResultMild =>
-      'You have stated that in the last two weeksYou have stated that in the last two weeks you have felt down from time to time. You may also have had feelings of hopelessness or a lack of energy. Throughout the LeanOnMe program, you will learn about the connection between thoughts and feelings and what you can do to improve your mental health.\nIf the symptoms worsen, we recommend a consultation with a psychologist or your doctor.';
+  String get phq8ResultMild => 'You have stated that in the last two weeksYou have stated that in the last two weeks you have felt down from time to time. You may also have had feelings of hopelessness or a lack of energy. Throughout the LeanOnMe program, you will learn about the connection between thoughts and feelings and what you can do to improve your mental health.\nIf the symptoms worsen, we recommend a consultation with a psychologist or your doctor.';
 
   @override
-  String get phq8ResultMedium =>
-      'You have stated that you have been depressed more than half the time in the last two weeks. You may also have had feelings of hopelessness or have felt down. Throughout the LeanOnMe program, you will learn about the connection between thoughts and feelings and what you can do to improve your mental health.\nIf the symptoms persist or worsen, we recommend a consultation with a psychologist or your doctor.';
+  String get phq8ResultMedium => 'You have stated that you have been depressed more than half the time in the last two weeks. You may also have had feelings of hopelessness or have felt down. Throughout the LeanOnMe program, you will learn about the connection between thoughts and feelings and what you can do to improve your mental health.\nIf the symptoms persist or worsen, we recommend a consultation with a psychologist or your doctor.';
 
   @override
-  String get phq8ResultHigh =>
-      'You have stated that your mood has often been significantly affected in the last two weeks. You have indicated that you have felt depressed and have often suffered from listlessness or dejection. The symptoms indicate current psychological distress with emotional impairment. These may be indications of a temporary depressive episode. \n\nThis program is not a substitute for mental health diagnosis or psychological treatment. In order to have a closer look at the symptoms and to treat them, if necessary, we recommend consulting your doctor or a psychologist. You can find addresses here:';
+  String get phq8ResultHigh => 'You have stated that your mood has often been significantly affected in the last two weeks. You have indicated that you have felt depressed and have often suffered from listlessness or dejection. The symptoms indicate current psychological distress with emotional impairment. These may be indications of a temporary depressive episode. \n\nThis program is not a substitute for mental health diagnosis or psychological treatment. In order to have a closer look at the symptoms and to treat them, if necessary, we recommend consulting your doctor or a psychologist. You can find addresses here:';
 
   @override
-  String get phq8ResultHighest =>
-      'You have stated that your mood has been significantly affected almost every day for the past two weeks. You have indicated that you have felt depressed and have often or constantly suffered from listlessness or dejection. These symptoms currently indicate a high level of psychological distress with emotional impairment and could be an indication of depression.\n\nThis program is not a substitute for mental health diagnosis or psychological treatment. In order to have a closer look at the symptoms and to treat them, if necessary, we recommend consulting your doctor and a clarification by a psychologist. You can find addresses here:';
+  String get phq8ResultHighest => 'You have stated that your mood has been significantly affected almost every day for the past two weeks. You have indicated that you have felt depressed and have often or constantly suffered from listlessness or dejection. These symptoms currently indicate a high level of psychological distress with emotional impairment and could be an indication of depression.\n\nThis program is not a substitute for mental health diagnosis or psychological treatment. In order to have a closer look at the symptoms and to treat them, if necessary, we recommend consulting your doctor and a clarification by a psychologist. You can find addresses here:';
 
   @override
   String get generalWellBeingSummary => 'General well-being summary';
@@ -4213,12 +3945,10 @@ class AppLocalizationsEn extends AppLocalizations {
   String get noWorriesYouCanDoItLater => 'But don’t worry, you can start over';
 
   @override
-  String get mentalResultSubText1 =>
-      'You’ve completed the first part. Keep going. You’re doing great';
+  String get mentalResultSubText1 => 'You’ve completed the first part. Keep going. You’re doing great';
 
   @override
-  String get mentalResultSubText2 =>
-      'You\'re breezing through these questions. Nicely done! You’ve reached the halfway point';
+  String get mentalResultSubText2 => 'You\'re breezing through these questions. Nicely done! You’ve reached the halfway point';
 
   @override
   String get mentalResultSubText3 => 'Three down, one to go! Just a few last questions';
@@ -4227,8 +3957,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get legalStatement => 'Legal statement';
 
   @override
-  String get legalStatementTextOne =>
-      'For your own health and safety, it is important that you have answered all questions truthfully';
+  String get legalStatementTextOne => 'For your own health and safety, it is important that you have answered all questions truthfully';
 
   @override
   String get legalStatementTextTwo => 'To continue, please read and accept our legal statement';
@@ -4240,8 +3969,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get legalStatementCheckboxTitle => 'I hereby declare, that';
 
   @override
-  String get legalStatementCheckboxItemOne =>
-      'my answers are true to the best of my knowledge and I will continue to answer questions truthfully in future';
+  String get legalStatementCheckboxItemOne => 'my answers are true to the best of my knowledge and I will continue to answer questions truthfully in future';
 
   @override
   String get confirm => 'Confirm';
@@ -4253,8 +3981,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get signUpWelcomeTitle => 'Hurray,\n you can now start the LeanOnMe program';
 
   @override
-  String get signUpWelcomeBody =>
-      'It\'s great to have you on board. Create an account to embark on your journey';
+  String get signUpWelcomeBody => 'It\'s great to have you on board. Create an account to embark on your journey';
 
   @override
   String get createAccount => 'Create account';
@@ -4338,16 +4065,13 @@ class AppLocalizationsEn extends AppLocalizations {
   String get waitingForConfirmationSubtitle => 'Please confirm your e-mail';
 
   @override
-  String get waitingForConfirmationBody =>
-      'No rush, you can confirm your email address later. We sent it to:';
+  String get waitingForConfirmationBody => 'No rush, you can confirm your email address later. We sent it to:';
 
   @override
-  String get waitingForConfirmationBody3 =>
-      'If you haven\'t received anything, make sure to check your spam folder';
+  String get waitingForConfirmationBody3 => 'If you haven\'t received anything, make sure to check your spam folder';
 
   @override
-  String get waitingForConfirmationBody4 =>
-      'No message in your inbox? Please click the button below';
+  String get waitingForConfirmationBody4 => 'No message in your inbox? Please click the button below';
 
   @override
   String get resend => 'Resend confirmation email';
@@ -4368,8 +4092,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get emailConfirmedBottomSheetTitle => 'Email address is confirmed';
 
   @override
-  String get emailConfirmedBottomSheetContent =>
-      'Thanks for confirming your email address. You can now start using the app';
+  String get emailConfirmedBottomSheetContent => 'Thanks for confirming your email address. You can now start using the app';
 
   @override
   String get logMood => 'Log Mood';
@@ -4393,20 +4116,16 @@ class AppLocalizationsEn extends AppLocalizations {
   String get groupSessionsUnlocked => 'Support group unlocked';
 
   @override
-  String get waitingForGroupCompletedLesson =>
-      'We will let you know once we have found a group for you based on your preferences';
+  String get waitingForGroupCompletedLesson => 'We will let you know once we have found a group for you based on your preferences';
 
   @override
-  String get notJoinedToGroupCompletedLesson =>
-      'If you would like to join group sessions in the future, you can indicate this in your preferences';
+  String get notJoinedToGroupCompletedLesson => 'If you would like to join group sessions in the future, you can indicate this in your preferences';
 
   @override
-  String get groupSessionUnlockOnTrialPeriod =>
-      'Group sessions is only available if you have a paid subscription.  After you have paid, you can enrol from the dashboard or your profile.';
+  String get groupSessionUnlockOnTrialPeriod => 'Group sessions is only available if you have a paid subscription.  After you have paid, you can enrol from the dashboard or your profile.';
 
   @override
-  String get unlockFeatureDescription =>
-      'Your preferences have been added to your profile. You can update them later.';
+  String get unlockFeatureDescription => 'Your preferences have been added to your profile. You can update them later.';
 
   @override
   String get lessonCompleteDescription => 'Well done! You can proceed to the next lesson';
@@ -4415,24 +4134,19 @@ class AppLocalizationsEn extends AppLocalizations {
   String get assignmentCompleted => 'Assignment completed';
 
   @override
-  String get assignmentCompleteDescription =>
-      'Well done! Your answers are saved, so you can revisit them later.';
+  String get assignmentCompleteDescription => 'Well done! Your answers are saved, so you can revisit them later.';
 
   @override
-  String get consultYourTherapistBody1 =>
-      'You indicated that you are currently being treated by a psychologist or psychiatrist.';
+  String get consultYourTherapistBody1 => 'You indicated that you are currently being treated by a psychologist or psychiatrist.';
 
   @override
-  String get consultYourTherapistBody2 =>
-      'Together with your therapist, please discuss whether joining a support group would be a good step for you in your current treatment plan.';
+  String get consultYourTherapistBody2 => 'Together with your therapist, please discuss whether joining a support group would be a good step for you in your current treatment plan.';
 
   @override
-  String get consultYourTherapistBody3 =>
-      'Once you have discussed this with your therapist, you can continue the process of joining a support group.';
+  String get consultYourTherapistBody3 => 'Once you have discussed this with your therapist, you can continue the process of joining a support group.';
 
   @override
-  String get consultYourTherapistBody4 =>
-      'To do so, go to your Profile and under Preferences you will find Support group.';
+  String get consultYourTherapistBody4 => 'To do so, go to your Profile and under Preferences you will find Support group.';
 
   @override
   String get completeLesson => 'Complete the lesson';
@@ -4444,35 +4158,28 @@ class AppLocalizationsEn extends AppLocalizations {
   String get iConsultedTherapist => 'I consulted my therapist';
 
   @override
-  String get treatedByTherapistLessonComplete =>
-      'Once you have discussed it with your therapist, go to Support Group preferences in the User Profile to continue.';
+  String get treatedByTherapistLessonComplete => 'Once you have discussed it with your therapist, go to Support Group preferences in the User Profile to continue.';
 
   @override
-  String get trialSubscriptionLessonComplete =>
-      'Support group is only available if you have a paid subscription. After you have purchased a subscription, you can enrol from the Support Group preferences in the User Profile.';
+  String get trialSubscriptionLessonComplete => 'Support group is only available if you have a paid subscription. After you have purchased a subscription, you can enrol from the Support Group preferences in the User Profile.';
 
   @override
-  String get groupSessionsJoinLaterLessonComplete =>
-      'If you want to join a support group in the future, go to Support Group preferences in the User Profile. Please note that support group is only available if you have a paid subscription.';
+  String get groupSessionsJoinLaterLessonComplete => 'If you want to join a support group in the future, go to Support Group preferences in the User Profile. Please note that support group is only available if you have a paid subscription.';
 
   @override
   String get needSubscrionScreenTitle => 'Support groups available with paid subscription';
 
   @override
-  String get needSubscrionScreenBody1 =>
-      'You are currently on your free 14-day trial of the LeanOnMe program.';
+  String get needSubscrionScreenBody1 => 'You are currently on your free 14-day trial of the LeanOnMe program.';
 
   @override
-  String get needSubscrionScreenBody2 =>
-      'Once the free-trial period ends, you can choose to join a support group. ';
+  String get needSubscrionScreenBody2 => 'Once the free-trial period ends, you can choose to join a support group. ';
 
   @override
-  String get needSubscrionScreenBody3 =>
-      'The Support group widget on your dashboard will tell you when this function becomes available.';
+  String get needSubscrionScreenBody3 => 'The Support group widget on your dashboard will tell you when this function becomes available.';
 
   @override
-  String get needSubscrionScreenBody4 =>
-      'You can then join a group through the Dashboard or through your Profile.';
+  String get needSubscrionScreenBody4 => 'You can then join a group through the Dashboard or through your Profile.';
 
   @override
   String get consultYourTherapist => 'Consult your therapist';
@@ -4526,8 +4233,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get yourName => 'Your name';
 
   @override
-  String get connectionLost =>
-      'Internet connection lost, please check your internet connection or try later';
+  String get connectionLost => 'Internet connection lost, please check your internet connection or try later';
 
   @override
   String get pleaseEnterYourEmailAddress => 'Please enter your email address';
@@ -4610,19 +4316,16 @@ class AppLocalizationsEn extends AppLocalizations {
   String get whatIsProtein => 'What is protein degree';
 
   @override
-  String get calorieDensityExplanation =>
-      'Calorie density is  a measure of how many calories are in a given weight of food, most often expressed as calories per gram. It is a good indicator for how filling it is.';
+  String get calorieDensityExplanation => 'Calorie density is  a measure of how many calories are in a given weight of food, most often expressed as calories per gram. It is a good indicator for how filling it is.';
 
   @override
   String get forMoreInformationSeeLesson => 'For more information see lesson';
 
   @override
-  String get proteinDegreeExplanation =>
-      'Protein is the most filling macro-nutrient. Eating 300 calories of protein is more filling compared to eating 300 calories carbohydrates or fat.';
+  String get proteinDegreeExplanation => 'Protein is the most filling macro-nutrient. Eating 300 calories of protein is more filling compared to eating 300 calories carbohydrates or fat.';
 
   @override
-  String get fiberExplanation =>
-      'Fiber is the best nutrient to maintain a healthy gut and microbiome. Additionally, it is an excellent indicator for the overall quality of carbohydrates in your diet.';
+  String get fiberExplanation => 'Fiber is the best nutrient to maintain a healthy gut and microbiome. Additionally, it is an excellent indicator for the overall quality of carbohydrates in your diet.';
 
   @override
   String get importanceOfProtein => 'The Importance of Protein';
@@ -4677,15 +4380,13 @@ class AppLocalizationsEn extends AppLocalizations {
   String get showMy => 'Show my';
 
   @override
-  String get qrCodeSubtext_1 =>
-      'Keep the barcode right in front of your camera and make sure it is within the indicated area.';
+  String get qrCodeSubtext_1 => 'Keep the barcode right in front of your camera and make sure it is within the indicated area.';
 
   @override
   String get qrCodeSubtext_2 => 'If the barcode is identified you will hear a bleep ';
 
   @override
-  String get qrCodeSubtext_3 =>
-      'If the camera image is blurry, then move the product slightly around to help the camera refocus';
+  String get qrCodeSubtext_3 => 'If the camera image is blurry, then move the product slightly around to help the camera refocus';
 
   @override
   String get scanOtherProduct => 'Scan other product';
@@ -4706,8 +4407,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get openSettings => 'Open settings';
 
   @override
-  String get allowCameraMessage =>
-      'To use the barcode scanner, please allow Camera usage in settings';
+  String get allowCameraMessage => 'To use the barcode scanner, please allow Camera usage in settings';
 
   @override
   String get item => 'item';
@@ -4789,15 +4489,13 @@ class AppLocalizationsEn extends AppLocalizations {
   String get favoritesExplain => 'Favorites help you quickly log your most used food items';
 
   @override
-  String get favoritesList =>
-      '1. Search a food item \n2. View its details \n3. Tap the star on the right side to bookmark it as your favorite';
+  String get favoritesList => '1. Search a food item \n2. View its details \n3. Tap the star on the right side to bookmark it as your favorite';
 
   @override
   String get dishesExplain => 'My dishes help you quickly log your most eaten meals';
 
   @override
-  String get dishesList =>
-      '1. Log the desired food items \n2. Create a My dish directly from your log summary';
+  String get dishesList => '1. Log the desired food items \n2. Create a My dish directly from your log summary';
 
   @override
   String get groupPreferences => 'Group Preferences';
@@ -4812,8 +4510,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get genderPreferencesQuestion => 'Do you have a gender preference for your support group?';
 
   @override
-  String get nicknamePreferencesQuestion =>
-      'Which name do you want to use within your support group?';
+  String get nicknamePreferencesQuestion => 'Which name do you want to use within your support group?';
 
   @override
   String get nicknamePlaceholder => 'Your name';
@@ -4822,8 +4519,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get weAreLookingForAMatch => 'We are looking for a match';
 
   @override
-  String get weAreLookingForAGroupSince =>
-      'We are looking for a group that matches your preferences since';
+  String get weAreLookingForAGroupSince => 'We are looking for a group that matches your preferences since';
 
   @override
   String get genderPreference => 'Gender preference';
@@ -4852,8 +4548,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get goodNews => 'Good news!';
 
   @override
-  String get youHaveBeenAddedToGroup =>
-      'You have been added to a group matching your preferences. Sign up for a group session and use the chat to meet your fellow group members';
+  String get youHaveBeenAddedToGroup => 'You have been added to a group matching your preferences. Sign up for a group session and use the chat to meet your fellow group members';
 
   @override
   String get readTheGroupRules => 'Read the group rules';
@@ -4877,12 +4572,10 @@ class AppLocalizationsEn extends AppLocalizations {
   String get groupRulesAttention => 'Please read the 14 group rules carefully';
 
   @override
-  String get groupRulesOneParagraphOne =>
-      'It is very important for all group meetings that you uphold the group rules. These group rules help ensure that a safe and trusting environment is created for each and every member.';
+  String get groupRulesOneParagraphOne => 'It is very important for all group meetings that you uphold the group rules. These group rules help ensure that a safe and trusting environment is created for each and every member.';
 
   @override
-  String get groupRulesOneParagraphTwo =>
-      'Your group should provide a place that you feel comfortable, and can open up, in. It gives you the opportunity to discuss things that are on your mind in a trusting environment, outside of the chaos of everyday life.';
+  String get groupRulesOneParagraphTwo => 'Your group should provide a place that you feel comfortable, and can open up, in. It gives you the opportunity to discuss things that are on your mind in a trusting environment, outside of the chaos of everyday life.';
 
   @override
   String get continueToTheRules => 'Continue to the rules';
@@ -4894,35 +4587,28 @@ class AppLocalizationsEn extends AppLocalizations {
   String get supportGroupPreferences => 'Support Group Preferences';
 
   @override
-  String get groupRulesTwoParagraphOne =>
-      'Everything that is discussed within the group, stays within the group. Every member strives to create a friendly atmosphere, in which all can feel comfortable in.';
+  String get groupRulesTwoParagraphOne => 'Everything that is discussed within the group, stays within the group. Every member strives to create a friendly atmosphere, in which all can feel comfortable in.';
 
   @override
-  String get groupRulesTwoParagraphTwo =>
-      'We treat each other with respect and are kind to one another.';
+  String get groupRulesTwoParagraphTwo => 'We treat each other with respect and are kind to one another.';
 
   @override
-  String get groupRulesTwoParagraphThree =>
-      'We let each other talk and do not criticize one another.';
+  String get groupRulesTwoParagraphThree => 'We let each other talk and do not criticize one another.';
 
   @override
-  String get groupRulesThreeParagraphOne =>
-      'Together, we ensure that all members get the same opportunity to share.';
+  String get groupRulesThreeParagraphOne => 'Together, we ensure that all members get the same opportunity to share.';
 
   @override
-  String get groupRulesThreeParagraphTwo =>
-      'We actively listen – sometimes just listening to one another is worth more than constant comments and advice.';
+  String get groupRulesThreeParagraphTwo => 'We actively listen – sometimes just listening to one another is worth more than constant comments and advice.';
 
   @override
-  String get groupRulesThreeParagraphThree =>
-      'Every topic, every problem, will be taken seriously.';
+  String get groupRulesThreeParagraphThree => 'Every topic, every problem, will be taken seriously.';
 
   @override
   String get groupRulesFourParagraphOnePartOne => 'We send';
 
   @override
-  String get groupRulesFourParagraphOnePartTwo =>
-      'We use these to express/phrase our own emotions, opinions, assumptions, and perceptions. Therefore, we avoid phrases such as';
+  String get groupRulesFourParagraphOnePartTwo => 'We use these to express/phrase our own emotions, opinions, assumptions, and perceptions. Therefore, we avoid phrases such as';
 
   @override
   String get groupRulesFourParagraphOnePartThree => 'Instead, a sentence could start with';
@@ -4934,31 +4620,25 @@ class AppLocalizationsEn extends AppLocalizations {
   String get groupRulesFourParagraphOneItalicTwo => '“you must/you are”.';
 
   @override
-  String get groupRulesFourParagraphOneItalicThree =>
-      '“I have had positive experiences with.../I found it helpful when...”.';
+  String get groupRulesFourParagraphOneItalicThree => '“I have had positive experiences with.../I found it helpful when...”.';
 
   @override
-  String get groupRulesFourParagraphTwo =>
-      'It is helpful to regularly be aware of one self – your body, your thoughts, your feelings.';
+  String get groupRulesFourParagraphTwo => 'It is helpful to regularly be aware of one self – your body, your thoughts, your feelings.';
 
   @override
-  String get groupRulesFiveParagraphOne =>
-      'We also talk to each other, not about each other. Absent group members will not be the subject of conversation.';
+  String get groupRulesFiveParagraphOne => 'We also talk to each other, not about each other. Absent group members will not be the subject of conversation.';
 
   @override
-  String get groupRulesFiveParagraphTwo =>
-      'Individual responsibility: every member of a group is responsible for what they do and/or say. Appreciation and respect for yourself and others is important, that means I respect my own boundaries that I set for myself as well as those of my group members.';
+  String get groupRulesFiveParagraphTwo => 'Individual responsibility: every member of a group is responsible for what they do and/or say. Appreciation and respect for yourself and others is important, that means I respect my own boundaries that I set for myself as well as those of my group members.';
 
   @override
-  String get groupRulesSixParagraphOne =>
-      'The camera should remain on during sessions so that you can all see each other and no member is forgotten.';
+  String get groupRulesSixParagraphOne => 'The camera should remain on during sessions so that you can all see each other and no member is forgotten.';
 
   @override
   String get groupRulesSixParagraphTwo => 'Take some time and relax before a session.';
 
   @override
-  String get groupRulesSixParagraphThree =>
-      'Be patient with others, but especially with yourself – be kind to yourself.';
+  String get groupRulesSixParagraphThree => 'Be patient with others, but especially with yourself – be kind to yourself.';
 
   @override
   String get groupRulesSixParagraphFour => 'Last but not least: Have fun!';
@@ -4997,8 +4677,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get joinAGroup => 'Join a group';
 
   @override
-  String get unavailableGroupPrefsLabel =>
-      'As soon as you have finished the Education lesson on “Surrounding yourself with people who get it”, you can join a support group';
+  String get unavailableGroupPrefsLabel => 'As soon as you have finished the Education lesson on “Surrounding yourself with people who get it”, you can join a support group';
 
   @override
   String get findingMatchingGroup => 'Finding a matching group';
@@ -5046,8 +4725,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get chooseAnotherTimeslot => 'Choose another time slot';
 
   @override
-  String get noOtherTimeslotsAvailable =>
-      'No other time slots are available for this week. Next week’s topic is coming soon';
+  String get noOtherTimeslotsAvailable => 'No other time slots are available for this week. Next week’s topic is coming soon';
 
   @override
   String noMinMemberCount(int count) {
@@ -5077,8 +4755,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get yourSupportSystem => 'Your Support System';
 
   @override
-  String get supportGroupIntroDesc =>
-      'Having a support group increases the likelihood of staying on track and reaching sustainable weight loss. \nSurround yourself with people who get it. Chat with fellow members anytime. In the weekly sessions you can discuss, learn new things and share your experiences. ';
+  String get supportGroupIntroDesc => 'Having a support group increases the likelihood of staying on track and reaching sustainable weight loss. \nSurround yourself with people who get it. Chat with fellow members anytime. In the weekly sessions you can discuss, learn new things and share your experiences. ';
 
   @override
   String get yesILikeToJoin => 'Yes, I would like to join a support group';
@@ -5131,8 +4808,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get settings => 'Settings';
 
   @override
-  String get sessionLeaveDialogText =>
-      'When you hang up, you might not be able to rejoin this group session';
+  String get sessionLeaveDialogText => 'When you hang up, you might not be able to rejoin this group session';
 
   @override
   String get sessionEndDialogText => 'Your session has ended, thanks for participating';
@@ -5144,8 +4820,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get stayInTheSession => 'Stay in the session';
 
   @override
-  String get signatureErrorMessage =>
-      'Something went wrong with your session, try go back and return later';
+  String get signatureErrorMessage => 'Something went wrong with your session, try go back and return later';
 
   @override
   String get sessionAlreadyEnded => 'Your session has already ended, you can’t join';
@@ -5163,15 +4838,13 @@ class AppLocalizationsEn extends AppLocalizations {
   String get noMicrophoneAccessTitle => 'Can\'t Access Microphone';
 
   @override
-  String get noMicrophoneAccessDescription =>
-      'Please turn on the toggle in system settings to grant permission';
+  String get noMicrophoneAccessDescription => 'Please turn on the toggle in system settings to grant permission';
 
   @override
   String get noCameraAccessTitle => 'Can\'t Access Camera';
 
   @override
-  String get noCameraAccessDescription =>
-      'Please turn on the toggle in system settings to grant permission';
+  String get noCameraAccessDescription => 'Please turn on the toggle in system settings to grant permission';
 
   @override
   String get startAgain => 'Start again';
@@ -5183,8 +4856,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get goodToKnow => 'Good to know';
 
   @override
-  String get warningOne =>
-      'Your camera will be on and your mic will be unmuted when you enter the session';
+  String get warningOne => 'Your camera will be on and your mic will be unmuted when you enter the session';
 
   @override
   String get warningTwo => 'You are expected to be aware and follow the';
@@ -5238,15 +4910,13 @@ class AppLocalizationsEn extends AppLocalizations {
   String get cancelBooking => 'Cancel booking';
 
   @override
-  String get sessionWarning_1 =>
-      'If less than four places are booked, the session will be canceled';
+  String get sessionWarning_1 => 'If less than four places are booked, the session will be canceled';
 
   @override
   String get sessionWarning_2 => 'If you can’t make it, please be sure to cancel your booking';
 
   @override
-  String get emergencySubtitle =>
-      'This program is not psychotherapy and cannot replace psychotherapy. \n\nIf you have an acute mental health crisis or feel you need psychological support or are having suicidal thoughts, please seek medical or psychological help immediately.\n\nIn an emergency, you can also contact the following numbers, which you can reach 24h/day toll-free:';
+  String get emergencySubtitle => 'This program is not psychotherapy and cannot replace psychotherapy. \n\nIf you have an acute mental health crisis or feel you need psychological support or are having suicidal thoughts, please seek medical or psychological help immediately.\n\nIn an emergency, you can also contact the following numbers, which you can reach 24h/day toll-free:';
 
   @override
   String get subjectReport => 'Subject';
@@ -5264,12 +4934,10 @@ class AppLocalizationsEn extends AppLocalizations {
   String get reportSuccessTitle => 'We have received your report and will act accordingly on it';
 
   @override
-  String get errorReportMessage =>
-      'Text message must be at least one symbol and less than 500 symbols';
+  String get errorReportMessage => 'Text message must be at least one symbol and less than 500 symbols';
 
   @override
-  String get errorSubjectMessage =>
-      'Text message must be at least one symbol and less than 30 symbols';
+  String get errorSubjectMessage => 'Text message must be at least one symbol and less than 30 symbols';
 
   @override
   String get requiredField => 'Field is required';
@@ -5281,8 +4949,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get changeYourEmail => 'Change your email';
 
   @override
-  String get changeYourEmailDescription =>
-      'Enter your new email address and confirm with your password.';
+  String get changeYourEmailDescription => 'Enter your new email address and confirm with your password.';
 
   @override
   String get submit => 'Submit';
@@ -5294,8 +4961,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get emailChangeConfirmedBody1 => 'Your email address has been successfully updated.';
 
   @override
-  String get emailChangeConfirmedBody2 =>
-      'We have sent you an email to your new address. Please click the link to verify.';
+  String get emailChangeConfirmedBody2 => 'We have sent you an email to your new address. Please click the link to verify.';
 
   @override
   String yourPreferencesUpdated(String prefName) {
@@ -5317,8 +4983,7 @@ class AppLocalizationsEn extends AppLocalizations {
   }
 
   @override
-  String get youCanChangeTheDate =>
-      'You can change the date and/or plan it on multiple days. Don’t forget to save any changes you have made';
+  String get youCanChangeTheDate => 'You can change the date and/or plan it on multiple days. Don’t forget to save any changes you have made';
 
   @override
   String weekWithNumber(String number) {
@@ -5345,8 +5010,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get thisMealPlannedFor => 'This meal is planned for';
 
   @override
-  String get saveDateError =>
-      'You first have to select another date before you can deselect this one';
+  String get saveDateError => 'You first have to select another date before you can deselect this one';
 
   @override
   String get kcal => 'kcal';
@@ -5507,8 +5171,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get allAssignmentsCompleted => 'All assignments have been completed';
 
   @override
-  String get errorOpenTextMessage =>
-      'Text message must be at least one symbol and less than 20,000 symbols';
+  String get errorOpenTextMessage => 'Text message must be at least one symbol and less than 20,000 symbols';
 
   @override
   String get thisWeek => 'this week';
@@ -5596,8 +5259,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get membersEmpty => 'This group chat does not have members';
 
   @override
-  String get messageLengthRestriction =>
-      'A text message may contain up to 1,024 characters. Please make your message shorter';
+  String get messageLengthRestriction => 'A text message may contain up to 1,024 characters. Please make your message shorter';
 
   @override
   String get yourUser => 'You';
@@ -5696,12 +5358,10 @@ class AppLocalizationsEn extends AppLocalizations {
   String get didItWorkOutForYou => 'Did it work out for you';
 
   @override
-  String get foodPreferencesDesc =>
-      'We love to offer you personal and relevant food recommendations.';
+  String get foodPreferencesDesc => 'We love to offer you personal and relevant food recommendations.';
 
   @override
-  String get foodPreferencesItemOne =>
-      'Food items you don’t eat due to religious or personal reasons';
+  String get foodPreferencesItemOne => 'Food items you don’t eat due to religious or personal reasons';
 
   @override
   String get foodPreferencesItemTwo => 'If you want to reduce your meat / fish intake';
@@ -5713,8 +5373,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get foodPreferencesItemFour => 'Food you dislike';
 
   @override
-  String get physicalActivitiesPreferencesDesc =>
-      'We love to offer you personal and relevant physical activities.';
+  String get physicalActivitiesPreferencesDesc => 'We love to offer you personal and relevant physical activities.';
 
   @override
   String get physicalActivitiesPreferencesItemOne => 'Do you already exercise?';
@@ -5771,15 +5430,13 @@ class AppLocalizationsEn extends AppLocalizations {
   String get physicalActivitiesCompletedTitle => 'Why it is important to exercise?';
 
   @override
-  String get physicalActivitiesCompletedDesc =>
-      'Your preference have been added to your profile. You can update them later.';
+  String get physicalActivitiesCompletedDesc => 'Your preference have been added to your profile. You can update them later.';
 
   @override
   String get physicalActivitiesUnlockedTitle => 'Physical activities unlocked.';
 
   @override
-  String get physicalActivitiesUnlockedText =>
-      'You will get recommended exercises based on your preferences.';
+  String get physicalActivitiesUnlockedText => 'You will get recommended exercises based on your preferences.';
 
   @override
   String get physicalExercises => 'Physical exercises';
@@ -5890,8 +5547,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get deleteDish => 'Delete this dish';
 
   @override
-  String get deleteModalMessage =>
-      'Are you sure you want to delete your account? This action is not reversible';
+  String get deleteModalMessage => 'Are you sure you want to delete your account? This action is not reversible';
 
   @override
   String get deleteAccount => 'Delete account';
@@ -5911,12 +5567,10 @@ class AppLocalizationsEn extends AppLocalizations {
   }
 
   @override
-  String get deleteMultiDateMealModalExplain =>
-      'You planned this meal on multiple dates. \nIt will be removed from all days';
+  String get deleteMultiDateMealModalExplain => 'You planned this meal on multiple dates. \nIt will be removed from all days';
 
   @override
-  String get deleteMultiDateMealModalExplain2 =>
-      'If you wan to remove it from specific days, then you can do that in the datepicker';
+  String get deleteMultiDateMealModalExplain2 => 'If you wan to remove it from specific days, then you can do that in the datepicker';
 
   @override
   String get openDatepicker => 'Open datepicker';
@@ -5967,8 +5621,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get community => 'community';
 
   @override
-  String get invalidCreateDishFromMealMessage =>
-      'A dish cannot contain other dishes or recipes. Please remove dishes or recipes and try again';
+  String get invalidCreateDishFromMealMessage => 'A dish cannot contain other dishes or recipes. Please remove dishes or recipes and try again';
 
   @override
   String get readText => 'Read text version';
@@ -6209,19 +5862,16 @@ class AppLocalizationsEn extends AppLocalizations {
   String get notEnrolledInGroup => 'You are currently not enrolled in a group';
 
   @override
-  String get supportGroupPaidSubscriptionNotGrouped =>
-      'You have a paid subscription, but are currently not enrolled in a group';
+  String get supportGroupPaidSubscriptionNotGrouped => 'You have a paid subscription, but are currently not enrolled in a group';
 
   @override
-  String get supportGroupTrialSubscriptionNotGrouped =>
-      'You are currently in your free trial period. This feature will be available with a paid subscription. Once your free trial is over, you can enrol here or in your profile';
+  String get supportGroupTrialSubscriptionNotGrouped => 'You are currently in your free trial period. This feature will be available with a paid subscription. Once your free trial is over, you can enrol here or in your profile';
 
   @override
   String get updateRequired => 'Update required';
 
   @override
-  String get updateRequiredBodyText1 =>
-      'To ensure a seamless experience and access to new features, It\'s essential to update to the latest version of LeanOnMe';
+  String get updateRequiredBodyText1 => 'To ensure a seamless experience and access to new features, It\'s essential to update to the latest version of LeanOnMe';
 
   @override
   String get updateRequiredBodyText2 => 'The previous version is no longer supported';
@@ -6230,12 +5880,10 @@ class AppLocalizationsEn extends AppLocalizations {
   String get updatePoliciesDocuments => 'Important Update: Our Policies Have Changed';
 
   @override
-  String get updatePoliciesDocumentsBodyText1 =>
-      'To continue using our app, please review and accept the following documents';
+  String get updatePoliciesDocumentsBodyText1 => 'To continue using our app, please review and accept the following documents';
 
   @override
-  String get updatePoliciesDocumentsBodyText2 =>
-      'If you do not agree with the new terms, you can delete your account by contacting our support at';
+  String get updatePoliciesDocumentsBodyText2 => 'If you do not agree with the new terms, you can delete your account by contacting our support at';
 
   @override
   String get nextWeekTopic => 'The topic for next week’s session will be made available soon';
@@ -6280,57 +5928,49 @@ class AppLocalizationsEn extends AppLocalizations {
   String get dailyCalorieBudget => 'Daily calorie budget';
 
   @override
-  String get dailyCalorieBudgetDescription =>
-      'Your daily calorie budget shows your estimated calorie intake necessary to lose weight. Importantly, the better your diets calorie density, protein score, and fiber content is, the easier it will feel to naturally eat calories within this range.';
+  String get dailyCalorieBudgetDescription => 'Your daily calorie budget shows your estimated calorie intake necessary to lose weight. Importantly, the better your diets calorie density, protein score, and fiber content is, the easier it will feel to naturally eat calories within this range.';
 
   @override
   String get dailyCalorieBudgetLink => 'What’s Missing If You Track Calories Alone.';
 
   @override
-  String get calorieDensityHighQualityDescription =>
-      'Nice work! This is a very filling meal. The combination of items you chose will help you fight excessive hunger and cravings!';
+  String get calorieDensityHighQualityDescription => 'Nice work! This is a very filling meal. The combination of items you chose will help you fight excessive hunger and cravings!';
 
   @override
   String get calorieDensityHighQualityLabel => 'Very Filling';
 
   @override
-  String get calorieDensityMidQualityDescription =>
-      'The density of this meal is average. If you struggle with excessive hunger throughout the day, consider adding more low dense options!';
+  String get calorieDensityMidQualityDescription => 'The density of this meal is average. If you struggle with excessive hunger throughout the day, consider adding more low dense options!';
 
   @override
   String get calorieDensityMidQualityLabel => 'Somewhat Filling';
 
   @override
-  String get calorieDensityLowQualityDescription =>
-      'The density of the meal you logged is high. A daily density at this level will make it more likely you eat in excess today.';
+  String get calorieDensityLowQualityDescription => 'The density of the meal you logged is high. A daily density at this level will make it more likely you eat in excess today.';
 
   @override
   String get calorieDensityLowQualityLabel => 'Not Filling';
 
   @override
-  String get proteinDegreeLowQualityDescription =>
-      'The percentage of protein in this meal is very low. You will likely struggle with excessive hunger and cravings throughout the day. Increasing the portion of protein in this meal above 25% will improve it.';
+  String get proteinDegreeLowQualityDescription => 'The percentage of protein in this meal is very low. You will likely struggle with excessive hunger and cravings throughout the day. Increasing the portion of protein in this meal above 25% will improve it.';
 
   @override
   String get proteinDegreeLowQualityLabel => 'Needs Improvement';
 
   @override
-  String get proteinDegreeLowMidQualityDescription =>
-      'The percentage of protein in this meal is slightly low. You may struggle with excessive hunger and cravings throughout the day. Increasing the portion of protein in this meal above 25% will improve it.';
+  String get proteinDegreeLowMidQualityDescription => 'The percentage of protein in this meal is slightly low. You may struggle with excessive hunger and cravings throughout the day. Increasing the portion of protein in this meal above 25% will improve it.';
 
   @override
   String get proteinDegreeLowMidQualityLabel => 'Could be better';
 
   @override
-  String get proteinDegreeMidQualityDescription =>
-      'The percentage of protein in this meal is okay. If you struggle with excessive hunger and cravings throughout the day, increasing the portion of protein in this meal above 25% will improve it.';
+  String get proteinDegreeMidQualityDescription => 'The percentage of protein in this meal is okay. If you struggle with excessive hunger and cravings throughout the day, increasing the portion of protein in this meal above 25% will improve it.';
 
   @override
   String get proteinDegreeMidQualityLabel => 'Average';
 
   @override
-  String get proteinDegreeHighQualityDescription =>
-      'Nice work! The protein content of this meal will help you fight excessive hunger and cravings throughout your day!';
+  String get proteinDegreeHighQualityDescription => 'Nice work! The protein content of this meal will help you fight excessive hunger and cravings throughout your day!';
 
   @override
   String get proteinDegreeHighQualityLabel => 'Good';
@@ -6369,8 +6009,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get maintenancePageTitle => 'We’ll be back soon!';
 
   @override
-  String get maintenancePageDescription =>
-      'We’re currently releasing exciting new content, if you’ve opted in, you’ll receive a push notification when we’re back online.\n\nSubscribe to our newsletter to get a sneak peak at what’s coming up!';
+  String get maintenancePageDescription => 'We’re currently releasing exciting new content, if you’ve opted in, you’ll receive a push notification when we’re back online.\n\nSubscribe to our newsletter to get a sneak peak at what’s coming up!';
 
   @override
   String get noAlternativesAvailable => 'No alternatives available';
