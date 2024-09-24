@@ -64,8 +64,8 @@ class _CustomReorderableListState extends State<CustomReorderableList> {
 
   void _onShowAnswerHandler() {
     setState(() {
-      _showOrderValidation = true;
       widget.component.content.items.sort((a, b) => a.correctIndex.compareTo(b.correctIndex));
+      _showOrderValidation = true;
     });
   }
 
@@ -94,8 +94,8 @@ class _CustomReorderableListState extends State<CustomReorderableList> {
           ReorderableListView(
             shrinkWrap: true,
             physics: const NeverScrollableScrollPhysics(),
-            header: ReorderableListLabel(label: widget.component.content.topLabel),
-            footer: ReorderableListLabel(label: widget.component.content.bottomLabel),
+            header: ReorderableListLabel(label: content.topLabel),
+            footer: ReorderableListLabel(label: content.bottomLabel),
             onReorder: _onReorderHandler,
             onReorderStart: _onReorderStartHandler,
             proxyDecorator: proxyDecorator,

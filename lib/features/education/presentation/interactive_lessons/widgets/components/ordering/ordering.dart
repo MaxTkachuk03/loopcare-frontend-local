@@ -23,6 +23,7 @@ class Ordering extends StatelessWidget {
         CustomText(component.content.question),
         const SizedBox(height: 20),
         CustomReorderableList(component: component),
+        const SizedBox(height: 20),
       ],
     );
   }

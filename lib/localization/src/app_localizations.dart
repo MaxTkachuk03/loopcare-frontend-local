@@ -135,6 +135,18 @@ abstract class AppLocalizations {
   /// **'Arrange in order'**
   String get interactiveLessonsOrderingLabel;
 
+  /// No description provided for @interactiveLessonsOrderingCheck.
+  ///
+  /// In en, this message translates to:
+  /// **'Check'**
+  String get interactiveLessonsOrderingCheck;
+
+  /// No description provided for @interactiveLessonsOrderingShowAnswer.
+  ///
+  /// In en, this message translates to:
+  /// **'Show answer'**
+  String get interactiveLessonsOrderingShowAnswer;
+
   /// No description provided for @errorValidationIosMinVersionNotANumber.
   ///
   /// In en, this message translates to:

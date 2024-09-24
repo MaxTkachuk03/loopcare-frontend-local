@@ -63,6 +63,16 @@ class CrowdinLocalization extends AppLocalizations {
       _fallbackTexts.interactiveLessonsOrderingLabel;
 
   @override
+  String get interactiveLessonsOrderingCheck =>
+      Crowdin.getText(localeName, 'interactiveLessonsOrderingCheck') ??
+      _fallbackTexts.interactiveLessonsOrderingCheck;
+
+  @override
+  String get interactiveLessonsOrderingShowAnswer =>
+      Crowdin.getText(localeName, 'interactiveLessonsOrderingShowAnswer') ??
+      _fallbackTexts.interactiveLessonsOrderingShowAnswer;
+
+  @override
   String get errorValidationIosMinVersionNotANumber =>
       Crowdin.getText(localeName, 'errorValidationIosMinVersionNotANumber') ??
       _fallbackTexts.errorValidationIosMinVersionNotANumber;

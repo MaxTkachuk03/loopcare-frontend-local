@@ -7,6 +7,8 @@
   "interactiveLessonsIncorrectFeedbackTitle": "This is incorrect",
   "interactiveLessonsScaleFeedbackTitle": "Scale selection feedback",
   "interactiveLessonsOrderingLabel": "Arrange in order",
+  "interactiveLessonsOrderingCheck": "Check",
+  "interactiveLessonsOrderingShowAnswer": "Show answer",
   "errorValidationIosMinVersionNotANumber": "iOS minimum version must be a number.",
   "errorValidationIosMinVersionNotAnInteger": "iOS minimum version must be an integer.",
   "errorValidationIosMinVersionNotAPositiveNumber": "iOS minimum version must be a positive number.",

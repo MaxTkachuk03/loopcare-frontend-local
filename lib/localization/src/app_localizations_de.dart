@@ -30,6 +30,12 @@ class AppLocalizationsDe extends AppLocalizations {
   String get interactiveLessonsOrderingLabel => 'Arrange in order';
 
   @override
+  String get interactiveLessonsOrderingCheck => 'Check';
+
+  @override
+  String get interactiveLessonsOrderingShowAnswer => 'Show answer';
+
+  @override
   String get errorValidationIosMinVersionNotANumber => 'iOS-Mindestversion muss eine Zahl sein.';
 
   @override
