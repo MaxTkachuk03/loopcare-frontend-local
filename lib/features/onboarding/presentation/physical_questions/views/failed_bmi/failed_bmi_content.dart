@@ -46,7 +46,6 @@ class FailedBmiContent extends StatelessWidget {
 
                 return FailedBmiBody(
                   key: const ValueKey('failed_bmi_body'),
-                  age: state.age ?? 0,
                   bmi: bmiIndex,
                 );
               },
