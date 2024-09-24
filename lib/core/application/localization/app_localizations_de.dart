@@ -3212,6 +3212,9 @@ class AppLocalizationsDe extends AppLocalizations {
   String get subscriptionEndedTitle => 'Dein Abonnement \nist beendet';
 
   @override
+  String get subscriptionEmptyToRestore => 'Leider hat der Store kein Abonnement übermittelt, das wir wiederherstellen können. Wenn du der Meinung bist, dass es sich hierbei um einen Fehler handelt, sende bitte einen Nachweis des Abonnements an support@lean-on.me.';
+
+  @override
   String get subscriptionEndedLabel1 => 'Wir hoffen, dass dir unser Programm gefallen hat.';
 
   @override

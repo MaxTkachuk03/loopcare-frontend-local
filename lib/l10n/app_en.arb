@@ -1138,6 +1138,7 @@
   "subscriptionTrialExpiredLabel1": "We hope you enjoyed our program.",
   "subscriptionTrialExpiredLabel2": "If you want to continue,\nrefresh your subscription here:",
   "subscriptionEndedTitle": "Your subscription \nhas ended",
+  "subscriptionEmptyToRestore": "Sorry, the store didn't return a subscription for us to restore. If you think this is an error, please send proof of subscription to support@lean-on.me.",
   "subscriptionEndedLabel1": "We hope you enjoyed our program.",
   "subscriptionEndedLabel2": "If you want to continue,\nrefresh your subscription here:",
   "subscriptionCancelledTitle": "Your subscription \nwas cancelled",

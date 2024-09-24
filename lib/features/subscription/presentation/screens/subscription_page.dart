@@ -184,6 +184,7 @@ class _SubscriptionPageState extends State<SubscriptionPage> {
     context.showErrorBar(
       content: CustomText(state.data.errorKey.tr()),
       position: FlashPosition.top,
+      duration: const Duration(seconds: 5)
     );
   }
 

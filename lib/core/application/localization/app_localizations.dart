@@ -6395,6 +6395,12 @@ abstract class AppLocalizations {
   /// **'Your subscription \nhas ended'**
   String get subscriptionEndedTitle;
 
+  /// No description provided for @subscriptionEmptyToRestore.
+  ///
+  /// In en, this message translates to:
+  /// **'Sorry, the store didn\'t return a subscription for us to restore. If you think this is an error, please send proof of subscription to support@lean-on.me.'**
+  String get subscriptionEmptyToRestore;
+
   /// No description provided for @subscriptionEndedLabel1.
   ///
   /// In en, this message translates to:

@@ -3212,6 +3212,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get subscriptionEndedTitle => 'Your subscription \nhas ended';
 
   @override
+  String get subscriptionEmptyToRestore => 'Sorry, the store didn\'t return a subscription for us to restore. If you think this is an error, please send proof of subscription to support@lean-on.me.';
+
+  @override
   String get subscriptionEndedLabel1 => 'We hope you enjoyed our program.';
 
   @override

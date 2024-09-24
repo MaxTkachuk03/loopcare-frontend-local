@@ -149,6 +149,14 @@ class SubscriptionBloc extends Bloc<SubscriptionEvent, SubscriptionState> {
           purchase: null,
         ),
       );
+    } else {
+      add(
+        const SubscriptionEvent.errorPurchase(
+          RequestError.streamSubscription(
+            ServerErrorData(message: LocalizedTexts.subscriptionEmptyToRestore),
+          ),
+        ),
+      );
     }
   }
 
@@ -292,7 +300,7 @@ class SubscriptionBloc extends Bloc<SubscriptionEvent, SubscriptionState> {
         add(
           const SubscriptionEvent.errorPurchase(
             RequestError.streamSubscription(
-              ServerErrorData(message: LocalizedTexts.subscriptionEndedTitle),
+              ServerErrorData(message: LocalizedTexts.subscriptionEmptyToRestore),
             ),
           ),
         );
