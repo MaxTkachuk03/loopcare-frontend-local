@@ -93,6 +93,48 @@ abstract class AppLocalizations {
   /// A list of this localizations delegate's supported locales.
   static const List<Locale> supportedLocales = <Locale>[Locale('de'), Locale('en')];
 
+  /// No description provided for @interactiveLessonsScaleLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Rate on a scale'**
+  String get interactiveLessonsScaleLabel;
+
+  /// No description provided for @interactiveLessonsSingleSelectLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Single answer'**
+  String get interactiveLessonsSingleSelectLabel;
+
+  /// No description provided for @interactiveLessonsMultipleSelectLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Choose All That Apply'**
+  String get interactiveLessonsMultipleSelectLabel;
+
+  /// No description provided for @interactiveLessonsCorrectFeedbackTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'This is correct'**
+  String get interactiveLessonsCorrectFeedbackTitle;
+
+  /// No description provided for @interactiveLessonsIncorrectFeedbackTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'This is incorrect'**
+  String get interactiveLessonsIncorrectFeedbackTitle;
+
+  /// No description provided for @interactiveLessonsScaleFeedbackTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Scale selection feedback'**
+  String get interactiveLessonsScaleFeedbackTitle;
+
+  /// No description provided for @interactiveLessonsOrderingLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Arrange in order'**
+  String get interactiveLessonsOrderingLabel;
+
   /// No description provided for @errorValidationIosMinVersionNotANumber.
   ///
   /// In en, this message translates to:
@@ -6117,11 +6159,11 @@ abstract class AppLocalizations {
   /// **'Locomotor system disease'**
   String get onboardingLocomotorSystemDisease;
 
-  /// No description provided for @onboardingYourMentalHealth.
+  /// No description provided for @onboardingMentalHealth.
   ///
   /// In en, this message translates to:
-  /// **'Your mental health'**
-  String get onboardingYourMentalHealth;
+  /// **'Mental health'**
+  String get onboardingMentalHealth;
 
   /// No description provided for @onboardingMentalIntroBody1.
   ///
@@ -6134,6 +6176,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Based on these results, the program will be adjusted to suit your needs.'**
   String get onboardingMentalIntroBody2;
+
+  /// No description provided for @onboardingYourMentalHealth.
+  ///
+  /// In en, this message translates to:
+  /// **'Your mental health'**
+  String get onboardingYourMentalHealth;
 
   /// No description provided for @onboardingMentalHealthIntroTextOne.
   ///

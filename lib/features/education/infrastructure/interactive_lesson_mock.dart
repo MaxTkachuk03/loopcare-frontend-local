@@ -142,6 +142,46 @@ Unordered list
                     }
                   }
                 },
+                {
+                  "id": 6,
+                  "type": "ordering",
+                  "needsValidation": true,
+                  "isValid": false,
+                  "content": {
+                    "question": "Order the food items from least calories to most calories.",
+                    "topLabel": "Most calories",
+                    "bottomLabel": "Least calories",
+                    "items": [
+                      {
+                        "id": 1,
+                        "correctIndex": 2,
+                        "src": "/images/plate-1.jpg",
+                        "title": "Label 1",
+                        "description": "Description 1"
+                      },
+                      {
+                        "id": 2,
+                        "correctIndex": 1,
+                        "src": "/images/plate-2.jpg",
+                        "title": "Label 2",
+                        "description": "Description 2"
+                      },
+                      {
+                        "id": 3,
+                        "correctIndex": 0,
+                        "src": "/images/plate-3.jpg",
+                        "title": "Label 3",
+                        "description": "Description 3"
+                      }
+                    ],
+                    "feedback": {
+                      "correct":
+                          "Great job! You've correctly ordered the food items from least to most calories.",
+                      "incorrect": "Almost there! The correct order is...",
+                      "orderRevealed": "Answer revealed ...."
+                    }
+                  }
+                },
               ]
             },
             {

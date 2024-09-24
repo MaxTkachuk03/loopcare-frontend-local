@@ -44,6 +44,7 @@ class _InteractiveLessonPageState extends State<InteractiveLessonPage> {
               InteractiveLessonChunkComponentMultipleSelect() => MultipleSelect(component: c),
               InteractiveLessonChunkComponentSingleSelectWithFeedback() =>
                 SingleSelectWithFeedback(component: c),
+              InteractiveLessonChunkComponentOrdering() => Ordering(component: c),
               _ => const SizedBox.shrink(),
             })
         .toList();

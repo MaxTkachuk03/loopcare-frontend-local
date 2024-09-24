@@ -9,6 +9,27 @@ class AppLocalizationsDe extends AppLocalizations {
   AppLocalizationsDe([String locale = 'de']) : super(locale);
 
   @override
+  String get interactiveLessonsScaleLabel => 'Rate on a scale';
+
+  @override
+  String get interactiveLessonsSingleSelectLabel => 'Single answer';
+
+  @override
+  String get interactiveLessonsMultipleSelectLabel => 'Choose All That Apply';
+
+  @override
+  String get interactiveLessonsCorrectFeedbackTitle => 'This is correct';
+
+  @override
+  String get interactiveLessonsIncorrectFeedbackTitle => 'This is incorrect';
+
+  @override
+  String get interactiveLessonsScaleFeedbackTitle => 'Scale selection feedback';
+
+  @override
+  String get interactiveLessonsOrderingLabel => 'Arrange in order';
+
+  @override
   String get errorValidationIosMinVersionNotANumber => 'iOS-Mindestversion muss eine Zahl sein.';
 
   @override
@@ -3343,7 +3364,7 @@ class AppLocalizationsDe extends AppLocalizations {
   String get onboardingLocomotorSystemDisease => 'Erkrankung des Bewegungsapparates';
 
   @override
-  String get onboardingYourMentalHealth => 'Deine psychische Gesundheit';
+  String get onboardingMentalHealth => 'Psychische Gesundheit';
 
   @override
   String get onboardingMentalIntroBody1 =>
@@ -3352,6 +3373,9 @@ class AppLocalizationsDe extends AppLocalizations {
   @override
   String get onboardingMentalIntroBody2 =>
       'Basierend auf diesen Ergebnissen wird das Programm an deine Bedürfnisse angepasst.';
+
+  @override
+  String get onboardingYourMentalHealth => 'Deine psychische Gesundheit';
 
   @override
   String get onboardingMentalHealthIntroTextOne =>

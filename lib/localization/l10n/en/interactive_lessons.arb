@@ -5,5 +5,8 @@
   "multipleSelectLabel": "Choose All That Apply",
   "correctFeedbackTitle": "This is correct",
   "incorrectFeedbackTitle": "This is incorrect",
-  "scaleFeedbackTitle": "Scale selection feedback"
+  "scaleFeedbackTitle": "Scale selection feedback",
+  "orderingLabel": "Arrange in order",
+  "orderingCheck": "Check",
+  "orderingShowAnswer": "Show answer"
 }

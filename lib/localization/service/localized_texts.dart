@@ -1017,15 +1017,18 @@ class LocalizedTexts {
   static const String needSubscrionScreenBody4 = 'needSubscrionScreenBody4';
 
   // Interactive lessons
-  static const String interactiveLessonsScaleLabel = 'interactiveLessonScaleLabel';
-  static const String interactiveLessonsSingleSelectLabel = 'interactiveLessonSingleSelectLabel';
+  static const String interactiveLessonsScaleLabel = 'interactiveLessonsScaleLabel';
+  static const String interactiveLessonsSingleSelectLabel = 'interactiveLessonsSingleSelectLabel';
   static const String interactiveLessonsMultipleSelectLabel =
-      'interactiveLessonMultipleSelectLabel';
+      'interactiveLessonsMultipleSelectLabel';
   static const String interactiveLessonsCorrectFeedbackTitle =
       'interactiveLessonsCorrectFeedbackTitle';
   static const String interactiveLessonsIncorrectFeedbackTitle =
       'interactiveLessonsIncorrectFeedbackTitle';
   static const String interactiveLessonsScaleFeedbackTitle = 'interactiveLessonsScaleFeedbackTitle';
+  static const String interactiveLessonsOrderingLabel = 'interactiveLessonsOrderingLabel';
+  static const String interactiveLessonsOrderingCheck = 'interactiveLessonsOrderingCheck';
+  static const String interactiveLessonsOrderingShowAnswer = 'interactiveLessonsOrderingShowAnswer';
 
   // Group session
   static const String groupSession = 'groupSession';

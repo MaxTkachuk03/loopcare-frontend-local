@@ -28,6 +28,41 @@ class CrowdinLocalization extends AppLocalizations {
   static const List<Locale> supportedLocales = AppLocalizations.supportedLocales;
 
   @override
+  String get interactiveLessonsScaleLabel =>
+      Crowdin.getText(localeName, 'interactiveLessonsScaleLabel') ??
+      _fallbackTexts.interactiveLessonsScaleLabel;
+
+  @override
+  String get interactiveLessonsSingleSelectLabel =>
+      Crowdin.getText(localeName, 'interactiveLessonsSingleSelectLabel') ??
+      _fallbackTexts.interactiveLessonsSingleSelectLabel;
+
+  @override
+  String get interactiveLessonsMultipleSelectLabel =>
+      Crowdin.getText(localeName, 'interactiveLessonsMultipleSelectLabel') ??
+      _fallbackTexts.interactiveLessonsMultipleSelectLabel;
+
+  @override
+  String get interactiveLessonsCorrectFeedbackTitle =>
+      Crowdin.getText(localeName, 'interactiveLessonsCorrectFeedbackTitle') ??
+      _fallbackTexts.interactiveLessonsCorrectFeedbackTitle;
+
+  @override
+  String get interactiveLessonsIncorrectFeedbackTitle =>
+      Crowdin.getText(localeName, 'interactiveLessonsIncorrectFeedbackTitle') ??
+      _fallbackTexts.interactiveLessonsIncorrectFeedbackTitle;
+
+  @override
+  String get interactiveLessonsScaleFeedbackTitle =>
+      Crowdin.getText(localeName, 'interactiveLessonsScaleFeedbackTitle') ??
+      _fallbackTexts.interactiveLessonsScaleFeedbackTitle;
+
+  @override
+  String get interactiveLessonsOrderingLabel =>
+      Crowdin.getText(localeName, 'interactiveLessonsOrderingLabel') ??
+      _fallbackTexts.interactiveLessonsOrderingLabel;
+
+  @override
   String get errorValidationIosMinVersionNotANumber =>
       Crowdin.getText(localeName, 'errorValidationIosMinVersionNotANumber') ??
       _fallbackTexts.errorValidationIosMinVersionNotANumber;
@@ -4982,9 +5017,9 @@ class CrowdinLocalization extends AppLocalizations {
       _fallbackTexts.onboardingLocomotorSystemDisease;
 
   @override
-  String get onboardingYourMentalHealth =>
-      Crowdin.getText(localeName, 'onboardingYourMentalHealth') ??
-      _fallbackTexts.onboardingYourMentalHealth;
+  String get onboardingMentalHealth =>
+      Crowdin.getText(localeName, 'onboardingMentalHealth') ??
+      _fallbackTexts.onboardingMentalHealth;
 
   @override
   String get onboardingMentalIntroBody1 =>
@@ -4995,6 +5030,11 @@ class CrowdinLocalization extends AppLocalizations {
   String get onboardingMentalIntroBody2 =>
       Crowdin.getText(localeName, 'onboardingMentalIntroBody2') ??
       _fallbackTexts.onboardingMentalIntroBody2;
+
+  @override
+  String get onboardingYourMentalHealth =>
+      Crowdin.getText(localeName, 'onboardingYourMentalHealth') ??
+      _fallbackTexts.onboardingYourMentalHealth;
 
   @override
   String get onboardingMentalHealthIntroTextOne =>

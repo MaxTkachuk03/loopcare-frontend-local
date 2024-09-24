@@ -8,6 +8,7 @@ class ContentFeedback with _$ContentFeedback {
   const factory ContentFeedback({
     required String correct,
     required String incorrect,
+    required String? revealed,
   }) = _ContentFeedback;
 
   factory ContentFeedback.fromJson(Map<String, dynamic> json) => _$ContentFeedbackFromJson(json);
