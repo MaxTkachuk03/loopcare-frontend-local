@@ -182,10 +182,9 @@ class _SubscriptionPageState extends State<SubscriptionPage> {
   void _errorListener(BuildContext context, SubscriptionState state) {
     _controller.handleLoading(state.data.isLoading);
     context.showErrorBar(
-      content: CustomText(state.data.errorKey.tr()),
-      position: FlashPosition.top,
-      duration: const Duration(seconds: 5)
-    );
+        content: CustomText(state.data.errorKey.tr()),
+        position: FlashPosition.top,
+        duration: const Duration(seconds: 5));
   }
 
   void _navigateToHome() {
