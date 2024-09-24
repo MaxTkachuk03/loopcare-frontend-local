@@ -197,7 +197,7 @@ class AuthenticationBloc extends HydratedBloc<AuthenticationEvent, Authenticatio
         _authTokenManager.setAccessToken(response.accessToken);
         _authTokenManager.setRefreshToken(response.refreshToken);
 
-        _connectSockets();
+        _connectSockets(response.accessToken);
 
         final account = _sharedPref.account = Account(
           id: response.id,
@@ -284,6 +284,8 @@ class AuthenticationBloc extends HydratedBloc<AuthenticationEvent, Authenticatio
       (response) {
         _authTokenManager.setAccessToken(response.accessToken);
         _authTokenManager.setRefreshToken(response.refreshToken);
+
+        _connectSockets(response.accessToken);
 
         const AnalyticsEventService(includeAppsFlyer: true).logEvent(
           eventName: AnalyticsEvents.onboardingNewUserCreated,
@@ -632,7 +634,10 @@ class AuthenticationBloc extends HydratedBloc<AuthenticationEvent, Authenticatio
     ConnectSockets event,
     Emitter<AuthenticationState> emit,
   ) async {
-    _connectSockets();
+    final accessToken = await _authTokenManager.getAccessToken();
+    if (accessToken == null) return;
+
+    _connectSockets(accessToken);
   }
 
   FutureOr<void> _onGetAccount(
@@ -744,10 +749,10 @@ class AuthenticationBloc extends HydratedBloc<AuthenticationEvent, Authenticatio
     );
   }
 
-  void _connectSockets() {
-    _socketServiceBuddy.startListen();
-    _socketService.startListen();
-    _chatSocketService.startListen();
+  void _connectSockets(String accessToken) {
+    _socketServiceBuddy.startListen(accessToken);
+    _socketService.startListen(accessToken);
+    _chatSocketService.startListen(accessToken);
   }
 
   FutureOr<void> _onSendAppsFlyerData(

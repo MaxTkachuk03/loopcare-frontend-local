@@ -16,7 +16,7 @@ analyzer:
       lib/**.g.dart,
       local_plugins/**,
       license_dependencies.dart,
-      lib/localization/**
+      lib/localization/src/**
     ]
 
 linter:

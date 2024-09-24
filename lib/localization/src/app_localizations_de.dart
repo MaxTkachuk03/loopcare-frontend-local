@@ -5222,6 +5222,9 @@ class AppLocalizationsDe extends AppLocalizations {
       'Bitte aktiviere das Kontrollkästchen in den Systemeinstellungen, um die Erlaubnis zu erteilen';
 
   @override
+  String get startAgain => 'Neu beginnen';
+
+  @override
   String get sessionGreeting => 'Schön, dass du an das Onlinetreffen teilnimmst';
 
   @override

@@ -1673,7 +1673,6 @@ class ModalBottomSheet {
                 label: LocalizedTexts.ok.tr().toUpperCase(),
                 onPressed: () {
                   context.router.maybePop();
-                  onConfirm?.call();
                 },
               ),
               const SizedBox(height: 30.0),
@@ -1681,7 +1680,7 @@ class ModalBottomSheet {
           ),
         );
       },
-    );
+    ).whenComplete(() => onConfirm?.call());
   }
 
   static void moduleCompleted({
@@ -1725,17 +1724,14 @@ class ModalBottomSheet {
               const SizedBox(height: 20.0),
               CustomElevatedButton.blueFullWidth(
                 label: LocalizedTexts.ok.tr().toUpperCase(),
-                onPressed: () {
-                  context.router.maybePop();
-                  onConfirm?.call();
-                },
+                onPressed: context.router.maybePop,
               ),
               const SizedBox(height: 30.0),
             ],
           ),
         );
       },
-    );
+    ).whenComplete(() => onConfirm?.call());
   }
 
   static void lastModuleCompleted({
@@ -1778,17 +1774,14 @@ class ModalBottomSheet {
               const SizedBox(height: 20.0),
               CustomElevatedButton.blueFullWidth(
                 label: LocalizedTexts.ok.tr().toUpperCase(),
-                onPressed: () {
-                  context.router.maybePop();
-                  onConfirm?.call();
-                },
+                onPressed: context.router.maybePop,
               ),
               const SizedBox(height: 30.0),
             ],
           ),
         );
       },
-    );
+    ).whenComplete(() => onConfirm?.call());
   }
 
   static void moduleGraduationCompletedItems({
