@@ -1,11 +1,10 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:loopcare_frontend/core/application/localization/localizer_extenstion.dart';
-import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/features/authentication/domain/subscription/subscription_plan.dart';
 import 'package:loopcare_frontend/features/subscription/domain/subscription_state.dart';
+import 'package:loopcare_frontend/localization/service/localization_extension.dart';
+import 'package:loopcare_frontend/localization/service/localized_texts.dart';
 
 part 'subscription.freezed.dart';
-
 part 'subscription.g.dart';
 
 @freezed

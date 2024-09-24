@@ -1,10 +1,8 @@
 import 'dart:async';
 
-import 'package:loopcare_frontend/core/application/localization/localizer_extenstion.dart';
 import 'package:flutter/material.dart';
 import 'package:loopcare_frontend/core/presentation/buttons/custom_elevated_button.dart';
 import 'package:loopcare_frontend/core/presentation/icon_images/app_icons.dart';
-import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/core/presentation/text/custom_text.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 import 'package:loopcare_frontend/core/presentation/utils/build_context_extensions.dart';
@@ -13,6 +11,8 @@ import 'package:loopcare_frontend/features/physical_activities/domain/physical_p
 import 'package:loopcare_frontend/features/video_player/presentation/widgets/player_controls.dart';
 import 'package:loopcare_frontend/features/video_player/presentation/widgets/program_difficulty_chip.dart';
 import 'package:loopcare_frontend/features/video_player/presentation/widgets/progress_bar.dart';
+import 'package:loopcare_frontend/localization/service/localization_extension.dart';
+import 'package:loopcare_frontend/localization/service/localized_texts.dart';
 import 'package:video_player/video_player.dart';
 
 class PlayerOverlay extends StatefulWidget {

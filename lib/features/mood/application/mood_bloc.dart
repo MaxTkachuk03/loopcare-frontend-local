@@ -7,11 +7,11 @@ import 'package:injectable/injectable.dart';
 import 'package:loopcare_frontend/core/application/customer_io_service/customer_io_attributes.dart';
 import 'package:loopcare_frontend/core/application/customer_io_service/customer_io_events.dart';
 import 'package:loopcare_frontend/core/infrastructure/dio_client/request_error.dart';
-import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/core/presentation/utils/date_time_extensions.dart';
 import 'package:loopcare_frontend/core/presentation/utils/list_extensions.dart';
 import 'package:loopcare_frontend/features/mood/application/mood_service.dart';
 import 'package:loopcare_frontend/features/mood/domain/mood.dart';
+import 'package:loopcare_frontend/localization/service/localized_texts.dart';
 
 part 'mood_bloc.freezed.dart';
 part 'mood_event.dart';

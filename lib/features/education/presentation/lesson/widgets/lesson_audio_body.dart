@@ -1,4 +1,3 @@
-import 'package:loopcare_frontend/core/application/localization/localizer_extenstion.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -8,7 +7,6 @@ import 'package:loopcare_frontend/core/domain/analytics/analytics_parameters.dar
 import 'package:loopcare_frontend/core/infrastructure/services/analytics_service.dart';
 import 'package:loopcare_frontend/core/presentation/alerting/modal_bottom_sheet.dart';
 import 'package:loopcare_frontend/core/presentation/buttons/custom_outlined_button.dart';
-import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/core/presentation/rive_animation_renderer/rive_animation_renderer.dart';
 import 'package:loopcare_frontend/core/presentation/text/custom_text.dart';
 import 'package:loopcare_frontend/core/presentation/utils/build_context_extensions.dart';
@@ -21,6 +19,8 @@ import 'package:loopcare_frontend/features/education/presentation/lesson/widgets
 import 'package:loopcare_frontend/features/education/presentation/lesson/widgets/player_loading_state.dart';
 import 'package:loopcare_frontend/features/education/presentation/widgets/get_label_by_stream_type.dart';
 import 'package:loopcare_frontend/features/river/domain/river_module_stream_type.dart';
+import 'package:loopcare_frontend/localization/service/localization_extension.dart';
+import 'package:loopcare_frontend/localization/service/localized_texts.dart';
 
 const kHeightPadding = 20.0;
 

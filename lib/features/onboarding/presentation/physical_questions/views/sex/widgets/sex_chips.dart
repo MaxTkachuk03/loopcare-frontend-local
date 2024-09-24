@@ -1,7 +1,7 @@
-import 'package:loopcare_frontend/core/application/localization/localizer_extenstion.dart';
 import 'package:flutter/material.dart';
 import 'package:loopcare_frontend/core/presentation/choice_chip/custom_choice_chip.dart';
 import 'package:loopcare_frontend/core/domain/account/sex_type.dart';
+import 'package:loopcare_frontend/localization/service/localization_extension.dart';
 
 class SexChips extends StatefulWidget {
   const SexChips({

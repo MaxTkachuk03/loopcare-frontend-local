@@ -1,6 +1,4 @@
 import 'package:auto_route/auto_route.dart';
-
-import 'package:loopcare_frontend/core/application/localization/localizer_extenstion.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:loopcare_frontend/core/infrastructure/services/app_config.dart';
@@ -8,13 +6,14 @@ import 'package:loopcare_frontend/core/presentation/bottom_placed_button/bottom_
 import 'package:loopcare_frontend/core/presentation/buttons/custom_elevated_button.dart';
 import 'package:loopcare_frontend/core/presentation/custom_safe_area.dart';
 import 'package:loopcare_frontend/core/presentation/icon_images/app_images.dart';
-import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/core/presentation/routes/app_router.dart';
 import 'package:loopcare_frontend/core/presentation/scaffold/custom_scaffold.dart';
 import 'package:loopcare_frontend/core/presentation/text/custom_text.dart';
 import 'package:loopcare_frontend/core/presentation/utils/build_context_extensions.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/main_container.dart';
 import 'package:loopcare_frontend/injection.dart';
+import 'package:loopcare_frontend/localization/service/localization_extension.dart';
+import 'package:loopcare_frontend/localization/service/localized_texts.dart';
 
 @RoutePage()
 class IntroPage extends StatelessWidget {
@@ -47,7 +46,7 @@ class IntroPage extends StatelessWidget {
                 ),
                 const SizedBox(height: 28.0),
                 CustomText.bitter600(
-                  '${LocalizedTexts.introTitle.tr({'projectName': _appConfig.projectName})}!',
+                  LocalizedTexts.introTitle.tr({'projectName': _appConfig.projectName}),
                   style: context.textTheme.displayLarge,
                   textAlign: TextAlign.center,
                 ),
@@ -55,8 +54,7 @@ class IntroPage extends StatelessWidget {
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 24.0),
                   child: CustomText.w400(
-                    // '${LocalizedTexts.groupChatLabel.getPlural(args: {'users':0}, countPlaceholderName:'users')}.',
-                    '${LocalizedTexts.introBodyTextFirst.tr()}.',
+                    LocalizedTexts.introBodyTextFirst.tr(),
                     style: context.textTheme.bodyMedium,
                     textAlign: TextAlign.center,
                   ),
@@ -65,7 +63,7 @@ class IntroPage extends StatelessWidget {
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 57.0),
                   child: CustomText.w600(
-                    '${LocalizedTexts.introBodyTextSecond.tr()}.',
+                    LocalizedTexts.introBodyTextSecond.tr(),
                     style: context.textTheme.bodyMedium,
                     textAlign: TextAlign.center,
                   ),

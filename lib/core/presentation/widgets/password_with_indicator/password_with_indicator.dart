@@ -1,12 +1,12 @@
-import 'package:loopcare_frontend/core/application/localization/localizer_extenstion.dart';
 import 'package:flutter/material.dart';
-import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/core/presentation/text/custom_text.dart';
 import 'package:loopcare_frontend/core/presentation/text_field/custom_text_field.dart';
 import 'package:loopcare_frontend/core/presentation/utils/build_context_extensions.dart';
 import 'package:loopcare_frontend/core/presentation/utils/reg_exp_utils.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/bullet_list_item.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/password_with_indicator/password_strength_indicator.dart';
+import 'package:loopcare_frontend/localization/service/localization_extension.dart';
+import 'package:loopcare_frontend/localization/service/localized_texts.dart';
 
 class PasswordWithIndicator extends StatefulWidget {
   final TextEditingController controller;
@@ -117,23 +117,31 @@ class _PasswordWithIndicatorState extends State<PasswordWithIndicator> {
         Column(
           children: [
             BulletListItem(
-              text: CustomText.w400(LocalizedTexts.passwordValidationRule1.tr(),
-                  style: context.textTheme.bodySmall),
+              text: CustomText.w400(
+                LocalizedTexts.passwordValidationRule1.tr(),
+                style: context.textTheme.bodySmall,
+              ),
               bulletSize: 18,
             ),
             BulletListItem(
-              text: CustomText.w400(LocalizedTexts.passwordValidationRule2.tr(),
-                  style: context.textTheme.bodySmall),
+              text: CustomText.w400(
+                LocalizedTexts.passwordValidationRule2.tr(),
+                style: context.textTheme.bodySmall,
+              ),
               bulletSize: 18,
             ),
             BulletListItem(
-              text: CustomText.w400(LocalizedTexts.passwordValidationRule3.tr(),
-                  style: context.textTheme.bodySmall),
+              text: CustomText.w400(
+                LocalizedTexts.passwordValidationRule3.tr(),
+                style: context.textTheme.bodySmall,
+              ),
               bulletSize: 18,
             ),
             BulletListItem(
-              text: CustomText.w400(LocalizedTexts.passwordValidationRule4.tr(),
-                  style: context.textTheme.bodySmall),
+              text: CustomText.w400(
+                LocalizedTexts.passwordValidationRule4.tr(),
+                style: context.textTheme.bodySmall,
+              ),
               bulletSize: 18,
             )
           ],

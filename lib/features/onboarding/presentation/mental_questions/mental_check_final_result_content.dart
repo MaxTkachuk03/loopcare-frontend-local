@@ -1,12 +1,10 @@
 import 'package:auto_route/auto_route.dart';
-import 'package:loopcare_frontend/core/application/localization/localizer_extenstion.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loopcare_frontend/core/application/customer_io_service/customer_io_service.dart';
 import 'package:loopcare_frontend/core/presentation/alerting/show_app_snackbar.dart';
 import 'package:loopcare_frontend/core/presentation/bottom_placed_button/bottom_placed_button.dart';
 import 'package:loopcare_frontend/core/presentation/buttons/custom_elevated_button.dart';
-import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/core/presentation/routes/app_router.dart';
 import 'package:loopcare_frontend/core/presentation/shapes/under_appbar.dart';
 import 'package:loopcare_frontend/core/presentation/text/custom_text.dart';
@@ -15,6 +13,8 @@ import 'package:loopcare_frontend/core/presentation/utils/build_context_extensio
 import 'package:loopcare_frontend/core/presentation/widgets/main_container.dart';
 import 'package:loopcare_frontend/features/onboarding/application/mental_questions/mental_questions_bloc.dart';
 import 'package:loopcare_frontend/features/onboarding/presentation/mental_questions/widgets/final_results_text.dart';
+import 'package:loopcare_frontend/localization/service/localization_extension.dart';
+import 'package:loopcare_frontend/localization/service/localized_texts.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class MentalCheckResultFinalContent extends StatefulWidget {
@@ -93,8 +93,8 @@ class _MentalCheckResultFinalContentState extends State<MentalCheckResultFinalCo
   }
 
   String _getTitleText(bool isPhq8High) => isPhq8High
-      ? LocalizedTexts.phq8Fail.tr()
-      : '${LocalizedTexts.mentalHealth.tr()}\n${LocalizedTexts.checkCompleted.tr()}';
+      ? LocalizedTexts.onboardingPhq8Fail.tr()
+      : '${LocalizedTexts.onboardingMentalHealth.tr()}\n${LocalizedTexts.onboardingCheckCompleted.tr()}';
 
   Widget _getTitle(MentalQuestionsState state) {
     final isPhq8High = state.isPhq8TestHigh;

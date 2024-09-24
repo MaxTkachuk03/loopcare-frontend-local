@@ -1,11 +1,11 @@
-import 'package:loopcare_frontend/core/application/localization/localizer_extenstion.dart';
 import 'package:flutter/material.dart';
-import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/core/presentation/shapes/under_appbar.dart';
 import 'package:loopcare_frontend/core/presentation/text/custom_text.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 import 'package:loopcare_frontend/core/presentation/utils/build_context_extensions.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/main_container.dart';
+import 'package:loopcare_frontend/localization/service/localization_extension.dart';
+import 'package:loopcare_frontend/localization/service/localized_texts.dart';
 
 class PregnancyFailedContent extends StatelessWidget {
   const PregnancyFailedContent({super.key});
@@ -20,7 +20,7 @@ class PregnancyFailedContent extends StatelessWidget {
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 65.0),
               child: CustomText.bitter600(
-                LocalizedTexts.failedPregnancyTitle.tr(),
+                LocalizedTexts.onboardingFailedPregnancyTitle.tr(),
                 style: context.textTheme.displayMedium?.copyWith(color: AppColors.blueDarker),
                 textAlign: TextAlign.center,
               ),
@@ -39,22 +39,22 @@ class PregnancyFailedContent extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
                 CustomText.w600(
-                  LocalizedTexts.failedPregnancyBody1.tr(),
+                  LocalizedTexts.onboardingFailedPregnancyBody1.tr(),
                   style: context.textTheme.bodyMedium,
                 ),
                 const SizedBox(height: 20.0),
                 CustomText.w400(
-                  LocalizedTexts.failedPregnancyBody2.tr(),
+                  LocalizedTexts.onboardingFailedPregnancyBody2.tr(),
                   style: context.textTheme.bodyMedium,
                 ),
                 const SizedBox(height: 20.0),
                 CustomText.w400(
-                  LocalizedTexts.failedPregnancyBody3.tr(),
+                  LocalizedTexts.onboardingFailedPregnancyBody3.tr(),
                   style: context.textTheme.bodyMedium,
                 ),
                 const SizedBox(height: 20.0),
                 CustomText.w400(
-                  LocalizedTexts.failedPregnancyBody4.tr(),
+                  LocalizedTexts.onboardingFailedPregnancyBody4.tr(),
                   style: context.textTheme.bodyMedium,
                 ),
               ],

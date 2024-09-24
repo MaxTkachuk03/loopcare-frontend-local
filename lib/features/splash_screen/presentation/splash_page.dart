@@ -1,5 +1,4 @@
 import 'package:auto_route/auto_route.dart';
-import 'package:loopcare_frontend/core/application/localization/localizer_extenstion.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
@@ -16,6 +15,7 @@ import 'package:loopcare_frontend/features/legal_statement/application/legal_sta
 import 'package:loopcare_frontend/features/onboarding/application/general/general_onboarding_bloc.dart';
 import 'package:loopcare_frontend/features/river/application/river_bloc.dart';
 import 'package:loopcare_frontend/features/splash_screen/infrastructure/splash_controller.dart';
+import 'package:loopcare_frontend/localization/service/localization_extension.dart';
 
 @RoutePage()
 class SplashPage extends StatefulWidget {

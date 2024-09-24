@@ -1,9 +1,7 @@
-import 'package:loopcare_frontend/core/application/localization/localizer_extenstion.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loopcare_frontend/core/presentation/bottom_placed_button/bottom_placed_button.dart';
 import 'package:loopcare_frontend/core/presentation/buttons/custom_elevated_button.dart';
-import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/core/presentation/shapes/under_appbar.dart';
 import 'package:loopcare_frontend/core/presentation/text/custom_text.dart';
 import 'package:loopcare_frontend/core/presentation/text_with_accents/text_with_accents.dart';
@@ -16,6 +14,8 @@ import 'package:loopcare_frontend/features/onboarding/application/general/genera
 import 'package:loopcare_frontend/features/onboarding/application/physical_questions/physical_questions_bloc.dart';
 import 'package:loopcare_frontend/features/onboarding/utils/height_conversion_utils.dart';
 import 'package:loopcare_frontend/features/onboarding/utils/weight_conversion_utils.dart';
+import 'package:loopcare_frontend/localization/service/localization_extension.dart';
+import 'package:loopcare_frontend/localization/service/localized_texts.dart';
 
 class CheckPassedContent extends StatelessWidget {
   const CheckPassedContent({super.key});
@@ -76,7 +76,7 @@ class CheckPassedContent extends StatelessWidget {
                     ),
                     const SizedBox(height: 22.0),
                     CustomText.bitter600(
-                      '${LocalizedTexts.physicalCheckPassedTitle.tr()}!',
+                      LocalizedTexts.onboardingPhysicalCheckPassedTitle.tr(),
                       style: context.textTheme.displayMedium,
                       textAlign: TextAlign.center,
                     ),
@@ -104,11 +104,11 @@ class CheckPassedContent extends StatelessWidget {
                           Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              CustomText.w400(LocalizedTexts.age.tr()),
-                              CustomText.w400(LocalizedTexts.sex.tr()),
-                              CustomText.w400(LocalizedTexts.height.tr()),
-                              CustomText.w400(LocalizedTexts.weight.tr()),
-                              CustomText.w400(LocalizedTexts.bmi.tr()),
+                              CustomText.w400(LocalizedTexts.onboardingAge.tr()),
+                              CustomText.w400(LocalizedTexts.onboardingSex.tr()),
+                              CustomText.w400(LocalizedTexts.onboardingHeight.tr()),
+                              CustomText.w400(LocalizedTexts.onboardingWeight.tr()),
+                              CustomText.w400(LocalizedTexts.onboardingBmi.tr()),
                             ],
                           ),
                           const SizedBox(width: 50),
@@ -116,11 +116,11 @@ class CheckPassedContent extends StatelessWidget {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               CustomText.w600(
-                                '${state.age} ${LocalizedTexts.years.tr()}',
+                                '${state.age} ${LocalizedTexts.onboardingYears.tr()}',
                                 style: context.textTheme.bodyMedium,
                               ),
                               CustomText.w600(
-                                '${state.sexType?.name.capitalize()}',
+                                state.sexType?.name.capitalize() ?? '',
                                 style: context.textTheme.bodyMedium,
                               ),
                               CustomText.w600(
@@ -132,7 +132,7 @@ class CheckPassedContent extends StatelessWidget {
                                 style: context.textTheme.bodyMedium,
                               ),
                               CustomText.w600(
-                                '${state.bmi}',
+                                state.bmi.toString(),
                                 style: context.textTheme.bodyMedium,
                               ),
                             ],
@@ -141,12 +141,12 @@ class CheckPassedContent extends StatelessWidget {
                       ),
                       const SizedBox(height: 32),
                       TextWithAccents(
-                        LocalizedTexts.bmiDescription1.tr(),
-                        accents: [LocalizedTexts.bmiDescriptionAccent.tr()],
+                        LocalizedTexts.onboardingBmiDescription1.tr(),
+                        accents: [LocalizedTexts.onboardingBmiDescriptionAccent.tr()],
                       ),
                       const SizedBox(height: 20),
                       CustomText.w400(
-                        LocalizedTexts.bmiDescription2.tr(),
+                        LocalizedTexts.onboardingBmiDescription2.tr(),
                         style: context.textTheme.bodyMedium,
                       ),
                     ],
@@ -160,7 +160,7 @@ class CheckPassedContent extends StatelessWidget {
       ),
       button: CustomElevatedButton.blueFullWidth(
         onPressed: () => _onContinuePressed(context),
-        label: LocalizedTexts.letsMoveOn.tr(),
+        label: LocalizedTexts.onboardingLetsMoveOn.tr(),
       ),
     );
   }

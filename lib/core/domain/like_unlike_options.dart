@@ -1,6 +1,6 @@
-import 'package:loopcare_frontend/core/application/localization/localizer_extenstion.dart';
 import 'package:flutter/material.dart';
-import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
+import 'package:loopcare_frontend/localization/service/localization_extension.dart';
+import 'package:loopcare_frontend/localization/service/localized_texts.dart';
 
 enum LikeUnlikeOptions {
   no(1, 'No'),
@@ -11,47 +11,20 @@ enum LikeUnlikeOptions {
   final int number;
   final String value;
 
-  Widget get icon {
-    switch (value) {
-      case 'No':
-        return const Icon(Icons.thumb_down_alt_outlined);
-      case 'Yes':
-        return const Icon(Icons.thumb_up_alt_outlined);
-      default:
-        return const Icon(Icons.thumb_up_alt_outlined);
-    }
-  }
+  Widget get icon => switch (this) {
+        no => const Icon(Icons.thumb_down_alt_outlined),
+        _ => const Icon(Icons.thumb_up_alt_outlined),
+      };
 
-  Widget get iconSelected {
-    switch (value) {
-      case 'No':
-        return const Icon(Icons.thumb_down_alt_rounded);
-      case 'Yes':
-        return const Icon(Icons.thumb_up_alt_rounded);
-      default:
-        return const Icon(Icons.thumb_up_alt_rounded);
-    }
-  }
+  Widget get iconSelected => switch (this) {
+        no => const Icon(Icons.thumb_down_alt_rounded),
+        _ => const Icon(Icons.thumb_up_alt_rounded),
+      };
 
-  String get label {
-    switch (value) {
-      case 'No':
-        return LocalizedTexts.notReally.tr();
-      case 'Yes':
-        return LocalizedTexts.yesYes.tr();
-      default:
-        return LocalizedTexts.yesYes.tr();
-    }
-  }
+  String get label => switch (this) {
+        no => LocalizedTexts.notReally.tr(),
+        _ => LocalizedTexts.yesYes.tr(),
+      };
 
-  bool get toBool {
-    switch (value) {
-      case 'No':
-        return false;
-      case 'Yes':
-        return true;
-      default:
-        return false;
-    }
-  }
+  bool get toBool => this == yes;
 }

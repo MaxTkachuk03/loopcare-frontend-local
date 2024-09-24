@@ -5,7 +5,7 @@ import 'package:dio/dio.dart';
 import 'package:loopcare_frontend/core/infrastructure/dio_client/parse_request_error.dart';
 import 'package:loopcare_frontend/core/infrastructure/dio_client/request_error.dart';
 import 'package:loopcare_frontend/core/infrastructure/dio_client/server_error_data.dart';
-import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
+import 'package:loopcare_frontend/localization/service/localized_texts.dart';
 
 Either<RequestError, T> parseResponse<T>({
   required Either<RequestError, Map<String, dynamic>> response,

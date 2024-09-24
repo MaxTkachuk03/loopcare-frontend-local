@@ -2888,6 +2888,555 @@ class AppLocalizationsEn extends AppLocalizations {
   String get errorOtherDio => 'Something went wrong';
 
   @override
+  String get onboardingIntroTitle => 'LeanOnMe gives you the tools to lose weight sustainably.';
+
+  @override
+  String get onboardingIntroProgram1 =>
+      'Based on a psychology driven program which successfully helped people to lose weight and feel better, long term.';
+
+  @override
+  String get onboardingIntroProgram2 =>
+      'Nutrition, physical activity, medical knowledge, and community support combine with psychology to help you reach your goals.';
+
+  @override
+  String get onboardingIntroMissionTitle =>
+      'Our team of experts  brings the success of the clinical program to you!';
+
+  @override
+  String get onboardingIntroMissionAndrew =>
+      'Andrew has a PHD in Bio-Chemistry and is the brains behind our nutrition program. With curated recipes, customized goals, and NO FOCUS ON CALORIE TRACKING, our nutrition program is one-of-a-kind.';
+
+  @override
+  String get onboardingIntroMissionMaria =>
+      'Maria has an MSc in Digital Psychology, and is the link between the successful clinical program and our digitalized version.';
+
+  @override
+  String get onboardingIntroMissionShalu =>
+      'Shalu is an MD specialized in Psychiatry. With her focus on addiction and addictive-behaviors, she is intrinsically qualified to oversee and encourage your journey to happier, healthier lifestyle.';
+
+  @override
+  String get onboardingIntroMissionJoshua =>
+      'With a love for sports and the human body, Josh has a Sports Science degree and years of experience as a physiotherapist focusing on weight loss. He\'s great at helping people move better and feel their best.';
+
+  @override
+  String get onboardingIntroMissionDenise =>
+      'Denise is an experienced clinical psychologist, who is also trained in Cognitive Behaviour Therapy, Meditation, and Mindfulness Based Therapy. Her passion is to give people the courage to change, and to guide them through the process step-by step.';
+
+  @override
+  String get onboardingPacingTitle => 'Go slow to go fast.';
+
+  @override
+  String get onboardingPacingMessage =>
+      'Our program is split up into modules, called “pools”. You should aim to spend a minimum of 1 week in each pool, absorbing knowledge and practicing new habits.';
+
+  @override
+  String get onboardingIAmReady => 'I’m ready';
+
+  @override
+  String get onboardingPhysicalIntroTitle => 'Basics first';
+
+  @override
+  String get onboardingPhysicalIntroBody =>
+      'Joshua needs to know the answers to some basics so we can customize your program.';
+
+  @override
+  String get onboardingAgeCheckFailedTitle =>
+      'We are sorry. Unfortunately, your enrollment is not possible now.';
+
+  @override
+  String get onboardingAgeCheckFailedBody =>
+      'Our program is not set up for people under the age of 18';
+
+  @override
+  String get onboardingWhatYourSex => 'What is your sex?';
+
+  @override
+  String get onboardingSexQuestionBody =>
+      'Please indicate what biological sex should be used to calculate certain metrics that will help to properly tailor the program to you.';
+
+  @override
+  String get onboardingSex => 'Sex';
+
+  @override
+  String get onboardingGenderPageTitle => 'What is your gender?';
+
+  @override
+  String get onboardingHappinessTitle => 'How do you feel about your current lifestyle?';
+
+  @override
+  String get onboardingHappinessBody1 => 'Take a moment to reflect on your lifestyle right now.';
+
+  @override
+  String get onboardingHappinessBody2 =>
+      'Using the scale below, please indicate how you generally feel, when you think about your current lifestyle.';
+
+  @override
+  String get onboardingYourHeight => 'Your height';
+
+  @override
+  String get onboardingMetric => 'Metric';
+
+  @override
+  String get onboardingImperial => 'Imperial';
+
+  @override
+  String get onboardingNext => 'Next';
+
+  @override
+  String get onboardingChangeYourHeight => 'Change your height';
+
+  @override
+  String get onboardingHeightSmall =>
+      'Are you sure this is the correct height? Seems rather small. Please correct your input';
+
+  @override
+  String get onboardingHeightLarge =>
+      'Are you sure this is the correct height? Seems rather large. Please correct your input';
+
+  @override
+  String get onboardingCorrectHeight => 'Please correct your answer';
+
+  @override
+  String get onboardingYourWeight => 'Your weight';
+
+  @override
+  String get onboardingBmiExclusionBodyTitle => 'Body Mass Index (BMI) is:';
+
+  @override
+  String get onboardingBmiExclusionBodyOlder19LowBmi =>
+      'Our program is not yet optimized for people with a BMI under 25. We\'ll reach out to you as soon as we\'re ready!';
+
+  @override
+  String get onboardingBmiExclusionBodyOlder19HighBmi =>
+      'Our program is not yet optimized for people with a BMI over 39.9.';
+
+  @override
+  String get onboardingBmiExclusionBodyYounger19LowBmi =>
+      'Our program is not yet optimized for people with a BMI under 25. We\'ll reach out to you as soon as we\'re ready!';
+
+  @override
+  String get onboardingBmiExclusionBodyYounger19HighBmi =>
+      'Our program is not suitable for people with a BMI over 38.5.';
+
+  @override
+  String get onboardingBmiExclusionBodyHighBmiEnding =>
+      'Please consult your doctor to find a suitable alternative.';
+
+  @override
+  String get onboardingBmiExclusionBodyLowBmiEnding =>
+      'Please consult your doctor if you feel you urgently need a suitable alternative.';
+
+  @override
+  String get onboardingPhysicalCheckPassedTitle => 'Basics completed!';
+
+  @override
+  String get onboardingAge => 'Age';
+
+  @override
+  String get onboardingHeight => 'Height';
+
+  @override
+  String get onboardingWeight => 'Weight';
+
+  @override
+  String get onboardingBmi => 'BMI';
+
+  @override
+  String get onboardingYears => 'years';
+
+  @override
+  String get onboardingBmiDescription1 =>
+      'The Body Mass Index (BMI) is a measure  that uses your height and weight to calculate if your weight for your body is within a healthy range';
+
+  @override
+  String get onboardingBmiDescriptionAccent => 'Body Mass Index (BMI)';
+
+  @override
+  String get onboardingBmiDescription2 =>
+      'However, BMI has limitations - for example it can\'t differentiate between fat, muscle, and bone weight. We\'ll use it along with other metrics to customize your program, but don\'t worry: It won\'t be the only factor that is taken into account';
+
+  @override
+  String get onboardingLetsMoveOn => 'Let’s move on';
+
+  @override
+  String get onboardingMedicalIntroTitle => 'Medical check';
+
+  @override
+  String get onboardingMedicalIntroBody =>
+      'To ensure that this program is suitable for your current circumstances and to tailor it specifically to you, please answer the next set of questions regarding your health conditions.';
+
+  @override
+  String get onboardingAreYouPregnant => 'Are you pregnant?';
+
+  @override
+  String get onboardingFailedPregnancyTitle =>
+      'We are sorry. Unfortunately, your enrollment is not possible for now.';
+
+  @override
+  String get onboardingFailedPregnancyBody1 => 'You are having a baby.';
+
+  @override
+  String get onboardingFailedPregnancyBody2 =>
+      'This program is not suitable for people who are pregnant.';
+
+  @override
+  String get onboardingFailedPregnancyBody3 =>
+      'We would be happy to welcome you back here after your pregnancy.';
+
+  @override
+  String get onboardingFailedPregnancyBody4 =>
+      'Wishing you all the best for you and your baby-to-be!';
+
+  @override
+  String get onboardingMedicinesTitle => 'Which medicines do you take regularly?';
+
+  @override
+  String get onboardingMedicinesPlaceholder => 'Write down one medicine here';
+
+  @override
+  String get onboardingWeightLossMedicationQuestion =>
+      'Are you taking any medication to help you on your weight-loss journey?';
+
+  @override
+  String get onboardingObesityQuestion =>
+      'Have you been diagnosed with a secondary form of obesity (e.g. Cushing syndrome, Prader-Willi syndrome or hypogonadism)?';
+
+  @override
+  String get onboardingThyroidDiseaseQuestion =>
+      'Have you been diagnosed with a thyroid disease (e.g. Hashimoto’s disease or hypothyroidism)?';
+
+  @override
+  String get onboardingMetabolicDiseaseQuestion =>
+      'Have you been diagnosed with a form of metabolic disease?';
+
+  @override
+  String get onboardingHypertensionQuestion => 'Have you been diagnosed with hypertension?';
+
+  @override
+  String get onboardingCardiovascularDiseaseQuestion =>
+      'Have you been diagnosed with a cardiovascular disease or did you have heart surgery in the last 12 months?';
+
+  @override
+  String get onboardingStomachReductionQuestion =>
+      'Did you have a stomach reduction or bariatric surgery in the last 3 years or are you in a preparatory phase for such surgery?';
+
+  @override
+  String get onboardingDiabetesQuestion => 'Have you been diagnosed with diabetes?';
+
+  @override
+  String get onboardingRenalFailureQuestion => 'Have you been diagnosed with renal failure?';
+
+  @override
+  String get onboardingAsthmaQuestion => 'Have you been diagnosed with asthma or COPD?';
+
+  @override
+  String get onboardingLiverDiseaseQuestion =>
+      'Have you been diagnosed with hepatitis or liver disease?';
+
+  @override
+  String get onboardingSleepApneaSyndromeQuestion =>
+      'Have you been diagnosed with sleep apnea syndrome?';
+
+  @override
+  String get onboardingLocomotorSystemDiseaseQuestion =>
+      'Have you been diagnosed with any disease of the locomotor system (e.g. arthritis, osteoporosis, back/neck pains or inflammatory disease)?';
+
+  @override
+  String get onboardingTreatmentByTheDoctorQuestion =>
+      'Are you currently being treated by a psychologist or psychiatrist?';
+
+  @override
+  String get onboardingMedicalCheckPassedTitle => 'Medical check completed!';
+
+  @override
+  String get onboardingMedicalCheckPassedBody =>
+      'You already completed 2 out of 3 sections. Great, you’re nearly done!';
+
+  @override
+  String get onboardingMedicalCheckFailedTitle => 'Please check with your doctor or specialist!';
+
+  @override
+  String get onboardingMedicalCheckFailedBody =>
+      'Please ask your doctor, specialist or psychologist before you use this app if it fits to your medical condition and / or treatment of:';
+
+  @override
+  String get onboardingMedicalCheckFailedBody2 =>
+      'Please note, we additionally offer support groups. If you would like to take part in one of these groups later on in the program, you will need permission from your psychologist/psychiatrist first';
+
+  @override
+  String get onboardingCardioVascularDisease => 'Cardiovascular disease';
+
+  @override
+  String get onboardingStomachReductionDisease => 'Stomach reduction disease';
+
+  @override
+  String get onboardingObesity => 'Obesity disease';
+
+  @override
+  String get onboardingThyroidDisease => 'Thyroid disease';
+
+  @override
+  String get onboardingMetabolicDisease => 'Metabolic disease';
+
+  @override
+  String get onboardingHypertension => 'Hypertension';
+
+  @override
+  String get onboardingDiabetes => 'Diabetes disease';
+
+  @override
+  String get onboardingDiabetesTypeI => 'Diabetes type I disease';
+
+  @override
+  String get onboardingDiabetesTypeII => 'Diabetes type II disease';
+
+  @override
+  String get onboardingRenalFailure => 'Renal failure';
+
+  @override
+  String get onboardingAsthma => 'Asthma';
+
+  @override
+  String get onboardingLiverDisease => 'Liver disease';
+
+  @override
+  String get onboardingSleepApneaSyndrome => 'Sleep apnea syndrome';
+
+  @override
+  String get onboardingLocomotorSystemDisease => 'Locomotor system disease';
+
+  @override
+  String get onboardingYourMentalHealth => 'Your mental health';
+
+  @override
+  String get onboardingMentalIntroBody1 =>
+      'In this section you will be asked questions regarding your current well-being, physiological symptoms and mood.';
+
+  @override
+  String get onboardingMentalIntroBody2 =>
+      'Based on these results, the program will be adjusted to suit your needs.';
+
+  @override
+  String get onboardingMentalHealthIntroTextOne =>
+      'A good mental health is vital to successfully improve your lifestyle.';
+
+  @override
+  String get onboardingMentalHealthIntroTextTwo => 'This section will take around 15 minutes.';
+
+  @override
+  String get onboardingMentalHealthIntroTextTwoAccent => '15 minutes';
+
+  @override
+  String get onboardingMentalHealthIntroTextThree =>
+      'You can take a break in between as long as you finish this section within one hour.';
+
+  @override
+  String get onboardingMentalHealthIntroTextThreeAccent => 'within one hour';
+
+  @override
+  String get onboardingMentalHealthIntroTextFour =>
+      'If you do take more than an hour, you will need to start this section over again.';
+
+  @override
+  String get onboardingMentalHealthIntroTextFive =>
+      'You will receive your results immediately after the questions.';
+
+  @override
+  String get onboardingMentalHealthIntroTextSix =>
+      'Please note that these test results are not a diagnosis. A diagnosis can only be made by a doctor or psychologist.';
+
+  @override
+  String onboardingMentalHealthMoreInfo(String appName) {
+    return 'In this section you will be asked questions from scientifically validated questionnaires, carefully chosen by our clinical psychologist. \n\nIf you would like to get more information on the questionnaires that are used, please contact $appName.';
+  }
+
+  @override
+  String get onboardingMentalHealthMoreInfoBold1 => 'scientifically validated questionnaires';
+
+  @override
+  String get onboardingMentalHealthMoreInfoBold2 => 'our clinical psychologist';
+
+  @override
+  String get onboardingWho8Question =>
+      'Please indicate for each of the given statements which is closest to how you have been feeling over the last two weeks.';
+
+  @override
+  String get onboardingLastTwoWeeks => 'last two weeks';
+
+  @override
+  String get onboardingPastFourWeeks => 'past four weeks';
+
+  @override
+  String get onboardingPhq15Question =>
+      'During the past four weeks, how much have you been bothered by any of the following problems?';
+
+  @override
+  String get onboardingPhq8Question =>
+      'Over the last two weeks, how often have you been bothered by any of the following problems?';
+
+  @override
+  String get onboardingStartAgain => 'Start again';
+
+  @override
+  String get onboardingWho5ResultTestMinimal =>
+      'Regarding your general well-being, you have indicated that in the last two weeks your well-being has been severely limited, and you have felt unwell most of the time. If you feel unwell for a longer period, we recommend that you consult a psychologist or your doctor to check these symptoms. You can find psychologists here:';
+
+  @override
+  String get onboardingWho5ResultTestHigh =>
+      'In terms of your general well-being, you indicated that you have generally felt balanced, joyful, and relaxed over the past two weeks. This result indicates a good state of well-being.';
+
+  @override
+  String get onboardingPhq15ResultMinimal =>
+      'You have stated that you have had no or few physical ailments in the last four weeks. That’s great.';
+
+  @override
+  String get onboardingPhq15ResultMild =>
+      'You have stated that you have been bothered by a few physical problems in the last four weeks. Mild physical problems can also be a sign of stress. It could be helpful to reduce stress. \nTo clarify whether these ailments are related to stress, please consult your doctor.';
+
+  @override
+  String get onboardingPhq15ResultMedium =>
+      'You have stated that a number of physical ailments have bothered you over the past four weeks. A consultation with your doctor is recommended to check whether these are temporary. The symptoms can be a reaction of your body to stress or emotional issues.';
+
+  @override
+  String get onboardingPhq15ResultHigh =>
+      'You have stated that many physical ailments have bothered you in the last four weeks. Please consult your doctor to check these symptoms. These symptoms may have a medical cause or indicate a somatization disorder. \n\nThis program is not a substitute for mental health diagnosis or psychological treatment. In order to have a closer look at the symptoms and to treat them, if necessary, we recommend consulting your doctor or a psychologist. You can find addresses here:';
+
+  @override
+  String get onboardingGad7ResultMinimal =>
+      'You have stated that you were at ease most of the time in the last two weeks. Your everyday life is not affected by anxiety. Great, keep it up.';
+
+  @override
+  String get onboardingGad7ResultMild =>
+      'You have stated that in the last two weeks you have had problems to relax from time to time. You may also have felt nervous, anxious, or on edge. Don’t be concerned about it. These may be temporary symptoms. Give yourself a break to relax more often. \nBut if the symptoms worsen, we recommend consulting your doctor or a psychologist.';
+
+  @override
+  String get onboardingGad7ResultMedium =>
+      'You have stated that you have felt nervous or anxious more than half the time in the last two weeks. You may also have not been able to stop or control worrying. This can be a burden for you in your daily life.\n\nIf the symptoms persist or worsen, we recommend consulting your doctor or a psychologist.';
+
+  @override
+  String get onboardingGad7ResultHigh =>
+      'You have stated that you have felt nervous or anxious nearly every day in the last two weeks. You may also have not been able to stop or control worrying. These symptoms could indicate an anxiety disorder.\n\nIn order to have a closer look at the symptoms and to treat them, if necessary, we recommend consulting your doctor or a psychologist. You can find addresses here:';
+
+  @override
+  String get onboardingPhq8ResultMinimal =>
+      'You have stated that your mood was not affected most days in the last two weeks. Great, keep it up and look out for all the positive things you will come across on your journey.';
+
+  @override
+  String get onboardingPhq8ResultMild =>
+      'You have stated that in the last two weeksYou have stated that in the last two weeks you have felt down from time to time. You may also have had feelings of hopelessness or a lack of energy. Throughout the LeanOnMe program, you will learn about the connection between thoughts and feelings and what you can do to improve your mental health.\nIf the symptoms worsen, we recommend a consultation with a psychologist or your doctor.';
+
+  @override
+  String get onboardingPhq8ResultMedium =>
+      'You have stated that you have been depressed more than half the time in the last two weeks. You may also have had feelings of hopelessness or have felt down. Throughout the LeanOnMe program, you will learn about the connection between thoughts and feelings and what you can do to improve your mental health.\nIf the symptoms persist or worsen, we recommend a consultation with a psychologist or your doctor.';
+
+  @override
+  String get onboardingPhq8ResultHigh =>
+      'You have stated that your mood has often been significantly affected in the last two weeks. You have indicated that you have felt depressed and have often suffered from listlessness or dejection. The symptoms indicate current psychological distress with emotional impairment. These may be indications of a temporary depressive episode. \n\nThis program is not a substitute for mental health diagnosis or psychological treatment. In order to have a closer look at the symptoms and to treat them, if necessary, we recommend consulting your doctor or a psychologist. You can find addresses here:';
+
+  @override
+  String get onboardingPhq8ResultHighest =>
+      'You have stated that your mood has been significantly affected almost every day for the past two weeks. You have indicated that you have felt depressed and have often or constantly suffered from listlessness or dejection. These symptoms currently indicate a high level of psychological distress with emotional impairment and could be an indication of depression.\n\nThis program is not a substitute for mental health diagnosis or psychological treatment. In order to have a closer look at the symptoms and to treat them, if necessary, we recommend consulting your doctor and a clarification by a psychologist. You can find addresses here:';
+
+  @override
+  String get onboardingPhq8FinalResultHigh1 =>
+      'The questionnaire results indicate that you are currently experiencing notable mental distress.';
+
+  @override
+  String get onboardingPhq8FinalResultHigh2 =>
+      'Unfortunately, the program is not suitable for people who are currently experiencing considerable mental distress, as participation in this program could place additional stress on you.';
+
+  @override
+  String get onboardingPhq8FinalResultHigh3 =>
+      'In order to have a closer look at these symptoms and to treat them, we recommend consulting a psychologist. You can find addresses here:';
+
+  @override
+  String get onboardingPhq8FinalResultHigh4 =>
+      'We invite you to repeat the test when these symptoms have subsided so that you can focus all your energy on your weight-loss journey.';
+
+  @override
+  String get onboardingIfYouHaveSuicidalThoughts =>
+      'If you are in an acute crisis or having suicidal thoughts, please contact one of the 24-hour toll-free emergency numbers immediately:';
+
+  @override
+  String get onboardingPersonalProgram =>
+      'Based on your information, we tailor the program to you personally.';
+
+  @override
+  String get onboardingSupportMessage =>
+      'We would like to support you on your journey in the best possible way and tailor the program to you personally.';
+
+  @override
+  String get onboardingFeelLimited1 =>
+      'It turned out that you currently feel limited by anxiety and physical symptoms. We recommend you talk to a primary care physician or psychologist.';
+
+  @override
+  String get onboardingFeelLimited2 =>
+      'It turned out that you currently feel limited by physical symptoms. We recommend you talk to a primary care physician or psychologist.';
+
+  @override
+  String get onboardingFeelLimited3 =>
+      'It turned out that you currently feel limited by anxiety symptoms. We recommend you talk to a primary care physician or psychologist.';
+
+  @override
+  String get onboardingFeelLimited4 =>
+      'It turned out that you are troubled in several areas at the moment.';
+
+  @override
+  String get onboardingNotATherapy => 'Please keep in mind that LeanOnMe is not a therapy.';
+
+  @override
+  String get onboardingLearnManyThings =>
+      'However, you will learn many things that will support you in your mental and physical well-being.';
+
+  @override
+  String get onboardingUnlockAllSections => 'You will have access to all sections of the program.';
+
+  @override
+  String get onboardingAwailableAreas =>
+      'The following areas will be available to you as you progress through the program:';
+
+  @override
+  String get onboardingUnlockBuddyMessage => 'Find a Buddy and get into a Support Group';
+
+  @override
+  String get onboardingWeWillGuideYou =>
+      'We will guide you step by step in your weight-loss journey.\n\nHave fun with exploring!';
+
+  @override
+  String get onboardingPhq8Fail =>
+      'We are sorry! Unfortunately, your enrollment is not possible now.';
+
+  @override
+  String get onboardingGeneralWellBeingSummary => 'General well-being summary';
+
+  @override
+  String get onboardingBodyAndMindBalanceSummary => 'Body and mind balance summary';
+
+  @override
+  String get onboardingStateOfMindSummary => 'State of mind summary';
+
+  @override
+  String get onboardingCheckCompleted => 'Check completed!';
+
+  @override
+  String get onboardingYouExceededTimeMessage =>
+      'Sorry, but you exceeded the time limit of one hour';
+
+  @override
+  String get onboardingNoWorriesYouCanDoItLater => 'But don’t worry, you can start over';
+
+  @override
+  String get onboardingMentalResultSubText1 =>
+      'You’ve completed the first part. Keep going. You’re doing great!';
+
+  @override
+  String get onboardingMentalResultSubText2 =>
+      'You\'re breezing through these questions. Nicely done! You’ve reached the halfway point!';
+
+  @override
+  String get onboardingMentalResultSubText3 => 'Three down, one to go! Just a few last questions!';
+
+  @override
   String get avatarAvatar => 'Avatar';
 
   @override
@@ -2921,72 +3470,6 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get avatarCropper => 'Cropper';
-
-  @override
-  String get mentalTestResultsPhq8FinalResultHigh1 =>
-      'The questionnaire results indicate that you are currently experiencing notable mental distress.';
-
-  @override
-  String get mentalTestResultsPhq8FinalResultHigh2 =>
-      'Unfortunately, the program is not suitable for people who are currently experiencing considerable mental distress, as participation in this program could place additional stress on you.';
-
-  @override
-  String get mentalTestResultsPhq8FinalResultHigh3 =>
-      'In order to have a closer look at these symptoms and to treat them, we recommend consulting a psychologist. You can find addresses here:';
-
-  @override
-  String get mentalTestResultsPhq8FinalResultHigh4 =>
-      'We invite you to repeat the test when these symptoms have subsided so that you can focus all your energy on your weight-loss journey.';
-
-  @override
-  String get mentalTestResultsIfYouHaveSuicidalThoughts =>
-      'If you are in an acute crisis or having suicidal thoughts, please contact one of the 24-hour toll-free emergency numbers immediately:';
-
-  @override
-  String get mentalTestResultsPersonalProgram =>
-      'Based on your information, we tailor the program to you personally.';
-
-  @override
-  String get mentalTestResultsSupportMessage =>
-      'We would like to support you on your journey in the best possible way and tailor the program to you personally.';
-
-  @override
-  String get mentalTestResultsFeelLimited1 =>
-      'It turned out that you currently feel limited by anxiety and physical symptoms. We recommend you talk to a primary care physician or psychologist.';
-
-  @override
-  String get mentalTestResultsFeelLimited2 =>
-      'It turned out that you currently feel limited by physical symptoms. We recommend you talk to a primary care physician or psychologist.';
-
-  @override
-  String get mentalTestResultsFeelLimited3 =>
-      'It turned out that you currently feel limited by anxiety symptoms. We recommend you talk to a primary care physician or psychologist.';
-
-  @override
-  String get mentalTestResultsFeelLimited4 =>
-      'It turned out that you are troubled in several areas at the moment.';
-
-  @override
-  String get mentalTestResultsNotATherapy => 'Please keep in mind that LeanOnMe is not a therapy.';
-
-  @override
-  String get mentalTestResultsLearnManyThings =>
-      'However, you will learn many things that will support you in your mental and physical well-being.';
-
-  @override
-  String get mentalTestResultsUnlockAllSections =>
-      'You will have access to all sections of the program.';
-
-  @override
-  String get mentalTestResultsAwailableAreas =>
-      'The following areas will be available to you as you progress through the program:';
-
-  @override
-  String get mentalTestResultsUnlockBuddyMessage => 'Find a Buddy and get into a Support Group';
-
-  @override
-  String get mentalTestResultsWeWillGuideYou =>
-      'We will guide you step by step in your weight-loss journey.\n\nHave fun with exploring!';
 
   @override
   String get smartGoalsMyGoals => 'My goals';
@@ -3599,7 +4082,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String introTitle(String projectName) {
-    return 'Welcome to $projectName';
+    return 'Welcome to $projectName!';
   }
 
   @override
@@ -3607,28 +4090,7 @@ class AppLocalizationsEn extends AppLocalizations {
       'This program is specifically designed for people living with overweight and obesity that want to sustainably lose weight and change their lifestyle.';
 
   @override
-  String get introBodyTextSecond => 'If this description fits you, let’s start your journey';
-
-  @override
-  String get intro2Title => 'It’s time to embrace a new you';
-
-  @override
-  String get intro2BodyTextFirst => 'Great to see that you want to join the LeanOnMe community';
-
-  @override
-  String get intro2BodyTextSecond =>
-      'Let’s start with some basics, like your name and email address';
-
-  @override
-  String get intro3Title => 'Congratulations';
-
-  @override
-  String get intro3BodyTextFirst =>
-      'You have just taken the first step to embracing your true self';
-
-  @override
-  String get intro3BodyTextSecond =>
-      'To check if the program is suitable for you and your needs, please answer the upcoming questions regarding your physical, medical and mental health';
+  String get introBodyTextSecond => 'If this description fits you, let’s start your journey.';
 
   @override
   String loginTitle(String projectName) {
@@ -3646,195 +4108,7 @@ class AppLocalizationsEn extends AppLocalizations {
       'Enter your email address and we will send you instructions to reset your password';
 
   @override
-  String get onboardingIntroTitle => 'LeanOnMe gives you the tools to lose weight sustainably.';
-
-  @override
-  String get onboardingIntroProgram1 =>
-      'Based on a psychology driven program which successfully helped people to lose weight and feel better, long term.';
-
-  @override
-  String get onboardingIntroProgram2 =>
-      'Nutrition, physical activity, medical knowledge, and community support combine with psychology to help you reach your goals.';
-
-  @override
-  String get onboardingIntroMissionTitle =>
-      'Our team of experts  brings the success of the clinical program to you!';
-
-  @override
-  String get onboardingIntroMissionAndrew =>
-      'Andrew has a PHD in Bio-Chemistry and is the brains behind our nutrition program. With curated recipes, customized goals, and NO FOCUS ON CALORIE TRACKING, our nutrition program is one-of-a-kind.';
-
-  @override
-  String get onboardingIntroMissionMaria =>
-      'Maria has an MSc in Digital Psychology, and is the link between the successful clinical program and our digitalized version.';
-
-  @override
-  String get onboardingIntroMissionShalu =>
-      'Shalu is an MD specialized in Psychiatry. With her focus on addiction and addictive-behaviors, she is intrinsically qualified to oversee and encourage your journey to happier, healthier lifestyle.';
-
-  @override
-  String get onboardingIntroMissionJoshua =>
-      'With a love for sports and the human body, Josh has a Sports Science degree and years of experience as a physiotherapist focusing on weight loss. He\'s great at helping people move better and feel their best.';
-
-  @override
-  String get onboardingIntroMissionDenise =>
-      'Denise is an experienced clinical psychologist, who is also trained in Cognitive Behaviour Therapy, Meditation, and Mindfulness Based Therapy. Her passion is to give people the courage to change, and to guide them through the process step-by step.';
-
-  @override
-  String get onboardingPacingTitle => 'Go slow to go fast.';
-
-  @override
-  String get onboardingPacingMessage =>
-      'Our program is split up into modules, called “pools”. You should aim to spend a minimum of 1 week in each pool, absorbing knowledge and practicing new habits.';
-
-  @override
-  String get iAmReady => 'I’m ready';
-
-  @override
-  String get physicalIntroTitle => 'Basics first';
-
-  @override
-  String get physicalIntroBody =>
-      'Joshua needs to know the answers to some basics so we can customize your program.';
-
-  @override
   String get minutes => 'minutes';
-
-  @override
-  String get ageCheckFailedTitle =>
-      'We are sorry. Unfortunately, your enrollment is not possible now';
-
-  @override
-  String get ageCheckFailedBody => 'Our program is not set up for people under the age of 18';
-
-  @override
-  String get yourSex => 'Your sex';
-
-  @override
-  String get whatYourSex => 'What is your sex';
-
-  @override
-  String get sexQuestionBody =>
-      'Please indicate what biological sex should be used to calculate certain metrics that will help to properly tailor the program to you';
-
-  @override
-  String get sex => 'Sex';
-
-  @override
-  String get genderPageTitle => 'What is your gender';
-
-  @override
-  String get happinessTitle => 'How do you feel about your current lifestyle';
-
-  @override
-  String get happinessBody1 => 'Take a moment to reflect on your lifestyle right now';
-
-  @override
-  String get happinessBody2 =>
-      'Using the scale below, please indicate how you generally feel, when you think about your current lifestyle';
-
-  @override
-  String get yourHeight => 'Your height';
-
-  @override
-  String get metric => 'Metric';
-
-  @override
-  String get imperial => 'Imperial';
-
-  @override
-  String get next => 'Next';
-
-  @override
-  String get changeYourHeight => 'Change your height';
-
-  @override
-  String get heightSmall =>
-      'Are you sure this is the correct height? Seems rather small. Please correct your input';
-
-  @override
-  String get heightLarge =>
-      'Are you sure this is the correct height? Seems rather large. Please correct your input';
-
-  @override
-  String get correctHeight => 'Please correct your answer';
-
-  @override
-  String get yourWeight => 'Your weight';
-
-  @override
-  String get yourBodyMassIndex => 'Your Body Mass Index is';
-
-  @override
-  String fitnessCheckFailedInformationText(String bmiMinIndex, String bmiMaxIndex) {
-    return 'We are sorry, but unfortunately our program is not set up for people with a BMI lower than $bmiMinIndex and higher than $bmiMaxIndex';
-  }
-
-  @override
-  String get fitnessCheckFailedInformationText2 =>
-      'Please consult your doctor to find a suitable alternative';
-
-  @override
-  String get physicalCheckPassedTitle => 'Basics completed';
-
-  @override
-  String get age => 'Age';
-
-  @override
-  String get height => 'Height';
-
-  @override
-  String get weight => 'Weight';
-
-  @override
-  String get bmi => 'BMI';
-
-  @override
-  String get years => 'years';
-
-  @override
-  String get bmiDescription1 =>
-      'The Body Mass Index (BMI) is a measure  that uses your height and weight to calculate if your weight for your body is within a healthy range';
-
-  @override
-  String get bmiDescriptionAccent => 'Body Mass Index (BMI)';
-
-  @override
-  String get bmiDescription2 =>
-      'However, BMI has limitations - for example it can\'t differentiate between fat, muscle, and bone weight. We\'ll use it along with other metrics to customize your program, but don\'t worry: It won\'t be the only factor that is taken into account';
-
-  @override
-  String get bmiExclusionBodyTitle => 'Body Mass Index (BMI) is';
-
-  @override
-  String get bmiExclusionBodyOlder19LowBmi =>
-      'Our program is not yet optimized for people with a BMI under 25. We\'ll reach out to you as soon as we\'re ready!';
-
-  @override
-  String get bmiExclusionBodyOlder19HighBmi =>
-      'Our program is not yet optimized for people with a BMI over 39.9.';
-
-  @override
-  String get bmiExclusionBodyYounger19LowBmi =>
-      'Our program is not yet optimized for people with a BMI under 25. We\'ll reach out to you as soon as we\'re ready!';
-
-  @override
-  String get bmiExclusionBodyYounger19HighBmi =>
-      'Our program is not suitable for people with a BMI over 38.5.';
-
-  @override
-  String get bmiExclusionBodyHighBmiEnding =>
-      'Please consult your doctor to find a suitable alternative.';
-
-  @override
-  String get bmiExclusionBodyLowBmiEnding =>
-      'Please consult your doctor if you feel you urgently need a suitable alternative.';
-
-  @override
-  String get letsMoveOn => 'Let’s move on';
-
-  @override
-  String get medicalIntroTitle => 'Medical check';
 
   @override
   String stepCounter(String currentStep, String totalSteps) {
@@ -3842,382 +4116,10 @@ class AppLocalizationsEn extends AppLocalizations {
   }
 
   @override
-  String get medicalIntroBody =>
-      'To ensure that this program is suitable for your current circumstances and to tailor it specifically to you, please answer the next set of questions regarding your health conditions';
-
-  @override
-  String get areYouPregnant => 'Are you pregnant?';
-
-  @override
   String get yes => 'yes';
 
   @override
   String get no => 'no';
-
-  @override
-  String get failedPregnancyTitle =>
-      'We are sorry. Unfortunately, your enrollment is not possible for now.';
-
-  @override
-  String get failedPregnancyBody1 => 'You are having a baby.';
-
-  @override
-  String get failedPregnancyBody2 => 'This program is not suitable for people who are pregnant.';
-
-  @override
-  String get failedPregnancyBody3 =>
-      'We would be happy to welcome you back here after your pregnancy.';
-
-  @override
-  String get failedPregnancyBody4 => 'Wishing you all the best for you and your baby-to-be!';
-
-  @override
-  String get medicinesTitle => 'Which medicines do you take regularly';
-
-  @override
-  String get medicinesPlaceholder => 'Write down one medicine here';
-
-  @override
-  String get weightLossMedicationQuestion =>
-      'Are you taking any medication to help you on your weight-loss journey?';
-
-  @override
-  String get medicationPastPeriodQuestion =>
-      'How long have you been taking your semaglutide medication';
-
-  @override
-  String get medicationPastPeriodQuestion2 => 'How long will your semaglutide treatment last';
-
-  @override
-  String get medicationTitle => 'Our program compliments your GLP-1 treatment';
-
-  @override
-  String get medicationExplanationBody1 =>
-      'You have indicated that you are currently taking GLP-1 medications.';
-
-  @override
-  String get medicationExplanationBody2 => 'Although GLP-1 medications help with weight-loss, ';
-
-  @override
-  String get medicationExplanationBody3 =>
-      'clinical trial data strongly suggest that the weight returns when the medications are stopped';
-
-  @override
-  String get medicationExplanationBody4 =>
-      '. The weight-regain is most likely because a person typically falls back into their old habits.';
-
-  @override
-  String get medicationExplanationBody5 =>
-      'Your GLP-1 medications will help with weight-loss in the short term! Meanwhile, our program will help you ';
-
-  @override
-  String get medicationExplanationBody6 => 'create healthier habits';
-
-  @override
-  String get medicationExplanationBody7 =>
-      ', to develop a  lifestyle that help with weight-loss in the long term.';
-
-  @override
-  String get medicationExplanationBody8 =>
-      'Use the medication now, so that you can focus on the important things the program teaches you and ';
-
-  @override
-  String get medicationExplanationBody9 => 'be off the medication for a lifetime.';
-
-  @override
-  String get mounjaro => 'Mounjaro';
-
-  @override
-  String get ozempic => 'Ozempic';
-
-  @override
-  String get rybelsus => 'Rybelsus';
-
-  @override
-  String get wegovy => 'Wegovy';
-
-  @override
-  String get otherBrand => 'Other brand';
-
-  @override
-  String get lessThanMonth => 'Less than a month';
-
-  @override
-  String lessThanCertainMonths(String number) {
-    return 'Less than $number months';
-  }
-
-  @override
-  String get obesityQuestion =>
-      'Have you been diagnosed with a secondary form of obesity (e.g. Cushing syndrome, Prader-Willi syndrome or hypogonadism)';
-
-  @override
-  String get thyroidDiseaseQuestion =>
-      'Have you been diagnosed with a thyroid disease (e.g. Hashimoto’s disease or hypothyroidism)';
-
-  @override
-  String get metabolicDiseaseQuestion => 'Have you been diagnosed with a form of metabolic disease';
-
-  @override
-  String get hypertensionQuestion => 'Have you been diagnosed with hypertension';
-
-  @override
-  String get cardiovascularDiseaseQuestion =>
-      'Have you been diagnosed with a cardiovascular disease or did you have heart surgery in the last 12 months';
-
-  @override
-  String get stomachReductionQuestion =>
-      'Did you have a stomach reduction or bariatric surgery in the last 3 years or are you in a preparatory phase for such surgery';
-
-  @override
-  String get diabetesQuestion => 'Have you been diagnosed with diabetes';
-
-  @override
-  String get renalFailureQuestion => 'Have you been diagnosed with renal failure';
-
-  @override
-  String get asthmaQuestion => 'Have you been diagnosed with asthma or COPD';
-
-  @override
-  String get liverDiseaseQuestion => 'Have you been diagnosed with hepatitis or liver disease';
-
-  @override
-  String get sleepApneaSyndromeQuestion => 'Have you been diagnosed with sleep apnea syndrome';
-
-  @override
-  String get locomotorSystemDiseaseQuestion =>
-      'Have you been diagnosed with any disease of the locomotor system (e.g. arthritis, osteoporosis, back/neck pains or inflammatory disease)';
-
-  @override
-  String get treatmentByTheDoctorQuestion =>
-      'Are you currently being treated by a psychologist or psychiatrist';
-
-  @override
-  String get medicalCheckPassedTitle => 'Medical check completed';
-
-  @override
-  String get medicalCheckPassedBody =>
-      'You already completed 2 out of 3 sections. Great, you’re nearly done';
-
-  @override
-  String get medicalCheckFailedTitle => 'Please check with your doctor or specialist';
-
-  @override
-  String get medicalCheckFailedBody =>
-      'Please ask your doctor, specialist or psychologist before you use this app if it fits to your medical condition and / or treatment of:';
-
-  @override
-  String get medicalCheckFailedBody2 =>
-      'Please note, we additionally offer support groups. If you would like to take part in one of these groups later on in the program, you will need permission from your psychologist/psychiatrist first';
-
-  @override
-  String get cardioVascularDisease => 'Cardiovascular disease';
-
-  @override
-  String get stomachReductionDisease => 'Stomach reduction disease';
-
-  @override
-  String get obesity => 'Obesity disease';
-
-  @override
-  String get thyroidDisease => 'Thyroid disease';
-
-  @override
-  String get metabolicDisease => 'Metabolic disease';
-
-  @override
-  String get hypertension => 'Hypertension';
-
-  @override
-  String get diabetes => 'Diabetes disease';
-
-  @override
-  String get diabetesTypeI => 'Diabetes type I disease';
-
-  @override
-  String get diabetesTypeII => 'Diabetes type II disease';
-
-  @override
-  String get renalFailure => 'Renal failure';
-
-  @override
-  String get asthma => 'Asthma';
-
-  @override
-  String get liverDisease => 'Liver disease';
-
-  @override
-  String get sleepApneaSyndrome => 'Sleep apnea syndrome';
-
-  @override
-  String get locomotorSystemDisease => 'Locomotor system disease';
-
-  @override
-  String get mentalHealth => 'Mental health';
-
-  @override
-  String get mentalIntroBody1 =>
-      'In this section you will be asked questions regarding your current well-being, physiological symptoms and mood';
-
-  @override
-  String get mentalIntroBody2 =>
-      'Based on these results, the program will be adjusted to suit your needs';
-
-  @override
-  String get yourMentalHealth => 'Your mental health';
-
-  @override
-  String get mentalHealthIntroTextOne =>
-      'A good mental health is vital to successfully improve your lifestyle';
-
-  @override
-  String get mentalHealthIntroTextTwo => 'This section will take around 15 minutes';
-
-  @override
-  String get mentalHealthIntroTextTwoAccent => '15 minutes';
-
-  @override
-  String get mentalHealthIntroTextThree =>
-      'You can take a break in between as long as you finish this section within one hour';
-
-  @override
-  String get mentalHealthIntroTextThreeAccent => 'within one hour';
-
-  @override
-  String get mentalHealthIntroTextFour =>
-      'If you do take more than an hour, you will need to start this section over again';
-
-  @override
-  String get mentalHealthIntroTextFive =>
-      'You will receive your results immediately after the questions';
-
-  @override
-  String get mentalHealthIntroTextSix =>
-      'Please note that these test results are not a diagnosis. A diagnosis can only be made by a doctor or psychologist';
-
-  @override
-  String mentalHealthMoreInfo(String appName) {
-    return 'In this section you will be asked questions from scientifically validated questionnaires, carefully chosen by our clinical psychologist. \n\nIf you would like to get more information on the questionnaires that are used, please contact $appName.';
-  }
-
-  @override
-  String get mentalHealthMoreInfoBold1 => 'scientifically validated questionnaires';
-
-  @override
-  String get mentalHealthMoreInfoBold2 => 'our clinical psychologist';
-
-  @override
-  String get who8Question =>
-      'Please indicate for each of the given statements which is closest to how you have been feeling over the last two weeks';
-
-  @override
-  String get lastTwoWeeks => 'last two weeks';
-
-  @override
-  String get duringThe => 'During the';
-
-  @override
-  String get pastFourWeeks => 'past four weeks';
-
-  @override
-  String get phq15Question =>
-      'During the past four weeks, how much have you been bothered by any of the following problems';
-
-  @override
-  String get overThe => 'Over the';
-
-  @override
-  String get phq8Question =>
-      'Over the last two weeks, how often have you been bothered by any of the following problems';
-
-  @override
-  String get who5ResultTestMinimal =>
-      'Regarding your general well-being, you have indicated that in the last two weeks your well-being has been severely limited, and you have felt unwell most of the time. If you feel unwell for a longer period, we recommend that you consult a psychologist or your doctor to check these symptoms. You can find psychologists here:';
-
-  @override
-  String get who5ResultTestHigh =>
-      'In terms of your general well-being, you indicated that you have generally felt balanced, joyful, and relaxed over the past two weeks. This result indicates a good state of well-being.';
-
-  @override
-  String get phq15ResultMinimal =>
-      'You have stated that you have had no or few physical ailments in the last four weeks. That’s great.';
-
-  @override
-  String get phq15ResultMild =>
-      'You have stated that you have been bothered by a few physical problems in the last four weeks. Mild physical problems can also be a sign of stress. It could be helpful to reduce stress. \nTo clarify whether these ailments are related to stress, please consult your doctor.';
-
-  @override
-  String get phq15ResultMedium =>
-      'You have stated that a number of physical ailments have bothered you over the past four weeks. A consultation with your doctor is recommended to check whether these are temporary. The symptoms can be a reaction of your body to stress or emotional issues.';
-
-  @override
-  String get phq15ResultHigh =>
-      'You have stated that many physical ailments have bothered you in the last four weeks. Please consult your doctor to check these symptoms. These symptoms may have a medical cause or indicate a somatization disorder. \n\nThis program is not a substitute for mental health diagnosis or psychological treatment. In order to have a closer look at the symptoms and to treat them, if necessary, we recommend consulting your doctor or a psychologist. You can find addresses here:';
-
-  @override
-  String get gad7ResultMinimal =>
-      'You have stated that you were at ease most of the time in the last two weeks. Your everyday life is not affected by anxiety. Great, keep it up.';
-
-  @override
-  String get gad7ResultMild =>
-      'You have stated that in the last two weeks you have had problems to relax from time to time. You may also have felt nervous, anxious, or on edge. Don’t be concerned about it. These may be temporary symptoms. Give yourself a break to relax more often. \nBut if the symptoms worsen, we recommend consulting your doctor or a psychologist.';
-
-  @override
-  String get gad7ResultMedium =>
-      'You have stated that you have felt nervous or anxious more than half the time in the last two weeks. You may also have not been able to stop or control worrying. This can be a burden for you in your daily life.\n\nIf the symptoms persist or worsen, we recommend consulting your doctor or a psychologist.';
-
-  @override
-  String get gad7ResultHigh =>
-      'You have stated that you have felt nervous or anxious nearly every day in the last two weeks. You may also have not been able to stop or control worrying. These symptoms could indicate an anxiety disorder.\n\nIn order to have a closer look at the symptoms and to treat them, if necessary, we recommend consulting your doctor or a psychologist. You can find addresses here:';
-
-  @override
-  String get phq8ResultMinimal =>
-      'You have stated that your mood was not affected most days in the last two weeks. Great, keep it up and look out for all the positive things you will come across on your journey.';
-
-  @override
-  String get phq8ResultMild =>
-      'You have stated that in the last two weeksYou have stated that in the last two weeks you have felt down from time to time. You may also have had feelings of hopelessness or a lack of energy. Throughout the LeanOnMe program, you will learn about the connection between thoughts and feelings and what you can do to improve your mental health.\nIf the symptoms worsen, we recommend a consultation with a psychologist or your doctor.';
-
-  @override
-  String get phq8ResultMedium =>
-      'You have stated that you have been depressed more than half the time in the last two weeks. You may also have had feelings of hopelessness or have felt down. Throughout the LeanOnMe program, you will learn about the connection between thoughts and feelings and what you can do to improve your mental health.\nIf the symptoms persist or worsen, we recommend a consultation with a psychologist or your doctor.';
-
-  @override
-  String get phq8ResultHigh =>
-      'You have stated that your mood has often been significantly affected in the last two weeks. You have indicated that you have felt depressed and have often suffered from listlessness or dejection. The symptoms indicate current psychological distress with emotional impairment. These may be indications of a temporary depressive episode. \n\nThis program is not a substitute for mental health diagnosis or psychological treatment. In order to have a closer look at the symptoms and to treat them, if necessary, we recommend consulting your doctor or a psychologist. You can find addresses here:';
-
-  @override
-  String get phq8ResultHighest =>
-      'You have stated that your mood has been significantly affected almost every day for the past two weeks. You have indicated that you have felt depressed and have often or constantly suffered from listlessness or dejection. These symptoms currently indicate a high level of psychological distress with emotional impairment and could be an indication of depression.\n\nThis program is not a substitute for mental health diagnosis or psychological treatment. In order to have a closer look at the symptoms and to treat them, if necessary, we recommend consulting your doctor and a clarification by a psychologist. You can find addresses here:';
-
-  @override
-  String get generalWellBeingSummary => 'General well-being summary';
-
-  @override
-  String get bodyAndMindBalanceSummary => 'Body and mind balance summary';
-
-  @override
-  String get stateOfMindSummary => 'State of mind summary';
-
-  @override
-  String get checkCompleted => 'Check completed!';
-
-  @override
-  String get youExceededTimeMessage => 'Sorry, but you exceeded the time limit of one hour';
-
-  @override
-  String get noWorriesYouCanDoItLater => 'But don’t worry, you can start over';
-
-  @override
-  String get mentalResultSubText1 =>
-      'You’ve completed the first part. Keep going. You’re doing great';
-
-  @override
-  String get mentalResultSubText2 =>
-      'You\'re breezing through these questions. Nicely done! You’ve reached the halfway point';
-
-  @override
-  String get mentalResultSubText3 => 'Three down, one to go! Just a few last questions';
 
   @override
   String get legalStatement => 'Legal statement';
@@ -4233,11 +4135,11 @@ class AppLocalizationsEn extends AppLocalizations {
   String get readLegalStatement => 'Read legal statement';
 
   @override
-  String get legalStatementCheckboxTitle => 'I hereby declare, that';
+  String get legalStatementCheckboxTitle => 'I hereby declare, that:';
 
   @override
   String get legalStatementCheckboxItemOne =>
-      'my answers are true to the best of my knowledge and I will continue to answer questions truthfully in future';
+      'my answers are true to the best of my knowledge and I will continue to answer questions truthfully in future.';
 
   @override
   String get confirm => 'Confirm';
@@ -4383,7 +4285,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get lesson => 'Lesson';
 
   @override
-  String get lessonCompleted => 'Lesson completed';
+  String get lessonCompleted => 'Lesson completed!';
 
   @override
   String get groupSessionsUnlocked => 'Support group unlocked';
@@ -4408,7 +4310,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get lessonCompleteDescription => 'Well done! You can proceed to the next lesson';
 
   @override
-  String get assignmentCompleted => 'Assignment completed';
+  String get assignmentCompleted => 'Assignment completed!';
 
   @override
   String get assignmentCompleteDescription =>
@@ -4547,12 +4449,6 @@ class AppLocalizationsEn extends AppLocalizations {
   String forgotEmailSuccessMessage(String email) {
     return 'If there is an account associated with the $email, an email with further instructions will be sent to that address.';
   }
-
-  @override
-  String get twelveMonthsOrLonger => '12 months or longer';
-
-  @override
-  String get betweenSixAndTwelveMonths => 'Between 6 and 12 months';
 
   @override
   String get close => 'Close';
@@ -5170,9 +5066,6 @@ class AppLocalizationsEn extends AppLocalizations {
       'Please turn on the toggle in system settings to grant permission';
 
   @override
-  String get startAgain => 'Start again';
-
-  @override
   String get sessionGreeting => 'Great to see that you are going to be joining the session';
 
   @override
@@ -5254,7 +5147,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get reportTitle => 'Report issue';
 
   @override
-  String get reportSubTitle => 'Please describe the matter';
+  String get reportSubTitle => 'Please describe the matter.';
 
   @override
   String get reportSuccessTitle => 'We have received your report and will act accordingly on it';
@@ -5599,9 +5492,6 @@ class AppLocalizationsEn extends AppLocalizations {
   String get yourUser => 'You';
 
   @override
-  String get phq8Fail => 'We are sorry! Unfortunately, your enrollment is not possible now.';
-
-  @override
   String get passwordValidationRule4 => 'at least 1 capital character';
 
   @override
@@ -5689,7 +5579,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get trainingFocus => 'Training focus';
 
   @override
-  String get didItWorkOutForYou => 'Did it work out for you';
+  String get didItWorkOutForYou => 'Did it work out for you?';
 
   @override
   String get foodPreferencesDesc =>
@@ -6113,7 +6003,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get dontLike => 'Don\'t like';
 
   @override
-  String get howHard => 'How hard was this program for you';
+  String get howHard => 'How hard was this program for you?';
 
   @override
   String get veryEasy => 'very easy';
@@ -6139,7 +6029,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get activitiesForThisWeek => 'activities for this week';
 
   @override
-  String get didYouLikeThisProgram => 'Did you like the program';
+  String get didYouLikeThisProgram => 'Did you like the program?';
 
   @override
   String get backToTodayNotLogged => 'Back to today (not logged)';

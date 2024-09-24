@@ -3,7 +3,6 @@ import 'dart:io';
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:loopcare_frontend/core/application/localization/localizer_extenstion.dart';
 import 'package:loopcare_frontend/core/domain/analytics/analytics_events.dart';
 import 'package:loopcare_frontend/core/domain/analytics/analytics_parameters.dart';
 import 'package:loopcare_frontend/core/domain/emergency_numbers/emergency_numbers.dart';
@@ -18,7 +17,6 @@ import 'package:loopcare_frontend/core/presentation/custom_safe_area.dart';
 import 'package:loopcare_frontend/core/presentation/html_renderer/html_linc_content_render.dart';
 import 'package:loopcare_frontend/core/presentation/icon_images/app_icons.dart';
 import 'package:loopcare_frontend/core/presentation/icon_images/app_icons_data.dart';
-import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/core/presentation/network_image_with_cache/network_image_with_cache.dart';
 import 'package:loopcare_frontend/core/presentation/text/custom_text.dart';
 import 'package:loopcare_frontend/core/presentation/text_with_accents/text_with_accents.dart';
@@ -45,6 +43,8 @@ import 'package:loopcare_frontend/features/nutrition/domain/select_serving/meal_
 import 'package:loopcare_frontend/features/report_abuse/presentation/widget/report_abuse_widget.dart';
 import 'package:loopcare_frontend/features/river/domain/river_module_stream_type.dart';
 import 'package:loopcare_frontend/injection.dart';
+import 'package:loopcare_frontend/localization/service/localization_extension.dart';
+import 'package:loopcare_frontend/localization/service/localized_texts.dart';
 
 AppConfig _appConfig = getIt<AppConfig>();
 
@@ -162,13 +162,13 @@ class ModalBottomSheet {
                 style: context.textTheme.bodyMedium?.copyWith(color: AppColors.orangeDark),
               ),
               CustomText.w400(
-                LocalizedTexts.correctHeight.tr(),
+                LocalizedTexts.onboardingCorrectHeight.tr(),
                 style: context.textTheme.bodyMedium,
               ),
               const SizedBox(height: 32.0),
               CustomElevatedButton.blueFullWidth(
                 onPressed: context.router.maybePop,
-                label: LocalizedTexts.changeYourHeight.tr(),
+                label: LocalizedTexts.onboardingChangeYourHeight.tr(),
               ),
             ],
           ),
@@ -299,7 +299,7 @@ class ModalBottomSheet {
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 20.0),
                   child: CustomText.w600(
-                    LocalizedTexts.youExceededTimeMessage.tr(),
+                    LocalizedTexts.onboardingYouExceededTimeMessage.tr(),
                     style: context.textTheme.bodyMedium,
                   ),
                 ),
@@ -307,14 +307,14 @@ class ModalBottomSheet {
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 20.0),
                   child: CustomText.w400(
-                    LocalizedTexts.noWorriesYouCanDoItLater.tr(),
+                    LocalizedTexts.onboardingNoWorriesYouCanDoItLater.tr(),
                     style: context.textTheme.bodyMedium,
                   ),
                 ),
                 const SizedBox(height: 40.0),
                 CustomElevatedButton.blueFullWidth(
                   onPressed: onStartAgain,
-                  label: LocalizedTexts.startAgain.tr(),
+                  label: LocalizedTexts.onboardingStartAgain.tr(),
                 ),
               ],
             ),
@@ -553,12 +553,12 @@ class ModalBottomSheet {
                 ),
                 MainContainer(
                   child: TextWithAccents(
-                    LocalizedTexts.mentalHealthMoreInfo.tr(
+                    LocalizedTexts.onboardingMentalHealthMoreInfo.tr(
                       {'appName': _appConfig.projectName},
                     ),
                     accents: [
-                      LocalizedTexts.mentalHealthMoreInfoBold1.tr(),
-                      LocalizedTexts.mentalHealthMoreInfoBold2.tr(),
+                      LocalizedTexts.onboardingMentalHealthMoreInfoBold1.tr(),
+                      LocalizedTexts.onboardingMentalHealthMoreInfoBold2.tr(),
                     ],
                   ),
                 ),
@@ -1681,82 +1681,6 @@ class ModalBottomSheet {
         );
       },
     ).whenComplete(() => onConfirm?.call());
-  }
-
-  static void guidanceStartRiver({
-    required BuildContext context,
-  }) {
-    showModalBottomSheet(
-      context: context,
-      showDragHandle: false,
-      backgroundColor: AppColors.blueLightest,
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12.0)),
-      builder: (BuildContext context) {
-        return MainContainer(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              const SizedBox(height: 32.0),
-              CustomText.w600(
-                LocalizedTexts.riverGuidanceStartRiverTitle.tr(),
-                style: context.textTheme.bodyMedium,
-              ),
-              const SizedBox(height: 20.0),
-              CustomText.w400(
-                LocalizedTexts.riverGuidanceStartRiverDescription.tr(),
-                style: context.textTheme.bodyMedium,
-              ),
-              const SizedBox(height: 20.0),
-              const Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Material(
-                    elevation: 6,
-                    surfaceTintColor: AppColors.transparent,
-                    color: AppColors.blueLightest,
-                    borderRadius: BorderRadius.all(Radius.circular(25)),
-                    child: SizedBox.square(
-                      dimension: 50.0,
-                      child: Center(
-                        child: Icon(
-                          AppIconsData.iPractice,
-                          color: AppColors.blueRegular,
-                          size: 36.0,
-                        ),
-                      ),
-                    ),
-                  ),
-                  SizedBox(width: 16),
-                  Material(
-                    elevation: 6,
-                    surfaceTintColor: AppColors.transparent,
-                    color: AppColors.blueLightest,
-                    borderRadius: BorderRadius.all(Radius.circular(25)),
-                    child: SizedBox.square(
-                      dimension: 50.0,
-                      child: Center(
-                        child: Icon(
-                          AppIconsData.iProfile,
-                          color: AppColors.blueRegular,
-                          size: 36.0,
-                        ),
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-              const SizedBox(height: 24.0),
-              CustomElevatedButton.blueFullWidth(
-                label: LocalizedTexts.ok.tr().toUpperCase(),
-                onPressed: context.router.maybePop,
-              ),
-              const SizedBox(height: 30.0),
-            ],
-          ),
-        );
-      },
-    );
   }
 
   static void moduleCompleted({

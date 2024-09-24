@@ -1,10 +1,10 @@
-import 'package:loopcare_frontend/core/application/localization/localizer_extenstion.dart';
 import 'package:flutter/material.dart';
-import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/core/presentation/tab_bar/custom_tab_bar.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/unit_tabs/get_measurement_system.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/unit_tabs/measurement_system.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/unit_tabs/measurement_system_type.dart';
+import 'package:loopcare_frontend/localization/service/localization_extension.dart';
+import 'package:loopcare_frontend/localization/service/localized_texts.dart';
 
 class UnitTabs extends StatefulWidget {
   final List<Widget> tabBarViewChildren;
@@ -25,11 +25,11 @@ class _UnitTabsState extends State<UnitTabs> with SingleTickerProviderStateMixin
 
   final List<MeasurementSystem> tabs = [
     MeasurementSystem(
-      text: LocalizedTexts.metric.tr(),
+      text: LocalizedTexts.onboardingMetric.tr(),
       type: MeasurementSystemType.metric,
     ),
     MeasurementSystem(
-      text: LocalizedTexts.imperial.tr(),
+      text: LocalizedTexts.onboardingImperial.tr(),
       type: MeasurementSystemType.imperial,
     ),
   ];

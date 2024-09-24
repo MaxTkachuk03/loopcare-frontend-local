@@ -9,7 +9,6 @@ import 'package:loopcare_frontend/core/application/customer_io_service/customer_
 import 'package:loopcare_frontend/core/domain/account/sex_type.dart';
 import 'package:loopcare_frontend/core/domain/analytics/analytics_events.dart';
 import 'package:loopcare_frontend/core/infrastructure/services/analytics_service.dart';
-import 'package:loopcare_frontend/core/presentation/localization/localized_texts.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 import 'package:loopcare_frontend/features/onboarding/application/general/mental_health_service.dart';
 import 'package:loopcare_frontend/features/onboarding/domain/diseases.dart';
@@ -43,16 +42,13 @@ import 'package:loopcare_frontend/features/onboarding/presentation/physical_ques
 import 'package:loopcare_frontend/features/onboarding/presentation/physical_questions/views/sex/sex_content.dart';
 import 'package:loopcare_frontend/features/onboarding/presentation/physical_questions/views/weight/weight_content.dart';
 import 'package:loopcare_frontend/features/onboarding/utils/enum_list_extension.dart';
+import 'package:loopcare_frontend/localization/service/localized_texts.dart';
 import 'package:ntp/ntp.dart';
 
 part 'general_onboarding_bloc.freezed.dart';
-
 part 'general_onboarding_bloc.g.dart';
-
 part 'general_onboarding_event.dart';
-
 part 'general_onboarding_staps.dart';
-
 part 'general_onboarding_state.dart';
 
 @singleton
