@@ -16,6 +16,7 @@ import 'package:loopcare_frontend/core/domain/analytics/analytics_events.dart';
 import 'package:loopcare_frontend/core/domain/analytics/analytics_parameters.dart';
 import 'package:loopcare_frontend/core/infrastructure/services/analytics_service.dart';
 import 'package:loopcare_frontend/core/infrastructure/services/shared_storage/shared_storage_service.dart';
+import 'package:loopcare_frontend/core/infrastructure/services/time_service/time_service.dart';
 import 'package:loopcare_frontend/core/presentation/alerting/modal_bottom_sheet.dart';
 import 'package:loopcare_frontend/core/presentation/alerting/show_app_snackbar.dart';
 import 'package:loopcare_frontend/core/presentation/custom_safe_area.dart';
@@ -195,8 +196,9 @@ class _SessionCallPageState extends State<SessionCallPage> with WidgetsBindingOb
     if (_timer != null) _timer?.cancel();
 
     _timer = Timer.periodic(const Duration(seconds: 1), (timer) async {
+      final startTime = context.read<TopicsBloc>().state.data.signedGroupSessionStartTime;
       final Duration passedTime =
-          await context.read<TopicsBloc>().state.data.timePassedSinceSessionStart;
+          startTime != null ? await TimeService.passedFromNtp(startTime) : Duration.zero;
 
       if (mounted) {
         context.read<SessionCallBloc>().add(SessionCallEvent.setTimerValue(passedTime.inSeconds));
@@ -542,8 +544,9 @@ class _SessionCallPageState extends State<SessionCallPage> with WidgetsBindingOb
     if (signedSessionId == null) return;
 
     context.read<ReportAbuseBloc>().add(const ReportAbuseEvent.init());
+    final startTime = context.read<TopicsBloc>().state.data.signedGroupSessionStartTime;
     final Duration timePassed =
-        await context.read<TopicsBloc>().state.data.timePassedSinceSessionStart;
+        startTime != null ? await TimeService.passedFromNtp(startTime) : Duration.zero;
 
     final sessionReport = GroupSessionReport(
       id: signedSessionId,

@@ -5,6 +5,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:loopcare_frontend/core/infrastructure/services/time_service/time_service.dart';
 import 'package:loopcare_frontend/core/presentation/alerting/show_app_snackbar.dart';
 import 'package:loopcare_frontend/core/presentation/buttons/custom_elevated_button.dart';
 import 'package:loopcare_frontend/core/presentation/routes/app_router.dart';
@@ -145,6 +146,14 @@ class _SessionCountdownState extends State<SessionCountdown> {
     });
   }
 
+  Future<Duration> get timeLeftToSessionStart async {
+    final startTime = context.read<TopicsBloc>().state.data.signedGroupSessionStartTime;
+
+    if (startTime == null) return Duration.zero;
+
+    return await TimeService.beforeNtp(startTime);
+  }
+
   @override
   Widget build(BuildContext context) {
     return BlocListener<TopicsBloc, TopicsState>(
@@ -164,7 +173,7 @@ class _SessionCountdownState extends State<SessionCountdown> {
               label: LocalizedTexts.joinSession.tr(),
             ),
             sessionNotStarted: (_) => FutureBuilder<Duration>(
-              future: context.read<TopicsBloc>().state.data.timeLeftToSessionStart,
+              future: timeLeftToSessionStart,
               builder: (context, snapshot) {
                 final data = snapshot.data;
 
