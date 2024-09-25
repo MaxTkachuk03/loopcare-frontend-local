@@ -29,13 +29,13 @@ class PhysicalQuestionsState with _$PhysicalQuestionsState {
       happiness: happiness,
       gender: genderType!.name,
       weight: double.parse(weightInKg!),
-      sex: sexType != null ? sexType!.name : 'preferNotToSay',
+      sex: sexType?.name ?? 'preferNotToSay',
     );
   }
 
   bool validateBmi(String weight) {
     final bmi = BmiCalculator.getUserBmiIndex(heightInCm, weight);
-    return BmiCalculator.validate(bmi, age);
+    return BmiCalculator.validate(bmi);
   }
 
   factory PhysicalQuestionsState.fromJson(Map<String, dynamic> json) =>
