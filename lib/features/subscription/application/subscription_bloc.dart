@@ -71,6 +71,7 @@ class SubscriptionBloc extends Bloc<SubscriptionEvent, SubscriptionState> {
     on<CanceledByUser>(_cancelledByUser);
     on<SubscriptionLogout>(_onLogout);
     on<SubscriptionDispose>(_onSubscriptionDispose);
+    on<NotifySubscriptionExpired>(_onNotifySubscriptionExpired);
   }
 
   String get vendor => Platform.isIOS ? 'ios' : 'android';
@@ -85,6 +86,16 @@ class SubscriptionBloc extends Bloc<SubscriptionEvent, SubscriptionState> {
         onCanceled: () => add(const SubscriptionEvent.canceledByUser()),
         onEmpty: _onEmptyRestore,
       )..init();
+
+  FutureOr<void> _onNotifySubscriptionExpired(
+    NotifySubscriptionExpired event,
+    Emitter<SubscriptionState> emit,
+  ) async {
+    log.i(
+      'PURCHASED PRODUCT ${event.subscription.id} IS EXPIRED; timestamp: ${event.subscription.purchasedAt}',
+      error: runtimeType,
+    );
+  }
 
   FutureOr<void> _processingDataPlans(
     ProcessingDataPlans event,
@@ -101,6 +112,12 @@ class SubscriptionBloc extends Bloc<SubscriptionEvent, SubscriptionState> {
 
     emit(const SubscriptionState.initial(SubscriptionStateData()));
     _checkEligibility = true;
+    MixpanelEventService.instance.track(
+      AppMixpanelEvents.checkEligibilityByUser,
+      parameters: {
+        AnalyticsParameters.timestamp: DateTime.now().toIso8601String(),
+      },
+    );
     if (Platform.isAndroid) {
       await _checkAndroidEligible();
     } else {
@@ -126,6 +143,14 @@ class SubscriptionBloc extends Bloc<SubscriptionEvent, SubscriptionState> {
         const SubscriptionEvent.setEligibility(
           isEligible: true,
           purchase: null,
+        ),
+      );
+    } else {
+      add(
+        const SubscriptionEvent.errorPurchase(
+          RequestError.streamSubscription(
+            ServerErrorData(message: LocalizedTexts.subscriptionEmptyToRestore),
+          ),
         ),
       );
     }
@@ -251,6 +276,37 @@ class SubscriptionBloc extends Bloc<SubscriptionEvent, SubscriptionState> {
   }
 
   Future<void> _handlePurchase(PurchaseDetails purchaseDetails) async {
+    await _verifyPurchasedOrRestore(purchaseDetails);
+  }
+
+  Future<void> _verifyPurchasedOrRestore(PurchaseDetails purchaseDetails,
+      {bool isRestore = false}) async {
+    final response = await _apiPurchaseOrRestore(purchaseDetails);
+    response.fold((error) {
+      _pushAnalyticErrorVerifyOnServer(purchaseDetails);
+      MixpanelEventService.instance.track(
+        AppMixpanelEvents.sendValidationPurchaseOnBackendError,
+        parameters: {AnalyticsParameters.errorMessage: error.message},
+      );
+      add(SubscriptionEvent.errorPurchase(error));
+    }, (r) async {
+      if (r.isActive) {
+        await _purchasedSuccess(purchaseDetails, r);
+      } else if (!r.isActive && isRestore) {
+        add(
+          const SubscriptionEvent.errorPurchase(
+            RequestError.streamSubscription(
+              ServerErrorData(message: LocalizedTexts.subscriptionEmptyToRestore),
+            ),
+          ),
+        );
+      } else {
+        add(SubscriptionEvent.notifySubscriptionExpired(subscription: r));
+      }
+    });
+  }
+
+  Future<void> _purchasedSuccess(PurchaseDetails purchaseDetails, Subscription r) async {
     MixpanelEventService.instance.track(
       AppMixpanelEvents.userPurchasedSubscription,
       parameters: {
@@ -261,46 +317,29 @@ class SubscriptionBloc extends Bloc<SubscriptionEvent, SubscriptionState> {
             DateTime.fromMillisecondsSinceEpoch(int.parse(purchaseDetails.transactionDate!) * 1000),
       },
     );
-    await _verifyPurchasedOrRestore(purchaseDetails);
-  }
-
-  Future<void> _verifyPurchasedOrRestore(PurchaseDetails purchaseDetails) async {
-    final response = await _apiPurchaseOrRestore(purchaseDetails);
-    response.fold(
-      (error) {
-        _pushAnalyticErrorVerifyOnServer(purchaseDetails);
-        MixpanelEventService.instance.track(AppMixpanelEvents.sendValidationPurchaseOnBackendError);
-        add(SubscriptionEvent.errorPurchase(error));
-      },
-      (r) async {
-        MixpanelEventService.instance
-            .track(AppMixpanelEvents.sendValidationPurchaseOnBackendSuccess);
-        final accessTokenUpdated = await _authTokenManager.updateAccessToken();
-        if (accessTokenUpdated) {
-          _pushAnalyticBoughtEvent(purchaseDetails, r);
-
-          add(
-            SubscriptionEvent.purchasedSubscription(
-              r,
-              PurchasedProduct(
-                purchaseDetails: purchaseDetails,
-                memberSince: SubscriptionDateUtils.getTransactionDate(r.purchasedAt),
-              ),
-            ),
-          );
-        } else {
-          MixpanelEventService.instance
-              .track(AppMixpanelEvents.getAccessTokenWithSubscriptionError);
-          add(
-            const SubscriptionEvent.errorPurchase(
-              RequestError.streamSubscription(
-                ServerErrorData(message: LocalizedTexts.errorPurchaseVerificationError),
-              ),
-            ),
-          );
-        }
-      },
-    );
+    MixpanelEventService.instance.track(AppMixpanelEvents.sendValidationPurchaseOnBackendSuccess);
+    final accessTokenUpdated = await _authTokenManager.updateAccessToken();
+    if (accessTokenUpdated) {
+      _pushAnalyticBoughtEvent(purchaseDetails, r);
+      add(
+        SubscriptionEvent.purchasedSubscription(
+          r,
+          PurchasedProduct(
+            purchaseDetails: purchaseDetails,
+            memberSince: SubscriptionDateUtils.getTransactionDate(r.purchasedAt),
+          ),
+        ),
+      );
+    } else {
+      MixpanelEventService.instance.track(AppMixpanelEvents.getAccessTokenWithSubscriptionError);
+      add(
+        const SubscriptionEvent.errorPurchase(
+          RequestError.streamSubscription(
+            ServerErrorData(message: LocalizedTexts.errorPurchaseVerificationError),
+          ),
+        ),
+      );
+    }
   }
 
   Future<Either<RequestError, Subscription>> _apiPurchaseOrRestore(
@@ -360,7 +399,7 @@ class SubscriptionBloc extends Bloc<SubscriptionEvent, SubscriptionState> {
     if (purchaseDetails.status != PurchaseStatus.restored) {
       return;
     }
-    await _verifyPurchasedOrRestore(purchaseDetails);
+    await _verifyPurchasedOrRestore(purchaseDetails, isRestore: true);
   }
 
   String? _getTransactionId(PurchaseDetails purchaseDetails) {
@@ -579,11 +618,12 @@ class SubscriptionBloc extends Bloc<SubscriptionEvent, SubscriptionState> {
   }
 
   void _emitSubscriptionState(Emitter<SubscriptionState> emit, Subscription subscription) {
-    if (state.data.plans.length == 1) {
-      emit(SubscriptionState.singlePlan(state.data.copyWith(subscription: subscription)));
-    } else {
-      emit(SubscriptionState.multiplePlans(state.data.copyWith(subscription: subscription)));
-    }
+    // Todo will bw updated with new requirements for multiple subscriptionSubscribe
+    // if (state.data.plans.length == 1) {
+    emit(SubscriptionState.singlePlan(state.data.copyWith(subscription: subscription)));
+    // } else {
+    //   emit(SubscriptionState.multiplePlans(state.data.copyWith(subscription: subscription)));
+    // }
   }
 
   FutureOr<void> _onInitSubscription(
@@ -607,7 +647,6 @@ class SubscriptionBloc extends Bloc<SubscriptionEvent, SubscriptionState> {
   ) async {
     emit(SubscriptionState.loading(state.data.copyWith(isLoading: true)));
     _purchaseDetailsStreamSubscription.close();
-    await _authenticationService.logout();
     CustomerIoService.logOut();
     emit(SubscriptionState.logout(state.data.copyWith(isLoading: false)));
   }

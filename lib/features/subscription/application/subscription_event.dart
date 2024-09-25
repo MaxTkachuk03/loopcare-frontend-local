@@ -34,4 +34,7 @@ class SubscriptionEvent with _$SubscriptionEvent {
 
   const factory SubscriptionEvent.setEligibility(
       {required bool isEligible, PurchaseDetails? purchase}) = SetEligibility;
+
+  const factory SubscriptionEvent.notifySubscriptionExpired({required Subscription subscription}) =
+      NotifySubscriptionExpired;
 }

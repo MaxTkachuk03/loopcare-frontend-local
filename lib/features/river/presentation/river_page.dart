@@ -1,14 +1,18 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:loopcare_frontend/core/presentation/alerting/modal_bottom_sheet.dart';
 import 'package:loopcare_frontend/core/presentation/custom_safe_area.dart';
 import 'package:loopcare_frontend/core/presentation/error/error_screen.dart';
 import 'package:loopcare_frontend/core/presentation/routes/app_router.dart';
 import 'package:loopcare_frontend/core/presentation/scaffold/custom_scaffold.dart';
 import 'package:loopcare_frontend/core/presentation/scale_gesture_detector/scale_gesture_detector.dart';
+import 'package:loopcare_frontend/features/home/application/navigation_bar_bloc.dart';
 import 'package:loopcare_frontend/features/reflections/application/reflections_bloc.dart';
 import 'package:loopcare_frontend/features/river/application/river_bloc.dart';
+import 'package:loopcare_frontend/features/river/domain/river_module.dart';
 import 'package:loopcare_frontend/features/river/presentation/river_page_widgets/river_module_view.dart';
+import 'package:visibility_detector/visibility_detector.dart';
 
 @RoutePage()
 class RiverPage extends StatefulWidget {
@@ -22,13 +26,15 @@ class _RiverPageState extends State<RiverPage> {
   late PageController _controller;
   late int _page;
 
+  bool _isOnViewport = true;
+
   @override
   void initState() {
     super.initState();
     _page = context.read<RiverBloc>().state.data.currentPage;
-    _controller = PageController(
-      initialPage: _page,
-    );
+    _controller = PageController(initialPage: _page);
+
+    _checkCompletion();
   }
 
   @override
@@ -39,27 +45,43 @@ class _RiverPageState extends State<RiverPage> {
 
   @override
   Widget build(BuildContext context) {
-    return CustomScaffold.blueLightest(
-      body: ScaleGestureDetector(
-        onZoomOut: _navigationHandler,
-        child: CustomSafeArea(
-          child: BlocConsumer<RiverBloc, RiverState>(
-            listenWhen: _riverListenWhen,
-            listener: _refreshReflections,
-            builder: (context, state) {
-              return state.maybeMap(
-                moduleLoadingError: (state) => ErrorScreen(error: state.data.error!),
-                orElse: () => PageView.builder(
-                  onPageChanged: _onPageChanged,
-                  controller: _controller,
-                  itemCount: state.data.modules.length,
-                  itemBuilder: (context, index) => RiverScreen(
-                    module: state.data.modules[index],
-                    page: index,
+    return VisibilityDetector(
+      key: const ValueKey('river_module_page'),
+      onVisibilityChanged: _onViewPortChanged,
+      child: CustomScaffold.blueLightest(
+        body: ScaleGestureDetector(
+          onZoomOut: _navigationHandler,
+          child: CustomSafeArea(
+            child: MultiBlocListener(
+              listeners: [
+                BlocListener<RiverBloc, RiverState>(
+                  listener: (context, state) => state.mapOrNull(
+                    moduleCompleted: _onCompleteModule,
+                    modulePartlyCompleted: _onPartlyCompleteModule,
                   ),
                 ),
-              );
-            },
+                BlocListener<RiverBloc, RiverState>(
+                  listenWhen: _riverListenWhen,
+                  listener: _refreshReflections,
+                ),
+              ],
+              child: BlocBuilder<RiverBloc, RiverState>(
+                builder: (context, state) {
+                  return state.maybeMap(
+                    moduleLoadingError: (state) => ErrorScreen(error: state.data.error!),
+                    orElse: () => PageView.builder(
+                      onPageChanged: _onPageChanged,
+                      controller: _controller,
+                      itemCount: state.data.modules.length,
+                      itemBuilder: (context, index) => RiverScreen(
+                        module: state.data.modules[index],
+                        page: index,
+                      ),
+                    ),
+                  );
+                },
+              ),
+            ),
           ),
         ),
       ),
@@ -81,9 +103,52 @@ class _RiverPageState extends State<RiverPage> {
 
   void _onPageChanged(int page) {
     if (_page < page) {
-      context.read<RiverBloc>().add(RiverEvent.checkCompletion(page: page));
+      _checkCompletion();
     }
 
     _page = page;
   }
+
+  void _onViewPortChanged(VisibilityInfo info) {
+    _isOnViewport = info.visibleFraction > 0;
+    _checkCompletion();
+  }
+
+  void _onPartlyCompleteModule(RiverState state) {
+    if (!_isOnViewport) return;
+
+    if (state.data.activeModule.isModuleItemsCompleted) {
+      ModalBottomSheet.moduleGraduationCompletedItems(context: context);
+    } else {
+      ModalBottomSheet.moduleGraduationCompletedTime(context: context);
+    }
+  }
+
+  void _onCompleteModule(RiverState state) => _showCompleteDialog();
+
+  void _showCompleteDialog() {
+    if (!_isOnViewport) return;
+
+    final riverData = context.read<RiverBloc>().state.data;
+    final activeModule = riverData.activeModule;
+
+    if (riverData.modules.first.id == activeModule?.id) {
+      context.read<NavigationBarBloc>().add(const NavigationBarEvent.completeBeginning());
+
+      ModalBottomSheet.guidanceCompleted(context: context);
+    } else if (riverData.modules.last.id == activeModule?.id) {
+      ModalBottomSheet.lastModuleCompleted(
+        context: context,
+        moduleTitle: activeModule?.title ?? '',
+      );
+    } else {
+      ModalBottomSheet.moduleCompleted(
+        context: context,
+        currentModule: activeModule?.title ?? '',
+        nextModule: riverData.nextModule?.title ?? '',
+      );
+    }
+  }
+
+  void _checkCompletion() => context.read<RiverBloc>().add(const RiverEvent.checkCompletion());
 }

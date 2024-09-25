@@ -40,7 +40,13 @@ class MixpanelManager {
     packageInfo = await PackageInfo.fromPlatform();
   }
 
-  void reset() => _mixpanel.reset();
+  void reset() {
+    try {
+      _mixpanel.reset();
+    } catch (e) {
+      log.e(e.toString(), error: 'ERROR reset MIXPANEL');
+    }
+  }
 
   void identify({int? id}) {
     try {

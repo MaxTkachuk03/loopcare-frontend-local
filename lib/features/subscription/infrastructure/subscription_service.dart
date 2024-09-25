@@ -63,7 +63,10 @@ class AppSubscriptionService {
   }
 
   Future<void> completePurchase(PurchaseDetails? purchaseDetails) async {
-    if (purchaseDetails != null && purchaseDetails.pendingCompletePurchase) {
+    if (purchaseDetails != null &&
+        (purchaseDetails.pendingCompletePurchase ||
+            purchaseDetails.status == PurchaseStatus.purchased ||
+            purchaseDetails.status == PurchaseStatus.restored)) {
       try {
         await instance.completePurchase(purchaseDetails);
       } catch (e) {

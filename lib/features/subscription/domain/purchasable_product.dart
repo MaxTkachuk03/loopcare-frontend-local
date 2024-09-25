@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:in_app_purchase/in_app_purchase.dart';
 import 'package:intl/intl.dart';
 import 'package:loopcare_frontend/features/subscription/domain/sku_product.dart';
@@ -23,6 +25,9 @@ class PurchasableProduct {
     this.carouselImages,
   });
 
+  bool get isEligible =>
+      Platform.isIOS ? isOfferEligible : isOfferEligible && skuProduct.offerId != null;
+
   List<SubscriptionImageData> get images => carouselImages ?? [];
 
   String get roundPrice => details.rawPrice.toStringAsFixed(2);
@@ -30,15 +35,11 @@ class PurchasableProduct {
   String get priceWithCurrency =>
       (_currency == '\$' || _currency == '£') ? '$_currency$roundPrice' : '$roundPrice$_currency';
 
-  String get description => isOfferEligible ? _descriptionOffer : _descriptionRegular;
+  String get description => isEligible ? _descriptionOffer : _descriptionRegular;
 
-  String get title => isOfferEligible ? _titleOffer : _titleRegular;
+  String get title => isEligible ? _titleOffer : _titleRegular;
 
-  bool get isPricedOffer =>
-      skuProduct.offerId != null && skuProduct.offerPriceAmount > 0 && isOfferEligible;
-
-  bool get isTrialOffer =>
-      skuProduct.offerId != null && isOfferEligible && skuProduct.offerPriceAmount == 0;
+  bool get isPricedOffer => skuProduct.offerPriceAmount > 0 && isEligible;
 
   String? get badgeUrl => isPricedOffer ? subscriptionTranslation?.badge : null;
 

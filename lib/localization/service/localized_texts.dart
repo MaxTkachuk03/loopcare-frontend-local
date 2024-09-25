@@ -590,6 +590,7 @@ class LocalizedTexts {
   static const String subscriptionTrialExpiredLabel1 = "subscriptionTrialExpiredLabel1";
   static const String subscriptionTrialExpiredLabel2 = "subscriptionTrialExpiredLabel2";
   static const String subscriptionEndedTitle = "subscriptionEndedTitle";
+  static const String subscriptionEmptyToRestore = "subscriptionEmptyToRestore";
   static const String subscriptionEndedLabel1 = "subscriptionEndedLabel1";
   static const String subscriptionEndedLabel2 = "subscriptionEndedLabel2";
   static const String subscriptionCancelledTitle = "subscriptionCancelledTitle";

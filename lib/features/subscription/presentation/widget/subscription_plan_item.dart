@@ -89,25 +89,26 @@ class SinglePlanItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        if (isPricedOffer)
-          _PricedOfferItem(title: title, url: badgeUrl, titleColor: titleColor)
-        else
+    if (isPricedOffer) {
+      return _PricedOfferItem(title: title, url: badgeUrl, titleColor: titleColor);
+    } else {
+      return Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
           CustomText.bitter600(
             title,
             style: context.textTheme.displayLarge?.copyWith(color: titleColor),
             textAlign: TextAlign.center,
           ),
-        CustomText.w400(
-          LocalizedTexts.subscriptionDescriptionLabel.tr(),
-          style: context.textTheme.bodySmall
-              ?.copyWith(fontSize: ThemeConstants.fontSize12, color: titleColor),
-          textAlign: TextAlign.center,
-        ),
-      ],
-    );
+          CustomText.w400(
+            LocalizedTexts.subscriptionDescriptionLabel.tr(),
+            style: context.textTheme.bodySmall
+                ?.copyWith(fontSize: ThemeConstants.fontSize12, color: titleColor),
+            textAlign: TextAlign.center,
+          ),
+        ],
+      );
+    }
   }
 }
 
@@ -125,22 +126,34 @@ class _PricedOfferItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 84,
+      height: 125,
       child: Stack(
         children: [
-          Positioned.fill(
-            child: Align(
-              alignment: Alignment.bottomCenter,
-              child: CustomText.bitter600(
-                title,
-                style: context.textTheme.displayLarge?.copyWith(color: titleColor),
-                textAlign: TextAlign.center,
-              ),
-            ),
-          ),
           Align(
             alignment: Alignment.bottomCenter,
-            child: AppImages.subscriptionCross,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Stack(
+                  alignment: Alignment.bottomCenter,
+                  children: [
+                    CustomText.bitter600(
+                      title,
+                      style: context.textTheme.displayLarge?.copyWith(color: titleColor),
+                      textAlign: TextAlign.center,
+                    ),
+                    AppImages.subscriptionCross,
+                  ],
+                ),
+                CustomText.w400(
+                  LocalizedTexts.subscriptionDescriptionLabel.tr(),
+                  style: context.textTheme.bodySmall
+                      ?.copyWith(fontSize: ThemeConstants.fontSize12, color: titleColor),
+                  textAlign: TextAlign.center,
+                ),
+              ],
+            ),
           ),
           Align(
             alignment: Alignment.topRight,
