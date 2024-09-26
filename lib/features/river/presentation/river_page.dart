@@ -103,7 +103,7 @@ class _RiverPageState extends State<RiverPage> {
 
   void _onPageChanged(int page) {
     if (_page < page) {
-      _checkCompletion();
+      _checkCompletion(page);
     }
 
     _page = page;
@@ -150,5 +150,6 @@ class _RiverPageState extends State<RiverPage> {
     }
   }
 
-  void _checkCompletion() => context.read<RiverBloc>().add(const RiverEvent.checkCompletion());
+  void _checkCompletion([int? page]) =>
+      context.read<RiverBloc>().add(RiverEvent.checkCompletion(page: page));
 }

@@ -809,18 +809,20 @@ class LocalizedTexts {
       'onboardingWeightLossMedicationQuestion';
   static const String onboardingTreatmentByTheDoctorQuestion =
       'onboardingTreatmentByTheDoctorQuestion';
-  static const String onboardingObesityQuestion = 'obesityQuestion';
-  static const String onboardingThyroidDiseaseQuestion = 'thyroidDiseaseQuestion';
-  static const String onboardingMetabolicDiseaseQuestion = 'metabolicDiseaseQuestion';
-  static const String onboardingHypertensionQuestion = 'hypertensionQuestion';
-  static const String onboardingCardiovascularDiseaseQuestion = 'cardiovascularDiseaseQuestion';
-  static const String onboardingStomachReductionQuestion = 'stomachReductionQuestion';
-  static const String onboardingDiabetesQuestion = 'diabetesQuestion';
-  static const String onboardingRenalFailureQuestion = 'renalFailureQuestion';
-  static const String onboardingAsthmaQuestion = 'asthmaQuestion';
-  static const String onboardingLiverDiseaseQuestion = 'liverDiseaseQuestion';
-  static const String onboardingSleepApneaSyndromeQuestion = 'sleepApneaSyndromeQuestion';
-  static const String onboardingLocomotorSystemDiseaseQuestion = 'locomotorSystemDiseaseQuestion';
+  static const String onboardingObesityQuestion = 'onboardingObesityQuestion';
+  static const String onboardingThyroidDiseaseQuestion = 'onboardingThyroidDiseaseQuestion';
+  static const String onboardingMetabolicDiseaseQuestion = 'onboardingMetabolicDiseaseQuestion';
+  static const String onboardingHypertensionQuestion = 'onboardingHypertensionQuestion';
+  static const String onboardingCardiovascularDiseaseQuestion =
+      'onboardingCardiovascularDiseaseQuestion';
+  static const String onboardingStomachReductionQuestion = 'onboardingStomachReductionQuestion';
+  static const String onboardingDiabetesQuestion = 'onboardingDiabetesQuestion';
+  static const String onboardingRenalFailureQuestion = 'onboardingRenalFailureQuestion';
+  static const String onboardingAsthmaQuestion = 'onboardingAsthmaQuestion';
+  static const String onboardingLiverDiseaseQuestion = 'onboardingLiverDiseaseQuestion';
+  static const String onboardingSleepApneaSyndromeQuestion = 'onboardingSleepApneaSyndromeQuestion';
+  static const String onboardingLocomotorSystemDiseaseQuestion =
+      'onboardingLocomotorSystemDiseaseQuestion';
   static const String onboardingMedicalCheckPassedTitle = 'onboardingMedicalCheckPassedTitle';
   static const String onboardingMedicalCheckPassedBody = 'onboardingMedicalCheckPassedBody';
   static const String onboardingMedicalCheckFailedTitle = 'onboardingMedicalCheckFailedTitle';
