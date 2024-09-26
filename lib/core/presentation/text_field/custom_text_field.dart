@@ -32,6 +32,7 @@ class CustomTextField extends StatefulWidget {
   final TextStyle? style;
   final TextAlign textAlign;
   final bool readOnly;
+  final bool scribbleEnabled;
   final Iterable<String>? autofillHints;
   final void Function()? onEditingComplete;
 
@@ -62,6 +63,7 @@ class CustomTextField extends StatefulWidget {
     this.readOnly = false,
     this.textInputAction = TextInputAction.next,
     this.onEditingComplete,
+    this.scribbleEnabled = false,
   });
 
   factory CustomTextField.search({
@@ -337,6 +339,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
       inputFormatters: widget.inputFormatters,
       readOnly: widget.readOnly,
       onEditingComplete: widget.onEditingComplete,
+      scribbleEnabled: widget.scribbleEnabled,
     );
   }
 }
