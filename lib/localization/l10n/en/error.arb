@@ -787,7 +787,7 @@
   "subscriptionAccountIdAbsent": "Subscription account ID is absent.",
   "subscriptionPurchaseTokenAbsent": "Subscription purchase token is absent.",
   "subscriptionPackageNameInvalid": "Subscription package name is invalid.",
-  "subscriptionAccountIdInvalid": "Subscription account ID is invalid.",
+  "subscriptionAccountIdInvalid": "It looks like your Apple ID already has a subscription on another LeanOnMe account. Please log in with that email address to use your subscription. If you need assistance, please contact support@lean-on.me",
   "subscriptionVendorInvalid": "Subscription vendor is invalid.",
   "subscriptionPurchaseTokenInvalid": "Subscription purchase token is invalid.",
   "subscriptionEnvironmentInvalid": "Subscription environment is invalid.",
