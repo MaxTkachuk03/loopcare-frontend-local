@@ -4741,34 +4741,39 @@ class CrowdinLocalization extends AppLocalizations {
       _fallbackTexts.onboardingBmiExclusionBodyTitle;
 
   @override
-  String get onboardingBmiExclusionBodyOlder19LowBmi =>
-      Crowdin.getText(localeName, 'onboardingBmiExclusionBodyOlder19LowBmi') ??
-      _fallbackTexts.onboardingBmiExclusionBodyOlder19LowBmi;
+  String get onboardingHighBmiDescription1 =>
+      Crowdin.getText(localeName, 'onboardingHighBmiDescription1') ??
+      _fallbackTexts.onboardingHighBmiDescription1;
 
   @override
-  String get onboardingBmiExclusionBodyOlder19HighBmi =>
-      Crowdin.getText(localeName, 'onboardingBmiExclusionBodyOlder19HighBmi') ??
-      _fallbackTexts.onboardingBmiExclusionBodyOlder19HighBmi;
+  String get onboardingHighBmiDescription2 =>
+      Crowdin.getText(localeName, 'onboardingHighBmiDescription2') ??
+      _fallbackTexts.onboardingHighBmiDescription2;
 
   @override
-  String get onboardingBmiExclusionBodyYounger19LowBmi =>
-      Crowdin.getText(localeName, 'onboardingBmiExclusionBodyYounger19LowBmi') ??
-      _fallbackTexts.onboardingBmiExclusionBodyYounger19LowBmi;
+  String get onboardingHighBmiDescription3 =>
+      Crowdin.getText(localeName, 'onboardingHighBmiDescription3') ??
+      _fallbackTexts.onboardingHighBmiDescription3;
 
   @override
-  String get onboardingBmiExclusionBodyYounger19HighBmi =>
-      Crowdin.getText(localeName, 'onboardingBmiExclusionBodyYounger19HighBmi') ??
-      _fallbackTexts.onboardingBmiExclusionBodyYounger19HighBmi;
+  String get onboardingLowerBmiDescription1 =>
+      Crowdin.getText(localeName, 'onboardingLowerBmiDescription1') ??
+      _fallbackTexts.onboardingLowerBmiDescription1;
 
   @override
-  String get onboardingBmiExclusionBodyHighBmiEnding =>
-      Crowdin.getText(localeName, 'onboardingBmiExclusionBodyHighBmiEnding') ??
-      _fallbackTexts.onboardingBmiExclusionBodyHighBmiEnding;
+  String get onboardingLowerBmiDescription2 =>
+      Crowdin.getText(localeName, 'onboardingLowerBmiDescription2') ??
+      _fallbackTexts.onboardingLowerBmiDescription2;
 
   @override
-  String get onboardingBmiExclusionBodyLowBmiEnding =>
-      Crowdin.getText(localeName, 'onboardingBmiExclusionBodyLowBmiEnding') ??
-      _fallbackTexts.onboardingBmiExclusionBodyLowBmiEnding;
+  String get onboardingBmiExclusionBody1 =>
+      Crowdin.getText(localeName, 'onboardingBmiExclusionBody1') ??
+      _fallbackTexts.onboardingBmiExclusionBody1;
+
+  @override
+  String get onboardingBmiExclusionBody2 =>
+      Crowdin.getText(localeName, 'onboardingBmiExclusionBody2') ??
+      _fallbackTexts.onboardingBmiExclusionBody2;
 
   @override
   String get onboardingPhysicalCheckPassedTitle =>
@@ -5890,6 +5895,11 @@ class CrowdinLocalization extends AppLocalizations {
   String get subscriptionEndedTitle =>
       Crowdin.getText(localeName, 'subscriptionEndedTitle') ??
       _fallbackTexts.subscriptionEndedTitle;
+
+  @override
+  String get subscriptionEmptyToRestore =>
+      Crowdin.getText(localeName, 'subscriptionEmptyToRestore') ??
+      _fallbackTexts.subscriptionEmptyToRestore;
 
   @override
   String get subscriptionEndedLabel1 =>

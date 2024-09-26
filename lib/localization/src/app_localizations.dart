@@ -4872,7 +4872,7 @@ abstract class AppLocalizations {
   /// No description provided for @errorSubscriptionAccountIdInvalid.
   ///
   /// In en, this message translates to:
-  /// **'Subscription account ID is invalid.'**
+  /// **'It looks like your Apple ID already has a subscription on another LeanOnMe account. Please log in with that email address to use your subscription. If you need assistance, please contact support@lean-on.me'**
   String get errorSubscriptionAccountIdInvalid;
 
   /// No description provided for @errorSubscriptionVendorInvalid.
@@ -5817,41 +5817,47 @@ abstract class AppLocalizations {
   /// **'Body Mass Index (BMI) is:'**
   String get onboardingBmiExclusionBodyTitle;
 
-  /// No description provided for @onboardingBmiExclusionBodyOlder19LowBmi.
+  /// No description provided for @onboardingHighBmiDescription1.
   ///
   /// In en, this message translates to:
-  /// **'Our program is not yet optimized for people with a BMI under 25. We\'ll reach out to you as soon as we\'re ready!'**
-  String get onboardingBmiExclusionBodyOlder19LowBmi;
+  /// **'LeanOnMe currently has customized programs to support people with a BMI between 25 and 40. We are working on additional customizations to help support people who are outside this BMI range, but we’re not quite there yet.'**
+  String get onboardingHighBmiDescription1;
 
-  /// No description provided for @onboardingBmiExclusionBodyOlder19HighBmi.
+  /// No description provided for @onboardingHighBmiDescription2.
   ///
   /// In en, this message translates to:
-  /// **'Our program is not yet optimized for people with a BMI over 39.9.'**
-  String get onboardingBmiExclusionBodyOlder19HighBmi;
+  /// **'Some parts of our current program may not be 100% tailored to your needs.'**
+  String get onboardingHighBmiDescription2;
 
-  /// No description provided for @onboardingBmiExclusionBodyYounger19LowBmi.
+  /// No description provided for @onboardingHighBmiDescription3.
   ///
   /// In en, this message translates to:
-  /// **'Our program is not yet optimized for people with a BMI under 25. We\'ll reach out to you as soon as we\'re ready!'**
-  String get onboardingBmiExclusionBodyYounger19LowBmi;
+  /// **'Listen to your body, and if you have any concerns that something is not right for you, please contact support@lean-on.me.'**
+  String get onboardingHighBmiDescription3;
 
-  /// No description provided for @onboardingBmiExclusionBodyYounger19HighBmi.
+  /// No description provided for @onboardingLowerBmiDescription1.
   ///
   /// In en, this message translates to:
-  /// **'Our program is not suitable for people with a BMI over 38.5.'**
-  String get onboardingBmiExclusionBodyYounger19HighBmi;
+  /// **'According to your BMI, you’re within a healthy range, that’s great! But LeanOnMe’s program is designed to support people living with various degrees of overweight and obesity.'**
+  String get onboardingLowerBmiDescription1;
 
-  /// No description provided for @onboardingBmiExclusionBodyHighBmiEnding.
+  /// No description provided for @onboardingLowerBmiDescription2.
   ///
   /// In en, this message translates to:
-  /// **'Please consult your doctor to find a suitable alternative.'**
-  String get onboardingBmiExclusionBodyHighBmiEnding;
+  /// **'None of our content is bad for you! But some may not feel as relevant. Enjoy!'**
+  String get onboardingLowerBmiDescription2;
 
-  /// No description provided for @onboardingBmiExclusionBodyLowBmiEnding.
+  /// No description provided for @onboardingBmiExclusionBody1.
   ///
   /// In en, this message translates to:
-  /// **'Please consult your doctor if you feel you urgently need a suitable alternative.'**
-  String get onboardingBmiExclusionBodyLowBmiEnding;
+  /// **'Your BMI indicates that you may be underweight. LeanOnMe is currently a weight-loss program. In respect to your current BMI, additional weight-loss could affect your health.'**
+  String get onboardingBmiExclusionBody1;
+
+  /// No description provided for @onboardingBmiExclusionBody2.
+  ///
+  /// In en, this message translates to:
+  /// **'Please consult to your GP to make sure that your health is not being affected.'**
+  String get onboardingBmiExclusionBody2;
 
   /// No description provided for @onboardingPhysicalCheckPassedTitle.
   ///
@@ -7274,6 +7280,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Your subscription \nhas ended'**
   String get subscriptionEndedTitle;
+
+  /// No description provided for @subscriptionEmptyToRestore.
+  ///
+  /// In en, this message translates to:
+  /// **'Sorry, the store didn\'t return a subscription for us to restore. If you think this is an error, please send proof of subscription to support@lean-on.me.'**
+  String get subscriptionEmptyToRestore;
 
   /// No description provided for @subscriptionEndedLabel1.
   ///

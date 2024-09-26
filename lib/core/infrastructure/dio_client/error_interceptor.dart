@@ -4,7 +4,10 @@ import 'package:auto_route/auto_route.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:injectable/injectable.dart';
+import 'package:loopcare_frontend/core/domain/analytics/analytics_parameters.dart';
 import 'package:loopcare_frontend/core/infrastructure/services/app_config.dart';
+import 'package:loopcare_frontend/core/infrastructure/services/events.dart';
+import 'package:loopcare_frontend/core/infrastructure/services/mixpanel_event_service.dart';
 import 'package:loopcare_frontend/core/presentation/routes/app_router.gr.dart';
 
 @injectable
@@ -22,10 +25,20 @@ class ErrorInterceptor extends QueuedInterceptor {
 
   @override
   void onError(DioException err, ErrorInterceptorHandler handler) {
-    if (err.type.isConnectionException) {
+    var response = err.response;
+    MixpanelEventService.instance.track(
+      AppMixpanelEvents.authUserError,
+      parameters: {
+        AnalyticsParameters.timestamp: DateTime.now().toIso8601String(),
+        AnalyticsParameters.errorMessage:
+            'RESPONSE STATUS: ${response?.statusCode} PATH: ${err.requestOptions.path} ERROR${response?.data}',
+      },
+    );
+    if (response != null && _isPaymentRequired(response)) {
+      _pushToSubscriptionScreen();
+    } else if (err.type.isConnectionException) {
       return handler.reject(err);
     }
-
     return handler.next(err);
   }
 

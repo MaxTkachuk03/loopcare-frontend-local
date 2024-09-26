@@ -18,7 +18,6 @@ import 'package:loopcare_frontend/features/river/presentation/utils/module_items
 import 'package:loopcare_frontend/features/river/presentation/utils/river_utils.dart';
 import 'package:loopcare_frontend/features/river/presentation/widgets/river_module_builder.dart';
 import 'package:loopcare_frontend/features/river/presentation/widgets/river_module_item_widget/river_animation_module_item_widget.dart';
-import 'package:visibility_detector/visibility_detector.dart';
 
 class RiverScreen extends StatefulWidget {
   const RiverScreen({
@@ -38,9 +37,6 @@ class _RiverScreenState extends State<RiverScreen> with RiverUtils {
   late List<({Offset offset, RiverModuleItem item})> _positionedItems;
   late int _page;
 
-  bool _isOnViewport = false;
-  bool _showPopup = false;
-
   @override
   bool get isBeginning => _page == 0;
 
@@ -49,15 +45,6 @@ class _RiverScreenState extends State<RiverScreen> with RiverUtils {
     super.initState();
     _page = getIndex(widget.page);
     _positionedItems = ModuleItemsUtils.getAllocatedItems(_page, widget.module.moduleItems);
-
-    final state = context.read<RiverBloc>().state;
-    final activeModule = state.data.activeModule;
-    if (activeModule.isModuleItemsCompleted &&
-        activeModule.isInProgress &&
-        activeModule?.id == state.data.modules.firstOrNull?.id) {
-      _showPopup = true;
-      _showCompleteDialog();
-    }
   }
 
   @override
@@ -76,37 +63,26 @@ class _RiverScreenState extends State<RiverScreen> with RiverUtils {
     final isCompleted = widget.module.moduleState.isCompleted ||
         (isBeginning && widget.module.isModuleItemsCompleted);
 
-    return BlocListener<RiverBloc, RiverState>(
-      // todo: move to river_page.dart
-      listener: (context, state) => state.mapOrNull(
-        moduleCompleted: _onCompleteModule,
-        modulePartlyCompleted: _onPartlyCompleteModule,
-      ),
-      child: VisibilityDetector(
-        key: ValueKey('module_page_${widget.page}'),
-        onVisibilityChanged: onViewPortChanged,
-        child: RiverModuleBuilder(
-          topOffset: itemTopPositionOffset,
-          dimension: dimension,
-          direction: Axis.horizontal,
-          onCompleted: _onCompleteTime,
-          index: _page,
-          completedDate: widget.module.nextModuleUnlocksAt,
-          totalDelay: widget.module.nextModuleUnlockDelay,
-          isCompleted: isCompleted,
-          title: widget.module.title,
-          positionedItems: _positionedItems,
-          itemBuilder: (context, item) {
-            return RiverAnimationModuleItemWidget(
-              item: item,
-              radius: itemRadius(isRoot: item.isRootItem),
-              isBeginning: isBeginning,
-              onTap: () => _onItemPressed(item),
-              onAnimationComplete: (placement) => _onAnimationCompleted(item, placement),
-            );
-          },
-        ),
-      ),
+    return RiverModuleBuilder(
+      topOffset: itemTopPositionOffset,
+      dimension: dimension,
+      direction: Axis.horizontal,
+      onCompleted: _onCompleteTime,
+      index: _page,
+      completedDate: widget.module.nextModuleUnlocksAt,
+      totalDelay: widget.module.nextModuleUnlockDelay,
+      isCompleted: isCompleted,
+      title: widget.module.title,
+      positionedItems: _positionedItems,
+      itemBuilder: (context, item) {
+        return RiverAnimationModuleItemWidget(
+          item: item,
+          radius: itemRadius(isRoot: item.isRootItem),
+          isBeginning: isBeginning,
+          onTap: () => _onItemPressed(item),
+          onAnimationComplete: (placement) => _onAnimationCompleted(item, placement),
+        );
+      },
     );
   }
 
@@ -120,28 +96,19 @@ class _RiverScreenState extends State<RiverScreen> with RiverUtils {
     }
   }
 
-  void _bounceParentItem(RiverModuleItem item) {
-    context.read<RiverBloc>().add(RiverEvent.bounceParentItem(
+  void _bounceParentItem(RiverModuleItem item) => context.read<RiverBloc>().add(
+        RiverEvent.bounceParentItem(
           moduleItemId: item.id,
           moduleId: widget.module.id,
-        ));
-  }
+        ),
+      );
 
-  void _updateModuleItem(int id) {
-    final riverBloc = context.read<RiverBloc>();
-
-    riverBloc.add(
-      RiverEvent.updateModuleItemById(
-        moduleId: widget.module.id,
-        moduleItemId: id,
-      ),
-    );
-  }
-
-  void onViewPortChanged(VisibilityInfo info) {
-    _isOnViewport = info.visibleFraction > 0;
-    _showCompleteDialog();
-  }
+  void _updateModuleItem(int id) => context.read<RiverBloc>().add(
+        RiverEvent.updateModuleItemById(
+          moduleId: widget.module.id,
+          moduleItemId: id,
+        ),
+      );
 
   void _beginningUnlockAction(RiverModuleItem item) {
     if (item.states.prevItemState.isCompleted) {
@@ -207,59 +174,12 @@ class _RiverScreenState extends State<RiverScreen> with RiverUtils {
     }
   }
 
-  void _onCompleteModule(RiverState state) async {
-    if (widget.module.isModuleItemsCompleted && await widget.module.isTimePassed) {
-      _showPopup = true;
-      _showCompleteDialog();
-    }
-  }
-
-  void _onPartlyCompleteModule(RiverState state) {
-    if (!(ModalRoute.of(context)?.isCurrent ?? false)) return;
-
-    if (state.data.activeModule.isModuleItemsCompleted) {
-      ModalBottomSheet.moduleGraduationCompletedItems(context: context);
-    } else {
-      ModalBottomSheet.moduleGraduationCompletedTime(context: context);
-    }
-  }
-
-  void _onStateChanged(RiverModuleItem item) {
-    context.read<RiverBloc>().add(RiverEvent.updateModuleItemById(
+  void _onStateChanged(RiverModuleItem item) => context.read<RiverBloc>().add(
+        RiverEvent.updateModuleItemById(
           moduleItemId: item.id,
           moduleId: widget.module.id,
-        ));
-  }
-
-  void _onCompleteTime() {
-    context.read<RiverBloc>().add(const RiverEvent.checkCompletion());
-  }
-
-  void _showCompleteDialog() {
-    if (!_isOnViewport || !_showPopup) return;
-
-    _showPopup = false;
-
-    final riverData = context.read<RiverBloc>().state.data;
-    _onComplete();
-
-    if (isBeginning) {
-      context.read<NavigationBarBloc>().add(const NavigationBarEvent.completeBeginning());
-
-      ModalBottomSheet.guidanceCompleted(context: context);
-    } else if (riverData.modules.last.id == riverData.activeModule?.id) {
-      ModalBottomSheet.lastModuleCompleted(
-        context: context,
-        moduleTitle: riverData.activeModule?.title ?? '',
+        ),
       );
-    } else {
-      ModalBottomSheet.moduleCompleted(
-        context: context,
-        currentModule: riverData.activeModule?.title ?? '',
-        nextModule: riverData.nextModule?.title ?? '',
-      );
-    }
-  }
 
-  void _onComplete() => context.read<RiverBloc>().add(const RiverEvent.completeActiveModule());
+  void _onCompleteTime() => context.read<RiverBloc>().add(const RiverEvent.checkCompletion());
 }

@@ -5,8 +5,8 @@
 
 "files": [
   {
-    "source": "lib/l10n/app_en.arb",
-    "translation": "lib/l10n/app_%two_letters_code%.arb",
+    "source": "lib/localization/l10n/app_en.arb",
+    "translation": "lib/localization/l10n/app_%two_letters_code%.arb",
     "translation_replace": {
       "de-DE": "de",
       "de": "de",
@@ -18,6 +18,6 @@
 
 
     },
-    "export_pattern": "lib/l10n/app_%two_letters_code%.arb"
+    "export_pattern": "lib/localization/l10n/app_%two_letters_code%.arb"
   }
 ]

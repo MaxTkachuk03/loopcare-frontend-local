@@ -4,7 +4,10 @@ class AppMixpanelEvents {
   static String get loginSuccess => 'user_login_success ';
 
   static String get loginFail => 'user_login_fail ';
+  static String get logoutUser => 'user_logout ';
+  static String get authUserError => 'user_error_interceptor';
   static String get openSubscriptionScreen => 'user_opens_subscription_screen';
+  static String get checkEligibilityByUser => 'user_check_eligibility';
   static String get getTransactionHistoryByUser => 'get_user_transaction_history_store';
   static String get getSubscriptionIdsBackend => 'get_user_subscription_ids_backend';
   static String get getSubscriptionPansStore => 'get_user_subscription_plans_store';

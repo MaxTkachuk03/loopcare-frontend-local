@@ -12,6 +12,7 @@ import 'package:loopcare_frontend/core/presentation/widgets/main_container.dart'
 import 'package:loopcare_frontend/core/presentation/widgets/unit_tabs/measurement_system_type.dart';
 import 'package:loopcare_frontend/features/onboarding/application/general/general_onboarding_bloc.dart';
 import 'package:loopcare_frontend/features/onboarding/application/physical_questions/physical_questions_bloc.dart';
+import 'package:loopcare_frontend/features/onboarding/presentation/physical_questions/views/check_passed/widgets/bmi_description.dart';
 import 'package:loopcare_frontend/features/onboarding/utils/height_conversion_utils.dart';
 import 'package:loopcare_frontend/features/onboarding/utils/weight_conversion_utils.dart';
 import 'package:loopcare_frontend/localization/service/localization_extension.dart';
@@ -50,13 +51,11 @@ class CheckPassedContent extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final state = context.read<PhysicalQuestionsBloc>().state;
-
     final isHeightMetric = state.heightMeasurementSystemType.isMetric;
     final isWeightMetric = state.weightMeasurementSystemType.isMetric;
-
     final heightValue = _getHeightValue(isHeightMetric, state.heightInCm ?? '');
-
     final weightValue = _getWeightValue(isWeightMetric, state.weightInKg ?? '');
+    final bmi = state.bmi ?? 0;
 
     return BottomPlacedButton.yellow(
       body: ListView(
@@ -132,7 +131,7 @@ class CheckPassedContent extends StatelessWidget {
                                 style: context.textTheme.bodyMedium,
                               ),
                               CustomText.w600(
-                                state.bmi.toString(),
+                                bmi.toString(),
                                 style: context.textTheme.bodyMedium,
                               ),
                             ],
@@ -145,10 +144,7 @@ class CheckPassedContent extends StatelessWidget {
                         accents: [LocalizedTexts.onboardingBmiDescriptionAccent.tr()],
                       ),
                       const SizedBox(height: 20),
-                      CustomText.w400(
-                        LocalizedTexts.onboardingBmiDescription2.tr(),
-                        style: context.textTheme.bodyMedium,
-                      ),
+                      BMIDescription(bmi: bmi),
                     ],
                   ),
                 ),

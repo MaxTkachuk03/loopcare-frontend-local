@@ -49,12 +49,12 @@ class SubscriptionController {
           isOfferEligible: data.isEligible,
         );
         products.add(product);
-        if (data.plans.length == 1) {
-          subscribeTitle.value = product.description;
-          selectedPlan.value = products.first;
-          isEnableSubscribe.value = true;
-        }
       }
+    }
+    if (products.isNotEmpty) {
+      subscribeTitle.value = products.first.description;
+      selectedPlan.value = products.first;
+      isEnableSubscribe.value = true;
     }
 
     MixpanelEventService.instance.track(
@@ -73,7 +73,7 @@ class SubscriptionController {
   SkuProduct _getProductDetailsFromStore(ProductDetails product) {
     if (product is AppStoreProductDetails) {
       SKProductWrapper skProduct = product.skProduct;
-      final offerPriceAmount = int.parse(skProduct.introductoryPrice?.price ?? '0');
+      final offerPriceAmount = double.parse(skProduct.introductoryPrice?.price ?? '0');
       return SkuProduct(
         unitOffer: getIosUnit(skProduct.introductoryPrice?.subscriptionPeriod.unit.name),
         unitOfferCount: skProduct.introductoryPrice?.subscriptionPeriod.numberOfUnits ?? 0,
@@ -106,7 +106,7 @@ class SubscriptionController {
         return SkuProduct(
           regularPrice: product.rawPrice,
           offerPrice: detail.offerId != null ? offerPrice : null,
-          offerPriceAmount: phase.priceAmountMicros,
+          offerPriceAmount: phase.priceAmountMicros.toDouble(),
           offerId: detail.offerId,
           unitOfferCount: unitCount,
           unitOffer: unit,
@@ -146,12 +146,6 @@ class SubscriptionController {
         AnalyticsParameters.productIdentifier: plan.details.id,
       },
     );
-  }
-
-  void resetState() {
-    selectedPlan.value = null;
-    isEnableSubscribe.value = false;
-    loading.value = false;
   }
 
   void handleLoading(bool isLoading) {

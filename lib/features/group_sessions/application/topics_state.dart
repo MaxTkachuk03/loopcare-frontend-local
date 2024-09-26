@@ -108,26 +108,6 @@ class TopicsData with _$TopicsData {
     return groupSessions;
   }
 
-  // TODO move to the GroupSession model or Bloc
-  Future<Duration> get timePassedSinceSessionStart async {
-    final startTime = signedGroupSessionStartTime;
-
-    if (startTime == null) return Duration.zero;
-
-    final ntpTime = await TimeService.now;
-
-    return ntpTime.difference(startTime);
-  }
-
-  // TODO move to the GroupSession model or Bloc
-  Future<Duration> get timeLeftToSessionStart async {
-    final startTime = signedGroupSessionStartTime;
-
-    if (startTime == null) return Duration.zero;
-
-    return startTime.difference(await TimeService.now);
-  }
-
   List<GroupSessionProgramEvent> get textEvents {
     final events = thisWeekTopicsEvents;
 

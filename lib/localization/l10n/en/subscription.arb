@@ -6,6 +6,7 @@
   "trialExpiredLabel1": "We hope you enjoyed our program.",
   "trialExpiredLabel2": "If you want to continue,\nrefresh your subscription here:",
   "endedTitle": "Your subscription \nhas ended",
+  "emptyToRestore": "Sorry, the store didn't return a subscription for us to restore. If you think this is an error, please send proof of subscription to support@lean-on.me.",
   "endedLabel1": "We hope you enjoyed our program.",
   "endedLabel2": "If you want to continue,\nrefresh your subscription here:",
   "cancelledTitle": "Your subscription \nwas cancelled",
@@ -67,8 +68,7 @@
   "quarterly": "quarterly",
   "annually": "annually",
   "weekly": "weekly",
-  "daily" : "days",
+  "daily": "days",
   "descriptionLabel": "Cancel anytime in subscriptions center",
   "genericTitle": "Your journey is about to begin."
-
 }

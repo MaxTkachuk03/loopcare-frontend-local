@@ -2521,7 +2521,8 @@ class AppLocalizationsEn extends AppLocalizations {
   String get errorSubscriptionPackageNameInvalid => 'Subscription package name is invalid.';
 
   @override
-  String get errorSubscriptionAccountIdInvalid => 'Subscription account ID is invalid.';
+  String get errorSubscriptionAccountIdInvalid =>
+      'It looks like your Apple ID already has a subscription on another LeanOnMe account. Please log in with that email address to use your subscription. If you need assistance, please contact support@lean-on.me';
 
   @override
   String get errorSubscriptionVendorInvalid => 'Subscription vendor is invalid.';
@@ -3030,28 +3031,32 @@ class AppLocalizationsEn extends AppLocalizations {
   String get onboardingBmiExclusionBodyTitle => 'Body Mass Index (BMI) is:';
 
   @override
-  String get onboardingBmiExclusionBodyOlder19LowBmi =>
-      'Our program is not yet optimized for people with a BMI under 25. We\'ll reach out to you as soon as we\'re ready!';
+  String get onboardingHighBmiDescription1 =>
+      'LeanOnMe currently has customized programs to support people with a BMI between 25 and 40. We are working on additional customizations to help support people who are outside this BMI range, but we’re not quite there yet.';
 
   @override
-  String get onboardingBmiExclusionBodyOlder19HighBmi =>
-      'Our program is not yet optimized for people with a BMI over 39.9.';
+  String get onboardingHighBmiDescription2 =>
+      'Some parts of our current program may not be 100% tailored to your needs.';
 
   @override
-  String get onboardingBmiExclusionBodyYounger19LowBmi =>
-      'Our program is not yet optimized for people with a BMI under 25. We\'ll reach out to you as soon as we\'re ready!';
+  String get onboardingHighBmiDescription3 =>
+      'Listen to your body, and if you have any concerns that something is not right for you, please contact support@lean-on.me.';
 
   @override
-  String get onboardingBmiExclusionBodyYounger19HighBmi =>
-      'Our program is not suitable for people with a BMI over 38.5.';
+  String get onboardingLowerBmiDescription1 =>
+      'According to your BMI, you’re within a healthy range, that’s great! But LeanOnMe’s program is designed to support people living with various degrees of overweight and obesity.';
 
   @override
-  String get onboardingBmiExclusionBodyHighBmiEnding =>
-      'Please consult your doctor to find a suitable alternative.';
+  String get onboardingLowerBmiDescription2 =>
+      'None of our content is bad for you! But some may not feel as relevant. Enjoy!';
 
   @override
-  String get onboardingBmiExclusionBodyLowBmiEnding =>
-      'Please consult your doctor if you feel you urgently need a suitable alternative.';
+  String get onboardingBmiExclusionBody1 =>
+      'Your BMI indicates that you may be underweight. LeanOnMe is currently a weight-loss program. In respect to your current BMI, additional weight-loss could affect your health.';
+
+  @override
+  String get onboardingBmiExclusionBody2 =>
+      'Please consult to your GP to make sure that your health is not being affected.';
 
   @override
   String get onboardingPhysicalCheckPassedTitle => 'Basics completed!';
@@ -3908,6 +3913,10 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get subscriptionEndedTitle => 'Your subscription \nhas ended';
+
+  @override
+  String get subscriptionEmptyToRestore =>
+      'Sorry, the store didn\'t return a subscription for us to restore. If you think this is an error, please send proof of subscription to support@lean-on.me.';
 
   @override
   String get subscriptionEndedLabel1 => 'We hope you enjoyed our program.';

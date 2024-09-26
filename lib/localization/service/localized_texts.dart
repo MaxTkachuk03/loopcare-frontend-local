@@ -590,6 +590,7 @@ class LocalizedTexts {
   static const String subscriptionTrialExpiredLabel1 = "subscriptionTrialExpiredLabel1";
   static const String subscriptionTrialExpiredLabel2 = "subscriptionTrialExpiredLabel2";
   static const String subscriptionEndedTitle = "subscriptionEndedTitle";
+  static const String subscriptionEmptyToRestore = "subscriptionEmptyToRestore";
   static const String subscriptionEndedLabel1 = "subscriptionEndedLabel1";
   static const String subscriptionEndedLabel2 = "subscriptionEndedLabel2";
   static const String subscriptionCancelledTitle = "subscriptionCancelledTitle";
@@ -758,14 +759,13 @@ class LocalizedTexts {
 
   // Bmi failed
   static const String onboardingBmiExclusionBodyTitle = 'onboardingBmiExclusionBodyTitle';
-  static const String onboardingBmiExclusionBodyOlder19LowBmi =
-      'onboardingBmiExclusionBodyOlder19LowBmi';
-  static const String onboardingBmiExclusionBodyOlder19HighBmi = 'bmiExclusionBodyOlder19HighBmi';
-  static const String onboardingBmiExclusionBodyYounger19LowBmi = 'bmiExclusionBodyYounger19LowBmi';
-  static const String onboardingBmiExclusionBodyYounger19HighBmi =
-      'bmiExclusionBodyYounger19HighBmi';
-  static const String onboardingBmiExclusionBodyHighBmiEnding = 'bmiExclusionBodyHighBmiEnding';
-  static const String onboardingBmiExclusionBodyLowBmiEnding = 'bmiExclusionBodyLowBmiEnding';
+  static const String onboardingHighBmiDescription1 = 'onboardingHighBmiDescription1';
+  static const String onboardingHighBmiDescription2 = 'onboardingHighBmiDescription2';
+  static const String onboardingHighBmiDescription3 = 'onboardingHighBmiDescription3';
+  static const String onboardingLowerBmiDescription1 = 'onboardingLowerBmiDescription1';
+  static const String onboardingLowerBmiDescription2 = 'onboardingLowerBmiDescription2';
+  static const String onboardingBmiExclusionBody1 = 'onboardingBmiExclusionBody1';
+  static const String onboardingBmiExclusionBody2 = 'onboardingBmiExclusionBody2';
 
   // Physical check completed
   static const String onboardingPhysicalCheckPassedTitle = 'onboardingPhysicalCheckPassedTitle';
