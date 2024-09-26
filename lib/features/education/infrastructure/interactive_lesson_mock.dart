@@ -189,14 +189,114 @@ Unordered list
               "title": "Chunk title",
               "components": [
                 {
-                  "id": 3,
-                  "type": "image",
+                  "id": 5,
+                  "type": "singleSelectWithFeedback",
                   "needsValidation": false,
                   "isValid": true,
                   "content": {
-                    "src":
-                        "https://www.google.com/imgres?q=image&imgurl=https%3A%2F%2Fplus.unsplash.com%2Fpremium_photo-1664474619075-644dd191935f%3Ffm%3Djpg%26q%3D60%26w%3D3000%26ixlib%3Drb-4.0.3%26ixid%3DM3wxMjA3fDB8MHxzZWFyY2h8MXx8aW1hZ2V8ZW58MHx8MHx8fDA%253D&imgrefurl=https%3A%2F%2Funsplash.com%2Fs%2Fphotos%2Fimage&docid=ExDvm63D_wCvSM&tbnid=2brKLR3s5kTpPM&vet=12ahUKEwiXg5CUg9GIAxU0BdsEHfj_FfsQM3oECBsQAA..i&w=3000&h=2003&hcb=2&itg=1&ved=2ahUKEwiXg5CUg9GIAxU0BdsEHfj_FfsQM3oECBsQAA",
-                  },
+                    "question": "My question. Select one answer with feedback.",
+                    "answers": [
+                      {"id": 1, "label": "Answer 1", "isCorrect": true},
+                      {"id": 2, "label": "Answer 2", "isCorrect": false},
+                      {"id": 3, "label": "Answer 3", "isCorrect": false},
+                      {"id": 4, "label": "Answer 4", "isCorrect": false}
+                    ],
+                    "feedback": {
+                      "correct": "Correct Feedback for answers 1 and 2.",
+                      "incorrect": "Incorrect Feedback for answers 3 and 4."
+                    }
+                  }
+                },
+                {
+                  "id": 5,
+                  "type": "singleSelectWithFeedback",
+                  "needsValidation": false,
+                  "isValid": true,
+                  "content": {
+                    "question": "My question. Select one answer with feedback.",
+                    "answers": [
+                      {"id": 1, "label": "Answer 1", "isCorrect": true},
+                      {"id": 2, "label": "Answer 2", "isCorrect": false},
+                      {"id": 3, "label": "Answer 3", "isCorrect": false},
+                      {"id": 4, "label": "Answer 4", "isCorrect": false}
+                    ],
+                    "feedback": {
+                      "correct": "Correct Feedback for answers 1 and 2.",
+                      "incorrect": "Incorrect Feedback for answers 3 and 4."
+                    }
+                  }
+                },
+              ]
+            }
+          ]
+        },
+        {
+          "id": 2,
+          "title": "Page title 2",
+          "pageNumber": 2,
+          "chunks": [
+            {
+              "id": 1,
+              "title": "Chunk title",
+              "components": [
+                {
+                  "id": 1,
+                  "type": "singleSelectWithFeedback",
+                  "needsValidation": false,
+                  "isValid": true,
+                  "content": {
+                    "question": "My question. Select one answer with feedback.",
+                    "answers": [
+                      {"id": 1, "label": "Answer 1", "isCorrect": true},
+                      {"id": 2, "label": "Answer 2", "isCorrect": false},
+                      {"id": 3, "label": "Answer 3", "isCorrect": false},
+                      {"id": 4, "label": "Answer 4", "isCorrect": false}
+                    ],
+                    "feedback": {
+                      "correct": "Correct Feedback for answers 1 and 2.",
+                      "incorrect": "Incorrect Feedback for answers 3 and 4."
+                    }
+                  }
+                },
+                {
+                  "id": 2,
+                  "type": "ordering",
+                  "needsValidation": false,
+                  "isValid": true,
+                  "content": {
+                    "question": "My question. Select one answer with feedback.",
+                    "topLabel": "Most calories",
+                    "bottomLabel": "Least calories",
+                    "items": [
+                      {
+                        "id": 1,
+                        "correctIndex": 2,
+                        "src": "/images/plate-1.jpg",
+                        "title": "Label 1",
+                        "description": "Description 1"
+                      },
+                      {
+                        "id": 2,
+                        "correctIndex": 1,
+                        "src": "/images/plate-2.jpg",
+                        "title": "Label 2",
+                        "description": "Description 2"
+                      },
+                      {
+                        "id": 3,
+                        "correctIndex": 0,
+                        "src": "/images/plate-3.jpg",
+                        "title": "Label 3",
+                        "description": "Description 3"
+                      }
+                    ],
+                    "feedback": {
+                      "correct":
+                          "Great job! You've correctly ordered the food items from least to most calories.",
+                      "incorrect": "Almost there! The correct order is...",
+                      "orderRevealed": "Answer revealed ...."
+                    }
+                  }
                 }
               ]
             }

@@ -25,7 +25,7 @@ class SelectFeedback extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    if (hasFeedback && hasAnswer) return const SizedBox.shrink();
+    if (!hasFeedback || !hasAnswer) return const SizedBox.shrink();
 
     return Padding(
       padding: const EdgeInsets.only(top: 28),

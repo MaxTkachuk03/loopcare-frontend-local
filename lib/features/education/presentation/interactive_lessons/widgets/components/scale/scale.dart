@@ -10,6 +10,7 @@ import 'package:loopcare_frontend/features/education/presentation/interactive_le
 import 'package:loopcare_frontend/localization/service/localization_extension.dart';
 import 'package:loopcare_frontend/localization/service/localized_texts.dart';
 
+// TODO: Rewrite with animation like like/unlike component if there will be time
 class Scale extends StatefulWidget {
   final InteractiveLessonChunkComponentScale component;
 
