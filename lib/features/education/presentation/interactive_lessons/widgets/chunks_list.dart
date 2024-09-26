@@ -65,7 +65,7 @@ class _ChunksListState extends State<ChunksList> {
     } else if (navBlocState.isAllChunksUnlocked && !navBlocState.isLastPage) {
       navBloc.add(const InteractiveLessonsNavEvent.setNextPage());
     } else {
-      navBloc.add(const InteractiveLessonsNavEvent.updateUnlockedChunks());
+      navBloc.add(const InteractiveLessonsNavEvent.unlockNextChunk());
     }
   }
 

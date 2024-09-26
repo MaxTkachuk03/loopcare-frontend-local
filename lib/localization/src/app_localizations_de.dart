@@ -3147,7 +3147,7 @@ class AppLocalizationsDe extends AppLocalizations {
   String get onboardingImperial => 'Imperial';
 
   @override
-  String get onboardingNext => 'Next';
+  String get onboardingNext => 'Weiter';
 
   @override
   String get onboardingChangeYourHeight => 'Ändere deine Größe';
@@ -3171,31 +3171,31 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String get onboardingHighBmiDescription1 =>
-      'LeanOnMe currently has customized programs to support people with a BMI between 25 and 40. We are working on additional customizations to help support people who are outside this BMI range, but we’re not quite there yet.';
+      'LeanOnMe bietet derzeit maßgeschneiderte Programme für Menschen mit einem BMI zwischen 25 und 40. Wir arbeiten an weiteren Anpassungen, um Menschen zu unterstützen, die außerhalb dieses BMI-Bereichs liegen, sind aber noch nicht ganz so weit.';
 
   @override
   String get onboardingHighBmiDescription2 =>
-      'Some parts of our current program may not be 100% tailored to your needs.';
+      'Einige Teile unseres aktuellen Programms sind vielleicht nicht zu 100% auf deine Bedürfnisse zugeschnitten.';
 
   @override
   String get onboardingHighBmiDescription3 =>
-      'Listen to your body, and if you have any concerns that something is not right for you, please contact support@lean-on.me.';
+      'Hör auf deinen Körper und wenn du Bedenken hast, dass etwas nicht zu dir passt, wende dich an support@lean-on.me.';
 
   @override
   String get onboardingLowerBmiDescription1 =>
-      'According to your BMI, you’re within a healthy range, that’s great! But LeanOnMe’s program is designed to support people living with various degrees of overweight and obesity.';
+      'Deinem BMI zufolge liegst du in einem gesunden Bereich, das ist toll! Aber das Programm von LeanOnMe wurde entwickelt, um Menschen zu unterstützen, die mit verschiedenen Graden von Übergewicht und Fettleibigkeit leben.';
 
   @override
   String get onboardingLowerBmiDescription2 =>
-      'None of our content is bad for you! But some may not feel as relevant. Enjoy!';
+      'Keiner unserer Inhalte ist schlecht für dich, aber manche sind vielleicht nicht so relevant. Viel Spaß!';
 
   @override
   String get onboardingBmiExclusionBody1 =>
-      'Your BMI indicates that you may be underweight. LeanOnMe is currently a weight-loss program. In respect to your current BMI, additional weight-loss could affect your health.';
+      'Dein BMI zeigt an, dass du möglicherweise untergewichtig bist. LeanOnMe ist derzeit ein Programm zur Gewichtsreduzierung. In Bezug auf deinen aktuellen BMI könnte eine weitere Gewichtsabnahme deine Gesundheit beeinträchtigen.';
 
   @override
   String get onboardingBmiExclusionBody2 =>
-      'Please consult to your GP to make sure that your health is not being affected.';
+      'Bitte konsultiere deinen Hausarzt, um sicherzustellen, dass deine Gesundheit nicht beeinträchtigt wird.';
 
   @override
   String get onboardingPhysicalCheckPassedTitle => 'Grundlagen abgeschlossen!';
@@ -3213,18 +3213,18 @@ class AppLocalizationsDe extends AppLocalizations {
   String get onboardingBmi => 'BMI';
 
   @override
-  String get onboardingYears => 'years';
+  String get onboardingYears => 'Jahre';
 
   @override
   String get onboardingBmiDescription1 =>
-      'The Body Mass Index (BMI) is a measure  that uses your height and weight to calculate if your weight for your body is within a healthy range';
+      'Der Body-Mass-Index (BMI) misst, anhand deiner Größe und deines Gewichts, ob dein Gewicht für deinen Körper in einem gesunden Bereich liegt.';
 
   @override
   String get onboardingBmiDescriptionAccent => 'Body Mass Index (BMI)';
 
   @override
   String get onboardingBmiDescription2 =>
-      'However, BMI has limitations - for example it can\'t differentiate between fat, muscle, and bone weight. We\'ll use it along with other metrics to customize your program, but don\'t worry: It won\'t be the only factor that is taken into account';
+      'Der BMI hat jedoch seine Grenzen - zum Beispiel kann er nicht zwischen Fett-, Muskel- und Knochengewicht unterscheiden. Wir verwenden ihn zusammen mit anderen Messwerten, um dein Programm anzupassen. Aber keine Sorge: Er wird nicht der einzige Faktor sein, der berücksichtigt wird.';
 
   @override
   String get onboardingLetsMoveOn => 'Weiter geht\'s';
@@ -3375,7 +3375,7 @@ class AppLocalizationsDe extends AppLocalizations {
   String get onboardingLocomotorSystemDisease => 'Erkrankung des Bewegungsapparates';
 
   @override
-  String get onboardingMentalHealth => 'Psychische Gesundheit';
+  String get onboardingMentalHealth => 'Mental health';
 
   @override
   String get onboardingMentalIntroBody1 =>

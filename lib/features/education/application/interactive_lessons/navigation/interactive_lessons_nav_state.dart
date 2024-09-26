@@ -35,4 +35,7 @@ class InteractiveLessonsNavStateData with _$InteractiveLessonsNavStateData {
 
   List<InteractiveLessonChunk> get activePageUnlockedChunks =>
       unlockedChunksByPage[activePage?.id ?? 0] ?? [];
+
+  factory InteractiveLessonsNavStateData.fromJson(Map<String, dynamic> json) =>
+      _$InteractiveLessonsNavStateDataFromJson(json);
 }

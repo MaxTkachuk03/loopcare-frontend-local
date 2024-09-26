@@ -14,41 +14,15 @@ var interactiveLesson = {
       "pages": [
         {
           "id": 1,
-          "title": "What is Calorie Density?",
+          "title": "Page title 1",
           "pageNumber": 1,
           "chunks": [
             {
               "id": 1,
-              "title": "Chunk title",
+              "title": "Chunk title 1",
               "components": [
                 {
                   "id": 1,
-                  "type": "markdown",
-                  "needsValidation": false,
-                  "isValid": true,
-                  "content": {
-                    "markdown": """
-# Heading 1 
-## Heading 2 
-### Heading 3 
-#### Heading 4 
-##### Heading 5 
-###### Heading 6 
-paragraph with some text and some **bold text** and some *italic text* and so on.
-Ordered list
-1. Item 1
-2. Item 2
-3. Item 3
-
-Unordered list
-- Item 1
-- Item 2
-- Item 3
-""",
-                  }
-                },
-                {
-                  "id": 2,
                   "type": "scale",
                   "needsValidation": true,
                   "isValid": false,
@@ -92,23 +66,7 @@ Unordered list
                   }
                 },
                 {
-                  "id": 3,
-                  "type": "singleSelect",
-                  "needsValidation": false,
-                  "isValid": true,
-                  "content": {
-                    "question": "My question. Select one answer.",
-                    "answers": [
-                      {"id": 1, "label": "Answer 1", "isCorrect": null},
-                      {"id": 2, "label": "Answer 2", "isCorrect": null},
-                      {"id": 3, "label": "Answer 3", "isCorrect": null},
-                      {"id": 4, "label": "Answer 4", "isCorrect": null}
-                    ],
-                    "feedback": null
-                  }
-                },
-                {
-                  "id": 4,
+                  "id": 2,
                   "type": "multipleSelect",
                   "needsValidation": false,
                   "isValid": true,
@@ -124,7 +82,7 @@ Unordered list
                   }
                 },
                 {
-                  "id": 5,
+                  "id": 3,
                   "type": "singleSelectWithFeedback",
                   "needsValidation": false,
                   "isValid": true,
@@ -143,7 +101,7 @@ Unordered list
                   }
                 },
                 {
-                  "id": 6,
+                  "id": 4,
                   "type": "ordering",
                   "needsValidation": true,
                   "isValid": false,
@@ -186,10 +144,10 @@ Unordered list
             },
             {
               "id": 2,
-              "title": "Chunk title",
+              "title": "Chunk title 2",
               "components": [
                 {
-                  "id": 5,
+                  "id": 1,
                   "type": "singleSelectWithFeedback",
                   "needsValidation": false,
                   "isValid": true,
@@ -208,7 +166,7 @@ Unordered list
                   }
                 },
                 {
-                  "id": 5,
+                  "id": 2,
                   "type": "singleSelectWithFeedback",
                   "needsValidation": false,
                   "isValid": true,
@@ -224,6 +182,28 @@ Unordered list
                       "correct": "Correct Feedback for answers 1 and 2.",
                       "incorrect": "Incorrect Feedback for answers 3 and 4."
                     }
+                  }
+                },
+              ]
+            },
+            {
+              "id": 3,
+              "title": "Chunk title 3",
+              "components": [
+                {
+                  "id": 1,
+                  "type": "singleSelect",
+                  "needsValidation": false,
+                  "isValid": true,
+                  "content": {
+                    "question": "My question. Select one answer.",
+                    "answers": [
+                      {"id": 1, "label": "Answer 1", "isCorrect": null},
+                      {"id": 2, "label": "Answer 2", "isCorrect": null},
+                      {"id": 3, "label": "Answer 3", "isCorrect": null},
+                      {"id": 4, "label": "Answer 4", "isCorrect": null}
+                    ],
+                    "feedback": null
                   }
                 },
               ]
@@ -299,7 +279,167 @@ Unordered list
                   }
                 }
               ]
-            }
+            },
+            {
+              "id": 2,
+              "title": "Chunk title",
+              "components": [
+                {
+                  "id": 1,
+                  "type": "singleSelectWithFeedback",
+                  "needsValidation": false,
+                  "isValid": true,
+                  "content": {
+                    "question": "My question. Select one answer with feedback.",
+                    "answers": [
+                      {"id": 1, "label": "Answer 1", "isCorrect": true},
+                      {"id": 2, "label": "Answer 2", "isCorrect": false},
+                      {"id": 3, "label": "Answer 3", "isCorrect": false},
+                      {"id": 4, "label": "Answer 4", "isCorrect": false}
+                    ],
+                    "feedback": {
+                      "correct": "Correct Feedback for answers 1 and 2.",
+                      "incorrect": "Incorrect Feedback for answers 3 and 4."
+                    }
+                  }
+                },
+                {
+                  "id": 2,
+                  "type": "singleSelectWithFeedback",
+                  "needsValidation": false,
+                  "isValid": true,
+                  "content": {
+                    "question": "My question. Select one answer with feedback.",
+                    "answers": [
+                      {"id": 1, "label": "Answer 1", "isCorrect": true},
+                      {"id": 2, "label": "Answer 2", "isCorrect": false},
+                      {"id": 3, "label": "Answer 3", "isCorrect": false},
+                      {"id": 4, "label": "Answer 4", "isCorrect": false}
+                    ],
+                    "feedback": {
+                      "correct": "Correct Feedback for answers 1 and 2.",
+                      "incorrect": "Incorrect Feedback for answers 3 and 4."
+                    }
+                  }
+                },
+              ]
+            },
+          ]
+        },
+        {
+          "id": 3,
+          "title": "Page title 3",
+          "pageNumber": 3,
+          "chunks": [
+            {
+              "id": 1,
+              "title": "Chunk title",
+              "components": [
+                {
+                  "id": 1,
+                  "type": "singleSelectWithFeedback",
+                  "needsValidation": false,
+                  "isValid": true,
+                  "content": {
+                    "question": "My question. Select one answer with feedback.",
+                    "answers": [
+                      {"id": 1, "label": "Answer 1", "isCorrect": true},
+                      {"id": 2, "label": "Answer 2", "isCorrect": false},
+                      {"id": 3, "label": "Answer 3", "isCorrect": false},
+                      {"id": 4, "label": "Answer 4", "isCorrect": false}
+                    ],
+                    "feedback": {
+                      "correct": "Correct Feedback for answers 1 and 2.",
+                      "incorrect": "Incorrect Feedback for answers 3 and 4."
+                    }
+                  }
+                },
+                {
+                  "id": 2,
+                  "type": "ordering",
+                  "needsValidation": false,
+                  "isValid": true,
+                  "content": {
+                    "question": "My question. Select one answer with feedback.",
+                    "topLabel": "Most calories",
+                    "bottomLabel": "Least calories",
+                    "items": [
+                      {
+                        "id": 1,
+                        "correctIndex": 2,
+                        "src": "/images/plate-1.jpg",
+                        "title": "Label 1",
+                        "description": "Description 1"
+                      },
+                      {
+                        "id": 2,
+                        "correctIndex": 1,
+                        "src": "/images/plate-2.jpg",
+                        "title": "Label 2",
+                        "description": "Description 2"
+                      },
+                      {
+                        "id": 3,
+                        "correctIndex": 0,
+                        "src": "/images/plate-3.jpg",
+                        "title": "Label 3",
+                        "description": "Description 3"
+                      }
+                    ],
+                    "feedback": {
+                      "correct":
+                          "Great job! You've correctly ordered the food items from least to most calories.",
+                      "incorrect": "Almost there! The correct order is...",
+                      "orderRevealed": "Answer revealed ...."
+                    }
+                  }
+                }
+              ]
+            },
+            {
+              "id": 2,
+              "title": "Chunk title",
+              "components": [
+                {
+                  "id": 1,
+                  "type": "singleSelectWithFeedback",
+                  "needsValidation": false,
+                  "isValid": true,
+                  "content": {
+                    "question": "My question. Select one answer with feedback.",
+                    "answers": [
+                      {"id": 1, "label": "Answer 1", "isCorrect": true},
+                      {"id": 2, "label": "Answer 2", "isCorrect": false},
+                      {"id": 3, "label": "Answer 3", "isCorrect": false},
+                      {"id": 4, "label": "Answer 4", "isCorrect": false}
+                    ],
+                    "feedback": {
+                      "correct": "Correct Feedback for answers 1 and 2.",
+                      "incorrect": "Incorrect Feedback for answers 3 and 4."
+                    }
+                  }
+                },
+                {
+                  "id": 2,
+                  "type": "singleSelectWithFeedback",
+                  "needsValidation": false,
+                  "isValid": true,
+                  "content": {
+                    "question": "My question. Select one answer with feedback.",
+                    "answers": [
+                      {"id": 1, "label": "Answer 1", "isCorrect": true},
+                      {"id": 2, "label": "Answer 2", "isCorrect": false},
+                      {"id": 3, "label": "Answer 3", "isCorrect": false},
+                      {"id": 4, "label": "Answer 4", "isCorrect": false}
+                    ],
+                    "feedback": {
+                      "correct": "Correct Feedback for answers 1 and 2.",
+                      "incorrect": "Incorrect Feedback for answers 3 and 4."
+                    }
+                  }
+                },
+              ]
+            },
           ]
         }
       ]

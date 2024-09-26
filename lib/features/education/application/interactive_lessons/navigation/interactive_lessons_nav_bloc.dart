@@ -1,23 +1,31 @@
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:hydrated_bloc/hydrated_bloc.dart';
 import 'package:injectable/injectable.dart';
 import 'package:loopcare_frontend/features/education/domain/interactive_lesson/interactive_lesson_chunk.dart';
 import 'package:loopcare_frontend/features/education/domain/interactive_lesson/interactive_lesson_topics_page.dart';
 
+part 'interactive_lessons_nav_bloc.freezed.dart';
+part 'interactive_lessons_nav_bloc.g.dart';
 part 'interactive_lessons_nav_event.dart';
 part 'interactive_lessons_nav_state.dart';
-part 'interactive_lessons_nav_bloc.freezed.dart';
 
 @singleton
 class InteractiveLessonsNavBloc
-    extends Bloc<InteractiveLessonsNavEvent, InteractiveLessonsNavState> {
+    extends HydratedBloc<InteractiveLessonsNavEvent, InteractiveLessonsNavState> {
   InteractiveLessonsNavBloc()
       : super(const InteractiveLessonsNavState.initial(InteractiveLessonsNavStateData())) {
     on<SetInitial>(_onSetInitial);
     on<SetNextPage>(_onSetNextPage);
     on<SetPrevPage>(_onSetPrevPage);
-    on<UpdateUnlockedChunks>(_onUpdateUnlockedChunks);
+    on<UnlockNextChunk>(_onUnlockNextChunk);
   }
+
+  @override
+  InteractiveLessonsNavState? fromJson(Map<String, dynamic> json) =>
+      InteractiveLessonsNavState.initial(InteractiveLessonsNavStateData.fromJson(json));
+
+  @override
+  Map<String, dynamic>? toJson(InteractiveLessonsNavState state) => state.data.toJson();
 
   Future<void> _onSetInitial(
     SetInitial event,
@@ -25,12 +33,17 @@ class InteractiveLessonsNavBloc
   ) async {
     final firstPage = event.pages.first;
 
+    final unlockedChunks = state.data.unlockedChunksByPage[firstPage.id] ?? [];
+    final hasUnlockedChunks = unlockedChunks.isNotEmpty;
+
     emit(InteractiveLessonsNavState.setPage(state.data.copyWith(
       pages: event.pages,
       activePage: firstPage,
       activePageIndex: 0,
-      activeChunkIndex: 0,
-      unlockedChunksByPage: _updateUnlockedChunks(firstPage.id, firstPage.chunks.first),
+      activeChunkIndex: hasUnlockedChunks ? unlockedChunks.length - 1 : 0,
+      unlockedChunksByPage: hasUnlockedChunks
+          ? state.data.unlockedChunksByPage
+          : _updateUnlockedChunks(firstPage.id, firstPage.chunks.first),
     )));
   }
 
@@ -42,11 +55,18 @@ class InteractiveLessonsNavBloc
     if (nextPageIndex >= state.data.pages.length) return;
 
     final nextPage = state.data.pages[nextPageIndex];
+
+    final unlockedChunks = state.data.unlockedChunksByPage[nextPage.id] ?? [];
+    final hasUnlockedChunks = unlockedChunks.isNotEmpty;
+
     emit(InteractiveLessonsNavState.setPage(state.data.copyWith(
       activePage: nextPage,
       activePageIndex: nextPageIndex,
-      activeChunkIndex: 0,
-      unlockedChunksByPage: _updateUnlockedChunks(nextPage.id, nextPage.chunks.first),
+      activeChunkIndex: hasUnlockedChunks ? unlockedChunks.length - 1 : 0,
+      activeChunk: hasUnlockedChunks ? unlockedChunks.last : nextPage.chunks.first,
+      unlockedChunksByPage: hasUnlockedChunks
+          ? state.data.unlockedChunksByPage
+          : _updateUnlockedChunks(nextPage.id, nextPage.chunks.first),
     )));
   }
 
@@ -55,30 +75,34 @@ class InteractiveLessonsNavBloc
     Emitter<InteractiveLessonsNavState> emit,
   ) async {
     final prevPageIndex = state.data.activePageIndex - 1;
-    if (prevPageIndex < 0) return;
+    if (prevPageIndex < 0 || prevPageIndex >= state.data.pages.length) return;
 
     final prevPage = state.data.pages[prevPageIndex];
 
     emit(InteractiveLessonsNavState.setPage(state.data.copyWith(
       activePage: prevPage,
       activePageIndex: prevPageIndex,
+      activeChunk: prevPage.chunks.last,
       activeChunkIndex: prevPage.chunks.length - 1,
     )));
   }
 
-  Future<void> _onUpdateUnlockedChunks(
-    UpdateUnlockedChunks event,
+  Future<void> _onUnlockNextChunk(
+    UnlockNextChunk event,
     Emitter<InteractiveLessonsNavState> emit,
   ) async {
-    final pageId = state.data.activePage?.id ?? 0;
+    final activePage = state.data.activePage;
+
     final nextChunkIndex = state.data.activeChunkIndex + 1;
 
-    if (nextChunkIndex >= (state.data.activePage?.chunks.length ?? 0)) return;
+    if (activePage == null || nextChunkIndex >= activePage.chunks.length) return;
 
-    final nextChunk = state.data.activePage?.chunks[nextChunkIndex];
+    final nextChunk = activePage.chunks[nextChunkIndex];
 
     emit(InteractiveLessonsNavState.setUnlockedChunks(state.data.copyWith(
-      unlockedChunksByPage: _updateUnlockedChunks(pageId, nextChunk!),
+      activeChunk: nextChunk,
+      activeChunkIndex: nextChunkIndex,
+      unlockedChunksByPage: _updateUnlockedChunks(activePage.id, nextChunk),
     )));
   }
 
