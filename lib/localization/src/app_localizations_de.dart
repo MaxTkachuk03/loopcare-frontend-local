@@ -3120,9 +3120,6 @@ class AppLocalizationsDe extends AppLocalizations {
   String get onboardingImperial => 'Imperial';
 
   @override
-  String get onboardingNext => 'Next';
-
-  @override
   String get onboardingChangeYourHeight => 'Ändere deine Größe';
 
   @override
@@ -4610,6 +4607,9 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String get close => 'Schließen';
+
+  @override
+  String get next => 'Weiter';
 
   @override
   String get youAndFoodItemThree => 'Allergien';

@@ -4665,10 +4665,6 @@ class CrowdinLocalization extends AppLocalizations {
       Crowdin.getText(localeName, 'onboardingImperial') ?? _fallbackTexts.onboardingImperial;
 
   @override
-  String get onboardingNext =>
-      Crowdin.getText(localeName, 'onboardingNext') ?? _fallbackTexts.onboardingNext;
-
-  @override
   String get onboardingChangeYourHeight =>
       Crowdin.getText(localeName, 'onboardingChangeYourHeight') ??
       _fallbackTexts.onboardingChangeYourHeight;
@@ -6635,6 +6631,9 @@ class CrowdinLocalization extends AppLocalizations {
 
   @override
   String get close => Crowdin.getText(localeName, 'close') ?? _fallbackTexts.close;
+
+  @override
+  String get next => Crowdin.getText(localeName, 'next') ?? _fallbackTexts.next;
 
   @override
   String get youAndFoodItemThree =>

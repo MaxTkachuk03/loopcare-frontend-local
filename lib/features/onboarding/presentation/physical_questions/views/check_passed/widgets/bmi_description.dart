@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:loopcare_frontend/core/presentation/text/custom_text.dart';
+import 'package:loopcare_frontend/core/presentation/text_with_accents/text_with_accents.dart';
 import 'package:loopcare_frontend/core/presentation/utils/build_context_extensions.dart';
 import 'package:loopcare_frontend/features/onboarding/utils/bmi_calculator.dart';
 import 'package:loopcare_frontend/localization/service/localization_extension.dart';
@@ -12,11 +13,18 @@ class BMIDescription extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    if (bmi > BmiCalculator.upperAcceptableValue) {
-      return Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        mainAxisSize: MainAxisSize.min,
-        children: [
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        if (bmi <= BmiCalculator.upperAcceptableValue) ...[
+          TextWithAccents(
+            LocalizedTexts.onboardingBmiDescription1.tr(),
+            accents: [LocalizedTexts.onboardingBmiDescriptionAccent.tr()],
+          ),
+          const SizedBox(height: 20)
+        ],
+        if (bmi > BmiCalculator.upperAcceptableValue) ...[
           CustomText.w400(
             LocalizedTexts.onboardingHighBmiDescription1.tr(),
             style: context.textTheme.bodyMedium,
@@ -38,18 +46,12 @@ class BMIDescription extends StatelessWidget {
               ],
             ),
           ),
-        ],
-      );
-    } else if (bmi > BmiCalculator.lowerAcceptableValue) {
-      return CustomText.w400(
-        LocalizedTexts.onboardingBmiDescription2.tr(),
-        style: context.textTheme.bodyMedium,
-      );
-    } else {
-      return Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        mainAxisSize: MainAxisSize.min,
-        children: [
+        ] else if (bmi > BmiCalculator.lowerAcceptableValue)
+          CustomText.w400(
+            LocalizedTexts.onboardingBmiDescription2.tr(),
+            style: context.textTheme.bodyMedium,
+          )
+        else ...[
           CustomText.w400(
             LocalizedTexts.onboardingLowerBmiDescription1.tr(),
             style: context.textTheme.bodyMedium,
@@ -60,7 +62,7 @@ class BMIDescription extends StatelessWidget {
             style: context.textTheme.bodyMedium,
           ),
         ],
-      );
-    }
+      ],
+    );
   }
 }

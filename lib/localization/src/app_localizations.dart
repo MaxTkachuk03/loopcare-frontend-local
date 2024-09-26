@@ -5721,12 +5721,6 @@ abstract class AppLocalizations {
   /// **'Imperial'**
   String get onboardingImperial;
 
-  /// No description provided for @onboardingNext.
-  ///
-  /// In en, this message translates to:
-  /// **'Next'**
-  String get onboardingNext;
-
   /// No description provided for @onboardingChangeYourHeight.
   ///
   /// In en, this message translates to:
@@ -8282,6 +8276,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Close'**
   String get close;
+
+  /// No description provided for @next.
+  ///
+  /// In en, this message translates to:
+  /// **'Next'**
+  String get next;
 
   /// No description provided for @youAndFoodItemThree.
   ///

@@ -10,11 +10,8 @@ import 'package:loopcare_frontend/core/infrastructure/services/analytics_service
 import 'package:loopcare_frontend/features/authentication/application/authentication_bloc.dart';
 
 part 'legal_statement_bloc.freezed.dart';
-
 part 'legal_statement_bloc.g.dart';
-
 part 'legal_statement_event.dart';
-
 part 'legal_statement_state.dart';
 
 @singleton
@@ -46,12 +43,14 @@ class LegalStatementBloc extends HydratedBloc<LegalStatementEvent, LegalStatemen
     PassageChanged event,
     Emitter<LegalStatementState> emit,
   ) {
-    const AnalyticsEventService().logEvent(
-      eventName: AnalyticsEvents.legalStatement,
-      parameters: {
-        AnalyticsParameters.value: 'true',
-      },
-    );
+    if (event.value) {
+      const AnalyticsEventService().logEvent(
+        eventName: AnalyticsEvents.legalStatement,
+        parameters: {
+          AnalyticsParameters.value: 'true',
+        },
+      );
+    }
 
     CustomerIoService.track(event: CIOEvents.onboardingRegisterIntro);
 
