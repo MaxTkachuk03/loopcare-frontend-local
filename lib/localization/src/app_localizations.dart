@@ -4818,7 +4818,7 @@ abstract class AppLocalizations {
   /// No description provided for @errorSubscriptionAccountIdInvalid.
   ///
   /// In en, this message translates to:
-  /// **'Subscription account ID is invalid.'**
+  /// **'It looks like your Apple ID already has a subscription on another LeanOnMe account. Please log in with that email address to use your subscription. If you need assistance, please contact support@lean-on.me'**
   String get errorSubscriptionAccountIdInvalid;
 
   /// No description provided for @errorSubscriptionVendorInvalid.

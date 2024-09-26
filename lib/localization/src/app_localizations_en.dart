@@ -2494,7 +2494,8 @@ class AppLocalizationsEn extends AppLocalizations {
   String get errorSubscriptionPackageNameInvalid => 'Subscription package name is invalid.';
 
   @override
-  String get errorSubscriptionAccountIdInvalid => 'Subscription account ID is invalid.';
+  String get errorSubscriptionAccountIdInvalid =>
+      'It looks like your Apple ID already has a subscription on another LeanOnMe account. Please log in with that email address to use your subscription. If you need assistance, please contact support@lean-on.me';
 
   @override
   String get errorSubscriptionVendorInvalid => 'Subscription vendor is invalid.';

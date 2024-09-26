@@ -2605,7 +2605,8 @@ class AppLocalizationsDe extends AppLocalizations {
   String get errorSubscriptionPackageNameInvalid => 'Der Name des Abonnementpakets ist ungültig.';
 
   @override
-  String get errorSubscriptionAccountIdInvalid => 'Die ID des Abonnementkontos ist ungültig.';
+  String get errorSubscriptionAccountIdInvalid =>
+      'Es sieht so aus, als ob deine Apple-ID bereits ein Abonnement für ein anderes LeanOnMe-Konto hat. Bitte melde dich mit dieser E-Mail-Adresse an, um dein Abonnement zu nutzen. Wenn du Hilfe benötigst, wende dich an support@lean-on.me.';
 
   @override
   String get errorSubscriptionVendorInvalid => 'Der Anbieter des Abonnements ist ungültig.';
