@@ -3021,13 +3021,16 @@ class AppLocalizationsEn extends AppLocalizations {
   String get onboardingLocomotorSystemDisease => 'Locomotor system disease';
 
   @override
-  String get onboardingYourMentalHealth => 'Your mental health';
+  String get onboardingMentalHealth => 'Mental health';
 
   @override
   String get onboardingMentalIntroBody1 => 'In this section you will be asked questions regarding your current well-being, physiological symptoms and mood.';
 
   @override
   String get onboardingMentalIntroBody2 => 'Based on these results, the program will be adjusted to suit your needs.';
+
+  @override
+  String get onboardingYourMentalHealth => 'Your mental health';
 
   @override
   String get onboardingMentalHealthIntroTextOne => 'A good mental health is vital to successfully improve your lifestyle.';
