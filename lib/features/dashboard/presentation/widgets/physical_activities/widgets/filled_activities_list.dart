@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:loopcare_frontend/core/presentation/text/custom_text.dart';
-import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 import 'package:loopcare_frontend/core/presentation/utils/build_context_extensions.dart';
 import 'package:loopcare_frontend/features/dashboard/presentation/widgets/physical_activities/widgets/weekly_activities_list.dart';
 import 'package:loopcare_frontend/features/physical_activities/domain/physical_program.dart';
@@ -19,12 +18,13 @@ class FilledActivitiesList extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
+      mainAxisSize: MainAxisSize.min,
       children: [
-        CustomText.w600(
+        CustomText.bitter600(
           '${programsList.length} ${LocalizedTexts.activitiesForThisWeek.tr().toUpperCase()}',
-          style: context.textTheme.bodySmall?.copyWith(height: ThemeConstants.fontSize12),
+          style: context.textTheme.bodySmall,
         ),
-        const SizedBox(height: 16.0),
+        if (programsList.isNotEmpty) const SizedBox(height: 16.0),
         WeeklyActivitiesList(data: programsList),
       ],
     );

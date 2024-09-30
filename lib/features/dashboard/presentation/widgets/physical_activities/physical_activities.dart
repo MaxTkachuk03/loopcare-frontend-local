@@ -114,16 +114,14 @@ class _PhysicalActivitiesState extends State<PhysicalActivities> {
                       return BlocBuilder<PhysicalActivitiesBloc, PhysicalActivitiesState>(
                         builder: (context, state) {
                           return state.maybeMap(
-                            error: (errorState) {
-                              final error = errorState.data.error;
-                              return ErrorScreen(
-                                error: error!,
-                                onButtonPressed: () => context.read<PhysicalActivitiesBloc>().add(
-                                      PhysicalActivitiesEvent.getWeeklyPhysicalActivities(
-                                          widget.selectedDay),
+                            error: (errorState) => ErrorScreen(
+                              error: errorState.data.error!,
+                              onButtonPressed: () => context.read<PhysicalActivitiesBloc>().add(
+                                    PhysicalActivitiesEvent.getWeeklyPhysicalActivities(
+                                      widget.selectedDay,
                                     ),
-                              );
-                            },
+                                  ),
+                            ),
                             loading: (_) => const SizedBox(height: 100, child: Loader()),
                             orElse: () => const SizedBox.shrink(),
                             activitiesLoaded: (s) {
@@ -134,7 +132,7 @@ class _PhysicalActivitiesState extends State<PhysicalActivities> {
                                   ? FilledActivitiesList(
                                       programsList: [
                                         ...activePrograms,
-                                        ...s.data.activities(timesPerWeek)
+                                        ...s.data.activities(timesPerWeek),
                                       ],
                                     )
                                   : const EmptyActivitiesList();
