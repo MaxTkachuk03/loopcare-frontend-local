@@ -106,7 +106,7 @@ class _MealPageState extends State<MealPage> {
     context.read<MealsBloc>().add(MealsEvent.nutritionItemChanged(item));
   }
 
-  _onDeleteMealPressed(BuildContext context) {
+  void _onDeleteMealPressed(BuildContext context) {
     final mealsState = context.read<MealsBloc>().state;
     final currentCategory = mealsState.data.currentMealCategory;
     final mealDates = mealsState.data.currentMealDates;
@@ -145,7 +145,7 @@ class _MealPageState extends State<MealPage> {
     }
   }
 
-  _onBack() {
+  void _onBack() {
     final state = context.read<MealsBloc>().state;
     final hasMoreThanOneMealRouteInStack = context.router.stack
             .map((e) => e.name)
@@ -161,15 +161,11 @@ class _MealPageState extends State<MealPage> {
   }
 
   void _onBackToDashboardPressed() {
-    _onBack();
+    // Method _onWillPop() will called in any case
     context.router.popUntilRouteWithName(HomeRoute.name);
   }
 
-  Future<bool> _onWillPop(_, __) {
-    _onBack();
-
-    return Future.value(true);
-  }
+  Future<void> _onWillPop(_, __) async => _onBack();
 
   @override
   Widget build(BuildContext context) {
