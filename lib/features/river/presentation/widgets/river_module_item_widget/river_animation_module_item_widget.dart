@@ -1,12 +1,14 @@
 import 'dart:math' as math;
 
+import 'package:auto_route/auto_route.dart';
 import 'package:badges/badges.dart' as badge;
 import 'package:flutter/material.dart';
 import 'package:loopcare_frontend/core/infrastructure/services/app_config.dart';
+import 'package:loopcare_frontend/core/presentation/routes/app_router.gr.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 import 'package:loopcare_frontend/features/home/presentation/widget/custom_navigation_bar/animated_bottom_bar.dart';
-import 'package:loopcare_frontend/features/river/domain/river_module_item.dart';
 import 'package:loopcare_frontend/features/river/domain/feature_placement.dart';
+import 'package:loopcare_frontend/features/river/domain/river_module_item.dart';
 import 'package:loopcare_frontend/features/river/domain/river_module_item_animation_state.dart';
 import 'package:loopcare_frontend/features/river/presentation/utils/river_utils.dart';
 import 'package:loopcare_frontend/features/river/presentation/widgets/river_module_item_widget/river_module_button.dart';
@@ -14,7 +16,6 @@ import 'package:loopcare_frontend/features/river/presentation/widgets/river_modu
 import 'package:visibility_detector/visibility_detector.dart';
 
 part 'parts/_flying_item.dart';
-
 part 'parts/_river_item_footprint.dart';
 
 const _defaultItemRadius = 25.0;

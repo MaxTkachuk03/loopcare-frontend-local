@@ -78,7 +78,7 @@ class _FlyingItemRoute extends PopupRoute {
             duration: const Duration(milliseconds: 800),
             tween: Tween<Offset>(begin: startPosition, end: endPosition),
             onEnd: () {
-              Navigator.of(context).pop();
+              context.router.popUntilRouteWithName(HomeRoute.name);
               onEnd();
             },
             builder: (context, position, _) {
