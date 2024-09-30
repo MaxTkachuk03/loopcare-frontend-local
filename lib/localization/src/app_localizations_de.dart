@@ -3021,13 +3021,16 @@ class AppLocalizationsDe extends AppLocalizations {
   String get onboardingLocomotorSystemDisease => 'Erkrankung des Bewegungsapparates';
 
   @override
-  String get onboardingYourMentalHealth => 'Deine psychische Gesundheit';
+  String get onboardingMentalHealth => 'Psychische Gesundheit';
 
   @override
   String get onboardingMentalIntroBody1 => 'In diesem Bereich werden dir Fragen zu deinem aktuellen Wohlbefinden, deinen körperlichen Symptomen und deiner Stimmung gestellt.';
 
   @override
   String get onboardingMentalIntroBody2 => 'Basierend auf diesen Ergebnissen wird das Programm an deine Bedürfnisse angepasst.';
+
+  @override
+  String get onboardingYourMentalHealth => 'Deine psychische Gesundheit';
 
   @override
   String get onboardingMentalHealthIntroTextOne => 'Eine stabile psychische Gesundheit ist eine gute Basis, um deinen Lebensstil erfolgreich zu verbessern.';

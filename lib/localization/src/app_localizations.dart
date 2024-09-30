@@ -6119,11 +6119,11 @@ abstract class AppLocalizations {
   /// **'Locomotor system disease'**
   String get onboardingLocomotorSystemDisease;
 
-  /// No description provided for @onboardingYourMentalHealth.
+  /// No description provided for @onboardingMentalHealth.
   ///
   /// In en, this message translates to:
-  /// **'Your mental health'**
-  String get onboardingYourMentalHealth;
+  /// **'Mental health'**
+  String get onboardingMentalHealth;
 
   /// No description provided for @onboardingMentalIntroBody1.
   ///
@@ -6136,6 +6136,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Based on these results, the program will be adjusted to suit your needs.'**
   String get onboardingMentalIntroBody2;
+
+  /// No description provided for @onboardingYourMentalHealth.
+  ///
+  /// In en, this message translates to:
+  /// **'Your mental health'**
+  String get onboardingYourMentalHealth;
 
   /// No description provided for @onboardingMentalHealthIntroTextOne.
   ///

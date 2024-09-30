@@ -1005,6 +1005,7 @@
   "onboardingLiverDisease": "Lebererkrankung",
   "onboardingSleepApneaSyndrome": "Schlafapnoe-Syndrom",
   "onboardingLocomotorSystemDisease": "Erkrankung des Bewegungsapparates",
+  "onboardingMentalHealth": "Psychische Gesundheit",
   "onboardingYourMentalHealth": "Deine psychische Gesundheit",
   "onboardingMentalIntroBody1": "In diesem Bereich werden dir Fragen zu deinem aktuellen Wohlbefinden, deinen körperlichen Symptomen und deiner Stimmung gestellt.",
   "onboardingMentalIntroBody2": "Basierend auf diesen Ergebnissen wird das Programm an deine Bedürfnisse angepasst.",
