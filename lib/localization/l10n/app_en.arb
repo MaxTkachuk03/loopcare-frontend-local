@@ -947,7 +947,6 @@
   "onboardingYourHeight": "Your height",
   "onboardingMetric": "Metric",
   "onboardingImperial": "Imperial",
-  "onboardingNext": "Next",
   "onboardingChangeYourHeight": "Change your height",
   "onboardingHeightSmall": "Are you sure this is the correct height? Seems rather small. Please correct your input",
   "onboardingHeightLarge": "Are you sure this is the correct height? Seems rather large. Please correct your input",
@@ -1536,6 +1535,7 @@
     }
   },
   "close": "Close",
+  "next": "Next",
   "youAndFoodItemThree": "Allergies",
   "start": "Start",
   "iDoNotEatOrDrink": "I do not eat or drink:",

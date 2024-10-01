@@ -123,7 +123,7 @@ class AnimatedRiverStreamsState extends State<AnimatedRiverStreams>
   }
 
   double _definePosition(DateTime dateTime) {
-    final leftDuration = widget.completedDate!.difference(dateTime);
+    final leftDuration = widget.completedDate?.difference(dateTime) ?? Duration.zero;
     final position = 1 - leftDuration.inMilliseconds.safeDivide(widget.totalDelay * 1000);
 
     if (widget.driving) {

@@ -4,7 +4,6 @@ import 'package:loopcare_frontend/core/presentation/bottom_placed_button/bottom_
 import 'package:loopcare_frontend/core/presentation/buttons/custom_elevated_button.dart';
 import 'package:loopcare_frontend/core/presentation/shapes/under_appbar.dart';
 import 'package:loopcare_frontend/core/presentation/text/custom_text.dart';
-import 'package:loopcare_frontend/core/presentation/text_with_accents/text_with_accents.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 import 'package:loopcare_frontend/core/presentation/utils/build_context_extensions.dart';
 import 'package:loopcare_frontend/core/presentation/utils/string_extensions.dart';
@@ -139,11 +138,6 @@ class CheckPassedContent extends StatelessWidget {
                         ],
                       ),
                       const SizedBox(height: 32),
-                      TextWithAccents(
-                        LocalizedTexts.onboardingBmiDescription1.tr(),
-                        accents: [LocalizedTexts.onboardingBmiDescriptionAccent.tr()],
-                      ),
-                      const SizedBox(height: 20),
                       BMIDescription(bmi: bmi),
                     ],
                   ),

@@ -33,8 +33,6 @@ class _RiverPageState extends State<RiverPage> {
     super.initState();
     _page = context.read<RiverBloc>().state.data.currentPage;
     _controller = PageController(initialPage: _page);
-
-    _checkCompletion();
   }
 
   @override
@@ -103,15 +101,18 @@ class _RiverPageState extends State<RiverPage> {
 
   void _onPageChanged(int page) {
     if (_page < page) {
-      _checkCompletion();
+      _checkCompletion(page);
     }
 
     _page = page;
   }
 
   void _onViewPortChanged(VisibilityInfo info) {
-    _isOnViewport = info.visibleFraction > 0;
-    _checkCompletion();
+    final isOnViewport = info.visibleFraction > 0;
+    if (_isOnViewport != isOnViewport && isOnViewport) {
+      _isOnViewport = isOnViewport;
+      _checkCompletion();
+    }
   }
 
   void _onPartlyCompleteModule(RiverState state) {
@@ -130,25 +131,26 @@ class _RiverPageState extends State<RiverPage> {
     if (!_isOnViewport) return;
 
     final riverData = context.read<RiverBloc>().state.data;
-    final activeModule = riverData.activeModule;
+    final completedModule = riverData.lastCompletedModule;
 
-    if (riverData.modules.first.id == activeModule?.id) {
+    if (riverData.modules.first.id == completedModule?.id) {
       context.read<NavigationBarBloc>().add(const NavigationBarEvent.completeBeginning());
 
       ModalBottomSheet.guidanceCompleted(context: context);
-    } else if (riverData.modules.last.id == activeModule?.id) {
+    } else if (riverData.modules.last.id == completedModule?.id) {
       ModalBottomSheet.lastModuleCompleted(
         context: context,
-        moduleTitle: activeModule?.title ?? '',
+        moduleTitle: completedModule?.title ?? '',
       );
     } else {
       ModalBottomSheet.moduleCompleted(
         context: context,
-        currentModule: activeModule?.title ?? '',
-        nextModule: riverData.nextModule?.title ?? '',
+        currentModule: completedModule?.title ?? '',
+        nextModule: riverData.activeModule?.title ?? '',
       );
     }
   }
 
-  void _checkCompletion() => context.read<RiverBloc>().add(const RiverEvent.checkCompletion());
+  void _checkCompletion([int? page]) =>
+      context.read<RiverBloc>().add(RiverEvent.checkCompletion(page: page));
 }

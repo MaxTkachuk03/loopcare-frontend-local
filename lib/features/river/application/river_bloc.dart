@@ -5,10 +5,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
 import 'package:loopcare_frontend/core/domain/extensions/either.dart';
+import 'package:loopcare_frontend/core/domain/extensions/list_extensions.dart';
 import 'package:loopcare_frontend/core/infrastructure/dio_client/request_error.dart';
 import 'package:loopcare_frontend/core/infrastructure/services/app_sync_service/app_sync_service.dart';
 import 'package:loopcare_frontend/core/infrastructure/services/shared_storage/shared_storage_service.dart';
-import 'package:loopcare_frontend/core/presentation/utils/list_extensions.dart';
 import 'package:loopcare_frontend/features/river/domain/river_module.dart';
 import 'package:loopcare_frontend/features/river/domain/river_module_item.dart';
 import 'package:loopcare_frontend/features/river/domain/river_module_item_animation_state.dart';
@@ -224,9 +224,7 @@ class RiverBloc extends Bloc<RiverEvent, RiverState> {
             ),
           );
 
-          if (state.data.currentPage > 0) {
-            add(const RiverEvent.checkCompletion());
-          }
+          add(const RiverEvent.checkCompletion());
         }
       },
     );
@@ -235,7 +233,7 @@ class RiverBloc extends Bloc<RiverEvent, RiverState> {
   FutureOr<void> _onCheckCompletion(CheckCompletion event, Emitter<RiverState> emit) async {
     if (await state.data.activeModule.lookCompletion()) {
       add(const RiverEvent.completeActiveModule());
-    } else if (await _showPartlyCompletionDialog(event.page)) {
+    } else if (state.data.currentPage > 0 && await _showPartlyCompletionDialog(event.page)) {
       if (event.page == null) {
         getIt<SharedStorageService>().partlyCompletedModule = state.data.currentPage;
       }
@@ -259,9 +257,12 @@ class RiverBloc extends Bloc<RiverEvent, RiverState> {
     response.fold(
       (l) => emit(RiverState.moduleLoadingError(state.data.copyWith(error: l, isLoading: false))),
       (r) {
+        final activeModule = state.data.activeModule;
+
+        if (activeModule?.id != r.id) return;
+
         final modules = _completeModuleAndUpdateModuleList(r);
 
-        final activeModule = state.data.activeModule;
         final nextModule = activeModule != null && modules.last.id != activeModule.id
             ? modules.elementAt(state.data.currentPage + 1)
             : activeModule;

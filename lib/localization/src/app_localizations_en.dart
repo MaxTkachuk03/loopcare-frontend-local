@@ -3241,19 +3241,16 @@ class AppLocalizationsEn extends AppLocalizations {
   String get onboardingMentalHealth => 'Mental health';
 
   @override
-  String get onboardingMentalIntroBody1 =>
-      'In this section you will be asked questions regarding your current well-being, physiological symptoms and mood.';
+  String get onboardingMentalIntroBody1 => 'In this section you will be asked questions regarding your current well-being, physiological symptoms and mood.';
 
   @override
-  String get onboardingMentalIntroBody2 =>
-      'Based on these results, the program will be adjusted to suit your needs.';
+  String get onboardingMentalIntroBody2 => 'Based on these results, the program will be adjusted to suit your needs.';
 
   @override
   String get onboardingYourMentalHealth => 'Your mental health';
 
   @override
-  String get onboardingMentalHealthIntroTextOne =>
-      'A good mental health is vital to successfully improve your lifestyle.';
+  String get onboardingMentalHealthIntroTextOne => 'A good mental health is vital to successfully improve your lifestyle.';
 
   @override
   String get onboardingMentalHealthIntroTextTwo => 'This section will take around 15 minutes.';
@@ -4491,6 +4488,9 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get close => 'Close';
+
+  @override
+  String get next => 'Next';
 
   @override
   String get youAndFoodItemThree => 'Allergies';

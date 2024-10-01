@@ -42,6 +42,8 @@ class RiverStateData with _$RiverStateData {
       ? modules.elementAt(currentPage + 1)
       : activeModule;
 
+  RiverModule? get lastCompletedModule => modules.lastWhereOrNull((m) => m.moduleState.isCompleted);
+
   int get currentPage => activeModule != null ? modules.indexOf(activeModule!) : 0;
 
   bool get isBeginningComplete =>
