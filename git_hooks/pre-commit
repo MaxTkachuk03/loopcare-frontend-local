@@ -1,18 +1,22 @@
 #!/bin/bash
 
+# Get the full path to dart and flutter
+DART_PATH=$(which dart)
+FLUTTER_PATH=$(which flutter)
+
 # Format all Dart files
 echo "Formatting Dart files..."
-dart format lib --line-length 100
+$DART_PATH format lib --line-length 100
 
 # Run Flutter analyze and check for errors
-if ! output=$(flutter analyze); then
+if ! output=$($FLUTTER_PATH analyze); then
     echo "COMMIT REJECTED: Flutter analyze found the following errors:"
     echo "$output"
     exit 1
 fi
 
 # Run Dart analyze and check for errors
-if ! output=$(dart analyze); then
+if ! output=$($DART_PATH analyze); then
     echo "COMMIT REJECTED: Dart analyze found the following errors:"
     echo "$output"
     exit 1
