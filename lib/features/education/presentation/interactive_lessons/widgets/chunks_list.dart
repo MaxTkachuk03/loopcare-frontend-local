@@ -24,12 +24,13 @@ class _ChunksListState extends State<ChunksList> {
     final showDivider = !showButton && renderedChunks.length > 1;
 
     return [
-      ..._renderChunkComponents(chunk.components),
+      // ..._renderChunkComponents(chunk.components),
       if (showDivider) const ChunkDivider(),
       if (showButton) ContinueBtn(onPressed: _onContinueHandler),
     ];
   }
 
+  // ignore: unused_element
   List<Widget> _renderChunkComponents(List<InteractiveLessonChunkComponent> components) {
     return components
         .map((c) => switch (c) {

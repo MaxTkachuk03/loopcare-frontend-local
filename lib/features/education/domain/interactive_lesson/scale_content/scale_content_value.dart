@@ -6,6 +6,7 @@ part 'scale_content_value.g.dart';
 @freezed
 class ScaleContentValue with _$ScaleContentValue {
   const factory ScaleContentValue({
+    required int id,
     required String label,
     required int value,
   }) = _ScaleContentValue;

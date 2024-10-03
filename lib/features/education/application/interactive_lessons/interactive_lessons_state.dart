@@ -20,7 +20,21 @@ class InteractiveLessonsStateData with _$InteractiveLessonsStateData {
   const InteractiveLessonsStateData._();
 
   const factory InteractiveLessonsStateData({
-    @Default(null) InteractiveLesson? interactiveLesson,
+    @Default(0) int id,
+    @Default('') String title,
+    @Default('') String jumpBoardTitle,
+    @Default('') String jumpBoardDescription,
+    @Default('') String conclusion,
+    @Default('') String unlockTitle,
+    @Default('') String unlockDescription,
+    @Default({}) Map<int, InteractiveLessonTopic> topics,
+    @Default({}) Map<int, InteractiveLessonTopicsPage> pages,
+    @Default({}) Map<int, InteractiveLessonChunk> chunks,
+    @Default({}) Map<int, InteractiveLessonChunkComponent> components,
+    @Default(null) InteractiveLessonTopicsPage? activePage,
+    @Default(null) InteractiveLessonChunk? activeChunk,
+    @Default(0) int activePageIndex,
+    @Default(0) int activeChunkIndex,
     @Default(false) bool isLoading,
     RequestError? error,
   }) = _InteractiveLessonsStateData;

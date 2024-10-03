@@ -28,8 +28,7 @@ class InteractiveLessonsNavStateData with _$InteractiveLessonsNavStateData {
     @Default(0) int activeChunkIndex,
   }) = _InteractiveLessonsNavStateData;
 
-  bool get isAllChunksUnlocked =>
-      activePage?.chunks.length == unlockedChunksByPage[activePage?.id ?? 0]?.length;
+  bool get isAllChunksUnlocked => false;
 
   bool get isLastPage => activePageIndex + 1 == pages.length;
 

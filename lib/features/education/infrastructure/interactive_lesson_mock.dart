@@ -32,31 +32,34 @@ var interactiveLesson = {
                     "lowestText": "not very motivated",
                     "highestText": "very motivated",
                     "values": [
-                      {"label": "1", "value": 1},
-                      {"label": "2", "value": 2},
-                      {"label": "3", "value": 3},
-                      {"label": "4", "value": 4},
-                      {"label": "5", "value": 5},
-                      {"label": "6", "value": 6},
-                      {"label": "7", "value": 7},
-                      {"label": "8", "value": 8},
-                      {"label": "9", "value": 9},
-                      {"label": "10", "value": 10}
+                      {"id": 1, "label": "1", "value": 1},
+                      {"id": 2, "label": "2", "value": 2},
+                      {"id": 3, "label": "3", "value": 3},
+                      {"id": 4, "label": "4", "value": 4},
+                      {"id": 5, "label": "5", "value": 5},
+                      {"id": 6, "label": "6", "value": 6},
+                      {"id": 7, "label": "7", "value": 7},
+                      {"id": 8, "label": "8", "value": 8},
+                      {"id": 9, "label": "9", "value": 9},
+                      {"id": 10, "label": "10", "value": 10}
                     ],
                     "feedback": [
                       {
+                        "id": 1,
                         "minValue": 1,
                         "maxValue": 3,
                         "text":
                             "It looks like you are not very motivated at the moment. Consider identifying specific factors that might increase your motivation."
                       },
                       {
+                        "id": 2,
                         "minValue": 4,
                         "maxValue": 7,
                         "text":
                             "You have a moderate level of motivation. Think about setting small, achievable goals to boost your drive."
                       },
                       {
+                        "id": 3,
                         "minValue": 8,
                         "maxValue": 10,
                         "text":
@@ -78,7 +81,8 @@ var interactiveLesson = {
                       {"id": 3, "label": "Answer 3", "isCorrect": null},
                       {"id": 4, "label": "Answer 4", "isCorrect": null}
                     ],
-                    "feedback": null
+                    "feedbackCorrect": null,
+                    "feedbackIncorrect": null,
                   }
                 },
                 {
@@ -94,10 +98,8 @@ var interactiveLesson = {
                       {"id": 3, "label": "Answer 3", "isCorrect": false},
                       {"id": 4, "label": "Answer 4", "isCorrect": false}
                     ],
-                    "feedback": {
-                      "correct": "Correct Feedback for answers 1 and 2.",
-                      "incorrect": "Incorrect Feedback for answers 3 and 4."
-                    }
+                    "feedbackCorrect": "Correct Feedback for answers 1 and 2.",
+                    "feedbackIncorrect": "Incorrect Feedback for answers 3 and 4."
                   }
                 },
                 {
@@ -112,32 +114,30 @@ var interactiveLesson = {
                     "items": [
                       {
                         "id": 1,
-                        "correctIndex": 2,
+                        "order": 2,
                         "src": "/images/plate-1.jpg",
                         "title": "Label 1",
                         "description": "Description 1"
                       },
                       {
                         "id": 2,
-                        "correctIndex": 1,
+                        "order": 1,
                         "src": "/images/plate-2.jpg",
                         "title": "Label 2",
                         "description": "Description 2"
                       },
                       {
                         "id": 3,
-                        "correctIndex": 0,
+                        "order": 0,
                         "src": "/images/plate-3.jpg",
                         "title": "Label 3",
                         "description": "Description 3"
                       }
                     ],
-                    "feedback": {
-                      "correct":
-                          "Great job! You've correctly ordered the food items from least to most calories.",
-                      "incorrect": "Almost there! The correct order is...",
-                      "orderRevealed": "Answer revealed ...."
-                    }
+                    "feedbackCorrect":
+                        "Great job! You've correctly ordered the food items from least to most calories.",
+                    "feedbackIncorrect": "Almost there! The correct order is...",
+                    "feedbackRevealed": "Answer revealed ...."
                   }
                 },
               ]
@@ -147,7 +147,7 @@ var interactiveLesson = {
               "title": "Chunk title 2",
               "components": [
                 {
-                  "id": 1,
+                  "id": 4,
                   "type": "singleSelectWithFeedback",
                   "needsValidation": false,
                   "isValid": true,
@@ -159,14 +159,12 @@ var interactiveLesson = {
                       {"id": 3, "label": "Answer 3", "isCorrect": false},
                       {"id": 4, "label": "Answer 4", "isCorrect": false}
                     ],
-                    "feedback": {
-                      "correct": "Correct Feedback for answers 1 and 2.",
-                      "incorrect": "Incorrect Feedback for answers 3 and 4."
-                    }
+                    "feedbackCorrect": "Correct Feedback for answers 1 and 2.",
+                    "feedbackIncorrect": "Incorrect Feedback for answers 3 and 4."
                   }
                 },
                 {
-                  "id": 2,
+                  "id": 5,
                   "type": "singleSelectWithFeedback",
                   "needsValidation": false,
                   "isValid": true,
@@ -178,10 +176,8 @@ var interactiveLesson = {
                       {"id": 3, "label": "Answer 3", "isCorrect": false},
                       {"id": 4, "label": "Answer 4", "isCorrect": false}
                     ],
-                    "feedback": {
-                      "correct": "Correct Feedback for answers 1 and 2.",
-                      "incorrect": "Incorrect Feedback for answers 3 and 4."
-                    }
+                    "feedbackCorrect": "Correct Feedback for answers 1 and 2.",
+                    "feedbackIncorrect": "Incorrect Feedback for answers 3 and 4."
                   }
                 },
               ]
@@ -191,7 +187,7 @@ var interactiveLesson = {
               "title": "Chunk title 3",
               "components": [
                 {
-                  "id": 1,
+                  "id": 6,
                   "type": "singleSelect",
                   "needsValidation": false,
                   "isValid": true,
@@ -203,7 +199,8 @@ var interactiveLesson = {
                       {"id": 3, "label": "Answer 3", "isCorrect": null},
                       {"id": 4, "label": "Answer 4", "isCorrect": null}
                     ],
-                    "feedback": null
+                    "feedbackCorrect": null,
+                    "feedbackIncorrect": null,
                   }
                 },
               ]
@@ -216,11 +213,11 @@ var interactiveLesson = {
           "pageNumber": 2,
           "chunks": [
             {
-              "id": 1,
+              "id": 4,
               "title": "Chunk title",
               "components": [
                 {
-                  "id": 1,
+                  "id": 7,
                   "type": "singleSelectWithFeedback",
                   "needsValidation": false,
                   "isValid": true,
@@ -232,14 +229,12 @@ var interactiveLesson = {
                       {"id": 3, "label": "Answer 3", "isCorrect": false},
                       {"id": 4, "label": "Answer 4", "isCorrect": false}
                     ],
-                    "feedback": {
-                      "correct": "Correct Feedback for answers 1 and 2.",
-                      "incorrect": "Incorrect Feedback for answers 3 and 4."
-                    }
+                    "feedbackCorrect": "Correct Feedback for answers 1 and 2.",
+                    "feedbackIncorrect": "Incorrect Feedback for answers 3 and 4."
                   }
                 },
                 {
-                  "id": 2,
+                  "id": 8,
                   "type": "ordering",
                   "needsValidation": false,
                   "isValid": true,
@@ -250,42 +245,40 @@ var interactiveLesson = {
                     "items": [
                       {
                         "id": 1,
-                        "correctIndex": 2,
+                        "order": 2,
                         "src": "/images/plate-1.jpg",
                         "title": "Label 1",
                         "description": "Description 1"
                       },
                       {
                         "id": 2,
-                        "correctIndex": 1,
+                        "order": 1,
                         "src": "/images/plate-2.jpg",
                         "title": "Label 2",
                         "description": "Description 2"
                       },
                       {
                         "id": 3,
-                        "correctIndex": 0,
+                        "order": 0,
                         "src": "/images/plate-3.jpg",
                         "title": "Label 3",
                         "description": "Description 3"
                       }
                     ],
-                    "feedback": {
-                      "correct":
-                          "Great job! You've correctly ordered the food items from least to most calories.",
-                      "incorrect": "Almost there! The correct order is...",
-                      "orderRevealed": "Answer revealed ...."
-                    }
+                    "feedbackCorrect":
+                        "Great job! You've correctly ordered the food items from least to most calories.",
+                    "feedbackIncorrect": "Almost there! The correct order is...",
+                    "feedbackRevealed": "Answer revealed ...."
                   }
                 }
               ]
             },
             {
-              "id": 2,
+              "id": 5,
               "title": "Chunk title",
               "components": [
                 {
-                  "id": 1,
+                  "id": 9,
                   "type": "singleSelectWithFeedback",
                   "needsValidation": false,
                   "isValid": true,
@@ -297,14 +290,12 @@ var interactiveLesson = {
                       {"id": 3, "label": "Answer 3", "isCorrect": false},
                       {"id": 4, "label": "Answer 4", "isCorrect": false}
                     ],
-                    "feedback": {
-                      "correct": "Correct Feedback for answers 1 and 2.",
-                      "incorrect": "Incorrect Feedback for answers 3 and 4."
-                    }
+                    "feedbackCorrect": "Correct Feedback for answers 1 and 2.",
+                    "feedbackIncorrect": "Incorrect Feedback for answers 3 and 4."
                   }
                 },
                 {
-                  "id": 2,
+                  "id": 10,
                   "type": "singleSelectWithFeedback",
                   "needsValidation": false,
                   "isValid": true,
@@ -316,10 +307,8 @@ var interactiveLesson = {
                       {"id": 3, "label": "Answer 3", "isCorrect": false},
                       {"id": 4, "label": "Answer 4", "isCorrect": false}
                     ],
-                    "feedback": {
-                      "correct": "Correct Feedback for answers 1 and 2.",
-                      "incorrect": "Incorrect Feedback for answers 3 and 4."
-                    }
+                    "feedbackCorrect": "Correct Feedback for answers 1 and 2.",
+                    "feedbackIncorrect": "Incorrect Feedback for answers 3 and 4."
                   }
                 },
               ]
@@ -332,11 +321,11 @@ var interactiveLesson = {
           "pageNumber": 3,
           "chunks": [
             {
-              "id": 1,
+              "id": 6,
               "title": "Chunk title",
               "components": [
                 {
-                  "id": 1,
+                  "id": 11,
                   "type": "singleSelectWithFeedback",
                   "needsValidation": false,
                   "isValid": true,
@@ -348,14 +337,12 @@ var interactiveLesson = {
                       {"id": 3, "label": "Answer 3", "isCorrect": false},
                       {"id": 4, "label": "Answer 4", "isCorrect": false}
                     ],
-                    "feedback": {
-                      "correct": "Correct Feedback for answers 1 and 2.",
-                      "incorrect": "Incorrect Feedback for answers 3 and 4."
-                    }
+                    "feedbackCorrect": "Correct Feedback for answers 1 and 2.",
+                    "feedbackIncorrect": "Incorrect Feedback for answers 3 and 4."
                   }
                 },
                 {
-                  "id": 2,
+                  "id": 12,
                   "type": "ordering",
                   "needsValidation": false,
                   "isValid": true,
@@ -366,42 +353,40 @@ var interactiveLesson = {
                     "items": [
                       {
                         "id": 1,
-                        "correctIndex": 2,
+                        "order": 2,
                         "src": "/images/plate-1.jpg",
                         "title": "Label 1",
                         "description": "Description 1"
                       },
                       {
                         "id": 2,
-                        "correctIndex": 1,
+                        "order": 1,
                         "src": "/images/plate-2.jpg",
                         "title": "Label 2",
                         "description": "Description 2"
                       },
                       {
                         "id": 3,
-                        "correctIndex": 0,
+                        "order": 0,
                         "src": "/images/plate-3.jpg",
                         "title": "Label 3",
                         "description": "Description 3"
                       }
                     ],
-                    "feedback": {
-                      "correct":
-                          "Great job! You've correctly ordered the food items from least to most calories.",
-                      "incorrect": "Almost there! The correct order is...",
-                      "orderRevealed": "Answer revealed ...."
-                    }
+                    "feedbackCorrect":
+                        "Great job! You've correctly ordered the food items from least to most calories.",
+                    "feedbackIncorrect": "Almost there! The correct order is...",
+                    "feedbackRevealed": "Answer revealed ...."
                   }
                 }
               ]
             },
             {
-              "id": 2,
+              "id": 7,
               "title": "Chunk title",
               "components": [
                 {
-                  "id": 1,
+                  "id": 13,
                   "type": "singleSelectWithFeedback",
                   "needsValidation": false,
                   "isValid": true,
@@ -413,14 +398,12 @@ var interactiveLesson = {
                       {"id": 3, "label": "Answer 3", "isCorrect": false},
                       {"id": 4, "label": "Answer 4", "isCorrect": false}
                     ],
-                    "feedback": {
-                      "correct": "Correct Feedback for answers 1 and 2.",
-                      "incorrect": "Incorrect Feedback for answers 3 and 4."
-                    }
+                    "feedbackCorrect": "Correct Feedback for answers 1 and 2.",
+                    "feedbackIncorrect": "Incorrect Feedback for answers 3 and 4."
                   }
                 },
                 {
-                  "id": 2,
+                  "id": 14,
                   "type": "singleSelectWithFeedback",
                   "needsValidation": false,
                   "isValid": true,
@@ -432,12 +415,10 @@ var interactiveLesson = {
                       {"id": 3, "label": "Answer 3", "isCorrect": false},
                       {"id": 4, "label": "Answer 4", "isCorrect": false}
                     ],
-                    "feedback": {
-                      "correct": "Correct Feedback for answers 1 and 2.",
-                      "incorrect": "Incorrect Feedback for answers 3 and 4."
-                    }
+                    "feedbackCorrect": "Correct Feedback for answers 1 and 2.",
+                    "feedbackIncorrect": "Incorrect Feedback for answers 3 and 4."
                   }
-                },
+                }
               ]
             },
           ]

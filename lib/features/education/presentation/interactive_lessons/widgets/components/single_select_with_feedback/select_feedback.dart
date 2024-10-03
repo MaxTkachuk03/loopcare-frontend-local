@@ -13,7 +13,7 @@ class SelectFeedback extends StatelessWidget {
 
   const SelectFeedback({super.key, required this.component, required this.selectedAnswer});
 
-  bool get hasFeedback => component.content.feedback != null;
+  bool get hasFeedback => component.content.feedbackCorrect != null;
 
   bool get hasAnswer => selectedAnswer != null;
 
@@ -51,8 +51,8 @@ class SelectFeedback extends StatelessWidget {
           const SizedBox(height: 12),
           CustomText(
             hasCorrectAnswer
-                ? component.content.feedback!.correct
-                : component.content.feedback!.incorrect,
+                ? component.content.feedbackCorrect ?? ''
+                : component.content.feedbackIncorrect ?? '',
             textAlign: TextAlign.left,
             style: context.textTheme.bodyMedium,
           ),

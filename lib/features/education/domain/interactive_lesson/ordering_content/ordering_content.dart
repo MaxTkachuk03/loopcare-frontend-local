@@ -1,5 +1,4 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:loopcare_frontend/features/education/domain/interactive_lesson/content_feedback.dart';
 import 'package:loopcare_frontend/features/education/domain/interactive_lesson/ordering_content/content_ordering_item.dart';
 
 part 'ordering_content.freezed.dart';
@@ -14,7 +13,9 @@ class OrderingContent with _$OrderingContent {
     required String topLabel,
     required String bottomLabel,
     required List<ContentOrderingItem> items,
-    required ContentFeedback feedback,
+    required String feedbackCorrect,
+    required String feedbackIncorrect,
+    required String feedbackRevealed,
   }) = _OrderingContent;
 
   OrderingContent updateOrder(int oldIndex, int newIndex) {

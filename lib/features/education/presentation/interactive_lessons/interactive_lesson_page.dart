@@ -19,20 +19,18 @@ class InteractiveLessonPage extends StatelessWidget {
 
   void _onLessonsListener(BuildContext context, InteractiveLessonsState state) async {
     if (state is! InteractiveLessonsStateLessonLoaded) return;
-    final interactiveLesson = state.data.interactiveLesson;
+    // final interactiveLessonId = state.data.id;
 
-    if (interactiveLesson == null) return;
-
-    context
-        .read<InteractiveLessonsNavBloc>()
-        .add(InteractiveLessonsNavEvent.setInitial(interactiveLesson.topics.first.pages));
+    // context
+    //     .read<InteractiveLessonsNavBloc>()
+    //     .add(InteractiveLessonsNavEvent.setInitial(interactiveLesson.topics.values.first.pagesIds));
   }
 
   int getProgressPercentage(InteractiveLessonsNavState state) {
     final activePage = state.data.activePage;
-    if (activePage == null || activePage.chunks.isEmpty) return 0;
+    if (activePage == null || activePage.chunksIds.isEmpty) return 0;
 
-    return (((state.data.activeChunkIndex + 1) / (activePage.chunks.length)) * 100).round();
+    return (((state.data.activeChunkIndex + 1) / (activePage.chunksIds.length)) * 100).round();
   }
 
   @override
@@ -41,7 +39,7 @@ class InteractiveLessonPage extends StatelessWidget {
       listener: _onLessonsListener,
       child: CustomScaffold.greenLightest(
         appBar: CustomAppBar.green(
-          title: context.watch<InteractiveLessonsBloc>().state.data.interactiveLesson?.title ?? '',
+          title: context.watch<InteractiveLessonsBloc>().state.data.title,
           leading: CustomFilledIconButton.leadingGreenLighter(),
           bottom: PreferredSize(
             preferredSize: const Size.fromHeight(50),

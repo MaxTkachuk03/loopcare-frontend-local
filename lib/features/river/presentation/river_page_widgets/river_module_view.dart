@@ -145,7 +145,7 @@ class _RiverScreenState extends State<RiverScreen> with RiverUtils {
 
       context.router.push(LessonRoute(lessonId: item.lessonId, streamType: item.streamType));
     } else if (item.isInteractiveLesson) {
-      final lessonId = context.read<InteractiveLessonsBloc>().state.data.interactiveLesson?.id;
+      final lessonId = context.read<InteractiveLessonsBloc>().state.data.id;
 
       if (lessonId != item.lessonId) {
         context

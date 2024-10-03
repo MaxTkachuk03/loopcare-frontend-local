@@ -7,7 +7,7 @@ part 'content_ordering_item.g.dart';
 class ContentOrderingItem with _$ContentOrderingItem {
   const factory ContentOrderingItem({
     required int id,
-    required int correctIndex,
+    required int order,
     required String src,
     required String title,
     required String description,

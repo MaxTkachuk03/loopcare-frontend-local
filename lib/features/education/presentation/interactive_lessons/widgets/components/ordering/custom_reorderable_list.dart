@@ -64,7 +64,7 @@ class _CustomReorderableListState extends State<CustomReorderableList> {
 
   void _onShowAnswerHandler() {
     setState(() {
-      widget.component.content.items.sort((a, b) => a.correctIndex.compareTo(b.correctIndex));
+      widget.component.content.items.sort((a, b) => a.order.compareTo(b.order));
       _showOrderValidation = true;
     });
   }
@@ -102,7 +102,7 @@ class _CustomReorderableListState extends State<CustomReorderableList> {
             children: items.asMap().entries.map((entry) {
               int index = entry.key;
               ContentOrderingItem item = entry.value;
-              final bool isValid = index == item.correctIndex;
+              final bool isValid = index == item.order;
 
               return Card(
                 key: ValueKey(item.id),

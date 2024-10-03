@@ -3167,25 +3167,32 @@ class AppLocalizationsDe extends AppLocalizations {
   String get onboardingBmiExclusionBodyTitle => 'Dein Body Mass Index (BMI) ist:';
 
   @override
-  String get onboardingHighBmiDescription1 => 'LeanOnMe bietet derzeit maßgeschneiderte Programme für Menschen mit einem BMI zwischen 25 und 40. Wir arbeiten an weiteren Anpassungen, um Menschen zu unterstützen, die außerhalb dieses BMI-Bereichs liegen, sind aber noch nicht ganz so weit.';
+  String get onboardingHighBmiDescription1 =>
+      'LeanOnMe bietet derzeit maßgeschneiderte Programme für Menschen mit einem BMI zwischen 25 und 40. Wir arbeiten an weiteren Anpassungen, um Menschen zu unterstützen, die außerhalb dieses BMI-Bereichs liegen, sind aber noch nicht ganz so weit.';
 
   @override
-  String get onboardingHighBmiDescription2 => 'Einige Teile unseres aktuellen Programms sind vielleicht nicht zu 100% auf deine Bedürfnisse zugeschnitten.';
+  String get onboardingHighBmiDescription2 =>
+      'Einige Teile unseres aktuellen Programms sind vielleicht nicht zu 100% auf deine Bedürfnisse zugeschnitten.';
 
   @override
-  String get onboardingHighBmiDescription3 => 'Hör auf deinen Körper und wenn du Bedenken hast, dass etwas nicht zu dir passt, wende dich an support@lean-on.me.';
+  String get onboardingHighBmiDescription3 =>
+      'Hör auf deinen Körper und wenn du Bedenken hast, dass etwas nicht zu dir passt, wende dich an support@lean-on.me.';
 
   @override
-  String get onboardingLowerBmiDescription1 => 'Deinem BMI zufolge liegst du in einem gesunden Bereich, das ist toll! Aber das Programm von LeanOnMe wurde entwickelt, um Menschen zu unterstützen, die mit verschiedenen Graden von Übergewicht und Fettleibigkeit leben.';
+  String get onboardingLowerBmiDescription1 =>
+      'Deinem BMI zufolge liegst du in einem gesunden Bereich, das ist toll! Aber das Programm von LeanOnMe wurde entwickelt, um Menschen zu unterstützen, die mit verschiedenen Graden von Übergewicht und Fettleibigkeit leben.';
 
   @override
-  String get onboardingLowerBmiDescription2 => 'Keiner unserer Inhalte ist schlecht für dich, aber manche sind vielleicht nicht so relevant. Viel Spaß!';
+  String get onboardingLowerBmiDescription2 =>
+      'Keiner unserer Inhalte ist schlecht für dich, aber manche sind vielleicht nicht so relevant. Viel Spaß!';
 
   @override
-  String get onboardingBmiExclusionBody1 => 'Dein BMI zeigt an, dass du möglicherweise untergewichtig bist. LeanOnMe ist derzeit ein Programm zur Gewichtsreduzierung. In Bezug auf deinen aktuellen BMI könnte eine weitere Gewichtsabnahme deine Gesundheit beeinträchtigen.';
+  String get onboardingBmiExclusionBody1 =>
+      'Dein BMI zeigt an, dass du möglicherweise untergewichtig bist. LeanOnMe ist derzeit ein Programm zur Gewichtsreduzierung. In Bezug auf deinen aktuellen BMI könnte eine weitere Gewichtsabnahme deine Gesundheit beeinträchtigen.';
 
   @override
-  String get onboardingBmiExclusionBody2 => 'Bitte konsultiere deinen Hausarzt, um sicherzustellen, dass deine Gesundheit nicht beeinträchtigt wird.';
+  String get onboardingBmiExclusionBody2 =>
+      'Bitte konsultiere deinen Hausarzt, um sicherzustellen, dass deine Gesundheit nicht beeinträchtigt wird.';
 
   @override
   String get onboardingPhysicalCheckPassedTitle => 'Grundlagen abgeschlossen!';
@@ -3206,13 +3213,15 @@ class AppLocalizationsDe extends AppLocalizations {
   String get onboardingYears => 'Jahre';
 
   @override
-  String get onboardingBmiDescription1 => 'Der Body-Mass-Index (BMI) misst, anhand deiner Größe und deines Gewichts, ob dein Gewicht für deinen Körper in einem gesunden Bereich liegt.';
+  String get onboardingBmiDescription1 =>
+      'Der Body-Mass-Index (BMI) misst, anhand deiner Größe und deines Gewichts, ob dein Gewicht für deinen Körper in einem gesunden Bereich liegt.';
 
   @override
   String get onboardingBmiDescriptionAccent => 'Body Mass Index (BMI)';
 
   @override
-  String get onboardingBmiDescription2 => 'Der BMI hat jedoch seine Grenzen - zum Beispiel kann er nicht zwischen Fett-, Muskel- und Knochengewicht unterscheiden. Wir verwenden ihn zusammen mit anderen Messwerten, um dein Programm anzupassen. Aber keine Sorge: Er wird nicht der einzige Faktor sein, der berücksichtigt wird.';
+  String get onboardingBmiDescription2 =>
+      'Der BMI hat jedoch seine Grenzen - zum Beispiel kann er nicht zwischen Fett-, Muskel- und Knochengewicht unterscheiden. Wir verwenden ihn zusammen mit anderen Messwerten, um dein Programm anzupassen. Aber keine Sorge: Er wird nicht der einzige Faktor sein, der berücksichtigt wird.';
 
   @override
   String get onboardingLetsMoveOn => 'Weiter geht\'s';
@@ -3377,7 +3386,8 @@ class AppLocalizationsDe extends AppLocalizations {
   String get onboardingYourMentalHealth => 'Deine psychische Gesundheit';
 
   @override
-  String get onboardingMentalHealthIntroTextOne => 'Eine stabile psychische Gesundheit ist eine gute Basis, um deinen Lebensstil erfolgreich zu verbessern.';
+  String get onboardingMentalHealthIntroTextOne =>
+      'Eine stabile psychische Gesundheit ist eine gute Basis, um deinen Lebensstil erfolgreich zu verbessern.';
 
   @override
   String get onboardingMentalHealthIntroTextTwo => 'Dieser Teil dauert etwa 15 Minuten.';
@@ -3578,16 +3588,19 @@ class AppLocalizationsDe extends AppLocalizations {
   String get onboardingCheckCompleted => 'Check abgeschlossen!';
 
   @override
-  String get onboardingYouExceededTimeMessage => 'Tut uns leid, aber du hast das Zeitlimit von einer Stunde überschritten';
+  String get onboardingYouExceededTimeMessage =>
+      'Tut uns leid, aber du hast das Zeitlimit von einer Stunde überschritten';
 
   @override
   String get onboardingNoWorriesYouCanDoItLater => 'Aber keine Sorge, du kannst nochmal anfangen';
 
   @override
-  String get onboardingMentalResultSubText1 => 'Du hast den ersten Teil geschafft. Du machst das super. Mach weiter so!';
+  String get onboardingMentalResultSubText1 =>
+      'Du hast den ersten Teil geschafft. Du machst das super. Mach weiter so!';
 
   @override
-  String get onboardingMentalResultSubText2 => 'Du gehst diese Fragen im Nullkommanix durch. Gut gemacht! Du hast die Hälfte der Fragen geschafft!';
+  String get onboardingMentalResultSubText2 =>
+      'Du gehst diese Fragen im Nullkommanix durch. Gut gemacht! Du hast die Hälfte der Fragen geschafft!';
 
   @override
   String get onboardingMentalResultSubText3 => 'Gleich geschafft! Nur noch ein paar letzte Fragen!';
@@ -3608,10 +3621,12 @@ class AppLocalizationsDe extends AppLocalizations {
   String get avatarAddPhoto => 'Foto hinzufügen';
 
   @override
-  String get avatarSizeErrorMessageTitle => 'Ups! Es sieht so aus, als ob das Bild, das du hochzuladen versuchst, die Größenbeschränkung von 10 MB überschritten hat.';
+  String get avatarSizeErrorMessageTitle =>
+      'Ups! Es sieht so aus, als ob das Bild, das du hochzuladen versuchst, die Größenbeschränkung von 10 MB überschritten hat.';
 
   @override
-  String get avatarSizeErrorMessageSubtitle => 'Bitte wähle eine kleinere Datei und versuche es erneut.';
+  String get avatarSizeErrorMessageSubtitle =>
+      'Bitte wähle eine kleinere Datei und versuche es erneut.';
 
   @override
   String get avatarGoToAppSettings => 'Gehe zu den App-Einstellungen';
@@ -3620,7 +3635,8 @@ class AppLocalizationsDe extends AppLocalizations {
   String get avatarGaleryPermissionsMessage => 'Bitte erlaube den Zugriff auf deine Galerie';
 
   @override
-  String get avatarGaleryPermissionsMessageAndroid => 'Bitte erlaube den Zugriff auf deine Mediengalerie und Kamera';
+  String get avatarGaleryPermissionsMessageAndroid =>
+      'Bitte erlaube den Zugriff auf deine Mediengalerie und Kamera';
 
   @override
   String get avatarCropper => 'Zuschneiden';
@@ -3641,7 +3657,8 @@ class AppLocalizationsDe extends AppLocalizations {
   String get smartGoalsUpcomingGoalsTitle => 'Setze Ziele';
 
   @override
-  String get smartGoalsUpcomingGoalsDescription => 'Du kannst bis zu 2 Ziele für die kommenden 7 Tage auswählen.';
+  String get smartGoalsUpcomingGoalsDescription =>
+      'Du kannst bis zu 2 Ziele für die kommenden 7 Tage auswählen.';
 
   @override
   String get smartGoalsCancelGoal => 'Ziel abbrechen';
@@ -3650,7 +3667,8 @@ class AppLocalizationsDe extends AppLocalizations {
   String get smartGoalsCancelGoalTitle => 'Dein Ziel abbrechen?';
 
   @override
-  String get smartGoalsCancelGoalSubTitle => 'Bitte nenne uns den Grund, warum du dieses Ziel abbrechen möchtest.';
+  String get smartGoalsCancelGoalSubTitle =>
+      'Bitte nenne uns den Grund, warum du dieses Ziel abbrechen möchtest.';
 
   @override
   String get smartGoalsSetGoal => 'Ziel setzen';
@@ -3665,10 +3683,12 @@ class AppLocalizationsDe extends AppLocalizations {
   String get smartGoalsSelectGoalsTitle => 'Wähle ein Ziel';
 
   @override
-  String get smartGoalsSelectGoalsSubtitle => 'Du hast 7 Tage Zeit, um dein Ziel zu erreichen. Gezählt werden die einzelnen Tage, an denen du Einträge machst.';
+  String get smartGoalsSelectGoalsSubtitle =>
+      'Du hast 7 Tage Zeit, um dein Ziel zu erreichen. Gezählt werden die einzelnen Tage, an denen du Einträge machst.';
 
   @override
-  String get smartGoalsSaveWeeklyGoalsSuccessMessage => 'Ziele wurden zu deiner wöchentlichen Liste hinzugefügt';
+  String get smartGoalsSaveWeeklyGoalsSuccessMessage =>
+      'Ziele wurden zu deiner wöchentlichen Liste hinzugefügt';
 
   @override
   String get smartGoalsStatisticsTitle => 'Deine bevorzugten Zielkategorien';
@@ -3677,7 +3697,8 @@ class AppLocalizationsDe extends AppLocalizations {
   String get smartGoalsAccomplishedInTotal => 'Ziele, die insgesamt erreicht wurden.';
 
   @override
-  String get smartGoalsAccomplishedEmptyMessage => 'Sobald du anfängst, Ziele zu erreichen, werden deine Lieblingszielkategorien hier angezeigt.';
+  String get smartGoalsAccomplishedEmptyMessage =>
+      'Sobald du anfängst, Ziele zu erreichen, werden deine Lieblingszielkategorien hier angezeigt.';
 
   @override
   String get smartGoalsAccomplished => 'erreichte Ziele';
@@ -3819,7 +3840,8 @@ class AppLocalizationsDe extends AppLocalizations {
   String get buddyIntroNoBtn => 'Vielleicht mache ich das später';
 
   @override
-  String get buddyDescriptionContent => 'Es ist toll, dass du deine Reise teilen willst! \nAber wie findest du eigentlich einen Buddy? \n\nProbiere es aus, indem du mit Menschen in deinem näheren sozialen Umfeld über die Buddy-Mitgliedschaft sprichst. \n\nHier sind ein paar Dinge, die du erwähnen kannst, wenn du mit einem Freund sprichst, der interessiert ist: \n- die Rolle, die ein Buddy auf deiner Reise spielt\n- was du von einem Buddy brauchst und wie du die Grenzen eurer potenziellen Buddy-Beziehung besprichst\n- als Buddy würden sie Zugang zum Buddy-Netzwerk erhalten, um zu erfahren, wie sie dich am besten unterstützen können\n\nDer vorangegangene Abschnitt \"Einen Buddy finden\" kann dir auch einen Einblick geben, wie du dabei vorgehen kannst. \n\nWenn du einen Freund oder eine Freundin gefunden hast, der/die bereit ist, sich dir anzuschließen, gehe auf dein Profil und fülle die Buddy-Einstellungen aus. Sobald du das ausgefüllt hast, erhält dein Freund eine Einladung, dem Buddy-Netzwerk beizutreten. \n\n';
+  String get buddyDescriptionContent =>
+      'Es ist toll, dass du deine Reise teilen willst! \nAber wie findest du eigentlich einen Buddy? \n\nProbiere es aus, indem du mit Menschen in deinem näheren sozialen Umfeld über die Buddy-Mitgliedschaft sprichst. \n\nHier sind ein paar Dinge, die du erwähnen kannst, wenn du mit einem Freund sprichst, der interessiert ist: \n- die Rolle, die ein Buddy auf deiner Reise spielt\n- was du von einem Buddy brauchst und wie du die Grenzen eurer potenziellen Buddy-Beziehung besprichst\n- als Buddy würden sie Zugang zum Buddy-Netzwerk erhalten, um zu erfahren, wie sie dich am besten unterstützen können\n\nDer vorangegangene Abschnitt \"Einen Buddy finden\" kann dir auch einen Einblick geben, wie du dabei vorgehen kannst. \n\nWenn du einen Freund oder eine Freundin gefunden hast, der/die bereit ist, sich dir anzuschließen, gehe auf dein Profil und fülle die Buddy-Einstellungen aus. Sobald du das ausgefüllt hast, erhält dein Freund eine Einladung, dem Buddy-Netzwerk beizutreten. \n\n';
 
   @override
   String get buddyPreferences => 'Buddy-Präferenzen';
@@ -3831,7 +3853,8 @@ class AppLocalizationsDe extends AppLocalizations {
   String get buddyCompleted => 'Buddy-Präferenzen\nabgeschlossen';
 
   @override
-  String get buddyCompletedContent => 'Dein Buddy wird in Kürze eine Einladung erhalten. Du wirst benachrichtigt, sobald dein Buddy geantwortet hat.';
+  String get buddyCompletedContent =>
+      'Dein Buddy wird in Kürze eine Einladung erhalten. Du wirst benachrichtigt, sobald dein Buddy geantwortet hat.';
 
   @override
   String get buddyLiveTogetherTitle => 'Wohnst du mit deinem Buddy zusammen?';
@@ -3843,7 +3866,8 @@ class AppLocalizationsDe extends AppLocalizations {
   String get buddyEmailTitle => 'Wie lautet die E-Mail Adresse deines Buddys?';
 
   @override
-  String get buddyEmailLabel => 'Über diese E-Mail-Adresse wird dein Buddy eingeladen, an deiner Reise teilzunehmen.';
+  String get buddyEmailLabel =>
+      'Über diese E-Mail-Adresse wird dein Buddy eingeladen, an deiner Reise teilzunehmen.';
 
   @override
   String get buddyEmailHint => 'Buddy-E-Mail-Adresse';
@@ -3875,13 +3899,16 @@ class AppLocalizationsDe extends AppLocalizations {
   String get buddyRejectTitle => 'Dein Buddy hat die Einladung nicht angenommen';
 
   @override
-  String get buddyRejectSubTitle => 'Leider kann dein Freund dich nicht auf deiner Reise begleiten. Es kann viele verschiedene Gründe geben, warum sie/er nicht mitkommen kann, aber lass dich davon nicht entmutigen! Versuche, einen anderen Buddy zu finden.\n\nBitte sprich mit Freunden und Bekannten darüber, ob sie bereit sind, dein Buddy zu sein, bevor du die nächste Einladung verschickst. \n\nHast du Probleme, einen Buddy zu finden? Der Artikel \"Einen Buddy finden\" kann dir einen Einblick geben, wie du dieses Thema mit anderen angehen kannst.\n\nDu kannst ganz einfach eine andere Person einladen, an deiner Reise teilzunehmen.';
+  String get buddyRejectSubTitle =>
+      'Leider kann dein Freund dich nicht auf deiner Reise begleiten. Es kann viele verschiedene Gründe geben, warum sie/er nicht mitkommen kann, aber lass dich davon nicht entmutigen! Versuche, einen anderen Buddy zu finden.\n\nBitte sprich mit Freunden und Bekannten darüber, ob sie bereit sind, dein Buddy zu sein, bevor du die nächste Einladung verschickst. \n\nHast du Probleme, einen Buddy zu finden? Der Artikel \"Einen Buddy finden\" kann dir einen Einblick geben, wie du dieses Thema mit anderen angehen kannst.\n\nDu kannst ganz einfach eine andere Person einladen, an deiner Reise teilzunehmen.';
 
   @override
-  String get buddyNotAvailableTitle => 'Dein Buddy ist nicht mehr in der Lage, dich zu unterstützen';
+  String get buddyNotAvailableTitle =>
+      'Dein Buddy ist nicht mehr in der Lage, dich zu unterstützen';
 
   @override
-  String get buddyNotAvailableSubTitle => 'Leider kann dein aktueller Buddy nicht da sein, um dich so zu unterstützen, wie es ein Buddy tut. \n\nKein Grund zur Sorge, es gibt einen anderen Buddy da draußen. Sprich mit deinen engen Freunden und frag herum, ob sich einer von ihnen dir anschließen möchte.\n\nDie Unterrichtseinheit \"Einen Buddy finden\" kann dir auch dabei helfen, einen neuen Buddy zu finden. \n\nDu kannst ganz einfach eine andere Person einladen, an deiner Reise teilzunehmen.';
+  String get buddyNotAvailableSubTitle =>
+      'Leider kann dein aktueller Buddy nicht da sein, um dich so zu unterstützen, wie es ein Buddy tut. \n\nKein Grund zur Sorge, es gibt einen anderen Buddy da draußen. Sprich mit deinen engen Freunden und frag herum, ob sich einer von ihnen dir anschließen möchte.\n\nDie Unterrichtseinheit \"Einen Buddy finden\" kann dir auch dabei helfen, einen neuen Buddy zu finden. \n\nDu kannst ganz einfach eine andere Person einladen, an deiner Reise teilzunehmen.';
 
   @override
   String get buddyResendInvitation => 'Einladung erneut senden';
@@ -3890,7 +3917,8 @@ class AppLocalizationsDe extends AppLocalizations {
   String get buddyInviteAnotherBuddy => 'Einen anderen Buddy einladen';
 
   @override
-  String get buddyFindAnotherBuddyContent => 'Bitte beachte: Wenn du einen neuen Buddy willst, wird dein aktueller Buddy benachrichtigt, dass du diese Anfrage gestellt hast.';
+  String get buddyFindAnotherBuddyContent =>
+      'Bitte beachte: Wenn du einen neuen Buddy willst, wird dein aktueller Buddy benachrichtigt, dass du diese Anfrage gestellt hast.';
 
   @override
   String get buddyFindAnotherBuddy => 'Ja, ich will einen anderen Buddy';
@@ -3922,10 +3950,12 @@ class AppLocalizationsDe extends AppLocalizations {
   }
 
   @override
-  String get buddyFindAnotherBuddyContentOne => 'Wir glauben an unser Buddy-Programm und empfehlen dir, deinen Buddy zu behalten oder jemanden einzuladen, der dich besser ermutigen kann.';
+  String get buddyFindAnotherBuddyContentOne =>
+      'Wir glauben an unser Buddy-Programm und empfehlen dir, deinen Buddy zu behalten oder jemanden einzuladen, der dich besser ermutigen kann.';
 
   @override
-  String get buddyFindAnotherBuddyContentTwo => 'Bitte beachte: Wenn du einen neuen Buddy willst, wird dein aktueller Buddy benachrichtigt, dass du diese Anfrage gestellt hast.';
+  String get buddyFindAnotherBuddyContentTwo =>
+      'Bitte beachte: Wenn du einen neuen Buddy willst, wird dein aktueller Buddy benachrichtigt, dass du diese Anfrage gestellt hast.';
 
   @override
   String get linksTermsAndConditionsUrl => 'https://lean-on.me/de-DE/terms-and-conditions';
@@ -3934,10 +3964,12 @@ class AppLocalizationsDe extends AppLocalizations {
   String get linksPrivacyPolicyUrl => 'https://lean-on.me/DE-de/privacy-policy';
 
   @override
-  String get linksPsychologistConsulting => 'https://www.bptk.de/patient-innen/#psychotherapeutensuche';
+  String get linksPsychologistConsulting =>
+      'https://www.bptk.de/patient-innen/#psychotherapeutensuche';
 
   @override
-  String get linksInstructionsUrl => 'https://loopcare-pdf-instructions.s3.eu-central-1.amazonaws.com/Dokument2-2.pdf';
+  String get linksInstructionsUrl =>
+      'https://loopcare-pdf-instructions.s3.eu-central-1.amazonaws.com/Dokument2-2.pdf';
 
   @override
   String get riverOverviewTitle => 'Meine Reise';
@@ -3946,19 +3978,22 @@ class AppLocalizationsDe extends AppLocalizations {
   String get riverGuidancePracticeTitle => 'Übung macht den Meister.';
 
   @override
-  String get riverGuidancePracticeDescription => 'Der Kalender wird dein täglicher Anker sein, um das Gelernte zu üben.';
+  String get riverGuidancePracticeDescription =>
+      'Der Kalender wird dein täglicher Anker sein, um das Gelernte zu üben.';
 
   @override
   String get riverGuidanceProfileTitle => 'Dein Profil und deine Accounteinstellungen.';
 
   @override
-  String get riverGuidanceProfileDescription => 'Im Profil kannst du deine Kontoeinstellungen anpassen, persönliche Präferenzen ändern und auf vergangene Aufgaben und Funktionen zugreifen.';
+  String get riverGuidanceProfileDescription =>
+      'Im Profil kannst du deine Kontoeinstellungen anpassen, persönliche Präferenzen ändern und auf vergangene Aufgaben und Funktionen zugreifen.';
 
   @override
   String get riverGuidanceCompletedTitle => 'Gratuliere, \"Der Anfang\" ist abgeschlossen.';
 
   @override
-  String get riverGuidanceCompletedDescription => 'Du kannst jetzt mit dem ersten Pool fortfahren: Was ist deine Motivation?';
+  String get riverGuidanceCompletedDescription =>
+      'Du kannst jetzt mit dem ersten Pool fortfahren: Was ist deine Motivation?';
 
   @override
   String riverModuleCompletedTitle(String module) {
@@ -3971,7 +4006,8 @@ class AppLocalizationsDe extends AppLocalizations {
   }
 
   @override
-  String get riverLastModuleCompletedDescription => 'Nimm dir Zeit, die vorherigen Module noch einmal durchzugehen und die Übungen zu vertiefen, wann immer du sie brauchst.\nDu hast bis zu diesem Punkt eine tolle Leistung erbracht! Bleib dran, bald gibt es noch mehr spannende Inhalte!';
+  String get riverLastModuleCompletedDescription =>
+      'Nimm dir Zeit, die vorherigen Module noch einmal durchzugehen und die Übungen zu vertiefen, wann immer du sie brauchst.\nDu hast bis zu diesem Punkt eine tolle Leistung erbracht! Bleib dran, bald gibt es noch mehr spannende Inhalte!';
 
   @override
   String get riverGuidanceStartRiverTitle => 'Prima!';
@@ -4601,6 +4637,9 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String get close => 'Schließen';
+
+  @override
+  String get next => 'Weiter';
 
   @override
   String get youAndFoodItemThree => 'Allergien';

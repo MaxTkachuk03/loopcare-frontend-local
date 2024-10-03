@@ -41,9 +41,9 @@ class InteractiveLessonsNavBloc
       activePage: firstPage,
       activePageIndex: 0,
       activeChunkIndex: hasUnlockedChunks ? unlockedChunks.length - 1 : 0,
-      unlockedChunksByPage: hasUnlockedChunks
-          ? state.data.unlockedChunksByPage
-          : _updateUnlockedChunks(firstPage.id, firstPage.chunks.first),
+      // unlockedChunksByPage: hasUnlockedChunks
+      //     ? state.data.unlockedChunksByPage
+      //     : _updateUnlockedChunks(firstPage.id, firstPage.chunks.first),
     )));
   }
 
@@ -63,10 +63,10 @@ class InteractiveLessonsNavBloc
       activePage: nextPage,
       activePageIndex: nextPageIndex,
       activeChunkIndex: hasUnlockedChunks ? unlockedChunks.length - 1 : 0,
-      activeChunk: hasUnlockedChunks ? unlockedChunks.last : nextPage.chunks.first,
-      unlockedChunksByPage: hasUnlockedChunks
-          ? state.data.unlockedChunksByPage
-          : _updateUnlockedChunks(nextPage.id, nextPage.chunks.first),
+      // activeChunk: hasUnlockedChunks ? unlockedChunks.last : nextPage.chunks.first,
+      // unlockedChunksByPage: hasUnlockedChunks
+      //     ? state.data.unlockedChunksByPage
+      //     : _updateUnlockedChunks(nextPage.id, nextPage.chunks.first),
     )));
   }
 
@@ -82,8 +82,8 @@ class InteractiveLessonsNavBloc
     emit(InteractiveLessonsNavState.setPage(state.data.copyWith(
       activePage: prevPage,
       activePageIndex: prevPageIndex,
-      activeChunk: prevPage.chunks.last,
-      activeChunkIndex: prevPage.chunks.length - 1,
+      // activeChunk: prevPage.chunks.last,
+      // activeChunkIndex: prevPage.chunks.length - 1,
     )));
   }
 
@@ -95,17 +95,18 @@ class InteractiveLessonsNavBloc
 
     final nextChunkIndex = state.data.activeChunkIndex + 1;
 
-    if (activePage == null || nextChunkIndex >= activePage.chunks.length) return;
+    if (activePage == null || nextChunkIndex >= activePage.chunksIds.length) return;
 
-    final nextChunk = activePage.chunks[nextChunkIndex];
+    // final nextChunk = activePage.chunksIds[nextChunkIndex];
 
     emit(InteractiveLessonsNavState.setUnlockedChunks(state.data.copyWith(
-      activeChunk: nextChunk,
+      // activeChunk: nextChunk,
       activeChunkIndex: nextChunkIndex,
-      unlockedChunksByPage: _updateUnlockedChunks(activePage.id, nextChunk),
+      // unlockedChunksByPage: _updateUnlockedChunks(activePage.id, nextChunk),
     )));
   }
 
+  // ignore: unused_element
   Map<int, List<InteractiveLessonChunk>> _updateUnlockedChunks(
     int pageId,
     InteractiveLessonChunk chunk,

@@ -1,5 +1,4 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:loopcare_frontend/features/education/domain/interactive_lesson/interactive_lesson_chunk.dart';
 
 part 'interactive_lesson_topics_page.freezed.dart';
 part 'interactive_lesson_topics_page.g.dart';
@@ -12,7 +11,8 @@ class InteractiveLessonTopicsPage with _$InteractiveLessonTopicsPage {
     required int id,
     required String title,
     required int pageNumber,
-    required List<InteractiveLessonChunk> chunks,
+    required int topicId,
+    required List<int> chunksIds,
   }) = _InteractiveLessonTopicsPage;
 
   factory InteractiveLessonTopicsPage.fromJson(Map<String, dynamic> json) =>
