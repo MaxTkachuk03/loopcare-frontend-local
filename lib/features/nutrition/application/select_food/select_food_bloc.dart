@@ -150,7 +150,7 @@ class SelectFoodBloc extends Bloc<SelectFoodEvent, SelectFoodState> {
     Emitter<SelectFoodState> emit,
   ) async {
     state.mapOrNull(selectFood: (state) {
-      final selectedFavoritesItems = state.selectedFavoritesItems..add(event.foodItem);
+      final selectedFavoritesItems = [...state.selectedFavoritesItems, event.foodItem];
       emit(state.copyWith(selectedFavoritesItems: selectedFavoritesItems));
     });
   }
@@ -160,7 +160,8 @@ class SelectFoodBloc extends Bloc<SelectFoodEvent, SelectFoodState> {
     Emitter<SelectFoodState> emit,
   ) {
     state.mapOrNull(selectFood: (state) {
-      final selectedFavoritesItems = state.selectedFavoritesItems..remove(event.foodItem);
+      final selectedFavoritesItems =
+          state.selectedFavoritesItems.where((e) => e.id != event.foodItem.id).toList();
       emit(state.copyWith(selectedFavoritesItems: selectedFavoritesItems));
     });
   }
