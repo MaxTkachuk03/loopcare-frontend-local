@@ -17,15 +17,6 @@ import 'package:loopcare_frontend/features/onboarding/presentation/widgets/progr
 class InteractiveLessonPage extends StatelessWidget {
   const InteractiveLessonPage({super.key});
 
-  void _onLessonsListener(BuildContext context, InteractiveLessonsState state) async {
-    if (state is! InteractiveLessonsStateLessonLoaded) return;
-    // final interactiveLessonId = state.data.id;
-
-    // context
-    //     .read<InteractiveLessonsNavBloc>()
-    //     .add(InteractiveLessonsNavEvent.setInitial(interactiveLesson.topics.values.first.pagesIds));
-  }
-
   int getProgressPercentage(InteractiveLessonsNavState state) {
     final activePage = state.data.activePage;
     if (activePage == null || activePage.chunksIds.isEmpty) return 0;
@@ -35,40 +26,37 @@ class InteractiveLessonPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocListener<InteractiveLessonsBloc, InteractiveLessonsState>(
-      listener: _onLessonsListener,
-      child: CustomScaffold.greenLightest(
-        appBar: CustomAppBar.green(
-          title: context.watch<InteractiveLessonsBloc>().state.data.title,
-          leading: CustomFilledIconButton.leadingGreenLighter(),
-          bottom: PreferredSize(
-            preferredSize: const Size.fromHeight(50),
-            child: BlocBuilder<InteractiveLessonsNavBloc, InteractiveLessonsNavState>(
-              builder: (context, state) {
-                return ProgressBar(
-                  backgroundColor: AppColors.greenRegular,
-                  progressFillColor: AppColors.white,
-                  progressEmptyColor: AppColors.white.withOpacity(0.4),
-                  segments: state.data.pages.length,
-                  value: state.data.activePageIndex,
-                  progress: getProgressPercentage(state).clamp(0, 100),
-                );
-              },
-            ),
+    return CustomScaffold.greenLightest(
+      appBar: CustomAppBar.green(
+        title: context.watch<InteractiveLessonsBloc>().state.data.title,
+        leading: CustomFilledIconButton.leadingGreenLighter(),
+        bottom: PreferredSize(
+          preferredSize: const Size.fromHeight(50),
+          child: BlocBuilder<InteractiveLessonsNavBloc, InteractiveLessonsNavState>(
+            builder: (context, state) {
+              return ProgressBar(
+                backgroundColor: AppColors.greenRegular,
+                progressFillColor: AppColors.white,
+                progressEmptyColor: AppColors.white.withOpacity(0.4),
+                segments: state.data.pages.length,
+                value: state.data.activePageIndex,
+                progress: getProgressPercentage(state).clamp(0, 100),
+              );
+            },
           ),
         ),
-        body: CustomSafeArea(
-          child: ScrollableContainer(
-            child: MainContainer(
-              child: BlocBuilder<InteractiveLessonsBloc, InteractiveLessonsState>(
-                builder: (context, state) {
-                  return state.maybeWhen(
-                    error: (_) => const SizedBox.shrink(),
-                    loading: (_) => const Center(child: CircularProgressIndicator()),
-                    orElse: () => const ChunksList(),
-                  );
-                },
-              ),
+      ),
+      body: CustomSafeArea(
+        child: ScrollableContainer(
+          child: MainContainer(
+            child: BlocBuilder<InteractiveLessonsBloc, InteractiveLessonsState>(
+              builder: (context, state) {
+                return state.maybeWhen(
+                  error: (_) => const SizedBox.shrink(),
+                  loading: (_) => const Center(child: CircularProgressIndicator()),
+                  orElse: () => const ChunksList(),
+                );
+              },
             ),
           ),
         ),

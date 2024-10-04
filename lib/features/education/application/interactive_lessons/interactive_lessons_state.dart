@@ -13,6 +13,15 @@ class InteractiveLessonsState with _$InteractiveLessonsState {
 
   const factory InteractiveLessonsState.lessonLoaded(InteractiveLessonsStateData data) =
       InteractiveLessonsStateLessonLoaded;
+
+  const factory InteractiveLessonsState.setPage(InteractiveLessonsStateData data) =
+      InteractiveLessonsStateSetPage;
+
+  const factory InteractiveLessonsState.setChunk(InteractiveLessonsStateData data) =
+      InteractiveLessonsStateSetChunk;
+
+  const factory InteractiveLessonsState.setUnlockedChunks(InteractiveLessonsStateData data) =
+      InteractiveLessonsStateSetUnlockedChunks;
 }
 
 @freezed
@@ -35,7 +44,13 @@ class InteractiveLessonsStateData with _$InteractiveLessonsStateData {
     @Default(null) InteractiveLessonChunk? activeChunk,
     @Default(0) int activePageIndex,
     @Default(0) int activeChunkIndex,
+    @Default({}) Map<int, List<InteractiveLessonChunk>> unlockedChunksByPage,
     @Default(false) bool isLoading,
     RequestError? error,
   }) = _InteractiveLessonsStateData;
+
+  List<InteractiveLessonChunk> getPagesUnlockedChunks(int pageId) =>
+      unlockedChunksByPage[pageId] ?? [];
+
+  bool hasUnlockedChunks(int pageId) => getPagesUnlockedChunks(pageId).isNotEmpty;
 }
