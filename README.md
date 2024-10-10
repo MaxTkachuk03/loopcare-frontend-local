@@ -38,14 +38,19 @@ Follow these steps to set up a project:
    - In pubspec.yaml -> name: loopcare_frontend
 2. In the `google-services.json` downloaded from Firebase I had to change the package_name to `"package_name": "com.loopcare.leanonme.app.dev"` with dev at the end
 3. I had to update the url_launcher_ios `flutter pub upgrade url_launcher_ios` to version 6.3.1
-4. You can open the android folder separately in Android Studio
+4. Open the android folder separately in Android Studio
    - This will enable menu Tools -> APG upgrade assistant - use version 7.4.1 of Android Gradle plugin
      - Don't update to 8.7.0
    - Make sure that in Android Studio -> Settings -> Build, Execution, Deployment -> Build Tools -> Gradle -> Android Gradle JSK is set to the Java 17 running on your machine
 
-I think we can delete windows, linux, macos, web folders. 
+TODO I think we can delete windows, linux, macos, web folders. 
 
-To run: `flutter run -v --flavor=dev --debug` then choose device and / or simulator
+To run Android you need to start it with Android studio opened from the Android folder.
+To run IOS: `flutter run -v --flavor=dev --debug` then choose device and / or simulator
+
+## Switching branches
+
+I needed to run `dart run build_runner build` in project root when I switched between branches to generate specific files. Otherwise the app would not compile.
 
 ## Setup fastlane
 
