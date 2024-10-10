@@ -1,5 +1,12 @@
 # LeanOnMe Application
 
+## Prerequisites - UPDATE OCT 9
+
+1. Make sure you have Java 17
+   - On Mac this version works - openjdk 17.0.12 2024-07-16
+2. Make sure you have gradle version 7
+   - On Mac this version works - Gradle 7.6.4
+
 ## Getting Started
 
 Project was set up and developed with flutter version 3.24.0 and Xcode Version 15.4 (15F31d)
@@ -24,6 +31,21 @@ Follow these steps to set up a project:
 15. Create `.env.dev`, `.env.stag`, `.env.uat` and `.env.prod` files in the root directory.
 16. File `.env.example` contains needed variable names, copy it to the `.env.dev`, `.env.stag`, `.env.uat` and `.env.prod`.You can find env file variable values in the project [documentation](https://loopcare.atlassian.net/wiki/spaces/LOOPCARE/pages/53739539/Environment+variables). Also firebase variables you can get from the `google-services.json` and `GoogleService-Info.plist` respectively.
 17. Add [keystore.properties](https://loopcare.atlassian.net/wiki/spaces/LOOPCARE/pages/285540355/Keystore.properties) into `android/` folder and [loopcare_cert.jks](https://loopcare.atlassian.net/wiki/spaces/LOOPCARE/pages/285605897/loopcare+cert.jks) into `android/app` folder.
+
+## Extra steps - OCT 9
+
+1. Not sure if strictly necessary but there were moans that the app folder and module name should be with underscores -> I changed this to loopcare_frontend (so both the git clone repo folder and the module references)
+   - In pubspec.yaml -> name: loopcare_frontend
+2. In the `google-services.json` downloaded from Firebase I had to change the package_name to `"package_name": "com.loopcare.leanonme.app.dev"` with dev at the end
+3. I had to update the url_launcher_ios `flutter pub upgrade url_launcher_ios` to version 6.3.1
+4. You can open the android folder separately in Android Studio
+   - This will enable menu Tools -> APG upgrade assistant - use version 7.4.1 of Android Gradle plugin
+     - Don't update to 8.7.0
+   - Make sure that in Android Studio -> Settings -> Build, Execution, Deployment -> Build Tools -> Gradle -> Android Gradle JSK is set to the Java 17 running on your machine
+
+I think we can delete windows, linux, macos, web folders. 
+
+To run: `flutter run -v --flavor=dev --debug` then choose device and / or simulator
 
 ## Setup fastlane
 
