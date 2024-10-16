@@ -48,6 +48,11 @@ TODO I think we can delete windows, linux, macos, web folders.
 To run Android you need to start it with Android studio opened from the Android folder.
 To run IOS: `flutter run -v --flavor=dev --debug` then choose device and / or simulator
 
+## Hot reloading during development
+
+Instead of running `flutter run`, select the device you want to use and select `Flutter attach` button in top right. 
+This will trigger a build, then is you save or press hot reload app refreshes. 
+
 ## Switching branches
 
 I needed to run `dart run build_runner build` in project root when I switched between branches to generate specific files. Otherwise the app would not compile.

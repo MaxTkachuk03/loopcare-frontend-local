@@ -56,7 +56,7 @@ class RiverModuleBuilder extends StatelessWidget with RiverUtils {
 
   double? get _titleRightPosition => _isVertical ? 20.0 : null;
 
-  double? get _titleWidth => _isVertical ? 106.0 : null;
+  double? get _titleWidth => _isVertical ? 106.0 : 260.0;
 
   @override
   Widget build(BuildContext context) {
