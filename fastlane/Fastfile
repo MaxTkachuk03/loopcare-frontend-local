@@ -93,6 +93,7 @@ platform :android do
   lane :firebase_distribution do
 
     firebase_app_distribution(
+      debug: true,
       app: ENV["ANDROID_APP_ID"],
       firebase_cli_token: ENV["FIREBASE_CLI_TOKEN"],
       groups: "QA",

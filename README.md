@@ -46,16 +46,30 @@ Follow these steps to set up a project:
 TODO I think we can delete windows, linux, macos, web folders. 
 
 To run Android you need to start it with Android studio opened from the Android folder.
-To run IOS: `flutter run -v --flavor=dev --debug` then choose device and / or simulator
+To run IOS: `
+` then choose device and / or simulator
 
 ## Hot reloading during development
 
 Instead of running `flutter run`, select the device you want to use and select `Flutter attach` button in top right. 
 This will trigger a build, then is you save or press hot reload app refreshes. 
 
+## Flutter inspector
+
+1. In Android Studio click the `Flutter inspector` button in right button bar.
+2. Then open in browser.
+
 ## Switching branches
 
 I needed to run `dart run build_runner build` in project root when I switched between branches to generate specific files. Otherwise the app would not compile.
+
+## Get firebase login token
+
+1. Install firebase cli using `npm install -g firebase-tools`
+2. Then `firebase login:ci --no-localhost` -> this will trigger a login dialog in the browser. 
+3. Visit the url that is provided, go through the steps
+4. Enter the code you get in the browser in the CLI
+5. You get the token - you need this in the following step
 
 ## Setup fastlane
 
@@ -72,6 +86,11 @@ You can run fastlane deploy scripts from the `pubspec.yaml` scripts section, to 
 
 1. Run `dart pub global activate rps` in the console
 2. Now you can run scripts from the `pubspec.yaml`
+3. Add the PATH to your .zshrc or similar so `rps` is available as a command using `export PATH="$PATH":"$HOME/.pub-cache/bin"`
+4. I also had to:
+   * `bundle install`
+   * `bundle update fastlane`
+
 
 ### Supported rps scripts
 
@@ -89,6 +108,17 @@ You can run fastlane deploy scripts from the `pubspec.yaml` scripts section, to 
 - `rps testflight prod`
 
 - `rps playstore prod`
+
+## manual deploy Android to UAT firebase
+`flutter build apk --release --obfuscate --split-debug-info=debug-info --dart-define FLAVOR=uat --flavor uat`
+Go to `/build/app/outputs/flutter-apk/app-{environment}-release.apk` and upload in firebase.
+For UAT the link is https://console.firebase.google.com/u/0/project/leanonme-uat/appdistribution/app/android:com.loopcare.leanonme.app.uat/releases
+
+## manual deploy iOS to firebase
+`flutter build ipa --release --obfuscate --split-debug-info=debug-info --export-method ad-hoc --dart-define FLAVOR=uat --flavor uat`
+Go to `/build/app/ios/ipa/LeanOnMe.ipa` and upload in firebase.
+For UAT the link is https://console.firebase.google.com/u/0/project/leanonme-uat/appdistribution/app/ios:com.loopcare.leanonme.app.uat/releases
+
 
 ## Application architecture
 
@@ -172,6 +202,8 @@ To add new language:
 2. Add new languageCode in the `CFBundleLocalizations` in the `ios/Runner/Info.plist` file
 3. Add new supported locale in the `lib/core/presentation/localization/localization_constants.dart`
    file
+
+To generate localizations `flutter gen-l10n`.
 
 ## Troubleshooting
 
