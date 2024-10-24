@@ -45,9 +45,7 @@ Follow these steps to set up a project:
 
 TODO I think we can delete windows, linux, macos, web folders. 
 
-To run Android you need to start it with Android studio opened from the Android folder.
-To run IOS: `
-` then choose device and / or simulator
+To run IOS/ANDROID: `flutter run --flavor <flavor_name> --dart-define FLAVOR="<flavor_name>"` then choose device and / or simulator
 
 ## Hot reloading during development
 
