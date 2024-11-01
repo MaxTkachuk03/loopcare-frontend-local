@@ -1,5 +1,12 @@
 # LeanOnMe Application
 
+## Prerequisites - UPDATE OCT 9
+
+1. Make sure you have Java 17
+   - On Mac this version works - openjdk 17.0.12 2024-07-16
+2. Make sure you have gradle version 7
+   - On Mac this version works - Gradle 7.6.4
+
 ## Getting Started
 
 Project was set up and developed with flutter version 3.24.0 and Xcode Version 15.4 (15F31d)
@@ -25,6 +32,43 @@ Follow these steps to set up a project:
 16. File `.env.example` contains needed variable names, copy it to the `.env.dev`, `.env.stag`, `.env.uat` and `.env.prod`.You can find env file variable values in the project [documentation](https://loopcare.atlassian.net/wiki/spaces/LOOPCARE/pages/53739539/Environment+variables). Also firebase variables you can get from the `google-services.json` and `GoogleService-Info.plist` respectively.
 17. Add [keystore.properties](https://loopcare.atlassian.net/wiki/spaces/LOOPCARE/pages/285540355/Keystore.properties) into `android/` folder and [loopcare_cert.jks](https://loopcare.atlassian.net/wiki/spaces/LOOPCARE/pages/285605897/loopcare+cert.jks) into `android/app` folder.
 
+## Extra steps - OCT 9
+
+1. Not sure if strictly necessary but there were moans that the app folder and module name should be with underscores -> I changed this to loopcare_frontend (so both the git clone repo folder and the module references)
+   - In pubspec.yaml -> name: loopcare_frontend
+2. In the `google-services.json` downloaded from Firebase I had to change the package_name to `"package_name": "com.loopcare.leanonme.app.dev"` with dev at the end
+3. I had to update the url_launcher_ios `flutter pub upgrade url_launcher_ios` to version 6.3.1
+4. Open the android folder separately in Android Studio
+   - This will enable menu Tools -> APG upgrade assistant - use version 7.4.1 of Android Gradle plugin
+     - Don't update to 8.7.0
+   - Make sure that in Android Studio -> Settings -> Build, Execution, Deployment -> Build Tools -> Gradle -> Android Gradle JSK is set to the Java 17 running on your machine
+
+TODO I think we can delete windows, linux, macos, web folders. 
+
+To run IOS/ANDROID: `flutter run --flavor <flavor_name> --dart-define FLAVOR="<flavor_name>"` then choose device and / or simulator
+
+## Hot reloading during development
+
+Instead of running `flutter run`, select the device you want to use and select `Flutter attach` button in top right. 
+This will trigger a build, then is you save or press hot reload app refreshes. 
+
+## Flutter inspector
+
+1. In Android Studio click the `Flutter inspector` button in right button bar.
+2. Then open in browser.
+
+## Switching branches
+
+I needed to run `dart run build_runner build` in project root when I switched between branches to generate specific files. Otherwise the app would not compile.
+
+## Get firebase login token
+
+1. Install firebase cli using `npm install -g firebase-tools`
+2. Then `firebase login:ci --no-localhost` -> this will trigger a login dialog in the browser. 
+3. Visit the url that is provided, go through the steps
+4. Enter the code you get in the browser in the CLI
+5. You get the token - you need this in the following step
+
 ## Setup fastlane
 
 1. Install fastlane to your local machine, the simplest way to do it - homebrew command `brew install fastlane`. For another possible ways check the official installation guide [fastlane getting started](https://docs.fastlane.tools/getting-started/ios/setup/)
@@ -40,6 +84,11 @@ You can run fastlane deploy scripts from the `pubspec.yaml` scripts section, to 
 
 1. Run `dart pub global activate rps` in the console
 2. Now you can run scripts from the `pubspec.yaml`
+3. Add the PATH to your .zshrc or similar so `rps` is available as a command using `export PATH="$PATH":"$HOME/.pub-cache/bin"`
+4. I also had to:
+   * `bundle install`
+   * `bundle update fastlane`
+
 
 ### Supported rps scripts
 
@@ -57,6 +106,17 @@ You can run fastlane deploy scripts from the `pubspec.yaml` scripts section, to 
 - `rps testflight prod`
 
 - `rps playstore prod`
+
+## manual deploy Android to UAT firebase
+`flutter build apk --release --obfuscate --split-debug-info=debug-info --dart-define FLAVOR=uat --flavor uat`
+Go to `/build/app/outputs/flutter-apk/app-{environment}-release.apk` and upload in firebase.
+For UAT the link is https://console.firebase.google.com/u/0/project/leanonme-uat/appdistribution/app/android:com.loopcare.leanonme.app.uat/releases
+
+## manual deploy iOS to firebase
+`flutter build ipa --release --obfuscate --split-debug-info=debug-info --export-method ad-hoc --dart-define FLAVOR=uat --flavor uat`
+Go to `/build/app/ios/ipa/LeanOnMe.ipa` and upload in firebase.
+For UAT the link is https://console.firebase.google.com/u/0/project/leanonme-uat/appdistribution/app/ios:com.loopcare.leanonme.app.uat/releases
+
 
 ## Application architecture
 
@@ -140,6 +200,8 @@ To add new language:
 2. Add new languageCode in the `CFBundleLocalizations` in the `ios/Runner/Info.plist` file
 3. Add new supported locale in the `lib/core/presentation/localization/localization_constants.dart`
    file
+
+To generate localizations `flutter gen-l10n`.
 
 ## Troubleshooting
 

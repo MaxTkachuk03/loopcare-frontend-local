@@ -11,7 +11,7 @@ else
 fi
 
 if [ "$2" == "ios" ]; then
-  flutter build ipa --release --obfuscate --split-debug-info=debug-info --export-method ad-hoc --dart-define FLAVOR=$build_type --flavor $build_type
+  flutter build ipa --release --obfuscate --split-debug-info=debug-info --dart-define FLAVOR=$build_type --flavor $build_type
 elif [ "$2" == "android" ] && [ $build_type == 'prod' ]; then
   flutter build appbundle --release --obfuscate --split-debug-info=debug-info --dart-define FLAVOR=$build_type --flavor $build_type
 else
