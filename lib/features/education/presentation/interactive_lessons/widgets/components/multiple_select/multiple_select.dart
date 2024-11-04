@@ -6,13 +6,21 @@ import 'package:loopcare_frontend/core/presentation/utils/build_context_extensio
 import 'package:loopcare_frontend/features/education/domain/interactive_lesson/interactive_lesson_chunk_component.dart';
 import 'package:loopcare_frontend/features/education/domain/interactive_lesson/select_content/content_select_answer.dart';
 import 'package:loopcare_frontend/features/education/domain/interactive_lesson/select_content/select_content.dart';
+import 'package:loopcare_frontend/features/river/domain/river_module_stream_type.dart';
 import 'package:loopcare_frontend/localization/service/localization_extension.dart';
 import 'package:loopcare_frontend/localization/service/localized_texts.dart';
 
 class MultipleSelect extends StatefulWidget {
-  const MultipleSelect({super.key, required this.component});
+  const MultipleSelect(
+      {super.key,
+      required this.component,
+      required this.isClickedHandler,
+      required this.lessonStreamType});
 
   final InteractiveLessonChunkComponentMultipleSelect component;
+  final RiverModuleStreamType lessonStreamType;
+
+  final Function(bool isClicked) isClickedHandler;
 
   @override
   State<MultipleSelect> createState() => _MultipleSelectState();
@@ -26,6 +34,9 @@ class _MultipleSelectState extends State<MultipleSelect> {
       _selectedAnswers.contains(value)
           ? _selectedAnswers.remove(value)
           : _selectedAnswers.add(value);
+      _selectedAnswers.isNotEmpty
+          ? widget.isClickedHandler(true)
+          : widget.isClickedHandler(false);
     });
   }
 
@@ -38,11 +49,13 @@ class _MultipleSelectState extends State<MultipleSelect> {
       children: [
         CategoryLabel.interactiveLesson(
           label: LocalizedTexts.interactiveLessonsMultipleSelectLabel.tr(),
+          lessonStreamType: widget.lessonStreamType,
         ),
         const SizedBox(height: 20),
         CustomText(
           content.question,
-          style: context.textTheme.bodyMedium!.copyWith(fontWeight: FontWeight.w700),
+          style: context.textTheme.bodyMedium!
+              .copyWith(fontWeight: FontWeight.w700),
         ),
         const SizedBox(height: 20),
         ListView.separated(

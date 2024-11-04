@@ -20,6 +20,7 @@ class InteractiveLessonChunkComponent with _$InteractiveLessonChunkComponent {
     required bool needsValidation,
     required bool isValid,
     required MarkdownContent content,
+    required int chunkId,
   }) = InteractiveLessonChunkComponentMarkdown;
 
   const factory InteractiveLessonChunkComponent.image({
@@ -28,6 +29,7 @@ class InteractiveLessonChunkComponent with _$InteractiveLessonChunkComponent {
     required bool needsValidation,
     required bool isValid,
     required ImageContent content,
+    required int chunkId,
   }) = InteractiveLessonChunkComponentImage;
 
   const factory InteractiveLessonChunkComponent.scale({
@@ -36,6 +38,7 @@ class InteractiveLessonChunkComponent with _$InteractiveLessonChunkComponent {
     required bool needsValidation,
     required bool isValid,
     required ScaleContent content,
+    required int chunkId,
   }) = InteractiveLessonChunkComponentScale;
 
   const factory InteractiveLessonChunkComponent.singleSelect({
@@ -44,6 +47,7 @@ class InteractiveLessonChunkComponent with _$InteractiveLessonChunkComponent {
     required bool needsValidation,
     required bool isValid,
     required SelectContent content,
+    required int chunkId,
   }) = InteractiveLessonChunkComponentSingleSelect;
 
   const factory InteractiveLessonChunkComponent.multipleSelect({
@@ -52,6 +56,7 @@ class InteractiveLessonChunkComponent with _$InteractiveLessonChunkComponent {
     required bool needsValidation,
     required bool isValid,
     required SelectContent content,
+    required int chunkId,
   }) = InteractiveLessonChunkComponentMultipleSelect;
 
   const factory InteractiveLessonChunkComponent.singleSelectWithFeedback({
@@ -60,6 +65,7 @@ class InteractiveLessonChunkComponent with _$InteractiveLessonChunkComponent {
     required bool needsValidation,
     required bool isValid,
     required SelectContent content,
+    required int chunkId,
   }) = InteractiveLessonChunkComponentSingleSelectWithFeedback;
 
   const factory InteractiveLessonChunkComponent.ordering({
@@ -68,6 +74,7 @@ class InteractiveLessonChunkComponent with _$InteractiveLessonChunkComponent {
     required bool needsValidation,
     required bool isValid,
     required OrderingContent content,
+    required int chunkId,
   }) = InteractiveLessonChunkComponentOrdering;
 
   const factory InteractiveLessonChunkComponent.textArea({
@@ -76,6 +83,7 @@ class InteractiveLessonChunkComponent with _$InteractiveLessonChunkComponent {
     required bool needsValidation,
     required bool isValid,
     required TextFieldContent content,
+    required int chunkId,
   }) = InteractiveLessonChunkComponentTextArea;
 
   const factory InteractiveLessonChunkComponent.textField({
@@ -84,6 +92,7 @@ class InteractiveLessonChunkComponent with _$InteractiveLessonChunkComponent {
     required bool needsValidation,
     required bool isValid,
     required TextFieldContent content,
+    required int chunkId,
   }) = InteractiveLessonChunkComponentTextField;
 
   factory InteractiveLessonChunkComponent.fromJson(Map<String, dynamic> json) =>

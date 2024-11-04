@@ -76,9 +76,12 @@ class CategoryLabel extends StatelessWidget {
         textColor: AppColors.blueRegular,
       );
 
-  factory CategoryLabel.interactiveLesson({required String label}) => CategoryLabel(
+  factory CategoryLabel.interactiveLesson(
+          {required String label,
+          RiverModuleStreamType lessonStreamType = RiverModuleStreamType.community}) =>
+      CategoryLabel(
         label: label,
-        color: AppColors.greenRegular,
+        color: lessonStreamType.regularColor,
         textColor: AppColors.black,
       );
 

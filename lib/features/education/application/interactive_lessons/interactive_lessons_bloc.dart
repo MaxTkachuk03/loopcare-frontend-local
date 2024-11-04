@@ -8,20 +8,24 @@ import 'package:loopcare_frontend/features/education/domain/interactive_lesson/i
 import 'package:loopcare_frontend/features/education/domain/interactive_lesson/interactive_lesson_topic.dart';
 import 'package:loopcare_frontend/features/education/domain/interactive_lesson/interactive_lesson_topics_page.dart';
 
+part 'interactive_lessons_bloc.freezed.dart';
 part 'interactive_lessons_event.dart';
 part 'interactive_lessons_state.dart';
-part 'interactive_lessons_bloc.freezed.dart';
 
 @singleton
-class InteractiveLessonsBloc extends Bloc<InteractiveLessonsEvent, InteractiveLessonsState> {
+class InteractiveLessonsBloc
+    extends Bloc<InteractiveLessonsEvent, InteractiveLessonsState> {
   final EducationService _educationService;
 
   InteractiveLessonsBloc(this._educationService)
-      : super(const InteractiveLessonsState.initial(InteractiveLessonsStateData())) {
+      : super(const InteractiveLessonsState.initial(
+            InteractiveLessonsStateData())) {
     on<GetInteractiveLesson>(_onGetInteractiveLesson);
     on<SetNextPage>(_onSetNextPage);
     on<SetPrevPage>(_onSetPrevPage);
     on<UnlockNextChunk>(_onUnlockNextChunk);
+
+    on<ToggleCheckedAnswer>(_toggleComponentClicked);
   }
 
   Future<void> _onGetInteractiveLesson(
@@ -33,18 +37,23 @@ class InteractiveLessonsBloc extends Bloc<InteractiveLessonsEvent, InteractiveLe
     // TODO: Delete after dev phase
     await Future.delayed(const Duration(milliseconds: 500));
 
-    final response = await _educationService.getInteractiveLesson(event.lessonId);
+    final response =
+        await _educationService.getInteractiveLesson(event.lessonId);
 
     response.fold(
-      (l) => emit(InteractiveLessonsState.error(state.data.copyWith(error: l, isLoading: false))),
+      (l) => emit(InteractiveLessonsState.error(
+          state.data.copyWith(error: l, isLoading: false))),
       (r) {
-        final activePage = r.pages[r.topics.values.first.pagesIds.first];
+        final activePage = r.pages.values.first;
+
         if (activePage == null) return;
 
-        final activeChunk = r.chunks[activePage.chunksIds.first];
+        final activeChunk = r.chunks.values.first;
+
         if (activeChunk == null) return;
 
-        final activePageUnlockedChunks = state.data.getPagesUnlockedChunks(activePage.id);
+        final activePageUnlockedChunks =
+            state.data.getPagesUnlockedChunks(activePage.id);
         final hasUnlockedChunks = activePageUnlockedChunks.isNotEmpty;
         final unlockedChunksByPage = hasUnlockedChunks
             ? state.data.unlockedChunksByPage
@@ -52,6 +61,7 @@ class InteractiveLessonsBloc extends Bloc<InteractiveLessonsEvent, InteractiveLe
 
         emit(InteractiveLessonsState.lessonLoaded(state.data.copyWith(
           id: r.id,
+          type: r.type,
           title: r.title,
           jumpBoardTitle: r.jumpBoardTitle,
           jumpBoardDescription: r.jumpBoardDescription,
@@ -65,8 +75,10 @@ class InteractiveLessonsBloc extends Bloc<InteractiveLessonsEvent, InteractiveLe
           activePage: activePage,
           activeChunk: activeChunk,
           activePageIndex: 0,
-          activeChunkIndex: hasUnlockedChunks ? activePageUnlockedChunks.length - 1 : 0,
-          unlockedChunksByPage: unlockedChunksByPage,
+          activeChunkIndex: 0,
+          unlockedChunksByPage: {
+            activePage.id: [activeChunk],
+          },
           isLoading: false,
         )));
       },
@@ -82,14 +94,17 @@ class InteractiveLessonsBloc extends Bloc<InteractiveLessonsEvent, InteractiveLe
 
     final topic = state.data.topics.values.first;
 
-    final nextPage = state.data.pages[topic.pagesIds[nextPageIndex]];
+    final nextPage = state.data.pages.values
+        .where((page) => page.id == topic.pagesIds[nextPageIndex])
+        .first;
     if (nextPage == null) return;
 
     final unlockedChunks = state.data.getPagesUnlockedChunks(nextPage.id);
     final hasUnlockedChunks = unlockedChunks.isNotEmpty;
+    final activeChunk = hasUnlockedChunks
+        ? unlockedChunks.last
+        : state.data.getActiveChunk(nextPage);
 
-    final activeChunk =
-        hasUnlockedChunks ? unlockedChunks.last : state.data.chunks[nextPage.chunksIds.first];
     if (activeChunk == null) return;
 
     final unlockedChunksByPage = hasUnlockedChunks
@@ -105,6 +120,30 @@ class InteractiveLessonsBloc extends Bloc<InteractiveLessonsEvent, InteractiveLe
     )));
   }
 
+  Future<void> _toggleComponentClicked(
+    ToggleCheckedAnswer event,
+    Emitter<InteractiveLessonsState> emit,
+  ) async {
+    final int activeChunkId = state.data.activeChunk?.id ?? 1;
+    final int chunkId = event.component.chunkId;
+
+    if (chunkId == activeChunkId) {
+      final int id = event.component.id;
+      final updatedComponents =
+          Map<int, InteractiveLessonChunkComponent>.from(state.data.components);
+
+      updatedComponents.update(id, (e) => e.copyWith(isValid: event.isClicked));
+
+      print('updatedComponents: $updatedComponents');
+
+      emit(
+        InteractiveLessonsState.toggleComponentClicked(
+          state.data.copyWith(components: updatedComponents),
+        ),
+      );
+    }
+  }
+
   Future<void> _onSetPrevPage(
     SetPrevPage event,
     Emitter<InteractiveLessonsState> emit,
@@ -114,10 +153,14 @@ class InteractiveLessonsBloc extends Bloc<InteractiveLessonsEvent, InteractiveLe
 
     final topic = state.data.topics.values.first;
 
-    final prevPage = state.data.pages[topic.pagesIds[prevPageIndex]];
+    final prevPage = state.data.pages.values
+        .where((page) =>
+            page.topicId == topic.id &&
+            page.id == topic.pagesIds[prevPageIndex])
+        .first;
     if (prevPage == null) return;
 
-    final activeChunk = state.data.chunks[prevPage.chunksIds.last];
+    final activeChunk = state.data.getActiveChunk(prevPage);
     if (activeChunk == null) return;
 
     emit(InteractiveLessonsState.setPage(state.data.copyWith(
@@ -136,9 +179,14 @@ class InteractiveLessonsBloc extends Bloc<InteractiveLessonsEvent, InteractiveLe
 
     final nextChunkIndex = state.data.activeChunkIndex + 1;
 
-    if (activePage == null || nextChunkIndex >= activePage.chunksIds.length) return;
+    if (activePage == null || nextChunkIndex >= activePage.chunksIds.length)
+      return;
 
-    final nextChunk = state.data.chunks[activePage.chunksIds[nextChunkIndex]];
+    final nextChunk = state.data.chunks.values
+        .where((chunk) =>
+            chunk.pageId == activePage.id &&
+            chunk.id == activePage.chunksIds[nextChunkIndex])
+        .first;
     if (nextChunk == null) return;
 
     emit(InteractiveLessonsState.setUnlockedChunks(state.data.copyWith(

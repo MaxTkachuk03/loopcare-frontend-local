@@ -153,6 +153,11 @@ class _RiverScreenState extends State<RiverScreen> with RiverUtils {
             .add(InteractiveLessonsEvent.getInteractiveLesson(lessonId: item.lessonId));
       }
 
+      // TODO: delete bloc init after connecting to backend
+      context
+          .read<InteractiveLessonsBloc>()
+          .add(InteractiveLessonsEvent.getInteractiveLesson(lessonId: item.lessonId));
+
       context.router.pushNamed(AppRoutes.interactiveLesson);
     }
   }

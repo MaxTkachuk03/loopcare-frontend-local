@@ -7,60 +7,81 @@ import 'package:loopcare_frontend/core/presentation/custom_safe_area.dart';
 import 'package:loopcare_frontend/core/presentation/scaffold/custom_scaffold.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/main_container.dart';
-import 'package:loopcare_frontend/core/presentation/widgets/scrollable_container.dart';
 import 'package:loopcare_frontend/features/education/application/interactive_lessons/interactive_lessons_bloc.dart';
-import 'package:loopcare_frontend/features/education/application/interactive_lessons/navigation/interactive_lessons_nav_bloc.dart';
 import 'package:loopcare_frontend/features/education/presentation/interactive_lessons/widgets/chunks_list.dart';
 import 'package:loopcare_frontend/features/onboarding/presentation/widgets/progress_bar.dart';
+import 'package:loopcare_frontend/features/river/domain/river_module_stream_type.dart';
 
 @RoutePage()
 class InteractiveLessonPage extends StatelessWidget {
   const InteractiveLessonPage({super.key});
 
-  int getProgressPercentage(InteractiveLessonsNavState state) {
+  int getProgressPercentage(InteractiveLessonsState state) {
     final activePage = state.data.activePage;
     if (activePage == null || activePage.chunksIds.isEmpty) return 0;
 
-    return (((state.data.activeChunkIndex + 1) / (activePage.chunksIds.length)) * 100).round();
+    return (((state.data.activeChunkIndex + 1) /
+                (activePage.chunksIds.length)) *
+            100)
+        .round();
   }
 
   @override
   Widget build(BuildContext context) {
-    return CustomScaffold.greenLightest(
-      appBar: CustomAppBar.green(
-        title: context.watch<InteractiveLessonsBloc>().state.data.title,
-        leading: CustomFilledIconButton.leadingGreenLighter(),
-        bottom: PreferredSize(
-          preferredSize: const Size.fromHeight(50),
-          child: BlocBuilder<InteractiveLessonsNavBloc, InteractiveLessonsNavState>(
-            builder: (context, state) {
-              return ProgressBar(
-                backgroundColor: AppColors.greenRegular,
-                progressFillColor: AppColors.white,
-                progressEmptyColor: AppColors.white.withOpacity(0.4),
-                segments: state.data.pages.length,
-                value: state.data.activePageIndex,
-                progress: getProgressPercentage(state).clamp(0, 100),
-              );
-            },
-          ),
+    final bloc = context.watch<InteractiveLessonsBloc>().state.data;
+    final lessonStreamType =
+        RiverModuleStreamType.getLessonStreamType(bloc.type);
+
+    return BlocBuilder<InteractiveLessonsBloc, InteractiveLessonsState>(
+        builder: (context, state) {
+      return state.maybeWhen(
+        error: (_) => const SizedBox.shrink(),
+        loading: (_) => CustomScaffold.greenLightest(
+          body: const Center(child: CircularProgressIndicator()),
         ),
-      ),
-      body: CustomSafeArea(
-        child: ScrollableContainer(
-          child: MainContainer(
-            child: BlocBuilder<InteractiveLessonsBloc, InteractiveLessonsState>(
-              builder: (context, state) {
-                return state.maybeWhen(
-                  error: (_) => const SizedBox.shrink(),
-                  loading: (_) => const Center(child: CircularProgressIndicator()),
-                  orElse: () => const ChunksList(),
-                );
-              },
+        orElse: () => CustomScaffold.greenLightest(
+          appBar: CustomAppBar.customColor(
+            customColor: lessonStreamType.regularColor,
+            title: context.watch<InteractiveLessonsBloc>().state.data.title,
+            leading: CustomFilledIconButton.fromColor(
+                color: lessonStreamType.lighterColor),
+            bottom: PreferredSize(
+              preferredSize: const Size.fromHeight(50),
+              child:
+                  BlocBuilder<InteractiveLessonsBloc, InteractiveLessonsState>(
+                builder: (context, state) {
+                  return ProgressBar(
+                    backgroundColor: lessonStreamType.regularColor,
+                    progressFillColor: AppColors.white,
+                    progressEmptyColor: AppColors.white.withOpacity(0.4),
+                    segments: state.data.pages.length,
+                    value: state.data.activePageIndex,
+                    progress: getProgressPercentage(state).clamp(0, 100),
+                  );
+                },
+              ),
             ),
           ),
+          body: CustomSafeArea(
+            child:
+                // ScrollableContainer(
+                MainContainer(
+              child:
+                  BlocBuilder<InteractiveLessonsBloc, InteractiveLessonsState>(
+                builder: (context, state) {
+                  return state.maybeWhen(
+                    error: (_) => const SizedBox.shrink(),
+                    loading: (_) =>
+                        const Center(child: CircularProgressIndicator()),
+                    orElse: () => const ChunksList(),
+                  );
+                },
+              ),
+            ),
+            // ),
+          ),
         ),
-      ),
-    );
+      );
+    });
   }
 }

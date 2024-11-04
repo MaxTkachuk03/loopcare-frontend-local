@@ -14,19 +14,38 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   final Color? backgroundColor;
   final PreferredSizeWidget? bottom;
   final GestureTapCallback? onTap;
+  final Color? customColor;
 
-  const CustomAppBar({
-    super.key,
-    required this.title,
-    this.systemOverlayStyle = SystemUiOverlayStyle.dark,
-    this.textTheme = CustomAppBarTextTheme.dark,
-    this.subtitle,
-    this.leading,
-    this.actions,
-    this.backgroundColor,
-    this.bottom,
-    this.onTap,
-  });
+  const CustomAppBar(
+      {super.key,
+      required this.title,
+      this.systemOverlayStyle = SystemUiOverlayStyle.dark,
+      this.textTheme = CustomAppBarTextTheme.dark,
+      this.subtitle,
+      this.leading,
+      this.actions,
+      this.backgroundColor,
+      this.bottom,
+      this.onTap,
+      this.customColor});
+
+  factory CustomAppBar.customColor(
+          {String? title,
+          String? subtitle,
+          Widget? leading,
+          List<Widget>? actions,
+          PreferredSizeWidget? bottom,
+          Color? customColor}) =>
+      CustomAppBar(
+        systemOverlayStyle: SystemUiOverlayStyle.dark,
+        textTheme: CustomAppBarTextTheme.dark,
+        backgroundColor: customColor,
+        title: title,
+        subtitle: subtitle,
+        leading: leading,
+        actions: actions,
+        bottom: bottom,
+      );
 
   factory CustomAppBar.transparent({
     String? title,

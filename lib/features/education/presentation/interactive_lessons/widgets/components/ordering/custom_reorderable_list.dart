@@ -1,4 +1,5 @@
 import 'dart:ui';
+
 import 'package:flutter/material.dart';
 import 'package:loopcare_frontend/core/presentation/buttons/custom_elevated_button.dart';
 import 'package:loopcare_frontend/core/presentation/buttons/custom_outlined_button.dart';
@@ -10,13 +11,19 @@ import 'package:loopcare_frontend/features/education/domain/interactive_lesson/i
 import 'package:loopcare_frontend/features/education/domain/interactive_lesson/ordering_content/content_ordering_item.dart';
 import 'package:loopcare_frontend/features/education/domain/interactive_lesson/ordering_content/ordering_content.dart';
 import 'package:loopcare_frontend/features/education/presentation/interactive_lessons/widgets/components/ordering/reorderable_list_label.dart';
+import 'package:loopcare_frontend/features/river/domain/river_module_stream_type.dart';
 import 'package:loopcare_frontend/localization/service/localization_extension.dart';
 import 'package:loopcare_frontend/localization/service/localized_texts.dart';
 
 class CustomReorderableList extends StatefulWidget {
   final InteractiveLessonChunkComponentOrdering component;
-
-  const CustomReorderableList({super.key, required this.component});
+  final RiverModuleStreamType lessonStreamType;
+  final Function(bool isClicked) isClickedHandler;
+  const CustomReorderableList(
+      {super.key,
+      required this.component,
+      required this.lessonStreamType,
+      required this.isClickedHandler});
 
   @override
   State<CustomReorderableList> createState() => _CustomReorderableListState();
@@ -70,6 +77,9 @@ class _CustomReorderableListState extends State<CustomReorderableList> {
   }
 
   void _onCheckOrderHandler() {
+    //TODO: MAYBE THIS RIGHT NOT SURE CHECK LOGIC!!!
+    widget.isClickedHandler(true);
+
     setState(() {
       _showOrderValidation = true;
     });
@@ -86,7 +96,7 @@ class _CustomReorderableListState extends State<CustomReorderableList> {
     return Container(
       padding: const EdgeInsets.only(right: 20, left: 20, bottom: 12),
       decoration: BoxDecoration(
-        color: AppColors.greenLighter,
+        color: widget.lessonStreamType.lighterColor,
         borderRadius: BorderRadius.circular(12),
       ),
       child: Column(
@@ -109,9 +119,12 @@ class _CustomReorderableListState extends State<CustomReorderableList> {
                 shape: getShape(isValid),
                 child: ListTile(
                   leading: const Image(image: AppImages.logo),
-                  title: CustomText.w700(item.title, style: context.textTheme.bodyMedium),
-                  subtitle: CustomText(item.description, style: context.textTheme.bodyMedium),
-                  trailing: const Icon(Icons.drag_handle, color: AppColors.greenLighter),
+                  title: CustomText.w700(item.title,
+                      style: context.textTheme.bodyMedium),
+                  subtitle: CustomText(item.description,
+                      style: context.textTheme.bodyMedium),
+                  trailing: const Icon(Icons.drag_handle,
+                      color: AppColors.greenLighter),
                 ),
               );
             }).toList(),

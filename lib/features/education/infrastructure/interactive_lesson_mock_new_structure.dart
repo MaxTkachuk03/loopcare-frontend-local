@@ -1,13 +1,15 @@
 var interactiveLesson = {
   "id": 8,
+  "type": "medicalInsights",
   "title": "Calorie Density",
   "jumpBoardTitle": "Calorie Density Overview",
-  "jumpBoardDescription": "Explore various aspects of calorie density through these topics.",
+  "jumpBoardDescription":
+      "Explore various aspects of calorie density through these topics.",
   "conclusion": 'conclusion text',
   "unlockTitle": 'unlock title text',
   "unlockDescription": 'unlock description text',
   "topics": {
-    1: {
+    "1": {
       "id": 1,
       "title": "Introduction to Calorie Density",
       "description": "Learn the basics of calorie density and its importance.",
@@ -15,21 +17,21 @@ var interactiveLesson = {
     },
   },
   "pages": {
-    1: {
+    "1": {
       "id": 1,
       "title": "Page title 1",
       "pageNumber": 1,
       "chunksIds": [1, 2, 3],
       "topicId": 1
     },
-    2: {
+    "2": {
       "id": 2,
       "title": "Page title 2",
       "pageNumber": 2,
       "chunksIds": [1, 2],
       "topicId": 1
     },
-    3: {
+    "3": {
       "id": 3,
       "title": "Page title 3",
       "pageNumber": 3,
@@ -38,43 +40,43 @@ var interactiveLesson = {
     }
   },
   "chunks": {
-    1: {
+    "1": {
       "id": 1,
       "title": "Chunk title 1",
       "componentsIds": [1, 2, 3, 4],
       "pageId": 1
     },
-    2: {
+    "2": {
       "id": 2,
       "title": "Chunk title 2",
       "componentsIds": [1, 2],
       "pageId": 1
     },
-    3: {
+    "3": {
       "id": 3,
       "title": "Chunk title 3",
       "componentsIds": [1],
       "pageId": 1
     },
-    4: {
+    "4": {
       "id": 1,
       "title": "Chunk title",
       "componentsIds": [1, 2],
       "pageId": 2
     },
-    5: {
+    "5": {
       "id": 2,
       "title": "Chunk title",
       "componentsIds": [1, 2],
       "pageId": 2
     },
-    6: {
+    "6": {
       "id": 1,
       "title": "Chunk title",
       "componentsIds": [1, 2],
       "pageId": 3
     },
-    7: {
+    "7": {
       "id": 2,
       "title": "Chunk title",
       "componentsIds": [1, 2],
@@ -82,7 +84,7 @@ var interactiveLesson = {
     }
   },
   "components": {
-    1: {
+    "1": {
       "id": 1,
       "type": "scale",
       "needsValidation": true,
@@ -130,11 +132,11 @@ var interactiveLesson = {
       },
       "chunkId": 1
     },
-    2: {
+    "2": {
       "id": 2,
       "type": "multipleSelect",
       "needsValidation": false,
-      "isValid": true,
+      "isValid": false,
       "content": {
         "question": "My question. Select multiple answers.",
         "answers": [
@@ -148,11 +150,11 @@ var interactiveLesson = {
       },
       "chunkId": 1
     },
-    3: {
+    "3": {
       "id": 3,
       "type": "singleSelectWithFeedback",
       "needsValidation": false,
-      "isValid": true,
+      "isValid": false,
       "content": {
         "question": "My question. Select one answer with feedback.",
         "answers": [
@@ -166,13 +168,14 @@ var interactiveLesson = {
       },
       "chunkId": 1
     },
-    4: {
+    "4": {
       "id": 4,
       "type": "ordering",
       "needsValidation": true,
       "isValid": false,
       "content": {
-        "question": "Order the food items from least calories to most calories.",
+        "question":
+            "Order the food items from least calories to most calories.",
         "topLabel": "Most calories",
         "bottomLabel": "Least calories",
         "items": [
@@ -205,11 +208,11 @@ var interactiveLesson = {
       },
       "chunkId": 1
     },
-    5: {
+    "5": {
       "id": 1,
       "type": "singleSelectWithFeedback",
       "needsValidation": false,
-      "isValid": true,
+      "isValid": false,
       "content": {
         "question": "My question. Select one answer with feedback.",
         "answers": [
@@ -223,11 +226,11 @@ var interactiveLesson = {
       },
       "chunkId": 2
     },
-    6: {
+    "6": {
       "id": 2,
       "type": "singleSelectWithFeedback",
       "needsValidation": false,
-      "isValid": true,
+      "isValid": false,
       "content": {
         "question": "My question. Select one answer with feedback.",
         "answers": [
@@ -241,11 +244,11 @@ var interactiveLesson = {
       },
       "chunkId": 2
     },
-    7: {
+    "7": {
       "id": 1,
       "type": "singleSelect",
       "needsValidation": false,
-      "isValid": true,
+      "isValid": false,
       "content": {
         "question": "My question. Select one answer.",
         "answers": [
@@ -259,11 +262,11 @@ var interactiveLesson = {
       },
       "chunkId": 3
     },
-    8: {
+    "8": {
       "id": 1,
       "type": "singleSelectWithFeedback",
       "needsValidation": false,
-      "isValid": true,
+      "isValid": false,
       "content": {
         "question": "My question. Select one answer with feedback.",
         "answers": [
@@ -277,11 +280,11 @@ var interactiveLesson = {
       },
       "chunkId": 4
     },
-    9: {
+    "9": {
       "id": 2,
       "type": "ordering",
       "needsValidation": false,
-      "isValid": true,
+      "isValid": false,
       "content": {
         "question": "My question. Select one answer with feedback.",
         "topLabel": "Most calories",
@@ -316,11 +319,11 @@ var interactiveLesson = {
       },
       "chunkId": 4
     },
-    10: {
+    "10": {
       "id": 1,
       "type": "singleSelectWithFeedback",
       "needsValidation": false,
-      "isValid": true,
+      "isValid": false,
       "content": {
         "question": "My question. Select one answer with feedback.",
         "answers": [
@@ -334,11 +337,11 @@ var interactiveLesson = {
       },
       "chunkId": 5
     },
-    11: {
+    "11": {
       "id": 2,
       "type": "singleSelectWithFeedback",
       "needsValidation": false,
-      "isValid": true,
+      "isValid": false,
       "content": {
         "question": "My question. Select one answer with feedback.",
         "answers": [
@@ -352,11 +355,11 @@ var interactiveLesson = {
       },
       "chunkId": 5
     },
-    12: {
+    "12": {
       "id": 1,
       "type": "singleSelectWithFeedback",
       "needsValidation": false,
-      "isValid": true,
+      "isValid": false,
       "content": {
         "question": "My question. Select one answer with feedback.",
         "answers": [
@@ -370,11 +373,11 @@ var interactiveLesson = {
       },
       "chunkId": 6
     },
-    13: {
+    "13": {
       "id": 2,
       "type": "ordering",
       "needsValidation": false,
-      "isValid": true,
+      "isValid": false,
       "content": {
         "question": "My question. Select one answer with feedback.",
         "topLabel": "Most calories",
@@ -409,11 +412,11 @@ var interactiveLesson = {
       },
       "chunkId": 6
     },
-    14: {
+    "14": {
       "id": 1,
       "type": "singleSelectWithFeedback",
       "needsValidation": false,
-      "isValid": true,
+      "isValid": false,
       "content": {
         "question": "My question. Select one answer with feedback.",
         "answers": [
@@ -427,11 +430,11 @@ var interactiveLesson = {
       },
       "chunkId": 7
     },
-    15: {
+    "15": {
       "id": 2,
       "type": "singleSelectWithFeedback",
       "needsValidation": false,
-      "isValid": true,
+      "isValid": false,
       "content": {
         "question": "My question. Select one answer with feedback.",
         "answers": [

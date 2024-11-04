@@ -8,7 +8,7 @@ import 'package:loopcare_frontend/features/education/application/dto/save_lesson
 import 'package:loopcare_frontend/features/education/application/education_service.dart';
 import 'package:loopcare_frontend/features/education/domain/data_transformer.dart';
 import 'package:loopcare_frontend/features/education/domain/interactive_lesson/interactive_lesson.dart';
-import 'package:loopcare_frontend/features/education/infrastructure/interactive_lesson_mock.dart';
+import 'package:loopcare_frontend/features/education/infrastructure/interactive_lesson_mock_new_structure.dart';
 import 'package:loopcare_frontend/features/lesson_quiz/domain/quiz.dart';
 // import 'package:loopcare_frontend/features/education/infrastructure/lesson_mock.dart';
 // import 'package:loopcare_frontend/features/education/infrastructure/lessons_mock.dart';
@@ -56,7 +56,7 @@ class APIEducationService implements EducationService {
 
   @override
   Future<Either<RequestError, InteractiveLesson>> getInteractiveLesson(int lessonId) async {
-    return right(InteractiveLesson.fromJson(transformToFlatStructure(interactiveLesson)));
+    return right(InteractiveLesson.fromJson(interactiveLesson));
 
     // return client.get(
     //   '/education/intractive-lesson/$lessonId',

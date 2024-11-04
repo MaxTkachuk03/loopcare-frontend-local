@@ -7,17 +7,23 @@ import 'package:loopcare_frontend/features/education/domain/interactive_lesson/i
 import 'package:loopcare_frontend/features/education/domain/interactive_lesson/select_content/content_select_answer.dart';
 import 'package:loopcare_frontend/features/education/domain/interactive_lesson/select_content/select_content.dart';
 import 'package:loopcare_frontend/features/education/presentation/interactive_lessons/widgets/components/single_select_with_feedback/select_feedback.dart';
-
+import 'package:loopcare_frontend/features/river/domain/river_module_stream_type.dart';
 import 'package:loopcare_frontend/localization/service/localization_extension.dart';
 import 'package:loopcare_frontend/localization/service/localized_texts.dart';
 
 class SingleSelectWithFeedback extends StatefulWidget {
-  const SingleSelectWithFeedback({super.key, required this.component});
+  const SingleSelectWithFeedback(
+      {super.key,
+      required this.component,
+      required this.lessonStreamType,
+      required this.isClickedHandler});
 
   final InteractiveLessonChunkComponentSingleSelectWithFeedback component;
-
+  final RiverModuleStreamType lessonStreamType;
+  final Function(bool isClicked) isClickedHandler;
   @override
-  State<SingleSelectWithFeedback> createState() => _SingleSelectWithFeedbackState();
+  State<SingleSelectWithFeedback> createState() =>
+      _SingleSelectWithFeedbackState();
 }
 
 class _SingleSelectWithFeedbackState extends State<SingleSelectWithFeedback> {
@@ -26,6 +32,9 @@ class _SingleSelectWithFeedbackState extends State<SingleSelectWithFeedback> {
   void _onSelected(ContentSelectAnswer value) {
     // TODO: uncomment in the end
     // if (_selectedAnswer != null) return;
+
+    //TODO LOGIC
+    widget.isClickedHandler(true);
 
     setState(() {
       _selectedAnswer = _selectedAnswer == value ? null : value;
@@ -41,11 +50,13 @@ class _SingleSelectWithFeedbackState extends State<SingleSelectWithFeedback> {
       children: [
         CategoryLabel.interactiveLesson(
           label: LocalizedTexts.interactiveLessonsSingleSelectLabel.tr(),
+          lessonStreamType: widget.lessonStreamType,
         ),
         const SizedBox(height: 20),
         CustomText(
           content.question,
-          style: context.textTheme.bodyMedium!.copyWith(fontWeight: FontWeight.w700),
+          style: context.textTheme.bodyMedium!
+              .copyWith(fontWeight: FontWeight.w700),
         ),
         const SizedBox(height: 20),
         ListView.separated(
@@ -65,7 +76,8 @@ class _SingleSelectWithFeedbackState extends State<SingleSelectWithFeedback> {
             );
           },
         ),
-        SelectFeedback(component: widget.component, selectedAnswer: _selectedAnswer),
+        SelectFeedback(
+            component: widget.component, selectedAnswer: _selectedAnswer),
       ],
     );
   }

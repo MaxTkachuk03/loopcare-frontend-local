@@ -13,6 +13,7 @@ class InteractiveLesson with _$InteractiveLesson {
 
   const factory InteractiveLesson({
     required int id,
+    required String type,
     required String title,
     required String jumpBoardTitle,
     required String jumpBoardDescription,
