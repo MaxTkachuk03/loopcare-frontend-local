@@ -34,7 +34,8 @@ class CustomBottomNavigationBar extends StatefulWidget {
   final List<NavigationBarItems> badges;
 
   @override
-  State<CustomBottomNavigationBar> createState() => _CustomBottomNavigationBarState();
+  State<CustomBottomNavigationBar> createState() =>
+      _CustomBottomNavigationBarState();
 }
 
 class _CustomBottomNavigationBarState extends State<CustomBottomNavigationBar> {
@@ -85,8 +86,9 @@ class _CustomBottomNavigationBarState extends State<CustomBottomNavigationBar> {
   Widget build(BuildContext context) {
     final bottomPadding = Platform.isAndroid ? 8.0 : 0.0;
 
-    final height =
-        kBottomNavigationBarHeight + bottomPadding + MediaQuery.of(context).padding.bottom;
+    final height = kBottomNavigationBarHeight +
+        bottomPadding +
+        MediaQuery.of(context).padding.bottom;
 
     return Container(
       height: height,
@@ -98,7 +100,8 @@ class _CustomBottomNavigationBarState extends State<CustomBottomNavigationBar> {
         initialItemCount: _initialItemCount,
         itemBuilder: (context, index, animation) {
           final item = NavigationBarItems.itemAtIndex(index);
-          final enableItem = _list.contains(NavigationBarItems.itemAtIndex(index));
+          final enableItem =
+              _list.contains(NavigationBarItems.itemAtIndex(index));
 
           if (enableItem) {
             final isSelected = _selectedItem == index;
@@ -110,7 +113,8 @@ class _CustomBottomNavigationBarState extends State<CustomBottomNavigationBar> {
                 item: item,
                 isSelected: isSelected,
               ),
-              label: item.label(getIt<SharedStorageService>().account?.name ?? ''),
+              label:
+                  item.label(getIt<SharedStorageService>().account?.name ?? ''),
               showBadge: widget.badges.contains(item),
               selected: _selectedItem == index,
               onTap: () => _onItemPressed(index),

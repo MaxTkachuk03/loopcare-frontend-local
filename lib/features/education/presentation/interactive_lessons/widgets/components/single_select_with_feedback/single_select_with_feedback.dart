@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:loopcare_frontend/core/app.dart';
 import 'package:loopcare_frontend/core/presentation/category_label/category_label.dart';
 import 'package:loopcare_frontend/core/presentation/choice_chip/custom_choice_chip.dart';
 import 'package:loopcare_frontend/core/presentation/text/custom_text.dart';
 import 'package:loopcare_frontend/core/presentation/utils/build_context_extensions.dart';
+import 'package:loopcare_frontend/features/education/application/interactive_lessons/interactive_lessons_bloc.dart';
 import 'package:loopcare_frontend/features/education/domain/interactive_lesson/interactive_lesson_chunk_component.dart';
+import 'package:loopcare_frontend/features/education/domain/interactive_lesson/progress/answers.dart';
 import 'package:loopcare_frontend/features/education/domain/interactive_lesson/select_content/content_select_answer.dart';
 import 'package:loopcare_frontend/features/education/domain/interactive_lesson/select_content/select_content.dart';
 import 'package:loopcare_frontend/features/education/presentation/interactive_lessons/widgets/components/single_select_with_feedback/select_feedback.dart';
@@ -16,11 +19,16 @@ class SingleSelectWithFeedback extends StatefulWidget {
       {super.key,
       required this.component,
       required this.lessonStreamType,
-      required this.isClickedHandler});
+        required this.isClickedHandler,
+      required this.onSave,
+      this.answer});
 
   final InteractiveLessonChunkComponentSingleSelectWithFeedback component;
   final RiverModuleStreamType lessonStreamType;
+  final Function(Answers answers) onSave;
   final Function(bool isClicked) isClickedHandler;
+  final int? answer;
+
   @override
   State<SingleSelectWithFeedback> createState() =>
       _SingleSelectWithFeedbackState();
@@ -29,9 +37,18 @@ class SingleSelectWithFeedback extends StatefulWidget {
 class _SingleSelectWithFeedbackState extends State<SingleSelectWithFeedback> {
   ContentSelectAnswer? _selectedAnswer;
 
+  initState(){
+    print(widget.answer);
+    if(widget.answer == null) return;
+    final answer = widget.component.content.answers.where((answer) => answer.id == widget.answer).first;
+    _selectedAnswer = answer;
+    if(_selectedAnswer != null){
+      // widget.isClickedHandler(true);
+    }
+  }
+
   void _onSelected(ContentSelectAnswer value) {
-    // TODO: uncomment in the end
-    // if (_selectedAnswer != null) return;
+    if (_selectedAnswer != null) return;
 
     //TODO LOGIC
     widget.isClickedHandler(true);
@@ -39,6 +56,7 @@ class _SingleSelectWithFeedbackState extends State<SingleSelectWithFeedback> {
     setState(() {
       _selectedAnswer = _selectedAnswer == value ? null : value;
     });
+    widget.onSave(Answers(option: [_selectedAnswer!.id]));
   }
 
   SelectContent get content => widget.component.content;
@@ -72,7 +90,7 @@ class _SingleSelectWithFeedbackState extends State<SingleSelectWithFeedback> {
               label: answer.label,
               selected: isSelected,
               value: answer,
-              onSelected: _onSelected,
+              onSelected:_onSelected,
             );
           },
         ),

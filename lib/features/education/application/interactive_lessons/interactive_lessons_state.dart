@@ -27,6 +27,10 @@ class InteractiveLessonsState with _$InteractiveLessonsState {
   const factory InteractiveLessonsState.toggleComponentClicked(
           InteractiveLessonsStateData data) =
       InteractiveLessonsStateToggleComponentClicked;
+
+  const factory InteractiveLessonsState.saveAnswer(
+      InteractiveLessonsStateData data) =
+  InteractiveLessonsStateSaveAnswer;
 }
 
 @freezed
@@ -48,10 +52,12 @@ class InteractiveLessonsStateData with _$InteractiveLessonsStateData {
     @Default({}) Map<int, InteractiveLessonChunkComponent> components,
     @Default(null) InteractiveLessonTopicsPage? activePage,
     @Default(null) InteractiveLessonChunk? activeChunk,
+    @Default([]) List<InteractiveLessonChunkComponent> unlockedChunkComponents,
     @Default(0) int activePageIndex,
     @Default(0) int activeChunkIndex,
     @Default({}) Map<int, List<InteractiveLessonChunk>> unlockedChunksByPage,
     @Default(false) bool isLoading,
+    @Default([]) List<InteractiveLessonProgress> progress,
     RequestError? error,
   }) = _InteractiveLessonsStateData;
 
@@ -59,19 +65,13 @@ class InteractiveLessonsStateData with _$InteractiveLessonsStateData {
       unlockedChunksByPage[pageId] ?? [];
 
   bool get isAllCheckedPerChunk {
-    if (activePage != null) {
-      // final activeChunk = getActiveChunk(activePage);
-      print('activeChunk,${activeChunk}');
-      final List<InteractiveLessonChunkComponent> activeChunks = [];
-      for (var component in components.values) {
-        if (component.chunkId == activeChunk!.id && component.isValid) {
-          activeChunks.add(component);
-        }
+    final List<InteractiveLessonChunkComponent> activeChunks = [];
+    for (var component in unlockedChunkComponents) {
+      if (component.chunkId == activeChunk!.id && component.isValid) {
+        activeChunks.add(component);
       }
-      return activeChunks.length == activeChunk!.componentsIds.length;
     }
-
-    return false;
+    return activeChunks.length == activeChunk!.componentsIds.length;
   }
 
   List<InteractiveLessonChunk> get activePageUnlockedChunks =>
@@ -95,12 +95,26 @@ class InteractiveLessonsStateData with _$InteractiveLessonsStateData {
       getPagesUnlockedChunks(pageId).isNotEmpty;
 
   List<InteractiveLessonChunkComponent> getChunkComponents(
-          InteractiveLessonChunk chunk) =>
-      components.values
-          .where((component) =>
-              component.chunkId == chunk.id &&
-              chunk.componentsIds.contains(component.id))
-          .toList();
+      InteractiveLessonChunk chunk) {
+    final componentsChunk = components.values
+        .where((component) =>
+            component.chunkId == chunk.id &&
+            chunk.componentsIds.contains(component.id))
+        .toList();
 
+    return componentsChunk;
+  }
+
+  Answers? getAnswers(InteractiveLessonChunkComponent component) {
+    final matchingProgress = progress.where(
+          (c) => c.chunkId == component.chunkId && c.componentId == component.id,
+    ).toList();
+
+    if (matchingProgress.isEmpty) {
+      return null; // Or handle this case as needed
+    }
+
+    return matchingProgress.first.answers;
+  }
   //blocState.;
 }

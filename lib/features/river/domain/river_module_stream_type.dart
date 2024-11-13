@@ -88,7 +88,7 @@ enum RiverModuleStreamType with StreamColorMapper {
       };
 
   static RiverModuleStreamType getLessonStreamType(String lessonType) {
-    switch (lessonType.toLowerCase()) {
+    switch (lessonType) {
       case 'psychology':
         return RiverModuleStreamType.psychology;
       case 'nutrition':

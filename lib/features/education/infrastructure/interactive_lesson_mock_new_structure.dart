@@ -1,452 +1,523 @@
 var interactiveLesson = {
   "id": 8,
-  "type": "medicalInsights",
-  "title": "Calorie Density",
-  "jumpBoardTitle": "Calorie Density Overview",
-  "jumpBoardDescription":
-      "Explore various aspects of calorie density through these topics.",
-  "conclusion": 'conclusion text',
-  "unlockTitle": 'unlock title text',
-  "unlockDescription": 'unlock description text',
+  "type": "nutrition",
+  "title": "The benefits of food logging",
+  "jumpBoardTitle": "",
+  "jumpBoardDescription": "",
+  "conclusion": "",
+  "unlockTitle": "Food log unlocked",
+  "unlockDescription":
+      "Use the Food log to record what you ate each day. Complete the food log survey after you are done logging each day.",
   "topics": {
     "1": {
       "id": 1,
-      "title": "Introduction to Calorie Density",
-      "description": "Learn the basics of calorie density and its importance.",
-      "pagesIds": [1, 2, 3],
-    },
+      "title": "The benefits of food logging",
+      "description": "",
+      "pagesIds": [1, 2, 3, 4]
+    }
   },
   "pages": {
     "1": {
       "id": 1,
-      "title": "Page title 1",
+      "title": "The benefits of food logging",
       "pageNumber": 1,
-      "chunksIds": [1, 2, 3],
+      "chunksIds": [1, 2, 3, 4, 5, 6],
       "topicId": 1
     },
     "2": {
       "id": 2,
-      "title": "Page title 2",
+      "title": "The benefits of food logging",
       "pageNumber": 2,
-      "chunksIds": [1, 2],
+      "chunksIds": [7, 8, 9],
       "topicId": 1
     },
     "3": {
       "id": 3,
-      "title": "Page title 3",
+      "title": "The benefits of food logging",
       "pageNumber": 3,
-      "chunksIds": [1, 2],
+      "chunksIds": [10, 11, 12, 13],
+      "topicId": 1
+    },
+    "4": {
+      "id": 4,
+      "title": "The benefits of food logging",
+      "pageNumber": 4,
+      "chunksIds": [14],
       "topicId": 1
     }
   },
   "chunks": {
     "1": {
       "id": 1,
-      "title": "Chunk title 1",
-      "componentsIds": [1, 2, 3, 4],
+      "title": "",
+      "componentsIds": [1, 2, 3],
       "pageId": 1
     },
     "2": {
       "id": 2,
-      "title": "Chunk title 2",
-      "componentsIds": [1, 2],
+      "title": "",
+      "componentsIds": [1, 2, 3],
       "pageId": 1
     },
     "3": {
       "id": 3,
-      "title": "Chunk title 3",
+      "title": "",
       "componentsIds": [1],
       "pageId": 1
     },
     "4": {
-      "id": 1,
-      "title": "Chunk title",
-      "componentsIds": [1, 2],
-      "pageId": 2
+      "id": 4,
+      "title": "",
+      "componentsIds": [1],
+      "pageId": 1
     },
     "5": {
-      "id": 2,
-      "title": "Chunk title",
+      "id": 5,
+      "title": "",
       "componentsIds": [1, 2],
-      "pageId": 2
+      "pageId": 1
     },
     "6": {
-      "id": 1,
-      "title": "Chunk title",
-      "componentsIds": [1, 2],
-      "pageId": 3
+      "id": 6,
+      "title": "",
+      "componentsIds": [1],
+      "pageId": 1
     },
     "7": {
-      "id": 2,
-      "title": "Chunk title",
-      "componentsIds": [1, 2],
+      "id": 7,
+      "title": "",
+      "componentsIds": [1],
+      "pageId": 2
+    },
+    "8": {
+      "id": 8,
+      "title": "",
+      "componentsIds": [1],
+      "pageId": 2
+    },
+    "9": {
+      "id": 9,
+      "title": "",
+      "componentsIds": [1],
+      "pageId": 2
+    },
+    "10": {
+      "id": 10,
+      "title": "",
+      "componentsIds": [1],
       "pageId": 3
+    },
+    "11": {
+      "id": 11,
+      "title": "",
+      "componentsIds": [1],
+      "pageId": 3
+    },
+    "12": {
+      "id": 12,
+      "title": "",
+      "componentsIds": [1],
+      "pageId": 3
+    },
+    "13": {
+      "id": 13,
+      "title": "",
+      "componentsIds": [1],
+      "pageId": 3
+    },
+    "14": {
+      "id": 14,
+      "title": "",
+      "componentsIds": [1],
+      "pageId": 4
     }
   },
   "components": {
     "1": {
       "id": 1,
-      "type": "scale",
-      "needsValidation": true,
-      "isValid": false,
+      "chunkId": 1,
+      "type": "markdown",
+      "needsValidation": false,
+      "isValid": true,
       "content": {
-        "question":
-            "How motivated are you to change your behavior in order to achieve these goals?",
-        "lowestText": "not very motivated",
-        "highestText": "very motivated",
-        "values": [
-          {"id": 1, "label": "1", "value": 1},
-          {"id": 2, "label": "2", "value": 2},
-          {"id": 3, "label": "3", "value": 3},
-          {"id": 4, "label": "4", "value": 4},
-          {"id": 5, "label": "5", "value": 5},
-          {"id": 6, "label": "6", "value": 6},
-          {"id": 7, "label": "7", "value": 7},
-          {"id": 8, "label": "8", "value": 8},
-          {"id": 9, "label": "9", "value": 9},
-          {"id": 10, "label": "10", "value": 10}
-        ],
-        "feedback": [
-          {
-            "id": 1,
-            "minValue": 1,
-            "maxValue": 3,
-            "text":
-                "It looks like you are not very motivated at the moment. Consider identifying specific factors that might increase your motivation."
-          },
-          {
-            "id": 2,
-            "minValue": 4,
-            "maxValue": 7,
-            "text":
-                "You have a moderate level of motivation. Think about setting small, achievable goals to boost your drive."
-          },
-          {
-            "id": 3,
-            "minValue": 8,
-            "maxValue": 10,
-            "text":
-                "Fantastic! You are highly motivated and confident. Keep up the great work and continue setting ambitious goals."
-          }
-        ]
-      },
-      "chunkId": 1
+        "markdown":
+            "## The benefits of food logging\n\nIn this lesson, you will test your nutritional knowledge. You will learn why food logs are important, and how this program will use the food log to do much more than just count calories."
+      }
     },
     "2": {
       "id": 2,
-      "type": "multipleSelect",
+      "chunkId": 1,
+      "type": "image",
       "needsValidation": false,
-      "isValid": false,
-      "content": {
-        "question": "My question. Select multiple answers.",
-        "answers": [
-          {"id": 1, "label": "Answer 1", "isCorrect": null},
-          {"id": 2, "label": "Answer 2", "isCorrect": null},
-          {"id": 3, "label": "Answer 3", "isCorrect": null},
-          {"id": 4, "label": "Answer 4", "isCorrect": null}
-        ],
-        "feedbackCorrect": null,
-        "feedbackIncorrect": null
-      },
-      "chunkId": 1
+      "isValid": true,
+      "content": {"src": "TBD"}
     },
     "3": {
       "id": 3,
+      "chunkId": 1,
       "type": "singleSelectWithFeedback",
-      "needsValidation": false,
+      "needsValidation": true,
       "isValid": false,
       "content": {
-        "question": "My question. Select one answer with feedback.",
+        "question": "The only purpose of a food log is to track calories.",
         "answers": [
-          {"id": 1, "label": "Answer 1", "isCorrect": true},
-          {"id": 2, "label": "Answer 2", "isCorrect": false},
-          {"id": 3, "label": "Answer 3", "isCorrect": false},
-          {"id": 4, "label": "Answer 4", "isCorrect": false}
+          {"id": 1, "label": "True", "isCorrect": false},
+          {"id": 2, "label": "False", "isCorrect": true}
         ],
-        "feedbackCorrect": "Correct Feedback for answers 1 and 2.",
-        "feedbackIncorrect": "Incorrect Feedback for answers 3 and 4."
-      },
-      "chunkId": 1
+        "feedbackCorrect":
+            "While calorie counting is one use, there are many ways to benefit from a food log. Here, you'll discover how it can help you beyond just counting calories.",
+        "feedbackIncorrect":
+            "While calorie counting is one use, there are many ways to benefit from a food log. Here, you'll discover how it can help you beyond just counting calories. "
+      }
     },
     "4": {
-      "id": 4,
+      "id": 1,
+      "chunkId": 2,
+      "type": "markdown",
+      "needsValidation": false,
+      "isValid": true,
+      "content": {
+        "markdown":
+            "Research shows that people tend to eat healthier when they track their food. In one U.S. weight-loss study of 1,700 participants, those who kept a food log lost twice as much weight as those who didn’t. Often, the calories in different foods can surprise us. Let’s test your skills below."
+      }
+    },
+    "5": {
+      "id": 2,
+      "chunkId": 2,
+      "type": "image",
+      "needsValidation": false,
+      "isValid": true,
+      "content": {"src": "TBD"}
+    },
+    "6": {
+      "id": 3,
+      "chunkId": 2,
+      "type": "singleSelectWithFeedback",
+      "needsValidation": true,
+      "isValid": false,
+      "content": {
+        "question":
+            "By just looking, what do you think is the calorie difference between the two burger meals?",
+        "answers": [
+          {"id": 1, "label": "Almost no difference", "isCorrect": false},
+          {"id": 2, "label": "100kcal", "isCorrect": false},
+          {"id": 3, "label": "200kcal", "isCorrect": false},
+          {"id": 4, "label": "300kcal", "isCorrect": true}
+        ],
+        "feedbackCorrect":
+            "Each contains almost the same amount of food, and they’re both delicious. But the LeanOnMe recipe is 300 calories less! Let’s take a closer look at the ingredients.",
+        "feedbackIncorrect":
+            "Each contains almost the same amount of food, and they’re both delicious. But the LeanOnMe recipe is 300 calories less! Let’s take a closer look at the ingredients.",
+        "feedbackRevealed": "Answer revealed ...."
+      }
+    },
+    "7": {
+      "id": 1,
+      "chunkId": 3,
       "type": "ordering",
       "needsValidation": true,
       "isValid": false,
       "content": {
         "question":
-            "Order the food items from least calories to most calories.",
+            "Here are the ingredients from that typical restaurant burger meal. Place them in order from most calories to least calories.",
         "topLabel": "Most calories",
         "bottomLabel": "Least calories",
         "items": [
           {
-            "id": 1,
+            "id": 3,
             "order": 2,
-            "src": "/images/plate-1.jpg",
-            "title": "Label 1",
-            "description": "Description 1"
+            "src": "TBD",
+            "title": "1 white bread bun",
+            "description": ""
+          },
+          {
+            "id": 4,
+            "order": 3,
+            "src": "TBD",
+            "title": "2 cheese slices",
+            "description": ""
           },
           {
             "id": 2,
             "order": 1,
-            "src": "/images/plate-2.jpg",
-            "title": "Label 2",
-            "description": "Description 2"
+            "src": "TBD",
+            "title": "1 cup deep fried fries",
+            "description": ""
           },
           {
-            "id": 3,
+            "id": 5,
+            "order": 4,
+            "src": "TBD",
+            "title": "1/2 cup broccoli with 1/2 tbsp butter",
+            "description": ""
+          },
+          {
+            "id": 1,
             "order": 0,
-            "src": "/images/plate-3.jpg",
-            "title": "Label 3",
-            "description": "Description 3"
+            "src": "TBD",
+            "title": "4 oz 80% lean beef patty",
+            "description": ""
           }
         ],
         "feedbackCorrect":
-            "Great job! You've correctly ordered the food items from least to most calories.",
-        "feedbackIncorrect": "Almost there! The correct order is...",
+            "Isn’t it interesting that you can add all that butter to broccoli, and it’s still the least calories in the whole meal?",
+        "feedbackIncorrect": "Try again, or tap “continue” to see the answer.",
         "feedbackRevealed": "Answer revealed ...."
-      },
-      "chunkId": 1
-    },
-    "5": {
-      "id": 1,
-      "type": "singleSelectWithFeedback",
-      "needsValidation": false,
-      "isValid": false,
-      "content": {
-        "question": "My question. Select one answer with feedback.",
-        "answers": [
-          {"id": 1, "label": "Answer 1", "isCorrect": true},
-          {"id": 2, "label": "Answer 2", "isCorrect": false},
-          {"id": 3, "label": "Answer 3", "isCorrect": false},
-          {"id": 4, "label": "Answer 4", "isCorrect": false}
-        ],
-        "feedbackCorrect": "Correct Feedback for answers 1 and 2.",
-        "feedbackIncorrect": "Incorrect Feedback for answers 3 and 4."
-      },
-      "chunkId": 2
-    },
-    "6": {
-      "id": 2,
-      "type": "singleSelectWithFeedback",
-      "needsValidation": false,
-      "isValid": false,
-      "content": {
-        "question": "My question. Select one answer with feedback.",
-        "answers": [
-          {"id": 1, "label": "Answer 1", "isCorrect": true},
-          {"id": 2, "label": "Answer 2", "isCorrect": false},
-          {"id": 3, "label": "Answer 3", "isCorrect": false},
-          {"id": 4, "label": "Answer 4", "isCorrect": false}
-        ],
-        "feedbackCorrect": "Correct Feedback for answers 1 and 2.",
-        "feedbackIncorrect": "Incorrect Feedback for answers 3 and 4."
-      },
-      "chunkId": 2
-    },
-    "7": {
-      "id": 1,
-      "type": "singleSelect",
-      "needsValidation": false,
-      "isValid": false,
-      "content": {
-        "question": "My question. Select one answer.",
-        "answers": [
-          {"id": 1, "label": "Answer 1", "isCorrect": null},
-          {"id": 2, "label": "Answer 2", "isCorrect": null},
-          {"id": 3, "label": "Answer 3", "isCorrect": null},
-          {"id": 4, "label": "Answer 4", "isCorrect": null}
-        ],
-        "feedbackCorrect": null,
-        "feedbackIncorrect": null,
-      },
-      "chunkId": 3
+      }
     },
     "8": {
       "id": 1,
-      "type": "singleSelectWithFeedback",
-      "needsValidation": false,
-      "isValid": false,
-      "content": {
-        "question": "My question. Select one answer with feedback.",
-        "answers": [
-          {"id": 1, "label": "Answer 1", "isCorrect": true},
-          {"id": 2, "label": "Answer 2", "isCorrect": false},
-          {"id": 3, "label": "Answer 3", "isCorrect": false},
-          {"id": 4, "label": "Answer 4", "isCorrect": false}
-        ],
-        "feedbackCorrect": "Correct Feedback for answers 1 and 2.",
-        "feedbackIncorrect": "Incorrect Feedback for answers 3 and 4."
-      },
-      "chunkId": 4
-    },
-    "9": {
-      "id": 2,
+      "chunkId": 4,
       "type": "ordering",
-      "needsValidation": false,
+      "needsValidation": true,
       "isValid": false,
       "content": {
-        "question": "My question. Select one answer with feedback.",
+        "question":
+            "Here are the ingredients from a home made burger meal. Place them in order from most calories to least calories.",
         "topLabel": "Most calories",
         "bottomLabel": "Least calories",
         "items": [
           {
+            "id": 3,
+            "order": 4,
+            "src": "TBD",
+            "title": "1 high fiber bun",
+            "description": ""
+          },
+          {
             "id": 1,
-            "order": 2,
-            "src": "/images/plate-1.jpg",
-            "title": "Label 1",
-            "description": "Description 1"
+            "order": 1,
+            "src": "TBD",
+            "title": "4 oz 96% lean beef patty",
+            "description": ""
+          },
+          {
+            "id": 4,
+            "order": 3,
+            "src": "TBD",
+            "title": "1 cheese slice",
+            "description": ""
           },
           {
             "id": 2,
-            "order": 1,
-            "src": "/images/plate-2.jpg",
-            "title": "Label 2",
-            "description": "Description 2"
+            "order": 0,
+            "src": "TBD",
+            "title": "1 cup homemade oven fries",
+            "description": ""
           },
           {
-            "id": 3,
-            "order": 0,
-            "src": "/images/plate-3.jpg",
-            "title": "Label 3",
-            "description": "Description 3"
+            "id": 5,
+            "order": 2,
+            "src": "TBD",
+            "title": "1/2 cup broccoli with 1/2 tbsp butter",
+            "description": ""
           }
         ],
         "feedbackCorrect":
-            "Great job! You've correctly ordered the food items from least to most calories.",
-        "feedbackIncorrect": "Almost there! The correct order is...",
+            "Do you see how small changes, like going for lower-fat ground beef or high-fiber buns, can have a big effect on the calories in the “same food”.",
+        "feedbackIncorrect": "Try again, or tap “continue” to see the answer.",
         "feedbackRevealed": "Answer revealed ...."
-      },
-      "chunkId": 4
+      }
+    },
+    "9": {
+      "id": 1,
+      "chunkId": 5,
+      "type": "image",
+      "needsValidation": false,
+      "isValid": true,
+      "content": {"src": "TBD"}
     },
     "10": {
-      "id": 1,
-      "type": "singleSelectWithFeedback",
+      "id": 2,
+      "chunkId": 5,
+      "type": "markdown",
       "needsValidation": false,
-      "isValid": false,
+      "isValid": true,
       "content": {
-        "question": "My question. Select one answer with feedback.",
-        "answers": [
-          {"id": 1, "label": "Answer 1", "isCorrect": true},
-          {"id": 2, "label": "Answer 2", "isCorrect": false},
-          {"id": 3, "label": "Answer 3", "isCorrect": false},
-          {"id": 4, "label": "Answer 4", "isCorrect": false}
-        ],
-        "feedbackCorrect": "Correct Feedback for answers 1 and 2.",
-        "feedbackIncorrect": "Incorrect Feedback for answers 3 and 4."
-      },
-      "chunkId": 5
+        "markdown":
+            "Notice how each improvement adds up, making the increased calories from something like vegetables inconsequential!"
+      }
     },
     "11": {
-      "id": 2,
-      "type": "singleSelectWithFeedback",
+      "id": 1,
+      "chunkId": 6,
+      "type": "markdown",
       "needsValidation": false,
-      "isValid": false,
+      "isValid": true,
       "content": {
-        "question": "My question. Select one answer with feedback.",
-        "answers": [
-          {"id": 1, "label": "Answer 1", "isCorrect": true},
-          {"id": 2, "label": "Answer 2", "isCorrect": false},
-          {"id": 3, "label": "Answer 3", "isCorrect": false},
-          {"id": 4, "label": "Answer 4", "isCorrect": false}
-        ],
-        "feedbackCorrect": "Correct Feedback for answers 1 and 2.",
-        "feedbackIncorrect": "Incorrect Feedback for answers 3 and 4."
-      },
-      "chunkId": 5
+        "markdown":
+            "**When it comes to calories, not all burgers were created equal.That’s also true when it comes to other nutritional values.**\n\n Notice how each improvement adds up, making the increased calories from something like vegetables inconsequential!"
+      }
     },
     "12": {
       "id": 1,
-      "type": "singleSelectWithFeedback",
+      "chunkId": 7,
+      "type": "markdown",
       "needsValidation": false,
-      "isValid": false,
+      "isValid": true,
       "content": {
-        "question": "My question. Select one answer with feedback.",
-        "answers": [
-          {"id": 1, "label": "Answer 1", "isCorrect": true},
-          {"id": 2, "label": "Answer 2", "isCorrect": false},
-          {"id": 3, "label": "Answer 3", "isCorrect": false},
-          {"id": 4, "label": "Answer 4", "isCorrect": false}
-        ],
-        "feedbackCorrect": "Correct Feedback for answers 1 and 2.",
-        "feedbackIncorrect": "Incorrect Feedback for answers 3 and 4."
-      },
-      "chunkId": 6
+        "markdown":
+            "## Nutrition for weight loss is about more than just calories\n\nProtein is important because it plays a key role in managing hunger, metabolism, and body composition.  Plus you burn more calories digesting protein than any other nutrient.\n\nLet’s have a look at some typical protein sources and see how they compare."
+      }
     },
     "13": {
-      "id": 2,
+      "id": 1,
+      "chunkId": 8,
       "type": "ordering",
-      "needsValidation": false,
+      "needsValidation": true,
       "isValid": false,
       "content": {
-        "question": "My question. Select one answer with feedback.",
+        "question":
+            "Here are 5 typical protein sources you may be choosing from on an average day. Drag the images in order from most protein to least protein. Each portion is 250 calories.",
         "topLabel": "Most calories",
         "bottomLabel": "Least calories",
         "items": [
           {
+            "id": 2,
+            "order": 1,
+            "src": "TBD",
+            "title": "80% lean beef",
+            "description": "3.57 oz"
+          },
+          {
+            "id": 5,
+            "order": 4,
+            "src": "TBD",
+            "title": "chicken breast",
+            "description": "5.34 oz"
+          },
+          {
             "id": 1,
+            "order": 0,
+            "src": "TBD",
+            "title": "Chicken thigh",
+            "description": "4.12 oz"
+          },
+          {
+            "id": 3,
             "order": 2,
-            "src": "/images/plate-1.jpg",
-            "title": "Label 1",
-            "description": "Description 1"
+            "src": "TBD",
+            "title": "96% lean beef",
+            "description": "4.56 oz "
+          },
+          {
+            "id": 4,
+            "order": 3,
+            "src": "TBD",
+            "title": "plant protein",
+            "description": "7.7 oz"
+          }
+        ],
+        "feedbackCorrect":
+            "Do you see how small changes, like going for lower-fat ground beef or high-fiber buns, can have a big effect on the calories in the “same food”.",
+        "feedbackIncorrect": "Try again, or tap “continue” to see the answer.",
+        "feedbackRevealed": "Answer revealed ...."
+      }
+    },
+    "14": {
+      "id": 1,
+      "chunkId": 9,
+      "type": "markdown",
+      "needsValidation": false,
+      "isValid": true,
+      "content": {
+        "markdown":
+            "### It doesn’t matter what kind of protein you prefer, there are almost always leaner versions available!\n\nThat means if you like beef, you don’t have to swear off beef. You can simply experiment with a leaner version of beef!\n\nIf you’re vegetarian, you may think your protein source options are limited ... but you’re wrong! We’ll be providing you with extra material on plant-based protein options in a later level."
+      }
+    },
+    "15": {
+      "id": 1,
+      "chunkId": 10,
+      "type": "markdown",
+      "needsValidation": false,
+      "isValid": true,
+      "content": {
+        "markdown":
+            "## Fiber facts\n\nWhat is fiber, anyway? And what’s it for? Fiber’s a bit of a mystery to most people, but LeanOnMe is going to help make you a subject-matter expert!\n\nSimply put, fiber is food your body can’t digest, so it fills you up without adding any calories to your day. But that’s not all! Fiber also helps keep your gut happy and healthy. Throughout our program, you’ll learn how that works, and it’s good for your physical health, and also your mental health."
+      }
+    },
+    "16": {
+      "id": 1,
+      "chunkId": 11,
+      "type": "ordering",
+      "needsValidation": true,
+      "isValid": false,
+      "content": {
+        "question":
+            "Do your best to arrange the following food items from most fiber, to least fiber.",
+        "topLabel": "Most calories",
+        "bottomLabel": "Least calories",
+        "items": [
+          {
+            "id": 4,
+            "order": 3,
+            "src": "TBD",
+            "title": "apples",
+            "description": "3 pieces"
           },
           {
             "id": 2,
             "order": 1,
-            "src": "/images/plate-2.jpg",
-            "title": "Label 2",
-            "description": "Description 2"
+            "src": "TBD",
+            "title": "brown rice",
+            "description": "2 cups"
+          },
+          {
+            "id": 5,
+            "order": 4,
+            "src": "TBD",
+            "title": "lettuce",
+            "description": "5 cups"
+          },
+          {
+            "id": 1,
+            "order": 0,
+            "src": "TBD",
+            "title": "broccoli",
+            "description": "3 cups"
           },
           {
             "id": 3,
-            "order": 0,
-            "src": "/images/plate-3.jpg",
-            "title": "Label 3",
-            "description": "Description 3"
+            "order": 2,
+            "src": "TBD",
+            "title": "raspberries",
+            "description": "1.5 cups"
           }
         ],
-        "feedbackCorrect":
-            "Great job! You've correctly ordered the food items from least to most calories.",
-        "feedbackIncorrect": "Almost there! The correct order is...",
+        "feedbackCorrect": "TBD",
+        "feedbackIncorrect": "Try again, or tap “continue” to see the answer.",
         "feedbackRevealed": "Answer revealed ...."
-      },
-      "chunkId": 6
+      }
     },
-    "14": {
+    "17": {
       "id": 1,
-      "type": "singleSelectWithFeedback",
+      "chunkId": 12,
+      "type": "image",
       "needsValidation": false,
-      "isValid": false,
-      "content": {
-        "question": "My question. Select one answer with feedback.",
-        "answers": [
-          {"id": 1, "label": "Answer 1", "isCorrect": true},
-          {"id": 2, "label": "Answer 2", "isCorrect": false},
-          {"id": 3, "label": "Answer 3", "isCorrect": false},
-          {"id": 4, "label": "Answer 4", "isCorrect": false}
-        ],
-        "feedbackCorrect": "Correct Feedback for answers 1 and 2.",
-        "feedbackIncorrect": "Incorrect Feedback for answers 3 and 4."
-      },
-      "chunkId": 7
+      "isValid": true,
+      "content": {"src": "TBD"}
     },
-    "15": {
-      "id": 2,
-      "type": "singleSelectWithFeedback",
+    "18": {
+      "id": 1,
+      "chunkId": 13,
+      "type": "markdown",
       "needsValidation": false,
-      "isValid": false,
+      "isValid": true,
       "content": {
-        "question": "My question. Select one answer with feedback.",
-        "answers": [
-          {"id": 1, "label": "Answer 1", "isCorrect": true},
-          {"id": 2, "label": "Answer 2", "isCorrect": false},
-          {"id": 3, "label": "Answer 3", "isCorrect": false},
-          {"id": 4, "label": "Answer 4", "isCorrect": false}
-        ],
-        "feedbackCorrect": "Correct Feedback for answers 1 and 2.",
-        "feedbackIncorrect": "Incorrect Feedback for answers 3 and 4."
-      },
-      "chunkId": 7
+        "markdown":
+            "### So would you rather eat 2 cups of brown rice you don’t really like, or 1 cup of white rice you really enjoy, with some broccoli?\n\nSometimes, the things we think are good for us, aren’t the answer. You don’t have to eat food you find unsatisfying to be successful on your weight loss journey!\n\nMany factors in your diet influence how satisfying and nourishing your meals can be. And we will help you find the way that works for you.\n\nEach level in nutrition will teach you about a particular factor, and then help you **apply them to your own diet using the food log.**"
+      }
+    },
+    "19": {
+      "id": 1,
+      "chunkId": 14,
+      "type": "markdown",
+      "needsValidation": false,
+      "isValid": true,
+      "content": {
+        "markdown":
+            "## Nutrition for weight loss is about more than just calories\n\nNot everyone's diet has the same weak spots. Different people need to work on different aspects of nutrition to lose weight successfully.\n\n**It probably feels counter-intuitive since you just downloaded the app and you want to get started! But for the next 4 to 7 days, we need you to keep eating what you “normally” eat.** \n\nLog all the food you eat and answer a few questions at the end of each day, and right after, we will give you a personalized nutrition plan.\n\nStart logging all your food in the **Food Log**, and complete the **Mutual Commitment** to start your intake."
+      }
     }
-  },
+  }
 };
