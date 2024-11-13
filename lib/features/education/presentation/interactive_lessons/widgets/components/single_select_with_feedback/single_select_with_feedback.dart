@@ -1,33 +1,30 @@
 import 'package:flutter/material.dart';
-import 'package:loopcare_frontend/core/app.dart';
 import 'package:loopcare_frontend/core/presentation/category_label/category_label.dart';
 import 'package:loopcare_frontend/core/presentation/choice_chip/custom_choice_chip.dart';
 import 'package:loopcare_frontend/core/presentation/text/custom_text.dart';
 import 'package:loopcare_frontend/core/presentation/utils/build_context_extensions.dart';
-import 'package:loopcare_frontend/features/education/application/interactive_lessons/interactive_lessons_bloc.dart';
 import 'package:loopcare_frontend/features/education/domain/interactive_lesson/interactive_lesson_chunk_component.dart';
-import 'package:loopcare_frontend/features/education/domain/interactive_lesson/progress/answers.dart';
 import 'package:loopcare_frontend/features/education/domain/interactive_lesson/select_content/content_select_answer.dart';
 import 'package:loopcare_frontend/features/education/domain/interactive_lesson/select_content/select_content.dart';
 import 'package:loopcare_frontend/features/education/presentation/interactive_lessons/widgets/components/single_select_with_feedback/select_feedback.dart';
 import 'package:loopcare_frontend/features/river/domain/river_module_stream_type.dart';
 import 'package:loopcare_frontend/localization/service/localization_extension.dart';
 import 'package:loopcare_frontend/localization/service/localized_texts.dart';
+import 'package:loopcare_frontend/features/education/domain/interactive_lesson/interactive_lesson_component_progress.dart';
 
 class SingleSelectWithFeedback extends StatefulWidget {
   const SingleSelectWithFeedback(
       {super.key,
       required this.component,
       required this.lessonStreamType,
-        required this.isClickedHandler,
-      required this.onSave,
-      this.answer});
+      required this.onSaveProgress,
+      required this.scrollDown});
 
   final InteractiveLessonChunkComponentSingleSelectWithFeedback component;
   final RiverModuleStreamType lessonStreamType;
-  final Function(Answers answers) onSave;
-  final Function(bool isClicked) isClickedHandler;
-  final int? answer;
+  final Function(InteractiveLessonComponentProgress progress,
+      InteractiveLessonChunkComponent component) onSaveProgress;
+  final Function() scrollDown;
 
   @override
   State<SingleSelectWithFeedback> createState() =>
@@ -37,26 +34,29 @@ class SingleSelectWithFeedback extends StatefulWidget {
 class _SingleSelectWithFeedbackState extends State<SingleSelectWithFeedback> {
   ContentSelectAnswer? _selectedAnswer;
 
-  initState(){
-    print(widget.answer);
-    if(widget.answer == null) return;
-    final answer = widget.component.content.answers.where((answer) => answer.id == widget.answer).first;
+  @override
+  initState() {
+    super.initState();
+    if (widget.component.progress == null) return;
+    final optionId = widget.component.progress!.optionId;
+    final answer = widget.component.content.answers
+        .where((answer) => answer.id == optionId)
+        .first;
     _selectedAnswer = answer;
-    if(_selectedAnswer != null){
-      // widget.isClickedHandler(true);
-    }
   }
 
   void _onSelected(ContentSelectAnswer value) {
     if (_selectedAnswer != null) return;
 
-    //TODO LOGIC
-    widget.isClickedHandler(true);
-
     setState(() {
       _selectedAnswer = _selectedAnswer == value ? null : value;
     });
-    widget.onSave(Answers(option: [_selectedAnswer!.id]));
+
+    widget.onSaveProgress(
+        InteractiveLessonComponentProgress(optionId: _selectedAnswer!.id),
+        widget.component);
+
+    widget.scrollDown();
   }
 
   SelectContent get content => widget.component.content;
@@ -90,7 +90,7 @@ class _SingleSelectWithFeedbackState extends State<SingleSelectWithFeedback> {
               label: answer.label,
               selected: isSelected,
               value: answer,
-              onSelected:_onSelected,
+              onSelected: _onSelected,
             );
           },
         ),

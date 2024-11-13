@@ -6,8 +6,10 @@ import 'package:loopcare_frontend/features/education/domain/interactive_lesson/o
 import 'package:loopcare_frontend/features/education/domain/interactive_lesson/scale_content/scale_content.dart';
 import 'package:loopcare_frontend/features/education/domain/interactive_lesson/select_content/select_content.dart';
 import 'package:loopcare_frontend/features/education/domain/interactive_lesson/text_field_content/text_field_content.dart';
+import 'package:loopcare_frontend/features/education/domain/interactive_lesson/interactive_lesson_component_progress.dart';
 
 part 'interactive_lesson_chunk_component.freezed.dart';
+
 part 'interactive_lesson_chunk_component.g.dart';
 
 @Freezed(unionKey: 'type')
@@ -21,6 +23,7 @@ class InteractiveLessonChunkComponent with _$InteractiveLessonChunkComponent {
     required bool isValid,
     required MarkdownContent content,
     required int chunkId,
+    required InteractiveLessonComponentProgress? progress,
   }) = InteractiveLessonChunkComponentMarkdown;
 
   const factory InteractiveLessonChunkComponent.image({
@@ -30,6 +33,7 @@ class InteractiveLessonChunkComponent with _$InteractiveLessonChunkComponent {
     required bool isValid,
     required ImageContent content,
     required int chunkId,
+    required InteractiveLessonComponentProgress? progress,
   }) = InteractiveLessonChunkComponentImage;
 
   const factory InteractiveLessonChunkComponent.scale({
@@ -39,6 +43,7 @@ class InteractiveLessonChunkComponent with _$InteractiveLessonChunkComponent {
     required bool isValid,
     required ScaleContent content,
     required int chunkId,
+    required InteractiveLessonComponentProgress? progress,
   }) = InteractiveLessonChunkComponentScale;
 
   const factory InteractiveLessonChunkComponent.singleSelect({
@@ -48,6 +53,7 @@ class InteractiveLessonChunkComponent with _$InteractiveLessonChunkComponent {
     required bool isValid,
     required SelectContent content,
     required int chunkId,
+    required InteractiveLessonComponentProgress? progress,
   }) = InteractiveLessonChunkComponentSingleSelect;
 
   const factory InteractiveLessonChunkComponent.multipleSelect({
@@ -57,6 +63,7 @@ class InteractiveLessonChunkComponent with _$InteractiveLessonChunkComponent {
     required bool isValid,
     required SelectContent content,
     required int chunkId,
+    required InteractiveLessonComponentProgress? progress,
   }) = InteractiveLessonChunkComponentMultipleSelect;
 
   const factory InteractiveLessonChunkComponent.singleSelectWithFeedback({
@@ -66,6 +73,7 @@ class InteractiveLessonChunkComponent with _$InteractiveLessonChunkComponent {
     required bool isValid,
     required SelectContent content,
     required int chunkId,
+    required InteractiveLessonComponentProgress? progress,
   }) = InteractiveLessonChunkComponentSingleSelectWithFeedback;
 
   const factory InteractiveLessonChunkComponent.ordering({
@@ -75,6 +83,7 @@ class InteractiveLessonChunkComponent with _$InteractiveLessonChunkComponent {
     required bool isValid,
     required OrderingContent content,
     required int chunkId,
+    required InteractiveLessonComponentProgress? progress,
   }) = InteractiveLessonChunkComponentOrdering;
 
   const factory InteractiveLessonChunkComponent.textArea({
@@ -84,6 +93,7 @@ class InteractiveLessonChunkComponent with _$InteractiveLessonChunkComponent {
     required bool isValid,
     required TextFieldContent content,
     required int chunkId,
+    required InteractiveLessonComponentProgress? progress,
   }) = InteractiveLessonChunkComponentTextArea;
 
   const factory InteractiveLessonChunkComponent.textField({
@@ -93,6 +103,7 @@ class InteractiveLessonChunkComponent with _$InteractiveLessonChunkComponent {
     required bool isValid,
     required TextFieldContent content,
     required int chunkId,
+    required InteractiveLessonComponentProgress? progress,
   }) = InteractiveLessonChunkComponentTextField;
 
   factory InteractiveLessonChunkComponent.fromJson(Map<String, dynamic> json) =>

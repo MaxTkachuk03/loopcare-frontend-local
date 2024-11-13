@@ -250,5 +250,17 @@ class AppIcons {
 
   static SvgPicture confetti = SvgPicture.asset('$iconsFilePath/confetti.svg');
 
+  static SvgPicture interactiveLessonCheckmark(
+      bool clicked, Color clickedColor, Color regularColor) =>
+      SvgPicture.asset('$iconsFilePath/checkmark_circle.svg',
+          width: 44,
+          height: 44,
+          colorFilter: ColorFilter.mode(
+              clicked ? clickedColor : regularColor, BlendMode.srcIn));
+
+  static SvgPicture editPencil =
+  SvgPicture.asset('assets/icons/edit_pencil.svg');
+
+
   AppIcons._();
 }

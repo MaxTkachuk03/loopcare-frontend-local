@@ -10,19 +10,22 @@ import 'package:loopcare_frontend/features/education/presentation/interactive_le
 import 'package:loopcare_frontend/features/river/domain/river_module_stream_type.dart';
 import 'package:loopcare_frontend/localization/service/localization_extension.dart';
 import 'package:loopcare_frontend/localization/service/localized_texts.dart';
+import 'package:loopcare_frontend/features/education/domain/interactive_lesson/interactive_lesson_component_progress.dart';
 
 // TODO: Rewrite with animation like like/unlike component if there will be time
 class Scale extends StatefulWidget {
   final InteractiveLessonChunkComponentScale component;
   final RiverModuleStreamType lessonStreamType;
-
-  final Function(bool isClicked) isClickedHandler;
+  final Function(InteractiveLessonComponentProgress progress,
+      InteractiveLessonChunkComponent component) onSaveProgress;
+  final Function() scrollDown;
 
   const Scale({
     super.key,
     required this.component,
     required this.lessonStreamType,
-    required this.isClickedHandler,
+    required this.onSaveProgress,
+    required this.scrollDown,
   });
 
   @override
@@ -32,13 +35,24 @@ class Scale extends StatefulWidget {
 class _ScaleState extends State<Scale> {
   int? _selectedScore;
 
-  void _onSelectedHandler(int value) {
-    //TODO LOGIC
-    widget.isClickedHandler(true);
+  @override
+  initState() {
+    super.initState();
+    if (widget.component.progress == null) return;
+    final optionId = widget.component.progress!.optionId;
+    _selectedScore = optionId;
+  }
 
+  void _onSelectedHandler(int value) {
     setState(() {
       _selectedScore = _selectedScore == value ? null : value;
     });
+
+    widget.onSaveProgress(
+        InteractiveLessonComponentProgress(optionId: _selectedScore),
+        widget.component);
+
+    widget.scrollDown();
   }
 
   bool get hasFeedback =>

@@ -9,18 +9,22 @@ import 'package:loopcare_frontend/features/education/domain/interactive_lesson/s
 import 'package:loopcare_frontend/features/river/domain/river_module_stream_type.dart';
 import 'package:loopcare_frontend/localization/service/localization_extension.dart';
 import 'package:loopcare_frontend/localization/service/localized_texts.dart';
+import 'package:loopcare_frontend/features/education/domain/interactive_lesson/interactive_lesson_component_progress.dart';
 
 class SingleSelect extends StatefulWidget {
   const SingleSelect({
     super.key,
     required this.component,
     required this.lessonStreamType,
-    required this.isClickedHandler,
+    required this.onSaveProgress,
+    required this.scrollDown,
   });
 
   final InteractiveLessonChunkComponentSingleSelect component;
   final RiverModuleStreamType lessonStreamType;
-  final Function(bool isClicked) isClickedHandler;
+  final Function(InteractiveLessonComponentProgress progress,
+      InteractiveLessonChunkComponent component) onSaveProgress;
+  final Function() scrollDown;
 
   @override
   State<SingleSelect> createState() => _SingleSelectState();
@@ -29,13 +33,27 @@ class SingleSelect extends StatefulWidget {
 class _SingleSelectState extends State<SingleSelect> {
   ContentSelectAnswer? _selectedAnswer;
 
-  void _onSelected(ContentSelectAnswer value) {
-    //TODO LOGIC
-    widget.isClickedHandler(true);
+  @override
+  initState() {
+    super.initState();
+    if (widget.component.progress == null) return;
+    final optionId = widget.component.progress!.optionId;
+    final answer = widget.component.content.answers
+        .where((answer) => answer.id == optionId)
+        .first;
+    _selectedAnswer = answer;
+  }
 
+  void _onSelected(ContentSelectAnswer value) {
     setState(() {
       _selectedAnswer = _selectedAnswer == value ? null : value;
     });
+
+    widget.onSaveProgress(
+        InteractiveLessonComponentProgress(optionId: _selectedAnswer!.id),
+        widget.component);
+
+    widget.scrollDown();
   }
 
   SelectContent get content => widget.component.content;

@@ -24,13 +24,8 @@ class InteractiveLessonsState with _$InteractiveLessonsState {
           InteractiveLessonsStateData data) =
       InteractiveLessonsStateSetUnlockedChunks;
 
-  const factory InteractiveLessonsState.toggleComponentClicked(
-          InteractiveLessonsStateData data) =
-      InteractiveLessonsStateToggleComponentClicked;
-
   const factory InteractiveLessonsState.saveAnswer(
-      InteractiveLessonsStateData data) =
-  InteractiveLessonsStateSaveAnswer;
+      InteractiveLessonsStateData data) = InteractiveLessonsStateSaveAnswer;
 }
 
 @freezed
@@ -57,21 +52,21 @@ class InteractiveLessonsStateData with _$InteractiveLessonsStateData {
     @Default(0) int activeChunkIndex,
     @Default({}) Map<int, List<InteractiveLessonChunk>> unlockedChunksByPage,
     @Default(false) bool isLoading,
-    @Default([]) List<InteractiveLessonProgress> progress,
     RequestError? error,
   }) = _InteractiveLessonsStateData;
 
   List<InteractiveLessonChunk> getPagesUnlockedChunks(int pageId) =>
       unlockedChunksByPage[pageId] ?? [];
 
-  bool get isAllCheckedPerChunk {
-    final List<InteractiveLessonChunkComponent> activeChunks = [];
-    for (var component in unlockedChunkComponents) {
-      if (component.chunkId == activeChunk!.id && component.isValid) {
-        activeChunks.add(component);
-      }
-    }
-    return activeChunks.length == activeChunk!.componentsIds.length;
+  bool get isAllComponentChecked {
+    final componentsWithProgress =
+        unlockedChunkComponents.where((c) => c.progress != null);
+
+    final quizComponents = unlockedChunkComponents.where((c) =>
+        c.type != InteractiveLessonComponentType.image &&
+        c.type != InteractiveLessonComponentType.markdown);
+
+    return componentsWithProgress.length == quizComponents.length;
   }
 
   List<InteractiveLessonChunk> get activePageUnlockedChunks =>
@@ -104,17 +99,4 @@ class InteractiveLessonsStateData with _$InteractiveLessonsStateData {
 
     return componentsChunk;
   }
-
-  Answers? getAnswers(InteractiveLessonChunkComponent component) {
-    final matchingProgress = progress.where(
-          (c) => c.chunkId == component.chunkId && c.componentId == component.id,
-    ).toList();
-
-    if (matchingProgress.isEmpty) {
-      return null; // Or handle this case as needed
-    }
-
-    return matchingProgress.first.answers;
-  }
-  //blocState.;
 }

@@ -9,11 +9,9 @@ class InteractiveLessonsEvent with _$InteractiveLessonsEvent {
 
   const factory InteractiveLessonsEvent.setPrevPage() = SetPrevPage;
 
-  const factory InteractiveLessonsEvent.toggleCheckedAnswer(InteractiveLessonChunkComponent component, bool isClicked) =
-      ToggleCheckedAnswer;
-
-  const factory InteractiveLessonsEvent.saveAnswer(InteractiveLessonProgress progress) =
-  SaveAnswer;
+  const factory InteractiveLessonsEvent.saveAnswer(
+      InteractiveLessonComponentProgress progress,
+      InteractiveLessonChunkComponent component) = SaveAnswer;
 
   const factory InteractiveLessonsEvent.unlockNextChunk() = UnlockNextChunk;
 }

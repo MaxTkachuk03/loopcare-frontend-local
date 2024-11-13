@@ -14,16 +14,21 @@ import 'package:loopcare_frontend/features/education/presentation/interactive_le
 import 'package:loopcare_frontend/features/river/domain/river_module_stream_type.dart';
 import 'package:loopcare_frontend/localization/service/localization_extension.dart';
 import 'package:loopcare_frontend/localization/service/localized_texts.dart';
+import 'package:loopcare_frontend/features/education/domain/interactive_lesson/interactive_lesson_component_progress.dart';
 
 class CustomReorderableList extends StatefulWidget {
   final InteractiveLessonChunkComponentOrdering component;
   final RiverModuleStreamType lessonStreamType;
-  final Function(bool isClicked) isClickedHandler;
+  final Function(InteractiveLessonComponentProgress progress,
+      InteractiveLessonChunkComponent component) onSaveProgress;
+  final Function() scrollDown;
+
   const CustomReorderableList(
       {super.key,
       required this.component,
       required this.lessonStreamType,
-      required this.isClickedHandler});
+      required this.onSaveProgress,
+      required this.scrollDown});
 
   @override
   State<CustomReorderableList> createState() => _CustomReorderableListState();
@@ -31,6 +36,13 @@ class CustomReorderableList extends StatefulWidget {
 
 class _CustomReorderableListState extends State<CustomReorderableList> {
   bool _showOrderValidation = false;
+
+  @override
+  void initState() {
+    if (widget.component.progress == null) return;
+    _showOrderValidation = true;
+    super.initState();
+  }
 
   List<ContentOrderingItem> get items => widget.component.content.items;
 
@@ -74,21 +86,36 @@ class _CustomReorderableListState extends State<CustomReorderableList> {
       widget.component.content.items.sort((a, b) => a.order.compareTo(b.order));
       _showOrderValidation = true;
     });
+
+    final rightOrder = _onGetOrder();
+
+    widget.onSaveProgress(
+        InteractiveLessonComponentProgress(optionIds: rightOrder),
+        widget.component);
+    widget.scrollDown();
   }
 
   void _onCheckOrderHandler() {
-    //TODO: MAYBE THIS RIGHT NOT SURE CHECK LOGIC!!!
-    widget.isClickedHandler(true);
+    final order = _onGetOrder();
 
     setState(() {
       _showOrderValidation = true;
     });
+
+    widget.onSaveProgress(
+        InteractiveLessonComponentProgress(optionIds: order), widget.component);
+
+    widget.scrollDown();
   }
 
   void _onReorderStartHandler(_) {
     setState(() {
       _showOrderValidation = false;
     });
+  }
+
+  List<int> _onGetOrder() {
+    return widget.component.content.items.map((o) => o.order).toList();
   }
 
   @override

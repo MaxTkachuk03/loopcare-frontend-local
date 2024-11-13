@@ -9,18 +9,19 @@ import 'package:loopcare_frontend/features/education/domain/interactive_lesson/s
 import 'package:loopcare_frontend/features/river/domain/river_module_stream_type.dart';
 import 'package:loopcare_frontend/localization/service/localization_extension.dart';
 import 'package:loopcare_frontend/localization/service/localized_texts.dart';
+import 'package:loopcare_frontend/features/education/domain/interactive_lesson/interactive_lesson_component_progress.dart';
 
 class MultipleSelect extends StatefulWidget {
   const MultipleSelect(
       {super.key,
       required this.component,
-      required this.isClickedHandler,
+      required this.onSaveProgress,
       required this.lessonStreamType});
 
   final InteractiveLessonChunkComponentMultipleSelect component;
   final RiverModuleStreamType lessonStreamType;
-
-  final Function(bool isClicked) isClickedHandler;
+  final Function(InteractiveLessonComponentProgress progress,
+      InteractiveLessonChunkComponent component) onSaveProgress;
 
   @override
   State<MultipleSelect> createState() => _MultipleSelectState();
@@ -34,9 +35,6 @@ class _MultipleSelectState extends State<MultipleSelect> {
       _selectedAnswers.contains(value)
           ? _selectedAnswers.remove(value)
           : _selectedAnswers.add(value);
-      _selectedAnswers.isNotEmpty
-          ? widget.isClickedHandler(true)
-          : widget.isClickedHandler(false);
     });
   }
 

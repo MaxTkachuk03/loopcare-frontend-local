@@ -155,19 +155,11 @@ var interactiveLesson = {
     "3": {
       "id": 3,
       "chunkId": 1,
-      "type": "singleSelectWithFeedback",
+      "type": "textArea",
       "needsValidation": true,
       "isValid": false,
       "content": {
         "question": "The only purpose of a food log is to track calories.",
-        "answers": [
-          {"id": 1, "label": "True", "isCorrect": false},
-          {"id": 2, "label": "False", "isCorrect": true}
-        ],
-        "feedbackCorrect":
-            "While calorie counting is one use, there are many ways to benefit from a food log. Here, you'll discover how it can help you beyond just counting calories.",
-        "feedbackIncorrect":
-            "While calorie counting is one use, there are many ways to benefit from a food log. Here, you'll discover how it can help you beyond just counting calories. "
       }
     },
     "4": {
