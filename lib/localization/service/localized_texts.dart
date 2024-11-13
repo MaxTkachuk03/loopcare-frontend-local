@@ -1019,6 +1019,7 @@ class LocalizedTexts {
   static const String needSubscrionScreenBody4 = 'needSubscrionScreenBody4';
 
   // Interactive lessons
+  static const String interactiveLessonsShortAnswerLabel = 'interactiveLessonsShortAnswerLabel';
   static const String interactiveLessonsScaleLabel = 'interactiveLessonsScaleLabel';
   static const String interactiveLessonsSingleSelectLabel = 'interactiveLessonsSingleSelectLabel';
   static const String interactiveLessonsMultipleSelectLabel =

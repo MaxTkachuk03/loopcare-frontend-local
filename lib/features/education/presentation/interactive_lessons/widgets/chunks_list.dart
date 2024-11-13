@@ -6,11 +6,17 @@ import 'package:loopcare_frontend/core/presentation/routes/app_router.gr.dart';
 import 'package:loopcare_frontend/features/education/application/interactive_lessons/interactive_lessons_bloc.dart';
 import 'package:loopcare_frontend/features/education/domain/interactive_lesson/interactive_lesson_chunk.dart';
 import 'package:loopcare_frontend/features/education/domain/interactive_lesson/interactive_lesson_chunk_component.dart';
+import 'package:loopcare_frontend/features/education/domain/interactive_lesson/interactive_lesson_component_type.dart';
+import 'package:loopcare_frontend/features/education/domain/interactive_lesson/interactive_lesson_progress.dart';
+import 'package:loopcare_frontend/features/education/domain/interactive_lesson/select_content/content_select_answer.dart';
+import 'package:loopcare_frontend/features/education/domain/interactive_lesson/text_field_content/text_field_content.dart';
 import 'package:loopcare_frontend/features/education/presentation/interactive_lessons/widgets/chunk_divider.dart';
 import 'package:loopcare_frontend/features/education/presentation/interactive_lessons/widgets/components/lesson_components.dart';
 import 'package:loopcare_frontend/features/education/presentation/interactive_lessons/widgets/continue_btn.dart';
 import 'package:loopcare_frontend/features/river/domain/lesson_type.dart';
 import 'package:loopcare_frontend/features/river/domain/river_module_stream_type.dart';
+import 'package:loopcare_frontend/features/education/domain/interactive_lesson/progress/answers.dart';
+import 'package:loopcare_frontend/features/education/presentation/interactive_lessons/widgets/components/textarea/long_answer_textarea.dart';
 
 class ChunksList extends StatefulWidget {
   const ChunksList({super.key});
@@ -21,20 +27,46 @@ class ChunksList extends StatefulWidget {
 
 class _ChunksListState extends State<ChunksList> {
   ScrollController scrollController = ScrollController();
-
+  final mockComponent = InteractiveLessonChunkComponentTextField(
+    id: 1,
+    type: InteractiveLessonComponentType.textField,
+    needsValidation: true,
+    isValid: false,
+    content: TextFieldContent(
+      question: "What is the capital of France?",
+    ),
+    chunkId: 101,
+  );
   List<Widget> _renderChunk(
       InteractiveLessonsStateData blocState, InteractiveLessonChunk chunk) {
     final components = blocState.getChunkComponents(chunk);
     final renderedChunks = blocState.activePageUnlockedChunks;
     final showButton =
         renderedChunks.last.id == chunk.id && blocState.isAllCheckedPerChunk;
-    final showDivider = !showButton && renderedChunks.length > 1;
-
+    final showDivider =
+        chunk.id != renderedChunks.last.id && renderedChunks.length > 1;
     return [
       ..._renderChunkComponents(components),
       if (showDivider) const ChunkDivider(),
       if (showButton) ContinueBtn(onPressed: _onContinueHandler),
     ];
+  }
+
+  void onComponentClick(bool isClicked, InteractiveLessonChunkComponent c) {
+    final bloc = context.read<InteractiveLessonsBloc>();
+    bloc.add(InteractiveLessonsEvent.toggleCheckedAnswer(c, isClicked));
+  }
+
+  void onSaveAnswer(Answers answers, InteractiveLessonChunkComponent c) {
+    final bloc = context.read<InteractiveLessonsBloc>();
+    final blocState = bloc.state.data;
+    bloc.add(InteractiveLessonsEvent.saveAnswer(InteractiveLessonProgress(
+        lessonId: blocState.id,
+        topicId: blocState.topics.values.first.id,
+        pageId: blocState.activePage!.id,
+        chunkId: blocState.activeChunk!.id,
+        componentId: c.id,
+        answers: answers)));
   }
 
   // ignore: unused_element
@@ -44,54 +76,70 @@ class _ChunksListState extends State<ChunksList> {
     final blocState = bloc.state.data;
     final lessonStreamType =
         RiverModuleStreamType.getLessonStreamType(blocState.type);
-
-    return components
-        .map((c) => switch (c) {
-              InteractiveLessonChunkComponentMarkdown() =>
-                Markdown(component: c),
-              InteractiveLessonChunkComponentImage() =>
-                CachedNetworkImage(imageUrl: c.content.src),
-              InteractiveLessonChunkComponentScale() => Scale(
-                  component: c,
-                  lessonStreamType: lessonStreamType,
-                  isClickedHandler: (bool isClicked) {
-                    bloc.add(InteractiveLessonsEvent.toggleCheckedAnswer(
-                        c, isClicked));
-                  },
-                ),
-              InteractiveLessonChunkComponentSingleSelect() => SingleSelect(
-                  component: c,
-                  lessonStreamType: lessonStreamType,
-                  isClickedHandler: (bool isClicked) {
-                    bloc.add(InteractiveLessonsEvent.toggleCheckedAnswer(
-                        c, isClicked));
-                  },
-                ),
-              InteractiveLessonChunkComponentMultipleSelect() => MultipleSelect(
-                  component: c,
-                  lessonStreamType: lessonStreamType,
-                  isClickedHandler: (bool isClicked) {
-                    bloc.add(InteractiveLessonsEvent.toggleCheckedAnswer(
-                        c, isClicked));
-                  }),
-              InteractiveLessonChunkComponentSingleSelectWithFeedback() =>
-                SingleSelectWithFeedback(
+    print('========================');
+    print(
+        blocState.getAnswers(blocState.components.values.first)?.option?.first);
+    print(blocState.progress);
+    print(blocState.unlockedChunkComponents.length);
+    return [
+      ...components
+          .map((c) => switch (c) {
+                InteractiveLessonChunkComponentMarkdown() =>
+                  Markdown(component: c),
+                // InteractiveLessonChunkComponentImage() =>
+                //   CachedNetworkImage(imageUrl: c.content.src),
+                InteractiveLessonChunkComponentScale() => Scale(
                     component: c,
                     lessonStreamType: lessonStreamType,
                     isClickedHandler: (bool isClicked) {
-                      bloc.add(InteractiveLessonsEvent.toggleCheckedAnswer(
-                          c, isClicked));
+                      onComponentClick(isClicked, c);
+                    },
+                  ),
+                InteractiveLessonChunkComponentSingleSelect() => SingleSelect(
+                    component: c,
+                    lessonStreamType: lessonStreamType,
+                    isClickedHandler: (bool isClicked) {
+                      onComponentClick(isClicked, c);
+                    },
+                  ),
+                InteractiveLessonChunkComponentMultipleSelect() =>
+                  MultipleSelect(
+                      component: c,
+                      lessonStreamType: lessonStreamType,
+                      isClickedHandler: (bool isClicked) {
+                        onComponentClick(isClicked, c);
+                      }),
+                InteractiveLessonChunkComponentSingleSelectWithFeedback() =>
+                  SingleSelectWithFeedback(
+                      isClickedHandler: (bool isClicked) {
+                        onComponentClick(isClicked, c);
+                      },
+                      answer: blocState.getAnswers(c) != null
+                          ? blocState.getAnswers(c)?.option?.first
+                          : null,
+                      component: c,
+                      lessonStreamType: lessonStreamType,
+                      onSave: (Answers answers) {
+                        onSaveAnswer(answers, c);
+                      }),
+
+                // LongAnswerTextarea(component: mockComponent,
+                //   lessonStreamType: lessonStreamType,
+                //   isClickedHandler: (bool isClicked) {
+                //     onComponentClick(isClicked, c);
+                //   },),
+
+                InteractiveLessonChunkComponentOrdering() => Ordering(
+                    component: c,
+                    lessonStreamType: lessonStreamType,
+                    isClickedHandler: (bool isClicked) {
+                      onComponentClick(isClicked, c);
                     }),
-              InteractiveLessonChunkComponentOrdering() => Ordering(
-                  component: c,
-                  lessonStreamType: lessonStreamType,
-                  isClickedHandler: (bool isClicked) {
-                    bloc.add(InteractiveLessonsEvent.toggleCheckedAnswer(
-                        c, isClicked));
-                  }),
-              _ => const SizedBox.shrink(),
-            })
-        .toList();
+                _ => const SizedBox.shrink(),
+              })
+          .toList(),
+      // if (true) const ChunkDivider()
+    ];
   }
 
   Future<void> _onWillPop(BuildContext context, bool canPop) async {

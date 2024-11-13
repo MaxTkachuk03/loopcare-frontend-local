@@ -45,10 +45,12 @@ class RiverAnimationModuleItemWidget extends StatefulWidget {
   });
 
   @override
-  State<RiverAnimationModuleItemWidget> createState() => _RiverAnimationModuleItemWidgetState();
+  State<RiverAnimationModuleItemWidget> createState() =>
+      _RiverAnimationModuleItemWidgetState();
 }
 
-class _RiverAnimationModuleItemWidgetState extends State<RiverAnimationModuleItemWidget>
+class _RiverAnimationModuleItemWidgetState
+    extends State<RiverAnimationModuleItemWidget>
     with TickerProviderStateMixin, RiverUtils {
   final GlobalKey _buttonKey = GlobalKey();
 
@@ -76,9 +78,12 @@ class _RiverAnimationModuleItemWidgetState extends State<RiverAnimationModuleIte
   void initState() {
     super.initState();
     _sizeController = AnimationController(duration: _idleDuration, vsync: this);
-    _colorController = AnimationController(duration: _colorDuration, vsync: this);
-    _rotationController = AnimationController(duration: _rotationDuration, vsync: this);
-    _badgeController = AnimationController(duration: _badgeDuration, vsync: this);
+    _colorController =
+        AnimationController(duration: _colorDuration, vsync: this);
+    _rotationController =
+        AnimationController(duration: _rotationDuration, vsync: this);
+    _badgeController =
+        AnimationController(duration: _badgeDuration, vsync: this);
 
     _itemAnimation = widget.item.states.animationState;
 
@@ -101,7 +106,8 @@ class _RiverAnimationModuleItemWidgetState extends State<RiverAnimationModuleIte
   @override
   void didUpdateWidget(covariant RiverAnimationModuleItemWidget oldWidget) {
     super.didUpdateWidget(oldWidget);
-    if (oldWidget.item.states.animationState == widget.item.states.animationState &&
+    if (oldWidget.item.states.animationState ==
+            widget.item.states.animationState &&
         oldWidget.item.states.itemState == widget.item.states.itemState) return;
     _setUpAnimations();
     _setUpItemColorAnimation(widget.item);
@@ -159,7 +165,8 @@ class _RiverAnimationModuleItemWidgetState extends State<RiverAnimationModuleIte
                   badgeColor: AppColors.blueRegular,
                   elevation: 0,
                 ),
-                badgeAnimation: const badge.BadgeAnimation.slide(toAnimate: false),
+                badgeAnimation:
+                    const badge.BadgeAnimation.slide(toAnimate: false),
                 position: badge.BadgePosition.topEnd(top: -8, end: -4),
                 badgeContent: Padding(
                   padding: const EdgeInsets.only(bottom: 2.0),
@@ -181,8 +188,9 @@ class _RiverAnimationModuleItemWidgetState extends State<RiverAnimationModuleIte
       ? Offset(widget.radius - 2, 0)
       : Offset(widget.radius / 2, -widget.radius / 2 + 2);
 
-  Offset get _translateProfile =>
-      isBeginning ? Offset(widget.radius + 2, 0) : Offset(widget.radius / 2 + 4, -1);
+  Offset get _translateProfile => isBeginning
+      ? Offset(widget.radius + 2, 0)
+      : Offset(widget.radius / 2 + 4, -1);
 
   Offset get _endPosition => widget.item.featurePlacement?.isDashboard ?? false
       ? _definePosition(kNavigationBarItemPractice)
@@ -216,13 +224,17 @@ class _RiverAnimationModuleItemWidgetState extends State<RiverAnimationModuleIte
     _colorController.reset();
 
     _colorIconAnimation = ColorTween(
-      begin: getIconColor(item.states.prevItemState, item.streamType, item.isRootItem),
-      end: getIconColor(item.states.itemState, item.streamType, item.isRootItem),
+      begin: getIconColor(
+          item.states.prevItemState, item.streamType, item.isRootItem),
+      end:
+          getIconColor(item.states.itemState, item.streamType, item.isRootItem),
     ).animate(_colorController);
 
     _colorBgAnimation = ColorTween(
-      begin: getBackgroundColor(item.states.prevItemState, item.streamType, item.isRootItem),
-      end: getBackgroundColor(item.states.itemState, item.streamType, item.isRootItem),
+      begin: getBackgroundColor(
+          item.states.prevItemState, item.streamType, item.isRootItem),
+      end: getBackgroundColor(
+          item.states.itemState, item.streamType, item.isRootItem),
     ).animate(_colorController);
   }
 
@@ -381,8 +393,10 @@ Offset _definePosition(GlobalKey key) {
   }
 
   final RenderBox button = itemContext.findRenderObject()! as RenderBox;
-  final RenderBox overlay =
-      Navigator.of(kOverlayContext).overlay!.context.findRenderObject()! as RenderBox;
+  final RenderBox overlay = Navigator.of(kOverlayContext)
+      .overlay!
+      .context
+      .findRenderObject()! as RenderBox;
 
   return button.localToGlobal(Offset.zero, ancestor: overlay);
 }
