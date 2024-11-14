@@ -97,15 +97,31 @@ class _CustomReorderableListState extends State<CustomReorderableList> {
 
   void _onCheckOrderHandler() {
     final order = _onGetOrder();
+    List<int> rightOrder = _onGetOrder();
 
     setState(() {
+      rightOrder.sort((a, b) => a.compareTo(b));
       _showOrderValidation = true;
     });
+
+    final isOrderRight = checkOrder(order, rightOrder);
+
+    if (!isOrderRight) return;
 
     widget.onSaveProgress(
         InteractiveLessonComponentProgress(optionIds: order), widget.component);
 
     widget.scrollDown();
+  }
+
+  bool checkOrder(List<int> order, List<int> rightOrder) {
+    for (int i = 0; i < order.length; i++) {
+      if (order[i] != rightOrder[i]) {
+        return false;
+      }
+    }
+
+    return true;
   }
 
   void _onReorderStartHandler(_) {
