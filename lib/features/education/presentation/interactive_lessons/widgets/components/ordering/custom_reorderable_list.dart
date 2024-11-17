@@ -21,14 +21,14 @@ class CustomReorderableList extends StatefulWidget {
   final RiverModuleStreamType lessonStreamType;
   final Function(InteractiveLessonComponentProgress progress,
       InteractiveLessonChunkComponent component) onSaveProgress;
-  final Function() scrollDown;
+  final Function()? scrollDown;
 
   const CustomReorderableList(
       {super.key,
       required this.component,
       required this.lessonStreamType,
       required this.onSaveProgress,
-      required this.scrollDown});
+      this.scrollDown});
 
   @override
   State<CustomReorderableList> createState() => _CustomReorderableListState();
@@ -92,7 +92,7 @@ class _CustomReorderableListState extends State<CustomReorderableList> {
     widget.onSaveProgress(
         InteractiveLessonComponentProgress(optionIds: rightOrder),
         widget.component);
-    widget.scrollDown();
+    // widget.scrollDown();
   }
 
   void _onCheckOrderHandler() {
@@ -111,7 +111,7 @@ class _CustomReorderableListState extends State<CustomReorderableList> {
     widget.onSaveProgress(
         InteractiveLessonComponentProgress(optionIds: order), widget.component);
 
-    widget.scrollDown();
+    // widget.scrollDown();
   }
 
   bool checkOrder(List<int> order, List<int> rightOrder) {

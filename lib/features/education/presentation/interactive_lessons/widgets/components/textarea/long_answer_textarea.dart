@@ -1,28 +1,29 @@
-import 'dart:async';
 import 'package:flutter/material.dart';
+import 'package:loopcare_frontend/core/presentation/buttons/custom_icon_button.dart';
 import 'package:loopcare_frontend/core/presentation/category_label/category_label.dart';
 import 'package:loopcare_frontend/core/presentation/icon_images/app_icons.dart';
 import 'package:loopcare_frontend/core/presentation/text/custom_text.dart';
+import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 import 'package:loopcare_frontend/core/presentation/utils/build_context_extensions.dart';
 import 'package:loopcare_frontend/features/education/domain/interactive_lesson/interactive_lesson_chunk_component.dart';
+import 'package:loopcare_frontend/features/education/domain/interactive_lesson/interactive_lesson_text_area_history.dart';
 import 'package:loopcare_frontend/features/education/domain/interactive_lesson/text_field_content/text_field_content.dart';
+import 'package:loopcare_frontend/features/education/presentation/interactive_lessons/widgets/components/textarea/long_answer_textarea_item.dart';
 import 'package:loopcare_frontend/features/river/domain/river_module_stream_type.dart';
-import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 import 'package:loopcare_frontend/features/education/domain/interactive_lesson/interactive_lesson_component_progress.dart';
 
 class LongAnswerTextArea extends StatefulWidget {
-  const LongAnswerTextArea(
-      {super.key,
-      required this.component,
-      required this.lessonStreamType,
-      required this.onSaveProgress,
-      required this.scrollDown});
+  const LongAnswerTextArea({
+    super.key,
+    required this.component,
+    required this.lessonStreamType,
+    required this.onSaveProgress,
+  });
 
   final InteractiveLessonChunkComponentTextArea component;
   final RiverModuleStreamType lessonStreamType;
   final Function(InteractiveLessonComponentProgress progress,
       InteractiveLessonChunkComponent component) onSaveProgress;
-  final Function() scrollDown;
 
   @override
   State<LongAnswerTextArea> createState() => _LongAnswerTextAreaState();
@@ -30,56 +31,171 @@ class LongAnswerTextArea extends StatefulWidget {
 
 class _LongAnswerTextAreaState extends State<LongAnswerTextArea> {
   String text = '';
-  bool isButtonDisabled = false;
-  String successText = '';
-  late TextEditingController _controller;
-  FocusNode _focusNode = FocusNode();
+  final List<bool> _isButtonDisabled = [];
+  final List<String> successText = [];
+  int numberOfTextField = 1;
 
-  void _removeFocus() {
-    _focusNode.unfocus();
-  }
+  final List<TextEditingController> _controllers = [];
+  final List<bool> _disabled = [];
+
+  DateTime _dateTime = DateTime.timestamp();
+  bool editPermission = false;
+  final List<InteractiveLessonTextAreaHistory> componentHistory = [];
 
   @override
   void initState() {
-    _controller = TextEditingController();
+    if (widget.component.progress == null) {
+      _controllers.add(TextEditingController());
+      _disabled.add(false);
+      _isButtonDisabled.add(false);
+      successText.add('');
+      numberOfTextField = 1;
+      return;
+    }
 
-    if (widget.component.progress == null) return;
-    text = widget.component.progress!.response!;
-    _controller.text = text;
+    final history = widget.component.progress!.history!;
+    componentHistory.addAll(history);
+
+    for (var i = 0; i < history.length; i++) {
+      _controllers.add(TextEditingController());
+      _controllers[i].text = history[i].text;
+      _disabled.add(true);
+      _isButtonDisabled.add(false);
+      successText.add('Saved');
+      numberOfTextField = i + 1;
+      if (history[i].text.isNotEmpty) {
+        editPermission = true;
+      }
+    }
+
     super.initState();
   }
 
-  void _onChangeHandler(String e) {
+  void _onChangeHandler(String e, int i) {
     setState(() {
       text = e;
-      isButtonDisabled = e.isNotEmpty;
+      _isButtonDisabled[i] = e.isNotEmpty;
     });
   }
 
-  void _onSaveHandler() {
+  void _onSaveHandler(String textToSave, int i) {
+    print(i);
+    // _removeFocus(i);
+
     setState(() {
-      successText = 'Saved';
+      successText[i] = 'Saved';
+      _dateTime = DateTime.now();
+      editPermission = true;
+      _disabled[i] = true;
     });
+
+    final answer = InteractiveLessonTextAreaHistory(
+        text: textToSave, createdAt: _dateTime);
+    componentHistory.add(answer);
+
+    // заглушка, delete after add backend
+    if (numberOfTextField == widget.component.minTextFieldsAmount) {
+      widget.onSaveProgress(
+          InteractiveLessonComponentProgress(history: componentHistory),
+          widget.component);
+    }
+
+    _isButtonDisabled[i] = false;
+  }
+
+  void _editTextHandler(int i) {
+    // _focusNode.unfocus();
+    setState(() {
+      _disabled[i] = false;
+    });
+
+    componentHistory.removeAt(i);
+    widget.onSaveProgress(
+        InteractiveLessonComponentProgress(history: componentHistory),
+        widget.component);
+
+    // _focusNode.requestFocus();
+  }
+
+  void _clearTextHandler(int i) {
+    if (numberOfTextField > 1) {
+      numberOfTextField--;
+
+      _controllers.removeAt(i);
+      _disabled.removeAt(i);
+      successText.removeAt(i);
+
+      print("_disabled: ${_disabled}");
+      print("_controllers: ${_controllers.length}");
+      print("_controllers: ${numberOfTextField}");
+
+      //_components.removeAt(i);
+      _changeHistory(i);
+    } else {
+      _controllers[i].clear();
+      _changeHistory(i);
+      setState(() {
+        _disabled[i] = false;
+        editPermission = false;
+      });
+    }
+  }
+
+  void _changeHistory(int i) {
+    // if (text.isNotEmpty) {
+    final historyToChange = componentHistory[i];
+    final newHistory =
+        componentHistory.where((c) => c.text != historyToChange.text).toList();
 
     widget.onSaveProgress(
-        InteractiveLessonComponentProgress(response: text), widget.component);
+        InteractiveLessonComponentProgress(history: newHistory),
+        widget.component);
 
-    _removeFocus();
+    // }
+    // componentHistory.removeAt(i);
+  }
 
-    Future.delayed(const Duration(seconds: 2), () {
-      setState(() {
-        isButtonDisabled = false;
-        successText = "";
-      });
+  void _addComponent() {
+    setState(() {
+      _controllers.add(TextEditingController());
+      _disabled.add(false);
+      numberOfTextField++;
+      successText.add('');
+      _isButtonDisabled.add(false);
+      editPermission = false;
+
+      print('numberOfTextField: $numberOfTextField');
+      print("_controllers: ${_controllers.length}");
+
+      // for(final controller in _controllers){
+      // _components.add(
+      //   LongAnswerTextAreaItem(
+
+      //     text: controller.text,
+      //     isButtonDisabled: isButtonDisabled,
+      //     successText: successText,
+      //     controller: controller,
+      //     // focusNode: _focusNode,
+      //     dateTime: _dateTime,
+      //     lessonStreamType: widget.lessonStreamType,
+      //     clearTextHandler: _clearTextHandler,
+      //     editTextHandler: _editTextHandler,
+      //     onSaveHandler: _onSaveHandler,
+      //     onChangeHandler: _onChangeHandler,
+      //     addComponent: _addComponent,
+      //   ),
+      // );
+      // }
     });
-
-    widget.scrollDown();
   }
 
   @override
   void dispose() {
-    _controller.dispose();
-    _focusNode.dispose(); // Don't forget to dispose of the FocusNode
+    for (final controller in _controllers) {
+      controller.dispose();
+    }
+
+    // _focusNode.dispose();
     super.dispose();
   }
 
@@ -87,6 +203,11 @@ class _LongAnswerTextAreaState extends State<LongAnswerTextArea> {
 
   @override
   Widget build(BuildContext context) {
+    print('----------------------------');
+    print('numberOfTextField: $numberOfTextField');
+    print("1: ${widget.component.maxCharsLength}");
+    print("2: ${widget.component.minTextFieldsAmount}");
+    print(widget.component.progress?.history?.length);
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -101,89 +222,58 @@ class _LongAnswerTextAreaState extends State<LongAnswerTextArea> {
               .copyWith(fontWeight: FontWeight.w700),
         ),
         const SizedBox(height: 20),
-        Container(
-            padding: const EdgeInsets.all(12),
-            decoration: BoxDecoration(
-              border: Border.all(
-                  color: Colors.black, width: 1.0, style: BorderStyle.solid),
-              borderRadius: const BorderRadius.all(
-                Radius.circular(12),
-              ),
-            ),
-            child: Column(
-              children: [
-                Container(
-                  decoration: BoxDecoration(
-                      border: Border(
-                          bottom: BorderSide(
-                              color: widget.lessonStreamType.lighterColor,
-                              width: 1.0,
-                              style: BorderStyle.solid))),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      CustomText(
-                        'timeDate',
-                        style: context.textTheme.bodyMedium!
-                            .copyWith(fontWeight: FontWeight.w700),
-                      ),
-                      IconButton(
-                        onPressed: () {},
-                        icon: AppIcons.editPencil,
-                        iconSize: 44,
-                      )
-                    ],
+        ListView.separated(
+          separatorBuilder: (_, __) => const SizedBox(
+            height: 10,
+          ),
+          physics: const NeverScrollableScrollPhysics(),
+          shrinkWrap: true,
+          itemCount: _controllers.length,
+          itemBuilder: (context, i) => LongAnswerTextAreaItem(
+            text: _controllers[i].text,
+            readOnly: _disabled[i],
+            // focusNode: _focusNodes[i],
+            // history: widget.component.progress?.history?[i],
+            isButtonDisabled: _isButtonDisabled[i],
+            successText: successText[i],
+            controller: _controllers[i],
+            dateTime: _dateTime,
+            lessonStreamType: widget.lessonStreamType,
+            clearTextHandler: () => _clearTextHandler(i),
+            editTextHandler: () => _editTextHandler(i),
+            onSaveHandler: (text) => _onSaveHandler(text, i),
+            onChangeHandler: (text) => _onChangeHandler(text, i),
+            // addComponent: _addComponent,
+            maxLength: widget.component.maxCharsLength,
+          ),
+        ),
+        const SizedBox(
+          height: 20,
+        ),
+        numberOfTextField == widget.component.maxTextFieldsAmount
+            ? Container()
+            : Column(
+                children: [
+                  Center(
+                    child: CustomIconButton.custom(
+                      onPressed: text.isEmpty || !editPermission
+                          ? null
+                          : _addComponent,
+                      icon: AppIcons.interactiveLessonAddTextField(
+                          editPermission,
+                          widget.lessonStreamType.regularColor,
+                          AppColors.greyLighter),
+                    ),
                   ),
-                ),
-                TextField(
-                  controller: _controller,
-                  focusNode: _focusNode,
-                  clipBehavior: Clip.hardEdge,
-                  onChanged: _onChangeHandler,
-                  maxLines: 5,
-                  decoration: const InputDecoration(
-                      focusedBorder: InputBorder.none,
-                      enabledBorder: OutlineInputBorder(
-                          borderSide: BorderSide(color: Colors.transparent)),
-                      hintText: "Text here",
-                      hintStyle: TextStyle(color: AppColors.black),
-                      fillColor: AppColors.greenLightest,
-                      filled: true,
-                      contentPadding:
-                          EdgeInsets.symmetric(horizontal: 8, vertical: 20)),
-                ),
-                Container(
-                  width: double.infinity,
-                  padding: const EdgeInsets.only(top: 10),
-                  decoration: BoxDecoration(
-                      border: Border(
-                          top: BorderSide(
-                              color: widget.lessonStreamType.lighterColor,
-                              width: 1.0,
-                              style: BorderStyle.solid))),
-                  child: Column(
-                    children: [
-                      IconButton(
-                        onPressed: text.isEmpty || !isButtonDisabled
-                            ? null
-                            : _onSaveHandler,
-                        alignment: Alignment.center,
-                        disabledColor: AppColors.greyLighter,
-                        style: ButtonStyle(
-                            iconColor: WidgetStateProperty.all(
-                                widget.lessonStreamType.regularColor)),
-                        color: widget.lessonStreamType.regularColor,
-                        icon: AppIcons.interactiveLessonCheckmark(
-                            isButtonDisabled,
-                            widget.lessonStreamType.regularColor,
-                            AppColors.greyLighter),
-                      ),
-                      if (successText.isNotEmpty) Text(successText)
-                    ],
+                  Center(
+                    child: CustomText(
+                      'Add textfield',
+                      style: context.textTheme.bodyMedium!
+                          .copyWith(fontWeight: FontWeight.w400),
+                    ),
                   ),
-                ),
-              ],
-            ))
+                ],
+              )
       ],
     );
   }

@@ -13,14 +13,14 @@ class Ordering extends StatelessWidget {
   final RiverModuleStreamType lessonStreamType;
   final Function(InteractiveLessonComponentProgress progress,
       InteractiveLessonChunkComponent component) onSaveProgress;
-  final Function() scrollDown;
+  final Function()? scrollDown;
 
   const Ordering(
       {super.key,
       required this.component,
       required this.lessonStreamType,
       required this.onSaveProgress,
-      required this.scrollDown});
+      this.scrollDown});
 
   @override
   Widget build(BuildContext context) {
@@ -38,7 +38,6 @@ class Ordering extends StatelessWidget {
           component: component,
           lessonStreamType: lessonStreamType,
           onSaveProgress: onSaveProgress,
-          scrollDown: scrollDown,
         ),
         const SizedBox(height: 20),
       ],

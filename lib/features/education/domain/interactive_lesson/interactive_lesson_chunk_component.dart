@@ -94,6 +94,9 @@ class InteractiveLessonChunkComponent with _$InteractiveLessonChunkComponent {
     required TextFieldContent content,
     required int chunkId,
     required InteractiveLessonComponentProgress? progress,
+    required int maxCharsLength,
+    required int maxTextFieldsAmount,
+    required int minTextFieldsAmount
   }) = InteractiveLessonChunkComponentTextArea;
 
   const factory InteractiveLessonChunkComponent.textField({

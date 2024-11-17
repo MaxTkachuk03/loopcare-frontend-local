@@ -59,8 +59,13 @@ class InteractiveLessonsStateData with _$InteractiveLessonsStateData {
       unlockedChunksByPage[pageId] ?? [];
 
   bool get isAllComponentChecked {
-    final componentsWithProgress =
-        unlockedChunkComponents.where((c) => c.progress != null);
+    final componentsWithProgress = unlockedChunkComponents.where((c) {
+      if (c.progress?.minTextFieldsAmount != null &&
+          c.progress?.history?.length != null) {
+        return c.progress?.minTextFieldsAmount == c.progress?.history?.length;
+      }
+      return c.progress != null;
+    });
 
     final quizComponents = unlockedChunkComponents.where((c) =>
         c.type != InteractiveLessonComponentType.image &&

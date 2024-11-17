@@ -28,7 +28,8 @@ class _ChunksListState extends State<ChunksList> {
       InteractiveLessonsStateData blocState, InteractiveLessonChunk chunk) {
     final components = blocState.getChunkComponents(chunk);
     final renderedChunks = blocState.activePageUnlockedChunks;
-    final showButton =
+    final showButton = renderedChunks.last.id == chunk.id;
+    final buttonEndbledOrDisabled =
         renderedChunks.last.id == chunk.id && blocState.isAllComponentChecked;
     final showDivider =
         chunk.id != renderedChunks.last.id && renderedChunks.length > 1;
@@ -36,7 +37,9 @@ class _ChunksListState extends State<ChunksList> {
     return [
       ..._renderChunkComponents(components),
       if (showDivider) const ChunkDivider(),
-      if (showButton) ContinueBtn(onPressed: _onContinueHandler),
+      if (showButton)
+        ContinueBtn(
+            onPressed: _onContinueHandler, isDisable: !buttonEndbledOrDisabled),
     ];
   }
 
@@ -64,13 +67,11 @@ class _ChunksListState extends State<ChunksList> {
                     component: c,
                     lessonStreamType: lessonStreamType,
                     onSaveProgress: onSaveProgress,
-                    scrollDown: scrollToNextChunk,
                   ),
                 InteractiveLessonChunkComponentSingleSelect() => SingleSelect(
                     component: c,
                     lessonStreamType: lessonStreamType,
                     onSaveProgress: onSaveProgress,
-                    scrollDown: scrollToNextChunk,
                   ),
                 InteractiveLessonChunkComponentMultipleSelect() =>
                   MultipleSelect(
@@ -83,19 +84,17 @@ class _ChunksListState extends State<ChunksList> {
                     component: c,
                     lessonStreamType: lessonStreamType,
                     onSaveProgress: onSaveProgress,
-                    scrollDown: scrollToNextChunk,
                   ),
                 InteractiveLessonChunkComponentOrdering() => Ordering(
                     component: c,
                     lessonStreamType: lessonStreamType,
                     onSaveProgress: onSaveProgress,
-                    scrollDown: scrollToNextChunk,
                   ),
                 InteractiveLessonChunkComponentTextArea() => LongAnswerTextArea(
                     component: c,
                     lessonStreamType: lessonStreamType,
                     onSaveProgress: onSaveProgress,
-                    scrollDown: scrollToNextChunk),
+                  ),
                 _ => const SizedBox.shrink(),
               })
           .toList(),

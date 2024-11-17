@@ -158,6 +158,9 @@ var interactiveLesson = {
       "type": "textArea",
       "needsValidation": true,
       "isValid": false,
+      "maxCharsLength": 150,
+      "maxTextFieldsAmount": 5,
+      "minTextFieldsAmount": 3,
       "content": {
         "question": "The only purpose of a food log is to track calories.",
       }
