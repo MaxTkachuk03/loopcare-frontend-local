@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:loopcare_frontend/core/presentation/buttons/custom_elevated_button.dart';
 import 'package:loopcare_frontend/core/presentation/category_label/category_label.dart';
 import 'package:loopcare_frontend/core/presentation/choice_chip/custom_choice_chip.dart';
 import 'package:loopcare_frontend/core/presentation/text/custom_text.dart';
@@ -29,13 +30,52 @@ class MultipleSelect extends StatefulWidget {
 
 class _MultipleSelectState extends State<MultipleSelect> {
   final List<ContentSelectAnswer> _selectedAnswers = [];
+  bool isSaved = false;
+
+  @override
+  void initState() {
+    if (widget.component.progress == null) {
+      return;
+    }
+    final history = widget.component.progress!.optionIds!;
+    final answers = widget.component.content.answers;
+    answers.map((o) {
+      for (int i = 0; i < history.length; i++) {
+        if (o.id == history[i]) {
+          _selectedAnswers.add(o);
+        }
+      }
+    }).toList();
+    isSaved = true;
+    super.initState();
+  }
 
   void _onSelected(ContentSelectAnswer value) {
+    if (_selectedAnswers.contains(value) && _selectedAnswers.length == 1) {
+      return;
+    }
+
     setState(() {
+      isSaved = false;
       _selectedAnswers.contains(value)
           ? _selectedAnswers.remove(value)
           : _selectedAnswers.add(value);
     });
+  }
+
+  void _onCheckOrderHandler() {
+    final order = _onGetOrder();
+
+    setState(() {
+      isSaved = true;
+    });
+
+    widget.onSaveProgress(
+        InteractiveLessonComponentProgress(optionIds: order), widget.component);
+  }
+
+  List<int> _onGetOrder() {
+    return _selectedAnswers.map((o) => o.id).toList();
   }
 
   SelectContent get content => widget.component.content;
@@ -72,6 +112,13 @@ class _MultipleSelectState extends State<MultipleSelect> {
               onSelected: _onSelected,
             );
           },
+        ),
+        const SizedBox(
+          height: 15,
+        ),
+        CustomElevatedButton.blueFullWidth(
+          onPressed: isSaved ? null : _onCheckOrderHandler,
+          label: LocalizedTexts.interactiveLessonsMultipleChoiceBtnLabel.tr(),
         ),
       ],
     );

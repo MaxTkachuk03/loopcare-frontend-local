@@ -332,13 +332,15 @@ class AppIcons {
           colorFilter: ColorFilter.mode(
               clicked ? clickedColor : regularColor, BlendMode.srcIn));
 
-  static SvgPicture interactiveLessonAddTextField(
+  static ClipOval interactiveLessonAddTextField(
           bool clicked, Color clickedColor, Color regularColor) =>
-      SvgPicture.asset('$iconsFilePath/add_textfield.svg',
-          width: 44,
-          height: 44,
-          colorFilter: ColorFilter.mode(
-              clicked ? clickedColor : regularColor, BlendMode.srcIn));
+      ClipOval(
+        child: SvgPicture.asset('$iconsFilePath/add_textfield.svg',
+            width: 44,
+            height: 44,
+            colorFilter: ColorFilter.mode(
+                clicked ? clickedColor : regularColor, BlendMode.modulate)),
+      );
 
   static SvgPicture interactiveLessonEditPencil(
           bool clicked, Color clickedColor, Color regularColor) =>

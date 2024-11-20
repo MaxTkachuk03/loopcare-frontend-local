@@ -95,6 +95,18 @@ abstract class AppLocalizations {
     Locale('en')
   ];
 
+  /// No description provided for @interactiveLessonsTextAreaLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Your thoughts'**
+  String get interactiveLessonsTextAreaLabel;
+
+  /// No description provided for @interactiveLessonsMultipleChoiceBtnLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Save'**
+  String get interactiveLessonsMultipleChoiceBtnLabel;
+
   /// No description provided for @interactiveLessonsScaleLabel.
   ///
   /// In en, this message translates to:

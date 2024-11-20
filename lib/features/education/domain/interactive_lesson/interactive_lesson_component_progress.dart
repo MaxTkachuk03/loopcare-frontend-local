@@ -14,9 +14,6 @@ class InteractiveLessonComponentProgress
     List<int>? optionIds,
     List<int>? order,
     String? response,
-    int? maxCharsLength,
-    int? maxTextFieldsAmount,
-    int? minTextFieldsAmount,
     List<InteractiveLessonTextAreaHistory>? history,
   }) = _InteractiveLessonComponentProgress;
 

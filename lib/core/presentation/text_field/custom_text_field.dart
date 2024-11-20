@@ -249,8 +249,7 @@ class CustomTextField extends StatefulWidget {
         controller: controller,
         maxLength: maxLength,
         focusNode: focusNode,
-        keyboardType:
-            TextInputType.numberWithOptions(decimal: isDecimal ?? false),
+        keyboardType: TextInputType.numberWithOptions(decimal: isDecimal ?? false),
         fillColor: fillColor,
         inputFormatters: inputFormatters,
         onChanged: onChanged,
@@ -328,8 +327,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
       keyboardType: widget.keyboardType,
       obscureText: _isObscureText,
       textAlign: widget.textAlign,
-      style: widget.style ??
-          context.textTheme.bodyMedium?.copyWith(fontWeight: FontWeight.w600),
+      style: widget.style ?? context.textTheme.bodyMedium?.copyWith(fontWeight: FontWeight.w600),
       maxLength: widget.maxLength,
       minLines: widget.minLines,
       maxLines: widget.maxLines,
@@ -342,7 +340,6 @@ class _CustomTextFieldState extends State<CustomTextField> {
       readOnly: widget.readOnly,
       onEditingComplete: widget.onEditingComplete,
       scribbleEnabled: widget.scribbleEnabled,
-      clipBehavior: Clip.hardEdge,
     );
   }
 }

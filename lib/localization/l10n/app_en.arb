@@ -1,5 +1,7 @@
 {
   "@@locale": "en",
+  "interactiveLessonsTextAreaLabel": "Your thoughts",
+  "interactiveLessonsMultipleChoiceBtnLabel": "Save",
   "interactiveLessonsScaleLabel": "Rate on a scale",
   "interactiveLessonsSingleSelectLabel": "Single answer",
   "interactiveLessonsMultipleSelectLabel": "Choose All That Apply",

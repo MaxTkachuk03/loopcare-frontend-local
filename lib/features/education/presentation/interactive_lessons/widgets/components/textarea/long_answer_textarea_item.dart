@@ -3,7 +3,6 @@ import 'package:loopcare_frontend/core/presentation/buttons/custom_elevated_butt
 import 'package:loopcare_frontend/core/presentation/buttons/custom_icon_button.dart';
 import 'package:loopcare_frontend/core/presentation/icon_images/app_icons.dart';
 import 'package:loopcare_frontend/core/presentation/text/custom_text.dart';
-import 'package:loopcare_frontend/core/presentation/text_field/custom_text_field.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 import 'package:loopcare_frontend/core/presentation/utils/build_context_extensions.dart';
 import 'package:loopcare_frontend/core/presentation/utils/date_time_extensions.dart';
@@ -16,7 +15,7 @@ class LongAnswerTextAreaItem extends StatelessWidget {
     required this.isButtonDisabled,
     required this.successText,
     required this.controller,
-    // required this.focusNode,
+    required this.focusNode,
     required this.dateTime,
     required this.lessonStreamType,
     this.clearTextHandler,
@@ -25,17 +24,14 @@ class LongAnswerTextAreaItem extends StatelessWidget {
     this.onChangeHandler,
     required this.readOnly,
     this.maxLength,
-    // this.history,
-    // this.addComponent,
   });
 
-  // final InteractiveLessonTextAreaHistory? history;
   final String text;
   final bool isButtonDisabled;
   final String successText;
   final TextEditingController controller;
   final int? maxLength;
-  // final FocusNode focusNode;
+  final FocusNode focusNode;
   final DateTime dateTime;
   final RiverModuleStreamType lessonStreamType;
   final bool readOnly;
@@ -44,11 +40,10 @@ class LongAnswerTextAreaItem extends StatelessWidget {
   final void Function()? editTextHandler;
   final void Function(String text) onSaveHandler;
 
-  // final void Function()? addComponent;
-
   @override
   Widget build(BuildContext context) {
     return Column(
+      key: key,
       children: [
         Container(
           padding: const EdgeInsets.all(12),
@@ -71,23 +66,24 @@ class LongAnswerTextAreaItem extends StatelessWidget {
                   ),
                 ],
               ),
-              CustomTextField(
+              TextField(
+                clipBehavior: Clip.hardEdge,
                 readOnly: readOnly,
-                hintText: "Text here",
                 maxLines: 3,
                 maxLength: maxLength,
                 controller: controller,
-                // focusNode: focusNode,
+                focusNode: focusNode,
                 onChanged: onChangeHandler,
-                decoration: const InputDecoration(
+                decoration: InputDecoration(
+                    hintText: "Type your answer here.",
                     focusedBorder: InputBorder.none,
-                    enabledBorder: OutlineInputBorder(
+                    enabledBorder: const OutlineInputBorder(
                         borderSide: BorderSide(color: Colors.transparent)),
-                    hintStyle: TextStyle(color: AppColors.black),
-                    fillColor: AppColors.greenLightest,
+                    hintStyle: const TextStyle(color: AppColors.black),
+                    fillColor: lessonStreamType.lightestColor,
                     filled: true,
-                    contentPadding:
-                        EdgeInsets.symmetric(horizontal: 8, vertical: 20)),
+                    contentPadding: const EdgeInsets.symmetric(
+                        horizontal: 8, vertical: 20)),
               ),
               Container(
                 width: double.infinity,
@@ -112,8 +108,10 @@ class LongAnswerTextAreaItem extends StatelessWidget {
                               onSaveHandler(controller.text);
                             },
                       styles: ButtonStyle(
-                          iconColor: WidgetStateProperty.all(
-                              lessonStreamType.regularColor)),
+                          backgroundColor: WidgetStateProperty.all(
+                              text.isEmpty || !isButtonDisabled
+                                  ? null
+                                  : lessonStreamType.regularColor)),
                       label: successText.isNotEmpty ? '   ✓  ' : 'Save',
                     ),
                   ],

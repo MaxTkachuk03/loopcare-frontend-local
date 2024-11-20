@@ -86,18 +86,18 @@ class InteractiveLessonChunkComponent with _$InteractiveLessonChunkComponent {
     required InteractiveLessonComponentProgress? progress,
   }) = InteractiveLessonChunkComponentOrdering;
 
-  const factory InteractiveLessonChunkComponent.textArea({
-    required int id,
-    required InteractiveLessonComponentType type,
-    required bool needsValidation,
-    required bool isValid,
-    required TextFieldContent content,
-    required int chunkId,
-    required InteractiveLessonComponentProgress? progress,
-    required int maxCharsLength,
-    required int maxTextFieldsAmount,
-    required int minTextFieldsAmount
-  }) = InteractiveLessonChunkComponentTextArea;
+  const factory InteractiveLessonChunkComponent.textArea(
+          {required int id,
+          required InteractiveLessonComponentType type,
+          required bool needsValidation,
+          required bool isValid,
+          required TextFieldContent content,
+          required int chunkId,
+          required InteractiveLessonComponentProgress? progress,
+          required int maxCharsLength,
+          required int maxTextFieldsAmount,
+          required int minTextFieldsAmount}) =
+      InteractiveLessonChunkComponentTextArea;
 
   const factory InteractiveLessonChunkComponent.textField({
     required int id,

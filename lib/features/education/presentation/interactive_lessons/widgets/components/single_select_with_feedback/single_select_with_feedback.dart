@@ -13,18 +13,17 @@ import 'package:loopcare_frontend/localization/service/localized_texts.dart';
 import 'package:loopcare_frontend/features/education/domain/interactive_lesson/interactive_lesson_component_progress.dart';
 
 class SingleSelectWithFeedback extends StatefulWidget {
-  const SingleSelectWithFeedback(
-      {super.key,
-      required this.component,
-      required this.lessonStreamType,
-      required this.onSaveProgress,
-      this.scrollDown});
+  const SingleSelectWithFeedback({
+    super.key,
+    required this.component,
+    required this.lessonStreamType,
+    required this.onSaveProgress,
+  });
 
   final InteractiveLessonChunkComponentSingleSelectWithFeedback component;
   final RiverModuleStreamType lessonStreamType;
   final Function(InteractiveLessonComponentProgress progress,
       InteractiveLessonChunkComponent component) onSaveProgress;
-  final Function()? scrollDown;
 
   @override
   State<SingleSelectWithFeedback> createState() =>
@@ -55,8 +54,6 @@ class _SingleSelectWithFeedbackState extends State<SingleSelectWithFeedback> {
     widget.onSaveProgress(
         InteractiveLessonComponentProgress(optionId: _selectedAnswer!.id),
         widget.component);
-
-    // widget.scrollDown();
   }
 
   SelectContent get content => widget.component.content;

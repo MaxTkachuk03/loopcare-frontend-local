@@ -17,14 +17,12 @@ class SingleSelect extends StatefulWidget {
     required this.component,
     required this.lessonStreamType,
     required this.onSaveProgress,
-    this.scrollDown,
   });
 
   final InteractiveLessonChunkComponentSingleSelect component;
   final RiverModuleStreamType lessonStreamType;
   final Function(InteractiveLessonComponentProgress progress,
       InteractiveLessonChunkComponent component) onSaveProgress;
-  final Function()? scrollDown;
 
   @override
   State<SingleSelect> createState() => _SingleSelectState();
@@ -52,8 +50,6 @@ class _SingleSelectState extends State<SingleSelect> {
     widget.onSaveProgress(
         InteractiveLessonComponentProgress(optionId: _selectedAnswer!.id),
         widget.component);
-
-    // widget.scrollDown();
   }
 
   SelectContent get content => widget.component.content;

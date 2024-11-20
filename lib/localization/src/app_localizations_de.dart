@@ -9,6 +9,12 @@ class AppLocalizationsDe extends AppLocalizations {
   AppLocalizationsDe([String locale = 'de']) : super(locale);
 
   @override
+  String get interactiveLessonsTextAreaLabel => 'Uw gedachten';
+
+  @override
+  String get interactiveLessonsMultipleChoiceBtnLabel => 'Save';
+
+  @override
   String get interactiveLessonsScaleLabel => 'Rate on a scale';
 
   @override

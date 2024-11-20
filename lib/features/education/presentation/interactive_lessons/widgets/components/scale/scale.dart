@@ -18,14 +18,12 @@ class Scale extends StatefulWidget {
   final RiverModuleStreamType lessonStreamType;
   final Function(InteractiveLessonComponentProgress progress,
       InteractiveLessonChunkComponent component) onSaveProgress;
-  final Function()? scrollDown;
 
   const Scale({
     super.key,
     required this.component,
     required this.lessonStreamType,
     required this.onSaveProgress,
-    this.scrollDown,
   });
 
   @override
@@ -51,8 +49,6 @@ class _ScaleState extends State<Scale> {
     widget.onSaveProgress(
         InteractiveLessonComponentProgress(optionId: _selectedScore),
         widget.component);
-
-    // widget.scrollDown();
   }
 
   bool get hasFeedback =>

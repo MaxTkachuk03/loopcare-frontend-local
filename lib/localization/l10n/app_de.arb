@@ -1,5 +1,7 @@
 {
   "@@locale": "de",
+  "interactiveLessonsTextAreaLabel": "Uw gedachten",
+  "interactiveLessonsMultipleChoiceBtnLabel": "Save",
   "errorValidationIosMinVersionNotANumber": "iOS-Mindestversion muss eine Zahl sein.",
   "errorValidationIosMinVersionNotAnInteger": "Die iOS-Mindestversion muss eine ganze Zahl sein.",
   "errorValidationIosMinVersionNotAPositiveNumber": "Die iOS-Mindestversion muss eine positive Zahl sein.",

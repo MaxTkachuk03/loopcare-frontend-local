@@ -1,5 +1,4 @@
 import 'package:auto_route/auto_route.dart';
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loopcare_frontend/core/presentation/routes/app_router.gr.dart';
@@ -24,8 +23,8 @@ class ChunksList extends StatefulWidget {
 class _ChunksListState extends State<ChunksList> {
   ScrollController scrollController = ScrollController();
 
-  List<Widget> _renderChunk(
-      InteractiveLessonsStateData blocState, InteractiveLessonChunk chunk) {
+  List<Widget> _renderChunk(InteractiveLessonsStateData blocState,
+      InteractiveLessonChunk chunk) {
     final components = blocState.getChunkComponents(chunk);
     final renderedChunks = blocState.activePageUnlockedChunks;
     final showButton = renderedChunks.last.id == chunk.id;
@@ -54,49 +53,54 @@ class _ChunksListState extends State<ChunksList> {
     final bloc = context.read<InteractiveLessonsBloc>();
     final blocState = bloc.state.data;
     final lessonStreamType =
-        RiverModuleStreamType.getLessonStreamType(blocState.type);
+    RiverModuleStreamType.getLessonStreamType(blocState.type);
 
     return [
       ...components
-          .map((c) => switch (c) {
-                InteractiveLessonChunkComponentMarkdown() =>
-                  Markdown(component: c),
-                // InteractiveLessonChunkComponentImage() =>
-                //   CachedNetworkImage(imageUrl: c.content.src),
-                InteractiveLessonChunkComponentScale() => Scale(
-                    component: c,
-                    lessonStreamType: lessonStreamType,
-                    onSaveProgress: onSaveProgress,
-                  ),
-                InteractiveLessonChunkComponentSingleSelect() => SingleSelect(
-                    component: c,
-                    lessonStreamType: lessonStreamType,
-                    onSaveProgress: onSaveProgress,
-                  ),
-                InteractiveLessonChunkComponentMultipleSelect() =>
-                  MultipleSelect(
-                    component: c,
-                    lessonStreamType: lessonStreamType,
-                    onSaveProgress: onSaveProgress,
-                  ),
-                InteractiveLessonChunkComponentSingleSelectWithFeedback() =>
-                  SingleSelectWithFeedback(
-                    component: c,
-                    lessonStreamType: lessonStreamType,
-                    onSaveProgress: onSaveProgress,
-                  ),
-                InteractiveLessonChunkComponentOrdering() => Ordering(
-                    component: c,
-                    lessonStreamType: lessonStreamType,
-                    onSaveProgress: onSaveProgress,
-                  ),
-                InteractiveLessonChunkComponentTextArea() => LongAnswerTextArea(
-                    component: c,
-                    lessonStreamType: lessonStreamType,
-                    onSaveProgress: onSaveProgress,
-                  ),
-                _ => const SizedBox.shrink(),
-              })
+          .map((c) =>
+      switch (c) {
+        InteractiveLessonChunkComponentMarkdown() =>
+            Markdown(component: c),
+      // InteractiveLessonChunkComponentImage() =>
+      //   CachedNetworkImage(imageUrl: c.content.src),
+        InteractiveLessonChunkComponentScale() =>
+            Scale(
+              component: c,
+              lessonStreamType: lessonStreamType,
+              onSaveProgress: onSaveProgress,
+            ),
+        InteractiveLessonChunkComponentSingleSelect() =>
+            SingleSelect(
+              component: c,
+              lessonStreamType: lessonStreamType,
+              onSaveProgress: onSaveProgress,
+            ),
+        InteractiveLessonChunkComponentMultipleSelect() =>
+            MultipleSelect(
+              component: c,
+              lessonStreamType: lessonStreamType,
+              onSaveProgress: onSaveProgress,
+            ),
+        InteractiveLessonChunkComponentSingleSelectWithFeedback() =>
+            SingleSelectWithFeedback(
+              component: c,
+              lessonStreamType: lessonStreamType,
+              onSaveProgress: onSaveProgress,
+            ),
+        InteractiveLessonChunkComponentOrdering() =>
+            Ordering(
+              component: c,
+              lessonStreamType: lessonStreamType,
+              onSaveProgress: onSaveProgress,
+            ),
+        InteractiveLessonChunkComponentTextArea() =>
+            LongAnswerTextArea(
+              component: c,
+              lessonStreamType: lessonStreamType,
+              onSaveProgress: onSaveProgress,
+            ),
+        _ => const SizedBox.shrink(),
+      })
           .toList(),
     ];
   }
@@ -115,7 +119,7 @@ class _ChunksListState extends State<ChunksList> {
     final bloc = context.read<InteractiveLessonsBloc>();
     final blocState = bloc.state.data;
     final lessonStreamType =
-        RiverModuleStreamType.getLessonStreamType(blocState.type);
+    RiverModuleStreamType.getLessonStreamType(blocState.type);
     if (blocState.isAllChunksUnlocked && blocState.isLastPage) {
       context.router.push(LessonCompleteRoute(
           lessonType: LessonType.interactive, streamType: lessonStreamType));
