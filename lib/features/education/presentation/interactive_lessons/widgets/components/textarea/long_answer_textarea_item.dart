@@ -43,7 +43,6 @@ class LongAnswerTextAreaItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(
-      key: key,
       children: [
         Container(
           padding: const EdgeInsets.all(12),

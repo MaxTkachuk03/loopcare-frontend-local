@@ -7,7 +7,8 @@ import 'package:loopcare_frontend/localization/service/localization_constants.da
 
 GlobalKey<NavigatorState> kNavigatorKey = GlobalKey<NavigatorState>();
 
-final BuildContext kOverlayContext = kNavigatorKey.currentState!.overlay!.context;
+final BuildContext kOverlayContext =
+    kNavigatorKey.currentState!.overlay!.context;
 
 @singleton
 class AppConfig {

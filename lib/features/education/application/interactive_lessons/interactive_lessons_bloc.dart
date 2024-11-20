@@ -126,11 +126,18 @@ class InteractiveLessonsBloc
             activeChunk.componentsIds.contains(component.id))
         .toList();
 
+    bool allTextAreas = false;
+    if (componentWithProgress is InteractiveLessonChunkComponentTextArea) {
+      allTextAreas = componentWithProgress.minTextFieldsAmount <=
+          componentWithProgress.progress!.history!.length;
+    }
+
     emit(
       InteractiveLessonsState.saveAnswer(
         state.data.copyWith(
             components: updatedComponents,
-            unlockedChunkComponents: unlockedChunkComponents),
+            unlockedChunkComponents: unlockedChunkComponents,
+            allTextAreasAdded: allTextAreas),
       ),
     );
   }

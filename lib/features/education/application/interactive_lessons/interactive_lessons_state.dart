@@ -52,6 +52,7 @@ class InteractiveLessonsStateData with _$InteractiveLessonsStateData {
     @Default(0) int activeChunkIndex,
     @Default({}) Map<int, List<InteractiveLessonChunk>> unlockedChunksByPage,
     @Default(false) bool isLoading,
+    @Default(false) bool allTextAreasAdded,
     RequestError? error,
   }) = _InteractiveLessonsStateData;
 
@@ -61,8 +62,9 @@ class InteractiveLessonsStateData with _$InteractiveLessonsStateData {
   bool get isAllComponentChecked {
     final componentsWithProgress = unlockedChunkComponents.where((c) {
       if (c is InteractiveLessonChunkComponentTextArea) {
-        return c.minTextFieldsAmount == c.progress?.history?.length;
+        return allTextAreasAdded;
       }
+
       return c.progress != null;
     });
 
