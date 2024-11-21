@@ -19,8 +19,9 @@ import 'package:loopcare_frontend/features/education/domain/interactive_lesson/i
 class CustomReorderableList extends StatefulWidget {
   final InteractiveLessonChunkComponentOrdering component;
   final RiverModuleStreamType lessonStreamType;
-  final Function(InteractiveLessonComponentProgress progress,
-      InteractiveLessonChunkComponent component) onSaveProgress;
+  final Function(
+          InteractiveLessonComponentProgress progress, InteractiveLessonChunkComponent component)
+      onSaveProgress;
 
   const CustomReorderableList({
     super.key,
@@ -89,8 +90,7 @@ class _CustomReorderableListState extends State<CustomReorderableList> {
     final rightOrder = _onGetOrder();
 
     widget.onSaveProgress(
-        InteractiveLessonComponentProgress(optionIds: rightOrder),
-        widget.component);
+        InteractiveLessonComponentProgress(optionIds: rightOrder), widget.component);
   }
 
   void _onCheckOrderHandler() {
@@ -106,8 +106,7 @@ class _CustomReorderableListState extends State<CustomReorderableList> {
 
     if (!isOrderRight) return;
 
-    widget.onSaveProgress(
-        InteractiveLessonComponentProgress(optionIds: order), widget.component);
+    widget.onSaveProgress(InteractiveLessonComponentProgress(optionIds: order), widget.component);
   }
 
   bool checkOrder(List<int> order, List<int> rightOrder) {
@@ -158,12 +157,9 @@ class _CustomReorderableListState extends State<CustomReorderableList> {
                 shape: getShape(isValid),
                 child: ListTile(
                   leading: const Image(image: AppImages.logo),
-                  title: CustomText.w700(item.title,
-                      style: context.textTheme.bodyMedium),
-                  subtitle: CustomText(item.description,
-                      style: context.textTheme.bodyMedium),
-                  trailing: const Icon(Icons.drag_handle,
-                      color: AppColors.greenLighter),
+                  title: CustomText.w700(item.title, style: context.textTheme.bodyMedium),
+                  subtitle: CustomText(item.description, style: context.textTheme.bodyMedium),
+                  trailing: const Icon(Icons.drag_handle, color: AppColors.greenLighter),
                 ),
               );
             }).toList(),

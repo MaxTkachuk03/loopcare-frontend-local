@@ -14,6 +14,8 @@ We are using 100 line length in project, so before starting make sure you change
 
 Follow these steps to set up a project:
 
+You can get .env variables, google services files here: https://loopcare.atlassian.net/wiki/spaces/LOOPCARE/pages/53739539/FE+environment+variables
+
 1. Clone project to local machine.
 2. Run command `flutter pub get` to get dependencies listed in the `pubspec.yaml`.
 3. Run command `flutter packages pub run build_runner build` to generate code.
@@ -49,8 +51,8 @@ To run IOS/ANDROID: `flutter run --flavor <flavor_name> --dart-define FLAVOR="<f
 
 ## Hot reloading during development
 
-Instead of running `flutter run`, select the device you want to use and select `Flutter attach` button in top right. 
-This will trigger a build, then is you save or press hot reload app refreshes. 
+Once the app is running, select the device you want to use and select `Flutter attach` button in top right. 
+If you save or press hot reload app refreshes. 
 
 ## Flutter inspector
 
@@ -58,65 +60,78 @@ This will trigger a build, then is you save or press hot reload app refreshes.
 2. Then open in browser.
 
 ## Switching branches
-
 I needed to run `dart run build_runner build` in project root when I switched between branches to generate specific files. Otherwise the app would not compile.
 
-## Get firebase login token
-
-1. Install firebase cli using `npm install -g firebase-tools`
-2. Then `firebase login:ci --no-localhost` -> this will trigger a login dialog in the browser. 
-3. Visit the url that is provided, go through the steps
-4. Enter the code you get in the browser in the CLI
-5. You get the token - you need this in the following step
-
-## Setup fastlane
-
-1. Install fastlane to your local machine, the simplest way to do it - homebrew command `brew install fastlane`. For another possible ways check the official installation guide [fastlane getting started](https://docs.fastlane.tools/getting-started/ios/setup/)
-2. Setup environment variables. Go to `fastlane` folder in the project root directory and create files `.env.dev`, `.env.stag`, `.env.uat` and `.env.prod`.You can find env file variable values in the project [fastlane variables](https://loopcare.atlassian.net/wiki/spaces/LOOPCARE/pages/455147521/Fastlane+environment+variables). To get `FIREBASE_CLI_TOKEN` variable, you need to login to firebase account, check the [link](https://firebase.google.com/docs/cli#cli-ci-systems)
-3. For testflight app distribution with script you need an App Store Connect API key [download key](https://loopcare.atlassian.net/wiki/spaces/LOOPCARE/pages/454230019/App+Store+Connect+API+key)
-4. For google play store you need google developer API key [download](https://loopcare.atlassian.net/wiki/spaces/LOOPCARE/pages/463929345/Google+play+store+developer+key)
-5. Put both keys to the fastlane root folder
-6. You're ready to run fastlane scripts
-
-## Setup RPS(Run Pubspec Script)
-
-You can run fastlane deploy scripts from the `pubspec.yaml` scripts section, to do so first install rps:
-
-1. Run `dart pub global activate rps` in the console
-2. Now you can run scripts from the `pubspec.yaml`
-3. Add the PATH to your .zshrc or similar so `rps` is available as a command using `export PATH="$PATH":"$HOME/.pub-cache/bin"`
-4. I also had to:
-   * `bundle install`
-   * `bundle update fastlane`
-
-
-### Supported rps scripts
-
-- `rps firebase ios dev`
-- `rps firebase ios stag`
-- `rps firebase ios uat`
-- `rps firebase ios prod`
-
-- `rps firebase android dev`
-- `rps firebase android stag`
-- `rps firebase android uat`
-- `rps firebase android prod`
-
-- `rps testflight uat`
-- `rps testflight prod`
-
-- `rps playstore prod`
-
-## manual deploy Android to UAT firebase
+## Manual deploy Android to UAT firebase
 `flutter build apk --release --obfuscate --split-debug-info=debug-info --dart-define FLAVOR=uat --flavor uat`
 Go to `/build/app/outputs/flutter-apk/app-{environment}-release.apk` and upload in firebase.
 For UAT the link is https://console.firebase.google.com/u/0/project/leanonme-uat/appdistribution/app/android:com.loopcare.leanonme.app.uat/releases
 
-## manual deploy iOS to firebase
+## Manual deploy iOS to firebase
+make sure you set the ios version in 3 places
+in ios/podfile
+```
+// line 1
+platform :ios, '13.0'
+
+// add the end add in config build settings
+'IPHONEOS_DEPLOYMENT_TARGET=13.0'
+```
+
+in ios/flutter/AppFrameworkInfo.plist
+```
+// at the end
+<key>MinimumOSVersion</key>
+<string>13.0</string>
+```
+
+cleanup build after you've made changes
+```
+flutter clean \
+&& rm ios/Podfile.lock pubspec.lock \
+&& rm -rf ios/Pods ios/Runner.xcworkspac \
+&& flutter build ipa --release --obfuscate --split-debug-info=debug-info --export-method ad-hoc --dart-define FLAVOR=uat --flavor uat
+```
+
+Or run
 `flutter build ipa --release --obfuscate --split-debug-info=debug-info --export-method ad-hoc --dart-define FLAVOR=uat --flavor uat`
-Go to `/build/app/ios/ipa/LeanOnMe.ipa` and upload in firebase.
+Go to `/build/ios/ipa/LeanOnMe.ipa` and upload in firebase.
 For UAT the link is https://console.firebase.google.com/u/0/project/leanonme-uat/appdistribution/app/ios:com.loopcare.leanonme.app.uat/releases
 
+## Making production build Android
+Set the correct version in `pubspec.yaml`.
+Make sure `.env.prod` is up to date
+
+```
+flutter clean \
+&& flutter pub get \
+&& dart run build_runner build --delete-conflicting-outputs \
+&& flutter build appbundle  --flavor=prod --dart-define=FLAVOR=prod --release
+```
+You can find .aab file in 'build/app/outputs/bundle/prodRelease' folder.
+
+Continue with https://loopcare.atlassian.net/wiki/spaces/LOOPCARE/pages/333873153/FE+Release+to+stores+procedure
+
+## Making production build iOS
+Set the correct version in `pubspec.yaml`.
+Make sure `.env.prod` is up to date
+
+```
+flutter clean \
+&& flutter pub get \
+&& dart run build_runner build --delete-conflicting-outputs \
+&& flutter build ipa --release --obfuscate --split-debug-info=debug-info --dart-define FLAVOR=prod --flavor prod
+```
+The can find the .ipa file in `/build/ios/ipa/LeanOnMe.ipa`
+
+Get the app Transporter for Mac https://apps.apple.com/us/app/transporter/id1450874784?mt=12
+
+1. Install
+2. Login
+3. If necessary, select the correct organisation
+4. Drag the .ipa file to upload
+
+Continue with https://loopcare.atlassian.net/wiki/spaces/LOOPCARE/pages/333873153/FE+Release+to+stores+procedure
 
 ## Application architecture
 
@@ -176,8 +191,7 @@ In app we’re follow Flutter **clean architecture** principles and structure. T
 
 We are using two packages as a local plugins, they are placed under the `local_plugins` folder in the root directory.
 
-1. `zoom_video_sdk_update` - zoom doesn't have official package on the pub get, so the only case is to download from the admin panel.
-2. `advertising_id` - ios version has conflicts if use throught the pub get
+1`advertising_id` - ios version has conflicts if use via pub get
 
 ## Code generation
 

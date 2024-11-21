@@ -16,8 +16,9 @@ import 'package:loopcare_frontend/features/education/domain/interactive_lesson/i
 class Scale extends StatefulWidget {
   final InteractiveLessonChunkComponentScale component;
   final RiverModuleStreamType lessonStreamType;
-  final Function(InteractiveLessonComponentProgress progress,
-      InteractiveLessonChunkComponent component) onSaveProgress;
+  final Function(
+          InteractiveLessonComponentProgress progress, InteractiveLessonChunkComponent component)
+      onSaveProgress;
 
   const Scale({
     super.key,
@@ -47,13 +48,11 @@ class _ScaleState extends State<Scale> {
     });
 
     widget.onSaveProgress(
-        InteractiveLessonComponentProgress(optionId: _selectedScore),
-        widget.component);
+        InteractiveLessonComponentProgress(optionId: _selectedScore), widget.component);
   }
 
   bool get hasFeedback =>
-      widget.component.content.feedback != null &&
-      widget.component.content.feedback!.isNotEmpty;
+      widget.component.content.feedback != null && widget.component.content.feedback!.isNotEmpty;
 
   @override
   Widget build(BuildContext context) {
@@ -67,8 +66,7 @@ class _ScaleState extends State<Scale> {
         const SizedBox(height: 20),
         CustomText(
           widget.component.content.question,
-          style: context.textTheme.bodyMedium!
-              .copyWith(fontWeight: FontWeight.w700),
+          style: context.textTheme.bodyMedium!.copyWith(fontWeight: FontWeight.w700),
         ),
         const SizedBox(height: 20),
         ScoringScale(
@@ -82,8 +80,7 @@ class _ScaleState extends State<Scale> {
         const SizedBox(height: 14),
         ScaleBottom(content: widget.component.content),
         if (hasFeedback && _selectedScore != null)
-          ScaleFeedback(
-              component: widget.component, selectedScore: _selectedScore! + 1),
+          ScaleFeedback(component: widget.component, selectedScore: _selectedScore! + 1),
       ],
     );
   }

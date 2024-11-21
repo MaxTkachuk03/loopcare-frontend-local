@@ -8,7 +8,6 @@ import 'package:loopcare_frontend/features/education/domain/interactive_lesson/i
 import 'package:loopcare_frontend/features/education/domain/interactive_lesson/text_field_content/text_field_content.dart';
 import 'package:loopcare_frontend/features/river/domain/river_module_stream_type.dart';
 
-
 class ShortAnswerTextField extends StatefulWidget {
   const ShortAnswerTextField({
     super.key,
@@ -68,16 +67,14 @@ class _ShortAnswerTextFieldState extends State<ShortAnswerTextField> {
         const SizedBox(height: 20),
         CustomText(
           content.question,
-          style: context.textTheme.bodyMedium!
-              .copyWith(fontWeight: FontWeight.w700),
+          style: context.textTheme.bodyMedium!.copyWith(fontWeight: FontWeight.w700),
         ),
         const SizedBox(height: 20),
         TextField(
-         clipBehavior: Clip.hardEdge,
-         onChanged: _onChangeHandler,
+          clipBehavior: Clip.hardEdge,
+          onChanged: _onChangeHandler,
           controller: _controller,
-
-       )
+        )
       ],
     );
   }

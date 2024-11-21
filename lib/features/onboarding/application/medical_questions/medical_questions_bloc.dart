@@ -3,10 +3,12 @@ import 'dart:async';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
 import 'package:injectable/injectable.dart';
-import 'package:loopcare_frontend/core/application/customer_io_service/customer_io_service.dart';
 import 'package:loopcare_frontend/core/domain/account/sex_type.dart';
 import 'package:loopcare_frontend/core/domain/analytics/analytics_events.dart';
 import 'package:loopcare_frontend/core/domain/analytics/analytics_parameters.dart';
+import 'package:loopcare_frontend/core/domain/analytics/usage_analytics/usage_analytics.dart';
+import 'package:loopcare_frontend/core/domain/analytics/usage_analytics/usage_analytics_attributes.dart';
+import 'package:loopcare_frontend/core/domain/analytics/usage_analytics/usage_analytics_events.dart';
 import 'package:loopcare_frontend/core/domain/medical_onboarding.dart';
 import 'package:loopcare_frontend/core/infrastructure/services/analytics_service.dart';
 import 'package:loopcare_frontend/features/onboarding/domain/diseases.dart';
@@ -20,6 +22,8 @@ part 'medical_questions_state.dart';
 
 @singleton
 class MedicalQuestionsBloc extends HydratedBloc<MedicalQuestionsEvent, MedicalQuestionsState> {
+  final usageAnalytics = UsageAnalytics();
+
   MedicalQuestionsBloc() : super(MedicalQuestionsState.initial()) {
     on<PregnancyChanged>(_onPregnancyChanged);
     on<TreatmentByTheDoctorChanged>(_onTreatmentByTheDoctorChanged);
@@ -67,10 +71,10 @@ class MedicalQuestionsBloc extends HydratedBloc<MedicalQuestionsEvent, MedicalQu
       },
     );
 
-    CustomerIoService.track(
-      event: CIOEvents.onboardingPregnancy,
+    usageAnalytics.track(
+      eventName: UsageAnalyticsEvents.onboardingPregnancy,
       attributes: {
-        CIOAttributes.pregnancy: event.value,
+        UsageAnalyticsAttributes.pregnancy: event.value,
       },
     );
 
@@ -87,10 +91,10 @@ class MedicalQuestionsBloc extends HydratedBloc<MedicalQuestionsEvent, MedicalQu
         AnalyticsParameters.value: event.value.toString(),
       },
     );
-    CustomerIoService.track(
-      event: CIOEvents.onboardingPsychiatrist,
+    usageAnalytics.track(
+      eventName: UsageAnalyticsEvents.onboardingPsychiatrist,
       attributes: {
-        CIOAttributes.psychiatrist: event.value,
+        UsageAnalyticsAttributes.psychiatrist: event.value,
       },
     );
 
@@ -108,10 +112,10 @@ class MedicalQuestionsBloc extends HydratedBloc<MedicalQuestionsEvent, MedicalQu
       },
     );
 
-    CustomerIoService.track(
-      event: CIOEvents.onboardingMedicine,
+    usageAnalytics.track(
+      eventName: UsageAnalyticsEvents.onboardingMedicine,
       attributes: {
-        CIOAttributes.medicine: event.medicines.toString(),
+        UsageAnalyticsAttributes.medicine: event.medicines.toString(),
       },
     );
 
@@ -129,10 +133,10 @@ class MedicalQuestionsBloc extends HydratedBloc<MedicalQuestionsEvent, MedicalQu
       },
     );
 
-    CustomerIoService.track(
-      event: CIOEvents.onboardingSemaglutide,
+    usageAnalytics.track(
+      eventName: UsageAnalyticsEvents.onboardingSemaglutide,
       attributes: {
-        CIOAttributes.semaglutide: event.value,
+        UsageAnalyticsAttributes.semaglutide: event.value,
       },
     );
 
@@ -151,8 +155,8 @@ class MedicalQuestionsBloc extends HydratedBloc<MedicalQuestionsEvent, MedicalQu
       },
     );
 
-    CustomerIoService.track(
-      event: _analyticsEventFromDisease(event.diseases),
+    usageAnalytics.track(
+      eventName: _analyticsEventFromDisease(event.diseases),
       attributes: {
         if (event.value && event.diseases.isDiabetes) 'Diabetes Types': event.diseases.name,
         _cIOAttributesFromDisease(event.diseases): event.value,
@@ -201,18 +205,18 @@ class MedicalQuestionsBloc extends HydratedBloc<MedicalQuestionsEvent, MedicalQu
       };
 
   String _cIOAttributesFromDisease(Diseases disease) => switch (disease) {
-        Diseases.locomotorSystemDisease => CIOAttributes.locomotor,
-        Diseases.liverDisease => CIOAttributes.liverDisease,
-        Diseases.asthma => CIOAttributes.asthma,
-        Diseases.renalFailure => CIOAttributes.renalFailure,
-        Diseases.stomachReductionDisease => CIOAttributes.stomachReductionDisease,
-        Diseases.cardioVascularDisease => CIOAttributes.cardiovascularDisease,
-        Diseases.hypertension => CIOAttributes.hypertension,
-        Diseases.metabolicDisease => CIOAttributes.metabolicDisease,
-        Diseases.thyroidDisease => CIOAttributes.thyroidDisease,
-        Diseases.obesity => CIOAttributes.secondaryForm,
-        Diseases.diabetesTypeI => CIOAttributes.diabetes,
-        Diseases.diabetesTypeII => CIOAttributes.diabetes,
-        Diseases.sleepApneaSyndrome => CIOAttributes.apnea,
+        Diseases.locomotorSystemDisease => UsageAnalyticsAttributes.locomotor,
+        Diseases.liverDisease => UsageAnalyticsAttributes.liverDisease,
+        Diseases.asthma => UsageAnalyticsAttributes.asthma,
+        Diseases.renalFailure => UsageAnalyticsAttributes.renalFailure,
+        Diseases.stomachReductionDisease => UsageAnalyticsAttributes.stomachReductionDisease,
+        Diseases.cardioVascularDisease => UsageAnalyticsAttributes.cardiovascularDisease,
+        Diseases.hypertension => UsageAnalyticsAttributes.hypertension,
+        Diseases.metabolicDisease => UsageAnalyticsAttributes.metabolicDisease,
+        Diseases.thyroidDisease => UsageAnalyticsAttributes.thyroidDisease,
+        Diseases.obesity => UsageAnalyticsAttributes.secondaryForm,
+        Diseases.diabetesTypeI => UsageAnalyticsAttributes.diabetes,
+        Diseases.diabetesTypeII => UsageAnalyticsAttributes.diabetes,
+        Diseases.sleepApneaSyndrome => UsageAnalyticsAttributes.apnea,
       };
 }

@@ -535,22 +535,243 @@
 //   }
 // };
 
+// var interactiveLesson = {
+//   "id": 6,
+//   "type": "psychology",
+//   "title": "What's your why",
+//   "jumpBoardTitle": "",
+//   "jumpBoardDescription": "",
+//   "conclusion":
+//       "Well done, you've taken another step to a healthier lifestyle!",
+//   "unlockTitle": "Reflections unlocked"
+//       "The Reflections provide a space for you to note down your thoughts to the Mind topics and tasks. Take some time and reflect on your why you want to change your current lifestyle and note it down in the Reflection.",
+//   "unlockDescription":
+//       "Use the Food log to record what you ate each day. Complete the food log survey after you are done logging each day.",
+//   "topics": {
+//     "1": {
+//       "id": 1,
+//       "title": "What's your why",
+//       "description": "",
+//       "pagesIds": [1, 2, 3]
+//     }
+//   },
+//   "pages": {
+//     "1": {
+//       "id": 1,
+//       "title": "What's your why",
+//       "pageNumber": 1,
+//       "chunksIds": [1, 2],
+//       "topicId": 1
+//     },
+//     "2": {
+//       "id": 2,
+//       "title": "What's your why",
+//       "pageNumber": 2,
+//       "chunksIds": [3, 4],
+//       "topicId": 1
+//     },
+//     "3": {
+//       "id": 3,
+//       "title": "What's your why",
+//       "pageNumber": 3,
+//       "chunksIds": [5, 6],
+//       "topicId": 1
+//     }
+//   },
+//   "chunks": {
+//     "1": {
+//       "id": 1,
+//       "title": "",
+//       "componentsIds": [1],
+//       "pageId": 1
+//     },
+//     "2": {
+//       "id": 2,
+//       "title": "",
+//       "componentsIds": [2],
+//       "pageId": 1
+//     },
+//     "3": {
+//       "id": 3,
+//       "title": "",
+//       "componentsIds": [3, 4],
+//       "pageId": 2
+//     },
+//     "4": {
+//       "id": 4,
+//       "title": "",
+//       "componentsIds": [5, 6],
+//       "pageId": 2
+//     },
+//     "5": {
+//       "id": 5,
+//       "title": "",
+//       "componentsIds": [7, 8],
+//       "pageId": 3
+//     },
+//     "6": {
+//       "id": 6,
+//       "title": "",
+//       "componentsIds": [9, 10],
+//       "pageId": 3
+//     }
+//   },
+//   "components": {
+//     "1": {
+//       "id": 1,
+//       "chunkId": 1,
+//       "type": "markdown",
+//       "needsValidation": false,
+//       "isValid": true,
+//       "content": {
+//         "markdown":
+//             "##**The first step of any change is awareness. But what does this mean?**\n\nIt can mean, for example, first becoming aware of what you eat throughout the day, how you eat, where you eat, or how often you exercise.\n\nHere, it is also good to consider the advantages as well as the disadvantages of changing your current behavior. Only then can you see which behavior is helpful for you and which isn't. This can also show you whether you would want to change this behavior in the first place or want things to remain the same."
+//       }
+//     },
+//     "2": {
+//       "id": 2,
+//       "chunkId": 2,
+//       "type": "multipleSelect",
+//       "needsValidation": false,
+//       "isValid": false,
+//       "content": {
+//         "question": "My question. Select multiple answers.",
+//         "answers": [
+//           {"id": 1, "label": "Answer 1", "isCorrect": null},
+//           {"id": 2, "label": "Answer 2", "isCorrect": null},
+//           {"id": 3, "label": "Answer 3", "isCorrect": null},
+//           {"id": 4, "label": "Answer 4", "isCorrect": null}
+//         ],
+//         "feedbackCorrect": null,
+//         "feedbackIncorrect": null
+//       },
+//     },
+//     // "2": {
+//     //   "id": 2,
+//     //   "chunkId": 2,
+//     //   "type": "markdown",
+//     //   "needsValidation": false,
+//     //   "isValid": true,
+//     //   "content": {
+//     //     "markdown":
+//     //         "##**So here is the first important question you have to ask yourself: How high is your motivation to change your habits and your behavior?**\n\nTo answer this you have to look at both sides - take a look at the advantages as well as the disadvantages of changing your behavior with regard to your eating and exercise habits. After that, consider the pros and cons of just keeping things as they are and not changing anything about your lifestyle.\n\nEven here always look at both sides and that means considering the advantages of not changing your current lifestyle as well as the disadvantages.\n\nDon’t forget to think about the long-term and short-term!There is no time like the present! Ready?"
+//     //   }
+//     // },
+//     "3": {
+//       "id": 3,
+//       "chunkId": 3,
+//       "type": "markdown",
+//       "needsValidation": false,
+//       "isValid": true,
+//       "content": {
+//         "markdown":
+//             "## First take a look at the advantages of changing your behavior with regard to your eating and exercise habits. These could be things like you'll feel generally fitter or you'll lose weight. Make sure to distinguish between short-term and long-term advantages."
+//       }
+//     },
+//     "4": {
+//       "id": 4,
+//       "chunkId": 3,
+//       "type": "textArea",
+//       "needsValidation": true,
+//       "isValid": false,
+//       "maxCharsLength": 400,
+//       "maxTextFieldsAmount": 4,
+//       "minTextFieldsAmount": 3,
+//       "content": {
+//         "question": "What are the benefits of changing your behavior?",
+//       }
+//     },
+//     "5": {
+//       "id": 5,
+//       "chunkId": 4,
+//       "type": "markdown",
+//       "needsValidation": false,
+//       "isValid": true,
+//       "content": {
+//         "markdown":
+//             "## Now consider the disadvantages: for example that you may have to invest a lot of time and energy, or you'll have to be extremely disciplined.\n\nAgain remember to take long-term and short-term effects into account."
+//       }
+//     },
+//     "6": {
+//       "id": 6,
+//       "chunkId": 4,
+//       "type": "textArea",
+//       "needsValidation": true,
+//       "isValid": false,
+//       "maxCharsLength": 400,
+//       "maxTextFieldsAmount": 1,
+//       "minTextFieldsAmount": 1,
+//       "content": {
+//         "question": "What are the disadvantages of changing your behavior?",
+//       }
+//     },
+//     "7": {
+//       "id": 7,
+//       "chunkId": 5,
+//       "type": "markdown",
+//       "needsValidation": false,
+//       "isValid": true,
+//       "content": {
+//         "markdown":
+//             "## Now think about your current lifestyle and the advantages of not changing would be, like having a good excuse not to be active or not having to plan your meals.\n\nKeep the long-term and short-term effects in mind!"
+//       }
+//     },
+//     "8": {
+//       "id": 8,
+//       "chunkId": 5,
+//       "type": "textArea",
+//       "needsValidation": true,
+//       "isValid": false,
+//       "maxCharsLength": 400,
+//       "maxTextFieldsAmount": 1,
+//       "minTextFieldsAmount": 1,
+//       "content": {
+//         "question":
+//             "What the advantages of not changing your behavior and continuing as before?",
+//       }
+//     },
+//     "9": {
+//       "id": 9,
+//       "chunkId": 6,
+//       "type": "markdown",
+//       "needsValidation": false,
+//       "isValid": true,
+//       "content": {
+//         "markdown":
+//             "## Lastly, think about the disadvantages of not changing anything about your current eating and exercise habits.\n\nDisadvantages could be that you feel uncomfortable and sluggish or even feel guilty when eating. Don’t forget to consider the long-term and the short-term!"
+//       }
+//     },
+//     "10": {
+//       "id": 10,
+//       "chunkId": 6,
+//       "type": "textArea",
+//       "needsValidation": true,
+//       "isValid": false,
+//       "maxCharsLength": 400,
+//       "maxTextFieldsAmount": 1,
+//       "minTextFieldsAmount": 1,
+//       "content": {
+//         "question": "What are the disadvantages of continuing as before?",
+//       }
+//     }
+//   }
+// };
+
 var interactiveLesson = {
   "id": 6,
-  "type": "psychology",
-  "title": "What's your why",
+  "type": "nutrition",
+  "title": "Commitment",
   "jumpBoardTitle": "",
   "jumpBoardDescription": "",
-  "conclusion":
-      "Well done, you've taken another step to a healthier lifestyle!",
-  "unlockTitle": "Reflections unlocked"
-      "The Reflections provide a space for you to note down your thoughts to the Mind topics and tasks. Take some time and reflect on your why you want to change your current lifestyle and note it down in the Reflection.",
+  "conclusion": "Time to learn about your diet!",
+  "unlockTitle": "Personal Commitment unlocked"
+      "ACTION REQUIRED For each committed day, log everything you eat. Complete the food log survey after you are done logging each day.",
   "unlockDescription":
-      "Use the Food log to record what you ate each day. Complete the food log survey after you are done logging each day.",
+      "For each committed day, log everything you eat. Complete the food log survey after you are done logging each day.",
   "topics": {
     "1": {
       "id": 1,
-      "title": "What's your why",
+      "title": "Food log commitment",
       "description": "",
       "pagesIds": [1, 2, 3]
     }
@@ -558,62 +779,18 @@ var interactiveLesson = {
   "pages": {
     "1": {
       "id": 1,
-      "title": "What's your why",
+      "title": "Food log commitment",
       "pageNumber": 1,
       "chunksIds": [1, 2],
       "topicId": 1
     },
-    "2": {
-      "id": 2,
-      "title": "What's your why",
-      "pageNumber": 2,
-      "chunksIds": [3, 4],
-      "topicId": 1
-    },
-    "3": {
-      "id": 3,
-      "title": "What's your why",
-      "pageNumber": 3,
-      "chunksIds": [5, 6],
-      "topicId": 1
-    }
   },
   "chunks": {
     "1": {
       "id": 1,
       "title": "",
-      "componentsIds": [1],
+      "componentsIds": [1, 2, 3, 4, 5, 6],
       "pageId": 1
-    },
-    "2": {
-      "id": 2,
-      "title": "",
-      "componentsIds": [2],
-      "pageId": 1
-    },
-    "3": {
-      "id": 3,
-      "title": "",
-      "componentsIds": [3, 4],
-      "pageId": 2
-    },
-    "4": {
-      "id": 4,
-      "title": "",
-      "componentsIds": [5, 6],
-      "pageId": 2
-    },
-    "5": {
-      "id": 5,
-      "title": "",
-      "componentsIds": [7, 8],
-      "pageId": 3
-    },
-    "6": {
-      "id": 6,
-      "title": "",
-      "componentsIds": [9, 10],
-      "pageId": 3
     }
   },
   "components": {
@@ -623,136 +800,67 @@ var interactiveLesson = {
       "type": "markdown",
       "needsValidation": false,
       "isValid": true,
-      "content": {
-        "markdown":
-            "##**The first step of any change is awareness. But what does this mean?**\n\nIt can mean, for example, first becoming aware of what you eat throughout the day, how you eat, where you eat, or how often you exercise.\n\nHere, it is also good to consider the advantages as well as the disadvantages of changing your current behavior. Only then can you see which behavior is helpful for you and which isn't. This can also show you whether you would want to change this behavior in the first place or want things to remain the same."
-      }
+      "content": {"markdown": "Food log commitment"}
     },
     "2": {
       "id": 2,
-      "chunkId": 2,
+      "chunkId": 1,
+      "type": "markdown",
+      "needsValidation": false,
+      "isValid": true,
+      "content": {
+        "markdown":
+            "Accurate and thorough information is most important. Partial days will misrepresent your overall diet, and will cause the program to misinterpret your diets quality."
+      }
+    },
+    "3": {
+      "id": 3,
+      "chunkId": 1,
+      "type": "markdown",
+      "needsValidation": false,
+      "isValid": true,
+      "content": {"markdown": "So, lets make a commitment!"}
+    },
+    "4": {
+      "id": 4,
+      "chunkId": 1,
+      "type": "markdown",
+      "needsValidation": false,
+      "isValid": true,
+      "content": {
+        "markdown":
+            "Commit to logging your diet for a number of days that ensure you will be accurate and thorough. The more days you complete, the better tailored the program will be!"
+      }
+    },
+    "5": {
+      "id": 5,
+      "chunkId": 1,
+      "type": "markdown",
+      "needsValidation": false,
+      "isValid": true,
+      "content": {
+        "markdown":
+            "When you have logged all of your meals for the day, you should complete the 1-2 minute questionnaire, located on your “commitment” widget."
+      }
+    },
+    "6": {
+      "id": 6,
+      "chunkId": 1,
       "type": "multipleSelect",
       "needsValidation": false,
       "isValid": false,
       "content": {
-        "question": "My question. Select multiple answers.",
+        "question":
+            "My question. Select multiple answers.How many days will you commit to logging your food in this module? Remember, you must spend at least 7 days in this module, and you won’t be able to move on until you have logged as many days as you commit to now.",
         "answers": [
-          {"id": 1, "label": "Answer 1", "isCorrect": null},
-          {"id": 2, "label": "Answer 2", "isCorrect": null},
-          {"id": 3, "label": "Answer 3", "isCorrect": null},
-          {"id": 4, "label": "Answer 4", "isCorrect": null}
+          {"id": 1, "label": "4 days", "isCorrect": null},
+          {"id": 2, "label": "5 days", "isCorrect": null},
+          {"id": 3, "label": "6 days", "isCorrect": null},
+          {"id": 4, "label": "7 days", "isCorrect": null}
         ],
         "feedbackCorrect": null,
         "feedbackIncorrect": null
       },
     },
-    // "2": {
-    //   "id": 2,
-    //   "chunkId": 2,
-    //   "type": "markdown",
-    //   "needsValidation": false,
-    //   "isValid": true,
-    //   "content": {
-    //     "markdown":
-    //         "##**So here is the first important question you have to ask yourself: How high is your motivation to change your habits and your behavior?**\n\nTo answer this you have to look at both sides - take a look at the advantages as well as the disadvantages of changing your behavior with regard to your eating and exercise habits. After that, consider the pros and cons of just keeping things as they are and not changing anything about your lifestyle.\n\nEven here always look at both sides and that means considering the advantages of not changing your current lifestyle as well as the disadvantages.\n\nDon’t forget to think about the long-term and short-term!There is no time like the present! Ready?"
-    //   }
-    // },
-    "3": {
-      "id": 3,
-      "chunkId": 3,
-      "type": "markdown",
-      "needsValidation": false,
-      "isValid": true,
-      "content": {
-        "markdown":
-            "## First take a look at the advantages of changing your behavior with regard to your eating and exercise habits. These could be things like you'll feel generally fitter or you'll lose weight. Make sure to distinguish between short-term and long-term advantages."
-      }
-    },
-    "4": {
-      "id": 4,
-      "chunkId": 3,
-      "type": "textArea",
-      "needsValidation": true,
-      "isValid": false,
-      "maxCharsLength": 400,
-      "maxTextFieldsAmount": 1,
-      "minTextFieldsAmount": 1,
-      "content": {
-        "question": "What are the benefits of changing your behavior?",
-      }
-    },
-    "5": {
-      "id": 5,
-      "chunkId": 4,
-      "type": "markdown",
-      "needsValidation": false,
-      "isValid": true,
-      "content": {
-        "markdown":
-            "## Now consider the disadvantages: for example that you may have to invest a lot of time and energy, or you'll have to be extremely disciplined.\n\nAgain remember to take long-term and short-term effects into account."
-      }
-    },
-    "6": {
-      "id": 6,
-      "chunkId": 4,
-      "type": "textArea",
-      "needsValidation": true,
-      "isValid": false,
-      "maxCharsLength": 400,
-      "maxTextFieldsAmount": 1,
-      "minTextFieldsAmount": 1,
-      "content": {
-        "question": "What are the disadvantages of changing your behavior?",
-      }
-    },
-    "7": {
-      "id": 7,
-      "chunkId": 5,
-      "type": "markdown",
-      "needsValidation": false,
-      "isValid": true,
-      "content": {
-        "markdown":
-            "## Now think about your current lifestyle and the advantages of not changing would be, like having a good excuse not to be active or not having to plan your meals.\n\nKeep the long-term and short-term effects in mind!"
-      }
-    },
-    "8": {
-      "id": 8,
-      "chunkId": 5,
-      "type": "textArea",
-      "needsValidation": true,
-      "isValid": false,
-      "maxCharsLength": 400,
-      "maxTextFieldsAmount": 1,
-      "minTextFieldsAmount": 1,
-      "content": {
-        "question":
-            "What the advantages of not changing your behavior and continuing as before?",
-      }
-    },
-    "9": {
-      "id": 9,
-      "chunkId": 6,
-      "type": "markdown",
-      "needsValidation": false,
-      "isValid": true,
-      "content": {
-        "markdown":
-            "## Lastly, think about the disadvantages of not changing anything about your current eating and exercise habits.\n\nDisadvantages could be that you feel uncomfortable and sluggish or even feel guilty when eating. Don’t forget to consider the long-term and the short-term!"
-      }
-    },
-    "10": {
-      "id": 10,
-      "chunkId": 6,
-      "type": "textArea",
-      "needsValidation": true,
-      "isValid": false,
-      "maxCharsLength": 400,
-      "maxTextFieldsAmount": 1,
-      "minTextFieldsAmount": 1,
-      "content": {
-        "question": "What are the disadvantages of continuing as before?",
-      }
-    }
   }
 };

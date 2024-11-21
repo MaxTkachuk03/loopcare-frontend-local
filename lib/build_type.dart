@@ -1,10 +1,6 @@
-import 'package:flutter_dotenv/flutter_dotenv.dart';
-
 bool get kIsDev => EnvironmentType.currentType.isDev;
 
 bool get kIsProd => EnvironmentType.currentType.isProd;
-
-bool get kIsAnalyticTestingEnv => bool.parse(dotenv.env['ANALYTIC_TESTING_ENV'] as String);
 
 const String _kRawBuildType = String.fromEnvironment('FLAVOR', defaultValue: 'dev');
 

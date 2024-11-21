@@ -71,6 +71,7 @@ class _AppState extends State<_App> {
             FirebaseNavigatorObserver(
               analytics: _analytics,
             ),
+            NavigatorObserver(),
           ],
         ),
         routeInformationParser: _appRouter.defaultRouteParser(),

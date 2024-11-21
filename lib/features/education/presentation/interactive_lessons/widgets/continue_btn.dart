@@ -7,8 +7,7 @@ class ContinueBtn extends StatelessWidget {
   final VoidCallback onPressed;
   final bool isDisable;
 
-  const ContinueBtn(
-      {super.key, required this.onPressed, required this.isDisable});
+  const ContinueBtn({super.key, required this.onPressed, required this.isDisable});
 
   @override
   Widget build(BuildContext context) {

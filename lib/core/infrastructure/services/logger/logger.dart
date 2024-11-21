@@ -5,7 +5,7 @@ final log = AppLogger();
 
 class AppLogger {
   final _log = Logger(
-    printer: PrettyPrinter(printTime: true),
+    printer: PrettyPrinter(),
     filter: _DevelopmentEnvironmentFilter(),
   );
 

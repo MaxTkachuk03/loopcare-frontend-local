@@ -51,7 +51,7 @@ class SplashController {
     await getIt<DeviceInfoService>().onRequestTrackingAuthorization();
     await PermissionsService.instance.requestNotificationPermissions();
 
-    if (kIsProd && !kIsAnalyticTestingEnv) await AppsFlyerService.start();
+    if (kIsProd) await AppsFlyerService.start();
   }
 
   Future<List<PageRouteInfo>> getRoute() async {

@@ -3,9 +3,9 @@ import 'dart:async';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
-import 'package:loopcare_frontend/core/application/customer_io_service/customer_io_service.dart';
 import 'package:loopcare_frontend/core/domain/analytics/analytics_events.dart';
 import 'package:loopcare_frontend/core/domain/analytics/analytics_parameters.dart';
+import 'package:loopcare_frontend/core/domain/analytics/usage_analytics/usage_analytics.dart';
 import 'package:loopcare_frontend/core/infrastructure/dio_client/request_error.dart';
 import 'package:loopcare_frontend/core/infrastructure/services/analytics_service.dart';
 import 'package:loopcare_frontend/features/mind/application/dto/complete_exercise_data.dart';
@@ -187,6 +187,7 @@ class MindBloc extends Bloc<MindEvent, MindState> {
     final logEventName = event.isAfter
         ? AnalyticsEvents.mindRatingAfterExercise
         : AnalyticsEvents.mindRatingBeforeExercise;
+    final usageAnalytics = UsageAnalytics();
 
     const AnalyticsEventService().logEvent(
       eventName: logEventName,
@@ -198,7 +199,7 @@ class MindBloc extends Bloc<MindEvent, MindState> {
       },
     );
 
-    CustomerIoService.track(event: logEventName, attributes: {
+    usageAnalytics.track(eventName: logEventName, attributes: {
       AnalyticsParameters.techniqueId: state.data.currentTechnique?.id ?? 0,
       AnalyticsParameters.exerciseId: state.data.currentExercise?.id ?? 0,
       AnalyticsParameters.value: event.value,

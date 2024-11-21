@@ -12,17 +12,20 @@ import 'package:in_app_purchase_android/in_app_purchase_android.dart';
 import 'package:in_app_purchase_storekit/in_app_purchase_storekit.dart';
 import 'package:injectable/injectable.dart';
 import 'package:loopcare_frontend/core/application/auth_token_manager.dart';
-import 'package:loopcare_frontend/core/application/customer_io_service/customer_io_service.dart';
 import 'package:loopcare_frontend/core/domain/analytics/analytics_events.dart';
 import 'package:loopcare_frontend/core/domain/analytics/analytics_parameters.dart';
+import 'package:loopcare_frontend/core/domain/analytics/customer_io_service/customer_io_service.dart';
+import 'package:loopcare_frontend/core/domain/analytics/usage_analytics/usage_analytics.dart';
+import 'package:loopcare_frontend/core/domain/analytics/usage_analytics/usage_analytics_attributes.dart';
+import 'package:loopcare_frontend/core/domain/analytics/usage_analytics/usage_analytics_events.dart';
 import 'package:loopcare_frontend/core/domain/extensions/iterable_extentions.dart';
 import 'package:loopcare_frontend/core/infrastructure/dio_client/request_error.dart';
 import 'package:loopcare_frontend/core/infrastructure/dio_client/server_error_data.dart';
 import 'package:loopcare_frontend/core/infrastructure/services/analytics_service.dart';
-import 'package:loopcare_frontend/core/infrastructure/services/events.dart';
+import 'package:loopcare_frontend/core/domain/analytics/mixpanel/events.dart';
 import 'package:loopcare_frontend/core/infrastructure/services/facebook_events_service.dart';
 import 'package:loopcare_frontend/core/infrastructure/services/logger/logger.dart';
-import 'package:loopcare_frontend/core/infrastructure/services/mixpanel_event_service.dart';
+import 'package:loopcare_frontend/core/domain/analytics/mixpanel/mixpanel_event_service.dart';
 import 'package:loopcare_frontend/features/authentication/application/authentication_service.dart';
 import 'package:loopcare_frontend/features/authentication/domain/subscription/subscription.dart';
 import 'package:loopcare_frontend/features/subscription/domain/purchased_product.dart';
@@ -50,6 +53,7 @@ class SubscriptionBloc extends Bloc<SubscriptionEvent, SubscriptionState> {
   final AuthenticationService _authenticationService;
   final PurchaseService _purchaseService;
   final AuthTokenManager _authTokenManager;
+  final usageAnalytics = UsageAnalytics();
   bool _checkEligibility = false;
 
   SubscriptionBloc(this._authenticationService, this._purchaseService, this._authTokenManager,
@@ -655,8 +659,8 @@ class SubscriptionBloc extends Bloc<SubscriptionEvent, SubscriptionState> {
     CanceledByUser event,
     Emitter<SubscriptionState> emit,
   ) async {
-    CustomerIoService.track(
-      event: AnalyticsEvents.subscriptionUserClosePurchaseDialog,
+    usageAnalytics.track(
+      eventName: AnalyticsEvents.subscriptionUserClosePurchaseDialog,
     );
     const AnalyticsEventService.uxcam().logEvent(
       eventName: AnalyticsEvents.subscriptionUserClosePurchaseDialog,
@@ -673,10 +677,10 @@ class SubscriptionBloc extends Bloc<SubscriptionEvent, SubscriptionState> {
   }
 
   void _pushAnalyticStartPurchase(BuySubscription event) {
-    CustomerIoService.track(
-      event: AnalyticsEvents.subscriptionStartPurchase,
+    usageAnalytics.track(
+      eventName: AnalyticsEvents.subscriptionStartPurchase,
       attributes: {
-        CIOAttributes.identifierOption: event.product.id,
+        UsageAnalyticsAttributes.identifierOption: event.product.id,
       },
     );
     const AnalyticsEventService.uxcam().logEvent(
@@ -689,10 +693,10 @@ class SubscriptionBloc extends Bloc<SubscriptionEvent, SubscriptionState> {
   }
 
   void _pushAnalyticErrorVerifyLastPurchase(ProductDetails product) {
-    CustomerIoService.track(
-      event: AnalyticsEvents.subscriptionErrorVerifyLastPurchaseOnServer,
+    usageAnalytics.track(
+      eventName: AnalyticsEvents.subscriptionErrorVerifyLastPurchaseOnServer,
       attributes: {
-        CIOAttributes.identifierOption: product.id,
+        UsageAnalyticsAttributes.identifierOption: product.id,
       },
     );
     const AnalyticsEventService.uxcam().logEvent(
@@ -705,10 +709,10 @@ class SubscriptionBloc extends Bloc<SubscriptionEvent, SubscriptionState> {
   }
 
   void _pushAnalyticDuplicatePurchase(BuySubscription event) {
-    CustomerIoService.track(
-      event: AnalyticsEvents.subscriptionDuplicatePurchase,
+    usageAnalytics.track(
+      eventName: AnalyticsEvents.subscriptionDuplicatePurchase,
       attributes: {
-        CIOAttributes.identifierOption: event.product.id,
+        UsageAnalyticsAttributes.identifierOption: event.product.id,
       },
     );
     const AnalyticsEventService.uxcam().logEvent(
@@ -728,10 +732,10 @@ class SubscriptionBloc extends Bloc<SubscriptionEvent, SubscriptionState> {
   }
 
   void _pushAnalyticErrorVerifyOnServer(PurchaseDetails purchaseDetails) {
-    CustomerIoService.track(
-      event: AnalyticsEvents.subscriptionErrorVerifyOnServer,
+    usageAnalytics.track(
+      eventName: AnalyticsEvents.subscriptionErrorVerifyOnServer,
       attributes: {
-        CIOAttributes.identifierOption: purchaseDetails.productID,
+        UsageAnalyticsAttributes.identifierOption: purchaseDetails.productID,
       },
     );
     const AnalyticsEventService.uxcam().logEvent(
@@ -744,19 +748,19 @@ class SubscriptionBloc extends Bloc<SubscriptionEvent, SubscriptionState> {
   }
 
   void _pushAnalyticBoughtEvent(PurchaseDetails purchaseDetails, Subscription r) {
-    CustomerIoService.track(
-      event: CIOEvents.subscriptionBought,
+    usageAnalytics.track(
+      eventName: UsageAnalyticsEvents.subscriptionBought,
       attributes: {
-        CIOAttributes.identifierOption: purchaseDetails.productID,
-        CIOAttributes.subscriptionExpirationDate: r.expiresAt,
+        UsageAnalyticsAttributes.identifierOption: purchaseDetails.productID,
+        UsageAnalyticsAttributes.subscriptionExpirationDate: r.expiresAt,
       },
     );
 
     const AnalyticsEventService.uxcam().logEvent(
-      eventName: CIOEvents.subscriptionBought,
+      eventName: UsageAnalyticsEvents.subscriptionBought,
       parameters: {
         AnalyticsParameters.productIdentifier: purchaseDetails.productID,
-        CIOAttributes.subscriptionExpirationDate: r.expiresAt,
+        UsageAnalyticsAttributes.subscriptionExpirationDate: r.expiresAt,
       },
     );
     final identifier = _getTransactionId(purchaseDetails) ?? '';

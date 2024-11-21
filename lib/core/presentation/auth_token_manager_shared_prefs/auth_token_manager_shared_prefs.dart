@@ -3,8 +3,8 @@ import 'package:injectable/injectable.dart';
 import 'package:loopcare_frontend/core/application/auth_token_manager.dart';
 import 'package:loopcare_frontend/core/application/auth_token_service.dart';
 import 'package:loopcare_frontend/core/domain/analytics/analytics_parameters.dart';
-import 'package:loopcare_frontend/core/infrastructure/services/events.dart';
-import 'package:loopcare_frontend/core/infrastructure/services/mixpanel_event_service.dart';
+import 'package:loopcare_frontend/core/domain/analytics/mixpanel/events.dart';
+import 'package:loopcare_frontend/core/domain/analytics/mixpanel/mixpanel_event_service.dart';
 import 'package:loopcare_frontend/core/infrastructure/services/secure_storage/secure_storage_service.dart';
 
 @Singleton(as: AuthTokenManager)

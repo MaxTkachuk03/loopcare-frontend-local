@@ -2,7 +2,6 @@ import 'package:auto_route/auto_route.dart';
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:loopcare_frontend/core/application/customer_io_service/customer_io_service.dart';
 import 'package:loopcare_frontend/core/presentation/alerting/modal_bottom_sheet.dart';
 import 'package:loopcare_frontend/core/presentation/routes/app_router.dart';
 import 'package:loopcare_frontend/core/presentation/routes/app_router.gr.dart';
@@ -44,16 +43,14 @@ class _RiverScreenState extends State<RiverScreen> with RiverUtils {
   void initState() {
     super.initState();
     _page = getIndex(widget.page);
-    _positionedItems =
-        ModuleItemsUtils.getAllocatedItems(_page, widget.module.moduleItems);
+    _positionedItems = ModuleItemsUtils.getAllocatedItems(_page, widget.module.moduleItems);
   }
 
   @override
   void didUpdateWidget(covariant RiverScreen oldWidget) {
     super.didUpdateWidget(oldWidget);
     if (!widget.module.moduleItems.equals(oldWidget.module.moduleItems)) {
-      _positionedItems =
-          ModuleItemsUtils.getAllocatedItems(_page, widget.module.moduleItems);
+      _positionedItems = ModuleItemsUtils.getAllocatedItems(_page, widget.module.moduleItems);
     }
   }
 
@@ -82,8 +79,7 @@ class _RiverScreenState extends State<RiverScreen> with RiverUtils {
           radius: itemRadius(isRoot: item.isRootItem),
           isBeginning: isBeginning,
           onTap: () => _onItemPressed(item),
-          onAnimationComplete: (placement) =>
-              _onAnimationCompleted(item, placement),
+          onAnimationComplete: (placement) => _onAnimationCompleted(item, placement),
         );
       },
     );
@@ -119,8 +115,7 @@ class _RiverScreenState extends State<RiverScreen> with RiverUtils {
     }
 
     if (item.isRootItem) {
-      context.router
-          .push(SelectAvatarRoute(onDispose: () => _updateModuleItem(item.id)));
+      context.router.push(SelectAvatarRoute(onDispose: () => _updateModuleItem(item.id)));
     } else if (item.isPractice) {
       ModalBottomSheet.guidancePractice(
         context: context,
@@ -135,11 +130,6 @@ class _RiverScreenState extends State<RiverScreen> with RiverUtils {
   }
 
   void _navigateToLesson(RiverModuleItem item) {
-    CustomerIoService.track(
-      event: CIOEvents.educationWidget,
-      attributes: {CIOAttributes.articleId: item.lessonId},
-    );
-
     context.read<RiverBloc>().add(RiverEvent.selectModuleItem(item: item));
 
     if (item.isRegularLesson) {
@@ -147,21 +137,20 @@ class _RiverScreenState extends State<RiverScreen> with RiverUtils {
           .read<EducationLessonBloc>()
           .add(EducationLessonEvent.getLessonContent(lessonId: item.lessonId));
 
-      context.router.push(
-          LessonRoute(lessonId: item.lessonId, streamType: item.streamType));
+      context.router.push(LessonRoute(lessonId: item.lessonId, streamType: item.streamType));
     } else if (item.isInteractiveLesson) {
       final lessonId = context.read<InteractiveLessonsBloc>().state.data.id;
 
       if (lessonId != item.lessonId) {
-        context.read<InteractiveLessonsBloc>().add(
-            InteractiveLessonsEvent.getInteractiveLesson(
-                lessonId: item.lessonId));
+        context
+            .read<InteractiveLessonsBloc>()
+            .add(InteractiveLessonsEvent.getInteractiveLesson(lessonId: item.lessonId));
       }
 
       // TODO: delete bloc init after connecting to backend
-      context.read<InteractiveLessonsBloc>().add(
-          InteractiveLessonsEvent.getInteractiveLesson(
-              lessonId: item.lessonId));
+      context
+          .read<InteractiveLessonsBloc>()
+          .add(InteractiveLessonsEvent.getInteractiveLesson(lessonId: item.lessonId));
 
       Future.delayed(
         const Duration(milliseconds: 800),
@@ -172,8 +161,7 @@ class _RiverScreenState extends State<RiverScreen> with RiverUtils {
     }
   }
 
-  void _onAnimationCompleted(
-      RiverModuleItem item, FeaturePlacement? placement) {
+  void _onAnimationCompleted(RiverModuleItem item, FeaturePlacement? placement) {
     if (placement != null) {
       _onTransitionItemCompleted(placement);
     } else {
@@ -201,6 +189,5 @@ class _RiverScreenState extends State<RiverScreen> with RiverUtils {
         ),
       );
 
-  void _onCompleteTime() =>
-      context.read<RiverBloc>().add(const RiverEvent.checkCompletion());
+  void _onCompleteTime() => context.read<RiverBloc>().add(const RiverEvent.checkCompletion());
 }

@@ -11,8 +11,9 @@ import 'package:loopcare_frontend/features/education/domain/interactive_lesson/i
 class Ordering extends StatelessWidget {
   final InteractiveLessonChunkComponentOrdering component;
   final RiverModuleStreamType lessonStreamType;
-  final Function(InteractiveLessonComponentProgress progress,
-      InteractiveLessonChunkComponent component) onSaveProgress;
+  final Function(
+          InteractiveLessonComponentProgress progress, InteractiveLessonChunkComponent component)
+      onSaveProgress;
 
   const Ordering({
     super.key,

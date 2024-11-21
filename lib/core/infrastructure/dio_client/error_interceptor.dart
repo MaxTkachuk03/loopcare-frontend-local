@@ -6,8 +6,8 @@ import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:injectable/injectable.dart';
 import 'package:loopcare_frontend/core/domain/analytics/analytics_parameters.dart';
 import 'package:loopcare_frontend/core/infrastructure/services/app_config.dart';
-import 'package:loopcare_frontend/core/infrastructure/services/events.dart';
-import 'package:loopcare_frontend/core/infrastructure/services/mixpanel_event_service.dart';
+import 'package:loopcare_frontend/core/domain/analytics/mixpanel/events.dart';
+import 'package:loopcare_frontend/core/domain/analytics/mixpanel/mixpanel_event_service.dart';
 import 'package:loopcare_frontend/core/presentation/routes/app_router.gr.dart';
 
 @injectable

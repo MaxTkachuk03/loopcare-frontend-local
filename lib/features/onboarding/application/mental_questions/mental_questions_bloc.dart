@@ -3,7 +3,9 @@ import 'package:collection/collection.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
 import 'package:injectable/injectable.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:loopcare_frontend/core/application/customer_io_service/customer_io_service.dart';
+import 'package:loopcare_frontend/core/domain/analytics/usage_analytics/usage_analytics.dart';
+import 'package:loopcare_frontend/core/domain/analytics/usage_analytics/usage_analytics_attributes.dart';
+import 'package:loopcare_frontend/core/domain/analytics/usage_analytics/usage_analytics_events.dart';
 import 'package:loopcare_frontend/core/infrastructure/dio_client/request_error.dart';
 import 'package:loopcare_frontend/features/authentication/application/dto/mental_health_test_answers.dart';
 import 'package:loopcare_frontend/features/onboarding/application/dto/answers_body.dart';
@@ -22,6 +24,7 @@ part 'mental_questions_state.dart';
 @singleton
 class MentalQuestionsBloc extends HydratedBloc<MentalQuestionsEvent, MentalQuestionsState> {
   final MentalHealthService _mentalHealthService;
+  final usageAnalytics = UsageAnalytics();
 
   MentalQuestionsBloc(this._mentalHealthService) : super(MentalQuestionsState.initial()) {
     on<_SetAnswer>(_onSetAnswer);
@@ -34,12 +37,12 @@ class MentalQuestionsBloc extends HydratedBloc<MentalQuestionsEvent, MentalQuest
     _SetAnswer event,
     Emitter<MentalQuestionsState> emit,
   ) {
-    CustomerIoService.track(
-      event: CIOEvents.onboardingTestAnswer,
+    usageAnalytics.track(
+      eventName: UsageAnalyticsEvents.onboardingTestAnswer,
       attributes: {
-        CIOAttributes.testName: event.testName,
-        CIOAttributes.question: event.question,
-        CIOAttributes.selectedOption: event.selectedOption
+        UsageAnalyticsAttributes.testName: event.testName,
+        UsageAnalyticsAttributes.question: event.question,
+        UsageAnalyticsAttributes.selectedOption: event.selectedOption
       },
     );
 
