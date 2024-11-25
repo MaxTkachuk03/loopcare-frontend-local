@@ -15,6 +15,7 @@ import 'package:loopcare_frontend/core/presentation/nutrition/nutrition_summary/
 import 'package:loopcare_frontend/core/presentation/routes/app_router.gr.dart';
 import 'package:loopcare_frontend/core/presentation/scaffold/custom_scaffold.dart';
 import 'package:loopcare_frontend/core/presentation/text/custom_text.dart';
+import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 import 'package:loopcare_frontend/core/presentation/utils/date_time_extensions.dart';
 import 'package:loopcare_frontend/core/presentation/utils/string_extensions.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/main_container.dart';
@@ -178,7 +179,13 @@ class _MealPageState extends State<MealPage> {
               title: _appBarTitle,
               subtitle: _appBarSubTitle,
               leading: CustomFilledIconButton.leadingGreenLighter(),
-              actions: state.data.isEditable ? const [CirclePlusButton()] : null,
+              actions: state.data.isEditable
+                  ? const [
+                      CirclePlusButton(
+                        color: AppColors.greenLighter,
+                      )
+                    ]
+                  : null,
             ),
             body: CustomSafeArea(
               child: state.maybeMap(

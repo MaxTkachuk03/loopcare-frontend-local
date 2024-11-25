@@ -10,7 +10,6 @@ import 'package:loopcare_frontend/features/education/presentation/interactive_le
 import 'package:loopcare_frontend/features/education/presentation/interactive_lessons/widgets/continue_btn.dart';
 import 'package:loopcare_frontend/features/river/domain/lesson_type.dart';
 import 'package:loopcare_frontend/features/river/domain/river_module_stream_type.dart';
-import 'package:loopcare_frontend/features/education/presentation/interactive_lessons/widgets/components/textarea/long_answer_textarea.dart';
 import 'package:loopcare_frontend/features/education/domain/interactive_lesson/interactive_lesson_component_progress.dart';
 
 class ChunksList extends StatefulWidget {
@@ -51,45 +50,43 @@ class _ChunksListState extends State<ChunksList> {
     final lessonStreamType = RiverModuleStreamType.getLessonStreamType(blocState.type);
 
     return [
-      ...components
-          .map((c) => switch (c) {
-                InteractiveLessonChunkComponentMarkdown() => Markdown(component: c),
-                // InteractiveLessonChunkComponentImage() =>
-                //   CachedNetworkImage(imageUrl: c.content.src),
-                InteractiveLessonChunkComponentScale() => Scale(
-                    component: c,
-                    lessonStreamType: lessonStreamType,
-                    onSaveProgress: onSaveProgress,
-                  ),
-                InteractiveLessonChunkComponentSingleSelect() => SingleSelect(
-                    component: c,
-                    lessonStreamType: lessonStreamType,
-                    onSaveProgress: onSaveProgress,
-                  ),
-                InteractiveLessonChunkComponentMultipleSelect() => MultipleSelect(
-                    component: c,
-                    lessonStreamType: lessonStreamType,
-                    onSaveProgress: onSaveProgress,
-                  ),
-                InteractiveLessonChunkComponentSingleSelectWithFeedback() =>
-                  SingleSelectWithFeedback(
-                    component: c,
-                    lessonStreamType: lessonStreamType,
-                    onSaveProgress: onSaveProgress,
-                  ),
-                InteractiveLessonChunkComponentOrdering() => Ordering(
-                    component: c,
-                    lessonStreamType: lessonStreamType,
-                    onSaveProgress: onSaveProgress,
-                  ),
-                InteractiveLessonChunkComponentTextArea() => LongAnswerTextArea(
-                    component: c,
-                    lessonStreamType: lessonStreamType,
-                    onSaveProgress: onSaveProgress,
-                  ),
-                _ => const SizedBox.shrink(),
-              })
-          .toList(),
+      ...components.map((c) => switch (c) {
+            InteractiveLessonChunkComponentMarkdown() => Markdown(component: c),
+            // InteractiveLessonChunkComponentImage() =>
+            //   CachedNetworkImage(imageUrl: c.content.src),
+            InteractiveLessonChunkComponentScale() => Scale(
+                component: c,
+                lessonStreamType: lessonStreamType,
+                onSaveProgress: onSaveProgress,
+              ),
+            InteractiveLessonChunkComponentSingleSelect() => SingleSelect(
+                component: c,
+                lessonStreamType: lessonStreamType,
+                onSaveProgress: onSaveProgress,
+              ),
+            InteractiveLessonChunkComponentMultipleSelect() => MultipleSelect(
+                component: c,
+                lessonStreamType: lessonStreamType,
+                onSaveProgress: onSaveProgress,
+              ),
+            InteractiveLessonChunkComponentSingleSelectWithFeedback() => SingleSelectWithFeedback(
+                component: c,
+                lessonStreamType: lessonStreamType,
+                onSaveProgress: onSaveProgress,
+              ),
+            InteractiveLessonChunkComponentOrdering() => Ordering(
+                component: c,
+                lessonStreamType: lessonStreamType,
+                onSaveProgress: onSaveProgress,
+              ),
+            InteractiveLessonChunkComponentTextArea() => LongAnswerTextArea(
+                key: ValueKey('${c.id}${c.chunkId}'),
+                component: c,
+                lessonStreamType: lessonStreamType,
+                onSaveProgress: onSaveProgress,
+              ),
+            _ => const SizedBox.shrink(),
+          }),
     ];
   }
 
@@ -107,15 +104,19 @@ class _ChunksListState extends State<ChunksList> {
     final bloc = context.read<InteractiveLessonsBloc>();
     final blocState = bloc.state.data;
     final lessonStreamType = RiverModuleStreamType.getLessonStreamType(blocState.type);
-    if (blocState.isAllChunksUnlocked && blocState.isLastPage) {
-      context.router.push(
-          LessonCompleteRoute(lessonType: LessonType.interactive, streamType: lessonStreamType));
-    } else if (blocState.isAllChunksUnlocked && !blocState.isLastPage) {
-      bloc.add(const InteractiveLessonsEvent.setNextPage());
-    } else {
-      bloc.add(const InteractiveLessonsEvent.unlockNextChunk());
-      scrollToNextChunk();
-    }
+    Future.delayed(const Duration(seconds: 1), () {
+      if (blocState.isAllChunksUnlocked && blocState.isLastPage) {
+        if (mounted) {
+          context.router.push(LessonCompleteRoute(
+              lessonType: LessonType.interactive, streamType: lessonStreamType));
+        }
+      } else if (blocState.isAllChunksUnlocked && !blocState.isLastPage) {
+        bloc.add(const InteractiveLessonsEvent.setNextPage());
+      } else {
+        bloc.add(const InteractiveLessonsEvent.unlockNextChunk());
+        scrollToNextChunk();
+      }
+    });
   }
 
   void scrollToNextChunk() {

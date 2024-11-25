@@ -21,23 +21,20 @@ class CommitmentDashboard extends StatelessWidget {
 
   const CommitmentDashboard({super.key, required this.selectedDay});
 
-  void _onPressHandler(BuildContext context) =>
-      context.router.pushNamed(AppRoutes.dailyIntake);
+  void _onPressHandler(BuildContext context) => context.router.pushNamed(AppRoutes.nutritionIntake);
 
   void onErrorHandler(BuildContext context) => context
       .read<MealsBloc>()
       .add(MealsEvent.fetchMeals(startDate: selectedDay, endDate: selectedDay));
 
-  Color get _textColor =>
-      !selectedDay.isFuture ? AppColors.blueDarker : AppColors.greyLabel;
+  Color get _textColor => !selectedDay.isFuture ? AppColors.blueDarker : AppColors.greyLabel;
 
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<MealsBloc, MealsState>(
       builder: (context, state) {
         return Container(
-          padding: const EdgeInsets.only(
-              top: 8.0, bottom: 8.0, right: 8.0, left: 8.0),
+          padding: const EdgeInsets.only(top: 8.0, bottom: 8.0, right: 8.0, left: 8.0),
           decoration: const BoxDecoration(
             color: AppColors.white,
             borderRadius: BorderRadius.all(Radius.circular(8)),
@@ -54,13 +51,13 @@ class CommitmentDashboard extends StatelessWidget {
                   children: [
                     CustomText.bitter600(
                       LocalizedTexts.commitment.tr(),
-                      style: context.textTheme.headlineSmall
-                          ?.copyWith(color: _textColor),
+                      style: context.textTheme.headlineSmall?.copyWith(color: _textColor),
                     ),
                   ],
                 ),
+                actionIcon: AppIcons.arrow,
                 circleButton: false,
-                editable: !selectedDay.isFuture,
+                editable: true,
               ),
               BlocBuilder<AuthenticationBloc, AuthenticationState>(
                 builder: (context, state) => state.data.isNutritionScalesLocked
@@ -72,9 +69,7 @@ class CommitmentDashboard extends StatelessWidget {
                 error: (s) {
                   final error = s.data.error;
 
-                  return ErrorScreen(
-                      error: error!,
-                      onButtonPressed: () => onErrorHandler(context));
+                  return ErrorScreen(error: error!, onButtonPressed: () => onErrorHandler(context));
                 },
                 orElse: () {
                   return Padding(
@@ -90,8 +85,7 @@ class CommitmentDashboard extends StatelessWidget {
                         ),
                         CustomText.w600(
                           LocalizedTexts.completeYourSurveys.tr(),
-                          style: context.textTheme.headlineSmall
-                              ?.copyWith(color: _textColor),
+                          style: context.textTheme.headlineSmall?.copyWith(color: _textColor),
                         ),
                       ],
                     ),

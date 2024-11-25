@@ -8,18 +8,22 @@ import 'package:loopcare_frontend/core/presentation/widgets/custom_rounded_butto
 import 'package:loopcare_frontend/features/nutrition/application/meals/meals_bloc.dart';
 
 class CirclePlusButton extends StatelessWidget {
-  const CirclePlusButton({super.key});
+  const CirclePlusButton({super.key, this.color, this.onPressed, this.width});
+
+  final Color? color;
+  final void Function()? onPressed;
+  final double? width;
 
   @override
   Widget build(BuildContext context) {
     return Row(
       children: [
         CustomOutlinedRoundedButtonWithIcon(
-          onPressed: () => _onSearchTap(context),
+          onPressed: onPressed ?? () => _onSearchTap(context),
           icon: AppIcons.plus,
-          bgColor: AppColors.greenLighter,
+          bgColor: color,
         ),
-        const SizedBox(width: 16.0),
+        SizedBox(width: width ?? 16.0),
       ],
     );
   }

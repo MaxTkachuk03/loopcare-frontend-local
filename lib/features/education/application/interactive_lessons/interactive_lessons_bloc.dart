@@ -26,7 +26,7 @@ class InteractiveLessonsBloc extends Bloc<InteractiveLessonsEvent, InteractiveLe
     on<SetNextPage>(_onSetNextPage);
     on<SetPrevPage>(_onSetPrevPage);
     on<UnlockNextChunk>(_onUnlockNextChunk);
-    on<SaveAnswer>(_SaveAnswer);
+    on<SaveAnswer>(_saveAnswer);
   }
 
   Future<void> _onGetInteractiveLesson(
@@ -85,12 +85,13 @@ class InteractiveLessonsBloc extends Bloc<InteractiveLessonsEvent, InteractiveLe
           activeChunkIndex: hasUnlockedChunks ? activePageUnlockedChunks.length - 1 : 0,
           unlockedChunksByPage: unlockedChunksByPage,
           isLoading: false,
+          // allTextAreasAdded: state.data.hasProgress(unlockedChunkComponents),
         )));
       },
     );
   }
 
-  Future<void> _SaveAnswer(
+  Future<void> _saveAnswer(
     SaveAnswer event,
     Emitter<InteractiveLessonsState> emit,
   ) async {
@@ -118,20 +119,23 @@ class InteractiveLessonsBloc extends Bloc<InteractiveLessonsEvent, InteractiveLe
             activeChunk.componentsIds.contains(component.id))
         .toList();
 
-    bool allTextAreas = false;
-    if (componentWithProgress is InteractiveLessonChunkComponentTextArea) {
-      allTextAreas = componentWithProgress.minTextFieldsAmount <=
-          componentWithProgress.progress!.history!.length;
-    }
+    // bool allTextAreas = false;
+    // if (componentWithProgress is InteractiveLessonChunkComponentTextArea) {
+    //   allTextAreas = componentWithProgress.minTextFieldsAmount <=
+    //       componentWithProgress.progress!.history!.length;
+    // }
 
     emit(
       InteractiveLessonsState.saveAnswer(
         state.data.copyWith(
-            components: updatedComponents,
-            unlockedChunkComponents: unlockedChunkComponents,
-            allTextAreasAdded: allTextAreas),
+          components: updatedComponents,
+          unlockedChunkComponents: unlockedChunkComponents,
+          allTextAreasAdded: state.data.hasProgress(unlockedChunkComponents),
+        ),
       ),
     );
+
+    print("allAded: ${state.data.hasProgress(unlockedChunkComponents)}");
   }
 
   Future<void> _onSetNextPage(
@@ -167,7 +171,10 @@ class InteractiveLessonsBloc extends Bloc<InteractiveLessonsEvent, InteractiveLe
       activeChunkIndex: hasUnlockedChunks ? unlockedChunks.length - 1 : 0,
       activeChunk: activeChunk,
       unlockedChunksByPage: unlockedChunksByPage,
+      allTextAreasAdded: state.data.hasProgress(unlockedChunkComponents),
     )));
+
+    // print("allAded: ${state.data.hasProgress(unlockedChunkComponents)}");
   }
 
   Future<void> _onSetPrevPage(
@@ -194,6 +201,7 @@ class InteractiveLessonsBloc extends Bloc<InteractiveLessonsEvent, InteractiveLe
         activePageIndex: prevPageIndex,
         activeChunkIndex: prevPage.chunksIds.length - 1,
         activeChunk: activeChunk,
+        allTextAreasAdded: true,
         unlockedChunkComponents: unlockedChunkComponents)));
   }
 
@@ -220,6 +228,7 @@ class InteractiveLessonsBloc extends Bloc<InteractiveLessonsEvent, InteractiveLe
       activeChunkIndex: nextChunkIndex,
       unlockedChunkComponents: unlockedChunkComponents,
       unlockedChunksByPage: _updateUnlockedChunks(activePage.id, nextChunk),
+      allTextAreasAdded: false,
     )));
   }
 

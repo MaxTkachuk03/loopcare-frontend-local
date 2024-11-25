@@ -9,7 +9,12 @@ import 'package:loopcare_frontend/features/education/application/education_servi
 import 'package:loopcare_frontend/features/education/domain/data_transformer.dart';
 import 'package:loopcare_frontend/features/education/domain/interactive_lesson/interactive_lesson.dart';
 import 'package:loopcare_frontend/features/education/infrastructure/interactive_lesson_mock_new_structure.dart';
+import 'package:loopcare_frontend/features/education/infrastructure/commitment_mock.dart';
+import 'package:loopcare_frontend/features/education/infrastructure/nutrition_mock.dart';
+import 'package:loopcare_frontend/features/education/infrastructure/test_mock.dart';
+
 import 'package:loopcare_frontend/features/lesson_quiz/domain/quiz.dart';
+
 // import 'package:loopcare_frontend/features/education/infrastructure/lesson_mock.dart';
 // import 'package:loopcare_frontend/features/education/infrastructure/lessons_mock.dart';
 
@@ -56,7 +61,15 @@ class APIEducationService implements EducationService {
 
   @override
   Future<Either<RequestError, InteractiveLesson>> getInteractiveLesson(int lessonId) async {
-    return right(InteractiveLesson.fromJson(interactiveLesson));
+    if (lessonId == 6) {
+      return right(InteractiveLesson.fromJson(commitmentLesson));
+    } else if (lessonId == 7) {
+      return right(InteractiveLesson.fromJson(nutritionLesson));
+    } else if (lessonId == 5) {
+      return right(InteractiveLesson.fromJson(interactiveLesson));
+    } else {
+      return right(InteractiveLesson.fromJson(testLesson));
+    }
 
     // return client.get(
     //   '/education/intractive-lesson/$lessonId',

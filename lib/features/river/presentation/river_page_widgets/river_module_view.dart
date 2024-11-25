@@ -86,6 +86,9 @@ class _RiverScreenState extends State<RiverScreen> with RiverUtils {
   }
 
   void _onItemPressed(RiverModuleItem item) {
+    print('----------------item-----------');
+    print(item);
+
     if (item.states.prevItemState.isLocked) {
       _bounceParentItem(item);
     } else if (isBeginning) {

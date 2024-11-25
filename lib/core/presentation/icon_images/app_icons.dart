@@ -248,6 +248,12 @@ class AppIcons {
   static SvgPicture maleAvatarTone3 = SvgPicture.asset('$iconsFilePath/male_avatar_tone3.svg');
   static SvgPicture maleAvatarTone4 = SvgPicture.asset('$iconsFilePath/male_avatar_tone4.svg');
 
+  static SvgPicture nutritionSubtract = SvgPicture.asset(
+    '$iconsFilePath/subtract.svg',
+    width: 20.0,
+    height: 20.0,
+  );
+
   static const String avatarIconPhotoPath = '$iconsFilePath/user_avatar_icon_photo.svg';
   static const String avatarIconBluePath = '$iconsFilePath/user_avatar_icon_blue.svg';
 
@@ -260,15 +266,12 @@ class AppIcons {
           height: 44,
           colorFilter: ColorFilter.mode(clicked ? clickedColor : regularColor, BlendMode.srcIn));
 
-  static ClipOval interactiveLessonAddTextField(
+  static SvgPicture interactiveLessonAddTextField(
           bool clicked, Color clickedColor, Color regularColor) =>
-      ClipOval(
-        child: SvgPicture.asset('$iconsFilePath/add_textfield.svg',
-            width: 44,
-            height: 44,
-            colorFilter:
-                ColorFilter.mode(clicked ? clickedColor : regularColor, BlendMode.modulate)),
-      );
+      SvgPicture.asset('$iconsFilePath/add_textfield.svg',
+          width: 44,
+          height: 44,
+          colorFilter: ColorFilter.mode(clicked ? clickedColor : regularColor, BlendMode.modulate));
 
   static SvgPicture interactiveLessonEditPencil(
           bool clicked, Color clickedColor, Color regularColor) =>

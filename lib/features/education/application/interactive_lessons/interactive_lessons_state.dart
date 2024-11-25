@@ -74,6 +74,21 @@ class InteractiveLessonsStateData with _$InteractiveLessonsStateData {
     return componentsWithProgress.length == quizComponents.length;
   }
 
+  bool hasProgress(List<InteractiveLessonChunkComponent> unlockedChunkComponents) {
+    final quizComponents = unlockedChunkComponents.where((c) =>
+        c.type != InteractiveLessonComponentType.image &&
+        c.type != InteractiveLessonComponentType.markdown);
+    return quizComponents.every((c) {
+      if (c.type == InteractiveLessonComponentType.textArea) {
+        final textAreaHistoryText = c.progress?.history?.every((c) => c.text.isNotEmpty);
+        return (c.progress?.history?.length ==
+                (c as InteractiveLessonChunkComponentTextArea).minTextFieldsAmount) &&
+            textAreaHistoryText!;
+      }
+      return c.progress != null;
+    });
+  }
+
   List<InteractiveLessonChunk> get activePageUnlockedChunks =>
       unlockedChunksByPage[activePage?.id ?? 0] ?? [];
 

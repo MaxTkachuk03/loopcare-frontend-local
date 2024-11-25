@@ -1,12 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loopcare_frontend/core/presentation/buttons/custom_icon_button.dart';
 import 'package:loopcare_frontend/core/presentation/category_label/category_label.dart';
 import 'package:loopcare_frontend/core/presentation/icon_images/app_icons.dart';
 import 'package:loopcare_frontend/core/presentation/text/custom_text.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 import 'package:loopcare_frontend/core/presentation/utils/build_context_extensions.dart';
-import 'package:loopcare_frontend/features/education/application/interactive_lessons/interactive_lessons_bloc.dart';
 import 'package:loopcare_frontend/features/education/domain/interactive_lesson/interactive_lesson_chunk_component.dart';
 import 'package:loopcare_frontend/features/education/domain/interactive_lesson/interactive_lesson_text_area_history.dart';
 import 'package:loopcare_frontend/features/education/domain/interactive_lesson/text_field_content/text_field_content.dart';
@@ -36,15 +34,14 @@ class LongAnswerTextArea extends StatefulWidget {
 
 class _LongAnswerTextAreaState extends State<LongAnswerTextArea> {
   String text = '';
+  int numberOfTextField = 1;
+  bool editPermission = false;
+
   final List<bool> _isButtonDisabled = [];
   final List<String> successText = [];
-  int numberOfTextField = 1;
-
   final List<TextEditingController> _controllers = [];
   final List<bool> _disabled = [];
-
   final List<DateTime> _dateTime = [];
-  bool editPermission = false;
   final List<FocusNode> _focusNodes = [];
   final List<InteractiveLessonTextAreaHistory> componentHistory = [];
 
@@ -70,8 +67,7 @@ class _LongAnswerTextAreaState extends State<LongAnswerTextArea> {
     componentHistory.addAll(history);
 
     for (int i = 0; i < history.length; i++) {
-      _controllers.add(TextEditingController());
-      _controllers[i].text = history[i].text;
+      _controllers.add(TextEditingController(text: history[i].text));
       _isButtonDisabled.add(false);
       successText.add('Saved');
       _dateTime.add(DateTime.timestamp());
@@ -107,18 +103,14 @@ class _LongAnswerTextAreaState extends State<LongAnswerTextArea> {
 
     if (numberOfTextField == 1 && componentHistory.isNotEmpty && componentHistory[i].text.isEmpty) {
       componentHistory[i] =
-          InteractiveLessonTextAreaHistory(text: textToSave, createdAt: _dateTime[i]);
+          InteractiveLessonTextAreaHistory(text: textToSave, updatedAt: _dateTime[i]);
     } else {
       final answer = InteractiveLessonTextAreaHistory(text: textToSave, createdAt: _dateTime[i]);
       componentHistory.add(answer);
     }
 
-    // заглушка, delete after add backend
-    // if (numberOfTextField == widget.component.minTextFieldsAmount) {
     widget.onSaveProgress(
         InteractiveLessonComponentProgress(history: componentHistory), widget.component);
-
-    // }
 
     _isButtonDisabled[i] = false;
   }
@@ -181,25 +173,6 @@ class _LongAnswerTextAreaState extends State<LongAnswerTextArea> {
   }
 
   @override
-  void didUpdateWidget(covariant LongAnswerTextArea oldWidget) {
-    super.didUpdateWidget(oldWidget);
-    // Check if the component or chunkId has changed (indicating a new page)
-    if (oldWidget.component.id != widget.component.id ||
-        oldWidget.component.chunkId != widget.component.chunkId) {
-      // Clear old data
-      _controllers.clear();
-      _disabled.clear();
-      _isButtonDisabled.clear();
-      successText.clear();
-      _dateTime.clear();
-      _focusNodes.clear();
-      componentHistory.clear();
-      // reinitialize state (e.g., fetch new data for the new component)
-      _init();
-    }
-  }
-
-  @override
   void dispose() {
     for (final controller in _controllers) {
       controller.dispose();
@@ -212,76 +185,68 @@ class _LongAnswerTextAreaState extends State<LongAnswerTextArea> {
 
   TextFieldContent get content => widget.component.content;
 
-  bool checkAllComponents() {
-    return _controllers.every((controller) => controller.text.isNotEmpty);
-  }
-
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<InteractiveLessonsBloc, InteractiveLessonsState>(
-      builder: (context, state) {
-        return Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            CategoryLabel.interactiveLesson(
-              label: LocalizedTexts.interactiveLessonsTextAreaLabel.tr(),
-              lessonStreamType: widget.lessonStreamType,
-            ),
-            const SizedBox(height: 20),
-            CustomText(
-              content.question,
-              style: context.textTheme.bodyMedium!.copyWith(fontWeight: FontWeight.w700),
-            ),
-            const SizedBox(height: 20),
-            ListView.separated(
-              separatorBuilder: (_, __) => const SizedBox(
-                height: 10,
-              ),
-              physics: const NeverScrollableScrollPhysics(),
-              shrinkWrap: true,
-              itemCount: _controllers.length,
-              itemBuilder: (context, i) => LongAnswerTextAreaItem(
-                text: _controllers[i].text,
-                readOnly: _disabled[i],
-                focusNode: _focusNodes[i],
-                isButtonDisabled: _isButtonDisabled[i],
-                successText: successText[i],
-                controller: _controllers[i],
-                dateTime: _dateTime[i],
-                lessonStreamType: widget.lessonStreamType,
-                clearTextHandler: () => _clearTextHandler(i),
-                editTextHandler: () => _editTextHandler(i),
-                onSaveHandler: (text) => _onSaveHandler(text, i),
-                onChangeHandler: (text) => _onChangeHandler(text, i),
-                maxLength: widget.component.maxCharsLength,
-              ),
-            ),
-            const SizedBox(
-              height: 20,
-            ),
-            numberOfTextField == widget.component.maxTextFieldsAmount
-                ? Container()
-                : Column(
-                    children: [
-                      Center(
-                        child: CustomIconButton.custom(
-                          onPressed: !editPermission ? null : _addComponent,
-                          icon: AppIcons.interactiveLessonAddTextField(editPermission,
-                              widget.lessonStreamType.lighterColor, AppColors.greyLighter),
-                        ),
-                      ),
-                      Center(
-                        child: CustomText(
-                          'Add textfield',
-                          style:
-                              context.textTheme.bodyMedium!.copyWith(fontWeight: FontWeight.w400),
-                        ),
-                      ),
-                    ],
-                  )
-          ],
-        );
-      },
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        CategoryLabel.interactiveLesson(
+          label: LocalizedTexts.interactiveLessonsTextAreaLabel.tr(),
+          lessonStreamType: widget.lessonStreamType,
+        ),
+        const SizedBox(height: 20),
+        CustomText(
+          content.question,
+          style: context.textTheme.bodyMedium!.copyWith(fontWeight: FontWeight.w700),
+        ),
+        const SizedBox(height: 20),
+        ListView.separated(
+          separatorBuilder: (_, __) => const SizedBox(
+            height: 10,
+          ),
+          physics: const NeverScrollableScrollPhysics(),
+          shrinkWrap: true,
+          itemCount: _controllers.length,
+          itemBuilder: (context, i) => LongAnswerTextAreaItem(
+            key: ValueKey(i),
+            text: _controllers[i].text,
+            readOnly: _disabled[i],
+            focusNode: _focusNodes[i],
+            isButtonDisabled: _isButtonDisabled[i],
+            successText: successText[i],
+            controller: _controllers[i],
+            dateTime: _dateTime[i],
+            lessonStreamType: widget.lessonStreamType,
+            clearTextHandler: () => _clearTextHandler(i),
+            editTextHandler: () => _editTextHandler(i),
+            onSaveHandler: (text) => _onSaveHandler(text, i),
+            onChangeHandler: (text) => _onChangeHandler(text, i),
+            maxLength: widget.component.maxCharsLength,
+          ),
+        ),
+        const SizedBox(
+          height: 20,
+        ),
+        numberOfTextField == widget.component.maxTextFieldsAmount
+            ? Container()
+            : Column(
+                children: [
+                  Center(
+                    child: CustomIconButton.custom(
+                      onPressed: !editPermission ? null : _addComponent,
+                      icon: AppIcons.interactiveLessonAddTextField(editPermission,
+                          widget.lessonStreamType.lighterColor, AppColors.greyLighter),
+                    ),
+                  ),
+                  Center(
+                    child: CustomText(
+                      'Add textfield',
+                      style: context.textTheme.bodyMedium!.copyWith(fontWeight: FontWeight.w400),
+                    ),
+                  ),
+                ],
+              )
+      ],
     );
   }
 }
