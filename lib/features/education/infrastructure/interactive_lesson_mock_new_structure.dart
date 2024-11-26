@@ -4,7 +4,8 @@ var interactiveLesson = {
   "title": "What's your why",
   "jumpBoardTitle": "",
   "jumpBoardDescription": "",
-  "conclusion": "Well done, you've taken another step to a healthier lifestyle!",
+  "conclusion":
+      "Well done, you've taken another step to a healthier lifestyle!",
   "unlockTitle": "Reflections unlocked"
       "The Reflections provide a space for you to note down your thoughts to the Mind topics and tasks. Take some time and reflect on your why you want to change your current lifestyle and note it down in the Reflection.",
   "unlockDescription":
@@ -93,32 +94,14 @@ var interactiveLesson = {
     "2": {
       "id": 2,
       "chunkId": 2,
-      "type": "multipleSelect",
+      "type": "markdown",
       "needsValidation": false,
-      "isValid": false,
+      "isValid": true,
       "content": {
-        "question": "My question. Select multiple answers.",
-        "answers": [
-          {"id": 1, "label": "Answer 1", "isCorrect": null},
-          {"id": 2, "label": "Answer 2", "isCorrect": null},
-          {"id": 3, "label": "Answer 3", "isCorrect": null},
-          {"id": 4, "label": "Answer 4", "isCorrect": null}
-        ],
-        "feedbackCorrect": null,
-        "feedbackIncorrect": null
-      },
+        "markdown":
+            "##**So here is the first important question you have to ask yourself: How high is your motivation to change your habits and your behavior?**\n\nTo answer this you have to look at both sides - take a look at the advantages as well as the disadvantages of changing your behavior with regard to your eating and exercise habits. After that, consider the pros and cons of just keeping things as they are and not changing anything about your lifestyle.\n\nEven here always look at both sides and that means considering the advantages of not changing your current lifestyle as well as the disadvantages.\n\nDon’t forget to think about the long-term and short-term!There is no time like the present! Ready?"
+      }
     },
-    // "2": {
-    //   "id": 2,
-    //   "chunkId": 2,
-    //   "type": "markdown",
-    //   "needsValidation": false,
-    //   "isValid": true,
-    //   "content": {
-    //     "markdown":
-    //         "##**So here is the first important question you have to ask yourself: How high is your motivation to change your habits and your behavior?**\n\nTo answer this you have to look at both sides - take a look at the advantages as well as the disadvantages of changing your behavior with regard to your eating and exercise habits. After that, consider the pros and cons of just keeping things as they are and not changing anything about your lifestyle.\n\nEven here always look at both sides and that means considering the advantages of not changing your current lifestyle as well as the disadvantages.\n\nDon’t forget to think about the long-term and short-term!There is no time like the present! Ready?"
-    //   }
-    // },
     "3": {
       "id": 3,
       "chunkId": 3,
@@ -141,6 +124,7 @@ var interactiveLesson = {
       "minTextFieldsAmount": 3,
       "content": {
         "question": "What are the benefits of changing your behavior?",
+        "subtext": "Explain more detailed",
       }
     },
     "5": {
@@ -165,6 +149,7 @@ var interactiveLesson = {
       "minTextFieldsAmount": 1,
       "content": {
         "question": "What are the disadvantages of changing your behavior?",
+        "subtext": "Explain more detailed",
       }
     },
     "7": {
@@ -188,7 +173,9 @@ var interactiveLesson = {
       "maxTextFieldsAmount": 1,
       "minTextFieldsAmount": 1,
       "content": {
-        "question": "What the advantages of not changing your behavior and continuing as before?",
+        "question":
+            "What the advantages of not changing your behavior and continuing as before?",
+        "subtext": "Explain more detailed",
       }
     },
     "9": {
@@ -213,6 +200,7 @@ var interactiveLesson = {
       "minTextFieldsAmount": 1,
       "content": {
         "question": "What are the disadvantages of continuing as before?",
+        "subtext": "Explain more detailed",
       }
     }
   }

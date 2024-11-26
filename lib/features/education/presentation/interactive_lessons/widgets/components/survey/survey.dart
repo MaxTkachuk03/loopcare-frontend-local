@@ -6,56 +6,54 @@ import 'package:loopcare_frontend/core/presentation/utils/build_context_extensio
 import 'package:loopcare_frontend/features/education/domain/interactive_lesson/interactive_lesson_chunk_component.dart';
 import 'package:loopcare_frontend/features/education/domain/interactive_lesson/select_content/content_select_answer.dart';
 import 'package:loopcare_frontend/features/education/domain/interactive_lesson/select_content/select_content.dart';
-import 'package:loopcare_frontend/features/education/presentation/interactive_lessons/widgets/components/single_select_with_feedback/select_feedback.dart';
 import 'package:loopcare_frontend/features/river/domain/river_module_stream_type.dart';
-import 'package:loopcare_frontend/localization/service/localization_extension.dart';
-import 'package:loopcare_frontend/localization/service/localized_texts.dart';
 import 'package:loopcare_frontend/features/education/domain/interactive_lesson/interactive_lesson_component_progress.dart';
 
-class SingleSelectWithFeedback extends StatefulWidget {
-  const SingleSelectWithFeedback({
+class Survey extends StatefulWidget {
+  const Survey({
     super.key,
     required this.component,
     required this.lessonStreamType,
     required this.onSaveProgress,
   });
 
-  final InteractiveLessonChunkComponentSingleSelectWithFeedback component;
+  final InteractiveLessonChunkComponentSurvey component;
   final RiverModuleStreamType lessonStreamType;
   final Function(InteractiveLessonComponentProgress progress,
       InteractiveLessonChunkComponent component) onSaveProgress;
 
   @override
-  State<SingleSelectWithFeedback> createState() =>
-      _SingleSelectWithFeedbackState();
+  State<Survey> createState() => _SurveyState();
 }
 
-class _SingleSelectWithFeedbackState extends State<SingleSelectWithFeedback> {
-  final List<int> _selectedAnswer = [];
-  ContentSelectAnswer? _answerForFeedback;
+class _SurveyState extends State<Survey> {
+  int? _selectedAnswer;
 
   @override
   initState() {
     super.initState();
     if (widget.component.progress == null) return;
-    final optionId = widget.component.progress!.optionIds!.first;
+    final surveyId = widget.component.progress!.survey;
     final answer = widget.component.content.answers
-        .where((answer) => answer.id == optionId)
+        .where((answer) => answer.id == surveyId)
         .first;
-    _selectedAnswer.add(answer.id);
-    _answerForFeedback = answer;
+
+    setState(() {
+      _selectedAnswer = answer.id;
+    });
   }
 
   void _onSelected(ContentSelectAnswer value) {
-    if (_selectedAnswer.isNotEmpty) return;
+    if (_selectedAnswer != null) {
+      return;
+    }
 
     setState(() {
-      _selectedAnswer.add(value.id);
-      _answerForFeedback = value;
+      _selectedAnswer = value.id;
     });
 
     widget.onSaveProgress(
-        InteractiveLessonComponentProgress(optionIds: _selectedAnswer),
+        InteractiveLessonComponentProgress(survey: _selectedAnswer),
         widget.component);
   }
 
@@ -67,7 +65,7 @@ class _SingleSelectWithFeedbackState extends State<SingleSelectWithFeedback> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         CategoryLabel.interactiveLesson(
-          label: LocalizedTexts.interactiveLessonsSingleSelectLabel.tr(),
+          label: 'Question',
           lessonStreamType: widget.lessonStreamType,
         ),
         const SizedBox(height: 20),
@@ -84,7 +82,7 @@ class _SingleSelectWithFeedbackState extends State<SingleSelectWithFeedback> {
           itemCount: content.answers.length,
           itemBuilder: (context, index) {
             final answer = content.answers[index];
-            final isSelected = answer == _answerForFeedback;
+            final isSelected = _selectedAnswer == answer.id;
 
             return CustomChoiceChip.green(
               label: answer.label,
@@ -94,8 +92,6 @@ class _SingleSelectWithFeedbackState extends State<SingleSelectWithFeedback> {
             );
           },
         ),
-        SelectFeedback(
-            component: widget.component, selectedAnswer: _answerForFeedback),
       ],
     );
   }

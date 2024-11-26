@@ -16,9 +16,8 @@ import 'package:loopcare_frontend/features/education/domain/interactive_lesson/i
 class Scale extends StatefulWidget {
   final InteractiveLessonChunkComponentScale component;
   final RiverModuleStreamType lessonStreamType;
-  final Function(
-          InteractiveLessonComponentProgress progress, InteractiveLessonChunkComponent component)
-      onSaveProgress;
+  final Function(InteractiveLessonComponentProgress progress,
+      InteractiveLessonChunkComponent component) onSaveProgress;
 
   const Scale({
     super.key,
@@ -32,27 +31,37 @@ class Scale extends StatefulWidget {
 }
 
 class _ScaleState extends State<Scale> {
-  int? _selectedScore;
+  final List<int> _selectedScore = [];
 
   @override
   initState() {
     super.initState();
     if (widget.component.progress == null) return;
-    final optionId = widget.component.progress!.optionId;
-    _selectedScore = optionId;
+    _selectedScore.add(widget.component.progress!.optionIds!.first);
   }
 
   void _onSelectedHandler(int value) {
-    setState(() {
-      _selectedScore = _selectedScore == value ? null : value;
-    });
+    if (_selectedScore.contains(value)) {
+      return;
+    } else if (_selectedScore.isNotEmpty) {
+      setState(() {
+        _selectedScore.removeLast();
+        _selectedScore.add(value);
+      });
+    } else {
+      setState(() {
+        _selectedScore.add(value);
+      });
+    }
 
     widget.onSaveProgress(
-        InteractiveLessonComponentProgress(optionId: _selectedScore), widget.component);
+        InteractiveLessonComponentProgress(optionIds: _selectedScore),
+        widget.component);
   }
 
   bool get hasFeedback =>
-      widget.component.content.feedback != null && widget.component.content.feedback!.isNotEmpty;
+      widget.component.content.feedback != null &&
+      widget.component.content.feedback!.isNotEmpty;
 
   @override
   Widget build(BuildContext context) {
@@ -66,12 +75,14 @@ class _ScaleState extends State<Scale> {
         const SizedBox(height: 20),
         CustomText(
           widget.component.content.question,
-          style: context.textTheme.bodyMedium!.copyWith(fontWeight: FontWeight.w700),
+          style: context.textTheme.bodyMedium!
+              .copyWith(fontWeight: FontWeight.w700),
         ),
         const SizedBox(height: 20),
         ScoringScale(
           selectedColor: AppColors.greenRegular,
-          selectedScore: _selectedScore,
+          selectedScore:
+              _selectedScore.isNotEmpty ? _selectedScore.first : null,
           onScoreTap: _onSelectedHandler,
           scaleSize: widget.component.content.values.length,
           labels: widget.component.content.values.map((o) => o.label).toList(),
@@ -79,8 +90,10 @@ class _ScaleState extends State<Scale> {
         ),
         const SizedBox(height: 14),
         ScaleBottom(content: widget.component.content),
-        if (hasFeedback && _selectedScore != null)
-          ScaleFeedback(component: widget.component, selectedScore: _selectedScore! + 1),
+        if (hasFeedback && _selectedScore.isNotEmpty)
+          ScaleFeedback(
+              component: widget.component,
+              selectedScore: _selectedScore.first + 1),
       ],
     );
   }

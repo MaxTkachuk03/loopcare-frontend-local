@@ -20,13 +20,14 @@ class LongAnswerTextArea extends StatefulWidget {
     required this.component,
     required this.lessonStreamType,
     required this.onSaveProgress,
+    required this.isAllTextAreasAdded,
   });
 
   final InteractiveLessonChunkComponentTextArea component;
   final RiverModuleStreamType lessonStreamType;
-  final Function(
-          InteractiveLessonComponentProgress progress, InteractiveLessonChunkComponent component)
-      onSaveProgress;
+  final Function(InteractiveLessonComponentProgress progress,
+      InteractiveLessonChunkComponent component) onSaveProgress;
+  final bool isAllTextAreasAdded;
 
   @override
   State<LongAnswerTextArea> createState() => _LongAnswerTextAreaState();
@@ -36,6 +37,8 @@ class _LongAnswerTextAreaState extends State<LongAnswerTextArea> {
   String text = '';
   int numberOfTextField = 1;
   bool editPermission = false;
+  bool isEditing = false;
+  bool canDelete = false;
 
   final List<bool> _isButtonDisabled = [];
   final List<String> successText = [];
@@ -47,24 +50,15 @@ class _LongAnswerTextAreaState extends State<LongAnswerTextArea> {
 
   @override
   void initState() {
-    _init();
-    super.initState();
-  }
-
-  void _init() {
     if (widget.component.progress == null) {
-      _controllers.add(TextEditingController());
-      _disabled.add(false);
-      _isButtonDisabled.add(false);
-      successText.add('');
-      numberOfTextField = 1;
-      _focusNodes.add(FocusNode());
-      _dateTime.add(DateTime.timestamp());
+      initTextArea();
       return;
     }
 
     final history = widget.component.progress!.history!;
+
     componentHistory.addAll(history);
+    setDeleteButtonStatus();
 
     for (int i = 0; i < history.length; i++) {
       _controllers.add(TextEditingController(text: history[i].text));
@@ -73,16 +67,31 @@ class _LongAnswerTextAreaState extends State<LongAnswerTextArea> {
       _dateTime.add(DateTime.timestamp());
       _focusNodes.add(FocusNode());
       numberOfTextField = i + 1;
+      _disabled.add(true);
+      editPermission = true;
+    }
+    super.initState();
+  }
 
-      if (history[i].text.isNotEmpty) {
-        editPermission = true;
-      }
+  void initTextArea() {
+    _controllers.add(TextEditingController());
+    _disabled.add(false);
+    _isButtonDisabled.add(false);
+    successText.add('');
+    numberOfTextField = 1;
+    _focusNodes.add(FocusNode());
+    _dateTime.add(DateTime.timestamp());
+  }
 
-      if (history[i].text.isEmpty) {
-        _disabled.add(false);
-      } else {
-        _disabled.add(true);
-      }
+  void setDeleteButtonStatus() {
+    if (componentHistory.length > widget.component.minTextFieldsAmount) {
+      setState(() {
+        canDelete = true;
+      });
+    } else {
+      setState(() {
+        canDelete = false;
+      });
     }
   }
 
@@ -101,62 +110,56 @@ class _LongAnswerTextAreaState extends State<LongAnswerTextArea> {
       _disabled[i] = true;
     });
 
-    if (numberOfTextField == 1 && componentHistory.isNotEmpty && componentHistory[i].text.isEmpty) {
-      componentHistory[i] =
-          InteractiveLessonTextAreaHistory(text: textToSave, updatedAt: _dateTime[i]);
+    if (isEditing) {
+      componentHistory[i] = InteractiveLessonTextAreaHistory(
+          text: textToSave,
+          updatedAt: _dateTime[i],
+          createdAt: componentHistory[i].createdAt);
+      setState(() {
+        isEditing = false;
+      });
     } else {
-      final answer = InteractiveLessonTextAreaHistory(text: textToSave, createdAt: _dateTime[i]);
+      final answer = InteractiveLessonTextAreaHistory(
+          text: textToSave, createdAt: _dateTime[i]);
       componentHistory.add(answer);
+      setDeleteButtonStatus();
     }
 
     widget.onSaveProgress(
-        InteractiveLessonComponentProgress(history: componentHistory), widget.component);
+        InteractiveLessonComponentProgress(history: componentHistory),
+        widget.component);
 
-    _isButtonDisabled[i] = false;
+    setState(() {
+      _isButtonDisabled[i] = false;
+    });
   }
 
   void _editTextHandler(int i) {
     setState(() {
       _disabled[i] = false;
+      isEditing = true;
     });
 
     _focusNodes[i].requestFocus();
-
-    componentHistory.removeAt(i);
-
-    widget.onSaveProgress(
-        InteractiveLessonComponentProgress(history: componentHistory), widget.component);
   }
 
   void _clearTextHandler(int i) {
     setState(() {
-      if (numberOfTextField > 1) {
-        numberOfTextField--;
-
-        _controllers.removeAt(i);
-        _disabled.removeAt(i);
-        successText.removeAt(i);
-        _focusNodes.removeAt(i);
-        _isButtonDisabled.removeAt(i);
-        _dateTime.removeAt(i);
-        componentHistory.removeAt(i);
-      } else {
-        _controllers[i].clear();
-        componentHistory[i] =
-            InteractiveLessonTextAreaHistory(text: _controllers[i].text, createdAt: _dateTime[i]);
-        setState(() {
-          _disabled[i] = false;
-          editPermission = false;
-        });
-      }
-
-      _changeHistory(i);
+      numberOfTextField--;
+      _controllers.removeAt(i);
+      _disabled.removeAt(i);
+      successText.removeAt(i);
+      _focusNodes.removeAt(i);
+      _isButtonDisabled.removeAt(i);
+      _dateTime.removeAt(i);
+      componentHistory.removeAt(i);
     });
-  }
 
-  void _changeHistory(int i) {
+    setDeleteButtonStatus();
+
     widget.onSaveProgress(
-        InteractiveLessonComponentProgress(history: List.of(componentHistory)), widget.component);
+        InteractiveLessonComponentProgress(history: componentHistory),
+        widget.component);
   }
 
   void _addComponent() {
@@ -197,7 +200,18 @@ class _LongAnswerTextAreaState extends State<LongAnswerTextArea> {
         const SizedBox(height: 20),
         CustomText(
           content.question,
-          style: context.textTheme.bodyMedium!.copyWith(fontWeight: FontWeight.w700),
+          style: context.textTheme.bodyMedium!
+              .copyWith(fontWeight: FontWeight.w700),
+        ),
+        Column(
+          children: [
+            const SizedBox(height: 10),
+            CustomText(
+              content.subtext!,
+              style: context.textTheme.bodyMedium!
+                  .copyWith(fontWeight: FontWeight.w400),
+            ),
+          ],
         ),
         const SizedBox(height: 20),
         ListView.separated(
@@ -222,6 +236,7 @@ class _LongAnswerTextAreaState extends State<LongAnswerTextArea> {
             onSaveHandler: (text) => _onSaveHandler(text, i),
             onChangeHandler: (text) => _onChangeHandler(text, i),
             maxLength: widget.component.maxCharsLength,
+            canDelete: canDelete,
           ),
         ),
         const SizedBox(
@@ -234,14 +249,17 @@ class _LongAnswerTextAreaState extends State<LongAnswerTextArea> {
                   Center(
                     child: CustomIconButton.custom(
                       onPressed: !editPermission ? null : _addComponent,
-                      icon: AppIcons.interactiveLessonAddTextField(editPermission,
-                          widget.lessonStreamType.lighterColor, AppColors.greyLighter),
+                      icon: AppIcons.interactiveLessonAddTextField(
+                          editPermission,
+                          widget.lessonStreamType.lighterColor,
+                          AppColors.greyLighter),
                     ),
                   ),
                   Center(
                     child: CustomText(
                       'Add textfield',
-                      style: context.textTheme.bodyMedium!.copyWith(fontWeight: FontWeight.w400),
+                      style: context.textTheme.bodyMedium!
+                          .copyWith(fontWeight: FontWeight.w400),
                     ),
                   ),
                 ],

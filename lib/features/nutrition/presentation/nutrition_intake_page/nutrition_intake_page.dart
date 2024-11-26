@@ -64,8 +64,8 @@ class NutritionIntakePage extends StatelessWidget {
                         const SizedBox(height: 20.0),
                         CustomText(
                           'Select the meal you want to answer the survey for.',
-                          style:
-                              context.textTheme.bodyMedium!.copyWith(fontWeight: FontWeight.w700),
+                          style: context.textTheme.bodyMedium!
+                              .copyWith(fontWeight: FontWeight.w700),
                         ),
                         const SizedBox(height: 20.0),
                         Row(

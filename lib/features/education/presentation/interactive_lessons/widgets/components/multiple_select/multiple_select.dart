@@ -21,9 +21,8 @@ class MultipleSelect extends StatefulWidget {
 
   final InteractiveLessonChunkComponentMultipleSelect component;
   final RiverModuleStreamType lessonStreamType;
-  final Function(
-          InteractiveLessonComponentProgress progress, InteractiveLessonChunkComponent component)
-      onSaveProgress;
+  final Function(InteractiveLessonComponentProgress progress,
+      InteractiveLessonChunkComponent component) onSaveProgress;
 
   @override
   State<MultipleSelect> createState() => _MultipleSelectState();
@@ -31,7 +30,7 @@ class MultipleSelect extends StatefulWidget {
 
 class _MultipleSelectState extends State<MultipleSelect> {
   final List<ContentSelectAnswer> _selectedAnswers = [];
-  bool isSaved = false;
+  bool isButtonDisabled = true;
 
   @override
   void initState() {
@@ -47,7 +46,6 @@ class _MultipleSelectState extends State<MultipleSelect> {
         }
       }
     }).toList();
-    isSaved = true;
     super.initState();
   }
 
@@ -57,7 +55,7 @@ class _MultipleSelectState extends State<MultipleSelect> {
     }
 
     setState(() {
-      isSaved = false;
+      isButtonDisabled = false;
       _selectedAnswers.contains(value)
           ? _selectedAnswers.remove(value)
           : _selectedAnswers.add(value);
@@ -65,17 +63,14 @@ class _MultipleSelectState extends State<MultipleSelect> {
   }
 
   void _onCheckOrderHandler() {
-    final order = _onGetOrder();
+    final order = _selectedAnswers.map((o) => o.id).toList();
+
+    widget.onSaveProgress(
+        InteractiveLessonComponentProgress(optionIds: order), widget.component);
 
     setState(() {
-      isSaved = true;
+      isButtonDisabled = true;
     });
-
-    widget.onSaveProgress(InteractiveLessonComponentProgress(optionIds: order), widget.component);
-  }
-
-  List<int> _onGetOrder() {
-    return _selectedAnswers.map((o) => o.id).toList();
   }
 
   SelectContent get content => widget.component.content;
@@ -92,7 +87,8 @@ class _MultipleSelectState extends State<MultipleSelect> {
         const SizedBox(height: 20),
         CustomText(
           content.question,
-          style: context.textTheme.bodyMedium!.copyWith(fontWeight: FontWeight.w700),
+          style: context.textTheme.bodyMedium!
+              .copyWith(fontWeight: FontWeight.w700),
         ),
         const SizedBox(height: 20),
         ListView.separated(
@@ -116,7 +112,7 @@ class _MultipleSelectState extends State<MultipleSelect> {
           height: 15,
         ),
         CustomElevatedButton.blueFullWidth(
-          onPressed: isSaved ? null : _onCheckOrderHandler,
+          onPressed: isButtonDisabled ? null : _onCheckOrderHandler,
           label: LocalizedTexts.interactiveLessonsMultipleChoiceBtnLabel.tr(),
         ),
       ],

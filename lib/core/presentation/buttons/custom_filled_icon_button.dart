@@ -30,7 +30,8 @@ class CustomFilledIconButton extends StatelessWidget {
         styles: IconButton.styleFrom(backgroundColor: color),
       );
 
-  factory CustomFilledIconButton.leadingCoralLighter({void Function()? onPressed}) =>
+  factory CustomFilledIconButton.leadingCoralLighter(
+          {void Function()? onPressed}) =>
       CustomFilledIconButton(
         icon: const Icon(Icons.chevron_left_rounded),
         onPressed: onPressed,
@@ -38,7 +39,8 @@ class CustomFilledIconButton extends StatelessWidget {
         styles: IconButton.styleFrom(backgroundColor: AppColors.coralLighter),
       );
 
-  factory CustomFilledIconButton.leadingOrangeLighter({void Function()? onPressed}) =>
+  factory CustomFilledIconButton.leadingOrangeLighter(
+          {void Function()? onPressed}) =>
       CustomFilledIconButton(
         icon: const Icon(Icons.chevron_left_rounded),
         onPressed: onPressed,
@@ -46,7 +48,8 @@ class CustomFilledIconButton extends StatelessWidget {
         styles: IconButton.styleFrom(backgroundColor: AppColors.orangeLighter),
       );
 
-  factory CustomFilledIconButton.leadingYellowLighter({void Function()? onPressed}) =>
+  factory CustomFilledIconButton.leadingYellowLighter(
+          {void Function()? onPressed}) =>
       CustomFilledIconButton(
         icon: const Icon(Icons.chevron_left_rounded),
         onPressed: onPressed,
@@ -54,7 +57,8 @@ class CustomFilledIconButton extends StatelessWidget {
         styles: IconButton.styleFrom(backgroundColor: AppColors.yellowLighter),
       );
 
-  factory CustomFilledIconButton.leadingGreenLighter({void Function()? onPressed}) =>
+  factory CustomFilledIconButton.leadingGreenLighter(
+          {void Function()? onPressed}) =>
       CustomFilledIconButton(
         icon: const Icon(Icons.chevron_left_rounded),
         onPressed: onPressed,
@@ -62,7 +66,8 @@ class CustomFilledIconButton extends StatelessWidget {
         styles: IconButton.styleFrom(backgroundColor: AppColors.greenLighter),
       );
 
-  factory CustomFilledIconButton.leadingPetrolLighter({void Function()? onPressed}) =>
+  factory CustomFilledIconButton.leadingPetrolLighter(
+          {void Function()? onPressed}) =>
       CustomFilledIconButton(
         icon: const Icon(Icons.chevron_left_rounded),
         onPressed: onPressed,
@@ -70,7 +75,8 @@ class CustomFilledIconButton extends StatelessWidget {
         styles: IconButton.styleFrom(backgroundColor: AppColors.petrolLighter),
       );
 
-  factory CustomFilledIconButton.leadingBlueLighter({void Function()? onPressed}) =>
+  factory CustomFilledIconButton.leadingBlueLighter(
+          {void Function()? onPressed}) =>
       CustomFilledIconButton(
         icon: const Icon(Icons.chevron_left_rounded),
         onPressed: onPressed,

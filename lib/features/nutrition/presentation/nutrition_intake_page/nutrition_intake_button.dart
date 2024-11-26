@@ -41,7 +41,8 @@ class NutritionIntakeButton extends StatelessWidget {
         CustomText.w700(
           text,
           textAlign: TextAlign.center,
-          style: context.textTheme.bodyMedium?.copyWith(color: AppColors.greyLight),
+          style: context.textTheme.bodyMedium
+              ?.copyWith(color: AppColors.greyLight),
         ),
       ],
     );

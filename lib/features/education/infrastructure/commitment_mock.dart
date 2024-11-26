@@ -87,7 +87,7 @@ var commitmentLesson = {
     "6": {
       "id": 6,
       "chunkId": 1,
-      "type": "singleSelect",
+      "type": "survey",
       "needsValidation": false,
       "isValid": false,
       "content": {

@@ -180,7 +180,8 @@ var nutritionLesson = {
       "maxTextFieldsAmount": 5,
       "minTextFieldsAmount": 3,
       "content": {
-        "question": "The only purpose of a food log is to track calories.",
+        "question": "What are the disadvantages of continuing as before?",
+        "subtext": "Explain more detailed",
       }
     },
     "4": {
@@ -236,9 +237,27 @@ var nutritionLesson = {
         "topLabel": "Most calories",
         "bottomLabel": "Least calories",
         "items": [
-          {"id": 3, "order": 2, "src": "TBD", "title": "1 white bread bun", "description": ""},
-          {"id": 4, "order": 3, "src": "TBD", "title": "2 cheese slices", "description": ""},
-          {"id": 2, "order": 1, "src": "TBD", "title": "1 cup deep fried fries", "description": ""},
+          {
+            "id": 3,
+            "order": 2,
+            "src": "TBD",
+            "title": "1 white bread bun",
+            "description": ""
+          },
+          {
+            "id": 4,
+            "order": 3,
+            "src": "TBD",
+            "title": "2 cheese slices",
+            "description": ""
+          },
+          {
+            "id": 2,
+            "order": 1,
+            "src": "TBD",
+            "title": "1 cup deep fried fries",
+            "description": ""
+          },
           {
             "id": 5,
             "order": 4,
@@ -272,7 +291,13 @@ var nutritionLesson = {
         "topLabel": "Most calories",
         "bottomLabel": "Least calories",
         "items": [
-          {"id": 3, "order": 4, "src": "TBD", "title": "1 high fiber bun", "description": ""},
+          {
+            "id": 3,
+            "order": 4,
+            "src": "TBD",
+            "title": "1 high fiber bun",
+            "description": ""
+          },
           {
             "id": 1,
             "order": 1,
@@ -280,7 +305,13 @@ var nutritionLesson = {
             "title": "4 oz 96% lean beef patty",
             "description": ""
           },
-          {"id": 4, "order": 3, "src": "TBD", "title": "1 cheese slice", "description": ""},
+          {
+            "id": 4,
+            "order": 3,
+            "src": "TBD",
+            "title": "1 cheese slice",
+            "description": ""
+          },
           {
             "id": 2,
             "order": 0,
@@ -355,11 +386,41 @@ var nutritionLesson = {
         "topLabel": "Most calories",
         "bottomLabel": "Least calories",
         "items": [
-          {"id": 2, "order": 1, "src": "TBD", "title": "80% lean beef", "description": "3.57 oz"},
-          {"id": 5, "order": 4, "src": "TBD", "title": "chicken breast", "description": "5.34 oz"},
-          {"id": 1, "order": 0, "src": "TBD", "title": "Chicken thigh", "description": "4.12 oz"},
-          {"id": 3, "order": 2, "src": "TBD", "title": "96% lean beef", "description": "4.56 oz "},
-          {"id": 4, "order": 3, "src": "TBD", "title": "plant protein", "description": "7.7 oz"}
+          {
+            "id": 2,
+            "order": 1,
+            "src": "TBD",
+            "title": "80% lean beef",
+            "description": "3.57 oz"
+          },
+          {
+            "id": 5,
+            "order": 4,
+            "src": "TBD",
+            "title": "chicken breast",
+            "description": "5.34 oz"
+          },
+          {
+            "id": 1,
+            "order": 0,
+            "src": "TBD",
+            "title": "Chicken thigh",
+            "description": "4.12 oz"
+          },
+          {
+            "id": 3,
+            "order": 2,
+            "src": "TBD",
+            "title": "96% lean beef",
+            "description": "4.56 oz "
+          },
+          {
+            "id": 4,
+            "order": 3,
+            "src": "TBD",
+            "title": "plant protein",
+            "description": "7.7 oz"
+          }
         ],
         "feedbackCorrect":
             "Do you see how small changes, like going for lower-fat ground beef or high-fiber buns, can have a big effect on the calories in the “same food”.",
@@ -401,11 +462,41 @@ var nutritionLesson = {
         "topLabel": "Most calories",
         "bottomLabel": "Least calories",
         "items": [
-          {"id": 4, "order": 3, "src": "TBD", "title": "apples", "description": "3 pieces"},
-          {"id": 2, "order": 1, "src": "TBD", "title": "brown rice", "description": "2 cups"},
-          {"id": 5, "order": 4, "src": "TBD", "title": "lettuce", "description": "5 cups"},
-          {"id": 1, "order": 0, "src": "TBD", "title": "broccoli", "description": "3 cups"},
-          {"id": 3, "order": 2, "src": "TBD", "title": "raspberries", "description": "1.5 cups"}
+          {
+            "id": 4,
+            "order": 3,
+            "src": "TBD",
+            "title": "apples",
+            "description": "3 pieces"
+          },
+          {
+            "id": 2,
+            "order": 1,
+            "src": "TBD",
+            "title": "brown rice",
+            "description": "2 cups"
+          },
+          {
+            "id": 5,
+            "order": 4,
+            "src": "TBD",
+            "title": "lettuce",
+            "description": "5 cups"
+          },
+          {
+            "id": 1,
+            "order": 0,
+            "src": "TBD",
+            "title": "broccoli",
+            "description": "3 cups"
+          },
+          {
+            "id": 3,
+            "order": 2,
+            "src": "TBD",
+            "title": "raspberries",
+            "description": "1.5 cups"
+          }
         ],
         "feedbackCorrect": "TBD",
         "feedbackIncorrect": "Try again, or tap “continue” to see the answer.",

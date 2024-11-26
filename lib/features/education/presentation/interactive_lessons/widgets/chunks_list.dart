@@ -22,32 +22,37 @@ class ChunksList extends StatefulWidget {
 class _ChunksListState extends State<ChunksList> {
   ScrollController scrollController = ScrollController();
 
-  List<Widget> _renderChunk(InteractiveLessonsStateData blocState, InteractiveLessonChunk chunk) {
+  List<Widget> _renderChunk(
+      InteractiveLessonsStateData blocState, InteractiveLessonChunk chunk) {
     final components = blocState.getChunkComponents(chunk);
     final renderedChunks = blocState.activePageUnlockedChunks;
     final showButton = renderedChunks.last.id == chunk.id;
-    final buttonEndbledOrDisabled =
+    final buttonEnabledOrDisabled =
         renderedChunks.last.id == chunk.id && blocState.isAllComponentChecked;
-    final showDivider = chunk.id != renderedChunks.last.id && renderedChunks.length > 1;
+    final showDivider =
+        chunk.id != renderedChunks.last.id && renderedChunks.length > 1;
 
     return [
       ..._renderChunkComponents(components),
       if (showDivider) const ChunkDivider(),
       if (showButton)
-        ContinueBtn(onPressed: _onContinueHandler, isDisable: !buttonEndbledOrDisabled),
+        ContinueBtn(
+            onPressed: _onContinueHandler, isDisable: !buttonEnabledOrDisabled),
     ];
   }
 
-  void onSaveProgress(
-      InteractiveLessonComponentProgress progress, InteractiveLessonChunkComponent component) {
+  void onSaveProgress(InteractiveLessonComponentProgress progress,
+      InteractiveLessonChunkComponent component) {
     final bloc = context.read<InteractiveLessonsBloc>();
     bloc.add(InteractiveLessonsEvent.saveAnswer(progress, component));
   }
 
-  List<Widget> _renderChunkComponents(List<InteractiveLessonChunkComponent> components) {
+  List<Widget> _renderChunkComponents(
+      List<InteractiveLessonChunkComponent> components) {
     final bloc = context.read<InteractiveLessonsBloc>();
     final blocState = bloc.state.data;
-    final lessonStreamType = RiverModuleStreamType.getLessonStreamType(blocState.type);
+    final lessonStreamType =
+        RiverModuleStreamType.getLessonStreamType(blocState.type);
 
     return [
       ...components.map((c) => switch (c) {
@@ -69,7 +74,8 @@ class _ChunksListState extends State<ChunksList> {
                 lessonStreamType: lessonStreamType,
                 onSaveProgress: onSaveProgress,
               ),
-            InteractiveLessonChunkComponentSingleSelectWithFeedback() => SingleSelectWithFeedback(
+            InteractiveLessonChunkComponentSingleSelectWithFeedback() =>
+              SingleSelectWithFeedback(
                 component: c,
                 lessonStreamType: lessonStreamType,
                 onSaveProgress: onSaveProgress,
@@ -81,6 +87,12 @@ class _ChunksListState extends State<ChunksList> {
               ),
             InteractiveLessonChunkComponentTextArea() => LongAnswerTextArea(
                 key: ValueKey('${c.id}${c.chunkId}'),
+                component: c,
+                lessonStreamType: lessonStreamType,
+                onSaveProgress: onSaveProgress,
+                isAllTextAreasAdded: blocState.allTextAreasAdded,
+              ),
+            InteractiveLessonChunkComponentSurvey() => Survey(
                 component: c,
                 lessonStreamType: lessonStreamType,
                 onSaveProgress: onSaveProgress,
@@ -103,28 +115,31 @@ class _ChunksListState extends State<ChunksList> {
   void _onContinueHandler() {
     final bloc = context.read<InteractiveLessonsBloc>();
     final blocState = bloc.state.data;
-    final lessonStreamType = RiverModuleStreamType.getLessonStreamType(blocState.type);
+    final lessonStreamType =
+        RiverModuleStreamType.getLessonStreamType(blocState.type);
     Future.delayed(const Duration(seconds: 1), () {
       if (blocState.isAllChunksUnlocked && blocState.isLastPage) {
         if (mounted) {
           context.router.push(LessonCompleteRoute(
-              lessonType: LessonType.interactive, streamType: lessonStreamType));
+              lessonType: LessonType.interactive,
+              streamType: lessonStreamType));
         }
       } else if (blocState.isAllChunksUnlocked && !blocState.isLastPage) {
         bloc.add(const InteractiveLessonsEvent.setNextPage());
+        scrollToNextChunk(false);
       } else {
         bloc.add(const InteractiveLessonsEvent.unlockNextChunk());
-        scrollToNextChunk();
+        scrollToNextChunk(true);
       }
     });
   }
 
-  void scrollToNextChunk() {
+  void scrollToNextChunk(bool beetweenChunks) {
     WidgetsBinding.instance.addPostFrameCallback((_) async {
       if (!scrollController.hasClients || !mounted) return;
 
       await scrollController.animateTo(
-        scrollController.position.pixels + 500,
+        beetweenChunks ? scrollController.position.pixels + 250 : 0.0,
         duration: const Duration(seconds: 1),
         curve: Curves.easeOut,
       );
