@@ -40,7 +40,7 @@ class NutritionIntakeButton extends StatelessWidget {
     } else {
       context.read<MealsBloc>().add(MealsEvent.setMealId(mealId!, category));
     }
-    context.router.push(MealRoute(source: 'commitment'));
+    context.router.push(const MealRoute());
   }
 
   @override

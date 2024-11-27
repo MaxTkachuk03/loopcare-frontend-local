@@ -35,9 +35,7 @@ import 'package:loopcare_frontend/localization/service/localized_texts.dart';
 
 @RoutePage()
 class MealPage extends StatefulWidget {
-  const MealPage({super.key, @PathParam('source') this.source});
-
-  final String? source;
+  const MealPage({super.key});
 
   @override
   State<MealPage> createState() => _MealPageState();
@@ -171,10 +169,10 @@ class _MealPageState extends State<MealPage> {
 
   void _onBackToDashboardPressed() {
     // Method _onWillPop() will called in any case
-    final source =
-        widget.source ?? ''; // Якщо source == null, встановлюється пустий рядок
-    if (source == 'commitment') {
-      context.router.maybePopTop();
+    const source = 'NutritionIntakeRoute';
+    if (context.router.stack[1].routeData.name.toLowerCase() ==
+        source.toLowerCase()) {
+      context.router.popUntilRouteWithName(NutritionIntakeRoute.name);
     } else {
       context.router.popUntilRouteWithName(HomeRoute.name);
     }
