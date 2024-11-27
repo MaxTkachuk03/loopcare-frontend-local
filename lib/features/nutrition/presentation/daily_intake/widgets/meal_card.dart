@@ -54,7 +54,8 @@ class MealCard extends StatelessWidget {
                   children: [
                     CircleAvatar(
                       radius: 6,
-                      backgroundColor: NutritionIndicatorColorPicker.getIndicatorColor(
+                      backgroundColor:
+                          NutritionIndicatorColorPicker.getIndicatorColor(
                         NutritionIndicatorType.calorieDensity,
                         calorieDensity,
                       ),

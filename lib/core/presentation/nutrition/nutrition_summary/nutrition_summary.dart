@@ -41,11 +41,15 @@ class NutritionSummary extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   state.data.isCalorieDensityUnlocked
-                      ? Expanded(child: NutritionScale.calorieDensity(value: calorieDensity))
+                      ? Expanded(
+                          child: NutritionScale.calorieDensity(
+                              value: calorieDensity))
                       : const Spacer(),
                   const SizedBox(width: 6),
                   state.data.isProteinDegreeUnlocked
-                      ? Expanded(child: NutritionScale.proteinDegree(value: proteinDegree))
+                      ? Expanded(
+                          child: NutritionScale.proteinDegree(
+                              value: proteinDegree))
                       : const Spacer(),
                   const SizedBox(width: 6),
                   state.data.isCarbohydrateRatioUnlocked
@@ -60,7 +64,8 @@ class NutritionSummary extends StatelessWidget {
                       : const Spacer(),
                 ],
               ),
-              if (showCaloriesTracker && state.data.isCalorieTrackerUnlocked) ...[
+              if (showCaloriesTracker &&
+                  state.data.isCalorieTrackerUnlocked) ...[
                 const SizedBox(height: 24),
                 CaloriesTracker(totalCalories: totalCalories ?? 0)
               ],

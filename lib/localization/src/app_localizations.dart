@@ -10271,11 +10271,11 @@ abstract class AppLocalizations {
   /// **'Back to dashboard'**
   String get backToDashboard;
 
-  /// No description provided for @backToTodayLogging.
+  /// No description provided for @finishMeal.
   ///
   /// In en, this message translates to:
-  /// **'Back to Today'**
-  String get backToTodayLogging;
+  /// **'Finish meal'**
+  String get finishMeal;
 
   /// No description provided for @hello.
   ///

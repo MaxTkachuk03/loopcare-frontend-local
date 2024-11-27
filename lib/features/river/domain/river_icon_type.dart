@@ -33,7 +33,7 @@ enum RiverIconType {
       case RiverIconType.education:
         return AppIconsData.iEducation;
       case RiverIconType.goal:
-        return AppIconsData.iGoal;
+        return AppIconsData.iCommitment;
       case RiverIconType.medical:
         return AppIconsData.iMedical;
       case RiverIconType.mind:

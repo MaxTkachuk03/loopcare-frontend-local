@@ -35,7 +35,9 @@ import 'package:loopcare_frontend/localization/service/localized_texts.dart';
 
 @RoutePage()
 class MealPage extends StatefulWidget {
-  const MealPage({super.key});
+  const MealPage({super.key, @PathParam('source') this.source});
+
+  final String? source;
 
   @override
   State<MealPage> createState() => _MealPageState();
@@ -142,7 +144,7 @@ class _MealPageState extends State<MealPage> {
           // Need  to observe behavior, and remove this after ~20 Feb 2024
           // _setOriginDate();
 
-          context.router.popUntilRouteWithName(HomeRoute.name);
+          // context.router.popUntilRouteWithName(HomeRoute.name);
         },
         mealCategory: currentCategory.title,
       );
@@ -169,7 +171,13 @@ class _MealPageState extends State<MealPage> {
 
   void _onBackToDashboardPressed() {
     // Method _onWillPop() will called in any case
-    context.router.popUntilRouteWithName(HomeRoute.name);
+    final source =
+        widget.source ?? ''; // Якщо source == null, встановлюється пустий рядок
+    if (source == 'commitment') {
+      context.router.maybePopTop();
+    } else {
+      context.router.popUntilRouteWithName(HomeRoute.name);
+    }
   }
 
   Future<void> _onWillPop(_, __) async => _onBack();
@@ -301,7 +309,7 @@ class _MealPageState extends State<MealPage> {
                               vertical: 30.0, horizontal: 24.0),
                           child: CustomElevatedButton.blueFullWidth(
                             onPressed: _onBackToDashboardPressed,
-                            label: LocalizedTexts.backToTodayLogging.tr(),
+                            label: LocalizedTexts.finishMeal.tr(),
                           ),
                         )
                     ],
