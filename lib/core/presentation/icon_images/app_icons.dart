@@ -30,8 +30,12 @@ class AppIcons {
   static const AssetImage commitmentButton =
       AssetImage('$iconsFilePath/commitment.png');
 
+  static const AssetImage doneDayButton =
+      AssetImage('$iconsFilePath/done_day.png');
+
   static const AssetImage scan = AssetImage('$iconsFilePath/scan.png');
-  static SvgPicture clock = SvgPicture.asset('$iconsFilePath/clock.svg');
+  static SvgPicture clock =
+      SvgPicture.asset('$iconsFilePath/clock.svg', width: 20, height: 20);
   static SvgPicture clockWhite = SvgPicture.asset('$iconsFilePath/clock.svg',
       colorFilter: const ColorFilter.mode(AppColors.white, BlendMode.srcIn));
   static SvgPicture clockGrey =
@@ -355,8 +359,8 @@ class AppIcons {
   static SvgPicture interactiveLessonEditPencil(
           bool clicked, Color clickedColor, Color regularColor) =>
       SvgPicture.asset('$iconsFilePath/edit_pencil.svg',
-          width: 44,
-          height: 44,
+          width: 24,
+          height: 24,
           colorFilter: ColorFilter.mode(
               clicked ? clickedColor : regularColor, BlendMode.srcIn));
 

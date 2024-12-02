@@ -9,4 +9,5 @@ enum InteractiveLessonComponentType {
   textArea,
   textField,
   survey,
+  mealTiming,
 }

@@ -2,10 +2,13 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loopcare_frontend/core/presentation/icon_images/app_icons.dart';
+import 'package:loopcare_frontend/core/presentation/routes/app_router.dart';
 import 'package:loopcare_frontend/core/presentation/routes/app_router.gr.dart';
 import 'package:loopcare_frontend/core/presentation/text/custom_text.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 import 'package:loopcare_frontend/core/presentation/utils/build_context_extensions.dart';
+import 'package:loopcare_frontend/features/education/application/interactive_lessons/interactive_lessons_bloc.dart';
+import 'package:loopcare_frontend/features/education/domain/interactive_lesson/interactive_lesson_component_progress.dart';
 import 'package:loopcare_frontend/features/nutrition/application/meals/dto/meal_item.dart';
 import 'package:loopcare_frontend/features/nutrition/application/meals/meals_bloc.dart';
 import 'package:loopcare_frontend/features/nutrition/domain/select_serving/meal_category.dart';
@@ -21,6 +24,7 @@ class NutritionIntakeButton extends StatelessWidget {
     this.calorieDensity,
     this.mealItems,
     required this.isDisabled,
+    this.progress,
   });
 
   final String text;
@@ -31,6 +35,7 @@ class NutritionIntakeButton extends StatelessWidget {
   final double? calorieDensity;
   final List<MealItem>? mealItems;
   final bool isDisabled;
+  final InteractiveLessonComponentProgress? progress;
 
   void _onTapHandler(BuildContext context) {
     if (isDisabled && mealId == null) return;
@@ -43,14 +48,33 @@ class NutritionIntakeButton extends StatelessWidget {
     context.router.push(const MealRoute());
   }
 
+  void _goToNutritionTest(BuildContext context) {
+    if (mealId != null &&
+        category.title.toLowerCase().contains('snacks'.toLowerCase())) {
+      context
+          .read<InteractiveLessonsBloc>()
+          .add(const InteractiveLessonsEvent.getInteractiveLesson(lessonId: 2));
+    } else {
+      // TODO: delete bloc init after connecting to backend
+      context
+          .read<InteractiveLessonsBloc>()
+          .add(const InteractiveLessonsEvent.getInteractiveLesson(lessonId: 1));
+    }
+
+    context.read<MealsBloc>().add(MealsEvent.setMealId(mealId!, category));
+
+    Future.delayed(
+      const Duration(milliseconds: 800),
+      () {
+        if (context.mounted) context.router.pushNamed(AppRoutes.interactiveLesson);
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     final bool isThisCategory = (mealId != null &&
         category.title.toLowerCase().contains(text.toLowerCase()));
-
-//  category.title.toLowerCase() == text.toLowerCase()
-    print("------${category.title.toLowerCase()}------");
-    print("${text.toLowerCase()}");
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.center,
@@ -67,11 +91,15 @@ class NutritionIntakeButton extends StatelessWidget {
             ],
           ),
           child: CirclePlusButton(
-            icon: isThisCategory ? AppIcons.commitmentButton : null,
+            icon: isThisCategory
+                ? progress != null
+                    ? AppIcons.doneDayButton
+                    : AppIcons.commitmentButton
+                : null,
             color: AppColors.greenLightest,
             onPressed: () {
               mealId != null && calorieDensity != null
-                  ? null
+                  ? _goToNutritionTest(context)
                   : _onTapHandler(context);
             },
             width: 0,

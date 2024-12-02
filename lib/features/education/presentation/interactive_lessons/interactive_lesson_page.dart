@@ -60,17 +60,15 @@ class InteractiveLessonPage extends StatelessWidget {
           body: CustomSafeArea(
             child:
                 // ScrollableContainer(
-                MainContainer(
-              child: BlocBuilder<InteractiveLessonsBloc, InteractiveLessonsState>(
-                builder: (context, state) {
-                  return state.maybeWhen(
-                    error: (_) => const SizedBox.shrink(),
-                    loading: (_) => const Center(child: CircularProgressIndicator()),
-                    orElse: () => const ChunksList(),
-                  );
-                },
-              ),
-            ),
+                BlocBuilder<InteractiveLessonsBloc, InteractiveLessonsState>(
+                  builder: (context, state) {
+                    return state.maybeWhen(
+                      error: (_) => const SizedBox.shrink(),
+                      loading: (_) => const Center(child: CircularProgressIndicator()),
+                      orElse: () => const ChunksList(),
+                    );
+                  },
+                ),
             // ),
           ),
         ),

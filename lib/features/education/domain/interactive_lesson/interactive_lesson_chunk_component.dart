@@ -2,11 +2,13 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:loopcare_frontend/features/education/domain/interactive_lesson/image_content/image_content.dart';
 import 'package:loopcare_frontend/features/education/domain/interactive_lesson/interactive_lesson_component_type.dart';
 import 'package:loopcare_frontend/features/education/domain/interactive_lesson/markdown_content/markdown_content.dart';
+import 'package:loopcare_frontend/features/education/domain/interactive_lesson/meal_timing_content/meal_timing_content.dart';
 import 'package:loopcare_frontend/features/education/domain/interactive_lesson/ordering_content/ordering_content.dart';
 import 'package:loopcare_frontend/features/education/domain/interactive_lesson/scale_content/scale_content.dart';
 import 'package:loopcare_frontend/features/education/domain/interactive_lesson/select_content/select_content.dart';
 import 'package:loopcare_frontend/features/education/domain/interactive_lesson/text_field_content/text_field_content.dart';
 import 'package:loopcare_frontend/features/education/domain/interactive_lesson/interactive_lesson_component_progress.dart';
+import 'package:loopcare_frontend/features/nutrition/application/meals/dto/meals_list_item.dart';
 
 part 'interactive_lesson_chunk_component.freezed.dart';
 
@@ -118,6 +120,17 @@ class InteractiveLessonChunkComponent with _$InteractiveLessonChunkComponent {
     required int chunkId,
     required InteractiveLessonComponentProgress? progress,
   }) = InteractiveLessonChunkComponentSurvey;
+
+  const factory InteractiveLessonChunkComponent.mealTiming({
+    required int id,
+    required InteractiveLessonComponentType type,
+    required bool needsValidation,
+    required bool isValid,
+    required MealTimingContent content,
+    required List<MealsListItem> meals,
+    required int chunkId,
+    required InteractiveLessonComponentProgress? progress,
+  }) = InteractiveLessonChunkComponentMealTiming;
 
   factory InteractiveLessonChunkComponent.fromJson(Map<String, dynamic> json) =>
       _$InteractiveLessonChunkComponentFromJson(json);

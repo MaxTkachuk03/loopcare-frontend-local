@@ -85,7 +85,9 @@ class _SelectServingPageState extends State<SelectServingPage> {
                   return Padding(
                     padding: const EdgeInsets.only(right: 8.0),
                     child: FavouriteBtn(
-                      isActive: foodItemServingsState.selectedServing?.isSelectedFavorite ?? false,
+                      isActive: foodItemServingsState
+                              .selectedServing?.isSelectedFavorite ??
+                          false,
                       onPress: _onFavouritePressed,
                     ),
                   );
@@ -115,17 +117,21 @@ class _SelectServingPageState extends State<SelectServingPage> {
           const Expanded(
             child: ServingList(),
           ),
-          BlocBuilder<FoodItemServingsBloc, FoodItemServingsState>(builder: (context, state) {
-            final servingAmount = double.parse(state.selectedServingAmount ?? '0');
+          BlocBuilder<FoodItemServingsBloc, FoodItemServingsState>(
+              builder: (context, state) {
+            final servingAmount =
+                double.parse(state.selectedServingAmount ?? '0');
             final servingId = state.selectedServingItem?.servingId;
-            final enable = double.parse(state.selectedServingAmount ?? '0') != 0;
+            final enable =
+                double.parse(state.selectedServingAmount ?? '0') != 0;
 
             return Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 30.0),
+              padding:
+                  const EdgeInsets.symmetric(horizontal: 24.0, vertical: 30.0),
               child: CustomElevatedButton.blueFullWidth(
                 onPressed: enable
-                    ? () =>
-                        _onConfirmPressed(context, servingAmount, servingId, widget.foodItemName)
+                    ? () => _onConfirmPressed(
+                        context, servingAmount, servingId, widget.foodItemName)
                     : null,
                 label: LocalizedTexts.confirm.tr(),
               ),
@@ -136,9 +142,12 @@ class _SelectServingPageState extends State<SelectServingPage> {
     );
   }
 
-  _onConfirmPressed(BuildContext context, double amount, String? id, String foodItemName) {
-    final mealCategory = context.read<MealsBloc>().state.data.currentMeal?.mealCategory;
+  _onConfirmPressed(
+      BuildContext context, double amount, String? id, String foodItemName) {
+    final mealCategory =
+        context.read<MealsBloc>().state.data.currentMeal?.mealCategory;
 
+    // context.read<MealsBloc>().add(MealsEvent.setCurrentDate(DateTime.now()));
     if (id != null) {
       usageAnalytics.track(
         eventName: UsageAnalyticsEvents.foodItemLogged,
@@ -165,7 +174,8 @@ class _SelectServingPageState extends State<SelectServingPage> {
 
     final isFavorite = state.selectedServingItem?.isSelectedFavorite ?? false;
 
-    final snackBarText = _getSnackBarText(isFavorite, state.hasSelectedMealCategoryFilters);
+    final snackBarText =
+        _getSnackBarText(isFavorite, state.hasSelectedMealCategoryFilters);
 
     context.showSuccessBar(content: CustomText(snackBarText));
   }
@@ -205,7 +215,9 @@ class _SelectServingPageState extends State<SelectServingPage> {
     }
 
     if (isFavorite) {
-      state.hasSelectedMealCategoryFilters ? _updateFavourite() : _removeFromFavorite();
+      state.hasSelectedMealCategoryFilters
+          ? _updateFavourite()
+          : _removeFromFavorite();
     } else {
       _addToFavorite();
     }
@@ -235,7 +247,9 @@ class _SelectServingPageState extends State<SelectServingPage> {
     final subTitle = widget.foodItemName;
     final serving = state.selectedServingItem?.servingLabel;
 
-    context.read<FoodItemServingsBloc>().add(FoodItemServingsEvent.setMealCategoryFilters(
+    context
+        .read<FoodItemServingsBloc>()
+        .add(FoodItemServingsEvent.setMealCategoryFilters(
           state.filtersForSelectedServing,
         ));
 

@@ -40,7 +40,7 @@ var nutritionIntakeLesson = {
       "type": "image",
       "needsValidation": false,
       "isValid": true,
-      "content": {"src": "TBD"}
+      "content": {"src": "assets/images/nutrition_image.png"}
     },
     "2": {
       "id": 2,
@@ -64,6 +64,7 @@ var nutritionIntakeLesson = {
     },
     "4": {
       "id": 4,
+      "chunkId": 1,
       "type": "singleSelect",
       "needsValidation": false,
       "isValid": false,
@@ -85,7 +86,7 @@ var nutritionIntakeLesson = {
         "feedbackCorrect": null,
         "feedbackIncorrect": null
       },
-      "chunkId": 1
+      
     },
   }
 };

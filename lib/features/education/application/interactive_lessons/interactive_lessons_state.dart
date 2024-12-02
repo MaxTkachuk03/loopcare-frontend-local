@@ -69,7 +69,8 @@ class InteractiveLessonsStateData with _$InteractiveLessonsStateData {
 
     final quizComponents = unlockedChunkComponents.where((c) =>
         c.type != InteractiveLessonComponentType.image &&
-        c.type != InteractiveLessonComponentType.markdown);
+        c.type != InteractiveLessonComponentType.markdown && 
+        c.type != InteractiveLessonComponentType.mealTiming);
 
     return componentsWithProgress.length == quizComponents.length;
   }

@@ -1,5 +1,5 @@
-var nutritionIntakeLesson = {
-  "id": 1,
+var nutritionIntakeLessonSnaks = {
+  "id": 2,
   "type": "nutrition",
   "title": "Nutrition intake",
   "jumpBoardTitle": "",
@@ -46,7 +46,7 @@ var nutritionIntakeLesson = {
       "type": "image",
       "needsValidation": false,
       "isValid": true,
-      "content": {"src": "TBD"}
+      "content": {"src": "assets/images/nutrition_image.png"}
     },
     "2": {
       "id": 2,

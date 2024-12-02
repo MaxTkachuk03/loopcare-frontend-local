@@ -9,6 +9,8 @@ import 'package:loopcare_frontend/features/education/application/education_servi
 import 'package:loopcare_frontend/features/education/domain/interactive_lesson/interactive_lesson.dart';
 import 'package:loopcare_frontend/features/education/infrastructure/interactive_lesson_mock_new_structure.dart';
 import 'package:loopcare_frontend/features/education/infrastructure/commitment_mock.dart';
+import 'package:loopcare_frontend/features/education/infrastructure/nutrition_intake_lunch.dart';
+import 'package:loopcare_frontend/features/education/infrastructure/nutrition_intake_snaks.dart';
 import 'package:loopcare_frontend/features/education/infrastructure/nutrition_mock.dart';
 import 'package:loopcare_frontend/features/education/infrastructure/test_mock.dart';
 
@@ -68,7 +70,11 @@ class APIEducationService implements EducationService {
       return right(InteractiveLesson.fromJson(nutritionLesson));
     } else if (lessonId == 5) {
       return right(InteractiveLesson.fromJson(interactiveLesson));
-    } else {
+    } else if (lessonId == 1) {
+      return right(InteractiveLesson.fromJson(nutritionIntakeLesson));
+    } else if (lessonId == 2) {
+      return right(InteractiveLesson.fromJson(nutritionIntakeLessonSnaks));
+    }else {
       return right(InteractiveLesson.fromJson(testLesson));
     }
 

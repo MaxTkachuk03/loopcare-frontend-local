@@ -2,9 +2,11 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loopcare_frontend/core/presentation/routes/app_router.gr.dart';
+import 'package:loopcare_frontend/core/presentation/widgets/main_container.dart';
 import 'package:loopcare_frontend/features/education/application/interactive_lessons/interactive_lessons_bloc.dart';
 import 'package:loopcare_frontend/features/education/domain/interactive_lesson/interactive_lesson_chunk.dart';
 import 'package:loopcare_frontend/features/education/domain/interactive_lesson/interactive_lesson_chunk_component.dart';
+import 'package:loopcare_frontend/features/education/domain/interactive_lesson/interactive_lesson_component_type.dart';
 import 'package:loopcare_frontend/features/education/presentation/interactive_lessons/widgets/chunk_divider.dart';
 import 'package:loopcare_frontend/features/education/presentation/interactive_lessons/widgets/components/lesson_components.dart';
 import 'package:loopcare_frontend/features/education/presentation/interactive_lessons/widgets/continue_btn.dart';
@@ -57,7 +59,7 @@ class _ChunksListState extends State<ChunksList> {
     return [
       ...components.map((c) => switch (c) {
             InteractiveLessonChunkComponentMarkdown() => Markdown(component: c),
-            // InteractiveLessonChunkComponentImage() =>
+            InteractiveLessonChunkComponentImage() => LessonImage(component: c),
             //   CachedNetworkImage(imageUrl: c.content.src),
             InteractiveLessonChunkComponentScale() => Scale(
                 component: c,
@@ -97,6 +99,11 @@ class _ChunksListState extends State<ChunksList> {
                 lessonStreamType: lessonStreamType,
                 onSaveProgress: onSaveProgress,
               ),
+            InteractiveLessonChunkComponentMealTiming() => MealTiming(
+                component: c,
+                lessonStreamType: lessonStreamType,
+                onSaveProgress: onSaveProgress,
+              ),
             _ => const SizedBox.shrink(),
           }),
     ];
@@ -118,8 +125,14 @@ class _ChunksListState extends State<ChunksList> {
     final lessonStreamType =
         RiverModuleStreamType.getLessonStreamType(blocState.type);
     Future.delayed(const Duration(seconds: 1), () {
+      const source = 'NutritionIntakeRoute';
       if (blocState.isAllChunksUnlocked && blocState.isLastPage) {
         if (mounted) {
+          if (context.router.stack[1].routeData.name.toLowerCase() ==
+              source.toLowerCase()) {
+            context.router.popUntilRouteWithName(NutritionIntakeRoute.name);
+            return;
+          }
           context.router.push(LessonCompleteRoute(
               lessonType: LessonType.interactive,
               streamType: lessonStreamType));
@@ -156,17 +169,19 @@ class _ChunksListState extends State<ChunksList> {
             .expand((chunk) => _renderChunk(state.data, chunk))
             .toList();
 
-        return PopScope(
-          canPop: state.data.activePageIndex == 0,
-          onPopInvokedWithResult: (canPop, _) => _onWillPop(context, canPop),
-          child: ListView.separated(
-            controller: scrollController,
-            shrinkWrap: true,
-            // physics: const NeverScrollableScrollPhysics(),
-            padding: const EdgeInsets.only(top: 20),
-            itemCount: componentsList.length,
-            separatorBuilder: (_, __) => const SizedBox(height: 20),
-            itemBuilder: (context, index) => componentsList[index],
+        return MainContainer(
+          child: PopScope(
+            canPop: state.data.activePageIndex == 0,
+            onPopInvokedWithResult: (canPop, _) => _onWillPop(context, canPop),
+            child: ListView.separated(
+              controller: scrollController,
+              shrinkWrap: true,
+              // physics: const NeverScrollableScrollPhysics(),
+              padding: EdgeInsets.only(top: 20),
+              itemCount: componentsList.length,
+              separatorBuilder: (_, __) => const SizedBox(height: 20),
+              itemBuilder: (context, index) => componentsList[index],
+            ),
           ),
         );
       },
