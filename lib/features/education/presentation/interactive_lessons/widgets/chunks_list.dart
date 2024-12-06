@@ -6,9 +6,9 @@ import 'package:loopcare_frontend/core/presentation/widgets/main_container.dart'
 import 'package:loopcare_frontend/features/education/application/interactive_lessons/interactive_lessons_bloc.dart';
 import 'package:loopcare_frontend/features/education/domain/interactive_lesson/interactive_lesson_chunk.dart';
 import 'package:loopcare_frontend/features/education/domain/interactive_lesson/interactive_lesson_chunk_component.dart';
-import 'package:loopcare_frontend/features/education/domain/interactive_lesson/interactive_lesson_component_type.dart';
 import 'package:loopcare_frontend/features/education/presentation/interactive_lessons/widgets/chunk_divider.dart';
 import 'package:loopcare_frontend/features/education/presentation/interactive_lessons/widgets/components/lesson_components.dart';
+import 'package:loopcare_frontend/features/education/presentation/interactive_lessons/widgets/components/meal_timing/meal_timing.dart';
 import 'package:loopcare_frontend/features/education/presentation/interactive_lessons/widgets/continue_btn.dart';
 import 'package:loopcare_frontend/features/river/domain/lesson_type.dart';
 import 'package:loopcare_frontend/features/river/domain/river_module_stream_type.dart';
@@ -88,7 +88,7 @@ class _ChunksListState extends State<ChunksList> {
                 onSaveProgress: onSaveProgress,
               ),
             InteractiveLessonChunkComponentTextArea() => LongAnswerTextArea(
-                key: ValueKey('${c.id}${c.chunkId}'),
+                key: ValueKey('${c.id}_${c.chunkId}'),
                 component: c,
                 lessonStreamType: lessonStreamType,
                 onSaveProgress: onSaveProgress,
@@ -99,11 +99,11 @@ class _ChunksListState extends State<ChunksList> {
                 lessonStreamType: lessonStreamType,
                 onSaveProgress: onSaveProgress,
               ),
-            InteractiveLessonChunkComponentMealTiming() => MealTiming(
-                component: c,
-                lessonStreamType: lessonStreamType,
-                onSaveProgress: onSaveProgress,
-              ),
+            // InteractiveLessonChunkComponentMealTiming() => MealTiming(
+            //     component: c,
+            //     lessonStreamType: lessonStreamType,
+            //     onSaveProgress: onSaveProgress,
+            //   ),
             _ => const SizedBox.shrink(),
           }),
     ];
@@ -177,7 +177,7 @@ class _ChunksListState extends State<ChunksList> {
               controller: scrollController,
               shrinkWrap: true,
               // physics: const NeverScrollableScrollPhysics(),
-              padding: EdgeInsets.only(top: 20),
+              padding: const EdgeInsets.only(top: 20),
               itemCount: componentsList.length,
               separatorBuilder: (_, __) => const SizedBox(height: 20),
               itemBuilder: (context, index) => componentsList[index],

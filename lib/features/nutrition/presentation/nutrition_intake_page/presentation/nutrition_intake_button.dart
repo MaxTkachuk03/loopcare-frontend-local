@@ -1,5 +1,6 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:badges/badges.dart' as badge;
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loopcare_frontend/core/presentation/icon_images/app_icons.dart';
 import 'package:loopcare_frontend/core/presentation/routes/app_router.dart';
@@ -8,10 +9,10 @@ import 'package:loopcare_frontend/core/presentation/text/custom_text.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 import 'package:loopcare_frontend/core/presentation/utils/build_context_extensions.dart';
 import 'package:loopcare_frontend/features/education/application/interactive_lessons/interactive_lessons_bloc.dart';
-import 'package:loopcare_frontend/features/education/domain/interactive_lesson/interactive_lesson_component_progress.dart';
 import 'package:loopcare_frontend/features/nutrition/application/meals/dto/meal_item.dart';
 import 'package:loopcare_frontend/features/nutrition/application/meals/meals_bloc.dart';
 import 'package:loopcare_frontend/features/nutrition/domain/select_serving/meal_category.dart';
+import 'package:loopcare_frontend/features/nutrition/presentation/nutrition_intake_page/application/dto/nutrition_intake_done_lessons/nutrition_intake_done_lessons.dart';
 import 'package:loopcare_frontend/features/nutrition/presentation/widgets/circle_plus_button/circle_plus_button.dart';
 
 class NutritionIntakeButton extends StatelessWidget {
@@ -35,7 +36,7 @@ class NutritionIntakeButton extends StatelessWidget {
   final double? calorieDensity;
   final List<MealItem>? mealItems;
   final bool isDisabled;
-  final InteractiveLessonComponentProgress? progress;
+  final NitritionIntakeDoneLessons? progress;
 
   void _onTapHandler(BuildContext context) {
     if (isDisabled && mealId == null) return;
@@ -66,7 +67,7 @@ class NutritionIntakeButton extends StatelessWidget {
     Future.delayed(
       const Duration(milliseconds: 800),
       () {
-        if (context.mounted) context.router.pushNamed(AppRoutes.interactiveLesson);
+        if (context.mounted) {context.router.pushNamed(AppRoutes.interactiveLesson);}
       },
     );
   }
@@ -76,6 +77,7 @@ class NutritionIntakeButton extends StatelessWidget {
     final bool isThisCategory = (mealId != null &&
         category.title.toLowerCase().contains(text.toLowerCase()));
 
+    final bool isCompleted = progress?.isCompleted == true;
     return Column(
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
@@ -86,26 +88,61 @@ class NutritionIntakeButton extends StatelessWidget {
                 color: AppColors.greenDarker,
                 offset: Offset(0, 12),
                 blurRadius: 20.0,
-                spreadRadius: -15,
+                spreadRadius: -13,
               ),
             ],
           ),
-          child: CirclePlusButton(
-            icon: isThisCategory
-                ? progress != null
-                    ? AppIcons.doneDayButton
-                    : AppIcons.commitmentButton
-                : null,
-            color: AppColors.greenLightest,
-            onPressed: () {
-              mealId != null && calorieDensity != null
-                  ? _goToNutritionTest(context)
-                  : _onTapHandler(context);
-            },
-            width: 0,
-            iconColor: mealId != null && calorieDensity != null
-                ? AppColors.greenLight
-                : null,
+          child: Stack(
+            clipBehavior: Clip.none,
+            children: [
+              CirclePlusButton(
+                icon: isThisCategory
+                    ? isCompleted
+                        ? AppIcons.doneDayButton
+                        : AppIcons.commitmentButton
+                    : null,
+                color: isThisCategory
+                    ? isCompleted
+                        ? AppColors.greenLight
+                        : AppColors.greenLightest
+                    : AppColors.greenLightest,
+                onPressed: () {
+                  mealId != null && calorieDensity != null
+                      ? _goToNutritionTest(context)
+                      : _onTapHandler(context);
+                },
+                width: 0,
+                iconColor: mealId != null && calorieDensity != null
+                    ? isCompleted
+                        ? AppColors.white
+                        : AppColors.greenLight
+                    : null,
+              ),
+              isThisCategory && isCompleted
+                  ? Positioned(
+                      right: -5,
+                      top: -10,
+                      child: badge.Badge(
+                        badgeStyle: const badge.BadgeStyle(
+                          padding: EdgeInsets.all(5.0),
+                          badgeColor: AppColors.blueRegular,
+                          elevation: 0,
+                        ),
+                        badgeAnimation:
+                            const badge.BadgeAnimation.slide(toAnimate: false),
+                        position: badge.BadgePosition.topEnd(top: -8, end: -4),
+                        badgeContent: const Padding(
+                          padding: EdgeInsets.only(bottom: 2.0),
+                          child: Icon(
+                            Icons.check,
+                            color: AppColors.white,
+                            size: 25.0 * 0.44,
+                          ),
+                        ),
+                      ),
+                    )
+                  : const SizedBox()
+            ],
           ),
         ),
         const SizedBox(height: 5.0),

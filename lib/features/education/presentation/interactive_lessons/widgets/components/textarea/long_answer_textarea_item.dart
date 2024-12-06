@@ -49,8 +49,7 @@ class LongAnswerTextAreaItem extends StatelessWidget {
         Container(
           padding: const EdgeInsets.all(12),
           decoration: BoxDecoration(
-            border: Border.all(
-                color: Colors.black, width: 1.0, style: BorderStyle.solid),
+            border: Border.all(color: Colors.black, width: 1.0, style: BorderStyle.solid),
             borderRadius: const BorderRadius.all(
               Radius.circular(12),
             ),
@@ -62,8 +61,7 @@ class LongAnswerTextAreaItem extends StatelessWidget {
                 children: [
                   CustomText(
                     "${dateTime.isoStringWithoutTime} ${dateTime.timeHoursMinutes24}",
-                    style: context.textTheme.bodyMedium!
-                        .copyWith(fontWeight: FontWeight.w700),
+                    style: context.textTheme.bodyMedium!.copyWith(fontWeight: FontWeight.w700),
                   ),
                 ],
               ),
@@ -78,13 +76,12 @@ class LongAnswerTextAreaItem extends StatelessWidget {
                 decoration: InputDecoration(
                     hintText: "Type your answer here.",
                     focusedBorder: InputBorder.none,
-                    enabledBorder: const OutlineInputBorder(
-                        borderSide: BorderSide(color: Colors.transparent)),
+                    enabledBorder:
+                        const OutlineInputBorder(borderSide: BorderSide(color: Colors.transparent)),
                     hintStyle: const TextStyle(color: AppColors.black),
                     fillColor: lessonStreamType.lightestColor,
                     filled: true,
-                    contentPadding: const EdgeInsets.symmetric(
-                        horizontal: 8, vertical: 20)),
+                    contentPadding: const EdgeInsets.symmetric(horizontal: 8, vertical: 20)),
               ),
               Container(
                 width: double.infinity,
@@ -93,13 +90,13 @@ class LongAnswerTextAreaItem extends StatelessWidget {
                   children: [
                     CustomIconButton.custom(
                       onPressed: canDelete ? clearTextHandler : null,
-                      icon: AppIcons.interactiveLessonBucket(canDelete,
-                          lessonStreamType.regularColor, AppColors.greyLighter),
+                      icon: AppIcons.interactiveLessonBucket(
+                          canDelete, lessonStreamType.regularColor, AppColors.greyLighter),
                     ),
                     CustomIconButton.custom(
                       onPressed: readOnly ? editTextHandler : null,
-                      icon: AppIcons.interactiveLessonEditPencil(readOnly,
-                          lessonStreamType.regularColor, AppColors.greyLighter),
+                      icon: AppIcons.interactiveLessonEditPencil(
+                          readOnly, lessonStreamType.regularColor, AppColors.greyLighter),
                     ),
                     const Spacer(),
                     CustomElevatedButton(
@@ -109,10 +106,9 @@ class LongAnswerTextAreaItem extends StatelessWidget {
                               onSaveHandler(controller.text);
                             },
                       styles: ButtonStyle(
-                          backgroundColor: WidgetStateProperty.all(
-                              text.isEmpty || !isButtonDisabled
-                                  ? null
-                                  : lessonStreamType.regularColor)),
+                          backgroundColor: WidgetStateProperty.all(text.isEmpty || !isButtonDisabled
+                              ? null
+                              : lessonStreamType.regularColor)),
                       label: successText.isNotEmpty ? '   ✓  ' : 'Save',
                     ),
                   ],

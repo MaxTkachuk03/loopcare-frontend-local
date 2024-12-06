@@ -5240,7 +5240,7 @@ class AppLocalizationsDe extends AppLocalizations {
   String get backToDashboard => 'Zurück zum Dashboard';
 
   @override
-  String get finishMeal => 'Mahlzeit beenden';
+  String get finishMealLogging => 'Mahlzeit beenden';
 
   @override
   String get hello => 'Hallo';

@@ -19,8 +19,9 @@ class Survey extends StatefulWidget {
 
   final InteractiveLessonChunkComponentSurvey component;
   final RiverModuleStreamType lessonStreamType;
-  final Function(InteractiveLessonComponentProgress progress,
-      InteractiveLessonChunkComponent component) onSaveProgress;
+  final Function(
+          InteractiveLessonComponentProgress progress, InteractiveLessonChunkComponent component)
+      onSaveProgress;
 
   @override
   State<Survey> createState() => _SurveyState();
@@ -34,9 +35,7 @@ class _SurveyState extends State<Survey> {
     super.initState();
     if (widget.component.progress == null) return;
     final surveyId = widget.component.progress!.survey;
-    final answer = widget.component.content.answers
-        .where((answer) => answer.id == surveyId)
-        .first;
+    final answer = widget.component.content.answers.where((answer) => answer.id == surveyId).first;
 
     setState(() {
       _selectedAnswer = answer.id;
@@ -53,8 +52,7 @@ class _SurveyState extends State<Survey> {
     });
 
     widget.onSaveProgress(
-        InteractiveLessonComponentProgress(survey: _selectedAnswer),
-        widget.component);
+        InteractiveLessonComponentProgress(survey: _selectedAnswer, type: widget.component.type.name), widget.component);
   }
 
   SelectContent get content => widget.component.content;
@@ -71,8 +69,7 @@ class _SurveyState extends State<Survey> {
         const SizedBox(height: 20),
         CustomText(
           content.question,
-          style: context.textTheme.bodyMedium!
-              .copyWith(fontWeight: FontWeight.w700),
+          style: context.textTheme.bodyMedium!.copyWith(fontWeight: FontWeight.w700),
         ),
         const SizedBox(height: 20),
         ListView.separated(

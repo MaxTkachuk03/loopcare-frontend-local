@@ -20,7 +20,7 @@ class RiverModuleItem with _$RiverModuleItem {
     required RiverModuleStreamType streamType,
     required RiverIconType iconType,
     @Default(0) int lessonId,
-    @Default(LessonType.regular) LessonType lessonType,
+    @Default(LessonType.simple) LessonType lessonType,
     @Default(false) bool isRootItem,
     @Default([]) List<int> unlocksItems,
     @Default([]) @UnlockedFeatureTypeListConverter() List<UnlockedFeatureType> unlocksFeature,
@@ -34,10 +34,9 @@ class RiverModuleItem with _$RiverModuleItem {
     @Default(0) int spawnedInModuleId,
   }) = _RiverModuleItem;
 
-  get isRegularLesson => false; // TODO for testing purposes lessonType == LessonType.regular;
+  bool get isRegularLesson => lessonType == LessonType.simple;
 
-  get isInteractiveLesson =>
-      true; // TODO for testing purposes lessonType == LessonType.interactive;
+  bool get isInteractiveLesson => lessonType == LessonType.interactive;
 
   Color get bgColor => states.prevItemState.bgColor(streamType);
 

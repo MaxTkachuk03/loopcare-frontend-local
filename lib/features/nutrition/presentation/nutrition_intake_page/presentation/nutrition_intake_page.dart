@@ -13,14 +13,33 @@ import 'package:loopcare_frontend/core/presentation/text/custom_text.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 import 'package:loopcare_frontend/core/presentation/utils/build_context_extensions.dart';
 import 'package:loopcare_frontend/core/presentation/utils/date_time_extensions.dart';
-import 'package:loopcare_frontend/features/education/application/interactive_lessons/interactive_lessons_bloc.dart';
+import 'package:loopcare_frontend/features/education/presentation/interactive_lessons/widgets/continue_btn.dart';
 import 'package:loopcare_frontend/features/nutrition/application/meals/meals_bloc.dart';
 import 'package:loopcare_frontend/features/nutrition/domain/select_serving/meal_category.dart';
-import 'package:loopcare_frontend/features/nutrition/presentation/nutrition_intake_page/nutrition_intake_button.dart';
+import 'package:loopcare_frontend/features/nutrition/presentation/nutrition_intake_page/application/nutrution_intake_bloc.dart';
+import 'package:loopcare_frontend/features/nutrition/presentation/nutrition_intake_page/presentation/nutrition_intake_button.dart';
 
 @RoutePage()
-class NutritionIntakePage extends StatelessWidget {
+class NutritionIntakePage extends StatefulWidget {
   const NutritionIntakePage({super.key, @PathParam('source') this.source});
+
+  final String? source;
+
+  @override
+  State<NutritionIntakePage> createState() => _NutritionIntakePageState();
+}
+
+class _NutritionIntakePageState extends State<NutritionIntakePage> {
+  late bool isSwitched;
+
+  @override
+  void initState() {
+    context
+        .read<NutrutionIntakeBloc>()
+        .add(NutrutionIntakeEvent.fetchProgress(date: DateTime.now()));
+
+    super.initState();
+  }
 
   static const List<String> categories = [
     'Breakfast',
@@ -29,26 +48,23 @@ class NutritionIntakePage extends StatelessWidget {
     'Snacks'
   ];
 
-  final String? source;
-
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<InteractiveLessonsBloc, InteractiveLessonsState>(
-      builder: (context, lessonState) {
-        // final done = lessonState.data.components.values.last.progress ?? null;
-        // print('${done}');
+    return BlocBuilder<NutrutionIntakeBloc, NutrutionIntakeState>(
+      builder: (context, nutritionState) {
+        isSwitched = context.read<NutrutionIntakeBloc>().state.data.isDayClosed;
+        final isCompleted =
+            nutritionState.data.progress.any((c) => c.isCompleted == true);
+        print("progress: ${nutritionState.data.progress}");
+        print("isSwitched: $isSwitched");
         return BlocBuilder<MealsBloc, MealsState>(
           builder: (context, mealState) {
             final isAddFood =
-                mealState.data.selectedDayMealCalorieDensitySum == 0;
-
-                print('QQQQQQ ------ ${mealState.data.currentMealCategory} -----');
+                mealState.data.selectedDayMealTotalCaloriesWithDrinks == 0;
             return CustomScaffold.greenLightest(
               appBar: CustomAppBar.green(
                 leading: CustomFilledIconButton.leadingGreenLighter(),
                 title: 'Nutrition intake',
-                // subtitle:
-                //     LocalizedTexts.mealLog.tr().capitalizeEachWordFirstLetter(),
               ),
               body: mealState.maybeMap(
                 orElse: () => const SizedBox.shrink(),
@@ -88,7 +104,7 @@ class NutritionIntakePage extends StatelessWidget {
                                 ),
                                 const SizedBox(height: 20.0),
                                 CustomText(
-                                  isAddFood
+                                  isAddFood || isCompleted
                                       ? 'Select the meal you want to answer the survey for.'
                                       : 'You can answer the survey for any food category you’ve logged food in for today. Use the plus symbols as a shortcut to log food in categories that are still empty.',
                                   style: context.textTheme.bodyMedium!
@@ -126,8 +142,13 @@ class NutritionIntakePage extends StatelessWidget {
                                               mealForCurrentCategory?.mealItems;
                                           final isEnabled = mealItems != null &&
                                               mealItems.isNotEmpty;
+
                                           return NutritionIntakeButton(
-                                            // progress: done,
+                                            progress: nutritionState
+                                                    .data.progress.isNotEmpty
+                                                ? nutritionState
+                                                    .data.progress[index]
+                                                : null,
                                             mealId: mealForCurrentCategory?.id,
                                             category: category,
                                             isDisabled:
@@ -182,7 +203,62 @@ class NutritionIntakePage extends StatelessWidget {
                                           ),
                                         ],
                                       )
-                                    : const SizedBox()
+                                    : const SizedBox(),
+                                isCompleted
+                                    ? Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          const CategoryLabel(
+                                            label: 'Select the food category',
+                                            color: AppColors.greenRegular,
+                                            textColor: AppColors.blueDarkest,
+                                          ),
+                                          const SizedBox(height: 20.0),
+                                          CustomText(
+                                            'Have you logged everything you ate, and are you sure you’re not going to anymore?',
+                                            style: context.textTheme.bodyMedium!
+                                                .copyWith(
+                                                    fontWeight:
+                                                        FontWeight.w700),
+                                          ),
+                                          const SizedBox(height: 20.0),
+                                          Row(
+                                            children: [
+                                              Switch.adaptive(
+                                                value: isSwitched,
+                                                onChanged: (value) {
+                                                  setState(() {
+                                                    isSwitched = true;
+                                                  });
+                                                },
+                                                activeColor: AppColors
+                                                    .greenLight, // Колір активного стану
+                                                inactiveThumbColor:
+                                                    AppColors.white,
+                                                inactiveTrackColor: AppColors
+                                                    .greyLighter, // Колір треку у неактивному стані
+                                              ),
+                                              CustomText(
+                                                'This day is complete',
+                                                style: context
+                                                    .textTheme.bodyMedium!
+                                                    .copyWith(
+                                                        fontWeight:
+                                                            FontWeight.w400),
+                                              ),
+                                            ],
+                                          ),
+                                          const SizedBox(height: 20.0),
+                                          ContinueBtn(
+                                              label: "Back to practice board",
+                                              onPressed: () {
+                                                context.router.maybePop();
+                                              },
+                                              isDisable: false),
+                                        ],
+                                      )
+                                    : const SizedBox(),
                               ],
                             ),
                           ),

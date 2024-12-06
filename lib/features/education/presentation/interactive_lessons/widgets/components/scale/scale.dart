@@ -16,8 +16,9 @@ import 'package:loopcare_frontend/features/education/domain/interactive_lesson/i
 class Scale extends StatefulWidget {
   final InteractiveLessonChunkComponentScale component;
   final RiverModuleStreamType lessonStreamType;
-  final Function(InteractiveLessonComponentProgress progress,
-      InteractiveLessonChunkComponent component) onSaveProgress;
+  final Function(
+          InteractiveLessonComponentProgress progress, InteractiveLessonChunkComponent component)
+      onSaveProgress;
 
   const Scale({
     super.key,
@@ -55,13 +56,11 @@ class _ScaleState extends State<Scale> {
     }
 
     widget.onSaveProgress(
-        InteractiveLessonComponentProgress(optionIds: _selectedScore),
-        widget.component);
+        InteractiveLessonComponentProgress(optionIds: _selectedScore, type: widget.component.type.name), widget.component);
   }
 
   bool get hasFeedback =>
-      widget.component.content.feedback != null &&
-      widget.component.content.feedback!.isNotEmpty;
+      widget.component.content.feedback != null && widget.component.content.feedback!.isNotEmpty;
 
   @override
   Widget build(BuildContext context) {
@@ -75,14 +74,12 @@ class _ScaleState extends State<Scale> {
         const SizedBox(height: 20),
         CustomText(
           widget.component.content.question,
-          style: context.textTheme.bodyMedium!
-              .copyWith(fontWeight: FontWeight.w700),
+          style: context.textTheme.bodyMedium!.copyWith(fontWeight: FontWeight.w700),
         ),
         const SizedBox(height: 20),
         ScoringScale(
           selectedColor: AppColors.greenRegular,
-          selectedScore:
-              _selectedScore.isNotEmpty ? _selectedScore.first : null,
+          selectedScore: _selectedScore.isNotEmpty ? _selectedScore.first : null,
           onScoreTap: _onSelectedHandler,
           scaleSize: widget.component.content.values.length,
           labels: widget.component.content.values.map((o) => o.label).toList(),
@@ -91,9 +88,7 @@ class _ScaleState extends State<Scale> {
         const SizedBox(height: 14),
         ScaleBottom(content: widget.component.content),
         if (hasFeedback && _selectedScore.isNotEmpty)
-          ScaleFeedback(
-              component: widget.component,
-              selectedScore: _selectedScore.first + 1),
+          ScaleFeedback(component: widget.component, selectedScore: _selectedScore.first + 1),
       ],
     );
   }

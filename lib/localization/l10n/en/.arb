@@ -758,7 +758,7 @@
   "clearMealList": "Clear log list",
   "logListEmptyMessage": "Nothing logged yet\n What did you have for lunch?",
   "backToDashboard": "Back to dashboard",
-  "finishMeal": "Finish meal",
+  "finishMealLogging": "Finish meal",
   "hello": "Hello",
   "goodMorning": "Good Morning",
   "goodAfternoon": "Good Afternoon",

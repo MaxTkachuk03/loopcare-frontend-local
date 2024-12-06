@@ -6,16 +6,18 @@ import 'package:loopcare_frontend/localization/service/localized_texts.dart';
 class ContinueBtn extends StatelessWidget {
   final VoidCallback onPressed;
   final bool isDisable;
+  final String? label;
+  final double? bottom;
 
-  const ContinueBtn({super.key, required this.onPressed, required this.isDisable});
+  const ContinueBtn({super.key, required this.onPressed, required this.isDisable, this.label, this.bottom});
 
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(bottom: 30),
+      padding: EdgeInsets.only(bottom: bottom ?? 30),
       child: CustomElevatedButton.blueFullWidth(
         onPressed: isDisable ? null : onPressed,
-        label: LocalizedTexts.continueBtn.tr(),
+        label: label ?? LocalizedTexts.continueBtn.tr(),
       ),
     );
   }

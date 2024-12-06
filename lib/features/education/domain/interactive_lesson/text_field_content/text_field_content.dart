@@ -11,6 +11,5 @@ class TextFieldContent with _$TextFieldContent {
     String? subtext,
   }) = _TextFieldContent;
 
-  factory TextFieldContent.fromJson(Map<String, dynamic> json) =>
-      _$TextFieldContentFromJson(json);
+  factory TextFieldContent.fromJson(Map<String, dynamic> json) => _$TextFieldContentFromJson(json);
 }

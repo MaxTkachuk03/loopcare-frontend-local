@@ -43,14 +43,16 @@ class _RiverScreenState extends State<RiverScreen> with RiverUtils {
   void initState() {
     super.initState();
     _page = getIndex(widget.page);
-    _positionedItems = ModuleItemsUtils.getAllocatedItems(_page, widget.module.moduleItems);
+    _positionedItems =
+        ModuleItemsUtils.getAllocatedItems(_page, widget.module.moduleItems);
   }
 
   @override
   void didUpdateWidget(covariant RiverScreen oldWidget) {
     super.didUpdateWidget(oldWidget);
     if (!widget.module.moduleItems.equals(oldWidget.module.moduleItems)) {
-      _positionedItems = ModuleItemsUtils.getAllocatedItems(_page, widget.module.moduleItems);
+      _positionedItems =
+          ModuleItemsUtils.getAllocatedItems(_page, widget.module.moduleItems);
     }
   }
 
@@ -79,7 +81,8 @@ class _RiverScreenState extends State<RiverScreen> with RiverUtils {
           radius: itemRadius(isRoot: item.isRootItem),
           isBeginning: isBeginning,
           onTap: () => _onItemPressed(item),
-          onAnimationComplete: (placement) => _onAnimationCompleted(item, placement),
+          onAnimationComplete: (placement) =>
+              _onAnimationCompleted(item, placement),
         );
       },
     );
@@ -115,7 +118,8 @@ class _RiverScreenState extends State<RiverScreen> with RiverUtils {
     }
 
     if (item.isRootItem) {
-      context.router.push(SelectAvatarRoute(onDispose: () => _updateModuleItem(item.id)));
+      context.router
+          .push(SelectAvatarRoute(onDispose: () => _updateModuleItem(item.id)));
     } else if (item.isPractice) {
       ModalBottomSheet.guidancePractice(
         context: context,
@@ -131,37 +135,46 @@ class _RiverScreenState extends State<RiverScreen> with RiverUtils {
 
   void _navigateToLesson(RiverModuleItem item) {
     context.read<RiverBloc>().add(RiverEvent.selectModuleItem(item: item));
+    print(
+        '-------------------RiverEvent _navigateToLesson--------------------------');
+    print(item.isInteractiveLesson);
 
-    if (item.isRegularLesson) {
-      context
-          .read<EducationLessonBloc>()
-          .add(EducationLessonEvent.getLessonContent(lessonId: item.lessonId));
+    // if (item.isRegularLesson) {
+    //   context
+    //       .read<EducationLessonBloc>()
+    //       .add(EducationLessonEvent.getLessonContent(lessonId: item.lessonId));
+    //
+    //   context.router.push(
+    //       LessonRoute(lessonId: item.lessonId, streamType: item.streamType));
+    // } else if (item.isInteractiveLesson) {
+    //   final lessonId = context.read<InteractiveLessonsBloc>().state.data.id;
+    //   print(item.lessonId);
+    //   if (lessonId != item.lessonId) {
+    //     context.read<InteractiveLessonsBloc>().add(
+    //         InteractiveLessonsEvent.getInteractiveLesson(
+    //             lessonId: item.lessonId));
+    //   }
 
-      context.router.push(LessonRoute(lessonId: item.lessonId, streamType: item.streamType));
-    } else if (item.isInteractiveLesson) {
-      final lessonId = context.read<InteractiveLessonsBloc>().state.data.id;
+    // item.lessonId
 
-      if (lessonId != item.lessonId) {
-        context
-            .read<InteractiveLessonsBloc>()
-            .add(InteractiveLessonsEvent.getInteractiveLesson(lessonId: item.lessonId));
-      }
+    // TODO: delete bloc init after connecting to backend
+    // print('item $item');
+     context.read<InteractiveLessonsBloc>().add(
+        InteractiveLessonsEvent.getInteractiveLesson(lessonId: item.lessonId));
+    // context.read<InteractiveLessonsBloc>().add(
+    //     InteractiveLessonsEvent.getInteractiveLesson(lessonId: 10001));
 
-      // TODO: delete bloc init after connecting to backend
-      context
-          .read<InteractiveLessonsBloc>()
-          .add(InteractiveLessonsEvent.getInteractiveLesson(lessonId: item.lessonId));
-
-      Future.delayed(
-        const Duration(milliseconds: 800),
-        () {
-          if (mounted) context.router.pushNamed(AppRoutes.interactiveLesson);
-        },
-      );
-    }
+    Future.delayed(
+      const Duration(milliseconds: 800),
+      () {
+        if (mounted) context.router.pushNamed(AppRoutes.interactiveLesson);
+      },
+    );
+    // }
   }
 
-  void _onAnimationCompleted(RiverModuleItem item, FeaturePlacement? placement) {
+  void _onAnimationCompleted(
+      RiverModuleItem item, FeaturePlacement? placement) {
     if (placement != null) {
       _onTransitionItemCompleted(placement);
     } else {
@@ -189,5 +202,6 @@ class _RiverScreenState extends State<RiverScreen> with RiverUtils {
         ),
       );
 
-  void _onCompleteTime() => context.read<RiverBloc>().add(const RiverEvent.checkCompletion());
+  void _onCompleteTime() =>
+      context.read<RiverBloc>().add(const RiverEvent.checkCompletion());
 }

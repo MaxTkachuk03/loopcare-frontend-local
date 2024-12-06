@@ -2144,7 +2144,7 @@
   "clearMealList": "Liste löschen",
   "logListEmptyMessage": "Noch nichts protokolliert?\n Was hast du zum Mittag gegessen?",
   "backToDashboard": "Zurück zum Dashboard",
-  "finishMeal": "Mahlzeit beenden",
+  "finishMealLogging": "Mahlzeit beenden",
   "hello": "Hallo",
   "goodMorning": "Guten Morgen",
   "goodAfternoon": "Guten Tag",

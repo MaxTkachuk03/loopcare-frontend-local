@@ -8,23 +8,7 @@ class LessonImage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(0.0),
-      child: Image.asset(
-        component.content.src,
-        fit: BoxFit.contain,
-        errorBuilder: (context, error, stackTrace) {
-          return const Center(child: Icon(Icons.error));
-        },
-        
-      ),
-    );
-  }
-}
-
-
-/*
-Image.network(
+    return Image.network(
       component.content.src,
       fit: BoxFit.contain,
       errorBuilder: (context, error, stackTrace) {
@@ -41,4 +25,5 @@ Image.network(
         );
       },
     );
- */
+  }
+}

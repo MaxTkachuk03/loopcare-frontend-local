@@ -5240,7 +5240,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get backToDashboard => 'Back to dashboard';
 
   @override
-  String get finishMeal => 'Finish meal';
+  String get finishMealLogging => 'Finish meal';
 
   @override
   String get hello => 'Hello';

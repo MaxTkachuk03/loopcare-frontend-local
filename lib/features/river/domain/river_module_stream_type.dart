@@ -87,8 +87,8 @@ enum RiverModuleStreamType with StreamColorMapper {
         nutrition => 4,
       };
 
-  static RiverModuleStreamType getLessonStreamType(String lessonType) {
-    switch (lessonType) {
+  static RiverModuleStreamType getLessonStreamType(String streamType) {
+    switch (streamType) {
       case 'psychology':
         return RiverModuleStreamType.psychology;
       case 'nutrition':
@@ -100,7 +100,7 @@ enum RiverModuleStreamType with StreamColorMapper {
       case 'community':
         return RiverModuleStreamType.community;
       default:
-        throw ArgumentError('Unknown lesson type: $lessonType');
+        return RiverModuleStreamType.nutrition;
     }
   }
 }

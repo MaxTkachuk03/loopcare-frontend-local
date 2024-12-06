@@ -40,7 +40,7 @@ class LessonCompletePage extends StatefulWidget {
   const LessonCompletePage({
     super.key,
     this.streamType = RiverModuleStreamType.community,
-    this.lessonType = LessonType.regular,
+    this.lessonType = LessonType.simple,
   });
 
   @override
@@ -347,7 +347,7 @@ class _LessonCompletePageState extends State<LessonCompletePage> {
 
   _checkLessonType(LessonType lessonType) {
     switch (lessonType) {
-      case LessonType.regular:
+      case LessonType.simple:
         return _regular();
       case LessonType.interactive:
         return _interactive();

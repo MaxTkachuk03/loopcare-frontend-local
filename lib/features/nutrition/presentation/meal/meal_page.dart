@@ -142,7 +142,7 @@ class _MealPageState extends State<MealPage> {
           // Need  to observe behavior, and remove this after ~20 Feb 2024
           // _setOriginDate();
 
-          // context.router.popUntilRouteWithName(HomeRoute.name);
+          context.router.popUntilRouteWithName(HomeRoute.name);
         },
         mealCategory: currentCategory.title,
       );
@@ -307,7 +307,7 @@ class _MealPageState extends State<MealPage> {
                               vertical: 30.0, horizontal: 24.0),
                           child: CustomElevatedButton.blueFullWidth(
                             onPressed: _onBackToDashboardPressed,
-                            label: LocalizedTexts.finishMeal.tr(),
+                            label: LocalizedTexts.finishMealLogging.tr(),
                           ),
                         )
                     ],

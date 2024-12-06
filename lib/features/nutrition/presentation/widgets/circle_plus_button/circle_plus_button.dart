@@ -3,25 +3,16 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loopcare_frontend/core/presentation/icon_images/app_icons.dart';
 import 'package:loopcare_frontend/core/presentation/routes/app_router.gr.dart';
-import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/custom_rounded_button_with_icon.dart';
 import 'package:loopcare_frontend/features/nutrition/application/meals/meals_bloc.dart';
 
 class CirclePlusButton extends StatelessWidget {
-  const CirclePlusButton(
-      {super.key,
-      this.color,
-      this.onPressed,
-      this.width,
-      this.icon,
-      this.calorieDensity,
-      this.iconColor});
+  const CirclePlusButton({super.key, this.color, this.onPressed, this.width, this.icon, this.iconColor});
 
   final Color? color;
   final void Function()? onPressed;
   final double? width;
   final AssetImage? icon;
-  final double? calorieDensity;
   final Color? iconColor;
 
   @override

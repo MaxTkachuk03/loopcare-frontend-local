@@ -4,8 +4,7 @@ var interactiveLesson = {
   "title": "What's your why",
   "jumpBoardTitle": "",
   "jumpBoardDescription": "",
-  "conclusion":
-      "Well done, you've taken another step to a healthier lifestyle!",
+  "conclusion": "Well done, you've taken another step to a healthier lifestyle!",
   "unlockTitle": "Reflections unlocked"
       "The Reflections provide a space for you to note down your thoughts to the Mind topics and tasks. Take some time and reflect on your why you want to change your current lifestyle and note it down in the Reflection.",
   "unlockDescription":
@@ -173,8 +172,7 @@ var interactiveLesson = {
       "maxTextFieldsAmount": 1,
       "minTextFieldsAmount": 1,
       "content": {
-        "question":
-            "What the advantages of not changing your behavior and continuing as before?",
+        "question": "What the advantages of not changing your behavior and continuing as before?",
         "subtext": "Explain more detailed",
       }
     },

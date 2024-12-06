@@ -26,6 +26,10 @@ class InteractiveLessonsState with _$InteractiveLessonsState {
 
   const factory InteractiveLessonsState.saveAnswer(
       InteractiveLessonsStateData data) = InteractiveLessonsStateSaveAnswer;
+
+  const factory InteractiveLessonsState.setCategory(
+          InteractiveLessonsStateData data) =
+      InteractiveLessonsStateAddMealCategory;
 }
 
 @freezed
@@ -69,7 +73,7 @@ class InteractiveLessonsStateData with _$InteractiveLessonsStateData {
 
     final quizComponents = unlockedChunkComponents.where((c) =>
         c.type != InteractiveLessonComponentType.image &&
-        c.type != InteractiveLessonComponentType.markdown && 
+        c.type != InteractiveLessonComponentType.markdown &&
         c.type != InteractiveLessonComponentType.mealTiming);
 
     return componentsWithProgress.length == quizComponents.length;

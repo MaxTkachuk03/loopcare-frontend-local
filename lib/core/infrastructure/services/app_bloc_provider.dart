@@ -9,6 +9,7 @@ import 'package:loopcare_frontend/features/account/presentation/buddy_page/appli
 import 'package:loopcare_frontend/features/authentication/application/authentication_bloc.dart';
 import 'package:loopcare_frontend/features/chat/application/chat_bloc/group_chat_bloc.dart';
 import 'package:loopcare_frontend/features/chat/application/chat_watcher_bloc/chat_watcher_bloc.dart';
+import 'package:loopcare_frontend/features/commitment/application/commitment_bloc.dart';
 import 'package:loopcare_frontend/features/dashboard/application/physical_activities_bloc.dart';
 import 'package:loopcare_frontend/features/dashboard/application/programs_in_progress_bloc.dart';
 import 'package:loopcare_frontend/features/education/application/education_lesson/education_lesson_bloc.dart';
@@ -30,6 +31,7 @@ import 'package:loopcare_frontend/features/nutrition/application/recipe_details/
 import 'package:loopcare_frontend/features/nutrition/application/search/search_bloc.dart';
 import 'package:loopcare_frontend/features/nutrition/application/select_food/select_food_bloc.dart';
 import 'package:loopcare_frontend/features/nutrition/application/select_serving/food_item_servings_bloc.dart';
+import 'package:loopcare_frontend/features/nutrition/presentation/nutrition_intake_page/application/nutrution_intake_bloc.dart';
 import 'package:loopcare_frontend/features/onboarding/application/general/general_onboarding_bloc.dart';
 import 'package:loopcare_frontend/features/onboarding/application/medical_questions/medical_questions_bloc.dart';
 import 'package:loopcare_frontend/features/onboarding/application/mental_questions/mental_questions_bloc.dart';
@@ -52,7 +54,8 @@ class AppBlocProvider {
 
   static List<BlocProvider> get providers => [
         BlocProvider<ConnectivityBloc>(
-          create: (_) => getIt<ConnectivityBloc>()..add(const ConnectivityEvent.init()),
+          create: (_) =>
+              getIt<ConnectivityBloc>()..add(const ConnectivityEvent.init()),
         ),
         BlocProvider<NavigationBarBloc>(
           create: (_) => getIt<NavigationBarBloc>(),
@@ -109,7 +112,8 @@ class AppBlocProvider {
           create: (_) => getIt<EditDishBloc>(),
         ),
         BlocProvider<EducationLessonBloc>(
-          create: (_) => getIt<EducationLessonBloc>()..add(const EducationLessonEvent.init()),
+          create: (_) => getIt<EducationLessonBloc>()
+            ..add(const EducationLessonEvent.init()),
         ),
         BlocProvider<PhysicalProgramsBloc>(
           create: (_) => getIt<PhysicalProgramsBloc>(),
@@ -188,6 +192,12 @@ class AppBlocProvider {
         ),
         BlocProvider<InteractiveLessonsNavBloc>(
           create: (_) => getIt<InteractiveLessonsNavBloc>(),
+        ),
+        BlocProvider<CommitmentBloc>(
+          create: (_) => getIt<CommitmentBloc>(),
+        ),
+        BlocProvider<NutrutionIntakeBloc>(
+          create: (_) => getIt<NutrutionIntakeBloc>(),
         ),
       ];
 }

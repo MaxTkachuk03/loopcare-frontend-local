@@ -10271,11 +10271,11 @@ abstract class AppLocalizations {
   /// **'Back to dashboard'**
   String get backToDashboard;
 
-  /// No description provided for @finishMeal.
+  /// No description provided for @finishMealLogging.
   ///
   /// In en, this message translates to:
   /// **'Finish meal'**
-  String get finishMeal;
+  String get finishMealLogging;
 
   /// No description provided for @hello.
   ///

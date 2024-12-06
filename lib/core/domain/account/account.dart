@@ -17,6 +17,7 @@ import 'package:loopcare_frontend/features/physical_activities/domain/physical_a
 import 'package:loopcare_frontend/features/subscription/domain/subscription_state.dart';
 
 part 'account.freezed.dart';
+
 part 'account.g.dart';
 
 @freezed
@@ -46,7 +47,8 @@ abstract class Account implements _$Account {
     @Default('') String? nickname,
     @Default(null) BuddyStatus? buddyState,
     @Default(null) String? avatarUrl,
-    @Default(GenderPreferences.noPreference) GenderPreferences? genderPreference,
+    @Default(GenderPreferences.noPreference)
+    GenderPreferences? genderPreference,
     @Default('') String? timezone,
     @Default([]) List<FoodPreference>? foodPreferencesHates,
     @Default([]) List<FoodPreference>? foodPreferencesDislikes,
@@ -61,8 +63,8 @@ abstract class Account implements _$Account {
   bool get isMixedGender => gender == GenderType.other;
 
   int get trainingFrequency {
-    final RegExpMatch? match =
-        RegExp(r'(\d+)').firstMatch(physicalActivitiesPreferences?.trainingFrequency ?? '');
+    final RegExpMatch? match = RegExp(r'(\d+)')
+        .firstMatch(physicalActivitiesPreferences?.trainingFrequency ?? '');
 
     return match != null ? int.parse(match[0] ?? '0') : 0;
   }
@@ -70,37 +72,54 @@ abstract class Account implements _$Account {
   Account unlockFeature(UnlockedFeatureType key) =>
       copyWith(features: {...features, key.name: true});
 
-  bool isFeatureUnlocked(UnlockedFeatureType feature) => features[feature.name] ?? false;
+  bool isFeatureUnlocked(UnlockedFeatureType feature) =>
+      features[feature.name] ?? false;
 
-  bool get isFoodLoggingUnlocked => isFeatureUnlocked(UnlockedFeatureType.foodLogging);
+  bool get isFoodLoggingUnlocked =>
+      isFeatureUnlocked(UnlockedFeatureType.foodLogging);
 
-  bool get isPhysicalActivitiesUnlocked => isFeatureUnlocked(UnlockedFeatureType.physicalActivity);
+  bool get isPhysicalActivitiesUnlocked =>
+      isFeatureUnlocked(UnlockedFeatureType.physicalActivity);
 
-  bool get isGroupSessionsUnlocked => isFeatureUnlocked(UnlockedFeatureType.grouping);
+  bool get isGroupSessionsUnlocked =>
+      isFeatureUnlocked(UnlockedFeatureType.grouping);
 
-  bool get isReflectionsUnlocked => isFeatureUnlocked(UnlockedFeatureType.reflections);
+  bool get isReflectionsUnlocked =>
+      isFeatureUnlocked(UnlockedFeatureType.reflections);
 
   bool get isBuddyUnlocked => isFeatureUnlocked(UnlockedFeatureType.buddy);
 
-  bool get isSmartGoalsUnlocked => isFeatureUnlocked(UnlockedFeatureType.smartGoals);
+  bool get isSmartGoalsUnlocked =>
+      isFeatureUnlocked(UnlockedFeatureType.smartGoals);
+
+  bool get isCommitmentUnlocked =>
+      isFeatureUnlocked(UnlockedFeatureType.commitment);
 
   bool get isMindUnlocked => isFeatureUnlocked(UnlockedFeatureType.mind);
 
-  bool get isCalorieDensityUnlocked => isFeatureUnlocked(UnlockedFeatureType.calorieDensity);
+  bool get isCalorieDensityUnlocked =>
+      isFeatureUnlocked(UnlockedFeatureType.calorieDensity);
 
-  bool get isProteinDegreeUnlocked => isFeatureUnlocked(UnlockedFeatureType.proteinDegree);
+  bool get isProteinDegreeUnlocked =>
+      isFeatureUnlocked(UnlockedFeatureType.proteinDegree);
 
-  bool get isCalorieTrackerUnlocked => isFeatureUnlocked(UnlockedFeatureType.calorieTracker);
+  bool get isCalorieTrackerUnlocked =>
+      isFeatureUnlocked(UnlockedFeatureType.calorieTracker);
 
-  bool get isCarbohydrateRatioUnlocked => isFeatureUnlocked(UnlockedFeatureType.fiberIndicator);
+  bool get isCarbohydrateRatioUnlocked =>
+      isFeatureUnlocked(UnlockedFeatureType.fiberIndicator);
 
-  bool get isWeightLoggingUnlocked => isFeatureUnlocked(UnlockedFeatureType.weightLogging);
+  bool get isWeightLoggingUnlocked =>
+      isFeatureUnlocked(UnlockedFeatureType.weightLogging);
 
-  bool get isMoodLoggingUnlocked => isFeatureUnlocked(UnlockedFeatureType.moodLogging);
+  bool get isMoodLoggingUnlocked =>
+      isFeatureUnlocked(UnlockedFeatureType.moodLogging);
 
-  bool get disableGroupSessions => mentalHealthTests != null && _isPhq8High ? true : false;
+  bool get disableGroupSessions =>
+      mentalHealthTests != null && _isPhq8High ? true : false;
 
-  bool get _isPhq8High => mentalHealthTests?.phq8 == InterpretationType.high.name;
+  bool get _isPhq8High =>
+      mentalHealthTests?.phq8 == InterpretationType.high.name;
 
   bool get isUserGrouped => groupingState == UserGroupingState.grouped;
 
@@ -108,14 +127,17 @@ abstract class Account implements _$Account {
 
   bool get isOnTrial => subscription.state == SubscriptionStatus.trialPeriod;
 
-  String get nameCapitalised => name.isNotEmpty ? name.capitalizeEachWordFirstLetter() : '';
+  String get nameCapitalised =>
+      name.isNotEmpty ? name.capitalizeEachWordFirstLetter() : '';
 
-  int get fiberDailyGoal =>
-      sex == SexType.male ? Constants.maleFiberDailyGoal : Constants.femaleFiberDailyGoal;
+  int get fiberDailyGoal => sex == SexType.male
+      ? Constants.maleFiberDailyGoal
+      : Constants.femaleFiberDailyGoal;
 
   int get minCalorieRangeValue => sex == SexType.male
       ? Constants.maleMinCaloriesRangeValue
       : Constants.femaleMinCaloriesRangeValue;
 
-  factory Account.fromJson(Map<String, dynamic> json) => _$AccountFromJson(json);
+  factory Account.fromJson(Map<String, dynamic> json) =>
+      _$AccountFromJson(json);
 }

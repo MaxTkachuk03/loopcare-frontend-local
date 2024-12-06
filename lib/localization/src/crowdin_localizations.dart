@@ -15,8 +15,7 @@ class CrowdinLocalization extends AppLocalizations {
       : _fallbackTexts = fallbackTexts,
         super(locale);
 
-  static const LocalizationsDelegate<AppLocalizations> delegate =
-      _CrowdinLocalizationsDelegate();
+  static const LocalizationsDelegate<AppLocalizations> delegate = _CrowdinLocalizationsDelegate();
 
   static const List<LocalizationsDelegate<dynamic>> localizationsDelegates =
       <LocalizationsDelegate<dynamic>>[
@@ -26,8 +25,7 @@ class CrowdinLocalization extends AppLocalizations {
     GlobalWidgetsLocalizations.delegate,
   ];
 
-  static const List<Locale> supportedLocales =
-      AppLocalizations.supportedLocales;
+  static const List<Locale> supportedLocales = AppLocalizations.supportedLocales;
 
   @override
   String get interactiveLessonsTextAreaLabel =>
@@ -96,62 +94,52 @@ class CrowdinLocalization extends AppLocalizations {
 
   @override
   String get errorValidationIosMinVersionNotAPositiveNumber =>
-      Crowdin.getText(
-          localeName, 'errorValidationIosMinVersionNotAPositiveNumber') ??
+      Crowdin.getText(localeName, 'errorValidationIosMinVersionNotAPositiveNumber') ??
       _fallbackTexts.errorValidationIosMinVersionNotAPositiveNumber;
 
   @override
   String get errorValidationAndroidMinVersionNotANumber =>
-      Crowdin.getText(
-          localeName, 'errorValidationAndroidMinVersionNotANumber') ??
+      Crowdin.getText(localeName, 'errorValidationAndroidMinVersionNotANumber') ??
       _fallbackTexts.errorValidationAndroidMinVersionNotANumber;
 
   @override
   String get errorValidationAndroidMinVersionNotAnInteger =>
-      Crowdin.getText(
-          localeName, 'errorValidationAndroidMinVersionNotAnInteger') ??
+      Crowdin.getText(localeName, 'errorValidationAndroidMinVersionNotAnInteger') ??
       _fallbackTexts.errorValidationAndroidMinVersionNotAnInteger;
 
   @override
   String get errorValidationAndroidMinVersionNotAPositiveNumber =>
-      Crowdin.getText(
-          localeName, 'errorValidationAndroidMinVersionNotAPositiveNumber') ??
+      Crowdin.getText(localeName, 'errorValidationAndroidMinVersionNotAPositiveNumber') ??
       _fallbackTexts.errorValidationAndroidMinVersionNotAPositiveNumber;
 
   @override
   String get errorValidationTermsAndConditionsVersionNotANumber =>
-      Crowdin.getText(
-          localeName, 'errorValidationTermsAndConditionsVersionNotANumber') ??
+      Crowdin.getText(localeName, 'errorValidationTermsAndConditionsVersionNotANumber') ??
       _fallbackTexts.errorValidationTermsAndConditionsVersionNotANumber;
 
   @override
   String get errorValidationTermsAndConditionsVersionNotAnInteger =>
-      Crowdin.getText(
-          localeName, 'errorValidationTermsAndConditionsVersionNotAnInteger') ??
+      Crowdin.getText(localeName, 'errorValidationTermsAndConditionsVersionNotAnInteger') ??
       _fallbackTexts.errorValidationTermsAndConditionsVersionNotAnInteger;
 
   @override
   String get errorValidationTermsAndConditionsVersionNotAPositiveNumber =>
-      Crowdin.getText(localeName,
-          'errorValidationTermsAndConditionsVersionNotAPositiveNumber') ??
+      Crowdin.getText(localeName, 'errorValidationTermsAndConditionsVersionNotAPositiveNumber') ??
       _fallbackTexts.errorValidationTermsAndConditionsVersionNotAPositiveNumber;
 
   @override
   String get errorValidationPrivacyPolicyVersionNotANumber =>
-      Crowdin.getText(
-          localeName, 'errorValidationPrivacyPolicyVersionNotANumber') ??
+      Crowdin.getText(localeName, 'errorValidationPrivacyPolicyVersionNotANumber') ??
       _fallbackTexts.errorValidationPrivacyPolicyVersionNotANumber;
 
   @override
   String get errorValidationPrivacyPolicyVersionNotAnInteger =>
-      Crowdin.getText(
-          localeName, 'errorValidationPrivacyPolicyVersionNotAnInteger') ??
+      Crowdin.getText(localeName, 'errorValidationPrivacyPolicyVersionNotAnInteger') ??
       _fallbackTexts.errorValidationPrivacyPolicyVersionNotAnInteger;
 
   @override
   String get errorValidationPrivacyPolicyVersionNotAPositiveNumber =>
-      Crowdin.getText(localeName,
-          'errorValidationPrivacyPolicyVersionNotAPositiveNumber') ??
+      Crowdin.getText(localeName, 'errorValidationPrivacyPolicyVersionNotAPositiveNumber') ??
       _fallbackTexts.errorValidationPrivacyPolicyVersionNotAPositiveNumber;
 
   @override
@@ -171,8 +159,7 @@ class CrowdinLocalization extends AppLocalizations {
 
   @override
   String get errorValidationNotificationTypeInvalidEnum =>
-      Crowdin.getText(
-          localeName, 'errorValidationNotificationTypeInvalidEnum') ??
+      Crowdin.getText(localeName, 'errorValidationNotificationTypeInvalidEnum') ??
       _fallbackTexts.errorValidationNotificationTypeInvalidEnum;
 
   @override
@@ -207,14 +194,12 @@ class CrowdinLocalization extends AppLocalizations {
 
   @override
   String get errorValidationEventTimeMillisNotANumberString =>
-      Crowdin.getText(
-          localeName, 'errorValidationEventTimeMillisNotANumberString') ??
+      Crowdin.getText(localeName, 'errorValidationEventTimeMillisNotANumberString') ??
       _fallbackTexts.errorValidationEventTimeMillisNotANumberString;
 
   @override
   String get errorValidationSubscriptionNotificationEmptyObject =>
-      Crowdin.getText(
-          localeName, 'errorValidationSubscriptionNotificationEmptyObject') ??
+      Crowdin.getText(localeName, 'errorValidationSubscriptionNotificationEmptyObject') ??
       _fallbackTexts.errorValidationSubscriptionNotificationEmptyObject;
 
   @override
@@ -344,8 +329,7 @@ class CrowdinLocalization extends AppLocalizations {
 
   @override
   String get errorValidationNumberOfUnitsNotAPositiveNumber =>
-      Crowdin.getText(
-          localeName, 'errorValidationNumberOfUnitsNotAPositiveNumber') ??
+      Crowdin.getText(localeName, 'errorValidationNumberOfUnitsNotAPositiveNumber') ??
       _fallbackTexts.errorValidationNumberOfUnitsNotAPositiveNumber;
 
   @override
@@ -355,8 +339,7 @@ class CrowdinLocalization extends AppLocalizations {
 
   @override
   String get errorValidationNumberOfUnitsNumberTooSmall =>
-      Crowdin.getText(
-          localeName, 'errorValidationNumberOfUnitsNumberTooSmall') ??
+      Crowdin.getText(localeName, 'errorValidationNumberOfUnitsNumberTooSmall') ??
       _fallbackTexts.errorValidationNumberOfUnitsNumberTooSmall;
 
   @override
@@ -366,8 +349,7 @@ class CrowdinLocalization extends AppLocalizations {
 
   @override
   String get errorValidationFoodItemIdNotANumberString =>
-      Crowdin.getText(
-          localeName, 'errorValidationFoodItemIdNotANumberString') ??
+      Crowdin.getText(localeName, 'errorValidationFoodItemIdNotANumberString') ??
       _fallbackTexts.errorValidationFoodItemIdNotANumberString;
 
   @override
@@ -427,8 +409,7 @@ class CrowdinLocalization extends AppLocalizations {
 
   @override
   String get errorValidationGenderPreferenceInvalidEnum =>
-      Crowdin.getText(
-          localeName, 'errorValidationGenderPreferenceInvalidEnum') ??
+      Crowdin.getText(localeName, 'errorValidationGenderPreferenceInvalidEnum') ??
       _fallbackTexts.errorValidationGenderPreferenceInvalidEnum;
 
   @override
@@ -483,8 +464,7 @@ class CrowdinLocalization extends AppLocalizations {
 
   @override
   String get errorValidationMealRecipeIdNotAPositiveNumber =>
-      Crowdin.getText(
-          localeName, 'errorValidationMealRecipeIdNotAPositiveNumber') ??
+      Crowdin.getText(localeName, 'errorValidationMealRecipeIdNotAPositiveNumber') ??
       _fallbackTexts.errorValidationMealRecipeIdNotAPositiveNumber;
 
   @override
@@ -539,26 +519,22 @@ class CrowdinLocalization extends AppLocalizations {
 
   @override
   String get errorValidationUseSemaglutideMedicationNotAString =>
-      Crowdin.getText(
-          localeName, 'errorValidationUseSemaglutideMedicationNotAString') ??
+      Crowdin.getText(localeName, 'errorValidationUseSemaglutideMedicationNotAString') ??
       _fallbackTexts.errorValidationUseSemaglutideMedicationNotAString;
 
   @override
   String get errorValidationHowLongTakeSemaglutideMedicationNotAString =>
-      Crowdin.getText(localeName,
-          'errorValidationHowLongTakeSemaglutideMedicationNotAString') ??
+      Crowdin.getText(localeName, 'errorValidationHowLongTakeSemaglutideMedicationNotAString') ??
       _fallbackTexts.errorValidationHowLongTakeSemaglutideMedicationNotAString;
 
   @override
   String get errorValidationHowLongSemaglutideTreatmentLastNotAString =>
-      Crowdin.getText(localeName,
-          'errorValidationHowLongSemaglutideTreatmentLastNotAString') ??
+      Crowdin.getText(localeName, 'errorValidationHowLongSemaglutideTreatmentLastNotAString') ??
       _fallbackTexts.errorValidationHowLongSemaglutideTreatmentLastNotAString;
 
   @override
   String get errorValidationIsUseSemaglutideMedicationNotABoolean =>
-      Crowdin.getText(
-          localeName, 'errorValidationIsUseSemaglutideMedicationNotABoolean') ??
+      Crowdin.getText(localeName, 'errorValidationIsUseSemaglutideMedicationNotABoolean') ??
       _fallbackTexts.errorValidationIsUseSemaglutideMedicationNotABoolean;
 
   @override
@@ -588,8 +564,7 @@ class CrowdinLocalization extends AppLocalizations {
 
   @override
   String get errorValidationMetabolicDiseaseNotABoolean =>
-      Crowdin.getText(
-          localeName, 'errorValidationMetabolicDiseaseNotABoolean') ??
+      Crowdin.getText(localeName, 'errorValidationMetabolicDiseaseNotABoolean') ??
       _fallbackTexts.errorValidationMetabolicDiseaseNotABoolean;
 
   @override
@@ -604,14 +579,12 @@ class CrowdinLocalization extends AppLocalizations {
 
   @override
   String get errorValidationCardiovascularDiseaseEmpty =>
-      Crowdin.getText(
-          localeName, 'errorValidationCardiovascularDiseaseEmpty') ??
+      Crowdin.getText(localeName, 'errorValidationCardiovascularDiseaseEmpty') ??
       _fallbackTexts.errorValidationCardiovascularDiseaseEmpty;
 
   @override
   String get errorValidationCardiovascularDiseaseNotABoolean =>
-      Crowdin.getText(
-          localeName, 'errorValidationCardiovascularDiseaseNotABoolean') ??
+      Crowdin.getText(localeName, 'errorValidationCardiovascularDiseaseNotABoolean') ??
       _fallbackTexts.errorValidationCardiovascularDiseaseNotABoolean;
 
   @override
@@ -621,8 +594,7 @@ class CrowdinLocalization extends AppLocalizations {
 
   @override
   String get errorValidationStomachReductionNotABoolean =>
-      Crowdin.getText(
-          localeName, 'errorValidationStomachReductionNotABoolean') ??
+      Crowdin.getText(localeName, 'errorValidationStomachReductionNotABoolean') ??
       _fallbackTexts.errorValidationStomachReductionNotABoolean;
 
   @override
@@ -672,38 +644,32 @@ class CrowdinLocalization extends AppLocalizations {
 
   @override
   String get errorValidationSleepApneaSyndromeNotABoolean =>
-      Crowdin.getText(
-          localeName, 'errorValidationSleepApneaSyndromeNotABoolean') ??
+      Crowdin.getText(localeName, 'errorValidationSleepApneaSyndromeNotABoolean') ??
       _fallbackTexts.errorValidationSleepApneaSyndromeNotABoolean;
 
   @override
   String get errorValidationLocomotorSystemDiseaseEmpty =>
-      Crowdin.getText(
-          localeName, 'errorValidationLocomotorSystemDiseaseEmpty') ??
+      Crowdin.getText(localeName, 'errorValidationLocomotorSystemDiseaseEmpty') ??
       _fallbackTexts.errorValidationLocomotorSystemDiseaseEmpty;
 
   @override
   String get errorValidationLocomotorSystemDiseaseNotABoolean =>
-      Crowdin.getText(
-          localeName, 'errorValidationLocomotorSystemDiseaseNotABoolean') ??
+      Crowdin.getText(localeName, 'errorValidationLocomotorSystemDiseaseNotABoolean') ??
       _fallbackTexts.errorValidationLocomotorSystemDiseaseNotABoolean;
 
   @override
   String get errorValidationTreatedByPsychiatristEmpty =>
-      Crowdin.getText(
-          localeName, 'errorValidationTreatedByPsychiatristEmpty') ??
+      Crowdin.getText(localeName, 'errorValidationTreatedByPsychiatristEmpty') ??
       _fallbackTexts.errorValidationTreatedByPsychiatristEmpty;
 
   @override
   String get errorValidationTreatedByPsychiatristNotABoolean =>
-      Crowdin.getText(
-          localeName, 'errorValidationTreatedByPsychiatristNotABoolean') ??
+      Crowdin.getText(localeName, 'errorValidationTreatedByPsychiatristNotABoolean') ??
       _fallbackTexts.errorValidationTreatedByPsychiatristNotABoolean;
 
   @override
   String get errorValidationItemStateNotFromDefinedList =>
-      Crowdin.getText(
-          localeName, 'errorValidationItemStateNotFromDefinedList') ??
+      Crowdin.getText(localeName, 'errorValidationItemStateNotFromDefinedList') ??
       _fallbackTexts.errorValidationItemStateNotFromDefinedList;
 
   @override
@@ -758,8 +724,7 @@ class CrowdinLocalization extends AppLocalizations {
 
   @override
   String get errorValidationAllergicNotAPositiveNumber =>
-      Crowdin.getText(
-          localeName, 'errorValidationAllergicNotAPositiveNumber') ??
+      Crowdin.getText(localeName, 'errorValidationAllergicNotAPositiveNumber') ??
       _fallbackTexts.errorValidationAllergicNotAPositiveNumber;
 
   @override
@@ -804,8 +769,7 @@ class CrowdinLocalization extends AppLocalizations {
 
   @override
   String get errorValidationQuestionIdNotAPositiveNumber =>
-      Crowdin.getText(
-          localeName, 'errorValidationQuestionIdNotAPositiveNumber') ??
+      Crowdin.getText(localeName, 'errorValidationQuestionIdNotAPositiveNumber') ??
       _fallbackTexts.errorValidationQuestionIdNotAPositiveNumber;
 
   @override
@@ -825,8 +789,7 @@ class CrowdinLocalization extends AppLocalizations {
 
   @override
   String get errorValidationOptionIdNotAPositiveNumber =>
-      Crowdin.getText(
-          localeName, 'errorValidationOptionIdNotAPositiveNumber') ??
+      Crowdin.getText(localeName, 'errorValidationOptionIdNotAPositiveNumber') ??
       _fallbackTexts.errorValidationOptionIdNotAPositiveNumber;
 
   @override
@@ -851,8 +814,7 @@ class CrowdinLocalization extends AppLocalizations {
 
   @override
   String get errorValidationIsConsentApprovedNotABoolean =>
-      Crowdin.getText(
-          localeName, 'errorValidationIsConsentApprovedNotABoolean') ??
+      Crowdin.getText(localeName, 'errorValidationIsConsentApprovedNotABoolean') ??
       _fallbackTexts.errorValidationIsConsentApprovedNotABoolean;
 
   @override
@@ -862,8 +824,7 @@ class CrowdinLocalization extends AppLocalizations {
 
   @override
   String get errorValidationIsLegalApprovedNotABoolean =>
-      Crowdin.getText(
-          localeName, 'errorValidationIsLegalApprovedNotABoolean') ??
+      Crowdin.getText(localeName, 'errorValidationIsLegalApprovedNotABoolean') ??
       _fallbackTexts.errorValidationIsLegalApprovedNotABoolean;
 
   @override
@@ -968,14 +929,12 @@ class CrowdinLocalization extends AppLocalizations {
 
   @override
   String get errorValidationMentalHealthTestEmptyObject =>
-      Crowdin.getText(
-          localeName, 'errorValidationMentalHealthTestEmptyObject') ??
+      Crowdin.getText(localeName, 'errorValidationMentalHealthTestEmptyObject') ??
       _fallbackTexts.errorValidationMentalHealthTestEmptyObject;
 
   @override
   String get errorValidationMedicalOnboardingEmptyObject =>
-      Crowdin.getText(
-          localeName, 'errorValidationMedicalOnboardingEmptyObject') ??
+      Crowdin.getText(localeName, 'errorValidationMedicalOnboardingEmptyObject') ??
       _fallbackTexts.errorValidationMedicalOnboardingEmptyObject;
 
   @override
@@ -990,8 +949,7 @@ class CrowdinLocalization extends AppLocalizations {
 
   @override
   String get errorValidationNameLettersAndNumbersRequired =>
-      Crowdin.getText(
-          localeName, 'errorValidationNameLettersAndNumbersRequired') ??
+      Crowdin.getText(localeName, 'errorValidationNameLettersAndNumbersRequired') ??
       _fallbackTexts.errorValidationNameLettersAndNumbersRequired;
 
   @override
@@ -1001,8 +959,7 @@ class CrowdinLocalization extends AppLocalizations {
 
   @override
   String get errorValidationBucketLettersAndNumbersRequired =>
-      Crowdin.getText(
-          localeName, 'errorValidationBucketLettersAndNumbersRequired') ??
+      Crowdin.getText(localeName, 'errorValidationBucketLettersAndNumbersRequired') ??
       _fallbackTexts.errorValidationBucketLettersAndNumbersRequired;
 
   @override
@@ -1017,8 +974,7 @@ class CrowdinLocalization extends AppLocalizations {
 
   @override
   String get errorValidationDistributionUrlNotUrlAddress =>
-      Crowdin.getText(
-          localeName, 'errorValidationDistributionUrlNotUrlAddress') ??
+      Crowdin.getText(localeName, 'errorValidationDistributionUrlNotUrlAddress') ??
       _fallbackTexts.errorValidationDistributionUrlNotUrlAddress;
 
   @override
@@ -1053,8 +1009,7 @@ class CrowdinLocalization extends AppLocalizations {
 
   @override
   String get errorValidationAccountIdNotAPositiveNumber =>
-      Crowdin.getText(
-          localeName, 'errorValidationAccountIdNotAPositiveNumber') ??
+      Crowdin.getText(localeName, 'errorValidationAccountIdNotAPositiveNumber') ??
       _fallbackTexts.errorValidationAccountIdNotAPositiveNumber;
 
   @override
@@ -1074,8 +1029,7 @@ class CrowdinLocalization extends AppLocalizations {
 
   @override
   String get errorValidationProductIdNotAPositiveNumber =>
-      Crowdin.getText(
-          localeName, 'errorValidationProductIdNotAPositiveNumber') ??
+      Crowdin.getText(localeName, 'errorValidationProductIdNotAPositiveNumber') ??
       _fallbackTexts.errorValidationProductIdNotAPositiveNumber;
 
   @override
@@ -1120,8 +1074,7 @@ class CrowdinLocalization extends AppLocalizations {
 
   @override
   String get errorValidationTransactionIdNotANumberString =>
-      Crowdin.getText(
-          localeName, 'errorValidationTransactionIdNotANumberString') ??
+      Crowdin.getText(localeName, 'errorValidationTransactionIdNotANumberString') ??
       _fallbackTexts.errorValidationTransactionIdNotANumberString;
 
   @override
@@ -1131,8 +1084,7 @@ class CrowdinLocalization extends AppLocalizations {
 
   @override
   String get errorValidationBaseTransactionIdNotANumberString =>
-      Crowdin.getText(
-          localeName, 'errorValidationBaseTransactionIdNotANumberString') ??
+      Crowdin.getText(localeName, 'errorValidationBaseTransactionIdNotANumberString') ??
       _fallbackTexts.errorValidationBaseTransactionIdNotANumberString;
 
   @override
@@ -1142,8 +1094,7 @@ class CrowdinLocalization extends AppLocalizations {
 
   @override
   String get errorValidationLinkedPurchaseTokenNotAString =>
-      Crowdin.getText(
-          localeName, 'errorValidationLinkedPurchaseTokenNotAString') ??
+      Crowdin.getText(localeName, 'errorValidationLinkedPurchaseTokenNotAString') ??
       _fallbackTexts.errorValidationLinkedPurchaseTokenNotAString;
 
   @override
@@ -1273,8 +1224,7 @@ class CrowdinLocalization extends AppLocalizations {
 
   @override
   String get errorValidationRegistrationTokenNotAString =>
-      Crowdin.getText(
-          localeName, 'errorValidationRegistrationTokenNotAString') ??
+      Crowdin.getText(localeName, 'errorValidationRegistrationTokenNotAString') ??
       _fallbackTexts.errorValidationRegistrationTokenNotAString;
 
   @override
@@ -1369,14 +1319,12 @@ class CrowdinLocalization extends AppLocalizations {
 
   @override
   String get errorValidationNumberOfServingsNotANumber =>
-      Crowdin.getText(
-          localeName, 'errorValidationNumberOfServingsNotANumber') ??
+      Crowdin.getText(localeName, 'errorValidationNumberOfServingsNotANumber') ??
       _fallbackTexts.errorValidationNumberOfServingsNotANumber;
 
   @override
   String get errorValidationNumberOfServingsNotAPositiveNumber =>
-      Crowdin.getText(
-          localeName, 'errorValidationNumberOfServingsNotAPositiveNumber') ??
+      Crowdin.getText(localeName, 'errorValidationNumberOfServingsNotAPositiveNumber') ??
       _fallbackTexts.errorValidationNumberOfServingsNotAPositiveNumber;
 
   @override
@@ -1386,8 +1334,7 @@ class CrowdinLocalization extends AppLocalizations {
 
   @override
   String get errorValidationExternalFoodItemIdNotANumberString =>
-      Crowdin.getText(
-          localeName, 'errorValidationExternalFoodItemIdNotANumberString') ??
+      Crowdin.getText(localeName, 'errorValidationExternalFoodItemIdNotANumberString') ??
       _fallbackTexts.errorValidationExternalFoodItemIdNotANumberString;
 
   @override
@@ -1412,20 +1359,17 @@ class CrowdinLocalization extends AppLocalizations {
 
   @override
   String get errorValidationInternalFoodItemIdNotANumber =>
-      Crowdin.getText(
-          localeName, 'errorValidationInternalFoodItemIdNotANumber') ??
+      Crowdin.getText(localeName, 'errorValidationInternalFoodItemIdNotANumber') ??
       _fallbackTexts.errorValidationInternalFoodItemIdNotANumber;
 
   @override
   String get errorValidationInternalFoodItemIdNotAnInteger =>
-      Crowdin.getText(
-          localeName, 'errorValidationInternalFoodItemIdNotAnInteger') ??
+      Crowdin.getText(localeName, 'errorValidationInternalFoodItemIdNotAnInteger') ??
       _fallbackTexts.errorValidationInternalFoodItemIdNotAnInteger;
 
   @override
   String get errorValidationInternalFoodItemIdNotAPositiveNumber =>
-      Crowdin.getText(
-          localeName, 'errorValidationInternalFoodItemIdNotAPositiveNumber') ??
+      Crowdin.getText(localeName, 'errorValidationInternalFoodItemIdNotAPositiveNumber') ??
       _fallbackTexts.errorValidationInternalFoodItemIdNotAPositiveNumber;
 
   @override
@@ -1435,8 +1379,7 @@ class CrowdinLocalization extends AppLocalizations {
 
   @override
   String get errorValidationMealRecipeIdNumberTooSmall =>
-      Crowdin.getText(
-          localeName, 'errorValidationMealRecipeIdNumberTooSmall') ??
+      Crowdin.getText(localeName, 'errorValidationMealRecipeIdNumberTooSmall') ??
       _fallbackTexts.errorValidationMealRecipeIdNumberTooSmall;
 
   @override
@@ -1451,8 +1394,7 @@ class CrowdinLocalization extends AppLocalizations {
 
   @override
   String get errorValidationRecipeIdNotAPositiveNumber =>
-      Crowdin.getText(
-          localeName, 'errorValidationRecipeIdNotAPositiveNumber') ??
+      Crowdin.getText(localeName, 'errorValidationRecipeIdNotAPositiveNumber') ??
       _fallbackTexts.errorValidationRecipeIdNotAPositiveNumber;
 
   @override
@@ -1492,8 +1434,7 @@ class CrowdinLocalization extends AppLocalizations {
 
   @override
   String get errorValidationExternalFoodItemIdNotAString =>
-      Crowdin.getText(
-          localeName, 'errorValidationExternalFoodItemIdNotAString') ??
+      Crowdin.getText(localeName, 'errorValidationExternalFoodItemIdNotAString') ??
       _fallbackTexts.errorValidationExternalFoodItemIdNotAString;
 
   @override
@@ -1503,8 +1444,7 @@ class CrowdinLocalization extends AppLocalizations {
 
   @override
   String get errorValidationFoodItemsArraySizeTooSmall =>
-      Crowdin.getText(
-          localeName, 'errorValidationFoodItemsArraySizeTooSmall') ??
+      Crowdin.getText(localeName, 'errorValidationFoodItemsArraySizeTooSmall') ??
       _fallbackTexts.errorValidationFoodItemsArraySizeTooSmall;
 
   @override
@@ -1514,20 +1454,17 @@ class CrowdinLocalization extends AppLocalizations {
 
   @override
   String get errorValidationInternalRecipeIdNotANumber =>
-      Crowdin.getText(
-          localeName, 'errorValidationInternalRecipeIdNotANumber') ??
+      Crowdin.getText(localeName, 'errorValidationInternalRecipeIdNotANumber') ??
       _fallbackTexts.errorValidationInternalRecipeIdNotANumber;
 
   @override
   String get errorValidationInternalRecipeIdNotAnInteger =>
-      Crowdin.getText(
-          localeName, 'errorValidationInternalRecipeIdNotAnInteger') ??
+      Crowdin.getText(localeName, 'errorValidationInternalRecipeIdNotAnInteger') ??
       _fallbackTexts.errorValidationInternalRecipeIdNotAnInteger;
 
   @override
   String get errorValidationInternalRecipeIdNotAPositiveNumber =>
-      Crowdin.getText(
-          localeName, 'errorValidationInternalRecipeIdNotAPositiveNumber') ??
+      Crowdin.getText(localeName, 'errorValidationInternalRecipeIdNotAPositiveNumber') ??
       _fallbackTexts.errorValidationInternalRecipeIdNotAPositiveNumber;
 
   @override
@@ -1547,8 +1484,7 @@ class CrowdinLocalization extends AppLocalizations {
 
   @override
   String get errorValidationInternalFoodItemIdNotANumberString =>
-      Crowdin.getText(
-          localeName, 'errorValidationInternalFoodItemIdNotANumberString') ??
+      Crowdin.getText(localeName, 'errorValidationInternalFoodItemIdNotANumberString') ??
       _fallbackTexts.errorValidationInternalFoodItemIdNotANumberString;
 
   @override
@@ -1613,8 +1549,7 @@ class CrowdinLocalization extends AppLocalizations {
 
   @override
   String get errorValidationPageSizeNotAPositiveNumber =>
-      Crowdin.getText(
-          localeName, 'errorValidationPageSizeNotAPositiveNumber') ??
+      Crowdin.getText(localeName, 'errorValidationPageSizeNotAPositiveNumber') ??
       _fallbackTexts.errorValidationPageSizeNotAPositiveNumber;
 
   @override
@@ -1644,8 +1579,7 @@ class CrowdinLocalization extends AppLocalizations {
 
   @override
   String get errorValidationPlanningDatesNotADateString =>
-      Crowdin.getText(
-          localeName, 'errorValidationPlanningDatesNotADateString') ??
+      Crowdin.getText(localeName, 'errorValidationPlanningDatesNotADateString') ??
       _fallbackTexts.errorValidationPlanningDatesNotADateString;
 
   @override
@@ -1670,8 +1604,7 @@ class CrowdinLocalization extends AppLocalizations {
 
   @override
   String get errorValidationPlannedMealIdNotAPositiveNumber =>
-      Crowdin.getText(
-          localeName, 'errorValidationPlannedMealIdNotAPositiveNumber') ??
+      Crowdin.getText(localeName, 'errorValidationPlannedMealIdNotAPositiveNumber') ??
       _fallbackTexts.errorValidationPlannedMealIdNotAPositiveNumber;
 
   @override
@@ -1766,20 +1699,17 @@ class CrowdinLocalization extends AppLocalizations {
 
   @override
   String get errorValidationGenderPreferenceIdNotANumber =>
-      Crowdin.getText(
-          localeName, 'errorValidationGenderPreferenceIdNotANumber') ??
+      Crowdin.getText(localeName, 'errorValidationGenderPreferenceIdNotANumber') ??
       _fallbackTexts.errorValidationGenderPreferenceIdNotANumber;
 
   @override
   String get errorValidationGenderPreferenceIdNotAnInteger =>
-      Crowdin.getText(
-          localeName, 'errorValidationGenderPreferenceIdNotAnInteger') ??
+      Crowdin.getText(localeName, 'errorValidationGenderPreferenceIdNotAnInteger') ??
       _fallbackTexts.errorValidationGenderPreferenceIdNotAnInteger;
 
   @override
   String get errorValidationGenderPreferenceIdNotAPositiveNumber =>
-      Crowdin.getText(
-          localeName, 'errorValidationGenderPreferenceIdNotAPositiveNumber') ??
+      Crowdin.getText(localeName, 'errorValidationGenderPreferenceIdNotAPositiveNumber') ??
       _fallbackTexts.errorValidationGenderPreferenceIdNotAPositiveNumber;
 
   @override
@@ -1859,14 +1789,12 @@ class CrowdinLocalization extends AppLocalizations {
 
   @override
   String get errorValidationGroupSessionIdNotAnInteger =>
-      Crowdin.getText(
-          localeName, 'errorValidationGroupSessionIdNotAnInteger') ??
+      Crowdin.getText(localeName, 'errorValidationGroupSessionIdNotAnInteger') ??
       _fallbackTexts.errorValidationGroupSessionIdNotAnInteger;
 
   @override
   String get errorValidationGroupSessionIdNotAPositiveNumber =>
-      Crowdin.getText(
-          localeName, 'errorValidationGroupSessionIdNotAPositiveNumber') ??
+      Crowdin.getText(localeName, 'errorValidationGroupSessionIdNotAPositiveNumber') ??
       _fallbackTexts.errorValidationGroupSessionIdNotAPositiveNumber;
 
   @override
@@ -1886,8 +1814,7 @@ class CrowdinLocalization extends AppLocalizations {
 
   @override
   String get errorValidationStartDateNotAnIsoDateString =>
-      Crowdin.getText(
-          localeName, 'errorValidationStartDateNotAnIsoDateString') ??
+      Crowdin.getText(localeName, 'errorValidationStartDateNotAnIsoDateString') ??
       _fallbackTexts.errorValidationStartDateNotAnIsoDateString;
 
   @override
@@ -1937,20 +1864,17 @@ class CrowdinLocalization extends AppLocalizations {
 
   @override
   String get errorValidationGroupSessionProgramIdNotAPositiveNumber =>
-      Crowdin.getText(localeName,
-          'errorValidationGroupSessionProgramIdNotAPositiveNumber') ??
+      Crowdin.getText(localeName, 'errorValidationGroupSessionProgramIdNotAPositiveNumber') ??
       _fallbackTexts.errorValidationGroupSessionProgramIdNotAPositiveNumber;
 
   @override
   String get errorValidationGroupSessionProgramIdNotAnInteger =>
-      Crowdin.getText(
-          localeName, 'errorValidationGroupSessionProgramIdNotAnInteger') ??
+      Crowdin.getText(localeName, 'errorValidationGroupSessionProgramIdNotAnInteger') ??
       _fallbackTexts.errorValidationGroupSessionProgramIdNotAnInteger;
 
   @override
   String get errorValidationGroupSessionProgramIdNotANumber =>
-      Crowdin.getText(
-          localeName, 'errorValidationGroupSessionProgramIdNotANumber') ??
+      Crowdin.getText(localeName, 'errorValidationGroupSessionProgramIdNotANumber') ??
       _fallbackTexts.errorValidationGroupSessionProgramIdNotANumber;
 
   @override
@@ -2015,8 +1939,7 @@ class CrowdinLocalization extends AppLocalizations {
 
   @override
   String get errorValidationDurationNotAPositiveNumber =>
-      Crowdin.getText(
-          localeName, 'errorValidationDurationNotAPositiveNumber') ??
+      Crowdin.getText(localeName, 'errorValidationDurationNotAPositiveNumber') ??
       _fallbackTexts.errorValidationDurationNotAPositiveNumber;
 
   @override
@@ -2031,8 +1954,7 @@ class CrowdinLocalization extends AppLocalizations {
 
   @override
   String get errorValidationSessionIdNotAPositiveNumber =>
-      Crowdin.getText(
-          localeName, 'errorValidationSessionIdNotAPositiveNumber') ??
+      Crowdin.getText(localeName, 'errorValidationSessionIdNotAPositiveNumber') ??
       _fallbackTexts.errorValidationSessionIdNotAPositiveNumber;
 
   @override
@@ -2087,20 +2009,17 @@ class CrowdinLocalization extends AppLocalizations {
 
   @override
   String get errorValidationPhysicalProgramIdNotANumber =>
-      Crowdin.getText(
-          localeName, 'errorValidationPhysicalProgramIdNotANumber') ??
+      Crowdin.getText(localeName, 'errorValidationPhysicalProgramIdNotANumber') ??
       _fallbackTexts.errorValidationPhysicalProgramIdNotANumber;
 
   @override
   String get errorValidationPhysicalProgramIdNotAnInteger =>
-      Crowdin.getText(
-          localeName, 'errorValidationPhysicalProgramIdNotAnInteger') ??
+      Crowdin.getText(localeName, 'errorValidationPhysicalProgramIdNotAnInteger') ??
       _fallbackTexts.errorValidationPhysicalProgramIdNotAnInteger;
 
   @override
   String get errorValidationPhysicalProgramIdNotAPositiveNumber =>
-      Crowdin.getText(
-          localeName, 'errorValidationPhysicalProgramIdNotAPositiveNumber') ??
+      Crowdin.getText(localeName, 'errorValidationPhysicalProgramIdNotAPositiveNumber') ??
       _fallbackTexts.errorValidationPhysicalProgramIdNotAPositiveNumber;
 
   @override
@@ -2140,14 +2059,12 @@ class CrowdinLocalization extends AppLocalizations {
 
   @override
   String get errorValidationTrainingFrequencyNotAString =>
-      Crowdin.getText(
-          localeName, 'errorValidationTrainingFrequencyNotAString') ??
+      Crowdin.getText(localeName, 'errorValidationTrainingFrequencyNotAString') ??
       _fallbackTexts.errorValidationTrainingFrequencyNotAString;
 
   @override
   String get errorValidationTrainingFrequencyInvalidEnum =>
-      Crowdin.getText(
-          localeName, 'errorValidationTrainingFrequencyInvalidEnum') ??
+      Crowdin.getText(localeName, 'errorValidationTrainingFrequencyInvalidEnum') ??
       _fallbackTexts.errorValidationTrainingFrequencyInvalidEnum;
 
   @override
@@ -2162,8 +2079,7 @@ class CrowdinLocalization extends AppLocalizations {
 
   @override
   String get errorValidationTrainingTargetsInvalidEnum =>
-      Crowdin.getText(
-          localeName, 'errorValidationTrainingTargetsInvalidEnum') ??
+      Crowdin.getText(localeName, 'errorValidationTrainingTargetsInvalidEnum') ??
       _fallbackTexts.errorValidationTrainingTargetsInvalidEnum;
 
   @override
@@ -2228,8 +2144,7 @@ class CrowdinLocalization extends AppLocalizations {
 
   @override
   String get errorValidationExerciseIdNotAPositiveNumber =>
-      Crowdin.getText(
-          localeName, 'errorValidationExerciseIdNotAPositiveNumber') ??
+      Crowdin.getText(localeName, 'errorValidationExerciseIdNotAPositiveNumber') ??
       _fallbackTexts.errorValidationExerciseIdNotAPositiveNumber;
 
   @override
@@ -2259,8 +2174,7 @@ class CrowdinLocalization extends AppLocalizations {
 
   @override
   String get errorValidationTargetMusclesStringTooShort =>
-      Crowdin.getText(
-          localeName, 'errorValidationTargetMusclesStringTooShort') ??
+      Crowdin.getText(localeName, 'errorValidationTargetMusclesStringTooShort') ??
       _fallbackTexts.errorValidationTargetMusclesStringTooShort;
 
   @override
@@ -2300,8 +2214,7 @@ class CrowdinLocalization extends AppLocalizations {
 
   @override
   String get errorValidationProgramIdNotAPositiveNumber =>
-      Crowdin.getText(
-          localeName, 'errorValidationProgramIdNotAPositiveNumber') ??
+      Crowdin.getText(localeName, 'errorValidationProgramIdNotAPositiveNumber') ??
       _fallbackTexts.errorValidationProgramIdNotAPositiveNumber;
 
   @override
@@ -2321,8 +2234,7 @@ class CrowdinLocalization extends AppLocalizations {
 
   @override
   String get errorValidationModuleIdNotAPositiveNumber =>
-      Crowdin.getText(
-          localeName, 'errorValidationModuleIdNotAPositiveNumber') ??
+      Crowdin.getText(localeName, 'errorValidationModuleIdNotAPositiveNumber') ??
       _fallbackTexts.errorValidationModuleIdNotAPositiveNumber;
 
   @override
@@ -2342,8 +2254,7 @@ class CrowdinLocalization extends AppLocalizations {
 
   @override
   String get errorValidationExternalIdNotAPositiveNumber =>
-      Crowdin.getText(
-          localeName, 'errorValidationExternalIdNotAPositiveNumber') ??
+      Crowdin.getText(localeName, 'errorValidationExternalIdNotAPositiveNumber') ??
       _fallbackTexts.errorValidationExternalIdNotAPositiveNumber;
 
   @override
@@ -2393,20 +2304,17 @@ class CrowdinLocalization extends AppLocalizations {
 
   @override
   String get errorValidationLessonExternalIdNotAPositiveNumber =>
-      Crowdin.getText(
-          localeName, 'errorValidationLessonExternalIdNotAPositiveNumber') ??
+      Crowdin.getText(localeName, 'errorValidationLessonExternalIdNotAPositiveNumber') ??
       _fallbackTexts.errorValidationLessonExternalIdNotAPositiveNumber;
 
   @override
   String get errorValidationLessonExternalIdNotAnInteger =>
-      Crowdin.getText(
-          localeName, 'errorValidationLessonExternalIdNotAnInteger') ??
+      Crowdin.getText(localeName, 'errorValidationLessonExternalIdNotAnInteger') ??
       _fallbackTexts.errorValidationLessonExternalIdNotAnInteger;
 
   @override
   String get errorValidationLessonExternalIdNotANumber =>
-      Crowdin.getText(
-          localeName, 'errorValidationLessonExternalIdNotANumber') ??
+      Crowdin.getText(localeName, 'errorValidationLessonExternalIdNotANumber') ??
       _fallbackTexts.errorValidationLessonExternalIdNotANumber;
 
   @override
@@ -2416,20 +2324,17 @@ class CrowdinLocalization extends AppLocalizations {
 
   @override
   String get errorValidationUnlocksItemExternalIdsNotANumber =>
-      Crowdin.getText(
-          localeName, 'errorValidationUnlocksItemExternalIdsNotANumber') ??
+      Crowdin.getText(localeName, 'errorValidationUnlocksItemExternalIdsNotANumber') ??
       _fallbackTexts.errorValidationUnlocksItemExternalIdsNotANumber;
 
   @override
   String get errorValidationUnlocksItemExternalIdsNotAnArray =>
-      Crowdin.getText(
-          localeName, 'errorValidationUnlocksItemExternalIdsNotAnArray') ??
+      Crowdin.getText(localeName, 'errorValidationUnlocksItemExternalIdsNotAnArray') ??
       _fallbackTexts.errorValidationUnlocksItemExternalIdsNotAnArray;
 
   @override
   String get errorValidationUnlocksItemExternalIdsEmpty =>
-      Crowdin.getText(
-          localeName, 'errorValidationUnlocksItemExternalIdsEmpty') ??
+      Crowdin.getText(localeName, 'errorValidationUnlocksItemExternalIdsEmpty') ??
       _fallbackTexts.errorValidationUnlocksItemExternalIdsEmpty;
 
   @override
@@ -2449,27 +2354,22 @@ class CrowdinLocalization extends AppLocalizations {
 
   @override
   String get errorValidationUnlocksReflectionExternalIdNotANumber =>
-      Crowdin.getText(
-          localeName, 'errorValidationUnlocksReflectionExternalIdNotANumber') ??
+      Crowdin.getText(localeName, 'errorValidationUnlocksReflectionExternalIdNotANumber') ??
       _fallbackTexts.errorValidationUnlocksReflectionExternalIdNotANumber;
 
   @override
   String get errorValidationUnlocksReflectionExternalIdEmpty =>
-      Crowdin.getText(
-          localeName, 'errorValidationUnlocksReflectionExternalIdEmpty') ??
+      Crowdin.getText(localeName, 'errorValidationUnlocksReflectionExternalIdEmpty') ??
       _fallbackTexts.errorValidationUnlocksReflectionExternalIdEmpty;
 
   @override
   String get errorValidationUnlocksSmartGoalCategoryExternalIdNotANumber =>
-      Crowdin.getText(localeName,
-          'errorValidationUnlocksSmartGoalCategoryExternalIdNotANumber') ??
-      _fallbackTexts
-          .errorValidationUnlocksSmartGoalCategoryExternalIdNotANumber;
+      Crowdin.getText(localeName, 'errorValidationUnlocksSmartGoalCategoryExternalIdNotANumber') ??
+      _fallbackTexts.errorValidationUnlocksSmartGoalCategoryExternalIdNotANumber;
 
   @override
   String get errorValidationUnlocksSmartGoalCategoryExternalIdEmpty =>
-      Crowdin.getText(localeName,
-          'errorValidationUnlocksSmartGoalCategoryExternalIdEmpty') ??
+      Crowdin.getText(localeName, 'errorValidationUnlocksSmartGoalCategoryExternalIdEmpty') ??
       _fallbackTexts.errorValidationUnlocksSmartGoalCategoryExternalIdEmpty;
 
   @override
@@ -2484,8 +2384,7 @@ class CrowdinLocalization extends AppLocalizations {
 
   @override
   String get errorValidationFeaturePlacementInvalidEnum =>
-      Crowdin.getText(
-          localeName, 'errorValidationFeaturePlacementInvalidEnum') ??
+      Crowdin.getText(localeName, 'errorValidationFeaturePlacementInvalidEnum') ??
       _fallbackTexts.errorValidationFeaturePlacementInvalidEnum;
 
   @override
@@ -2520,8 +2419,7 @@ class CrowdinLocalization extends AppLocalizations {
 
   @override
   String get errorValidationRiverModuleIdNotAPositiveNumber =>
-      Crowdin.getText(
-          localeName, 'errorValidationRiverModuleIdNotAPositiveNumber') ??
+      Crowdin.getText(localeName, 'errorValidationRiverModuleIdNotAPositiveNumber') ??
       _fallbackTexts.errorValidationRiverModuleIdNotAPositiveNumber;
 
   @override
@@ -2531,20 +2429,17 @@ class CrowdinLocalization extends AppLocalizations {
 
   @override
   String get errorValidationRiverModuleItemIdNotANumber =>
-      Crowdin.getText(
-          localeName, 'errorValidationRiverModuleItemIdNotANumber') ??
+      Crowdin.getText(localeName, 'errorValidationRiverModuleItemIdNotANumber') ??
       _fallbackTexts.errorValidationRiverModuleItemIdNotANumber;
 
   @override
   String get errorValidationRiverModuleItemIdNotAnInteger =>
-      Crowdin.getText(
-          localeName, 'errorValidationRiverModuleItemIdNotAnInteger') ??
+      Crowdin.getText(localeName, 'errorValidationRiverModuleItemIdNotAnInteger') ??
       _fallbackTexts.errorValidationRiverModuleItemIdNotAnInteger;
 
   @override
   String get errorValidationRiverModuleItemIdNotAPositiveNumber =>
-      Crowdin.getText(
-          localeName, 'errorValidationRiverModuleItemIdNotAPositiveNumber') ??
+      Crowdin.getText(localeName, 'errorValidationRiverModuleItemIdNotAPositiveNumber') ??
       _fallbackTexts.errorValidationRiverModuleItemIdNotAPositiveNumber;
 
   @override
@@ -2569,8 +2464,7 @@ class CrowdinLocalization extends AppLocalizations {
 
   @override
   String get errorValidationMeasurementSystemNotAString =>
-      Crowdin.getText(
-          localeName, 'errorValidationMeasurementSystemNotAString') ??
+      Crowdin.getText(localeName, 'errorValidationMeasurementSystemNotAString') ??
       _fallbackTexts.errorValidationMeasurementSystemNotAString;
 
   @override
@@ -2580,8 +2474,7 @@ class CrowdinLocalization extends AppLocalizations {
 
   @override
   String get errorValidationDiabetesNotAPositiveNumber =>
-      Crowdin.getText(
-          localeName, 'errorValidationDiabetesNotAPositiveNumber') ??
+      Crowdin.getText(localeName, 'errorValidationDiabetesNotAPositiveNumber') ??
       _fallbackTexts.errorValidationDiabetesNotAPositiveNumber;
 
   @override
@@ -2611,8 +2504,7 @@ class CrowdinLocalization extends AppLocalizations {
 
   @override
   String get errorValidationReplyMessageIdNotANumberString =>
-      Crowdin.getText(
-          localeName, 'errorValidationReplyMessageIdNotANumberString') ??
+      Crowdin.getText(localeName, 'errorValidationReplyMessageIdNotANumberString') ??
       _fallbackTexts.errorValidationReplyMessageIdNotANumberString;
 
   @override
@@ -2627,8 +2519,7 @@ class CrowdinLocalization extends AppLocalizations {
 
   @override
   String get errorValidationMessageIdNotAPositiveNumber =>
-      Crowdin.getText(
-          localeName, 'errorValidationMessageIdNotAPositiveNumber') ??
+      Crowdin.getText(localeName, 'errorValidationMessageIdNotAPositiveNumber') ??
       _fallbackTexts.errorValidationMessageIdNotAPositiveNumber;
 
   @override
@@ -2728,20 +2619,17 @@ class CrowdinLocalization extends AppLocalizations {
 
   @override
   String get errorValidationExtraAccountsCountNumberTooSmall =>
-      Crowdin.getText(
-          localeName, 'errorValidationExtraAccountsCountNumberTooSmall') ??
+      Crowdin.getText(localeName, 'errorValidationExtraAccountsCountNumberTooSmall') ??
       _fallbackTexts.errorValidationExtraAccountsCountNumberTooSmall;
 
   @override
   String get errorValidationExtraAccountsCountNotAnInteger =>
-      Crowdin.getText(
-          localeName, 'errorValidationExtraAccountsCountNotAnInteger') ??
+      Crowdin.getText(localeName, 'errorValidationExtraAccountsCountNotAnInteger') ??
       _fallbackTexts.errorValidationExtraAccountsCountNotAnInteger;
 
   @override
   String get errorValidationExtraAccountsCountNotANumber =>
-      Crowdin.getText(
-          localeName, 'errorValidationExtraAccountsCountNotANumber') ??
+      Crowdin.getText(localeName, 'errorValidationExtraAccountsCountNotANumber') ??
       _fallbackTexts.errorValidationExtraAccountsCountNotANumber;
 
   @override
@@ -2786,8 +2674,7 @@ class CrowdinLocalization extends AppLocalizations {
 
   @override
   String get errorValidationAdvertisingIdStringTooLong =>
-      Crowdin.getText(
-          localeName, 'errorValidationAdvertisingIdStringTooLong') ??
+      Crowdin.getText(localeName, 'errorValidationAdvertisingIdStringTooLong') ??
       _fallbackTexts.errorValidationAdvertisingIdStringTooLong;
 
   @override
@@ -2797,8 +2684,7 @@ class CrowdinLocalization extends AppLocalizations {
 
   @override
   String get errorValidationFromMessageIdNotANumberString =>
-      Crowdin.getText(
-          localeName, 'errorValidationFromMessageIdNotANumberString') ??
+      Crowdin.getText(localeName, 'errorValidationFromMessageIdNotANumberString') ??
       _fallbackTexts.errorValidationFromMessageIdNotANumberString;
 
   @override
@@ -2808,8 +2694,7 @@ class CrowdinLocalization extends AppLocalizations {
 
   @override
   String get errorValidationChatMessageIdNotANumberString =>
-      Crowdin.getText(
-          localeName, 'errorValidationChatMessageIdNotANumberString') ??
+      Crowdin.getText(localeName, 'errorValidationChatMessageIdNotANumberString') ??
       _fallbackTexts.errorValidationChatMessageIdNotANumberString;
 
   @override
@@ -2829,8 +2714,7 @@ class CrowdinLocalization extends AppLocalizations {
 
   @override
   String get errorValidationReflectionIdNotAPositiveNumber =>
-      Crowdin.getText(
-          localeName, 'errorValidationReflectionIdNotAPositiveNumber') ??
+      Crowdin.getText(localeName, 'errorValidationReflectionIdNotAPositiveNumber') ??
       _fallbackTexts.errorValidationReflectionIdNotAPositiveNumber;
 
   @override
@@ -2840,63 +2724,52 @@ class CrowdinLocalization extends AppLocalizations {
 
   @override
   String get errorValidationReflectionQuestionIdNotANumber =>
-      Crowdin.getText(
-          localeName, 'errorValidationReflectionQuestionIdNotANumber') ??
+      Crowdin.getText(localeName, 'errorValidationReflectionQuestionIdNotANumber') ??
       _fallbackTexts.errorValidationReflectionQuestionIdNotANumber;
 
   @override
   String get errorValidationReflectionQuestionIdNotAnInteger =>
-      Crowdin.getText(
-          localeName, 'errorValidationReflectionQuestionIdNotAnInteger') ??
+      Crowdin.getText(localeName, 'errorValidationReflectionQuestionIdNotAnInteger') ??
       _fallbackTexts.errorValidationReflectionQuestionIdNotAnInteger;
 
   @override
   String get errorValidationReflectionQuestionIdNotAPositiveNumber =>
-      Crowdin.getText(localeName,
-          'errorValidationReflectionQuestionIdNotAPositiveNumber') ??
+      Crowdin.getText(localeName, 'errorValidationReflectionQuestionIdNotAPositiveNumber') ??
       _fallbackTexts.errorValidationReflectionQuestionIdNotAPositiveNumber;
 
   @override
   String get errorValidationReflectionQuestionOptionIdsNumberTooBig =>
-      Crowdin.getText(localeName,
-          'errorValidationReflectionQuestionOptionIdsNumberTooBig') ??
+      Crowdin.getText(localeName, 'errorValidationReflectionQuestionOptionIdsNumberTooBig') ??
       _fallbackTexts.errorValidationReflectionQuestionOptionIdsNumberTooBig;
 
   @override
   String get errorValidationReflectionQuestionOptionIdsNumberTooSmall =>
-      Crowdin.getText(localeName,
-          'errorValidationReflectionQuestionOptionIdsNumberTooSmall') ??
+      Crowdin.getText(localeName, 'errorValidationReflectionQuestionOptionIdsNumberTooSmall') ??
       _fallbackTexts.errorValidationReflectionQuestionOptionIdsNumberTooSmall;
 
   @override
   String get errorValidationReflectionQuestionOptionIdsNotAPositiveNumber =>
-      Crowdin.getText(localeName,
-          'errorValidationReflectionQuestionOptionIdsNotAPositiveNumber') ??
-      _fallbackTexts
-          .errorValidationReflectionQuestionOptionIdsNotAPositiveNumber;
+      Crowdin.getText(localeName, 'errorValidationReflectionQuestionOptionIdsNotAPositiveNumber') ??
+      _fallbackTexts.errorValidationReflectionQuestionOptionIdsNotAPositiveNumber;
 
   @override
   String get errorValidationReflectionQuestionOptionIdsNotAnInteger =>
-      Crowdin.getText(localeName,
-          'errorValidationReflectionQuestionOptionIdsNotAnInteger') ??
+      Crowdin.getText(localeName, 'errorValidationReflectionQuestionOptionIdsNotAnInteger') ??
       _fallbackTexts.errorValidationReflectionQuestionOptionIdsNotAnInteger;
 
   @override
   String get errorValidationReflectionQuestionOptionIdsNotANumber =>
-      Crowdin.getText(
-          localeName, 'errorValidationReflectionQuestionOptionIdsNotANumber') ??
+      Crowdin.getText(localeName, 'errorValidationReflectionQuestionOptionIdsNotANumber') ??
       _fallbackTexts.errorValidationReflectionQuestionOptionIdsNotANumber;
 
   @override
   String get errorValidationReflectionQuestionOptionIdsEmptyArray =>
-      Crowdin.getText(
-          localeName, 'errorValidationReflectionQuestionOptionIdsEmptyArray') ??
+      Crowdin.getText(localeName, 'errorValidationReflectionQuestionOptionIdsEmptyArray') ??
       _fallbackTexts.errorValidationReflectionQuestionOptionIdsEmptyArray;
 
   @override
   String get errorValidationReflectionQuestionOptionIdsNotAnArray =>
-      Crowdin.getText(
-          localeName, 'errorValidationReflectionQuestionOptionIdsNotAnArray') ??
+      Crowdin.getText(localeName, 'errorValidationReflectionQuestionOptionIdsNotAnArray') ??
       _fallbackTexts.errorValidationReflectionQuestionOptionIdsNotAnArray;
 
   @override
@@ -2941,8 +2814,7 @@ class CrowdinLocalization extends AppLocalizations {
 
   @override
   String get errorValidationLessonIdNotAPositiveNumber =>
-      Crowdin.getText(
-          localeName, 'errorValidationLessonIdNotAPositiveNumber') ??
+      Crowdin.getText(localeName, 'errorValidationLessonIdNotAPositiveNumber') ??
       _fallbackTexts.errorValidationLessonIdNotAPositiveNumber;
 
   @override
@@ -2957,8 +2829,7 @@ class CrowdinLocalization extends AppLocalizations {
 
   @override
   String get errorValidationMinValueNotAPositiveNumber =>
-      Crowdin.getText(
-          localeName, 'errorValidationMinValueNotAPositiveNumber') ??
+      Crowdin.getText(localeName, 'errorValidationMinValueNotAPositiveNumber') ??
       _fallbackTexts.errorValidationMinValueNotAPositiveNumber;
 
   @override
@@ -2973,8 +2844,7 @@ class CrowdinLocalization extends AppLocalizations {
 
   @override
   String get errorValidationMaxValueNotAPositiveNumber =>
-      Crowdin.getText(
-          localeName, 'errorValidationMaxValueNotAPositiveNumber') ??
+      Crowdin.getText(localeName, 'errorValidationMaxValueNotAPositiveNumber') ??
       _fallbackTexts.errorValidationMaxValueNotAPositiveNumber;
 
   @override
@@ -3029,8 +2899,7 @@ class CrowdinLocalization extends AppLocalizations {
 
   @override
   String get errorValidationExtraInstructionNotAString =>
-      Crowdin.getText(
-          localeName, 'errorValidationExtraInstructionNotAString') ??
+      Crowdin.getText(localeName, 'errorValidationExtraInstructionNotAString') ??
       _fallbackTexts.errorValidationExtraInstructionNotAString;
 
   @override
@@ -3045,20 +2914,17 @@ class CrowdinLocalization extends AppLocalizations {
 
   @override
   String get errorValidationExternalLessonIdNotAPositiveNumber =>
-      Crowdin.getText(
-          localeName, 'errorValidationExternalLessonIdNotAPositiveNumber') ??
+      Crowdin.getText(localeName, 'errorValidationExternalLessonIdNotAPositiveNumber') ??
       _fallbackTexts.errorValidationExternalLessonIdNotAPositiveNumber;
 
   @override
   String get errorValidationExternalLessonIdNotAnInteger =>
-      Crowdin.getText(
-          localeName, 'errorValidationExternalLessonIdNotAnInteger') ??
+      Crowdin.getText(localeName, 'errorValidationExternalLessonIdNotAnInteger') ??
       _fallbackTexts.errorValidationExternalLessonIdNotAnInteger;
 
   @override
   String get errorValidationExternalLessonIdNotANumber =>
-      Crowdin.getText(
-          localeName, 'errorValidationExternalLessonIdNotANumber') ??
+      Crowdin.getText(localeName, 'errorValidationExternalLessonIdNotANumber') ??
       _fallbackTexts.errorValidationExternalLessonIdNotANumber;
 
   @override
@@ -3128,8 +2994,7 @@ class CrowdinLocalization extends AppLocalizations {
 
   @override
   String get errorValidationUnlockDescriptionNotAString =>
-      Crowdin.getText(
-          localeName, 'errorValidationUnlockDescriptionNotAString') ??
+      Crowdin.getText(localeName, 'errorValidationUnlockDescriptionNotAString') ??
       _fallbackTexts.errorValidationUnlockDescriptionNotAString;
 
   @override
@@ -3204,44 +3069,37 @@ class CrowdinLocalization extends AppLocalizations {
 
   @override
   String get errorValidationLessonQuizIdNotAPositiveNumber =>
-      Crowdin.getText(
-          localeName, 'errorValidationLessonQuizIdNotAPositiveNumber') ??
+      Crowdin.getText(localeName, 'errorValidationLessonQuizIdNotAPositiveNumber') ??
       _fallbackTexts.errorValidationLessonQuizIdNotAPositiveNumber;
 
   @override
   String get errorValidationLessonQuizQuestionOptionIdsNumberTooBig =>
-      Crowdin.getText(localeName,
-          'errorValidationLessonQuizQuestionOptionIdsNumberTooBig') ??
+      Crowdin.getText(localeName, 'errorValidationLessonQuizQuestionOptionIdsNumberTooBig') ??
       _fallbackTexts.errorValidationLessonQuizQuestionOptionIdsNumberTooBig;
 
   @override
   String get errorLessonQuizQuestionOptionIdsNumberTooSmall =>
-      Crowdin.getText(
-          localeName, 'errorLessonQuizQuestionOptionIdsNumberTooSmall') ??
+      Crowdin.getText(localeName, 'errorLessonQuizQuestionOptionIdsNumberTooSmall') ??
       _fallbackTexts.errorLessonQuizQuestionOptionIdsNumberTooSmall;
 
   @override
   String get errorLessonQuizQuestionOptionIdsNotAPositiveNumber =>
-      Crowdin.getText(
-          localeName, 'errorLessonQuizQuestionOptionIdsNotAPositiveNumber') ??
+      Crowdin.getText(localeName, 'errorLessonQuizQuestionOptionIdsNotAPositiveNumber') ??
       _fallbackTexts.errorLessonQuizQuestionOptionIdsNotAPositiveNumber;
 
   @override
   String get errorLessonQuizQuestionOptionIdsNotAnInteger =>
-      Crowdin.getText(
-          localeName, 'errorLessonQuizQuestionOptionIdsNotAnInteger') ??
+      Crowdin.getText(localeName, 'errorLessonQuizQuestionOptionIdsNotAnInteger') ??
       _fallbackTexts.errorLessonQuizQuestionOptionIdsNotAnInteger;
 
   @override
   String get errorLessonQuizQuestionOptionIdsNotANumber =>
-      Crowdin.getText(
-          localeName, 'errorLessonQuizQuestionOptionIdsNotANumber') ??
+      Crowdin.getText(localeName, 'errorLessonQuizQuestionOptionIdsNotANumber') ??
       _fallbackTexts.errorLessonQuizQuestionOptionIdsNotANumber;
 
   @override
   String get errorLessonQuizQuestionOptionIdsNotAnArray =>
-      Crowdin.getText(
-          localeName, 'errorLessonQuizQuestionOptionIdsNotAnArray') ??
+      Crowdin.getText(localeName, 'errorLessonQuizQuestionOptionIdsNotAnArray') ??
       _fallbackTexts.errorLessonQuizQuestionOptionIdsNotAnArray;
 
   @override
@@ -3261,8 +3119,7 @@ class CrowdinLocalization extends AppLocalizations {
 
   @override
   String get errorLessonQuizQuestionIdNotAPositiveNumber =>
-      Crowdin.getText(
-          localeName, 'errorLessonQuizQuestionIdNotAPositiveNumber') ??
+      Crowdin.getText(localeName, 'errorLessonQuizQuestionIdNotAPositiveNumber') ??
       _fallbackTexts.errorLessonQuizQuestionIdNotAPositiveNumber;
 
   @override
@@ -3292,8 +3149,7 @@ class CrowdinLocalization extends AppLocalizations {
 
   @override
   String get errorExplanationDurationNotAPositiveNumber =>
-      Crowdin.getText(
-          localeName, 'errorExplanationDurationNotAPositiveNumber') ??
+      Crowdin.getText(localeName, 'errorExplanationDurationNotAPositiveNumber') ??
       _fallbackTexts.errorExplanationDurationNotAPositiveNumber;
 
   @override
@@ -3368,8 +3224,7 @@ class CrowdinLocalization extends AppLocalizations {
 
   @override
   String get errorExerciseSrcEmpty =>
-      Crowdin.getText(localeName, 'errorExerciseSrcEmpty') ??
-      _fallbackTexts.errorExerciseSrcEmpty;
+      Crowdin.getText(localeName, 'errorExerciseSrcEmpty') ?? _fallbackTexts.errorExerciseSrcEmpty;
 
   @override
   String get errorShortDescriptionNotAString =>
@@ -3383,8 +3238,7 @@ class CrowdinLocalization extends AppLocalizations {
 
   @override
   String get errorDifficultyEmpty =>
-      Crowdin.getText(localeName, 'errorDifficultyEmpty') ??
-      _fallbackTexts.errorDifficultyEmpty;
+      Crowdin.getText(localeName, 'errorDifficultyEmpty') ?? _fallbackTexts.errorDifficultyEmpty;
 
   @override
   String get errorScaleBeforeQuestionNotAString =>
@@ -3433,8 +3287,7 @@ class CrowdinLocalization extends AppLocalizations {
 
   @override
   String get errorTechniqueIdEmpty =>
-      Crowdin.getText(localeName, 'errorTechniqueIdEmpty') ??
-      _fallbackTexts.errorTechniqueIdEmpty;
+      Crowdin.getText(localeName, 'errorTechniqueIdEmpty') ?? _fallbackTexts.errorTechniqueIdEmpty;
 
   @override
   String get errorSubtitleNotAString =>
@@ -3443,8 +3296,7 @@ class CrowdinLocalization extends AppLocalizations {
 
   @override
   String get errorSubtitleEmpty =>
-      Crowdin.getText(localeName, 'errorSubtitleEmpty') ??
-      _fallbackTexts.errorSubtitleEmpty;
+      Crowdin.getText(localeName, 'errorSubtitleEmpty') ?? _fallbackTexts.errorSubtitleEmpty;
 
   @override
   String get errorShortIntroductionNotAString =>
@@ -3478,8 +3330,7 @@ class CrowdinLocalization extends AppLocalizations {
 
   @override
   String get errorExternalTechniqueIdNotAPositiveNumber =>
-      Crowdin.getText(
-          localeName, 'errorExternalTechniqueIdNotAPositiveNumber') ??
+      Crowdin.getText(localeName, 'errorExternalTechniqueIdNotAPositiveNumber') ??
       _fallbackTexts.errorExternalTechniqueIdNotAPositiveNumber;
 
   @override
@@ -3559,13 +3410,11 @@ class CrowdinLocalization extends AppLocalizations {
 
   @override
   String get errorScaleEmpty =>
-      Crowdin.getText(localeName, 'errorScaleEmpty') ??
-      _fallbackTexts.errorScaleEmpty;
+      Crowdin.getText(localeName, 'errorScaleEmpty') ?? _fallbackTexts.errorScaleEmpty;
 
   @override
   String get errorScaleInvalidEnum =>
-      Crowdin.getText(localeName, 'errorScaleInvalidEnum') ??
-      _fallbackTexts.errorScaleInvalidEnum;
+      Crowdin.getText(localeName, 'errorScaleInvalidEnum') ?? _fallbackTexts.errorScaleInvalidEnum;
 
   @override
   String get errorTimeNotADateString =>
@@ -3599,8 +3448,7 @@ class CrowdinLocalization extends AppLocalizations {
 
   @override
   String get errorPersonNotAnArray =>
-      Crowdin.getText(localeName, 'errorPersonNotAnArray') ??
-      _fallbackTexts.errorPersonNotAnArray;
+      Crowdin.getText(localeName, 'errorPersonNotAnArray') ?? _fallbackTexts.errorPersonNotAnArray;
 
   @override
   String get errorPersonArrayContainsDuplicates =>
@@ -3614,8 +3462,7 @@ class CrowdinLocalization extends AppLocalizations {
 
   @override
   String get errorPersonNotAString =>
-      Crowdin.getText(localeName, 'errorPersonNotAString') ??
-      _fallbackTexts.errorPersonNotAString;
+      Crowdin.getText(localeName, 'errorPersonNotAString') ?? _fallbackTexts.errorPersonNotAString;
 
   @override
   String get errorPersonInvalidEnum =>
@@ -3644,8 +3491,7 @@ class CrowdinLocalization extends AppLocalizations {
 
   @override
   String get errorFoodNotAnArray =>
-      Crowdin.getText(localeName, 'errorFoodNotAnArray') ??
-      _fallbackTexts.errorFoodNotAnArray;
+      Crowdin.getText(localeName, 'errorFoodNotAnArray') ?? _fallbackTexts.errorFoodNotAnArray;
 
   @override
   String get errorFoodArrayContainsDuplicates =>
@@ -3659,18 +3505,15 @@ class CrowdinLocalization extends AppLocalizations {
 
   @override
   String get errorFoodNotAString =>
-      Crowdin.getText(localeName, 'errorFoodNotAString') ??
-      _fallbackTexts.errorFoodNotAString;
+      Crowdin.getText(localeName, 'errorFoodNotAString') ?? _fallbackTexts.errorFoodNotAString;
 
   @override
   String get errorFoodInvalidEnum =>
-      Crowdin.getText(localeName, 'errorFoodInvalidEnum') ??
-      _fallbackTexts.errorFoodInvalidEnum;
+      Crowdin.getText(localeName, 'errorFoodInvalidEnum') ?? _fallbackTexts.errorFoodInvalidEnum;
 
   @override
   String get errorNoteNotAString =>
-      Crowdin.getText(localeName, 'errorNoteNotAString') ??
-      _fallbackTexts.errorNoteNotAString;
+      Crowdin.getText(localeName, 'errorNoteNotAString') ?? _fallbackTexts.errorNoteNotAString;
 
   @override
   String get errorNoteStringTooShort =>
@@ -3684,13 +3527,11 @@ class CrowdinLocalization extends AppLocalizations {
 
   @override
   String get errorMoodIdEmpty =>
-      Crowdin.getText(localeName, 'errorMoodIdEmpty') ??
-      _fallbackTexts.errorMoodIdEmpty;
+      Crowdin.getText(localeName, 'errorMoodIdEmpty') ?? _fallbackTexts.errorMoodIdEmpty;
 
   @override
   String get errorMoodIdNotANumber =>
-      Crowdin.getText(localeName, 'errorMoodIdNotANumber') ??
-      _fallbackTexts.errorMoodIdNotANumber;
+      Crowdin.getText(localeName, 'errorMoodIdNotANumber') ?? _fallbackTexts.errorMoodIdNotANumber;
 
   @override
   String get errorMoodIdNotAnInteger =>
@@ -3714,8 +3555,7 @@ class CrowdinLocalization extends AppLocalizations {
 
   @override
   String get errorShortTitleEmpty =>
-      Crowdin.getText(localeName, 'errorShortTitleEmpty') ??
-      _fallbackTexts.errorShortTitleEmpty;
+      Crowdin.getText(localeName, 'errorShortTitleEmpty') ?? _fallbackTexts.errorShortTitleEmpty;
 
   @override
   String get errorDescriptionNotAString =>
@@ -3724,8 +3564,7 @@ class CrowdinLocalization extends AppLocalizations {
 
   @override
   String get errorDescriptionEmpty =>
-      Crowdin.getText(localeName, 'errorDescriptionEmpty') ??
-      _fallbackTexts.errorDescriptionEmpty;
+      Crowdin.getText(localeName, 'errorDescriptionEmpty') ?? _fallbackTexts.errorDescriptionEmpty;
 
   @override
   String get errorFunFactNotAString =>
@@ -3734,8 +3573,7 @@ class CrowdinLocalization extends AppLocalizations {
 
   @override
   String get errorFunFactEmpty =>
-      Crowdin.getText(localeName, 'errorFunFactEmpty') ??
-      _fallbackTexts.errorFunFactEmpty;
+      Crowdin.getText(localeName, 'errorFunFactEmpty') ?? _fallbackTexts.errorFunFactEmpty;
 
   @override
   String get errorRequiredCompletionDaysNotANumber =>
@@ -3749,8 +3587,7 @@ class CrowdinLocalization extends AppLocalizations {
 
   @override
   String get errorRequiredCompletionDaysNotAPositiveNumber =>
-      Crowdin.getText(
-          localeName, 'errorRequiredCompletionDaysNotAPositiveNumber') ??
+      Crowdin.getText(localeName, 'errorRequiredCompletionDaysNotAPositiveNumber') ??
       _fallbackTexts.errorRequiredCompletionDaysNotAPositiveNumber;
 
   @override
@@ -3775,8 +3612,7 @@ class CrowdinLocalization extends AppLocalizations {
 
   @override
   String get errorRelatedExternalGoalIdsNotAPositiveNumber =>
-      Crowdin.getText(
-          localeName, 'errorRelatedExternalGoalIdsNotAPositiveNumber') ??
+      Crowdin.getText(localeName, 'errorRelatedExternalGoalIdsNotAPositiveNumber') ??
       _fallbackTexts.errorRelatedExternalGoalIdsNotAPositiveNumber;
 
   @override
@@ -3796,13 +3632,11 @@ class CrowdinLocalization extends AppLocalizations {
 
   @override
   String get errorGoalIdEmpty =>
-      Crowdin.getText(localeName, 'errorGoalIdEmpty') ??
-      _fallbackTexts.errorGoalIdEmpty;
+      Crowdin.getText(localeName, 'errorGoalIdEmpty') ?? _fallbackTexts.errorGoalIdEmpty;
 
   @override
   String get errorGoalIdNotANumber =>
-      Crowdin.getText(localeName, 'errorGoalIdNotANumber') ??
-      _fallbackTexts.errorGoalIdNotANumber;
+      Crowdin.getText(localeName, 'errorGoalIdNotANumber') ?? _fallbackTexts.errorGoalIdNotANumber;
 
   @override
   String get errorGoalIdNotAnInteger =>
@@ -3826,8 +3660,7 @@ class CrowdinLocalization extends AppLocalizations {
 
   @override
   String get errorCompletionDaysPer7DaysNotAPositiveNumber =>
-      Crowdin.getText(
-          localeName, 'errorCompletionDaysPer7DaysNotAPositiveNumber') ??
+      Crowdin.getText(localeName, 'errorCompletionDaysPer7DaysNotAPositiveNumber') ??
       _fallbackTexts.errorCompletionDaysPer7DaysNotAPositiveNumber;
 
   @override
@@ -3837,8 +3670,7 @@ class CrowdinLocalization extends AppLocalizations {
 
   @override
   String get errorFilePathEmpty =>
-      Crowdin.getText(localeName, 'errorFilePathEmpty') ??
-      _fallbackTexts.errorFilePathEmpty;
+      Crowdin.getText(localeName, 'errorFilePathEmpty') ?? _fallbackTexts.errorFilePathEmpty;
 
   @override
   String get errorFilePathNotAString =>
@@ -3847,8 +3679,7 @@ class CrowdinLocalization extends AppLocalizations {
 
   @override
   String get errorCategoryIdEmpty =>
-      Crowdin.getText(localeName, 'errorCategoryIdEmpty') ??
-      _fallbackTexts.errorCategoryIdEmpty;
+      Crowdin.getText(localeName, 'errorCategoryIdEmpty') ?? _fallbackTexts.errorCategoryIdEmpty;
 
   @override
   String get errorCategoryIdNotANumber =>
@@ -3877,8 +3708,7 @@ class CrowdinLocalization extends AppLocalizations {
 
   @override
   String get errorReviewIdEmpty =>
-      Crowdin.getText(localeName, 'errorReviewIdEmpty') ??
-      _fallbackTexts.errorReviewIdEmpty;
+      Crowdin.getText(localeName, 'errorReviewIdEmpty') ?? _fallbackTexts.errorReviewIdEmpty;
 
   @override
   String get errorReviewIdNotANumber =>
@@ -3932,8 +3762,7 @@ class CrowdinLocalization extends AppLocalizations {
 
   @override
   String get errorSmartGoalIdEmpty =>
-      Crowdin.getText(localeName, 'errorSmartGoalIdEmpty') ??
-      _fallbackTexts.errorSmartGoalIdEmpty;
+      Crowdin.getText(localeName, 'errorSmartGoalIdEmpty') ?? _fallbackTexts.errorSmartGoalIdEmpty;
 
   @override
   String get errorSmartGoalIdNotANumber =>
@@ -3952,8 +3781,7 @@ class CrowdinLocalization extends AppLocalizations {
 
   @override
   String get errorStartedAtEmpty =>
-      Crowdin.getText(localeName, 'errorStartedAtEmpty') ??
-      _fallbackTexts.errorStartedAtEmpty;
+      Crowdin.getText(localeName, 'errorStartedAtEmpty') ?? _fallbackTexts.errorStartedAtEmpty;
 
   @override
   String get errorStartedAtNotAString =>
@@ -3972,13 +3800,11 @@ class CrowdinLocalization extends AppLocalizations {
 
   @override
   String get errorSessionIdEmpty =>
-      Crowdin.getText(localeName, 'errorSessionIdEmpty') ??
-      _fallbackTexts.errorSessionIdEmpty;
+      Crowdin.getText(localeName, 'errorSessionIdEmpty') ?? _fallbackTexts.errorSessionIdEmpty;
 
   @override
   String get errorProgressIdEmpty =>
-      Crowdin.getText(localeName, 'errorProgressIdEmpty') ??
-      _fallbackTexts.errorProgressIdEmpty;
+      Crowdin.getText(localeName, 'errorProgressIdEmpty') ?? _fallbackTexts.errorProgressIdEmpty;
 
   @override
   String get errorProgressIdNotANumber =>
@@ -4122,13 +3948,11 @@ class CrowdinLocalization extends AppLocalizations {
 
   @override
   String get errorCoreFileInvalid =>
-      Crowdin.getText(localeName, 'errorCoreFileInvalid') ??
-      _fallbackTexts.errorCoreFileInvalid;
+      Crowdin.getText(localeName, 'errorCoreFileInvalid') ?? _fallbackTexts.errorCoreFileInvalid;
 
   @override
   String get errorAccountEmailLessThanADayFromLastChange =>
-      Crowdin.getText(
-          localeName, 'errorAccountEmailLessThanADayFromLastChange') ??
+      Crowdin.getText(localeName, 'errorAccountEmailLessThanADayFromLastChange') ??
       _fallbackTexts.errorAccountEmailLessThanADayFromLastChange;
 
   @override
@@ -4148,8 +3972,7 @@ class CrowdinLocalization extends AppLocalizations {
 
   @override
   String get errorSubscriptionAndroidProductIdNotFound =>
-      Crowdin.getText(
-          localeName, 'errorSubscriptionAndroidProductIdNotFound') ??
+      Crowdin.getText(localeName, 'errorSubscriptionAndroidProductIdNotFound') ??
       _fallbackTexts.errorSubscriptionAndroidProductIdNotFound;
 
   @override
@@ -4189,8 +4012,7 @@ class CrowdinLocalization extends AppLocalizations {
 
   @override
   String get errorSubscriptionBaseTransactionIdInvalid =>
-      Crowdin.getText(
-          localeName, 'errorSubscriptionBaseTransactionIdInvalid') ??
+      Crowdin.getText(localeName, 'errorSubscriptionBaseTransactionIdInvalid') ??
       _fallbackTexts.errorSubscriptionBaseTransactionIdInvalid;
 
   @override
@@ -4215,8 +4037,7 @@ class CrowdinLocalization extends AppLocalizations {
 
   @override
   String get errorGroupingDataOneOptionalFieldRequired =>
-      Crowdin.getText(
-          localeName, 'errorGroupingDataOneOptionalFieldRequired') ??
+      Crowdin.getText(localeName, 'errorGroupingDataOneOptionalFieldRequired') ??
       _fallbackTexts.errorGroupingDataOneOptionalFieldRequired;
 
   @override
@@ -4236,8 +4057,7 @@ class CrowdinLocalization extends AppLocalizations {
 
   @override
   String get errorGroupingAccountGroupingStateCanNotCancel =>
-      Crowdin.getText(
-          localeName, 'errorGroupingAccountGroupingStateCanNotCancel') ??
+      Crowdin.getText(localeName, 'errorGroupingAccountGroupingStateCanNotCancel') ??
       _fallbackTexts.errorGroupingAccountGroupingStateCanNotCancel;
 
   @override
@@ -4437,26 +4257,22 @@ class CrowdinLocalization extends AppLocalizations {
 
   @override
   String get errorMedicalOnboardingQuestionTypeInvalid =>
-      Crowdin.getText(
-          localeName, 'errorMedicalOnboardingQuestionTypeInvalid') ??
+      Crowdin.getText(localeName, 'errorMedicalOnboardingQuestionTypeInvalid') ??
       _fallbackTexts.errorMedicalOnboardingQuestionTypeInvalid;
 
   @override
   String get errorPhysicalActivitiesPhysicalProgramIdNotFound =>
-      Crowdin.getText(
-          localeName, 'errorPhysicalActivitiesPhysicalProgramIdNotFound') ??
+      Crowdin.getText(localeName, 'errorPhysicalActivitiesPhysicalProgramIdNotFound') ??
       _fallbackTexts.errorPhysicalActivitiesPhysicalProgramIdNotFound;
 
   @override
   String get errorPhysicalActivitiesPhysicalProgramExerciseIdNotFound =>
-      Crowdin.getText(localeName,
-          'errorPhysicalActivitiesPhysicalProgramExerciseIdNotFound') ??
+      Crowdin.getText(localeName, 'errorPhysicalActivitiesPhysicalProgramExerciseIdNotFound') ??
       _fallbackTexts.errorPhysicalActivitiesPhysicalProgramExerciseIdNotFound;
 
   @override
   String get errorPhysicalActivitiesPreferencesNotFound =>
-      Crowdin.getText(
-          localeName, 'errorPhysicalActivitiesPreferencesNotFound') ??
+      Crowdin.getText(localeName, 'errorPhysicalActivitiesPreferencesNotFound') ??
       _fallbackTexts.errorPhysicalActivitiesPreferencesNotFound;
 
   @override
@@ -4521,8 +4337,7 @@ class CrowdinLocalization extends AppLocalizations {
 
   @override
   String get errorEducationReflectionFeedbackAlreadySubmitted =>
-      Crowdin.getText(
-          localeName, 'errorEducationReflectionFeedbackAlreadySubmitted') ??
+      Crowdin.getText(localeName, 'errorEducationReflectionFeedbackAlreadySubmitted') ??
       _fallbackTexts.errorEducationReflectionFeedbackAlreadySubmitted;
 
   @override
@@ -4567,14 +4382,12 @@ class CrowdinLocalization extends AppLocalizations {
 
   @override
   String get errorGroupSessionProgramImageInvalidMimeType =>
-      Crowdin.getText(
-          localeName, 'errorGroupSessionProgramImageInvalidMimeType') ??
+      Crowdin.getText(localeName, 'errorGroupSessionProgramImageInvalidMimeType') ??
       _fallbackTexts.errorGroupSessionProgramImageInvalidMimeType;
 
   @override
   String get errorGroupSessionStatusMismatchUpdateFlow =>
-      Crowdin.getText(
-          localeName, 'errorGroupSessionStatusMismatchUpdateFlow') ??
+      Crowdin.getText(localeName, 'errorGroupSessionStatusMismatchUpdateFlow') ??
       _fallbackTexts.errorGroupSessionStatusMismatchUpdateFlow;
 
   @override
@@ -4599,8 +4412,7 @@ class CrowdinLocalization extends AppLocalizations {
 
   @override
   String get errorMoodIdNotFound =>
-      Crowdin.getText(localeName, 'errorMoodIdNotFound') ??
-      _fallbackTexts.errorMoodIdNotFound;
+      Crowdin.getText(localeName, 'errorMoodIdNotFound') ?? _fallbackTexts.errorMoodIdNotFound;
 
   @override
   String get errorMoodCreatedAyIsOld =>
@@ -4609,8 +4421,7 @@ class CrowdinLocalization extends AppLocalizations {
 
   @override
   String get errorSmartGoalStartDateActiveSessionExists =>
-      Crowdin.getText(
-          localeName, 'errorSmartGoalStartDateActiveSessionExists') ??
+      Crowdin.getText(localeName, 'errorSmartGoalStartDateActiveSessionExists') ??
       _fallbackTexts.errorSmartGoalStartDateActiveSessionExists;
 
   @override
@@ -4645,8 +4456,7 @@ class CrowdinLocalization extends AppLocalizations {
 
   @override
   String get errorSmartGoalSessionIdActiveLimitExceeded =>
-      Crowdin.getText(
-          localeName, 'errorSmartGoalSessionIdActiveLimitExceeded') ??
+      Crowdin.getText(localeName, 'errorSmartGoalSessionIdActiveLimitExceeded') ??
       _fallbackTexts.errorSmartGoalSessionIdActiveLimitExceeded;
 
   @override
@@ -4670,8 +4480,7 @@ class CrowdinLocalization extends AppLocalizations {
       _fallbackTexts.errorCoreInternalServer;
 
   @override
-  String get errorRetry =>
-      Crowdin.getText(localeName, 'errorRetry') ?? _fallbackTexts.errorRetry;
+  String get errorRetry => Crowdin.getText(localeName, 'errorRetry') ?? _fallbackTexts.errorRetry;
 
   @override
   String get errorNoConnectionTitle =>
@@ -4680,8 +4489,7 @@ class CrowdinLocalization extends AppLocalizations {
 
   @override
   String get errorNoConnectionText =>
-      Crowdin.getText(localeName, 'errorNoConnectionText') ??
-      _fallbackTexts.errorNoConnectionText;
+      Crowdin.getText(localeName, 'errorNoConnectionText') ?? _fallbackTexts.errorNoConnectionText;
 
   @override
   String get errorInvalidIngredientText =>
@@ -4689,8 +4497,7 @@ class CrowdinLocalization extends AppLocalizations {
       _fallbackTexts.errorInvalidIngredientText;
 
   @override
-  String get errorOeps =>
-      Crowdin.getText(localeName, 'errorOeps') ?? _fallbackTexts.errorOeps;
+  String get errorOeps => Crowdin.getText(localeName, 'errorOeps') ?? _fallbackTexts.errorOeps;
 
   @override
   String get errorSomethingWentWrong =>
@@ -4724,28 +4531,23 @@ class CrowdinLocalization extends AppLocalizations {
 
   @override
   String get errorSocketException =>
-      Crowdin.getText(localeName, 'errorSocketException') ??
-      _fallbackTexts.errorSocketException;
+      Crowdin.getText(localeName, 'errorSocketException') ?? _fallbackTexts.errorSocketException;
 
   @override
   String get errorParsingException =>
-      Crowdin.getText(localeName, 'errorParsingException') ??
-      _fallbackTexts.errorParsingException;
+      Crowdin.getText(localeName, 'errorParsingException') ?? _fallbackTexts.errorParsingException;
 
   @override
   String get errorLoadTranslations =>
-      Crowdin.getText(localeName, 'errorLoadTranslations') ??
-      _fallbackTexts.errorLoadTranslations;
+      Crowdin.getText(localeName, 'errorLoadTranslations') ?? _fallbackTexts.errorLoadTranslations;
 
   @override
   String get errorTimeoutDio =>
-      Crowdin.getText(localeName, 'errorTimeoutDio') ??
-      _fallbackTexts.errorTimeoutDio;
+      Crowdin.getText(localeName, 'errorTimeoutDio') ?? _fallbackTexts.errorTimeoutDio;
 
   @override
   String get errorConnectionDio =>
-      Crowdin.getText(localeName, 'errorConnectionDio') ??
-      _fallbackTexts.errorConnectionDio;
+      Crowdin.getText(localeName, 'errorConnectionDio') ?? _fallbackTexts.errorConnectionDio;
 
   @override
   String get errorRequestCancelledDio =>
@@ -4754,33 +4556,27 @@ class CrowdinLocalization extends AppLocalizations {
 
   @override
   String get errorBadRequestDio =>
-      Crowdin.getText(localeName, 'errorBadRequestDio') ??
-      _fallbackTexts.errorBadRequestDio;
+      Crowdin.getText(localeName, 'errorBadRequestDio') ?? _fallbackTexts.errorBadRequestDio;
 
   @override
   String get errorUnauthorizedDio =>
-      Crowdin.getText(localeName, 'errorUnauthorizedDio') ??
-      _fallbackTexts.errorUnauthorizedDio;
+      Crowdin.getText(localeName, 'errorUnauthorizedDio') ?? _fallbackTexts.errorUnauthorizedDio;
 
   @override
   String get errorForbiddenDio =>
-      Crowdin.getText(localeName, 'errorForbiddenDio') ??
-      _fallbackTexts.errorForbiddenDio;
+      Crowdin.getText(localeName, 'errorForbiddenDio') ?? _fallbackTexts.errorForbiddenDio;
 
   @override
   String get errorNotFoundDio =>
-      Crowdin.getText(localeName, 'errorNotFoundDio') ??
-      _fallbackTexts.errorNotFoundDio;
+      Crowdin.getText(localeName, 'errorNotFoundDio') ?? _fallbackTexts.errorNotFoundDio;
 
   @override
   String get errorConflictDio =>
-      Crowdin.getText(localeName, 'errorConflictDio') ??
-      _fallbackTexts.errorConflictDio;
+      Crowdin.getText(localeName, 'errorConflictDio') ?? _fallbackTexts.errorConflictDio;
 
   @override
   String get errorServerErrorDio =>
-      Crowdin.getText(localeName, 'errorServerErrorDio') ??
-      _fallbackTexts.errorServerErrorDio;
+      Crowdin.getText(localeName, 'errorServerErrorDio') ?? _fallbackTexts.errorServerErrorDio;
 
   @override
   String get errorUnprocessableEntityDio =>
@@ -4799,13 +4595,11 @@ class CrowdinLocalization extends AppLocalizations {
 
   @override
   String get errorOtherDio =>
-      Crowdin.getText(localeName, 'errorOtherDio') ??
-      _fallbackTexts.errorOtherDio;
+      Crowdin.getText(localeName, 'errorOtherDio') ?? _fallbackTexts.errorOtherDio;
 
   @override
   String get onboardingIntroTitle =>
-      Crowdin.getText(localeName, 'onboardingIntroTitle') ??
-      _fallbackTexts.onboardingIntroTitle;
+      Crowdin.getText(localeName, 'onboardingIntroTitle') ?? _fallbackTexts.onboardingIntroTitle;
 
   @override
   String get onboardingIntroProgram1 =>
@@ -4849,8 +4643,7 @@ class CrowdinLocalization extends AppLocalizations {
 
   @override
   String get onboardingPacingTitle =>
-      Crowdin.getText(localeName, 'onboardingPacingTitle') ??
-      _fallbackTexts.onboardingPacingTitle;
+      Crowdin.getText(localeName, 'onboardingPacingTitle') ?? _fallbackTexts.onboardingPacingTitle;
 
   @override
   String get onboardingPacingMessage =>
@@ -4859,8 +4652,7 @@ class CrowdinLocalization extends AppLocalizations {
 
   @override
   String get onboardingIAmReady =>
-      Crowdin.getText(localeName, 'onboardingIAmReady') ??
-      _fallbackTexts.onboardingIAmReady;
+      Crowdin.getText(localeName, 'onboardingIAmReady') ?? _fallbackTexts.onboardingIAmReady;
 
   @override
   String get onboardingPhysicalIntroTitle =>
@@ -4884,8 +4676,7 @@ class CrowdinLocalization extends AppLocalizations {
 
   @override
   String get onboardingWhatYourSex =>
-      Crowdin.getText(localeName, 'onboardingWhatYourSex') ??
-      _fallbackTexts.onboardingWhatYourSex;
+      Crowdin.getText(localeName, 'onboardingWhatYourSex') ?? _fallbackTexts.onboardingWhatYourSex;
 
   @override
   String get onboardingSexQuestionBody =>
@@ -4894,8 +4685,7 @@ class CrowdinLocalization extends AppLocalizations {
 
   @override
   String get onboardingSex =>
-      Crowdin.getText(localeName, 'onboardingSex') ??
-      _fallbackTexts.onboardingSex;
+      Crowdin.getText(localeName, 'onboardingSex') ?? _fallbackTexts.onboardingSex;
 
   @override
   String get onboardingGenderPageTitle =>
@@ -4919,18 +4709,15 @@ class CrowdinLocalization extends AppLocalizations {
 
   @override
   String get onboardingYourHeight =>
-      Crowdin.getText(localeName, 'onboardingYourHeight') ??
-      _fallbackTexts.onboardingYourHeight;
+      Crowdin.getText(localeName, 'onboardingYourHeight') ?? _fallbackTexts.onboardingYourHeight;
 
   @override
   String get onboardingMetric =>
-      Crowdin.getText(localeName, 'onboardingMetric') ??
-      _fallbackTexts.onboardingMetric;
+      Crowdin.getText(localeName, 'onboardingMetric') ?? _fallbackTexts.onboardingMetric;
 
   @override
   String get onboardingImperial =>
-      Crowdin.getText(localeName, 'onboardingImperial') ??
-      _fallbackTexts.onboardingImperial;
+      Crowdin.getText(localeName, 'onboardingImperial') ?? _fallbackTexts.onboardingImperial;
 
   @override
   String get onboardingChangeYourHeight =>
@@ -4939,13 +4726,11 @@ class CrowdinLocalization extends AppLocalizations {
 
   @override
   String get onboardingHeightSmall =>
-      Crowdin.getText(localeName, 'onboardingHeightSmall') ??
-      _fallbackTexts.onboardingHeightSmall;
+      Crowdin.getText(localeName, 'onboardingHeightSmall') ?? _fallbackTexts.onboardingHeightSmall;
 
   @override
   String get onboardingHeightLarge =>
-      Crowdin.getText(localeName, 'onboardingHeightLarge') ??
-      _fallbackTexts.onboardingHeightLarge;
+      Crowdin.getText(localeName, 'onboardingHeightLarge') ?? _fallbackTexts.onboardingHeightLarge;
 
   @override
   String get onboardingCorrectHeight =>
@@ -4954,8 +4739,7 @@ class CrowdinLocalization extends AppLocalizations {
 
   @override
   String get onboardingYourWeight =>
-      Crowdin.getText(localeName, 'onboardingYourWeight') ??
-      _fallbackTexts.onboardingYourWeight;
+      Crowdin.getText(localeName, 'onboardingYourWeight') ?? _fallbackTexts.onboardingYourWeight;
 
   @override
   String get onboardingBmiExclusionBodyTitle =>
@@ -5004,28 +4788,23 @@ class CrowdinLocalization extends AppLocalizations {
 
   @override
   String get onboardingAge =>
-      Crowdin.getText(localeName, 'onboardingAge') ??
-      _fallbackTexts.onboardingAge;
+      Crowdin.getText(localeName, 'onboardingAge') ?? _fallbackTexts.onboardingAge;
 
   @override
   String get onboardingHeight =>
-      Crowdin.getText(localeName, 'onboardingHeight') ??
-      _fallbackTexts.onboardingHeight;
+      Crowdin.getText(localeName, 'onboardingHeight') ?? _fallbackTexts.onboardingHeight;
 
   @override
   String get onboardingWeight =>
-      Crowdin.getText(localeName, 'onboardingWeight') ??
-      _fallbackTexts.onboardingWeight;
+      Crowdin.getText(localeName, 'onboardingWeight') ?? _fallbackTexts.onboardingWeight;
 
   @override
   String get onboardingBmi =>
-      Crowdin.getText(localeName, 'onboardingBmi') ??
-      _fallbackTexts.onboardingBmi;
+      Crowdin.getText(localeName, 'onboardingBmi') ?? _fallbackTexts.onboardingBmi;
 
   @override
   String get onboardingYears =>
-      Crowdin.getText(localeName, 'onboardingYears') ??
-      _fallbackTexts.onboardingYears;
+      Crowdin.getText(localeName, 'onboardingYears') ?? _fallbackTexts.onboardingYears;
 
   @override
   String get onboardingBmiDescription1 =>
@@ -5044,8 +4823,7 @@ class CrowdinLocalization extends AppLocalizations {
 
   @override
   String get onboardingLetsMoveOn =>
-      Crowdin.getText(localeName, 'onboardingLetsMoveOn') ??
-      _fallbackTexts.onboardingLetsMoveOn;
+      Crowdin.getText(localeName, 'onboardingLetsMoveOn') ?? _fallbackTexts.onboardingLetsMoveOn;
 
   @override
   String get onboardingMedicalIntroTitle =>
@@ -5204,8 +4982,7 @@ class CrowdinLocalization extends AppLocalizations {
 
   @override
   String get onboardingObesity =>
-      Crowdin.getText(localeName, 'onboardingObesity') ??
-      _fallbackTexts.onboardingObesity;
+      Crowdin.getText(localeName, 'onboardingObesity') ?? _fallbackTexts.onboardingObesity;
 
   @override
   String get onboardingThyroidDisease =>
@@ -5224,8 +5001,7 @@ class CrowdinLocalization extends AppLocalizations {
 
   @override
   String get onboardingDiabetes =>
-      Crowdin.getText(localeName, 'onboardingDiabetes') ??
-      _fallbackTexts.onboardingDiabetes;
+      Crowdin.getText(localeName, 'onboardingDiabetes') ?? _fallbackTexts.onboardingDiabetes;
 
   @override
   String get onboardingDiabetesTypeI =>
@@ -5244,8 +5020,7 @@ class CrowdinLocalization extends AppLocalizations {
 
   @override
   String get onboardingAsthma =>
-      Crowdin.getText(localeName, 'onboardingAsthma') ??
-      _fallbackTexts.onboardingAsthma;
+      Crowdin.getText(localeName, 'onboardingAsthma') ?? _fallbackTexts.onboardingAsthma;
 
   @override
   String get onboardingLiverDisease =>
@@ -5304,8 +5079,7 @@ class CrowdinLocalization extends AppLocalizations {
 
   @override
   String get onboardingMentalHealthIntroTextThreeAccent =>
-      Crowdin.getText(
-          localeName, 'onboardingMentalHealthIntroTextThreeAccent') ??
+      Crowdin.getText(localeName, 'onboardingMentalHealthIntroTextThreeAccent') ??
       _fallbackTexts.onboardingMentalHealthIntroTextThreeAccent;
 
   @override
@@ -5325,8 +5099,7 @@ class CrowdinLocalization extends AppLocalizations {
 
   @override
   String onboardingMentalHealthMoreInfo(String appName) =>
-      Crowdin.getText(
-          localeName, 'onboardingMentalHealthMoreInfo', {'appName': appName}) ??
+      Crowdin.getText(localeName, 'onboardingMentalHealthMoreInfo', {'appName': appName}) ??
       _fallbackTexts.onboardingMentalHealthMoreInfo(appName);
 
   @override
@@ -5366,8 +5139,7 @@ class CrowdinLocalization extends AppLocalizations {
 
   @override
   String get onboardingStartAgain =>
-      Crowdin.getText(localeName, 'onboardingStartAgain') ??
-      _fallbackTexts.onboardingStartAgain;
+      Crowdin.getText(localeName, 'onboardingStartAgain') ?? _fallbackTexts.onboardingStartAgain;
 
   @override
   String get onboardingWho5ResultTestMinimal =>
@@ -5501,8 +5273,7 @@ class CrowdinLocalization extends AppLocalizations {
 
   @override
   String get onboardingNotATherapy =>
-      Crowdin.getText(localeName, 'onboardingNotATherapy') ??
-      _fallbackTexts.onboardingNotATherapy;
+      Crowdin.getText(localeName, 'onboardingNotATherapy') ?? _fallbackTexts.onboardingNotATherapy;
 
   @override
   String get onboardingLearnManyThings =>
@@ -5531,8 +5302,7 @@ class CrowdinLocalization extends AppLocalizations {
 
   @override
   String get onboardingPhq8Fail =>
-      Crowdin.getText(localeName, 'onboardingPhq8Fail') ??
-      _fallbackTexts.onboardingPhq8Fail;
+      Crowdin.getText(localeName, 'onboardingPhq8Fail') ?? _fallbackTexts.onboardingPhq8Fail;
 
   @override
   String get onboardingGeneralWellBeingSummary =>
@@ -5581,8 +5351,7 @@ class CrowdinLocalization extends AppLocalizations {
 
   @override
   String get avatarAvatar =>
-      Crowdin.getText(localeName, 'avatarAvatar') ??
-      _fallbackTexts.avatarAvatar;
+      Crowdin.getText(localeName, 'avatarAvatar') ?? _fallbackTexts.avatarAvatar;
 
   @override
   String get avatarSelectProfilePicture =>
@@ -5591,8 +5360,7 @@ class CrowdinLocalization extends AppLocalizations {
 
   @override
   String get avatarMoveToResize =>
-      Crowdin.getText(localeName, 'avatarMoveToResize') ??
-      _fallbackTexts.avatarMoveToResize;
+      Crowdin.getText(localeName, 'avatarMoveToResize') ?? _fallbackTexts.avatarMoveToResize;
 
   @override
   String get avatarChooseYourAvatar =>
@@ -5601,8 +5369,7 @@ class CrowdinLocalization extends AppLocalizations {
 
   @override
   String get avatarAddPhoto =>
-      Crowdin.getText(localeName, 'avatarAddPhoto') ??
-      _fallbackTexts.avatarAddPhoto;
+      Crowdin.getText(localeName, 'avatarAddPhoto') ?? _fallbackTexts.avatarAddPhoto;
 
   @override
   String get avatarSizeErrorMessageTitle =>
@@ -5616,8 +5383,7 @@ class CrowdinLocalization extends AppLocalizations {
 
   @override
   String get avatarGoToAppSettings =>
-      Crowdin.getText(localeName, 'avatarGoToAppSettings') ??
-      _fallbackTexts.avatarGoToAppSettings;
+      Crowdin.getText(localeName, 'avatarGoToAppSettings') ?? _fallbackTexts.avatarGoToAppSettings;
 
   @override
   String get avatarGaleryPermissionsMessage =>
@@ -5631,13 +5397,11 @@ class CrowdinLocalization extends AppLocalizations {
 
   @override
   String get avatarCropper =>
-      Crowdin.getText(localeName, 'avatarCropper') ??
-      _fallbackTexts.avatarCropper;
+      Crowdin.getText(localeName, 'avatarCropper') ?? _fallbackTexts.avatarCropper;
 
   @override
   String get smartGoalsMyGoals =>
-      Crowdin.getText(localeName, 'smartGoalsMyGoals') ??
-      _fallbackTexts.smartGoalsMyGoals;
+      Crowdin.getText(localeName, 'smartGoalsMyGoals') ?? _fallbackTexts.smartGoalsMyGoals;
 
   @override
   String get smartGoalsNoGoalsSelected =>
@@ -5666,8 +5430,7 @@ class CrowdinLocalization extends AppLocalizations {
 
   @override
   String get smartGoalsCancelGoal =>
-      Crowdin.getText(localeName, 'smartGoalsCancelGoal') ??
-      _fallbackTexts.smartGoalsCancelGoal;
+      Crowdin.getText(localeName, 'smartGoalsCancelGoal') ?? _fallbackTexts.smartGoalsCancelGoal;
 
   @override
   String get smartGoalsCancelGoalTitle =>
@@ -5681,8 +5444,7 @@ class CrowdinLocalization extends AppLocalizations {
 
   @override
   String get smartGoalsSetGoal =>
-      Crowdin.getText(localeName, 'smartGoalsSetGoal') ??
-      _fallbackTexts.smartGoalsSetGoal;
+      Crowdin.getText(localeName, 'smartGoalsSetGoal') ?? _fallbackTexts.smartGoalsSetGoal;
 
   @override
   String get smartGoalsSelectGoalsCategoryTitle =>
@@ -5691,8 +5453,7 @@ class CrowdinLocalization extends AppLocalizations {
 
   @override
   String get smartGoalsNewLabel =>
-      Crowdin.getText(localeName, 'smartGoalsNewLabel') ??
-      _fallbackTexts.smartGoalsNewLabel;
+      Crowdin.getText(localeName, 'smartGoalsNewLabel') ?? _fallbackTexts.smartGoalsNewLabel;
 
   @override
   String get smartGoalsSelectGoalsTitle =>
@@ -5741,8 +5502,7 @@ class CrowdinLocalization extends AppLocalizations {
 
   @override
   String smartGoalsGoalTotalCompletions(int count) =>
-      Crowdin.getText(
-          localeName, 'smartGoalsGoalTotalCompletions', {'count': count}) ??
+      Crowdin.getText(localeName, 'smartGoalsGoalTotalCompletions', {'count': count}) ??
       _fallbackTexts.smartGoalsGoalTotalCompletions(count);
 
   @override
@@ -5767,13 +5527,11 @@ class CrowdinLocalization extends AppLocalizations {
 
   @override
   String get smartGoalsGoalReview =>
-      Crowdin.getText(localeName, 'smartGoalsGoalReview') ??
-      _fallbackTexts.smartGoalsGoalReview;
+      Crowdin.getText(localeName, 'smartGoalsGoalReview') ?? _fallbackTexts.smartGoalsGoalReview;
 
   @override
   String smartGoalsWeeklyDaysLeft(int count) =>
-      Crowdin.getText(
-          localeName, 'smartGoalsWeeklyDaysLeft', {'count': count}) ??
+      Crowdin.getText(localeName, 'smartGoalsWeeklyDaysLeft', {'count': count}) ??
       _fallbackTexts.smartGoalsWeeklyDaysLeft(count);
 
   @override
@@ -5823,8 +5581,7 @@ class CrowdinLocalization extends AppLocalizations {
 
   @override
   String get nutritionFiber =>
-      Crowdin.getText(localeName, 'nutritionFiber') ??
-      _fallbackTexts.nutritionFiber;
+      Crowdin.getText(localeName, 'nutritionFiber') ?? _fallbackTexts.nutritionFiber;
 
   @override
   String get nutritionCalorieDensity =>
@@ -5832,52 +5589,42 @@ class CrowdinLocalization extends AppLocalizations {
       _fallbackTexts.nutritionCalorieDensity;
 
   @override
-  String get buddyTitle =>
-      Crowdin.getText(localeName, 'buddyTitle') ?? _fallbackTexts.buddyTitle;
+  String get buddyTitle => Crowdin.getText(localeName, 'buddyTitle') ?? _fallbackTexts.buddyTitle;
 
   @override
-  String get buddyBuddy =>
-      Crowdin.getText(localeName, 'buddyBuddy') ?? _fallbackTexts.buddyBuddy;
+  String get buddyBuddy => Crowdin.getText(localeName, 'buddyBuddy') ?? _fallbackTexts.buddyBuddy;
 
   @override
   String get buddyUnlocked =>
-      Crowdin.getText(localeName, 'buddyUnlocked') ??
-      _fallbackTexts.buddyUnlocked;
+      Crowdin.getText(localeName, 'buddyUnlocked') ?? _fallbackTexts.buddyUnlocked;
 
   @override
   String get buddyUnlockedBody =>
-      Crowdin.getText(localeName, 'buddyUnlockedBody') ??
-      _fallbackTexts.buddyUnlockedBody;
+      Crowdin.getText(localeName, 'buddyUnlockedBody') ?? _fallbackTexts.buddyUnlockedBody;
 
   @override
   String get buddyGoToPreferences =>
-      Crowdin.getText(localeName, 'buddyGoToPreferences') ??
-      _fallbackTexts.buddyGoToPreferences;
+      Crowdin.getText(localeName, 'buddyGoToPreferences') ?? _fallbackTexts.buddyGoToPreferences;
 
   @override
   String get buddyIntroTitle =>
-      Crowdin.getText(localeName, 'buddyIntroTitle') ??
-      _fallbackTexts.buddyIntroTitle;
+      Crowdin.getText(localeName, 'buddyIntroTitle') ?? _fallbackTexts.buddyIntroTitle;
 
   @override
   String get buddyDescriptionTitle =>
-      Crowdin.getText(localeName, 'buddyDescriptionTitle') ??
-      _fallbackTexts.buddyDescriptionTitle;
+      Crowdin.getText(localeName, 'buddyDescriptionTitle') ?? _fallbackTexts.buddyDescriptionTitle;
 
   @override
   String get buddyIntroBody =>
-      Crowdin.getText(localeName, 'buddyIntroBody') ??
-      _fallbackTexts.buddyIntroBody;
+      Crowdin.getText(localeName, 'buddyIntroBody') ?? _fallbackTexts.buddyIntroBody;
 
   @override
   String get buddyIntroYesBtn =>
-      Crowdin.getText(localeName, 'buddyIntroYesBtn') ??
-      _fallbackTexts.buddyIntroYesBtn;
+      Crowdin.getText(localeName, 'buddyIntroYesBtn') ?? _fallbackTexts.buddyIntroYesBtn;
 
   @override
   String get buddyIntroNoBtn =>
-      Crowdin.getText(localeName, 'buddyIntroNoBtn') ??
-      _fallbackTexts.buddyIntroNoBtn;
+      Crowdin.getText(localeName, 'buddyIntroNoBtn') ?? _fallbackTexts.buddyIntroNoBtn;
 
   @override
   String get buddyDescriptionContent =>
@@ -5886,8 +5633,7 @@ class CrowdinLocalization extends AppLocalizations {
 
   @override
   String get buddyPreferences =>
-      Crowdin.getText(localeName, 'buddyPreferences') ??
-      _fallbackTexts.buddyPreferences;
+      Crowdin.getText(localeName, 'buddyPreferences') ?? _fallbackTexts.buddyPreferences;
 
   @override
   String get buddyNoPreferencesState =>
@@ -5896,13 +5642,11 @@ class CrowdinLocalization extends AppLocalizations {
 
   @override
   String get buddyCompleted =>
-      Crowdin.getText(localeName, 'buddyCompleted') ??
-      _fallbackTexts.buddyCompleted;
+      Crowdin.getText(localeName, 'buddyCompleted') ?? _fallbackTexts.buddyCompleted;
 
   @override
   String get buddyCompletedContent =>
-      Crowdin.getText(localeName, 'buddyCompletedContent') ??
-      _fallbackTexts.buddyCompletedContent;
+      Crowdin.getText(localeName, 'buddyCompletedContent') ?? _fallbackTexts.buddyCompletedContent;
 
   @override
   String get buddyLiveTogetherTitle =>
@@ -5911,32 +5655,26 @@ class CrowdinLocalization extends AppLocalizations {
 
   @override
   String get buddyRelationTitle =>
-      Crowdin.getText(localeName, 'buddyRelationTitle') ??
-      _fallbackTexts.buddyRelationTitle;
+      Crowdin.getText(localeName, 'buddyRelationTitle') ?? _fallbackTexts.buddyRelationTitle;
 
   @override
   String get buddyEmailTitle =>
-      Crowdin.getText(localeName, 'buddyEmailTitle') ??
-      _fallbackTexts.buddyEmailTitle;
+      Crowdin.getText(localeName, 'buddyEmailTitle') ?? _fallbackTexts.buddyEmailTitle;
 
   @override
   String get buddyEmailLabel =>
-      Crowdin.getText(localeName, 'buddyEmailLabel') ??
-      _fallbackTexts.buddyEmailLabel;
+      Crowdin.getText(localeName, 'buddyEmailLabel') ?? _fallbackTexts.buddyEmailLabel;
 
   @override
   String get buddyEmailHint =>
-      Crowdin.getText(localeName, 'buddyEmailHint') ??
-      _fallbackTexts.buddyEmailHint;
+      Crowdin.getText(localeName, 'buddyEmailHint') ?? _fallbackTexts.buddyEmailHint;
 
   @override
   String get buddyPartner =>
-      Crowdin.getText(localeName, 'buddyPartner') ??
-      _fallbackTexts.buddyPartner;
+      Crowdin.getText(localeName, 'buddyPartner') ?? _fallbackTexts.buddyPartner;
 
   @override
-  String get buddyChild =>
-      Crowdin.getText(localeName, 'buddyChild') ?? _fallbackTexts.buddyChild;
+  String get buddyChild => Crowdin.getText(localeName, 'buddyChild') ?? _fallbackTexts.buddyChild;
 
   @override
   String get buddyParent =>
@@ -5952,24 +5690,20 @@ class CrowdinLocalization extends AppLocalizations {
 
   @override
   String get buddyPendingTitle =>
-      Crowdin.getText(localeName, 'buddyPendingTitle') ??
-      _fallbackTexts.buddyPendingTitle;
+      Crowdin.getText(localeName, 'buddyPendingTitle') ?? _fallbackTexts.buddyPendingTitle;
 
   @override
   String buddyPendingSubTitle(String date, String time) =>
-      Crowdin.getText(
-          localeName, 'buddyPendingSubTitle', {'date': date, 'time': time}) ??
+      Crowdin.getText(localeName, 'buddyPendingSubTitle', {'date': date, 'time': time}) ??
       _fallbackTexts.buddyPendingSubTitle(date, time);
 
   @override
   String get buddyRejectTitle =>
-      Crowdin.getText(localeName, 'buddyRejectTitle') ??
-      _fallbackTexts.buddyRejectTitle;
+      Crowdin.getText(localeName, 'buddyRejectTitle') ?? _fallbackTexts.buddyRejectTitle;
 
   @override
   String get buddyRejectSubTitle =>
-      Crowdin.getText(localeName, 'buddyRejectSubTitle') ??
-      _fallbackTexts.buddyRejectSubTitle;
+      Crowdin.getText(localeName, 'buddyRejectSubTitle') ?? _fallbackTexts.buddyRejectSubTitle;
 
   @override
   String get buddyNotAvailableTitle =>
@@ -5983,8 +5717,7 @@ class CrowdinLocalization extends AppLocalizations {
 
   @override
   String get buddyResendInvitation =>
-      Crowdin.getText(localeName, 'buddyResendInvitation') ??
-      _fallbackTexts.buddyResendInvitation;
+      Crowdin.getText(localeName, 'buddyResendInvitation') ?? _fallbackTexts.buddyResendInvitation;
 
   @override
   String get buddyInviteAnotherBuddy =>
@@ -5998,8 +5731,7 @@ class CrowdinLocalization extends AppLocalizations {
 
   @override
   String get buddyFindAnotherBuddy =>
-      Crowdin.getText(localeName, 'buddyFindAnotherBuddy') ??
-      _fallbackTexts.buddyFindAnotherBuddy;
+      Crowdin.getText(localeName, 'buddyFindAnotherBuddy') ?? _fallbackTexts.buddyFindAnotherBuddy;
 
   @override
   String get buddyNotNeedAnotherBuddy =>
@@ -6007,37 +5739,30 @@ class CrowdinLocalization extends AppLocalizations {
       _fallbackTexts.buddyNotNeedAnotherBuddy;
 
   @override
-  String get buddyEmail =>
-      Crowdin.getText(localeName, 'buddyEmail') ?? _fallbackTexts.buddyEmail;
+  String get buddyEmail => Crowdin.getText(localeName, 'buddyEmail') ?? _fallbackTexts.buddyEmail;
 
   @override
   String get buddyUserName =>
-      Crowdin.getText(localeName, 'buddyUserName') ??
-      _fallbackTexts.buddyUserName;
+      Crowdin.getText(localeName, 'buddyUserName') ?? _fallbackTexts.buddyUserName;
 
   @override
-  String get buddySince =>
-      Crowdin.getText(localeName, 'buddySince') ?? _fallbackTexts.buddySince;
+  String get buddySince => Crowdin.getText(localeName, 'buddySince') ?? _fallbackTexts.buddySince;
 
   @override
   String get buddyRemoveInvite =>
-      Crowdin.getText(localeName, 'buddyRemoveInvite') ??
-      _fallbackTexts.buddyRemoveInvite;
+      Crowdin.getText(localeName, 'buddyRemoveInvite') ?? _fallbackTexts.buddyRemoveInvite;
 
   @override
   String get buddyRemoveBuddy =>
-      Crowdin.getText(localeName, 'buddyRemoveBuddy') ??
-      _fallbackTexts.buddyRemoveBuddy;
+      Crowdin.getText(localeName, 'buddyRemoveBuddy') ?? _fallbackTexts.buddyRemoveBuddy;
 
   @override
   String get buddyInviteBuddy =>
-      Crowdin.getText(localeName, 'buddyInviteBuddy') ??
-      _fallbackTexts.buddyInviteBuddy;
+      Crowdin.getText(localeName, 'buddyInviteBuddy') ?? _fallbackTexts.buddyInviteBuddy;
 
   @override
   String buddyFindAnotherBuddyLabel(String name) =>
-      Crowdin.getText(
-          localeName, 'buddyFindAnotherBuddyLabel', {'name': name}) ??
+      Crowdin.getText(localeName, 'buddyFindAnotherBuddyLabel', {'name': name}) ??
       _fallbackTexts.buddyFindAnotherBuddyLabel(name);
 
   @override
@@ -6057,8 +5782,7 @@ class CrowdinLocalization extends AppLocalizations {
 
   @override
   String get linksPrivacyPolicyUrl =>
-      Crowdin.getText(localeName, 'linksPrivacyPolicyUrl') ??
-      _fallbackTexts.linksPrivacyPolicyUrl;
+      Crowdin.getText(localeName, 'linksPrivacyPolicyUrl') ?? _fallbackTexts.linksPrivacyPolicyUrl;
 
   @override
   String get linksPsychologistConsulting =>
@@ -6067,13 +5791,11 @@ class CrowdinLocalization extends AppLocalizations {
 
   @override
   String get linksInstructionsUrl =>
-      Crowdin.getText(localeName, 'linksInstructionsUrl') ??
-      _fallbackTexts.linksInstructionsUrl;
+      Crowdin.getText(localeName, 'linksInstructionsUrl') ?? _fallbackTexts.linksInstructionsUrl;
 
   @override
   String get riverOverviewTitle =>
-      Crowdin.getText(localeName, 'riverOverviewTitle') ??
-      _fallbackTexts.riverOverviewTitle;
+      Crowdin.getText(localeName, 'riverOverviewTitle') ?? _fallbackTexts.riverOverviewTitle;
 
   @override
   String get riverGuidancePracticeTitle =>
@@ -6107,14 +5829,12 @@ class CrowdinLocalization extends AppLocalizations {
 
   @override
   String riverModuleCompletedTitle(String module) =>
-      Crowdin.getText(
-          localeName, 'riverModuleCompletedTitle', {'module': module}) ??
+      Crowdin.getText(localeName, 'riverModuleCompletedTitle', {'module': module}) ??
       _fallbackTexts.riverModuleCompletedTitle(module);
 
   @override
   String riverModuleCompletedDescription(String nextModule) =>
-      Crowdin.getText(localeName, 'riverModuleCompletedDescription',
-          {'nextModule': nextModule}) ??
+      Crowdin.getText(localeName, 'riverModuleCompletedDescription', {'nextModule': nextModule}) ??
       _fallbackTexts.riverModuleCompletedDescription(nextModule);
 
   @override
@@ -6144,14 +5864,12 @@ class CrowdinLocalization extends AppLocalizations {
 
   @override
   String get riverModuleGraduationCompletedItemsMessage =>
-      Crowdin.getText(
-          localeName, 'riverModuleGraduationCompletedItemsMessage') ??
+      Crowdin.getText(localeName, 'riverModuleGraduationCompletedItemsMessage') ??
       _fallbackTexts.riverModuleGraduationCompletedItemsMessage;
 
   @override
   String get riverModuleGraduationCompletedTimeMessage =>
-      Crowdin.getText(
-          localeName, 'riverModuleGraduationCompletedTimeMessage') ??
+      Crowdin.getText(localeName, 'riverModuleGraduationCompletedTimeMessage') ??
       _fallbackTexts.riverModuleGraduationCompletedTimeMessage;
 
   @override
@@ -6241,28 +5959,23 @@ class CrowdinLocalization extends AppLocalizations {
 
   @override
   String get subscriptionAnnual =>
-      Crowdin.getText(localeName, 'subscriptionAnnual') ??
-      _fallbackTexts.subscriptionAnnual;
+      Crowdin.getText(localeName, 'subscriptionAnnual') ?? _fallbackTexts.subscriptionAnnual;
 
   @override
   String get subscriptionMonthly =>
-      Crowdin.getText(localeName, 'subscriptionMonthly') ??
-      _fallbackTexts.subscriptionMonthly;
+      Crowdin.getText(localeName, 'subscriptionMonthly') ?? _fallbackTexts.subscriptionMonthly;
 
   @override
   String get subscriptionSubscribe =>
-      Crowdin.getText(localeName, 'subscriptionSubscribe') ??
-      _fallbackTexts.subscriptionSubscribe;
+      Crowdin.getText(localeName, 'subscriptionSubscribe') ?? _fallbackTexts.subscriptionSubscribe;
 
   @override
   String get subscriptionRedeem =>
-      Crowdin.getText(localeName, 'subscriptionRedeem') ??
-      _fallbackTexts.subscriptionRedeem;
+      Crowdin.getText(localeName, 'subscriptionRedeem') ?? _fallbackTexts.subscriptionRedeem;
 
   @override
   String subscriptionSubTitlePrice(String description) =>
-      Crowdin.getText(localeName, 'subscriptionSubTitlePrice',
-          {'description': description}) ??
+      Crowdin.getText(localeName, 'subscriptionSubTitlePrice', {'description': description}) ??
       _fallbackTexts.subscriptionSubTitlePrice(description);
 
   @override
@@ -6283,8 +5996,7 @@ class CrowdinLocalization extends AppLocalizations {
 
   @override
   String get subscriptionType =>
-      Crowdin.getText(localeName, 'subscriptionType') ??
-      _fallbackTexts.subscriptionType;
+      Crowdin.getText(localeName, 'subscriptionType') ?? _fallbackTexts.subscriptionType;
 
   @override
   String get subscriptionSubscriptionVia =>
@@ -6313,8 +6025,7 @@ class CrowdinLocalization extends AppLocalizations {
 
   @override
   String get subscriptionAppStore =>
-      Crowdin.getText(localeName, 'subscriptionAppStore') ??
-      _fallbackTexts.subscriptionAppStore;
+      Crowdin.getText(localeName, 'subscriptionAppStore') ?? _fallbackTexts.subscriptionAppStore;
 
   @override
   String get subscriptionGoogleMarket =>
@@ -6328,14 +6039,12 @@ class CrowdinLocalization extends AppLocalizations {
 
   @override
   String get subscriptionOtherPurchaseVendorCancelAccountSubscription =>
-      Crowdin.getText(localeName,
-          'subscriptionOtherPurchaseVendorCancelAccountSubscription') ??
+      Crowdin.getText(localeName, 'subscriptionOtherPurchaseVendorCancelAccountSubscription') ??
       _fallbackTexts.subscriptionOtherPurchaseVendorCancelAccountSubscription;
 
   @override
   String get subscriptionRestoreSubscriptionFromSettings =>
-      Crowdin.getText(
-          localeName, 'subscriptionRestoreSubscriptionFromSettings') ??
+      Crowdin.getText(localeName, 'subscriptionRestoreSubscriptionFromSettings') ??
       _fallbackTexts.subscriptionRestoreSubscriptionFromSettings;
 
   @override
@@ -6345,8 +6054,7 @@ class CrowdinLocalization extends AppLocalizations {
 
   @override
   String get subscriptionDuplicateSubscriptionFromSettings =>
-      Crowdin.getText(
-          localeName, 'subscriptionDuplicateSubscriptionFromSettings') ??
+      Crowdin.getText(localeName, 'subscriptionDuplicateSubscriptionFromSettings') ??
       _fallbackTexts.subscriptionDuplicateSubscriptionFromSettings;
 
   @override
@@ -6371,28 +6079,23 @@ class CrowdinLocalization extends AppLocalizations {
 
   @override
   String get subscriptionMonth =>
-      Crowdin.getText(localeName, 'subscriptionMonth') ??
-      _fallbackTexts.subscriptionMonth;
+      Crowdin.getText(localeName, 'subscriptionMonth') ?? _fallbackTexts.subscriptionMonth;
 
   @override
   String get subscriptionQuarterly =>
-      Crowdin.getText(localeName, 'subscriptionQuarterly') ??
-      _fallbackTexts.subscriptionQuarterly;
+      Crowdin.getText(localeName, 'subscriptionQuarterly') ?? _fallbackTexts.subscriptionQuarterly;
 
   @override
   String get subscriptionAnnually =>
-      Crowdin.getText(localeName, 'subscriptionAnnually') ??
-      _fallbackTexts.subscriptionAnnually;
+      Crowdin.getText(localeName, 'subscriptionAnnually') ?? _fallbackTexts.subscriptionAnnually;
 
   @override
   String get subscriptionWeekly =>
-      Crowdin.getText(localeName, 'subscriptionWeekly') ??
-      _fallbackTexts.subscriptionWeekly;
+      Crowdin.getText(localeName, 'subscriptionWeekly') ?? _fallbackTexts.subscriptionWeekly;
 
   @override
   String get subscriptionDaily =>
-      Crowdin.getText(localeName, 'subscriptionDaily') ??
-      _fallbackTexts.subscriptionDaily;
+      Crowdin.getText(localeName, 'subscriptionDaily') ?? _fallbackTexts.subscriptionDaily;
 
   @override
   String get subscriptionDescriptionLabel =>
@@ -6516,13 +6219,11 @@ class CrowdinLocalization extends AppLocalizations {
 
   @override
   String get introBodyTextFirst =>
-      Crowdin.getText(localeName, 'introBodyTextFirst') ??
-      _fallbackTexts.introBodyTextFirst;
+      Crowdin.getText(localeName, 'introBodyTextFirst') ?? _fallbackTexts.introBodyTextFirst;
 
   @override
   String get introBodyTextSecond =>
-      Crowdin.getText(localeName, 'introBodyTextSecond') ??
-      _fallbackTexts.introBodyTextSecond;
+      Crowdin.getText(localeName, 'introBodyTextSecond') ?? _fallbackTexts.introBodyTextSecond;
 
   @override
   String loginTitle(String projectName) =>
@@ -6531,8 +6232,7 @@ class CrowdinLocalization extends AppLocalizations {
 
   @override
   String get forgotPasswordTitle =>
-      Crowdin.getText(localeName, 'forgotPasswordTitle') ??
-      _fallbackTexts.forgotPasswordTitle;
+      Crowdin.getText(localeName, 'forgotPasswordTitle') ?? _fallbackTexts.forgotPasswordTitle;
 
   @override
   String get forgotPasswordSubTitle =>
@@ -6541,17 +6241,15 @@ class CrowdinLocalization extends AppLocalizations {
 
   @override
   String get forgotPasswordBody =>
-      Crowdin.getText(localeName, 'forgotPasswordBody') ??
-      _fallbackTexts.forgotPasswordBody;
+      Crowdin.getText(localeName, 'forgotPasswordBody') ?? _fallbackTexts.forgotPasswordBody;
 
   @override
-  String get minutes =>
-      Crowdin.getText(localeName, 'minutes') ?? _fallbackTexts.minutes;
+  String get minutes => Crowdin.getText(localeName, 'minutes') ?? _fallbackTexts.minutes;
 
   @override
   String stepCounter(String currentStep, String totalSteps) =>
-      Crowdin.getText(localeName, 'stepCounter',
-          {'currentStep': currentStep, 'totalSteps': totalSteps}) ??
+      Crowdin.getText(
+          localeName, 'stepCounter', {'currentStep': currentStep, 'totalSteps': totalSteps}) ??
       _fallbackTexts.stepCounter(currentStep, totalSteps);
 
   @override
@@ -6562,23 +6260,19 @@ class CrowdinLocalization extends AppLocalizations {
 
   @override
   String get legalStatement =>
-      Crowdin.getText(localeName, 'legalStatement') ??
-      _fallbackTexts.legalStatement;
+      Crowdin.getText(localeName, 'legalStatement') ?? _fallbackTexts.legalStatement;
 
   @override
   String get legalStatementTextOne =>
-      Crowdin.getText(localeName, 'legalStatementTextOne') ??
-      _fallbackTexts.legalStatementTextOne;
+      Crowdin.getText(localeName, 'legalStatementTextOne') ?? _fallbackTexts.legalStatementTextOne;
 
   @override
   String get legalStatementTextTwo =>
-      Crowdin.getText(localeName, 'legalStatementTextTwo') ??
-      _fallbackTexts.legalStatementTextTwo;
+      Crowdin.getText(localeName, 'legalStatementTextTwo') ?? _fallbackTexts.legalStatementTextTwo;
 
   @override
   String get readLegalStatement =>
-      Crowdin.getText(localeName, 'readLegalStatement') ??
-      _fallbackTexts.readLegalStatement;
+      Crowdin.getText(localeName, 'readLegalStatement') ?? _fallbackTexts.readLegalStatement;
 
   @override
   String get legalStatementCheckboxTitle =>
@@ -6591,48 +6285,39 @@ class CrowdinLocalization extends AppLocalizations {
       _fallbackTexts.legalStatementCheckboxItemOne;
 
   @override
-  String get confirm =>
-      Crowdin.getText(localeName, 'confirm') ?? _fallbackTexts.confirm;
+  String get confirm => Crowdin.getText(localeName, 'confirm') ?? _fallbackTexts.confirm;
 
   @override
   String get openLinkErrorMessage =>
-      Crowdin.getText(localeName, 'openLinkErrorMessage') ??
-      _fallbackTexts.openLinkErrorMessage;
+      Crowdin.getText(localeName, 'openLinkErrorMessage') ?? _fallbackTexts.openLinkErrorMessage;
 
   @override
   String get signUpWelcomeTitle =>
-      Crowdin.getText(localeName, 'signUpWelcomeTitle') ??
-      _fallbackTexts.signUpWelcomeTitle;
+      Crowdin.getText(localeName, 'signUpWelcomeTitle') ?? _fallbackTexts.signUpWelcomeTitle;
 
   @override
   String get signUpWelcomeBody =>
-      Crowdin.getText(localeName, 'signUpWelcomeBody') ??
-      _fallbackTexts.signUpWelcomeBody;
+      Crowdin.getText(localeName, 'signUpWelcomeBody') ?? _fallbackTexts.signUpWelcomeBody;
 
   @override
   String get createAccount =>
-      Crowdin.getText(localeName, 'createAccount') ??
-      _fallbackTexts.createAccount;
+      Crowdin.getText(localeName, 'createAccount') ?? _fallbackTexts.createAccount;
 
   @override
   String get whatIsYourName =>
-      Crowdin.getText(localeName, 'whatIsYourName') ??
-      _fallbackTexts.whatIsYourName;
+      Crowdin.getText(localeName, 'whatIsYourName') ?? _fallbackTexts.whatIsYourName;
 
   @override
   String get niceToMeetYou =>
-      Crowdin.getText(localeName, 'niceToMeetYou') ??
-      _fallbackTexts.niceToMeetYou;
+      Crowdin.getText(localeName, 'niceToMeetYou') ?? _fallbackTexts.niceToMeetYou;
 
   @override
   String get enterPasswordSubTitle =>
-      Crowdin.getText(localeName, 'enterPasswordSubTitle') ??
-      _fallbackTexts.enterPasswordSubTitle;
+      Crowdin.getText(localeName, 'enterPasswordSubTitle') ?? _fallbackTexts.enterPasswordSubTitle;
 
   @override
   String get confirmPassword =>
-      Crowdin.getText(localeName, 'confirmPassword') ??
-      _fallbackTexts.confirmPassword;
+      Crowdin.getText(localeName, 'confirmPassword') ?? _fallbackTexts.confirmPassword;
 
   @override
   String get passwordStrengthToShort =>
@@ -6656,8 +6341,7 @@ class CrowdinLocalization extends AppLocalizations {
 
   @override
   String get passwordStrengthNice =>
-      Crowdin.getText(localeName, 'passwordStrengthNice') ??
-      _fallbackTexts.passwordStrengthNice;
+      Crowdin.getText(localeName, 'passwordStrengthNice') ?? _fallbackTexts.passwordStrengthNice;
 
   @override
   String get passwordValidationRule1 =>
@@ -6675,22 +6359,18 @@ class CrowdinLocalization extends AppLocalizations {
       _fallbackTexts.passwordValidationRule3;
 
   @override
-  String get emailTitle =>
-      Crowdin.getText(localeName, 'emailTitle') ?? _fallbackTexts.emailTitle;
+  String get emailTitle => Crowdin.getText(localeName, 'emailTitle') ?? _fallbackTexts.emailTitle;
 
   @override
-  String get emailBody =>
-      Crowdin.getText(localeName, 'emailBody') ?? _fallbackTexts.emailBody;
+  String get emailBody => Crowdin.getText(localeName, 'emailBody') ?? _fallbackTexts.emailBody;
 
   @override
   String get termsAndConditions =>
-      Crowdin.getText(localeName, 'termsAndConditions') ??
-      _fallbackTexts.termsAndConditions;
+      Crowdin.getText(localeName, 'termsAndConditions') ?? _fallbackTexts.termsAndConditions;
 
   @override
   String get privacyPolicy =>
-      Crowdin.getText(localeName, 'privacyPolicy') ??
-      _fallbackTexts.privacyPolicy;
+      Crowdin.getText(localeName, 'privacyPolicy') ?? _fallbackTexts.privacyPolicy;
 
   @override
   String get termsAndConditionsTitle =>
@@ -6699,17 +6379,14 @@ class CrowdinLocalization extends AppLocalizations {
 
   @override
   String get privacyPolicyTitle =>
-      Crowdin.getText(localeName, 'privacyPolicyTitle') ??
-      _fallbackTexts.privacyPolicyTitle;
+      Crowdin.getText(localeName, 'privacyPolicyTitle') ?? _fallbackTexts.privacyPolicyTitle;
 
   @override
-  String get iAcceptThe =>
-      Crowdin.getText(localeName, 'iAcceptThe') ?? _fallbackTexts.iAcceptThe;
+  String get iAcceptThe => Crowdin.getText(localeName, 'iAcceptThe') ?? _fallbackTexts.iAcceptThe;
 
   @override
   String get pleaseAcceptTOC =>
-      Crowdin.getText(localeName, 'pleaseAcceptTOC') ??
-      _fallbackTexts.pleaseAcceptTOC;
+      Crowdin.getText(localeName, 'pleaseAcceptTOC') ?? _fallbackTexts.pleaseAcceptTOC;
 
   @override
   String get pleaseAcceptPrivacyPolicy =>
@@ -6717,8 +6394,7 @@ class CrowdinLocalization extends AppLocalizations {
       _fallbackTexts.pleaseAcceptPrivacyPolicy;
 
   @override
-  String get register =>
-      Crowdin.getText(localeName, 'register') ?? _fallbackTexts.register;
+  String get register => Crowdin.getText(localeName, 'register') ?? _fallbackTexts.register;
 
   @override
   String get receiveEmailCheckboxLabel =>
@@ -6756,18 +6432,15 @@ class CrowdinLocalization extends AppLocalizations {
       _fallbackTexts.waitingForConfirmationBody4;
 
   @override
-  String get resend =>
-      Crowdin.getText(localeName, 'resend') ?? _fallbackTexts.resend;
+  String get resend => Crowdin.getText(localeName, 'resend') ?? _fallbackTexts.resend;
 
   @override
   String get incorrectEmail =>
-      Crowdin.getText(localeName, 'incorrectEmail') ??
-      _fallbackTexts.incorrectEmail;
+      Crowdin.getText(localeName, 'incorrectEmail') ?? _fallbackTexts.incorrectEmail;
 
   @override
   String get changeAddress =>
-      Crowdin.getText(localeName, 'changeAddress') ??
-      _fallbackTexts.changeAddress;
+      Crowdin.getText(localeName, 'changeAddress') ?? _fallbackTexts.changeAddress;
 
   @override
   String get changeEmail =>
@@ -6789,35 +6462,28 @@ class CrowdinLocalization extends AppLocalizations {
       _fallbackTexts.emailConfirmedBottomSheetContent;
 
   @override
-  String get logMood =>
-      Crowdin.getText(localeName, 'logMood') ?? _fallbackTexts.logMood;
+  String get logMood => Crowdin.getText(localeName, 'logMood') ?? _fallbackTexts.logMood;
 
   @override
-  String get yourNote =>
-      Crowdin.getText(localeName, 'yourNote') ?? _fallbackTexts.yourNote;
+  String get yourNote => Crowdin.getText(localeName, 'yourNote') ?? _fallbackTexts.yourNote;
 
   @override
   String get educationTitle =>
-      Crowdin.getText(localeName, 'educationTitle') ??
-      _fallbackTexts.educationTitle;
+      Crowdin.getText(localeName, 'educationTitle') ?? _fallbackTexts.educationTitle;
 
   @override
-  String get locked =>
-      Crowdin.getText(localeName, 'locked') ?? _fallbackTexts.locked;
+  String get locked => Crowdin.getText(localeName, 'locked') ?? _fallbackTexts.locked;
 
   @override
-  String get lesson =>
-      Crowdin.getText(localeName, 'lesson') ?? _fallbackTexts.lesson;
+  String get lesson => Crowdin.getText(localeName, 'lesson') ?? _fallbackTexts.lesson;
 
   @override
   String get lessonCompleted =>
-      Crowdin.getText(localeName, 'lessonCompleted') ??
-      _fallbackTexts.lessonCompleted;
+      Crowdin.getText(localeName, 'lessonCompleted') ?? _fallbackTexts.lessonCompleted;
 
   @override
   String get groupSessionsUnlocked =>
-      Crowdin.getText(localeName, 'groupSessionsUnlocked') ??
-      _fallbackTexts.groupSessionsUnlocked;
+      Crowdin.getText(localeName, 'groupSessionsUnlocked') ?? _fallbackTexts.groupSessionsUnlocked;
 
   @override
   String get waitingForGroupCompletedLesson =>
@@ -6846,8 +6512,7 @@ class CrowdinLocalization extends AppLocalizations {
 
   @override
   String get assignmentCompleted =>
-      Crowdin.getText(localeName, 'assignmentCompleted') ??
-      _fallbackTexts.assignmentCompleted;
+      Crowdin.getText(localeName, 'assignmentCompleted') ?? _fallbackTexts.assignmentCompleted;
 
   @override
   String get assignmentCompleteDescription =>
@@ -6876,8 +6541,7 @@ class CrowdinLocalization extends AppLocalizations {
 
   @override
   String get completeLesson =>
-      Crowdin.getText(localeName, 'completeLesson') ??
-      _fallbackTexts.completeLesson;
+      Crowdin.getText(localeName, 'completeLesson') ?? _fallbackTexts.completeLesson;
 
   @override
   String get didYouCheckWithSpecialist =>
@@ -6886,8 +6550,7 @@ class CrowdinLocalization extends AppLocalizations {
 
   @override
   String get iConsultedTherapist =>
-      Crowdin.getText(localeName, 'iConsultedTherapist') ??
-      _fallbackTexts.iConsultedTherapist;
+      Crowdin.getText(localeName, 'iConsultedTherapist') ?? _fallbackTexts.iConsultedTherapist;
 
   @override
   String get treatedByTherapistLessonComplete =>
@@ -6931,47 +6594,38 @@ class CrowdinLocalization extends AppLocalizations {
 
   @override
   String get consultYourTherapist =>
-      Crowdin.getText(localeName, 'consultYourTherapist') ??
-      _fallbackTexts.consultYourTherapist;
+      Crowdin.getText(localeName, 'consultYourTherapist') ?? _fallbackTexts.consultYourTherapist;
 
   @override
   String get groupSession =>
-      Crowdin.getText(localeName, 'groupSession') ??
-      _fallbackTexts.groupSession;
+      Crowdin.getText(localeName, 'groupSession') ?? _fallbackTexts.groupSession;
 
   @override
-  String get getStarted =>
-      Crowdin.getText(localeName, 'getStarted') ?? _fallbackTexts.getStarted;
+  String get getStarted => Crowdin.getText(localeName, 'getStarted') ?? _fallbackTexts.getStarted;
 
   @override
   String get haveAnAccount =>
-      Crowdin.getText(localeName, 'haveAnAccount') ??
-      _fallbackTexts.haveAnAccount;
+      Crowdin.getText(localeName, 'haveAnAccount') ?? _fallbackTexts.haveAnAccount;
 
   @override
-  String get logIn =>
-      Crowdin.getText(localeName, 'logIn') ?? _fallbackTexts.logIn;
+  String get logIn => Crowdin.getText(localeName, 'logIn') ?? _fallbackTexts.logIn;
 
   @override
   String get bodyAndMind =>
       Crowdin.getText(localeName, 'bodyAndMind') ?? _fallbackTexts.bodyAndMind;
 
   @override
-  String get finish =>
-      Crowdin.getText(localeName, 'finish') ?? _fallbackTexts.finish;
+  String get finish => Crowdin.getText(localeName, 'finish') ?? _fallbackTexts.finish;
 
   @override
-  String get introPage =>
-      Crowdin.getText(localeName, 'introPage') ?? _fallbackTexts.introPage;
+  String get introPage => Crowdin.getText(localeName, 'introPage') ?? _fallbackTexts.introPage;
 
   @override
-  String get moreInfo =>
-      Crowdin.getText(localeName, 'moreInfo') ?? _fallbackTexts.moreInfo;
+  String get moreInfo => Crowdin.getText(localeName, 'moreInfo') ?? _fallbackTexts.moreInfo;
 
   @override
   String get yourBirthday =>
-      Crowdin.getText(localeName, 'yourBirthday') ??
-      _fallbackTexts.yourBirthday;
+      Crowdin.getText(localeName, 'yourBirthday') ?? _fallbackTexts.yourBirthday;
 
   @override
   String get continueBtn =>
@@ -6979,35 +6633,28 @@ class CrowdinLocalization extends AppLocalizations {
 
   @override
   String get downloadInstructions =>
-      Crowdin.getText(localeName, 'downloadInstructions') ??
-      _fallbackTexts.downloadInstructions;
+      Crowdin.getText(localeName, 'downloadInstructions') ?? _fallbackTexts.downloadInstructions;
 
   @override
   String get forgotPassword =>
-      Crowdin.getText(localeName, 'forgotPassword') ??
-      _fallbackTexts.forgotPassword;
+      Crowdin.getText(localeName, 'forgotPassword') ?? _fallbackTexts.forgotPassword;
 
   @override
   String get yourPassword =>
-      Crowdin.getText(localeName, 'yourPassword') ??
-      _fallbackTexts.yourPassword;
+      Crowdin.getText(localeName, 'yourPassword') ?? _fallbackTexts.yourPassword;
 
   @override
-  String get login =>
-      Crowdin.getText(localeName, 'login') ?? _fallbackTexts.login;
+  String get login => Crowdin.getText(localeName, 'login') ?? _fallbackTexts.login;
 
   @override
-  String get yourEmail =>
-      Crowdin.getText(localeName, 'yourEmail') ?? _fallbackTexts.yourEmail;
+  String get yourEmail => Crowdin.getText(localeName, 'yourEmail') ?? _fallbackTexts.yourEmail;
 
   @override
-  String get yourName =>
-      Crowdin.getText(localeName, 'yourName') ?? _fallbackTexts.yourName;
+  String get yourName => Crowdin.getText(localeName, 'yourName') ?? _fallbackTexts.yourName;
 
   @override
   String get connectionLost =>
-      Crowdin.getText(localeName, 'connectionLost') ??
-      _fallbackTexts.connectionLost;
+      Crowdin.getText(localeName, 'connectionLost') ?? _fallbackTexts.connectionLost;
 
   @override
   String get pleaseEnterYourEmailAddress =>
@@ -7016,8 +6663,7 @@ class CrowdinLocalization extends AppLocalizations {
 
   @override
   String get pleaseEnterYourName =>
-      Crowdin.getText(localeName, 'pleaseEnterYourName') ??
-      _fallbackTexts.pleaseEnterYourName;
+      Crowdin.getText(localeName, 'pleaseEnterYourName') ?? _fallbackTexts.pleaseEnterYourName;
 
   @override
   String get nameRegexValidationError =>
@@ -7036,93 +6682,74 @@ class CrowdinLocalization extends AppLocalizations {
 
   @override
   String get enterYourHeight =>
-      Crowdin.getText(localeName, 'enterYourHeight') ??
-      _fallbackTexts.enterYourHeight;
+      Crowdin.getText(localeName, 'enterYourHeight') ?? _fallbackTexts.enterYourHeight;
 
   @override
   String forgotEmailSuccessMessage(String email) =>
-      Crowdin.getText(
-          localeName, 'forgotEmailSuccessMessage', {'email': email}) ??
+      Crowdin.getText(localeName, 'forgotEmailSuccessMessage', {'email': email}) ??
       _fallbackTexts.forgotEmailSuccessMessage(email);
 
   @override
-  String get close =>
-      Crowdin.getText(localeName, 'close') ?? _fallbackTexts.close;
+  String get close => Crowdin.getText(localeName, 'close') ?? _fallbackTexts.close;
 
   @override
   String get next => Crowdin.getText(localeName, 'next') ?? _fallbackTexts.next;
 
   @override
   String get youAndFoodItemThree =>
-      Crowdin.getText(localeName, 'youAndFoodItemThree') ??
-      _fallbackTexts.youAndFoodItemThree;
+      Crowdin.getText(localeName, 'youAndFoodItemThree') ?? _fallbackTexts.youAndFoodItemThree;
 
   @override
-  String get start =>
-      Crowdin.getText(localeName, 'start') ?? _fallbackTexts.start;
+  String get start => Crowdin.getText(localeName, 'start') ?? _fallbackTexts.start;
 
   @override
   String get iDoNotEatOrDrink =>
-      Crowdin.getText(localeName, 'iDoNotEatOrDrink') ??
-      _fallbackTexts.iDoNotEatOrDrink;
+      Crowdin.getText(localeName, 'iDoNotEatOrDrink') ?? _fallbackTexts.iDoNotEatOrDrink;
 
   @override
   String get iAmAllergicTo =>
-      Crowdin.getText(localeName, 'iAmAllergicTo') ??
-      _fallbackTexts.iAmAllergicTo;
+      Crowdin.getText(localeName, 'iAmAllergicTo') ?? _fallbackTexts.iAmAllergicTo;
 
   @override
-  String get iDoNotLike =>
-      Crowdin.getText(localeName, 'iDoNotLike') ?? _fallbackTexts.iDoNotLike;
+  String get iDoNotLike => Crowdin.getText(localeName, 'iDoNotLike') ?? _fallbackTexts.iDoNotLike;
 
   @override
-  String get typeOne =>
-      Crowdin.getText(localeName, 'typeOne') ?? _fallbackTexts.typeOne;
+  String get typeOne => Crowdin.getText(localeName, 'typeOne') ?? _fallbackTexts.typeOne;
 
   @override
-  String get typeTwo =>
-      Crowdin.getText(localeName, 'typeTwo') ?? _fallbackTexts.typeTwo;
+  String get typeTwo => Crowdin.getText(localeName, 'typeTwo') ?? _fallbackTexts.typeTwo;
 
   @override
-  String get breakfast =>
-      Crowdin.getText(localeName, 'breakfast') ?? _fallbackTexts.breakfast;
+  String get breakfast => Crowdin.getText(localeName, 'breakfast') ?? _fallbackTexts.breakfast;
 
   @override
-  String get lunch =>
-      Crowdin.getText(localeName, 'lunch') ?? _fallbackTexts.lunch;
+  String get lunch => Crowdin.getText(localeName, 'lunch') ?? _fallbackTexts.lunch;
 
   @override
-  String get dinner =>
-      Crowdin.getText(localeName, 'dinner') ?? _fallbackTexts.dinner;
+  String get dinner => Crowdin.getText(localeName, 'dinner') ?? _fallbackTexts.dinner;
 
   @override
-  String get lateDinner =>
-      Crowdin.getText(localeName, 'lateDinner') ?? _fallbackTexts.lateDinner;
+  String get lateDinner => Crowdin.getText(localeName, 'lateDinner') ?? _fallbackTexts.lateDinner;
 
   @override
   String get nutritionSummary =>
-      Crowdin.getText(localeName, 'nutritionSummary') ??
-      _fallbackTexts.nutritionSummary;
+      Crowdin.getText(localeName, 'nutritionSummary') ?? _fallbackTexts.nutritionSummary;
 
   @override
   String get calorieDensity =>
-      Crowdin.getText(localeName, 'calorieDensity') ??
-      _fallbackTexts.calorieDensity;
+      Crowdin.getText(localeName, 'calorieDensity') ?? _fallbackTexts.calorieDensity;
 
   @override
   String get proteinDegree =>
-      Crowdin.getText(localeName, 'proteinDegree') ??
-      _fallbackTexts.proteinDegree;
+      Crowdin.getText(localeName, 'proteinDegree') ?? _fallbackTexts.proteinDegree;
 
   @override
   String get whatIsCalorieDensity =>
-      Crowdin.getText(localeName, 'whatIsCalorieDensity') ??
-      _fallbackTexts.whatIsCalorieDensity;
+      Crowdin.getText(localeName, 'whatIsCalorieDensity') ?? _fallbackTexts.whatIsCalorieDensity;
 
   @override
   String get whatIsProtein =>
-      Crowdin.getText(localeName, 'whatIsProtein') ??
-      _fallbackTexts.whatIsProtein;
+      Crowdin.getText(localeName, 'whatIsProtein') ?? _fallbackTexts.whatIsProtein;
 
   @override
   String get calorieDensityExplanation =>
@@ -7141,23 +6768,20 @@ class CrowdinLocalization extends AppLocalizations {
 
   @override
   String get fiberExplanation =>
-      Crowdin.getText(localeName, 'fiberExplanation') ??
-      _fallbackTexts.fiberExplanation;
+      Crowdin.getText(localeName, 'fiberExplanation') ?? _fallbackTexts.fiberExplanation;
 
   @override
   String get importanceOfProtein =>
-      Crowdin.getText(localeName, 'importanceOfProtein') ??
-      _fallbackTexts.importanceOfProtein;
+      Crowdin.getText(localeName, 'importanceOfProtein') ?? _fallbackTexts.importanceOfProtein;
 
   @override
   String get carbohydratesPart2 =>
-      Crowdin.getText(localeName, 'carbohydratesPart2') ??
-      _fallbackTexts.carbohydratesPart2;
+      Crowdin.getText(localeName, 'carbohydratesPart2') ?? _fallbackTexts.carbohydratesPart2;
 
   @override
   String fiberDailyGoal(String fiberAmount, String dailyGoal) =>
-      Crowdin.getText(localeName, 'fiberDailyGoal',
-          {'fiberAmount': fiberAmount, 'dailyGoal': dailyGoal}) ??
+      Crowdin.getText(
+          localeName, 'fiberDailyGoal', {'fiberAmount': fiberAmount, 'dailyGoal': dailyGoal}) ??
       _fallbackTexts.fiberDailyGoal(fiberAmount, dailyGoal);
 
   @override
@@ -7167,32 +6791,26 @@ class CrowdinLocalization extends AppLocalizations {
       _fallbackTexts.fiberRatioToCarbo(totalCarbohydrates, ratio);
 
   @override
-  String get calories =>
-      Crowdin.getText(localeName, 'calories') ?? _fallbackTexts.calories;
+  String get calories => Crowdin.getText(localeName, 'calories') ?? _fallbackTexts.calories;
 
   @override
-  String get amount =>
-      Crowdin.getText(localeName, 'amount') ?? _fallbackTexts.amount;
+  String get amount => Crowdin.getText(localeName, 'amount') ?? _fallbackTexts.amount;
 
   @override
   String get addAsFavourite =>
-      Crowdin.getText(localeName, 'addAsFavourite') ??
-      _fallbackTexts.addAsFavourite;
+      Crowdin.getText(localeName, 'addAsFavourite') ?? _fallbackTexts.addAsFavourite;
 
   @override
   String get removeFromFavorites =>
-      Crowdin.getText(localeName, 'removeFromFavorites') ??
-      _fallbackTexts.removeFromFavorites;
+      Crowdin.getText(localeName, 'removeFromFavorites') ?? _fallbackTexts.removeFromFavorites;
 
   @override
   String get addedToFavorites =>
-      Crowdin.getText(localeName, 'addedToFavorites') ??
-      _fallbackTexts.addedToFavorites;
+      Crowdin.getText(localeName, 'addedToFavorites') ?? _fallbackTexts.addedToFavorites;
 
   @override
   String get removedFromFavorites =>
-      Crowdin.getText(localeName, 'removedFromFavorites') ??
-      _fallbackTexts.removedFromFavorites;
+      Crowdin.getText(localeName, 'removedFromFavorites') ?? _fallbackTexts.removedFromFavorites;
 
   @override
   String get myFavorites =>
@@ -7202,54 +6820,44 @@ class CrowdinLocalization extends AppLocalizations {
   String get my => Crowdin.getText(localeName, 'my') ?? _fallbackTexts.my;
 
   @override
-  String get myDishes =>
-      Crowdin.getText(localeName, 'myDishes') ?? _fallbackTexts.myDishes;
+  String get myDishes => Crowdin.getText(localeName, 'myDishes') ?? _fallbackTexts.myDishes;
 
   @override
-  String get dishes =>
-      Crowdin.getText(localeName, 'dishes') ?? _fallbackTexts.dishes;
+  String get dishes => Crowdin.getText(localeName, 'dishes') ?? _fallbackTexts.dishes;
 
   @override
   String get scan => Crowdin.getText(localeName, 'scan') ?? _fallbackTexts.scan;
 
   @override
-  String get showMy =>
-      Crowdin.getText(localeName, 'showMy') ?? _fallbackTexts.showMy;
+  String get showMy => Crowdin.getText(localeName, 'showMy') ?? _fallbackTexts.showMy;
 
   @override
   String get qrCodeSubtext_1 =>
-      Crowdin.getText(localeName, 'qrCodeSubtext_1') ??
-      _fallbackTexts.qrCodeSubtext_1;
+      Crowdin.getText(localeName, 'qrCodeSubtext_1') ?? _fallbackTexts.qrCodeSubtext_1;
 
   @override
   String get qrCodeSubtext_2 =>
-      Crowdin.getText(localeName, 'qrCodeSubtext_2') ??
-      _fallbackTexts.qrCodeSubtext_2;
+      Crowdin.getText(localeName, 'qrCodeSubtext_2') ?? _fallbackTexts.qrCodeSubtext_2;
 
   @override
   String get qrCodeSubtext_3 =>
-      Crowdin.getText(localeName, 'qrCodeSubtext_3') ??
-      _fallbackTexts.qrCodeSubtext_3;
+      Crowdin.getText(localeName, 'qrCodeSubtext_3') ?? _fallbackTexts.qrCodeSubtext_3;
 
   @override
   String get scanOtherProduct =>
-      Crowdin.getText(localeName, 'scanOtherProduct') ??
-      _fallbackTexts.scanOtherProduct;
+      Crowdin.getText(localeName, 'scanOtherProduct') ?? _fallbackTexts.scanOtherProduct;
 
   @override
   String get sorryNotFound =>
-      Crowdin.getText(localeName, 'sorryNotFound') ??
-      _fallbackTexts.sorryNotFound;
+      Crowdin.getText(localeName, 'sorryNotFound') ?? _fallbackTexts.sorryNotFound;
 
   @override
   String get scanYourProduct =>
-      Crowdin.getText(localeName, 'scanYourProduct') ??
-      _fallbackTexts.scanYourProduct;
+      Crowdin.getText(localeName, 'scanYourProduct') ?? _fallbackTexts.scanYourProduct;
 
   @override
   String get barCodeResultCalories =>
-      Crowdin.getText(localeName, 'barCodeResultCalories') ??
-      _fallbackTexts.barCodeResultCalories;
+      Crowdin.getText(localeName, 'barCodeResultCalories') ?? _fallbackTexts.barCodeResultCalories;
 
   @override
   String get barCodeResultPerServing =>
@@ -7258,24 +6866,20 @@ class CrowdinLocalization extends AppLocalizations {
 
   @override
   String get openSettings =>
-      Crowdin.getText(localeName, 'openSettings') ??
-      _fallbackTexts.openSettings;
+      Crowdin.getText(localeName, 'openSettings') ?? _fallbackTexts.openSettings;
 
   @override
   String get allowCameraMessage =>
-      Crowdin.getText(localeName, 'allowCameraMessage') ??
-      _fallbackTexts.allowCameraMessage;
+      Crowdin.getText(localeName, 'allowCameraMessage') ?? _fallbackTexts.allowCameraMessage;
 
   @override
   String get item => Crowdin.getText(localeName, 'item') ?? _fallbackTexts.item;
 
   @override
-  String get items =>
-      Crowdin.getText(localeName, 'items') ?? _fallbackTexts.items;
+  String get items => Crowdin.getText(localeName, 'items') ?? _fallbackTexts.items;
 
   @override
-  String get selected =>
-      Crowdin.getText(localeName, 'selected') ?? _fallbackTexts.selected;
+  String get selected => Crowdin.getText(localeName, 'selected') ?? _fallbackTexts.selected;
 
   @override
   String get deselectAll =>
@@ -7290,114 +6894,91 @@ class CrowdinLocalization extends AppLocalizations {
 
   @override
   String get saveToMyDishes =>
-      Crowdin.getText(localeName, 'saveToMyDishes') ??
-      _fallbackTexts.saveToMyDishes;
+      Crowdin.getText(localeName, 'saveToMyDishes') ?? _fallbackTexts.saveToMyDishes;
 
   @override
   String get addToDishes =>
       Crowdin.getText(localeName, 'addToDishes') ?? _fallbackTexts.addToDishes;
 
   @override
-  String get viewRecipe =>
-      Crowdin.getText(localeName, 'viewRecipe') ?? _fallbackTexts.viewRecipe;
+  String get viewRecipe => Crowdin.getText(localeName, 'viewRecipe') ?? _fallbackTexts.viewRecipe;
 
   @override
   String get ingredientsBasedOn =>
-      Crowdin.getText(localeName, 'ingredientsBasedOn') ??
-      _fallbackTexts.ingredientsBasedOn;
+      Crowdin.getText(localeName, 'ingredientsBasedOn') ?? _fallbackTexts.ingredientsBasedOn;
 
   @override
   String portionMeal(String numberOfPortion) =>
-      Crowdin.getText(
-          localeName, 'portionMeal', {'numberOfPortion': numberOfPortion}) ??
+      Crowdin.getText(localeName, 'portionMeal', {'numberOfPortion': numberOfPortion}) ??
       _fallbackTexts.portionMeal(numberOfPortion);
 
   @override
-  String get total =>
-      Crowdin.getText(localeName, 'total') ?? _fallbackTexts.total;
+  String get total => Crowdin.getText(localeName, 'total') ?? _fallbackTexts.total;
 
   @override
-  String get searchHint =>
-      Crowdin.getText(localeName, 'searchHint') ?? _fallbackTexts.searchHint;
+  String get searchHint => Crowdin.getText(localeName, 'searchHint') ?? _fallbackTexts.searchHint;
 
   @override
   String get searchFilterAll =>
-      Crowdin.getText(localeName, 'searchFilterAll') ??
-      _fallbackTexts.searchFilterAll;
+      Crowdin.getText(localeName, 'searchFilterAll') ?? _fallbackTexts.searchFilterAll;
 
   @override
   String get searchFilterProducts =>
-      Crowdin.getText(localeName, 'searchFilterProducts') ??
-      _fallbackTexts.searchFilterProducts;
+      Crowdin.getText(localeName, 'searchFilterProducts') ?? _fallbackTexts.searchFilterProducts;
 
   @override
   String get searchFilterRecipes =>
-      Crowdin.getText(localeName, 'searchFilterRecipes') ??
-      _fallbackTexts.searchFilterRecipes;
+      Crowdin.getText(localeName, 'searchFilterRecipes') ?? _fallbackTexts.searchFilterRecipes;
 
   @override
   String get searchFilterMy =>
-      Crowdin.getText(localeName, 'searchFilterMy') ??
-      _fallbackTexts.searchFilterMy;
+      Crowdin.getText(localeName, 'searchFilterMy') ?? _fallbackTexts.searchFilterMy;
 
   @override
-  String get inbetweens =>
-      Crowdin.getText(localeName, 'inbetweens') ?? _fallbackTexts.inbetweens;
+  String get inbetweens => Crowdin.getText(localeName, 'inbetweens') ?? _fallbackTexts.inbetweens;
 
   @override
   String get inbetweensShort =>
-      Crowdin.getText(localeName, 'inbetweensShort') ??
-      _fallbackTexts.inbetweensShort;
+      Crowdin.getText(localeName, 'inbetweensShort') ?? _fallbackTexts.inbetweensShort;
 
   @override
-  String get drinks =>
-      Crowdin.getText(localeName, 'drinks') ?? _fallbackTexts.drinks;
+  String get drinks => Crowdin.getText(localeName, 'drinks') ?? _fallbackTexts.drinks;
 
   @override
-  String get favorites =>
-      Crowdin.getText(localeName, 'favorites') ?? _fallbackTexts.favorites;
+  String get favorites => Crowdin.getText(localeName, 'favorites') ?? _fallbackTexts.favorites;
 
   @override
-  String get allMy =>
-      Crowdin.getText(localeName, 'allMy') ?? _fallbackTexts.allMy;
+  String get allMy => Crowdin.getText(localeName, 'allMy') ?? _fallbackTexts.allMy;
 
   @override
   String get showNutritionValue =>
-      Crowdin.getText(localeName, 'showNutritionValue') ??
-      _fallbackTexts.showNutritionValue;
+      Crowdin.getText(localeName, 'showNutritionValue') ?? _fallbackTexts.showNutritionValue;
 
   @override
   String youHaveNo(String text) =>
-      Crowdin.getText(localeName, 'youHaveNo', {'text': text}) ??
-      _fallbackTexts.youHaveNo(text);
+      Crowdin.getText(localeName, 'youHaveNo', {'text': text}) ?? _fallbackTexts.youHaveNo(text);
 
   @override
   String get favoritesExplain =>
-      Crowdin.getText(localeName, 'favoritesExplain') ??
-      _fallbackTexts.favoritesExplain;
+      Crowdin.getText(localeName, 'favoritesExplain') ?? _fallbackTexts.favoritesExplain;
 
   @override
   String get favoritesList =>
-      Crowdin.getText(localeName, 'favoritesList') ??
-      _fallbackTexts.favoritesList;
+      Crowdin.getText(localeName, 'favoritesList') ?? _fallbackTexts.favoritesList;
 
   @override
   String get dishesExplain =>
-      Crowdin.getText(localeName, 'dishesExplain') ??
-      _fallbackTexts.dishesExplain;
+      Crowdin.getText(localeName, 'dishesExplain') ?? _fallbackTexts.dishesExplain;
 
   @override
-  String get dishesList =>
-      Crowdin.getText(localeName, 'dishesList') ?? _fallbackTexts.dishesList;
+  String get dishesList => Crowdin.getText(localeName, 'dishesList') ?? _fallbackTexts.dishesList;
 
   @override
   String get groupPreferences =>
-      Crowdin.getText(localeName, 'groupPreferences') ??
-      _fallbackTexts.groupPreferences;
+      Crowdin.getText(localeName, 'groupPreferences') ?? _fallbackTexts.groupPreferences;
 
   @override
-  String get groupRules =>
-      Crowdin.getText(localeName, 'groupRules') ?? _fallbackTexts.groupRules;
+  String get groupRules => Crowdin.getText(localeName, 'groupRules') ?? _fallbackTexts.groupRules;
 
   @override
   String get wouldYouLikeToJoinSupportGroup =>
@@ -7416,13 +6997,11 @@ class CrowdinLocalization extends AppLocalizations {
 
   @override
   String get nicknamePlaceholder =>
-      Crowdin.getText(localeName, 'nicknamePlaceholder') ??
-      _fallbackTexts.nicknamePlaceholder;
+      Crowdin.getText(localeName, 'nicknamePlaceholder') ?? _fallbackTexts.nicknamePlaceholder;
 
   @override
   String get weAreLookingForAMatch =>
-      Crowdin.getText(localeName, 'weAreLookingForAMatch') ??
-      _fallbackTexts.weAreLookingForAMatch;
+      Crowdin.getText(localeName, 'weAreLookingForAMatch') ?? _fallbackTexts.weAreLookingForAMatch;
 
   @override
   String get weAreLookingForAGroupSince =>
@@ -7431,17 +7010,14 @@ class CrowdinLocalization extends AppLocalizations {
 
   @override
   String get genderPreference =>
-      Crowdin.getText(localeName, 'genderPreference') ??
-      _fallbackTexts.genderPreference;
+      Crowdin.getText(localeName, 'genderPreference') ?? _fallbackTexts.genderPreference;
 
   @override
-  String get timezone =>
-      Crowdin.getText(localeName, 'timezone') ?? _fallbackTexts.timezone;
+  String get timezone => Crowdin.getText(localeName, 'timezone') ?? _fallbackTexts.timezone;
 
   @override
   String get yourNickname =>
-      Crowdin.getText(localeName, 'yourNickname') ??
-      _fallbackTexts.yourNickname;
+      Crowdin.getText(localeName, 'yourNickname') ?? _fallbackTexts.yourNickname;
 
   @override
   String get partOfGroup =>
@@ -7449,22 +7025,18 @@ class CrowdinLocalization extends AppLocalizations {
 
   @override
   String get iNoLongerWantToJoin =>
-      Crowdin.getText(localeName, 'iNoLongerWantToJoin') ??
-      _fallbackTexts.iNoLongerWantToJoin;
+      Crowdin.getText(localeName, 'iNoLongerWantToJoin') ?? _fallbackTexts.iNoLongerWantToJoin;
 
   @override
-  String get update =>
-      Crowdin.getText(localeName, 'update') ?? _fallbackTexts.update;
+  String get update => Crowdin.getText(localeName, 'update') ?? _fallbackTexts.update;
 
   @override
   String weHaveNotYetFound(String dateTime) =>
-      Crowdin.getText(
-          localeName, 'weHaveNotYetFound', {'dateTime': dateTime}) ??
+      Crowdin.getText(localeName, 'weHaveNotYetFound', {'dateTime': dateTime}) ??
       _fallbackTexts.weHaveNotYetFound(dateTime);
 
   @override
-  String get goodNews =>
-      Crowdin.getText(localeName, 'goodNews') ?? _fallbackTexts.goodNews;
+  String get goodNews => Crowdin.getText(localeName, 'goodNews') ?? _fallbackTexts.goodNews;
 
   @override
   String get youHaveBeenAddedToGroup =>
@@ -7473,36 +7045,29 @@ class CrowdinLocalization extends AppLocalizations {
 
   @override
   String get readTheGroupRules =>
-      Crowdin.getText(localeName, 'readTheGroupRules') ??
-      _fallbackTexts.readTheGroupRules;
+      Crowdin.getText(localeName, 'readTheGroupRules') ?? _fallbackTexts.readTheGroupRules;
 
   @override
-  String get leaveGroup =>
-      Crowdin.getText(localeName, 'leaveGroup') ?? _fallbackTexts.leaveGroup;
+  String get leaveGroup => Crowdin.getText(localeName, 'leaveGroup') ?? _fallbackTexts.leaveGroup;
 
   @override
-  String get notYet =>
-      Crowdin.getText(localeName, 'notYet') ?? _fallbackTexts.notYet;
+  String get notYet => Crowdin.getText(localeName, 'notYet') ?? _fallbackTexts.notYet;
 
   @override
   String get whatIsYourTimezone =>
-      Crowdin.getText(localeName, 'whatIsYourTimezone') ??
-      _fallbackTexts.whatIsYourTimezone;
+      Crowdin.getText(localeName, 'whatIsYourTimezone') ?? _fallbackTexts.whatIsYourTimezone;
 
   @override
   String get searchTimezone =>
-      Crowdin.getText(localeName, 'searchTimezone') ??
-      _fallbackTexts.searchTimezone;
+      Crowdin.getText(localeName, 'searchTimezone') ?? _fallbackTexts.searchTimezone;
 
   @override
   String get groupRulesOneTitle =>
-      Crowdin.getText(localeName, 'groupRulesOneTitle') ??
-      _fallbackTexts.groupRulesOneTitle;
+      Crowdin.getText(localeName, 'groupRulesOneTitle') ?? _fallbackTexts.groupRulesOneTitle;
 
   @override
   String get groupRulesAttention =>
-      Crowdin.getText(localeName, 'groupRulesAttention') ??
-      _fallbackTexts.groupRulesAttention;
+      Crowdin.getText(localeName, 'groupRulesAttention') ?? _fallbackTexts.groupRulesAttention;
 
   @override
   String get groupRulesOneParagraphOne =>
@@ -7516,12 +7081,10 @@ class CrowdinLocalization extends AppLocalizations {
 
   @override
   String get continueToTheRules =>
-      Crowdin.getText(localeName, 'continueToTheRules') ??
-      _fallbackTexts.continueToTheRules;
+      Crowdin.getText(localeName, 'continueToTheRules') ?? _fallbackTexts.continueToTheRules;
 
   @override
-  String get yesIAgree =>
-      Crowdin.getText(localeName, 'yesIAgree') ?? _fallbackTexts.yesIAgree;
+  String get yesIAgree => Crowdin.getText(localeName, 'yesIAgree') ?? _fallbackTexts.yesIAgree;
 
   @override
   String get supportGroupPreferences =>
@@ -7625,45 +7188,37 @@ class CrowdinLocalization extends AppLocalizations {
 
   @override
   String get noPreference =>
-      Crowdin.getText(localeName, 'noPreference') ??
-      _fallbackTexts.noPreference;
+      Crowdin.getText(localeName, 'noPreference') ?? _fallbackTexts.noPreference;
 
   @override
-  String get femaleOnly =>
-      Crowdin.getText(localeName, 'femaleOnly') ?? _fallbackTexts.femaleOnly;
+  String get femaleOnly => Crowdin.getText(localeName, 'femaleOnly') ?? _fallbackTexts.femaleOnly;
 
   @override
-  String get maleOnly =>
-      Crowdin.getText(localeName, 'maleOnly') ?? _fallbackTexts.maleOnly;
+  String get maleOnly => Crowdin.getText(localeName, 'maleOnly') ?? _fallbackTexts.maleOnly;
 
   @override
-  String get mixed =>
-      Crowdin.getText(localeName, 'mixed') ?? _fallbackTexts.mixed;
+  String get mixed => Crowdin.getText(localeName, 'mixed') ?? _fallbackTexts.mixed;
 
   @override
-  String get female =>
-      Crowdin.getText(localeName, 'female') ?? _fallbackTexts.female;
+  String get female => Crowdin.getText(localeName, 'female') ?? _fallbackTexts.female;
 
   @override
   String get male => Crowdin.getText(localeName, 'male') ?? _fallbackTexts.male;
 
   @override
-  String get woman =>
-      Crowdin.getText(localeName, 'woman') ?? _fallbackTexts.woman;
+  String get woman => Crowdin.getText(localeName, 'woman') ?? _fallbackTexts.woman;
 
   @override
   String get man => Crowdin.getText(localeName, 'man') ?? _fallbackTexts.man;
 
   @override
-  String get other =>
-      Crowdin.getText(localeName, 'other') ?? _fallbackTexts.other;
+  String get other => Crowdin.getText(localeName, 'other') ?? _fallbackTexts.other;
 
   @override
   String get at => Crowdin.getText(localeName, 'at') ?? _fallbackTexts.at;
 
   @override
-  String get joinAGroup =>
-      Crowdin.getText(localeName, 'joinAGroup') ?? _fallbackTexts.joinAGroup;
+  String get joinAGroup => Crowdin.getText(localeName, 'joinAGroup') ?? _fallbackTexts.joinAGroup;
 
   @override
   String get unavailableGroupPrefsLabel =>
@@ -7672,8 +7227,7 @@ class CrowdinLocalization extends AppLocalizations {
 
   @override
   String get findingMatchingGroup =>
-      Crowdin.getText(localeName, 'findingMatchingGroup') ??
-      _fallbackTexts.findingMatchingGroup;
+      Crowdin.getText(localeName, 'findingMatchingGroup') ?? _fallbackTexts.findingMatchingGroup;
 
   @override
   String get moreInformationInPreferences =>
@@ -7682,18 +7236,15 @@ class CrowdinLocalization extends AppLocalizations {
 
   @override
   String get bookYourSeat =>
-      Crowdin.getText(localeName, 'bookYourSeat') ??
-      _fallbackTexts.bookYourSeat;
+      Crowdin.getText(localeName, 'bookYourSeat') ?? _fallbackTexts.bookYourSeat;
 
   @override
   String get comingUpThisWeek =>
-      Crowdin.getText(localeName, 'comingUpThisWeek') ??
-      _fallbackTexts.comingUpThisWeek;
+      Crowdin.getText(localeName, 'comingUpThisWeek') ?? _fallbackTexts.comingUpThisWeek;
 
   @override
   String get happeningNow =>
-      Crowdin.getText(localeName, 'happeningNow') ??
-      _fallbackTexts.happeningNow;
+      Crowdin.getText(localeName, 'happeningNow') ?? _fallbackTexts.happeningNow;
 
   @override
   String get joinSession =>
@@ -7701,20 +7252,19 @@ class CrowdinLocalization extends AppLocalizations {
 
   @override
   String bookedFromTo(String day, String startTime, String endTime) =>
-      Crowdin.getText(localeName, 'bookedFromTo',
-          {'day': day, 'startTime': startTime, 'endTime': endTime}) ??
+      Crowdin.getText(
+          localeName, 'bookedFromTo', {'day': day, 'startTime': startTime, 'endTime': endTime}) ??
       _fallbackTexts.bookedFromTo(day, startTime, endTime);
 
   @override
   String dayFromTo(String day, String startTime, String endTime) =>
-      Crowdin.getText(localeName, 'dayFromTo',
-          {'day': day, 'startTime': startTime, 'endTime': endTime}) ??
+      Crowdin.getText(
+          localeName, 'dayFromTo', {'day': day, 'startTime': startTime, 'endTime': endTime}) ??
       _fallbackTexts.dayFromTo(day, startTime, endTime);
 
   @override
   String get prepareForSession =>
-      Crowdin.getText(localeName, 'prepareForSession') ??
-      _fallbackTexts.prepareForSession;
+      Crowdin.getText(localeName, 'prepareForSession') ?? _fallbackTexts.prepareForSession;
 
   @override
   String prepareTakes(String times) =>
@@ -7723,18 +7273,15 @@ class CrowdinLocalization extends AppLocalizations {
 
   @override
   String get timeslotCancelled =>
-      Crowdin.getText(localeName, 'timeslotCancelled') ??
-      _fallbackTexts.timeslotCancelled;
+      Crowdin.getText(localeName, 'timeslotCancelled') ?? _fallbackTexts.timeslotCancelled;
 
   @override
   String get timeslotMissed =>
-      Crowdin.getText(localeName, 'timeslotMissed') ??
-      _fallbackTexts.timeslotMissed;
+      Crowdin.getText(localeName, 'timeslotMissed') ?? _fallbackTexts.timeslotMissed;
 
   @override
   String get chooseAnotherTimeslot =>
-      Crowdin.getText(localeName, 'chooseAnotherTimeslot') ??
-      _fallbackTexts.chooseAnotherTimeslot;
+      Crowdin.getText(localeName, 'chooseAnotherTimeslot') ?? _fallbackTexts.chooseAnotherTimeslot;
 
   @override
   String get noOtherTimeslotsAvailable =>
@@ -7748,8 +7295,7 @@ class CrowdinLocalization extends AppLocalizations {
 
   @override
   String get noGroupThisWeek =>
-      Crowdin.getText(localeName, 'noGroupThisWeek') ??
-      _fallbackTexts.noGroupThisWeek;
+      Crowdin.getText(localeName, 'noGroupThisWeek') ?? _fallbackTexts.noGroupThisWeek;
 
   @override
   String get on => Crowdin.getText(localeName, 'on') ?? _fallbackTexts.on;
@@ -7759,62 +7305,51 @@ class CrowdinLocalization extends AppLocalizations {
 
   @override
   String get noMoodRecords =>
-      Crowdin.getText(localeName, 'noMoodRecords') ??
-      _fallbackTexts.noMoodRecords;
+      Crowdin.getText(localeName, 'noMoodRecords') ?? _fallbackTexts.noMoodRecords;
 
   @override
   String get yourSupportSystem =>
-      Crowdin.getText(localeName, 'yourSupportSystem') ??
-      _fallbackTexts.yourSupportSystem;
+      Crowdin.getText(localeName, 'yourSupportSystem') ?? _fallbackTexts.yourSupportSystem;
 
   @override
   String get supportGroupIntroDesc =>
-      Crowdin.getText(localeName, 'supportGroupIntroDesc') ??
-      _fallbackTexts.supportGroupIntroDesc;
+      Crowdin.getText(localeName, 'supportGroupIntroDesc') ?? _fallbackTexts.supportGroupIntroDesc;
 
   @override
   String get yesILikeToJoin =>
-      Crowdin.getText(localeName, 'yesILikeToJoin') ??
-      _fallbackTexts.yesILikeToJoin;
+      Crowdin.getText(localeName, 'yesILikeToJoin') ?? _fallbackTexts.yesILikeToJoin;
 
   @override
-  String get joinLater =>
-      Crowdin.getText(localeName, 'joinLater') ?? _fallbackTexts.joinLater;
+  String get joinLater => Crowdin.getText(localeName, 'joinLater') ?? _fallbackTexts.joinLater;
 
   @override
   String get theSupportGroup =>
-      Crowdin.getText(localeName, 'theSupportGroup') ??
-      _fallbackTexts.theSupportGroup;
+      Crowdin.getText(localeName, 'theSupportGroup') ?? _fallbackTexts.theSupportGroup;
 
   @override
   String get introduction =>
-      Crowdin.getText(localeName, 'introduction') ??
-      _fallbackTexts.introduction;
+      Crowdin.getText(localeName, 'introduction') ?? _fallbackTexts.introduction;
 
   @override
   String get reportIssue =>
       Crowdin.getText(localeName, 'reportIssue') ?? _fallbackTexts.reportIssue;
 
   @override
-  String get discussion =>
-      Crowdin.getText(localeName, 'discussion') ?? _fallbackTexts.discussion;
+  String get discussion => Crowdin.getText(localeName, 'discussion') ?? _fallbackTexts.discussion;
 
   @override
   String get left => Crowdin.getText(localeName, 'left') ?? _fallbackTexts.left;
 
   @override
-  String get error =>
-      Crowdin.getText(localeName, 'error') ?? _fallbackTexts.error;
+  String get error => Crowdin.getText(localeName, 'error') ?? _fallbackTexts.error;
 
   @override
   String get sessionIsInProgress =>
-      Crowdin.getText(localeName, 'sessionIsInProgress') ??
-      _fallbackTexts.sessionIsInProgress;
+      Crowdin.getText(localeName, 'sessionIsInProgress') ?? _fallbackTexts.sessionIsInProgress;
 
   @override
   String get failedToJoinSession =>
-      Crowdin.getText(localeName, 'failedToJoinSession') ??
-      _fallbackTexts.failedToJoinSession;
+      Crowdin.getText(localeName, 'failedToJoinSession') ?? _fallbackTexts.failedToJoinSession;
 
   @override
   String get disconnectedFromSession =>
@@ -7828,19 +7363,16 @@ class CrowdinLocalization extends AppLocalizations {
 
   @override
   String get toggleSpeakerError =>
-      Crowdin.getText(localeName, 'toggleSpeakerError') ??
-      _fallbackTexts.toggleSpeakerError;
+      Crowdin.getText(localeName, 'toggleSpeakerError') ?? _fallbackTexts.toggleSpeakerError;
 
   @override
   String get mute => Crowdin.getText(localeName, 'mute') ?? _fallbackTexts.mute;
 
   @override
-  String get stopVideo =>
-      Crowdin.getText(localeName, 'stopVideo') ?? _fallbackTexts.stopVideo;
+  String get stopVideo => Crowdin.getText(localeName, 'stopVideo') ?? _fallbackTexts.stopVideo;
 
   @override
-  String get settings =>
-      Crowdin.getText(localeName, 'settings') ?? _fallbackTexts.settings;
+  String get settings => Crowdin.getText(localeName, 'settings') ?? _fallbackTexts.settings;
 
   @override
   String get sessionLeaveDialogText =>
@@ -7849,41 +7381,33 @@ class CrowdinLocalization extends AppLocalizations {
 
   @override
   String get sessionEndDialogText =>
-      Crowdin.getText(localeName, 'sessionEndDialogText') ??
-      _fallbackTexts.sessionEndDialogText;
+      Crowdin.getText(localeName, 'sessionEndDialogText') ?? _fallbackTexts.sessionEndDialogText;
 
   @override
   String get leaveSession =>
-      Crowdin.getText(localeName, 'leaveSession') ??
-      _fallbackTexts.leaveSession;
+      Crowdin.getText(localeName, 'leaveSession') ?? _fallbackTexts.leaveSession;
 
   @override
   String get stayInTheSession =>
-      Crowdin.getText(localeName, 'stayInTheSession') ??
-      _fallbackTexts.stayInTheSession;
+      Crowdin.getText(localeName, 'stayInTheSession') ?? _fallbackTexts.stayInTheSession;
 
   @override
   String get signatureErrorMessage =>
-      Crowdin.getText(localeName, 'signatureErrorMessage') ??
-      _fallbackTexts.signatureErrorMessage;
+      Crowdin.getText(localeName, 'signatureErrorMessage') ?? _fallbackTexts.signatureErrorMessage;
 
   @override
   String get sessionAlreadyEnded =>
-      Crowdin.getText(localeName, 'sessionAlreadyEnded') ??
-      _fallbackTexts.sessionAlreadyEnded;
+      Crowdin.getText(localeName, 'sessionAlreadyEnded') ?? _fallbackTexts.sessionAlreadyEnded;
 
   @override
-  String get duration =>
-      Crowdin.getText(localeName, 'duration') ?? _fallbackTexts.duration;
+  String get duration => Crowdin.getText(localeName, 'duration') ?? _fallbackTexts.duration;
 
   @override
   String get badConnectionMessage =>
-      Crowdin.getText(localeName, 'badConnectionMessage') ??
-      _fallbackTexts.badConnectionMessage;
+      Crowdin.getText(localeName, 'badConnectionMessage') ?? _fallbackTexts.badConnectionMessage;
 
   @override
-  String get exercise =>
-      Crowdin.getText(localeName, 'exercise') ?? _fallbackTexts.exercise;
+  String get exercise => Crowdin.getText(localeName, 'exercise') ?? _fallbackTexts.exercise;
 
   @override
   String get noMicrophoneAccessTitle =>
@@ -7897,8 +7421,7 @@ class CrowdinLocalization extends AppLocalizations {
 
   @override
   String get noCameraAccessTitle =>
-      Crowdin.getText(localeName, 'noCameraAccessTitle') ??
-      _fallbackTexts.noCameraAccessTitle;
+      Crowdin.getText(localeName, 'noCameraAccessTitle') ?? _fallbackTexts.noCameraAccessTitle;
 
   @override
   String get noCameraAccessDescription =>
@@ -7907,116 +7430,95 @@ class CrowdinLocalization extends AppLocalizations {
 
   @override
   String get sessionGreeting =>
-      Crowdin.getText(localeName, 'sessionGreeting') ??
-      _fallbackTexts.sessionGreeting;
+      Crowdin.getText(localeName, 'sessionGreeting') ?? _fallbackTexts.sessionGreeting;
 
   @override
-  String get goodToKnow =>
-      Crowdin.getText(localeName, 'goodToKnow') ?? _fallbackTexts.goodToKnow;
+  String get goodToKnow => Crowdin.getText(localeName, 'goodToKnow') ?? _fallbackTexts.goodToKnow;
 
   @override
-  String get warningOne =>
-      Crowdin.getText(localeName, 'warningOne') ?? _fallbackTexts.warningOne;
+  String get warningOne => Crowdin.getText(localeName, 'warningOne') ?? _fallbackTexts.warningOne;
 
   @override
-  String get warningTwo =>
-      Crowdin.getText(localeName, 'warningTwo') ?? _fallbackTexts.warningTwo;
+  String get warningTwo => Crowdin.getText(localeName, 'warningTwo') ?? _fallbackTexts.warningTwo;
 
   @override
   String get hi => Crowdin.getText(localeName, 'hi') ?? _fallbackTexts.hi;
 
   @override
   String get sessionWillStartIn =>
-      Crowdin.getText(localeName, 'sessionWillStartIn') ??
-      _fallbackTexts.sessionWillStartIn;
+      Crowdin.getText(localeName, 'sessionWillStartIn') ?? _fallbackTexts.sessionWillStartIn;
 
   @override
   String get sessionStartedMessage =>
-      Crowdin.getText(localeName, 'sessionStartedMessage') ??
-      _fallbackTexts.sessionStartedMessage;
+      Crowdin.getText(localeName, 'sessionStartedMessage') ?? _fallbackTexts.sessionStartedMessage;
 
   @override
   String get enterSession =>
-      Crowdin.getText(localeName, 'enterSession') ??
-      _fallbackTexts.enterSession;
+      Crowdin.getText(localeName, 'enterSession') ?? _fallbackTexts.enterSession;
 
   @override
   String get pickADateAndTime =>
-      Crowdin.getText(localeName, 'pickADateAndTime') ??
-      _fallbackTexts.pickADateAndTime;
+      Crowdin.getText(localeName, 'pickADateAndTime') ?? _fallbackTexts.pickADateAndTime;
 
   @override
   String fromTo(String startTime, String endTime) =>
-      Crowdin.getText(
-          localeName, 'fromTo', {'startTime': startTime, 'endTime': endTime}) ??
+      Crowdin.getText(localeName, 'fromTo', {'startTime': startTime, 'endTime': endTime}) ??
       _fallbackTexts.fromTo(startTime, endTime);
 
   @override
   String fromToLower(String startTime, String endTime) =>
-      Crowdin.getText(localeName, 'fromToLower',
-          {'startTime': startTime, 'endTime': endTime}) ??
+      Crowdin.getText(localeName, 'fromToLower', {'startTime': startTime, 'endTime': endTime}) ??
       _fallbackTexts.fromToLower(startTime, endTime);
 
   @override
   String numberOfAvailableSeats(String number, String totalNumber) =>
-      Crowdin.getText(localeName, 'numberOfAvailableSeats',
-          {'number': number, 'totalNumber': totalNumber}) ??
+      Crowdin.getText(
+          localeName, 'numberOfAvailableSeats', {'number': number, 'totalNumber': totalNumber}) ??
       _fallbackTexts.numberOfAvailableSeats(number, totalNumber);
 
   @override
   String get passedSession =>
-      Crowdin.getText(localeName, 'passedSession') ??
-      _fallbackTexts.passedSession;
+      Crowdin.getText(localeName, 'passedSession') ?? _fallbackTexts.passedSession;
 
   @override
   String get cancelledSession =>
-      Crowdin.getText(localeName, 'cancelledSession') ??
-      _fallbackTexts.cancelledSession;
+      Crowdin.getText(localeName, 'cancelledSession') ?? _fallbackTexts.cancelledSession;
 
   @override
   String get minimumNotReached =>
-      Crowdin.getText(localeName, 'minimumNotReached') ??
-      _fallbackTexts.minimumNotReached;
+      Crowdin.getText(localeName, 'minimumNotReached') ?? _fallbackTexts.minimumNotReached;
 
   @override
   String get noMoreSeatAvailable =>
-      Crowdin.getText(localeName, 'noMoreSeatAvailable') ??
-      _fallbackTexts.noMoreSeatAvailable;
+      Crowdin.getText(localeName, 'noMoreSeatAvailable') ?? _fallbackTexts.noMoreSeatAvailable;
 
   @override
   String get bookedForYou =>
-      Crowdin.getText(localeName, 'bookedForYou') ??
-      _fallbackTexts.bookedForYou;
+      Crowdin.getText(localeName, 'bookedForYou') ?? _fallbackTexts.bookedForYou;
 
   @override
   String get cancelBooking =>
-      Crowdin.getText(localeName, 'cancelBooking') ??
-      _fallbackTexts.cancelBooking;
+      Crowdin.getText(localeName, 'cancelBooking') ?? _fallbackTexts.cancelBooking;
 
   @override
   String get sessionWarning_1 =>
-      Crowdin.getText(localeName, 'sessionWarning_1') ??
-      _fallbackTexts.sessionWarning_1;
+      Crowdin.getText(localeName, 'sessionWarning_1') ?? _fallbackTexts.sessionWarning_1;
 
   @override
   String get sessionWarning_2 =>
-      Crowdin.getText(localeName, 'sessionWarning_2') ??
-      _fallbackTexts.sessionWarning_2;
+      Crowdin.getText(localeName, 'sessionWarning_2') ?? _fallbackTexts.sessionWarning_2;
 
   @override
   String get emergencySubtitle =>
-      Crowdin.getText(localeName, 'emergencySubtitle') ??
-      _fallbackTexts.emergencySubtitle;
+      Crowdin.getText(localeName, 'emergencySubtitle') ?? _fallbackTexts.emergencySubtitle;
 
   @override
   String get subjectReport =>
-      Crowdin.getText(localeName, 'subjectReport') ??
-      _fallbackTexts.subjectReport;
+      Crowdin.getText(localeName, 'subjectReport') ?? _fallbackTexts.subjectReport;
 
   @override
   String get descriptionReport =>
-      Crowdin.getText(localeName, 'descriptionReport') ??
-      _fallbackTexts.descriptionReport;
+      Crowdin.getText(localeName, 'descriptionReport') ?? _fallbackTexts.descriptionReport;
 
   @override
   String get reportTitle =>
@@ -8024,36 +7526,30 @@ class CrowdinLocalization extends AppLocalizations {
 
   @override
   String get reportSubTitle =>
-      Crowdin.getText(localeName, 'reportSubTitle') ??
-      _fallbackTexts.reportSubTitle;
+      Crowdin.getText(localeName, 'reportSubTitle') ?? _fallbackTexts.reportSubTitle;
 
   @override
   String get reportSuccessTitle =>
-      Crowdin.getText(localeName, 'reportSuccessTitle') ??
-      _fallbackTexts.reportSuccessTitle;
+      Crowdin.getText(localeName, 'reportSuccessTitle') ?? _fallbackTexts.reportSuccessTitle;
 
   @override
   String get errorReportMessage =>
-      Crowdin.getText(localeName, 'errorReportMessage') ??
-      _fallbackTexts.errorReportMessage;
+      Crowdin.getText(localeName, 'errorReportMessage') ?? _fallbackTexts.errorReportMessage;
 
   @override
   String get errorSubjectMessage =>
-      Crowdin.getText(localeName, 'errorSubjectMessage') ??
-      _fallbackTexts.errorSubjectMessage;
+      Crowdin.getText(localeName, 'errorSubjectMessage') ?? _fallbackTexts.errorSubjectMessage;
 
   @override
   String get requiredField =>
-      Crowdin.getText(localeName, 'requiredField') ??
-      _fallbackTexts.requiredField;
+      Crowdin.getText(localeName, 'requiredField') ?? _fallbackTexts.requiredField;
 
   @override
   String get send => Crowdin.getText(localeName, 'send') ?? _fallbackTexts.send;
 
   @override
   String get changeYourEmail =>
-      Crowdin.getText(localeName, 'changeYourEmail') ??
-      _fallbackTexts.changeYourEmail;
+      Crowdin.getText(localeName, 'changeYourEmail') ?? _fallbackTexts.changeYourEmail;
 
   @override
   String get changeYourEmailDescription =>
@@ -8061,8 +7557,7 @@ class CrowdinLocalization extends AppLocalizations {
       _fallbackTexts.changeYourEmailDescription;
 
   @override
-  String get submit =>
-      Crowdin.getText(localeName, 'submit') ?? _fallbackTexts.submit;
+  String get submit => Crowdin.getText(localeName, 'submit') ?? _fallbackTexts.submit;
 
   @override
   String get emailChangeConfirmedTitle =>
@@ -8081,13 +7576,11 @@ class CrowdinLocalization extends AppLocalizations {
 
   @override
   String yourPreferencesUpdated(String prefName) =>
-      Crowdin.getText(
-          localeName, 'yourPreferencesUpdated', {'prefName': prefName}) ??
+      Crowdin.getText(localeName, 'yourPreferencesUpdated', {'prefName': prefName}) ??
       _fallbackTexts.yourPreferencesUpdated(prefName);
 
   @override
-  String get createNew =>
-      Crowdin.getText(localeName, 'createNew') ?? _fallbackTexts.createNew;
+  String get createNew => Crowdin.getText(localeName, 'createNew') ?? _fallbackTexts.createNew;
 
   @override
   String get updateExist =>
@@ -8095,19 +7588,16 @@ class CrowdinLocalization extends AppLocalizations {
 
   @override
   String get existMealText =>
-      Crowdin.getText(localeName, 'existMealText') ??
-      _fallbackTexts.existMealText;
+      Crowdin.getText(localeName, 'existMealText') ?? _fallbackTexts.existMealText;
 
   @override
   String chooseDateFor(String mealCategory) =>
-      Crowdin.getText(
-          localeName, 'chooseDateFor', {'mealCategory': mealCategory}) ??
+      Crowdin.getText(localeName, 'chooseDateFor', {'mealCategory': mealCategory}) ??
       _fallbackTexts.chooseDateFor(mealCategory);
 
   @override
   String get youCanChangeTheDate =>
-      Crowdin.getText(localeName, 'youCanChangeTheDate') ??
-      _fallbackTexts.youCanChangeTheDate;
+      Crowdin.getText(localeName, 'youCanChangeTheDate') ?? _fallbackTexts.youCanChangeTheDate;
 
   @override
   String weekWithNumber(String number) =>
@@ -8116,14 +7606,12 @@ class CrowdinLocalization extends AppLocalizations {
 
   @override
   String capitalizeWeekWithNumber(String number) =>
-      Crowdin.getText(
-          localeName, 'capitalizeWeekWithNumber', {'number': number}) ??
+      Crowdin.getText(localeName, 'capitalizeWeekWithNumber', {'number': number}) ??
       _fallbackTexts.capitalizeWeekWithNumber(number);
 
   @override
   String weekDates(String from, String to, String month) =>
-      Crowdin.getText(
-          localeName, 'weekDates', {'from': from, 'to': to, 'month': month}) ??
+      Crowdin.getText(localeName, 'weekDates', {'from': from, 'to': to, 'month': month}) ??
       _fallbackTexts.weekDates(from, to, month);
 
   @override
@@ -8132,30 +7620,25 @@ class CrowdinLocalization extends AppLocalizations {
 
   @override
   String get changesSaved =>
-      Crowdin.getText(localeName, 'changesSaved') ??
-      _fallbackTexts.changesSaved;
+      Crowdin.getText(localeName, 'changesSaved') ?? _fallbackTexts.changesSaved;
 
   @override
   String get thisMealPlannedFor =>
-      Crowdin.getText(localeName, 'thisMealPlannedFor') ??
-      _fallbackTexts.thisMealPlannedFor;
+      Crowdin.getText(localeName, 'thisMealPlannedFor') ?? _fallbackTexts.thisMealPlannedFor;
 
   @override
   String get saveDateError =>
-      Crowdin.getText(localeName, 'saveDateError') ??
-      _fallbackTexts.saveDateError;
+      Crowdin.getText(localeName, 'saveDateError') ?? _fallbackTexts.saveDateError;
 
   @override
   String get kcal => Crowdin.getText(localeName, 'kcal') ?? _fallbackTexts.kcal;
 
   @override
-  String get yesReplace =>
-      Crowdin.getText(localeName, 'yesReplace') ?? _fallbackTexts.yesReplace;
+  String get yesReplace => Crowdin.getText(localeName, 'yesReplace') ?? _fallbackTexts.yesReplace;
 
   @override
   String youAlreadyPlanned(String mealCategory) =>
-      Crowdin.getText(
-          localeName, 'youAlreadyPlanned', {'mealCategory': mealCategory}) ??
+      Crowdin.getText(localeName, 'youAlreadyPlanned', {'mealCategory': mealCategory}) ??
       _fallbackTexts.youAlreadyPlanned(mealCategory);
 
   @override
@@ -8165,8 +7648,7 @@ class CrowdinLocalization extends AppLocalizations {
 
   @override
   String alreadyPlannedCategory(String mealCategory) =>
-      Crowdin.getText(localeName, 'alreadyPlannedCategory',
-          {'mealCategory': mealCategory}) ??
+      Crowdin.getText(localeName, 'alreadyPlannedCategory', {'mealCategory': mealCategory}) ??
       _fallbackTexts.alreadyPlannedCategory(mealCategory);
 
   @override
@@ -8175,26 +7657,22 @@ class CrowdinLocalization extends AppLocalizations {
 
   @override
   String get nothingOnTheMenu =>
-      Crowdin.getText(localeName, 'nothingOnTheMenu') ??
-      _fallbackTexts.nothingOnTheMenu;
+      Crowdin.getText(localeName, 'nothingOnTheMenu') ?? _fallbackTexts.nothingOnTheMenu;
 
   @override
   String get mindTraining =>
-      Crowdin.getText(localeName, 'mindTraining') ??
-      _fallbackTexts.mindTraining;
+      Crowdin.getText(localeName, 'mindTraining') ?? _fallbackTexts.mindTraining;
 
   @override
   String get learnMoreButton =>
-      Crowdin.getText(localeName, 'learnMoreButton') ??
-      _fallbackTexts.learnMoreButton;
+      Crowdin.getText(localeName, 'learnMoreButton') ?? _fallbackTexts.learnMoreButton;
 
   @override
   String get lock => Crowdin.getText(localeName, 'lock') ?? _fallbackTexts.lock;
 
   @override
   String unlocksOn(String date) =>
-      Crowdin.getText(localeName, 'unlocksOn', {'date': date}) ??
-      _fallbackTexts.unlocksOn(date);
+      Crowdin.getText(localeName, 'unlocksOn', {'date': date}) ?? _fallbackTexts.unlocksOn(date);
 
   @override
   String get unlocksAfterCompletionExercise =>
@@ -8202,27 +7680,22 @@ class CrowdinLocalization extends AppLocalizations {
       _fallbackTexts.unlocksAfterCompletionExercise;
 
   @override
-  String get intro =>
-      Crowdin.getText(localeName, 'intro') ?? _fallbackTexts.intro;
+  String get intro => Crowdin.getText(localeName, 'intro') ?? _fallbackTexts.intro;
 
   @override
-  String get exercises =>
-      Crowdin.getText(localeName, 'exercises') ?? _fallbackTexts.exercises;
+  String get exercises => Crowdin.getText(localeName, 'exercises') ?? _fallbackTexts.exercises;
 
   @override
   String get startExercise =>
-      Crowdin.getText(localeName, 'startExercise') ??
-      _fallbackTexts.startExercise;
+      Crowdin.getText(localeName, 'startExercise') ?? _fallbackTexts.startExercise;
 
   @override
   String countMins(int count) =>
-      Crowdin.getText(localeName, 'countMins', {'count': count}) ??
-      _fallbackTexts.countMins(count);
+      Crowdin.getText(localeName, 'countMins', {'count': count}) ?? _fallbackTexts.countMins(count);
 
   @override
   String get chooseAnExercise =>
-      Crowdin.getText(localeName, 'chooseAnExercise') ??
-      _fallbackTexts.chooseAnExercise;
+      Crowdin.getText(localeName, 'chooseAnExercise') ?? _fallbackTexts.chooseAnExercise;
 
   @override
   String get completedExerciseMessage1 =>
@@ -8231,8 +7704,7 @@ class CrowdinLocalization extends AppLocalizations {
 
   @override
   String completedExerciseMessage2(String count) =>
-      Crowdin.getText(
-          localeName, 'completedExerciseMessage2', {'count': count}) ??
+      Crowdin.getText(localeName, 'completedExerciseMessage2', {'count': count}) ??
       _fallbackTexts.completedExerciseMessage2(count);
 
   @override
@@ -8242,57 +7714,46 @@ class CrowdinLocalization extends AppLocalizations {
 
   @override
   String get chooseTechnique =>
-      Crowdin.getText(localeName, 'chooseTechnique') ??
-      _fallbackTexts.chooseTechnique;
+      Crowdin.getText(localeName, 'chooseTechnique') ?? _fallbackTexts.chooseTechnique;
 
   @override
   String get chooseExercise =>
-      Crowdin.getText(localeName, 'chooseExercise') ??
-      _fallbackTexts.chooseExercise;
+      Crowdin.getText(localeName, 'chooseExercise') ?? _fallbackTexts.chooseExercise;
 
   @override
   String get selectedExercise =>
-      Crowdin.getText(localeName, 'selectedExercise') ??
-      _fallbackTexts.selectedExercise;
+      Crowdin.getText(localeName, 'selectedExercise') ?? _fallbackTexts.selectedExercise;
 
   @override
-  String get skipIntro =>
-      Crowdin.getText(localeName, 'skipIntro') ?? _fallbackTexts.skipIntro;
+  String get skipIntro => Crowdin.getText(localeName, 'skipIntro') ?? _fallbackTexts.skipIntro;
 
   @override
   String get selectMoodText =>
-      Crowdin.getText(localeName, 'selectMoodText') ??
-      _fallbackTexts.selectMoodText;
+      Crowdin.getText(localeName, 'selectMoodText') ?? _fallbackTexts.selectMoodText;
 
   @override
   String get selectMoodSubtext =>
-      Crowdin.getText(localeName, 'selectMoodSubtext') ??
-      _fallbackTexts.selectMoodSubtext;
+      Crowdin.getText(localeName, 'selectMoodSubtext') ?? _fallbackTexts.selectMoodSubtext;
 
   @override
   String get time => Crowdin.getText(localeName, 'time') ?? _fallbackTexts.time;
 
   @override
   String get specifyEmotion =>
-      Crowdin.getText(localeName, 'specifyEmotion') ??
-      _fallbackTexts.specifyEmotion;
+      Crowdin.getText(localeName, 'specifyEmotion') ?? _fallbackTexts.specifyEmotion;
 
   @override
-  String get withWho =>
-      Crowdin.getText(localeName, 'withWho') ?? _fallbackTexts.withWho;
+  String get withWho => Crowdin.getText(localeName, 'withWho') ?? _fallbackTexts.withWho;
 
   @override
-  String get where =>
-      Crowdin.getText(localeName, 'where') ?? _fallbackTexts.where;
+  String get where => Crowdin.getText(localeName, 'where') ?? _fallbackTexts.where;
 
   @override
-  String get makeChoice =>
-      Crowdin.getText(localeName, 'makeChoice') ?? _fallbackTexts.makeChoice;
+  String get makeChoice => Crowdin.getText(localeName, 'makeChoice') ?? _fallbackTexts.makeChoice;
 
   @override
   String get personalNote =>
-      Crowdin.getText(localeName, 'personalNote') ??
-      _fallbackTexts.personalNote;
+      Crowdin.getText(localeName, 'personalNote') ?? _fallbackTexts.personalNote;
 
   @override
   String get moodOptionPageEmotionTitle =>
@@ -8301,32 +7762,26 @@ class CrowdinLocalization extends AppLocalizations {
 
   @override
   String get descriptionEmotions =>
-      Crowdin.getText(localeName, 'descriptionEmotions') ??
-      _fallbackTexts.descriptionEmotions;
+      Crowdin.getText(localeName, 'descriptionEmotions') ?? _fallbackTexts.descriptionEmotions;
 
   @override
-  String get deleteMood =>
-      Crowdin.getText(localeName, 'deleteMood') ?? _fallbackTexts.deleteMood;
+  String get deleteMood => Crowdin.getText(localeName, 'deleteMood') ?? _fallbackTexts.deleteMood;
 
   @override
   String get quiz => Crowdin.getText(localeName, 'quiz') ?? _fallbackTexts.quiz;
 
   @override
-  String get letsGo =>
-      Crowdin.getText(localeName, 'letsGo') ?? _fallbackTexts.letsGo;
+  String get letsGo => Crowdin.getText(localeName, 'letsGo') ?? _fallbackTexts.letsGo;
 
   @override
-  String get correct =>
-      Crowdin.getText(localeName, 'correct') ?? _fallbackTexts.correct;
+  String get correct => Crowdin.getText(localeName, 'correct') ?? _fallbackTexts.correct;
 
   @override
-  String get incorrect =>
-      Crowdin.getText(localeName, 'incorrect') ?? _fallbackTexts.incorrect;
+  String get incorrect => Crowdin.getText(localeName, 'incorrect') ?? _fallbackTexts.incorrect;
 
   @override
   String get assignmentAddedTitle =>
-      Crowdin.getText(localeName, 'assignmentAddedTitle') ??
-      _fallbackTexts.assignmentAddedTitle;
+      Crowdin.getText(localeName, 'assignmentAddedTitle') ?? _fallbackTexts.assignmentAddedTitle;
 
   @override
   String assignmentAddedText(String date) =>
@@ -8334,20 +7789,17 @@ class CrowdinLocalization extends AppLocalizations {
       _fallbackTexts.assignmentAddedText(date);
 
   @override
-  String get startNow =>
-      Crowdin.getText(localeName, 'startNow') ?? _fallbackTexts.startNow;
+  String get startNow => Crowdin.getText(localeName, 'startNow') ?? _fallbackTexts.startNow;
 
   @override
-  String get reflection =>
-      Crowdin.getText(localeName, 'reflection') ?? _fallbackTexts.reflection;
+  String get reflection => Crowdin.getText(localeName, 'reflection') ?? _fallbackTexts.reflection;
 
   @override
   String get reflections =>
       Crowdin.getText(localeName, 'reflections') ?? _fallbackTexts.reflections;
 
   @override
-  String get seeLesson =>
-      Crowdin.getText(localeName, 'seeLesson') ?? _fallbackTexts.seeLesson;
+  String get seeLesson => Crowdin.getText(localeName, 'seeLesson') ?? _fallbackTexts.seeLesson;
 
   @override
   String get allAssignmentsCompleted =>
@@ -8356,16 +7808,13 @@ class CrowdinLocalization extends AppLocalizations {
 
   @override
   String get errorOpenTextMessage =>
-      Crowdin.getText(localeName, 'errorOpenTextMessage') ??
-      _fallbackTexts.errorOpenTextMessage;
+      Crowdin.getText(localeName, 'errorOpenTextMessage') ?? _fallbackTexts.errorOpenTextMessage;
 
   @override
-  String get thisWeek =>
-      Crowdin.getText(localeName, 'thisWeek') ?? _fallbackTexts.thisWeek;
+  String get thisWeek => Crowdin.getText(localeName, 'thisWeek') ?? _fallbackTexts.thisWeek;
 
   @override
-  String get doneToday =>
-      Crowdin.getText(localeName, 'doneToday') ?? _fallbackTexts.doneToday;
+  String get doneToday => Crowdin.getText(localeName, 'doneToday') ?? _fallbackTexts.doneToday;
 
   @override
   String completeBefore(String date) =>
@@ -8379,52 +7828,42 @@ class CrowdinLocalization extends AppLocalizations {
 
   @override
   String get pastReflections =>
-      Crowdin.getText(localeName, 'pastReflections') ??
-      _fallbackTexts.pastReflections;
+      Crowdin.getText(localeName, 'pastReflections') ?? _fallbackTexts.pastReflections;
 
   @override
   String get iWantToLogMy =>
-      Crowdin.getText(localeName, 'iWantToLogMy') ??
-      _fallbackTexts.iWantToLogMy;
+      Crowdin.getText(localeName, 'iWantToLogMy') ?? _fallbackTexts.iWantToLogMy;
 
   @override
   String get logMealServingTitle =>
-      Crowdin.getText(localeName, 'logMealServingTitle') ??
-      _fallbackTexts.logMealServingTitle;
+      Crowdin.getText(localeName, 'logMealServingTitle') ?? _fallbackTexts.logMealServingTitle;
 
   @override
   String get descriptionTime =>
-      Crowdin.getText(localeName, 'descriptionTime') ??
-      _fallbackTexts.descriptionTime;
+      Crowdin.getText(localeName, 'descriptionTime') ?? _fallbackTexts.descriptionTime;
 
   @override
   String get descriptionWithWhom =>
-      Crowdin.getText(localeName, 'descriptionWithWhom') ??
-      _fallbackTexts.descriptionWithWhom;
+      Crowdin.getText(localeName, 'descriptionWithWhom') ?? _fallbackTexts.descriptionWithWhom;
 
   @override
   String get descriptionWhere =>
-      Crowdin.getText(localeName, 'descriptionWhere') ??
-      _fallbackTexts.descriptionWhere;
+      Crowdin.getText(localeName, 'descriptionWhere') ?? _fallbackTexts.descriptionWhere;
 
   @override
   String get descriptionFood =>
-      Crowdin.getText(localeName, 'descriptionFood') ??
-      _fallbackTexts.descriptionFood;
+      Crowdin.getText(localeName, 'descriptionFood') ?? _fallbackTexts.descriptionFood;
 
   @override
-  String get logWeight =>
-      Crowdin.getText(localeName, 'logWeight') ?? _fallbackTexts.logWeight;
+  String get logWeight => Crowdin.getText(localeName, 'logWeight') ?? _fallbackTexts.logWeight;
 
   @override
   String get foodLoggingUnlocked =>
-      Crowdin.getText(localeName, 'foodLoggingUnlocked') ??
-      _fallbackTexts.foodLoggingUnlocked;
+      Crowdin.getText(localeName, 'foodLoggingUnlocked') ?? _fallbackTexts.foodLoggingUnlocked;
 
   @override
   String get youCanStartLogging =>
-      Crowdin.getText(localeName, 'youCanStartLogging') ??
-      _fallbackTexts.youCanStartLogging;
+      Crowdin.getText(localeName, 'youCanStartLogging') ?? _fallbackTexts.youCanStartLogging;
 
   @override
   String get reportIssueAndEmergencyTitle =>
@@ -8432,13 +7871,11 @@ class CrowdinLocalization extends AppLocalizations {
       _fallbackTexts.reportIssueAndEmergencyTitle;
 
   @override
-  String get groupChat =>
-      Crowdin.getText(localeName, 'groupChat') ?? _fallbackTexts.groupChat;
+  String get groupChat => Crowdin.getText(localeName, 'groupChat') ?? _fallbackTexts.groupChat;
 
   @override
   String get groupChatTitle =>
-      Crowdin.getText(localeName, 'groupChatTitle') ??
-      _fallbackTexts.groupChatTitle;
+      Crowdin.getText(localeName, 'groupChatTitle') ?? _fallbackTexts.groupChatTitle;
 
   @override
   String groupChatLabel(int count) =>
@@ -8447,33 +7884,27 @@ class CrowdinLocalization extends AppLocalizations {
 
   @override
   String get copyGroupMessage =>
-      Crowdin.getText(localeName, 'copyGroupMessage') ??
-      _fallbackTexts.copyGroupMessage;
+      Crowdin.getText(localeName, 'copyGroupMessage') ?? _fallbackTexts.copyGroupMessage;
 
   @override
   String get removeGroupMessage =>
-      Crowdin.getText(localeName, 'removeGroupMessage') ??
-      _fallbackTexts.removeGroupMessage;
+      Crowdin.getText(localeName, 'removeGroupMessage') ?? _fallbackTexts.removeGroupMessage;
 
   @override
   String get reportGroupMessage =>
-      Crowdin.getText(localeName, 'reportGroupMessage') ??
-      _fallbackTexts.reportGroupMessage;
+      Crowdin.getText(localeName, 'reportGroupMessage') ?? _fallbackTexts.reportGroupMessage;
 
   @override
   String get snackMassageCopy =>
-      Crowdin.getText(localeName, 'snackMassageCopy') ??
-      _fallbackTexts.snackMassageCopy;
+      Crowdin.getText(localeName, 'snackMassageCopy') ?? _fallbackTexts.snackMassageCopy;
 
   @override
   String get messageRemoved =>
-      Crowdin.getText(localeName, 'messageRemoved') ??
-      _fallbackTexts.messageRemoved;
+      Crowdin.getText(localeName, 'messageRemoved') ?? _fallbackTexts.messageRemoved;
 
   @override
   String get membersEmpty =>
-      Crowdin.getText(localeName, 'membersEmpty') ??
-      _fallbackTexts.membersEmpty;
+      Crowdin.getText(localeName, 'membersEmpty') ?? _fallbackTexts.membersEmpty;
 
   @override
   String get messageLengthRestriction =>
@@ -8481,8 +7912,7 @@ class CrowdinLocalization extends AppLocalizations {
       _fallbackTexts.messageLengthRestriction;
 
   @override
-  String get yourUser =>
-      Crowdin.getText(localeName, 'yourUser') ?? _fallbackTexts.yourUser;
+  String get yourUser => Crowdin.getText(localeName, 'yourUser') ?? _fallbackTexts.yourUser;
 
   @override
   String get passwordValidationRule4 =>
@@ -8500,56 +7930,45 @@ class CrowdinLocalization extends AppLocalizations {
       _fallbackTexts.pleaseEnterValidRegistrationCode;
 
   @override
-  String get favorite =>
-      Crowdin.getText(localeName, 'favorite') ?? _fallbackTexts.favorite;
+  String get favorite => Crowdin.getText(localeName, 'favorite') ?? _fallbackTexts.favorite;
 
   @override
-  String get recipe =>
-      Crowdin.getText(localeName, 'recipe') ?? _fallbackTexts.recipe;
+  String get recipe => Crowdin.getText(localeName, 'recipe') ?? _fallbackTexts.recipe;
 
   @override
   String get recipeDetails =>
-      Crowdin.getText(localeName, 'recipeDetails') ??
-      _fallbackTexts.recipeDetails;
+      Crowdin.getText(localeName, 'recipeDetails') ?? _fallbackTexts.recipeDetails;
 
   @override
-  String get myDish =>
-      Crowdin.getText(localeName, 'myDish') ?? _fallbackTexts.myDish;
+  String get myDish => Crowdin.getText(localeName, 'myDish') ?? _fallbackTexts.myDish;
 
   @override
-  String get editMyDish =>
-      Crowdin.getText(localeName, 'editMyDish') ?? _fallbackTexts.editMyDish;
+  String get editMyDish => Crowdin.getText(localeName, 'editMyDish') ?? _fallbackTexts.editMyDish;
 
   @override
-  String get serving =>
-      Crowdin.getText(localeName, 'serving') ?? _fallbackTexts.serving;
+  String get serving => Crowdin.getText(localeName, 'serving') ?? _fallbackTexts.serving;
 
   @override
-  String get logList =>
-      Crowdin.getText(localeName, 'logList') ?? _fallbackTexts.logList;
+  String get logList => Crowdin.getText(localeName, 'logList') ?? _fallbackTexts.logList;
 
   @override
   String get clearMealList =>
-      Crowdin.getText(localeName, 'clearMealList') ??
-      _fallbackTexts.clearMealList;
+      Crowdin.getText(localeName, 'clearMealList') ?? _fallbackTexts.clearMealList;
 
   @override
   String get logListEmptyMessage =>
-      Crowdin.getText(localeName, 'logListEmptyMessage') ??
-      _fallbackTexts.logListEmptyMessage;
+      Crowdin.getText(localeName, 'logListEmptyMessage') ?? _fallbackTexts.logListEmptyMessage;
 
   @override
   String get backToDashboard =>
-      Crowdin.getText(localeName, 'backToDashboard') ??
-      _fallbackTexts.backToDashboard;
+      Crowdin.getText(localeName, 'backToDashboard') ?? _fallbackTexts.backToDashboard;
 
   @override
-  String get finishMeal =>
-      Crowdin.getText(localeName, 'finishMeal') ?? _fallbackTexts.finishMeal;
+  String get finishMealLogging =>
+      Crowdin.getText(localeName, 'finishMealLogging') ?? _fallbackTexts.finishMealLogging;
 
   @override
-  String get hello =>
-      Crowdin.getText(localeName, 'hello') ?? _fallbackTexts.hello;
+  String get hello => Crowdin.getText(localeName, 'hello') ?? _fallbackTexts.hello;
 
   @override
   String get goodMorning =>
@@ -8557,8 +7976,7 @@ class CrowdinLocalization extends AppLocalizations {
 
   @override
   String get goodAfternoon =>
-      Crowdin.getText(localeName, 'goodAfternoon') ??
-      _fallbackTexts.goodAfternoon;
+      Crowdin.getText(localeName, 'goodAfternoon') ?? _fallbackTexts.goodAfternoon;
 
   @override
   String get goodEvening =>
@@ -8566,38 +7984,31 @@ class CrowdinLocalization extends AppLocalizations {
 
   @override
   String get logYourWeight =>
-      Crowdin.getText(localeName, 'logYourWeight') ??
-      _fallbackTexts.logYourWeight;
+      Crowdin.getText(localeName, 'logYourWeight') ?? _fallbackTexts.logYourWeight;
 
   @override
-  String get mealLog =>
-      Crowdin.getText(localeName, 'mealLog') ?? _fallbackTexts.mealLog;
+  String get mealLog => Crowdin.getText(localeName, 'mealLog') ?? _fallbackTexts.mealLog;
 
   @override
   String get planYourMeals =>
-      Crowdin.getText(localeName, 'planYourMeals') ??
-      _fallbackTexts.planYourMeals;
+      Crowdin.getText(localeName, 'planYourMeals') ?? _fallbackTexts.planYourMeals;
 
   @override
   String get planThisMeal =>
-      Crowdin.getText(localeName, 'planThisMeal') ??
-      _fallbackTexts.planThisMeal;
+      Crowdin.getText(localeName, 'planThisMeal') ?? _fallbackTexts.planThisMeal;
 
   @override
-  String get diary =>
-      Crowdin.getText(localeName, 'diary') ?? _fallbackTexts.diary;
+  String get diary => Crowdin.getText(localeName, 'diary') ?? _fallbackTexts.diary;
 
   @override
   String get mood => Crowdin.getText(localeName, 'mood') ?? _fallbackTexts.mood;
 
   @override
-  String get today =>
-      Crowdin.getText(localeName, 'today') ?? _fallbackTexts.today;
+  String get today => Crowdin.getText(localeName, 'today') ?? _fallbackTexts.today;
 
   @override
   String get physicalActivities =>
-      Crowdin.getText(localeName, 'physicalActivities') ??
-      _fallbackTexts.physicalActivities;
+      Crowdin.getText(localeName, 'physicalActivities') ?? _fallbackTexts.physicalActivities;
 
   @override
   String get physicalActivitiesPreferences =>
@@ -8606,23 +8017,19 @@ class CrowdinLocalization extends AppLocalizations {
 
   @override
   String get trainingFrequency =>
-      Crowdin.getText(localeName, 'trainingFrequency') ??
-      _fallbackTexts.trainingFrequency;
+      Crowdin.getText(localeName, 'trainingFrequency') ?? _fallbackTexts.trainingFrequency;
 
   @override
   String get trainingFocus =>
-      Crowdin.getText(localeName, 'trainingFocus') ??
-      _fallbackTexts.trainingFocus;
+      Crowdin.getText(localeName, 'trainingFocus') ?? _fallbackTexts.trainingFocus;
 
   @override
   String get didItWorkOutForYou =>
-      Crowdin.getText(localeName, 'didItWorkOutForYou') ??
-      _fallbackTexts.didItWorkOutForYou;
+      Crowdin.getText(localeName, 'didItWorkOutForYou') ?? _fallbackTexts.didItWorkOutForYou;
 
   @override
   String get foodPreferencesDesc =>
-      Crowdin.getText(localeName, 'foodPreferencesDesc') ??
-      _fallbackTexts.foodPreferencesDesc;
+      Crowdin.getText(localeName, 'foodPreferencesDesc') ?? _fallbackTexts.foodPreferencesDesc;
 
   @override
   String get foodPreferencesItemOne =>
@@ -8716,23 +8123,19 @@ class CrowdinLocalization extends AppLocalizations {
 
   @override
   String get buildUpMuscle =>
-      Crowdin.getText(localeName, 'buildUpMuscle') ??
-      _fallbackTexts.buildUpMuscle;
+      Crowdin.getText(localeName, 'buildUpMuscle') ?? _fallbackTexts.buildUpMuscle;
 
   @override
   String get inceaseYourStamina =>
-      Crowdin.getText(localeName, 'inceaseYourStamina') ??
-      _fallbackTexts.inceaseYourStamina;
+      Crowdin.getText(localeName, 'inceaseYourStamina') ?? _fallbackTexts.inceaseYourStamina;
 
   @override
   String get youCanAlsoOptionally =>
-      Crowdin.getText(localeName, 'youCanAlsoOptionally') ??
-      _fallbackTexts.youCanAlsoOptionally;
+      Crowdin.getText(localeName, 'youCanAlsoOptionally') ?? _fallbackTexts.youCanAlsoOptionally;
 
   @override
   String get moreFlexibility =>
-      Crowdin.getText(localeName, 'moreFlexibility') ??
-      _fallbackTexts.moreFlexibility;
+      Crowdin.getText(localeName, 'moreFlexibility') ?? _fallbackTexts.moreFlexibility;
 
   @override
   String get physicalActivitiesCompletedTitle =>
@@ -8756,25 +8159,20 @@ class CrowdinLocalization extends AppLocalizations {
 
   @override
   String get physicalExercises =>
-      Crowdin.getText(localeName, 'physicalExercises') ??
-      _fallbackTexts.physicalExercises;
+      Crowdin.getText(localeName, 'physicalExercises') ?? _fallbackTexts.physicalExercises;
 
   @override
-  String get perWeek =>
-      Crowdin.getText(localeName, 'perWeek') ?? _fallbackTexts.perWeek;
+  String get perWeek => Crowdin.getText(localeName, 'perWeek') ?? _fallbackTexts.perWeek;
 
   @override
   String get supportGroup =>
-      Crowdin.getText(localeName, 'supportGroup') ??
-      _fallbackTexts.supportGroup;
+      Crowdin.getText(localeName, 'supportGroup') ?? _fallbackTexts.supportGroup;
 
   @override
-  String get account =>
-      Crowdin.getText(localeName, 'account') ?? _fallbackTexts.account;
+  String get account => Crowdin.getText(localeName, 'account') ?? _fallbackTexts.account;
 
   @override
-  String get education =>
-      Crowdin.getText(localeName, 'education') ?? _fallbackTexts.education;
+  String get education => Crowdin.getText(localeName, 'education') ?? _fallbackTexts.education;
 
   @override
   String get preferableInTheMorning =>
@@ -8783,63 +8181,52 @@ class CrowdinLocalization extends AppLocalizations {
 
   @override
   String get noWeightLogged =>
-      Crowdin.getText(localeName, 'noWeightLogged') ??
-      _fallbackTexts.noWeightLogged;
+      Crowdin.getText(localeName, 'noWeightLogged') ?? _fallbackTexts.noWeightLogged;
 
   @override
   String get ok => Crowdin.getText(localeName, 'ok') ?? _fallbackTexts.ok;
 
   @override
   String get todaysWeight =>
-      Crowdin.getText(localeName, 'todaysWeight') ??
-      _fallbackTexts.todaysWeight;
+      Crowdin.getText(localeName, 'todaysWeight') ?? _fallbackTexts.todaysWeight;
 
   @override
   String get all => Crowdin.getText(localeName, 'all') ?? _fallbackTexts.all;
 
   @override
-  String get general =>
-      Crowdin.getText(localeName, 'general') ?? _fallbackTexts.general;
+  String get general => Crowdin.getText(localeName, 'general') ?? _fallbackTexts.general;
 
   @override
-  String get nutrition =>
-      Crowdin.getText(localeName, 'nutrition') ?? _fallbackTexts.nutrition;
+  String get nutrition => Crowdin.getText(localeName, 'nutrition') ?? _fallbackTexts.nutrition;
 
   @override
   String get mind => Crowdin.getText(localeName, 'mind') ?? _fallbackTexts.mind;
 
   @override
-  String get activity =>
-      Crowdin.getText(localeName, 'activity') ?? _fallbackTexts.activity;
+  String get activity => Crowdin.getText(localeName, 'activity') ?? _fallbackTexts.activity;
 
   @override
   String get noMealsLogged =>
-      Crowdin.getText(localeName, 'noMealsLogged') ??
-      _fallbackTexts.noMealsLogged;
+      Crowdin.getText(localeName, 'noMealsLogged') ?? _fallbackTexts.noMealsLogged;
 
   @override
   String get noMealsPlanned =>
-      Crowdin.getText(localeName, 'noMealsPlanned') ??
-      _fallbackTexts.noMealsPlanned;
+      Crowdin.getText(localeName, 'noMealsPlanned') ?? _fallbackTexts.noMealsPlanned;
 
   @override
   String get noMealsLoggedYet =>
-      Crowdin.getText(localeName, 'noMealsLoggedYet') ??
-      _fallbackTexts.noMealsLoggedYet;
+      Crowdin.getText(localeName, 'noMealsLoggedYet') ?? _fallbackTexts.noMealsLoggedYet;
 
   @override
   String get noMealsPlannedYet =>
-      Crowdin.getText(localeName, 'noMealsPlannedYet') ??
-      _fallbackTexts.noMealsPlannedYet;
+      Crowdin.getText(localeName, 'noMealsPlannedYet') ?? _fallbackTexts.noMealsPlannedYet;
 
   @override
-  String get summary =>
-      Crowdin.getText(localeName, 'summary') ?? _fallbackTexts.summary;
+  String get summary => Crowdin.getText(localeName, 'summary') ?? _fallbackTexts.summary;
 
   @override
   String get instructions =>
-      Crowdin.getText(localeName, 'instructions') ??
-      _fallbackTexts.instructions;
+      Crowdin.getText(localeName, 'instructions') ?? _fallbackTexts.instructions;
 
   @override
   String get ingredients =>
@@ -8847,18 +8234,15 @@ class CrowdinLocalization extends AppLocalizations {
 
   @override
   String get addToMyDishes =>
-      Crowdin.getText(localeName, 'addToMyDishes') ??
-      _fallbackTexts.addToMyDishes;
+      Crowdin.getText(localeName, 'addToMyDishes') ?? _fallbackTexts.addToMyDishes;
 
   @override
   String get addToMyDishedAs =>
-      Crowdin.getText(localeName, 'addToMyDishedAs') ??
-      _fallbackTexts.addToMyDishedAs;
+      Crowdin.getText(localeName, 'addToMyDishedAs') ?? _fallbackTexts.addToMyDishedAs;
 
   @override
   String get giveNameToThisDish =>
-      Crowdin.getText(localeName, 'giveNameToThisDish') ??
-      _fallbackTexts.giveNameToThisDish;
+      Crowdin.getText(localeName, 'giveNameToThisDish') ?? _fallbackTexts.giveNameToThisDish;
 
   @override
   String get save => Crowdin.getText(localeName, 'save') ?? _fallbackTexts.save;
@@ -8873,20 +8257,17 @@ class CrowdinLocalization extends AppLocalizations {
 
   @override
   String get preparationTime =>
-      Crowdin.getText(localeName, 'preparationTime') ??
-      _fallbackTexts.preparationTime;
+      Crowdin.getText(localeName, 'preparationTime') ?? _fallbackTexts.preparationTime;
 
   @override
   String get show => Crowdin.getText(localeName, 'show') ?? _fallbackTexts.show;
 
   @override
-  String get portions =>
-      Crowdin.getText(localeName, 'portions') ?? _fallbackTexts.portions;
+  String get portions => Crowdin.getText(localeName, 'portions') ?? _fallbackTexts.portions;
 
   @override
   String get howToPrepare =>
-      Crowdin.getText(localeName, 'howToPrepare') ??
-      _fallbackTexts.howToPrepare;
+      Crowdin.getText(localeName, 'howToPrepare') ?? _fallbackTexts.howToPrepare;
 
   @override
   String get searchEmptyResultTitle =>
@@ -8895,39 +8276,31 @@ class CrowdinLocalization extends AppLocalizations {
 
   @override
   String get searchEmptyResultText =>
-      Crowdin.getText(localeName, 'searchEmptyResultText') ??
-      _fallbackTexts.searchEmptyResultText;
+      Crowdin.getText(localeName, 'searchEmptyResultText') ?? _fallbackTexts.searchEmptyResultText;
 
   @override
   String get createMyDish =>
-      Crowdin.getText(localeName, 'createMyDish') ??
-      _fallbackTexts.createMyDish;
+      Crowdin.getText(localeName, 'createMyDish') ?? _fallbackTexts.createMyDish;
 
   @override
-  String get logItem =>
-      Crowdin.getText(localeName, 'logItem') ?? _fallbackTexts.logItem;
+  String get logItem => Crowdin.getText(localeName, 'logItem') ?? _fallbackTexts.logItem;
 
   @override
-  String get deleteDish =>
-      Crowdin.getText(localeName, 'deleteDish') ?? _fallbackTexts.deleteDish;
+  String get deleteDish => Crowdin.getText(localeName, 'deleteDish') ?? _fallbackTexts.deleteDish;
 
   @override
   String get deleteModalMessage =>
-      Crowdin.getText(localeName, 'deleteModalMessage') ??
-      _fallbackTexts.deleteModalMessage;
+      Crowdin.getText(localeName, 'deleteModalMessage') ?? _fallbackTexts.deleteModalMessage;
 
   @override
   String get deleteAccount =>
-      Crowdin.getText(localeName, 'deleteAccount') ??
-      _fallbackTexts.deleteAccount;
+      Crowdin.getText(localeName, 'deleteAccount') ?? _fallbackTexts.deleteAccount;
 
   @override
-  String get signOut =>
-      Crowdin.getText(localeName, 'signOut') ?? _fallbackTexts.signOut;
+  String get signOut => Crowdin.getText(localeName, 'signOut') ?? _fallbackTexts.signOut;
 
   @override
-  String get yesDelete =>
-      Crowdin.getText(localeName, 'yesDelete') ?? _fallbackTexts.yesDelete;
+  String get yesDelete => Crowdin.getText(localeName, 'yesDelete') ?? _fallbackTexts.yesDelete;
 
   @override
   String get deleteMealModalMessage =>
@@ -8936,8 +8309,8 @@ class CrowdinLocalization extends AppLocalizations {
 
   @override
   String deleteMultiDateMealModalMessage(String mealCategory) =>
-      Crowdin.getText(localeName, 'deleteMultiDateMealModalMessage',
-          {'mealCategory': mealCategory}) ??
+      Crowdin.getText(
+          localeName, 'deleteMultiDateMealModalMessage', {'mealCategory': mealCategory}) ??
       _fallbackTexts.deleteMultiDateMealModalMessage(mealCategory);
 
   @override
@@ -8952,31 +8325,25 @@ class CrowdinLocalization extends AppLocalizations {
 
   @override
   String get openDatepicker =>
-      Crowdin.getText(localeName, 'openDatepicker') ??
-      _fallbackTexts.openDatepicker;
+      Crowdin.getText(localeName, 'openDatepicker') ?? _fallbackTexts.openDatepicker;
 
   @override
-  String get remove =>
-      Crowdin.getText(localeName, 'remove') ?? _fallbackTexts.remove;
+  String get remove => Crowdin.getText(localeName, 'remove') ?? _fallbackTexts.remove;
 
   @override
   String get recommendations =>
-      Crowdin.getText(localeName, 'recommendations') ??
-      _fallbackTexts.recommendations;
+      Crowdin.getText(localeName, 'recommendations') ?? _fallbackTexts.recommendations;
 
   @override
-  String get noCancel =>
-      Crowdin.getText(localeName, 'noCancel') ?? _fallbackTexts.noCancel;
+  String get noCancel => Crowdin.getText(localeName, 'noCancel') ?? _fallbackTexts.noCancel;
 
   @override
   String get recentSearch =>
-      Crowdin.getText(localeName, 'recentSearch') ??
-      _fallbackTexts.recentSearch;
+      Crowdin.getText(localeName, 'recentSearch') ?? _fallbackTexts.recentSearch;
 
   @override
   String get dishWasSaved =>
-      Crowdin.getText(localeName, 'dishWasSaved') ??
-      _fallbackTexts.dishWasSaved;
+      Crowdin.getText(localeName, 'dishWasSaved') ?? _fallbackTexts.dishWasSaved;
 
   @override
   String get foodItemWasAddedToDish =>
@@ -9013,16 +8380,13 @@ class CrowdinLocalization extends AppLocalizations {
       Crowdin.getText(localeName, 'availableIn') ?? _fallbackTexts.availableIn;
 
   @override
-  String get psychology =>
-      Crowdin.getText(localeName, 'psychology') ?? _fallbackTexts.psychology;
+  String get psychology => Crowdin.getText(localeName, 'psychology') ?? _fallbackTexts.psychology;
 
   @override
-  String get medical =>
-      Crowdin.getText(localeName, 'medical') ?? _fallbackTexts.medical;
+  String get medical => Crowdin.getText(localeName, 'medical') ?? _fallbackTexts.medical;
 
   @override
-  String get community =>
-      Crowdin.getText(localeName, 'community') ?? _fallbackTexts.community;
+  String get community => Crowdin.getText(localeName, 'community') ?? _fallbackTexts.community;
 
   @override
   String get invalidCreateDishFromMealMessage =>
@@ -9030,8 +8394,7 @@ class CrowdinLocalization extends AppLocalizations {
       _fallbackTexts.invalidCreateDishFromMealMessage;
 
   @override
-  String get readText =>
-      Crowdin.getText(localeName, 'readText') ?? _fallbackTexts.readText;
+  String get readText => Crowdin.getText(localeName, 'readText') ?? _fallbackTexts.readText;
 
   @override
   String get backToToday =>
@@ -9039,21 +8402,17 @@ class CrowdinLocalization extends AppLocalizations {
 
   @override
   String get backToEducation =>
-      Crowdin.getText(localeName, 'backToEducation') ??
-      _fallbackTexts.backToEducation;
+      Crowdin.getText(localeName, 'backToEducation') ?? _fallbackTexts.backToEducation;
 
   @override
   String get backToThePool =>
-      Crowdin.getText(localeName, 'backToThePool') ??
-      _fallbackTexts.backToThePool;
+      Crowdin.getText(localeName, 'backToThePool') ?? _fallbackTexts.backToThePool;
 
   @override
-  String get completed =>
-      Crowdin.getText(localeName, 'completed') ?? _fallbackTexts.completed;
+  String get completed => Crowdin.getText(localeName, 'completed') ?? _fallbackTexts.completed;
 
   @override
-  String get complete =>
-      Crowdin.getText(localeName, 'complete') ?? _fallbackTexts.complete;
+  String get complete => Crowdin.getText(localeName, 'complete') ?? _fallbackTexts.complete;
 
   @override
   String get todo => Crowdin.getText(localeName, 'todo') ?? _fallbackTexts.todo;
@@ -9063,23 +8422,19 @@ class CrowdinLocalization extends AppLocalizations {
 
   @override
   String get physicalActivity =>
-      Crowdin.getText(localeName, 'physicalActivity') ??
-      _fallbackTexts.physicalActivity;
+      Crowdin.getText(localeName, 'physicalActivity') ?? _fallbackTexts.physicalActivity;
 
   @override
   String get selectYourProgram =>
-      Crowdin.getText(localeName, 'selectYourProgram') ??
-      _fallbackTexts.selectYourProgram;
+      Crowdin.getText(localeName, 'selectYourProgram') ?? _fallbackTexts.selectYourProgram;
 
   @override
   String get selectExerciseType =>
-      Crowdin.getText(localeName, 'selectExerciseType') ??
-      _fallbackTexts.selectExerciseType;
+      Crowdin.getText(localeName, 'selectExerciseType') ?? _fallbackTexts.selectExerciseType;
 
   @override
   String get yourOwnActivity =>
-      Crowdin.getText(localeName, 'yourOwnActivity') ??
-      _fallbackTexts.yourOwnActivity;
+      Crowdin.getText(localeName, 'yourOwnActivity') ?? _fallbackTexts.yourOwnActivity;
 
   @override
   String countExercises(int count) =>
@@ -9087,44 +8442,36 @@ class CrowdinLocalization extends AppLocalizations {
       _fallbackTexts.countExercises(count);
 
   @override
-  String get strength =>
-      Crowdin.getText(localeName, 'strength') ?? _fallbackTexts.strength;
+  String get strength => Crowdin.getText(localeName, 'strength') ?? _fallbackTexts.strength;
 
   @override
-  String get endurance =>
-      Crowdin.getText(localeName, 'endurance') ?? _fallbackTexts.endurance;
+  String get endurance => Crowdin.getText(localeName, 'endurance') ?? _fallbackTexts.endurance;
 
   @override
-  String get mobility =>
-      Crowdin.getText(localeName, 'mobility') ?? _fallbackTexts.mobility;
+  String get mobility => Crowdin.getText(localeName, 'mobility') ?? _fallbackTexts.mobility;
 
   @override
   String get yourLocation =>
-      Crowdin.getText(localeName, 'yourLocation') ??
-      _fallbackTexts.yourLocation;
+      Crowdin.getText(localeName, 'yourLocation') ?? _fallbackTexts.yourLocation;
 
   @override
   String get home => Crowdin.getText(localeName, 'home') ?? _fallbackTexts.home;
 
   @override
-  String get office =>
-      Crowdin.getText(localeName, 'office') ?? _fallbackTexts.office;
+  String get office => Crowdin.getText(localeName, 'office') ?? _fallbackTexts.office;
 
   @override
-  String get outdoor =>
-      Crowdin.getText(localeName, 'outdoor') ?? _fallbackTexts.outdoor;
+  String get outdoor => Crowdin.getText(localeName, 'outdoor') ?? _fallbackTexts.outdoor;
 
   @override
   String get desiredDifficulty =>
-      Crowdin.getText(localeName, 'desiredDifficulty') ??
-      _fallbackTexts.desiredDifficulty;
+      Crowdin.getText(localeName, 'desiredDifficulty') ?? _fallbackTexts.desiredDifficulty;
 
   @override
   String get easy => Crowdin.getText(localeName, 'easy') ?? _fallbackTexts.easy;
 
   @override
-  String get medium =>
-      Crowdin.getText(localeName, 'medium') ?? _fallbackTexts.medium;
+  String get medium => Crowdin.getText(localeName, 'medium') ?? _fallbackTexts.medium;
 
   @override
   String get hard => Crowdin.getText(localeName, 'hard') ?? _fallbackTexts.hard;
@@ -9140,13 +8487,11 @@ class CrowdinLocalization extends AppLocalizations {
 
   @override
   String get errorActivityMessage =>
-      Crowdin.getText(localeName, 'errorActivityMessage') ??
-      _fallbackTexts.errorActivityMessage;
+      Crowdin.getText(localeName, 'errorActivityMessage') ?? _fallbackTexts.errorActivityMessage;
 
   @override
   String get strengthPrograms =>
-      Crowdin.getText(localeName, 'strengthPrograms') ??
-      _fallbackTexts.strengthPrograms;
+      Crowdin.getText(localeName, 'strengthPrograms') ?? _fallbackTexts.strengthPrograms;
 
   @override
   String get yourProfile =>
@@ -9158,13 +8503,11 @@ class CrowdinLocalization extends AppLocalizations {
 
   @override
   String get inCaseOfEmergency =>
-      Crowdin.getText(localeName, 'inCaseOfEmergency') ??
-      _fallbackTexts.inCaseOfEmergency;
+      Crowdin.getText(localeName, 'inCaseOfEmergency') ?? _fallbackTexts.inCaseOfEmergency;
 
   @override
   String get personalDetails =>
-      Crowdin.getText(localeName, 'personalDetails') ??
-      _fallbackTexts.personalDetails;
+      Crowdin.getText(localeName, 'personalDetails') ?? _fallbackTexts.personalDetails;
 
   @override
   String get testResults =>
@@ -9178,79 +8521,63 @@ class CrowdinLocalization extends AppLocalizations {
   String get name => Crowdin.getText(localeName, 'name') ?? _fallbackTexts.name;
 
   @override
-  String get email =>
-      Crowdin.getText(localeName, 'email') ?? _fallbackTexts.email;
+  String get email => Crowdin.getText(localeName, 'email') ?? _fallbackTexts.email;
 
   @override
   String get emailAddress =>
-      Crowdin.getText(localeName, 'emailAddress') ??
-      _fallbackTexts.emailAddress;
+      Crowdin.getText(localeName, 'emailAddress') ?? _fallbackTexts.emailAddress;
 
   @override
   String get changePassword =>
-      Crowdin.getText(localeName, 'changePassword') ??
-      _fallbackTexts.changePassword;
+      Crowdin.getText(localeName, 'changePassword') ?? _fallbackTexts.changePassword;
 
   @override
   String get useFaceOrTouchId =>
-      Crowdin.getText(localeName, 'useFaceOrTouchId') ??
-      _fallbackTexts.useFaceOrTouchId;
+      Crowdin.getText(localeName, 'useFaceOrTouchId') ?? _fallbackTexts.useFaceOrTouchId;
 
   @override
   String get requireLoginEachTime =>
-      Crowdin.getText(localeName, 'requireLoginEachTime') ??
-      _fallbackTexts.requireLoginEachTime;
+      Crowdin.getText(localeName, 'requireLoginEachTime') ?? _fallbackTexts.requireLoginEachTime;
 
   @override
   String get food => Crowdin.getText(localeName, 'food') ?? _fallbackTexts.food;
 
   @override
-  String get group =>
-      Crowdin.getText(localeName, 'group') ?? _fallbackTexts.group;
+  String get group => Crowdin.getText(localeName, 'group') ?? _fallbackTexts.group;
 
   @override
   String get groupSessions =>
-      Crowdin.getText(localeName, 'groupSessions') ??
-      _fallbackTexts.groupSessions;
+      Crowdin.getText(localeName, 'groupSessions') ?? _fallbackTexts.groupSessions;
 
   @override
   String get foodPreferences =>
-      Crowdin.getText(localeName, 'foodPreferences') ??
-      _fallbackTexts.foodPreferences;
+      Crowdin.getText(localeName, 'foodPreferences') ?? _fallbackTexts.foodPreferences;
 
   @override
-  String get dontEat =>
-      Crowdin.getText(localeName, 'dontEat') ?? _fallbackTexts.dontEat;
+  String get dontEat => Crowdin.getText(localeName, 'dontEat') ?? _fallbackTexts.dontEat;
 
   @override
-  String get dontLike =>
-      Crowdin.getText(localeName, 'dontLike') ?? _fallbackTexts.dontLike;
+  String get dontLike => Crowdin.getText(localeName, 'dontLike') ?? _fallbackTexts.dontLike;
 
   @override
-  String get howHard =>
-      Crowdin.getText(localeName, 'howHard') ?? _fallbackTexts.howHard;
+  String get howHard => Crowdin.getText(localeName, 'howHard') ?? _fallbackTexts.howHard;
 
   @override
-  String get veryEasy =>
-      Crowdin.getText(localeName, 'veryEasy') ?? _fallbackTexts.veryEasy;
+  String get veryEasy => Crowdin.getText(localeName, 'veryEasy') ?? _fallbackTexts.veryEasy;
 
   @override
-  String get veryHard =>
-      Crowdin.getText(localeName, 'veryHard') ?? _fallbackTexts.veryHard;
+  String get veryHard => Crowdin.getText(localeName, 'veryHard') ?? _fallbackTexts.veryHard;
 
   @override
   String get rotateDevice =>
-      Crowdin.getText(localeName, 'rotateDevice') ??
-      _fallbackTexts.rotateDevice;
+      Crowdin.getText(localeName, 'rotateDevice') ?? _fallbackTexts.rotateDevice;
 
   @override
   String get skipExplanation =>
-      Crowdin.getText(localeName, 'skipExplanation') ??
-      _fallbackTexts.skipExplanation;
+      Crowdin.getText(localeName, 'skipExplanation') ?? _fallbackTexts.skipExplanation;
 
   @override
-  String get repeat =>
-      Crowdin.getText(localeName, 'repeat') ?? _fallbackTexts.repeat;
+  String get repeat => Crowdin.getText(localeName, 'repeat') ?? _fallbackTexts.repeat;
 
   @override
   String exerciseCompleteMessage(String currentIndex, String length) =>
@@ -9260,26 +8587,21 @@ class CrowdinLocalization extends AppLocalizations {
 
   @override
   String get activitiesForThisWeek =>
-      Crowdin.getText(localeName, 'activitiesForThisWeek') ??
-      _fallbackTexts.activitiesForThisWeek;
+      Crowdin.getText(localeName, 'activitiesForThisWeek') ?? _fallbackTexts.activitiesForThisWeek;
 
   @override
   String get didYouLikeThisProgram =>
-      Crowdin.getText(localeName, 'didYouLikeThisProgram') ??
-      _fallbackTexts.didYouLikeThisProgram;
+      Crowdin.getText(localeName, 'didYouLikeThisProgram') ?? _fallbackTexts.didYouLikeThisProgram;
 
   @override
   String get backToTodayNotLogged =>
-      Crowdin.getText(localeName, 'backToTodayNotLogged') ??
-      _fallbackTexts.backToTodayNotLogged;
+      Crowdin.getText(localeName, 'backToTodayNotLogged') ?? _fallbackTexts.backToTodayNotLogged;
 
   @override
-  String get notReally =>
-      Crowdin.getText(localeName, 'notReally') ?? _fallbackTexts.notReally;
+  String get notReally => Crowdin.getText(localeName, 'notReally') ?? _fallbackTexts.notReally;
 
   @override
-  String get yesYes =>
-      Crowdin.getText(localeName, 'yesYes') ?? _fallbackTexts.yesYes;
+  String get yesYes => Crowdin.getText(localeName, 'yesYes') ?? _fallbackTexts.yesYes;
 
   @override
   String get recommended =>
@@ -9287,8 +8609,7 @@ class CrowdinLocalization extends AppLocalizations {
 
   @override
   String get alternatives =>
-      Crowdin.getText(localeName, 'alternatives') ??
-      _fallbackTexts.alternatives;
+      Crowdin.getText(localeName, 'alternatives') ?? _fallbackTexts.alternatives;
 
   @override
   String equipment(String equipment) =>
@@ -9297,18 +8618,15 @@ class CrowdinLocalization extends AppLocalizations {
 
   @override
   String targetMuscles(String targetMuscles) =>
-      Crowdin.getText(
-          localeName, 'targetMuscles', {'targetMuscles': targetMuscles}) ??
+      Crowdin.getText(localeName, 'targetMuscles', {'targetMuscles': targetMuscles}) ??
       _fallbackTexts.targetMuscles(targetMuscles);
 
   @override
   String get breakBetweenExercises =>
-      Crowdin.getText(localeName, 'breakBetweenExercises') ??
-      _fallbackTexts.breakBetweenExercises;
+      Crowdin.getText(localeName, 'breakBetweenExercises') ?? _fallbackTexts.breakBetweenExercises;
 
   @override
-  String get inProgress =>
-      Crowdin.getText(localeName, 'inProgress') ?? _fallbackTexts.inProgress;
+  String get inProgress => Crowdin.getText(localeName, 'inProgress') ?? _fallbackTexts.inProgress;
 
   @override
   String logAs(String mealCategory) =>
@@ -9320,8 +8638,7 @@ class CrowdinLocalization extends AppLocalizations {
 
   @override
   String get plannedMeals =>
-      Crowdin.getText(localeName, 'plannedMeals') ??
-      _fallbackTexts.plannedMeals;
+      Crowdin.getText(localeName, 'plannedMeals') ?? _fallbackTexts.plannedMeals;
 
   @override
   String get loggedMeals =>
@@ -9331,25 +8648,20 @@ class CrowdinLocalization extends AppLocalizations {
   String get hey => Crowdin.getText(localeName, 'hey') ?? _fallbackTexts.hey;
 
   @override
-  String get cancelled =>
-      Crowdin.getText(localeName, 'cancelled') ?? _fallbackTexts.cancelled;
+  String get cancelled => Crowdin.getText(localeName, 'cancelled') ?? _fallbackTexts.cancelled;
 
   @override
-  String get cancel =>
-      Crowdin.getText(localeName, 'cancel') ?? _fallbackTexts.cancel;
+  String get cancel => Crowdin.getText(localeName, 'cancel') ?? _fallbackTexts.cancel;
 
   @override
-  String get missed =>
-      Crowdin.getText(localeName, 'missed') ?? _fallbackTexts.missed;
+  String get missed => Crowdin.getText(localeName, 'missed') ?? _fallbackTexts.missed;
 
   @override
-  String get saved =>
-      Crowdin.getText(localeName, 'saved') ?? _fallbackTexts.saved;
+  String get saved => Crowdin.getText(localeName, 'saved') ?? _fallbackTexts.saved;
 
   @override
   String get notEnrolledInGroup =>
-      Crowdin.getText(localeName, 'notEnrolledInGroup') ??
-      _fallbackTexts.notEnrolledInGroup;
+      Crowdin.getText(localeName, 'notEnrolledInGroup') ?? _fallbackTexts.notEnrolledInGroup;
 
   @override
   String get supportGroupPaidSubscriptionNotGrouped =>
@@ -9363,8 +8675,7 @@ class CrowdinLocalization extends AppLocalizations {
 
   @override
   String get updateRequired =>
-      Crowdin.getText(localeName, 'updateRequired') ??
-      _fallbackTexts.updateRequired;
+      Crowdin.getText(localeName, 'updateRequired') ?? _fallbackTexts.updateRequired;
 
   @override
   String get updateRequiredBodyText1 =>
@@ -9393,8 +8704,7 @@ class CrowdinLocalization extends AppLocalizations {
 
   @override
   String get nextWeekTopic =>
-      Crowdin.getText(localeName, 'nextWeekTopic') ??
-      _fallbackTexts.nextWeekTopic;
+      Crowdin.getText(localeName, 'nextWeekTopic') ?? _fallbackTexts.nextWeekTopic;
 
   @override
   String get registrationCodePlaceholder =>
@@ -9403,23 +8713,19 @@ class CrowdinLocalization extends AppLocalizations {
 
   @override
   String get registrationCodeTitle =>
-      Crowdin.getText(localeName, 'registrationCodeTitle') ??
-      _fallbackTexts.registrationCodeTitle;
+      Crowdin.getText(localeName, 'registrationCodeTitle') ?? _fallbackTexts.registrationCodeTitle;
 
   @override
   String get registrationCodeLabel =>
-      Crowdin.getText(localeName, 'registrationCodeLabel') ??
-      _fallbackTexts.registrationCodeLabel;
+      Crowdin.getText(localeName, 'registrationCodeLabel') ?? _fallbackTexts.registrationCodeLabel;
 
   @override
   String get checkAccessCode =>
-      Crowdin.getText(localeName, 'checkAccessCode') ??
-      _fallbackTexts.checkAccessCode;
+      Crowdin.getText(localeName, 'checkAccessCode') ?? _fallbackTexts.checkAccessCode;
 
   @override
   String get noAccessCodeYet =>
-      Crowdin.getText(localeName, 'noAccessCodeYet') ??
-      _fallbackTexts.noAccessCodeYet;
+      Crowdin.getText(localeName, 'noAccessCodeYet') ?? _fallbackTexts.noAccessCodeYet;
 
   @override
   String get physicalActivitiesPreferencesLabel =>
@@ -9431,29 +8737,23 @@ class CrowdinLocalization extends AppLocalizations {
       Crowdin.getText(localeName, 'requestCode') ?? _fallbackTexts.requestCode;
 
   @override
-  String get calorie =>
-      Crowdin.getText(localeName, 'calorie') ?? _fallbackTexts.calorie;
+  String get calorie => Crowdin.getText(localeName, 'calorie') ?? _fallbackTexts.calorie;
 
   @override
-  String get dencity =>
-      Crowdin.getText(localeName, 'dencity') ?? _fallbackTexts.dencity;
+  String get dencity => Crowdin.getText(localeName, 'dencity') ?? _fallbackTexts.dencity;
 
   @override
-  String get protein =>
-      Crowdin.getText(localeName, 'protein') ?? _fallbackTexts.protein;
+  String get protein => Crowdin.getText(localeName, 'protein') ?? _fallbackTexts.protein;
 
   @override
-  String get degree =>
-      Crowdin.getText(localeName, 'degree') ?? _fallbackTexts.degree;
+  String get degree => Crowdin.getText(localeName, 'degree') ?? _fallbackTexts.degree;
 
   @override
-  String get fiber =>
-      Crowdin.getText(localeName, 'fiber') ?? _fallbackTexts.fiber;
+  String get fiber => Crowdin.getText(localeName, 'fiber') ?? _fallbackTexts.fiber;
 
   @override
   String get dailyCalorieBudget =>
-      Crowdin.getText(localeName, 'dailyCalorieBudget') ??
-      _fallbackTexts.dailyCalorieBudget;
+      Crowdin.getText(localeName, 'dailyCalorieBudget') ?? _fallbackTexts.dailyCalorieBudget;
 
   @override
   String get dailyCalorieBudgetDescription =>
@@ -9537,55 +8837,45 @@ class CrowdinLocalization extends AppLocalizations {
 
   @override
   String get fiberHighQualityLabel =>
-      Crowdin.getText(localeName, 'fiberHighQualityLabel') ??
-      _fallbackTexts.fiberHighQualityLabel;
+      Crowdin.getText(localeName, 'fiberHighQualityLabel') ?? _fallbackTexts.fiberHighQualityLabel;
 
   @override
   String get fiberMidQualityLabel =>
-      Crowdin.getText(localeName, 'fiberMidQualityLabel') ??
-      _fallbackTexts.fiberMidQualityLabel;
+      Crowdin.getText(localeName, 'fiberMidQualityLabel') ?? _fallbackTexts.fiberMidQualityLabel;
 
   @override
   String get fiberLowQualityLabel =>
-      Crowdin.getText(localeName, 'fiberLowQualityLabel') ??
-      _fallbackTexts.fiberLowQualityLabel;
+      Crowdin.getText(localeName, 'fiberLowQualityLabel') ?? _fallbackTexts.fiberLowQualityLabel;
 
   @override
   String get notSignificant =>
-      Crowdin.getText(localeName, 'notSignificant') ??
-      _fallbackTexts.notSignificant;
+      Crowdin.getText(localeName, 'notSignificant') ?? _fallbackTexts.notSignificant;
 
   @override
   String get insignificant =>
-      Crowdin.getText(localeName, 'insignificant') ??
-      _fallbackTexts.insignificant;
+      Crowdin.getText(localeName, 'insignificant') ?? _fallbackTexts.insignificant;
 
   @override
-  String get practice =>
-      Crowdin.getText(localeName, 'practice') ?? _fallbackTexts.practice;
+  String get practice => Crowdin.getText(localeName, 'practice') ?? _fallbackTexts.practice;
 
   @override
   String get pool => Crowdin.getText(localeName, 'pool') ?? _fallbackTexts.pool;
 
   @override
   String get mindDashboardTitle =>
-      Crowdin.getText(localeName, 'mindDashboardTitle') ??
-      _fallbackTexts.mindDashboardTitle;
+      Crowdin.getText(localeName, 'mindDashboardTitle') ?? _fallbackTexts.mindDashboardTitle;
 
   @override
   String get mindDashboardBtn =>
-      Crowdin.getText(localeName, 'mindDashboardBtn') ??
-      _fallbackTexts.mindDashboardBtn;
+      Crowdin.getText(localeName, 'mindDashboardBtn') ?? _fallbackTexts.mindDashboardBtn;
 
   @override
   String get maintenanceLabel =>
-      Crowdin.getText(localeName, 'maintenanceLabel') ??
-      _fallbackTexts.maintenanceLabel;
+      Crowdin.getText(localeName, 'maintenanceLabel') ?? _fallbackTexts.maintenanceLabel;
 
   @override
   String get maintenancePageTitle =>
-      Crowdin.getText(localeName, 'maintenancePageTitle') ??
-      _fallbackTexts.maintenancePageTitle;
+      Crowdin.getText(localeName, 'maintenancePageTitle') ?? _fallbackTexts.maintenancePageTitle;
 
   @override
   String get maintenancePageDescription =>
@@ -9599,12 +8889,10 @@ class CrowdinLocalization extends AppLocalizations {
 
   @override
   String get chooseAlternative =>
-      Crowdin.getText(localeName, 'chooseAlternative') ??
-      _fallbackTexts.chooseAlternative;
+      Crowdin.getText(localeName, 'chooseAlternative') ?? _fallbackTexts.chooseAlternative;
 }
 
-class _CrowdinLocalizationsDelegate
-    extends LocalizationsDelegate<AppLocalizations> {
+class _CrowdinLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {
   const _CrowdinLocalizationsDelegate();
 
   @override
@@ -9613,8 +8901,7 @@ class _CrowdinLocalizationsDelegate
       .then((fallback) => CrowdinLocalization(locale.toString(), fallback));
 
   @override
-  bool isSupported(Locale locale) =>
-      AppLocalizations.supportedLocales.contains(locale);
+  bool isSupported(Locale locale) => AppLocalizations.supportedLocales.contains(locale);
 
   @override
   bool shouldReload(_CrowdinLocalizationsDelegate old) => false;

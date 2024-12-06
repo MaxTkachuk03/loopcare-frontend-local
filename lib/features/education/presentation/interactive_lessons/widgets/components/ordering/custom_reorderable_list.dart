@@ -90,7 +90,7 @@ class _CustomReorderableListState extends State<CustomReorderableList> {
     final rightOrder = _onGetOrder();
 
     widget.onSaveProgress(
-        InteractiveLessonComponentProgress(optionIds: rightOrder), widget.component);
+        InteractiveLessonComponentProgress(optionIds: rightOrder, type: widget.component.type.name), widget.component);
   }
 
   void _onCheckOrderHandler() {
@@ -106,7 +106,7 @@ class _CustomReorderableListState extends State<CustomReorderableList> {
 
     if (!isOrderRight) return;
 
-    widget.onSaveProgress(InteractiveLessonComponentProgress(optionIds: order), widget.component);
+    widget.onSaveProgress(InteractiveLessonComponentProgress(optionIds: order, type: widget.component.type.name), widget.component);
   }
 
   bool checkOrder(List<int> order, List<int> rightOrder) {
