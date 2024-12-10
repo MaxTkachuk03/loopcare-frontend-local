@@ -6,22 +6,24 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
 import 'package:injectable/injectable.dart';
 import 'package:loopcare_frontend/core/application/auth_token_manager.dart';
-import 'package:loopcare_frontend/core/application/customer_io_service/customer_io_service.dart';
 import 'package:loopcare_frontend/core/application/permissions_service.dart';
 import 'package:loopcare_frontend/core/domain/account/account.dart';
 import 'package:loopcare_frontend/core/domain/account/gender_preferences.dart';
 import 'package:loopcare_frontend/core/domain/account/gender_type.dart';
 import 'package:loopcare_frontend/core/domain/analytics/analytics_events.dart';
 import 'package:loopcare_frontend/core/domain/analytics/analytics_parameters.dart';
+import 'package:loopcare_frontend/core/domain/analytics/customer_io_service/customer_io_service.dart';
+import 'package:loopcare_frontend/core/domain/analytics/usage_analytics/usage_analytics.dart';
+import 'package:loopcare_frontend/core/domain/analytics/usage_analytics/usage_analytics_events.dart';
 import 'package:loopcare_frontend/core/domain/medical_onboarding.dart';
 import 'package:loopcare_frontend/core/domain/unlocked_feature_type.dart';
 import 'package:loopcare_frontend/core/infrastructure/dio_client/request_error.dart';
 import 'package:loopcare_frontend/core/infrastructure/services/analytics_service.dart';
 import 'package:loopcare_frontend/core/infrastructure/services/app_sync_service/app_sync_service.dart';
 import 'package:loopcare_frontend/core/infrastructure/services/apps_flyer_service.dart';
-import 'package:loopcare_frontend/core/infrastructure/services/events.dart';
+import 'package:loopcare_frontend/core/domain/analytics/mixpanel/events.dart';
 import 'package:loopcare_frontend/core/infrastructure/services/facebook_events_service.dart';
-import 'package:loopcare_frontend/core/infrastructure/services/mixpanel_event_service.dart';
+import 'package:loopcare_frontend/core/domain/analytics/mixpanel/mixpanel_event_service.dart';
 import 'package:loopcare_frontend/core/infrastructure/services/shared_storage/shared_storage_service.dart';
 import 'package:loopcare_frontend/core/infrastructure/services/socket_service/socket_service.dart';
 import 'package:loopcare_frontend/core/infrastructure/services/socket_service_buddy/buddy_socket_service.dart';
@@ -169,7 +171,6 @@ class AuthenticationBloc extends HydratedBloc<AuthenticationEvent, Authenticatio
     emit(AuthenticationState.isLoading(state.data.copyWith(isLoading: true)));
 
     final data = LoginData(email: event.email.toLowerCase(), password: event.password);
-
     final response = await _authenticationService.login(data);
 
     response.fold(
@@ -282,6 +283,7 @@ class AuthenticationBloc extends HydratedBloc<AuthenticationEvent, Authenticatio
     );
 
     final response = await _authenticationService.signUp(data);
+    final usageAnalytics = UsageAnalytics();
 
     response.fold(
       (error) => emit(
@@ -309,9 +311,10 @@ class AuthenticationBloc extends HydratedBloc<AuthenticationEvent, Authenticatio
           },
         );
 
-        CustomerIoService.track(event: CIOEvents.onboardingTermsAndConditionsPrivacyPolicyAccept);
-        CustomerIoService.track(event: CIOEvents.onboardingPasswordCreated);
-        CustomerIoService.track(event: CIOEvents.onboardingNewUserCreated);
+        usageAnalytics.track(
+            eventName: UsageAnalyticsEvents.onboardingTermsAndConditionsPrivacyPolicyAccept);
+        usageAnalytics.track(eventName: UsageAnalyticsEvents.onboardingPasswordCreated);
+        usageAnalytics.track(eventName: UsageAnalyticsEvents.onboardingNewUserCreated);
         CustomerIoService.setUserVerifiedState(verified: false);
         CustomerIoService.setUserId(id: response.id);
 
@@ -500,6 +503,7 @@ class AuthenticationBloc extends HydratedBloc<AuthenticationEvent, Authenticatio
     Emitter<AuthenticationState> emit,
   ) async {
     final response = await _authenticationService.emailApproveDate(state.data.accountId);
+    final usageAnalytics = UsageAnalytics();
 
     response.fold(
       (l) => null,
@@ -513,8 +517,8 @@ class AuthenticationBloc extends HydratedBloc<AuthenticationEvent, Authenticatio
             },
           );
 
-          CustomerIoService.track(event: CIOEvents.onboardingEmailConfirmed);
-          CustomerIoService.track(event: CIOEvents.onboardingNewUserVerified);
+          usageAnalytics.track(eventName: UsageAnalyticsEvents.onboardingEmailConfirmed);
+          usageAnalytics.track(eventName: UsageAnalyticsEvents.onboardingNewUserVerified);
           CustomerIoService.setUserVerifiedState(verified: true);
 
           emit(AuthenticationState.gotEmailVerification(state.data));

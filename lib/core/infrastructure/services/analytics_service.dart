@@ -119,10 +119,7 @@ class AnalyticsEventService {
     if (kIsDev || kDebugMode) return;
 
     FlutterUxcam.optIntoSchematicRecordings();
-    FlutterUxConfig config = FlutterUxConfig(
-        userAppKey: kIsAnalyticTestingEnv
-            ? dotenv.env['UXCAM_APP_KEY'] ?? ''
-            : dotenv.env['PROD_UXCAM_APP_KEY'] ?? '');
+    FlutterUxConfig config = FlutterUxConfig(userAppKey: dotenv.env['UXCAM_APP_KEY'] ?? '');
     await FlutterUxcam.startWithConfiguration(config);
   }
 
@@ -179,13 +176,14 @@ class AnalyticsEventService {
   void logLessonCompletedEvent(
     String eventName,
     int lessonId,
-  ) async =>
-      logEvent(
-        eventName: eventName,
-        parameters: {
-          AnalyticsParameters.lessonId: lessonId.toString(),
-        },
-      );
+  ) async {
+    logEvent(
+      eventName: eventName,
+      parameters: {
+        AnalyticsParameters.lessonId: lessonId.toString(),
+      },
+    );
+  }
 
   void logLessonEvent(
     String eventName,

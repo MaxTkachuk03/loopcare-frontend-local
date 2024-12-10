@@ -5,9 +5,10 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
 import 'package:injectable/injectable.dart';
-import 'package:loopcare_frontend/core/application/customer_io_service/customer_io_service.dart';
 import 'package:loopcare_frontend/core/domain/account/sex_type.dart';
 import 'package:loopcare_frontend/core/domain/analytics/analytics_events.dart';
+import 'package:loopcare_frontend/core/domain/analytics/usage_analytics/usage_analytics.dart';
+import 'package:loopcare_frontend/core/domain/analytics/usage_analytics/usage_analytics_events.dart';
 import 'package:loopcare_frontend/core/infrastructure/services/analytics_service.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 import 'package:loopcare_frontend/features/onboarding/application/general/mental_health_service.dart';
@@ -54,6 +55,7 @@ part 'general_onboarding_state.dart';
 @singleton
 class GeneralOnboardingBloc extends HydratedBloc<GeneralOnboardingEvent, GeneralOnboardingState> {
   final MentalHealthService _mentalHealthService;
+  final usageAnalytics = UsageAnalytics();
 
   GeneralOnboardingBloc(this._mentalHealthService) : super(const GeneralOnboardingState()) {
     on<Started>(_onStarted);
@@ -105,8 +107,8 @@ class GeneralOnboardingBloc extends HydratedBloc<GeneralOnboardingEvent, General
   }
 
   FutureOr<void> _onStarted(Started event, Emitter<GeneralOnboardingState> emit) async {
-    CustomerIoService.track(
-      event: CIOEvents.onboardingBasicsIntro,
+    usageAnalytics.track(
+      eventName: UsageAnalyticsEvents.onboardingBasicsIntro,
     );
 
     emit(
@@ -277,8 +279,8 @@ class GeneralOnboardingBloc extends HydratedBloc<GeneralOnboardingEvent, General
   }
 
   GeneralOnboardingState _handlePhysicalResultStep() {
-    CustomerIoService.track(
-      event: CIOEvents.onboardingMedicalIntro,
+    usageAnalytics.track(
+      eventName: UsageAnalyticsEvents.onboardingMedicalIntro,
     );
 
     _sendScreenView(MedicalQuestionStep.intro.screenName);
@@ -323,8 +325,8 @@ class GeneralOnboardingBloc extends HydratedBloc<GeneralOnboardingEvent, General
     stack = [...stack, step];
 
     if (step == PhysicalQuestionStep.result) {
-      CustomerIoService.track(
-        event: CIOEvents.onboardingBasicsCompleted,
+      usageAnalytics.track(
+        eventName: UsageAnalyticsEvents.onboardingBasicsCompleted,
       );
     }
 
@@ -346,8 +348,8 @@ class GeneralOnboardingBloc extends HydratedBloc<GeneralOnboardingEvent, General
   }
 
   GeneralOnboardingState _handleMedicalResultStep() {
-    CustomerIoService.track(
-      event: CIOEvents.onboardingMentalIntro,
+    usageAnalytics.track(
+      eventName: UsageAnalyticsEvents.onboardingMentalIntro,
     );
 
     _sendScreenView(MentalQuestionStep.introStepOne
@@ -391,8 +393,8 @@ class GeneralOnboardingBloc extends HydratedBloc<GeneralOnboardingEvent, General
     stack = [...stack, step];
 
     if (step == MedicalQuestionStep.result) {
-      CustomerIoService.track(
-        event: CIOEvents.onboardingMedicalCompleted,
+      usageAnalytics.track(
+        eventName: UsageAnalyticsEvents.onboardingMedicalCompleted,
       );
     }
 
@@ -628,6 +630,6 @@ class GeneralOnboardingBloc extends HydratedBloc<GeneralOnboardingEvent, General
 
   void _trackExclusion(String eventName) {
     const AnalyticsEventService().logEvent(eventName: eventName);
-    CustomerIoService.track(event: eventName);
+    usageAnalytics.track(eventName: eventName);
   }
 }

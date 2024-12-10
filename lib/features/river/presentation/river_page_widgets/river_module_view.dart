@@ -2,7 +2,6 @@ import 'package:auto_route/auto_route.dart';
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:loopcare_frontend/core/application/customer_io_service/customer_io_service.dart';
 import 'package:loopcare_frontend/core/presentation/alerting/modal_bottom_sheet.dart';
 import 'package:loopcare_frontend/core/presentation/routes/app_router.gr.dart';
 import 'package:loopcare_frontend/features/education/application/education_lesson/education_lesson_bloc.dart';
@@ -128,11 +127,6 @@ class _RiverScreenState extends State<RiverScreen> with RiverUtils {
   }
 
   void _navigateToLesson(RiverModuleItem item) {
-    CustomerIoService.track(
-      event: CIOEvents.educationWidget,
-      attributes: {CIOAttributes.articleId: item.lessonId},
-    );
-
     context.read<RiverBloc>().add(RiverEvent.selectModuleItem(item: item));
 
     context.read<EducationLessonBloc>().add(

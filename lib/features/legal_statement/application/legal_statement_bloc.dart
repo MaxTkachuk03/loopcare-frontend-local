@@ -3,9 +3,10 @@ import 'dart:async';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
 import 'package:injectable/injectable.dart';
-import 'package:loopcare_frontend/core/application/customer_io_service/customer_io_service.dart';
 import 'package:loopcare_frontend/core/domain/analytics/analytics_events.dart';
 import 'package:loopcare_frontend/core/domain/analytics/analytics_parameters.dart';
+import 'package:loopcare_frontend/core/domain/analytics/usage_analytics/usage_analytics.dart';
+import 'package:loopcare_frontend/core/domain/analytics/usage_analytics/usage_analytics_events.dart';
 import 'package:loopcare_frontend/core/infrastructure/services/analytics_service.dart';
 import 'package:loopcare_frontend/features/authentication/application/authentication_bloc.dart';
 
@@ -17,6 +18,7 @@ part 'legal_statement_state.dart';
 @singleton
 class LegalStatementBloc extends HydratedBloc<LegalStatementEvent, LegalStatementState> {
   final AuthenticationBloc _authenticationBloc;
+  final usageAnalytics = UsageAnalytics();
 
   late final StreamSubscription _authBlocStreamSubscription;
 
@@ -52,7 +54,7 @@ class LegalStatementBloc extends HydratedBloc<LegalStatementEvent, LegalStatemen
       );
     }
 
-    CustomerIoService.track(event: CIOEvents.onboardingRegisterIntro);
+    usageAnalytics.track(eventName: UsageAnalyticsEvents.onboardingRegisterIntro);
 
     emit(state.copyWith(pageWasPassed: event.value));
   }

@@ -1,7 +1,6 @@
 import 'package:firebase_performance/firebase_performance.dart';
-import 'package:loopcare_frontend/build_type.dart';
 import 'package:loopcare_frontend/core/domain/analytics/analytics_parameters.dart';
-import 'package:loopcare_frontend/core/infrastructure/services/mixpanel_manager.dart';
+import 'package:loopcare_frontend/core/domain/analytics/mixpanel/mixpanel_manager.dart';
 import 'package:loopcare_frontend/core/infrastructure/services/stored_account_service/stored_account_service.dart';
 
 class MixpanelEventService {
@@ -15,9 +14,6 @@ class MixpanelEventService {
   int get _userId => StoredAccountService.getAccount()?.id ?? -1;
 
   Future<void> track(String eventName, {Map<String, dynamic>? parameters}) async {
-    if (!kIsProd) {
-      return;
-    }
     Map<String, dynamic> tmpParameters = Map.from(parameters ?? {});
     tmpParameters[AnalyticsParameters.userId] = _userId;
     mixpanel.track(eventName, tmpParameters);

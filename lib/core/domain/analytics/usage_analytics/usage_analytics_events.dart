@@ -1,8 +1,11 @@
-class CIOEvents {
-  const CIOEvents._();
+class UsageAnalyticsEvents {
+  const UsageAnalyticsEvents._();
 
   // Authentication
   static const String auth = 'authentication';
+  static const String bringAppToFront = 'bring_app_to_front';
+  static const String appPaused = 'app_paused';
+  static const String logout = 'logout';
 
   // Onboarding
   static const String onboardingBasicsIntro = 'onboarding_basics_intro';
@@ -62,15 +65,16 @@ class CIOEvents {
   static const String subscriptionBought = 'subscription_bought';
 
   //Weight
-  static const String weightWidget = 'open_weight_widget';
-  static const String weightLogged = 'log_weight';
+  static const String weightWidget = 'weight_widget_opened';
+  static const String weightLogged = 'weight_logged';
 
   //Mood
-  static const String moodWidget = 'open_mood_widget';
-  static const String moodLogged = 'log_mood';
+  static const String moodWidget = 'mood_widget_opened';
+  static const String moodLogged = 'mood_logged';
 
   //Education
-  static const String educationWidget = 'open_education_widget';
+  static const String lessonOpened = 'lesson_opened';
+  static const String lessonCompleted = 'lesson_completed';
   static const String educationArticleOpen = 'open_article_direct';
 
   // Profile
@@ -81,7 +85,15 @@ class CIOEvents {
   static const String mindRepeatedExercise = 'mind_repeated_exercise';
 
   // Smart goals
-  static String get userSavedGoals => 'user_saved_goals';
-  static String get userAddedReview => 'user_added_review';
-  static String get userLogGoal => 'user_log_goal';
+  static const String goalNutritionSelected = 'goal_nutrition_selected';
+  static const String goalNutritionCompleted = 'goal_nutrition_completed';
+  static const String goalNutritionLogged = 'goal_nutrition_logged';
+  static const String goalNutritionDeleted = 'goal_nutrition_deleted';
+
+  // Nutrition
+  static const String foodItemLogged = 'food_item_logged';
+
+  // Reflection
+  static const String reflectionOpened = 'reflection_opened';
+  static const String reflectionCompleted = 'reflection_completed';
 }

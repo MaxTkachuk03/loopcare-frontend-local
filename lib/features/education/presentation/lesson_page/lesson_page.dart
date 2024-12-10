@@ -4,6 +4,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loopcare_frontend/core/application/analytics_bloc.dart';
 import 'package:loopcare_frontend/core/domain/analytics/analytics_events.dart';
 import 'package:loopcare_frontend/core/domain/analytics/analytics_parameters.dart';
+import 'package:loopcare_frontend/core/domain/analytics/usage_analytics/usage_analytics.dart';
+import 'package:loopcare_frontend/core/domain/analytics/usage_analytics/usage_analytics_attributes.dart';
+import 'package:loopcare_frontend/core/domain/analytics/usage_analytics/usage_analytics_events.dart';
 import 'package:loopcare_frontend/core/infrastructure/services/analytics_service.dart';
 import 'package:loopcare_frontend/core/presentation/app_bar/custom_app_bar.dart';
 import 'package:loopcare_frontend/core/presentation/buttons/custom_filled_icon_button.dart';
@@ -15,6 +18,7 @@ import 'package:loopcare_frontend/core/presentation/scaffold/custom_scaffold.dar
 import 'package:loopcare_frontend/features/education/application/education_lesson/education_lesson_bloc.dart';
 import 'package:loopcare_frontend/features/education/presentation/lesson/widgets/lesson_audio_body.dart';
 import 'package:loopcare_frontend/features/education/presentation/lesson/widgets/lesson_text_body.dart';
+import 'package:loopcare_frontend/features/river/application/river_bloc.dart';
 import 'package:loopcare_frontend/features/river/domain/river_module_stream_type.dart';
 import 'package:loopcare_frontend/localization/service/localization_extension.dart';
 import 'package:loopcare_frontend/localization/service/localized_texts.dart';
@@ -37,12 +41,23 @@ class LessonPage extends StatefulWidget {
 class _LessonPageState extends State<LessonPage> {
   late EducationLessonData educationLessonBlocStateData;
   late AnalyticsBloc analyticsBloc;
+  final usageAnalytics = UsageAnalytics();
 
   @override
   void initState() {
     super.initState();
     educationLessonBlocStateData = context.read<EducationLessonBloc>().state.data;
     analyticsBloc = context.read<AnalyticsBloc>();
+    final riverModule = context.read<RiverBloc>().state.data.activeModule;
+
+    usageAnalytics.track(
+      eventName: UsageAnalyticsEvents.lessonOpened,
+      attributes: {
+        UsageAnalyticsAttributes.articleId: educationLessonBlocStateData.id,
+        UsageAnalyticsAttributes.articleTitle: educationLessonBlocStateData.title,
+        UsageAnalyticsAttributes.articlePool: riverModule?.title,
+      },
+    );
   }
 
   void _onNextPressed() {

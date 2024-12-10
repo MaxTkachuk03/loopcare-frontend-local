@@ -1,7 +1,8 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:loopcare_frontend/core/application/customer_io_service/customer_io_service.dart';
+import 'package:loopcare_frontend/core/domain/analytics/usage_analytics/usage_analytics.dart';
+import 'package:loopcare_frontend/core/domain/analytics/usage_analytics/usage_analytics_events.dart';
 import 'package:loopcare_frontend/core/presentation/alerting/show_app_snackbar.dart';
 import 'package:loopcare_frontend/core/presentation/bottom_placed_button/bottom_placed_button.dart';
 import 'package:loopcare_frontend/core/presentation/buttons/custom_elevated_button.dart';
@@ -25,13 +26,15 @@ class MentalCheckResultFinalContent extends StatefulWidget {
 }
 
 class _MentalCheckResultFinalContentState extends State<MentalCheckResultFinalContent> {
+  final usageAnalytics = UsageAnalytics();
+
   @override
   void initState() {
     super.initState();
     if (context.read<MentalQuestionsBloc>().state.isPhq8TestHigh) {
-      CustomerIoService.track(event: CIOEvents.onboardingFinalResultExclusion);
+      usageAnalytics.track(eventName: UsageAnalyticsEvents.onboardingFinalResultExclusion);
     } else {
-      CustomerIoService.track(event: CIOEvents.onboardingFinalResult);
+      usageAnalytics.track(eventName: UsageAnalyticsEvents.onboardingFinalResult);
     }
   }
 

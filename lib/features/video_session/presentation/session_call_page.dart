@@ -426,7 +426,7 @@ class _SessionCallPageState extends State<SessionCallPage> with WidgetsBindingOb
   void _onErrorHandler(errorType) async {
     if (errorType == Errors.SessionAlreadyInProgress ||
         errorType == Errors.SessionJoinFailed ||
-        errorType == Errors.SessionDisconncting) {
+        errorType == Errors.SessionDisconnecting) {
       _reconnectToTheSession();
     }
   }

@@ -1,5 +1,5 @@
-class CIOAttributes {
-  const CIOAttributes._();
+class UsageAnalyticsAttributes {
+  const UsageAnalyticsAttributes._();
 
   // Onboarding
   static const String userId = 'User Id';
@@ -45,6 +45,7 @@ class CIOAttributes {
   // Education
   static const String articleId = 'Article ID';
   static const String articleTitle = 'Article title';
+  static const String articlePool = 'Article pool';
   static const String weightLogged = 'Weight logged';
   static const String emotion = 'Emotion';
   static const String companion = 'Companion';
@@ -53,12 +54,28 @@ class CIOAttributes {
   static const String note = 'Note';
 
   // Smart goals
-  static String goalCategoryTitle = 'Goal Category Title';
-  static String goalTitle = 'Goal  Title';
-  static String score = 'Score';
-  static String wantsToRepeat = 'Wants To Repeat';
+  static const String goalCategoryTitle = 'Goal Category Title';
+  static const String goalCategoryID = 'Goal Category ID';
+  static const String goalTitle = 'Goal Title';
+  static const String goalID = 'Goal ID';
+  static const String score = 'Score';
+  static const String wantsToRepeat = 'Wants To Repeat';
+  static const String allottedDays = 'Allotted Days';
+  static const String requiredCompletions = 'Required Completions';
+  static const String deletionReason = 'Deletion Reason';
   static const String finishDate = 'Finish date';
   static const String reviewLastDate = 'Review last date';
   static const String logValue = 'Number of times';
-  static const String dateLog = 'Date chosen for log';
+  static const String dateLog = 'Date logged';
+
+  // Nutrition
+  static const String foodItemId = 'Food item ID';
+  static const String foodItemAmount = 'Food item amount';
+  static const String foodItemName = 'Food item name';
+  static const String mealCategory = 'Meal category';
+
+  // Reflection
+  static const String reflectionId = 'Reflection ID';
+  static const String reflectionTitle = 'Reflection title';
+  static const String reflectionPool = 'Reflection pool';
 }

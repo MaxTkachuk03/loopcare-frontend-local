@@ -2,6 +2,8 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_uxcam/flutter_uxcam.dart';
+import 'package:loopcare_frontend/core/domain/analytics/usage_analytics/usage_analytics.dart';
+import 'package:loopcare_frontend/core/domain/analytics/usage_analytics/usage_analytics_events.dart';
 import 'package:loopcare_frontend/core/presentation/buttons/custom_elevated_button.dart';
 import 'package:loopcare_frontend/core/presentation/routes/app_router.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
@@ -17,11 +19,15 @@ import 'package:loopcare_frontend/localization/service/localization_extension.da
 import 'package:loopcare_frontend/localization/service/localized_texts.dart';
 
 class AccountSection extends StatelessWidget {
-  const AccountSection({super.key});
+  AccountSection({super.key});
+  final usageAnalytics = UsageAnalytics();
 
   void _onLogOutPressed(BuildContext context) {
     context.read<GroupPreferencesBloc>().add(const GroupPreferencesEvent.initClear());
     context.read<PhysicalProgramsBloc>().add(const PhysicalProgramsEvent.init());
+    usageAnalytics.track(
+      eventName: UsageAnalyticsEvents.logout,
+    );
     context
         .read<PhysicalActivitiesPreferencesBloc>()
         .add(const PhysicalActivitiesPreferencesEvent.init());

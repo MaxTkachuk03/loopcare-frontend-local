@@ -1,6 +1,9 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:loopcare_frontend/core/domain/analytics/usage_analytics/usage_analytics.dart';
+import 'package:loopcare_frontend/core/domain/analytics/usage_analytics/usage_analytics_attributes.dart';
+import 'package:loopcare_frontend/core/domain/analytics/usage_analytics/usage_analytics_events.dart';
 import 'package:loopcare_frontend/core/presentation/alerting/modal_bottom_sheet.dart';
 import 'package:loopcare_frontend/core/presentation/alerting/show_app_snackbar.dart';
 import 'package:loopcare_frontend/core/presentation/app_bar/custom_app_bar.dart';
@@ -10,6 +13,7 @@ import 'package:loopcare_frontend/core/presentation/scaffold/custom_scaffold.dar
 import 'package:loopcare_frontend/core/presentation/text/custom_text.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 import 'package:loopcare_frontend/core/presentation/utils/build_context_extensions.dart';
+import 'package:loopcare_frontend/features/nutrition/application/meals/meals_bloc.dart';
 import 'package:loopcare_frontend/features/nutrition/application/select_serving/food_item_servings_bloc.dart';
 import 'package:loopcare_frontend/features/nutrition/presentation/widgets/favourite_btn/favourite_btn.dart';
 import 'package:loopcare_frontend/features/nutrition/presentation/widgets/meal_category_filters_list/meal_category_filters_list.dart';
@@ -43,6 +47,8 @@ class SelectServingPage extends StatefulWidget {
 }
 
 class _SelectServingPageState extends State<SelectServingPage> {
+  final usageAnalytics = UsageAnalytics();
+
   @override
   void initState() {
     context.read<FoodItemServingsBloc>().add(
@@ -117,8 +123,10 @@ class _SelectServingPageState extends State<SelectServingPage> {
             return Padding(
               padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 30.0),
               child: CustomElevatedButton.blueFullWidth(
-                onPressed:
-                    enable ? () => _onConfirmPressed(context, servingAmount, servingId) : null,
+                onPressed: enable
+                    ? () =>
+                        _onConfirmPressed(context, servingAmount, servingId, widget.foodItemName)
+                    : null,
                 label: LocalizedTexts.confirm.tr(),
               ),
             );
@@ -128,8 +136,19 @@ class _SelectServingPageState extends State<SelectServingPage> {
     );
   }
 
-  _onConfirmPressed(BuildContext context, double amount, String? id) {
+  _onConfirmPressed(BuildContext context, double amount, String? id, String foodItemName) {
+    final mealCategory = context.read<MealsBloc>().state.data.currentMeal?.mealCategory;
+
     if (id != null) {
+      usageAnalytics.track(
+        eventName: UsageAnalyticsEvents.foodItemLogged,
+        attributes: {
+          UsageAnalyticsAttributes.foodItemId: id,
+          UsageAnalyticsAttributes.foodItemAmount: amount,
+          UsageAnalyticsAttributes.foodItemName: foodItemName,
+          UsageAnalyticsAttributes.mealCategory: mealCategory
+        },
+      );
       widget.onConfirm.call(amount, id);
     }
     context.router.maybePop();

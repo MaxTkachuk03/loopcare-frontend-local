@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:loopcare_frontend/core/application/customer_io_service/customer_io_service.dart';
 import 'package:loopcare_frontend/core/domain/analytics/analytics_events.dart';
 import 'package:loopcare_frontend/core/domain/analytics/analytics_parameters.dart';
+import 'package:loopcare_frontend/core/domain/analytics/usage_analytics/usage_analytics.dart';
+import 'package:loopcare_frontend/core/domain/analytics/usage_analytics/usage_analytics_attributes.dart';
+import 'package:loopcare_frontend/core/domain/analytics/usage_analytics/usage_analytics_events.dart';
 import 'package:loopcare_frontend/core/infrastructure/services/analytics_service.dart';
 import 'package:loopcare_frontend/core/presentation/alerting/show_app_snackbar.dart';
 import 'package:loopcare_frontend/core/presentation/bottom_placed_button/bottom_placed_button.dart';
@@ -35,6 +37,8 @@ class MentalCheckResultContent extends StatefulWidget {
 }
 
 class _MentalCheckResultContentState extends State<MentalCheckResultContent> {
+  final usageAnalytics = UsageAnalytics();
+
   void onUrlHandler(BuildContext context) async {
     final Uri launchUri = Uri.parse(LocalizedTexts.linksPsychologistConsulting.tr());
 
@@ -173,12 +177,12 @@ class _MentalCheckResultContentState extends State<MentalCheckResultContent> {
         },
       );
 
-      CustomerIoService.track(
-        event: CIOEvents.onboardingInterimResult,
+      usageAnalytics.track(
+        eventName: UsageAnalyticsEvents.onboardingInterimResult,
         attributes: {
-          CIOAttributes.testName: test.title,
-          CIOAttributes.testScore: result.totalScore,
-          CIOAttributes.interpretation: result.interpretation.name,
+          UsageAnalyticsAttributes.testName: test.title,
+          UsageAnalyticsAttributes.testScore: result.totalScore,
+          UsageAnalyticsAttributes.interpretation: result.interpretation.name,
         },
       );
     }

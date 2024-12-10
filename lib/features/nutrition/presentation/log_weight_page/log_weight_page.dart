@@ -2,10 +2,9 @@ import 'package:auto_route/auto_route.dart';
 import 'package:customer_io/customer_io.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:loopcare_frontend/core/application/customer_io_service/customer_io_attributes.dart';
-import 'package:loopcare_frontend/core/application/customer_io_service/customer_io_events.dart';
 import 'package:loopcare_frontend/core/domain/analytics/analytics_events.dart';
 import 'package:loopcare_frontend/core/domain/analytics/analytics_parameters.dart';
+import 'package:loopcare_frontend/core/domain/analytics/usage_analytics/usage_analytics_attributes.dart';
 import 'package:loopcare_frontend/core/infrastructure/services/analytics_service.dart';
 import 'package:loopcare_frontend/core/presentation/app_bar/custom_app_bar.dart';
 import 'package:loopcare_frontend/core/presentation/buttons/custom_elevated_button.dart';
@@ -24,6 +23,8 @@ import 'package:loopcare_frontend/features/nutrition/application/dashboard_weigh
 import 'package:loopcare_frontend/features/onboarding/utils/weight_conversion_utils.dart';
 import 'package:loopcare_frontend/localization/service/localization_extension.dart';
 import 'package:loopcare_frontend/localization/service/localized_texts.dart';
+
+import '../../../../core/domain/analytics/usage_analytics/usage_analytics_events.dart';
 
 @RoutePage()
 class LogWeightPage extends StatefulWidget {
@@ -51,7 +52,7 @@ class _LogWeightPageState extends State<LogWeightPage> {
     weightFieldController = TextEditingController(text: _getInputInitialValue());
     fieldFocusNode.requestFocus();
     CustomerIO.track(
-      name: CIOEvents.weightWidget,
+      name: UsageAnalyticsEvents.weightWidget,
     );
   }
 
@@ -102,10 +103,10 @@ class _LogWeightPageState extends State<LogWeightPage> {
     );
 
     CustomerIO.track(
-      name: CIOEvents.weightLogged,
+      name: UsageAnalyticsEvents.weightLogged,
       attributes: {
-        CIOAttributes.weightLogged: formattedWeight,
-        CIOAttributes.measurementSystem: _isMetricSystem
+        UsageAnalyticsAttributes.weightLogged: formattedWeight,
+        UsageAnalyticsAttributes.measurementSystem: _isMetricSystem
             ? MeasurementSystemType.metric.name
             : MeasurementSystemType.imperial.name,
       },

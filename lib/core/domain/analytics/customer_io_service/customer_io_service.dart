@@ -1,3 +1,4 @@
+import 'dart:developer';
 import 'dart:io';
 
 import 'package:customer_io/customer_io.dart';
@@ -6,15 +7,13 @@ import 'package:customer_io/customer_io_enums.dart';
 import 'package:device_info_plus/device_info_plus.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_timezone/flutter_timezone.dart';
-import 'package:loopcare_frontend/build_type.dart';
-import 'package:loopcare_frontend/core/application/customer_io_service/customer_io_attributes.dart';
-import 'package:loopcare_frontend/core/application/customer_io_service/customer_io_events.dart';
+
 import 'package:loopcare_frontend/core/application/firebase/mesaging/firebase_messaging.dart';
+import 'package:loopcare_frontend/core/domain/analytics/usage_analytics/usage_analytics.dart';
+import 'package:loopcare_frontend/core/domain/analytics/usage_analytics/usage_analytics_attributes.dart';
+import 'package:loopcare_frontend/core/domain/analytics/usage_analytics/usage_analytics_events.dart';
 import 'package:loopcare_frontend/core/infrastructure/services/country_code_service/country_code_service.dart';
 import 'package:package_info_plus/package_info_plus.dart';
-
-export 'customer_io_attributes.dart';
-export 'customer_io_events.dart';
 
 class CustomerIoService {
   static final DeviceInfoPlugin deviceInfoPlugin = DeviceInfoPlugin();
@@ -22,12 +21,8 @@ class CustomerIoService {
   static Future<void> initialize() async {
     await CustomerIO.initialize(
       config: CustomerIOConfig(
-        siteId: kIsAnalyticTestingEnv
-            ? dotenv.env['CUSTOMER_IO_SITE_ID'] ?? ''
-            : dotenv.env['PROD_CUSTOMER_IO_SITE_ID'] ?? '',
-        apiKey: kIsAnalyticTestingEnv
-            ? dotenv.env['CUSTOMER_IO_API_KEY'] ?? ''
-            : dotenv.env['PROD_CUSTOMER_IO_API_KEY'] ?? '',
+        siteId: dotenv.env['CUSTOMER_IO_SITE_ID'] ?? '',
+        apiKey: dotenv.env['CUSTOMER_IO_API_KEY'] ?? '',
         region: Region.eu,
         autoTrackDeviceAttributes: true,
         enableInApp: true,
@@ -43,6 +38,7 @@ class CustomerIoService {
     required bool receiveNotification,
   }) async {
     final timezone = await FlutterTimezone.getLocalTimezone();
+    final usageAnalytics = UsageAnalytics();
 
     CustomerIO.identify(
       identifier: id,
@@ -63,10 +59,10 @@ class CustomerIoService {
       },
     );
 
-    CustomerIO.track(
-      name: CIOEvents.onboardingNewUser,
+    usageAnalytics.track(
+      eventName: UsageAnalyticsEvents.onboardingNewUser,
       attributes: {
-        CIOAttributes.consentToEmail: receiveEmails,
+        UsageAnalyticsAttributes.consentToEmail: receiveEmails,
       },
     );
 
@@ -91,6 +87,7 @@ class CustomerIoService {
     final appVersion = '${info.version} (${info.buildNumber})';
     final userIdPrefix = CountryCodeService.instance.serverCountryCode;
     final timezone = await FlutterTimezone.getLocalTimezone();
+    final usageAnalytics = UsageAnalytics();
 
     CustomerIO.identify(
       identifier: customerIoId,
@@ -105,8 +102,8 @@ class CustomerIoService {
 
     await _setDevice();
 
-    CustomerIO.track(
-      name: CIOEvents.auth,
+    usageAnalytics.track(
+      eventName: UsageAnalyticsEvents.auth,
       attributes: {
         'last_auth': _timestamp,
         'app_version': appVersion,
@@ -135,15 +132,17 @@ class CustomerIoService {
   static void track({
     required String event,
     Map<String, dynamic>? attributes,
-  }) =>
-      CustomerIO.track(name: event, attributes: attributes ?? {});
+  }) {
+    log('tracking Customer.io event $event $attributes');
+    CustomerIO.track(name: event, attributes: attributes ?? {});
+  }
 
   static Future<void> changeUserEmail({
     required String email,
   }) async {
     CustomerIO.setProfileAttributes(
       attributes: {
-        CIOAttributes.updateEmail: email,
+        UsageAnalyticsAttributes.updateEmail: email,
       },
     );
   }

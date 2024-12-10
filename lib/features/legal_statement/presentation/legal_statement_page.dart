@@ -1,7 +1,8 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:loopcare_frontend/core/application/customer_io_service/customer_io_service.dart';
+import 'package:loopcare_frontend/core/domain/analytics/usage_analytics/usage_analytics.dart';
+import 'package:loopcare_frontend/core/domain/analytics/usage_analytics/usage_analytics_events.dart';
 import 'package:loopcare_frontend/core/presentation/app_bar/custom_app_bar.dart';
 import 'package:loopcare_frontend/core/presentation/bottom_placed_button/bottom_placed_button.dart';
 import 'package:loopcare_frontend/core/presentation/buttons/custom_elevated_button.dart';
@@ -27,11 +28,12 @@ class LegalStatementPage extends StatefulWidget {
 
 class _LegalStatementPageState extends State<LegalStatementPage> {
   final valueListener = ValueNotifier<bool>(false);
+  final usageAnalytics = UsageAnalytics();
 
   @override
   void initState() {
     super.initState();
-    CustomerIoService.track(event: CIOEvents.onboardingLegalStatement);
+    usageAnalytics.track(eventName: UsageAnalyticsEvents.onboardingLegalStatement);
   }
 
   @override
