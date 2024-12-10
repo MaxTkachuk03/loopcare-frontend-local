@@ -42,8 +42,7 @@ final _screenNames = {
   'PhysicalProgramsRoute': 'Physical Programs Screen', // added
   'ProgramDetailsRoute': 'Program Details Screen', // added
   'FoodPreferencesRoute': 'Food Preferences Screen', // added
-  'LessonCompleteFoodPreferencesRoute':
-      'Lesson Complete Food Preferences Screen', // added
+  'LessonCompleteFoodPreferencesRoute': 'Lesson Complete Food Preferences Screen', // added
   'PhysicalPreferencesRoute': 'Physical Preferences Screen', // added
   'EditFoodPreferencesRoute': ' Edit Food Preferences Screen', // added
   'JoinGroupPreferencesRoute': 'Join Group Preferences Screen', // added
@@ -63,11 +62,9 @@ final _screenNames = {
   'SessionCallRoute': 'Group Session Call Screen',
   'SessionRulesRoute': 'Group Session Rules Screen',
   'PreparationMaterialsRoute': 'Group Session Preparation Materials Screen',
-  'PhysicalActivitiesPreferencesRoute':
-      'Physical Activities Preferences Screen',
+  'PhysicalActivitiesPreferencesRoute': 'Physical Activities Preferences Screen',
   'PhysicalActivitiesFrequencyRoute': 'Physical Activities Frequency Screen',
-  'PhysicalActivitiesActivityTypeRoute':
-      'Physical Activities Activity Type Screen',
+  'PhysicalActivitiesActivityTypeRoute': 'Physical Activities Activity Type Screen',
   'PhysicalActivitiesCompleteRoute': 'Physical Activities Complete Screen',
   'CreateMoodRoute': 'Create Mood Screen',
   'MoodOptionRoute': 'Mood Option Screen',
@@ -96,13 +93,11 @@ final _screenNames = {
   'ExerciseRoute': 'Mind Technique Exercise Screen', // added
 };
 
-String? getScreenName(String? value) => value == null
-    ? null
-    : _screenNames[value] ?? value.replaceLast('Route', 'Screen').setSpaces();
+String? getScreenName(String? value) =>
+    value == null ? null : _screenNames[value] ?? value.replaceLast('Route', 'Screen').setSpaces();
 
 extension _ScreenNameStringExtension on String {
-  String setSpaces() =>
-      splitMapJoin(RegExp(r'[A-Z]'), onMatch: (s) => ' ${s[0]}').trim();
+  String setSpaces() => splitMapJoin(RegExp(r'[A-Z]'), onMatch: (s) => ' ${s[0]}').trim();
 
   String replaceLast(String from, String to) =>
       replaceFirstMapped(from, (match) => to, length - from.length);

@@ -11,10 +11,10 @@ class InteractiveLessonProgressResponse {
   final String message;
 
   const InteractiveLessonProgressResponse(
-      this.id,
-      this.success,
-      this.message,
-      );
+    this.id,
+    this.success,
+    this.message,
+  );
 
   static InteractiveLessonProgressResponse fromJson(Map<String, dynamic> json) =>
       _$InteractiveLessonProgressResponseFromJson(json);

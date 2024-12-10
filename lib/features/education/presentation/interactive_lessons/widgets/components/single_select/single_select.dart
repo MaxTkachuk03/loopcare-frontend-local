@@ -51,7 +51,9 @@ class _SingleSelectState extends State<SingleSelect> {
     });
 
     widget.onSaveProgress(
-        InteractiveLessonComponentProgress(optionIds: _selectedAnswer, type: widget.component.type.name), widget.component);
+        InteractiveLessonComponentProgress(
+            optionIds: _selectedAnswer, type: widget.component.type.name),
+        widget.component);
   }
 
   SelectContent get content => widget.component.content;

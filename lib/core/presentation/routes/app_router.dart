@@ -47,8 +47,7 @@ class AppRouter extends $AppRouter {
           page: HomeRoute.page,
           children: [
             AutoRoute(path: AppRoutes.dashboard, page: DashboardRoute.page),
-            AutoRoute(
-                path: AppRoutes.river, page: RiverRoute.page, initial: true),
+            AutoRoute(path: AppRoutes.river, page: RiverRoute.page, initial: true),
             AutoRoute(path: AppRoutes.account, page: AccountRoute.page),
           ],
         ),

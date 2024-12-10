@@ -22,17 +22,16 @@ class CommitmentDashboard extends StatelessWidget {
   const CommitmentDashboard({super.key, required this.selectedDay});
 
   void _onPressHandler(BuildContext context) {
-  if(selectedDay.isFuture) return;
+    if (selectedDay.isFuture) return;
 
-  context.router.pushNamed(AppRoutes.nutritionIntake);
-}
+    context.router.pushNamed(AppRoutes.nutritionIntake);
+  }
 
-  void onErrorHandler(BuildContext context) =>
-      context.read<CommitmentBloc>().add(CommitmentEvent.getCommitment(
-          startDate: selectedDay, endDate: selectedDay));
+  void onErrorHandler(BuildContext context) => context
+      .read<CommitmentBloc>()
+      .add(CommitmentEvent.getCommitment(startDate: selectedDay, endDate: selectedDay));
 
-  Color get _textColor =>
-      !selectedDay.isFuture ? AppColors.blueDarker : AppColors.greyLabel;
+  Color get _textColor => !selectedDay.isFuture ? AppColors.blueDarker : AppColors.greyLabel;
 
   @override
   Widget build(BuildContext context) {
@@ -41,8 +40,7 @@ class CommitmentDashboard extends StatelessWidget {
         final totalCommitments = state.data.totalCommitments;
         final completedCommitments = state.data.completedCommitments;
         return Container(
-          padding: const EdgeInsets.only(
-              top: 8.0, bottom: 8.0, right: 8.0, left: 8.0),
+          padding: const EdgeInsets.only(top: 8.0, bottom: 8.0, right: 8.0, left: 8.0),
           decoration: const BoxDecoration(
             color: AppColors.white,
             borderRadius: BorderRadius.all(Radius.circular(8)),
@@ -59,8 +57,7 @@ class CommitmentDashboard extends StatelessWidget {
                   children: [
                     CustomText.bitter600(
                       LocalizedTexts.commitment.tr(),
-                      style: context.textTheme.headlineSmall
-                          ?.copyWith(color: _textColor),
+                      style: context.textTheme.headlineSmall?.copyWith(color: _textColor),
                     ),
                   ],
                 ),
@@ -78,9 +75,7 @@ class CommitmentDashboard extends StatelessWidget {
                 error: (s) {
                   final error = s.data.error;
 
-                  return ErrorScreen(
-                      error: error!,
-                      onButtonPressed: () => onErrorHandler(context));
+                  return ErrorScreen(error: error!, onButtonPressed: () => onErrorHandler(context));
                 },
                 orElse: () {
                   return Padding(
@@ -93,20 +88,20 @@ class CommitmentDashboard extends StatelessWidget {
                             NutritionIndicator.small(
                               color: AppColors.blueLightest,
                               label: '$completedCommitments/$totalCommitments',
-                              progress: totalCommitments != 0 ? completedCommitments / totalCommitments : 0.0,
+                              progress: totalCommitments != 0
+                                  ? completedCommitments / totalCommitments
+                                  : 0.0,
                             ),
                             const SizedBox(
                               width: 20.0,
                             ),
                             CustomText.w600(
                               LocalizedTexts.completeYourSurveys.tr(),
-                              style: context.textTheme.titleSmall
-                                  ?.copyWith(color: _textColor),
+                              style: context.textTheme.titleSmall?.copyWith(color: _textColor),
                             ),
                           ],
                         ),
-                        if (completedCommitments > 0 &&
-                            completedCommitments != totalCommitments)
+                        if (completedCommitments > 0 && completedCommitments != totalCommitments)
                           const ImageIcon(AppIcons.checkmark,
                               color: AppColors.blueDarker, size: 44),
                         if (completedCommitments >= totalCommitments)

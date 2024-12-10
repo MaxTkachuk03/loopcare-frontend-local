@@ -47,20 +47,17 @@ class _MealPageState extends State<MealPage> {
   void _onSaveToMyDishesHandler() {
     final state = context.read<MealsBloc>().state;
 
-    final mealCategory = DishFavoritesCategory.values
-            .asNameMap()
-            .containsKey(state.data.currentMealCategory?.name)
-        ? state.data.currentMealCategory?.name
-        : MealCategory.breakfast.originalValue;
+    final mealCategory =
+        DishFavoritesCategory.values.asNameMap().containsKey(state.data.currentMealCategory?.name)
+            ? state.data.currentMealCategory?.name
+            : MealCategory.breakfast.originalValue;
 
     final mealId = state.data.getCurrentMealId;
 
     if (mealId == null || mealCategory == null) return;
 
     if (state.data.isContainsRecipeOrDish) {
-      context.showError(
-          content:
-              CustomText(LocalizedTexts.invalidCreateDishFromMealMessage.tr()));
+      context.showError(content: CustomText(LocalizedTexts.invalidCreateDishFromMealMessage.tr()));
       return;
     }
 
@@ -79,8 +76,7 @@ class _MealPageState extends State<MealPage> {
 
   String get _genericDishName {
     // TODO dish name cant be empty, so get generic name for now
-    final mealCategory =
-        context.read<MealsBloc>().state.data.currentMealCategory;
+    final mealCategory = context.read<MealsBloc>().state.data.currentMealCategory;
     final mealId = context.read<MealsBloc>().state.data.getCurrentMealId;
     return '$mealCategory dish from meal $mealId';
   }
@@ -102,8 +98,7 @@ class _MealPageState extends State<MealPage> {
   String get _appBarSubTitle {
     final state = context.read<MealsBloc>().state;
 
-    return state.data.currentDateTime.dateOnly
-            .isSameDate(DateTime.now().dateOnly)
+    return state.data.currentDateTime.dateOnly.isSameDate(DateTime.now().dateOnly)
         ? state.data.currentDateTime.shortDate
         : LocalizedTexts.today.tr().capitalize();
   }
@@ -126,8 +121,9 @@ class _MealPageState extends State<MealPage> {
           context.router.maybePop();
         },
         onDeleted: () {
-          context.read<MealsBloc>().add(MealsEvent.deleteMeal(
-              context.read<MealsBloc>().state.data.getCurrentMealId));
+          context
+              .read<MealsBloc>()
+              .add(MealsEvent.deleteMeal(context.read<MealsBloc>().state.data.getCurrentMealId));
 
           context.router.popUntilRouteWithName(HomeRoute.name);
         },
@@ -137,8 +133,9 @@ class _MealPageState extends State<MealPage> {
       ModalBottomSheet.deleteMeal(
         context: context,
         onDeleted: () {
-          context.read<MealsBloc>().add(MealsEvent.deleteMeal(
-              context.read<MealsBloc>().state.data.getCurrentMealId));
+          context
+              .read<MealsBloc>()
+              .add(MealsEvent.deleteMeal(context.read<MealsBloc>().state.data.getCurrentMealId));
           // Need  to observe behavior, and remove this after ~20 Feb 2024
           // _setOriginDate();
 
@@ -157,11 +154,8 @@ class _MealPageState extends State<MealPage> {
             .length >
         1;
 
-    if (state.data.currentFoodItems.isEmpty &&
-        !hasMoreThanOneMealRouteInStack) {
-      context
-          .read<MealsBloc>()
-          .add(MealsEvent.deleteMeal(state.data.getCurrentMealId));
+    if (state.data.currentFoodItems.isEmpty && !hasMoreThanOneMealRouteInStack) {
+      context.read<MealsBloc>().add(MealsEvent.deleteMeal(state.data.getCurrentMealId));
     }
 
     // _setOriginDate();
@@ -170,8 +164,7 @@ class _MealPageState extends State<MealPage> {
   void _onBackToDashboardPressed() {
     // Method _onWillPop() will called in any case
     const source = 'NutritionIntakeRoute';
-    if (context.router.stack[1].routeData.name.toLowerCase() ==
-        source.toLowerCase()) {
+    if (context.router.stack[1].routeData.name.toLowerCase() == source.toLowerCase()) {
       context.router.popUntilRouteWithName(NutritionIntakeRoute.name);
     } else {
       context.router.popUntilRouteWithName(HomeRoute.name);
@@ -209,12 +202,9 @@ class _MealPageState extends State<MealPage> {
                     error: error!,
                     //TODO: need to check
                     onButtonPressed: () {
-                      final mealId =
-                          context.read<MealsBloc>().state.data.getCurrentMealId;
+                      final mealId = context.read<MealsBloc>().state.data.getCurrentMealId;
                       if (mealId != null) {
-                        context
-                            .read<MealsBloc>()
-                            .add(MealsEvent.fetchMealById(mealId));
+                        context.read<MealsBloc>().add(MealsEvent.fetchMealById(mealId));
                       }
                     },
                   );
@@ -225,15 +215,11 @@ class _MealPageState extends State<MealPage> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       NutritionValuesBlock(
-                        numberOfPortions: mealsState
-                                .data.currentMeal?.serving.numberOfUnits
-                                .toInt() ??
-                            0,
-                        selectedNutritionType:
-                            mealsState.data.currentNutritionType,
+                        numberOfPortions:
+                            mealsState.data.currentMeal?.serving.numberOfUnits.toInt() ?? 0,
+                        selectedNutritionType: mealsState.data.currentNutritionType,
                         nutritionValuesList:
-                            mealsState.data.currentMeal?.serving.list ??
-                                <NutritionItem>[],
+                            mealsState.data.currentMeal?.serving.list ?? <NutritionItem>[],
                         onNutritionFactSelect: _onNutritionFactSelect,
                       ),
                       Expanded(
@@ -244,18 +230,13 @@ class _MealPageState extends State<MealPage> {
                             children: [
                               MealsList(isActive: mealsState.data.isEditable),
                               Padding(
-                                padding:
-                                    const EdgeInsets.symmetric(vertical: 20.0),
+                                padding: const EdgeInsets.symmetric(vertical: 20.0),
                                 child: NutritionSummary(
-                                  proteinDegree:
-                                      state.data.currentMealProteinDegree,
-                                  calorieDensity:
-                                      state.data.currentMealCalorieDensity,
+                                  proteinDegree: state.data.currentMealProteinDegree,
+                                  calorieDensity: state.data.currentMealCalorieDensity,
                                   fiber: state.data.currentMealFiber,
-                                  carbFiberRatio:
-                                      state.data.currentMealCarbFiberRatio,
-                                  carbsPercent:
-                                      state.data.currentMealCarbsPercent,
+                                  carbFiberRatio: state.data.currentMealCarbFiberRatio,
+                                  carbsPercent: state.data.currentMealCarbsPercent,
                                   totalCalories: state.data.currentMealCalories,
                                   totalCarbs: state.data.currentMealCarbsSum,
                                 ),
@@ -264,32 +245,22 @@ class _MealPageState extends State<MealPage> {
                                 MainContainer(
                                   child: Column(
                                     mainAxisAlignment: MainAxisAlignment.start,
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
+                                    crossAxisAlignment: CrossAxisAlignment.start,
                                     children: [
                                       Row(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
+                                        crossAxisAlignment: CrossAxisAlignment.start,
                                         children: [
                                           Expanded(
-                                            child:
-                                                CustomOutlinedButton.blueSmall(
-                                              label: LocalizedTexts
-                                                  .saveToMyDishes
-                                                  .tr(),
-                                              onPressed:
-                                                  _onSaveToMyDishesHandler,
+                                            child: CustomOutlinedButton.blueSmall(
+                                              label: LocalizedTexts.saveToMyDishes.tr(),
+                                              onPressed: _onSaveToMyDishesHandler,
                                             ),
                                           ),
                                           const SizedBox(width: 10.0),
                                           Expanded(
-                                            child:
-                                                CustomOutlinedButton.blueSmall(
-                                              label: LocalizedTexts
-                                                  .clearMealList
-                                                  .tr(),
-                                              onPressed: () =>
-                                                  _onDeleteMealPressed(context),
+                                            child: CustomOutlinedButton.blueSmall(
+                                              label: LocalizedTexts.clearMealList.tr(),
+                                              onPressed: () => _onDeleteMealPressed(context),
                                             ),
                                           ),
                                         ],
@@ -303,8 +274,7 @@ class _MealPageState extends State<MealPage> {
                       ),
                       if (mealsState.data.isEditable)
                         Padding(
-                          padding: const EdgeInsets.symmetric(
-                              vertical: 30.0, horizontal: 24.0),
+                          padding: const EdgeInsets.symmetric(vertical: 30.0, horizontal: 24.0),
                           child: CustomElevatedButton.blueFullWidth(
                             onPressed: _onBackToDashboardPressed,
                             label: LocalizedTexts.finishMealLogging.tr(),

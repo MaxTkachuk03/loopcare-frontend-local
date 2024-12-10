@@ -18,8 +18,7 @@ class NutritionIndicator extends StatelessWidget {
     this.progress = 0.0,
   });
 
-  factory NutritionIndicator.big(
-          {required Color color, required String label, double? progress}) =>
+  factory NutritionIndicator.big({required Color color, required String label, double? progress}) =>
       NutritionIndicator(
         color: color,
         label: label,
@@ -36,10 +35,9 @@ class NutritionIndicator extends StatelessWidget {
         progress: progress ?? 0.0,
       );
 
-  TextStyle? _textStyle(BuildContext context) =>
-      layoutSize == NutritionIndicatorSize.big
-          ? context.textTheme.displayMedium
-          : context.textTheme.bodySmall;
+  TextStyle? _textStyle(BuildContext context) => layoutSize == NutritionIndicatorSize.big
+      ? context.textTheme.displayMedium
+      : context.textTheme.bodySmall;
 
   @override
   Widget build(BuildContext context) {
@@ -52,8 +50,7 @@ class NutritionIndicator extends StatelessWidget {
           Container(
             decoration: BoxDecoration(
               color: AppColors.blueDarker,
-              borderRadius:
-                  BorderRadius.all(Radius.circular(layoutSize.width / 2)),
+              borderRadius: BorderRadius.all(Radius.circular(layoutSize.width / 2)),
             ),
             child: Align(
               alignment: Alignment.center,

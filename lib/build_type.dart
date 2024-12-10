@@ -2,6 +2,8 @@ bool get kIsDev => EnvironmentType.currentType.isDev;
 
 bool get kIsProd => EnvironmentType.currentType.isProd;
 
+bool get kIsStag => EnvironmentType.currentType.isStag;
+
 const String _kRawBuildType = String.fromEnvironment('FLAVOR', defaultValue: 'dev');
 
 enum BuildType {
@@ -15,6 +17,8 @@ enum BuildType {
   bool get isDev => this == dev;
 
   bool get isProd => this == prod;
+
+  bool get isStag => this == stag;
 }
 
 class EnvironmentType {

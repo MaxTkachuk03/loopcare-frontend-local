@@ -21,10 +21,8 @@ class SaveInteractiveLessonProgressBody {
     required this.progress,
   });
 
-  factory SaveInteractiveLessonProgressBody.fromJson(
-          Map<String, dynamic> json) =>
+  factory SaveInteractiveLessonProgressBody.fromJson(Map<String, dynamic> json) =>
       _$SaveInteractiveLessonProgressBodyFromJson(json);
 
-  Map<String, dynamic> toJson() =>
-      _$SaveInteractiveLessonProgressBodyToJson(this);
+  Map<String, dynamic> toJson() => _$SaveInteractiveLessonProgressBodyToJson(this);
 }

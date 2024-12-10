@@ -2,17 +2,13 @@ part of 'commitment_bloc.dart';
 
 @freezed
 class CommitmentState with _$CommitmentState {
-  const factory CommitmentState.initial(CommitmentStateData data) =
-      CommitmentStateInitial;
+  const factory CommitmentState.initial(CommitmentStateData data) = CommitmentStateInitial;
 
-  const factory CommitmentState.loading(CommitmentStateData data) =
-      CommitmentStateLoading;
+  const factory CommitmentState.loading(CommitmentStateData data) = CommitmentStateLoading;
 
-  const factory CommitmentState.commitmentLoaded(CommitmentStateData data) =
-      CommitmentStateLoaded;
+  const factory CommitmentState.commitmentLoaded(CommitmentStateData data) = CommitmentStateLoaded;
 
-  const factory CommitmentState.error(CommitmentStateData data) =
-      CommitmentStateError;
+  const factory CommitmentState.error(CommitmentStateData data) = CommitmentStateError;
 }
 
 @freezed

@@ -24,8 +24,7 @@ class AppRoutes {
   static const String name = '/name'; // added
   static const String password = '/password'; // added
   static const String emailAddress = '/email-address'; // added
-  static const String waitingForConfirmation =
-      '/waiting-for-confirmation'; // added
+  static const String waitingForConfirmation = '/waiting-for-confirmation'; // added
   static const String changeEmail = '/change-email-address'; // added
   static const String selectAvatar = '/select-avatar';
 
@@ -72,19 +71,15 @@ class AppRoutes {
   static const String chooseProgram = '/choose-program'; // added
   static const String programAssessment = '/program-assessment'; // added
   static const String programDetails = '/program-details'; // added
-  static const String physicalPreferencesIntro =
-      '/physical-preferences-intro'; // added
-  static const String physicalActivitiesFrequency =
-      '/physical-activities-frequency'; // added
+  static const String physicalPreferencesIntro = '/physical-preferences-intro'; // added
+  static const String physicalActivitiesFrequency = '/physical-activities-frequency'; // added
   static const String physicalActivitiesActivityType =
       '/physical-activities-activity-type'; // added
-  static const String physicalActivitiesComplete =
-      '/physical-activities-complete'; // added
+  static const String physicalActivitiesComplete = '/physical-activities-complete'; // added
 
   // User profile
   static const String foodPreferences = '/food-preferences'; // added
-  static const String lessonCompleteFoodPreferences =
-      '/lesson-complete-food-preferences';
+  static const String lessonCompleteFoodPreferences = '/lesson-complete-food-preferences';
 
   static const String physicalPreferences = '/physical-preferences';
   static const String editFoodPreferences = '/edit-food-preferences'; // added

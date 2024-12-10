@@ -8,15 +8,9 @@ import 'package:loopcare_frontend/features/education/application/dto/interactive
 import 'package:loopcare_frontend/features/education/application/dto/save_lesson_quiz_question_answer_body.dart';
 import 'package:loopcare_frontend/features/education/application/education_service.dart';
 import 'package:loopcare_frontend/features/education/domain/interactive_lesson/interactive_lesson.dart';
-import 'package:loopcare_frontend/features/education/infrastructure/interactive_lesson_mock_new_structure.dart';
-import 'package:loopcare_frontend/features/education/infrastructure/nutrition_intake_lunch.dart';
-import 'package:loopcare_frontend/features/education/infrastructure/nutrition_intake_snaks.dart';
-import 'package:loopcare_frontend/features/education/infrastructure/nutrition_mock.dart';
-import 'package:loopcare_frontend/features/education/infrastructure/test_mock.dart';
 import 'package:loopcare_frontend/features/lesson_quiz/domain/quiz.dart';
 import 'package:loopcare_frontend/core/infrastructure/services/logger/logger.dart';
 import 'package:loopcare_frontend/features/education/application/dto/save_interactive_lesson_progress_body.dart';
-import 'package:loopcare_frontend/features/education/infrastructure/commitment_mock.dart';
 
 @Injectable(as: EducationService)
 class APIEducationService implements EducationService {
@@ -60,48 +54,43 @@ class APIEducationService implements EducationService {
   }
 
   @override
-  Future<Either<RequestError, InteractiveLesson>> getInteractiveLesson(
-      int lessonId) async {
+  Future<Either<RequestError, InteractiveLesson>> getInteractiveLesson(int lessonId) async {
     // TODO: delete after dev phase
-    if (lessonId == 6) {
-      return right(InteractiveLesson.debugFromJson(commitmentLesson));
-    } else if (lessonId == 7) {
-      return right(InteractiveLesson.debugFromJson(nutritionLesson));
-    } else if (lessonId == 5) {
-      return right(InteractiveLesson.debugFromJson(interactiveLesson));
-    } else if (lessonId == 1) {
-      return right(InteractiveLesson.debugFromJson(nutritionIntakeLesson));
-    } else if (lessonId == 2) {
-      return right(InteractiveLesson.debugFromJson(nutritionIntakeLessonSnaks));
-    } else {
-      return right(InteractiveLesson.debugFromJson(testLesson));
-    }
+    // if (lessonId == 6) {
+    //   return right(InteractiveLesson.debugFromJson(commitmentLesson));
+    // } else if (lessonId == 7) {
+    //   return right(InteractiveLesson.debugFromJson(nutritionLesson));
+    // } else if (lessonId == 5) {
+    //   return right(InteractiveLesson.debugFromJson(interactiveLesson));
+    // } else if (lessonId == 1) {
+    //   return right(InteractiveLesson.debugFromJson(nutritionIntakeLesson));
+    // } else if (lessonId == 2) {
+    //   return right(InteractiveLesson.debugFromJson(nutritionIntakeLessonSnaks));
+    // } else {
+    //   return right(InteractiveLesson.debugFromJson(testLesson));
+    // }
 
     // return client.get(
     //   '/education/interactive-lessons/$lessonId',
     //   fromJson: InteractiveLesson.fromJson,
     // );
-    // if (lessonId == 6) {
 
-    // } else {
-    // try {
-    //   final response = await client.get(
-    //     '/education/interactive-lessons/$lessonId',
-    //     fromJson: InteractiveLesson.debugFromJson,
-    //   );
-    //   log.d('Raw Response: response');
-    //   return response;
-    // } catch (e, stackTrace) {
-    //   log.w('Error in client.get: $e');
-    //   log.w('Stack Trace: $stackTrace');
-    //   rethrow; // Optional: rethrow the error for further handling
-    // }
-    // }
+    try {
+      final response = await client.get(
+        '/education/interactive-lessons/$lessonId',
+        fromJson: InteractiveLesson.debugFromJson,
+      );
+      log.d('Raw Response: response');
+      return response;
+    } catch (e, stackTrace) {
+      log.w('Error in client.get: $e');
+      log.w('Stack Trace: $stackTrace');
+      rethrow; // Optional: rethrow the error for further handling
+    }
   }
 
   @override
-  Future<Either<RequestError, InteractiveLessonProgressResponse>>
-      saveInteractiveLessonProgress(
+  Future<Either<RequestError, InteractiveLessonProgressResponse>> saveInteractiveLessonProgress(
     int chunkId,
     SaveInteractiveLessonProgressBody data,
   ) async {

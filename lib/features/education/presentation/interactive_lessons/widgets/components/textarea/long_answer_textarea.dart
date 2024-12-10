@@ -113,7 +113,10 @@ class _LongAnswerTextAreaState extends State<LongAnswerTextArea> {
 
     if (isEditing) {
       componentHistory[i] = InteractiveLessonTextAreaHistory(
-          text: textToSave, updatedAt: _dateTime[i], createdAt: componentHistory[i].createdAt);
+          id: componentHistory[i].id,
+          text: textToSave,
+          updatedAt: _dateTime[i],
+          createdAt: componentHistory[i].createdAt);
       setState(() {
         isEditing = false;
       });
@@ -124,7 +127,9 @@ class _LongAnswerTextAreaState extends State<LongAnswerTextArea> {
     }
 
     widget.onSaveProgress(
-        InteractiveLessonComponentProgress(history: componentHistory, type: widget.component.type.name), widget.component);
+        InteractiveLessonComponentProgress(
+            history: componentHistory, type: widget.component.type.name),
+        widget.component);
 
     setState(() {
       _isButtonDisabled[i] = false;
@@ -155,7 +160,9 @@ class _LongAnswerTextAreaState extends State<LongAnswerTextArea> {
     setDeleteButtonStatus();
 
     widget.onSaveProgress(
-        InteractiveLessonComponentProgress(history: componentHistory, type: widget.component.type.name), widget.component);
+        InteractiveLessonComponentProgress(
+            history: componentHistory, type: widget.component.type.name),
+        widget.component);
   }
 
   void _addComponent() {
@@ -223,7 +230,7 @@ class _LongAnswerTextAreaState extends State<LongAnswerTextArea> {
             isButtonDisabled: _isButtonDisabled[i],
             successText: successText[i],
             controller: _controllers[i],
-            dateTime: _dateTime[i],
+            dateTime: _dateTime[i].toLocal(),
             lessonStreamType: widget.lessonStreamType,
             clearTextHandler: () => _clearTextHandler(i),
             editTextHandler: () => _editTextHandler(i),

@@ -8,7 +8,7 @@ var commitmentLesson = {
   "conclusion": "Time to learn about your diet!",
   "unlockTitle": "Personal Commitment unlocked",
   "unlockDescription":
-  "For each committed day, log everything you eat. Complete the food log survey after you are done logging each day.",
+      "For each committed day, log everything you eat. Complete the food log survey after you are done logging each day.",
   "topics": [
     {
       "id": 1,
@@ -67,7 +67,7 @@ var commitmentLesson = {
       "content": {
         "content": {
           "question":
-          "My question. Select multiple answers.How many days will you commit to logging your food in this module? Remember, you must spend at least 7 days in this module, and you won’t be able to move on until you have logged as many days as you commit to now.",
+              "My question. Select multiple answers.How many days will you commit to logging your food in this module? Remember, you must spend at least 7 days in this module, and you won’t be able to move on until you have logged as many days as you commit to now.",
           "answers": [
             {"id": 1, "label": "4 days", "isCorrect": null},
             {"id": 2, "label": "5 days", "isCorrect": null},

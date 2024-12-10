@@ -52,7 +52,9 @@ class _SurveyState extends State<Survey> {
     });
 
     widget.onSaveProgress(
-        InteractiveLessonComponentProgress(survey: _selectedAnswer, type: widget.component.type.name), widget.component);
+        InteractiveLessonComponentProgress(
+            survey: _selectedAnswer, type: widget.component.type.name),
+        widget.component);
   }
 
   SelectContent get content => widget.component.content;

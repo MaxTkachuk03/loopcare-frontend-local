@@ -11,5 +11,6 @@ class MealTimingContent with _$MealTimingContent {
     required List<MealsListItem> meals,
   }) = _MealTimingContent;
 
-  factory MealTimingContent.fromJson(Map<String, dynamic> json) => _$MealTimingContentFromJson(json);
+  factory MealTimingContent.fromJson(Map<String, dynamic> json) =>
+      _$MealTimingContentFromJson(json);
 }

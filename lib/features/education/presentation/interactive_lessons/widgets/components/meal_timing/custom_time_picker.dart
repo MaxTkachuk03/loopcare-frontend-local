@@ -1,13 +1,10 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:loopcare_frontend/core/presentation/animations/lottie_animation.dart';
 import 'package:loopcare_frontend/core/presentation/text/custom_text.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 import 'package:loopcare_frontend/core/presentation/utils/build_context_extensions.dart';
-import 'package:loopcare_frontend/core/presentation/utils/date_time_extensions.dart';
 import 'package:loopcare_frontend/features/education/presentation/interactive_lessons/widgets/continue_btn.dart';
-import 'package:loopcare_frontend/features/nutrition/application/meals/meals_bloc.dart';
 import 'package:loopcare_frontend/features/nutrition/application/meals/meals_bloc.dart';
 
 class CustomTimePicker extends StatefulWidget {
@@ -34,8 +31,7 @@ class _CustomTimePickerState extends State<CustomTimePicker> {
           child: Container(
             height: height / 2.5,
             width: width / 1.15,
-            padding:
-                const EdgeInsets.symmetric(vertical: 26.0, horizontal: 20.0),
+            padding: const EdgeInsets.symmetric(vertical: 26.0, horizontal: 20.0),
             decoration: BoxDecoration(
               color: AppColors.bgGreen,
               borderRadius: BorderRadius.circular(20),
@@ -45,8 +41,7 @@ class _CustomTimePickerState extends State<CustomTimePicker> {
               children: [
                 CustomText(
                   "Select your time",
-                  style: context.textTheme.bodyMedium!
-                      .copyWith(fontWeight: FontWeight.w700),
+                  style: context.textTheme.bodyMedium!.copyWith(fontWeight: FontWeight.w700),
                 ),
                 Expanded(
                   child: Stack(
@@ -55,7 +50,7 @@ class _CustomTimePickerState extends State<CustomTimePicker> {
                       CupertinoDatePicker(
                         initialDateTime: widget.initialTime,
                         onDateTimeChanged: (DateTime value) {
-                          print("value: $value");
+                          // print("value: $value");
                           // state.
                           newTime = value;
                         },
@@ -87,7 +82,6 @@ class _CustomTimePickerState extends State<CustomTimePicker> {
     );
   }
 }
-
 
 /*
 

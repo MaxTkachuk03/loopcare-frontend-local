@@ -36,7 +36,7 @@ class NutritionIntakeButton extends StatelessWidget {
   final double? calorieDensity;
   final List<MealItem>? mealItems;
   final bool isDisabled;
-  final NitritionIntakeDoneLessons? progress;
+  final NutritionIntakeDoneLessons? progress;
 
   void _onTapHandler(BuildContext context) {
     if (isDisabled && mealId == null) return;
@@ -50,8 +50,7 @@ class NutritionIntakeButton extends StatelessWidget {
   }
 
   void _goToNutritionTest(BuildContext context) {
-    if (mealId != null &&
-        category.title.toLowerCase().contains('snacks'.toLowerCase())) {
+    if (mealId != null && category.title.toLowerCase().contains('snacks'.toLowerCase())) {
       context
           .read<InteractiveLessonsBloc>()
           .add(const InteractiveLessonsEvent.getInteractiveLesson(lessonId: 2));
@@ -67,15 +66,17 @@ class NutritionIntakeButton extends StatelessWidget {
     Future.delayed(
       const Duration(milliseconds: 800),
       () {
-        if (context.mounted) {context.router.pushNamed(AppRoutes.interactiveLesson);}
+        if (context.mounted) {
+          context.router.pushNamed(AppRoutes.interactiveLesson);
+        }
       },
     );
   }
 
   @override
   Widget build(BuildContext context) {
-    final bool isThisCategory = (mealId != null &&
-        category.title.toLowerCase().contains(text.toLowerCase()));
+    final bool isThisCategory =
+        (mealId != null && category.title.toLowerCase().contains(text.toLowerCase()));
 
     final bool isCompleted = progress?.isCompleted == true;
     return Column(
@@ -128,8 +129,7 @@ class NutritionIntakeButton extends StatelessWidget {
                           badgeColor: AppColors.blueRegular,
                           elevation: 0,
                         ),
-                        badgeAnimation:
-                            const badge.BadgeAnimation.slide(toAnimate: false),
+                        badgeAnimation: const badge.BadgeAnimation.slide(toAnimate: false),
                         position: badge.BadgePosition.topEnd(top: -8, end: -4),
                         badgeContent: const Padding(
                           padding: EdgeInsets.only(bottom: 2.0),
@@ -149,9 +149,8 @@ class NutritionIntakeButton extends StatelessWidget {
         CustomText.w700(
           text,
           textAlign: TextAlign.center,
-          style: context.textTheme.bodyMedium?.copyWith(
-              color:
-                  isThisCategory ? AppColors.blueDarkest : AppColors.greyLight),
+          style: context.textTheme.bodyMedium
+              ?.copyWith(color: isThisCategory ? AppColors.blueDarkest : AppColors.greyLight),
         ),
       ],
     );

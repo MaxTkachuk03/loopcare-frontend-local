@@ -5,14 +5,14 @@ part 'get_nutrition_intake_response.freezed.dart';
 part 'get_nutrition_intake_response.g.dart';
 
 @freezed
-class GetNutritionIntakeResponse with _$GetNutritionIntakeResponse{
+class GetNutritionIntakeResponse with _$GetNutritionIntakeResponse {
   const GetNutritionIntakeResponse._();
 
   factory GetNutritionIntakeResponse({
     required bool isDayClosed,
-    required List<NitritionIntakeDoneLessons> progress,
+    required List<NutritionIntakeDoneLessons> progress,
   }) = _GetNutritionIntakeResponse;
 
-   factory GetNutritionIntakeResponse.fromJson(Map<String, dynamic> json) =>
+  factory GetNutritionIntakeResponse.fromJson(Map<String, dynamic> json) =>
       _$GetNutritionIntakeResponseFromJson(json);
 }

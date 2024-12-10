@@ -11,7 +11,6 @@ import 'package:loopcare_frontend/features/education/domain/interactive_lesson/s
 import 'package:loopcare_frontend/features/education/domain/interactive_lesson/text_field_content/text_field_content.dart';
 import 'package:loopcare_frontend/features/education/domain/interactive_lesson/interactive_lesson_component_progress.dart';
 import 'package:loopcare_frontend/core/infrastructure/services/logger/logger.dart';
-import 'package:loopcare_frontend/features/nutrition/application/meals/dto/meals_list_item.dart';
 
 part 'interactive_lesson_chunk_component.freezed.dart';
 
@@ -92,17 +91,16 @@ class InteractiveLessonChunkComponent with _$InteractiveLessonChunkComponent {
   }) = InteractiveLessonChunkComponentOrdering;
 
   const factory InteractiveLessonChunkComponent.textArea(
-          {required int id,
-          required InteractiveLessonComponentType type,
-          required bool needsValidation,
-          required bool isValid,
-          required TextFieldContent content,
-          required int chunkId,
-          required InteractiveLessonComponentProgress? progress,
-          required int maxCharsLength,
-          required int maxTextFieldsAmount,
-          required int minTextFieldsAmount}) =
-      InteractiveLessonChunkComponentTextArea;
+      {required int id,
+      required InteractiveLessonComponentType type,
+      required bool needsValidation,
+      required bool isValid,
+      required TextFieldContent content,
+      required int chunkId,
+      required InteractiveLessonComponentProgress? progress,
+      required int maxCharsLength,
+      required int maxTextFieldsAmount,
+      required int minTextFieldsAmount}) = InteractiveLessonChunkComponentTextArea;
 
   const factory InteractiveLessonChunkComponent.textField({
     required int id,
@@ -137,8 +135,7 @@ class InteractiveLessonChunkComponent with _$InteractiveLessonChunkComponent {
   factory InteractiveLessonChunkComponent.fromJson(Map<String, dynamic> json) =>
       _$InteractiveLessonChunkComponentFromJson(json);
 
-  factory InteractiveLessonChunkComponent.debugFromJson(
-      Map<String, dynamic> json) {
+  factory InteractiveLessonChunkComponent.debugFromJson(Map<String, dynamic> json) {
     try {
       log.d('Parsing InteractiveLessonChunkComponent: $json');
 
@@ -156,8 +153,7 @@ class InteractiveLessonChunkComponent with _$InteractiveLessonChunkComponent {
       log.d("raw content ${json['content']}");
       log.d("raw imageURL ${json['imageURL']}");
       log.d('Content type: ${json['content'].runtimeType}');
-      log.d(
-          'Nested content: ${(json['content'] as Map<String, dynamic>)['content']}');
+      log.d('Nested content: ${(json['content'] as Map<String, dynamic>)['content']}');
       log.d(
           'Nested content type: ${(json['content'] as Map<String, dynamic>)['content'].runtimeType}');
 
@@ -169,18 +165,15 @@ class InteractiveLessonChunkComponent with _$InteractiveLessonChunkComponent {
       final isValid = json['isValid'] as bool;
       final chunkId = json['chunkId'] as int;
       final progressList = (json['progress'] as List<dynamic>? ?? [])
-          .map((e) => InteractiveLessonComponentProgress.fromJson(
-              e as Map<String, dynamic>))
+          .map((e) => InteractiveLessonComponentProgress.debugFromJson(e as Map<String, dynamic>))
           .toList();
-      final progress = progressList.isNotEmpty
-          ? progressList[0]
-          : null; // Handle type-specific parsing
+      final progress =
+          progressList.isNotEmpty ? progressList[0] : null; // Handle type-specific parsing
 
       // Preprocess and normalize the nested content
       if (json['content'] is Map<String, dynamic>) {
         if (json['content']['content'] is String) {
-          json['content']['content'] =
-              jsonDecode(json['content']['content'] as String);
+          json['content']['content'] = jsonDecode(json['content']['content'] as String);
         }
       } else {
         throw FormatException('Invalid content structure: ${json['content']}');
@@ -198,8 +191,7 @@ class InteractiveLessonChunkComponent with _$InteractiveLessonChunkComponent {
             type: InteractiveLessonComponentType.markdown,
             needsValidation: needsValidation,
             isValid: isValid,
-            content: MarkdownContent.fromJson(
-                json['content']['content'] as Map<String, dynamic>),
+            content: MarkdownContent.fromJson(json['content']['content'] as Map<String, dynamic>),
             chunkId: chunkId,
             progress: progress,
           );
@@ -222,8 +214,7 @@ class InteractiveLessonChunkComponent with _$InteractiveLessonChunkComponent {
             type: InteractiveLessonComponentType.scale,
             needsValidation: needsValidation,
             isValid: isValid,
-            content: ScaleContent.fromJson(
-                json['content']['content'] as Map<String, dynamic>),
+            content: ScaleContent.fromJson(json['content']['content'] as Map<String, dynamic>),
             chunkId: chunkId,
             progress: progress,
           );
@@ -234,8 +225,8 @@ class InteractiveLessonChunkComponent with _$InteractiveLessonChunkComponent {
             type: InteractiveLessonComponentType.singleSelect,
             needsValidation: needsValidation,
             isValid: isValid,
-            content: SelectContent.fromJson(
-                json['content']['content'] as Map<String, dynamic>),
+            content:
+                SelectContent.debugFromJson(json['content']['content'] as Map<String, dynamic>),
             chunkId: chunkId,
             progress: progress,
           );
@@ -246,8 +237,7 @@ class InteractiveLessonChunkComponent with _$InteractiveLessonChunkComponent {
             type: InteractiveLessonComponentType.multipleSelect,
             needsValidation: needsValidation,
             isValid: isValid,
-            content: SelectContent.fromJson(
-                json['content']['content'] as Map<String, dynamic>),
+            content: SelectContent.fromJson(json['content']['content'] as Map<String, dynamic>),
             chunkId: chunkId,
             progress: progress,
           );
@@ -258,8 +248,8 @@ class InteractiveLessonChunkComponent with _$InteractiveLessonChunkComponent {
             type: InteractiveLessonComponentType.singleSelectWithFeedback,
             needsValidation: needsValidation,
             isValid: isValid,
-            content: SelectContent.fromJson(
-                json['content']['content'] as Map<String, dynamic>),
+            content:
+                SelectContent.debugFromJson(json['content']['content'] as Map<String, dynamic>),
             chunkId: chunkId,
             progress: progress,
           );
@@ -270,8 +260,7 @@ class InteractiveLessonChunkComponent with _$InteractiveLessonChunkComponent {
             type: InteractiveLessonComponentType.ordering,
             needsValidation: needsValidation,
             isValid: isValid,
-            content: OrderingContent.fromJson(
-                json['content']['content'] as Map<String, dynamic>),
+            content: OrderingContent.fromJson(json['content']['content'] as Map<String, dynamic>),
             chunkId: chunkId,
             progress: progress,
           );
@@ -282,16 +271,12 @@ class InteractiveLessonChunkComponent with _$InteractiveLessonChunkComponent {
             type: InteractiveLessonComponentType.textArea,
             needsValidation: needsValidation,
             isValid: isValid,
-            content: TextFieldContent.fromJson(
-                json['content']['content'] as Map<String, dynamic>),
+            content: TextFieldContent.fromJson(json['content']['content'] as Map<String, dynamic>),
             chunkId: chunkId,
             progress: progress,
-            maxCharsLength:
-                json['maxCharsLength'] as int? ?? 500, // Default to 500 if null
-            maxTextFieldsAmount: json['maxTextFieldsAmount'] as int? ??
-                5, // Default to 5 if null
-            minTextFieldsAmount: json['minTextFieldsAmount'] as int? ??
-                1, // Default to 1 if null
+            maxCharsLength: json['maxCharsLength'] as int? ?? 500, // Default to 500 if null
+            maxTextFieldsAmount: json['maxTextFieldsAmount'] as int? ?? 5, // Default to 5 if null
+            minTextFieldsAmount: json['minTextFieldsAmount'] as int? ?? 1, // Default to 1 if null
           );
 
         case 'textField':
@@ -300,8 +285,7 @@ class InteractiveLessonChunkComponent with _$InteractiveLessonChunkComponent {
             type: InteractiveLessonComponentType.textField,
             needsValidation: needsValidation,
             isValid: isValid,
-            content: TextFieldContent.fromJson(
-                json['content']['content'] as Map<String, dynamic>),
+            content: TextFieldContent.fromJson(json['content']['content'] as Map<String, dynamic>),
             chunkId: chunkId,
             progress: progress,
           );
@@ -312,8 +296,8 @@ class InteractiveLessonChunkComponent with _$InteractiveLessonChunkComponent {
             type: InteractiveLessonComponentType.survey,
             needsValidation: needsValidation,
             isValid: isValid,
-            content: SelectContent.fromJson(
-                json['content']['content'] as Map<String, dynamic>),
+            content:
+                SelectContent.debugFromJson(json['content']['content'] as Map<String, dynamic>),
             chunkId: chunkId,
             progress: progress,
           );
@@ -323,8 +307,7 @@ class InteractiveLessonChunkComponent with _$InteractiveLessonChunkComponent {
             type: InteractiveLessonComponentType.mealTiming,
             needsValidation: needsValidation,
             isValid: isValid,
-            content: MealTimingContent.fromJson(
-                json['content']['content'] as Map<String, dynamic>),
+            content: MealTimingContent.fromJson(json['content']['content'] as Map<String, dynamic>),
             chunkId: chunkId,
             progress: progress,
           );

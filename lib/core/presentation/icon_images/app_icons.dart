@@ -22,9 +22,13 @@ class AppIcons {
   static const AssetImage list = AssetImage('$iconsFilePath/list.png');
   static const AssetImage plus = AssetImage('$iconsFilePath/plus.png');
   static const AssetImage scan = AssetImage('$iconsFilePath/scan.png');
-    static const AssetImage doneDayButton = AssetImage('$iconsFilePath/done_day.png');
-      static const AssetImage commitmentButton = AssetImage('$iconsFilePath/commitment.png');
-  static SvgPicture clock = SvgPicture.asset('$iconsFilePath/clock.svg', width: 24, height: 24,);
+  static const AssetImage doneDayButton = AssetImage('$iconsFilePath/done_day.png');
+  static const AssetImage commitmentButton = AssetImage('$iconsFilePath/commitment.png');
+  static SvgPicture clock = SvgPicture.asset(
+    '$iconsFilePath/clock.svg',
+    width: 24,
+    height: 24,
+  );
   static SvgPicture clockWhite = SvgPicture.asset('$iconsFilePath/clock.svg',
       colorFilter: const ColorFilter.mode(AppColors.white, BlendMode.srcIn));
   static SvgPicture clockGrey = SvgPicture.asset('$iconsFilePath/clock.svg', width: 21, height: 21);
@@ -278,8 +282,8 @@ class AppIcons {
   static SvgPicture interactiveLessonEditPencil(
           bool clicked, Color clickedColor, Color regularColor) =>
       SvgPicture.asset('$iconsFilePath/edit_pencil.svg',
-          width: 44,
-          height: 44,
+          width: 24,
+          height: 24,
           colorFilter: ColorFilter.mode(clicked ? clickedColor : regularColor, BlendMode.srcIn));
 
   static SvgPicture interactiveLessonBucket(bool clicked, Color clickedColor, Color regularColor) =>

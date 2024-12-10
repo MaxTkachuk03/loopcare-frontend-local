@@ -9,7 +9,8 @@ class ContinueBtn extends StatelessWidget {
   final String? label;
   final double? bottom;
 
-  const ContinueBtn({super.key, required this.onPressed, required this.isDisable, this.label, this.bottom});
+  const ContinueBtn(
+      {super.key, required this.onPressed, required this.isDisable, this.label, this.bottom});
 
   @override
   Widget build(BuildContext context) {

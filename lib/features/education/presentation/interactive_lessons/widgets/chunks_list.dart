@@ -8,7 +8,6 @@ import 'package:loopcare_frontend/features/education/domain/interactive_lesson/i
 import 'package:loopcare_frontend/features/education/domain/interactive_lesson/interactive_lesson_chunk_component.dart';
 import 'package:loopcare_frontend/features/education/presentation/interactive_lessons/widgets/chunk_divider.dart';
 import 'package:loopcare_frontend/features/education/presentation/interactive_lessons/widgets/components/lesson_components.dart';
-import 'package:loopcare_frontend/features/education/presentation/interactive_lessons/widgets/components/meal_timing/meal_timing.dart';
 import 'package:loopcare_frontend/features/education/presentation/interactive_lessons/widgets/continue_btn.dart';
 import 'package:loopcare_frontend/features/river/domain/lesson_type.dart';
 import 'package:loopcare_frontend/features/river/domain/river_module_stream_type.dart';
@@ -55,6 +54,12 @@ class _ChunksListState extends State<ChunksList> {
     final blocState = bloc.state.data;
     final lessonStreamType =
         RiverModuleStreamType.getLessonStreamType(blocState.type);
+
+    final allProgress =
+        blocState.hasProgress(blocState.unlockedChunkComponents);
+
+    if (allProgress == true) bloc.add(const InteractiveLessonsEvent.unlockNextChunk());
+    
 
     return [
       ...components.map((c) => switch (c) {
@@ -124,6 +129,7 @@ class _ChunksListState extends State<ChunksList> {
     final blocState = bloc.state.data;
     final lessonStreamType =
         RiverModuleStreamType.getLessonStreamType(blocState.type);
+
     Future.delayed(const Duration(seconds: 1), () {
       const source = 'NutritionIntakeRoute';
       if (blocState.isAllChunksUnlocked && blocState.isLastPage) {
@@ -133,6 +139,7 @@ class _ChunksListState extends State<ChunksList> {
             context.router.popUntilRouteWithName(NutritionIntakeRoute.name);
             return;
           }
+
           context.router.push(LessonCompleteRoute(
               lessonType: LessonType.interactive,
               streamType: lessonStreamType));
@@ -147,12 +154,12 @@ class _ChunksListState extends State<ChunksList> {
     });
   }
 
-  void scrollToNextChunk(bool beetweenChunks) {
+  void scrollToNextChunk(bool betweenChunks) {
     WidgetsBinding.instance.addPostFrameCallback((_) async {
       if (!scrollController.hasClients || !mounted) return;
 
       await scrollController.animateTo(
-        beetweenChunks ? scrollController.position.pixels + 250 : 0.0,
+        betweenChunks ? scrollController.position.pixels + 250 : 0.0,
         duration: const Duration(seconds: 1),
         curve: Curves.easeOut,
       );
@@ -176,7 +183,6 @@ class _ChunksListState extends State<ChunksList> {
             child: ListView.separated(
               controller: scrollController,
               shrinkWrap: true,
-              // physics: const NeverScrollableScrollPhysics(),
               padding: const EdgeInsets.only(top: 20),
               itemCount: componentsList.length,
               separatorBuilder: (_, __) => const SizedBox(height: 20),

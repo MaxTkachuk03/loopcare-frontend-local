@@ -66,7 +66,9 @@ class _MultipleSelectState extends State<MultipleSelect> {
   void _onCheckOrderHandler() {
     final order = _selectedAnswers.map((o) => o.id).toList();
 
-    widget.onSaveProgress(InteractiveLessonComponentProgress(optionIds: order, type: widget.component.type.name), widget.component);
+    widget.onSaveProgress(
+        InteractiveLessonComponentProgress(optionIds: order, type: widget.component.type.name),
+        widget.component);
 
     setState(() {
       isButtonDisabled = true;

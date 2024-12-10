@@ -2,34 +2,29 @@ part of 'interactive_lessons_bloc.dart';
 
 @freezed
 class InteractiveLessonsState with _$InteractiveLessonsState {
-  const factory InteractiveLessonsState.initial(
-      InteractiveLessonsStateData data) = InteractiveLessonsStateInitial;
+  const factory InteractiveLessonsState.initial(InteractiveLessonsStateData data) =
+      InteractiveLessonsStateInitial;
 
-  const factory InteractiveLessonsState.loading(
-      InteractiveLessonsStateData data) = InteractiveLessonsStateLoading;
+  const factory InteractiveLessonsState.loading(InteractiveLessonsStateData data) =
+      InteractiveLessonsStateLoading;
 
-  const factory InteractiveLessonsState.error(
-      InteractiveLessonsStateData data) = InteractiveLessonsStateError;
+  const factory InteractiveLessonsState.error(InteractiveLessonsStateData data) =
+      InteractiveLessonsStateError;
 
-  const factory InteractiveLessonsState.lessonLoaded(
-      InteractiveLessonsStateData data) = InteractiveLessonsStateLessonLoaded;
+  const factory InteractiveLessonsState.lessonLoaded(InteractiveLessonsStateData data) =
+      InteractiveLessonsStateLessonLoaded;
 
-  const factory InteractiveLessonsState.setPage(
-      InteractiveLessonsStateData data) = InteractiveLessonsStateSetPage;
+  const factory InteractiveLessonsState.setPage(InteractiveLessonsStateData data) =
+      InteractiveLessonsStateSetPage;
 
-  const factory InteractiveLessonsState.setChunk(
-      InteractiveLessonsStateData data) = InteractiveLessonsStateSetChunk;
+  const factory InteractiveLessonsState.setChunk(InteractiveLessonsStateData data) =
+      InteractiveLessonsStateSetChunk;
 
-  const factory InteractiveLessonsState.setUnlockedChunks(
-          InteractiveLessonsStateData data) =
+  const factory InteractiveLessonsState.setUnlockedChunks(InteractiveLessonsStateData data) =
       InteractiveLessonsStateSetUnlockedChunks;
 
-  const factory InteractiveLessonsState.saveAnswer(
-      InteractiveLessonsStateData data) = InteractiveLessonsStateSaveAnswer;
-
-  const factory InteractiveLessonsState.setCategory(
-          InteractiveLessonsStateData data) =
-      InteractiveLessonsStateAddMealCategory;
+  const factory InteractiveLessonsState.saveAnswer(InteractiveLessonsStateData data) =
+      InteractiveLessonsStateSaveAnswer;
 }
 
 @freezed
@@ -79,8 +74,7 @@ class InteractiveLessonsStateData with _$InteractiveLessonsStateData {
     return componentsWithProgress.length == quizComponents.length;
   }
 
-  bool hasProgress(
-      List<InteractiveLessonChunkComponent> unlockedChunkComponents) {
+  bool hasProgress(List<InteractiveLessonChunkComponent> unlockedChunkComponents) {
     final quizComponents = unlockedChunkComponents
         .where((c) =>
             c.type != InteractiveLessonComponentType.image &&
@@ -103,29 +97,22 @@ class InteractiveLessonsStateData with _$InteractiveLessonsStateData {
   List<InteractiveLessonChunk> get activePageUnlockedChunks =>
       unlockedChunksByPage[activePage?.id ?? 0] ?? [];
 
-  InteractiveLessonChunk getActiveChunk(InteractiveLessonTopicsPage page) =>
-      chunks.values
-          .where((chunk) =>
-              chunk.id == page.chunksIds.first && chunk.pageId == page.id)
-          .first;
+  InteractiveLessonChunk getActiveChunk(InteractiveLessonTopicsPage page) => chunks.values
+      .where((chunk) => chunk.id == page.chunksIds.first && chunk.pageId == page.id)
+      .first;
 
   bool get isAllChunksUnlocked =>
       getPagesUnlockedChunks(activePage?.id ?? 0).length ==
-      chunks.values
-          .where((chunk) => chunk.pageId == (activePage?.id ?? 0))
-          .length;
+      chunks.values.where((chunk) => chunk.pageId == (activePage?.id ?? 0)).length;
 
   bool get isLastPage => activePageIndex + 1 == pages.length;
 
-  bool hasUnlockedChunks(int pageId) =>
-      getPagesUnlockedChunks(pageId).isNotEmpty;
+  bool hasUnlockedChunks(int pageId) => getPagesUnlockedChunks(pageId).isNotEmpty;
 
-  List<InteractiveLessonChunkComponent> getChunkComponents(
-      InteractiveLessonChunk chunk) {
+  List<InteractiveLessonChunkComponent> getChunkComponents(InteractiveLessonChunk chunk) {
     final chunkComponents = components.values
         .where((component) =>
-            component.chunkId == chunk.id &&
-            chunk.componentsIds.contains(component.id))
+            component.chunkId == chunk.id && chunk.componentsIds.contains(component.id))
         .toList();
 
     return chunkComponents;

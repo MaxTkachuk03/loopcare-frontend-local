@@ -56,7 +56,9 @@ class _ScaleState extends State<Scale> {
     }
 
     widget.onSaveProgress(
-        InteractiveLessonComponentProgress(optionIds: _selectedScore, type: widget.component.type.name), widget.component);
+        InteractiveLessonComponentProgress(
+            optionIds: _selectedScore, type: widget.component.type.name),
+        widget.component);
   }
 
   bool get hasFeedback =>

@@ -4,14 +4,12 @@ part 'nutrition_intake_done_lessons.g.dart';
 part 'nutrition_intake_done_lessons.freezed.dart';
 
 @freezed
-class NitritionIntakeDoneLessons with _$NitritionIntakeDoneLessons{
-  const factory NitritionIntakeDoneLessons({
+class NutritionIntakeDoneLessons with _$NutritionIntakeDoneLessons {
+  const factory NutritionIntakeDoneLessons({
     required int categoryId,
     required bool isCompleted,
-  }) = _NitritionIntakeDoneLessons;
+  }) = _NutritionIntakeDoneLessons;
 
-   factory NitritionIntakeDoneLessons.fromJson(Map<String, dynamic> json) =>
-      _$NitritionIntakeDoneLessonsFromJson(json);
-
-  
+  factory NutritionIntakeDoneLessons.fromJson(Map<String, dynamic> json) =>
+      _$NutritionIntakeDoneLessonsFromJson(json);
 }

@@ -11,7 +11,6 @@ part 'commitment_event.dart';
 
 part 'commitment_state.dart';
 
-
 @singleton
 class CommitmentBloc extends Bloc<CommitmentEvent, CommitmentState> {
   final CommitmentService _commitmentService;
@@ -27,12 +26,11 @@ class CommitmentBloc extends Bloc<CommitmentEvent, CommitmentState> {
   ) async {
     emit(CommitmentState.loading(state.data.copyWith(isLoading: true)));
 
-    final response = await _commitmentService.getCommitment(
-        startDate: event.startDate, endDate: event.endDate);
+    final response =
+        await _commitmentService.getCommitment(startDate: event.startDate, endDate: event.endDate);
 
     response.fold(
-      (l) => emit(CommitmentState.error(
-          state.data.copyWith(error: l, isLoading: false))),
+      (l) => emit(CommitmentState.error(state.data.copyWith(error: l, isLoading: false))),
       (r) => emit(CommitmentState.commitmentLoaded(state.data.copyWith(
           totalCommitments: r.totalCommitments,
           completedCommitments: r.completedCommitments,
