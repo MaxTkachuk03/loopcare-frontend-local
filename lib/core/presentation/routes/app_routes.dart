@@ -52,6 +52,7 @@ class AppRoutes {
   static const String meal = '/meal'; // added
   static const String logWeight = '/log-weight'; // added
   static const String chooseDate = '/choose-date'; // added
+  static const String nutritionIntake = '/nutrition-intake'; // added
 
   // Dish
   static const String dishDetails = '/dish-details'; // added

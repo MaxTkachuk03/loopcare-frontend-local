@@ -6,17 +6,21 @@ import 'package:loopcare_frontend/features/education/presentation/interactive_le
 import 'package:loopcare_frontend/features/river/domain/river_module_stream_type.dart';
 import 'package:loopcare_frontend/localization/service/localization_extension.dart';
 import 'package:loopcare_frontend/localization/service/localized_texts.dart';
+import 'package:loopcare_frontend/features/education/domain/interactive_lesson/interactive_lesson_component_progress.dart';
 
 class Ordering extends StatelessWidget {
   final InteractiveLessonChunkComponentOrdering component;
   final RiverModuleStreamType lessonStreamType;
-  final Function(bool isClicked) isClickedHandler;
+  final Function(
+          InteractiveLessonComponentProgress progress, InteractiveLessonChunkComponent component)
+      onSaveProgress;
 
-  const Ordering(
-      {super.key,
-      required this.component,
-      required this.lessonStreamType,
-      required this.isClickedHandler});
+  const Ordering({
+    super.key,
+    required this.component,
+    required this.lessonStreamType,
+    required this.onSaveProgress,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -33,7 +37,7 @@ class Ordering extends StatelessWidget {
         CustomReorderableList(
           component: component,
           lessonStreamType: lessonStreamType,
-          isClickedHandler: isClickedHandler,
+          onSaveProgress: onSaveProgress,
         ),
         const SizedBox(height: 20),
       ],

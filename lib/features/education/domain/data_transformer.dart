@@ -59,7 +59,7 @@ Map<String, dynamic> transformToFlatStructure(Map<String, dynamic> rawData) {
     {
       'id': page['id'],
       'title': page['title'],
-      'pageNumber': page['pageNumber'],
+      'order': page['order'],
       'chunksIds': <int>[],
       'topicId': topicId,
     }

@@ -10,19 +10,21 @@ import 'package:loopcare_frontend/features/education/presentation/interactive_le
 import 'package:loopcare_frontend/features/river/domain/river_module_stream_type.dart';
 import 'package:loopcare_frontend/localization/service/localization_extension.dart';
 import 'package:loopcare_frontend/localization/service/localized_texts.dart';
+import 'package:loopcare_frontend/features/education/domain/interactive_lesson/interactive_lesson_component_progress.dart';
 
 // TODO: Rewrite with animation like like/unlike component if there will be time
 class Scale extends StatefulWidget {
   final InteractiveLessonChunkComponentScale component;
   final RiverModuleStreamType lessonStreamType;
-
-  final Function(bool isClicked) isClickedHandler;
+  final Function(
+          InteractiveLessonComponentProgress progress, InteractiveLessonChunkComponent component)
+      onSaveProgress;
 
   const Scale({
     super.key,
     required this.component,
     required this.lessonStreamType,
-    required this.isClickedHandler,
+    required this.onSaveProgress,
   });
 
   @override
@@ -30,20 +32,37 @@ class Scale extends StatefulWidget {
 }
 
 class _ScaleState extends State<Scale> {
-  int? _selectedScore;
+  final List<int> _selectedScore = [];
+
+  @override
+  initState() {
+    super.initState();
+    if (widget.component.progress == null) return;
+    _selectedScore.add(widget.component.progress!.optionIds!.first);
+  }
 
   void _onSelectedHandler(int value) {
-    //TODO LOGIC
-    widget.isClickedHandler(true);
+    if (_selectedScore.contains(value)) {
+      return;
+    } else if (_selectedScore.isNotEmpty) {
+      setState(() {
+        _selectedScore.removeLast();
+        _selectedScore.add(value);
+      });
+    } else {
+      setState(() {
+        _selectedScore.add(value);
+      });
+    }
 
-    setState(() {
-      _selectedScore = _selectedScore == value ? null : value;
-    });
+    widget.onSaveProgress(
+        InteractiveLessonComponentProgress(
+            optionIds: _selectedScore, type: widget.component.type.name),
+        widget.component);
   }
 
   bool get hasFeedback =>
-      widget.component.content.feedback != null &&
-      widget.component.content.feedback!.isNotEmpty;
+      widget.component.content.feedback != null && widget.component.content.feedback!.isNotEmpty;
 
   @override
   Widget build(BuildContext context) {
@@ -57,13 +76,12 @@ class _ScaleState extends State<Scale> {
         const SizedBox(height: 20),
         CustomText(
           widget.component.content.question,
-          style: context.textTheme.bodyMedium!
-              .copyWith(fontWeight: FontWeight.w700),
+          style: context.textTheme.bodyMedium!.copyWith(fontWeight: FontWeight.w700),
         ),
         const SizedBox(height: 20),
         ScoringScale(
           selectedColor: AppColors.greenRegular,
-          selectedScore: _selectedScore,
+          selectedScore: _selectedScore.isNotEmpty ? _selectedScore.first : null,
           onScoreTap: _onSelectedHandler,
           scaleSize: widget.component.content.values.length,
           labels: widget.component.content.values.map((o) => o.label).toList(),
@@ -71,9 +89,8 @@ class _ScaleState extends State<Scale> {
         ),
         const SizedBox(height: 14),
         ScaleBottom(content: widget.component.content),
-        if (hasFeedback && _selectedScore != null)
-          ScaleFeedback(
-              component: widget.component, selectedScore: _selectedScore! + 1),
+        if (hasFeedback && _selectedScore.isNotEmpty)
+          ScaleFeedback(component: widget.component, selectedScore: _selectedScore.first + 1),
       ],
     );
   }

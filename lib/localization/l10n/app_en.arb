@@ -1,5 +1,7 @@
 {
   "@@locale": "en",
+  "interactiveLessonsTextAreaLabel": "Your thoughts",
+  "interactiveLessonsMultipleChoiceBtnLabel": "Save",
   "interactiveLessonsScaleLabel": "Rate on a scale",
   "interactiveLessonsSingleSelectLabel": "Single answer",
   "interactiveLessonsMultipleSelectLabel": "Choose All That Apply",
@@ -2151,7 +2153,7 @@
   "clearMealList": "Clear log list",
   "logListEmptyMessage": "Nothing logged yet\n What did you have for lunch?",
   "backToDashboard": "Back to dashboard",
-  "backToTodayLogging": "Back to Today",
+  "finishMealLogging": "Finish meal",
   "hello": "Hello",
   "goodMorning": "Good Morning",
   "goodAfternoon": "Good Afternoon",

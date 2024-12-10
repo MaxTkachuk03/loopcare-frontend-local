@@ -4,11 +4,13 @@ import 'package:flutter/foundation.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
 import 'package:injectable/injectable.dart';
-import 'package:loopcare_frontend/core/application/customer_io_service/customer_io_service.dart';
 import 'package:loopcare_frontend/core/domain/account/gender_type.dart';
 import 'package:loopcare_frontend/core/domain/account/sex_type.dart';
 import 'package:loopcare_frontend/core/domain/analytics/analytics_events.dart';
 import 'package:loopcare_frontend/core/domain/analytics/analytics_parameters.dart';
+import 'package:loopcare_frontend/core/domain/analytics/usage_analytics/usage_analytics.dart';
+import 'package:loopcare_frontend/core/domain/analytics/usage_analytics/usage_analytics_attributes.dart';
+import 'package:loopcare_frontend/core/domain/analytics/usage_analytics/usage_analytics_events.dart';
 import 'package:loopcare_frontend/core/infrastructure/services/analytics_service.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/unit_tabs/measurement_system_type.dart';
 import 'package:loopcare_frontend/features/onboarding/application/dto/add_physical_survey.dart';
@@ -28,6 +30,7 @@ part 'physical_questions_state.dart';
 @singleton
 class PhysicalQuestionsBloc extends HydratedBloc<PhysicalQuestionsEvent, PhysicalQuestionsState> {
   final PhysicalService physicalService;
+  final usageAnalytics = UsageAnalytics();
 
   PhysicalQuestionsBloc(
     this.physicalService,
@@ -79,10 +82,10 @@ class PhysicalQuestionsBloc extends HydratedBloc<PhysicalQuestionsEvent, Physica
       },
     );
 
-    CustomerIoService.track(
-      event: CIOEvents.onboardingHappiness,
+    usageAnalytics.track(
+      eventName: UsageAnalyticsEvents.onboardingHappiness,
       attributes: {
-        CIOAttributes.happiness: event.happiness,
+        UsageAnalyticsAttributes.happiness: event.happiness,
       },
     );
 
@@ -105,11 +108,11 @@ class PhysicalQuestionsBloc extends HydratedBloc<PhysicalQuestionsEvent, Physica
       },
     );
 
-    CustomerIoService.track(
-      event: CIOEvents.onboardingHeight,
+    usageAnalytics.track(
+      eventName: UsageAnalyticsEvents.onboardingHeight,
       attributes: {
-        CIOAttributes.height: event.height,
-        CIOAttributes.measurementSystem: event.measurementSystemType.name,
+        UsageAnalyticsAttributes.height: event.height,
+        UsageAnalyticsAttributes.measurementSystem: event.measurementSystemType.name,
       },
     );
 
@@ -142,12 +145,12 @@ class PhysicalQuestionsBloc extends HydratedBloc<PhysicalQuestionsEvent, Physica
       },
     );
 
-    CustomerIoService.track(
-      event: CIOEvents.onboardingWeight,
+    usageAnalytics.track(
+      eventName: UsageAnalyticsEvents.onboardingWeight,
       attributes: {
-        CIOAttributes.weight: event.weight,
-        CIOAttributes.measurementSystem: event.measurementSystemType.name,
-        CIOAttributes.bmi: bmi,
+        UsageAnalyticsAttributes.weight: event.weight,
+        UsageAnalyticsAttributes.measurementSystem: event.measurementSystemType.name,
+        UsageAnalyticsAttributes.bmi: bmi,
       },
     );
 
@@ -171,10 +174,10 @@ class PhysicalQuestionsBloc extends HydratedBloc<PhysicalQuestionsEvent, Physica
       },
     );
 
-    CustomerIoService.track(
-      event: CIOEvents.onboardingBirthday,
+    usageAnalytics.track(
+      eventName: UsageAnalyticsEvents.onboardingBirthday,
       attributes: {
-        CIOAttributes.birthday: event.birthday.toIso8601String(),
+        UsageAnalyticsAttributes.birthday: event.birthday.toIso8601String(),
       },
     );
 
@@ -197,10 +200,10 @@ class PhysicalQuestionsBloc extends HydratedBloc<PhysicalQuestionsEvent, Physica
       },
     );
 
-    CustomerIoService.track(
-      event: CIOEvents.onboardingSex,
+    usageAnalytics.track(
+      eventName: UsageAnalyticsEvents.onboardingSex,
       attributes: {
-        CIOAttributes.sex: event.sexType.name,
+        UsageAnalyticsAttributes.sex: event.sexType.name,
       },
     );
 
@@ -222,10 +225,10 @@ class PhysicalQuestionsBloc extends HydratedBloc<PhysicalQuestionsEvent, Physica
       },
     );
 
-    CustomerIoService.track(
-      event: CIOEvents.onboardingGender,
+    usageAnalytics.track(
+      eventName: UsageAnalyticsEvents.onboardingGender,
       attributes: {
-        CIOAttributes.gender: event.gender.name,
+        UsageAnalyticsAttributes.gender: event.gender.name,
       },
     );
 

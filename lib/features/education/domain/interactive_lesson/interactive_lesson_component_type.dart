@@ -8,4 +8,6 @@ enum InteractiveLessonComponentType {
   ordering,
   textArea,
   textField,
+  survey,
+  mealTiming,
 }

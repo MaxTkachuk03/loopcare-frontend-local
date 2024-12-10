@@ -1,22 +1,17 @@
 import 'package:auto_route/auto_route.dart';
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loopcare_frontend/core/presentation/routes/app_router.gr.dart';
+import 'package:loopcare_frontend/core/presentation/widgets/main_container.dart';
 import 'package:loopcare_frontend/features/education/application/interactive_lessons/interactive_lessons_bloc.dart';
 import 'package:loopcare_frontend/features/education/domain/interactive_lesson/interactive_lesson_chunk.dart';
 import 'package:loopcare_frontend/features/education/domain/interactive_lesson/interactive_lesson_chunk_component.dart';
-import 'package:loopcare_frontend/features/education/domain/interactive_lesson/interactive_lesson_component_type.dart';
-import 'package:loopcare_frontend/features/education/domain/interactive_lesson/interactive_lesson_progress.dart';
-import 'package:loopcare_frontend/features/education/domain/interactive_lesson/select_content/content_select_answer.dart';
-import 'package:loopcare_frontend/features/education/domain/interactive_lesson/text_field_content/text_field_content.dart';
 import 'package:loopcare_frontend/features/education/presentation/interactive_lessons/widgets/chunk_divider.dart';
 import 'package:loopcare_frontend/features/education/presentation/interactive_lessons/widgets/components/lesson_components.dart';
 import 'package:loopcare_frontend/features/education/presentation/interactive_lessons/widgets/continue_btn.dart';
 import 'package:loopcare_frontend/features/river/domain/lesson_type.dart';
 import 'package:loopcare_frontend/features/river/domain/river_module_stream_type.dart';
-import 'package:loopcare_frontend/features/education/domain/interactive_lesson/progress/answers.dart';
-import 'package:loopcare_frontend/features/education/presentation/interactive_lessons/widgets/components/textarea/long_answer_textarea.dart';
+import 'package:loopcare_frontend/features/education/domain/interactive_lesson/interactive_lesson_component_progress.dart';
 
 class ChunksList extends StatefulWidget {
   const ChunksList({super.key});
@@ -27,118 +22,95 @@ class ChunksList extends StatefulWidget {
 
 class _ChunksListState extends State<ChunksList> {
   ScrollController scrollController = ScrollController();
-  final mockComponent = InteractiveLessonChunkComponentTextField(
-    id: 1,
-    type: InteractiveLessonComponentType.textField,
-    needsValidation: true,
-    isValid: false,
-    content: TextFieldContent(
-      question: "What is the capital of France?",
-    ),
-    chunkId: 101,
-  );
+
   List<Widget> _renderChunk(
       InteractiveLessonsStateData blocState, InteractiveLessonChunk chunk) {
     final components = blocState.getChunkComponents(chunk);
     final renderedChunks = blocState.activePageUnlockedChunks;
-    final showButton =
-        renderedChunks.last.id == chunk.id && blocState.isAllCheckedPerChunk;
+    final showButton = renderedChunks.last.id == chunk.id;
+    final buttonEnabledOrDisabled =
+        renderedChunks.last.id == chunk.id && blocState.isAllComponentChecked;
     final showDivider =
         chunk.id != renderedChunks.last.id && renderedChunks.length > 1;
+
     return [
       ..._renderChunkComponents(components),
       if (showDivider) const ChunkDivider(),
-      if (showButton) ContinueBtn(onPressed: _onContinueHandler),
+      if (showButton)
+        ContinueBtn(
+            onPressed: _onContinueHandler, isDisable: !buttonEnabledOrDisabled),
     ];
   }
 
-  void onComponentClick(bool isClicked, InteractiveLessonChunkComponent c) {
+  void onSaveProgress(InteractiveLessonComponentProgress progress,
+      InteractiveLessonChunkComponent component) {
     final bloc = context.read<InteractiveLessonsBloc>();
-    bloc.add(InteractiveLessonsEvent.toggleCheckedAnswer(c, isClicked));
+    bloc.add(InteractiveLessonsEvent.saveAnswer(progress, component));
   }
 
-  void onSaveAnswer(Answers answers, InteractiveLessonChunkComponent c) {
-    final bloc = context.read<InteractiveLessonsBloc>();
-    final blocState = bloc.state.data;
-    bloc.add(InteractiveLessonsEvent.saveAnswer(InteractiveLessonProgress(
-        lessonId: blocState.id,
-        topicId: blocState.topics.values.first.id,
-        pageId: blocState.activePage!.id,
-        chunkId: blocState.activeChunk!.id,
-        componentId: c.id,
-        answers: answers)));
-  }
-
-  // ignore: unused_element
   List<Widget> _renderChunkComponents(
       List<InteractiveLessonChunkComponent> components) {
     final bloc = context.read<InteractiveLessonsBloc>();
     final blocState = bloc.state.data;
     final lessonStreamType =
         RiverModuleStreamType.getLessonStreamType(blocState.type);
-    print('========================');
-    print(
-        blocState.getAnswers(blocState.components.values.first)?.option?.first);
-    print(blocState.progress);
-    print(blocState.unlockedChunkComponents.length);
+
+    final allProgress =
+        blocState.hasProgress(blocState.unlockedChunkComponents);
+
+    if (allProgress == true) bloc.add(const InteractiveLessonsEvent.unlockNextChunk());
+    
+
     return [
-      ...components
-          .map((c) => switch (c) {
-                InteractiveLessonChunkComponentMarkdown() =>
-                  Markdown(component: c),
-                // InteractiveLessonChunkComponentImage() =>
-                //   CachedNetworkImage(imageUrl: c.content.src),
-                InteractiveLessonChunkComponentScale() => Scale(
-                    component: c,
-                    lessonStreamType: lessonStreamType,
-                    isClickedHandler: (bool isClicked) {
-                      onComponentClick(isClicked, c);
-                    },
-                  ),
-                InteractiveLessonChunkComponentSingleSelect() => SingleSelect(
-                    component: c,
-                    lessonStreamType: lessonStreamType,
-                    isClickedHandler: (bool isClicked) {
-                      onComponentClick(isClicked, c);
-                    },
-                  ),
-                InteractiveLessonChunkComponentMultipleSelect() =>
-                  MultipleSelect(
-                      component: c,
-                      lessonStreamType: lessonStreamType,
-                      isClickedHandler: (bool isClicked) {
-                        onComponentClick(isClicked, c);
-                      }),
-                InteractiveLessonChunkComponentSingleSelectWithFeedback() =>
-                  SingleSelectWithFeedback(
-                      isClickedHandler: (bool isClicked) {
-                        onComponentClick(isClicked, c);
-                      },
-                      answer: blocState.getAnswers(c) != null
-                          ? blocState.getAnswers(c)?.option?.first
-                          : null,
-                      component: c,
-                      lessonStreamType: lessonStreamType,
-                      onSave: (Answers answers) {
-                        onSaveAnswer(answers, c);
-                      }),
-
-                // LongAnswerTextarea(component: mockComponent,
-                //   lessonStreamType: lessonStreamType,
-                //   isClickedHandler: (bool isClicked) {
-                //     onComponentClick(isClicked, c);
-                //   },),
-
-                InteractiveLessonChunkComponentOrdering() => Ordering(
-                    component: c,
-                    lessonStreamType: lessonStreamType,
-                    isClickedHandler: (bool isClicked) {
-                      onComponentClick(isClicked, c);
-                    }),
-                _ => const SizedBox.shrink(),
-              })
-          .toList(),
-      // if (true) const ChunkDivider()
+      ...components.map((c) => switch (c) {
+            InteractiveLessonChunkComponentMarkdown() => Markdown(component: c),
+            InteractiveLessonChunkComponentImage() => LessonImage(component: c),
+            //   CachedNetworkImage(imageUrl: c.content.src),
+            InteractiveLessonChunkComponentScale() => Scale(
+                component: c,
+                lessonStreamType: lessonStreamType,
+                onSaveProgress: onSaveProgress,
+              ),
+            InteractiveLessonChunkComponentSingleSelect() => SingleSelect(
+                component: c,
+                lessonStreamType: lessonStreamType,
+                onSaveProgress: onSaveProgress,
+              ),
+            InteractiveLessonChunkComponentMultipleSelect() => MultipleSelect(
+                component: c,
+                lessonStreamType: lessonStreamType,
+                onSaveProgress: onSaveProgress,
+              ),
+            InteractiveLessonChunkComponentSingleSelectWithFeedback() =>
+              SingleSelectWithFeedback(
+                component: c,
+                lessonStreamType: lessonStreamType,
+                onSaveProgress: onSaveProgress,
+              ),
+            InteractiveLessonChunkComponentOrdering() => Ordering(
+                component: c,
+                lessonStreamType: lessonStreamType,
+                onSaveProgress: onSaveProgress,
+              ),
+            InteractiveLessonChunkComponentTextArea() => LongAnswerTextArea(
+                key: ValueKey('${c.id}_${c.chunkId}'),
+                component: c,
+                lessonStreamType: lessonStreamType,
+                onSaveProgress: onSaveProgress,
+                isAllTextAreasAdded: blocState.allTextAreasAdded,
+              ),
+            InteractiveLessonChunkComponentSurvey() => Survey(
+                component: c,
+                lessonStreamType: lessonStreamType,
+                onSaveProgress: onSaveProgress,
+              ),
+            // InteractiveLessonChunkComponentMealTiming() => MealTiming(
+            //     component: c,
+            //     lessonStreamType: lessonStreamType,
+            //     onSaveProgress: onSaveProgress,
+            //   ),
+            _ => const SizedBox.shrink(),
+          }),
     ];
   }
 
@@ -157,23 +129,37 @@ class _ChunksListState extends State<ChunksList> {
     final blocState = bloc.state.data;
     final lessonStreamType =
         RiverModuleStreamType.getLessonStreamType(blocState.type);
-    if (blocState.isAllChunksUnlocked && blocState.isLastPage) {
-      context.router.push(LessonCompleteRoute(
-          lessonType: LessonType.interactive, streamType: lessonStreamType));
-    } else if (blocState.isAllChunksUnlocked && !blocState.isLastPage) {
-      bloc.add(const InteractiveLessonsEvent.setNextPage());
-    } else {
-      bloc.add(const InteractiveLessonsEvent.unlockNextChunk());
-      scrollToNextChunk();
-    }
+
+    Future.delayed(const Duration(seconds: 1), () {
+      const source = 'NutritionIntakeRoute';
+      if (blocState.isAllChunksUnlocked && blocState.isLastPage) {
+        if (mounted) {
+          if (context.router.stack[1].routeData.name.toLowerCase() ==
+              source.toLowerCase()) {
+            context.router.popUntilRouteWithName(NutritionIntakeRoute.name);
+            return;
+          }
+
+          context.router.push(LessonCompleteRoute(
+              lessonType: LessonType.interactive,
+              streamType: lessonStreamType));
+        }
+      } else if (blocState.isAllChunksUnlocked && !blocState.isLastPage) {
+        bloc.add(const InteractiveLessonsEvent.setNextPage());
+        scrollToNextChunk(false);
+      } else {
+        bloc.add(const InteractiveLessonsEvent.unlockNextChunk());
+        scrollToNextChunk(true);
+      }
+    });
   }
 
-  void scrollToNextChunk() {
+  void scrollToNextChunk(bool betweenChunks) {
     WidgetsBinding.instance.addPostFrameCallback((_) async {
       if (!scrollController.hasClients || !mounted) return;
 
       await scrollController.animateTo(
-        scrollController.position.pixels + 500,
+        betweenChunks ? scrollController.position.pixels + 250 : 0.0,
         duration: const Duration(seconds: 1),
         curve: Curves.easeOut,
       );
@@ -190,17 +176,18 @@ class _ChunksListState extends State<ChunksList> {
             .expand((chunk) => _renderChunk(state.data, chunk))
             .toList();
 
-        return PopScope(
-          canPop: state.data.activePageIndex == 0,
-          onPopInvokedWithResult: (canPop, _) => _onWillPop(context, canPop),
-          child: ListView.separated(
-            controller: scrollController,
-            shrinkWrap: true,
-            // physics: const NeverScrollableScrollPhysics(),
-            padding: const EdgeInsets.only(top: 20),
-            itemCount: componentsList.length,
-            separatorBuilder: (_, __) => const SizedBox(height: 20),
-            itemBuilder: (context, index) => componentsList[index],
+        return MainContainer(
+          child: PopScope(
+            canPop: state.data.activePageIndex == 0,
+            onPopInvokedWithResult: (canPop, _) => _onWillPop(context, canPop),
+            child: ListView.separated(
+              controller: scrollController,
+              shrinkWrap: true,
+              padding: const EdgeInsets.only(top: 20),
+              itemCount: componentsList.length,
+              separatorBuilder: (_, __) => const SizedBox(height: 20),
+              itemBuilder: (context, index) => componentsList[index],
+            ),
           ),
         );
       },

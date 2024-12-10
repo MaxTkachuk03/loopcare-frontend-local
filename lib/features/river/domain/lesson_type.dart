@@ -1,1 +1,1 @@
-enum LessonType { interactive, regular }
+enum LessonType { interactive, simple }

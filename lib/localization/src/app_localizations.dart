@@ -95,6 +95,18 @@ abstract class AppLocalizations {
     Locale('en')
   ];
 
+  /// No description provided for @interactiveLessonsTextAreaLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Your thoughts'**
+  String get interactiveLessonsTextAreaLabel;
+
+  /// No description provided for @interactiveLessonsMultipleChoiceBtnLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Save'**
+  String get interactiveLessonsMultipleChoiceBtnLabel;
+
   /// No description provided for @interactiveLessonsScaleLabel.
   ///
   /// In en, this message translates to:
@@ -10259,11 +10271,11 @@ abstract class AppLocalizations {
   /// **'Back to dashboard'**
   String get backToDashboard;
 
-  /// No description provided for @backToTodayLogging.
+  /// No description provided for @finishMealLogging.
   ///
   /// In en, this message translates to:
-  /// **'Back to Today'**
-  String get backToTodayLogging;
+  /// **'Finish meal'**
+  String get finishMealLogging;
 
   /// No description provided for @hello.
   ///

@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:loopcare_frontend/core/application/auth_token_manager.dart';
 import 'package:loopcare_frontend/core/application/dto/updated_access_token_response.dart';
+import 'package:loopcare_frontend/core/domain/analytics/usage_analytics/usage_analytics.dart';
+import 'package:loopcare_frontend/core/domain/analytics/usage_analytics/usage_analytics_events.dart';
 import 'package:loopcare_frontend/core/infrastructure/dio_client/dio_client.dart';
 import 'package:loopcare_frontend/core/infrastructure/dio_client/dio_options.dart';
 import 'package:loopcare_frontend/core/infrastructure/services/socket_service/socket_service.dart';
@@ -18,19 +20,22 @@ class AppLifeCycleStateListener extends StatefulWidget {
   State<AppLifeCycleStateListener> createState() => _AppLifeCycleStateListenerState();
 }
 
-class _AppLifeCycleStateListenerState extends State<AppLifeCycleStateListener> {
+class _AppLifeCycleStateListenerState extends State<AppLifeCycleStateListener>
+    with WidgetsBindingObserver, RouteAware {
   late final AppLifecycleListener lifeCycleListener;
   late AuthTokenManager authTokenManager;
+  final usageAnalytics = UsageAnalytics();
 
   AuthenticationBloc? get _authenticationBloc => GetIt.instance<AuthenticationBloc>();
 
   @override
   void initState() {
     super.initState();
+    WidgetsBinding.instance.addObserver(this);
     authTokenManager = GetIt.instance<AuthTokenManager>();
     lifeCycleListener = AppLifecycleListener(
-      onStateChange: _onLifeCycleChanged,
       onResume: _onResume,
+      onPause: _onPause,
     );
   }
 
@@ -40,23 +45,16 @@ class _AppLifeCycleStateListenerState extends State<AppLifeCycleStateListener> {
     super.dispose();
   }
 
-  void _onLifeCycleChanged(AppLifecycleState state) {
-    switch (state) {
-      case AppLifecycleState.detached:
-      // TODO: Handle this case.
-      case AppLifecycleState.resumed:
-      // TODO: Handle this case.
-      case AppLifecycleState.inactive:
-      // TODO: Handle this case.
-      case AppLifecycleState.hidden:
-      // TODO: Handle this case.
-      case AppLifecycleState.paused:
-      // TODO: Handle this case.
-    }
+  _onPause() {
+    usageAnalytics.track(
+      eventName: UsageAnalyticsEvents.appPaused,
+    );
   }
 
   _onResume() {
-    // TODO https://loopcare.atlassian.net/browse/LOOPCARE-3167 event should be added here
+    usageAnalytics.track(
+      eventName: UsageAnalyticsEvents.bringAppToFront,
+    );
     _refreshTokenState();
     _syncChatState();
   }

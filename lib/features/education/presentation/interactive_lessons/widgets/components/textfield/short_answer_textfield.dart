@@ -1,13 +1,10 @@
-import 'dart:async';
 import 'package:flutter/material.dart';
-import 'package:loopcare_frontend/core/infrastructure/services/shared_storage/local_storage.dart';
 import 'package:loopcare_frontend/core/presentation/category_label/category_label.dart';
 import 'package:loopcare_frontend/core/presentation/text/custom_text.dart';
 import 'package:loopcare_frontend/core/presentation/utils/build_context_extensions.dart';
 import 'package:loopcare_frontend/features/education/domain/interactive_lesson/interactive_lesson_chunk_component.dart';
 import 'package:loopcare_frontend/features/education/domain/interactive_lesson/text_field_content/text_field_content.dart';
 import 'package:loopcare_frontend/features/river/domain/river_module_stream_type.dart';
-
 
 class ShortAnswerTextField extends StatefulWidget {
   const ShortAnswerTextField({
@@ -68,16 +65,14 @@ class _ShortAnswerTextFieldState extends State<ShortAnswerTextField> {
         const SizedBox(height: 20),
         CustomText(
           content.question,
-          style: context.textTheme.bodyMedium!
-              .copyWith(fontWeight: FontWeight.w700),
+          style: context.textTheme.bodyMedium!.copyWith(fontWeight: FontWeight.w700),
         ),
         const SizedBox(height: 20),
         TextField(
-         clipBehavior: Clip.hardEdge,
-         onChanged: _onChangeHandler,
+          clipBehavior: Clip.hardEdge,
+          onChanged: _onChangeHandler,
           controller: _controller,
-
-       )
+        )
       ],
     );
   }

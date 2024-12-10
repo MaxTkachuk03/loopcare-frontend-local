@@ -14,16 +14,21 @@ import 'package:loopcare_frontend/features/education/presentation/interactive_le
 import 'package:loopcare_frontend/features/river/domain/river_module_stream_type.dart';
 import 'package:loopcare_frontend/localization/service/localization_extension.dart';
 import 'package:loopcare_frontend/localization/service/localized_texts.dart';
+import 'package:loopcare_frontend/features/education/domain/interactive_lesson/interactive_lesson_component_progress.dart';
 
 class CustomReorderableList extends StatefulWidget {
   final InteractiveLessonChunkComponentOrdering component;
   final RiverModuleStreamType lessonStreamType;
-  final Function(bool isClicked) isClickedHandler;
-  const CustomReorderableList(
-      {super.key,
-      required this.component,
-      required this.lessonStreamType,
-      required this.isClickedHandler});
+  final Function(
+          InteractiveLessonComponentProgress progress, InteractiveLessonChunkComponent component)
+      onSaveProgress;
+
+  const CustomReorderableList({
+    super.key,
+    required this.component,
+    required this.lessonStreamType,
+    required this.onSaveProgress,
+  });
 
   @override
   State<CustomReorderableList> createState() => _CustomReorderableListState();
@@ -31,6 +36,13 @@ class CustomReorderableList extends StatefulWidget {
 
 class _CustomReorderableListState extends State<CustomReorderableList> {
   bool _showOrderValidation = false;
+
+  @override
+  void initState() {
+    if (widget.component.progress == null) return;
+    _showOrderValidation = true;
+    super.initState();
+  }
 
   List<ContentOrderingItem> get items => widget.component.content.items;
 
@@ -74,21 +86,50 @@ class _CustomReorderableListState extends State<CustomReorderableList> {
       widget.component.content.items.sort((a, b) => a.order.compareTo(b.order));
       _showOrderValidation = true;
     });
+
+    final rightOrder = _onGetOrder();
+
+    widget.onSaveProgress(
+        InteractiveLessonComponentProgress(optionIds: rightOrder, type: widget.component.type.name),
+        widget.component);
   }
 
   void _onCheckOrderHandler() {
-    //TODO: MAYBE THIS RIGHT NOT SURE CHECK LOGIC!!!
-    widget.isClickedHandler(true);
+    final order = _onGetOrder();
+    List<int> rightOrder = _onGetOrder();
 
     setState(() {
+      rightOrder.sort((a, b) => a.compareTo(b));
       _showOrderValidation = true;
     });
+
+    final isOrderRight = checkOrder(order, rightOrder);
+
+    if (!isOrderRight) return;
+
+    widget.onSaveProgress(
+        InteractiveLessonComponentProgress(optionIds: order, type: widget.component.type.name),
+        widget.component);
+  }
+
+  bool checkOrder(List<int> order, List<int> rightOrder) {
+    for (int i = 0; i < order.length; i++) {
+      if (order[i] != rightOrder[i]) {
+        return false;
+      }
+    }
+
+    return true;
   }
 
   void _onReorderStartHandler(_) {
     setState(() {
       _showOrderValidation = false;
     });
+  }
+
+  List<int> _onGetOrder() {
+    return widget.component.content.items.map((o) => o.order).toList();
   }
 
   @override
@@ -119,12 +160,9 @@ class _CustomReorderableListState extends State<CustomReorderableList> {
                 shape: getShape(isValid),
                 child: ListTile(
                   leading: const Image(image: AppImages.logo),
-                  title: CustomText.w700(item.title,
-                      style: context.textTheme.bodyMedium),
-                  subtitle: CustomText(item.description,
-                      style: context.textTheme.bodyMedium),
-                  trailing: const Icon(Icons.drag_handle,
-                      color: AppColors.greenLighter),
+                  title: CustomText.w700(item.title, style: context.textTheme.bodyMedium),
+                  subtitle: CustomText(item.description, style: context.textTheme.bodyMedium),
+                  trailing: const Icon(Icons.drag_handle, color: AppColors.greenLighter),
                 ),
               );
             }).toList(),

@@ -28,6 +28,16 @@ class CrowdinLocalization extends AppLocalizations {
   static const List<Locale> supportedLocales = AppLocalizations.supportedLocales;
 
   @override
+  String get interactiveLessonsTextAreaLabel =>
+      Crowdin.getText(localeName, 'interactiveLessonsTextAreaLabel') ??
+      _fallbackTexts.interactiveLessonsTextAreaLabel;
+
+  @override
+  String get interactiveLessonsMultipleChoiceBtnLabel =>
+      Crowdin.getText(localeName, 'interactiveLessonsMultipleChoiceBtnLabel') ??
+      _fallbackTexts.interactiveLessonsMultipleChoiceBtnLabel;
+
+  @override
   String get interactiveLessonsScaleLabel =>
       Crowdin.getText(localeName, 'interactiveLessonsScaleLabel') ??
       _fallbackTexts.interactiveLessonsScaleLabel;
@@ -7954,8 +7964,8 @@ class CrowdinLocalization extends AppLocalizations {
       Crowdin.getText(localeName, 'backToDashboard') ?? _fallbackTexts.backToDashboard;
 
   @override
-  String get backToTodayLogging =>
-      Crowdin.getText(localeName, 'backToTodayLogging') ?? _fallbackTexts.backToTodayLogging;
+  String get finishMealLogging =>
+      Crowdin.getText(localeName, 'finishMealLogging') ?? _fallbackTexts.finishMealLogging;
 
   @override
   String get hello => Crowdin.getText(localeName, 'hello') ?? _fallbackTexts.hello;

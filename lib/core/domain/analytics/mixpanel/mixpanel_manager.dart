@@ -25,17 +25,14 @@ class MixpanelManager {
   String get _email => StoredAccountService.getAccount()?.email ?? '';
 
   Future<void> init() async {
-    if (!kIsProd) {
-      return;
-    }
-    _kToken = kIsAnalyticTestingEnv
-        ? dotenv.env['MIXPANEL_TOKEN'] ?? ''
-        : dotenv.env['PROD_MIXPANEL_TOKEN'] ?? '';
-
+    _kToken = dotenv.env['MIXPANEL_TOKEN'] ?? '';
+    log.i('Mixpanel init $_kToken');
     _initMobile();
   }
 
   Future<void> _initMobile() async {
+    log.i('Mixpanel pre-init $_kToken');
+
     _mixpanel = await Mixpanel.init(_kToken, trackAutomaticEvents: false);
     packageInfo = await PackageInfo.fromPlatform();
   }
@@ -71,6 +68,7 @@ class MixpanelManager {
     String eventName,
     Map<String, dynamic>? data,
   ) async {
+    log.i('Mixpanel pre-init $eventName $data');
     await _initMobile();
 
     // ignore: parameter_assignments
@@ -89,9 +87,8 @@ class MixpanelManager {
     } else if (Platform.isIOS) {
       _deviceData = _readIosDeviceInfo(await deviceInfoPlugin.iosInfo);
     }
-
     data.addAll(_deviceData);
-
+    log.i('tracking Mixpanel event $eventName $data');
     _mixpanel.track(eventName, properties: data);
   }
 

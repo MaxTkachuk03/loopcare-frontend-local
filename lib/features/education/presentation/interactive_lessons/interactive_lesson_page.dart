@@ -20,35 +20,30 @@ class InteractiveLessonPage extends StatelessWidget {
     final activePage = state.data.activePage;
     if (activePage == null || activePage.chunksIds.isEmpty) return 0;
 
-    return (((state.data.activeChunkIndex + 1) /
-                (activePage.chunksIds.length)) *
-            100)
-        .round();
+    return (((state.data.activeChunkIndex + 1) / (activePage.chunksIds.length)) * 100).round();
   }
 
   @override
   Widget build(BuildContext context) {
     final bloc = context.watch<InteractiveLessonsBloc>().state.data;
-    final lessonStreamType =
-        RiverModuleStreamType.getLessonStreamType(bloc.type);
+    final lessonStreamType = RiverModuleStreamType.getLessonStreamType(bloc.type);
 
-    return BlocBuilder<InteractiveLessonsBloc, InteractiveLessonsState>(
-        builder: (context, state) {
+    return BlocBuilder<InteractiveLessonsBloc, InteractiveLessonsState>(builder: (context, state) {
       return state.maybeWhen(
         error: (_) => const SizedBox.shrink(),
-        loading: (_) => CustomScaffold.greenLightest(
+        loading: (_) => CustomScaffold.customColor(
+          color: lessonStreamType.lightestColor,
           body: const Center(child: CircularProgressIndicator()),
         ),
-        orElse: () => CustomScaffold.greenLightest(
+        orElse: () => CustomScaffold.customColor(
+          color: lessonStreamType.lightestColor,
           appBar: CustomAppBar.customColor(
             customColor: lessonStreamType.regularColor,
             title: context.watch<InteractiveLessonsBloc>().state.data.title,
-            leading: CustomFilledIconButton.fromColor(
-                color: lessonStreamType.lighterColor),
+            leading: CustomFilledIconButton.fromColor(color: lessonStreamType.lighterColor),
             bottom: PreferredSize(
               preferredSize: const Size.fromHeight(50),
-              child:
-                  BlocBuilder<InteractiveLessonsBloc, InteractiveLessonsState>(
+              child: BlocBuilder<InteractiveLessonsBloc, InteractiveLessonsState>(
                 builder: (context, state) {
                   return ProgressBar(
                     backgroundColor: lessonStreamType.regularColor,
@@ -66,13 +61,11 @@ class InteractiveLessonPage extends StatelessWidget {
             child:
                 // ScrollableContainer(
                 MainContainer(
-              child:
-                  BlocBuilder<InteractiveLessonsBloc, InteractiveLessonsState>(
+              child: BlocBuilder<InteractiveLessonsBloc, InteractiveLessonsState>(
                 builder: (context, state) {
                   return state.maybeWhen(
                     error: (_) => const SizedBox.shrink(),
-                    loading: (_) =>
-                        const Center(child: CircularProgressIndicator()),
+                    loading: (_) => const Center(child: CircularProgressIndicator()),
                     orElse: () => const ChunksList(),
                   );
                 },

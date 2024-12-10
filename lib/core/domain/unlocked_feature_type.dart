@@ -12,7 +12,8 @@ enum UnlockedFeatureType {
   mind,
   fiberIndicator,
   calorieTracker,
-  moodLogging;
+  moodLogging,
+  commitment;
 
   bool get isGrouping => this == grouping;
 }

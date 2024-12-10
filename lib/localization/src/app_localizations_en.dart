@@ -9,6 +9,12 @@ class AppLocalizationsEn extends AppLocalizations {
   AppLocalizationsEn([String locale = 'en']) : super(locale);
 
   @override
+  String get interactiveLessonsTextAreaLabel => 'Your thoughts';
+
+  @override
+  String get interactiveLessonsMultipleChoiceBtnLabel => 'Save';
+
+  @override
   String get interactiveLessonsScaleLabel => 'Rate on a scale';
 
   @override
@@ -5234,7 +5240,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get backToDashboard => 'Back to dashboard';
 
   @override
-  String get backToTodayLogging => 'Back to Today';
+  String get finishMealLogging => 'Finish meal';
 
   @override
   String get hello => 'Hello';

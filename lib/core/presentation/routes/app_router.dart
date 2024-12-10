@@ -182,6 +182,10 @@ class AppRouter extends $AppRouter {
           page: DailyIntakeRoute.page,
         ), // added
         AutoRoute(
+          path: AppRoutes.nutritionIntake,
+          page: NutritionIntakeRoute.page,
+        ), // added
+        AutoRoute(
           path: AppRoutes.programAssessment,
           page: ProgramAssessmentRoute.page,
         ), // added

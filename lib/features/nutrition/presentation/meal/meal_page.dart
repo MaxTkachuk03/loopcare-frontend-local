@@ -15,6 +15,7 @@ import 'package:loopcare_frontend/core/presentation/nutrition/nutrition_summary/
 import 'package:loopcare_frontend/core/presentation/routes/app_router.gr.dart';
 import 'package:loopcare_frontend/core/presentation/scaffold/custom_scaffold.dart';
 import 'package:loopcare_frontend/core/presentation/text/custom_text.dart';
+import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 import 'package:loopcare_frontend/core/presentation/utils/date_time_extensions.dart';
 import 'package:loopcare_frontend/core/presentation/utils/string_extensions.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/main_container.dart';
@@ -162,7 +163,12 @@ class _MealPageState extends State<MealPage> {
 
   void _onBackToDashboardPressed() {
     // Method _onWillPop() will called in any case
-    context.router.popUntilRouteWithName(HomeRoute.name);
+    const source = 'NutritionIntakeRoute';
+    if (context.router.stack[1].routeData.name.toLowerCase() == source.toLowerCase()) {
+      context.router.popUntilRouteWithName(NutritionIntakeRoute.name);
+    } else {
+      context.router.popUntilRouteWithName(HomeRoute.name);
+    }
   }
 
   Future<void> _onWillPop(_, __) async => _onBack();
@@ -178,7 +184,13 @@ class _MealPageState extends State<MealPage> {
               title: _appBarTitle,
               subtitle: _appBarSubTitle,
               leading: CustomFilledIconButton.leadingGreenLighter(),
-              actions: state.data.isEditable ? const [CirclePlusButton()] : null,
+              actions: state.data.isEditable
+                  ? const [
+                      CirclePlusButton(
+                        color: AppColors.greenLighter,
+                      )
+                    ]
+                  : null,
             ),
             body: CustomSafeArea(
               child: state.maybeMap(
@@ -265,7 +277,7 @@ class _MealPageState extends State<MealPage> {
                           padding: const EdgeInsets.symmetric(vertical: 30.0, horizontal: 24.0),
                           child: CustomElevatedButton.blueFullWidth(
                             onPressed: _onBackToDashboardPressed,
-                            label: LocalizedTexts.backToTodayLogging.tr(),
+                            label: LocalizedTexts.finishMealLogging.tr(),
                           ),
                         )
                     ],

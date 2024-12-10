@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 class AppImages {
+  AppImages._();
+
   static const String imagesFilePath = 'assets/images';
 
   static const AssetImage recipePlaceholder = AssetImage('$imagesFilePath/recipe_placeholder.png');
@@ -74,5 +76,6 @@ class AppImages {
 
   static SvgPicture onboardingArrow = SvgPicture.asset('$imagesFilePath/onboarding_arrow.svg');
   static SvgPicture subscriptionCross = SvgPicture.asset('$imagesFilePath/subscription_cross.svg');
-  AppImages._();
+
+  static const AssetImage nutrition = AssetImage('$imagesFilePath/nutrition_image.png');
 }

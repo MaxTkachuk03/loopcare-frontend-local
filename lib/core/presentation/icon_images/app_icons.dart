@@ -22,7 +22,13 @@ class AppIcons {
   static const AssetImage list = AssetImage('$iconsFilePath/list.png');
   static const AssetImage plus = AssetImage('$iconsFilePath/plus.png');
   static const AssetImage scan = AssetImage('$iconsFilePath/scan.png');
-  static SvgPicture clock = SvgPicture.asset('$iconsFilePath/clock.svg');
+  static const AssetImage doneDayButton = AssetImage('$iconsFilePath/done_day.png');
+  static const AssetImage commitmentButton = AssetImage('$iconsFilePath/commitment.png');
+  static SvgPicture clock = SvgPicture.asset(
+    '$iconsFilePath/clock.svg',
+    width: 24,
+    height: 24,
+  );
   static SvgPicture clockWhite = SvgPicture.asset('$iconsFilePath/clock.svg',
       colorFilter: const ColorFilter.mode(AppColors.white, BlendMode.srcIn));
   static SvgPicture clockGrey = SvgPicture.asset('$iconsFilePath/clock.svg', width: 21, height: 21);
@@ -156,6 +162,9 @@ class AppIcons {
       SvgPicture.asset('$iconsFilePath/custom_physical_exercise.svg', width: 44, height: 44);
   static SvgPicture customDashboardLogMeals =
       SvgPicture.asset('$iconsFilePath/custom_dashboard_log_meals.svg', width: 44, height: 44);
+  static SvgPicture commitment =
+      SvgPicture.asset('$iconsFilePath/commitment.svg', width: 44, height: 44);
+
   static SvgPicture customDashboardWeight =
       SvgPicture.asset('$iconsFilePath/custom_dashboard_weight.svg', width: 44, height: 44);
   static SvgPicture customEducationDashboard =
@@ -245,10 +254,43 @@ class AppIcons {
   static SvgPicture maleAvatarTone3 = SvgPicture.asset('$iconsFilePath/male_avatar_tone3.svg');
   static SvgPicture maleAvatarTone4 = SvgPicture.asset('$iconsFilePath/male_avatar_tone4.svg');
 
+  static SvgPicture nutritionSubtract = SvgPicture.asset(
+    '$iconsFilePath/subtract.svg',
+    width: 20.0,
+    height: 20.0,
+  );
+
   static const String avatarIconPhotoPath = '$iconsFilePath/user_avatar_icon_photo.svg';
   static const String avatarIconBluePath = '$iconsFilePath/user_avatar_icon_blue.svg';
 
   static SvgPicture confetti = SvgPicture.asset('$iconsFilePath/confetti.svg');
+
+  static SvgPicture interactiveLessonCheckmark(
+          bool clicked, Color clickedColor, Color regularColor) =>
+      SvgPicture.asset('$iconsFilePath/checkmark_circle.svg',
+          width: 44,
+          height: 44,
+          colorFilter: ColorFilter.mode(clicked ? clickedColor : regularColor, BlendMode.srcIn));
+
+  static SvgPicture interactiveLessonAddTextField(
+          bool clicked, Color clickedColor, Color regularColor) =>
+      SvgPicture.asset('$iconsFilePath/add_textfield.svg',
+          width: 44,
+          height: 44,
+          colorFilter: ColorFilter.mode(clicked ? clickedColor : regularColor, BlendMode.modulate));
+
+  static SvgPicture interactiveLessonEditPencil(
+          bool clicked, Color clickedColor, Color regularColor) =>
+      SvgPicture.asset('$iconsFilePath/edit_pencil.svg',
+          width: 24,
+          height: 24,
+          colorFilter: ColorFilter.mode(clicked ? clickedColor : regularColor, BlendMode.srcIn));
+
+  static SvgPicture interactiveLessonBucket(bool clicked, Color clickedColor, Color regularColor) =>
+      SvgPicture.asset('$iconsFilePath/bucket.svg',
+          width: 24,
+          height: 24,
+          colorFilter: ColorFilter.mode(clicked ? clickedColor : regularColor, BlendMode.srcIn));
 
   AppIcons._();
 }

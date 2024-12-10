@@ -2,6 +2,9 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loopcare_frontend/core/domain/analytics/analytics_events.dart';
+import 'package:loopcare_frontend/core/domain/analytics/usage_analytics/usage_analytics.dart';
+import 'package:loopcare_frontend/core/domain/analytics/usage_analytics/usage_analytics_attributes.dart';
+import 'package:loopcare_frontend/core/domain/analytics/usage_analytics/usage_analytics_events.dart';
 import 'package:loopcare_frontend/core/infrastructure/services/analytics_service.dart';
 import 'package:loopcare_frontend/core/infrastructure/services/shared_storage/shared_storage_service.dart';
 import 'package:loopcare_frontend/core/presentation/alerting/show_app_snackbar.dart';
@@ -37,7 +40,7 @@ class LessonCompletePage extends StatefulWidget {
   const LessonCompletePage({
     super.key,
     this.streamType = RiverModuleStreamType.community,
-    this.lessonType = LessonType.regular,
+    this.lessonType = LessonType.simple,
   });
 
   @override
@@ -45,16 +48,28 @@ class LessonCompletePage extends StatefulWidget {
 }
 
 class _LessonCompletePageState extends State<LessonCompletePage> {
+  final usageAnalytics = UsageAnalytics();
+
   @override
   void initState() {
     super.initState();
 
-    final lessonId = context.read<EducationLessonBloc>().state.data.id;
-    context.read<RiverBloc>().add(RiverEvent.updateActiveModuleItemStatus(lessonId: lessonId));
+    final lesson = context.read<EducationLessonBloc>().state.data;
+    context.read<RiverBloc>().add(RiverEvent.updateActiveModuleItemStatus(lessonId: lesson.id));
+    final riverModule = context.read<RiverBloc>().state.data.activeModule;
+
+    usageAnalytics.track(
+      eventName: UsageAnalyticsEvents.lessonCompleted,
+      attributes: {
+        UsageAnalyticsAttributes.articleId: lesson.id,
+        UsageAnalyticsAttributes.articleTitle: lesson.title,
+        UsageAnalyticsAttributes.articlePool: riverModule?.title,
+      },
+    );
 
     const AnalyticsEventService().logLessonCompletedEvent(
       AnalyticsEvents.lessonCompletedScreen,
-      lessonId,
+      lesson.id,
     );
   }
 
@@ -332,7 +347,7 @@ class _LessonCompletePageState extends State<LessonCompletePage> {
 
   _checkLessonType(LessonType lessonType) {
     switch (lessonType) {
-      case LessonType.regular:
+      case LessonType.simple:
         return _regular();
       case LessonType.interactive:
         return _interactive();

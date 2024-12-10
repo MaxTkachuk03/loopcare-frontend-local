@@ -75,7 +75,7 @@ class _WaitingForConfirmationPageState extends State<WaitingForConfirmationPage>
 
   void _onContinue() {
     PageRouteInfo route;
-    if (kIsProd) {
+    if (kIsProd || kIsStag) {
       route = const SubscriptionRoute();
     } else {
       route = const RiverOverviewRoute();

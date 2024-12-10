@@ -141,7 +141,7 @@ class LocalizedTexts {
   static const String alreadyPlannedCategory = 'alreadyPlannedCategory';
   static const String replaceWith = 'replaceWith';
   static const String nothingOnTheMenu = 'nothingOnTheMenu';
-  static const String backToTodayLogging = 'backToTodayLogging';
+  static const String finishMealLogging = 'finishMealLogging';
 
   //QR Code
   static const String qrCodeSubtext_1 = 'qrCodeSubtext_1';
@@ -251,6 +251,8 @@ class LocalizedTexts {
   static const String insignificant = 'insignificant';
   static const String practice = 'practice';
   static const String pool = 'pool';
+  static const String commitment = 'Commitment';
+  static const String completeYourSurveys = 'Complete your surveys';
 
   // Education
   static const String all = 'all';
@@ -1019,7 +1021,9 @@ class LocalizedTexts {
   static const String needSubscrionScreenBody4 = 'needSubscrionScreenBody4';
 
   // Interactive lessons
-  static const String interactiveLessonsShortAnswerLabel = 'interactiveLessonsShortAnswerLabel';
+  static const String interactiveLessonsTextAreaLabel = 'interactiveLessonsTextAreaLabel';
+  static const String interactiveLessonsMultipleChoiceBtnLabel =
+      'interactiveLessonsMultipleChoiceBtnLabel';
   static const String interactiveLessonsScaleLabel = 'interactiveLessonsScaleLabel';
   static const String interactiveLessonsSingleSelectLabel = 'interactiveLessonsSingleSelectLabel';
   static const String interactiveLessonsMultipleSelectLabel =

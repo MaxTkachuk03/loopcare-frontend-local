@@ -9,14 +9,14 @@ import 'package:hydrated_bloc/hydrated_bloc.dart';
 import 'package:just_audio_background/just_audio_background.dart';
 import 'package:loopcare_frontend/build_type.dart';
 import 'package:loopcare_frontend/core/app.dart';
-import 'package:loopcare_frontend/core/application/customer_io_service/customer_io_service.dart';
 import 'package:loopcare_frontend/core/application/system_service.dart';
+import 'package:loopcare_frontend/core/domain/analytics/customer_io_service/customer_io_service.dart';
+import 'package:loopcare_frontend/core/domain/analytics/mixpanel/mixpanel_manager.dart';
 import 'package:loopcare_frontend/core/infrastructure/app_lifecycle_observer.dart';
 import 'package:loopcare_frontend/core/infrastructure/hive_service/hive_service.dart';
 import 'package:loopcare_frontend/core/infrastructure/services/analytics_service.dart';
 import 'package:loopcare_frontend/core/infrastructure/services/country_code_service/country_code_service.dart';
 import 'package:loopcare_frontend/core/infrastructure/services/logger/logger.dart';
-import 'package:loopcare_frontend/core/infrastructure/services/mixpanel_manager.dart';
 import 'package:loopcare_frontend/core/presentation/custom_error_widget/custom_error_widget.dart';
 import 'package:loopcare_frontend/firebase_options.dart';
 import 'package:loopcare_frontend/injection.dart';
@@ -57,6 +57,7 @@ Future<void> main() async {
 
   await CustomerIoService.initialize();
 
+  log.i('Mixpanel trigger');
   await MixpanelManager().init();
 
   HydratedBloc.storage = await HydratedStorage.build(

@@ -4,9 +4,11 @@ import 'package:collection/collection.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
-import 'package:loopcare_frontend/core/application/customer_io_service/customer_io_service.dart';
 import 'package:loopcare_frontend/core/domain/analytics/analytics_events.dart';
 import 'package:loopcare_frontend/core/domain/analytics/analytics_parameters.dart';
+import 'package:loopcare_frontend/core/domain/analytics/usage_analytics/usage_analytics.dart';
+import 'package:loopcare_frontend/core/domain/analytics/usage_analytics/usage_analytics_attributes.dart';
+import 'package:loopcare_frontend/core/domain/analytics/usage_analytics/usage_analytics_events.dart';
 import 'package:loopcare_frontend/core/infrastructure/dio_client/request_error.dart';
 import 'package:loopcare_frontend/core/infrastructure/services/analytics_service.dart';
 import 'package:loopcare_frontend/core/infrastructure/services/shared_storage/shared_storage_service.dart';
@@ -33,6 +35,7 @@ const sessionReviewDelay = 7;
 class SmartGoalsBloc extends Bloc<SmartGoalsEvent, SmartGoalsState> {
   final SmartGoalsService _smartGoalsService;
   final account = getIt<SharedStorageService>().account;
+  final usageAnalytics = UsageAnalytics();
 
   SmartGoalsBloc(this._smartGoalsService)
       : super(const SmartGoalsState.initial(SmartGoalsStateData())) {
@@ -140,7 +143,23 @@ class SmartGoalsBloc extends Bloc<SmartGoalsEvent, SmartGoalsState> {
       ),
       (r) {
         var sessions = [...state.data.weeklyGoalsSessions];
+        final deletedSession = sessions.firstWhere((s) => s.id == r.id);
         sessions.removeWhere((session) => session.id == r.id);
+        usageAnalytics.track(
+          eventName: UsageAnalyticsEvents.goalNutritionDeleted,
+          attributes: {
+            UsageAnalyticsAttributes.goalTitle: deletedSession.goal?.title,
+            UsageAnalyticsAttributes.goalID: deletedSession.goal?.id,
+            UsageAnalyticsAttributes.goalCategoryTitle:
+                deletedSession.goal?.smartGoal.category.name,
+            UsageAnalyticsAttributes.goalCategoryID: deletedSession.goal?.smartGoal.category.id,
+            UsageAnalyticsAttributes.allottedDays: deletedSession.goal?.requiredDays,
+            UsageAnalyticsAttributes.requiredCompletions: deletedSession.goal?.requiredCompletions,
+            UsageAnalyticsAttributes.deletionReason: state.data.reason?.label,
+            if (deletedSession.finishedAt != null)
+              UsageAnalyticsAttributes.finishDate: deletedSession.finishedAt!.toIso8601String(),
+          },
+        );
         emit(
           SmartGoalsState.sessionDeleted(
             state.data.copyWith(weeklyGoalsSessions: sessions, reason: null, isLoading: false),
@@ -183,9 +202,9 @@ class SmartGoalsBloc extends Bloc<SmartGoalsEvent, SmartGoalsState> {
     Emitter<SmartGoalsState> emit,
   ) async {
     emit(SmartGoalsState.loading(state.data.copyWith(isLoading: true)));
-
     final date = state.data.selectedDate?.dateStringOnly ?? DateTime.now().dateStringOnly;
     final logs = event.weeklySmartGoal.progressLogs;
+
     ProgressSmartGoalLog smartGoalLog = ProgressSmartGoalLog(date: date, times: 1);
 
     if (logs != null) {
@@ -200,7 +219,7 @@ class SmartGoalsBloc extends Bloc<SmartGoalsEvent, SmartGoalsState> {
     response.fold(
       (l) => emit(SmartGoalsState.error(state.data.copyWith(error: l, isLoading: false))),
       (r) {
-        _logGoalAnalyticEvent(smartGoalLog);
+        _logGoalAnalyticEvent(smartGoalLog, event.weeklySmartGoal);
         var sessions = [...state.data.weeklyGoalsSessions];
         final index = sessions.indexWhere((session) => session.id == r.id);
         sessions[index] = r;
@@ -237,7 +256,7 @@ class SmartGoalsBloc extends Bloc<SmartGoalsEvent, SmartGoalsState> {
     );
   }
 
-  void _logGoalAnalyticEvent(ProgressSmartGoalLog log) {
+  void _logGoalAnalyticEvent(ProgressSmartGoalLog log, WeeklySmartGoal smartGoal) {
     const AnalyticsEventService().logEvent(
       eventName: AnalyticsEvents.userLogGoal,
       parameters: {
@@ -247,12 +266,17 @@ class SmartGoalsBloc extends Bloc<SmartGoalsEvent, SmartGoalsState> {
       },
     );
 
-    CustomerIoService.track(
-      event: CIOEvents.userLogGoal,
+    usageAnalytics.track(
+      eventName: UsageAnalyticsEvents.goalNutritionLogged,
       attributes: {
-        CIOAttributes.userId: account?.id,
-        CIOAttributes.logValue: log.times,
-        CIOAttributes.dateLog: log.date,
+        UsageAnalyticsAttributes.logValue: log.times,
+        UsageAnalyticsAttributes.dateLog: log.date,
+        UsageAnalyticsAttributes.goalID: smartGoal.id.toString(),
+        UsageAnalyticsAttributes.goalTitle: smartGoal.title,
+        UsageAnalyticsAttributes.goalCategoryID: smartGoal.smartGoal.category.id.toString(),
+        UsageAnalyticsAttributes.goalCategoryTitle: smartGoal.smartGoal.category.name,
+        UsageAnalyticsAttributes.allottedDays: smartGoal.requiredDays,
+        UsageAnalyticsAttributes.requiredCompletions: smartGoal.requiredCompletions,
       },
     );
   }
@@ -269,14 +293,13 @@ class SmartGoalsBloc extends Bloc<SmartGoalsEvent, SmartGoalsState> {
       },
     );
 
-    CustomerIoService.track(
-      event: CIOEvents.userAddedReview,
+    usageAnalytics.track(
+      eventName: UsageAnalyticsEvents.goalNutritionCompleted,
       attributes: {
-        CIOAttributes.userId: account?.id,
-        CIOAttributes.goalCategoryTitle: data.categoryTitle,
-        CIOAttributes.goalTitle: data.goalTitle,
-        CIOAttributes.score: data.difficulty,
-        CIOAttributes.wantsToRepeat: data.isTryAgain,
+        UsageAnalyticsAttributes.goalCategoryTitle: data.categoryTitle,
+        UsageAnalyticsAttributes.goalTitle: data.goalTitle,
+        UsageAnalyticsAttributes.score: data.difficulty,
+        UsageAnalyticsAttributes.wantsToRepeat: data.isTryAgain,
       },
     );
   }
@@ -298,16 +321,17 @@ class SmartGoalsBloc extends Bloc<SmartGoalsEvent, SmartGoalsState> {
         },
       );
 
-      CustomerIoService.track(
-        event: CIOEvents.userSavedGoals,
+      usageAnalytics.track(
+        eventName: UsageAnalyticsEvents.goalNutritionSelected,
         attributes: {
-          CIOAttributes.userId: account?.id,
-          CIOAttributes.goalTitle: goal.title,
-          CIOAttributes.goalCategoryTitle: goal.smartGoal.category.name,
+          UsageAnalyticsAttributes.goalTitle: goal.title,
+          UsageAnalyticsAttributes.goalID: goal.id,
+          UsageAnalyticsAttributes.goalCategoryTitle: goal.smartGoal.category.name,
+          UsageAnalyticsAttributes.goalCategoryID: goal.smartGoal.category.id,
+          UsageAnalyticsAttributes.allottedDays: goal.requiredDays,
+          UsageAnalyticsAttributes.requiredCompletions: goal.requiredCompletions,
           if (session.finishedAt != null)
-            CIOAttributes.finishDate: session.finishedAt!.toIso8601String(),
-          if (session.lastReviewDate != null)
-            CIOAttributes.reviewLastDate: session.finishedAt!.toIso8601String(),
+            UsageAnalyticsAttributes.finishDate: session.finishedAt!.toIso8601String(),
         },
       );
     }

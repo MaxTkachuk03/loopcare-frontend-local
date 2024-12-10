@@ -122,6 +122,8 @@ class AuthenticationData with _$AuthenticationData {
 
   bool get isSmartGoalUnlocked => account?.isSmartGoalsUnlocked ?? false;
 
+  bool get isCommitmentUnlocked => account?.isCommitmentUnlocked ?? false;
+
   bool get isUserGrouped => groupingState == UserGroupingState.grouped;
 
   bool get isMixedGender => account?.isMixedGender ?? false;

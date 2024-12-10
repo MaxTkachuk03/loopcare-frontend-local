@@ -9,33 +9,51 @@ import 'package:loopcare_frontend/features/education/domain/interactive_lesson/s
 import 'package:loopcare_frontend/features/river/domain/river_module_stream_type.dart';
 import 'package:loopcare_frontend/localization/service/localization_extension.dart';
 import 'package:loopcare_frontend/localization/service/localized_texts.dart';
+import 'package:loopcare_frontend/features/education/domain/interactive_lesson/interactive_lesson_component_progress.dart';
 
 class SingleSelect extends StatefulWidget {
   const SingleSelect({
     super.key,
     required this.component,
     required this.lessonStreamType,
-    required this.isClickedHandler,
+    required this.onSaveProgress,
   });
 
   final InteractiveLessonChunkComponentSingleSelect component;
   final RiverModuleStreamType lessonStreamType;
-  final Function(bool isClicked) isClickedHandler;
+  final Function(
+          InteractiveLessonComponentProgress progress, InteractiveLessonChunkComponent component)
+      onSaveProgress;
 
   @override
   State<SingleSelect> createState() => _SingleSelectState();
 }
 
 class _SingleSelectState extends State<SingleSelect> {
-  ContentSelectAnswer? _selectedAnswer;
+  final List<int> _selectedAnswer = [];
+
+  @override
+  initState() {
+    super.initState();
+    if (widget.component.progress == null) return;
+    final optionId = widget.component.progress!.optionIds!.first;
+    final answer = widget.component.content.answers.where((answer) => answer.id == optionId).first;
+    _selectedAnswer.add(answer.id);
+  }
 
   void _onSelected(ContentSelectAnswer value) {
-    //TODO LOGIC
-    widget.isClickedHandler(true);
+    if (_selectedAnswer.isNotEmpty) {
+      return;
+    }
 
     setState(() {
-      _selectedAnswer = _selectedAnswer == value ? null : value;
+      _selectedAnswer.add(value.id);
     });
+
+    widget.onSaveProgress(
+        InteractiveLessonComponentProgress(
+            optionIds: _selectedAnswer, type: widget.component.type.name),
+        widget.component);
   }
 
   SelectContent get content => widget.component.content;
@@ -52,8 +70,7 @@ class _SingleSelectState extends State<SingleSelect> {
         const SizedBox(height: 20),
         CustomText(
           content.question,
-          style: context.textTheme.bodyMedium!
-              .copyWith(fontWeight: FontWeight.w700),
+          style: context.textTheme.bodyMedium!.copyWith(fontWeight: FontWeight.w700),
         ),
         const SizedBox(height: 20),
         ListView.separated(
@@ -63,7 +80,7 @@ class _SingleSelectState extends State<SingleSelect> {
           itemCount: content.answers.length,
           itemBuilder: (context, index) {
             final answer = content.answers[index];
-            final isSelected = _selectedAnswer == answer;
+            final isSelected = _selectedAnswer.contains(answer.id);
 
             return CustomChoiceChip.green(
               label: answer.label,

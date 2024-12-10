@@ -2,7 +2,8 @@ import 'package:auto_route/annotations.dart';
 import 'package:customer_io/customer_io.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:loopcare_frontend/core/application/customer_io_service/customer_io_events.dart';
+import 'package:loopcare_frontend/core/domain/analytics/usage_analytics/usage_analytics.dart';
+import 'package:loopcare_frontend/core/domain/analytics/usage_analytics/usage_analytics_events.dart';
 import 'package:loopcare_frontend/core/presentation/app_bar/custom_app_bar.dart';
 import 'package:loopcare_frontend/core/presentation/app_version/app_version.dart';
 import 'package:loopcare_frontend/core/presentation/custom_safe_area.dart';
@@ -29,6 +30,8 @@ class AccountPage extends StatefulWidget {
 }
 
 class _AccountPageState extends State<AccountPage> {
+  final usageAnalytics = UsageAnalytics();
+
   @override
   void initState() {
     super.initState();
@@ -45,7 +48,7 @@ class _AccountPageState extends State<AccountPage> {
     }
 
     CustomerIO.track(
-      name: CIOEvents.profilePage,
+      name: UsageAnalyticsEvents.profilePage,
     );
   }
 
@@ -56,25 +59,25 @@ class _AccountPageState extends State<AccountPage> {
         title: LocalizedTexts.yourProfile.tr(),
         leading: const SizedBox.shrink(),
       ),
-      body: const CustomSafeArea(
+      body: CustomSafeArea(
         child: ScrollableContainer(
           child: MainContainer(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                SizedBox(height: 32.0),
+                const SizedBox(height: 32.0),
                 AccountSection(),
-                SizedBox(height: 24.0),
-                SubscriptionSection(),
-                SizedBox(height: 24.0),
-                PreferencesSection(),
-                SizedBox(height: 24.0),
-                ReportAbuseSection(),
-                SizedBox(height: 24.0),
-                DeleteAccountSection(),
-                SizedBox(height: 32.0),
-                Center(child: AppVersion()),
-                SizedBox(height: 32.0),
+                const SizedBox(height: 24.0),
+                const SubscriptionSection(),
+                const SizedBox(height: 24.0),
+                const PreferencesSection(),
+                const SizedBox(height: 24.0),
+                const ReportAbuseSection(),
+                const SizedBox(height: 24.0),
+                const DeleteAccountSection(),
+                const SizedBox(height: 32.0),
+                const Center(child: AppVersion()),
+                const SizedBox(height: 32.0),
               ],
             ),
           ),

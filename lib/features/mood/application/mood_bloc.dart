@@ -4,8 +4,8 @@ import 'package:customer_io/customer_io.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
-import 'package:loopcare_frontend/core/application/customer_io_service/customer_io_attributes.dart';
-import 'package:loopcare_frontend/core/application/customer_io_service/customer_io_events.dart';
+import 'package:loopcare_frontend/core/domain/analytics/usage_analytics/usage_analytics_attributes.dart';
+import 'package:loopcare_frontend/core/domain/analytics/usage_analytics/usage_analytics_events.dart';
 import 'package:loopcare_frontend/core/domain/extensions/list_extensions.dart';
 import 'package:loopcare_frontend/core/infrastructure/dio_client/request_error.dart';
 import 'package:loopcare_frontend/core/presentation/utils/date_time_extensions.dart';
@@ -77,13 +77,13 @@ class MoodBloc extends Bloc<MoodEvent, MoodState> {
     response.fold((l) => emit(MoodState.error(state.data.copyWith(error: l, isLoading: false))),
         (r) {
       CustomerIO.track(
-        name: CIOEvents.moodLogged,
+        name: UsageAnalyticsEvents.moodLogged,
         attributes: {
-          CIOAttributes.emotion: event.data.emotion,
-          CIOAttributes.companion: event.data.person,
-          CIOAttributes.place: event.data.location.toString(),
-          CIOAttributes.food: event.data.food,
-          CIOAttributes.note: event.data.note,
+          UsageAnalyticsAttributes.emotion: event.data.emotion,
+          UsageAnalyticsAttributes.companion: event.data.person,
+          UsageAnalyticsAttributes.place: event.data.location,
+          UsageAnalyticsAttributes.food: event.data.food,
+          UsageAnalyticsAttributes.note: event.data.note,
         },
       );
       emit(MoodState.updated(state.data
