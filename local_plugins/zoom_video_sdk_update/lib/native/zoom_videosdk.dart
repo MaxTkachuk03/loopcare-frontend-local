@@ -250,7 +250,7 @@ class Errors {
   static const SessionAlreadyInProgress = 'ZoomVideoSDKError_Session_Already_In_Progress';
   static const SessionDontSupportSessionType = 'ZoomVideoSDKError_Session_Dont_Support_SessionType';
   static const SessionReconncting = 'ZoomVideoSDKError_Session_Reconncting';
-  static const SessionDisconncting = 'ZoomVideoSDKError_Session_Disconncting';
+  static const SessionDisconnecting = 'ZoomVideoSDKError_Session_Disconncting';
   static const SessionNotStarted = 'ZoomVideoSDKError_Session_Not_Started';
   static const SessionNeedPassword = 'ZoomVideoSDKError_Session_Need_Password';
   static const SessionPasswordWrong = 'ZoomVideoSDKError_Session_Password_Wrong';
