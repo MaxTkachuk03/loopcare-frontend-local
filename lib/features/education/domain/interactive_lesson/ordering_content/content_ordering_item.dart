@@ -30,7 +30,7 @@ class ContentOrderingItem with _$ContentOrderingItem {
       final src = (json['imageURL'] as String?) ?? '';
       log.d('Parsed src: $src');
 
-      final title = (json['title'] as String?) ?? '';
+      final title = (json['label'] as String?) ?? '';
       log.d('Parsed title: $title');
 
       final description = (json['description'] as String?) ?? '';

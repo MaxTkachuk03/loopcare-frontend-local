@@ -25,7 +25,6 @@ class InteractiveLessonsState with _$InteractiveLessonsState {
 
   const factory InteractiveLessonsState.saveAnswer(InteractiveLessonsStateData data) =
       InteractiveLessonsStateSaveAnswer;
-
 }
 
 @freezed

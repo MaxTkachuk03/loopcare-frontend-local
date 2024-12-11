@@ -14,6 +14,7 @@ class OrderingContent with _$OrderingContent {
     required String topLabel,
     required String bottomLabel,
     required List<ContentOrderingItem> items,
+    required List<int> correctOrder,
     required String feedbackCorrect,
     required String feedbackIncorrect,
     required String feedbackRevealed,
@@ -46,6 +47,11 @@ class OrderingContent with _$OrderingContent {
           .toList();
       log.d('Parsed items: $items');
 
+      final correctOrder =
+          (json['content']['correctOrder'] as List<dynamic>?)?.map((e) => e as int).toList() ??
+              <int>[];
+      log.d('Parsed correctOrder: $correctOrder');
+
       final feedbackCorrect = json['feedbackCorrect'] as String;
       log.d('Parsed feedbackCorrect: $feedbackCorrect');
 
@@ -60,6 +66,7 @@ class OrderingContent with _$OrderingContent {
         topLabel: topLabel,
         bottomLabel: bottomLabel,
         items: items,
+        correctOrder: correctOrder,
         feedbackCorrect: feedbackCorrect,
         feedbackIncorrect: feedbackIncorrect,
         feedbackRevealed: feedbackRevealed,

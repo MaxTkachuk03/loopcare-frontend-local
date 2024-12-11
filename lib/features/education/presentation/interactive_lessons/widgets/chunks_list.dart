@@ -23,43 +23,36 @@ class ChunksList extends StatefulWidget {
 class _ChunksListState extends State<ChunksList> {
   ScrollController scrollController = ScrollController();
 
-  List<Widget> _renderChunk(
-      InteractiveLessonsStateData blocState, InteractiveLessonChunk chunk) {
+  List<Widget> _renderChunk(InteractiveLessonsStateData blocState, InteractiveLessonChunk chunk) {
     final components = blocState.getChunkComponents(chunk);
     final renderedChunks = blocState.activePageUnlockedChunks;
     final showButton = renderedChunks.last.id == chunk.id;
     final buttonEnabledOrDisabled =
         renderedChunks.last.id == chunk.id && blocState.isAllComponentChecked;
-    final showDivider =
-        chunk.id != renderedChunks.last.id && renderedChunks.length > 1;
+    final showDivider = chunk.id != renderedChunks.last.id && renderedChunks.length > 1;
 
     return [
       ..._renderChunkComponents(components),
       if (showDivider) const ChunkDivider(),
       if (showButton)
-        ContinueBtn(
-            onPressed: _onContinueHandler, isDisable: !buttonEnabledOrDisabled),
+        ContinueBtn(onPressed: _onContinueHandler, isDisable: !buttonEnabledOrDisabled),
     ];
   }
 
-  void onSaveProgress(InteractiveLessonComponentProgress progress,
-      InteractiveLessonChunkComponent component) {
+  void onSaveProgress(
+      InteractiveLessonComponentProgress progress, InteractiveLessonChunkComponent component) {
     final bloc = context.read<InteractiveLessonsBloc>();
     bloc.add(InteractiveLessonsEvent.saveAnswer(progress, component));
   }
 
-  List<Widget> _renderChunkComponents(
-      List<InteractiveLessonChunkComponent> components) {
+  List<Widget> _renderChunkComponents(List<InteractiveLessonChunkComponent> components) {
     final bloc = context.read<InteractiveLessonsBloc>();
     final blocState = bloc.state.data;
-    final lessonStreamType =
-        RiverModuleStreamType.getLessonStreamType(blocState.type);
+    final lessonStreamType = RiverModuleStreamType.getLessonStreamType(blocState.type);
 
-    final allProgress =
-        blocState.hasProgress(blocState.unlockedChunkComponents);
+    final allProgress = blocState.hasProgress(blocState.unlockedChunkComponents);
 
     if (allProgress == true) bloc.add(const InteractiveLessonsEvent.unlockNextChunk());
-    
 
     return [
       ...components.map((c) => switch (c) {
@@ -81,8 +74,7 @@ class _ChunksListState extends State<ChunksList> {
                 lessonStreamType: lessonStreamType,
                 onSaveProgress: onSaveProgress,
               ),
-            InteractiveLessonChunkComponentSingleSelectWithFeedback() =>
-              SingleSelectWithFeedback(
+            InteractiveLessonChunkComponentSingleSelectWithFeedback() => SingleSelectWithFeedback(
                 component: c,
                 lessonStreamType: lessonStreamType,
                 onSaveProgress: onSaveProgress,
@@ -127,22 +119,19 @@ class _ChunksListState extends State<ChunksList> {
   void _onContinueHandler() {
     final bloc = context.read<InteractiveLessonsBloc>();
     final blocState = bloc.state.data;
-    final lessonStreamType =
-        RiverModuleStreamType.getLessonStreamType(blocState.type);
+    final lessonStreamType = RiverModuleStreamType.getLessonStreamType(blocState.type);
 
     Future.delayed(const Duration(seconds: 1), () {
       const source = 'NutritionIntakeRoute';
       if (blocState.isAllChunksUnlocked && blocState.isLastPage) {
         if (mounted) {
-          if (context.router.stack[1].routeData.name.toLowerCase() ==
-              source.toLowerCase()) {
+          if (context.router.stack[1].routeData.name.toLowerCase() == source.toLowerCase()) {
             context.router.popUntilRouteWithName(NutritionIntakeRoute.name);
             return;
           }
 
           context.router.push(LessonCompleteRoute(
-              lessonType: LessonType.interactive,
-              streamType: lessonStreamType));
+              lessonType: LessonType.interactive, streamType: lessonStreamType));
         }
       } else if (blocState.isAllChunksUnlocked && !blocState.isLastPage) {
         bloc.add(const InteractiveLessonsEvent.setNextPage());

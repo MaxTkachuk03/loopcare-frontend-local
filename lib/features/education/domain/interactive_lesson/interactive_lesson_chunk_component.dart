@@ -225,8 +225,7 @@ class InteractiveLessonChunkComponent with _$InteractiveLessonChunkComponent {
             type: InteractiveLessonComponentType.singleSelect,
             needsValidation: needsValidation,
             isValid: isValid,
-            content:
-                SelectContent.debugFromJson(json['content']['content'] as Map<String, dynamic>),
+            content: SelectContent.debugFromJson(json['content'] as Map<String, dynamic>),
             chunkId: chunkId,
             progress: progress,
           );
@@ -237,7 +236,7 @@ class InteractiveLessonChunkComponent with _$InteractiveLessonChunkComponent {
             type: InteractiveLessonComponentType.multipleSelect,
             needsValidation: needsValidation,
             isValid: isValid,
-            content: SelectContent.fromJson(json['content']['content'] as Map<String, dynamic>),
+            content: SelectContent.debugFromJson(json['content'] as Map<String, dynamic>),
             chunkId: chunkId,
             progress: progress,
           );
@@ -248,8 +247,7 @@ class InteractiveLessonChunkComponent with _$InteractiveLessonChunkComponent {
             type: InteractiveLessonComponentType.singleSelectWithFeedback,
             needsValidation: needsValidation,
             isValid: isValid,
-            content:
-                SelectContent.debugFromJson(json['content']['content'] as Map<String, dynamic>),
+            content: SelectContent.debugFromJson(json['content'] as Map<String, dynamic>),
             chunkId: chunkId,
             progress: progress,
           );
@@ -285,7 +283,7 @@ class InteractiveLessonChunkComponent with _$InteractiveLessonChunkComponent {
             type: InteractiveLessonComponentType.textField,
             needsValidation: needsValidation,
             isValid: isValid,
-            content: TextFieldContent.fromJson(json['content']['content'] as Map<String, dynamic>),
+            content: TextFieldContent.fromJson(json['content'] as Map<String, dynamic>),
             chunkId: chunkId,
             progress: progress,
           );
