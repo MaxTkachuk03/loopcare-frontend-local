@@ -35,13 +35,13 @@ class ScaleContent with _$ScaleContent {
       final highestText = json['highestText'] as String? ?? '';
       log.d('Parsed highestText: $highestText');
 
-      final values = (json['values'] as List<dynamic>?)
+      final values = (json['content']['scale'] as List<dynamic>?)
               ?.map((e) => ScaleContentValue.fromJson(e as Map<String, dynamic>))
               .toList() ??
           [];
       log.d('Parsed values: $values');
 
-      final feedback = (json['feedback'] as List<dynamic>?)
+      final feedback = (json['content']['feedback'] as List<dynamic>?)
           ?.map((e) => ScaleContentFeedback.debugFromJson(e as Map<String, dynamic>))
           .toList();
       log.d('Parsed feedback: $feedback');
