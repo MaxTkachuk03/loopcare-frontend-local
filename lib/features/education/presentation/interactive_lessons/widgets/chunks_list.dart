@@ -50,8 +50,8 @@ class _ChunksListState extends State<ChunksList> {
     final blocState = bloc.state.data;
     final lessonStreamType = RiverModuleStreamType.getLessonStreamType(blocState.type);
 
-    final allChunksOnThePage = blocState.chunks.values.where((ch) => ch.pageId == blocState.activePage!.id);
-
+    final allChunksOnThePage =
+        blocState.chunks.values.where((ch) => ch.pageId == blocState.activePage!.id);
 
     final allComponentsOnPage = blocState.components.values.where((c) {
       return allChunksOnThePage.any((ch) => ch.id == c.chunkId);
