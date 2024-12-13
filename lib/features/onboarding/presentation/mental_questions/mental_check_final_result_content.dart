@@ -22,29 +22,24 @@ class MentalCheckResultFinalContent extends StatefulWidget {
   const MentalCheckResultFinalContent({super.key});
 
   @override
-  State<MentalCheckResultFinalContent> createState() =>
-      _MentalCheckResultFinalContentState();
+  State<MentalCheckResultFinalContent> createState() => _MentalCheckResultFinalContentState();
 }
 
-class _MentalCheckResultFinalContentState
-    extends State<MentalCheckResultFinalContent> {
+class _MentalCheckResultFinalContentState extends State<MentalCheckResultFinalContent> {
   final usageAnalytics = UsageAnalytics();
 
   @override
   void initState() {
     super.initState();
     if (context.read<MentalQuestionsBloc>().state.isPhq8TestHigh) {
-      usageAnalytics.track(
-          eventName: UsageAnalyticsEvents.onboardingFinalResultExclusion);
+      usageAnalytics.track(eventName: UsageAnalyticsEvents.onboardingFinalResultExclusion);
     } else {
-      usageAnalytics.track(
-          eventName: UsageAnalyticsEvents.onboardingFinalResult);
+      usageAnalytics.track(eventName: UsageAnalyticsEvents.onboardingFinalResult);
     }
   }
 
   void _onUrlHandler(BuildContext context) async {
-    final Uri launchUri =
-        Uri.parse(LocalizedTexts.linksPsychologistConsulting.tr());
+    final Uri launchUri = Uri.parse(LocalizedTexts.linksPsychologistConsulting.tr());
 
     try {
       await launchUrl(launchUri);
@@ -55,11 +50,10 @@ class _MentalCheckResultFinalContentState
     }
   }
 
-  void _showError(BuildContext context) => context.showError(
-      content: CustomText.w400(LocalizedTexts.openLinkErrorMessage.tr()));
+  void _showError(BuildContext context) =>
+      context.showError(content: CustomText.w400(LocalizedTexts.openLinkErrorMessage.tr()));
 
-  void _onNextPressed(BuildContext context) =>
-      context.router.pushNamed(AppRoutes.legalStatement);
+  void _onNextPressed(BuildContext context) => context.router.pushNamed(AppRoutes.legalStatement);
 
   @override
   Widget build(BuildContext context) {
@@ -80,8 +74,7 @@ class _MentalCheckResultFinalContentState
               const SizedBox(height: 35.0),
               MainContainer(
                 child: Container(
-                  padding:
-                      const EdgeInsets.symmetric(vertical: 20, horizontal: 30),
+                  padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 30),
                   decoration: const BoxDecoration(
                     color: AppColors.petrolLightest,
                     borderRadius: BorderRadius.all(Radius.circular(16)),
@@ -121,8 +114,7 @@ class _MentalCheckResultFinalContentState
         ],
         CustomText.bitter600(
           _getTitleText(isPhq8High),
-          style:
-              context.textTheme.displayMedium?.copyWith(color: AppColors.white),
+          style: context.textTheme.displayMedium?.copyWith(color: AppColors.white),
           textAlign: TextAlign.center,
         ),
       ],

@@ -55,9 +55,7 @@ class _LessonCompletePageState extends State<LessonCompletePage> {
     super.initState();
 
     final lesson = context.read<EducationLessonBloc>().state.data;
-    context
-        .read<RiverBloc>()
-        .add(RiverEvent.updateActiveModuleItemStatus(lessonId: lesson.id));
+    context.read<RiverBloc>().add(RiverEvent.updateActiveModuleItemStatus(lessonId: lesson.id));
     final riverModule = context.read<RiverBloc>().state.data.activeModule;
 
     usageAnalytics.track(
@@ -89,8 +87,7 @@ class _LessonCompletePageState extends State<LessonCompletePage> {
 
   bool get _isLightTheme => _theme == CustomAppBarTextTheme.light;
 
-  bool get _isGroupSessionsDisabled =>
-      getIt<SharedStorageService>().account!.disableGroupSessions;
+  bool get _isGroupSessionsDisabled => getIt<SharedStorageService>().account!.disableGroupSessions;
 
   @override
   Widget build(BuildContext context) {
@@ -106,8 +103,7 @@ class _LessonCompletePageState extends State<LessonCompletePage> {
           backgroundColor: widget.streamType.regularColor,
           textTheme: _theme,
           title: LocalizedTexts.lesson.tr(),
-          leading: CustomFilledIconButton.fromColor(
-              color: widget.streamType.lighterColor),
+          leading: CustomFilledIconButton.fromColor(color: widget.streamType.lighterColor),
         ),
         body: CustomSafeArea(
           child: ScrollableContainer(
@@ -120,27 +116,21 @@ class _LessonCompletePageState extends State<LessonCompletePage> {
                       fillColor: widget.streamType.regularColor,
                       child: Center(
                         child: Padding(
-                          padding:
-                              const EdgeInsets.symmetric(horizontal: 120.0),
+                          padding: const EdgeInsets.symmetric(horizontal: 120.0),
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               CircleAvatar(
                                 radius: 22.0,
-                                backgroundColor: _isLightTheme
-                                    ? AppColors.greenRegular
-                                    : AppColors.blueRegular,
-                                child: const Icon(Icons.check,
-                                    size: 24, color: AppColors.white),
+                                backgroundColor:
+                                    _isLightTheme ? AppColors.greenRegular : AppColors.blueRegular,
+                                child: const Icon(Icons.check, size: 24, color: AppColors.white),
                               ),
                               const SizedBox(height: 22.0),
                               CustomText.bitter600(
                                 LocalizedTexts.lessonCompleted.tr(),
-                                style:
-                                    context.textTheme.displayMedium?.copyWith(
-                                  color: _isLightTheme
-                                      ? AppColors.white
-                                      : AppColors.blueDarker,
+                                style: context.textTheme.displayMedium?.copyWith(
+                                  color: _isLightTheme ? AppColors.white : AppColors.blueDarker,
                                 ),
                                 textAlign: TextAlign.center,
                               ),
@@ -153,8 +143,7 @@ class _LessonCompletePageState extends State<LessonCompletePage> {
                     MainContainer(
                       child: Container(
                         width: double.infinity,
-                        padding: const EdgeInsets.symmetric(
-                            vertical: 20, horizontal: 30),
+                        padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 30),
                         decoration: const BoxDecoration(
                           color: AppColors.petrolLightest,
                           borderRadius: BorderRadius.all(Radius.circular(16)),
@@ -162,8 +151,7 @@ class _LessonCompletePageState extends State<LessonCompletePage> {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            BlocBuilder<EducationLessonBloc,
-                                    EducationLessonState>(
+                            BlocBuilder<EducationLessonBloc, EducationLessonState>(
                                 builder: (context, state) {
                               return Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -188,8 +176,7 @@ class _LessonCompletePageState extends State<LessonCompletePage> {
                     ),
                     const SizedBox(height: 20),
                     MainContainer(
-                      child: BlocBuilder<EducationLessonBloc,
-                          EducationLessonState>(
+                      child: BlocBuilder<EducationLessonBloc, EducationLessonState>(
                         builder: (BuildContext context, state) {
                           return BlocBuilder<RiverBloc, RiverState>(
                             builder: (context, s) {
@@ -198,11 +185,9 @@ class _LessonCompletePageState extends State<LessonCompletePage> {
                                 return const SizedBox.shrink();
                               }
 
-                              final isUnlockGroupSessions =
-                                  state.data.extraAction ==
-                                          ExtraActionTypes
-                                              .setupGroupingPreferences &&
-                                      !_isGroupSessionsDisabled;
+                              final isUnlockGroupSessions = state.data.extraAction ==
+                                      ExtraActionTypes.setupGroupingPreferences &&
+                                  !_isGroupSessionsDisabled;
 
                               if (isUnlockGroupSessions) {
                                 return const UnlockGroupSessionFeature();
@@ -248,8 +233,7 @@ class _LessonCompletePageState extends State<LessonCompletePage> {
           backgroundColor: widget.streamType.regularColor,
           textTheme: _theme,
           title: LocalizedTexts.lesson.tr(),
-          leading: CustomFilledIconButton.fromColor(
-              color: widget.streamType.lighterColor),
+          leading: CustomFilledIconButton.fromColor(color: widget.streamType.lighterColor),
         ),
         body: CustomSafeArea(
           child: ScrollableContainer(
@@ -262,27 +246,21 @@ class _LessonCompletePageState extends State<LessonCompletePage> {
                       fillColor: widget.streamType.regularColor,
                       child: Center(
                         child: Padding(
-                          padding:
-                              const EdgeInsets.symmetric(horizontal: 120.0),
+                          padding: const EdgeInsets.symmetric(horizontal: 120.0),
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               CircleAvatar(
                                 radius: 22.0,
-                                backgroundColor: _isLightTheme
-                                    ? AppColors.greenRegular
-                                    : AppColors.blueRegular,
-                                child: const Icon(Icons.check,
-                                    size: 24, color: AppColors.white),
+                                backgroundColor:
+                                    _isLightTheme ? AppColors.greenRegular : AppColors.blueRegular,
+                                child: const Icon(Icons.check, size: 24, color: AppColors.white),
                               ),
                               const SizedBox(height: 22.0),
                               CustomText.bitter600(
                                 LocalizedTexts.lessonCompleted.tr(),
-                                style:
-                                    context.textTheme.displayMedium?.copyWith(
-                                  color: _isLightTheme
-                                      ? AppColors.white
-                                      : AppColors.blueDarker,
+                                style: context.textTheme.displayMedium?.copyWith(
+                                  color: _isLightTheme ? AppColors.white : AppColors.blueDarker,
                                 ),
                                 textAlign: TextAlign.center,
                               ),
@@ -295,8 +273,7 @@ class _LessonCompletePageState extends State<LessonCompletePage> {
                     MainContainer(
                       child: Container(
                         width: double.infinity,
-                        padding: const EdgeInsets.symmetric(
-                            vertical: 20, horizontal: 30),
+                        padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 30),
                         decoration: const BoxDecoration(
                           color: AppColors.petrolLightest,
                           borderRadius: BorderRadius.all(Radius.circular(16)),
@@ -304,8 +281,7 @@ class _LessonCompletePageState extends State<LessonCompletePage> {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            BlocBuilder<InteractiveLessonsBloc,
-                                    InteractiveLessonsState>(
+                            BlocBuilder<InteractiveLessonsBloc, InteractiveLessonsState>(
                                 builder: (context, state) {
                               return Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -330,8 +306,7 @@ class _LessonCompletePageState extends State<LessonCompletePage> {
                     ),
                     const SizedBox(height: 20),
                     MainContainer(
-                      child: BlocBuilder<InteractiveLessonsBloc,
-                          InteractiveLessonsState>(
+                      child: BlocBuilder<InteractiveLessonsBloc, InteractiveLessonsState>(
                         builder: (BuildContext context, state) {
                           return BlocBuilder<RiverBloc, RiverState>(
                             builder: (context, s) {

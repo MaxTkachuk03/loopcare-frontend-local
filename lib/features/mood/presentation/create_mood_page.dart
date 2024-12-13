@@ -1,7 +1,7 @@
 import 'package:auto_route/auto_route.dart';
-import 'package:customer_io/customer_io.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:loopcare_frontend/core/domain/analytics/usage_analytics/usage_analytics.dart';
 import 'package:loopcare_frontend/core/domain/analytics/usage_analytics/usage_analytics_events.dart';
 import 'package:loopcare_frontend/core/presentation/alerting/show_app_snackbar.dart';
 import 'package:loopcare_frontend/core/presentation/app_bar/custom_app_bar.dart';
@@ -41,6 +41,7 @@ class CreateMoodPage extends StatefulWidget {
 
 class _CreateMoodPageState extends State<CreateMoodPage> {
   late MoodController _moodPageController;
+  final usageAnalytics = UsageAnalytics();
 
   @override
   void initState() {
@@ -62,7 +63,7 @@ class _CreateMoodPageState extends State<CreateMoodPage> {
       edit: (s) => MoodController()..setMoodInitialValues(s.moodRecord),
     );
 
-    CustomerIO.track(name: UsageAnalyticsEvents.moodWidget);
+    usageAnalytics.track(eventName: UsageAnalyticsEvents.moodWidget);
 
     WidgetsBinding.instance.addPostFrameCallback((_) {
       _moodPageController.isFormValid;
@@ -88,17 +89,16 @@ class _CreateMoodPageState extends State<CreateMoodPage> {
 
     widget.mode.map(
       create: (_) => context.read<MoodBloc>().add(MoodEvent.createMood(data)),
-      edit: (s) => context
-          .read<MoodBloc>()
-          .add(MoodEvent.updateMood(moodId: s.moodRecord.id, data: data)),
+      edit: (s) =>
+          context.read<MoodBloc>().add(MoodEvent.updateMood(moodId: s.moodRecord.id, data: data)),
     );
   }
 
   void _onDeleteMoodHandler() {
     widget.mode.map(
       create: (_) => null,
-      edit: (s) => context.read<MoodBloc>().add(MoodEvent.deleteMood(
-          moodId: s.moodRecord.id, date: widget.date.isoStringWithoutTime)),
+      edit: (s) => context.read<MoodBloc>().add(
+          MoodEvent.deleteMood(moodId: s.moodRecord.id, date: widget.date.isoStringWithoutTime)),
     );
   }
 
@@ -109,8 +109,7 @@ class _CreateMoodPageState extends State<CreateMoodPage> {
     );
   }
 
-  _onErrorHandler(MoodState s) =>
-      context.showError(content: CustomText(s.data.errorKey.tr()));
+  _onErrorHandler(MoodState s) => context.showError(content: CustomText(s.data.errorKey.tr()));
 
   _onUpdateHandler(MoodState s) => context.router.maybePop();
 
@@ -131,8 +130,7 @@ class _CreateMoodPageState extends State<CreateMoodPage> {
             child: MainContainer(
               child: BlocBuilder<MoodBloc, MoodState>(
                 builder: (context, state) {
-                  final bool isEditable =
-                      DashboardUtils.isEditable(widget.date);
+                  final bool isEditable = DashboardUtils.isEditable(widget.date);
 
                   return state.maybeMap(
                     loading: (_) => const Loader(),
@@ -155,38 +153,29 @@ class _CreateMoodPageState extends State<CreateMoodPage> {
                           ValueListenableBuilder<MoodPickerListItem?>(
                             valueListenable: _moodPageController.moodValue,
                             builder: (context, moodValue, _) => MoodPicker(
-                              onItemPressed:
-                                  isEditable ? _onMoodValueChangeHandler : null,
+                              onItemPressed: isEditable ? _onMoodValueChangeHandler : null,
                               value: moodValue,
                             ),
                           ),
                           const SizedBox(height: 12.0),
-                          MoodOptions(
-                              controller: _moodPageController,
-                              isEditable: isEditable),
+                          MoodOptions(controller: _moodPageController, isEditable: isEditable),
                           const SizedBox(height: 12.0),
                           CustomText.bitter500(
                             LocalizedTexts.personalNote.tr(),
                             style: context.textTheme.displayMedium,
                           ),
                           const SizedBox(height: 12.0),
-                          MoodNoteField(
-                              controller: _moodPageController,
-                              readOnly: !isEditable),
+                          MoodNoteField(controller: _moodPageController, readOnly: !isEditable),
                           const SizedBox(height: 24.0),
                           widget.mode.map(
                             create: (_) => const SizedBox.shrink(),
-                            edit: (_) =>
-                                DeleteMoodBtn(onPress: _onDeleteMoodHandler),
+                            edit: (_) => DeleteMoodBtn(onPress: _onDeleteMoodHandler),
                           ),
                           const SizedBox(height: 24.0),
                           ValueListenableBuilder<bool>(
                             valueListenable: _moodPageController.isValid,
-                            builder: (context, isValid, _) =>
-                                CustomElevatedButton.blueFullWidth(
-                              onPressed: isValid && isEditable
-                                  ? _onConfirmPressed
-                                  : null,
+                            builder: (context, isValid, _) => CustomElevatedButton.blueFullWidth(
+                              onPressed: isValid && isEditable ? _onConfirmPressed : null,
                               label: LocalizedTexts.logMood.tr(),
                             ),
                           ),

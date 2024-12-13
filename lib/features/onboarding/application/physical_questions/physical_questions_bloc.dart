@@ -28,8 +28,7 @@ part 'physical_questions_event.dart';
 part 'physical_questions_state.dart';
 
 @singleton
-class PhysicalQuestionsBloc
-    extends HydratedBloc<PhysicalQuestionsEvent, PhysicalQuestionsState> {
+class PhysicalQuestionsBloc extends HydratedBloc<PhysicalQuestionsEvent, PhysicalQuestionsState> {
   final PhysicalService physicalService;
   final usageAnalytics = UsageAnalytics();
 
@@ -113,8 +112,7 @@ class PhysicalQuestionsBloc
       eventName: UsageAnalyticsEvents.onboardingHeight,
       attributes: {
         UsageAnalyticsAttributes.height: event.height,
-        UsageAnalyticsAttributes.measurementSystem:
-            event.measurementSystemType.name,
+        UsageAnalyticsAttributes.measurementSystem: event.measurementSystemType.name,
       },
     );
 
@@ -151,8 +149,7 @@ class PhysicalQuestionsBloc
       eventName: UsageAnalyticsEvents.onboardingWeight,
       attributes: {
         UsageAnalyticsAttributes.weight: event.weight,
-        UsageAnalyticsAttributes.measurementSystem:
-            event.measurementSystemType.name,
+        UsageAnalyticsAttributes.measurementSystem: event.measurementSystemType.name,
         UsageAnalyticsAttributes.bmi: bmi,
       },
     );

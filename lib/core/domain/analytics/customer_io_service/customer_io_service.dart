@@ -210,5 +210,4 @@ class CustomerIoService {
   }
 }
 
-int get _timestamp =>
-    (DateTime.timestamp().millisecondsSinceEpoch / 1000).round();
+int get _timestamp => (DateTime.timestamp().millisecondsSinceEpoch / 1000).round();

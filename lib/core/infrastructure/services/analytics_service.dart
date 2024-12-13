@@ -82,8 +82,7 @@ class AnalyticsEventService {
     Map<String, dynamic>? parameters,
   ) async {
     Map<String, Object> tmpParameters = Map.from(parameters ?? {});
-    Map<String, dynamic> args =
-        tmpParameters.map((key, value) => MapEntry('af_$key', value));
+    Map<String, dynamic> args = tmpParameters.map((key, value) => MapEntry('af_$key', value));
     args[AnalyticsParameters.userId] = 'af_$userId';
 
     try {
@@ -120,8 +119,7 @@ class AnalyticsEventService {
     if (kIsDev || kDebugMode) return;
 
     FlutterUxcam.optIntoSchematicRecordings();
-    FlutterUxConfig config =
-        FlutterUxConfig(userAppKey: dotenv.env['UXCAM_APP_KEY'] ?? '');
+    FlutterUxConfig config = FlutterUxConfig(userAppKey: dotenv.env['UXCAM_APP_KEY'] ?? '');
     await FlutterUxcam.startWithConfiguration(config);
   }
 
@@ -136,8 +134,7 @@ class AnalyticsEventService {
     logFoodPreferencesDislikeEvent(eventName, selectedDislikesNames);
   }
 
-  void logFoodPreferencesHateEvent(
-      String eventName, List<String> selectedHatesNames) async {
+  void logFoodPreferencesHateEvent(String eventName, List<String> selectedHatesNames) async {
     for (var item in selectedHatesNames) {
       logEvent(
         eventName: '${eventName}_${AnalyticsParameters.hated}',
@@ -308,8 +305,7 @@ class AnalyticsEventService {
     );
   }
 
-  void openedSessionPreparationMaterialsEvent(
-      int sessionId, String weekTopic) async {
+  void openedSessionPreparationMaterialsEvent(int sessionId, String weekTopic) async {
     logEvent(
       eventName: AnalyticsEvents.openedSessionPreparationMaterials,
       parameters: {
@@ -320,8 +316,7 @@ class AnalyticsEventService {
     );
   }
 
-  void closedSessionPreparationMaterialsEvent(
-      int sessionId, String weekTopic) async {
+  void closedSessionPreparationMaterialsEvent(int sessionId, String weekTopic) async {
     logEvent(
       eventName: AnalyticsEvents.closedSessionPreparationMaterials,
       parameters: {
@@ -354,8 +349,7 @@ class AnalyticsEventService {
         AnalyticsParameters.reflectionId: reflection.id,
         AnalyticsParameters.reflectionTitle: reflection.title,
         AnalyticsParameters.timestamp: DateTime.now().toIso8601String(),
-        AnalyticsParameters.navigatedFrom:
-            fromDashboard ? 'Dashboard' : 'My assignments',
+        AnalyticsParameters.navigatedFrom: fromDashboard ? 'Dashboard' : 'My assignments',
       },
     );
   }
@@ -372,8 +366,7 @@ class AnalyticsEventService {
         AnalyticsParameters.reflectionId: reflection.id,
         AnalyticsParameters.reflectionTitle: reflection.title,
         AnalyticsParameters.timestamp: DateTime.now().toIso8601String(),
-        AnalyticsParameters.navigatedFrom:
-            fromDashboard ? 'Dashboard' : 'My assignments',
+        AnalyticsParameters.navigatedFrom: fromDashboard ? 'Dashboard' : 'My assignments',
       },
     );
   }

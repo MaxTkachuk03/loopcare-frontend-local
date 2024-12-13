@@ -53,13 +53,11 @@ part 'general_onboarding_staps.dart';
 part 'general_onboarding_state.dart';
 
 @singleton
-class GeneralOnboardingBloc
-    extends HydratedBloc<GeneralOnboardingEvent, GeneralOnboardingState> {
+class GeneralOnboardingBloc extends HydratedBloc<GeneralOnboardingEvent, GeneralOnboardingState> {
   final MentalHealthService _mentalHealthService;
   final usageAnalytics = UsageAnalytics();
 
-  GeneralOnboardingBloc(this._mentalHealthService)
-      : super(const GeneralOnboardingState()) {
+  GeneralOnboardingBloc(this._mentalHealthService) : super(const GeneralOnboardingState()) {
     on<Started>(_onStarted);
     on<StartTimer>(_onStartTimer);
     on<StopTimer>(_onStopTimer);
@@ -87,8 +85,7 @@ class GeneralOnboardingBloc
   @override
   Map<String, dynamic>? toJson(GeneralOnboardingState state) => state.toJson();
 
-  FutureOr<void> _onResetData(
-      ResetData event, Emitter<GeneralOnboardingState> emit) {
+  FutureOr<void> _onResetData(ResetData event, Emitter<GeneralOnboardingState> emit) {
     emit(const GeneralOnboardingState());
   }
 
@@ -109,8 +106,7 @@ class GeneralOnboardingBloc
     );
   }
 
-  FutureOr<void> _onStarted(
-      Started event, Emitter<GeneralOnboardingState> emit) async {
+  FutureOr<void> _onStarted(Started event, Emitter<GeneralOnboardingState> emit) async {
     usageAnalytics.track(
       eventName: UsageAnalyticsEvents.onboardingBasicsIntro,
     );
@@ -133,11 +129,8 @@ class GeneralOnboardingBloc
           MentalQuestionStep.introStepTwo,
         ];
 
-        mentalSteps.addAll(List.generate(
-            tests.length * 2,
-            (i) => (i + 1).isOdd
-                ? MentalQuestionStep.test
-                : MentalQuestionStep.testSummery));
+        mentalSteps.addAll(List.generate(tests.length * 2,
+            (i) => (i + 1).isOdd ? MentalQuestionStep.test : MentalQuestionStep.testSummery));
 
         mentalSteps.add(MentalQuestionStep.result);
 
@@ -173,8 +166,7 @@ class GeneralOnboardingBloc
   ) async {
     emit(
       state.copyWith(
-        mentalTimerState:
-            event.isTimeUp ? TimerState.completed : TimerState.empty,
+        mentalTimerState: event.isTimeUp ? TimerState.completed : TimerState.empty,
       ),
     );
   }
@@ -183,8 +175,7 @@ class GeneralOnboardingBloc
     ResumeTimer event,
     Emitter<GeneralOnboardingState> emit,
   ) async {
-    if (state.generalStep != GeneralOnboardingStep.mental ||
-        !state.currentMentalStep.isTests) {
+    if (state.generalStep != GeneralOnboardingStep.mental || !state.currentMentalStep.isTests) {
       return;
     }
 
@@ -195,8 +186,7 @@ class GeneralOnboardingBloc
       return;
     }
 
-    final mentalHealthTime =
-        int.parse(dotenv.env['MENTAL_HEALTH_TEST_TIME_IN_MINUTES']!);
+    final mentalHealthTime = int.parse(dotenv.env['MENTAL_HEALTH_TEST_TIME_IN_MINUTES']!);
 
     final localTime = await NTP.now();
 
@@ -212,14 +202,13 @@ class GeneralOnboardingBloc
     UpdatePregnancyQuestion event,
     Emitter<GeneralOnboardingState> emit,
   ) {
-    final containsPregnancyStep =
-        state.medicalQuestions.contains(MedicalQuestionStep.pregnancy);
+    final containsPregnancyStep = state.medicalQuestions.contains(MedicalQuestionStep.pregnancy);
 
     if (event.enable && !containsPregnancyStep) {
       emit(
         state.copyWith(
-          medicalQuestions: List.from(state.medicalQuestions).insertAfter(
-              MedicalQuestionStep.intro, MedicalQuestionStep.pregnancy),
+          medicalQuestions: List.from(state.medicalQuestions)
+              .insertAfter(MedicalQuestionStep.intro, MedicalQuestionStep.pregnancy),
         ),
       );
     } else if (!event.enable && containsPregnancyStep) {
@@ -238,9 +227,7 @@ class GeneralOnboardingBloc
   ) {
     final testsWithGenderExclusions = state.allMentalTests
         .map((element) => element.copyWith(
-              questions: element.questions
-                  .where((e) => e.excludeSex != event.sex)
-                  .toList(),
+              questions: element.questions.where((e) => e.excludeSex != event.sex).toList(),
             ))
         .toList();
 
@@ -256,8 +243,7 @@ class GeneralOnboardingBloc
     );
   }
 
-  FutureOr<void> _onNextStep(
-      NextStep event, Emitter<GeneralOnboardingState> emit) {
+  FutureOr<void> _onNextStep(NextStep event, Emitter<GeneralOnboardingState> emit) {
     emit(_nextStepState(isExclude: event.excluded));
   }
 
@@ -311,14 +297,12 @@ class GeneralOnboardingBloc
     List<PhysicalQuestionStep> stack = state.physicalPassedStack;
 
     if (step == PhysicalQuestionStep.birthday) {
-      questions =
-          questions.insertAfter(step, PhysicalQuestionStep.ageExclusion);
+      questions = questions.insertAfter(step, PhysicalQuestionStep.ageExclusion);
       stack = [...stack, PhysicalQuestionStep.ageExclusion];
 
       _trackExclusion(AnalyticsEvents.onboardingAgeExclusion);
     } else if (step == PhysicalQuestionStep.weight) {
-      questions =
-          questions.insertAfter(step, PhysicalQuestionStep.bmiExclusion);
+      questions = questions.insertAfter(step, PhysicalQuestionStep.bmiExclusion);
       stack = [...stack, PhysicalQuestionStep.bmiExclusion];
 
       _trackExclusion(AnalyticsEvents.onboardingBmiExclusion);
@@ -336,8 +320,7 @@ class GeneralOnboardingBloc
     PhysicalQuestionStep step = state.currentPhysicalStep;
     List<PhysicalQuestionStep> stack = state.physicalPassedStack;
 
-    final nextStepIndex =
-        state.physicalQuestions.indexWhere((e) => e == step) + 1;
+    final nextStepIndex = state.physicalQuestions.indexWhere((e) => e == step) + 1;
     step = state.physicalQuestions[nextStepIndex];
     stack = [...stack, step];
 
@@ -384,14 +367,12 @@ class GeneralOnboardingBloc
     List<MedicalQuestionStep> questions = state.medicalQuestions;
 
     if (step == MedicalQuestionStep.pregnancy) {
-      questions =
-          questions.insertAfter(step, MedicalQuestionStep.pregnancyExclusion);
+      questions = questions.insertAfter(step, MedicalQuestionStep.pregnancyExclusion);
       stack = [...stack, MedicalQuestionStep.pregnancyExclusion];
 
       _trackExclusion(AnalyticsEvents.onboardingPregnancyExclusion);
     } else if (step == MedicalQuestionStep.treatmentByTheDoctor) {
-      questions =
-          questions.insertAfter(step, MedicalQuestionStep.completedDisease);
+      questions = questions.insertAfter(step, MedicalQuestionStep.completedDisease);
       stack = [...stack, MedicalQuestionStep.completedDisease];
     }
 
@@ -407,8 +388,7 @@ class GeneralOnboardingBloc
     MedicalQuestionStep step = state.currentMedicalStep;
     List<MedicalQuestionStep> stack = state.medicalPassedStack;
 
-    final nextStepIndex =
-        state.medicalQuestions.indexWhere((e) => e == step) + 1;
+    final nextStepIndex = state.medicalQuestions.indexWhere((e) => e == step) + 1;
     step = state.medicalQuestions[nextStepIndex];
     stack = [...stack, step];
 
@@ -443,8 +423,7 @@ class GeneralOnboardingBloc
     List<MentalQuestionStep> stack = state.mentalPassedStack;
     List<MentalHealthTest> tests = state.mentalTests;
     MentalHealthTest test = state.currentMentalTest ?? tests.first;
-    MentalHealthQuestion question =
-        state.currentMentalQuestion ?? test.questions.first;
+    MentalHealthQuestion question = state.currentMentalQuestion ?? test.questions.first;
 
     if (test.questions.last.id == question.id) {
       stack = [...stack, MentalQuestionStep.testSummery];
@@ -461,13 +440,11 @@ class GeneralOnboardingBloc
     );
   }
 
-  GeneralOnboardingState _handleMentalTestSummeryStep(
-      {bool isExclude = false}) {
+  GeneralOnboardingState _handleMentalTestSummeryStep({bool isExclude = false}) {
     List<MentalQuestionStep> stack = state.mentalPassedStack;
     List<MentalHealthTest> tests = state.mentalTests;
     MentalHealthTest currentTest = state.currentMentalTest ?? tests.first;
-    MentalHealthQuestion question =
-        state.currentMentalQuestion ?? currentTest.questions.first;
+    MentalHealthQuestion question = state.currentMentalQuestion ?? currentTest.questions.first;
 
     if (tests.last.id == currentTest.id) {
       add(const GeneralOnboardingEvent.stopTimer());
@@ -483,8 +460,7 @@ class GeneralOnboardingBloc
       question = currentTest.questions.first;
     }
 
-    _sendScreenView(
-        stack.last.getScreenName(currentTest.type.name.toUpperCase()));
+    _sendScreenView(stack.last.getScreenName(currentTest.type.name.toUpperCase()));
 
     return state.copyWith(
       mentalPassedStack: stack,
@@ -523,15 +499,12 @@ class GeneralOnboardingBloc
     List<PhysicalQuestionStep> questions = state.physicalQuestions;
 
     if (state.currentPhysicalStep == PhysicalQuestionStep.ageExclusion) {
-      questions = List.from(state.physicalQuestions)
-        ..remove(PhysicalQuestionStep.ageExclusion);
+      questions = List.from(state.physicalQuestions)..remove(PhysicalQuestionStep.ageExclusion);
     } else if (state.currentPhysicalStep == PhysicalQuestionStep.bmiExclusion) {
-      questions = List.from(state.physicalQuestions)
-        ..remove(PhysicalQuestionStep.bmiExclusion);
+      questions = List.from(state.physicalQuestions)..remove(PhysicalQuestionStep.bmiExclusion);
     }
 
-    final List<PhysicalQuestionStep> stack =
-        List.from(state.physicalPassedStack)..removeLast();
+    final List<PhysicalQuestionStep> stack = List.from(state.physicalPassedStack)..removeLast();
     _sendScreenView(stack.last.screenName);
 
     return state.copyWith(
@@ -558,8 +531,7 @@ class GeneralOnboardingBloc
     if (state.currentMedicalStep == MedicalQuestionStep.pregnancyExclusion) {
       medicalQuestions = List.from(state.medicalQuestions)
         ..remove(MedicalQuestionStep.pregnancyExclusion);
-    } else if (state.currentMedicalStep ==
-        MedicalQuestionStep.completedDisease) {
+    } else if (state.currentMedicalStep == MedicalQuestionStep.completedDisease) {
       medicalQuestions = List.from(state.medicalQuestions)
         ..remove(MedicalQuestionStep.completedDisease);
     }
@@ -575,8 +547,7 @@ class GeneralOnboardingBloc
     final mentalStep = state.currentMentalStep;
     final test = state.currentMentalTest ?? state.mentalTests.first;
 
-    if (mentalStep == MentalQuestionStep.testSummery &&
-        state.mentalTests.last == test) {
+    if (mentalStep == MentalQuestionStep.testSummery && state.mentalTests.last == test) {
       add(const GeneralOnboardingEvent.resumeTimer());
     }
 
@@ -603,8 +574,7 @@ class GeneralOnboardingBloc
     List<MentalQuestionStep> stack = state.mentalPassedStack;
     List<MentalHealthTest> mentalTests = state.mentalTests;
     MentalHealthTest test = state.currentMentalTest ?? mentalTests.first;
-    MentalHealthQuestion question =
-        state.currentMentalQuestion ?? test.questions.first;
+    MentalHealthQuestion question = state.currentMentalQuestion ?? test.questions.first;
 
     if (test.questions.first.id == question.id) {
       if (mentalTests.first.id != test.id) {
@@ -628,8 +598,7 @@ class GeneralOnboardingBloc
 
   GeneralOnboardingState _handleMentalPreviousStep() {
     final test = state.currentMentalTest ?? state.mentalTests.first;
-    final stack = List<MentalQuestionStep>.from(state.mentalPassedStack)
-      ..removeLast();
+    final stack = List<MentalQuestionStep>.from(state.mentalPassedStack)..removeLast();
 
     _sendScreenView(stack.last.getScreenName(test.type.name.toUpperCase()));
 
@@ -639,11 +608,9 @@ class GeneralOnboardingBloc
   }
 
   Future<void> _startTimer(DateTime startedTime) async {
-    final mentalHealthTime =
-        int.parse(dotenv.env['MENTAL_HEALTH_TEST_TIME_IN_MINUTES']!) * 60;
+    final mentalHealthTime = int.parse(dotenv.env['MENTAL_HEALTH_TEST_TIME_IN_MINUTES']!) * 60;
     final localTime = await NTP.now();
-    final durationTime =
-        mentalHealthTime - localTime.difference(startedTime).inSeconds;
+    final durationTime = mentalHealthTime - localTime.difference(startedTime).inSeconds;
 
     _timer = Timer(Duration(seconds: durationTime), _stopTimer);
   }

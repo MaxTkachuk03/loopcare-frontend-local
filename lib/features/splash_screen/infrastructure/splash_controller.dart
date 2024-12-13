@@ -62,8 +62,7 @@ class SplashController {
 
     final account = StoredAccountService.getAccount();
 
-    final authorisedRoute =
-        await _getAuthorisedRoute(account?.hasActiveSubscription ?? false);
+    final authorisedRoute = await _getAuthorisedRoute(account?.hasActiveSubscription ?? false);
     final routes = [authorisedRoute];
 
     return routes;
@@ -71,19 +70,16 @@ class SplashController {
 
   void _getVersion() => appUpdateBloc.add(const AppUpdateEvent.getVersion());
 
-  void _connectSockets() =>
-      authenticationBloc.add(const AuthenticationEvent.connectSockets());
+  void _connectSockets() => authenticationBloc.add(const AuthenticationEvent.connectSockets());
 
   void updatePolicy() => authenticationBloc.add(
         AuthenticationEvent.updatePolicy(
           privacyPolicyVersion: appUpdateBloc.state.data.privacyPolicyVersion,
-          termsAndConditionsVersion:
-              appUpdateBloc.state.data.termsAndConditionsVersion,
+          termsAndConditionsVersion: appUpdateBloc.state.data.termsAndConditionsVersion,
         ),
       );
 
-  void getAccount() =>
-      authenticationBloc.add(const AuthenticationEvent.getAccount());
+  void getAccount() => authenticationBloc.add(const AuthenticationEvent.getAccount());
 
   Future<PageRouteInfo> _getAuthorisedRoute(bool hasActiveSubscription) async {
     final authTokenManager = getIt<AuthTokenManager>();
@@ -124,10 +120,8 @@ class SplashController {
 
     final legalStatementWasPassed = legalStatementBloc.state.pageWasPassed;
 
-    final onboardingNotStarted =
-        authState.data.name.isEmpty && !onboardingState.isCompleted;
-    final onboardingFinished =
-        !authState.data.accountId.isNegative && !onboardingState.isCompleted;
+    final onboardingNotStarted = authState.data.name.isEmpty && !onboardingState.isCompleted;
+    final onboardingFinished = !authState.data.accountId.isNegative && !onboardingState.isCompleted;
 
     if (onboardingNotStarted || onboardingFinished) {
       return [const IntroRoute()];

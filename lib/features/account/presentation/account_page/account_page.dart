@@ -1,5 +1,4 @@
 import 'package:auto_route/annotations.dart';
-import 'package:customer_io/customer_io.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loopcare_frontend/core/domain/analytics/usage_analytics/usage_analytics.dart';
@@ -38,9 +37,7 @@ class _AccountPageState extends State<AccountPage> {
     final authData = context.read<AuthenticationBloc>().state.data;
 
     if (authData.isFoodLoggingUnlocked) {
-      context
-          .read<FoodPreferenceBloc>()
-          .add(const FoodPreferenceEvent.fetchFoodPreferences());
+      context.read<FoodPreferenceBloc>().add(const FoodPreferenceEvent.fetchFoodPreferences());
     }
 
     if (authData.isPhysicalActivitiesUnlocked) {
@@ -49,8 +46,8 @@ class _AccountPageState extends State<AccountPage> {
           .add(const PhysicalActivitiesPreferencesEvent.getPreferences());
     }
 
-    CustomerIO.track(
-      name: UsageAnalyticsEvents.profilePage,
+    usageAnalytics.track(
+      eventName: UsageAnalyticsEvents.profilePage,
     );
   }
 

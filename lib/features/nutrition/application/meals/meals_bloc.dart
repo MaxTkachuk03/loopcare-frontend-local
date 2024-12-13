@@ -3,6 +3,9 @@ import 'package:collection/collection.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
 import 'package:injectable/injectable.dart';
+import 'package:loopcare_frontend/core/domain/analytics/usage_analytics/usage_analytics.dart';
+import 'package:loopcare_frontend/core/domain/analytics/usage_analytics/usage_analytics_attributes.dart';
+import 'package:loopcare_frontend/core/domain/analytics/usage_analytics/usage_analytics_events.dart';
 import 'package:loopcare_frontend/core/domain/nutrition/nutrition_utils.dart';
 import 'package:loopcare_frontend/core/infrastructure/dio_client/request_error.dart';
 import 'package:loopcare_frontend/features/nutrition/application/dish/dto/add_dish_to_meal_body.dart';
@@ -302,21 +305,33 @@ class MealsBloc extends Bloc<MealsEvent, MealsState> {
     Emitter<MealsState> emit,
   ) async {
     final mealId = state.data.currentMealId;
+    final currentMeal = state.data.currentMeal;
+    final usageAnalytics = UsageAnalytics();
 
     if (mealId == null) return;
 
     emit(MealsState.loading(state.data.copyWith(isLoading: true)));
 
     final data = AddManyFoodItemsToMealBody(
-      foodItems: event.foodItemList
-          .map(
-            (element) => AddFoodItemsListElement(
-              externalFoodItemId: element.id,
-              numberOfUnits: element.serving.numberOfUnits,
-              servingId: element.serving.servingId ?? "0",
-            ),
-          )
-          .toList(),
+      foodItems: event.foodItemList.map((element) {
+        usageAnalytics.track(
+          eventName: UsageAnalyticsEvents.foodItemLogged,
+          attributes: {
+            UsageAnalyticsAttributes.foodItemId: element.id,
+            UsageAnalyticsAttributes.foodItemAmount: element.serving.numberOfUnits,
+            UsageAnalyticsAttributes.foodItemName: element.foodName,
+            UsageAnalyticsAttributes.foodLoggedFrom: 'favorites',
+            UsageAnalyticsAttributes.foodItemDate: currentMeal?.loggingDate?.toIso8601String(),
+            UsageAnalyticsAttributes.mealCategory: currentMeal?.mealCategory
+          },
+        );
+        // Return the modified AddFoodItemsListElement
+        return AddFoodItemsListElement(
+          externalFoodItemId: element.id,
+          numberOfUnits: element.serving.numberOfUnits,
+          servingId: element.serving.servingId ?? "0",
+        );
+      }).toList(),
     );
 
     final response = await nutritionService.addManyFoodItemsToMeal(mealId, data);

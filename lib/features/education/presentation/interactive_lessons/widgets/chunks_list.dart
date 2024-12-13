@@ -50,9 +50,16 @@ class _ChunksListState extends State<ChunksList> {
     final blocState = bloc.state.data;
     final lessonStreamType = RiverModuleStreamType.getLessonStreamType(blocState.type);
 
-    final allProgress = blocState.hasProgress(blocState.unlockedChunkComponents);
+    final allChunksOnThePage =
+        blocState.chunks.values.where((ch) => ch.pageId == blocState.activePage!.id);
 
-    if (allProgress == true) bloc.add(const InteractiveLessonsEvent.unlockNextChunk());
+    final allComponentsOnPage = blocState.components.values.where((c) {
+      return allChunksOnThePage.any((ch) => ch.id == c.chunkId);
+    }).toList();
+
+    final hasProgress = blocState.hasProgress(allComponentsOnPage);
+
+    if (hasProgress) bloc.add(const InteractiveLessonsEvent.unlockNextChunk());
 
     return [
       ...components.map((c) => switch (c) {

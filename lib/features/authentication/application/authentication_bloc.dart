@@ -52,8 +52,7 @@ part 'authentication_event.dart';
 part 'authentication_state.dart';
 
 @singleton
-class AuthenticationBloc
-    extends HydratedBloc<AuthenticationEvent, AuthenticationState> {
+class AuthenticationBloc extends HydratedBloc<AuthenticationEvent, AuthenticationState> {
   final AuthenticationService _authenticationService;
   final AuthTokenManager _authTokenManager;
   final SharedStorageService _sharedPref;
@@ -125,8 +124,7 @@ class AuthenticationBloc
   }
 
   @override
-  Map<String, dynamic>? toJson(AuthenticationState state) =>
-      state.data.toJson();
+  Map<String, dynamic>? toJson(AuthenticationState state) => state.data.toJson();
 
   FutureOr<void> _onSyncChatState(
     SyncChatState event,
@@ -146,11 +144,10 @@ class AuthenticationBloc
     final res = await _authenticationService.uploadAvatar(event.data);
 
     res.fold(
-      (l) => emit(AuthenticationState.error(
-          state.data.copyWith(isLoading: false, error: l))),
+      (l) => emit(AuthenticationState.error(state.data.copyWith(isLoading: false, error: l))),
       (r) {
-        final updatedAccount = _sharedPref.account =
-            state.data.account?.copyWith(avatarUrl: r.data);
+        final updatedAccount =
+            _sharedPref.account = state.data.account?.copyWith(avatarUrl: r.data);
 
         emit(AuthenticationState.avatarUploaded(state.data.copyWith(
           account: updatedAccount,
@@ -173,8 +170,7 @@ class AuthenticationBloc
   ) async {
     emit(AuthenticationState.isLoading(state.data.copyWith(isLoading: true)));
 
-    final data =
-        LoginData(email: event.email.toLowerCase(), password: event.password);
+    final data = LoginData(email: event.email.toLowerCase(), password: event.password);
     final response = await _authenticationService.login(data);
 
     response.fold(
@@ -187,8 +183,7 @@ class AuthenticationBloc
           },
         );
         emit(AuthenticationState.init(state.data.copyWith(isLoading: false)));
-        emit(AuthenticationState.guest(
-            state.data.copyWith(error: error, isLoading: false)));
+        emit(AuthenticationState.guest(state.data.copyWith(error: error, isLoading: false)));
       },
       (response) {
         final customerIoId = response.customerIoId ?? response.id.toString();
@@ -292,8 +287,7 @@ class AuthenticationBloc
 
     response.fold(
       (error) => emit(
-        AuthenticationState.error(
-            state.data.copyWith(error: error, isLoading: false)),
+        AuthenticationState.error(state.data.copyWith(error: error, isLoading: false)),
       ),
       (response) {
         _authTokenManager.setAccessToken(response.accessToken);
@@ -318,12 +312,9 @@ class AuthenticationBloc
         );
 
         usageAnalytics.track(
-            eventName: UsageAnalyticsEvents
-                .onboardingTermsAndConditionsPrivacyPolicyAccept);
-        usageAnalytics.track(
-            eventName: UsageAnalyticsEvents.onboardingPasswordCreated);
-        usageAnalytics.track(
-            eventName: UsageAnalyticsEvents.onboardingNewUserCreated);
+            eventName: UsageAnalyticsEvents.onboardingTermsAndConditionsPrivacyPolicyAccept);
+        usageAnalytics.track(eventName: UsageAnalyticsEvents.onboardingPasswordCreated);
+        usageAnalytics.track(eventName: UsageAnalyticsEvents.onboardingNewUserCreated);
         CustomerIoService.setUserVerifiedState(verified: false);
         CustomerIoService.setUserId(id: response.id);
 
@@ -401,8 +392,7 @@ class AuthenticationBloc
   ) async {
     state.whenOrNull(
       waitedForConfirmation: (data) async {
-        final response =
-            await _authenticationService.resendSignUp(data.accountId);
+        final response = await _authenticationService.resendSignUp(data.accountId);
 
         response.leftMap(
           (error) => emit(state.copyWith(data: data.copyWith(error: error))),
@@ -495,8 +485,7 @@ class AuthenticationBloc
 
     if (account == null || accountFeatures == null) return;
 
-    final updatedAccount =
-        _sharedPref.account = account.unlockFeature(event.feature);
+    final updatedAccount = _sharedPref.account = account.unlockFeature(event.feature);
 
     emit(state.copyWith(data: state.data.copyWith(account: updatedAccount)));
 
@@ -513,8 +502,7 @@ class AuthenticationBloc
     AuthenticatedCheck event,
     Emitter<AuthenticationState> emit,
   ) async {
-    final response =
-        await _authenticationService.emailApproveDate(state.data.accountId);
+    final response = await _authenticationService.emailApproveDate(state.data.accountId);
     final usageAnalytics = UsageAnalytics();
 
     response.fold(
@@ -529,10 +517,8 @@ class AuthenticationBloc
             },
           );
 
-          usageAnalytics.track(
-              eventName: UsageAnalyticsEvents.onboardingEmailConfirmed);
-          usageAnalytics.track(
-              eventName: UsageAnalyticsEvents.onboardingNewUserVerified);
+          usageAnalytics.track(eventName: UsageAnalyticsEvents.onboardingEmailConfirmed);
+          usageAnalytics.track(eventName: UsageAnalyticsEvents.onboardingNewUserVerified);
           CustomerIoService.setUserVerifiedState(verified: true);
 
           emit(AuthenticationState.gotEmailVerification(state.data));
@@ -568,19 +554,18 @@ class AuthenticationBloc
   ) async {
     emit(AuthenticationState.isLoading(state.data.copyWith(isLoading: true)));
 
-    final UpdateUserEmailData data =
-        UpdateUserEmailData(event.email, event.password);
+    final UpdateUserEmailData data = UpdateUserEmailData(event.email, event.password);
 
     final response = await _authenticationService.updateUserEmail(data);
 
     response.fold(
-      (l) => emit(AuthenticationState.errorUpdateEmail(
-          state.data.copyWith(error: l, isLoading: false))),
+      (l) => emit(
+          AuthenticationState.errorUpdateEmail(state.data.copyWith(error: l, isLoading: false))),
       (r) {
         CustomerIoService.changeUserEmail(email: event.email);
 
-        final updatedAccount = _sharedPref.account =
-            state.data.account?.copyWith(email: event.email);
+        final updatedAccount =
+            _sharedPref.account = state.data.account?.copyWith(email: event.email);
 
         emit(AuthenticationState.emailWasUpdated(state.data.copyWith(
           email: event.email,
@@ -620,8 +605,7 @@ class AuthenticationBloc
       ),
       (result) {
         String cioId = state.data.customerIoId;
-        final isNotificationGranted =
-            PermissionsService.instance.isNotificationGranted;
+        final isNotificationGranted = PermissionsService.instance.isNotificationGranted;
 
         if (cioId.isEmpty) {
           cioId = const Uuid().v4();
@@ -713,10 +697,8 @@ class AuthenticationBloc
         _sharedPref.account = account;
 
         if (_sharedPref.privacyPolicyVersion > account.privacyPolicyVersion ||
-            _sharedPref.termsAndConditionsVersion >
-                account.termsAndConditionsVersion) {
-          emit(AuthenticationState.needUpdatePolicies(
-              state.data.copyWith(account: account)));
+            _sharedPref.termsAndConditionsVersion > account.termsAndConditionsVersion) {
+          emit(AuthenticationState.needUpdatePolicies(state.data.copyWith(account: account)));
         } else {
           _syncService.updateBuddyStatus();
 
@@ -741,8 +723,7 @@ class AuthenticationBloc
     final response = await _authenticationService.deleteAccount();
 
     response.fold(
-      (error) =>
-          emit(AuthenticationState.error(state.data.copyWith(error: error))),
+      (error) => emit(AuthenticationState.error(state.data.copyWith(error: error))),
       (_) {
         _sharedPref.cleanStorage();
         add(const AuthenticationEvent.logout());
@@ -762,8 +743,7 @@ class AuthenticationBloc
     final response = await _authenticationService.updateDocumentVersion(data);
 
     response.fold(
-      (error) =>
-          emit(AuthenticationState.error(state.data.copyWith(error: error))),
+      (error) => emit(AuthenticationState.error(state.data.copyWith(error: error))),
       (_) {
         final account = _sharedPref.account = _sharedPref.account?.copyWith(
           privacyPolicyVersion: event.privacyPolicyVersion,
@@ -793,14 +773,11 @@ class AuthenticationBloc
 
     if (appsId == null) return;
 
-    final deviceData =
-        DeviceData(uid: appsId, platform: Platform.isIOS ? 'ios' : 'android');
-    final response =
-        await _authenticationService.sendAppsFlyerDeviceData(deviceData);
+    final deviceData = DeviceData(uid: appsId, platform: Platform.isIOS ? 'ios' : 'android');
+    final response = await _authenticationService.sendAppsFlyerDeviceData(deviceData);
 
     response.fold(
-      (error) =>
-          emit(AuthenticationState.error(state.data.copyWith(error: error))),
+      (error) => emit(AuthenticationState.error(state.data.copyWith(error: error))),
       (_) {},
     );
   }

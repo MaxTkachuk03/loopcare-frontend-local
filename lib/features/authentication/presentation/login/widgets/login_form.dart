@@ -87,14 +87,11 @@ class _LoginFormState extends State<LoginForm> {
                     valueListenable: _formValidationNotifier,
                     builder: (context, isValid, _) {
                       return Builder(builder: (context) {
-                        final authState =
-                            context.watch<AuthenticationBloc>().state;
-                        final riverState =
-                            context.watch<RiverBloc>().state.data;
+                        final authState = context.watch<AuthenticationBloc>().state;
+                        final riverState = context.watch<RiverBloc>().state.data;
 
                         final isLoading =
-                            authState is AuthenticationStateIsLoading ||
-                                riverState.isLoading;
+                            authState is AuthenticationStateIsLoading || riverState.isLoading;
 
                         return CustomElevatedButton.blueFullWidth(
                           key: const ValueKey('login_button'),
@@ -133,8 +130,7 @@ class _LoginFormState extends State<LoginForm> {
         );
   }
 
-  void _authenticationListener(
-      BuildContext context, AuthenticationState state) {
+  void _authenticationListener(BuildContext context, AuthenticationState state) {
     state.mapOrNull(
       needUpdatePolicies: _updatePolicies,
       gotAccount: _onGetAccount,
@@ -145,10 +141,10 @@ class _LoginFormState extends State<LoginForm> {
 
   void _updatePolicies(NeedUpdatePolicies state) {
     final storage = getIt<SharedStorageService>();
-    final updatePrivacyPolicy = storage.privacyPolicyVersion >
-        (state.data.account?.privacyPolicyVersion ?? 1);
-    final updateTermsAndConditions = storage.termsAndConditionsVersion >
-        (state.data.account?.termsAndConditionsVersion ?? 1);
+    final updatePrivacyPolicy =
+        storage.privacyPolicyVersion > (state.data.account?.privacyPolicyVersion ?? 1);
+    final updateTermsAndConditions =
+        storage.termsAndConditionsVersion > (state.data.account?.termsAndConditionsVersion ?? 1);
 
     AppUpdateBottomSheet.showPoliciesUpdate(
       updatePrivacyPolicy: updatePrivacyPolicy,
@@ -181,8 +177,7 @@ class _LoginFormState extends State<LoginForm> {
 
     if (!(authState.data.account?.hasActiveSubscription ?? false) && kIsProd) {
       route = AppRoutes.subscription;
-    } else if (!state.data.isBeginningComplete &&
-        !state.data.isBeginningStarted) {
+    } else if (!state.data.isBeginningComplete && !state.data.isBeginningStarted) {
       route = AppRoutes.riverOverview;
     } else {
       route = AppRoutes.home;
@@ -206,12 +201,8 @@ class _LoginFormState extends State<LoginForm> {
   }
 
   void _onAuthorized(_) {
-    context
-        .read<AuthenticationBloc>()
-        .add(const AuthenticationEvent.getAccount());
-    context
-        .read<AuthenticationBloc>()
-        .add(const AuthenticationEvent.sendApsFlyerData());
+    context.read<AuthenticationBloc>().add(const AuthenticationEvent.getAccount());
+    context.read<AuthenticationBloc>().add(const AuthenticationEvent.sendApsFlyerData());
   }
 
   void _onGuest(GuestAuthenticationState state) {

@@ -32,8 +32,7 @@ class WaitingForConfirmationPage extends StatefulWidget {
   const WaitingForConfirmationPage({super.key});
 
   @override
-  State<WaitingForConfirmationPage> createState() =>
-      _WaitingForConfirmationPageState();
+  State<WaitingForConfirmationPage> createState() => _WaitingForConfirmationPageState();
 }
 
 class _WaitingForConfirmationPageState extends State<WaitingForConfirmationPage>
@@ -68,9 +67,7 @@ class _WaitingForConfirmationPageState extends State<WaitingForConfirmationPage>
     timer = Timer.periodic(const Duration(seconds: 5), (_) async {
       if (!waitingForResponse) {
         waitingForResponse = true;
-        context
-            .read<AuthenticationBloc>()
-            .add(const AuthenticationEvent.authenticatedCheck());
+        context.read<AuthenticationBloc>().add(const AuthenticationEvent.authenticatedCheck());
         waitingForResponse = false;
       }
     });
@@ -85,12 +82,9 @@ class _WaitingForConfirmationPageState extends State<WaitingForConfirmationPage>
     }
 
     context
-      ..read<GeneralOnboardingBloc>()
-          .add(const GeneralOnboardingEvent.resetData())
-      ..read<MedicalQuestionsBloc>()
-          .add(const MedicalQuestionsEvent.resetData())
-      ..read<PhysicalQuestionsBloc>()
-          .add(const PhysicalQuestionsEvent.resetData())
+      ..read<GeneralOnboardingBloc>().add(const GeneralOnboardingEvent.resetData())
+      ..read<MedicalQuestionsBloc>().add(const MedicalQuestionsEvent.resetData())
+      ..read<PhysicalQuestionsBloc>().add(const PhysicalQuestionsEvent.resetData())
       ..read<MentalQuestionsBloc>().add(const MentalQuestionsEvent.resetData())
       ..router.replaceAll([route]);
   }
@@ -136,13 +130,12 @@ class _WaitingForConfirmationPageState extends State<WaitingForConfirmationPage>
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            const Icon(Icons.mail,
-                                size: 44, color: AppColors.white),
+                            const Icon(Icons.mail, size: 44, color: AppColors.white),
                             const SizedBox(height: 22.0),
                             CustomText.bitter600(
                               '${LocalizedTexts.waitingForConfirmationTitle.tr()}!',
-                              style: context.textTheme.displayMedium
-                                  ?.copyWith(color: AppColors.white),
+                              style:
+                                  context.textTheme.displayMedium?.copyWith(color: AppColors.white),
                               textAlign: TextAlign.center,
                             ),
                           ],
@@ -166,8 +159,7 @@ class _WaitingForConfirmationPageState extends State<WaitingForConfirmationPage>
                         ),
                         const SizedBox(height: 20.0),
                         BlocBuilder<AuthenticationBloc, AuthenticationState>(
-                          key: const ValueKey(
-                              'waiting_for_confirmation_email_line'),
+                          key: const ValueKey('waiting_for_confirmation_email_line'),
                           builder: (context, state) {
                             return OccludeWrapper(
                               child: CustomText.w600(
@@ -197,14 +189,12 @@ class _WaitingForConfirmationPageState extends State<WaitingForConfirmationPage>
                     text: TextSpan(
                       style: context.textTheme.bodyMedium,
                       children: [
-                        TextSpan(
-                            text: '${LocalizedTexts.incorrectEmail.tr()} '),
+                        TextSpan(text: '${LocalizedTexts.incorrectEmail.tr()} '),
                         TextSpan(
                           text: LocalizedTexts.changeAddress.tr(),
-                          style: context.textTheme.bodyMedium
-                              ?.copyWith(fontWeight: FontWeight.w600),
-                          recognizer: TapGestureRecognizer()
-                            ..onTap = _onChangeAddress,
+                          style:
+                              context.textTheme.bodyMedium?.copyWith(fontWeight: FontWeight.w600),
+                          recognizer: TapGestureRecognizer()..onTap = _onChangeAddress,
                         ),
                       ],
                     ),

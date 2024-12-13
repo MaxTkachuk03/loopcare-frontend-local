@@ -16,19 +16,16 @@ part 'legal_statement_event.dart';
 part 'legal_statement_state.dart';
 
 @singleton
-class LegalStatementBloc
-    extends HydratedBloc<LegalStatementEvent, LegalStatementState> {
+class LegalStatementBloc extends HydratedBloc<LegalStatementEvent, LegalStatementState> {
   final AuthenticationBloc _authenticationBloc;
   final usageAnalytics = UsageAnalytics();
 
   late final StreamSubscription _authBlocStreamSubscription;
 
-  LegalStatementBloc(this._authenticationBloc)
-      : super(LegalStatementState.initial()) {
+  LegalStatementBloc(this._authenticationBloc) : super(LegalStatementState.initial()) {
     on<PassageChanged>(_onPassageChanged);
 
-    _authBlocStreamSubscription =
-        _authenticationBloc.stream.distinct().listen((s) {
+    _authBlocStreamSubscription = _authenticationBloc.stream.distinct().listen((s) {
       s.mapOrNull(
         authenticated: (_) {
           add(const LegalStatementEvent.passageChanged(false));
@@ -57,15 +54,13 @@ class LegalStatementBloc
       );
     }
 
-    usageAnalytics.track(
-        eventName: UsageAnalyticsEvents.onboardingRegisterIntro);
+    usageAnalytics.track(eventName: UsageAnalyticsEvents.onboardingRegisterIntro);
 
     emit(state.copyWith(pageWasPassed: event.value));
   }
 
   @override
-  LegalStatementState? fromJson(Map<String, dynamic> json) =>
-      LegalStatementState.fromJson(json);
+  LegalStatementState? fromJson(Map<String, dynamic> json) => LegalStatementState.fromJson(json);
 
   @override
   Map<String, dynamic>? toJson(LegalStatementState state) {

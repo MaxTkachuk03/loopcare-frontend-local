@@ -17,8 +17,7 @@ import 'package:loopcare_frontend/injection.dart';
 import 'package:loopcare_frontend/localization/service/localized_texts.dart';
 
 class PurchaseDetailsStreamSubscription {
-  final AppSubscriptionService inAppPurchaseService =
-      getIt<AppSubscriptionService>();
+  final AppSubscriptionService inAppPurchaseService = getIt<AppSubscriptionService>();
   final Function()? onPending;
   final Function(PurchaseDetails purchaseDetails)? onPurchased;
   final Function(RequestError error)? onError;
@@ -39,9 +38,9 @@ class PurchaseDetailsStreamSubscription {
 
   Future<void> init() async {
     if (Platform.isIOS) {
-      final InAppPurchaseStoreKitPlatformAddition iosPlatformAddition =
-          inAppPurchaseService.instance
-              .getPlatformAddition<InAppPurchaseStoreKitPlatformAddition>();
+      final InAppPurchaseStoreKitPlatformAddition iosPlatformAddition = inAppPurchaseService
+          .instance
+          .getPlatformAddition<InAppPurchaseStoreKitPlatformAddition>();
       await iosPlatformAddition.setDelegate(AppPaymentQueueDelegate());
     }
     _streamSubscription = inAppPurchaseService.storeSubscription.listen(
@@ -66,8 +65,7 @@ class PurchaseDetailsStreamSubscription {
       return;
     }
     if (events.every((element) => element.status == PurchaseStatus.restored)) {
-      events.sort((a, b) => int.parse(a.transactionDate!)
-          .compareTo(int.parse(b.transactionDate!)));
+      events.sort((a, b) => int.parse(a.transactionDate!).compareTo(int.parse(b.transactionDate!)));
 
       for (var purchaseDetails in events) {
         await inAppPurchaseService.completePurchase(purchaseDetails);
@@ -98,8 +96,8 @@ class PurchaseDetailsStreamSubscription {
           case PurchaseStatus.error:
             _mixpanelSubscriptionPurchaseErrorEvent(
                 data: purchaseDetails, message: 'error_purchase_stream_error');
-            onError?.call(const RequestError.streamSubscription(ServerErrorData(
-                message: LocalizedTexts.errorPurchaseStreamError)));
+            onError?.call(const RequestError.streamSubscription(
+                ServerErrorData(message: LocalizedTexts.errorPurchaseStreamError)));
             if (Platform.isIOS) {
               await inAppPurchaseService.finishTransactionIOS();
             }
@@ -112,8 +110,7 @@ class PurchaseDetailsStreamSubscription {
     );
   }
 
-  void _mixpanelSubscriptionPurchaseErrorEvent(
-      {PurchaseDetails? data, String? message}) {
+  void _mixpanelSubscriptionPurchaseErrorEvent({PurchaseDetails? data, String? message}) {
     MixpanelEventService.instance.track(
       AppMixpanelEvents.subscriptionPurchaseError,
       parameters: {
@@ -140,8 +137,7 @@ class PurchaseDetailsStreamSubscription {
           AnalyticsParameters.purchaseStatus: data.status.name,
           if (data.transactionDate != null)
             AnalyticsParameters.transactionDate:
-                DateTime.fromMillisecondsSinceEpoch(
-                    int.parse(data.transactionDate!) * 1000),
+                DateTime.fromMillisecondsSinceEpoch(int.parse(data.transactionDate!) * 1000),
         },
       },
     );
@@ -149,9 +145,9 @@ class PurchaseDetailsStreamSubscription {
 
   void close() {
     if (Platform.isIOS) {
-      final InAppPurchaseStoreKitPlatformAddition iosPlatformAddition =
-          inAppPurchaseService.instance
-              .getPlatformAddition<InAppPurchaseStoreKitPlatformAddition>();
+      final InAppPurchaseStoreKitPlatformAddition iosPlatformAddition = inAppPurchaseService
+          .instance
+          .getPlatformAddition<InAppPurchaseStoreKitPlatformAddition>();
       iosPlatformAddition.setDelegate(null);
     }
     _streamSubscription?.cancel();

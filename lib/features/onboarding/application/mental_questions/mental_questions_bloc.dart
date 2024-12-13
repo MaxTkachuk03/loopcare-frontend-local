@@ -22,13 +22,11 @@ part 'mental_questions_event.dart';
 part 'mental_questions_state.dart';
 
 @singleton
-class MentalQuestionsBloc
-    extends HydratedBloc<MentalQuestionsEvent, MentalQuestionsState> {
+class MentalQuestionsBloc extends HydratedBloc<MentalQuestionsEvent, MentalQuestionsState> {
   final MentalHealthService _mentalHealthService;
   final usageAnalytics = UsageAnalytics();
 
-  MentalQuestionsBloc(this._mentalHealthService)
-      : super(MentalQuestionsState.initial()) {
+  MentalQuestionsBloc(this._mentalHealthService) : super(MentalQuestionsState.initial()) {
     on<_SetAnswer>(_onSetAnswer);
     on<_GetTestResults>(_onGetTestResults);
     on<_StartTestFromBeginning>(_onStartTestFromBeginning);
@@ -49,8 +47,8 @@ class MentalQuestionsBloc
     );
 
     List<MentalHealthAnswer> newAnswers = [...state.answers];
-    final existingQuestionIndex = newAnswers
-        .indexWhere((element) => element.questionId == event.answer.questionId);
+    final existingQuestionIndex =
+        newAnswers.indexWhere((element) => element.questionId == event.answer.questionId);
 
     if (existingQuestionIndex.isNegative) {
       newAnswers = [...state.answers, event.answer];
@@ -80,13 +78,11 @@ class MentalQuestionsBloc
     final answers = event.isCompleted
         ? state.answers
         : currentTest.questions
-            .map((q) =>
-                state.answers.firstWhereOrNull((a) => a.questionId == q.id))
+            .map((q) => state.answers.firstWhereOrNull((a) => a.questionId == q.id))
             .whereType<MentalHealthAnswer>()
             .toList();
 
-    final response = await _mentalHealthService
-        .getTestResults(AnswersBody(answers: answers));
+    final response = await _mentalHealthService.getTestResults(AnswersBody(answers: answers));
 
     response.fold(
       (e) => emit(state.copyWith(isLoading: false, error: e)),
@@ -128,8 +124,7 @@ class MentalQuestionsBloc
   }
 
   @override
-  MentalQuestionsState? fromJson(Map<String, dynamic> json) =>
-      MentalQuestionsState.fromJson(json);
+  MentalQuestionsState? fromJson(Map<String, dynamic> json) => MentalQuestionsState.fromJson(json);
 
   @override
   Map<String, dynamic>? toJson(MentalQuestionsState state) {

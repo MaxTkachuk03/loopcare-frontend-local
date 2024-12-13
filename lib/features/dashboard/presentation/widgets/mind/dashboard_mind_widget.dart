@@ -10,8 +10,22 @@ import 'package:loopcare_frontend/features/dashboard/presentation/widgets/dashbo
 import 'package:loopcare_frontend/localization/service/localization_extension.dart';
 import 'package:loopcare_frontend/localization/service/localized_texts.dart';
 
-class DashboardMindWidget extends StatelessWidget {
-  const DashboardMindWidget({super.key});
+class DashboardMindWidget extends StatefulWidget {
+  final bool locked;
+  const DashboardMindWidget({super.key, required this.locked});
+
+  @override
+  State<DashboardMindWidget> createState() => _DashboardMindWidgetState();
+}
+
+class _DashboardMindWidgetState extends State<DashboardMindWidget> {
+  bool onClick = false;
+
+  void toggleOnClick() {
+    setState(() {
+      onClick = !onClick;
+    });
+  }
 
   void onPressHandler(BuildContext context) => context.router.pushNamed(AppRoutes.mindTechniques);
 
@@ -25,24 +39,69 @@ class DashboardMindWidget extends StatelessWidget {
         borderRadius: BorderRadius.all(Radius.circular(8)),
       ),
       child: Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           DashboardCardTitle(
-            highlightColor: AppColors.petrolLightest,
-            leadingIcon: AppIcons.customDashboardMind,
-            title: CustomText.bitter600(
-              LocalizedTexts.mindDashboardTitle.tr(),
-              style: context.textTheme.headlineSmall,
-            ),
-            editable: false,
+            onTap: () {
+              if (widget.locked) {
+              } else {
+                toggleOnClick();
+              }
+            },
+            highlightColor: widget.locked ? AppColors.petrolLightest : AppColors.white,
+            leadingIcon:
+                widget.locked ? AppIcons.customDashboardMind : AppIcons.customDashboardMindGrey,
+            title: widget.locked
+                ? CustomText.bitter600(
+                    LocalizedTexts.mindDashboardTitle.tr(),
+                    style: context.textTheme.headlineSmall,
+                  )
+                : CustomText.bitter400(
+                    LocalizedTexts.mindDashboardTitle.tr(),
+                    style: context.textTheme.headlineSmall,
+                  ),
+            editable: true,
+            actionIcon: onClick ? const AssetImage(AppIcons.upArrow) : AppIcons.downArrow,
           ),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 16.0),
-            child: CustomElevatedButton.petrolSmall(
-              label: LocalizedTexts.mindDashboardBtn.tr(),
-              onPressed: () => onPressHandler(context),
-            ),
-          ),
+          widget.locked
+              ? Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 16.0),
+                  child: CustomElevatedButton.petrolSmall(
+                    label: LocalizedTexts.mindDashboardBtn.tr(),
+                    onPressed: () => onPressHandler(context),
+                  ),
+                )
+              : const SizedBox(),
+          widget.locked
+              ? Container()
+              : Padding(
+                  padding: const EdgeInsets.all(12.0),
+                  child: Row(
+                    children: [
+                      AppIcons.lockGoals,
+                      const SizedBox(
+                        width: 36,
+                      ),
+                      SizedBox(
+                        width: 250,
+                        child: Text(
+                          "${LocalizedTexts.featureUnlocksAtPool.tr()} #${LocalizedTexts.mindTraining.tr()}",
+                          style: const TextStyle(color: AppColors.blueDarker),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+          onClick
+              ? Container(
+                  margin: const EdgeInsets.only(left: 70, bottom: 10),
+                  width: 250,
+                  child: CustomText.w400(
+                    maxLines: 10,
+                    LocalizedTexts.mindTrainingLockedDescription.tr(),
+                  ),
+                )
+              : Container(),
         ],
       ),
     );

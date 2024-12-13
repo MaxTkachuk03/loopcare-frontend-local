@@ -46,8 +46,7 @@ class _LessonPageState extends State<LessonPage> {
   @override
   void initState() {
     super.initState();
-    educationLessonBlocStateData =
-        context.read<EducationLessonBloc>().state.data;
+    educationLessonBlocStateData = context.read<EducationLessonBloc>().state.data;
     analyticsBloc = context.read<AnalyticsBloc>();
     final riverModule = context.read<RiverBloc>().state.data.activeModule;
 
@@ -55,8 +54,7 @@ class _LessonPageState extends State<LessonPage> {
       eventName: UsageAnalyticsEvents.lessonOpened,
       attributes: {
         UsageAnalyticsAttributes.articleId: educationLessonBlocStateData.id,
-        UsageAnalyticsAttributes.articleTitle:
-            educationLessonBlocStateData.title,
+        UsageAnalyticsAttributes.articleTitle: educationLessonBlocStateData.title,
         UsageAnalyticsAttributes.articlePool: riverModule?.title,
       },
     );
@@ -66,8 +64,7 @@ class _LessonPageState extends State<LessonPage> {
     final lessonBlocData = context.read<EducationLessonBloc>().state.data;
 
     if (lessonBlocData.hasQuiz) {
-      context.router.push(QuizIntroRoute(
-          lessonId: widget.lessonId, streamType: widget.streamType));
+      context.router.push(QuizIntroRoute(lessonId: widget.lessonId, streamType: widget.streamType));
     } else {
       context.router.push(LessonCompleteRoute(streamType: widget.streamType));
     }
@@ -98,8 +95,7 @@ class _LessonPageState extends State<LessonPage> {
         AnalyticsEvents.leaveLessonScreen,
         {
           AnalyticsParameters.lessonId: widget.lessonId.toString(),
-          AnalyticsParameters.lessonType:
-              educationLessonBlocStateData.contentType.name,
+          AnalyticsParameters.lessonType: educationLessonBlocStateData.contentType.name,
           AnalyticsParameters.timestamp: DateTime.now().toIso8601String(),
         },
       ),
@@ -122,8 +118,7 @@ class _LessonPageState extends State<LessonPage> {
         backgroundColor: widget.streamType.regularColor,
         title: LocalizedTexts.lesson.tr(),
         textTheme: widget.streamType.appBarTextTheme,
-        leading: CustomFilledIconButton.fromColor(
-            color: widget.streamType.lighterColor),
+        leading: CustomFilledIconButton.fromColor(color: widget.streamType.lighterColor),
       ),
       body: CustomSafeArea(
         child: BlocConsumer<EducationLessonBloc, EducationLessonState>(
@@ -133,8 +128,8 @@ class _LessonPageState extends State<LessonPage> {
             return state.maybeMap(
               initial: (_) => const Loader(),
               contentIsLoading: (_) => const Loader(),
-              errorGettingContent: (s) => ErrorScreen(
-                  error: s.data.error!, onButtonPressed: _onRetryHandler),
+              errorGettingContent: (s) =>
+                  ErrorScreen(error: s.data.error!, onButtonPressed: _onRetryHandler),
               orElse: () {
                 if (state.data.isArticlePage) {
                   return LessonTextBody(
