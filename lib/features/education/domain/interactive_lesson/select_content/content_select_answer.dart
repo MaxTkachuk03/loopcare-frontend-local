@@ -20,7 +20,7 @@ class ContentSelectAnswer with _$ContentSelectAnswer {
       log.d('Parsing ContentSelectAnswer: $json');
 
       // Parse individual fields with debug information
-      final id = json['id'] as int;
+      final id = json['externalId'] as int;
       log.d('Parsed id: $id');
 
       final label = json['label'] as String;

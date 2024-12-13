@@ -159,7 +159,9 @@ class _CustomReorderableListState extends State<CustomReorderableList> {
                 key: ValueKey(item.id),
                 shape: getShape(isValid),
                 child: ListTile(
-                  leading: const Image(image: AppImages.logo),
+                  leading: item.src.isNotEmpty
+                      ? Image.network(item.src) // Load network image if src exists
+                      : const Image(image: AppImages.logo),
                   title: CustomText.w700(item.title, style: context.textTheme.bodyMedium),
                   subtitle: CustomText(item.description, style: context.textTheme.bodyMedium),
                   trailing: const Icon(Icons.drag_handle, color: AppColors.greenLighter),
