@@ -15,7 +15,7 @@ class ContinueBtn extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.only(bottom: bottom ?? 30),
+      padding: EdgeInsets.only(top: 20.0, bottom: bottom ?? 30),
       child: CustomElevatedButton.blueFullWidth(
         onPressed: isDisable ? null : onPressed,
         label: label ?? LocalizedTexts.continueBtn.tr(),

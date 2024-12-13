@@ -82,11 +82,12 @@ class _SingleSelectState extends State<SingleSelect> {
             final answer = content.answers[index];
             final isSelected = _selectedAnswer.contains(answer.id);
 
-            return CustomChoiceChip.green(
+            return CustomChoiceChip.blue(
               label: answer.label,
               selected: isSelected,
               value: answer,
               onSelected: _onSelected,
+              isSingle: true,
             );
           },
         ),
