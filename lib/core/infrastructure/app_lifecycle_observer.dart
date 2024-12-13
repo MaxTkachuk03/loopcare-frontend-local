@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:loopcare_frontend/core/application/auth_token_manager.dart';
@@ -18,7 +17,8 @@ class AppLifeCycleStateListener extends StatefulWidget {
   const AppLifeCycleStateListener({super.key, required this.child});
 
   @override
-  State<AppLifeCycleStateListener> createState() => _AppLifeCycleStateListenerState();
+  State<AppLifeCycleStateListener> createState() =>
+      _AppLifeCycleStateListenerState();
 }
 
 class _AppLifeCycleStateListenerState extends State<AppLifeCycleStateListener>
@@ -27,7 +27,8 @@ class _AppLifeCycleStateListenerState extends State<AppLifeCycleStateListener>
   late AuthTokenManager authTokenManager;
   final usageAnalytics = UsageAnalytics();
 
-  AuthenticationBloc? get _authenticationBloc => GetIt.instance<AuthenticationBloc>();
+  AuthenticationBloc? get _authenticationBloc =>
+      GetIt.instance<AuthenticationBloc>();
 
   @override
   void initState() {
@@ -69,8 +70,10 @@ class _AppLifeCycleStateListenerState extends State<AppLifeCycleStateListener>
     final token = await authTokenManager.getRefreshToken();
     if (token == null) return false;
 
-    final request = await fetchResponse(dioOptions, '/auth/accessToken', FetchType.post,
-        data: {'refreshToken': token}, fromJson: (r) => UpdatedAccessTokenResponse.fromJson(r));
+    final request = await fetchResponse(
+        dioOptions, '/auth/accessToken', FetchType.post,
+        data: {'refreshToken': token},
+        fromJson: (r) => UpdatedAccessTokenResponse.fromJson(r));
 
     request.fold(
       (error) => _authenticationBloc?.add(const AuthenticationEvent.logout()),
@@ -90,106 +93,9 @@ class _AppLifeCycleStateListenerState extends State<AppLifeCycleStateListener>
     return accessTokenIsUpdated;
   }
 
-  void _syncChatState() => _authenticationBloc?.add(const AuthenticationEvent.syncChatState());
+  void _syncChatState() =>
+      _authenticationBloc?.add(const AuthenticationEvent.syncChatState());
 
-  void _refreshTokenState() =>
-      _authenticationBloc?.state.mapOrNull(authenticated: (_) => _refreshToken());
+  void _refreshTokenState() => _authenticationBloc?.state
+      .mapOrNull(authenticated: (_) => _refreshToken());
 }
-=======
-import 'package:flutter/material.dart';
-import 'package:get_it/get_it.dart';
-import 'package:loopcare_frontend/core/application/auth_token_manager.dart';
-import 'package:loopcare_frontend/core/application/dto/updated_access_token_response.dart';
-import 'package:loopcare_frontend/core/domain/analytics/usage_analytics/usage_analytics.dart';
-import 'package:loopcare_frontend/core/domain/analytics/usage_analytics/usage_analytics_events.dart';
-import 'package:loopcare_frontend/core/infrastructure/dio_client/dio_client.dart';
-import 'package:loopcare_frontend/core/infrastructure/dio_client/dio_options.dart';
-import 'package:loopcare_frontend/core/infrastructure/services/socket_service/socket_service.dart';
-import 'package:loopcare_frontend/core/infrastructure/services/socket_service_buddy/buddy_socket_service.dart';
-import 'package:loopcare_frontend/core/infrastructure/services/socket_service_chat/chat_socket_service.dart';
-import 'package:loopcare_frontend/features/authentication/application/authentication_bloc.dart';
-
-class AppLifeCycleStateListener extends StatefulWidget {
-  final Widget child;
-
-  const AppLifeCycleStateListener({super.key, required this.child});
-
-  @override
-  State<AppLifeCycleStateListener> createState() => _AppLifeCycleStateListenerState();
-}
-
-class _AppLifeCycleStateListenerState extends State<AppLifeCycleStateListener>
-    with WidgetsBindingObserver, RouteAware {
-  late final AppLifecycleListener lifeCycleListener;
-  late AuthTokenManager authTokenManager;
-  final usageAnalytics = UsageAnalytics();
-
-  AuthenticationBloc? get _authenticationBloc => GetIt.instance<AuthenticationBloc>();
-
-  @override
-  void initState() {
-    super.initState();
-    WidgetsBinding.instance.addObserver(this);
-    authTokenManager = GetIt.instance<AuthTokenManager>();
-    lifeCycleListener = AppLifecycleListener(
-      onResume: _onResume,
-      onPause: _onPause,
-    );
-  }
-
-  @override
-  void dispose() {
-    lifeCycleListener.dispose();
-    super.dispose();
-  }
-
-  _onPause() {
-    usageAnalytics.track(
-      eventName: UsageAnalyticsEvents.appPaused,
-    );
-  }
-
-  _onResume() {
-    usageAnalytics.track(
-      eventName: UsageAnalyticsEvents.bringAppToFront,
-    );
-    _refreshTokenState();
-    _syncChatState();
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return widget.child;
-  }
-
-  Future<bool> updateAccessToken() async {
-    final token = await authTokenManager.getRefreshToken();
-    if (token == null) return false;
-
-    final request = await fetchResponse(dioOptions, '/auth/accessToken', FetchType.post,
-        data: {'refreshToken': token}, fromJson: (r) => UpdatedAccessTokenResponse.fromJson(r));
-
-    request.fold(
-      (error) => _authenticationBloc?.add(const AuthenticationEvent.logout()),
-      (response) => authTokenManager.setAccessToken(response.accessToken),
-    );
-
-    return request.isRight();
-  }
-
-  Future<bool> _refreshToken() async {
-    final accessTokenIsUpdated = await updateAccessToken();
-    if (accessTokenIsUpdated) {
-      SocketService.instance.reconnect();
-      BuddySocketService.instance.reconnect();
-      ChatSocketService.instance.reconnect();
-    }
-    return accessTokenIsUpdated;
-  }
-
-  void _syncChatState() => _authenticationBloc?.add(const AuthenticationEvent.syncChatState());
-
-  void _refreshTokenState() =>
-      _authenticationBloc?.state.mapOrNull(authenticated: (_) => _refreshToken());
-}
->>>>>>> feature-interactive-lessons
