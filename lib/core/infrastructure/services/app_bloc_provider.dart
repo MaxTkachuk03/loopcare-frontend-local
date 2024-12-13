@@ -41,6 +41,7 @@ import 'package:loopcare_frontend/features/smart_goals/application/smart_goals_b
 import 'package:loopcare_frontend/features/smart_goals/application/smart_goals_categories_bloc.dart';
 import 'package:loopcare_frontend/features/smart_goals/application/smart_goals_statistics_bloc.dart';
 import 'package:loopcare_frontend/features/subscription/application/subscription_bloc.dart';
+import 'package:loopcare_frontend/features/subscriptionV2/application/subscription_v2_bloc.dart';
 import 'package:loopcare_frontend/features/video_player/application/video_player_bloc.dart';
 import 'package:loopcare_frontend/features/video_session/application/session_call_bloc.dart';
 import 'package:loopcare_frontend/injection.dart';
@@ -180,6 +181,9 @@ class AppBlocProvider {
         ),
         BlocProvider<UserStatesBloc>(
           create: (_) => getIt<UserStatesBloc>(),
+        ),
+        BlocProvider<SubscriptionV2Bloc>(
+          create: (_) => getIt<SubscriptionV2Bloc>(),
         ),
       ];
 }

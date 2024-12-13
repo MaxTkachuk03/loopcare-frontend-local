@@ -19,35 +19,40 @@ class CategoryLabel extends StatelessWidget {
     this.textColor = AppColors.white,
   });
 
-  factory CategoryLabel.psychology() =>
-      CategoryLabel(label: RiverModuleStreamType.psychology.label, color: AppColors.petrolRegular);
+  factory CategoryLabel.psychology() => CategoryLabel(
+      label: RiverModuleStreamType.psychology.label,
+      color: AppColors.petrolRegular);
 
-  factory CategoryLabel.nutrition() =>
-      CategoryLabel(label: RiverModuleStreamType.nutrition.label, color: AppColors.greenRegular);
+  factory CategoryLabel.nutrition() => CategoryLabel(
+      label: RiverModuleStreamType.nutrition.label,
+      color: AppColors.greenRegular);
 
   factory CategoryLabel.physicalActivity() => CategoryLabel(
-      label: RiverModuleStreamType.physicalActivity.label, color: AppColors.yellowRegular);
+      label: RiverModuleStreamType.physicalActivity.label,
+      color: AppColors.yellowRegular);
 
-  factory CategoryLabel.medical() =>
-      CategoryLabel(label: RiverModuleStreamType.medical.label, color: AppColors.coralRegular);
+  factory CategoryLabel.medical() => CategoryLabel(
+      label: RiverModuleStreamType.medical.label,
+      color: AppColors.coralRegular);
 
-  factory CategoryLabel.community() =>
-      CategoryLabel(label: RiverModuleStreamType.community.label, color: AppColors.orangeRegular);
+  factory CategoryLabel.community() => CategoryLabel(
+      label: RiverModuleStreamType.community.label,
+      color: AppColors.orangeRegular);
 
-  factory CategoryLabel.reflection() =>
-      CategoryLabel(label: LocalizedTexts.reflection.tr(), color: AppColors.petrolRegular);
+  factory CategoryLabel.reflection() => CategoryLabel(
+      label: LocalizedTexts.reflection.tr(), color: AppColors.petrolRegular);
 
-  factory CategoryLabel.difficultyEasy() =>
-      CategoryLabel(label: ProgramDifficulty.easy.label, color: AppColors.petrolRegular);
+  factory CategoryLabel.difficultyEasy() => CategoryLabel(
+      label: ProgramDifficulty.easy.label, color: AppColors.petrolRegular);
 
-  factory CategoryLabel.difficultyMedium() =>
-      CategoryLabel(label: ProgramDifficulty.medium.label, color: AppColors.yellowRegular);
+  factory CategoryLabel.difficultyMedium() => CategoryLabel(
+      label: ProgramDifficulty.medium.label, color: AppColors.yellowRegular);
 
   factory CategoryLabel.difficultyHard() =>
       CategoryLabel(label: ProgramDifficulty.hard.label, color: AppColors.red);
 
-  factory CategoryLabel.groupSession() =>
-      CategoryLabel(label: LocalizedTexts.groupSession.tr(), color: AppColors.petrolRegular);
+  factory CategoryLabel.groupSession() => CategoryLabel(
+      label: LocalizedTexts.groupSession.tr(), color: AppColors.petrolRegular);
 
   factory CategoryLabel.buddy() => CategoryLabel(
         label: LocalizedTexts.buddy.tr(),
@@ -55,8 +60,10 @@ class CategoryLabel extends StatelessWidget {
         textColor: AppColors.blueDarker,
       );
 
-  factory CategoryLabel.smartGoals({required String label}) =>
-      CategoryLabel(label: label, color: AppColors.greenRegular, textColor: AppColors.blueDarker);
+  factory CategoryLabel.smartGoals({required String label}) => CategoryLabel(
+      label: label,
+      color: AppColors.greenRegular,
+      textColor: AppColors.blueDarker);
 
   factory CategoryLabel.smartGoalNew() => CategoryLabel(
         label: LocalizedTexts.smartGoalsNewLabel.tr(),
@@ -76,10 +83,14 @@ class CategoryLabel extends StatelessWidget {
         textColor: AppColors.white,
       );
 
+  factory CategoryLabel.subscription({required String label}) =>
+      CategoryLabel(label: label, color: AppColors.blueDarker);
+
   @override
   Widget build(BuildContext context) {
     return Container(
-      decoration: BoxDecoration(borderRadius: BorderRadius.circular(3.0), color: color),
+      decoration:
+          BoxDecoration(borderRadius: BorderRadius.circular(3.0), color: color),
       padding: const EdgeInsets.symmetric(vertical: 2.0, horizontal: 6.0),
       child: CustomText.w600(
         label.toUpperCase(),

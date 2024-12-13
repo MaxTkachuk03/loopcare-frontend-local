@@ -162,7 +162,8 @@ class _MealPageState extends State<MealPage> {
 
   void _onBackToDashboardPressed() {
     // Method _onWillPop() will called in any case
-    context.router.popUntilRouteWithName(HomeRoute.name);
+    // context.router.popUntilRouteWithName(HomeRoute.name);
+    context.router.push(const SubscriptionRouteV2());
   }
 
   Future<void> _onWillPop(_, __) async => _onBack();
