@@ -62,8 +62,7 @@ class MixpanelManager {
     }
   }
 
-  void track(String eventName, Map<String, dynamic>? data) =>
-      _trackForMobile(eventName, data);
+  void track(String eventName, Map<String, dynamic>? data) => _trackForMobile(eventName, data);
 
   void _trackForMobile(
     String eventName,

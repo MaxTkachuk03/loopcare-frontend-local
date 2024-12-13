@@ -46,8 +46,7 @@ class _SubscriptionPageState extends State<SubscriptionPage> {
   @override
   void initState() {
     super.initState();
-    _controller =
-        SubscriptionController(bloc: context.read<SubscriptionBloc>());
+    _controller = SubscriptionController(bloc: context.read<SubscriptionBloc>());
     usageAnalytics.track(
       eventName: UsageAnalyticsEvents.subscriptionPage,
     );
@@ -87,17 +86,13 @@ class _SubscriptionPageState extends State<SubscriptionPage> {
           ),
           body: BlocConsumer<SubscriptionBloc, SubscriptionState>(
             listener: (context, state) => state.maybeWhen(
-              setEligibility: (data) =>
-                  _controller.getSubscriptionPlansFromServer(),
+              setEligibility: (data) => _controller.getSubscriptionPlansFromServer(),
               successInPlans: (data) => _controller.setupPlans(data),
-              subscriptionActive: (data) =>
-                  context.router.replaceNamed(AppRoutes.home),
-              purchaseDuplicateSubscription: (data) =>
-                  _onDuplicateSettings(context),
-              purchasedSubscription: (data) =>
-                  (data.subscription?.isActive ?? false)
-                      ? _navigateToHome()
-                      : _onRestoreFromSettings(data),
+              subscriptionActive: (data) => context.router.replaceNamed(AppRoutes.home),
+              purchaseDuplicateSubscription: (data) => _onDuplicateSettings(context),
+              purchasedSubscription: (data) => (data.subscription?.isActive ?? false)
+                  ? _navigateToHome()
+                  : _onRestoreFromSettings(data),
               askRestoredSubscription: (data) => _showAskRestorePopover(),
               loading: (data) => _controller.handleLoading(data.isLoading),
               error: (_) => _errorListener(context, state),
@@ -108,8 +103,7 @@ class _SubscriptionPageState extends State<SubscriptionPage> {
               singlePlan: (_) => content = SubscriptionSinglePlanPage(
                 controller: _controller,
               ),
-              subscriptionUnRenewed: (_) =>
-                  content = const SubscriptionNonrenewablePage(),
+              subscriptionUnRenewed: (_) => content = const SubscriptionNonrenewablePage(),
               serviceSubscriptionUnavailable: (_) =>
                   content = const SubscriptionServiceUnavailablePage(),
             ),
@@ -149,24 +143,19 @@ class _SubscriptionPageState extends State<SubscriptionPage> {
       onSubscriptionPref: () {
         launchUrl(Uri.parse(link), mode: LaunchMode.externalApplication);
         context.read<SubscriptionBloc>().add(const SubscriptionEvent.logout());
-        context
-            .read<AuthenticationBloc>()
-            .add(const AuthenticationEvent.logout());
+        context.read<AuthenticationBloc>().add(const AuthenticationEvent.logout());
       },
     );
   }
 
   bool isVendorPlatform(String? vendor) =>
-      Platform.isIOS && vendor == 'ios' ||
-      Platform.isAndroid && vendor == 'android';
+      Platform.isIOS && vendor == 'ios' || Platform.isAndroid && vendor == 'android';
 
   void _showPopover() => showDialog<String>(
         context: context,
         builder: (BuildContext context) => AlertDialog(
           content: CustomText(
-            LocalizedTexts
-                .subscriptionOtherPurchaseVendorCancelAccountSubscription
-                .tr(),
+            LocalizedTexts.subscriptionOtherPurchaseVendorCancelAccountSubscription.tr(),
           ),
           actions: [
             TextButton(
@@ -182,8 +171,7 @@ class _SubscriptionPageState extends State<SubscriptionPage> {
     showDialog<String>(
       context: context,
       builder: (BuildContext context) => AlertDialog(
-        content:
-            CustomText(LocalizedTexts.subscriptionAskRestoreSubscription.tr()),
+        content: CustomText(LocalizedTexts.subscriptionAskRestoreSubscription.tr()),
         actions: [
           TextButton(
             onPressed: context.router.maybePop,
@@ -234,12 +222,8 @@ class _LogoutWidget extends StatelessWidget {
               color: AppColors.blueDarkest,
             ),
             onPressed: () {
-              context
-                  .read<SubscriptionBloc>()
-                  .add(const SubscriptionEvent.logout());
-              context
-                  .read<AuthenticationBloc>()
-                  .add(const AuthenticationEvent.logout());
+              context.read<SubscriptionBloc>().add(const SubscriptionEvent.logout());
+              context.read<AuthenticationBloc>().add(const AuthenticationEvent.logout());
             }),
       ),
     );

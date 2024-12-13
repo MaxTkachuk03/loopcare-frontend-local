@@ -2467,6 +2467,21 @@ class LocalizedTexts {
   static const String emergencyVeteransLineTitle = 'emergencyVeteransLineTitle';
   static const String emergencyVeteransLineUrl = 'emergencyVeteransLineUrl';
   static const String emergencyVeteransLineLabel = 'emergencyVeteransLineLabel';
+// locked widgets
+  static const String reflectionsDescription = 'reflectionsDescription';
+  static const String featureUnlocksAtPool = 'featureUnlocksAtPool';
+  static const String supportGroupDescription = 'supportGroupDescription';
+  static const String exerciseLibraryDescription = 'exerciseLibraryDescription';
+  static const String exerciseLibrary = 'exerciseLibrary';
+  static const String moodLog = 'moodLog';
+  static const String moodLogLockedDescription = 'moodLogLockedDescription';
+  static const String foodLog = 'foodLog';
+  static const String foodLogLockedDescription = 'foodLogLockedDescription';
+  static const String mindTrainingLockedDescription = 'mindTrainingLockedDescription';
+  static const String weightLog = 'weightLog';
+  static const String weightLogLockedDescription = 'weightLogLockedDescription';
+  static const String goals = 'goals';
+  static const String myGoalsLockedDescription = 'myGoalsLockedDescription';
 
   //Links
   static const String linksTermsAndConditionsUrl = 'linksTermsAndConditionsUrl';

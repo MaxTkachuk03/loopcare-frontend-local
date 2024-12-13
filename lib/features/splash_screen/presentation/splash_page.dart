@@ -4,7 +4,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:loopcare_frontend/core/application/app_update/app_update_bloc.dart';
 import 'package:loopcare_frontend/core/application/app_update/app_update_bottom_sheet.dart';
-import 'package:loopcare_frontend/core/domain/analytics/mixpanel/mixpanel_event_service.dart';
 import 'package:loopcare_frontend/core/presentation/alerting/show_app_snackbar.dart';
 import 'package:loopcare_frontend/core/presentation/routes/app_router.dart';
 import 'package:loopcare_frontend/core/presentation/scaffold/custom_scaffold.dart';
@@ -39,8 +38,7 @@ class _SplashPageState extends State<SplashPage> {
     }
 
     if (state.data.needToMinorUpdate) {
-      Future.delayed(
-          const Duration(seconds: 3), AppUpdateBottomSheet.showMinorAppUpdate);
+      Future.delayed(const Duration(seconds: 3), AppUpdateBottomSheet.showMinorAppUpdate);
     }
   }
 
@@ -62,13 +60,10 @@ class _SplashPageState extends State<SplashPage> {
 
   Future<void> _navigateAuthorized() async {
     _controller.setUpBottomNavigationBar();
-    MixpanelEventService.instance.identify();
     final routes = await _controller.getRoute();
 
-    if (context.mounted) {
-      // ignore: use_build_context_synchronously
-      context.router.replaceAll(routes);
-    }
+    if (!mounted) return;
+    context.router.replaceAll(routes);
 
     FlutterNativeSplash.remove();
   }
@@ -117,8 +112,7 @@ class _SplashPageState extends State<SplashPage> {
         BlocListener<RiverBloc, RiverState>(
           listener: (context, state) => state.mapOrNull(
             moduleLoaded: (_) => _navigateAuthorized(),
-            moduleLoadingError: (state) =>
-                _errorListener(state.data.error?.message ?? ''),
+            moduleLoadingError: (state) => _errorListener(state.data.error?.message ?? ''),
           ),
         ),
       ],

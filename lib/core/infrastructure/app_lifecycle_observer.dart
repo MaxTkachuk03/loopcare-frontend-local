@@ -17,8 +17,7 @@ class AppLifeCycleStateListener extends StatefulWidget {
   const AppLifeCycleStateListener({super.key, required this.child});
 
   @override
-  State<AppLifeCycleStateListener> createState() =>
-      _AppLifeCycleStateListenerState();
+  State<AppLifeCycleStateListener> createState() => _AppLifeCycleStateListenerState();
 }
 
 class _AppLifeCycleStateListenerState extends State<AppLifeCycleStateListener>
@@ -27,8 +26,7 @@ class _AppLifeCycleStateListenerState extends State<AppLifeCycleStateListener>
   late AuthTokenManager authTokenManager;
   final usageAnalytics = UsageAnalytics();
 
-  AuthenticationBloc? get _authenticationBloc =>
-      GetIt.instance<AuthenticationBloc>();
+  AuthenticationBloc? get _authenticationBloc => GetIt.instance<AuthenticationBloc>();
 
   @override
   void initState() {
@@ -70,10 +68,8 @@ class _AppLifeCycleStateListenerState extends State<AppLifeCycleStateListener>
     final token = await authTokenManager.getRefreshToken();
     if (token == null) return false;
 
-    final request = await fetchResponse(
-        dioOptions, '/auth/accessToken', FetchType.post,
-        data: {'refreshToken': token},
-        fromJson: (r) => UpdatedAccessTokenResponse.fromJson(r));
+    final request = await fetchResponse(dioOptions, '/auth/accessToken', FetchType.post,
+        data: {'refreshToken': token}, fromJson: (r) => UpdatedAccessTokenResponse.fromJson(r));
 
     request.fold(
       (error) => _authenticationBloc?.add(const AuthenticationEvent.logout()),
@@ -93,9 +89,8 @@ class _AppLifeCycleStateListenerState extends State<AppLifeCycleStateListener>
     return accessTokenIsUpdated;
   }
 
-  void _syncChatState() =>
-      _authenticationBloc?.add(const AuthenticationEvent.syncChatState());
+  void _syncChatState() => _authenticationBloc?.add(const AuthenticationEvent.syncChatState());
 
-  void _refreshTokenState() => _authenticationBloc?.state
-      .mapOrNull(authenticated: (_) => _refreshToken());
+  void _refreshTokenState() =>
+      _authenticationBloc?.state.mapOrNull(authenticated: (_) => _refreshToken());
 }

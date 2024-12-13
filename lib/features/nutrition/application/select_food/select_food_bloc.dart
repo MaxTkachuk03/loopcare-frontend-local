@@ -4,6 +4,7 @@ import 'package:hydrated_bloc/hydrated_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
 import 'package:loopcare_frontend/core/infrastructure/dio_client/request_error.dart';
+import 'package:loopcare_frontend/core/infrastructure/services/logger/logger.dart';
 import 'package:loopcare_frontend/features/nutrition/application/dish/dto/update_dish_food_item_response.dart';
 import 'package:loopcare_frontend/features/nutrition/application/nutrition_service.dart';
 import 'package:loopcare_frontend/features/nutrition/domain/dish/dish.dart';
@@ -152,6 +153,7 @@ class SelectFoodBloc extends Bloc<SelectFoodEvent, SelectFoodState> {
     state.mapOrNull(selectFood: (state) {
       final selectedFavoritesItems = [...state.selectedFavoritesItems, event.foodItem];
       emit(state.copyWith(selectedFavoritesItems: selectedFavoritesItems));
+      log.i('item added');
     });
   }
 
@@ -163,6 +165,7 @@ class SelectFoodBloc extends Bloc<SelectFoodEvent, SelectFoodState> {
       final selectedFavoritesItems =
           state.selectedFavoritesItems.where((e) => e.id != event.foodItem.id).toList();
       emit(state.copyWith(selectedFavoritesItems: selectedFavoritesItems));
+      log.i('item deleted');
     });
   }
 
@@ -172,6 +175,7 @@ class SelectFoodBloc extends Bloc<SelectFoodEvent, SelectFoodState> {
   ) {
     state.mapOrNull(selectFood: (state) {
       emit(state.copyWith(selectedFavoritesItems: <FavoritesItem>[].toList()));
+      log.i('deselect all');
     });
   }
 

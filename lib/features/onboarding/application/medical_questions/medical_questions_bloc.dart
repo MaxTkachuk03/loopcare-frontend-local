@@ -21,8 +21,7 @@ part 'medical_questions_event.dart';
 part 'medical_questions_state.dart';
 
 @singleton
-class MedicalQuestionsBloc
-    extends HydratedBloc<MedicalQuestionsEvent, MedicalQuestionsState> {
+class MedicalQuestionsBloc extends HydratedBloc<MedicalQuestionsEvent, MedicalQuestionsState> {
   final usageAnalytics = UsageAnalytics();
 
   MedicalQuestionsBloc() : super(MedicalQuestionsState.initial()) {
@@ -151,8 +150,7 @@ class MedicalQuestionsBloc
     const AnalyticsEventService().logEvent(
       eventName: _analyticsEventFromDisease(event.diseases),
       parameters: {
-        if (event.value && event.diseases.isDiabetes)
-          AnalyticsParameters.type: event.diseases.name,
+        if (event.value && event.diseases.isDiabetes) AnalyticsParameters.type: event.diseases.name,
         AnalyticsParameters.value: event.value.toString(),
       },
     );
@@ -160,8 +158,7 @@ class MedicalQuestionsBloc
     usageAnalytics.track(
       eventName: _analyticsEventFromDisease(event.diseases),
       attributes: {
-        if (event.value && event.diseases.isDiabetes)
-          'Diabetes Types': event.diseases.name,
+        if (event.value && event.diseases.isDiabetes) 'Diabetes Types': event.diseases.name,
         _cIOAttributesFromDisease(event.diseases): event.value,
       },
     );
@@ -196,10 +193,8 @@ class MedicalQuestionsBloc
         Diseases.liverDisease => AnalyticsEvents.onboardingLiverDisease,
         Diseases.asthma => AnalyticsEvents.onboardingAsthma,
         Diseases.renalFailure => AnalyticsEvents.onboardingRenalFailure,
-        Diseases.stomachReductionDisease =>
-          AnalyticsEvents.onboardingStomachReduction,
-        Diseases.cardioVascularDisease =>
-          AnalyticsEvents.onboardingCardiovascularDisease,
+        Diseases.stomachReductionDisease => AnalyticsEvents.onboardingStomachReduction,
+        Diseases.cardioVascularDisease => AnalyticsEvents.onboardingCardiovascularDisease,
         Diseases.hypertension => AnalyticsEvents.onboardingHypertension,
         Diseases.metabolicDisease => AnalyticsEvents.onboardingMetabolicDisease,
         Diseases.thyroidDisease => AnalyticsEvents.onboardingThyroidDisease,
@@ -214,10 +209,8 @@ class MedicalQuestionsBloc
         Diseases.liverDisease => UsageAnalyticsAttributes.liverDisease,
         Diseases.asthma => UsageAnalyticsAttributes.asthma,
         Diseases.renalFailure => UsageAnalyticsAttributes.renalFailure,
-        Diseases.stomachReductionDisease =>
-          UsageAnalyticsAttributes.stomachReductionDisease,
-        Diseases.cardioVascularDisease =>
-          UsageAnalyticsAttributes.cardiovascularDisease,
+        Diseases.stomachReductionDisease => UsageAnalyticsAttributes.stomachReductionDisease,
+        Diseases.cardioVascularDisease => UsageAnalyticsAttributes.cardiovascularDisease,
         Diseases.hypertension => UsageAnalyticsAttributes.hypertension,
         Diseases.metabolicDisease => UsageAnalyticsAttributes.metabolicDisease,
         Diseases.thyroidDisease => UsageAnalyticsAttributes.thyroidDisease,

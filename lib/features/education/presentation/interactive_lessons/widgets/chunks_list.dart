@@ -52,6 +52,7 @@ class _ChunksListState extends State<ChunksList> {
 
     final allChunksOnThePage = blocState.chunks.values.where((ch) => ch.pageId == blocState.activePage!.id);
 
+
     final allComponentsOnPage = blocState.components.values.where((c) {
       return allChunksOnThePage.any((ch) => ch.id == c.chunkId);
     }).toList();

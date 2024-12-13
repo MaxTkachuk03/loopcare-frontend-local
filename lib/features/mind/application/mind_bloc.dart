@@ -26,8 +26,7 @@ part 'mind_state.dart';
 class MindBloc extends Bloc<MindEvent, MindState> {
   final MindService _mindService;
 
-  MindBloc(this._mindService)
-      : super(const MindState.initial(MindStateData())) {
+  MindBloc(this._mindService) : super(const MindState.initial(MindStateData())) {
     on<InitMind>(_onInitMind);
     on<GetTechniques>(_onGetTechniques);
     on<GetExercises>(_onGetExercises);
@@ -41,8 +40,7 @@ class MindBloc extends Bloc<MindEvent, MindState> {
     emit(const MindState.initial(MindStateData()));
   }
 
-  FutureOr<void> _onGetTechniques(
-      GetTechniques event, Emitter<MindState> emit) async {
+  FutureOr<void> _onGetTechniques(GetTechniques event, Emitter<MindState> emit) async {
     emit(MindState.loading(state.data.copyWith(isLoading: true)));
 
     final responses = await Future.wait([
@@ -54,18 +52,15 @@ class MindBloc extends Bloc<MindEvent, MindState> {
 
     if (failedResponses.isNotEmpty) {
       failedResponses.first.fold(
-        (l) => emit(
-            MindState.error(state.data.copyWith(error: l, isLoading: false))),
+        (l) => emit(MindState.error(state.data.copyWith(error: l, isLoading: false))),
         (r) => null,
       );
     } else {
       emit(
         MindState.gotTechniques(
           state.data.copyWith(
-            mindInfo: responses.first
-                .foldRight(null, (r, _) => r as MindInfoResponse),
-            techniques: responses.last
-                .foldRight([], (r, _) => (r as MindTechniquesResponse).data),
+            mindInfo: responses.first.foldRight(null, (r, _) => r as MindInfoResponse),
+            techniques: responses.last.foldRight([], (r, _) => (r as MindTechniquesResponse).data),
             isLoading: false,
           ),
         ),
@@ -73,24 +68,21 @@ class MindBloc extends Bloc<MindEvent, MindState> {
     }
   }
 
-  FutureOr<void> _onGetExercises(
-      GetExercises event, Emitter<MindState> emit) async {
+  FutureOr<void> _onGetExercises(GetExercises event, Emitter<MindState> emit) async {
     emit(
       MindState.loading(
         state.data.copyWith(
-          currentTechnique: state.data.techniques
-              .firstWhere((technique) => technique.id == event.techniqueId),
+          currentTechnique:
+              state.data.techniques.firstWhere((technique) => technique.id == event.techniqueId),
           isLoading: true,
         ),
       ),
     );
 
-    final response =
-        await _mindService.getTechniquesExercises(event.techniqueId);
+    final response = await _mindService.getTechniquesExercises(event.techniqueId);
 
     response.fold(
-      (l) => emit(
-          MindState.error(state.data.copyWith(error: l, isLoading: false))),
+      (l) => emit(MindState.error(state.data.copyWith(error: l, isLoading: false))),
       (r) => emit(
         MindState.gotExercises(
           state.data.copyWith(
@@ -117,12 +109,10 @@ class MindBloc extends Bloc<MindEvent, MindState> {
       return;
     }
 
-    final response = await _mindService
-        .completeExercise(techniqueId, exerciseId, data: data);
+    final response = await _mindService.completeExercise(techniqueId, exerciseId, data: data);
 
     response.fold(
-      (l) => emit(
-          MindState.error(state.data.copyWith(error: l, isLoading: false))),
+      (l) => emit(MindState.error(state.data.copyWith(error: l, isLoading: false))),
       (r) {
         const AnalyticsEventService().logEvent(
           eventName: AnalyticsEvents.mindCompletedExercise,
@@ -134,16 +124,13 @@ class MindBloc extends Bloc<MindEvent, MindState> {
         );
 
         if (!state.data.isLastExercise && state.data.isConsecutiveUnlock) {
-          add(MindEvent.unlockNextExercise(
-              exerciseId: state.data.nextExercise.id));
+          add(MindEvent.unlockNextExercise(exerciseId: state.data.nextExercise.id));
         }
 
-        final updatedExercise =
-            state.data.currentExercise!.copyWith(completedAt: r.completedAt);
+        final updatedExercise = state.data.currentExercise!.copyWith(completedAt: r.completedAt);
 
-        final exercises = state.data.exercises
-            .map((e) => e.id == exerciseId ? updatedExercise : e)
-            .toList();
+        final exercises =
+            state.data.exercises.map((e) => e.id == exerciseId ? updatedExercise : e).toList();
 
         emit(
           MindState.exerciseCompleted(
@@ -195,10 +182,8 @@ class MindBloc extends Bloc<MindEvent, MindState> {
     AddRating event,
     Emitter<MindState> emit,
   ) async {
-    final scaleAfterAnswer =
-        event.isAfter ? event.value : state.data.scaleAfterAnswer;
-    final scaleBeforeAnswer =
-        !event.isAfter ? event.value : state.data.scaleBeforeAnswer;
+    final scaleAfterAnswer = event.isAfter ? event.value : state.data.scaleAfterAnswer;
+    final scaleBeforeAnswer = !event.isAfter ? event.value : state.data.scaleBeforeAnswer;
     final logEventName = event.isAfter
         ? AnalyticsEvents.mindRatingAfterExercise
         : AnalyticsEvents.mindRatingBeforeExercise;

@@ -21,7 +21,7 @@ class ContentOrderingItem with _$ContentOrderingItem {
     try {
       log.d('Parsing ContentOrderingItem: $json');
 
-      final id = json['id'] as int;
+      final id = json['externalId'] as int;
       log.d('Parsed id: $id');
 
       final order = json['order'] as int;

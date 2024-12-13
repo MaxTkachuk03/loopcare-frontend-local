@@ -33,8 +33,7 @@ class _LegalStatementPageState extends State<LegalStatementPage> {
   @override
   void initState() {
     super.initState();
-    usageAnalytics.track(
-        eventName: UsageAnalyticsEvents.onboardingLegalStatement);
+    usageAnalytics.track(eventName: UsageAnalyticsEvents.onboardingLegalStatement);
   }
 
   @override
@@ -91,8 +90,7 @@ class _LegalStatementPageState extends State<LegalStatementPage> {
 
   void onConfirm() {
     context
-      ..read<LegalStatementBloc>()
-          .add(const LegalStatementEvent.passageChanged(true))
+      ..read<LegalStatementBloc>().add(const LegalStatementEvent.passageChanged(true))
       ..router.pushNamed(AppRoutes.signUpWelcome);
   }
 }

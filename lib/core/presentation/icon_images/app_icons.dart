@@ -4,9 +4,11 @@ import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 
 class AppIcons {
   static const String iconsFilePath = 'assets/icons';
+  static const String upArrow = 'assets/images/up_arrow.png';
 
   // TODO replace with material svg icons
   static const AssetImage arrow = AssetImage('$iconsFilePath/arrow.png');
+  static const AssetImage downArrow = AssetImage('$iconsFilePath/down_arrow.png');
   static const AssetImage iconCheckmark = AssetImage('$iconsFilePath/icon_checkmark.png');
   static const AssetImage checkmark =
       AssetImage('$iconsFilePath/checkmark.png'); // same with iconCheckmark with another color
@@ -32,6 +34,7 @@ class AppIcons {
   static SvgPicture clockWhite = SvgPicture.asset('$iconsFilePath/clock.svg',
       colorFilter: const ColorFilter.mode(AppColors.white, BlendMode.srcIn));
   static SvgPicture clockGrey = SvgPicture.asset('$iconsFilePath/clock.svg', width: 21, height: 21);
+  static SvgPicture lockGoals = SvgPicture.asset('$iconsFilePath/lock_goals.svg');
 
   static SvgPicture checkmarkCircle(bool selected, Color selectedColor, Color regularColor) =>
       SvgPicture.asset('$iconsFilePath/checkmark_circle.svg',
@@ -156,26 +159,38 @@ class AppIcons {
 
   static SvgPicture customDashboardReflections =
       SvgPicture.asset('$iconsFilePath/custom_dashboard_reflections.svg', width: 44, height: 44);
-  static SvgPicture customSupportGroup =
-      SvgPicture.asset('$iconsFilePath/custom_support_group.svg', width: 44, height: 44);
-  static SvgPicture customPhysicalExercise =
-      SvgPicture.asset('$iconsFilePath/custom_physical_exercise.svg', width: 44, height: 44);
-  static SvgPicture customDashboardLogMeals =
-      SvgPicture.asset('$iconsFilePath/custom_dashboard_log_meals.svg', width: 44, height: 44);
   static SvgPicture commitment =
       SvgPicture.asset('$iconsFilePath/commitment.svg', width: 44, height: 44);
-
+  static SvgPicture customSupportGroup =
+      SvgPicture.asset('$iconsFilePath/custom_support_group.svg', width: 44, height: 44);
+  static SvgPicture customSupportGroupGrey =
+      SvgPicture.asset('$iconsFilePath/support_group.svg', width: 44, height: 44);
+  static SvgPicture customPhysicalExercise =
+      SvgPicture.asset('$iconsFilePath/custom_physical_exercise.svg', width: 44, height: 44);
+  static SvgPicture customPhysicalExerciseGrey =
+      SvgPicture.asset('$iconsFilePath/physical_activity.svg', width: 44, height: 44);
+  static SvgPicture customDashboardLogMeals =
+      SvgPicture.asset('$iconsFilePath/custom_dashboard_log_meals.svg', width: 44, height: 44);
+  static SvgPicture customDashboardLogMealsGrey =
+      SvgPicture.asset('$iconsFilePath/log_meals_goals.svg', width: 44, height: 44);
   static SvgPicture customDashboardWeight =
       SvgPicture.asset('$iconsFilePath/custom_dashboard_weight.svg', width: 44, height: 44);
+  static SvgPicture customDashboardWeightGrey =
+      SvgPicture.asset('$iconsFilePath/weight_locked.svg', width: 44, height: 44);
   static SvgPicture customEducationDashboard =
       SvgPicture.asset('$iconsFilePath/custom_education_dashboard.svg', width: 44, height: 44);
   static SvgPicture customDashboardMood =
       SvgPicture.asset('$iconsFilePath/custom_dashboard_mood.svg', width: 44, height: 44);
+  static SvgPicture customDashboardMoodGrey =
+      SvgPicture.asset('$iconsFilePath/mood_locked.svg', width: 44, height: 44);
   static SvgPicture customDashboardMind =
       SvgPicture.asset('$iconsFilePath/mind.svg', width: 44, height: 44);
+  static SvgPicture customDashboardMindGrey =
+      SvgPicture.asset('$iconsFilePath/mind_training.svg', width: 44, height: 44);
   static SvgPicture customDashboardSmartGoals =
       SvgPicture.asset('$iconsFilePath/custom_dashboard_smart_goals.svg', width: 44, height: 44);
-
+  static SvgPicture customDashboardSmartGoalsGrey =
+      SvgPicture.asset('$iconsFilePath/my_goals.svg', width: 44, height: 44);
   static SvgPicture customRedPhone = SvgPicture.asset('$iconsFilePath/custom_red_phone.svg');
   static SvgPicture microphoneOn = SvgPicture.asset('$iconsFilePath/icon_microphone_on.svg');
   static SvgPicture microphoneOff = SvgPicture.asset('$iconsFilePath/icon_microphone_off.svg');

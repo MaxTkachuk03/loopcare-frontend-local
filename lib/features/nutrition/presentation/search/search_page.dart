@@ -33,7 +33,7 @@ class _SearchPageState extends State<SearchPage> {
     const AnalyticsEventService().logEvent(eventName: AnalyticsEvents.searchScreenOpened);
   }
 
-  Future<bool> _onPreviousPage(_, __) {
+  Future<bool> _onPreviousPage(bool e) async {
     const AnalyticsEventService().logEvent(eventName: AnalyticsEvents.searchScreenClosed);
     return Future.value(true);
   }
@@ -41,7 +41,7 @@ class _SearchPageState extends State<SearchPage> {
   @override
   Widget build(BuildContext context) {
     return PopScope(
-      onPopInvokedWithResult: _onPreviousPage,
+      onPopInvokedWithResult: (e, _) => _onPreviousPage,
       child: Scaffold(
         backgroundColor: AppColors.greenOffRegular,
         appBar: SearchAppBar(

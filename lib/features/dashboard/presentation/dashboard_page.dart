@@ -236,47 +236,42 @@ class _DashboardPageState extends State<DashboardPage> with WidgetsBindingObserv
                                               !_selectedDay.isFuture) ||
                                           _selectedDay.isToday);
 
-                                  if (showSmartGoalsCard) {
-                                    return const Column(
-                                      crossAxisAlignment: CrossAxisAlignment.start,
-                                      children: [
-                                        DashboardSmartGoals(),
-                                        SizedBox(height: 19.0),
-                                      ],
-                                    );
-                                  }
-                                  return const SizedBox.shrink();
+                                  return Column(
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    children: [
+                                      DashboardSmartGoals(showSmartGoalsCard: showSmartGoalsCard),
+                                      const SizedBox(height: 19.0),
+                                    ],
+                                  );
                                 },
                               );
                             },
                           ),
                           BlocBuilder<AuthenticationBloc, AuthenticationState>(
                             builder: (BuildContext context, state) {
-                              if (state.data.account?.isWeightLoggingUnlocked ?? false) {
-                                return Column(
-                                  children: [
-                                    WeightBlock(date: _selectedDay),
-                                    const SizedBox(height: 19.0),
-                                  ],
-                                );
-                              } else {
-                                return const SizedBox.shrink();
-                              }
+                              // if (state.data.account?.isWeightLoggingUnlocked ??
+                              //     false) {
+                              return Column(
+                                children: [
+                                  WeightBlock(
+                                      date: _selectedDay,
+                                      locked: state.data.account?.isWeightLoggingUnlocked ?? false),
+                                  const SizedBox(height: 19.0),
+                                ],
+                              );
                             },
                           ),
                           BlocBuilder<AuthenticationBloc, AuthenticationState>(
                             builder: (BuildContext context, state) {
-                              if (state.data.account?.isMindUnlocked ?? false) {
-                                return const Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    DashboardMindWidget(),
-                                    SizedBox(height: 19.0),
-                                  ],
-                                );
-                              } else {
-                                return const SizedBox.shrink();
-                              }
+                              // if (state.data.account?.isMindUnlocked ?? false) {
+                              return Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  DashboardMindWidget(
+                                      locked: state.data.account?.isMindUnlocked ?? false),
+                                  const SizedBox(height: 19.0),
+                                ],
+                              );
                             },
                           ),
                           BlocBuilder<AuthenticationBloc, AuthenticationState>(
@@ -303,78 +298,68 @@ class _DashboardPageState extends State<DashboardPage> with WidgetsBindingObserv
                           }),
                           BlocBuilder<AuthenticationBloc, AuthenticationState>(
                             builder: (BuildContext context, state) {
-                              if (state.data.isFoodLoggingUnlocked) {
-                                return Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    FoodLoggingDashboard(selectedDay: _selectedDay),
-                                    const SizedBox(height: 19.0),
-                                  ],
-                                );
-                              } else {
-                                return const SizedBox.shrink();
-                              }
+                              // if (state.data.isFoodLoggingUnlocked) {
+                              return Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  FoodLoggingDashboard(
+                                      selectedDay: _selectedDay,
+                                      locked: state.data.isFoodLoggingUnlocked),
+                                  const SizedBox(height: 19.0),
+                                ],
+                              );
                             },
                           ),
                           BlocBuilder<AuthenticationBloc, AuthenticationState>(
                             builder: (context, state) {
-                              if (state.data.isMoodLoggingUnlocked) {
-                                return Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    PersonMood(date: _selectedDay),
-                                    const SizedBox(height: 19.0),
-                                  ],
-                                );
-                              } else {
-                                return const SizedBox.shrink();
-                              }
-                            },
-                          ),
-                          const SizedBox(height: 19.0),
-                          BlocBuilder<AuthenticationBloc, AuthenticationState>(
-                            builder: (context, state) {
-                              if (state.data.isPhysicalActivitiesUnlocked) {
-                                return Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    PhysicalActivities(selectedDay: _selectedDay),
-                                    const SizedBox(height: 19.0),
-                                  ],
-                                );
-                              } else {
-                                return const SizedBox.shrink();
-                              }
+                              //if (state.data.isMoodLoggingUnlocked) {
+                              return Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  PersonMood(
+                                      date: _selectedDay, locked: state.data.isMoodLoggingUnlocked),
+                                  const SizedBox(height: 19.0),
+                                ],
+                              );
                             },
                           ),
                           BlocBuilder<AuthenticationBloc, AuthenticationState>(
                             builder: (context, state) {
-                              if (state.data.isGroupSessionsUnlocked) {
-                                return const Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    SupportGroup(),
-                                    SizedBox(height: 19.0),
-                                  ],
-                                );
-                              } else {
-                                return const SizedBox.shrink();
-                              }
+                              // if (state.data.isPhysicalActivitiesUnlocked) {
+                              return Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  PhysicalActivities(
+                                      selectedDay: _selectedDay,
+                                      locked: state.data.isPhysicalActivitiesUnlocked),
+                                  const SizedBox(height: 19.0),
+                                ],
+                              );
                             },
                           ),
                           BlocBuilder<AuthenticationBloc, AuthenticationState>(
                             builder: (context, state) {
-                              if (state.data.isReflectionsUnlocked) {
-                                return Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    ReflectionsDashboardWidget(date: _selectedDay),
-                                    const SizedBox(height: 19.0),
-                                  ],
-                                );
-                              } else {
-                                return const SizedBox.shrink();
-                              }
+                              //if (state.data.isGroupSessionsUnlocked) {
+                              return Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  SupportGroup(locked: state.data.isGroupSessionsUnlocked),
+                                  const SizedBox(height: 19.0),
+                                ],
+                              );
+                            },
+                          ),
+                          BlocBuilder<AuthenticationBloc, AuthenticationState>(
+                            builder: (context, state) {
+                              // if (state.data.isReflectionsUnlocked) {
+                              return Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  ReflectionsDashboardWidget(
+                                      date: _selectedDay, locked: state.data.isReflectionsUnlocked),
+                                  const SizedBox(height: 19.0),
+                                ],
+                              );
                             },
                           ),
                           const EmergencyBtn(needBackgroundColor: true),

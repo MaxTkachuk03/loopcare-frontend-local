@@ -27,8 +27,7 @@ import 'package:loopcare_frontend/localization/service/localized_texts.dart';
 class ReflectionCompletePage extends StatefulWidget {
   final RiverModuleStreamType streamType;
 
-  const ReflectionCompletePage(
-      {super.key, this.streamType = RiverModuleStreamType.psychology});
+  const ReflectionCompletePage({super.key, this.streamType = RiverModuleStreamType.psychology});
 
   @override
   State<ReflectionCompletePage> createState() => _ReflectionCompletePageState();
@@ -41,8 +40,7 @@ class _ReflectionCompletePageState extends State<ReflectionCompletePage> {
   void initState() {
     super.initState();
 
-    final reflection =
-        context.read<ReflectionsBloc>().state.data.activeReflection;
+    final reflection = context.read<ReflectionsBloc>().state.data.activeReflection;
     final riverModule = context.read<RiverBloc>().state.data.activeModule;
 
     usageAnalytics.track(
@@ -67,8 +65,7 @@ class _ReflectionCompletePageState extends State<ReflectionCompletePage> {
         backgroundColor: widget.streamType.regularColor,
         textTheme: widget.streamType.appBarTextTheme,
         title: LocalizedTexts.lesson.tr(),
-        leading: CustomFilledIconButton.fromColor(
-            color: widget.streamType.lighterColor),
+        leading: CustomFilledIconButton.fromColor(color: widget.streamType.lighterColor),
       ),
       body: CustomSafeArea(
         child: ScrollableContainer(
@@ -87,14 +84,13 @@ class _ReflectionCompletePageState extends State<ReflectionCompletePage> {
                             const CircleAvatar(
                               radius: 22.0,
                               backgroundColor: AppColors.greenRegular,
-                              child: Icon(Icons.check,
-                                  size: 24, color: AppColors.white),
+                              child: Icon(Icons.check, size: 24, color: AppColors.white),
                             ),
                             const SizedBox(height: 22.0),
                             CustomText.bitter600(
                               LocalizedTexts.assignmentCompleted.tr(),
-                              style: context.textTheme.displayMedium
-                                  ?.copyWith(color: AppColors.white),
+                              style:
+                                  context.textTheme.displayMedium?.copyWith(color: AppColors.white),
                               textAlign: TextAlign.center,
                             ),
                           ],
@@ -106,8 +102,7 @@ class _ReflectionCompletePageState extends State<ReflectionCompletePage> {
                   MainContainer(
                     child: Container(
                       width: double.infinity,
-                      padding: const EdgeInsets.symmetric(
-                          vertical: 20, horizontal: 30),
+                      padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 30),
                       decoration: const BoxDecoration(
                         color: AppColors.petrolLightest,
                         borderRadius: BorderRadius.all(Radius.circular(16)),
@@ -125,8 +120,7 @@ class _ReflectionCompletePageState extends State<ReflectionCompletePage> {
                               ),
                               const SizedBox(height: 20.0),
                               CustomText.w400(
-                                LocalizedTexts.assignmentCompleteDescription
-                                    .tr(),
+                                LocalizedTexts.assignmentCompleteDescription.tr(),
                                 style: context.textTheme.bodyMedium,
                               ),
                             ],

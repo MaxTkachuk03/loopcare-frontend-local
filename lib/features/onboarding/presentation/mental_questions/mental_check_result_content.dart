@@ -33,16 +33,14 @@ class MentalCheckResultContent extends StatefulWidget {
   const MentalCheckResultContent({super.key});
 
   @override
-  State<MentalCheckResultContent> createState() =>
-      _MentalCheckResultContentState();
+  State<MentalCheckResultContent> createState() => _MentalCheckResultContentState();
 }
 
 class _MentalCheckResultContentState extends State<MentalCheckResultContent> {
   final usageAnalytics = UsageAnalytics();
 
   void onUrlHandler(BuildContext context) async {
-    final Uri launchUri =
-        Uri.parse(LocalizedTexts.linksPsychologistConsulting.tr());
+    final Uri launchUri = Uri.parse(LocalizedTexts.linksPsychologistConsulting.tr());
 
     try {
       await launchUrl(launchUri);
@@ -53,14 +51,13 @@ class _MentalCheckResultContentState extends State<MentalCheckResultContent> {
     }
   }
 
-  void _showError(BuildContext context) => context.showError(
-      content: CustomText.w400(LocalizedTexts.openLinkErrorMessage.tr()));
+  void _showError(BuildContext context) =>
+      context.showError(content: CustomText.w400(LocalizedTexts.openLinkErrorMessage.tr()));
 
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<MentalQuestionsBloc, MentalQuestionsState>(
-      listenWhen: (previous, current) =>
-          previous.isLoading && !current.isLoading,
+      listenWhen: (previous, current) => previous.isLoading && !current.isLoading,
       listener: _resultListener,
       builder: (context, state) {
         if (state.isLoading) return const Loader();
@@ -97,8 +94,7 @@ class _MentalCheckResultContentState extends State<MentalCheckResultContent> {
                     padding: const EdgeInsets.symmetric(horizontal: 80.0),
                     child: CustomText.bitter600(
                       currentTest.type.title,
-                      style: context.textTheme.displayMedium
-                          ?.copyWith(color: AppColors.white),
+                      style: context.textTheme.displayMedium?.copyWith(color: AppColors.white),
                       textAlign: TextAlign.center,
                     ),
                   ),
@@ -110,8 +106,7 @@ class _MentalCheckResultContentState extends State<MentalCheckResultContent> {
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
                     Container(
-                      padding: const EdgeInsets.symmetric(
-                          vertical: 20, horizontal: 30),
+                      padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 30),
                       decoration: const BoxDecoration(
                         color: AppColors.petrolLightest,
                         borderRadius: BorderRadius.all(Radius.circular(16)),
@@ -131,14 +126,12 @@ class _MentalCheckResultContentState extends State<MentalCheckResultContent> {
                     if (subText.isNotEmpty)
                       Container(
                         margin: const EdgeInsets.only(bottom: 30.0),
-                        padding: const EdgeInsets.symmetric(
-                            vertical: 20, horizontal: 30),
+                        padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 30),
                         decoration: const BoxDecoration(
                           color: AppColors.petrolLightest,
                           borderRadius: BorderRadius.all(Radius.circular(16)),
                         ),
-                        child: CustomText.w400(subText,
-                            style: context.textTheme.bodyMedium),
+                        child: CustomText.w400(subText, style: context.textTheme.bodyMedium),
                       )
                   ],
                 ),
@@ -155,27 +148,19 @@ class _MentalCheckResultContentState extends State<MentalCheckResultContent> {
   }
 
   _onNextPressed(BuildContext context) {
-    final currentTest =
-        context.read<GeneralOnboardingBloc>().state.currentMentalTest!;
-    final isPhq8TestHigh =
-        context.read<MentalQuestionsBloc>().state.isPhq8TestHigh;
+    final currentTest = context.read<GeneralOnboardingBloc>().state.currentMentalTest!;
+    final isPhq8TestHigh = context.read<MentalQuestionsBloc>().state.isPhq8TestHigh;
     context.read<GeneralOnboardingBloc>().add(
           GeneralOnboardingEvent.nextStep(
-              excluded: currentTest.type == MentalHealthTestType.phq8 &&
-                  isPhq8TestHigh),
+              excluded: currentTest.type == MentalHealthTestType.phq8 && isPhq8TestHigh),
         );
   }
 
-  Widget _getResultTextWidget(MentalHealthTest currentTest) =>
-      switch (currentTest.type) {
-        MentalHealthTestType.who5 =>
-          WHO5ResultText(onLinkPressed: onUrlHandler),
-        MentalHealthTestType.phq15 =>
-          PHQ15ResultText(onLinkPressed: onUrlHandler),
-        MentalHealthTestType.gad7 =>
-          GAD7ResultText(onLinkPressed: onUrlHandler),
-        MentalHealthTestType.phq8 =>
-          PHQ8ResultText(onLinkPressed: onUrlHandler),
+  Widget _getResultTextWidget(MentalHealthTest currentTest) => switch (currentTest.type) {
+        MentalHealthTestType.who5 => WHO5ResultText(onLinkPressed: onUrlHandler),
+        MentalHealthTestType.phq15 => PHQ15ResultText(onLinkPressed: onUrlHandler),
+        MentalHealthTestType.gad7 => GAD7ResultText(onLinkPressed: onUrlHandler),
+        MentalHealthTestType.phq8 => PHQ8ResultText(onLinkPressed: onUrlHandler),
       };
 
   void _resultListener(BuildContext context, MentalQuestionsState state) {

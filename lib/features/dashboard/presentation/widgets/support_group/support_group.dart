@@ -18,13 +18,22 @@ import 'package:loopcare_frontend/localization/service/localization_extension.da
 import 'package:loopcare_frontend/localization/service/localized_texts.dart';
 
 class SupportGroup extends StatefulWidget {
-  const SupportGroup({super.key});
+  final bool locked;
+  const SupportGroup({super.key, required this.locked});
 
   @override
   State<SupportGroup> createState() => _SupportGroupState();
 }
 
 class _SupportGroupState extends State<SupportGroup> {
+  bool onClick = false;
+
+  void toggleOnClick() {
+    setState(() {
+      onClick = !onClick;
+    });
+  }
+
   @override
   void initState() {
     super.initState();
@@ -47,44 +56,94 @@ class _SupportGroupState extends State<SupportGroup> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             DashboardCardTitle(
-              onTap: onPressHandler,
-              highlightColor: AppColors.orangeLightest,
-              leadingIcon: AppIcons.customSupportGroup,
-              title: CustomText.bitter600(
-                LocalizedTexts.supportGroup.tr(),
-                style: context.textTheme.headlineSmall,
-              ),
-              actionIcon: AppIcons.arrow,
-              circleButton: false,
+              onTap: () {
+                if (widget.locked) {
+                  onPressHandler();
+                } else {
+                  toggleOnClick();
+                }
+              },
+              highlightColor: widget.locked ? AppColors.orangeLightest : AppColors.white,
+              leadingIcon:
+                  widget.locked ? AppIcons.customSupportGroup : AppIcons.customSupportGroupGrey,
+              title: widget.locked
+                  ? CustomText.bitter600(
+                      LocalizedTexts.supportGroup.tr(),
+                      style: context.textTheme.headlineSmall,
+                    )
+                  : CustomText.bitter400(
+                      LocalizedTexts.supportGroup.tr(),
+                      style: context.textTheme.headlineSmall,
+                    ),
+              actionIcon: widget.locked
+                  ? AppIcons.arrow
+                  : onClick
+                      ? const AssetImage(AppIcons.upArrow)
+                      : AppIcons.downArrow,
+              circleButton: widget.locked ? false : true,
             ),
-            const Divider(
-              color: AppColors.blueLighter,
-              indent: 8.0,
-              endIndent: 8.0,
-            ),
-            const SizedBox(height: 4.0),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 8.0),
-              child: BlocBuilder<AuthenticationBloc, AuthenticationState>(
-                builder: (context, state) {
-                  switch (state.data.groupingState) {
-                    case UserGroupingState.refused:
-                    case UserGroupingState.unlockedPreferences:
-                    case UserGroupingState.left:
-                      return const NotGrouped();
-                    case UserGroupingState.waitingInPool:
-                    case UserGroupingState.loopedOnGenderPreferences:
-                      return const LookingForGroup();
-                    case UserGroupingState.grouped:
-                      return const Grouped();
-                    case UserGroupingState.noGroup:
-                      return const NoGroup();
-                    default:
-                      return const SizedBox.shrink();
-                  }
-                },
-              ),
-            )
+            widget.locked
+                ? Container()
+                : Padding(
+                    padding: const EdgeInsets.all(12.0),
+                    child: Row(
+                      children: [
+                        AppIcons.lockGoals,
+                        const SizedBox(
+                          width: 36,
+                        ),
+                        SizedBox(
+                          width: 250,
+                          child: CustomText.w400(
+                            "${LocalizedTexts.featureUnlocksAtPool.tr()} #${LocalizedTexts.supportGroup.tr()}",
+                            style: const TextStyle(color: AppColors.blueDarker),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+            onClick
+                ? Container(
+                    margin: const EdgeInsets.only(left: 70),
+                    width: 250,
+                    child: CustomText.w400(
+                      maxLines: 10,
+                      LocalizedTexts.supportGroupDescription.tr(),
+                    ),
+                  )
+                : Container(),
+            widget.locked
+                ? const Divider(
+                    color: AppColors.blueLighter,
+                    indent: 8.0,
+                    endIndent: 8.0,
+                  )
+                : const SizedBox(),
+            widget.locked ? const SizedBox(height: 4.0) : const SizedBox(),
+            widget.locked
+                ? Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                    child: BlocBuilder<AuthenticationBloc, AuthenticationState>(
+                      builder: (context, state) {
+                        switch (state.data.groupingState) {
+                          case UserGroupingState.refused:
+                          case UserGroupingState.unlockedPreferences:
+                          case UserGroupingState.left:
+                            return const NotGrouped();
+                          case UserGroupingState.waitingInPool:
+                          case UserGroupingState.loopedOnGenderPreferences:
+                            return const LookingForGroup();
+                          case UserGroupingState.grouped:
+                            return const Grouped();
+                          case UserGroupingState.noGroup:
+                            return const NoGroup();
+                          default:
+                            return const SizedBox.shrink();
+                        }
+                      },
+                    ),
+                  )
+                : const SizedBox()
           ],
         ),
       ),

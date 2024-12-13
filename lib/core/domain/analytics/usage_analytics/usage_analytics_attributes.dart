@@ -40,8 +40,7 @@ class UsageAnalyticsAttributes {
 
   // Subscription
   static const String identifierOption = 'Subscription identifier';
-  static const String subscriptionExpirationDate =
-      'Subscription expiration date';
+  static const String subscriptionExpirationDate = 'Subscription expiration date';
 
   // Education
   static const String articleId = 'Article ID';
@@ -71,8 +70,13 @@ class UsageAnalyticsAttributes {
 
   // Nutrition
   static const String foodItemId = 'Food item ID';
+  static const String mealId = 'Meal ID';
+  static const String dishId = 'Dish ID';
   static const String foodItemAmount = 'Food item amount';
+  static const String mealAmount = 'Meal amount';
   static const String foodItemName = 'Food item name';
+  static const String foodItemDate = 'Food item date';
+  static const String foodLoggedFrom = 'Food item logged from';
   static const String mealCategory = 'Meal category';
 
   // Reflection

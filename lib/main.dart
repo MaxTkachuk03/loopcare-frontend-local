@@ -38,8 +38,7 @@ Future<void> main() async {
     options: DefaultFirebaseOptions.currentPlatform,
   );
 
-  await FirebaseCrashlytics.instance
-      .setCrashlyticsCollectionEnabled(!kDebugMode);
+  await FirebaseCrashlytics.instance.setCrashlyticsCollectionEnabled(!kDebugMode);
 
   FlutterError.onError = _onFlutterError;
 
@@ -83,8 +82,7 @@ Future<void> main() async {
 }
 
 void _onFlutterError(FlutterErrorDetails details) {
-  log.e(details.exceptionAsString(),
-      error: details.runtimeType, stackTrace: details.stack);
+  log.e(details.exceptionAsString(), error: details.runtimeType, stackTrace: details.stack);
   FirebaseCrashlytics.instance.recordFlutterFatalError(details);
 }
 

@@ -13,8 +13,7 @@ class MixpanelEventService {
 
   int get _userId => StoredAccountService.getAccount()?.id ?? -1;
 
-  Future<void> track(String eventName,
-      {Map<String, dynamic>? parameters}) async {
+  Future<void> track(String eventName, {Map<String, dynamic>? parameters}) async {
     Map<String, dynamic> tmpParameters = Map.from(parameters ?? {});
     tmpParameters[AnalyticsParameters.userId] = _userId;
     mixpanel.track(eventName, tmpParameters);

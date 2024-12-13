@@ -23,12 +23,8 @@ class AccountSection extends StatelessWidget {
   final usageAnalytics = UsageAnalytics();
 
   void _onLogOutPressed(BuildContext context) {
-    context
-        .read<GroupPreferencesBloc>()
-        .add(const GroupPreferencesEvent.initClear());
-    context
-        .read<PhysicalProgramsBloc>()
-        .add(const PhysicalProgramsEvent.init());
+    context.read<GroupPreferencesBloc>().add(const GroupPreferencesEvent.initClear());
+    context.read<PhysicalProgramsBloc>().add(const PhysicalProgramsEvent.init());
     usageAnalytics.track(
       eventName: UsageAnalyticsEvents.logout,
     );

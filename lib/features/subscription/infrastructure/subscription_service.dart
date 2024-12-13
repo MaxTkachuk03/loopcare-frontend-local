@@ -18,12 +18,10 @@ import 'package:loopcare_frontend/injection.dart';
 @injectable
 class AppSubscriptionService {
   final InAppPurchase _inAppPurchase = InAppPurchase.instance;
-  final Stream<List<PurchaseDetails>> storeSubscription =
-      InAppPurchase.instance.purchaseStream;
+  final Stream<List<PurchaseDetails>> storeSubscription = InAppPurchase.instance.purchaseStream;
   final usageAnalytics = UsageAnalytics();
 
-  String? get customerIOId =>
-      getIt<SharedStorageService>().account?.customerIoId;
+  String? get customerIOId => getIt<SharedStorageService>().account?.customerIoId;
 
   InAppPurchase get instance => _inAppPurchase;
   final List purchasedList = [];
@@ -37,8 +35,7 @@ class AppSubscriptionService {
     final ProductDetailsResponse productDetailResponse =
         await _inAppPurchase.queryProductDetails(main);
 
-    if (productDetailResponse.error != null ||
-        productDetailResponse.productDetails.isEmpty) {
+    if (productDetailResponse.error != null || productDetailResponse.productDetails.isEmpty) {
       return [];
     }
     return productDetailResponse.productDetails;
@@ -48,23 +45,22 @@ class AppSubscriptionService {
     if (Platform.isIOS) {
       await finishTransactionIOS();
     }
-    final PurchaseParam purchaseParam = PurchaseParam(
-        productDetails: product, applicationUserName: customerIOId);
+    final PurchaseParam purchaseParam =
+        PurchaseParam(productDetails: product, applicationUserName: customerIOId);
     final bool isAvailable = await _inAppPurchase.isAvailable();
     if (!isAvailable) {
       _pushAnalyticServiceUnAvailable(productId: product.id);
       return false;
     }
-    final isBought =
-        await instance.buyNonConsumable(purchaseParam: purchaseParam);
+    final isBought = await instance.buyNonConsumable(purchaseParam: purchaseParam);
     return isBought;
   }
 
   Future<void> finishTransactionIOS() async {
     final paymentWrapper = SKPaymentQueueWrapper();
     final transactions = await paymentWrapper.transactions();
-    await Future.wait(transactions
-        .map((transaction) => paymentWrapper.finishTransaction(transaction)));
+    await Future.wait(
+        transactions.map((transaction) => paymentWrapper.finishTransaction(transaction)));
   }
 
   Future<void> completePurchase(PurchaseDetails? purchaseDetails) async {

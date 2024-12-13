@@ -23,8 +23,7 @@ class SubscriptionController {
   final SubscriptionBloc bloc;
   SubscriptionStateData data = const SubscriptionStateData();
   ValueNotifier<bool> isEnableSubscribe = ValueNotifier(false);
-  ValueNotifier<String> subscribeTitle =
-      ValueNotifier(LocalizedTexts.subscriptionSubscribe.tr());
+  ValueNotifier<String> subscribeTitle = ValueNotifier(LocalizedTexts.subscriptionSubscribe.tr());
   final ValueNotifier<bool> sheetOpenedNotifier = ValueNotifier(false);
   ValueNotifier<bool> loading = ValueNotifier(false);
   ValueNotifier<PurchasableProduct?> selectedPlan = ValueNotifier(null);
@@ -38,8 +37,8 @@ class SubscriptionController {
     }
 
     for (var plan in data.plans) {
-      final serverPlan = data.serverPlans
-          .firstWhereOrNull((serverPlan) => serverPlan.productId == plan.id);
+      final serverPlan =
+          data.serverPlans.firstWhereOrNull((serverPlan) => serverPlan.productId == plan.id);
       if (serverPlan != null) {
         final SkuProduct skuProduct = _getProductDetailsFromStore(plan);
         var product = PurchasableProduct(
@@ -66,9 +65,8 @@ class SubscriptionController {
             products.map((product) => product.details.id).toString(),
         AnalyticsParameters.productOfferID:
             products.map((product) => product.skuProduct.offerId).toString(),
-        AnalyticsParameters.productOfferPrice: products
-            .map((product) => product.skuProduct.offerPriceAmount)
-            .toString(),
+        AnalyticsParameters.productOfferPrice:
+            products.map((product) => product.skuProduct.offerPriceAmount).toString(),
       },
     );
   }
@@ -76,13 +74,10 @@ class SubscriptionController {
   SkuProduct _getProductDetailsFromStore(ProductDetails product) {
     if (product is AppStoreProductDetails) {
       SKProductWrapper skProduct = product.skProduct;
-      final offerPriceAmount =
-          double.parse(skProduct.introductoryPrice?.price ?? '0');
+      final offerPriceAmount = double.parse(skProduct.introductoryPrice?.price ?? '0');
       return SkuProduct(
-        unitOffer: getIosUnit(
-            skProduct.introductoryPrice?.subscriptionPeriod.unit.name),
-        unitOfferCount:
-            skProduct.introductoryPrice?.subscriptionPeriod.numberOfUnits ?? 0,
+        unitOffer: getIosUnit(skProduct.introductoryPrice?.subscriptionPeriod.unit.name),
+        unitOfferCount: skProduct.introductoryPrice?.subscriptionPeriod.numberOfUnits ?? 0,
         offerPrice: skProduct.introductoryPrice?.price,
         offerPriceAmount: offerPriceAmount,
         offerId: skProduct.introductoryPrice?.identifier,
@@ -170,17 +165,13 @@ class SubscriptionController {
     bloc.add(const SubscriptionEvent.restorePurchased());
   }
 
-  void getSubscriptionPlansFromServer() =>
-      bloc.add(const SubscriptionEvent.getPlansFromServer());
+  void getSubscriptionPlansFromServer() => bloc.add(const SubscriptionEvent.getPlansFromServer());
 
-  void getActiveSubscriptionStatus() =>
-      bloc.add(const SubscriptionEvent.getActiveSubscription());
+  void getActiveSubscriptionStatus() => bloc.add(const SubscriptionEvent.getActiveSubscription());
 
-  void checkSubscriptionEligible() =>
-      bloc.add(const SubscriptionEvent.checkEligibility());
+  void checkSubscriptionEligible() => bloc.add(const SubscriptionEvent.checkEligibility());
 
-  void processingDataPlans() =>
-      bloc.add(const SubscriptionEvent.processingDataPlans());
+  void processingDataPlans() => bloc.add(const SubscriptionEvent.processingDataPlans());
 
   void dispose() {
     isEnableSubscribe.dispose();

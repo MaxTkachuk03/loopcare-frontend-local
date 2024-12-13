@@ -10,8 +10,7 @@ class AppLogger {
   );
 
   void e(dynamic message, {Object? error, StackTrace? stackTrace}) =>
-      _log.e(message,
-          error: error, time: DateTime.timestamp(), stackTrace: stackTrace);
+      _log.e(message, error: error, time: DateTime.timestamp(), stackTrace: stackTrace);
 
   void w(dynamic message, {Object? error}) =>
       _log.w(message, error: error, time: DateTime.timestamp());

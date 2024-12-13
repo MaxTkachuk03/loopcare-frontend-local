@@ -131,7 +131,7 @@ class _EditDishPageState extends State<EditDishPage> {
 
   void _showValidationSnackbar(String error) => context.showError(content: CustomText(error));
 
-  Future<void> _onWillPop(_, __) async => _controller.onPop();
+  Future<void> _onWillPop(bool e) async => _controller.onPop();
 
   void _onDeleteFoodItem(BuildContext context, FoodItem item) => _controller.deleteFoodItem(item);
 
@@ -145,7 +145,7 @@ class _EditDishPageState extends State<EditDishPage> {
   @override
   Widget build(BuildContext context) {
     return PopScope(
-      onPopInvokedWithResult: _onWillPop,
+      onPopInvokedWithResult: (e, _) => _onWillPop,
       child: MultiBlocListener(
         listeners: [
           BlocListener<EditDishBloc, EditDishState>(

@@ -12,8 +12,22 @@ import 'package:loopcare_frontend/features/smart_goals/application/smart_goals_b
 import 'package:loopcare_frontend/localization/service/localization_extension.dart';
 import 'package:loopcare_frontend/localization/service/localized_texts.dart';
 
-class DashboardSmartGoals extends StatelessWidget {
-  const DashboardSmartGoals({super.key});
+class DashboardSmartGoals extends StatefulWidget {
+  final bool showSmartGoalsCard;
+  const DashboardSmartGoals({super.key, required this.showSmartGoalsCard});
+
+  @override
+  State<DashboardSmartGoals> createState() => _DashboardSmartGoalsState();
+}
+
+class _DashboardSmartGoalsState extends State<DashboardSmartGoals> {
+  bool onClick = false;
+
+  void toggleOnClick() {
+    setState(() {
+      onClick = !onClick;
+    });
+  }
 
   void onPressHandler(BuildContext context) =>
       context.router.pushNamed(AppRoutes.selectGoalsCategory);
@@ -32,24 +46,73 @@ class DashboardSmartGoals extends StatelessWidget {
           BlocBuilder<SmartGoalsBloc, SmartGoalsState>(
             builder: (context, state) {
               return DashboardCardTitle(
-                onTap: () => onPressHandler(context),
-                highlightColor: AppColors.greenLightest,
-                leadingIcon: AppIcons.customDashboardSmartGoals,
+                onTap: () {
+                  if (widget.showSmartGoalsCard) {
+                    onPressHandler(context);
+                  } else {
+                    toggleOnClick();
+                  }
+                },
+                highlightColor:
+                    widget.showSmartGoalsCard ? AppColors.greenLightest : AppColors.white,
+                leadingIcon: widget.showSmartGoalsCard
+                    ? AppIcons.customDashboardSmartGoals
+                    : AppIcons.customDashboardSmartGoalsGrey,
+                // for the limits change we can update for add goals
                 editable: state.data.weeklyGoalsSessions.length < 2,
                 title: Column(
                   mainAxisAlignment: MainAxisAlignment.start,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    CustomText.bitter600(
-                      LocalizedTexts.smartGoalsMyGoals.tr(),
-                      style: context.textTheme.headlineSmall,
-                    ),
+                    widget.showSmartGoalsCard
+                        ? CustomText.bitter600(
+                            LocalizedTexts.smartGoalsMyGoals.tr(),
+                            style: context.textTheme.headlineSmall,
+                          )
+                        : CustomText.bitter400(
+                            LocalizedTexts.smartGoalsMyGoals.tr(),
+                            style: context.textTheme.headlineSmall,
+                          ),
                   ],
                 ),
-                actionIcon: AppIcons.plus,
+                actionIcon: widget.showSmartGoalsCard
+                    ? AppIcons.plus
+                    : onClick
+                        ? const AssetImage(AppIcons.upArrow)
+                        : AppIcons.downArrow,
               );
             },
           ),
+          widget.showSmartGoalsCard
+              ? Container()
+              : Padding(
+                  padding: const EdgeInsets.all(12.0),
+                  child: Row(
+                    children: [
+                      AppIcons.lockGoals,
+                      const SizedBox(
+                        width: 36,
+                      ),
+                      SizedBox(
+                        width: 250,
+                        child: CustomText.w400(
+                          "${LocalizedTexts.featureUnlocksAtPool.tr()} #${LocalizedTexts.goals.tr()}",
+                          style: const TextStyle(color: AppColors.blueDarker),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+          onClick
+              ? Container(
+                  padding: const EdgeInsets.only(bottom: 10),
+                  width: 250,
+                  child: CustomText.w400(
+                    maxLines: 10,
+                    LocalizedTexts.myGoalsLockedDescription.tr(),
+                  ),
+                )
+              : Container(),
           const DashboardWeeklyGoals(),
         ],
       ),

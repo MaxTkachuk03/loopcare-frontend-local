@@ -55,8 +55,7 @@ class SmartGoalsBloc extends Bloc<SmartGoalsEvent, SmartGoalsState> {
     SelectDate event,
     Emitter<SmartGoalsState> emit,
   ) async {
-    emit(SmartGoalsState.goalsLoaded(
-        state.data.copyWith(selectedDate: event.selectedDate)));
+    emit(SmartGoalsState.goalsLoaded(state.data.copyWith(selectedDate: event.selectedDate)));
   }
 
   FutureOr<void> _onGetGoals(
@@ -65,14 +64,12 @@ class SmartGoalsBloc extends Bloc<SmartGoalsEvent, SmartGoalsState> {
   ) async {
     emit(SmartGoalsState.loading(state.data.copyWith(isLoading: true)));
 
-    final response =
-        await _smartGoalsService.getGoals(categoryId: event.categoryId);
+    final response = await _smartGoalsService.getGoals(categoryId: event.categoryId);
 
     response.fold(
-      (l) => emit(SmartGoalsState.error(
-          state.data.copyWith(error: l, isLoading: false))),
-      (r) => emit(SmartGoalsState.goalsLoaded(
-          state.data.copyWith(goals: r.data, isLoading: false))),
+      (l) => emit(SmartGoalsState.error(state.data.copyWith(error: l, isLoading: false))),
+      (r) =>
+          emit(SmartGoalsState.goalsLoaded(state.data.copyWith(goals: r.data, isLoading: false))),
     );
   }
 
@@ -85,8 +82,7 @@ class SmartGoalsBloc extends Bloc<SmartGoalsEvent, SmartGoalsState> {
     final response = await _smartGoalsService.getWeeklySessions();
 
     response.fold(
-      (l) => emit(SmartGoalsState.error(
-          state.data.copyWith(error: l, isLoading: false))),
+      (l) => emit(SmartGoalsState.error(state.data.copyWith(error: l, isLoading: false))),
       (r) => emit(SmartGoalsState.gotWeeklySession(
           state.data.copyWith(weeklyGoalsSessions: r.data, isLoading: false))),
     );
@@ -98,18 +94,16 @@ class SmartGoalsBloc extends Bloc<SmartGoalsEvent, SmartGoalsState> {
   ) async {
     emit(SmartGoalsState.loading(state.data.copyWith(isLoading: true)));
 
-    final response = await _smartGoalsService.saveGoals(
-        goal: SaveGoalsBody(smartGoalId: event.goal.id));
+    final response =
+        await _smartGoalsService.saveGoals(goal: SaveGoalsBody(smartGoalId: event.goal.id));
     response.fold(
       (l) {
-        emit(SmartGoalsState.errorSaveGoals(
-            state.data.copyWith(error: l, isLoading: false)));
+        emit(SmartGoalsState.errorSaveGoals(state.data.copyWith(error: l, isLoading: false)));
       },
       (r) {
         _addGoalAnalyticEvent(r);
         emit(SmartGoalsState.weeklySessionSaved(state.data.copyWith(
-            weeklyGoalsSessions: [...state.data.weeklyGoalsSessions, r],
-            isLoading: false)));
+            weeklyGoalsSessions: [...state.data.weeklyGoalsSessions, r], isLoading: false)));
       },
     );
   }
@@ -125,8 +119,7 @@ class SmartGoalsBloc extends Bloc<SmartGoalsEvent, SmartGoalsState> {
     SelectCancelGoalReason event,
     Emitter<SmartGoalsState> emit,
   ) async {
-    emit(
-        SmartGoalsState.goalsLoaded(state.data.copyWith(reason: event.reason)));
+    emit(SmartGoalsState.goalsLoaded(state.data.copyWith(reason: event.reason)));
   }
 
   FutureOr<void> _onDeleteSession(
@@ -159,28 +152,22 @@ class SmartGoalsBloc extends Bloc<SmartGoalsEvent, SmartGoalsState> {
             UsageAnalyticsAttributes.goalID: deletedSession.goal?.id,
             UsageAnalyticsAttributes.goalCategoryTitle:
                 deletedSession.goal?.smartGoal.category.name,
-            UsageAnalyticsAttributes.goalCategoryID:
-                deletedSession.goal?.smartGoal.category.id,
-            UsageAnalyticsAttributes.allottedDays:
-                deletedSession.goal?.requiredDays,
-            UsageAnalyticsAttributes.requiredCompletions:
-                deletedSession.goal?.requiredCompletions,
+            UsageAnalyticsAttributes.goalCategoryID: deletedSession.goal?.smartGoal.category.id,
+            UsageAnalyticsAttributes.allottedDays: deletedSession.goal?.requiredDays,
+            UsageAnalyticsAttributes.requiredCompletions: deletedSession.goal?.requiredCompletions,
             UsageAnalyticsAttributes.deletionReason: state.data.reason?.label,
             if (deletedSession.finishedAt != null)
-              UsageAnalyticsAttributes.finishDate:
-                  deletedSession.finishedAt!.toIso8601String(),
+              UsageAnalyticsAttributes.finishDate: deletedSession.finishedAt!.toIso8601String(),
           },
         );
         emit(
           SmartGoalsState.sessionDeleted(
-            state.data.copyWith(
-                weeklyGoalsSessions: sessions, reason: null, isLoading: false),
+            state.data.copyWith(weeklyGoalsSessions: sessions, reason: null, isLoading: false),
           ),
         );
       },
     );
-    emit(SmartGoalsState.sessionDeleted(
-        state.data.copyWith(isLoading: false, reason: null)));
+    emit(SmartGoalsState.sessionDeleted(state.data.copyWith(isLoading: false, reason: null)));
   }
 
   FutureOr<void> _onAddReview(
@@ -193,8 +180,7 @@ class SmartGoalsBloc extends Bloc<SmartGoalsEvent, SmartGoalsState> {
 
     response.fold(
       (l) {
-        emit(SmartGoalsState.errorAddingReview(
-            state.data.copyWith(error: l, isLoading: false)));
+        emit(SmartGoalsState.errorAddingReview(state.data.copyWith(error: l, isLoading: false)));
       },
       (r) {
         _logOnAddReview(event.data);
@@ -204,8 +190,7 @@ class SmartGoalsBloc extends Bloc<SmartGoalsEvent, SmartGoalsState> {
 
         emit(
           SmartGoalsState.reviewAdded(
-            state.data
-                .copyWith(weeklyGoalsSessions: sessions, isLoading: false),
+            state.data.copyWith(weeklyGoalsSessions: sessions, isLoading: false),
           ),
         );
       },
@@ -217,28 +202,22 @@ class SmartGoalsBloc extends Bloc<SmartGoalsEvent, SmartGoalsState> {
     Emitter<SmartGoalsState> emit,
   ) async {
     emit(SmartGoalsState.loading(state.data.copyWith(isLoading: true)));
-    final date = state.data.selectedDate?.dateStringOnly ??
-        DateTime.now().dateStringOnly;
+    final date = state.data.selectedDate?.dateStringOnly ?? DateTime.now().dateStringOnly;
     final logs = event.weeklySmartGoal.progressLogs;
 
-    ProgressSmartGoalLog smartGoalLog =
-        ProgressSmartGoalLog(date: date, times: 1);
+    ProgressSmartGoalLog smartGoalLog = ProgressSmartGoalLog(date: date, times: 1);
 
     if (logs != null) {
-      final log =
-          logs.firstWhereOrNull((log) => log.date.dateStringOnly == date);
-      smartGoalLog =
-          ProgressSmartGoalLog(date: date, times: (log?.times ?? 0) + 1);
+      final log = logs.firstWhereOrNull((log) => log.date.dateStringOnly == date);
+      smartGoalLog = ProgressSmartGoalLog(date: date, times: (log?.times ?? 0) + 1);
     }
 
     final response = await _smartGoalsService.confirmProgress(
-      progress: ProgressGoalData(
-          reviewId: event.weeklySmartGoal.id, progress: [smartGoalLog]),
+      progress: ProgressGoalData(reviewId: event.weeklySmartGoal.id, progress: [smartGoalLog]),
     );
 
     response.fold(
-      (l) => emit(SmartGoalsState.error(
-          state.data.copyWith(error: l, isLoading: false))),
+      (l) => emit(SmartGoalsState.error(state.data.copyWith(error: l, isLoading: false))),
       (r) {
         _logGoalAnalyticEvent(smartGoalLog, event.weeklySmartGoal);
         var sessions = [...state.data.weeklyGoalsSessions];
@@ -247,8 +226,7 @@ class SmartGoalsBloc extends Bloc<SmartGoalsEvent, SmartGoalsState> {
 
         emit(
           SmartGoalsState.progressConfirmed(
-            state.data
-                .copyWith(weeklyGoalsSessions: [...sessions], isLoading: false),
+            state.data.copyWith(weeklyGoalsSessions: [...sessions], isLoading: false),
           ),
         );
       },
@@ -260,12 +238,10 @@ class SmartGoalsBloc extends Bloc<SmartGoalsEvent, SmartGoalsState> {
     Emitter<SmartGoalsState> emit,
   ) async {
     emit(SmartGoalsState.loading(state.data.copyWith(isLoading: true)));
-    final response =
-        await _smartGoalsService.resetProgress(progressId: event.progressId);
+    final response = await _smartGoalsService.resetProgress(progressId: event.progressId);
 
     response.fold(
-      (l) => emit(SmartGoalsState.error(
-          state.data.copyWith(error: l, isLoading: false))),
+      (l) => emit(SmartGoalsState.error(state.data.copyWith(error: l, isLoading: false))),
       (r) {
         var sessions = [...state.data.weeklyGoalsSessions];
         final index = sessions.indexWhere((session) => session.id == r.id);
@@ -273,16 +249,14 @@ class SmartGoalsBloc extends Bloc<SmartGoalsEvent, SmartGoalsState> {
 
         emit(
           SmartGoalsState.progressReset(
-            state.data
-                .copyWith(weeklyGoalsSessions: [...sessions], isLoading: false),
+            state.data.copyWith(weeklyGoalsSessions: [...sessions], isLoading: false),
           ),
         );
       },
     );
   }
 
-  void _logGoalAnalyticEvent(
-      ProgressSmartGoalLog log, WeeklySmartGoal smartGoal) {
+  void _logGoalAnalyticEvent(ProgressSmartGoalLog log, WeeklySmartGoal smartGoal) {
     const AnalyticsEventService().logEvent(
       eventName: AnalyticsEvents.userLogGoal,
       parameters: {
@@ -299,13 +273,10 @@ class SmartGoalsBloc extends Bloc<SmartGoalsEvent, SmartGoalsState> {
         UsageAnalyticsAttributes.dateLog: log.date,
         UsageAnalyticsAttributes.goalID: smartGoal.id.toString(),
         UsageAnalyticsAttributes.goalTitle: smartGoal.title,
-        UsageAnalyticsAttributes.goalCategoryID:
-            smartGoal.smartGoal.category.id.toString(),
-        UsageAnalyticsAttributes.goalCategoryTitle:
-            smartGoal.smartGoal.category.name,
+        UsageAnalyticsAttributes.goalCategoryID: smartGoal.smartGoal.category.id.toString(),
+        UsageAnalyticsAttributes.goalCategoryTitle: smartGoal.smartGoal.category.name,
         UsageAnalyticsAttributes.allottedDays: smartGoal.requiredDays,
-        UsageAnalyticsAttributes.requiredCompletions:
-            smartGoal.requiredCompletions,
+        UsageAnalyticsAttributes.requiredCompletions: smartGoal.requiredCompletions,
       },
     );
   }
@@ -346,8 +317,7 @@ class SmartGoalsBloc extends Bloc<SmartGoalsEvent, SmartGoalsState> {
           if (session.startedAt != null)
             AnalyticsParameters.timestamp: session.startedAt!.toIso8601String(),
           if (session.finishedAt != null)
-            AnalyticsParameters.timePassed:
-                session.finishedAt!.toIso8601String(),
+            AnalyticsParameters.timePassed: session.finishedAt!.toIso8601String(),
         },
       );
 
@@ -356,15 +326,12 @@ class SmartGoalsBloc extends Bloc<SmartGoalsEvent, SmartGoalsState> {
         attributes: {
           UsageAnalyticsAttributes.goalTitle: goal.title,
           UsageAnalyticsAttributes.goalID: goal.id,
-          UsageAnalyticsAttributes.goalCategoryTitle:
-              goal.smartGoal.category.name,
+          UsageAnalyticsAttributes.goalCategoryTitle: goal.smartGoal.category.name,
           UsageAnalyticsAttributes.goalCategoryID: goal.smartGoal.category.id,
           UsageAnalyticsAttributes.allottedDays: goal.requiredDays,
-          UsageAnalyticsAttributes.requiredCompletions:
-              goal.requiredCompletions,
+          UsageAnalyticsAttributes.requiredCompletions: goal.requiredCompletions,
           if (session.finishedAt != null)
-            UsageAnalyticsAttributes.finishDate:
-                session.finishedAt!.toIso8601String(),
+            UsageAnalyticsAttributes.finishDate: session.finishedAt!.toIso8601String(),
         },
       );
     }
