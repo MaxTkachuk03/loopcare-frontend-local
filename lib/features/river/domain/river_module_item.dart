@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:loopcare_frontend/core/domain/unlocked_feature_type.dart';
+import 'package:loopcare_frontend/features/river/domain/lesson_type.dart';
 import 'package:loopcare_frontend/features/river/domain/river_icon_type.dart';
 import 'package:loopcare_frontend/features/river/domain/river_module_item_actions.dart';
 import 'package:loopcare_frontend/features/river/domain/river_module_item_view_state.dart';
@@ -19,6 +20,7 @@ class RiverModuleItem with _$RiverModuleItem {
     required RiverModuleStreamType streamType,
     required RiverIconType iconType,
     @Default(0) int lessonId,
+    @Default(LessonType.simple) LessonType lessonType,
     @Default(false) bool isRootItem,
     @Default([]) List<int> unlocksItems,
     @Default([]) @UnlockedFeatureTypeListConverter() List<UnlockedFeatureType> unlocksFeature,
@@ -31,6 +33,10 @@ class RiverModuleItem with _$RiverModuleItem {
     @Default(null) int? completedInModuleId,
     @Default(0) int spawnedInModuleId,
   }) = _RiverModuleItem;
+
+  bool get isRegularLesson => lessonType == LessonType.simple;
+
+  bool get isInteractiveLesson => lessonType == LessonType.interactive;
 
   Color get bgColor => states.prevItemState.bgColor(streamType);
 

@@ -12,6 +12,8 @@ import 'package:loopcare_frontend/core/presentation/widgets/main_container.dart'
 import 'package:loopcare_frontend/core/presentation/widgets/scrollable_container.dart';
 import 'package:loopcare_frontend/features/account/presentation/account_page/widgets/emergency_btn.dart';
 import 'package:loopcare_frontend/features/authentication/application/authentication_bloc.dart';
+import 'package:loopcare_frontend/features/commitment/application/commitment_bloc.dart';
+import 'package:loopcare_frontend/features/dashboard/presentation/widgets/commitment_dashboard/commitment_dashboard.dart';
 import 'package:loopcare_frontend/features/dashboard/presentation/widgets/food_logging_dashboard/food_logging_dashboard.dart';
 import 'package:loopcare_frontend/features/dashboard/presentation/widgets/mind/dashboard_mind_widget.dart';
 import 'package:loopcare_frontend/features/dashboard/presentation/widgets/person_mood/person_mood.dart';
@@ -115,6 +117,12 @@ class _DashboardPageState extends State<DashboardPage> with WidgetsBindingObserv
       context.read<SmartGoalsBloc>().add(SmartGoalsEvent.selectDate(selectedDate: _selectedDay));
       context.read<SmartGoalsBloc>().add(const SmartGoalsEvent.getWeeklyGoals());
     }
+
+    if (state.data.isCommitmentUnlocked) {
+      context
+          .read<CommitmentBloc>()
+          .add(CommitmentEvent.getCommitment(startDate: _selectedDay, endDate: _selectedDay));
+    }
   }
 
   void _accountListener(BuildContext context, AuthenticationState state) {
@@ -132,6 +140,8 @@ class _DashboardPageState extends State<DashboardPage> with WidgetsBindingObserv
     if (context.read<AuthenticationBloc>().state.data.isSmartGoalUnlocked) {
       context.read<SmartGoalsBloc>().add(SmartGoalsEvent.selectDate(selectedDate: day));
     }
+
+    handleCommitment(day);
 
     setState(() {
       _selectedDay = day;
@@ -159,6 +169,18 @@ class _DashboardPageState extends State<DashboardPage> with WidgetsBindingObserv
     }
 
     return message;
+  }
+
+  void handleCommitment(DateTime day) {
+    final isCommitmentUnlocked = context.read<AuthenticationBloc>().state.data.isCommitmentUnlocked;
+    final isFuture = day.isFuture;
+    final showCommitment = context.read<CommitmentBloc>().state.data.showCommitment;
+
+    if (isCommitmentUnlocked && !isFuture && showCommitment) {
+      context
+          .read<CommitmentBloc>()
+          .add(CommitmentEvent.getCommitment(startDate: day, endDate: day));
+    }
   }
 
   @override
@@ -257,6 +279,28 @@ class _DashboardPageState extends State<DashboardPage> with WidgetsBindingObserv
                               }
                             },
                           ),
+                          BlocBuilder<AuthenticationBloc, AuthenticationState>(
+                              builder: (BuildContext context, state) {
+                            final isCommitmentUnlocked = state.data.isCommitmentUnlocked;
+                            return BlocBuilder<CommitmentBloc, CommitmentState>(
+                              builder: (context, state) {
+                                final showCommitment = state.data.showCommitment;
+                                if (isCommitmentUnlocked && showCommitment) {
+                                  return Column(
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    children: [
+                                      CommitmentDashboard(
+                                        selectedDay: _selectedDay,
+                                      ),
+                                      const SizedBox(height: 19.0),
+                                    ],
+                                  );
+                                } else {
+                                  return const SizedBox.shrink();
+                                }
+                              },
+                            );
+                          }),
                           BlocBuilder<AuthenticationBloc, AuthenticationState>(
                             builder: (BuildContext context, state) {
                               if (state.data.isFoodLoggingUnlocked) {

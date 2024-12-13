@@ -17,6 +17,7 @@ import 'package:loopcare_frontend/features/physical_activities/domain/physical_a
 import 'package:loopcare_frontend/features/subscription/domain/subscription_state.dart';
 
 part 'account.freezed.dart';
+
 part 'account.g.dart';
 
 @freezed
@@ -83,6 +84,8 @@ abstract class Account implements _$Account {
   bool get isBuddyUnlocked => isFeatureUnlocked(UnlockedFeatureType.buddy);
 
   bool get isSmartGoalsUnlocked => isFeatureUnlocked(UnlockedFeatureType.smartGoals);
+
+  bool get isCommitmentUnlocked => isFeatureUnlocked(UnlockedFeatureType.commitment);
 
   bool get isMindUnlocked => isFeatureUnlocked(UnlockedFeatureType.mind);
 

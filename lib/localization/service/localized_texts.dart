@@ -141,7 +141,7 @@ class LocalizedTexts {
   static const String alreadyPlannedCategory = 'alreadyPlannedCategory';
   static const String replaceWith = 'replaceWith';
   static const String nothingOnTheMenu = 'nothingOnTheMenu';
-  static const String backToTodayLogging = 'backToTodayLogging';
+  static const String finishMealLogging = 'finishMealLogging';
 
   //QR Code
   static const String qrCodeSubtext_1 = 'qrCodeSubtext_1';
@@ -251,6 +251,8 @@ class LocalizedTexts {
   static const String insignificant = 'insignificant';
   static const String practice = 'practice';
   static const String pool = 'pool';
+  static const String commitment = 'Commitment';
+  static const String completeYourSurveys = 'Complete your surveys';
 
   // Education
   static const String all = 'all';
@@ -1017,6 +1019,23 @@ class LocalizedTexts {
   static const String needSubscrionScreenBody2 = 'needSubscrionScreenBody2';
   static const String needSubscrionScreenBody3 = 'needSubscrionScreenBody3';
   static const String needSubscrionScreenBody4 = 'needSubscrionScreenBody4';
+
+  // Interactive lessons
+  static const String interactiveLessonsTextAreaLabel = 'interactiveLessonsTextAreaLabel';
+  static const String interactiveLessonsMultipleChoiceBtnLabel =
+      'interactiveLessonsMultipleChoiceBtnLabel';
+  static const String interactiveLessonsScaleLabel = 'interactiveLessonsScaleLabel';
+  static const String interactiveLessonsSingleSelectLabel = 'interactiveLessonsSingleSelectLabel';
+  static const String interactiveLessonsMultipleSelectLabel =
+      'interactiveLessonsMultipleSelectLabel';
+  static const String interactiveLessonsCorrectFeedbackTitle =
+      'interactiveLessonsCorrectFeedbackTitle';
+  static const String interactiveLessonsIncorrectFeedbackTitle =
+      'interactiveLessonsIncorrectFeedbackTitle';
+  static const String interactiveLessonsScaleFeedbackTitle = 'interactiveLessonsScaleFeedbackTitle';
+  static const String interactiveLessonsOrderingLabel = 'interactiveLessonsOrderingLabel';
+  static const String interactiveLessonsOrderingCheck = 'interactiveLessonsOrderingCheck';
+  static const String interactiveLessonsOrderingShowAnswer = 'interactiveLessonsOrderingShowAnswer';
 
   // Group session
   static const String groupSession = 'groupSession';

@@ -1,5 +1,7 @@
 {
   "@@locale": "de",
+  "interactiveLessonsTextAreaLabel": "Uw gedachten",
+  "interactiveLessonsMultipleChoiceBtnLabel": "Save",
   "errorValidationIosMinVersionNotANumber": "iOS-Mindestversion muss eine Zahl sein.",
   "errorValidationIosMinVersionNotAnInteger": "Die iOS-Mindestversion muss eine ganze Zahl sein.",
   "errorValidationIosMinVersionNotAPositiveNumber": "Die iOS-Mindestversion muss eine positive Zahl sein.",
@@ -2142,7 +2144,7 @@
   "clearMealList": "Liste löschen",
   "logListEmptyMessage": "Noch nichts protokolliert?\n Was hast du zum Mittag gegessen?",
   "backToDashboard": "Zurück zum Dashboard",
-  "backToTodayLogging": "Zurück zu Heute",
+  "finishMealLogging": "Mahlzeit beenden",
   "hello": "Hallo",
   "goodMorning": "Guten Morgen",
   "goodAfternoon": "Guten Tag",

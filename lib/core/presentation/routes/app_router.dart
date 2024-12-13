@@ -158,6 +158,10 @@ class AppRouter extends $AppRouter {
           page: LessonCompleteRoute.page,
           guards: const [UnlockFeatureGuard()],
         ), // added
+        AutoRoute(
+          path: AppRoutes.interactiveLesson,
+          page: InteractiveLessonRoute.page,
+        ),
 
         // Dish
         AutoRoute(
@@ -176,6 +180,10 @@ class AppRouter extends $AppRouter {
         AutoRoute(
           path: AppRoutes.dailyIntake,
           page: DailyIntakeRoute.page,
+        ), // added
+        AutoRoute(
+          path: AppRoutes.nutritionIntake,
+          page: NutritionIntakeRoute.page,
         ), // added
         AutoRoute(
           path: AppRoutes.programAssessment,

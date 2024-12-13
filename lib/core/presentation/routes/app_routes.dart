@@ -52,6 +52,7 @@ class AppRoutes {
   static const String meal = '/meal'; // added
   static const String logWeight = '/log-weight'; // added
   static const String chooseDate = '/choose-date'; // added
+  static const String nutritionIntake = '/nutrition-intake'; // added
 
   // Dish
   static const String dishDetails = '/dish-details'; // added
@@ -63,6 +64,7 @@ class AppRoutes {
   static const String consultDoctor = '/consult-doctor'; // added
   static const String needPaidSubscription = '/need-paid-subscription'; // added
   static const String lessonComplete = '/lesson-complete'; // added
+  static const String interactiveLesson = '/interactive-lesson';
 
   // Physical activities
   static const String selectExercise = '/select-exercise'; // added

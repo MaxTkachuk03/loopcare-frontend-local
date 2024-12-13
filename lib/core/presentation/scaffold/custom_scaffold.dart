@@ -122,6 +122,7 @@ class CustomScaffold extends StatelessWidget {
         color: AppColors.greenLightest,
         withBg: withBg,
       );
+
   factory CustomScaffold.greenLighter({
     Key? key,
     CustomAppBar? appBar,
@@ -232,6 +233,21 @@ class CustomScaffold extends StatelessWidget {
         appBar: appBar,
         body: body,
         color: AppColors.blueDarkest,
+        withBg: withBg,
+      );
+
+  factory CustomScaffold.customColor({
+    Key? key,
+    CustomAppBar? appBar,
+    Widget? body,
+    bool withBg = false,
+    Color color = AppColors.greenLightest,
+  }) =>
+      CustomScaffold(
+        key: key,
+        appBar: appBar,
+        body: body,
+        color: color,
         withBg: withBg,
       );
 

@@ -15,7 +15,8 @@ enum RiverIconType {
   weight,
   profile,
   practise,
-  reflection;
+  reflection,
+  commitment;
 
   bool get isReflection => this == reflection;
 
@@ -49,6 +50,8 @@ enum RiverIconType {
         return AppIconsData.iPractice;
       case RiverIconType.reflection:
         return AppIconsData.iReflection;
+      case RiverIconType.commitment:
+        return AppIconsData.iCommitment;
     }
   }
 }

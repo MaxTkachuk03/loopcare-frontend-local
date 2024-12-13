@@ -82,7 +82,8 @@ abstract class AppLocalizations {
   /// Additional delegates can be added by appending to this list in
   /// MaterialApp. This list does not have to be used at all if a custom list
   /// of delegates is preferred or required.
-  static const List<LocalizationsDelegate<dynamic>> localizationsDelegates = <LocalizationsDelegate<dynamic>>[
+  static const List<LocalizationsDelegate<dynamic>> localizationsDelegates =
+      <LocalizationsDelegate<dynamic>>[
     delegate,
     GlobalMaterialLocalizations.delegate,
     GlobalCupertinoLocalizations.delegate,
@@ -90,10 +91,73 @@ abstract class AppLocalizations {
   ];
 
   /// A list of this localizations delegate's supported locales.
-  static const List<Locale> supportedLocales = <Locale>[
-    Locale('de'),
-    Locale('en')
-  ];
+  static const List<Locale> supportedLocales = <Locale>[Locale('de'), Locale('en')];
+
+  /// No description provided for @interactiveLessonsTextAreaLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Your thoughts'**
+  String get interactiveLessonsTextAreaLabel;
+
+  /// No description provided for @interactiveLessonsMultipleChoiceBtnLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Save'**
+  String get interactiveLessonsMultipleChoiceBtnLabel;
+
+  /// No description provided for @interactiveLessonsScaleLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Rate on a scale'**
+  String get interactiveLessonsScaleLabel;
+
+  /// No description provided for @interactiveLessonsSingleSelectLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Single answer'**
+  String get interactiveLessonsSingleSelectLabel;
+
+  /// No description provided for @interactiveLessonsMultipleSelectLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Choose All That Apply'**
+  String get interactiveLessonsMultipleSelectLabel;
+
+  /// No description provided for @interactiveLessonsCorrectFeedbackTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'This is correct'**
+  String get interactiveLessonsCorrectFeedbackTitle;
+
+  /// No description provided for @interactiveLessonsIncorrectFeedbackTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'This is incorrect'**
+  String get interactiveLessonsIncorrectFeedbackTitle;
+
+  /// No description provided for @interactiveLessonsScaleFeedbackTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Scale selection feedback'**
+  String get interactiveLessonsScaleFeedbackTitle;
+
+  /// No description provided for @interactiveLessonsOrderingLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Arrange in order'**
+  String get interactiveLessonsOrderingLabel;
+
+  /// No description provided for @interactiveLessonsOrderingCheck.
+  ///
+  /// In en, this message translates to:
+  /// **'Check'**
+  String get interactiveLessonsOrderingCheck;
+
+  /// No description provided for @interactiveLessonsOrderingShowAnswer.
+  ///
+  /// In en, this message translates to:
+  /// **'Show answer'**
+  String get interactiveLessonsOrderingShowAnswer;
 
   /// No description provided for @errorValidationIosMinVersionNotANumber.
   ///
@@ -10205,11 +10269,11 @@ abstract class AppLocalizations {
   /// **'Back to dashboard'**
   String get backToDashboard;
 
-  /// No description provided for @backToTodayLogging.
+  /// No description provided for @finishMealLogging.
   ///
   /// In en, this message translates to:
-  /// **'Back to Today'**
-  String get backToTodayLogging;
+  /// **'Finish meal'**
+  String get finishMealLogging;
 
   /// No description provided for @hello.
   ///
@@ -11608,18 +11672,17 @@ class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> 
 }
 
 AppLocalizations lookupAppLocalizations(Locale locale) {
-
-
   // Lookup logic when only language code is specified.
   switch (locale.languageCode) {
-    case 'de': return AppLocalizationsDe();
-    case 'en': return AppLocalizationsEn();
+    case 'de':
+      return AppLocalizationsDe();
+    case 'en':
+      return AppLocalizationsEn();
   }
 
   throw FlutterError(
-    'AppLocalizations.delegate failed to load unsupported locale "$locale". This is likely '
-    'an issue with the localizations generation tool. Please file an issue '
-    'on GitHub with a reproducible sample app and the gen-l10n configuration '
-    'that was used.'
-  );
+      'AppLocalizations.delegate failed to load unsupported locale "$locale". This is likely '
+      'an issue with the localizations generation tool. Please file an issue '
+      'on GitHub with a reproducible sample app and the gen-l10n configuration '
+      'that was used.');
 }

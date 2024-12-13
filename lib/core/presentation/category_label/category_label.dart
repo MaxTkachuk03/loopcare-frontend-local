@@ -73,7 +73,16 @@ class CategoryLabel extends StatelessWidget {
   factory CategoryLabel.news() => CategoryLabel(
         label: LocalizedTexts.news.tr().toUpperCase(),
         color: AppColors.lq3,
-        textColor: AppColors.white,
+        textColor: AppColors.blueRegular,
+      );
+
+  factory CategoryLabel.interactiveLesson(
+          {required String label,
+          RiverModuleStreamType lessonStreamType = RiverModuleStreamType.community}) =>
+      CategoryLabel(
+        label: label,
+        color: lessonStreamType.regularColor,
+        textColor: AppColors.black,
       );
 
   @override
