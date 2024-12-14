@@ -93,6 +93,7 @@ class UsageAnalyticsEvents {
 
   // Nutrition
   static const String foodItemLogged = 'food_item_logged';
+  static const String mealLogged = 'meal_logged';
 
   // Reflection
   static const String reflectionOpened = 'reflection_opened';

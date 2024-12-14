@@ -85,7 +85,7 @@ var modules = [
       {
         "id": 3,
         "streamType": "nutrition",
-        "iconType": "goal",
+        "iconType": "commitment",
         "lessonId": 6,
         "isRootItem": false,
         "unlocksItems": [],

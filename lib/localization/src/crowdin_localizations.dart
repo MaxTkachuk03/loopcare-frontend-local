@@ -26,6 +26,110 @@ class CrowdinLocalization extends AppLocalizations {
   ];
 
   static const List<Locale> supportedLocales = AppLocalizations.supportedLocales;
+  @override
+  String get exerciseLibrary =>
+      Crowdin.getText(localeName, 'exerciseLibrary') ?? _fallbackTexts.exerciseLibrary;
+  @override
+  String get exerciseLibraryDescription =>
+      Crowdin.getText(localeName, 'exerciseLibraryDescription') ??
+      _fallbackTexts.exerciseLibraryDescription;
+  @override
+  String get supportGroupDescription =>
+      Crowdin.getText(localeName, 'supportGroupDescription') ??
+      _fallbackTexts.supportGroupDescription;
+  @override
+  String get reflectionsDescription =>
+      Crowdin.getText(localeName, 'reflectionsDescription') ??
+      _fallbackTexts.reflectionsDescription;
+  @override
+  String get goals => Crowdin.getText(localeName, 'goals') ?? _fallbackTexts.goals;
+
+  @override
+  String get myGoalsLockedDescription =>
+      Crowdin.getText(localeName, 'myGoalsLockedDescription') ??
+      _fallbackTexts.myGoalsLockedDescription;
+
+  @override
+  String get weightLog => Crowdin.getText(localeName, 'weightLog') ?? _fallbackTexts.weightLog;
+  @override
+  String get weightLogLockedDescription =>
+      Crowdin.getText(localeName, 'weightLogLockedDescription') ??
+      _fallbackTexts.weightLogLockedDescription;
+  @override
+  String get mindTrainingLockedDescription =>
+      Crowdin.getText(localeName, 'mindTrainingLockedDescription') ??
+      _fallbackTexts.mindTrainingLockedDescription;
+
+  @override
+  String get foodLog => Crowdin.getText(localeName, 'foodLog') ?? _fallbackTexts.foodLog;
+  @override
+  String get foodLogLockedDescription =>
+      Crowdin.getText(localeName, 'foodLogLockedDescription') ??
+      _fallbackTexts.foodLogLockedDescription;
+  @override
+  String get moodLog => Crowdin.getText(localeName, 'moodLog') ?? _fallbackTexts.moodLog;
+  @override
+  String get moodLogLockedDescription =>
+      Crowdin.getText(localeName, 'moodLogLockedDescription') ??
+      _fallbackTexts.moodLogLockedDescription;
+  @override
+  String get featureUnlocksAtPool =>
+      Crowdin.getText(localeName, 'featureUnlocksAtPool') ?? _fallbackTexts.featureUnlocksAtPool;
+
+  @override
+  String get interactiveLessonsTextAreaLabel =>
+      Crowdin.getText(localeName, 'interactiveLessonsTextAreaLabel') ??
+      _fallbackTexts.interactiveLessonsTextAreaLabel;
+
+  @override
+  String get interactiveLessonsMultipleChoiceBtnLabel =>
+      Crowdin.getText(localeName, 'interactiveLessonsMultipleChoiceBtnLabel') ??
+      _fallbackTexts.interactiveLessonsMultipleChoiceBtnLabel;
+
+  @override
+  String get interactiveLessonsScaleLabel =>
+      Crowdin.getText(localeName, 'interactiveLessonsScaleLabel') ??
+      _fallbackTexts.interactiveLessonsScaleLabel;
+
+  @override
+  String get interactiveLessonsSingleSelectLabel =>
+      Crowdin.getText(localeName, 'interactiveLessonsSingleSelectLabel') ??
+      _fallbackTexts.interactiveLessonsSingleSelectLabel;
+
+  @override
+  String get interactiveLessonsMultipleSelectLabel =>
+      Crowdin.getText(localeName, 'interactiveLessonsMultipleSelectLabel') ??
+      _fallbackTexts.interactiveLessonsMultipleSelectLabel;
+
+  @override
+  String get interactiveLessonsCorrectFeedbackTitle =>
+      Crowdin.getText(localeName, 'interactiveLessonsCorrectFeedbackTitle') ??
+      _fallbackTexts.interactiveLessonsCorrectFeedbackTitle;
+
+  @override
+  String get interactiveLessonsIncorrectFeedbackTitle =>
+      Crowdin.getText(localeName, 'interactiveLessonsIncorrectFeedbackTitle') ??
+      _fallbackTexts.interactiveLessonsIncorrectFeedbackTitle;
+
+  @override
+  String get interactiveLessonsScaleFeedbackTitle =>
+      Crowdin.getText(localeName, 'interactiveLessonsScaleFeedbackTitle') ??
+      _fallbackTexts.interactiveLessonsScaleFeedbackTitle;
+
+  @override
+  String get interactiveLessonsOrderingLabel =>
+      Crowdin.getText(localeName, 'interactiveLessonsOrderingLabel') ??
+      _fallbackTexts.interactiveLessonsOrderingLabel;
+
+  @override
+  String get interactiveLessonsOrderingCheck =>
+      Crowdin.getText(localeName, 'interactiveLessonsOrderingCheck') ??
+      _fallbackTexts.interactiveLessonsOrderingCheck;
+
+  @override
+  String get interactiveLessonsOrderingShowAnswer =>
+      Crowdin.getText(localeName, 'interactiveLessonsOrderingShowAnswer') ??
+      _fallbackTexts.interactiveLessonsOrderingShowAnswer;
 
   @override
   String get errorValidationIosMinVersionNotANumber =>
@@ -7909,8 +8013,8 @@ class CrowdinLocalization extends AppLocalizations {
       Crowdin.getText(localeName, 'backToDashboard') ?? _fallbackTexts.backToDashboard;
 
   @override
-  String get backToTodayLogging =>
-      Crowdin.getText(localeName, 'backToTodayLogging') ?? _fallbackTexts.backToTodayLogging;
+  String get finishMealLogging =>
+      Crowdin.getText(localeName, 'finishMealLogging') ?? _fallbackTexts.finishMealLogging;
 
   @override
   String get hello => Crowdin.getText(localeName, 'hello') ?? _fallbackTexts.hello;

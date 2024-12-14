@@ -1,11 +1,8 @@
 import 'package:auto_route/auto_route.dart';
-import 'package:customer_io/customer_io.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:loopcare_frontend/core/domain/analytics/analytics_events.dart';
-import 'package:loopcare_frontend/core/domain/analytics/analytics_parameters.dart';
+import 'package:loopcare_frontend/core/domain/analytics/usage_analytics/usage_analytics.dart';
 import 'package:loopcare_frontend/core/domain/analytics/usage_analytics/usage_analytics_attributes.dart';
-import 'package:loopcare_frontend/core/infrastructure/services/analytics_service.dart';
 import 'package:loopcare_frontend/core/presentation/app_bar/custom_app_bar.dart';
 import 'package:loopcare_frontend/core/presentation/buttons/custom_elevated_button.dart';
 import 'package:loopcare_frontend/core/presentation/buttons/custom_filled_icon_button.dart';
@@ -42,6 +39,7 @@ class LogWeightPage extends StatefulWidget {
 class _LogWeightPageState extends State<LogWeightPage> {
   late TextEditingController weightFieldController;
   late TextEditingController lbsController;
+  final usageAnalytics = UsageAnalytics();
   final FocusNode fieldFocusNode = FocusNode();
 
   final bool _isMetricSystem = getMeasurementSystem() == MeasurementSystemType.metric;
@@ -51,8 +49,8 @@ class _LogWeightPageState extends State<LogWeightPage> {
     super.initState();
     weightFieldController = TextEditingController(text: _getInputInitialValue());
     fieldFocusNode.requestFocus();
-    CustomerIO.track(
-      name: UsageAnalyticsEvents.weightWidget,
+    usageAnalytics.track(
+      eventName: UsageAnalyticsEvents.weightWidget,
     );
   }
 
@@ -94,18 +92,11 @@ class _LogWeightPageState extends State<LogWeightPage> {
         .read<DashboardWeightBloc>()
         .add(DashboardWeightEvent.logWeight(widget.selectedDay, double.parse(formattedWeight)));
 
-    const AnalyticsEventService().logEvent(
-      eventName: AnalyticsEvents.weightLogged,
-      parameters: {
-        AnalyticsParameters.value: formattedWeight,
-        AnalyticsParameters.measurementSystem: _isMetricSystem ? 'metric' : 'imperial',
-      },
-    );
-
-    CustomerIO.track(
-      name: UsageAnalyticsEvents.weightLogged,
+    usageAnalytics.track(
+      eventName: UsageAnalyticsEvents.weightLogged,
       attributes: {
-        UsageAnalyticsAttributes.weightLogged: formattedWeight,
+        UsageAnalyticsAttributes.weightLogged: '$formattedWeight kg',
+        UsageAnalyticsAttributes.dateLog: widget.selectedDay.isoStringWithoutTime,
         UsageAnalyticsAttributes.measurementSystem: _isMetricSystem
             ? MeasurementSystemType.metric.name
             : MeasurementSystemType.imperial.name,

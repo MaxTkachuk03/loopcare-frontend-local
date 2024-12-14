@@ -1,5 +1,7 @@
 {
   "@@locale": "de",
+  "interactiveLessonsTextAreaLabel": "Uw gedachten",
+  "interactiveLessonsMultipleChoiceBtnLabel": "Save",
   "errorValidationIosMinVersionNotANumber": "iOS-Mindestversion muss eine Zahl sein.",
   "errorValidationIosMinVersionNotAnInteger": "Die iOS-Mindestversion muss eine ganze Zahl sein.",
   "errorValidationIosMinVersionNotAPositiveNumber": "Die iOS-Mindestversion muss eine positive Zahl sein.",
@@ -2142,7 +2144,7 @@
   "clearMealList": "Liste löschen",
   "logListEmptyMessage": "Noch nichts protokolliert?\n Was hast du zum Mittag gegessen?",
   "backToDashboard": "Zurück zum Dashboard",
-  "backToTodayLogging": "Zurück zu Heute",
+  "finishMealLogging": "Mahlzeit beenden",
   "hello": "Hallo",
   "goodMorning": "Guten Morgen",
   "goodAfternoon": "Guten Tag",
@@ -2427,5 +2429,19 @@
   "maintenancePageTitle": "Wir sind bald wieder da!",
   "maintenancePageDescription": "Wir veröffentlichen gerade spannende neue Inhalte. Wenn du dich angemeldet hast, erhältst du eine Push-Benachrichtigung, sobald wir wieder online sind.\n\nMelde dich für unseren Newsletter an, um einen Vorgeschmack auf die kommenden Inhalte zu bekommen!",
   "noAlternativesAvailable": "Keine Alternativen verfügbar",
-  "chooseAlternative": "Wähle eine Alternative"
+  "chooseAlternative": "Wähle eine Alternative",
+  "featureUnlocksAtPool": "Feature unlocks at Pool",
+  "reflectionsDescription": "are tailored to help you understand yourself and your relationship with food.",
+  "supportGroupDescription": "Guided group sessions give you a safe space to share your successes and challenges with like-minded individuals. We’re all here to help.",
+  "exerciseLibraryDescription": "library of exercise videos designed specifically for people with higher BMIs or people who aren’t comfortable with physical activity. You can do these from home or anywhere you like.",
+  "exerciseLibrary": "Exercise library",
+  "moodLog": "Mood log",
+  "moodLogLockedDescription": "The key to differentiating between moods and emotions is to take conscious note of them and their differences. Our mood logging tool will help you regain control over your state of mind.",
+  "foodLog": "Food log",
+  "foodLogLockedDescription": "Learn to get a feel for calorie density, protein degree, fibre ratio, and overall calories thanks to our food logging tool! Our goal is not just to have you count your calories, but teach you how to make each calorie you choose to eat more filling and satisfying.",
+  "mindTrainingLockedDescription": "A library of tools like breathing, tapping, mindfulness, meditation, and yoga, to help you find inner peace, beat your triggers, and live a happier life.",
+  "weightLog": "Weight log",
+  "weightLogLockedDescription": "Our scientifically proven formula allows you switch back and forth between a simple linear graph and one that compensates for short-term volatile factors like water weight, showing you your “real” weight loss.",
+  "goals": "Goals",
+  "myGoalsLockedDescription": "Whether its psychology, nutrition, physical activity, or community: Small, achievable, and measurable goals help you make small changes that lead to big results."
 }

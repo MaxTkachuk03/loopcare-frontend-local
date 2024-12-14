@@ -37,6 +37,7 @@ final _screenNames = {
   'EditDishRoute': 'Edit Dish Screen', // added
   'SelectExerciseRoute': 'Select Exercise Screen', // added
   'DailyIntakeRoute': 'Daily Intake Screen',
+  'NutritionIntakeRoute': 'Nutrition Intake Screen',
   'ProgramAssessmentRoute': 'Program Assessment Screen', // added
   'PhysicalProgramsRoute': 'Physical Programs Screen', // added
   'ProgramDetailsRoute': 'Program Details Screen', // added

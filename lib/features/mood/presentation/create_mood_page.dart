@@ -1,7 +1,7 @@
 import 'package:auto_route/auto_route.dart';
-import 'package:customer_io/customer_io.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:loopcare_frontend/core/domain/analytics/usage_analytics/usage_analytics.dart';
 import 'package:loopcare_frontend/core/domain/analytics/usage_analytics/usage_analytics_events.dart';
 import 'package:loopcare_frontend/core/presentation/alerting/show_app_snackbar.dart';
 import 'package:loopcare_frontend/core/presentation/app_bar/custom_app_bar.dart';
@@ -41,6 +41,7 @@ class CreateMoodPage extends StatefulWidget {
 
 class _CreateMoodPageState extends State<CreateMoodPage> {
   late MoodController _moodPageController;
+  final usageAnalytics = UsageAnalytics();
 
   @override
   void initState() {
@@ -62,7 +63,7 @@ class _CreateMoodPageState extends State<CreateMoodPage> {
       edit: (s) => MoodController()..setMoodInitialValues(s.moodRecord),
     );
 
-    CustomerIO.track(name: UsageAnalyticsEvents.moodWidget);
+    usageAnalytics.track(eventName: UsageAnalyticsEvents.moodWidget);
 
     WidgetsBinding.instance.addPostFrameCallback((_) {
       _moodPageController.isFormValid;

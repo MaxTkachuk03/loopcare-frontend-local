@@ -146,7 +146,7 @@ class _RecipePageState extends State<RecipePage> {
     final isMealRecipe = widget.isMealRecipe ?? false;
 
     return PopScope(
-      onPopInvokedWithResult: _onWillPop,
+      onPopInvokedWithResult: (e, _) => _onWillPop,
       child: MultiBlocListener(
         listeners: [
           BlocListener<RecipeBloc, RecipeState>(
@@ -369,7 +369,7 @@ class _RecipePageState extends State<RecipePage> {
     context.router.replaceNamed(AppRoutes.meal);
   }
 
-  Future<bool> _onWillPop(_, __) {
+  Future _onWillPop(bool e) async {
     final isMealRecipe = widget.isMealRecipe ?? false;
 
     if (!isMealRecipe && !_isLogRecipePressed && internalRecipeId != null) {

@@ -1,9 +1,8 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:loopcare_frontend/core/domain/analytics/analytics_events.dart';
-import 'package:loopcare_frontend/core/domain/analytics/analytics_parameters.dart';
-import 'package:loopcare_frontend/core/infrastructure/services/analytics_service.dart';
+import 'package:loopcare_frontend/core/domain/analytics/usage_analytics/usage_analytics_attributes.dart';
+import 'package:loopcare_frontend/core/domain/analytics/usage_analytics/usage_analytics_events.dart';
 import 'package:loopcare_frontend/core/infrastructure/services/logger/logger.dart';
 import 'package:loopcare_frontend/core/presentation/alerting/show_app_snackbar.dart';
 import 'package:loopcare_frontend/core/presentation/app_bar/custom_app_bar.dart';
@@ -37,6 +36,8 @@ import 'package:loopcare_frontend/features/nutrition/presentation/widgets/servin
 import 'package:loopcare_frontend/localization/service/localization_extension.dart';
 import 'package:loopcare_frontend/localization/service/localized_texts.dart';
 
+import '../../../../core/domain/analytics/usage_analytics/usage_analytics.dart';
+
 @RoutePage()
 class DishDetailsPage extends StatefulWidget {
   final int dishId;
@@ -59,6 +60,7 @@ class DishDetailsPage extends StatefulWidget {
 class _DishDetailsPageState extends State<DishDetailsPage> {
   late TextEditingController _servingController = TextEditingController();
   late double _servingsAmount;
+  final usageAnalytics = UsageAnalytics();
 
   @override
   void initState() {
@@ -119,17 +121,6 @@ class _DishDetailsPageState extends State<DishDetailsPage> {
           ),
         );
 
-    const AnalyticsEventService().logEvent(
-      eventName: AnalyticsEvents.foodLogged,
-      parameters: {
-        AnalyticsParameters.timestamp: DateTime.now().toIso8601String(),
-        AnalyticsParameters.mealId: externalFoodItemId,
-        AnalyticsParameters.servingId: servingId,
-        AnalyticsParameters.numberOfUnits: numberOfUnits.toString(),
-        AnalyticsParameters.isDishes: 'true',
-      },
-    );
-
     context.showSuccessBar(content: CustomText(LocalizedTexts.foodItemWasAddedToDish.tr()));
     context.router.popUntilRouteWithName(SearchRoute.name);
   }
@@ -177,6 +168,7 @@ class _DishDetailsPageState extends State<DishDetailsPage> {
   _onLogDishHandler() {
     final mealId = context.read<MealsBloc>().state.data.getCurrentMealId;
     final dishId = context.read<DishBloc>().state.mapOrNull(dish: (s) => s.selectedDish.id);
+    final currentMeal = context.read<MealsBloc>().state.data.currentMeal;
 
     if (mealId == null || dishId == null) return;
 
@@ -185,6 +177,17 @@ class _DishDetailsPageState extends State<DishDetailsPage> {
     context.read<MealsBloc>().add(MealsEvent.addDishToMeal(mealId, numberOfServings, dishId));
 
     context.router.pushNamed(AppRoutes.meal);
+
+    usageAnalytics.track(
+      eventName: UsageAnalyticsEvents.mealLogged,
+      attributes: {
+        UsageAnalyticsAttributes.mealId: mealId,
+        UsageAnalyticsAttributes.mealAmount: numberOfServings,
+        UsageAnalyticsAttributes.foodLoggedFrom: 'meal',
+        UsageAnalyticsAttributes.dishId: dishId,
+        UsageAnalyticsAttributes.mealCategory: currentMeal?.mealCategory
+      },
+    );
   }
 
   void _onEditDishHandler() {

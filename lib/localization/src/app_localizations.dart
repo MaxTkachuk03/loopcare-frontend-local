@@ -95,6 +95,72 @@ abstract class AppLocalizations {
     Locale('en')
   ];
 
+  /// No description provided for @interactiveLessonsTextAreaLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Your thoughts'**
+  String get interactiveLessonsTextAreaLabel;
+
+  /// No description provided for @interactiveLessonsMultipleChoiceBtnLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Save'**
+  String get interactiveLessonsMultipleChoiceBtnLabel;
+
+  /// No description provided for @interactiveLessonsScaleLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Rate on a scale'**
+  String get interactiveLessonsScaleLabel;
+
+  /// No description provided for @interactiveLessonsSingleSelectLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Single answer'**
+  String get interactiveLessonsSingleSelectLabel;
+
+  /// No description provided for @interactiveLessonsMultipleSelectLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Choose All That Apply'**
+  String get interactiveLessonsMultipleSelectLabel;
+
+  /// No description provided for @interactiveLessonsCorrectFeedbackTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'This is correct'**
+  String get interactiveLessonsCorrectFeedbackTitle;
+
+  /// No description provided for @interactiveLessonsIncorrectFeedbackTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'This is incorrect'**
+  String get interactiveLessonsIncorrectFeedbackTitle;
+
+  /// No description provided for @interactiveLessonsScaleFeedbackTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Scale selection feedback'**
+  String get interactiveLessonsScaleFeedbackTitle;
+
+  /// No description provided for @interactiveLessonsOrderingLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Arrange in order'**
+  String get interactiveLessonsOrderingLabel;
+
+  /// No description provided for @interactiveLessonsOrderingCheck.
+  ///
+  /// In en, this message translates to:
+  /// **'Check'**
+  String get interactiveLessonsOrderingCheck;
+
+  /// No description provided for @interactiveLessonsOrderingShowAnswer.
+  ///
+  /// In en, this message translates to:
+  /// **'Show answer'**
+  String get interactiveLessonsOrderingShowAnswer;
+
   /// No description provided for @errorValidationIosMinVersionNotANumber.
   ///
   /// In en, this message translates to:
@@ -10205,11 +10271,11 @@ abstract class AppLocalizations {
   /// **'Back to dashboard'**
   String get backToDashboard;
 
-  /// No description provided for @backToTodayLogging.
+  /// No description provided for @finishMealLogging.
   ///
   /// In en, this message translates to:
-  /// **'Back to Today'**
-  String get backToTodayLogging;
+  /// **'Finish meal'**
+  String get finishMealLogging;
 
   /// No description provided for @hello.
   ///
@@ -11590,6 +11656,90 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Choose alternative'**
   String get chooseAlternative;
+
+  /// No description provided for @featureUnlocksAtPool.
+  ///
+  /// In en, this message translates to:
+  /// **'Feature unlocks at Pool'**
+  String get featureUnlocksAtPool;
+
+  /// No description provided for @reflectionsDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'are tailored to help you understand yourself and your relationship with food.'**
+  String get reflectionsDescription;
+
+  /// No description provided for @supportGroupDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'Guided group sessions give you a safe space to share your successes and challenges with like-minded individuals. We’re all here to help.'**
+  String get supportGroupDescription;
+
+  /// No description provided for @exerciseLibraryDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'library of exercise videos designed specifically for people with higher BMIs or people who aren’t comfortable with physical activity. You can do these from home or anywhere you like.'**
+  String get exerciseLibraryDescription;
+
+  /// No description provided for @exerciseLibrary.
+  ///
+  /// In en, this message translates to:
+  /// **'Exercise library'**
+  String get exerciseLibrary;
+
+  /// No description provided for @moodLog.
+  ///
+  /// In en, this message translates to:
+  /// **'Mood log'**
+  String get moodLog;
+
+  /// No description provided for @moodLogLockedDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'The key to differentiating between moods and emotions is to take conscious note of them and their differences. Our mood logging tool will help you regain control over your state of mind.'**
+  String get moodLogLockedDescription;
+
+  /// No description provided for @foodLog.
+  ///
+  /// In en, this message translates to:
+  /// **'Food log'**
+  String get foodLog;
+
+  /// No description provided for @foodLogLockedDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'Learn to get a feel for calorie density, protein degree, fibre ratio, and overall calories thanks to our food logging tool! Our goal is not just to have you count your calories, but teach you how to make each calorie you choose to eat more filling and satisfying.'**
+  String get foodLogLockedDescription;
+
+  /// No description provided for @mindTrainingLockedDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'A library of tools like breathing, tapping, mindfulness, meditation, and yoga, to help you find inner peace, beat your triggers, and live a happier life.'**
+  String get mindTrainingLockedDescription;
+
+  /// No description provided for @weightLog.
+  ///
+  /// In en, this message translates to:
+  /// **'Weight log'**
+  String get weightLog;
+
+  /// No description provided for @weightLogLockedDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'Our scientifically proven formula allows you switch back and forth between a simple linear graph and one that compensates for short-term volatile factors like water weight, showing you your “real” weight loss.'**
+  String get weightLogLockedDescription;
+
+  /// No description provided for @goals.
+  ///
+  /// In en, this message translates to:
+  /// **'Goals'**
+  String get goals;
+
+  /// No description provided for @myGoalsLockedDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'Whether its psychology, nutrition, physical activity, or community: Small, achievable, and measurable goals help you make small changes that lead to big results.'**
+  String get myGoalsLockedDescription;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

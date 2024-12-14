@@ -154,7 +154,7 @@ class _VideoPageState extends State<VideoPage> {
     _videoPlayerController?.seekTo(Duration(seconds: skipTime));
   }
 
-  Future<bool> _onWillPop(_, __) {
+  Future<bool> _onWillPop(bool e) {
     const AnalyticsEventService().logEvent(
       eventName: AnalyticsEvents.programClosed,
       parameters: {
@@ -170,7 +170,7 @@ class _VideoPageState extends State<VideoPage> {
   Widget build(BuildContext context) {
     final controller = _videoPlayerController;
     return PopScope(
-      onPopInvokedWithResult: _onWillPop,
+      onPopInvokedWithResult: (e, _) => _onWillPop,
       child: BlocConsumer<VideoPlayerBloc, VideoPlayerState>(
         listenWhen: (prev, cur) => cur is CookiesLoaded,
         listener: _cookiesLoadedListener,

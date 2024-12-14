@@ -137,7 +137,7 @@ class _SelectServingPageState extends State<SelectServingPage> {
   }
 
   _onConfirmPressed(BuildContext context, double amount, String? id, String foodItemName) {
-    final mealCategory = context.read<MealsBloc>().state.data.currentMeal?.mealCategory;
+    final meal = context.read<MealsBloc>().state.data.currentMeal;
 
     if (id != null) {
       usageAnalytics.track(
@@ -146,7 +146,9 @@ class _SelectServingPageState extends State<SelectServingPage> {
           UsageAnalyticsAttributes.foodItemId: id,
           UsageAnalyticsAttributes.foodItemAmount: amount,
           UsageAnalyticsAttributes.foodItemName: foodItemName,
-          UsageAnalyticsAttributes.mealCategory: mealCategory
+          UsageAnalyticsAttributes.foodLoggedFrom: 'search',
+          UsageAnalyticsAttributes.foodItemDate: meal?.loggingDate?.toIso8601String(),
+          UsageAnalyticsAttributes.mealCategory: meal?.mealCategory
         },
       );
       widget.onConfirm.call(amount, id);

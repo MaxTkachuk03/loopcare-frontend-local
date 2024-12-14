@@ -1,9 +1,9 @@
 import 'dart:async';
 
-import 'package:customer_io/customer_io.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
+import 'package:loopcare_frontend/core/domain/analytics/usage_analytics/usage_analytics.dart';
 import 'package:loopcare_frontend/core/domain/analytics/usage_analytics/usage_analytics_attributes.dart';
 import 'package:loopcare_frontend/core/domain/analytics/usage_analytics/usage_analytics_events.dart';
 import 'package:loopcare_frontend/core/domain/extensions/list_extensions.dart';
@@ -20,6 +20,7 @@ part 'mood_state.dart';
 @singleton
 class MoodBloc extends Bloc<MoodEvent, MoodState> {
   final MoodService _moodService;
+  final usageAnalytics = UsageAnalytics();
 
   MoodBloc(this._moodService) : super(const MoodState.initial(MoodStateData())) {
     on<GetMoods>(_onGetMoods);
@@ -76,8 +77,8 @@ class MoodBloc extends Bloc<MoodEvent, MoodState> {
 
     response.fold((l) => emit(MoodState.error(state.data.copyWith(error: l, isLoading: false))),
         (r) {
-      CustomerIO.track(
-        name: UsageAnalyticsEvents.moodLogged,
+      usageAnalytics.track(
+        eventName: UsageAnalyticsEvents.moodLogged,
         attributes: {
           UsageAnalyticsAttributes.emotion: event.data.emotion,
           UsageAnalyticsAttributes.companion: event.data.person,

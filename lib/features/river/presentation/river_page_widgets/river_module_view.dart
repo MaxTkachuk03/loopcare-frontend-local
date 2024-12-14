@@ -3,8 +3,11 @@ import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loopcare_frontend/core/presentation/alerting/modal_bottom_sheet.dart';
+import 'package:loopcare_frontend/core/presentation/routes/app_router.dart';
 import 'package:loopcare_frontend/core/presentation/routes/app_router.gr.dart';
 import 'package:loopcare_frontend/features/education/application/education_lesson/education_lesson_bloc.dart';
+import 'package:loopcare_frontend/features/education/application/interactive_lessons/interactive_lessons_bloc.dart';
+
 import 'package:loopcare_frontend/features/home/application/navigation_bar_bloc.dart';
 import 'package:loopcare_frontend/features/river/application/river_bloc.dart';
 import 'package:loopcare_frontend/features/river/domain/feature_placement.dart';
@@ -129,11 +132,33 @@ class _RiverScreenState extends State<RiverScreen> with RiverUtils {
   void _navigateToLesson(RiverModuleItem item) {
     context.read<RiverBloc>().add(RiverEvent.selectModuleItem(item: item));
 
-    context.read<EducationLessonBloc>().add(
-          EducationLessonEvent.getLessonContent(lessonId: item.lessonId),
-        );
+    if (item.isRegularLesson) {
+      context
+          .read<EducationLessonBloc>()
+          .add(EducationLessonEvent.getLessonContent(lessonId: item.lessonId));
 
-    context.router.push(LessonRoute(lessonId: item.lessonId, streamType: item.streamType));
+      context.router.push(LessonRoute(lessonId: item.lessonId, streamType: item.streamType));
+    } else if (item.isInteractiveLesson) {
+      final lessonId = context.read<InteractiveLessonsBloc>().state.data.id;
+
+      if (lessonId != item.lessonId) {
+        context
+            .read<InteractiveLessonsBloc>()
+            .add(InteractiveLessonsEvent.getInteractiveLesson(lessonId: item.lessonId));
+      }
+
+      // TODO: delete after connecting to backend
+      context
+          .read<InteractiveLessonsBloc>()
+          .add(InteractiveLessonsEvent.getInteractiveLesson(lessonId: item.lessonId));
+
+      Future.delayed(
+        const Duration(milliseconds: 800),
+        () {
+          if (mounted) context.router.pushNamed(AppRoutes.interactiveLesson);
+        },
+      );
+    }
   }
 
   void _onAnimationCompleted(RiverModuleItem item, FeaturePlacement? placement) {

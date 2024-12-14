@@ -21,6 +21,12 @@ class CustomAppIcon extends StatelessWidget {
         iconColor = AppColors.petrolLightest,
         backgroundColor = AppColors.petrolRegular;
 
+  const CustomAppIcon.reflectionGrey({super.key, this.radius = _itemSize})
+      : icon = AppIconsData.iReflection,
+        iconSize = radius * 1.44,
+        iconColor = AppColors.petrolLightest,
+        backgroundColor = AppColors.greyLighter;
+
   const CustomAppIcon.mind({super.key, this.radius = _itemSize})
       : icon = AppIconsData.iMind,
         iconSize = radius * _iconSizeCoefficient,

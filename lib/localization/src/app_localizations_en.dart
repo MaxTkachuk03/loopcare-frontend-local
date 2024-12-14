@@ -9,6 +9,39 @@ class AppLocalizationsEn extends AppLocalizations {
   AppLocalizationsEn([String locale = 'en']) : super(locale);
 
   @override
+  String get interactiveLessonsTextAreaLabel => 'Your thoughts';
+
+  @override
+  String get interactiveLessonsMultipleChoiceBtnLabel => 'Save';
+
+  @override
+  String get interactiveLessonsScaleLabel => 'Rate on a scale';
+
+  @override
+  String get interactiveLessonsSingleSelectLabel => 'Single answer';
+
+  @override
+  String get interactiveLessonsMultipleSelectLabel => 'Choose All That Apply';
+
+  @override
+  String get interactiveLessonsCorrectFeedbackTitle => 'This is correct';
+
+  @override
+  String get interactiveLessonsIncorrectFeedbackTitle => 'This is incorrect';
+
+  @override
+  String get interactiveLessonsScaleFeedbackTitle => 'Scale selection feedback';
+
+  @override
+  String get interactiveLessonsOrderingLabel => 'Arrange in order';
+
+  @override
+  String get interactiveLessonsOrderingCheck => 'Check';
+
+  @override
+  String get interactiveLessonsOrderingShowAnswer => 'Show answer';
+
+  @override
   String get errorValidationIosMinVersionNotANumber => 'iOS minimum version must be a number.';
 
   @override
@@ -5207,7 +5240,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get backToDashboard => 'Back to dashboard';
 
   @override
-  String get backToTodayLogging => 'Back to Today';
+  String get finishMealLogging => 'Finish meal';
 
   @override
   String get hello => 'Hello';
@@ -5916,4 +5949,46 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get chooseAlternative => 'Choose alternative';
+
+  @override
+  String get featureUnlocksAtPool => 'Feature unlocks at Pool';
+
+  @override
+  String get reflectionsDescription => 'are tailored to help you understand yourself and your relationship with food.';
+
+  @override
+  String get supportGroupDescription => 'Guided group sessions give you a safe space to share your successes and challenges with like-minded individuals. We’re all here to help.';
+
+  @override
+  String get exerciseLibraryDescription => 'library of exercise videos designed specifically for people with higher BMIs or people who aren’t comfortable with physical activity. You can do these from home or anywhere you like.';
+
+  @override
+  String get exerciseLibrary => 'Exercise library';
+
+  @override
+  String get moodLog => 'Mood log';
+
+  @override
+  String get moodLogLockedDescription => 'The key to differentiating between moods and emotions is to take conscious note of them and their differences. Our mood logging tool will help you regain control over your state of mind.';
+
+  @override
+  String get foodLog => 'Food log';
+
+  @override
+  String get foodLogLockedDescription => 'Learn to get a feel for calorie density, protein degree, fibre ratio, and overall calories thanks to our food logging tool! Our goal is not just to have you count your calories, but teach you how to make each calorie you choose to eat more filling and satisfying.';
+
+  @override
+  String get mindTrainingLockedDescription => 'A library of tools like breathing, tapping, mindfulness, meditation, and yoga, to help you find inner peace, beat your triggers, and live a happier life.';
+
+  @override
+  String get weightLog => 'Weight log';
+
+  @override
+  String get weightLogLockedDescription => 'Our scientifically proven formula allows you switch back and forth between a simple linear graph and one that compensates for short-term volatile factors like water weight, showing you your “real” weight loss.';
+
+  @override
+  String get goals => 'Goals';
+
+  @override
+  String get myGoalsLockedDescription => 'Whether its psychology, nutrition, physical activity, or community: Small, achievable, and measurable goals help you make small changes that lead to big results.';
 }
