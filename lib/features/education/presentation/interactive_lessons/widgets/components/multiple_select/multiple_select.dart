@@ -101,7 +101,7 @@ class _MultipleSelectState extends State<MultipleSelect> {
             final answer = content.answers[index];
             final isSelected = _selectedAnswers.contains(answer);
 
-            return CustomChoiceChip.blue(
+            return CustomChoiceChip.green(
               label: answer.label,
               selected: isSelected,
               value: answer,

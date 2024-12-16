@@ -305,7 +305,7 @@ class InteractiveLessonChunkComponent with _$InteractiveLessonChunkComponent {
             type: InteractiveLessonComponentType.mealTiming,
             needsValidation: needsValidation,
             isValid: isValid,
-            content: MealTimingContent.debugFromJson(json['content'] as Map<String, dynamic>),
+            content: MealTimingContent.fromJson(json['content']['content'] as Map<String, dynamic>),
             chunkId: chunkId,
             progress: progress,
           );
