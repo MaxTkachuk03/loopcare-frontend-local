@@ -38,12 +38,14 @@ class _SingleSelectWithFeedbackState extends State<SingleSelectWithFeedback> {
   initState() {
     super.initState();
     if (widget.component.progress == null) return;
-    final optionId = widget.component.progress!.optionIds!.first;
-    final answer = widget.component.content.answers
-        .where((answer) => answer.id == optionId)
-        .first;
-    _selectedAnswer.add(answer.id);
-    _answerForFeedback = answer;
+    if (widget.component.progress!.optionIds!.isNotEmpty) {
+      final optionId = widget.component.progress!.optionIds!.first;
+      final answer = widget.component.content.answers
+          .where((answer) => answer.id == optionId)
+          .first;
+      _selectedAnswer.add(answer.id);
+      _answerForFeedback = answer;
+    }
   }
 
   void _onSelected(ContentSelectAnswer value) {
@@ -91,8 +93,8 @@ class _SingleSelectWithFeedbackState extends State<SingleSelectWithFeedback> {
               label: answer.label,
               selected: isSelected,
               value: answer,
+              isCorrect: answer.isCorrect,
               onSelected: _onSelected,
-              isSingle: true,
             );
           },
         ),

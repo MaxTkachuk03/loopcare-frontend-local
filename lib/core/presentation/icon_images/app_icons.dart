@@ -297,8 +297,8 @@ class AppIcons {
   static SvgPicture interactiveLessonEditPencil(
           bool clicked, Color clickedColor, Color regularColor) =>
       SvgPicture.asset('$iconsFilePath/edit_pencil.svg',
-          width: 24,
-          height: 24,
+          width: 44,
+          height: 44,
           colorFilter: ColorFilter.mode(clicked ? clickedColor : regularColor, BlendMode.srcIn));
 
   static SvgPicture interactiveLessonBucket(bool clicked, Color clickedColor, Color regularColor) =>

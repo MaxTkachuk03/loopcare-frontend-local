@@ -23,6 +23,7 @@ class CustomChoiceChip<T> extends StatelessWidget {
   final TextAlign? textAlign;
   final double? chipHeight;
   final double? borderRadius;
+  final bool? isCorrect;
 
   const CustomChoiceChip({
     super.key,
@@ -42,8 +43,10 @@ class CustomChoiceChip<T> extends StatelessWidget {
     this.textAlign,
     this.chipHeight,
     this.borderRadius,
+    this.isCorrect,
   }) : assert(
-          (label == null && accent != null) || (label != null && accent == null),
+          (label == null && accent != null) ||
+              (label != null && accent == null),
         );
 
   factory CustomChoiceChip.coral({
@@ -171,14 +174,27 @@ class CustomChoiceChip<T> extends StatelessWidget {
     required OnSelected<T>? onSelected,
     required T value,
     required String label,
+    bool? isCorrect,
   }) =>
       CustomChoiceChip<T>(
         label: label,
         selected: selected,
         onSelected: onSelected,
         value: value,
-        selectedColor: AppColors.blueRegular,
+        selectedColor: AppColors.transparent,
         borderColor: AppColors.blueRegular,
+        isCorrect: isCorrect,
+        avatar: selected
+            ? isCorrect == true
+                ? const _CustomIcon(
+                    icon: Icons.check,
+                    backgroundColor: AppColors.greenOffRegular,
+                  )
+                : const _CustomIcon(
+                    icon: Icons.close,
+                    backgroundColor: AppColors.red,
+                  )
+            : null,
       );
 
   @override
@@ -186,24 +202,31 @@ class CustomChoiceChip<T> extends StatelessWidget {
     return Theme(
       data: Theme.of(context).copyWith(canvasColor: AppColors.transparent),
       child: ChoiceChip(
-        padding: padding ?? const EdgeInsets.symmetric(horizontal: 25.0, vertical: 14.0),
+        padding: padding ??
+            const EdgeInsets.symmetric(horizontal: 15.0, vertical: 10.0),
         shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.all(Radius.circular(borderRadius ?? 25))),
+            borderRadius:
+                BorderRadius.all(Radius.circular(borderRadius ?? 25))),
         label: SizedBox(
-          height: chipHeight,
+          height: chipHeight ?? 35,
           child: Row(
             mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Expanded(
                 child: accent != null
                     ? accent!
                     : CustomText(
                         label ?? '',
+                        maxLines: 3,
                         textAlign: textAlign ?? TextAlign.start,
                         style: selected
-                            ? context.textTheme.bodySmall
-                                ?.copyWith(fontWeight: FontWeight.w600, color: selectedTextColor)
-                            : context.textTheme.bodySmall?.copyWith(fontWeight: FontWeight.w400),
+                            ? context.textTheme.bodySmall?.copyWith(
+                                fontWeight: FontWeight.w600,
+                                color: selectedTextColor)
+                            : context.textTheme.bodySmall
+                                ?.copyWith(fontWeight: FontWeight.w400),
+                        overflow: TextOverflow.visible,
                       ),
               ),
               if (action != null) action!,
@@ -214,9 +237,8 @@ class CustomChoiceChip<T> extends StatelessWidget {
         onSelected: onSelected == null ? null : (_) => onSelected?.call(value),
         selectedColor: selectedColor,
         disabledColor: AppColors.greyLight,
-        side: ChipTheme.of(context)
-            .side
-            ?.copyWith(color: onSelected == null ? AppColors.greyLight : borderColor),
+        side: ChipTheme.of(context).side?.copyWith(
+            color: onSelected == null ? AppColors.greyLight : borderColor),
         color: WidgetStateProperty.resolveWith((states) {
           const Set<WidgetState> interactiveStates = <WidgetState>{
             WidgetState.pressed,
@@ -231,6 +253,29 @@ class CustomChoiceChip<T> extends StatelessWidget {
         }),
         avatar: avatar,
         showCheckmark: showCheckmark,
+      ),
+    );
+  }
+}
+
+class _CustomIcon extends StatelessWidget {
+  const _CustomIcon({
+    this.icon,
+    this.backgroundColor,
+  });
+
+  final IconData? icon;
+  final Color? backgroundColor;
+
+  @override
+  Widget build(BuildContext context) {
+    return CircleAvatar(
+      radius: 13,
+      backgroundColor: backgroundColor,
+      child: Icon(
+        icon,
+        color: AppColors.white,
+        size: 16,
       ),
     );
   }

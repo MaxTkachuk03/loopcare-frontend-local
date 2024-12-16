@@ -21,9 +21,8 @@ class SingleSelect extends StatefulWidget {
 
   final InteractiveLessonChunkComponentSingleSelect component;
   final RiverModuleStreamType lessonStreamType;
-  final Function(
-          InteractiveLessonComponentProgress progress, InteractiveLessonChunkComponent component)
-      onSaveProgress;
+  final Function(InteractiveLessonComponentProgress progress,
+      InteractiveLessonChunkComponent component) onSaveProgress;
 
   @override
   State<SingleSelect> createState() => _SingleSelectState();
@@ -36,9 +35,13 @@ class _SingleSelectState extends State<SingleSelect> {
   initState() {
     super.initState();
     if (widget.component.progress == null) return;
-    final optionId = widget.component.progress!.optionIds!.first;
-    final answer = widget.component.content.answers.where((answer) => answer.id == optionId).first;
-    _selectedAnswer.add(answer.id);
+    if (widget.component.progress!.optionIds!.isNotEmpty) {
+      final optionId = widget.component.progress!.optionIds!.first;
+      final answer = widget.component.content.answers
+          .where((answer) => answer.id == optionId)
+          .first;
+      _selectedAnswer.add(answer.id);
+    }
   }
 
   void _onSelected(ContentSelectAnswer value) {
@@ -70,7 +73,8 @@ class _SingleSelectState extends State<SingleSelect> {
         const SizedBox(height: 20),
         CustomText(
           content.question,
-          style: context.textTheme.bodyMedium!.copyWith(fontWeight: FontWeight.w700),
+          style: context.textTheme.bodyMedium!
+              .copyWith(fontWeight: FontWeight.w700),
         ),
         const SizedBox(height: 20),
         ListView.separated(
@@ -87,7 +91,7 @@ class _SingleSelectState extends State<SingleSelect> {
               selected: isSelected,
               value: answer,
               onSelected: _onSelected,
-              isSingle: true,
+              isCorrect: true,
             );
           },
         ),
