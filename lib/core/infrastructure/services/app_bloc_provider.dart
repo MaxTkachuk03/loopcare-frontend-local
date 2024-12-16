@@ -55,7 +55,8 @@ class AppBlocProvider {
 
   static List<BlocProvider> get providers => [
         BlocProvider<ConnectivityBloc>(
-          create: (_) => getIt<ConnectivityBloc>()..add(const ConnectivityEvent.init()),
+          create: (_) =>
+              getIt<ConnectivityBloc>()..add(const ConnectivityEvent.init()),
         ),
         BlocProvider<NavigationBarBloc>(
           create: (_) => getIt<NavigationBarBloc>(),
@@ -112,7 +113,8 @@ class AppBlocProvider {
           create: (_) => getIt<EditDishBloc>(),
         ),
         BlocProvider<EducationLessonBloc>(
-          create: (_) => getIt<EducationLessonBloc>()..add(const EducationLessonEvent.init()),
+          create: (_) => getIt<EducationLessonBloc>()
+            ..add(const EducationLessonEvent.init()),
         ),
         BlocProvider<PhysicalProgramsBloc>(
           create: (_) => getIt<PhysicalProgramsBloc>(),
@@ -185,6 +187,18 @@ class AppBlocProvider {
         ),
         BlocProvider<UserStatesBloc>(
           create: (_) => getIt<UserStatesBloc>(),
+        ),
+        BlocProvider<InteractiveLessonsBloc>(
+          create: (_) => getIt<InteractiveLessonsBloc>(),
+        ),
+        BlocProvider<InteractiveLessonsNavBloc>(
+          create: (_) => getIt<InteractiveLessonsNavBloc>(),
+        ),
+        BlocProvider<CommitmentBloc>(
+          create: (_) => getIt<CommitmentBloc>(),
+        ),
+        BlocProvider<SubscriptionV2Bloc>(
+          create: (_) => getIt<SubscriptionV2Bloc>(),
         ),
       ];
 }
