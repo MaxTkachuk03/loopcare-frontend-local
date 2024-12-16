@@ -14,27 +14,13 @@ import 'package:loopcare_frontend/features/onboarding/utils/weight_conversion_ut
 import 'package:loopcare_frontend/localization/service/localization_extension.dart';
 import 'package:loopcare_frontend/localization/service/localized_texts.dart';
 
-class WeightBlock extends StatefulWidget {
+class WeightBlock extends StatelessWidget {
   final DateTime date;
-  final bool locked;
 
-  const WeightBlock({super.key, required this.date, required this.locked});
-
-  @override
-  State<WeightBlock> createState() => _WeightBlockState();
-}
-
-class _WeightBlockState extends State<WeightBlock> {
-  bool onClick = false;
-
-  void toggleOnClick() {
-    setState(() {
-      onClick = !onClick;
-    });
-  }
+  const WeightBlock({super.key, required this.date});
 
   void onPressHandler(BuildContext context) =>
-      context.router.push(LogWeightRoute(selectedDay: widget.date));
+      context.router.push(LogWeightRoute(selectedDay: date));
 
   @override
   Widget build(BuildContext context) {
@@ -49,14 +35,14 @@ class _WeightBlockState extends State<WeightBlock> {
           state.whenOrNull(
             error: (_) => context
                 .read<DashboardWeightBloc>()
-                .add(DashboardWeightEvent.fetchWeights(widget.date.toUtc().toIso8601String())),
+                .add(DashboardWeightEvent.fetchWeights(date.toUtc().toIso8601String())),
           );
         },
         builder: (context, state) {
           return state.maybeMap(
             updated: (s) {
-              final weightValue = s.data.getSelectedDayWeight(widget.date.isoStringWithoutTime);
-              final bool isEditable = s.isEditable(widget.date);
+              final weightValue = s.data.getSelectedDayWeight(date.isoStringWithoutTime);
+              final bool isEditable = s.isEditable(date);
               final hasLog = weightValue != null;
 
               final inputWeightValue = s.isMetricSystem
@@ -73,87 +59,31 @@ class _WeightBlockState extends State<WeightBlock> {
 
               final showSubText = !hasLog && isEditable;
 
-              return Column(
-                children: [
-                  DashboardCardTitle(
-                    onTap: () {
-                      if (widget.locked) {
-                        onPressHandler(context);
-                      } else {
-                        toggleOnClick();
-                      }
-                    },
-                    highlightColor: widget.locked ? AppColors.coralLightest : AppColors.white,
-                    leadingIcon: widget.locked
-                        ? AppIcons.customDashboardWeight
-                        : AppIcons.customDashboardWeightGrey,
-                    title: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      // mainAxisSize: MainAxisSize.min,
-                      children: [
-                        widget.locked
-                            ? CustomText.bitter600(
-                                text,
-                                style: context.textTheme.headlineSmall!.copyWith(
-                                  color: isEditable ? AppColors.blueDarker : AppColors.greyLabel,
-                                ),
-                              )
-                            : CustomText.bitter400(
-                                LocalizedTexts.logWeight.tr(),
-                                style: context.textTheme.headlineSmall!.copyWith(
-                                  color: isEditable ? AppColors.blueDarker : AppColors.greyLabel,
-                                ),
-                              ),
-                        if (widget.locked)
-                          if (showSubText)
-                            CustomText.w400(
-                              LocalizedTexts.preferableInTheMorning.tr(),
-                              style: context.textTheme.bodySmall!.copyWith(
-                                color: isEditable ? AppColors.blueDarker : AppColors.greyLabel,
-                              ),
-                            ),
-                      ],
+              return DashboardCardTitle(
+                onTap: () => onPressHandler(context),
+                highlightColor: AppColors.coralLightest,
+                leadingIcon: AppIcons.customDashboardWeight,
+                title: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    CustomText.bitter600(
+                      text,
+                      style: context.textTheme.headlineSmall!.copyWith(
+                        color: isEditable ? AppColors.blueDarker : AppColors.greyLabel,
+                      ),
                     ),
-                    actionIcon: widget.locked
-                        ? hasLog
-                            ? AppIcons.edit
-                            : AppIcons.plus
-                        : onClick
-                            ? const AssetImage(AppIcons.upArrow)
-                            : AppIcons.downArrow,
-                    editable: isEditable,
-                  ),
-                  widget.locked
-                      ? Container()
-                      : Padding(
-                          padding: const EdgeInsets.all(12.0),
-                          child: Row(
-                            children: [
-                              AppIcons.lockGoals,
-                              const SizedBox(
-                                width: 36,
-                              ),
-                              SizedBox(
-                                width: 250,
-                                child: CustomText.w400(
-                                  "${LocalizedTexts.featureUnlocksAtPool.tr()} #${LocalizedTexts.weightLog.tr()}",
-                                  style: const TextStyle(color: AppColors.blueDarker),
-                                ),
-                              ),
-                            ],
-                          ),
+                    if (showSubText)
+                      CustomText.w400(
+                        LocalizedTexts.preferableInTheMorning.tr(),
+                        style: context.textTheme.bodySmall!.copyWith(
+                          color: isEditable ? AppColors.blueDarker : AppColors.greyLabel,
                         ),
-                  onClick
-                      ? Container(
-                          width: 250,
-                          padding: const EdgeInsets.only(bottom: 10),
-                          child: CustomText.w400(
-                            maxLines: 10,
-                            LocalizedTexts.weightLogLockedDescription.tr(),
-                          ),
-                        )
-                      : Container(),
-                ],
+                      ),
+                  ],
+                ),
+                actionIcon: hasLog ? AppIcons.edit : AppIcons.plus,
+                editable: isEditable,
               );
             },
             loading: (_) => const Loader(),

@@ -2467,22 +2467,16 @@ class LocalizedTexts {
   static const String emergencyVeteransLineTitle = 'emergencyVeteransLineTitle';
   static const String emergencyVeteransLineUrl = 'emergencyVeteransLineUrl';
   static const String emergencyVeteransLineLabel = 'emergencyVeteransLineLabel';
-// locked widgets
-  static const String reflectionsDescription = 'reflectionsDescription';
-  static const String featureUnlocksAtPool = 'featureUnlocksAtPool';
-  static const String supportGroupDescription = 'supportGroupDescription';
-  static const String exerciseLibraryDescription = 'exerciseLibraryDescription';
-  static const String exerciseLibrary = 'exerciseLibrary';
-  static const String moodLog = 'moodLog';
-  static const String moodLogLockedDescription = 'moodLogLockedDescription';
-  static const String foodLog = 'foodLog';
-  static const String foodLogLockedDescription = 'foodLogLockedDescription';
-  static const String mindTrainingLockedDescription = 'mindTrainingLockedDescription';
-  static const String weightLog = 'weightLog';
-  static const String weightLogLockedDescription = 'weightLogLockedDescription';
-  static const String goals = 'goals';
-  static const String myGoalsLockedDescription = 'myGoalsLockedDescription';
 
+  //pool_widget
+  static const String whatYouWhy = "whatYouWhy";
+  static const String tapReflection = "tapReflection";
+  static const String timeReq = "timeReq";
+  static const String completeRef = "completeRef";
+  static const String readyGraduate = "readyGraduate";
+  static const String unlockWeight = "unlockWeight";
+  static const String unlockFoodLog = "unlockFoodLog";
+  static const String foodCmmitment = "foodCmmitment";
   //Links
   static const String linksTermsAndConditionsUrl = 'linksTermsAndConditionsUrl';
   static const String linksPrivacyPolicyUrl = 'linksPrivacyPolicyUrl';

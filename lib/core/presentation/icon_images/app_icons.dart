@@ -4,11 +4,20 @@ import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 
 class AppIcons {
   static const String iconsFilePath = 'assets/icons';
-  static const String upArrow = 'assets/images/up_arrow.png';
-
+  static const String timer = 'assets/images/timer.png';
+  static const String feature = 'assets/images/commitment.png';
+  static const String account = 'assets/images/person.png';
+  static const String tick = 'assets/images/tick.png';
+  static const String spoons = 'assets/images/spoons.png';
+  static const String vector = 'assets/images/weight.png';
+  static const String commitmentUnlocked = 'assets/icons/commitment_unlocked.png';
+  static const String reflectionUnlocked = 'assets/icons/reflection_unlocked.png';
+  static const String weightUnlocked = 'assets/icons/weight_unlocked.png';
+  static const String foodUnlocked = 'assets/icons/food_unlocked.png';
+  static const String goalUnlocked = 'assets/icons/goal_unlocked.png';
+  static const String goalLocked = 'assets/icons/goal_locked.png';
   // TODO replace with material svg icons
   static const AssetImage arrow = AssetImage('$iconsFilePath/arrow.png');
-  static const AssetImage downArrow = AssetImage('$iconsFilePath/down_arrow.png');
   static const AssetImage iconCheckmark = AssetImage('$iconsFilePath/icon_checkmark.png');
   static const AssetImage checkmark =
       AssetImage('$iconsFilePath/checkmark.png'); // same with iconCheckmark with another color
@@ -34,7 +43,6 @@ class AppIcons {
   static SvgPicture clockWhite = SvgPicture.asset('$iconsFilePath/clock.svg',
       colorFilter: const ColorFilter.mode(AppColors.white, BlendMode.srcIn));
   static SvgPicture clockGrey = SvgPicture.asset('$iconsFilePath/clock.svg', width: 21, height: 21);
-  static SvgPicture lockGoals = SvgPicture.asset('$iconsFilePath/lock_goals.svg');
 
   static SvgPicture checkmarkCircle(bool selected, Color selectedColor, Color regularColor) =>
       SvgPicture.asset('$iconsFilePath/checkmark_circle.svg',
@@ -159,38 +167,26 @@ class AppIcons {
 
   static SvgPicture customDashboardReflections =
       SvgPicture.asset('$iconsFilePath/custom_dashboard_reflections.svg', width: 44, height: 44);
-  static SvgPicture commitment =
-      SvgPicture.asset('$iconsFilePath/commitment.svg', width: 44, height: 44);
   static SvgPicture customSupportGroup =
       SvgPicture.asset('$iconsFilePath/custom_support_group.svg', width: 44, height: 44);
-  static SvgPicture customSupportGroupGrey =
-      SvgPicture.asset('$iconsFilePath/support_group.svg', width: 44, height: 44);
   static SvgPicture customPhysicalExercise =
       SvgPicture.asset('$iconsFilePath/custom_physical_exercise.svg', width: 44, height: 44);
-  static SvgPicture customPhysicalExerciseGrey =
-      SvgPicture.asset('$iconsFilePath/physical_activity.svg', width: 44, height: 44);
   static SvgPicture customDashboardLogMeals =
       SvgPicture.asset('$iconsFilePath/custom_dashboard_log_meals.svg', width: 44, height: 44);
-  static SvgPicture customDashboardLogMealsGrey =
-      SvgPicture.asset('$iconsFilePath/log_meals_goals.svg', width: 44, height: 44);
+  static SvgPicture commitment =
+      SvgPicture.asset('$iconsFilePath/commitment.svg', width: 44, height: 44);
+
   static SvgPicture customDashboardWeight =
       SvgPicture.asset('$iconsFilePath/custom_dashboard_weight.svg', width: 44, height: 44);
-  static SvgPicture customDashboardWeightGrey =
-      SvgPicture.asset('$iconsFilePath/weight_locked.svg', width: 44, height: 44);
   static SvgPicture customEducationDashboard =
       SvgPicture.asset('$iconsFilePath/custom_education_dashboard.svg', width: 44, height: 44);
   static SvgPicture customDashboardMood =
       SvgPicture.asset('$iconsFilePath/custom_dashboard_mood.svg', width: 44, height: 44);
-  static SvgPicture customDashboardMoodGrey =
-      SvgPicture.asset('$iconsFilePath/mood_locked.svg', width: 44, height: 44);
   static SvgPicture customDashboardMind =
       SvgPicture.asset('$iconsFilePath/mind.svg', width: 44, height: 44);
-  static SvgPicture customDashboardMindGrey =
-      SvgPicture.asset('$iconsFilePath/mind_training.svg', width: 44, height: 44);
   static SvgPicture customDashboardSmartGoals =
       SvgPicture.asset('$iconsFilePath/custom_dashboard_smart_goals.svg', width: 44, height: 44);
-  static SvgPicture customDashboardSmartGoalsGrey =
-      SvgPicture.asset('$iconsFilePath/my_goals.svg', width: 44, height: 44);
+
   static SvgPicture customRedPhone = SvgPicture.asset('$iconsFilePath/custom_red_phone.svg');
   static SvgPicture microphoneOn = SvgPicture.asset('$iconsFilePath/icon_microphone_on.svg');
   static SvgPicture microphoneOff = SvgPicture.asset('$iconsFilePath/icon_microphone_off.svg');
@@ -297,8 +293,8 @@ class AppIcons {
   static SvgPicture interactiveLessonEditPencil(
           bool clicked, Color clickedColor, Color regularColor) =>
       SvgPicture.asset('$iconsFilePath/edit_pencil.svg',
-          width: 44,
-          height: 44,
+          width: 24,
+          height: 24,
           colorFilter: ColorFilter.mode(clicked ? clickedColor : regularColor, BlendMode.srcIn));
 
   static SvgPicture interactiveLessonBucket(bool clicked, Color clickedColor, Color regularColor) =>

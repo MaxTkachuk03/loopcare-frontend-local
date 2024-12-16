@@ -82,7 +82,8 @@ abstract class AppLocalizations {
   /// Additional delegates can be added by appending to this list in
   /// MaterialApp. This list does not have to be used at all if a custom list
   /// of delegates is preferred or required.
-  static const List<LocalizationsDelegate<dynamic>> localizationsDelegates = <LocalizationsDelegate<dynamic>>[
+  static const List<LocalizationsDelegate<dynamic>> localizationsDelegates =
+      <LocalizationsDelegate<dynamic>>[
     delegate,
     GlobalMaterialLocalizations.delegate,
     GlobalCupertinoLocalizations.delegate,
@@ -90,10 +91,7 @@ abstract class AppLocalizations {
   ];
 
   /// A list of this localizations delegate's supported locales.
-  static const List<Locale> supportedLocales = <Locale>[
-    Locale('de'),
-    Locale('en')
-  ];
+  static const List<Locale> supportedLocales = <Locale>[Locale('de'), Locale('en')];
 
   /// No description provided for @interactiveLessonsTextAreaLabel.
   ///
@@ -11657,89 +11655,53 @@ abstract class AppLocalizations {
   /// **'Choose alternative'**
   String get chooseAlternative;
 
-  /// No description provided for @featureUnlocksAtPool.
+  /// No description provided for @whatYouWhy.
   ///
   /// In en, this message translates to:
-  /// **'Feature unlocks at Pool'**
-  String get featureUnlocksAtPool;
+  /// **'What\'s your why'**
+  String get whatYouWhy;
 
-  /// No description provided for @reflectionsDescription.
+  /// No description provided for @timeReq.
   ///
   /// In en, this message translates to:
-  /// **'are tailored to help you understand yourself and your relationship with food.'**
-  String get reflectionsDescription;
+  /// **'Time requirement:'**
+  String get timeReq;
 
-  /// No description provided for @supportGroupDescription.
+  /// No description provided for @completeRef.
   ///
   /// In en, this message translates to:
-  /// **'Guided group sessions give you a safe space to share your successes and challenges with like-minded individuals. We’re all here to help.'**
-  String get supportGroupDescription;
+  /// **'Complete reflection'**
+  String get completeRef;
 
-  /// No description provided for @exerciseLibraryDescription.
+  /// No description provided for @foodCmmitment.
   ///
   /// In en, this message translates to:
-  /// **'library of exercise videos designed specifically for people with higher BMIs or people who aren’t comfortable with physical activity. You can do these from home or anywhere you like.'**
-  String get exerciseLibraryDescription;
+  /// **'Complete food log commitment'**
+  String get foodCmmitment;
 
-  /// No description provided for @exerciseLibrary.
+  /// No description provided for @unlockWeight.
   ///
   /// In en, this message translates to:
-  /// **'Exercise library'**
-  String get exerciseLibrary;
+  /// **'Unlock your weight'**
+  String get unlockWeight;
 
-  /// No description provided for @moodLog.
+  /// No description provided for @unlockFoodLog.
   ///
   /// In en, this message translates to:
-  /// **'Mood log'**
-  String get moodLog;
+  /// **'Unlock food log'**
+  String get unlockFoodLog;
 
-  /// No description provided for @moodLogLockedDescription.
+  /// No description provided for @readyGraduate.
   ///
   /// In en, this message translates to:
-  /// **'The key to differentiating between moods and emotions is to take conscious note of them and their differences. Our mood logging tool will help you regain control over your state of mind.'**
-  String get moodLogLockedDescription;
+  /// **'ready to graduate'**
+  String get readyGraduate;
 
-  /// No description provided for @foodLog.
+  /// No description provided for @tapReflection.
   ///
   /// In en, this message translates to:
-  /// **'Food log'**
-  String get foodLog;
-
-  /// No description provided for @foodLogLockedDescription.
-  ///
-  /// In en, this message translates to:
-  /// **'Learn to get a feel for calorie density, protein degree, fibre ratio, and overall calories thanks to our food logging tool! Our goal is not just to have you count your calories, but teach you how to make each calorie you choose to eat more filling and satisfying.'**
-  String get foodLogLockedDescription;
-
-  /// No description provided for @mindTrainingLockedDescription.
-  ///
-  /// In en, this message translates to:
-  /// **'A library of tools like breathing, tapping, mindfulness, meditation, and yoga, to help you find inner peace, beat your triggers, and live a happier life.'**
-  String get mindTrainingLockedDescription;
-
-  /// No description provided for @weightLog.
-  ///
-  /// In en, this message translates to:
-  /// **'Weight log'**
-  String get weightLog;
-
-  /// No description provided for @weightLogLockedDescription.
-  ///
-  /// In en, this message translates to:
-  /// **'Our scientifically proven formula allows you switch back and forth between a simple linear graph and one that compensates for short-term volatile factors like water weight, showing you your “real” weight loss.'**
-  String get weightLogLockedDescription;
-
-  /// No description provided for @goals.
-  ///
-  /// In en, this message translates to:
-  /// **'Goals'**
-  String get goals;
-
-  /// No description provided for @myGoalsLockedDescription.
-  ///
-  /// In en, this message translates to:
-  /// **'Whether its psychology, nutrition, physical activity, or community: Small, achievable, and measurable goals help you make small changes that lead to big results.'**
-  String get myGoalsLockedDescription;
+  /// **'Tap the reflection icon to read the article to start the'**
+  String get tapReflection;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {
@@ -11758,18 +11720,17 @@ class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> 
 }
 
 AppLocalizations lookupAppLocalizations(Locale locale) {
-
-
   // Lookup logic when only language code is specified.
   switch (locale.languageCode) {
-    case 'de': return AppLocalizationsDe();
-    case 'en': return AppLocalizationsEn();
+    case 'de':
+      return AppLocalizationsDe();
+    case 'en':
+      return AppLocalizationsEn();
   }
 
   throw FlutterError(
-    'AppLocalizations.delegate failed to load unsupported locale "$locale". This is likely '
-    'an issue with the localizations generation tool. Please file an issue '
-    'on GitHub with a reproducible sample app and the gen-l10n configuration '
-    'that was used.'
-  );
+      'AppLocalizations.delegate failed to load unsupported locale "$locale". This is likely '
+      'an issue with the localizations generation tool. Please file an issue '
+      'on GitHub with a reproducible sample app and the gen-l10n configuration '
+      'that was used.');
 }

@@ -171,14 +171,14 @@ class _MealPageState extends State<MealPage> {
     }
   }
 
-  Future<void> _onWillPop(bool e) async => _onBack();
+  Future<void> _onWillPop(_, __) async => _onBack();
 
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<MealsBloc, MealsState>(
       builder: (context, state) {
         return PopScope(
-          onPopInvokedWithResult: (e, _) => _onWillPop,
+          onPopInvokedWithResult: _onWillPop,
           child: CustomScaffold.greenLighter(
             appBar: CustomAppBar.green(
               title: _appBarTitle,

@@ -16,24 +16,10 @@ import 'package:loopcare_frontend/features/reflections/presentation/widgets/refl
 import 'package:loopcare_frontend/localization/service/localization_extension.dart';
 import 'package:loopcare_frontend/localization/service/localized_texts.dart';
 
-class ReflectionsDashboardWidget extends StatefulWidget {
+class ReflectionsDashboardWidget extends StatelessWidget {
   final DateTime date;
-  final bool locked;
 
-  const ReflectionsDashboardWidget({super.key, required this.date, required this.locked});
-
-  @override
-  State<ReflectionsDashboardWidget> createState() => _ReflectionsDashboardWidgetState();
-}
-
-class _ReflectionsDashboardWidgetState extends State<ReflectionsDashboardWidget> {
-  bool onClick = false;
-
-  void toggleOnClick() {
-    setState(() {
-      onClick = !onClick;
-    });
-  }
+  const ReflectionsDashboardWidget({super.key, required this.date});
 
   void _onErrorHandler(BuildContext context) =>
       context.read<ReflectionsBloc>().add(const ReflectionsEvent.getReflections());
@@ -51,114 +37,66 @@ class _ReflectionsDashboardWidgetState extends State<ReflectionsDashboardWidget>
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             DashboardCardTitle(
-              onTap: () =>
-                  widget.locked ? context.router.push(const MyReflectionsRoute()) : toggleOnClick(),
-              highlightColor: widget.locked ? AppColors.petrolLightest : AppColors.white,
-              leadingIcon: widget.locked
-                  ? const CustomAppIcon.reflection()
-                  : const CustomAppIcon.reflectionGrey(),
-              title: widget.locked
-                  ? CustomText.bitter600(
-                      LocalizedTexts.reflections.tr(),
-                      style: context.textTheme.headlineSmall,
-                    )
-                  : CustomText.bitter400(
-                      LocalizedTexts.reflections.tr(),
-                      style: context.textTheme.headlineSmall,
-                    ),
-              actionIcon: widget.locked
-                  ? AppIcons.arrow
-                  : onClick
-                      ? const AssetImage(AppIcons.upArrow)
-                      : AppIcons.downArrow,
-              circleButton: widget.locked ? false : true,
+              onTap: () => context.router.push(const MyReflectionsRoute()),
+              highlightColor: AppColors.petrolLightest,
+              leadingIcon: const CustomAppIcon.reflection(),
+              title: CustomText.bitter600(
+                LocalizedTexts.reflections.tr(),
+                style: context.textTheme.headlineSmall,
+              ),
+              actionIcon: AppIcons.arrow,
+              circleButton: false,
             ),
-            widget.locked
-                ? const Divider(color: AppColors.blueLighter, indent: 8.0, endIndent: 8.0)
-                : const SizedBox(),
-            widget.locked
-                ? Container()
-                : Padding(
-                    padding: const EdgeInsets.all(12.0),
-                    child: Row(
-                      children: [
-                        AppIcons.lockGoals,
-                        const SizedBox(
-                          width: 36,
-                        ),
-                        SizedBox(
-                          width: 250,
-                          child: CustomText.w400(
-                            "${LocalizedTexts.featureUnlocksAtPool.tr()} #${LocalizedTexts.reflections.tr()}",
-                            style: const TextStyle(color: AppColors.blueDarker),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-            onClick
-                ? Container(
-                    margin: const EdgeInsets.only(left: 70),
-                    width: 250,
-                    child: CustomText.w400(
-                      maxLines: 10,
-                      LocalizedTexts.reflectionsDescription.tr(),
-                    ),
-                  )
-                : Container(),
-            widget.locked
-                ? BlocBuilder<ReflectionsBloc, ReflectionsState>(
-                    builder: (context, state) {
-                      final hasReflections = state.data.hasReflectionsForCurrentWeek(widget.date);
+            const Divider(color: AppColors.blueLighter, indent: 8.0, endIndent: 8.0),
+            BlocBuilder<ReflectionsBloc, ReflectionsState>(
+              builder: (context, state) {
+                final hasReflections = state.data.hasReflectionsForCurrentWeek(date);
 
-                      final selectedWeekReflections =
-                          state.data.getSelectedWeekUndoneReflections(widget.date);
+                final selectedWeekReflections = state.data.getSelectedWeekUndoneReflections(date);
 
-                      final doneTodayReflections =
-                          state.data.getSelectedDayDoneReflections(widget.date);
+                final doneTodayReflections = state.data.getSelectedDayDoneReflections(date);
 
-                      final showDivider =
-                          doneTodayReflections.isNotEmpty && selectedWeekReflections.isNotEmpty;
+                final showDivider =
+                    doneTodayReflections.isNotEmpty && selectedWeekReflections.isNotEmpty;
 
-                      return state.maybeMap(
-                        loading: (_) => const SizedBox(height: 100, child: Loader()),
-                        error: (errorState) {
-                          final error = errorState.data.error;
+                return state.maybeMap(
+                  loading: (_) => const SizedBox(height: 100, child: Loader()),
+                  error: (errorState) {
+                    final error = errorState.data.error;
 
-                          return ErrorScreen(
-                            error: error!,
-                            onButtonPressed: () => _onErrorHandler(context),
-                          );
-                        },
-                        orElse: () => Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                          child: hasReflections
-                              ? Column(
-                                  children: [
-                                    if (selectedWeekReflections.isNotEmpty)
-                                      ReflectionsList(
-                                        list: selectedWeekReflections,
-                                        title: LocalizedTexts.thisWeek.tr().capitalize(),
-                                        fromDashboard: true,
-                                      ),
-                                    if (showDivider) const Divider(color: AppColors.blueLighter),
-                                    if (doneTodayReflections.isNotEmpty)
-                                      ReflectionsList(
-                                        list: doneTodayReflections,
-                                        title: LocalizedTexts.doneToday.tr().capitalize(),
-                                        fromDashboard: true,
-                                      ),
-                                  ],
-                                )
-                              : CustomText.w400(
-                                  LocalizedTexts.allAssignmentsCompleted.tr(),
-                                  style: context.textTheme.bodyMedium,
+                    return ErrorScreen(
+                      error: error!,
+                      onButtonPressed: () => _onErrorHandler(context),
+                    );
+                  },
+                  orElse: () => Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                    child: hasReflections
+                        ? Column(
+                            children: [
+                              if (selectedWeekReflections.isNotEmpty)
+                                ReflectionsList(
+                                  list: selectedWeekReflections,
+                                  title: LocalizedTexts.thisWeek.tr().capitalize(),
+                                  fromDashboard: true,
                                 ),
-                        ),
-                      );
-                    },
-                  )
-                : const SizedBox(),
+                              if (showDivider) const Divider(color: AppColors.blueLighter),
+                              if (doneTodayReflections.isNotEmpty)
+                                ReflectionsList(
+                                  list: doneTodayReflections,
+                                  title: LocalizedTexts.doneToday.tr().capitalize(),
+                                  fromDashboard: true,
+                                ),
+                            ],
+                          )
+                        : CustomText.w400(
+                            LocalizedTexts.allAssignmentsCompleted.tr(),
+                            style: context.textTheme.bodyMedium,
+                          ),
+                  ),
+                );
+              },
+            ),
           ],
         ),
       ),

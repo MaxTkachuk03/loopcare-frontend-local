@@ -16,32 +16,18 @@ import 'package:loopcare_frontend/features/nutrition/application/meals/meals_blo
 import 'package:loopcare_frontend/localization/service/localization_extension.dart';
 import 'package:loopcare_frontend/localization/service/localized_texts.dart';
 
-class FoodLoggingDashboard extends StatefulWidget {
+class FoodLoggingDashboard extends StatelessWidget {
   final DateTime selectedDay;
-  final bool locked;
 
-  const FoodLoggingDashboard({super.key, required this.selectedDay, required this.locked});
-
-  @override
-  State<FoodLoggingDashboard> createState() => _FoodLoggingDashboardState();
-}
-
-class _FoodLoggingDashboardState extends State<FoodLoggingDashboard> {
-  bool onClick = false;
-
-  void toggleOnClick() {
-    setState(() {
-      onClick = !onClick;
-    });
-  }
+  const FoodLoggingDashboard({super.key, required this.selectedDay});
 
   void _onPressHandler(BuildContext context) => context.router.pushNamed(AppRoutes.dailyIntake);
 
   void onErrorHandler(BuildContext context) => context
       .read<MealsBloc>()
-      .add(MealsEvent.fetchMeals(startDate: widget.selectedDay, endDate: widget.selectedDay));
+      .add(MealsEvent.fetchMeals(startDate: selectedDay, endDate: selectedDay));
 
-  Color get _textColor => !widget.selectedDay.isFuture ? AppColors.blueDarker : AppColors.greyLabel;
+  Color get _textColor => !selectedDay.isFuture ? AppColors.blueDarker : AppColors.greyLabel;
 
   @override
   Widget build(BuildContext context) {
@@ -56,98 +42,46 @@ class _FoodLoggingDashboardState extends State<FoodLoggingDashboard> {
           child: Column(
             children: [
               DashboardCardTitle(
-                onTap: () {
-                  if (widget.locked) {
-                    _onPressHandler(context);
-                  } else {
-                    toggleOnClick();
-                  }
-                },
-                highlightColor: widget.locked ? AppColors.greenLightest : AppColors.white,
-                leadingIcon: widget.locked
-                    ? AppIcons.customDashboardLogMeals
-                    : AppIcons.customDashboardLogMealsGrey,
+                onTap: () => _onPressHandler(context),
+                highlightColor: AppColors.greenLightest,
+                leadingIcon: AppIcons.customDashboardLogMeals,
                 title: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    widget.locked
-                        ? CustomText.bitter600(
-                            LocalizedTexts.mealLog.tr(),
-                            style: context.textTheme.headlineSmall?.copyWith(color: _textColor),
-                          )
-                        : CustomText.bitter400(
-                            LocalizedTexts.mealLog.tr(),
-                            style: context.textTheme.headlineSmall?.copyWith(color: _textColor),
-                          ),
+                    CustomText.bitter600(
+                      LocalizedTexts.mealLog.tr(),
+                      style: context.textTheme.headlineSmall?.copyWith(color: _textColor),
+                    ),
                   ],
                 ),
-                actionIcon: widget.locked
-                    ? AppIcons.arrow
-                    : onClick
-                        ? const AssetImage(AppIcons.upArrow)
-                        : AppIcons.downArrow,
-                circleButton: widget.locked ? false : true,
-                editable: widget.locked ? true : !widget.selectedDay.isFuture,
+                actionIcon: AppIcons.arrow,
+                circleButton: false,
+                editable: !selectedDay.isFuture,
               ),
-              widget.locked
-                  ? Container()
-                  : BlocBuilder<AuthenticationBloc, AuthenticationState>(
-                      builder: (context, state) => state.data.isNutritionScalesLocked
-                          ? const SizedBox.shrink()
-                          : const Divider(color: AppColors.blueOffRegular),
-                    ),
-              widget.locked
-                  ? Container()
-                  : state.maybeMap(
-                      loading: (_) => const Loader(),
-                      error: (s) {
-                        final error = s.data.error;
+              BlocBuilder<AuthenticationBloc, AuthenticationState>(
+                builder: (context, state) => state.data.isNutritionScalesLocked
+                    ? const SizedBox.shrink()
+                    : const Divider(color: AppColors.blueOffRegular),
+              ),
+              state.maybeMap(
+                loading: (_) => const Loader(),
+                error: (s) {
+                  final error = s.data.error;
 
-                        return ErrorScreen(
-                            error: error!, onButtonPressed: () => onErrorHandler(context));
-                      },
-                      orElse: () => NutritionSummary(
-                        proteinDegree: state.data.selectedDayMealProteinDegreeSum,
-                        calorieDensity: state.data.selectedDayMealCalorieDensitySum,
-                        fiber: state.data.selectedDayMealFiber,
-                        carbFiberRatio: state.data.selectedDayMealCarbFiberRatio,
-                        carbsPercent: state.data.selectedDayMealCarbsPercent,
-                        totalCalories: state.data.selectedDayMealTotalCaloriesWithDrinks,
-                        totalCarbs: state.data.selectedDayMealTotalCarbs,
-                        showCaloriesTracker: false,
-                      ),
-                    ),
-              widget.locked
-                  ? Container()
-                  : Padding(
-                      padding: const EdgeInsets.all(12.0),
-                      child: Row(
-                        children: [
-                          AppIcons.lockGoals,
-                          const SizedBox(
-                            width: 36,
-                          ),
-                          SizedBox(
-                            width: 250,
-                            child: CustomText.w400(
-                              "${LocalizedTexts.featureUnlocksAtPool.tr()} #${LocalizedTexts.foodLog.tr()}",
-                              style: const TextStyle(color: AppColors.blueDarker),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-              onClick
-                  ? Container(
-                      width: 250,
-                      padding: const EdgeInsets.only(bottom: 10),
-                      child: CustomText.w400(
-                        maxLines: 10,
-                        LocalizedTexts.foodLogLockedDescription.tr(),
-                      ),
-                    )
-                  : Container(),
+                  return ErrorScreen(error: error!, onButtonPressed: () => onErrorHandler(context));
+                },
+                orElse: () => NutritionSummary(
+                  proteinDegree: state.data.selectedDayMealProteinDegreeSum,
+                  calorieDensity: state.data.selectedDayMealCalorieDensitySum,
+                  fiber: state.data.selectedDayMealFiber,
+                  carbFiberRatio: state.data.selectedDayMealCarbFiberRatio,
+                  carbsPercent: state.data.selectedDayMealCarbsPercent,
+                  totalCalories: state.data.selectedDayMealTotalCaloriesWithDrinks,
+                  totalCarbs: state.data.selectedDayMealTotalCarbs,
+                  showCaloriesTracker: false,
+                ),
+              ),
             ],
           ),
         );

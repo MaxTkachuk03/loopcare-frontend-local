@@ -27,34 +27,37 @@ class SelectFeedback extends StatelessWidget {
   Widget build(BuildContext context) {
     if (!hasFeedback || !hasAnswer) return const SizedBox.shrink();
 
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.stretch,
-      children: [
-        Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            CircleAvatar(
-              radius: 13,
-              backgroundColor: hasCorrectAnswer ? AppColors.greenRegular : AppColors.red,
-              child: Icon(
-                hasCorrectAnswer ? Icons.check : Icons.close,
-                color: AppColors.white,
-                size: 16,
+    return Padding(
+      padding: const EdgeInsets.only(top: 28),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              CircleAvatar(
+                radius: 13,
+                backgroundColor: hasCorrectAnswer ? AppColors.greenRegular : AppColors.red,
+                child: Icon(
+                  hasCorrectAnswer ? Icons.check : Icons.close,
+                  color: AppColors.white,
+                  size: 16,
+                ),
               ),
-            ),
-            const SizedBox(width: 16.0),
-            CustomText.bitter600(feedbackTitle, style: context.textTheme.bodyLarge),
-          ],
-        ),
-        const SizedBox(height: 12),
-        CustomText(
-          hasCorrectAnswer
-              ? component.content.feedbackCorrect ?? ''
-              : component.content.feedbackIncorrect ?? '',
-          textAlign: TextAlign.left,
-          style: context.textTheme.bodyMedium,
-        ),
-      ],
+              const SizedBox(width: 16.0),
+              CustomText.bitter600(feedbackTitle, style: context.textTheme.bodyLarge),
+            ],
+          ),
+          const SizedBox(height: 12),
+          CustomText(
+            hasCorrectAnswer
+                ? component.content.feedbackCorrect ?? ''
+                : component.content.feedbackIncorrect ?? '',
+            textAlign: TextAlign.left,
+            style: context.textTheme.bodyMedium,
+          ),
+        ],
+      ),
     );
   }
 }

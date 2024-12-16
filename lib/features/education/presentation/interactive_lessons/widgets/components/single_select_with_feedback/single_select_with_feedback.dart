@@ -22,12 +22,12 @@ class SingleSelectWithFeedback extends StatefulWidget {
 
   final InteractiveLessonChunkComponentSingleSelectWithFeedback component;
   final RiverModuleStreamType lessonStreamType;
-  final Function(InteractiveLessonComponentProgress progress,
-      InteractiveLessonChunkComponent component) onSaveProgress;
+  final Function(
+          InteractiveLessonComponentProgress progress, InteractiveLessonChunkComponent component)
+      onSaveProgress;
 
   @override
-  State<SingleSelectWithFeedback> createState() =>
-      _SingleSelectWithFeedbackState();
+  State<SingleSelectWithFeedback> createState() => _SingleSelectWithFeedbackState();
 }
 
 class _SingleSelectWithFeedbackState extends State<SingleSelectWithFeedback> {
@@ -39,9 +39,7 @@ class _SingleSelectWithFeedbackState extends State<SingleSelectWithFeedback> {
     super.initState();
     if (widget.component.progress == null) return;
     final optionId = widget.component.progress!.optionIds!.first;
-    final answer = widget.component.content.answers
-        .where((answer) => answer.id == optionId)
-        .first;
+    final answer = widget.component.content.answers.where((answer) => answer.id == optionId).first;
     _selectedAnswer.add(answer.id);
     _answerForFeedback = answer;
   }
@@ -74,8 +72,7 @@ class _SingleSelectWithFeedbackState extends State<SingleSelectWithFeedback> {
         const SizedBox(height: 20),
         CustomText(
           content.question,
-          style: context.textTheme.bodyMedium!
-              .copyWith(fontWeight: FontWeight.w700),
+          style: context.textTheme.bodyMedium!.copyWith(fontWeight: FontWeight.w700),
         ),
         const SizedBox(height: 20),
         ListView.separated(
@@ -87,17 +84,15 @@ class _SingleSelectWithFeedbackState extends State<SingleSelectWithFeedback> {
             final answer = content.answers[index];
             final isSelected = answer == _answerForFeedback;
 
-            return CustomChoiceChip.blue(
+            return CustomChoiceChip.green(
               label: answer.label,
               selected: isSelected,
               value: answer,
               onSelected: _onSelected,
-              isSingle: true,
             );
           },
         ),
-        SelectFeedback(
-            component: widget.component, selectedAnswer: _answerForFeedback),
+        SelectFeedback(component: widget.component, selectedAnswer: _answerForFeedback),
       ],
     );
   }
