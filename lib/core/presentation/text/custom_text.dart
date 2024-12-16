@@ -184,6 +184,7 @@ class CustomText extends StatelessWidget {
       overflow: overflow,
       style: style,
       maxLines: maxLines,
+      softWrap: true,
     );
   }
 }

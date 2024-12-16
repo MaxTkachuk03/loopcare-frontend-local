@@ -21,9 +21,8 @@ class MultipleSelect extends StatefulWidget {
 
   final InteractiveLessonChunkComponentMultipleSelect component;
   final RiverModuleStreamType lessonStreamType;
-  final Function(
-          InteractiveLessonComponentProgress progress, InteractiveLessonChunkComponent component)
-      onSaveProgress;
+  final Function(InteractiveLessonComponentProgress progress,
+      InteractiveLessonChunkComponent component) onSaveProgress;
 
   @override
   State<MultipleSelect> createState() => _MultipleSelectState();
@@ -67,7 +66,8 @@ class _MultipleSelectState extends State<MultipleSelect> {
     final order = _selectedAnswers.map((o) => o.id).toList();
 
     widget.onSaveProgress(
-        InteractiveLessonComponentProgress(optionIds: order, type: widget.component.type.name),
+        InteractiveLessonComponentProgress(
+            optionIds: order, type: widget.component.type.name),
         widget.component);
 
     setState(() {
@@ -89,7 +89,8 @@ class _MultipleSelectState extends State<MultipleSelect> {
         const SizedBox(height: 20),
         CustomText(
           content.question,
-          style: context.textTheme.bodyMedium!.copyWith(fontWeight: FontWeight.w700),
+          style: context.textTheme.bodyMedium!
+              .copyWith(fontWeight: FontWeight.w700),
         ),
         const SizedBox(height: 20),
         ListView.separated(
@@ -101,7 +102,7 @@ class _MultipleSelectState extends State<MultipleSelect> {
             final answer = content.answers[index];
             final isSelected = _selectedAnswers.contains(answer);
 
-            return CustomChoiceChip.blue(
+            return CustomChoiceChip.green(
               label: answer.label,
               selected: isSelected,
               value: answer,
