@@ -19,9 +19,8 @@ import 'package:loopcare_frontend/features/education/domain/interactive_lesson/i
 class CustomReorderableList extends StatefulWidget {
   final InteractiveLessonChunkComponentOrdering component;
   final RiverModuleStreamType lessonStreamType;
-  final Function(
-          InteractiveLessonComponentProgress progress, InteractiveLessonChunkComponent component)
-      onSaveProgress;
+  final Function(InteractiveLessonComponentProgress progress,
+      InteractiveLessonChunkComponent component) onSaveProgress;
 
   const CustomReorderableList({
     super.key,
@@ -77,20 +76,21 @@ class _CustomReorderableListState extends State<CustomReorderableList> {
         newIndex -= 1;
       }
 
-      widget.component.content.updateOrder(oldIndex, newIndex);
+      content.updateOrder(oldIndex, newIndex);
     });
   }
 
   void _onShowAnswerHandler() {
+    final rightOrder = _onGetOrder();
+
     setState(() {
-      widget.component.content.items.sort((a, b) => a.order.compareTo(b.order));
+      content.items.sort((a, b) => a.order.compareTo(b.order));
       _showOrderValidation = true;
     });
 
-    final rightOrder = _onGetOrder();
-
     widget.onSaveProgress(
-        InteractiveLessonComponentProgress(optionIds: rightOrder, type: widget.component.type.name),
+        InteractiveLessonComponentProgress(
+            optionIds: rightOrder, type: widget.component.type.name),
         widget.component);
   }
 
@@ -108,7 +108,8 @@ class _CustomReorderableListState extends State<CustomReorderableList> {
     if (!isOrderRight) return;
 
     widget.onSaveProgress(
-        InteractiveLessonComponentProgress(optionIds: order, type: widget.component.type.name),
+        InteractiveLessonComponentProgress(
+            optionIds: order, type: widget.component.type.name),
         widget.component);
   }
 
@@ -129,7 +130,7 @@ class _CustomReorderableListState extends State<CustomReorderableList> {
   }
 
   List<int> _onGetOrder() {
-    return widget.component.content.items.map((o) => o.order).toList();
+    return content.correctOrder;
   }
 
   @override
@@ -153,18 +154,22 @@ class _CustomReorderableListState extends State<CustomReorderableList> {
             children: items.asMap().entries.map((entry) {
               int index = entry.key;
               ContentOrderingItem item = entry.value;
-              final bool isValid = index == item.order;
-
+              final bool isValid = content.correctOrder[index] == item.order;
+              
               return Card(
                 key: ValueKey(item.id),
                 shape: getShape(isValid),
                 child: ListTile(
                   leading: item.src.isNotEmpty
-                      ? Image.network(item.src) // Load network image if src exists
+                      ? Image.network(
+                          item.src) // Load network image if src exists
                       : const Image(image: AppImages.logo),
-                  title: CustomText.w700(item.title, style: context.textTheme.bodyMedium),
-                  subtitle: CustomText(item.description, style: context.textTheme.bodyMedium),
-                  trailing: const Icon(Icons.drag_handle, color: AppColors.greenLighter),
+                  title: CustomText.w700(item.title,
+                      style: context.textTheme.bodyMedium),
+                  subtitle: CustomText(item.description,
+                      style: context.textTheme.bodyMedium),
+                  trailing: const Icon(Icons.drag_handle,
+                      color: AppColors.greenLighter),
                 ),
               );
             }).toList(),
