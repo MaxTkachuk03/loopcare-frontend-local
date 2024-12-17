@@ -28,5 +28,8 @@ class SubscriptionV2StateData with _$SubscriptionV2StateData {
     @Default('') String label,
     @Default('') String subText,
     @Default([]) List<SubscriptionPlanV2> plans,
+    @Default(0) int checkedId,
+    @Default(false) bool onChecked,
+    @Default([]) List<SubscriptionPlanContentV2> content,
   }) = _SubscriptionV2StateData;
 }

@@ -1,6 +1,8 @@
 part of 'themes.dart';
 
 class AppColors {
+  AppColors._();
+
   static const Color black = Color(0xFF090A0A); //text
 
   static const Color darkGreen = Color(0xFF324429);
@@ -161,5 +163,34 @@ class AppColors {
   static const Color lq3 = Color(0xFFD33117);
   static const Color lq4 = Color(0xFFC70E07);
 
-  AppColors._();
+  // Subscription
+
+  static const mostPopular = LinearGradient(
+      begin: Alignment.centerLeft,
+      end: Alignment.centerRight,
+      colors: [
+        Color(0xFFC6C6C6), // 0%
+        Color(0xFFDFDFDF), // 18%
+        Color(0xFF858585), // 100%
+      ],
+      stops: [
+        0.0,
+        0.18,
+        1.0
+      ]);
+
+  static const Color limitedOfferBackground = Color(0xFFF4F0EB);
+  static const limitedOffer = LinearGradient(
+      begin: Alignment.centerLeft,
+      end: Alignment.centerRight,
+      colors: [
+        Color(0xFFF0E1B6), // 0%
+        Color(0xFFFFF4D7), // 18%
+        Color(0xFFBF963A), // 100%
+      ],
+      stops: [
+        0.0,
+        0.18,
+        1.0
+      ]);
 }

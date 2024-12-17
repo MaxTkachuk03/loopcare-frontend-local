@@ -16,15 +16,15 @@ const subscriptions = {
       "content": [
         {
           "id": 1,
-          "text": "Use the app for 2 weeks free",
+          "text": "· Use the app for 2 weeks free",
         },
         {
           "id": 2,
-          "text": "Then billed \$ 40 monthly",
+          "text": "· Then billed \$ 40 monthly",
         },
         {
           "id": 3,
-          "text": "No long term commitment",
+          "text": "· No long term commitment",
         },
       ],
     },
@@ -39,15 +39,15 @@ const subscriptions = {
       "content": [
         {
           "id": 1,
-          "text": "Use the app for 2 weeks free",
+          "text": "· Use the app for 2 weeks free",
         },
         {
           "id": 2,
-          "text": "Then billed \$ 90 quarterly",
+          "text": "· Then billed \$ 90 quarterly",
         },
         {
           "id": 3,
-          "text": "Renewed every 3 month",
+          "text": "· Renewed every 3 month",
         },
       ],
     },
@@ -62,15 +62,15 @@ const subscriptions = {
       "content": [
         {
           "id": 1,
-          "text": "Use the app for 2 weeks free",
+          "text": "· Use the app for 2 weeks free",
         },
         {
           "id": 2,
-          "text": "Then billed \$ 240 annually",
+          "text": "· Then billed \$ 240 annually",
         },
         {
           "id": 3,
-          "text": "Renewed annually",
+          "text": "· Renewed annually",
         },
       ],
     },
@@ -85,15 +85,15 @@ const subscriptions = {
       "content": [
         {
           "id": 1,
-          "text": "Use the app for 2 weeks free",
+          "text": "· Use the app for 2 weeks free",
         },
         {
           "id": 2,
-          "text": "Then billed \$ 120",
+          "text": "· Then billed \$ 120",
         },
         {
           "id": 3,
-          "text": "Renewed annually",
+          "text": "· Renewed annually",
         },
       ],
     },
