@@ -45,8 +45,7 @@ class CustomChoiceChip<T> extends StatelessWidget {
     this.borderRadius,
     this.isCorrect,
   }) : assert(
-          (label == null && accent != null) ||
-              (label != null && accent == null),
+          (label == null && accent != null) || (label != null && accent == null),
         );
 
   factory CustomChoiceChip.coral({
@@ -202,11 +201,9 @@ class CustomChoiceChip<T> extends StatelessWidget {
     return Theme(
       data: Theme.of(context).copyWith(canvasColor: AppColors.transparent),
       child: ChoiceChip(
-        padding: padding ??
-            const EdgeInsets.symmetric(horizontal: 15.0, vertical: 10.0),
+        padding: padding ?? const EdgeInsets.symmetric(horizontal: 15.0, vertical: 10.0),
         shape: RoundedRectangleBorder(
-            borderRadius:
-                BorderRadius.all(Radius.circular(borderRadius ?? 25))),
+            borderRadius: BorderRadius.all(Radius.circular(borderRadius ?? 25))),
         label: SizedBox(
           height: chipHeight ?? 35,
           child: Row(
@@ -221,11 +218,9 @@ class CustomChoiceChip<T> extends StatelessWidget {
                         maxLines: 3,
                         textAlign: textAlign ?? TextAlign.start,
                         style: selected
-                            ? context.textTheme.bodySmall?.copyWith(
-                                fontWeight: FontWeight.w600,
-                                color: selectedTextColor)
-                            : context.textTheme.bodySmall
-                                ?.copyWith(fontWeight: FontWeight.w400),
+                            ? context.textTheme.bodySmall
+                                ?.copyWith(fontWeight: FontWeight.w600, color: selectedTextColor)
+                            : context.textTheme.bodySmall?.copyWith(fontWeight: FontWeight.w400),
                         overflow: TextOverflow.visible,
                       ),
               ),
@@ -237,8 +232,9 @@ class CustomChoiceChip<T> extends StatelessWidget {
         onSelected: onSelected == null ? null : (_) => onSelected?.call(value),
         selectedColor: selectedColor,
         disabledColor: AppColors.greyLight,
-        side: ChipTheme.of(context).side?.copyWith(
-            color: onSelected == null ? AppColors.greyLight : borderColor),
+        side: ChipTheme.of(context)
+            .side
+            ?.copyWith(color: onSelected == null ? AppColors.greyLight : borderColor),
         color: WidgetStateProperty.resolveWith((states) {
           const Set<WidgetState> interactiveStates = <WidgetState>{
             WidgetState.pressed,

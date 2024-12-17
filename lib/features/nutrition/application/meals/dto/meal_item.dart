@@ -63,7 +63,7 @@ class MealItem with _$MealItem {
       log.d('Parsed name: $name');
 
       final type = MealItemType.values.firstWhere(
-            (e) => e.toString().split('.').last == json['type'],
+        (e) => e.toString().split('.').last == json['type'],
         orElse: () => throw Exception('Invalid type value: ${json['type']}'),
       );
       log.d('Parsed type: $type');

@@ -264,17 +264,21 @@ class InteractiveLessonChunkComponent with _$InteractiveLessonChunkComponent {
           );
 
         case 'textArea':
+          // Safely parse content first
+          final content = json['content']?['content'] != null
+              ? TextFieldContent.fromJson(json['content']?['content'] as Map<String, dynamic>)
+              : null;
           return InteractiveLessonChunkComponent.textArea(
             id: id,
             type: InteractiveLessonComponentType.textArea,
             needsValidation: needsValidation,
             isValid: isValid,
-            content: TextFieldContent.fromJson(json['content']['content'] as Map<String, dynamic>),
+            content: content ?? TextFieldContent.empty(),
             chunkId: chunkId,
             progress: progress,
-            maxCharsLength: json['maxCharsLength'] as int? ?? 500, // Default to 500 if null
-            maxTextFieldsAmount: json['maxTextFieldsAmount'] as int? ?? 5, // Default to 5 if null
-            minTextFieldsAmount: json['minTextFieldsAmount'] as int? ?? 1, // Default to 1 if null
+            maxCharsLength: content?.maxCharsLength ?? 500,
+            maxTextFieldsAmount: content?.maxTextFieldsAmount ?? 5, // Default to 5 if null
+            minTextFieldsAmount: content?.minTextFieldsAmount ?? 1, // Default to 1 if null
           );
 
         case 'textField':

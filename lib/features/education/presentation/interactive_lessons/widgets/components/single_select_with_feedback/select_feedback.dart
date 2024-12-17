@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:loopcare_frontend/core/presentation/text/custom_text.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
@@ -30,6 +32,9 @@ class SelectFeedback extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
+        SizedBox(
+          height: Platform.isAndroid ? 10 : 0,
+        ),
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [

@@ -23,6 +23,7 @@ class ChunksList extends StatefulWidget {
 
 class _ChunksListState extends State<ChunksList> {
   ScrollController scrollController = ScrollController();
+  final GlobalKey widgetKey = GlobalKey();
 
   List<Widget> _renderChunk(InteractiveLessonsStateData blocState, InteractiveLessonChunk chunk) {
     final components = blocState.getChunkComponents(chunk);
@@ -51,8 +52,8 @@ class _ChunksListState extends State<ChunksList> {
     final blocState = bloc.state.data;
     final lessonStreamType = RiverModuleStreamType.getLessonStreamType(blocState.type);
 
-    final allChunksOnThePage = blocState.chunks.values.where((ch) => ch.pageId == blocState.activePage!.id);
-
+    final allChunksOnThePage =
+        blocState.chunks.values.where((ch) => ch.pageId == blocState.activePage!.id);
 
     final allComponentsOnPage = blocState.components.values.where((c) {
       return allChunksOnThePage.any((ch) => ch.id == c.chunkId);
@@ -155,14 +156,30 @@ class _ChunksListState extends State<ChunksList> {
     WidgetsBinding.instance.addPostFrameCallback((_) async {
       if (!scrollController.hasClients || !mounted) return;
 
+      await Future.delayed(const Duration(milliseconds: 100));
+
+      if (!mounted) return;
+
+      final double chunkHeight = calculateDynamicHeight();
+      if (chunkHeight == 0.0) return;
+
+      final double newScrollPosition =
+          betweenChunks ? scrollController.position.pixels + chunkHeight - 90.0 : 0.0;
+
       await scrollController.animateTo(
-        betweenChunks ? scrollController.position.pixels + 250 : 0.0,
+        newScrollPosition,
         duration: const Duration(seconds: 1),
         curve: Curves.easeOut,
       );
 
       if (!scrollController.hasClients || !mounted) return;
     });
+  }
+
+  double calculateDynamicHeight() {
+    final RenderBox? box = widgetKey.currentContext?.findRenderObject() as RenderBox?;
+
+    return box?.size.height ?? 0.0;
   }
 
   @override
@@ -178,6 +195,7 @@ class _ChunksListState extends State<ChunksList> {
             canPop: state.data.activePageIndex == 0,
             onPopInvokedWithResult: (canPop, _) => _onWillPop(context, canPop),
             child: ListView.separated(
+              key: widgetKey,
               controller: scrollController,
               shrinkWrap: true,
               padding: const EdgeInsets.only(top: 20),

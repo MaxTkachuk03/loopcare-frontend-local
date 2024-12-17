@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:loopcare_frontend/features/nutrition/application/meals/dto/meals_list_item.dart';
 import 'package:loopcare_frontend/core/infrastructure/services/logger/logger.dart';
@@ -30,49 +28,30 @@ class MealTimingContent with _$MealTimingContent {
       // flutter side per component
 
       final rawMeals = json['injected'];
-      // Safely handle stringified JSON or null
       List<dynamic> mealsList = [];
 
+// Handle the case where injected meals are already a List or null
       if (rawMeals != null) {
-        try {
-          if (rawMeals is String) {
-            // Decode the stringified JSON
-            mealsList = jsonDecode(rawMeals) as List<dynamic>;
-            log.d('Decoded mealsList: $mealsList');
-          } else if (rawMeals is List<dynamic>) {
-            // Handle case where it is already a List
-            mealsList = rawMeals;
-          } else {
-            log.e('Unexpected type for rawMeals: ${rawMeals.runtimeType}');
-          }
-        } catch (e) {
-          log.e('Error decoding injected meals: $e');
+        if (rawMeals is List<dynamic>) {
+          mealsList = rawMeals;
+          log.d('Injected meals as List: $mealsList');
+        } else {
+          log.e('Unexpected type for rawMeals: ${rawMeals.runtimeType}');
+          throw Exception('Injected meals must be a List<dynamic>');
         }
       } else {
         log.d('Injected meals is null');
       }
 
-// Now you can map the mealsList to your model
-      final parsedMeals = mealsList
-          .map((meal) => MealsListItem.debugFromJson(meal as Map<String, dynamic>))
-          .toList();
+// Now map mealsList to your model
+      final parsedMeals =
+          mealsList.map((meal) => MealsListItem.fromJson(meal as Map<String, dynamic>)).toList();
 
-      log.d('parsedMeals field: $parsedMeals');
-
-      final meals = parsedMeals.map((e) {
-        if (e is Map<String, dynamic>) {
-          log.d('Raw meal item: $e');
-          return MealsListItem.debugFromJson(e as Map<String, dynamic>);
-        } else {
-          log.d('Meal item already parsed: $e');
-          return e; // Already deserialized
-        }
-      }).toList();
-      log.d('Parsed meals: $meals');
+      log.d('Parsed meals: $parsedMeals');
 
       return MealTimingContent(
         question: question,
-        meals: meals,
+        meals: parsedMeals,
       );
     } catch (e, stackTrace) {
       log.e('Error in MealTimingContent.debugFromJson: $e');

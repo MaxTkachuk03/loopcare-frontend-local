@@ -77,7 +77,7 @@ class APIEducationService implements EducationService {
 
     try {
       final response = await client.get(
-        '/education/interactive-lessons/$lessonId',
+        '/education/interactive-lessons/10001',
         fromJson: InteractiveLesson.debugFromJson,
       );
       log.d('Raw Response: response');

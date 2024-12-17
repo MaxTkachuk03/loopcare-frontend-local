@@ -116,14 +116,12 @@ class MealsListItem with _$MealsListItem {
 
       final rawMealItems = json['mealItems'] as List<dynamic>? ?? [];
       log.d('Raw mealItems: $rawMealItems');
-      final mealItems = rawMealItems
-          .map((e) => MealItem.debugFromJson(e as Map<String, dynamic>))
-          .toList();
+      final mealItems =
+          rawMealItems.map((e) => MealItem.debugFromJson(e as Map<String, dynamic>)).toList();
       log.d('Parsed mealItems: $mealItems');
 
-      final loggingDate = json['loggingDate'] != null
-          ? DateTime.tryParse(json['loggingDate'] as String)
-          : null;
+      final loggingDate =
+          json['loggingDate'] != null ? DateTime.tryParse(json['loggingDate'] as String) : null;
       log.d('Parsed loggingDate: $loggingDate');
 
       final mealCategory = json['mealCategory'] as String? ?? '';
