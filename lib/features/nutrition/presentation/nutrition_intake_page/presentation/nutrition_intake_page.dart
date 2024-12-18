@@ -54,9 +54,7 @@ class _NutritionIntakePageState extends State<NutritionIntakePage> {
       builder: (context, nutritionState) {
         isSwitched = context.read<NutritionIntakeBloc>().state.data.isDayClosed;
         final isCompleted =
-            nutritionState.data.progress.any((c) => c.isCompleted == true);
-        // print("progress: ${nutritionState.data.progress}");
-        // print("isSwitched: $isSwitched");
+            nutritionState.data.progress.any((c) => c.isLessonFinished == true);
         return BlocBuilder<MealsBloc, MealsState>(
           builder: (context, mealState) {
             final isAddFood =

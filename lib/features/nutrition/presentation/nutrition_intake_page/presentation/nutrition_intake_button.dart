@@ -49,17 +49,15 @@ class NutritionIntakeButton extends StatelessWidget {
     context.router.push(const MealRoute());
   }
 
-  void _goToNutritionTest(BuildContext context) {
+  void _goToNutritionTest(BuildContext context, int lessonId) {
     if (mealId != null &&
         category.title.toLowerCase().contains('snacks'.toLowerCase())) {
-      context
-          .read<InteractiveLessonsBloc>()
-          .add(const InteractiveLessonsEvent.getInteractiveLesson(lessonId: 2));
+      context.read<InteractiveLessonsBloc>().add(
+          InteractiveLessonsEvent.getInteractiveLesson(lessonId: lessonId));
     } else {
       // TODO: delete bloc init after connecting to backend
-      context
-          .read<InteractiveLessonsBloc>()
-          .add(const InteractiveLessonsEvent.getInteractiveLesson(lessonId: 1));
+      context.read<InteractiveLessonsBloc>().add(
+          InteractiveLessonsEvent.getInteractiveLesson(lessonId: lessonId));
     }
 
     context.read<MealsBloc>().add(MealsEvent.setMealId(mealId!, category));
@@ -79,7 +77,7 @@ class NutritionIntakeButton extends StatelessWidget {
     final bool isThisCategory = (mealId != null &&
         category.title.toLowerCase().contains(text.toLowerCase()));
 
-    final bool isCompleted = progress?.isCompleted == true;
+    final bool isCompleted = progress?.isLessonFinished == true;
     return Column(
       crossAxisAlignment: CrossAxisAlignment.center,
       mainAxisAlignment: MainAxisAlignment.start,
@@ -88,7 +86,7 @@ class NutritionIntakeButton extends StatelessWidget {
         GestureDetector(
           onTap: () {
             mealId != null && calorieDensity != null
-                ? _goToNutritionTest(context)
+                ? _goToNutritionTest(context, progress!.iLessonId)
                 : _onTapHandler(context);
           },
           child: Container(
