@@ -39,75 +39,72 @@ class SubscriptionPageV2Item extends StatelessWidget {
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: [
-        if (status.isNotEmpty)
-          StatusItem(width: width, isLimited: isLimited, status: status),
-        Container(
-          margin: EdgeInsets.only(bottom: isLimited ? 0 : 20.0),
-          padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0),
-          decoration: BoxDecoration(
-              color: isChecked
-                  ? isLimited
-                      ? AppColors.limitedOfferBackground
-                      : AppColors.greyDisable
-                  : AppColors.white,
-              borderRadius: status.isNotEmpty
-                  ? const BorderRadius.vertical(bottom: Radius.circular(16.0))
-                  : BorderRadius.circular(16.0),
-              boxShadow: const [
-                BoxShadow(
-                  color: AppColors.black,
-                  offset: Offset(0, 4),
-                  blurRadius: 4,
+        if (status.isNotEmpty) StatusItem(width: width, isLimited: isLimited, status: status),
+        GestureDetector(
+          onTap: onPressed,
+          child: Container(
+            margin: EdgeInsets.only(bottom: isLimited ? 0 : 20.0),
+            padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0),
+            decoration: BoxDecoration(
+                color: isChecked
+                    ? isLimited
+                        ? AppColors.limitedOfferBackground
+                        : AppColors.greyDisable
+                    : AppColors.white,
+                borderRadius: status.isNotEmpty
+                    ? const BorderRadius.vertical(bottom: Radius.circular(16.0))
+                    : BorderRadius.circular(16.0),
+                boxShadow: const [
+                  BoxShadow(
+                    color: AppColors.black,
+                    offset: Offset(0, 4),
+                    blurRadius: 4,
+                  ),
+                  BoxShadow(
+                    color: AppColors.black,
+                    offset: Offset(0, 4),
+                    blurRadius: 16,
+                  ),
+                ]),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                IconButton(
+                  onPressed: onPressed,
+                  icon: isChecked ? const _CustomIcon() : const Icon(Icons.circle_outlined),
+                  iconSize: 24.0,
+                  color: AppColors.blueRegular,
                 ),
-                BoxShadow(
-                  color: AppColors.black,
-                  offset: Offset(0, 4),
-                  blurRadius: 16,
+                Expanded(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          CustomText.w700(title, style: context.textTheme.bodyMedium),
+                          const Spacer(),
+                          CustomText.w700('\$${price.toInt()}/month',
+                              style: context.textTheme.bodyLarge?.copyWith(fontSize: 20)),
+                        ],
+                      ),
+                      if (savings > 0) SavingItem(savings: savings, index: index),
+                      const SizedBox(height: 4.0),
+                      if (isChecked)
+                        CheckedItem(
+                          index: index,
+                          contentLength: contentLength,
+                          content: content,
+                        )
+                    ],
+                  ),
                 ),
-              ]),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.start,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              IconButton(
-                onPressed: onPressed,
-                icon: isChecked
-                    ? const _CustomIcon()
-                    : const Icon(Icons.circle_outlined),
-                iconSize: 24.0,
-                color: AppColors.blueRegular,
-              ),
-              Expanded(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        CustomText.w700(title,
-                            style: context.textTheme.bodyMedium),
-                        const Spacer(),
-                        CustomText.w700('\$${price.toInt()}/month',
-                            style: context.textTheme.bodyLarge
-                                ?.copyWith(fontSize: 20)),
-                      ],
-                    ),
-                    if (savings.isEven)
-                      SavingItem(savings: savings, index: index),
-                    const SizedBox(height: 4.0),
-                    if (isChecked)
-                      CheckedItem(
-                        index: index,
-                        contentLength: contentLength,
-                        content: content,
-                      )
-                  ],
-                ),
-              ),
-            ],
+              ],
+            ),
           ),
         ),
       ],

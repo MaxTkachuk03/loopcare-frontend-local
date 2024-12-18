@@ -35,7 +35,7 @@ const subscriptions = {
       "price": 30,
       "savings": 25,
       "status": "",
-      "title": "Monthly Plan",
+      "title": "Quarterly Plan",
       "content": [
         {
           "id": 1,
