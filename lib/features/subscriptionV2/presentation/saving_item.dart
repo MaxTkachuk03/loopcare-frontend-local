@@ -8,10 +8,12 @@ class SavingItem extends StatelessWidget {
     super.key,
     required this.savings,
     required this.index,
+    required this.isLimited,
   });
 
   final int savings;
   final int index;
+  final bool isLimited;
 
   @override
   Widget build(BuildContext context) {
@@ -21,7 +23,9 @@ class SavingItem extends StatelessWidget {
         Container(
           padding: const EdgeInsets.symmetric(horizontal: 15.0, vertical: 2.0),
           decoration: BoxDecoration(
-            color: AppColors.greenLight,
+            color: isLimited
+                ? AppColors.limitedOffersavingColor
+                : AppColors.savingColor,
             borderRadius: BorderRadius.circular(4.0),
           ),
           child: CustomText.w700('Save $savings%',

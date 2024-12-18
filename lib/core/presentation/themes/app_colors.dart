@@ -164,7 +164,7 @@ class AppColors {
   static const Color lq4 = Color(0xFFC70E07);
 
   // Subscription
-
+  static const Color savingColor = Color(0xFF5DC07C);
   static const mostPopular = LinearGradient(
       begin: Alignment.centerLeft,
       end: Alignment.centerRight,
@@ -180,6 +180,7 @@ class AppColors {
       ]);
 
   static const Color limitedOfferBackground = Color(0xFFF4F0EB);
+  static const Color limitedOffersavingColor = Color(0xFFE0C98E);
   static const limitedOffer = LinearGradient(
       begin: Alignment.centerLeft,
       end: Alignment.centerRight,

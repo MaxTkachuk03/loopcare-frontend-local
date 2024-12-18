@@ -9,11 +9,15 @@ class StatusItem extends StatelessWidget {
     required this.width,
     required this.isLimited,
     required this.status,
+    required this.isChecked,
+    required this.borderSide,
   });
 
   final double width;
   final bool isLimited;
   final String status;
+  final bool isChecked;
+  final BorderSide borderSide;
 
   @override
   Widget build(BuildContext context) {
@@ -21,6 +25,9 @@ class StatusItem extends StatelessWidget {
       width: width,
       padding: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 4.0),
       decoration: BoxDecoration(
+          border: isChecked
+              ? Border(top: borderSide, left: borderSide, right: borderSide)
+              : null,
           borderRadius: const BorderRadius.vertical(top: Radius.circular(16.0)),
           gradient: isLimited ? AppColors.limitedOffer : AppColors.mostPopular),
       child: Column(

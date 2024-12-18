@@ -34,18 +34,42 @@ class SubscriptionPageV2Item extends StatelessWidget {
   final int contentLength;
   final List<SubscriptionPlanContentV2> content;
 
+  static const borderSide =
+      BorderSide(color: AppColors.blueRegular, width: 3.0);
+
+  static const shadow = BoxShadow(
+    color: AppColors.greyLighter,
+    offset: Offset(0, 4),
+    blurRadius: 4,
+  );
+
   @override
   Widget build(BuildContext context) {
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: [
-        if (status.isNotEmpty) StatusItem(width: width, isLimited: isLimited, status: status),
+        if (status.isNotEmpty)
+          StatusItem(
+            width: width,
+            isLimited: isLimited,
+            status: status,
+            isChecked: isChecked,
+            borderSide: borderSide,
+          ),
         GestureDetector(
           onTap: onPressed,
           child: Container(
             margin: EdgeInsets.only(bottom: isLimited ? 0 : 20.0),
-            padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0),
+            padding:
+                const EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0),
             decoration: BoxDecoration(
+                border: isChecked
+                    ? Border(
+                        bottom: borderSide,
+                        left: borderSide,
+                        right: borderSide,
+                        top: status.isNotEmpty ? BorderSide.none : borderSide)
+                    : null,
                 color: isChecked
                     ? isLimited
                         ? AppColors.limitedOfferBackground
@@ -54,18 +78,7 @@ class SubscriptionPageV2Item extends StatelessWidget {
                 borderRadius: status.isNotEmpty
                     ? const BorderRadius.vertical(bottom: Radius.circular(16.0))
                     : BorderRadius.circular(16.0),
-                boxShadow: const [
-                  BoxShadow(
-                    color: AppColors.black,
-                    offset: Offset(0, 4),
-                    blurRadius: 4,
-                  ),
-                  BoxShadow(
-                    color: AppColors.black,
-                    offset: Offset(0, 4),
-                    blurRadius: 16,
-                  ),
-                ]),
+                boxShadow: const [shadow, shadow]),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.center,
@@ -73,7 +86,9 @@ class SubscriptionPageV2Item extends StatelessWidget {
               children: [
                 IconButton(
                   onPressed: onPressed,
-                  icon: isChecked ? const _CustomIcon() : const Icon(Icons.circle_outlined),
+                  icon: isChecked
+                      ? const _CustomIcon()
+                      : const Icon(Icons.circle_outlined),
                   iconSize: 24.0,
                   color: AppColors.blueRegular,
                 ),
@@ -86,13 +101,20 @@ class SubscriptionPageV2Item extends StatelessWidget {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          CustomText.w700(title, style: context.textTheme.bodyMedium),
+                          CustomText.w700(title,
+                              style: context.textTheme.bodyMedium),
                           const Spacer(),
                           CustomText.w700('\$${price.toInt()}/month',
-                              style: context.textTheme.bodyLarge?.copyWith(fontSize: 20)),
+                              style: context.textTheme.bodyLarge
+                                  ?.copyWith(fontSize: 20)),
                         ],
                       ),
-                      if (savings > 0) SavingItem(savings: savings, index: index),
+                      if (savings > 0)
+                        SavingItem(
+                          savings: savings,
+                          index: index,
+                          isLimited: isLimited,
+                        ),
                       const SizedBox(height: 4.0),
                       if (isChecked)
                         CheckedItem(
