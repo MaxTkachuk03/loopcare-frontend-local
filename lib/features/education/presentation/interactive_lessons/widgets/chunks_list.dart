@@ -6,6 +6,7 @@ import 'package:loopcare_frontend/core/presentation/widgets/main_container.dart'
 import 'package:loopcare_frontend/features/education/application/interactive_lessons/interactive_lessons_bloc.dart';
 import 'package:loopcare_frontend/features/education/domain/interactive_lesson/interactive_lesson_chunk.dart';
 import 'package:loopcare_frontend/features/education/domain/interactive_lesson/interactive_lesson_chunk_component.dart';
+import 'package:loopcare_frontend/features/education/domain/interactive_lesson/interactive_lesson_component_type.dart';
 import 'package:loopcare_frontend/features/education/presentation/interactive_lessons/widgets/chunk_divider.dart';
 import 'package:loopcare_frontend/features/education/presentation/interactive_lessons/widgets/components/lesson_components.dart';
 import 'package:loopcare_frontend/features/education/presentation/interactive_lessons/widgets/components/meal_timing/meal_timing.dart';
@@ -66,7 +67,12 @@ class _ChunksListState extends State<ChunksList> {
 
     final hasProgress = blocState.hasProgress(allComponentsOnPage);
 
-    if (hasProgress) bloc.add(const InteractiveLessonsEvent.unlockNextChunk());
+    if (hasProgress &&
+        allComponentsOnPage.last.type !=
+            InteractiveLessonComponentType.markdown &&
+        allComponentsOnPage.last.type != InteractiveLessonComponentType.image) {
+      bloc.add(const InteractiveLessonsEvent.unlockNextChunk());
+    }
 
     return [
       ...components.map((c) => switch (c) {
@@ -164,7 +170,6 @@ class _ChunksListState extends State<ChunksList> {
   void scrollToNextChunk(bool betweenChunks) {
     WidgetsBinding.instance.addPostFrameCallback((_) async {
       if (!scrollController.hasClients || !mounted) return;
-
       await Future.delayed(const Duration(milliseconds: 100));
 
       if (!mounted) return;
@@ -173,7 +178,6 @@ class _ChunksListState extends State<ChunksList> {
       if (chunkHeight == 0.0) return;
 
       double newScrollPosition = 0.0;
-
       if (chunkHeight <= 350) {
         newScrollPosition = betweenChunks
             ? scrollController.position.pixels + chunkHeight - 200.0
@@ -183,13 +187,11 @@ class _ChunksListState extends State<ChunksList> {
             ? scrollController.position.pixels + chunkHeight - 90.0
             : 0.0;
       }
-
       await scrollController.animateTo(
         newScrollPosition,
         duration: const Duration(seconds: 1),
         curve: Curves.easeOut,
       );
-
       if (!scrollController.hasClients || !mounted) return;
     });
   }

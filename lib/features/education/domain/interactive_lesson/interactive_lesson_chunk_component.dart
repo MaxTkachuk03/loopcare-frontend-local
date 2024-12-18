@@ -299,7 +299,7 @@ class InteractiveLessonChunkComponent with _$InteractiveLessonChunkComponent {
             needsValidation: needsValidation,
             isValid: isValid,
             content:
-                SelectContent.debugFromJson(json['content']['content'] as Map<String, dynamic>),
+                SelectContent.debugFromJson(json['content'] as Map<String, dynamic>),
             chunkId: chunkId,
             progress: progress,
           );
