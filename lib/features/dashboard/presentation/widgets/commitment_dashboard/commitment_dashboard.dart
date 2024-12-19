@@ -27,9 +27,8 @@ class CommitmentDashboard extends StatelessWidget {
     context.router.pushNamed(AppRoutes.nutritionIntake);
   }
 
-  void onErrorHandler(BuildContext context) => context
-      .read<CommitmentBloc>()
-      .add(CommitmentEvent.getCommitment(startDate: selectedDay, endDate: selectedDay));
+  void onErrorHandler(BuildContext context) =>
+      context.read<CommitmentBloc>().add(CommitmentEvent.getCommitment(date: selectedDay));
 
   Color get _textColor => !selectedDay.isFuture ? AppColors.blueDarker : AppColors.greyLabel;
 

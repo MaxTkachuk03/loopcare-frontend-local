@@ -112,11 +112,8 @@ class _PhysicalActivitiesState extends State<PhysicalActivities> {
                         )
                       : CustomText.bitter400(
                           LocalizedTexts.physicalActivities.tr(),
-                          style: context.textTheme.headlineSmall!.copyWith(
-                            color: _isActive && isAvailable
-                                ? AppColors.blueDarker
-                                : AppColors.greyLabel,
-                          ),
+                          style: context.textTheme.headlineSmall!
+                              .copyWith(color: AppColors.greyLight, fontSize: 20),
                         ),
                   actionIcon: widget.locked
                       ? AppIcons.arrow
@@ -124,7 +121,7 @@ class _PhysicalActivitiesState extends State<PhysicalActivities> {
                           ? const AssetImage(AppIcons.upArrow)
                           : AppIcons.downArrow,
                   editable: isAvailable,
-                  circleButton: widget.locked ? false : true,
+                  circleButton: widget.locked ? true : false,
                 ),
                 widget.locked
                     ? Container()
@@ -140,18 +137,26 @@ class _PhysicalActivitiesState extends State<PhysicalActivities> {
                               width: 250,
                               child: CustomText.w400(
                                 "${LocalizedTexts.featureUnlocksAtPool.tr()} #${LocalizedTexts.exerciseLibrary.tr()}",
-                                style: const TextStyle(color: AppColors.blueDarker),
+                                style: const TextStyle(color: AppColors.greyLight, fontSize: 16),
                               ),
                             ),
                           ],
                         ),
                       ),
                 onClick
-                    ? SizedBox(
-                        width: 250,
-                        child: CustomText.w400(
-                          maxLines: 10,
-                          LocalizedTexts.exerciseLibraryDescription.tr(),
+                    ? Padding(
+                        padding: const EdgeInsets.only(left: 12.0, right: 12.0, bottom: 12),
+                        child: Row(
+                          children: [
+                            SizedBox(
+                              width: 350,
+                              child: CustomText.w400(
+                                maxLines: 10,
+                                LocalizedTexts.exerciseLibraryDescription.tr(),
+                                style: const TextStyle(color: AppColors.greyLight, fontSize: 16),
+                              ),
+                            ),
+                          ],
                         ),
                       )
                     : Container(),

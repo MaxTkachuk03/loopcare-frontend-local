@@ -2455,5 +2455,14 @@
   "leanOnMeDoesNot": "LeanOnMe unterstützt keine nicht nachhaltigen Diäten wie ganztägiges Fasten. Bitte protokollieren Sie Lebensmittel in mindestens einer Kategorie, damit wir unsere Verpflichtung gemeinsam erfüllen können.",
   "haveYouLogged": "Haben Sie alles protokolliert, was Sie gegessen haben, und sind Sie sicher, dass Sie das nicht mehr tun werden?",
   "thisDayIsComplete": "Dieser Tag ist komplett",
-  "backToPracticeBoard": "Zurück zur Übungstafel"
+  "backToPracticeBoard": "Zurück zur Übungstafel",
+  "whatYouWhy": "Was ist dein Warum",
+  "timeReq": "Zeitbedarf: ",
+  "completeRef": "Vollständige Reflexion",
+  "foodCmmitment": "Vollständige Verpflichtung zum Lebensmittelprotokoll",
+  "unlockWeight": "Schalten Sie Ihr Gewicht frei",
+  "unlockFoodLog": "Schalte das Lebensmittelprotokoll frei",
+  "readyGraduate": "bereit für den Abschluss",
+  "tapReflection": "Tippen Sie auf das Reflexionssymbol, um den Artikel zu lesen und den zu starten."
 }
+

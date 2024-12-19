@@ -78,7 +78,7 @@ class _FoodLoggingDashboardState extends State<FoodLoggingDashboard> {
                           )
                         : CustomText.bitter400(
                             LocalizedTexts.mealLog.tr(),
-                            style: context.textTheme.headlineSmall?.copyWith(color: _textColor),
+                            style: const TextStyle(color: AppColors.greyLight, fontSize: 20),
                           ),
                   ],
                 ),
@@ -87,7 +87,7 @@ class _FoodLoggingDashboardState extends State<FoodLoggingDashboard> {
                     : onClick
                         ? const AssetImage(AppIcons.upArrow)
                         : AppIcons.downArrow,
-                circleButton: widget.locked ? false : true,
+                circleButton: widget.locked ? true : false,
                 editable: widget.locked ? true : !widget.selectedDay.isFuture,
               ),
               widget.locked
@@ -132,19 +132,27 @@ class _FoodLoggingDashboardState extends State<FoodLoggingDashboard> {
                             width: 250,
                             child: CustomText.w400(
                               "${LocalizedTexts.featureUnlocksAtPool.tr()} #${LocalizedTexts.foodLog.tr()}",
-                              style: const TextStyle(color: AppColors.blueDarker),
+                              style: const TextStyle(color: AppColors.greyLight, fontSize: 16),
                             ),
                           ),
                         ],
                       ),
                     ),
               onClick
-                  ? Container(
-                      width: 250,
-                      padding: const EdgeInsets.only(bottom: 10),
-                      child: CustomText.w400(
-                        maxLines: 10,
-                        LocalizedTexts.foodLogLockedDescription.tr(),
+                  ? Padding(
+                      padding: const EdgeInsets.only(left: 12.0, right: 12.0, bottom: 12),
+                      child: Row(
+                        children: [
+                          Container(
+                            width: 350,
+                            padding: const EdgeInsets.only(bottom: 10),
+                            child: CustomText.w400(
+                              maxLines: 10,
+                              LocalizedTexts.foodLogLockedDescription.tr(),
+                              style: const TextStyle(color: AppColors.greyLight, fontSize: 16),
+                            ),
+                          ),
+                        ],
                       ),
                     )
                   : Container(),

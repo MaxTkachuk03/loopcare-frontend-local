@@ -6027,4 +6027,28 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get backToPracticeBoard => 'Back to practice board';
+
+  @override
+  String get whatYouWhy => 'What\'s your why';
+
+  @override
+  String get timeReq => 'Time requirement:';
+
+  @override
+  String get completeRef => 'Complete reflection';
+
+  @override
+  String get foodCmmitment => 'Complete food log commitment';
+
+  @override
+  String get unlockWeight => 'Unlock your weight';
+
+  @override
+  String get unlockFoodLog => 'Unlock food log';
+
+  @override
+  String get readyGraduate => 'ready to graduate';
+
+  @override
+  String get tapReflection => 'Tap the reflection icon to read the article to start the';
 }

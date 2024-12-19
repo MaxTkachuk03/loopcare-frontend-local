@@ -2464,5 +2464,13 @@
   "leanOnMeDoesNot": "LeanOnMe doesn’t encourage unsustainable diets like whole-day fasting. Please log food in at least one category so we can complete our commitment together.",
   "haveYouLogged": "Have you logged everything you ate, and are you sure you’re not going to anymore?",
   "thisDayIsComplete": "This day is complete",
-  "backToPracticeBoard": "Back to practice board"
+  "backToPracticeBoard": "Back to practice board",
+  "whatYouWhy": "What's your why",
+  "timeReq": "Time requirement:",
+  "completeRef": "Complete reflection",
+  "foodCmmitment": "Complete food log commitment",
+  "unlockWeight": "Unlock your weight",
+  "unlockFoodLog": "Unlock food log",
+  "readyGraduate": "ready to graduate",
+  "tapReflection": "Tap the reflection icon to read the article to start the"
 }

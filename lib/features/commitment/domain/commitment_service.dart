@@ -3,6 +3,5 @@ import 'package:loopcare_frontend/core/infrastructure/dio_client/request_error.d
 import 'package:loopcare_frontend/features/commitment/application/dto/get_commitment_response.dart';
 
 abstract class CommitmentService {
-  Future<Either<RequestError, GetCommitmentResponse>> getCommitment(
-      {required DateTime startDate, required DateTime endDate});
+  Future<Either<RequestError, GetCommitmentResponse>> getCommitment({required DateTime date});
 }

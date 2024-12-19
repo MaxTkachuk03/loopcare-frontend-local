@@ -6027,4 +6027,28 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String get backToPracticeBoard => 'Zurück zur Übungstafel';
+
+  @override
+  String get whatYouWhy => 'Was ist dein Warum';
+
+  @override
+  String get timeReq => 'Zeitbedarf: ';
+
+  @override
+  String get completeRef => 'Vollständige Reflexion';
+
+  @override
+  String get foodCmmitment => 'Vollständige Verpflichtung zum Lebensmittelprotokoll';
+
+  @override
+  String get unlockWeight => 'Schalten Sie Ihr Gewicht frei';
+
+  @override
+  String get unlockFoodLog => 'Schalte das Lebensmittelprotokoll frei';
+
+  @override
+  String get readyGraduate => 'bereit für den Abschluss';
+
+  @override
+  String get tapReflection => 'Tippen Sie auf das Reflexionssymbol, um den Artikel zu lesen und den zu starten.';
 }

@@ -3192,6 +3192,15 @@ class LocalizedTexts {
   static const String goals = 'goals';
   static const String myGoalsLockedDescription = 'myGoalsLockedDescription';
 
+  //pool_widget
+  static const String whatYouWhy = "whatYouWhy";
+  static const String tapReflection = "tapReflection";
+  static const String timeReq = "timeReq";
+  static const String completeRef = "completeRef";
+  static const String readyGraduate = "readyGraduate";
+  static const String unlockWeight = "unlockWeight";
+  static const String unlockFoodLog = "unlockFoodLog";
+  static const String foodCmmitment = "foodCmmitment";
   //Links
   static const String linksTermsAndConditionsUrl = 'linksTermsAndConditionsUrl';
   static const String linksPrivacyPolicyUrl = 'linksPrivacyPolicyUrl';

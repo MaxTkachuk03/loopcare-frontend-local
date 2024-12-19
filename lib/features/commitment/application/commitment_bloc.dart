@@ -26,8 +26,7 @@ class CommitmentBloc extends Bloc<CommitmentEvent, CommitmentState> {
   ) async {
     emit(CommitmentState.loading(state.data.copyWith(isLoading: true)));
 
-    final response =
-        await _commitmentService.getCommitment(startDate: event.startDate, endDate: event.endDate);
+    final response = await _commitmentService.getCommitment(date: event.date);
 
     response.fold(
       (l) => emit(CommitmentState.error(state.data.copyWith(error: l, isLoading: false))),

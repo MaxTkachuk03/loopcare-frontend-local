@@ -11812,6 +11812,54 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Back to practice board'**
   String get backToPracticeBoard;
+
+  /// No description provided for @whatYouWhy.
+  ///
+  /// In en, this message translates to:
+  /// **'What\'s your why'**
+  String get whatYouWhy;
+
+  /// No description provided for @timeReq.
+  ///
+  /// In en, this message translates to:
+  /// **'Time requirement:'**
+  String get timeReq;
+
+  /// No description provided for @completeRef.
+  ///
+  /// In en, this message translates to:
+  /// **'Complete reflection'**
+  String get completeRef;
+
+  /// No description provided for @foodCmmitment.
+  ///
+  /// In en, this message translates to:
+  /// **'Complete food log commitment'**
+  String get foodCmmitment;
+
+  /// No description provided for @unlockWeight.
+  ///
+  /// In en, this message translates to:
+  /// **'Unlock your weight'**
+  String get unlockWeight;
+
+  /// No description provided for @unlockFoodLog.
+  ///
+  /// In en, this message translates to:
+  /// **'Unlock food log'**
+  String get unlockFoodLog;
+
+  /// No description provided for @readyGraduate.
+  ///
+  /// In en, this message translates to:
+  /// **'ready to graduate'**
+  String get readyGraduate;
+
+  /// No description provided for @tapReflection.
+  ///
+  /// In en, this message translates to:
+  /// **'Tap the reflection icon to read the article to start the'**
+  String get tapReflection;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

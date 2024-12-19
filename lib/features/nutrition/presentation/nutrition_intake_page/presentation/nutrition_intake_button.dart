@@ -51,6 +51,7 @@ class NutritionIntakeButton extends StatelessWidget {
       context.read<InteractiveLessonsBloc>().add(
           InteractiveLessonsEvent.getInteractiveLesson(lessonId: lessonId, date: DateTime.now()));
 
+
     context.read<MealsBloc>().add(MealsEvent.setMealId(mealId!, category));
 
     Future.delayed(
@@ -65,14 +66,12 @@ class NutritionIntakeButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final bool isThisCategory = (mealId != null &&
-        category.title.toLowerCase().contains(text.toLowerCase()));
+    final bool isThisCategory =
+        (mealId != null && category.title.toLowerCase().contains(text.toLowerCase()));
 
     final bool isCompleted = progress?.isLessonFinished == true;
     return Column(
       crossAxisAlignment: CrossAxisAlignment.center,
-      mainAxisAlignment: MainAxisAlignment.start,
-      mainAxisSize: MainAxisSize.max,
       children: [
         GestureDetector(
           onTap: () {
@@ -96,6 +95,7 @@ class NutritionIntakeButton extends StatelessWidget {
                     ? AppIcons.doneDayButton
                     : AppIcons.commitmentButton
                 : AppIcons.intakePlus,
+
           ),
         ),
         const SizedBox(height: 5.0),

@@ -57,6 +57,7 @@ class _NutritionIntakePageState extends State<NutritionIntakePage> {
         isSwitched = context.read<NutritionIntakeBloc>().state.data.isDayClosed;
         final isCompleted =
             nutritionState.data.progress.any((c) => c.isLessonFinished == true);
+
         return BlocBuilder<MealsBloc, MealsState>(
           builder: (context, mealState) {
             final isAddFood =
@@ -79,9 +80,12 @@ class _NutritionIntakePageState extends State<NutritionIntakePage> {
                           const Center(
                             child: Image(image: AppImages.nutrition),
                           ),
+                          const SizedBox(
+                            height: 25.0,
+                          ),
                           Padding(
-                            padding: const EdgeInsets.symmetric(
-                                horizontal: 20.0, vertical: 24.0),
+                            padding:
+                                const EdgeInsets.symmetric(horizontal: 20.0),
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
@@ -103,10 +107,10 @@ class _NutritionIntakePageState extends State<NutritionIntakePage> {
                                   style: context.textTheme.bodyMedium!
                                       .copyWith(fontWeight: FontWeight.w700),
                                 ),
-                                const SizedBox(height: 12.0),
+                                const SizedBox(height: 20.0),
                                 Center(
                                   child: SizedBox(
-                                    height: 110,
+                                    height: 100,
                                     child: ListView.separated(
                                         scrollDirection: Axis.horizontal,
                                         padding: EdgeInsets.zero,
@@ -240,7 +244,7 @@ class _NutritionIntakePageState extends State<NutritionIntakePage> {
                                               ),
                                             ],
                                           ),
-                                          // const SizedBox(height: 20.0),
+                                          const SizedBox(height: 20.0),
                                           ContinueBtn(
                                               label: LocalizedTexts
                                                   .backToPracticeBoard

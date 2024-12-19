@@ -18,6 +18,8 @@ import 'package:loopcare_frontend/features/dashboard/presentation/widgets/food_l
 import 'package:loopcare_frontend/features/dashboard/presentation/widgets/mind/dashboard_mind_widget.dart';
 import 'package:loopcare_frontend/features/dashboard/presentation/widgets/person_mood/person_mood.dart';
 import 'package:loopcare_frontend/features/dashboard/presentation/widgets/physical_activities/physical_activities.dart';
+import 'package:loopcare_frontend/features/dashboard/presentation/widgets/pool_status/application/pool_bloc/pool_module_bloc.dart';
+import 'package:loopcare_frontend/features/dashboard/presentation/widgets/pool_status/pool_status_widget.dart';
 import 'package:loopcare_frontend/features/dashboard/presentation/widgets/slider_calendar/slider_calendar.dart';
 import 'package:loopcare_frontend/features/dashboard/presentation/widgets/smart_goals/dashboard_smart_goals.dart';
 import 'package:loopcare_frontend/features/dashboard/presentation/widgets/support_group/support_group.dart';
@@ -77,13 +79,13 @@ class _DashboardPageState extends State<DashboardPage> with WidgetsBindingObserv
             DateTime.now().toIso8601String(),
           ),
         );
-
     context.read<MealsBloc>()
       ..add(MealsEvent.setCurrentDate(_selectedDay))
       ..add(MealsEvent.fetchMeals(
           startDate: _selectedDay.subtract(const Duration(days: 8)), endDate: _selectedDay));
 
     context.read<MindBloc>().add(const MindEvent.init());
+    context.read<PoolModuleBloc>().add(const PoolModuleEvent.getPoolData());
 
     updateDashboardData(context.read<AuthenticationBloc>().state);
   }
@@ -119,9 +121,7 @@ class _DashboardPageState extends State<DashboardPage> with WidgetsBindingObserv
     }
 
     if (state.data.isCommitmentUnlocked) {
-      context
-          .read<CommitmentBloc>()
-          .add(CommitmentEvent.getCommitment(startDate: _selectedDay, endDate: _selectedDay));
+      context.read<CommitmentBloc>().add(CommitmentEvent.getCommitment(date: _selectedDay));
     }
   }
 
@@ -174,12 +174,9 @@ class _DashboardPageState extends State<DashboardPage> with WidgetsBindingObserv
   void handleCommitment(DateTime day) {
     final isCommitmentUnlocked = context.read<AuthenticationBloc>().state.data.isCommitmentUnlocked;
     final isFuture = day.isFuture;
-    final showCommitment = context.read<CommitmentBloc>().state.data.showCommitment;
 
-    if (isCommitmentUnlocked && !isFuture && showCommitment) {
-      context
-          .read<CommitmentBloc>()
-          .add(CommitmentEvent.getCommitment(startDate: day, endDate: day));
+    if (isCommitmentUnlocked && !isFuture) {
+      context.read<CommitmentBloc>().add(CommitmentEvent.getCommitment(date: day));
     }
   }
 
@@ -225,6 +222,43 @@ class _DashboardPageState extends State<DashboardPage> with WidgetsBindingObserv
                           ),
                           const SizedBox(height: 26.0),
                           BlocBuilder<AuthenticationBloc, AuthenticationState>(
+                              builder: (context, state) {
+                            if (state.data.emailVerified) {
+                              return const Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  PoolStatusWidget(),
+                                  SizedBox(height: 19.0),
+                                ],
+                              );
+                            } else {
+                              return const Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  PoolStatusWidget(),
+                                  SizedBox(height: 19.0),
+                                ],
+                              );
+                            }
+                          }),
+                          BlocBuilder<AuthenticationBloc, AuthenticationState>(
+                            builder: (BuildContext context, state) {
+                              if (state.data.account?.isWeightLoggingUnlocked ?? false) {
+                                return Column(
+                                  children: [
+                                    WeightBlock(
+                                        date: _selectedDay,
+                                        locked:
+                                            state.data.account?.isWeightLoggingUnlocked ?? false),
+                                    const SizedBox(height: 19.0),
+                                  ],
+                                );
+                              } else {
+                                return const SizedBox.shrink();
+                              }
+                            },
+                          ),
+                          BlocBuilder<AuthenticationBloc, AuthenticationState>(
                             builder: (BuildContext context, state) {
                               final unlockedGoals =
                                   state.data.account?.isSmartGoalsUnlocked ?? false;
@@ -264,11 +298,26 @@ class _DashboardPageState extends State<DashboardPage> with WidgetsBindingObserv
                           BlocBuilder<AuthenticationBloc, AuthenticationState>(
                             builder: (BuildContext context, state) {
                               // if (state.data.account?.isMindUnlocked ?? false) {
+                              // if (state.data.isReflectionsUnlocked) {
                               return Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  DashboardMindWidget(
-                                      locked: state.data.account?.isMindUnlocked ?? false),
+                                  ReflectionsDashboardWidget(
+                                      date: _selectedDay, locked: state.data.isReflectionsUnlocked),
+                                  const SizedBox(height: 19.0),
+                                ],
+                              );
+                            },
+                          ),
+                          BlocBuilder<AuthenticationBloc, AuthenticationState>(
+                            builder: (BuildContext context, state) {
+                              // if (state.data.isFoodLoggingUnlocked) {
+                              return Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  FoodLoggingDashboard(
+                                      selectedDay: _selectedDay,
+                                      locked: state.data.isFoodLoggingUnlocked),
                                   const SizedBox(height: 19.0),
                                 ],
                               );
@@ -280,6 +329,7 @@ class _DashboardPageState extends State<DashboardPage> with WidgetsBindingObserv
                             return BlocBuilder<CommitmentBloc, CommitmentState>(
                               builder: (context, state) {
                                 final showCommitment = state.data.showCommitment;
+
                                 if (isCommitmentUnlocked && showCommitment) {
                                   return Column(
                                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -298,13 +348,61 @@ class _DashboardPageState extends State<DashboardPage> with WidgetsBindingObserv
                           }),
                           BlocBuilder<AuthenticationBloc, AuthenticationState>(
                             builder: (BuildContext context, state) {
-                              // if (state.data.isFoodLoggingUnlocked) {
+                              // if (state.data.account?.isWeightLoggingUnlocked ??
+                              //     false) {
+                              return Column(
+                                children: [
+                                  WeightBlock(
+                                      date: _selectedDay,
+                                      locked: state.data.account?.isWeightLoggingUnlocked ?? false),
+                                  const SizedBox(height: 19.0),
+                                ],
+                              );
+                            },
+                          ),
+                          BlocBuilder<AuthenticationBloc, AuthenticationState>(
+                            builder: (BuildContext context, state) {
+                              final unlockedGoals =
+                                  state.data.account?.isSmartGoalsUnlocked ?? false;
+                              return BlocBuilder<SmartGoalsBloc, SmartGoalsState>(
+                                builder: (context, state) {
+                                  final showSmartGoalsCard = unlockedGoals &&
+                                      ((state.data.hasGoalActiveSessions &&
+                                              state.data.isDateHasActiveSession(_selectedDay) &&
+                                              !_selectedDay.isFuture) ||
+                                          _selectedDay.isToday);
+
+                                  return Column(
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    children: [
+                                      DashboardSmartGoals(showSmartGoalsCard: showSmartGoalsCard),
+                                      const SizedBox(height: 19.0),
+                                    ],
+                                  );
+                                },
+                              );
+                            },
+                          ),
+                          BlocBuilder<AuthenticationBloc, AuthenticationState>(
+                            builder: (BuildContext context, state) {
+                              // if (state.data.account?.isMindUnlocked ?? false) {
                               return Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  FoodLoggingDashboard(
-                                      selectedDay: _selectedDay,
-                                      locked: state.data.isFoodLoggingUnlocked),
+                                  DashboardMindWidget(
+                                      locked: state.data.account?.isMindUnlocked ?? false),
+                                  const SizedBox(height: 19.0),
+                                ],
+                              );
+                            },
+                          ),
+                          BlocBuilder<AuthenticationBloc, AuthenticationState>(
+                            builder: (context, state) {
+                              //if (state.data.isGroupSessionsUnlocked) {
+                              return Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  SupportGroup(locked: state.data.isGroupSessionsUnlocked),
                                   const SizedBox(height: 19.0),
                                 ],
                               );
@@ -332,31 +430,6 @@ class _DashboardPageState extends State<DashboardPage> with WidgetsBindingObserv
                                   PhysicalActivities(
                                       selectedDay: _selectedDay,
                                       locked: state.data.isPhysicalActivitiesUnlocked),
-                                  const SizedBox(height: 19.0),
-                                ],
-                              );
-                            },
-                          ),
-                          BlocBuilder<AuthenticationBloc, AuthenticationState>(
-                            builder: (context, state) {
-                              //if (state.data.isGroupSessionsUnlocked) {
-                              return Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  SupportGroup(locked: state.data.isGroupSessionsUnlocked),
-                                  const SizedBox(height: 19.0),
-                                ],
-                              );
-                            },
-                          ),
-                          BlocBuilder<AuthenticationBloc, AuthenticationState>(
-                            builder: (context, state) {
-                              // if (state.data.isReflectionsUnlocked) {
-                              return Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  ReflectionsDashboardWidget(
-                                      date: _selectedDay, locked: state.data.isReflectionsUnlocked),
                                   const SizedBox(height: 19.0),
                                 ],
                               );
