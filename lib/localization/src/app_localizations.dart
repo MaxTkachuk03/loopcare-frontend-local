@@ -82,7 +82,8 @@ abstract class AppLocalizations {
   /// Additional delegates can be added by appending to this list in
   /// MaterialApp. This list does not have to be used at all if a custom list
   /// of delegates is preferred or required.
-  static const List<LocalizationsDelegate<dynamic>> localizationsDelegates = <LocalizationsDelegate<dynamic>>[
+  static const List<LocalizationsDelegate<dynamic>> localizationsDelegates =
+      <LocalizationsDelegate<dynamic>>[
     delegate,
     GlobalMaterialLocalizations.delegate,
     GlobalCupertinoLocalizations.delegate,
@@ -90,10 +91,7 @@ abstract class AppLocalizations {
   ];
 
   /// A list of this localizations delegate's supported locales.
-  static const List<Locale> supportedLocales = <Locale>[
-    Locale('de'),
-    Locale('en')
-  ];
+  static const List<Locale> supportedLocales = <Locale>[Locale('de'), Locale('en')];
 
   /// No description provided for @interactiveLessonsTextAreaLabel.
   ///
@@ -11740,6 +11738,54 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Whether its psychology, nutrition, physical activity, or community: Small, achievable, and measurable goals help you make small changes that lead to big results.'**
   String get myGoalsLockedDescription;
+
+  /// No description provided for @whatYouWhy.
+  ///
+  /// In en, this message translates to:
+  /// **'What\'s your why'**
+  String get whatYouWhy;
+
+  /// No description provided for @timeReq.
+  ///
+  /// In en, this message translates to:
+  /// **'Time requirement:'**
+  String get timeReq;
+
+  /// No description provided for @completeRef.
+  ///
+  /// In en, this message translates to:
+  /// **'Complete reflection'**
+  String get completeRef;
+
+  /// No description provided for @foodCmmitment.
+  ///
+  /// In en, this message translates to:
+  /// **'Complete food log commitment'**
+  String get foodCmmitment;
+
+  /// No description provided for @unlockWeight.
+  ///
+  /// In en, this message translates to:
+  /// **'Unlock your weight'**
+  String get unlockWeight;
+
+  /// No description provided for @unlockFoodLog.
+  ///
+  /// In en, this message translates to:
+  /// **'Unlock food log'**
+  String get unlockFoodLog;
+
+  /// No description provided for @readyGraduate.
+  ///
+  /// In en, this message translates to:
+  /// **'ready to graduate'**
+  String get readyGraduate;
+
+  /// No description provided for @tapReflection.
+  ///
+  /// In en, this message translates to:
+  /// **'Tap the reflection icon to read the article to start the'**
+  String get tapReflection;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {
@@ -11758,18 +11804,17 @@ class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> 
 }
 
 AppLocalizations lookupAppLocalizations(Locale locale) {
-
-
   // Lookup logic when only language code is specified.
   switch (locale.languageCode) {
-    case 'de': return AppLocalizationsDe();
-    case 'en': return AppLocalizationsEn();
+    case 'de':
+      return AppLocalizationsDe();
+    case 'en':
+      return AppLocalizationsEn();
   }
 
   throw FlutterError(
-    'AppLocalizations.delegate failed to load unsupported locale "$locale". This is likely '
-    'an issue with the localizations generation tool. Please file an issue '
-    'on GitHub with a reproducible sample app and the gen-l10n configuration '
-    'that was used.'
-  );
+      'AppLocalizations.delegate failed to load unsupported locale "$locale". This is likely '
+      'an issue with the localizations generation tool. Please file an issue '
+      'on GitHub with a reproducible sample app and the gen-l10n configuration '
+      'that was used.');
 }

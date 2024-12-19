@@ -298,8 +298,7 @@ class InteractiveLessonChunkComponent with _$InteractiveLessonChunkComponent {
             type: InteractiveLessonComponentType.survey,
             needsValidation: needsValidation,
             isValid: isValid,
-            content:
-                SelectContent.debugFromJson(json['content'] as Map<String, dynamic>),
+            content: SelectContent.debugFromJson(json['content'] as Map<String, dynamic>),
             chunkId: chunkId,
             progress: progress,
           );

@@ -58,10 +58,11 @@ class _DashboardMindWidgetState extends State<DashboardMindWidget> {
                   )
                 : CustomText.bitter400(
                     LocalizedTexts.mindDashboardTitle.tr(),
-                    style: context.textTheme.headlineSmall,
+                    style: const TextStyle(color: AppColors.greyLight, fontSize: 20),
                   ),
             editable: true,
             actionIcon: onClick ? const AssetImage(AppIcons.upArrow) : AppIcons.downArrow,
+            circleButton: widget.locked ? true : false,
           ),
           widget.locked
               ? Padding(
@@ -86,19 +87,26 @@ class _DashboardMindWidgetState extends State<DashboardMindWidget> {
                         width: 250,
                         child: Text(
                           "${LocalizedTexts.featureUnlocksAtPool.tr()} #${LocalizedTexts.mindTraining.tr()}",
-                          style: const TextStyle(color: AppColors.blueDarker),
+                          style: const TextStyle(color: AppColors.greyLight, fontSize: 16),
                         ),
                       ),
                     ],
                   ),
                 ),
           onClick
-              ? Container(
-                  margin: const EdgeInsets.only(left: 70, bottom: 10),
-                  width: 250,
-                  child: CustomText.w400(
-                    maxLines: 10,
-                    LocalizedTexts.mindTrainingLockedDescription.tr(),
+              ? Padding(
+                  padding: const EdgeInsets.only(left: 12.0, right: 12.0, bottom: 12),
+                  child: Row(
+                    children: [
+                      SizedBox(
+                        width: 350,
+                        child: CustomText.w400(
+                          maxLines: 10,
+                          LocalizedTexts.mindTrainingLockedDescription.tr(),
+                          style: const TextStyle(color: AppColors.greyLight, fontSize: 16),
+                        ),
+                      ),
+                    ],
                   ),
                 )
               : Container(),
