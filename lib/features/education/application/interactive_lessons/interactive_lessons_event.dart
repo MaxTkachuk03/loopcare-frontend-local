@@ -2,7 +2,7 @@ part of 'interactive_lessons_bloc.dart';
 
 @freezed
 class InteractiveLessonsEvent with _$InteractiveLessonsEvent {
-  const factory InteractiveLessonsEvent.getInteractiveLesson({required int lessonId}) =
+  const factory InteractiveLessonsEvent.getInteractiveLesson({required int lessonId, DateTime? date}) =
       GetInteractiveLesson;
 
   const factory InteractiveLessonsEvent.setNextPage() = SetNextPage;

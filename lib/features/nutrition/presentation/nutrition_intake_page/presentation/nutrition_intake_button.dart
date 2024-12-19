@@ -1,6 +1,5 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
-import 'package:badges/badges.dart' as badge;
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loopcare_frontend/core/presentation/icon_images/app_icons.dart';
 import 'package:loopcare_frontend/core/presentation/routes/app_router.dart';
@@ -13,7 +12,6 @@ import 'package:loopcare_frontend/features/nutrition/application/meals/dto/meal_
 import 'package:loopcare_frontend/features/nutrition/application/meals/meals_bloc.dart';
 import 'package:loopcare_frontend/features/nutrition/domain/select_serving/meal_category.dart';
 import 'package:loopcare_frontend/features/nutrition/presentation/nutrition_intake_page/application/dto/nutrition_intake_done_lessons/nutrition_intake_done_lessons.dart';
-import 'package:loopcare_frontend/features/nutrition/presentation/widgets/circle_plus_button/circle_plus_button.dart';
 
 class NutritionIntakeButton extends StatelessWidget {
   const NutritionIntakeButton({
@@ -50,15 +48,8 @@ class NutritionIntakeButton extends StatelessWidget {
   }
 
   void _goToNutritionTest(BuildContext context, int lessonId) {
-    if (mealId != null &&
-        category.title.toLowerCase().contains('snacks'.toLowerCase())) {
       context.read<InteractiveLessonsBloc>().add(
-          InteractiveLessonsEvent.getInteractiveLesson(lessonId: lessonId));
-    } else {
-      // TODO: delete bloc init after connecting to backend
-      context.read<InteractiveLessonsBloc>().add(
-          InteractiveLessonsEvent.getInteractiveLesson(lessonId: lessonId));
-    }
+          InteractiveLessonsEvent.getInteractiveLesson(lessonId: lessonId, date: DateTime.now()));
 
     context.read<MealsBloc>().add(MealsEvent.setMealId(mealId!, category));
 
@@ -113,7 +104,7 @@ class NutritionIntakeButton extends StatelessWidget {
           textAlign: TextAlign.center,
           style: context.textTheme.bodyMedium?.copyWith(
               color:
-                  isThisCategory ? AppColors.blueDarkest : AppColors.greyLight),
+                  isThisCategory && calorieDensity != null ? AppColors.blueDarkest : AppColors.greyLight),
         ),
       ],
     );

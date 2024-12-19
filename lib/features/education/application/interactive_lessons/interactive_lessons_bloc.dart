@@ -39,7 +39,7 @@ class InteractiveLessonsBloc extends Bloc<InteractiveLessonsEvent, InteractiveLe
 
     emit(InteractiveLessonsState.loading(state.data.copyWith(isLoading: true)));
 
-    final response = await _educationService.getInteractiveLesson(event.lessonId);
+    final response = await _educationService.getInteractiveLesson(event.lessonId, event.date);
 
     response.fold(
       (l) => emit(InteractiveLessonsState.error(state.data.copyWith(error: l, isLoading: false))),

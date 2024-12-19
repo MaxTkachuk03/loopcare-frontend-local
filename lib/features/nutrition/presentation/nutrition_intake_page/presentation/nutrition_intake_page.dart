@@ -18,6 +18,8 @@ import 'package:loopcare_frontend/features/nutrition/application/meals/meals_blo
 import 'package:loopcare_frontend/features/nutrition/domain/select_serving/meal_category.dart';
 import 'package:loopcare_frontend/features/nutrition/presentation/nutrition_intake_page/application/nutrition_intake_bloc.dart';
 import 'package:loopcare_frontend/features/nutrition/presentation/nutrition_intake_page/presentation/nutrition_intake_button.dart';
+import 'package:loopcare_frontend/localization/service/localization_extension.dart';
+import 'package:loopcare_frontend/localization/service/localized_texts.dart';
 
 @RoutePage()
 class NutritionIntakePage extends StatefulWidget {
@@ -41,11 +43,11 @@ class _NutritionIntakePageState extends State<NutritionIntakePage> {
     super.initState();
   }
 
-  static const List<String> categories = [
-    'Breakfast',
-    'Lunch',
-    'Dinner',
-    'Snacks'
+  static final List<String> categories = [
+    LocalizedTexts.breakfast.tr(),
+    LocalizedTexts.lunch.tr(),
+    LocalizedTexts.dinner.tr(),
+    LocalizedTexts.inbetweens.tr().split('&').last.trim()
   ];
 
   @override
@@ -62,7 +64,7 @@ class _NutritionIntakePageState extends State<NutritionIntakePage> {
             return CustomScaffold.greenLightest(
               appBar: CustomAppBar.green(
                 leading: CustomFilledIconButton.leadingGreenLighter(),
-                title: 'Nutrition intake',
+                title: LocalizedTexts.nutritionIntake.tr(),
               ),
               body: mealState.maybeMap(
                 orElse: () => const SizedBox.shrink(),
@@ -84,24 +86,20 @@ class _NutritionIntakePageState extends State<NutritionIntakePage> {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 CustomText.bitter600(
-                                  'When and why I ate',
+                                  LocalizedTexts.whenAndWhyIAte.tr(),
                                   style: context.textTheme.displayLarge,
                                 ),
                                 CustomText.w600(
-                                  '#dayDate',
+                                  LocalizedTexts.dayDate.tr(),
                                   style: context.textTheme.bodySmall,
                                 ),
                                 const SizedBox(height: 24.0),
-                                const CategoryLabel(
-                                  label: 'Select the food category',
-                                  color: AppColors.greenRegular,
-                                  textColor: AppColors.blueDarkest,
-                                ),
+                                CategoryLabel.nutritionIntake(),
                                 const SizedBox(height: 12.0),
                                 CustomText(
                                   isAddFood || isCompleted
-                                      ? 'Select the meal you want to answer the survey for.'
-                                      : 'You can answer the survey for any food category you’ve logged food in for today. Use the plus symbols as a shortcut to log food in categories that are still empty.',
+                                      ? LocalizedTexts.mealYouWant.tr()
+                                      : LocalizedTexts.youCanAnswer.tr(),
                                   style: context.textTheme.bodyMedium!
                                       .copyWith(fontWeight: FontWeight.w700),
                                 ),
@@ -185,33 +183,30 @@ class _NutritionIntakePageState extends State<NutritionIntakePage> {
                                               AppIcons.nutritionSubtract,
                                               const SizedBox(width: 16.0),
                                               CustomText.bitter600(
-                                                  'Please log food',
+                                                  LocalizedTexts.pleaseLogFood
+                                                      .tr(),
                                                   style: context
                                                       .textTheme.bodyLarge),
                                             ],
                                           ),
                                           const SizedBox(height: 12.0),
                                           CustomText(
-                                            'LeanOnMe doesn’t encourage unsustainable diets like whole-day fasting. Please log food in at least one category so we can complete our commitment together.',
+                                            LocalizedTexts.leanOnMeDoesNot.tr(),
                                             textAlign: TextAlign.left,
                                             style: context.textTheme.bodyMedium,
                                           ),
                                         ],
                                       )
-                                    : const SizedBox(),
+                                    : const SizedBox.shrink(),
                                 isCompleted
                                     ? Column(
                                         crossAxisAlignment:
                                             CrossAxisAlignment.start,
                                         children: [
-                                          const CategoryLabel(
-                                            label: 'Select the food category',
-                                            color: AppColors.greenRegular,
-                                            textColor: AppColors.blueDarkest,
-                                          ),
+                                          CategoryLabel.nutritionIntake(),
                                           const SizedBox(height: 20.0),
                                           CustomText(
-                                            'Have you logged everything you ate, and are you sure you’re not going to anymore?',
+                                            LocalizedTexts.haveYouLogged.tr(),
                                             style: context.textTheme.bodyMedium!
                                                 .copyWith(
                                                     fontWeight:
@@ -235,7 +230,8 @@ class _NutritionIntakePageState extends State<NutritionIntakePage> {
                                                     .greyLighter, // Колір треку у неактивному стані
                                               ),
                                               CustomText(
-                                                'This day is complete',
+                                                LocalizedTexts.thisDayIsComplete
+                                                    .tr(),
                                                 style: context
                                                     .textTheme.bodyMedium!
                                                     .copyWith(
@@ -246,7 +242,9 @@ class _NutritionIntakePageState extends State<NutritionIntakePage> {
                                           ),
                                           // const SizedBox(height: 20.0),
                                           ContinueBtn(
-                                              label: "Back to practice board",
+                                              label: LocalizedTexts
+                                                  .backToPracticeBoard
+                                                  .tr(),
                                               onPressed: () {
                                                 context.router.maybePop();
                                               },

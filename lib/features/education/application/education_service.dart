@@ -18,7 +18,7 @@ abstract class EducationService {
     SaveLessonQuizQuestionAnswerBody data,
   );
 
-  Future<Either<RequestError, InteractiveLesson>> getInteractiveLesson(int lessonId);
+  Future<Either<RequestError, InteractiveLesson>> getInteractiveLesson(int lessonId, DateTime? date);
 
   Future<Either<RequestError, InteractiveLessonProgressResponse>> saveInteractiveLessonProgress(
       int chunkId, SaveInteractiveLessonProgressBody data);

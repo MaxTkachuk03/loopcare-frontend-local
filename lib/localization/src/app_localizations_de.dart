@@ -24,6 +24,12 @@ class AppLocalizationsDe extends AppLocalizations {
   String get interactiveLessonsMultipleSelectLabel => 'Choose All That Apply';
 
   @override
+  String get mealTiming => 'Essenszeiten';
+
+  @override
+  String get selectTheFoodCategory => 'Wählen Sie die Lebensmittelkategorie';
+
+  @override
   String get interactiveLessonsCorrectFeedbackTitle => 'This is correct';
 
   @override
@@ -4243,6 +4249,9 @@ class AppLocalizationsDe extends AppLocalizations {
   String get nutritionSummary => 'Nährwert-Zusammenfassung';
 
   @override
+  String get nutritionIntake => 'Nährstoffaufnahme';
+
+  @override
   String get calorieDensity => 'Kaloriendichte';
 
   @override
@@ -5991,4 +6000,31 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String get myGoalsLockedDescription => 'Whether its psychology, nutrition, physical activity, or community: Small, achievable, and measurable goals help you make small changes that lead to big results.';
+
+  @override
+  String get whenAndWhyIAte => 'Wann und warum ich gegessen habe';
+
+  @override
+  String get dayDate => '#tagDatum';
+
+  @override
+  String get mealYouWant => 'Wählen Sie die Mahlzeit aus, zu der Sie an der Umfrage teilnehmen möchten.';
+
+  @override
+  String get youCanAnswer => 'Du kannst die Umfrage für jede Lebensmittelkategorie beantworten, für die du heute Lebensmittel eingetragen hast. Über die Plus-Symbole kannst du Lebensmittel auch in Kategorien eintragen, die noch leer sind.';
+
+  @override
+  String get pleaseLogFood => 'Bitte protokollieren Sie Lebensmittel';
+
+  @override
+  String get leanOnMeDoesNot => 'LeanOnMe unterstützt keine nicht nachhaltigen Diäten wie ganztägiges Fasten. Bitte protokollieren Sie Lebensmittel in mindestens einer Kategorie, damit wir unsere Verpflichtung gemeinsam erfüllen können.';
+
+  @override
+  String get haveYouLogged => 'Haben Sie alles protokolliert, was Sie gegessen haben, und sind Sie sicher, dass Sie das nicht mehr tun werden?';
+
+  @override
+  String get thisDayIsComplete => 'Dieser Tag ist komplett';
+
+  @override
+  String get backToPracticeBoard => 'Zurück zur Übungstafel';
 }

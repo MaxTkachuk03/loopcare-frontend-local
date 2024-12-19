@@ -1,5 +1,7 @@
 {
   "@@locale": "de",
+  "mealTiming": "Essenszeiten",
+  "selectTheFoodCategory": "Wählen Sie die Lebensmittelkategorie",
   "interactiveLessonsTextAreaLabel": "Uw gedachten",
   "interactiveLessonsMultipleChoiceBtnLabel": "Save",
   "errorValidationIosMinVersionNotANumber": "iOS-Mindestversion muss eine Zahl sein.",
@@ -1541,6 +1543,7 @@
   "dinner": "Abendessen",
   "lateDinner": "Spät abends",
   "nutritionSummary": "Nährwert-Zusammenfassung",
+  "nutritionIntake": "Nährstoffaufnahme",
   "calorieDensity": "Kaloriendichte",
   "proteinDegree": "Proteingehalt",
   "whatIsCalorieDensity": "Was ist die Kaloriendichte",
@@ -2443,5 +2446,14 @@
   "weightLog": "Weight log",
   "weightLogLockedDescription": "Our scientifically proven formula allows you switch back and forth between a simple linear graph and one that compensates for short-term volatile factors like water weight, showing you your “real” weight loss.",
   "goals": "Goals",
-  "myGoalsLockedDescription": "Whether its psychology, nutrition, physical activity, or community: Small, achievable, and measurable goals help you make small changes that lead to big results."
+  "myGoalsLockedDescription": "Whether its psychology, nutrition, physical activity, or community: Small, achievable, and measurable goals help you make small changes that lead to big results.",
+  "whenAndWhyIAte": "Wann und warum ich gegessen habe",
+  "dayDate":"#tagDatum",
+  "mealYouWant": "Wählen Sie die Mahlzeit aus, zu der Sie an der Umfrage teilnehmen möchten.",
+  "youCanAnswer": "Du kannst die Umfrage für jede Lebensmittelkategorie beantworten, für die du heute Lebensmittel eingetragen hast. Über die Plus-Symbole kannst du Lebensmittel auch in Kategorien eintragen, die noch leer sind.",
+  "pleaseLogFood": "Bitte protokollieren Sie Lebensmittel",
+  "leanOnMeDoesNot": "LeanOnMe unterstützt keine nicht nachhaltigen Diäten wie ganztägiges Fasten. Bitte protokollieren Sie Lebensmittel in mindestens einer Kategorie, damit wir unsere Verpflichtung gemeinsam erfüllen können.",
+  "haveYouLogged": "Haben Sie alles protokolliert, was Sie gegessen haben, und sind Sie sicher, dass Sie das nicht mehr tun werden?",
+  "thisDayIsComplete": "Dieser Tag ist komplett",
+  "backToPracticeBoard": "Zurück zur Übungstafel"
 }

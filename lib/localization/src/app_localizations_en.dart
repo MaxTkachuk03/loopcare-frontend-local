@@ -24,6 +24,12 @@ class AppLocalizationsEn extends AppLocalizations {
   String get interactiveLessonsMultipleSelectLabel => 'Choose All That Apply';
 
   @override
+  String get mealTiming => 'Meal Timing';
+
+  @override
+  String get selectTheFoodCategory => 'Select the food category';
+
+  @override
   String get interactiveLessonsCorrectFeedbackTitle => 'This is correct';
 
   @override
@@ -4243,6 +4249,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get nutritionSummary => 'Nutrition summary';
 
   @override
+  String get nutritionIntake => 'Nutrition intake';
+
+  @override
   String get calorieDensity => 'Calorie density';
 
   @override
@@ -4402,7 +4411,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get searchFilterMy => 'My Food';
 
   @override
-  String get inbetweens => 'Inbetweens & snacks';
+  String get inbetweens => 'Inbetweens & Snacks';
 
   @override
   String get inbetweensShort => 'Inbetweens';
@@ -5991,4 +6000,31 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get myGoalsLockedDescription => 'Whether its psychology, nutrition, physical activity, or community: Small, achievable, and measurable goals help you make small changes that lead to big results.';
+
+  @override
+  String get whenAndWhyIAte => 'When and why I ate';
+
+  @override
+  String get dayDate => '#dayDate';
+
+  @override
+  String get mealYouWant => 'Select the meal you want to answer the survey for.';
+
+  @override
+  String get youCanAnswer => 'You can answer the survey for any food category you’ve logged food in for today. Use the plus symbols as a shortcut to log food in categories that are still empty.';
+
+  @override
+  String get pleaseLogFood => 'Please log food';
+
+  @override
+  String get leanOnMeDoesNot => 'LeanOnMe doesn’t encourage unsustainable diets like whole-day fasting. Please log food in at least one category so we can complete our commitment together.';
+
+  @override
+  String get haveYouLogged => 'Have you logged everything you ate, and are you sure you’re not going to anymore?';
+
+  @override
+  String get thisDayIsComplete => 'This day is complete';
+
+  @override
+  String get backToPracticeBoard => 'Back to practice board';
 }
