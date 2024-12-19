@@ -76,6 +76,28 @@ class CrowdinLocalization extends AppLocalizations {
   String get featureUnlocksAtPool =>
       Crowdin.getText(localeName, 'featureUnlocksAtPool') ?? _fallbackTexts.featureUnlocksAtPool;
 
+  String get whatYouWhy => Crowdin.getText(localeName, 'whatYouWhy') ?? _fallbackTexts.whatYouWhy;
+  @override
+  String get tapReflection =>
+      Crowdin.getText(localeName, 'tapReflection') ?? _fallbackTexts.tapReflection;
+  @override
+  String get timeReq => Crowdin.getText(localeName, 'timeReq') ?? _fallbackTexts.timeReq;
+  @override
+  String get completeRef =>
+      Crowdin.getText(localeName, 'completeRef') ?? _fallbackTexts.completeRef;
+  @override
+  String get readyGraduate =>
+      Crowdin.getText(localeName, 'readyGraduate') ?? _fallbackTexts.readyGraduate;
+  @override
+  String get unlockWeight =>
+      Crowdin.getText(localeName, 'unlockWeight') ?? _fallbackTexts.unlockWeight;
+  @override
+  String get unlockFoodLog =>
+      Crowdin.getText(localeName, 'unlockFoodLog') ?? _fallbackTexts.unlockFoodLog;
+  @override
+  String get foodCmmitment =>
+      Crowdin.getText(localeName, 'foodCmmitment') ?? _fallbackTexts.foodCmmitment;
+
   @override
   String get interactiveLessonsTextAreaLabel =>
       Crowdin.getText(localeName, 'interactiveLessonsTextAreaLabel') ??

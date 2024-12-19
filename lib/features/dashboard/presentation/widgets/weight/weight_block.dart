@@ -100,9 +100,8 @@ class _WeightBlockState extends State<WeightBlock> {
                               )
                             : CustomText.bitter400(
                                 LocalizedTexts.logWeight.tr(),
-                                style: context.textTheme.headlineSmall!.copyWith(
-                                  color: isEditable ? AppColors.blueDarker : AppColors.greyLabel,
-                                ),
+                                style: context.textTheme.headlineSmall!
+                                    .copyWith(color: AppColors.greyLight, fontSize: 20),
                               ),
                         if (widget.locked)
                           if (showSubText)
@@ -114,6 +113,7 @@ class _WeightBlockState extends State<WeightBlock> {
                             ),
                       ],
                     ),
+                    circleButton: widget.locked ? true : false,
                     actionIcon: widget.locked
                         ? hasLog
                             ? AppIcons.edit
@@ -137,19 +137,28 @@ class _WeightBlockState extends State<WeightBlock> {
                                 width: 250,
                                 child: CustomText.w400(
                                   "${LocalizedTexts.featureUnlocksAtPool.tr()} #${LocalizedTexts.weightLog.tr()}",
-                                  style: const TextStyle(color: AppColors.blueDarker),
+                                  style: const TextStyle(color: AppColors.greyLight, fontSize: 16),
                                 ),
                               ),
                             ],
                           ),
                         ),
                   onClick
-                      ? Container(
-                          width: 250,
-                          padding: const EdgeInsets.only(bottom: 10),
-                          child: CustomText.w400(
-                            maxLines: 10,
-                            LocalizedTexts.weightLogLockedDescription.tr(),
+                      ? Padding(
+                          padding: const EdgeInsets.only(left: 12.0, right: 12.0, bottom: 12),
+                          child: Row(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Container(
+                                width: 350,
+                                padding: const EdgeInsets.only(bottom: 10),
+                                child: CustomText.w400(
+                                  maxLines: 10,
+                                  LocalizedTexts.weightLogLockedDescription.tr(),
+                                  style: const TextStyle(color: AppColors.greyLight, fontSize: 16),
+                                ),
+                              ),
+                            ],
                           ),
                         )
                       : Container(),

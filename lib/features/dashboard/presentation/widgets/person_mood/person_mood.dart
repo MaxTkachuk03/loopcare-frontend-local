@@ -86,7 +86,8 @@ class _PersonMoodState extends State<PersonMood> {
                           )
                         : CustomText.bitter400(
                             LocalizedTexts.mood.tr(),
-                            style: context.textTheme.headlineSmall?.copyWith(color: textColor),
+                            style: context.textTheme.headlineSmall
+                                ?.copyWith(color: AppColors.greyLight, fontSize: 20),
                           ),
                     actionIcon: widget.locked
                         ? AppIcons.plus
@@ -94,6 +95,7 @@ class _PersonMoodState extends State<PersonMood> {
                             ? const AssetImage(AppIcons.upArrow)
                             : AppIcons.downArrow,
                     editable: isEditable,
+                    circleButton: widget.locked ? true : false,
                   ),
                   widget.locked
                       ? Container()
@@ -109,18 +111,26 @@ class _PersonMoodState extends State<PersonMood> {
                                 width: 250,
                                 child: CustomText.w400(
                                   "${LocalizedTexts.featureUnlocksAtPool.tr()} #${LocalizedTexts.moodLog.tr()}",
-                                  style: const TextStyle(color: AppColors.blueDarker),
+                                  style: const TextStyle(color: AppColors.greyLight, fontSize: 16),
                                 ),
                               ),
                             ],
                           ),
                         ),
                   onClick
-                      ? SizedBox(
-                          width: 250,
-                          child: CustomText.w400(
-                            maxLines: 10,
-                            LocalizedTexts.moodLogLockedDescription.tr(),
+                      ? Padding(
+                          padding: const EdgeInsets.only(left: 12.0, right: 12.0, bottom: 12),
+                          child: Row(
+                            children: [
+                              SizedBox(
+                                width: 350,
+                                child: CustomText.w400(
+                                  maxLines: 10,
+                                  LocalizedTexts.moodLogLockedDescription.tr(),
+                                  style: const TextStyle(color: AppColors.greyLight, fontSize: 16),
+                                ),
+                              ),
+                            ],
                           ),
                         )
                       : Container(),

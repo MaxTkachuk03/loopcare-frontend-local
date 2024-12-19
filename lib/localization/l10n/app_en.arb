@@ -2452,5 +2452,13 @@
   "weightLog": "Weight log",
   "weightLogLockedDescription": "Our scientifically proven formula allows you switch back and forth between a simple linear graph and one that compensates for short-term volatile factors like water weight, showing you your “real” weight loss.",
   "goals": "Goals",
-  "myGoalsLockedDescription": "Whether its psychology, nutrition, physical activity, or community: Small, achievable, and measurable goals help you make small changes that lead to big results."
+  "myGoalsLockedDescription": "Whether its psychology, nutrition, physical activity, or community: Small, achievable, and measurable goals help you make small changes that lead to big results.",
+  "whatYouWhy": "What's your why",
+  "timeReq": "Time requirement:",
+  "completeRef": "Complete reflection",
+  "foodCmmitment": "Complete food log commitment",
+  "unlockWeight": "Unlock your weight",
+  "unlockFoodLog": "Unlock food log",
+  "readyGraduate": "ready to graduate",
+  "tapReflection": "Tap the reflection icon to read the article to start the"
 }

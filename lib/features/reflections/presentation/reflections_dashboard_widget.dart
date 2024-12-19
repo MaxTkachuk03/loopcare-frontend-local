@@ -64,14 +64,14 @@ class _ReflectionsDashboardWidgetState extends State<ReflectionsDashboardWidget>
                     )
                   : CustomText.bitter400(
                       LocalizedTexts.reflections.tr(),
-                      style: context.textTheme.headlineSmall,
+                      style: const TextStyle(color: AppColors.greyLight, fontSize: 20),
                     ),
               actionIcon: widget.locked
                   ? AppIcons.arrow
                   : onClick
                       ? const AssetImage(AppIcons.upArrow)
                       : AppIcons.downArrow,
-              circleButton: widget.locked ? false : true,
+              circleButton: widget.locked ? true : false,
             ),
             widget.locked
                 ? const Divider(color: AppColors.blueLighter, indent: 8.0, endIndent: 8.0)
@@ -90,19 +90,26 @@ class _ReflectionsDashboardWidgetState extends State<ReflectionsDashboardWidget>
                           width: 250,
                           child: CustomText.w400(
                             "${LocalizedTexts.featureUnlocksAtPool.tr()} #${LocalizedTexts.reflections.tr()}",
-                            style: const TextStyle(color: AppColors.blueDarker),
+                            style: const TextStyle(color: AppColors.greyLight, fontSize: 16),
                           ),
                         ),
                       ],
                     ),
                   ),
             onClick
-                ? Container(
-                    margin: const EdgeInsets.only(left: 70),
-                    width: 250,
-                    child: CustomText.w400(
-                      maxLines: 10,
-                      LocalizedTexts.reflectionsDescription.tr(),
+                ? Padding(
+                    padding: const EdgeInsets.only(left: 12.0, right: 12.0, bottom: 12),
+                    child: Row(
+                      children: [
+                        SizedBox(
+                          width: 350,
+                          child: CustomText.w400(
+                            maxLines: 10,
+                            LocalizedTexts.reflectionsDescription.tr(),
+                            style: const TextStyle(color: AppColors.greyLight, fontSize: 16),
+                          ),
+                        ),
+                      ],
                     ),
                   )
                 : Container(),

@@ -8,10 +8,12 @@ import 'package:loopcare_frontend/features/nutrition/application/meals/meals_blo
 
 class CirclePlusButton extends StatelessWidget {
   const CirclePlusButton(
-      {super.key, this.color, this.onPressed, this.iconColor});
+      {super.key, this.color, this.onPressed, this.width, this.icon, this.iconColor});
 
   final Color? color;
   final void Function()? onPressed;
+  final double? width;
+  final AssetImage? icon;
   final Color? iconColor;
 
   @override
@@ -20,11 +22,11 @@ class CirclePlusButton extends StatelessWidget {
       children: [
         CustomOutlinedRoundedButtonWithIcon(
           onPressed: onPressed ?? () => _onSearchTap(context),
-          icon: AppIcons.plus,
+          icon: icon ?? AppIcons.plus,
           bgColor: color,
           iconColor: iconColor,
         ),
-        const SizedBox(width: 16.0),
+        SizedBox(width: width ?? 16.0),
       ],
     );
   }

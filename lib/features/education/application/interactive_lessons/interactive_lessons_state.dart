@@ -34,6 +34,7 @@ class InteractiveLessonsStateData with _$InteractiveLessonsStateData {
   const factory InteractiveLessonsStateData({
     @Default(0) int id,
     @Default('') String type,
+    @Default(RiverModuleItemState.locked) RiverModuleItemState lessonStatus,
     @Default('') String title,
     @Default('') String jumpBoardTitle,
     @Default('') String jumpBoardDescription,
