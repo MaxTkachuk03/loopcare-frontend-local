@@ -54,7 +54,7 @@ class APIEducationService implements EducationService {
   }
 
   @override
-  Future<Either<RequestError, InteractiveLesson>> getInteractiveLesson(int lessonId) async {
+  Future<Either<RequestError, InteractiveLesson>> getInteractiveLesson(int lessonId, DateTime? date) async {
     // TODO: delete after dev phase
     // if (lessonId == 6) {
     //   return right(InteractiveLesson.debugFromJson(commitmentLesson));
@@ -78,6 +78,7 @@ class APIEducationService implements EducationService {
     try {
       final response = await client.get(
         '/education/interactive-lessons/$lessonId',
+        queryParameters: {"date": date},
         fromJson: InteractiveLesson.debugFromJson,
       );
       log.d('Raw Response: response');
