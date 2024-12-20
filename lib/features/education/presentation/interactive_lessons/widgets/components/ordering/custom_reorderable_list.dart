@@ -19,9 +19,8 @@ import 'package:loopcare_frontend/features/education/domain/interactive_lesson/i
 class CustomReorderableList extends StatefulWidget {
   final InteractiveLessonChunkComponentOrdering component;
   final RiverModuleStreamType lessonStreamType;
-  final Function(
-          InteractiveLessonComponentProgress progress, InteractiveLessonChunkComponent component)
-      onSaveProgress;
+  final Function(InteractiveLessonComponentProgress progress,
+      InteractiveLessonChunkComponent component) onSaveProgress;
 
   const CustomReorderableList({
     super.key,
@@ -46,9 +45,11 @@ class _CustomReorderableListState extends State<CustomReorderableList> {
   void initState() {
     final rightOrder = content.correctOrder;
 
-    if (widget.component.progress != null && widget.component.progress!.optionIds != null) {
+    if (widget.component.progress != null &&
+        widget.component.progress!.optionIds != null) {
       _isNotReordered = true;
-      items.sort((a, b) => rightOrder.indexOf(a.order).compareTo(rightOrder.indexOf(b.order)));
+      items.sort((a, b) =>
+          rightOrder.indexOf(a.order).compareTo(rightOrder.indexOf(b.order)));
       _showOrderValidation = true;
     }
     super.initState();
@@ -91,13 +92,15 @@ class _CustomReorderableListState extends State<CustomReorderableList> {
     final rightOrder = content.correctOrder;
 
     setState(() {
-      items.sort((a, b) => rightOrder.indexOf(a.order).compareTo(rightOrder.indexOf(b.order)));
+      items.sort((a, b) =>
+          rightOrder.indexOf(a.order).compareTo(rightOrder.indexOf(b.order)));
       _showOrderValidation = true;
       _isNotReordered = true;
     });
 
     widget.onSaveProgress(
-        InteractiveLessonComponentProgress(optionIds: rightOrder, type: widget.component.type.name),
+        InteractiveLessonComponentProgress(
+            optionIds: rightOrder, type: widget.component.type.name),
         widget.component);
   }
 
@@ -118,7 +121,8 @@ class _CustomReorderableListState extends State<CustomReorderableList> {
     });
 
     widget.onSaveProgress(
-        InteractiveLessonComponentProgress(optionIds: rightOrder, type: widget.component.type.name),
+        InteractiveLessonComponentProgress(
+            optionIds: rightOrder, type: widget.component.type.name),
         widget.component);
   }
 
@@ -138,6 +142,8 @@ class _CustomReorderableListState extends State<CustomReorderableList> {
     });
   }
 
+  static const double iconSize = 80.0;
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -153,7 +159,8 @@ class _CustomReorderableListState extends State<CustomReorderableList> {
             physics: const NeverScrollableScrollPhysics(),
             header: ReorderableListLabel(label: content.topLabel),
             footer: ReorderableListLabel(label: content.bottomLabel),
-            onReorder: _isNotReordered ? (oldIndex, newIndex) {} : _onReorderHandler,
+            onReorder:
+                _isNotReordered ? (oldIndex, newIndex) {} : _onReorderHandler,
             onReorderStart: _onReorderStartHandler,
             proxyDecorator: proxyDecorator,
             children: items.asMap().entries.map((entry) {
@@ -164,13 +171,41 @@ class _CustomReorderableListState extends State<CustomReorderableList> {
               return Card(
                 key: ValueKey(item.id),
                 shape: getShape(isValid),
-                child: ListTile(
-                  leading: item.src.isNotEmpty
-                      ? Image.network(item.src) // Load network image if src exists
-                      : const Image(image: AppImages.logo),
-                  title: CustomText.w700(item.title, style: context.textTheme.bodyMedium),
-                  subtitle: CustomText(item.description, style: context.textTheme.bodyMedium),
-                  trailing: const Icon(Icons.drag_handle, color: AppColors.greenLighter),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    ClipRRect(
+                      borderRadius: const BorderRadius.horizontal(
+                          left: Radius.circular(12)),
+                      child: item.src.isNotEmpty
+                          ? Image.network(
+                              item.src,
+                              height: iconSize,
+                              width: iconSize,
+                              fit: BoxFit.fill,
+                            ) // Load network image if src exists
+                          : const Image(
+                              height: iconSize,
+                              width: iconSize,
+                              image: AppImages.nutrition,
+                              fit: BoxFit.fill,
+                            ),
+                    ),
+                    const Spacer(),
+                    Column(
+                      children: [
+                        CustomText.w700(item.title,
+                            style: context.textTheme.bodyMedium),
+                        CustomText(item.description,
+                            style: context.textTheme.bodyMedium),
+                      ],
+                    ),
+                    const Spacer(),
+                    const Icon(Icons.drag_handle,
+                        color: AppColors.greenLighter),
+                    const SizedBox(width: 15.0)
+                  ],
                 ),
               );
             }).toList(),
