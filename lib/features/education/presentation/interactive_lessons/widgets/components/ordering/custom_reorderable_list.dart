@@ -1,5 +1,4 @@
 import 'dart:ui';
-
 import 'package:flutter/material.dart';
 import 'package:loopcare_frontend/core/presentation/buttons/custom_elevated_button.dart';
 import 'package:loopcare_frontend/core/presentation/buttons/custom_outlined_button.dart';
@@ -44,7 +43,6 @@ class _CustomReorderableListState extends State<CustomReorderableList> {
   @override
   void initState() {
     final rightOrder = content.correctOrder;
-
     if (widget.component.progress != null &&
         widget.component.progress!.optionIds != null) {
       _isNotReordered = true;
@@ -61,7 +59,6 @@ class _CustomReorderableListState extends State<CustomReorderableList> {
       builder: (BuildContext context, Widget? child) {
         final double animValue = Curves.easeInOut.transform(animation.value);
         final double scale = lerpDouble(1, 1.04, animValue)!;
-
         return Transform.scale(scale: scale, child: child);
       },
       child: child,
@@ -83,21 +80,18 @@ class _CustomReorderableListState extends State<CustomReorderableList> {
       if (oldIndex < newIndex) {
         newIndex -= 1;
       }
-
       content.updateOrder(oldIndex, newIndex);
     });
   }
 
   void _onShowAnswerHandler() {
     final rightOrder = content.correctOrder;
-
     setState(() {
       items.sort((a, b) =>
           rightOrder.indexOf(a.order).compareTo(rightOrder.indexOf(b.order)));
       _showOrderValidation = true;
       _isNotReordered = true;
     });
-
     widget.onSaveProgress(
         InteractiveLessonComponentProgress(
             optionIds: rightOrder, type: widget.component.type.name),
@@ -107,19 +101,14 @@ class _CustomReorderableListState extends State<CustomReorderableList> {
   void _onCheckOrderHandler() {
     final order = items.map((i) => i.order).toList();
     List<int> rightOrder = content.correctOrder;
-
     setState(() {
       _showOrderValidation = true;
     });
-
     final isOrderRight = checkOrder(order, rightOrder);
-
     if (!isOrderRight) return;
-
     setState(() {
       _isNotReordered = true;
     });
-
     widget.onSaveProgress(
         InteractiveLessonComponentProgress(
             optionIds: rightOrder, type: widget.component.type.name),
@@ -132,7 +121,6 @@ class _CustomReorderableListState extends State<CustomReorderableList> {
         return false;
       }
     }
-
     return true;
   }
 
@@ -146,6 +134,7 @@ class _CustomReorderableListState extends State<CustomReorderableList> {
 
   @override
   Widget build(BuildContext context) {
+    print(MediaQuery.of(context).size.width);
     return Container(
       padding: const EdgeInsets.only(right: 20, left: 20, bottom: 12),
       decoration: BoxDecoration(
@@ -167,45 +156,63 @@ class _CustomReorderableListState extends State<CustomReorderableList> {
               int index = entry.key;
               ContentOrderingItem item = entry.value;
               final bool isValid = content.correctOrder[index] == item.order;
-
               return Card(
                 key: ValueKey(item.id),
                 shape: getShape(isValid),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    ClipRRect(
-                      borderRadius: const BorderRadius.horizontal(
-                          left: Radius.circular(12)),
-                      child: item.src.isNotEmpty
-                          ? Image.network(
-                              item.src,
-                              height: iconSize,
-                              width: iconSize,
-                              fit: BoxFit.fill,
-                            ) // Load network image if src exists
-                          : const Image(
-                              height: iconSize,
-                              width: iconSize,
-                              image: AppImages.nutrition,
-                              fit: BoxFit.fill,
-                            ),
+                child: Container(
+                  decoration: BoxDecoration(
+                    borderRadius: const BorderRadius.horizontal(
+                        left: Radius.circular(12)),
+                    image: DecorationImage(
+                      alignment: Alignment.centerLeft,
+                      scale: 2,
+                      image: item.src.isNotEmpty
+                          ? NetworkImage(item.src) as ImageProvider<
+                              Object> // network image if src exists
+                          : AppImages.logo,
+                      fit: BoxFit.fitHeight,
                     ),
-                    const Spacer(),
-                    Column(
-                      children: [
-                        CustomText.w700(item.title,
-                            style: context.textTheme.bodyMedium),
-                        CustomText(item.description,
-                            style: context.textTheme.bodyMedium),
-                      ],
-                    ),
-                    const Spacer(),
-                    const Icon(Icons.drag_handle,
-                        color: AppColors.greenLighter),
-                    const SizedBox(width: 15.0)
-                  ],
+                  ),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    mainAxisSize: MainAxisSize.max,
+                    children: [
+                      Spacer(
+                        flex: item.title.tr().length > 15 ? 2 : 1,
+                      ),
+                      Expanded(
+                        flex: 3,
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(vertical: 12.0),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            mainAxisSize: MainAxisSize.max,
+                            children: [
+                              CustomText(
+                                item.title,
+                                style: context.textTheme.bodyMedium
+                                    ?.copyWith(fontWeight: FontWeight.w700),
+                                textAlign: TextAlign.left,
+                                maxLines: 2,
+                                overflow: TextOverflow.visible,
+                              ),
+                              CustomText(
+                                item.description,
+                                style: context.textTheme.bodyMedium,
+                                maxLines: 2,
+                                overflow: TextOverflow.visible,
+                                textAlign: TextAlign.left,
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                      // const SizedBox(width: 8),
+                      Icon(Icons.drag_handle,
+                          color: widget.lessonStreamType.lighterColor),
+                      const SizedBox(width: 10.0), // Padding at the end
+                    ],
+                  ),
                 ),
               );
             }).toList(),
