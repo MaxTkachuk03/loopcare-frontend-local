@@ -13,6 +13,8 @@ import 'package:loopcare_frontend/features/nutrition/application/meals/meals_blo
 import 'package:loopcare_frontend/features/nutrition/domain/select_serving/meal_category.dart';
 import 'package:loopcare_frontend/features/river/domain/river_module_stream_type.dart';
 import 'package:loopcare_frontend/features/education/domain/interactive_lesson/interactive_lesson_component_progress.dart';
+import 'package:loopcare_frontend/localization/service/localization_extension.dart';
+import 'package:loopcare_frontend/localization/service/localized_texts.dart';
 import 'package:moment_dart/moment_dart.dart';
 
 class MealTiming extends StatefulWidget {
@@ -60,7 +62,7 @@ class _MealTimingState extends State<MealTiming> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             CategoryLabel.interactiveLesson(
-              label: 'Meal Timing',
+              label: LocalizedTexts.mealTiming.tr(),
               lessonStreamType: widget.lessonStreamType,
             ),
             const SizedBox(height: 20),

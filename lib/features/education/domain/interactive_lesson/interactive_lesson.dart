@@ -39,8 +39,8 @@ class InteractiveLesson with _$InteractiveLesson {
       final id = json['id'] as int;
       log.d('Parsed id: $id');
 
-      // final type = json['type'] as String;
-      log.d('Parsed type: ${json['type']}');
+      final type = json['streamType'] as String;
+      log.d('Parsed type: ${json['streamType']}');
 
       final title = json['title'] as String;
 
@@ -51,7 +51,7 @@ class InteractiveLesson with _$InteractiveLesson {
       log.d('Raw components: ${json['components']}');
       return InteractiveLesson(
         id: id,
-        type: 'r',
+        type: type,
         title: title,
         jumpBoardTitle: json['jumpBoardTitle'] as String,
         jumpBoardDescription: json['jumpBoardDescription'] as String,

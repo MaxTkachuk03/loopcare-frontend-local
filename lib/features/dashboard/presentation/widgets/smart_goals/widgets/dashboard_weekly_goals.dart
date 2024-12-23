@@ -28,24 +28,30 @@ class _DashboardWeeklyGoalsState extends State<DashboardWeeklyGoals> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<SmartGoalsBloc, SmartGoalsState>(builder: (context, state) {
-      return state.maybeMap(
-          error: (s) => ErrorScreen(error: s.data.error!, onButtonPressed: _onErrorRetryHandler),
+    return BlocBuilder<SmartGoalsBloc, SmartGoalsState>(
+      builder: (context, state) {
+        return state.maybeMap(
+          error: (s) => ErrorScreen(
+            error: s.data.error!,
+            onButtonPressed: _onErrorRetryHandler,
+          ),
           orElse: () {
             if (state.data.emptySessionState) {
               return const SizedBox.shrink();
             }
             itemKey = itemKey + 1;
             List<WeeklyGoalsSession> sessions = [...state.data.weeklyGoalsSessions];
-            if (sessions.isNotEmpty && state.data.selectedDate != null) {
-              final selectedDate = state.data.selectedDate!.dateOnly;
 
-              sessions = sessions
-                  .where((session) =>
-                      selectedDate.isAfter(session.startedAt!.dateOnly) ||
-                      selectedDate == session.startedAt!.dateOnly)
-                  .toList();
+            final selectedDate = state.data.selectedDate?.dateOnly;
+
+            if (selectedDate != null) {
+              sessions = sessions.where((session) {
+                final startedAt = session.startedAt?.dateOnly;
+                return startedAt != null &&
+                    (selectedDate.isAfter(startedAt) || selectedDate == startedAt);
+              }).toList();
             }
+
             return Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
@@ -56,21 +62,34 @@ class _DashboardWeeklyGoalsState extends State<DashboardWeeklyGoals> {
                 ),
                 const SizedBox(height: 4.0),
                 ...sessions.map(
-                  (session) => DashboardWeeklyGoalItem(
-                    keyItem: itemKey,
-                    sessionId: session.id!,
-                    onRemoveFromLocal: () {
-                      setState(() {
-                        sessions.remove(session);
-                      });
-                    },
-                    item: session.goal!,
-                    editable: !session.goal!.isAchieved && !session.hasQuickReviewWeeklyGoals,
-                  ),
-                )
+                  (session) {
+                    final sessionId = session.id;
+                    final goal = session.goal;
+                    final isEditable =
+                        !(goal?.isAchieved ?? true) && !(session.hasQuickReviewWeeklyGoals);
+
+                    if (goal == null || sessionId == null) {
+                      return const SizedBox.shrink();
+                    }
+
+                    return DashboardWeeklyGoalItem(
+                      keyItem: itemKey,
+                      sessionId: sessionId,
+                      onRemoveFromLocal: () {
+                        setState(() {
+                          sessions.remove(session);
+                        });
+                      },
+                      item: goal,
+                      editable: isEditable,
+                    );
+                  },
+                ),
               ],
             );
-          });
-    });
+          },
+        );
+      },
+    );
   }
 }

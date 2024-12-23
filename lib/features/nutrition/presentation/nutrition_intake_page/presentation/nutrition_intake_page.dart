@@ -18,6 +18,8 @@ import 'package:loopcare_frontend/features/nutrition/application/meals/meals_blo
 import 'package:loopcare_frontend/features/nutrition/domain/select_serving/meal_category.dart';
 import 'package:loopcare_frontend/features/nutrition/presentation/nutrition_intake_page/application/nutrition_intake_bloc.dart';
 import 'package:loopcare_frontend/features/nutrition/presentation/nutrition_intake_page/presentation/nutrition_intake_button.dart';
+import 'package:loopcare_frontend/localization/service/localization_extension.dart';
+import 'package:loopcare_frontend/localization/service/localized_texts.dart';
 
 @RoutePage()
 class NutritionIntakePage extends StatefulWidget {
@@ -41,11 +43,11 @@ class _NutritionIntakePageState extends State<NutritionIntakePage> {
     super.initState();
   }
 
-  static const List<String> categories = [
-    'Breakfast',
-    'Lunch',
-    'Dinner',
-    'Snacks'
+  static final List<String> categories = [
+    LocalizedTexts.breakfast.tr(),
+    LocalizedTexts.lunch.tr(),
+    LocalizedTexts.dinner.tr(),
+    LocalizedTexts.inbetweens.tr().split('&').last.trim()
   ];
 
   @override
@@ -53,18 +55,15 @@ class _NutritionIntakePageState extends State<NutritionIntakePage> {
     return BlocBuilder<NutritionIntakeBloc, NutritionIntakeState>(
       builder: (context, nutritionState) {
         isSwitched = context.read<NutritionIntakeBloc>().state.data.isDayClosed;
-        final isCompleted =
-            nutritionState.data.progress.any((c) => c.isCompleted == true);
-        // print("progress: ${nutritionState.data.progress}");
-        // print("isSwitched: $isSwitched");
+        final isCompleted = nutritionState.data.progress.any((c) => c.isLessonFinished == true);
+
         return BlocBuilder<MealsBloc, MealsState>(
           builder: (context, mealState) {
-            final isAddFood =
-                mealState.data.selectedDayMealTotalCaloriesWithDrinks == 0;
+            final isAddFood = mealState.data.selectedDayMealTotalCaloriesWithDrinks == 0;
             return CustomScaffold.greenLightest(
               appBar: CustomAppBar.green(
                 leading: CustomFilledIconButton.leadingGreenLighter(),
-                title: 'Nutrition intake',
+                title: LocalizedTexts.nutritionIntake.tr(),
               ),
               body: mealState.maybeMap(
                 orElse: () => const SizedBox.shrink(),
@@ -79,100 +78,79 @@ class _NutritionIntakePageState extends State<NutritionIntakePage> {
                           const Center(
                             child: Image(image: AppImages.nutrition),
                           ),
+                          const SizedBox(
+                            height: 25.0,
+                          ),
                           Padding(
-                            padding: const EdgeInsets.symmetric(
-                                horizontal: 20.0, vertical: 24.0),
+                            padding: const EdgeInsets.symmetric(horizontal: 20.0),
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 CustomText.bitter600(
-                                  'When and why I ate',
+                                  LocalizedTexts.whenAndWhyIAte.tr(),
                                   style: context.textTheme.displayLarge,
                                 ),
                                 CustomText.w600(
-                                  '#dayDate',
+                                  LocalizedTexts.dayDate.tr(),
                                   style: context.textTheme.bodySmall,
                                 ),
                                 const SizedBox(height: 24.0),
-                                const CategoryLabel(
-                                  label: 'Select the food category',
-                                  color: AppColors.greenRegular,
-                                  textColor: AppColors.blueDarkest,
-                                ),
+                                CategoryLabel.nutritionIntake(),
                                 const SizedBox(height: 12.0),
                                 CustomText(
                                   isAddFood || isCompleted
-                                      ? 'Select the meal you want to answer the survey for.'
-                                      : 'You can answer the survey for any food category you’ve logged food in for today. Use the plus symbols as a shortcut to log food in categories that are still empty.',
+                                      ? LocalizedTexts.mealYouWant.tr()
+                                      : LocalizedTexts.youCanAnswer.tr(),
                                   style: context.textTheme.bodyMedium!
                                       .copyWith(fontWeight: FontWeight.w700),
                                 ),
-                                const SizedBox(height: 12.0),
+                                const SizedBox(height: 20.0),
                                 Center(
                                   child: SizedBox(
-                                    height: 110,
+                                    height: 100,
                                     child: ListView.separated(
                                         scrollDirection: Axis.horizontal,
                                         padding: EdgeInsets.zero,
-                                        physics:
-                                            const NeverScrollableScrollPhysics(),
+                                        physics: const NeverScrollableScrollPhysics(),
                                         shrinkWrap: true,
                                         itemCount: MealCategory.values.length,
                                         itemBuilder: (context, index) {
-                                          final selectedDayMeals =
-                                              mealsState.data.meals[mealsState
-                                                  .data
-                                                  .currentDateTime
-                                                  .isoStringWithoutTime];
-                                          var category =
-                                              MealCategory.values[index];
+                                          final selectedDayMeals = mealsState.data.meals[
+                                              mealsState.data.currentDateTime.isoStringWithoutTime];
+                                          var category = MealCategory.values[index];
 
                                           var mealForCurrentCategory =
-                                              selectedDayMeals
-                                                  ?.firstWhereOrNull((m) =>
-                                                      m.mealCategory
-                                                          .toLowerCase() ==
-                                                      MealCategory.values[index]
-                                                          .originalValue);
+                                              selectedDayMeals?.firstWhereOrNull((m) =>
+                                                  m.mealCategory.toLowerCase() ==
+                                                  MealCategory.values[index].originalValue);
 
-                                          final mealItems =
-                                              mealForCurrentCategory?.mealItems;
-                                          final isEnabled = mealItems != null &&
-                                              mealItems.isNotEmpty;
+                                          final mealItems = mealForCurrentCategory?.mealItems;
+                                          final isEnabled =
+                                              mealItems != null && mealItems.isNotEmpty;
 
                                           return NutritionIntakeButton(
-                                            progress: nutritionState
-                                                    .data.progress.isNotEmpty
-                                                ? nutritionState
-                                                    .data.progress[index]
+                                            progress: nutritionState.data.progress.isNotEmpty
+                                                ? nutritionState.data.progress[index]
                                                 : null,
                                             mealId: mealForCurrentCategory?.id,
                                             category: category,
-                                            isDisabled:
-                                                !mealsState.data.isEditable,
-                                            mealItems:
-                                                isEnabled ? mealItems : null,
+                                            isDisabled: !mealsState.data.isEditable,
+                                            mealItems: isEnabled ? mealItems : null,
                                             calorieDensity: isEnabled
-                                                ? mealsState.data
-                                                    .calorieDensitySum(
-                                                        mealItems)
+                                                ? mealsState.data.calorieDensitySum(mealItems)
                                                 : null,
                                             text: categories[index],
                                           );
                                         },
                                         separatorBuilder: (_, __) {
-                                          final screenWidth =
-                                              MediaQuery.of(context).size.width;
+                                          final screenWidth = MediaQuery.of(context).size.width;
 
                                           if (screenWidth < 390) {
-                                            return SizedBox(
-                                                width: screenWidth / 12);
+                                            return SizedBox(width: screenWidth / 12);
                                           } else if (screenWidth < 400) {
-                                            return SizedBox(
-                                                width: screenWidth / 11);
+                                            return SizedBox(width: screenWidth / 11);
                                           } else {
-                                            return SizedBox(
-                                                width: screenWidth / 8.5);
+                                            return SizedBox(width: screenWidth / 8.5);
                                           }
                                         }),
                                   ),
@@ -181,43 +159,34 @@ class _NutritionIntakePageState extends State<NutritionIntakePage> {
                                     ? Column(
                                         children: [
                                           Row(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.center,
+                                            mainAxisAlignment: MainAxisAlignment.center,
                                             children: [
                                               AppIcons.nutritionSubtract,
                                               const SizedBox(width: 16.0),
                                               CustomText.bitter600(
-                                                  'Please log food',
-                                                  style: context
-                                                      .textTheme.bodyLarge),
+                                                  LocalizedTexts.pleaseLogFood.tr(),
+                                                  style: context.textTheme.bodyLarge),
                                             ],
                                           ),
                                           const SizedBox(height: 12.0),
                                           CustomText(
-                                            'LeanOnMe doesn’t encourage unsustainable diets like whole-day fasting. Please log food in at least one category so we can complete our commitment together.',
+                                            LocalizedTexts.leanOnMeDoesNot.tr(),
                                             textAlign: TextAlign.left,
                                             style: context.textTheme.bodyMedium,
                                           ),
                                         ],
                                       )
-                                    : const SizedBox(),
+                                    : const SizedBox.shrink(),
                                 isCompleted
                                     ? Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
+                                        crossAxisAlignment: CrossAxisAlignment.start,
                                         children: [
-                                          const CategoryLabel(
-                                            label: 'Select the food category',
-                                            color: AppColors.greenRegular,
-                                            textColor: AppColors.blueDarkest,
-                                          ),
+                                          CategoryLabel.nutritionIntake(),
                                           const SizedBox(height: 20.0),
                                           CustomText(
-                                            'Have you logged everything you ate, and are you sure you’re not going to anymore?',
+                                            LocalizedTexts.haveYouLogged.tr(),
                                             style: context.textTheme.bodyMedium!
-                                                .copyWith(
-                                                    fontWeight:
-                                                        FontWeight.w700),
+                                                .copyWith(fontWeight: FontWeight.w700),
                                           ),
                                           const SizedBox(height: 20.0),
                                           Row(
@@ -229,26 +198,22 @@ class _NutritionIntakePageState extends State<NutritionIntakePage> {
                                                     isSwitched = true;
                                                   });
                                                 },
-                                                activeColor: AppColors
-                                                    .greenLight, // Колір активного стану
-                                                inactiveThumbColor:
-                                                    AppColors.white,
+                                                activeColor:
+                                                    AppColors.greenLight, // Колір активного стану
+                                                inactiveThumbColor: AppColors.white,
                                                 inactiveTrackColor: AppColors
                                                     .greyLighter, // Колір треку у неактивному стані
                                               ),
                                               CustomText(
-                                                'This day is complete',
-                                                style: context
-                                                    .textTheme.bodyMedium!
-                                                    .copyWith(
-                                                        fontWeight:
-                                                            FontWeight.w400),
+                                                LocalizedTexts.thisDayIsComplete.tr(),
+                                                style: context.textTheme.bodyMedium!
+                                                    .copyWith(fontWeight: FontWeight.w400),
                                               ),
                                             ],
                                           ),
-                                          // const SizedBox(height: 20.0),
+                                          const SizedBox(height: 20.0),
                                           ContinueBtn(
-                                              label: "Back to practice board",
+                                              label: LocalizedTexts.backToPracticeBoard.tr(),
                                               onPressed: () {
                                                 context.router.maybePop();
                                               },

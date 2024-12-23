@@ -142,15 +142,13 @@ class _RiverScreenState extends State<RiverScreen> with RiverUtils {
       final lessonId = context.read<InteractiveLessonsBloc>().state.data.id;
 
       if (lessonId != item.lessonId) {
-        context
-            .read<InteractiveLessonsBloc>()
-            .add(InteractiveLessonsEvent.getInteractiveLesson(lessonId: item.lessonId));
+        context.read<InteractiveLessonsBloc>().add(InteractiveLessonsEvent.getInteractiveLesson(
+            lessonId: item.lessonId, lessonStatus: item.states.itemState));
       }
 
       // TODO: delete after connecting to backend
-      context
-          .read<InteractiveLessonsBloc>()
-          .add(InteractiveLessonsEvent.getInteractiveLesson(lessonId: item.lessonId));
+      context.read<InteractiveLessonsBloc>().add(InteractiveLessonsEvent.getInteractiveLesson(
+          lessonId: item.lessonId, lessonStatus: item.states.itemState));
 
       Future.delayed(
         const Duration(milliseconds: 800),

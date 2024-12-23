@@ -24,6 +24,12 @@ class AppLocalizationsDe extends AppLocalizations {
   String get interactiveLessonsMultipleSelectLabel => 'Choose All That Apply';
 
   @override
+  String get mealTiming => 'Essenszeiten';
+
+  @override
+  String get selectTheFoodCategory => 'Wählen Sie die Lebensmittelkategorie';
+
+  @override
   String get interactiveLessonsCorrectFeedbackTitle => 'This is correct';
 
   @override
@@ -4243,6 +4249,9 @@ class AppLocalizationsDe extends AppLocalizations {
   String get nutritionSummary => 'Nährwert-Zusammenfassung';
 
   @override
+  String get nutritionIntake => 'Nährstoffaufnahme';
+
+  @override
   String get calorieDensity => 'Kaloriendichte';
 
   @override
@@ -4976,7 +4985,7 @@ class AppLocalizationsDe extends AppLocalizations {
   String get nothingOnTheMenu => 'Noch nichts auf der Speisekarte';
 
   @override
-  String get mindTraining => 'Achtsamkeit';
+  String get mindTraining => 'Tauche tiefer ein';
 
   @override
   String get learnMoreButton => 'Weiter lesen';
@@ -5098,7 +5107,7 @@ class AppLocalizationsDe extends AppLocalizations {
   String get reflection => 'Reflexion';
 
   @override
-  String get reflections => 'Meine Reflexionen';
+  String get reflections => 'Was motiviert dich?';
 
   @override
   String get seeLesson => 'Siehe Abschnitt';
@@ -5378,7 +5387,7 @@ class AppLocalizationsDe extends AppLocalizations {
   String get perWeek => 'pro Woche';
 
   @override
-  String get supportGroup => 'Meine Gruppe';
+  String get supportGroup => 'Du bist nicht allein';
 
   @override
   String get account => 'Account';
@@ -5963,16 +5972,16 @@ class AppLocalizationsDe extends AppLocalizations {
   String get exerciseLibraryDescription => 'library of exercise videos designed specifically for people with higher BMIs or people who aren’t comfortable with physical activity. You can do these from home or anywhere you like.';
 
   @override
-  String get exerciseLibrary => 'Exercise library';
+  String get exerciseLibrary => 'Du bist nicht allein';
 
   @override
-  String get moodLog => 'Mood log';
+  String get moodLog => 'Zurück zu den Grundlagen';
 
   @override
   String get moodLogLockedDescription => 'The key to differentiating between moods and emotions is to take conscious note of them and their differences. Our mood logging tool will help you regain control over your state of mind.';
 
   @override
-  String get foodLog => 'Food log';
+  String get foodLog => 'Was motiviert dich?';
 
   @override
   String get foodLogLockedDescription => 'Learn to get a feel for calorie density, protein degree, fibre ratio, and overall calories thanks to our food logging tool! Our goal is not just to have you count your calories, but teach you how to make each calorie you choose to eat more filling and satisfying.';
@@ -5981,14 +5990,65 @@ class AppLocalizationsDe extends AppLocalizations {
   String get mindTrainingLockedDescription => 'A library of tools like breathing, tapping, mindfulness, meditation, and yoga, to help you find inner peace, beat your triggers, and live a happier life.';
 
   @override
-  String get weightLog => 'Weight log';
+  String get weightLog => 'Was motiviert dich?';
 
   @override
   String get weightLogLockedDescription => 'Our scientifically proven formula allows you switch back and forth between a simple linear graph and one that compensates for short-term volatile factors like water weight, showing you your “real” weight loss.';
 
   @override
-  String get goals => 'Goals';
+  String get goals => 'Was motiviert dich?';
 
   @override
   String get myGoalsLockedDescription => 'Whether its psychology, nutrition, physical activity, or community: Small, achievable, and measurable goals help you make small changes that lead to big results.';
+
+  @override
+  String get whenAndWhyIAte => 'Wann und warum ich gegessen habe';
+
+  @override
+  String get dayDate => '#tagDatum';
+
+  @override
+  String get mealYouWant => 'Wählen Sie die Mahlzeit aus, zu der Sie an der Umfrage teilnehmen möchten.';
+
+  @override
+  String get youCanAnswer => 'Du kannst die Umfrage für jede Lebensmittelkategorie beantworten, für die du heute Lebensmittel eingetragen hast. Über die Plus-Symbole kannst du Lebensmittel auch in Kategorien eintragen, die noch leer sind.';
+
+  @override
+  String get pleaseLogFood => 'Bitte protokollieren Sie Lebensmittel';
+
+  @override
+  String get leanOnMeDoesNot => 'LeanOnMe unterstützt keine nicht nachhaltigen Diäten wie ganztägiges Fasten. Bitte protokollieren Sie Lebensmittel in mindestens einer Kategorie, damit wir unsere Verpflichtung gemeinsam erfüllen können.';
+
+  @override
+  String get haveYouLogged => 'Haben Sie alles protokolliert, was Sie gegessen haben, und sind Sie sicher, dass Sie das nicht mehr tun werden?';
+
+  @override
+  String get thisDayIsComplete => 'Dieser Tag ist komplett';
+
+  @override
+  String get backToPracticeBoard => 'Zurück zur Übungstafel';
+
+  @override
+  String get whatYouWhy => 'Was ist dein Warum';
+
+  @override
+  String get timeReq => 'Zeitbedarf: ';
+
+  @override
+  String get completeRef => 'Vollständige Reflexion';
+
+  @override
+  String get foodCmmitment => 'Vollständige Verpflichtung zum Lebensmittelprotokoll';
+
+  @override
+  String get unlockWeight => 'Schalten Sie Ihr Gewicht frei';
+
+  @override
+  String get unlockFoodLog => 'Schalte das Lebensmittelprotokoll frei';
+
+  @override
+  String get readyGraduate => 'bereit für den Abschluss';
+
+  @override
+  String get tapReflection => 'Tippen Sie auf das Reflexionssymbol, um den Artikel zu lesen und den zu starten.';
 }

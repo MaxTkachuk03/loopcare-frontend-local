@@ -17,14 +17,16 @@ class APICommitmentService implements CommitmentService {
 
   @override
   Future<Either<RequestError, GetCommitmentResponse>> getCommitment(
-      {required DateTime startDate, required DateTime endDate}) async {
+      {required DateTime date}) async {
     // TODO use to mock
     return right(GetCommitmentResponse.fromJson(commitmentJson));
 
+    // String convertedDate = DateFormat("yyyy-MM-dd").format(date);
+    //
     // return await client.get(
-    //   '/commitment',
-    //   queryParameters: {"startDate": startDate, "endDate": endDate},
-    //   fromJson: GetGoalsResponse.fromJson,
+    //   '/smart-goal/commitment',
+    //   queryParameters: {"date": "2024-12-09"},
+    //   fromJson: GetCommitmentResponse.fromJson,
     // );
   }
 }

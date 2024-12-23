@@ -73,14 +73,14 @@ class _SupportGroupState extends State<SupportGroup> {
                     )
                   : CustomText.bitter400(
                       LocalizedTexts.supportGroup.tr(),
-                      style: context.textTheme.headlineSmall,
+                      style: const TextStyle(color: AppColors.greyLight, fontSize: 20),
                     ),
               actionIcon: widget.locked
                   ? AppIcons.arrow
                   : onClick
                       ? const AssetImage(AppIcons.upArrow)
                       : AppIcons.downArrow,
-              circleButton: widget.locked ? false : true,
+              circleButton: widget.locked ? true : false,
             ),
             widget.locked
                 ? Container()
@@ -96,19 +96,26 @@ class _SupportGroupState extends State<SupportGroup> {
                           width: 250,
                           child: CustomText.w400(
                             "${LocalizedTexts.featureUnlocksAtPool.tr()} #${LocalizedTexts.supportGroup.tr()}",
-                            style: const TextStyle(color: AppColors.blueDarker),
+                            style: const TextStyle(color: AppColors.greyLight, fontSize: 16),
                           ),
                         ),
                       ],
                     ),
                   ),
             onClick
-                ? Container(
-                    margin: const EdgeInsets.only(left: 70),
-                    width: 250,
-                    child: CustomText.w400(
-                      maxLines: 10,
-                      LocalizedTexts.supportGroupDescription.tr(),
+                ? Padding(
+                    padding: const EdgeInsets.only(left: 12.0, right: 12.0, bottom: 12),
+                    child: Row(
+                      children: [
+                        SizedBox(
+                          width: 350,
+                          child: CustomText.w400(
+                            maxLines: 10,
+                            LocalizedTexts.supportGroupDescription.tr(),
+                            style: const TextStyle(color: AppColors.greyLight, fontSize: 16),
+                          ),
+                        ),
+                      ],
                     ),
                   )
                 : Container(),

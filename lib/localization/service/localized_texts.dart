@@ -47,6 +47,18 @@ class LocalizedTexts {
   static const String typeOne = 'typeOne';
   static const String typeTwo = 'typeTwo';
 
+  // Nutrition intake
+  static const String nutritionIntake = 'nutritionIntake';
+  static const String whenAndWhyIAte = 'whenAndWhyIAte';
+  static const String dayDate = 'dayDate';
+  static const String mealYouWant = 'mealYouWant';
+  static const String youCanAnswer = 'youCanAnswer';
+  static const String pleaseLogFood = 'pleaseLogFood';
+  static const String leanOnMeDoesNot = 'leanOnMeDoesNot';
+  static const String haveYouLogged = 'haveYouLogged';
+  static const String thisDayIsComplete = 'thisDayIsComplete';
+  static const String backToPracticeBoard = 'backToPracticeBoard';
+
   //Nutrition
   static const String nutritionSummary = 'nutritionSummary';
   static const String calorieDensity = 'calorieDensity';
@@ -1028,6 +1040,8 @@ class LocalizedTexts {
   static const String interactiveLessonsSingleSelectLabel = 'interactiveLessonsSingleSelectLabel';
   static const String interactiveLessonsMultipleSelectLabel =
       'interactiveLessonsMultipleSelectLabel';
+  static const String mealTiming = 'mealTiming';
+  static const String selectTheFoodCategory = 'selectTheFoodCategory';
   static const String interactiveLessonsCorrectFeedbackTitle =
       'interactiveLessonsCorrectFeedbackTitle';
   static const String interactiveLessonsIncorrectFeedbackTitle =
@@ -2483,6 +2497,15 @@ class LocalizedTexts {
   static const String goals = 'goals';
   static const String myGoalsLockedDescription = 'myGoalsLockedDescription';
 
+  //pool_widget
+  static const String whatYouWhy = "whatYouWhy";
+  static const String tapReflection = "tapReflection";
+  static const String timeReq = "timeReq";
+  static const String completeRef = "completeRef";
+  static const String readyGraduate = "readyGraduate";
+  static const String unlockWeight = "unlockWeight";
+  static const String unlockFoodLog = "unlockFoodLog";
+  static const String foodCmmitment = "foodCmmitment";
   //Links
   static const String linksTermsAndConditionsUrl = 'linksTermsAndConditionsUrl';
   static const String linksPrivacyPolicyUrl = 'linksPrivacyPolicyUrl';

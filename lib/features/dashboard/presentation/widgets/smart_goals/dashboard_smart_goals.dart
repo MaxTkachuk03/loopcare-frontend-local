@@ -42,6 +42,7 @@ class _DashboardSmartGoalsState extends State<DashboardSmartGoals> {
         borderRadius: BorderRadius.all(Radius.circular(8)),
       ),
       child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           BlocBuilder<SmartGoalsBloc, SmartGoalsState>(
             builder: (context, state) {
@@ -71,10 +72,11 @@ class _DashboardSmartGoalsState extends State<DashboardSmartGoals> {
                           )
                         : CustomText.bitter400(
                             LocalizedTexts.smartGoalsMyGoals.tr(),
-                            style: context.textTheme.headlineSmall,
+                            style: const TextStyle(color: AppColors.greyLight, fontSize: 20),
                           ),
                   ],
                 ),
+                circleButton: widget.showSmartGoalsCard ? true : false,
                 actionIcon: widget.showSmartGoalsCard
                     ? AppIcons.plus
                     : onClick
@@ -97,19 +99,26 @@ class _DashboardSmartGoalsState extends State<DashboardSmartGoals> {
                         width: 250,
                         child: CustomText.w400(
                           "${LocalizedTexts.featureUnlocksAtPool.tr()} #${LocalizedTexts.goals.tr()}",
-                          style: const TextStyle(color: AppColors.blueDarker),
+                          style: const TextStyle(color: AppColors.greyLight, fontSize: 16),
                         ),
                       ),
                     ],
                   ),
                 ),
           onClick
-              ? Container(
-                  padding: const EdgeInsets.only(bottom: 10),
-                  width: 250,
-                  child: CustomText.w400(
-                    maxLines: 10,
-                    LocalizedTexts.myGoalsLockedDescription.tr(),
+              ? Padding(
+                  padding: const EdgeInsets.only(left: 12.0, right: 12.0, bottom: 12),
+                  child: Row(
+                    children: [
+                      SizedBox(
+                        width: 350,
+                        child: CustomText.w400(
+                          maxLines: 10,
+                          LocalizedTexts.myGoalsLockedDescription.tr(),
+                          style: const TextStyle(color: AppColors.greyLight, fontSize: 16),
+                        ),
+                      ),
+                    ],
                   ),
                 )
               : Container(),

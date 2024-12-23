@@ -32,11 +32,11 @@ class InteractiveLessonPage extends StatelessWidget {
       return state.maybeWhen(
         error: (_) => const SizedBox.shrink(),
         loading: (_) => CustomScaffold.customColor(
-          color: lessonStreamType.lightestColor,
+          color: AppColors.white,
           body: const Center(child: CircularProgressIndicator()),
         ),
         orElse: () => CustomScaffold.customColor(
-          color: lessonStreamType.lightestColor,
+          color: AppColors.white,
           appBar: CustomAppBar.customColor(
             customColor: lessonStreamType.regularColor,
             title: context.watch<InteractiveLessonsBloc>().state.data.title,

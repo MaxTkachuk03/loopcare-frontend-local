@@ -125,6 +125,18 @@ abstract class AppLocalizations {
   /// **'Choose All That Apply'**
   String get interactiveLessonsMultipleSelectLabel;
 
+  /// No description provided for @mealTiming.
+  ///
+  /// In en, this message translates to:
+  /// **'Meal Timing'**
+  String get mealTiming;
+
+  /// No description provided for @selectTheFoodCategory.
+  ///
+  /// In en, this message translates to:
+  /// **'Select the food category'**
+  String get selectTheFoodCategory;
+
   /// No description provided for @interactiveLessonsCorrectFeedbackTitle.
   ///
   /// In en, this message translates to:
@@ -8429,6 +8441,12 @@ abstract class AppLocalizations {
   /// **'Nutrition summary'**
   String get nutritionSummary;
 
+  /// No description provided for @nutritionIntake.
+  ///
+  /// In en, this message translates to:
+  /// **'Nutrition intake'**
+  String get nutritionIntake;
+
   /// No description provided for @calorieDensity.
   ///
   /// In en, this message translates to:
@@ -8738,7 +8756,7 @@ abstract class AppLocalizations {
   /// No description provided for @inbetweens.
   ///
   /// In en, this message translates to:
-  /// **'Inbetweens & snacks'**
+  /// **'Inbetweens & Snacks'**
   String get inbetweens;
 
   /// No description provided for @inbetweensShort.
@@ -9800,7 +9818,7 @@ abstract class AppLocalizations {
   /// No description provided for @mindTraining.
   ///
   /// In en, this message translates to:
-  /// **'Mind training'**
+  /// **'Digging deeper'**
   String get mindTraining;
 
   /// No description provided for @learnMoreButton.
@@ -10016,7 +10034,7 @@ abstract class AppLocalizations {
   /// No description provided for @reflections.
   ///
   /// In en, this message translates to:
-  /// **'Reflections'**
+  /// **'What\'s your why?'**
   String get reflections;
 
   /// No description provided for @seeLesson.
@@ -10550,7 +10568,7 @@ abstract class AppLocalizations {
   /// No description provided for @supportGroup.
   ///
   /// In en, this message translates to:
-  /// **'Support group'**
+  /// **'Don\'t go it alone'**
   String get supportGroup;
 
   /// No description provided for @account.
@@ -11684,13 +11702,13 @@ abstract class AppLocalizations {
   /// No description provided for @exerciseLibrary.
   ///
   /// In en, this message translates to:
-  /// **'Exercise library'**
+  /// **'Don\'t go it alone'**
   String get exerciseLibrary;
 
   /// No description provided for @moodLog.
   ///
   /// In en, this message translates to:
-  /// **'Mood log'**
+  /// **'Back to Basics'**
   String get moodLog;
 
   /// No description provided for @moodLogLockedDescription.
@@ -11702,7 +11720,7 @@ abstract class AppLocalizations {
   /// No description provided for @foodLog.
   ///
   /// In en, this message translates to:
-  /// **'Food log'**
+  /// **'What\'s your why?'**
   String get foodLog;
 
   /// No description provided for @foodLogLockedDescription.
@@ -11720,7 +11738,7 @@ abstract class AppLocalizations {
   /// No description provided for @weightLog.
   ///
   /// In en, this message translates to:
-  /// **'Weight log'**
+  /// **'What\'s your why?'**
   String get weightLog;
 
   /// No description provided for @weightLogLockedDescription.
@@ -11732,7 +11750,7 @@ abstract class AppLocalizations {
   /// No description provided for @goals.
   ///
   /// In en, this message translates to:
-  /// **'Goals'**
+  /// **'What\'s your why?'**
   String get goals;
 
   /// No description provided for @myGoalsLockedDescription.
@@ -11740,6 +11758,108 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Whether its psychology, nutrition, physical activity, or community: Small, achievable, and measurable goals help you make small changes that lead to big results.'**
   String get myGoalsLockedDescription;
+
+  /// No description provided for @whenAndWhyIAte.
+  ///
+  /// In en, this message translates to:
+  /// **'When and why I ate'**
+  String get whenAndWhyIAte;
+
+  /// No description provided for @dayDate.
+  ///
+  /// In en, this message translates to:
+  /// **'#dayDate'**
+  String get dayDate;
+
+  /// No description provided for @mealYouWant.
+  ///
+  /// In en, this message translates to:
+  /// **'Select the meal you want to answer the survey for.'**
+  String get mealYouWant;
+
+  /// No description provided for @youCanAnswer.
+  ///
+  /// In en, this message translates to:
+  /// **'You can answer the survey for any food category you’ve logged food in for today. Use the plus symbols as a shortcut to log food in categories that are still empty.'**
+  String get youCanAnswer;
+
+  /// No description provided for @pleaseLogFood.
+  ///
+  /// In en, this message translates to:
+  /// **'Please log food'**
+  String get pleaseLogFood;
+
+  /// No description provided for @leanOnMeDoesNot.
+  ///
+  /// In en, this message translates to:
+  /// **'LeanOnMe doesn’t encourage unsustainable diets like whole-day fasting. Please log food in at least one category so we can complete our commitment together.'**
+  String get leanOnMeDoesNot;
+
+  /// No description provided for @haveYouLogged.
+  ///
+  /// In en, this message translates to:
+  /// **'Have you logged everything you ate, and are you sure you’re not going to anymore?'**
+  String get haveYouLogged;
+
+  /// No description provided for @thisDayIsComplete.
+  ///
+  /// In en, this message translates to:
+  /// **'This day is complete'**
+  String get thisDayIsComplete;
+
+  /// No description provided for @backToPracticeBoard.
+  ///
+  /// In en, this message translates to:
+  /// **'Back to practice board'**
+  String get backToPracticeBoard;
+
+  /// No description provided for @whatYouWhy.
+  ///
+  /// In en, this message translates to:
+  /// **'What\'s your why'**
+  String get whatYouWhy;
+
+  /// No description provided for @timeReq.
+  ///
+  /// In en, this message translates to:
+  /// **'Time requirement:'**
+  String get timeReq;
+
+  /// No description provided for @completeRef.
+  ///
+  /// In en, this message translates to:
+  /// **'Complete reflection'**
+  String get completeRef;
+
+  /// No description provided for @foodCmmitment.
+  ///
+  /// In en, this message translates to:
+  /// **'Complete food log commitment'**
+  String get foodCmmitment;
+
+  /// No description provided for @unlockWeight.
+  ///
+  /// In en, this message translates to:
+  /// **'Unlock your weight'**
+  String get unlockWeight;
+
+  /// No description provided for @unlockFoodLog.
+  ///
+  /// In en, this message translates to:
+  /// **'Unlock food log'**
+  String get unlockFoodLog;
+
+  /// No description provided for @readyGraduate.
+  ///
+  /// In en, this message translates to:
+  /// **'ready to graduate'**
+  String get readyGraduate;
+
+  /// No description provided for @tapReflection.
+  ///
+  /// In en, this message translates to:
+  /// **'Tap the reflection icon to read the article to start the'**
+  String get tapReflection;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

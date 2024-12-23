@@ -24,6 +24,12 @@ class AppLocalizationsEn extends AppLocalizations {
   String get interactiveLessonsMultipleSelectLabel => 'Choose All That Apply';
 
   @override
+  String get mealTiming => 'Meal Timing';
+
+  @override
+  String get selectTheFoodCategory => 'Select the food category';
+
+  @override
   String get interactiveLessonsCorrectFeedbackTitle => 'This is correct';
 
   @override
@@ -4243,6 +4249,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get nutritionSummary => 'Nutrition summary';
 
   @override
+  String get nutritionIntake => 'Nutrition intake';
+
+  @override
   String get calorieDensity => 'Calorie density';
 
   @override
@@ -4402,7 +4411,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get searchFilterMy => 'My Food';
 
   @override
-  String get inbetweens => 'Inbetweens & snacks';
+  String get inbetweens => 'Inbetweens & Snacks';
 
   @override
   String get inbetweensShort => 'Inbetweens';
@@ -4976,7 +4985,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get nothingOnTheMenu => 'Nothing on the menu yet';
 
   @override
-  String get mindTraining => 'Mind training';
+  String get mindTraining => 'Digging deeper';
 
   @override
   String get learnMoreButton => 'Learn more';
@@ -5098,7 +5107,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get reflection => 'Reflection';
 
   @override
-  String get reflections => 'Reflections';
+  String get reflections => 'What\'s your why?';
 
   @override
   String get seeLesson => 'See lesson';
@@ -5378,7 +5387,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get perWeek => 'per week';
 
   @override
-  String get supportGroup => 'Support group';
+  String get supportGroup => 'Don\'t go it alone';
 
   @override
   String get account => 'Account';
@@ -5963,16 +5972,16 @@ class AppLocalizationsEn extends AppLocalizations {
   String get exerciseLibraryDescription => 'library of exercise videos designed specifically for people with higher BMIs or people who aren’t comfortable with physical activity. You can do these from home or anywhere you like.';
 
   @override
-  String get exerciseLibrary => 'Exercise library';
+  String get exerciseLibrary => 'Don\'t go it alone';
 
   @override
-  String get moodLog => 'Mood log';
+  String get moodLog => 'Back to Basics';
 
   @override
   String get moodLogLockedDescription => 'The key to differentiating between moods and emotions is to take conscious note of them and their differences. Our mood logging tool will help you regain control over your state of mind.';
 
   @override
-  String get foodLog => 'Food log';
+  String get foodLog => 'What\'s your why?';
 
   @override
   String get foodLogLockedDescription => 'Learn to get a feel for calorie density, protein degree, fibre ratio, and overall calories thanks to our food logging tool! Our goal is not just to have you count your calories, but teach you how to make each calorie you choose to eat more filling and satisfying.';
@@ -5981,14 +5990,65 @@ class AppLocalizationsEn extends AppLocalizations {
   String get mindTrainingLockedDescription => 'A library of tools like breathing, tapping, mindfulness, meditation, and yoga, to help you find inner peace, beat your triggers, and live a happier life.';
 
   @override
-  String get weightLog => 'Weight log';
+  String get weightLog => 'What\'s your why?';
 
   @override
   String get weightLogLockedDescription => 'Our scientifically proven formula allows you switch back and forth between a simple linear graph and one that compensates for short-term volatile factors like water weight, showing you your “real” weight loss.';
 
   @override
-  String get goals => 'Goals';
+  String get goals => 'What\'s your why?';
 
   @override
   String get myGoalsLockedDescription => 'Whether its psychology, nutrition, physical activity, or community: Small, achievable, and measurable goals help you make small changes that lead to big results.';
+
+  @override
+  String get whenAndWhyIAte => 'When and why I ate';
+
+  @override
+  String get dayDate => '#dayDate';
+
+  @override
+  String get mealYouWant => 'Select the meal you want to answer the survey for.';
+
+  @override
+  String get youCanAnswer => 'You can answer the survey for any food category you’ve logged food in for today. Use the plus symbols as a shortcut to log food in categories that are still empty.';
+
+  @override
+  String get pleaseLogFood => 'Please log food';
+
+  @override
+  String get leanOnMeDoesNot => 'LeanOnMe doesn’t encourage unsustainable diets like whole-day fasting. Please log food in at least one category so we can complete our commitment together.';
+
+  @override
+  String get haveYouLogged => 'Have you logged everything you ate, and are you sure you’re not going to anymore?';
+
+  @override
+  String get thisDayIsComplete => 'This day is complete';
+
+  @override
+  String get backToPracticeBoard => 'Back to practice board';
+
+  @override
+  String get whatYouWhy => 'What\'s your why';
+
+  @override
+  String get timeReq => 'Time requirement:';
+
+  @override
+  String get completeRef => 'Complete reflection';
+
+  @override
+  String get foodCmmitment => 'Complete food log commitment';
+
+  @override
+  String get unlockWeight => 'Unlock your weight';
+
+  @override
+  String get unlockFoodLog => 'Unlock food log';
+
+  @override
+  String get readyGraduate => 'ready to graduate';
+
+  @override
+  String get tapReflection => 'Tap the reflection icon to read the article to start the';
 }

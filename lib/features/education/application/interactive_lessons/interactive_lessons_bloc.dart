@@ -9,6 +9,7 @@ import 'package:loopcare_frontend/features/education/domain/interactive_lesson/i
 import 'package:loopcare_frontend/features/education/domain/interactive_lesson/interactive_lesson_topic.dart';
 import 'package:loopcare_frontend/features/education/domain/interactive_lesson/interactive_lesson_topics_page.dart';
 import 'package:loopcare_frontend/features/education/domain/interactive_lesson/interactive_lesson_component_progress.dart';
+import 'package:loopcare_frontend/features/river/domain/river_module_item_state.dart';
 
 import '../dto/save_interactive_lesson_progress_body.dart';
 
@@ -39,7 +40,7 @@ class InteractiveLessonsBloc extends Bloc<InteractiveLessonsEvent, InteractiveLe
 
     emit(InteractiveLessonsState.loading(state.data.copyWith(isLoading: true)));
 
-    final response = await _educationService.getInteractiveLesson(event.lessonId);
+    final response = await _educationService.getInteractiveLesson(event.lessonId, event.date);
 
     response.fold(
       (l) => emit(InteractiveLessonsState.error(state.data.copyWith(error: l, isLoading: false))),
@@ -66,6 +67,7 @@ class InteractiveLessonsBloc extends Bloc<InteractiveLessonsEvent, InteractiveLe
 
         emit(InteractiveLessonsState.lessonLoaded(state.data.copyWith(
           id: r.id,
+          lessonStatus: event.lessonStatus ?? RiverModuleItemState.unlocked,
           type: r.type!,
           title: r.title,
           jumpBoardTitle: r.jumpBoardTitle,
@@ -115,12 +117,12 @@ class InteractiveLessonsBloc extends Bloc<InteractiveLessonsEvent, InteractiveLe
             activeChunk.componentsIds.contains(component.id))
         .toList();
 
-    // SJC
     final data = SaveInteractiveLessonProgressBody(
         lessonId: state.data.id,
         topicId: state.data.activePage!.topicId,
         pageId: state.data.activePage!.id,
         componentId: event.component.id,
+        answerType: event.component.type.name,
         progress: componentWithProgress.progress!);
 
     final response = await _educationService.saveInteractiveLessonProgress(chunkId, data);
@@ -210,7 +212,9 @@ class InteractiveLessonsBloc extends Bloc<InteractiveLessonsEvent, InteractiveLe
 
     final nextChunkIndex = state.data.activeChunkIndex + 1;
 
-    if (activePage == null || nextChunkIndex >= activePage.chunksIds.length) return;
+    if (activePage == null || nextChunkIndex >= activePage.chunksIds.length) {
+      return;
+    }
 
     final nextChunk = state.data.chunks.values
         .where((chunk) =>

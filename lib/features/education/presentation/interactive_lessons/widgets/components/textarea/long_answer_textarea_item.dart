@@ -73,15 +73,15 @@ class LongAnswerTextAreaItem extends StatelessWidget {
                 controller: controller,
                 focusNode: focusNode,
                 onChanged: onChangeHandler,
-                decoration: InputDecoration(
+                decoration: const InputDecoration(
                     hintText: "Type your answer here.",
                     focusedBorder: InputBorder.none,
                     enabledBorder:
-                        const OutlineInputBorder(borderSide: BorderSide(color: Colors.transparent)),
-                    hintStyle: const TextStyle(color: AppColors.black),
-                    fillColor: lessonStreamType.lightestColor,
+                        OutlineInputBorder(borderSide: BorderSide(color: Colors.transparent)),
+                    hintStyle: TextStyle(color: AppColors.black),
+                    fillColor: AppColors.white,
                     filled: true,
-                    contentPadding: const EdgeInsets.symmetric(horizontal: 8, vertical: 20)),
+                    contentPadding: EdgeInsets.symmetric(horizontal: 8, vertical: 20)),
               ),
               Container(
                 width: double.infinity,
