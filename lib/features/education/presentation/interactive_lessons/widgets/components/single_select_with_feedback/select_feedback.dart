@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:loopcare_frontend/core/presentation/text/custom_text.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
@@ -13,7 +11,8 @@ class SelectFeedback extends StatelessWidget {
   final InteractiveLessonChunkComponentSingleSelectWithFeedback component;
   final ContentSelectAnswer? selectedAnswer;
 
-  const SelectFeedback({super.key, required this.component, required this.selectedAnswer});
+  const SelectFeedback(
+      {super.key, required this.component, required this.selectedAnswer});
 
   bool get hasFeedback => component.content.feedbackCorrect != null;
 
@@ -28,19 +27,17 @@ class SelectFeedback extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     if (!hasFeedback || !hasAnswer) return const SizedBox.shrink();
-
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
-        SizedBox(
-          height: Platform.isAndroid ? 10 : 0,
-        ),
+        const SizedBox(height: 12.0),
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             CircleAvatar(
               radius: 13,
-              backgroundColor: hasCorrectAnswer ? AppColors.greenRegular : AppColors.red,
+              backgroundColor:
+                  hasCorrectAnswer ? AppColors.greenRegular : AppColors.red,
               child: Icon(
                 hasCorrectAnswer ? Icons.check : Icons.close,
                 color: AppColors.white,
@@ -48,7 +45,8 @@ class SelectFeedback extends StatelessWidget {
               ),
             ),
             const SizedBox(width: 16.0),
-            CustomText.bitter600(feedbackTitle, style: context.textTheme.bodyLarge),
+            CustomText.bitter600(feedbackTitle,
+                style: context.textTheme.bodyLarge),
           ],
         ),
         const SizedBox(height: 12),

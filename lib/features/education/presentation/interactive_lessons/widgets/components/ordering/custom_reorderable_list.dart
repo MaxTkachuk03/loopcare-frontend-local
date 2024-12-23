@@ -18,9 +18,8 @@ import 'package:loopcare_frontend/features/education/domain/interactive_lesson/i
 class CustomReorderableList extends StatefulWidget {
   final InteractiveLessonChunkComponentOrdering component;
   final RiverModuleStreamType lessonStreamType;
-  final Function(
-          InteractiveLessonComponentProgress progress, InteractiveLessonChunkComponent component)
-      onSaveProgress;
+  final Function(InteractiveLessonComponentProgress progress,
+      InteractiveLessonChunkComponent component) onSaveProgress;
 
   const CustomReorderableList({
     super.key,
@@ -44,9 +43,11 @@ class _CustomReorderableListState extends State<CustomReorderableList> {
   @override
   void initState() {
     final rightOrder = content.correctOrder;
-    if (widget.component.progress != null && widget.component.progress!.optionIds != null) {
+    if (widget.component.progress != null &&
+        widget.component.progress!.optionIds != null) {
       _isNotReordered = true;
-      items.sort((a, b) => rightOrder.indexOf(a.order).compareTo(rightOrder.indexOf(b.order)));
+      items.sort((a, b) =>
+          rightOrder.indexOf(a.order).compareTo(rightOrder.indexOf(b.order)));
       _showOrderValidation = true;
     }
     super.initState();
@@ -86,12 +87,14 @@ class _CustomReorderableListState extends State<CustomReorderableList> {
   void _onShowAnswerHandler() {
     final rightOrder = content.correctOrder;
     setState(() {
-      items.sort((a, b) => rightOrder.indexOf(a.order).compareTo(rightOrder.indexOf(b.order)));
+      items.sort((a, b) =>
+          rightOrder.indexOf(a.order).compareTo(rightOrder.indexOf(b.order)));
       _showOrderValidation = true;
       _isNotReordered = true;
     });
     widget.onSaveProgress(
-        InteractiveLessonComponentProgress(optionIds: rightOrder, type: widget.component.type.name),
+        InteractiveLessonComponentProgress(
+            optionIds: rightOrder, type: widget.component.type.name),
         widget.component);
   }
 
@@ -107,7 +110,8 @@ class _CustomReorderableListState extends State<CustomReorderableList> {
       _isNotReordered = true;
     });
     widget.onSaveProgress(
-        InteractiveLessonComponentProgress(optionIds: rightOrder, type: widget.component.type.name),
+        InteractiveLessonComponentProgress(
+            optionIds: rightOrder, type: widget.component.type.name),
         widget.component);
   }
 
@@ -128,14 +132,14 @@ class _CustomReorderableListState extends State<CustomReorderableList> {
 
   static const double iconSize = 80.0;
 
-  int countLines(String text, TextStyle style, double maxWidth) {
+  int countLines(String text, TextStyle style) {
     final TextPainter textPainter = TextPainter(
       text: TextSpan(text: text, style: style),
       textDirection: TextDirection.ltr,
       maxLines: null,
     );
 
-    textPainter.layout(maxWidth: maxWidth);
+    textPainter.layout(maxWidth: 115);
 
     return textPainter.computeLineMetrics().length;
   }
@@ -155,7 +159,8 @@ class _CustomReorderableListState extends State<CustomReorderableList> {
             physics: const NeverScrollableScrollPhysics(),
             header: ReorderableListLabel(label: content.topLabel),
             footer: ReorderableListLabel(label: content.bottomLabel),
-            onReorder: _isNotReordered ? (oldIndex, newIndex) {} : _onReorderHandler,
+            onReorder:
+                _isNotReordered ? (oldIndex, newIndex) {} : _onReorderHandler,
             onReorderStart: _onReorderStartHandler,
             proxyDecorator: proxyDecorator,
             children: items.asMap().entries.map((entry) {
@@ -163,9 +168,11 @@ class _CustomReorderableListState extends State<CustomReorderableList> {
               ContentOrderingItem item = entry.value;
               final bool isValid = content.correctOrder[index] == item.order;
               final descriptionLines =
-                  countLines(item.description, context.textTheme.bodyMedium!, 150);
-              final titleLines = countLines(item.title,
-                  context.textTheme.bodyMedium!.copyWith(fontWeight: FontWeight.w700), 150);
+                  countLines(item.description, context.textTheme.bodyMedium!);
+              final titleLines = countLines(
+                  item.title,
+                  context.textTheme.bodyMedium!
+                      .copyWith(fontWeight: FontWeight.w700));
               final imageHeight = descriptionLines > 1 && titleLines > 1
                   ? 120.0
                   : descriptionLines > 1 || titleLines > 1
@@ -180,7 +187,8 @@ class _CustomReorderableListState extends State<CustomReorderableList> {
                   mainAxisSize: MainAxisSize.min,
                   children: [
                     ClipRRect(
-                      borderRadius: const BorderRadius.horizontal(left: Radius.circular(12)),
+                      borderRadius: const BorderRadius.horizontal(
+                          left: Radius.circular(12)),
                       child: Image(
                         image: item.src.isNotEmpty
                             ? NetworkImage(item.src) as ImageProvider<Object>
@@ -193,7 +201,6 @@ class _CustomReorderableListState extends State<CustomReorderableList> {
                     ),
                     const SizedBox(width: 15.0),
                     Expanded(
-                      flex: 3,
                       child: Padding(
                         padding: const EdgeInsets.symmetric(vertical: 12.0),
                         child: Column(
@@ -219,7 +226,8 @@ class _CustomReorderableListState extends State<CustomReorderableList> {
                         ),
                       ),
                     ),
-                    Icon(Icons.drag_handle, color: widget.lessonStreamType.lighterColor),
+                    Icon(Icons.drag_handle,
+                        color: widget.lessonStreamType.lighterColor),
                     const SizedBox(width: 10.0),
                   ],
                 ),
