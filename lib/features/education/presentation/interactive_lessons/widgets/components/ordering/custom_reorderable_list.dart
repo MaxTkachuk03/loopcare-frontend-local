@@ -132,9 +132,20 @@ class _CustomReorderableListState extends State<CustomReorderableList> {
 
   static const double iconSize = 80.0;
 
+  int countLines(String text, TextStyle style, double maxWidth) {
+    final TextPainter textPainter = TextPainter(
+      text: TextSpan(text: text, style: style),
+      textDirection: TextDirection.ltr,
+      maxLines: null,
+    );
+
+    textPainter.layout(maxWidth: maxWidth);
+
+    return textPainter.computeLineMetrics().length;
+  }
+
   @override
   Widget build(BuildContext context) {
-    print(MediaQuery.of(context).size.width);
     return Container(
       padding: const EdgeInsets.only(right: 20, left: 20, bottom: 12),
       decoration: BoxDecoration(
@@ -156,63 +167,69 @@ class _CustomReorderableListState extends State<CustomReorderableList> {
               int index = entry.key;
               ContentOrderingItem item = entry.value;
               final bool isValid = content.correctOrder[index] == item.order;
+              final descriptioLines = countLines(
+                  item.description, context.textTheme.bodyMedium!, 170);
+              final titleLines = countLines(
+                  item.title,
+                  context.textTheme.bodyMedium!
+                      .copyWith(fontWeight: FontWeight.w700),
+                  170);
               return Card(
                 key: ValueKey(item.id),
                 shape: getShape(isValid),
-                child: Container(
-                  decoration: BoxDecoration(
-                    borderRadius: const BorderRadius.horizontal(
-                        left: Radius.circular(12)),
-                    image: DecorationImage(
-                      alignment: Alignment.centerLeft,
-                      scale: 2,
-                      image: item.src.isNotEmpty
-                          ? NetworkImage(item.src) as ImageProvider<
-                              Object> // network image if src exists
-                          : AppImages.logo,
-                      fit: BoxFit.fitHeight,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    ClipRRect(
+                      borderRadius: const BorderRadius.horizontal(
+                          left: Radius.circular(12)),
+                      child: item.src.isNotEmpty
+                          ? Image.network(item.src)
+                          : Image(
+                              image: AppImages.apples,
+                              width: iconSize,
+                              height: descriptioLines > 1 && titleLines > 1
+                                  ? 120
+                                  : descriptioLines > 1 || titleLines > 1
+                                      ? 90
+                                      : 80,
+                              fit: BoxFit.cover,
+                              filterQuality: FilterQuality.high,
+                            ),
                     ),
-                  ),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    mainAxisSize: MainAxisSize.max,
-                    children: [
-                      Spacer(
-                        flex: item.title.tr().length > 15 ? 2 : 1,
-                      ),
-                      Expanded(
-                        flex: 3,
-                        child: Padding(
-                          padding: const EdgeInsets.symmetric(vertical: 12.0),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            mainAxisSize: MainAxisSize.max,
-                            children: [
-                              CustomText(
-                                item.title,
-                                style: context.textTheme.bodyMedium
-                                    ?.copyWith(fontWeight: FontWeight.w700),
-                                textAlign: TextAlign.left,
-                                maxLines: 2,
-                                overflow: TextOverflow.visible,
-                              ),
-                              CustomText(
-                                item.description,
-                                style: context.textTheme.bodyMedium,
-                                maxLines: 2,
-                                overflow: TextOverflow.visible,
-                                textAlign: TextAlign.left,
-                              ),
-                            ],
-                          ),
+                    const SizedBox(width: 15.0),
+                    Expanded(
+                      flex: 3,
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 12.0),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            CustomText(
+                              item.title,
+                              style: context.textTheme.bodyMedium
+                                  ?.copyWith(fontWeight: FontWeight.w700),
+                              textAlign: TextAlign.left,
+                              maxLines: 2,
+                              overflow: TextOverflow.visible,
+                            ),
+                            CustomText(
+                              item.description,
+                              style: context.textTheme.bodyMedium,
+                              maxLines: 2,
+                              overflow: TextOverflow.visible,
+                              textAlign: TextAlign.left,
+                            ),
+                          ],
                         ),
                       ),
-                      // const SizedBox(width: 8),
-                      Icon(Icons.drag_handle,
-                          color: widget.lessonStreamType.lighterColor),
-                      const SizedBox(width: 10.0), // Padding at the end
-                    ],
-                  ),
+                    ),
+                    Icon(Icons.drag_handle,
+                        color: widget.lessonStreamType.lighterColor),
+                    const SizedBox(width: 10.0),
+                  ],
                 ),
               );
             }).toList(),

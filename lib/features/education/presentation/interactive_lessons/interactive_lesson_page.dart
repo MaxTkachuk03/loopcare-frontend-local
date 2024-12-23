@@ -38,6 +38,7 @@ class InteractiveLessonPage extends StatelessWidget {
         orElse: () => CustomScaffold.customColor(
           color: AppColors.white,
           appBar: CustomAppBar.customColor(
+            isPsychology: lessonStreamType.isPsychology,
             customColor: lessonStreamType.regularColor,
             title: context.watch<InteractiveLessonsBloc>().state.data.title,
             leading: CustomFilledIconButton.fromColor(color: lessonStreamType.lighterColor),
