@@ -15,15 +15,12 @@ class Markdown extends StatelessWidget {
     return MarkdownRenderer(
       data: component.content.markdown,
       styleSheet: MarkdownStyleSheet(
-        h1: context.textTheme.displayLarge!.copyWith(
-            fontWeight: FontWeight.w600,
-            fontFamily: ThemeConstants.bitterFontFamily),
-        h2: context.textTheme.bodyLarge!.copyWith(
-            fontWeight: FontWeight.w600,
-            fontFamily: ThemeConstants.bitterFontFamily),
-        h3: context.textTheme.bodyMedium!.copyWith(
-            fontWeight: FontWeight.w600,
-            fontFamily: ThemeConstants.bitterFontFamily),
+        h1: context.textTheme.displayLarge!
+            .copyWith(fontWeight: FontWeight.w600, fontFamily: ThemeConstants.bitterFontFamily),
+        h2: context.textTheme.bodyLarge!
+            .copyWith(fontWeight: FontWeight.w600, fontFamily: ThemeConstants.bitterFontFamily),
+        h3: context.textTheme.bodyMedium!
+            .copyWith(fontWeight: FontWeight.w600, fontFamily: ThemeConstants.bitterFontFamily),
         p: context.textTheme.bodyMedium!,
       ),
     );
