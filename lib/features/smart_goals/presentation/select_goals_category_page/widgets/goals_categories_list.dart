@@ -8,8 +8,8 @@ import 'package:loopcare_frontend/features/smart_goals/presentation/select_goals
 
 class GoalsCategoriesList extends StatefulWidget {
   final void Function(SmartGoalCategory value) onPressed;
-
-  const GoalsCategoriesList({super.key, required this.onPressed});
+  final String streamValue;
+  const GoalsCategoriesList({super.key, required this.onPressed, required this.streamValue});
 
   @override
   State<GoalsCategoriesList> createState() => _GoalsCategoriesListState();
@@ -19,11 +19,15 @@ class _GoalsCategoriesListState extends State<GoalsCategoriesList> {
   @override
   void initState() {
     super.initState();
-    context.read<SmartGoalsCategoriesBloc>().add(const SmartGoalsCategoriesEvent.getCategories());
+    context
+        .read<SmartGoalsCategoriesBloc>()
+        .add(SmartGoalsCategoriesEvent.getCategories(stream: widget.streamValue));
   }
 
   void _onErrorRetryHandler() {
-    context.read<SmartGoalsCategoriesBloc>().add(const SmartGoalsCategoriesEvent.getCategories());
+    context
+        .read<SmartGoalsCategoriesBloc>()
+        .add(SmartGoalsCategoriesEvent.getCategories(stream: widget.streamValue));
   }
 
   void _onUnlockCategory(SmartGoalCategory category) {
@@ -59,6 +63,7 @@ class _GoalsCategoriesListState extends State<GoalsCategoriesList> {
                     final item = state.data.goalsCategories[index];
 
                     return GoalCategoryCard(
+                      stream: widget.streamValue,
                       key: UniqueKey(),
                       onPressed: widget.onPressed,
                       category: item,

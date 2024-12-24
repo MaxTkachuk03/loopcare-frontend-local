@@ -49,6 +49,7 @@ class SmartGoalsBloc extends Bloc<SmartGoalsEvent, SmartGoalsState> {
     on<SelectCancelGoalReason>(_onSelectCancelReason);
     on<ResetCancelGoalReason>(_onResetCancelReason);
     on<SelectDate>(_onSelectDate);
+    on<MultipleDeleteSession>(_onMultipleDeleteSession);
   }
 
   FutureOr<void> _onSelectDate(
@@ -56,6 +57,53 @@ class SmartGoalsBloc extends Bloc<SmartGoalsEvent, SmartGoalsState> {
     Emitter<SmartGoalsState> emit,
   ) async {
     emit(SmartGoalsState.goalsLoaded(state.data.copyWith(selectedDate: event.selectedDate)));
+  }
+
+  FutureOr<void> _onMultipleDeleteSession(
+    MultipleDeleteSession event,
+    Emitter<SmartGoalsState> emit,
+  ) async {
+    emit(SmartGoalsState.loading(state.data.copyWith(isLoading: true)));
+
+    final response = await _smartGoalsService.multiDeleteSession(sessionIds: event.sessionIds);
+
+    response.fold(
+      (l) => emit(
+        SmartGoalsState.errorSaveGoals(
+          state.data.copyWith(
+            error: l,
+            isLoading: false,
+            reason: null,
+          ),
+        ),
+      ),
+      (r) {
+        // var sessions = [...state.data.weeklyGoalsSessions];
+        // final deletedSession = sessions.firstWhere((s) => s.id == r.id);
+        // sessions.removeWhere((session) => session.id == r.id);
+        // usageAnalytics.track(
+        //   eventName: UsageAnalyticsEvents.goalNutritionDeleted,
+        //   attributes: {
+        //     UsageAnalyticsAttributes.goalTitle: deletedSession.goal?.title,
+        //     UsageAnalyticsAttributes.goalID: deletedSession.goal?.id,
+        //     UsageAnalyticsAttributes.goalCategoryTitle:
+        //     deletedSession.goal?.smartGoal.category.name,
+        //     UsageAnalyticsAttributes.goalCategoryID: deletedSession.goal?.smartGoal.category.id,
+        //     UsageAnalyticsAttributes.allottedDays: deletedSession.goal?.requiredDays,
+        //     UsageAnalyticsAttributes.requiredCompletions: deletedSession.goal?.requiredCompletions,
+        //     UsageAnalyticsAttributes.deletionReason: state.data.reason?.label,
+        //     if (deletedSession.finishedAt != null)
+        //       UsageAnalyticsAttributes.finishDate: deletedSession.finishedAt!.toIso8601String(),
+        //   },
+        // );
+        // emit(
+        //   SmartGoalsState.sessionDeleted(
+        //     state.data.copyWith(weeklyGoalsSessions: sessions, reason: null, isLoading: false),
+        //   ),
+        // );
+      },
+    );
+    emit(SmartGoalsState.sessionDeleted(state.data.copyWith(isLoading: false, reason: null)));
   }
 
   FutureOr<void> _onGetGoals(

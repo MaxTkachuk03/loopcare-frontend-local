@@ -151,6 +151,8 @@ class AppRoutes {
   static const String selectGoals = '/select-goals';
   static const String goalsStatistics = '/goals-statistics';
   static const String goalReview = '/goal-review';
+  static const String goalFlavors = '/goal-flavors';
+  static const String deleteWeeklyGoals = '/delete-weekly-goals';
 
   // Maintenance
   static const String maintenance = '/maintenance';

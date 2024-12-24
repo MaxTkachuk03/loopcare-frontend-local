@@ -8,7 +8,16 @@ import 'package:loopcare_frontend/features/smart_goals/application/smart_goals_b
 import 'package:loopcare_frontend/features/smart_goals/domain/weekly_goals_session.dart';
 
 class DashboardWeeklyGoals extends StatefulWidget {
-  const DashboardWeeklyGoals({super.key});
+  final bool isDeleteModule;
+  final void Function(WeeklyGoalsSession item) onTap;
+  final Set<int>? selectedItems;
+
+  const DashboardWeeklyGoals({
+    super.key,
+    required this.isDeleteModule,
+    required this.onTap,
+    this.selectedItems,
+  });
 
   @override
   State<DashboardWeeklyGoals> createState() => _DashboardWeeklyGoalsState();
@@ -28,68 +37,74 @@ class _DashboardWeeklyGoalsState extends State<DashboardWeeklyGoals> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<SmartGoalsBloc, SmartGoalsState>(
-      builder: (context, state) {
-        return state.maybeMap(
-          error: (s) => ErrorScreen(
-            error: s.data.error!,
-            onButtonPressed: _onErrorRetryHandler,
-          ),
-          orElse: () {
-            if (state.data.emptySessionState) {
-              return const SizedBox.shrink();
-            }
-            itemKey = itemKey + 1;
-            List<WeeklyGoalsSession> sessions = [...state.data.weeklyGoalsSessions];
+    return BlocBuilder<SmartGoalsBloc, SmartGoalsState>(builder: (context, state) {
+      return state.maybeMap(
+        error: (s) => ErrorScreen(
+          error: s.data.error!,
+          onButtonPressed: _onErrorRetryHandler,
+        ),
+        orElse: () {
+          // Handle case where there is no error.
+          if (state.data.emptySessionState) {
+            return const SizedBox.shrink();
+          }
+          itemKey = itemKey + 1;
 
+          List<WeeklyGoalsSession> sessions = [...state.data.weeklyGoalsSessions];
+
+          if (sessions.isNotEmpty && state.data.selectedDate != null) {
             final selectedDate = state.data.selectedDate?.dateOnly;
 
+            // Proceed only if selectedDate is not null.
             if (selectedDate != null) {
-              sessions = sessions.where((session) {
-                final startedAt = session.startedAt?.dateOnly;
-                return startedAt != null &&
-                    (selectedDate.isAfter(startedAt) || selectedDate == startedAt);
-              }).toList();
+              sessions = sessions
+                  .where((session) => (session.startedAt != null &&
+                      (selectedDate.isAfter(session.startedAt!.dateOnly) ||
+                          selectedDate == session.startedAt!.dateOnly)))
+                  .toList();
             }
+          }
 
-            return Column(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: [
+          return Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              if (!widget.isDeleteModule)
                 const Divider(
                   color: AppColors.blueLighter,
                   indent: 8.0,
                   endIndent: 8.0,
                 ),
-                const SizedBox(height: 4.0),
-                ...sessions.map(
-                  (session) {
-                    final sessionId = session.id;
-                    final goal = session.goal;
-                    final isEditable =
-                        !(goal?.isAchieved ?? true) && !(session.hasQuickReviewWeeklyGoals);
-
-                    if (goal == null || sessionId == null) {
-                      return const SizedBox.shrink();
-                    }
-
+              const SizedBox(height: 4.0),
+              ...sessions.map(
+                (session) {
+                  if (session.goal != null) {
                     return DashboardWeeklyGoalItem(
                       keyItem: itemKey,
-                      sessionId: sessionId,
+                      sessionId: session.id!,
+                      isSelect: widget.selectedItems != null && widget.selectedItems!.isNotEmpty
+                          ? widget.selectedItems!.contains(session.id)
+                          : false,
+                      onTap: () {
+                        widget.onTap(session);
+                      },
                       onRemoveFromLocal: () {
                         setState(() {
                           sessions.remove(session);
                         });
                       },
-                      item: goal,
-                      editable: isEditable,
+                      item: session.goal!,
+                      editable: !(session.goal!.isAchieved || session.hasQuickReviewWeeklyGoals),
+                      isDeleteModule: widget.isDeleteModule,
                     );
-                  },
-                ),
-              ],
-            );
-          },
-        );
-      },
-    );
+                  } else {
+                    return const SizedBox.shrink();
+                  }
+                },
+              )
+            ],
+          );
+        },
+      );
+    });
   }
 }

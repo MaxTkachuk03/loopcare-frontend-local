@@ -1,5 +1,11 @@
 {
   "@@locale": "en",
+      "smartGoalsDeleteGoalTitle": "Delete your goal?",
+      "areYouSureToDelete": "Are you sure you want to delete the selected SMART goal?",
+      "loseProgress": "By deleting the goals, you are losing the current progress, but you can always start a new one.",
+      "takeBack": "No, take me back",
+      "yesDeleteGoal": "Yes, delete goals",
+
   "interactiveLessonsTextAreaLabel": "Your thoughts",
   "interactiveLessonsMultipleChoiceBtnLabel": "Save",
   "interactiveLessonsScaleLabel": "Rate on a scale",
@@ -2442,6 +2448,10 @@
   "maintenancePageDescription": "We’re currently releasing exciting new content, if you’ve opted in, you’ll receive a push notification when we’re back online.\n\nSubscribe to our newsletter to get a sneak peak at what’s coming up!",
   "noAlternativesAvailable": "No alternatives available",
   "chooseAlternative": "Choose alternative",
+  "selectAStream": "Select a stream",
+  "deleteGoals": "Delete goals",
+  "medicalInsights": "Medical insights",
+  "backToTodayLogging": "Back to today logging",
   "featureUnlocksAtPool": "Feature unlocks at Pool",
   "reflectionsDescription": "are tailored to help you understand yourself and your relationship with food.",
   "supportGroupDescription": "Guided group sessions give you a safe space to share your successes and challenges with like-minded individuals. We’re all here to help.",

@@ -329,6 +329,25 @@ class CustomElevatedButton extends StatelessWidget {
           textStyle: ButtonStyles.fullWidthLabel,
         ),
       );
+  factory CustomElevatedButton.greyBorder(
+          {Key? key,
+          VoidCallback? onPressed,
+          required String label,
+          bool isLoading = false,
+          final ButtonStyle? styles}) =>
+      CustomElevatedButton(
+        key: key,
+        onPressed: onPressed,
+        label: label,
+        isLoading: isLoading,
+        styles: styles ??
+            ElevatedButton.styleFrom(
+              backgroundColor: AppColors.blueRegular,
+              minimumSize: ButtonStyles.fullWidthSize,
+              foregroundColor: AppColors.white,
+              textStyle: ButtonStyles.fullWidthLabel,
+            ),
+      );
 
   factory CustomElevatedButton.blue({
     Key? key,

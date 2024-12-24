@@ -9,6 +9,7 @@ import 'package:loopcare_frontend/core/presentation/utils/build_context_extensio
 import 'package:loopcare_frontend/features/account/domain/user_grouping_state.dart';
 import 'package:loopcare_frontend/features/authentication/application/authentication_bloc.dart';
 import 'package:loopcare_frontend/features/dashboard/presentation/widgets/dashboard_card_title/dashboard_card_title.dart';
+import 'package:loopcare_frontend/features/dashboard/presentation/widgets/pool_status/application/pool_bloc/pool_module_bloc.dart';
 import 'package:loopcare_frontend/features/dashboard/presentation/widgets/support_group/widgets/grouped.dart';
 import 'package:loopcare_frontend/features/dashboard/presentation/widgets/support_group/widgets/looking_for_group.dart';
 import 'package:loopcare_frontend/features/dashboard/presentation/widgets/support_group/widgets/no_group.dart';
@@ -41,8 +42,9 @@ class _SupportGroupState extends State<SupportGroup> {
     context.read<TopicsBloc>().add(const TopicsEvent.fetchTopics());
   }
 
-  void onPressHandler() => context.router.pushNamed(AppRoutes.groupPreferences);
+  void onPressHandler() => context.router.pushNamed(AppRoutes.groupPreferences).then(getPoolData);
 
+  void getPoolData(e) => context.read<PoolModuleBloc>().add(const PoolModuleEvent.getPoolData());
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -102,7 +104,7 @@ class _SupportGroupState extends State<SupportGroup> {
                       ],
                     ),
                   ),
-            onClick
+            onClick && !widget.locked
                 ? Padding(
                     padding: const EdgeInsets.only(left: 12.0, right: 12.0, bottom: 12),
                     child: Row(

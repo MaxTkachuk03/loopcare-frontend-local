@@ -13,6 +13,7 @@ class GoalsListItem extends StatelessWidget {
   final void Function(SmartGoal item, bool isSelected) onItemPressed;
   final bool isSelected;
   final bool disable;
+  final String stream;
 
   const GoalsListItem({
     super.key,
@@ -20,6 +21,7 @@ class GoalsListItem extends StatelessWidget {
     required this.onItemPressed,
     required this.isSelected,
     this.disable = false,
+    required this.stream,
   });
 
   void _onItemPressedHandler() => onItemPressed(item, isSelected);
@@ -34,11 +36,60 @@ class GoalsListItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return CustomTappableCard.greenLightest(
+    // Define styles for each stream
+    final streamStyles = {
+      'psychology': {
+        'cardColor': AppColors.petrolLightest,
+        'textColor': AppColors.petrolRegular,
+        'selectedCardColor': AppColors.petrolRegular,
+        'selectedTextColor': AppColors.petrolLightest,
+      },
+      'nutrition': {
+        'cardColor': AppColors.greenLightest,
+        'textColor': AppColors.greenRegular,
+        'selectedCardColor': AppColors.greenRegular,
+        'selectedTextColor': AppColors.greenLightest,
+      },
+      'physicalActivity': {
+        'cardColor': AppColors.yellowLightest,
+        'textColor': AppColors.yellowRegular,
+        'selectedCardColor': AppColors.yellowRegular,
+        'selectedTextColor': AppColors.yellowLightest,
+      },
+      'community': {
+        'cardColor': AppColors.orangeLightest,
+        'textColor': AppColors.orangeRegular,
+        'selectedCardColor': AppColors.orangeRegular,
+        'selectedTextColor': AppColors.orangeLightest,
+      },
+      'medical': {
+        'cardColor': AppColors.coralLightest,
+        'textColor': AppColors.coralRegular,
+        'selectedCardColor': AppColors.coralRegular,
+        'selectedTextColor': AppColors.coralLightest,
+      },
+    };
+
+    // Get current style based on stream
+    final currentStyle = streamStyles[stream] ??
+        {
+          'cardColor': AppColors.greenLightest,
+          'textColor': AppColors.greenRegular,
+          'selectedCardColor': AppColors.greenRegular,
+          'selectedTextColor': AppColors.greenLightest,
+        };
+
+    // Use selected or default styles
+    final cardColor = isSelected ? currentStyle['selectedCardColor'] : currentStyle['cardColor'];
+    final textColor = isSelected ? currentStyle['selectedTextColor'] : currentStyle['textColor'];
+
+    return CustomTappableCard(
+      color: cardColor, // Set dynamic card color
       contentPadding: const EdgeInsets.fromLTRB(12.0, 8.0, 4.0, 8.0),
       onPressed: _onItemPressedHandler,
       isSelected: isSelected,
       disable: disable,
+      selectedColor: cardColor,
       leading: GoalProgressIndicator(
         currentStep: 0,
         steps: item.requiredCompletionDays,
@@ -54,7 +105,9 @@ class GoalsListItem extends StatelessWidget {
         padding: const EdgeInsets.symmetric(horizontal: 12.0),
         child: CustomText.w400(
           item.shortTitle,
-          style: context.textTheme.bodyMedium?.copyWith(color: AppColors.blueDarkest),
+          style: context.textTheme.bodyMedium?.copyWith(
+            color: textColor, // Set dynamic text color
+          ),
         ),
       ),
     );

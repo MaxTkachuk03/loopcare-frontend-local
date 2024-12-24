@@ -95,7 +95,7 @@ enum RiverModuleStreamType with StreamColorMapper {
         return RiverModuleStreamType.nutrition;
       case 'physicalActivity':
         return RiverModuleStreamType.physicalActivity;
-      case 'medicalInsights':
+      case 'medical':
         return RiverModuleStreamType.medical;
       case 'community':
         return RiverModuleStreamType.community;

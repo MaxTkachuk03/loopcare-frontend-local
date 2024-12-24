@@ -15,6 +15,7 @@ import 'package:loopcare_frontend/features/dashboard/application/programs_in_pro
 import 'package:loopcare_frontend/features/dashboard/presentation/widgets/dashboard_card_title/dashboard_card_title.dart';
 import 'package:loopcare_frontend/features/dashboard/presentation/widgets/physical_activities/widgets/empty_activities_list.dart';
 import 'package:loopcare_frontend/features/dashboard/presentation/widgets/physical_activities/widgets/filled_activities_list.dart';
+import 'package:loopcare_frontend/features/dashboard/presentation/widgets/pool_status/application/pool_bloc/pool_module_bloc.dart';
 import 'package:loopcare_frontend/features/physical_activities/application/physical_activities_preferences/physical_activities_preferences_bloc.dart';
 import 'package:loopcare_frontend/features/physical_activities/application/physical_programs_bloc.dart';
 import 'package:loopcare_frontend/injection.dart';
@@ -65,7 +66,7 @@ class _PhysicalActivitiesState extends State<PhysicalActivities> {
   }
 
   void onPressHandler(BuildContext context) {
-    context.router.pushNamed(AppRoutes.selectExercise);
+    context.router.pushNamed(AppRoutes.selectExercise).then(getPoolData);
   }
 
   get _isActive => widget.selectedDay.midnightTime == DateTime.now().midnightTime;
@@ -75,6 +76,8 @@ class _PhysicalActivitiesState extends State<PhysicalActivities> {
         .read<PhysicalActivitiesBloc>()
         .add(PhysicalActivitiesEvent.getWeeklyPhysicalActivities(widget.selectedDay));
   }
+
+  void getPoolData(e) => context.read<PoolModuleBloc>().add(const PoolModuleEvent.getPoolData());
 
   @override
   Widget build(BuildContext context) {
@@ -143,7 +146,7 @@ class _PhysicalActivitiesState extends State<PhysicalActivities> {
                           ],
                         ),
                       ),
-                onClick
+                onClick && !widget.locked
                     ? Padding(
                         padding: const EdgeInsets.only(left: 12.0, right: 12.0, bottom: 12),
                         child: Row(

@@ -50,9 +50,7 @@ class _DashboardPageState extends State<DashboardPage> with WidgetsBindingObserv
   @override
   void initState() {
     super.initState();
-
     WidgetsBinding.instance.addObserver(this);
-
     _loadInitialData();
   }
 
@@ -61,6 +59,7 @@ class _DashboardPageState extends State<DashboardPage> with WidgetsBindingObserv
     super.didChangeAppLifecycleState(state);
     if (state == AppLifecycleState.resumed) {
       context.read<TopicsBloc>().add(const TopicsEvent.fetchTopics());
+      context.read<PoolModuleBloc>().add(const PoolModuleEvent.getPoolData());
     }
   }
 
@@ -152,6 +151,13 @@ class _DashboardPageState extends State<DashboardPage> with WidgetsBindingObserv
     context.read<BmrBloc>().add(BmrEvent.getBmr(date: _selectedDay));
   }
 
+  void poolStateListener(BuildContext context, PoolModuleState state) {
+    // Check if the current state is not `PoolLoading` or `PoolError` before emitting the event again.
+    if (state is PoolLoading || state is PoolError) {
+      context.read<PoolModuleBloc>().add(const PoolModuleEvent.getPoolData());
+    }
+  }
+
   String _getHelloMessage(String name) {
     final currentHour = DateTime.now().hour;
     final currentMinute = DateTime.now().minute;
@@ -192,6 +198,10 @@ class _DashboardPageState extends State<DashboardPage> with WidgetsBindingObserv
           listenWhen: (prev, cur) =>
               prev is DashboardWeightStateLoading && cur is DashboardWeightStateUpdated,
           listener: _weightLogChangedListener,
+        ),
+        BlocListener<PoolModuleBloc, PoolModuleState>(
+          listenWhen: (prev, cur) => prev is PoolLoading && cur is PoolLoaded,
+          listener: poolStateListener,
         ),
       ],
       child: CustomScaffold.blue(
@@ -308,20 +318,23 @@ class _DashboardPageState extends State<DashboardPage> with WidgetsBindingObserv
                           ),
                           BlocBuilder<AuthenticationBloc, AuthenticationState>(
                             builder: (BuildContext context, state) {
-                              final unlockedGoals =
-                                  state.data.account?.isSmartGoalsUnlocked ?? false;
+                              // final unlockedGoals =
+                              //     state.data.account?.isSmartGoalsUnlocked ?? false;
                               return BlocBuilder<SmartGoalsBloc, SmartGoalsState>(
                                 builder: (context, state) {
-                                  final showSmartGoalsCard = unlockedGoals &&
-                                      ((state.data.hasGoalActiveSessions &&
-                                              state.data.isDateHasActiveSession(_selectedDay) &&
-                                              !_selectedDay.isFuture) ||
-                                          _selectedDay.isToday);
+                                  final showSmartGoalsCard = ((state.data.hasGoalActiveSessions &&
+                                          state.data.isDateHasActiveSession(_selectedDay) &&
+                                          !_selectedDay.isFuture) ||
+                                      _selectedDay.isToday);
 
                                   return Column(
                                     crossAxisAlignment: CrossAxisAlignment.start,
                                     children: [
-                                      DashboardSmartGoals(showSmartGoalsCard: showSmartGoalsCard),
+                                      DashboardSmartGoals(
+                                        showSmartGoalsCard: showSmartGoalsCard,
+                                        isDeleteModule: false,
+                                        onTap: (e) {},
+                                      ),
                                       const SizedBox(height: 19.0),
                                     ],
                                   );

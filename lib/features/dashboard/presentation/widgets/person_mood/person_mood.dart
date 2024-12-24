@@ -11,6 +11,7 @@ import 'package:loopcare_frontend/core/presentation/utils/date_time_extensions.d
 import 'package:loopcare_frontend/features/dashboard/domain/dashboard_utils.dart';
 import 'package:loopcare_frontend/features/dashboard/presentation/widgets/dashboard_card_title/dashboard_card_title.dart';
 import 'package:loopcare_frontend/features/dashboard/presentation/widgets/person_mood/mood_list.dart';
+import 'package:loopcare_frontend/features/dashboard/presentation/widgets/pool_status/application/pool_bloc/pool_module_bloc.dart';
 import 'package:loopcare_frontend/features/mood/application/mood_bloc.dart';
 import 'package:loopcare_frontend/features/mood/domain/mood.dart';
 import 'package:loopcare_frontend/features/mood/infrastructure/mood_page_mode.dart';
@@ -37,13 +38,17 @@ class _PersonMoodState extends State<PersonMood> {
   }
 
   void onPressHandler(BuildContext context) {
-    context.router.push(CreateMoodRoute(mode: const MoodPageMode.create(), date: widget.date));
+    context.router
+        .push(CreateMoodRoute(mode: const MoodPageMode.create(), date: widget.date))
+        .then(getPoolData);
   }
 
   void _onMoodItemPressedHandler(BuildContext context, Mood item) {
     context.router
         .push(CreateMoodRoute(mode: MoodPageMode.edit(moodRecord: item), date: widget.date));
   }
+
+  void getPoolData(e) => context.read<PoolModuleBloc>().add(const PoolModuleEvent.getPoolData());
 
   @override
   Widget build(BuildContext context) {
@@ -117,7 +122,7 @@ class _PersonMoodState extends State<PersonMood> {
                             ],
                           ),
                         ),
-                  onClick
+                  onClick && !widget.locked
                       ? Padding(
                           padding: const EdgeInsets.only(left: 12.0, right: 12.0, bottom: 12),
                           child: Row(

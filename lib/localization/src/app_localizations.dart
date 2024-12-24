@@ -82,8 +82,7 @@ abstract class AppLocalizations {
   /// Additional delegates can be added by appending to this list in
   /// MaterialApp. This list does not have to be used at all if a custom list
   /// of delegates is preferred or required.
-  static const List<LocalizationsDelegate<dynamic>> localizationsDelegates =
-      <LocalizationsDelegate<dynamic>>[
+  static const List<LocalizationsDelegate<dynamic>> localizationsDelegates = <LocalizationsDelegate<dynamic>>[
     delegate,
     GlobalMaterialLocalizations.delegate,
     GlobalCupertinoLocalizations.delegate,
@@ -91,7 +90,40 @@ abstract class AppLocalizations {
   ];
 
   /// A list of this localizations delegate's supported locales.
-  static const List<Locale> supportedLocales = <Locale>[Locale('de'), Locale('en')];
+  static const List<Locale> supportedLocales = <Locale>[
+    Locale('de'),
+    Locale('en')
+  ];
+
+  /// No description provided for @smartGoalsDeleteGoalTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete your goal?'**
+  String get smartGoalsDeleteGoalTitle;
+
+  /// No description provided for @areYouSureToDelete.
+  ///
+  /// In en, this message translates to:
+  /// **'Are you sure you want to delete the selected SMART goal?'**
+  String get areYouSureToDelete;
+
+  /// No description provided for @loseProgress.
+  ///
+  /// In en, this message translates to:
+  /// **'By deleting the goals, you are losing the current progress, but you can always start a new one.'**
+  String get loseProgress;
+
+  /// No description provided for @takeBack.
+  ///
+  /// In en, this message translates to:
+  /// **'No, take me back'**
+  String get takeBack;
+
+  /// No description provided for @yesDeleteGoal.
+  ///
+  /// In en, this message translates to:
+  /// **'Yes, delete goals'**
+  String get yesDeleteGoal;
 
   /// No description provided for @interactiveLessonsTextAreaLabel.
   ///
@@ -11673,6 +11705,30 @@ abstract class AppLocalizations {
   /// **'Choose alternative'**
   String get chooseAlternative;
 
+  /// No description provided for @selectAStream.
+  ///
+  /// In en, this message translates to:
+  /// **'Select a stream'**
+  String get selectAStream;
+
+  /// No description provided for @deleteGoals.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete goals'**
+  String get deleteGoals;
+
+  /// No description provided for @medicalInsights.
+  ///
+  /// In en, this message translates to:
+  /// **'Medical insights'**
+  String get medicalInsights;
+
+  /// No description provided for @backToTodayLogging.
+  ///
+  /// In en, this message translates to:
+  /// **'Back to today logging'**
+  String get backToTodayLogging;
+
   /// No description provided for @featureUnlocksAtPool.
   ///
   /// In en, this message translates to:
@@ -11876,17 +11932,18 @@ class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> 
 }
 
 AppLocalizations lookupAppLocalizations(Locale locale) {
+
+
   // Lookup logic when only language code is specified.
   switch (locale.languageCode) {
-    case 'de':
-      return AppLocalizationsDe();
-    case 'en':
-      return AppLocalizationsEn();
+    case 'de': return AppLocalizationsDe();
+    case 'en': return AppLocalizationsEn();
   }
 
   throw FlutterError(
-      'AppLocalizations.delegate failed to load unsupported locale "$locale". This is likely '
-      'an issue with the localizations generation tool. Please file an issue '
-      'on GitHub with a reproducible sample app and the gen-l10n configuration '
-      'that was used.');
+    'AppLocalizations.delegate failed to load unsupported locale "$locale". This is likely '
+    'an issue with the localizations generation tool. Please file an issue '
+    'on GitHub with a reproducible sample app and the gen-l10n configuration '
+    'that was used.'
+  );
 }

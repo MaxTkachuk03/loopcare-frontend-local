@@ -12,6 +12,7 @@ import 'package:loopcare_frontend/core/presentation/utils/build_context_extensio
 import 'package:loopcare_frontend/core/presentation/utils/date_time_extensions.dart';
 import 'package:loopcare_frontend/features/authentication/application/authentication_bloc.dart';
 import 'package:loopcare_frontend/features/dashboard/presentation/widgets/dashboard_card_title/dashboard_card_title.dart';
+import 'package:loopcare_frontend/features/dashboard/presentation/widgets/pool_status/application/pool_bloc/pool_module_bloc.dart';
 import 'package:loopcare_frontend/features/nutrition/application/meals/meals_bloc.dart';
 import 'package:loopcare_frontend/localization/service/localization_extension.dart';
 import 'package:loopcare_frontend/localization/service/localized_texts.dart';
@@ -35,8 +36,10 @@ class _FoodLoggingDashboardState extends State<FoodLoggingDashboard> {
     });
   }
 
-  void _onPressHandler(BuildContext context) => context.router.pushNamed(AppRoutes.dailyIntake);
+  void _onPressHandler(BuildContext context) =>
+      context.router.pushNamed(AppRoutes.dailyIntake).then(getPoolData);
 
+  void getPoolData(e) => context.read<PoolModuleBloc>().add(const PoolModuleEvent.getPoolData());
   void onErrorHandler(BuildContext context) => context
       .read<MealsBloc>()
       .add(MealsEvent.fetchMeals(startDate: widget.selectedDay, endDate: widget.selectedDay));
@@ -138,7 +141,7 @@ class _FoodLoggingDashboardState extends State<FoodLoggingDashboard> {
                         ],
                       ),
                     ),
-              onClick
+              onClick && !widget.locked
                   ? Padding(
                       padding: const EdgeInsets.only(left: 12.0, right: 12.0, bottom: 12),
                       child: Row(
