@@ -5,5 +5,7 @@ import 'package:loopcare_frontend/features/nutrition/presentation/nutrition_inta
 abstract interface class NutritionIntakeServices {
   Future<Either<RequestError, GetNutritionIntakeResponse>> getLessons({required DateTime date});
 
-  Future<Either<RequestError, GetNutritionIntakeResponse>> closeDay({required bool isDayClosed});
+  Future<Either<RequestError, GetNutritionIntakeResponse>> completeDay({required DateTime date});
+
+    Future<Either<RequestError, GetNutritionIntakeResponse>> finishLesson({required DateTime date, required int iLessonId});
 }

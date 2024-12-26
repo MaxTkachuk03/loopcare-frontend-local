@@ -14,8 +14,11 @@ class NutritionIntakeState with _$NutritionIntakeState {
   const factory NutritionIntakeState.loaded(NutritionIntakeStateData data) =
       NutritionIntakeStateLoaded;
 
-  const factory NutritionIntakeState.closeDay(NutritionIntakeStateData data) =
-      NutritionIntakeStateCloseDay;
+  const factory NutritionIntakeState.completeDay(
+      NutritionIntakeStateData data) = NutritionIntakeStateCloseDay;
+
+  const factory NutritionIntakeState.finishLesson(
+      NutritionIntakeStateData data) = NutritionIntakeStateFinishLesson;
 }
 
 @freezed
@@ -27,6 +30,8 @@ class NutritionIntakeStateData with _$NutritionIntakeStateData {
     @Default([]) List<NutritionIntakeDoneLessons> progress,
     @Default(null) NutritionIntakeDoneLessons? doneLessons,
     @Default(false) bool isLoading,
+    @Default('') String dateTime,
+    @Default(0) int iLessonId,
     RequestError? error,
   }) = _NutritionIntakeStateData;
 }

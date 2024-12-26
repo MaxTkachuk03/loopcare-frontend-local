@@ -54,12 +54,13 @@ class _NutritionIntakePageState extends State<NutritionIntakePage> {
   Widget build(BuildContext context) {
     return BlocBuilder<NutritionIntakeBloc, NutritionIntakeState>(
       builder: (context, nutritionState) {
-        isSwitched = context.read<NutritionIntakeBloc>().state.data.isDayClosed;
-        final isCompleted = nutritionState.data.progress.any((c) => c.isLessonFinished == true);
+        final isCompleted =
+            nutritionState.data.progress.any((c) => c.isLessonFinished == true);
 
         return BlocBuilder<MealsBloc, MealsState>(
           builder: (context, mealState) {
-            final isAddFood = mealState.data.selectedDayMealTotalCaloriesWithDrinks == 0;
+            final isAddFood =
+                mealState.data.selectedDayMealTotalCaloriesWithDrinks == 0;
             return CustomScaffold.greenLightest(
               appBar: CustomAppBar.green(
                 leading: CustomFilledIconButton.leadingGreenLighter(),
@@ -82,7 +83,8 @@ class _NutritionIntakePageState extends State<NutritionIntakePage> {
                             height: 25.0,
                           ),
                           Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                            padding:
+                                const EdgeInsets.symmetric(horizontal: 20.0),
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
@@ -91,7 +93,9 @@ class _NutritionIntakePageState extends State<NutritionIntakePage> {
                                   style: context.textTheme.displayLarge,
                                 ),
                                 CustomText.w600(
-                                  LocalizedTexts.dayDate.tr(),
+                                  widget.source ??
+                                      mealState
+                                          .data.currentDateTime.dateStringOnly,
                                   style: context.textTheme.bodySmall,
                                 ),
                                 const SizedBox(height: 24.0),
@@ -111,46 +115,65 @@ class _NutritionIntakePageState extends State<NutritionIntakePage> {
                                     child: ListView.separated(
                                         scrollDirection: Axis.horizontal,
                                         padding: EdgeInsets.zero,
-                                        physics: const NeverScrollableScrollPhysics(),
+                                        physics:
+                                            const NeverScrollableScrollPhysics(),
                                         shrinkWrap: true,
                                         itemCount: MealCategory.values.length,
                                         itemBuilder: (context, index) {
-                                          final selectedDayMeals = mealsState.data.meals[
-                                              mealsState.data.currentDateTime.isoStringWithoutTime];
-                                          var category = MealCategory.values[index];
+                                          final selectedDayMeals =
+                                              mealsState.data.meals[mealsState
+                                                  .data
+                                                  .currentDateTime
+                                                  .isoStringWithoutTime];
+                                          var category =
+                                              MealCategory.values[index];
 
                                           var mealForCurrentCategory =
-                                              selectedDayMeals?.firstWhereOrNull((m) =>
-                                                  m.mealCategory.toLowerCase() ==
-                                                  MealCategory.values[index].originalValue);
+                                              selectedDayMeals
+                                                  ?.firstWhereOrNull((m) =>
+                                                      m.mealCategory
+                                                          .toLowerCase() ==
+                                                      MealCategory.values[index]
+                                                          .originalValue);
 
-                                          final mealItems = mealForCurrentCategory?.mealItems;
-                                          final isEnabled =
-                                              mealItems != null && mealItems.isNotEmpty;
+                                          final mealItems =
+                                              mealForCurrentCategory?.mealItems;
+                                          final isEnabled = mealItems != null &&
+                                              mealItems.isNotEmpty;
 
                                           return NutritionIntakeButton(
-                                            progress: nutritionState.data.progress.isNotEmpty
-                                                ? nutritionState.data.progress[index]
+                                            progress: nutritionState
+                                                    .data.progress.isNotEmpty
+                                                ? nutritionState
+                                                    .data.progress[index]
                                                 : null,
                                             mealId: mealForCurrentCategory?.id,
                                             category: category,
-                                            isDisabled: !mealsState.data.isEditable,
-                                            mealItems: isEnabled ? mealItems : null,
+                                            isDisabled:
+                                                !mealsState.data.isEditable,
+                                            mealItems:
+                                                isEnabled ? mealItems : null,
                                             calorieDensity: isEnabled
-                                                ? mealsState.data.calorieDensitySum(mealItems)
+                                                ? mealsState.data
+                                                    .calorieDensitySum(
+                                                        mealItems)
                                                 : null,
                                             text: categories[index],
                                           );
                                         },
                                         separatorBuilder: (_, __) {
-                                          final screenWidth = MediaQuery.of(context).size.width;
+                                          final screenWidth =
+                                              MediaQuery.of(context).size.width;
 
                                           if (screenWidth < 390) {
-                                            return SizedBox(width: screenWidth / 12);
+                                            return SizedBox(
+                                                width: screenWidth / 12);
                                           } else if (screenWidth < 400) {
-                                            return SizedBox(width: screenWidth / 11);
+                                            return SizedBox(
+                                                width: screenWidth / 11);
                                           } else {
-                                            return SizedBox(width: screenWidth / 8.5);
+                                            return SizedBox(
+                                                width: screenWidth / 8.5);
                                           }
                                         }),
                                   ),
@@ -159,13 +182,16 @@ class _NutritionIntakePageState extends State<NutritionIntakePage> {
                                     ? Column(
                                         children: [
                                           Row(
-                                            mainAxisAlignment: MainAxisAlignment.center,
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.center,
                                             children: [
                                               AppIcons.nutritionSubtract,
                                               const SizedBox(width: 16.0),
                                               CustomText.bitter600(
-                                                  LocalizedTexts.pleaseLogFood.tr(),
-                                                  style: context.textTheme.bodyLarge),
+                                                  LocalizedTexts.pleaseLogFood
+                                                      .tr(),
+                                                  style: context
+                                                      .textTheme.bodyLarge),
                                             ],
                                           ),
                                           const SizedBox(height: 12.0),
@@ -179,14 +205,17 @@ class _NutritionIntakePageState extends State<NutritionIntakePage> {
                                     : const SizedBox.shrink(),
                                 isCompleted
                                     ? Column(
-                                        crossAxisAlignment: CrossAxisAlignment.start,
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
                                         children: [
                                           CategoryLabel.nutritionIntake(),
                                           const SizedBox(height: 20.0),
                                           CustomText(
                                             LocalizedTexts.haveYouLogged.tr(),
                                             style: context.textTheme.bodyMedium!
-                                                .copyWith(fontWeight: FontWeight.w700),
+                                                .copyWith(
+                                                    fontWeight:
+                                                        FontWeight.w700),
                                           ),
                                           const SizedBox(height: 20.0),
                                           Row(
@@ -196,24 +225,46 @@ class _NutritionIntakePageState extends State<NutritionIntakePage> {
                                                 onChanged: (value) {
                                                   setState(() {
                                                     isSwitched = true;
+                                                    context
+                                                        .read<
+                                                            NutritionIntakeBloc>()
+                                                        .add(NutritionIntakeEvent
+                                                            .completeDay(
+                                                                date: DateTime
+                                                                    .now()));
+
+                                                    // context
+                                                    //     .read<
+                                                    //         NutritionIntakeBloc>()
+                                                    //     .add(NutritionIntakeEvent
+                                                    //         .fetchProgress(
+                                                    //             date: DateTime
+                                                    //                 .now()));
                                                   });
                                                 },
-                                                activeColor:
-                                                    AppColors.greenLight, // Колір активного стану
-                                                inactiveThumbColor: AppColors.white,
+                                                activeColor: AppColors
+                                                    .greenLight, // Колір активного стану
+                                                inactiveThumbColor:
+                                                    AppColors.white,
                                                 inactiveTrackColor: AppColors
                                                     .greyLighter, // Колір треку у неактивному стані
                                               ),
                                               CustomText(
-                                                LocalizedTexts.thisDayIsComplete.tr(),
-                                                style: context.textTheme.bodyMedium!
-                                                    .copyWith(fontWeight: FontWeight.w400),
+                                                LocalizedTexts.thisDayIsComplete
+                                                    .tr(),
+                                                style: context
+                                                    .textTheme.bodyMedium!
+                                                    .copyWith(
+                                                        fontWeight:
+                                                            FontWeight.w400),
                                               ),
                                             ],
                                           ),
                                           const SizedBox(height: 20.0),
                                           ContinueBtn(
-                                              label: LocalizedTexts.backToPracticeBoard.tr(),
+                                              label: LocalizedTexts
+                                                  .backToPracticeBoard
+                                                  .tr(),
                                               onPressed: () {
                                                 context.router.maybePop();
                                               },

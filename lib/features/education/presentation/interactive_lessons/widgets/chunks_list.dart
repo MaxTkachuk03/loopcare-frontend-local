@@ -10,6 +10,7 @@ import 'package:loopcare_frontend/features/education/presentation/interactive_le
 import 'package:loopcare_frontend/features/education/presentation/interactive_lessons/widgets/components/lesson_components.dart';
 import 'package:loopcare_frontend/features/education/presentation/interactive_lessons/widgets/components/meal_timing/meal_timing.dart';
 import 'package:loopcare_frontend/features/education/presentation/interactive_lessons/widgets/continue_btn.dart';
+import 'package:loopcare_frontend/features/nutrition/presentation/nutrition_intake_page/application/nutrition_intake_bloc.dart';
 import 'package:loopcare_frontend/features/river/domain/lesson_type.dart';
 import 'package:loopcare_frontend/features/river/domain/river_module_item_state.dart';
 import 'package:loopcare_frontend/features/river/domain/river_module_stream_type.dart';
@@ -26,32 +27,37 @@ class _ChunksListState extends State<ChunksList> {
   ScrollController scrollController = ScrollController();
   final GlobalKey widgetKey = GlobalKey();
 
-  List<Widget> _renderChunk(InteractiveLessonsStateData blocState, InteractiveLessonChunk chunk) {
+  List<Widget> _renderChunk(
+      InteractiveLessonsStateData blocState, InteractiveLessonChunk chunk) {
     final components = blocState.getChunkComponents(chunk);
     final renderedChunks = blocState.activePageUnlockedChunks;
     final showButton = renderedChunks.last.id == chunk.id;
     final buttonEnabledOrDisabled =
         renderedChunks.last.id == chunk.id && blocState.isAllComponentChecked;
-    final showDivider = chunk.id != renderedChunks.last.id && renderedChunks.length > 1;
+    final showDivider =
+        chunk.id != renderedChunks.last.id && renderedChunks.length > 1;
 
     return [
       ..._renderChunkComponents(components),
       if (showDivider) const ChunkDivider(),
       if (showButton)
-        ContinueBtn(onPressed: _onContinueHandler, isDisable: !buttonEnabledOrDisabled),
+        ContinueBtn(
+            onPressed: _onContinueHandler, isDisable: !buttonEnabledOrDisabled),
     ];
   }
 
-  void onSaveProgress(
-      InteractiveLessonComponentProgress progress, InteractiveLessonChunkComponent component) {
+  void onSaveProgress(InteractiveLessonComponentProgress progress,
+      InteractiveLessonChunkComponent component) {
     final bloc = context.read<InteractiveLessonsBloc>();
     bloc.add(InteractiveLessonsEvent.saveAnswer(progress, component));
   }
 
-  List<Widget> _renderChunkComponents(List<InteractiveLessonChunkComponent> components) {
+  List<Widget> _renderChunkComponents(
+      List<InteractiveLessonChunkComponent> components) {
     final bloc = context.read<InteractiveLessonsBloc>();
     final blocState = bloc.state.data;
-    final lessonStreamType = RiverModuleStreamType.getLessonStreamType(blocState.type);
+    final lessonStreamType =
+        RiverModuleStreamType.getLessonStreamType(blocState.type);
     final lessonStatus = blocState.lessonStatus;
 
     if (lessonStatus == RiverModuleItemState.completed ||
@@ -79,7 +85,8 @@ class _ChunksListState extends State<ChunksList> {
                 lessonStreamType: lessonStreamType,
                 onSaveProgress: onSaveProgress,
               ),
-            InteractiveLessonChunkComponentSingleSelectWithFeedback() => SingleSelectWithFeedback(
+            InteractiveLessonChunkComponentSingleSelectWithFeedback() =>
+              SingleSelectWithFeedback(
                 component: c,
                 lessonStreamType: lessonStreamType,
                 onSaveProgress: onSaveProgress,
@@ -124,19 +131,28 @@ class _ChunksListState extends State<ChunksList> {
   void _onContinueHandler() {
     final bloc = context.read<InteractiveLessonsBloc>();
     final blocState = bloc.state.data;
-    final lessonStreamType = RiverModuleStreamType.getLessonStreamType(blocState.type);
+    final lessonStreamType =
+        RiverModuleStreamType.getLessonStreamType(blocState.type);
+
+    final blocNutritionIntake = context.read<NutritionIntakeBloc>();
+    final blocNutritionIntakeState = blocNutritionIntake.state.data;
 
     Future.delayed(const Duration(seconds: 1), () {
       const source = 'NutritionIntakeRoute';
       if (blocState.isAllChunksUnlocked && blocState.isLastPage) {
         if (mounted) {
-          if (context.router.stack[1].routeData.name.toLowerCase() == source.toLowerCase()) {
+          if (context.router.stack[1].routeData.name.toLowerCase() ==
+              source.toLowerCase()) {
+            // blocNutritionIntake.add(NutritionIntakeEvent.finishLesson(
+            //     date: DateTime.now(),
+            //     iLessonId: blocNutritionIntakeState.iLessonId));
             context.router.popUntilRouteWithName(NutritionIntakeRoute.name);
             return;
           }
 
           context.router.push(LessonCompleteRoute(
-              lessonType: LessonType.interactive, streamType: lessonStreamType));
+              lessonType: LessonType.interactive,
+              streamType: lessonStreamType));
         }
       } else if (blocState.isAllChunksUnlocked && !blocState.isLastPage) {
         bloc.add(const InteractiveLessonsEvent.setNextPage());
@@ -159,11 +175,13 @@ class _ChunksListState extends State<ChunksList> {
       if (chunkHeight == 0.0) return;
       double newScrollPosition = 0.0;
       if (chunkHeight <= 350) {
-        newScrollPosition =
-            betweenChunks ? scrollController.position.pixels + chunkHeight - 200.0 : 0.0;
+        newScrollPosition = betweenChunks
+            ? scrollController.position.pixels + chunkHeight - 200.0
+            : 0.0;
       } else {
-        newScrollPosition =
-            betweenChunks ? scrollController.position.pixels + chunkHeight - 90.0 : 0.0;
+        newScrollPosition = betweenChunks
+            ? scrollController.position.pixels + chunkHeight - 90.0
+            : 0.0;
       }
       await scrollController.animateTo(
         newScrollPosition,
@@ -175,7 +193,8 @@ class _ChunksListState extends State<ChunksList> {
   }
 
   double calculateDynamicHeight() {
-    final RenderBox? box = widgetKey.currentContext?.findRenderObject() as RenderBox?;
+    final RenderBox? box =
+        widgetKey.currentContext?.findRenderObject() as RenderBox?;
 
     return box?.size.height ?? 0.0;
   }
