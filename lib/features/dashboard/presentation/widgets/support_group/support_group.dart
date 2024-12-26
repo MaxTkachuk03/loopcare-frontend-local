@@ -97,7 +97,7 @@ class _SupportGroupState extends State<SupportGroup> {
                         SizedBox(
                           width: 250,
                           child: CustomText.w400(
-                            "${LocalizedTexts.featureUnlocksAtPool.tr()} #${LocalizedTexts.supportGroup.tr()}",
+                            "${LocalizedTexts.featureUnlocksAtPool.tr()} ${LocalizedTexts.supportGroupUnlock.tr()}",
                             style: const TextStyle(color: AppColors.greyLight, fontSize: 16),
                           ),
                         ),

@@ -139,7 +139,7 @@ class _PhysicalActivitiesState extends State<PhysicalActivities> {
                             SizedBox(
                               width: 250,
                               child: CustomText.w400(
-                                "${LocalizedTexts.featureUnlocksAtPool.tr()} #${LocalizedTexts.exerciseLibrary.tr()}",
+                                "${LocalizedTexts.featureUnlocksAtPool.tr()} ${LocalizedTexts.exerciseLibrary.tr()}",
                                 style: const TextStyle(color: AppColors.greyLight, fontSize: 16),
                               ),
                             ),

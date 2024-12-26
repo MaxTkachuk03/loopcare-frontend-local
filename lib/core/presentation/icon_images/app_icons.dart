@@ -21,6 +21,8 @@ class AppIcons {
   static const String goalLocked = 'assets/icons/goal_locked.png';
   static const String checkBox = 'assets/images/checkbox.png';
   static const String check = 'assets/images/check.png';
+  static const String achievements = 'assets/icons/achievements.png';
+
   // TODO replace with material svg icons
   static const AssetImage arrow = AssetImage('$iconsFilePath/arrow.png');
   static const AssetImage downArrow = AssetImage('$iconsFilePath/down_arrow.png');
@@ -61,6 +63,7 @@ class AppIcons {
 
   static SvgPicture deleteGoals =
       SvgPicture.asset('$iconsFilePath/delete_goals.svg', width: 28, height: 28);
+
   static SvgPicture checkmarkCircle(bool selected, Color selectedColor, Color regularColor) =>
       SvgPicture.asset('$iconsFilePath/checkmark_circle.svg',
           width: 22,
@@ -213,7 +216,7 @@ class AppIcons {
   static SvgPicture customDashboardMindGrey =
       SvgPicture.asset('$iconsFilePath/mind_training.svg', width: 44, height: 44);
   static SvgPicture customDashboardSmartGoals =
-      SvgPicture.asset('$iconsFilePath/custom_dashboard_smart_goals.svg', width: 44, height: 44);
+      SvgPicture.asset('$iconsFilePath/smart_goal_dark_blue.svg', width: 44, height: 44);
   static SvgPicture customDashboardSmartGoalsGrey =
       SvgPicture.asset('$iconsFilePath/my_goals.svg', width: 44, height: 44);
   static SvgPicture customMyGoalIcon =

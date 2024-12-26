@@ -82,7 +82,8 @@ abstract class AppLocalizations {
   /// Additional delegates can be added by appending to this list in
   /// MaterialApp. This list does not have to be used at all if a custom list
   /// of delegates is preferred or required.
-  static const List<LocalizationsDelegate<dynamic>> localizationsDelegates = <LocalizationsDelegate<dynamic>>[
+  static const List<LocalizationsDelegate<dynamic>> localizationsDelegates =
+      <LocalizationsDelegate<dynamic>>[
     delegate,
     GlobalMaterialLocalizations.delegate,
     GlobalCupertinoLocalizations.delegate,
@@ -90,10 +91,7 @@ abstract class AppLocalizations {
   ];
 
   /// A list of this localizations delegate's supported locales.
-  static const List<Locale> supportedLocales = <Locale>[
-    Locale('de'),
-    Locale('en')
-  ];
+  static const List<Locale> supportedLocales = <Locale>[Locale('de'), Locale('en')];
 
   /// No description provided for @smartGoalsDeleteGoalTitle.
   ///
@@ -10064,7 +10062,7 @@ abstract class AppLocalizations {
   /// No description provided for @reflections.
   ///
   /// In en, this message translates to:
-  /// **'What\'s your why?'**
+  /// **'Reflections'**
   String get reflections;
 
   /// No description provided for @seeLesson.
@@ -10358,7 +10356,7 @@ abstract class AppLocalizations {
   /// No description provided for @mealLog.
   ///
   /// In en, this message translates to:
-  /// **'Meal log'**
+  /// **'Food log'**
   String get mealLog;
 
   /// No description provided for @planYourMeals.
@@ -10394,7 +10392,7 @@ abstract class AppLocalizations {
   /// No description provided for @physicalActivities.
   ///
   /// In en, this message translates to:
-  /// **'Physical activity'**
+  /// **'Exercise library'**
   String get physicalActivities;
 
   /// No description provided for @physicalActivitiesPreferences.
@@ -10598,7 +10596,7 @@ abstract class AppLocalizations {
   /// No description provided for @supportGroup.
   ///
   /// In en, this message translates to:
-  /// **'Don\'t go it alone'**
+  /// **'Support group'**
   String get supportGroup;
 
   /// No description provided for @account.
@@ -11732,8 +11730,14 @@ abstract class AppLocalizations {
   /// No description provided for @featureUnlocksAtPool.
   ///
   /// In en, this message translates to:
-  /// **'Feature unlocks at Pool'**
+  /// **'Feature unlocks at pool'**
   String get featureUnlocksAtPool;
+
+  /// No description provided for @reflectionsUnlock.
+  ///
+  /// In en, this message translates to:
+  /// **'What\'s your why?'**
+  String get reflectionsUnlock;
 
   /// No description provided for @reflectionsDescription.
   ///
@@ -11741,11 +11745,29 @@ abstract class AppLocalizations {
   /// **'are tailored to help you understand yourself and your relationship with food.'**
   String get reflectionsDescription;
 
+  /// No description provided for @supportGroupUnlock.
+  ///
+  /// In en, this message translates to:
+  /// **'Don\'t go it alone'**
+  String get supportGroupUnlock;
+
   /// No description provided for @supportGroupDescription.
   ///
   /// In en, this message translates to:
   /// **'Guided group sessions give you a safe space to share your successes and challenges with like-minded individuals. We’re all here to help.'**
   String get supportGroupDescription;
+
+  /// No description provided for @commitmentUnlock.
+  ///
+  /// In en, this message translates to:
+  /// **'What\'s your why?'**
+  String get commitmentUnlock;
+
+  /// No description provided for @commitmentDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'We’re committed to helping you, but we need input to do so! Give us an honest list of everything you ate for the first few days of the program and we’ll customise our program to focus on the topics most likely to make a positive impact on your weight and happiness.'**
+  String get commitmentDescription;
 
   /// No description provided for @exerciseLibraryDescription.
   ///
@@ -11762,7 +11784,7 @@ abstract class AppLocalizations {
   /// No description provided for @moodLog.
   ///
   /// In en, this message translates to:
-  /// **'Back to Basics'**
+  /// **'Back to basics'**
   String get moodLog;
 
   /// No description provided for @moodLogLockedDescription.
@@ -11932,18 +11954,17 @@ class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> 
 }
 
 AppLocalizations lookupAppLocalizations(Locale locale) {
-
-
   // Lookup logic when only language code is specified.
   switch (locale.languageCode) {
-    case 'de': return AppLocalizationsDe();
-    case 'en': return AppLocalizationsEn();
+    case 'de':
+      return AppLocalizationsDe();
+    case 'en':
+      return AppLocalizationsEn();
   }
 
   throw FlutterError(
-    'AppLocalizations.delegate failed to load unsupported locale "$locale". This is likely '
-    'an issue with the localizations generation tool. Please file an issue '
-    'on GitHub with a reproducible sample app and the gen-l10n configuration '
-    'that was used.'
-  );
+      'AppLocalizations.delegate failed to load unsupported locale "$locale". This is likely '
+      'an issue with the localizations generation tool. Please file an issue '
+      'on GitHub with a reproducible sample app and the gen-l10n configuration '
+      'that was used.');
 }

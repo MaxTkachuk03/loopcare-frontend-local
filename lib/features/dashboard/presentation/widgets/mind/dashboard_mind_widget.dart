@@ -90,7 +90,7 @@ class _DashboardMindWidgetState extends State<DashboardMindWidget> {
                       SizedBox(
                         width: 250,
                         child: Text(
-                          "${LocalizedTexts.featureUnlocksAtPool.tr()} #${LocalizedTexts.mindTraining.tr()}",
+                          "${LocalizedTexts.featureUnlocksAtPool.tr()} ${LocalizedTexts.mindTraining.tr()}",
                           style: const TextStyle(color: AppColors.greyLight, fontSize: 16),
                         ),
                       ),

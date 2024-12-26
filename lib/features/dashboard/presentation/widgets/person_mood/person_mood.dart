@@ -115,7 +115,7 @@ class _PersonMoodState extends State<PersonMood> {
                               SizedBox(
                                 width: 250,
                                 child: CustomText.w400(
-                                  "${LocalizedTexts.featureUnlocksAtPool.tr()} #${LocalizedTexts.moodLog.tr()}",
+                                  "${LocalizedTexts.featureUnlocksAtPool.tr()} ${LocalizedTexts.moodLog.tr()}",
                                   style: const TextStyle(color: AppColors.greyLight, fontSize: 16),
                                 ),
                               ),

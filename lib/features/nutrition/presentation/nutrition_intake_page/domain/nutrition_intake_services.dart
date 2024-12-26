@@ -7,5 +7,6 @@ abstract interface class NutritionIntakeServices {
 
   Future<Either<RequestError, GetNutritionIntakeResponse>> completeDay({required DateTime date});
 
-    Future<Either<RequestError, GetNutritionIntakeResponse>> finishLesson({required DateTime date, required int iLessonId});
+  Future<Either<RequestError, GetNutritionIntakeResponse>> finishLesson(
+      {required DateTime date, required int iLessonId});
 }

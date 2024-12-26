@@ -17,14 +17,14 @@ class APIReflectionsService implements ReflectionsService {
   @override
   Future<Either<RequestError, GetReflectionsResponse>> getReflections() async {
     try {
-      final response = await client.get('/education/reflections',
-          fromJson: GetReflectionsResponse.fromJson);
+      final response =
+          await client.get('/education/reflections', fromJson: GetReflectionsResponse.fromJson);
       log.d('Raw Response: getReflections');
       return response;
     } catch (e, stackTrace) {
       log.w('Error in client.get: $e');
       log.w('Stack Trace: $stackTrace');
-      rethrow; 
+      rethrow;
     }
   }
 

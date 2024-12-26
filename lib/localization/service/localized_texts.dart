@@ -16,6 +16,7 @@ class LocalizedTexts {
   static const String yourName = 'yourName';
   static const String close = 'close';
   static const String next = 'next';
+
 //delete weekly
   static const String areYouSureToDelete = 'areYouSureToDelete';
   static const String loseProgress = 'loseProgress';
@@ -24,6 +25,7 @@ class LocalizedTexts {
   static const String deleteGoal = 'Delete goal';
   static const String selectGoal = 'Select the goals you want to delete.';
   static const String smartGoalsDeleteGoalTitle = 'smartGoalsDeleteGoalTitle';
+
   // Connection
   static const String connectionLost = 'connectionLost';
 
@@ -2491,10 +2493,15 @@ class LocalizedTexts {
   static const String emergencyVeteransLineTitle = 'emergencyVeteransLineTitle';
   static const String emergencyVeteransLineUrl = 'emergencyVeteransLineUrl';
   static const String emergencyVeteransLineLabel = 'emergencyVeteransLineLabel';
+
 // locked widgets
+  static const String reflectionsUnlock = 'reflectionsUnlock';
   static const String reflectionsDescription = 'reflectionsDescription';
   static const String featureUnlocksAtPool = 'featureUnlocksAtPool';
+  static const String supportGroupUnlock = 'supportGroupUnlock';
   static const String supportGroupDescription = 'supportGroupDescription';
+  static const String commitmentUnlock = 'commitmentUnlock';
+  static const String commitmentDescription = 'commitmentDescription';
   static const String exerciseLibraryDescription = 'exerciseLibraryDescription';
   static const String exerciseLibrary = 'exerciseLibrary';
   static const String moodLog = 'moodLog';
@@ -2516,6 +2523,7 @@ class LocalizedTexts {
   static const String unlockWeight = "unlockWeight";
   static const String unlockFoodLog = "unlockFoodLog";
   static const String foodCmmitment = "foodCmmitment";
+
   //Links
   static const String linksTermsAndConditionsUrl = 'linksTermsAndConditionsUrl';
   static const String linksPrivacyPolicyUrl = 'linksPrivacyPolicyUrl';

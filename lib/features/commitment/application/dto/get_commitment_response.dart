@@ -9,7 +9,6 @@ class GetCommitmentResponse with _$GetCommitmentResponse {
   const GetCommitmentResponse._();
 
   const factory GetCommitmentResponse({
-    required int id,
     required int completedCommitments,
     required int totalCommitments,
     required bool showCommitment,

@@ -93,7 +93,7 @@ class _ReflectionsDashboardWidgetState extends State<ReflectionsDashboardWidget>
                         SizedBox(
                           width: 250,
                           child: CustomText.w400(
-                            "${LocalizedTexts.featureUnlocksAtPool.tr()} #${LocalizedTexts.reflections.tr()}",
+                            "${LocalizedTexts.featureUnlocksAtPool.tr()} ${LocalizedTexts.reflectionsUnlock.tr()}",
                             style: const TextStyle(color: AppColors.greyLight, fontSize: 16),
                           ),
                         ),

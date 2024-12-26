@@ -2,14 +2,11 @@ part of 'reflections_bloc.dart';
 
 @freezed
 class ReflectionsState with _$ReflectionsState {
-  const factory ReflectionsState.initial(ReflectionsStateData data) =
-      ReflectionsStateInitial;
+  const factory ReflectionsState.initial(ReflectionsStateData data) = ReflectionsStateInitial;
 
-  const factory ReflectionsState.loading(ReflectionsStateData data) =
-      ReflectionsStateLoading;
+  const factory ReflectionsState.loading(ReflectionsStateData data) = ReflectionsStateLoading;
 
-  const factory ReflectionsState.error(ReflectionsStateData data) =
-      ReflectionsStateError;
+  const factory ReflectionsState.error(ReflectionsStateData data) = ReflectionsStateError;
 
   const factory ReflectionsState.reflectionsLoaded(ReflectionsStateData data) =
       ReflectionsStateReflectionsLoaded;
@@ -40,11 +37,9 @@ class ReflectionsStateData with _$ReflectionsStateData {
     }).toList();
   }
 
-  List<Reflection> getSelectedDayDoneReflections(DateTime selectedDay) =>
-      reflections
-          .where((r) =>
-              r.completedAt?.dateOnly.isSameDate(selectedDay.dateOnly) ?? false)
-          .toList();
+  List<Reflection> getSelectedDayDoneReflections(DateTime selectedDay) => reflections
+      .where((r) => r.completedAt?.dateOnly.isSameDate(selectedDay.dateOnly) ?? false)
+      .toList();
 
   List<Reflection> getPastReflections(DateTime selectedDay) {
     final endDate = selectedDay.subtract(7.days);
@@ -58,6 +53,5 @@ class ReflectionsStateData with _$ReflectionsStateData {
     }).toList();
   }
 
-  String get errorKey =>
-      error?.message ?? LocalizedTexts.errorSomethingWentWrong;
+  String get errorKey => error?.message ?? LocalizedTexts.errorSomethingWentWrong;
 }

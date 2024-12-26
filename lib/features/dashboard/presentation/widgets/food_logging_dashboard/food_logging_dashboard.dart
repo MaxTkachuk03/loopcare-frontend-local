@@ -134,7 +134,7 @@ class _FoodLoggingDashboardState extends State<FoodLoggingDashboard> {
                           SizedBox(
                             width: 250,
                             child: CustomText.w400(
-                              "${LocalizedTexts.featureUnlocksAtPool.tr()} #${LocalizedTexts.foodLog.tr()}",
+                              "${LocalizedTexts.featureUnlocksAtPool.tr()} ${LocalizedTexts.foodLog.tr()}",
                               style: const TextStyle(color: AppColors.greyLight, fontSize: 16),
                             ),
                           ),

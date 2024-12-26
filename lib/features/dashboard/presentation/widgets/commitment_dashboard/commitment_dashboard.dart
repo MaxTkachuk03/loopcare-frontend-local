@@ -34,6 +34,7 @@ class _CommitmentDashboardState extends State<CommitmentDashboard> {
   }
 
   void getPoolData(e) => context.read<PoolModuleBloc>().add(const PoolModuleEvent.getPoolData());
+
   void onErrorHandler(BuildContext context) =>
       context.read<CommitmentBloc>().add(CommitmentEvent.getCommitment(date: widget.selectedDay));
 
@@ -110,9 +111,9 @@ class _CommitmentDashboardState extends State<CommitmentDashboard> {
                         if (completedCommitments > 0 && completedCommitments != totalCommitments)
                           const ImageIcon(AppIcons.checkmark,
                               color: AppColors.blueDarker, size: 44),
-                        if (completedCommitments >= totalCommitments)
+                        if (completedCommitments >= totalCommitments && completedCommitments != 0)
                           Image.asset(
-                            'assets/icons/achievements.png',
+                            AppIcons.achievements,
                             width: 44,
                             height: 44,
                             fit: BoxFit.contain,

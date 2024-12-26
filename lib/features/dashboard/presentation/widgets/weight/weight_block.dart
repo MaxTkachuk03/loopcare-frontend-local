@@ -138,7 +138,7 @@ class _WeightBlockState extends State<WeightBlock> {
                               SizedBox(
                                 width: 250,
                                 child: CustomText.w400(
-                                  "${LocalizedTexts.featureUnlocksAtPool.tr()} #${LocalizedTexts.weightLog.tr()}",
+                                  "${LocalizedTexts.featureUnlocksAtPool.tr()} ${LocalizedTexts.weightLog.tr()}",
                                   style: const TextStyle(color: AppColors.greyLight, fontSize: 16),
                                 ),
                               ),

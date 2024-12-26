@@ -43,6 +43,7 @@ class _DashboardSmartGoalsState extends State<DashboardSmartGoals> {
 
   void onPressHandler(BuildContext context) =>
       context.router.pushNamed(AppRoutes.goalFlavors).then(getPoolData);
+
   void getPoolData(e) => context.read<PoolModuleBloc>().add(const PoolModuleEvent.getPoolData());
 
   @override
@@ -109,7 +110,7 @@ class _DashboardSmartGoalsState extends State<DashboardSmartGoals> {
                           SizedBox(
                             width: 250,
                             child: CustomText.w400(
-                              "${LocalizedTexts.featureUnlocksAtPool.tr()} #${LocalizedTexts.goals.tr()}",
+                              "${LocalizedTexts.featureUnlocksAtPool.tr()} ${LocalizedTexts.goals.tr()}",
                               style: const TextStyle(color: AppColors.greyLight, fontSize: 16),
                             ),
                           ),
@@ -209,7 +210,7 @@ class _DashboardSmartGoalsState extends State<DashboardSmartGoals> {
                             SizedBox(
                               width: 250,
                               child: CustomText.w400(
-                                "${LocalizedTexts.featureUnlocksAtPool.tr()} #${LocalizedTexts.goals.tr()}",
+                                "${LocalizedTexts.featureUnlocksAtPool.tr()} ${LocalizedTexts.goals.tr()}",
                                 style: const TextStyle(color: AppColors.greyLight, fontSize: 16),
                               ),
                             ),
