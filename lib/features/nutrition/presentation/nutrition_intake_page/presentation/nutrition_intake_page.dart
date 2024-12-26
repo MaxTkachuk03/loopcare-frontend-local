@@ -93,9 +93,7 @@ class _NutritionIntakePageState extends State<NutritionIntakePage> {
                                   style: context.textTheme.displayLarge,
                                 ),
                                 CustomText.w600(
-                                  widget.source ??
-                                      mealState
-                                          .data.currentDateTime.dateStringOnly,
+                                  mealState.data.currentDateTime.dateStringOnly,
                                   style: context.textTheme.bodySmall,
                                 ),
                                 const SizedBox(height: 24.0),
