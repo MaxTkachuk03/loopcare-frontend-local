@@ -16,6 +16,8 @@ class SmartGoalsEvent with _$SmartGoalsEvent {
   const factory SmartGoalsEvent.resetCompletions({required int progressId}) = ResetCompletions;
 
   const factory SmartGoalsEvent.deleteSession({required int sessionId}) = DeleteSession;
+  const factory SmartGoalsEvent.multiDeleteSession({required List<int> sessionIds}) =
+      MultipleDeleteSession;
 
   const factory SmartGoalsEvent.selectCancelGoalReason({required CancelGoalReason reason}) =
       SelectCancelGoalReason;

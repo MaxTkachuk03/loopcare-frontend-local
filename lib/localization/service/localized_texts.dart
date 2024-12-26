@@ -17,6 +17,15 @@ class LocalizedTexts {
   static const String close = 'close';
   static const String next = 'next';
 
+//delete weekly
+  static const String areYouSureToDelete = 'areYouSureToDelete';
+  static const String loseProgress = 'loseProgress';
+  static const String yesDeleteGoal = 'yesDeleteGoal';
+  static const String takeBack = 'takeBack';
+  static const String deleteGoal = 'Delete goal';
+  static const String selectGoal = 'Select the goals you want to delete.';
+  static const String smartGoalsDeleteGoalTitle = 'smartGoalsDeleteGoalTitle';
+
   // Connection
   static const String connectionLost = 'connectionLost';
 
@@ -276,6 +285,7 @@ class LocalizedTexts {
   static const String nutrition = 'nutrition';
   static const String medical = 'medical';
   static const String community = 'community';
+  static const String medicalInsights = 'medicalInsights';
 
   static const String noMealsLogged = 'noMealsLogged';
   static const String noMealsLoggedYet = 'noMealsLoggedYet';
@@ -1158,6 +1168,8 @@ class LocalizedTexts {
   static const String smartGoalsReasonGoalMissing = 'smartGoalsReasonGoalMissing';
   static const String smartGoalsReasonGoalHabit = 'smartGoalsReasonGoalHabit';
   static const String smartGoalsReasonGoalSpecific = 'smartGoalsReasonGoalSpecific';
+  static const String selectAStream = 'selectAStream';
+  static const String deleteGoals = 'deleteGoals';
 
   // River
   static const String riverGuidancePracticeTitle = 'riverGuidancePracticeTitle';
@@ -2481,10 +2493,15 @@ class LocalizedTexts {
   static const String emergencyVeteransLineTitle = 'emergencyVeteransLineTitle';
   static const String emergencyVeteransLineUrl = 'emergencyVeteransLineUrl';
   static const String emergencyVeteransLineLabel = 'emergencyVeteransLineLabel';
+
 // locked widgets
+  static const String reflectionsUnlock = 'reflectionsUnlock';
   static const String reflectionsDescription = 'reflectionsDescription';
   static const String featureUnlocksAtPool = 'featureUnlocksAtPool';
+  static const String supportGroupUnlock = 'supportGroupUnlock';
   static const String supportGroupDescription = 'supportGroupDescription';
+  static const String commitmentUnlock = 'commitmentUnlock';
+  static const String commitmentDescription = 'commitmentDescription';
   static const String exerciseLibraryDescription = 'exerciseLibraryDescription';
   static const String exerciseLibrary = 'exerciseLibrary';
   static const String moodLog = 'moodLog';
@@ -2506,6 +2523,7 @@ class LocalizedTexts {
   static const String unlockWeight = "unlockWeight";
   static const String unlockFoodLog = "unlockFoodLog";
   static const String foodCmmitment = "foodCmmitment";
+
   //Links
   static const String linksTermsAndConditionsUrl = 'linksTermsAndConditionsUrl';
   static const String linksPrivacyPolicyUrl = 'linksPrivacyPolicyUrl';

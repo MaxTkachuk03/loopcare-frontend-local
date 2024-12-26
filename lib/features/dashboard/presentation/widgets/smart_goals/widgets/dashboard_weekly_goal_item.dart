@@ -4,6 +4,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:loopcare_frontend/core/presentation/alerting/modal_bottom_sheet.dart';
+import 'package:loopcare_frontend/core/presentation/icon_images/app_icons.dart';
 import 'package:loopcare_frontend/core/presentation/routes/app_router.gr.dart';
 import 'package:loopcare_frontend/core/presentation/text/custom_text.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
@@ -21,12 +22,14 @@ import 'package:loopcare_frontend/localization/service/localized_texts.dart';
 const _maxCompletions = 99;
 
 class DashboardWeeklyGoalItem extends StatefulWidget {
+  final bool isDeleteModule;
   final int sessionId;
   final WeeklySmartGoal item;
   final bool editable;
   final int keyItem;
   final Function() onRemoveFromLocal;
-
+  final void Function()? onTap;
+  final bool isSelect;
   const DashboardWeeklyGoalItem({
     super.key,
     required this.item,
@@ -34,6 +37,9 @@ class DashboardWeeklyGoalItem extends StatefulWidget {
     required this.editable,
     required this.keyItem,
     required this.onRemoveFromLocal,
+    required this.isDeleteModule,
+    this.onTap,
+    required this.isSelect,
   });
 
   @override
@@ -88,6 +94,37 @@ class _DashboardWeeklyGoalItemState extends State<DashboardWeeklyGoalItem> {
       .read<SmartGoalsBloc>()
       .add(SmartGoalsEvent.deleteSession(sessionId: widget.sessionId));
 
+  Color getStreamColor(String stream) {
+    Color valueColor;
+
+    switch (stream) {
+      case 'nutrition':
+        valueColor = AppColors.greenRegular;
+        break;
+      case 'psychology':
+        valueColor = AppColors.petrolRegular;
+        break;
+      case 'physical activity':
+        valueColor = AppColors.yellowRegular;
+
+        break;
+      case 'community':
+        valueColor = AppColors.orangeRegular;
+
+        break;
+      case 'medical insights':
+        valueColor = AppColors.coralMedium;
+
+        break;
+      default:
+        valueColor = AppColors.greenRegular;
+
+        break;
+    }
+
+    return valueColor;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -115,41 +152,59 @@ class _DashboardWeeklyGoalItemState extends State<DashboardWeeklyGoalItem> {
           surfaceTintColor: AppColors.transparent,
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8.0)),
           child: ListTile(
-            contentPadding: const EdgeInsets.only(left: 8.0, right: 8.0),
-            onTap: () => _onItemHandler(context, widget.item),
-            title: Row(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                GoalProgressIndicator(
-                  currentStep: widget.item.completionsDays,
-                  steps: widget.item.smartGoal.requiredCompletionDays,
-                  isAchievedNotifier: widget.item.isAchieved,
-                ),
-                const SizedBox(width: 16.0),
-                _LeftDaysWidget(
-                  item: widget.item,
-                  sessionId: widget.sessionId,
-                  readyForReview: !widget.editable,
-                ),
-                const SizedBox(width: 16.0),
-              ],
-            ),
-            trailing: (widget.editable)
-                ? GoalProgressButton(
-                    item: widget.item,
-                    times: times,
-                    onPressed: times < _maxCompletions
-                        ? () => _onProgressHandler(context, widget.item)
-                        : null,
-                    onResetProgress:
-                        times > 0 ? () => _onResetProgressHandler(context, widget.item) : null,
-                  )
-                : GoalAchieveButton(
-                    item: widget.item,
-                    onPressed: _onQuickReviewHandler,
+              contentPadding: const EdgeInsets.only(left: 8.0, right: 8.0),
+              onTap: widget.isDeleteModule ? null : () => _onItemHandler(context, widget.item),
+              title: Row(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  //here to change
+                  GoalProgressIndicator(
+                    currentStep: widget.item.completionsDays,
+                    steps: widget.item.smartGoal.requiredCompletionDays,
+                    isAchievedNotifier: widget.item.isAchieved,
+                    valueColor: getStreamColor(widget.item.smartGoal.category.stream),
                   ),
-          ),
+                  const SizedBox(width: 16.0),
+                  _LeftDaysWidget(
+                    item: widget.item,
+                    sessionId: widget.sessionId,
+                    readyForReview: !widget.editable,
+                  ),
+                  const SizedBox(width: 16.0),
+                ],
+              ),
+              leading: widget.isDeleteModule
+                  ? InkWell(
+                      onTap: widget.onTap,
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 10),
+                        child: Image.asset(
+                          widget.isSelect ? AppIcons.check : AppIcons.checkBox,
+                          scale: 3.5,
+                        ),
+                      ),
+                    )
+                  : null,
+              trailing: widget.isDeleteModule == false
+                  ? (widget.editable)
+                      ? GoalProgressButton(
+                          bgColor: getStreamColor(widget.item.smartGoal.category.stream),
+                          item: widget.item,
+                          times: times,
+                          onPressed: times < _maxCompletions
+                              ? () => _onProgressHandler(context, widget.item)
+                              : null,
+                          onResetProgress: times > 0
+                              ? () => _onResetProgressHandler(context, widget.item)
+                              : null,
+                        )
+                      : GoalAchieveButton(
+                          item: widget.item,
+                          onPressed: _onQuickReviewHandler,
+                          bgColor: getStreamColor(widget.item.smartGoal.category.stream),
+                        )
+                  : null),
         ),
       ),
     );

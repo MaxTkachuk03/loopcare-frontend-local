@@ -13,24 +13,32 @@ import 'package:loopcare_frontend/core/presentation/utils/date_time_extensions.d
 import 'package:loopcare_frontend/features/authentication/application/authentication_bloc.dart';
 import 'package:loopcare_frontend/features/commitment/application/commitment_bloc.dart';
 import 'package:loopcare_frontend/features/dashboard/presentation/widgets/dashboard_card_title/dashboard_card_title.dart';
+import 'package:loopcare_frontend/features/dashboard/presentation/widgets/pool_status/application/pool_bloc/pool_module_bloc.dart';
 import 'package:loopcare_frontend/localization/service/localization_extension.dart';
 import 'package:loopcare_frontend/localization/service/localized_texts.dart';
 
-class CommitmentDashboard extends StatelessWidget {
+class CommitmentDashboard extends StatefulWidget {
   final DateTime selectedDay;
 
   const CommitmentDashboard({super.key, required this.selectedDay});
 
-  void _onPressHandler(BuildContext context) {
-    if (selectedDay.isFuture) return;
+  @override
+  State<CommitmentDashboard> createState() => _CommitmentDashboardState();
+}
 
-    context.router.pushNamed(AppRoutes.nutritionIntake);
+class _CommitmentDashboardState extends State<CommitmentDashboard> {
+  void _onPressHandler(BuildContext context) {
+    if (widget.selectedDay.isFuture) return;
+
+    context.router.pushNamed(AppRoutes.nutritionIntake).then(getPoolData);
   }
 
-  void onErrorHandler(BuildContext context) =>
-      context.read<CommitmentBloc>().add(CommitmentEvent.getCommitment(date: selectedDay));
+  void getPoolData(e) => context.read<PoolModuleBloc>().add(const PoolModuleEvent.getPoolData());
 
-  Color get _textColor => !selectedDay.isFuture ? AppColors.blueDarker : AppColors.greyLabel;
+  void onErrorHandler(BuildContext context) =>
+      context.read<CommitmentBloc>().add(CommitmentEvent.getCommitment(date: widget.selectedDay));
+
+  Color get _textColor => !widget.selectedDay.isFuture ? AppColors.blueDarker : AppColors.greyLabel;
 
   @override
   Widget build(BuildContext context) {
@@ -103,9 +111,9 @@ class CommitmentDashboard extends StatelessWidget {
                         if (completedCommitments > 0 && completedCommitments != totalCommitments)
                           const ImageIcon(AppIcons.checkmark,
                               color: AppColors.blueDarker, size: 44),
-                        if (completedCommitments >= totalCommitments)
+                        if (completedCommitments >= totalCommitments && completedCommitments != 0)
                           Image.asset(
-                            'assets/icons/achievements.png',
+                            AppIcons.achievements,
                             width: 44,
                             height: 44,
                             fit: BoxFit.contain,

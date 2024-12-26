@@ -443,5 +443,13 @@ class AppRouter extends $AppRouter {
           path: AppRoutes.maintenance,
           page: MaintenanceRoute.page,
         ),
+        AutoRoute(
+          path: AppRoutes.goalFlavors,
+          page: MyGoalsFlavors.page,
+        ),
+        AutoRoute(
+          path: AppRoutes.deleteWeeklyGoals,
+          page: DeleteWeeklyGoals.page,
+        ),
       ];
 }

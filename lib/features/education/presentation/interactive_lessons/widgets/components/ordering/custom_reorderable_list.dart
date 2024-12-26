@@ -18,8 +18,9 @@ import 'package:loopcare_frontend/features/education/domain/interactive_lesson/i
 class CustomReorderableList extends StatefulWidget {
   final InteractiveLessonChunkComponentOrdering component;
   final RiverModuleStreamType lessonStreamType;
-  final Function(InteractiveLessonComponentProgress progress,
-      InteractiveLessonChunkComponent component) onSaveProgress;
+  final Function(
+          InteractiveLessonComponentProgress progress, InteractiveLessonChunkComponent component)
+      onSaveProgress;
 
   const CustomReorderableList({
     super.key,
@@ -43,11 +44,9 @@ class _CustomReorderableListState extends State<CustomReorderableList> {
   @override
   void initState() {
     final rightOrder = content.correctOrder;
-    if (widget.component.progress != null &&
-        widget.component.progress!.optionIds != null) {
+    if (widget.component.progress != null && widget.component.progress!.optionIds != null) {
       _isNotReordered = true;
-      items.sort((a, b) =>
-          rightOrder.indexOf(a.order).compareTo(rightOrder.indexOf(b.order)));
+      items.sort((a, b) => rightOrder.indexOf(a.order).compareTo(rightOrder.indexOf(b.order)));
       _showOrderValidation = true;
     }
     super.initState();
@@ -87,14 +86,12 @@ class _CustomReorderableListState extends State<CustomReorderableList> {
   void _onShowAnswerHandler() {
     final rightOrder = content.correctOrder;
     setState(() {
-      items.sort((a, b) =>
-          rightOrder.indexOf(a.order).compareTo(rightOrder.indexOf(b.order)));
+      items.sort((a, b) => rightOrder.indexOf(a.order).compareTo(rightOrder.indexOf(b.order)));
       _showOrderValidation = true;
       _isNotReordered = true;
     });
     widget.onSaveProgress(
-        InteractiveLessonComponentProgress(
-            optionIds: rightOrder, type: widget.component.type.name),
+        InteractiveLessonComponentProgress(optionIds: rightOrder, type: widget.component.type.name),
         widget.component);
   }
 
@@ -110,8 +107,7 @@ class _CustomReorderableListState extends State<CustomReorderableList> {
       _isNotReordered = true;
     });
     widget.onSaveProgress(
-        InteractiveLessonComponentProgress(
-            optionIds: rightOrder, type: widget.component.type.name),
+        InteractiveLessonComponentProgress(optionIds: rightOrder, type: widget.component.type.name),
         widget.component);
   }
 
@@ -132,18 +128,6 @@ class _CustomReorderableListState extends State<CustomReorderableList> {
 
   static const double iconSize = 80.0;
 
-  int countLines(String text, TextStyle style) {
-    final TextPainter textPainter = TextPainter(
-      text: TextSpan(text: text, style: style),
-      textDirection: TextDirection.ltr,
-      maxLines: null,
-    );
-
-    textPainter.layout(maxWidth: 115);
-
-    return textPainter.computeLineMetrics().length;
-  }
-
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -159,75 +143,57 @@ class _CustomReorderableListState extends State<CustomReorderableList> {
             physics: const NeverScrollableScrollPhysics(),
             header: ReorderableListLabel(label: content.topLabel),
             footer: ReorderableListLabel(label: content.bottomLabel),
-            onReorder:
-                _isNotReordered ? (oldIndex, newIndex) {} : _onReorderHandler,
+            onReorder: _isNotReordered ? (oldIndex, newIndex) {} : _onReorderHandler,
             onReorderStart: _onReorderStartHandler,
             proxyDecorator: proxyDecorator,
             children: items.asMap().entries.map((entry) {
               int index = entry.key;
               ContentOrderingItem item = entry.value;
               final bool isValid = content.correctOrder[index] == item.order;
-              final descriptionLines =
-                  countLines(item.description, context.textTheme.bodyMedium!);
-              final titleLines = countLines(
-                  item.title,
-                  context.textTheme.bodyMedium!
-                      .copyWith(fontWeight: FontWeight.w700));
-              final imageHeight = descriptionLines > 1 && titleLines > 1
-                  ? 120.0
-                  : descriptionLines > 1 || titleLines > 1
-                      ? 95.0
-                      : 80.0;
-
               return Card(
                 key: ValueKey(item.id),
                 shape: getShape(isValid),
                 child: Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   mainAxisSize: MainAxisSize.min,
                   children: [
                     ClipRRect(
-                      borderRadius: const BorderRadius.horizontal(
-                          left: Radius.circular(12)),
-                      child: Image(
-                        image: item.src.isNotEmpty
-                            ? NetworkImage(item.src) as ImageProvider<Object>
-                            : AppImages.nutrition,
-                        width: iconSize,
-                        height: imageHeight,
-                        fit: BoxFit.cover,
-                        filterQuality: FilterQuality.high,
-                      ),
+                      borderRadius: const BorderRadius.horizontal(left: Radius.circular(12)),
+                      child: item.src.isNotEmpty
+                          ? Image.network(
+                              item.src,
+                              height: iconSize,
+                              width: iconSize,
+                              fit: BoxFit.fill,
+                            ) // Load network image if src exists
+                          : const Image(
+                              height: iconSize,
+                              width: iconSize,
+                              image: AppImages.nutrition,
+                              fit: BoxFit.fill,
+                            ),
                     ),
-                    const SizedBox(width: 15.0),
+                    const SizedBox(width: 20),
                     Expanded(
-                      child: Padding(
-                        padding: const EdgeInsets.symmetric(vertical: 12.0),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          mainAxisSize: MainAxisSize.min,
-                          children: [
-                            CustomText(
-                              item.title,
-                              style: context.textTheme.bodyMedium
-                                  ?.copyWith(fontWeight: FontWeight.w700),
-                              textAlign: TextAlign.left,
-                              maxLines: 2,
-                              overflow: TextOverflow.visible,
-                            ),
-                            CustomText(
-                              item.description,
-                              style: context.textTheme.bodyMedium,
-                              maxLines: 2,
-                              overflow: TextOverflow.visible,
-                              textAlign: TextAlign.left,
-                            ),
-                          ],
-                        ),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          CustomText.w700(
+                            item.title,
+                            style: context.textTheme.bodyMedium,
+                          ),
+                          const SizedBox(height: 4),
+                          CustomText(
+                            item.description,
+                            style: context.textTheme.bodyMedium,
+                            maxLines: null,
+                            overflow: TextOverflow.visible,
+                          ),
+                        ],
                       ),
                     ),
-                    Icon(Icons.drag_handle,
-                        color: widget.lessonStreamType.lighterColor),
+                    const SizedBox(width: 4),
+                    Icon(Icons.drag_handle, color: widget.lessonStreamType.lighterColor),
                     const SizedBox(width: 10.0),
                   ],
                 ),

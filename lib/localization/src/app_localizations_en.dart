@@ -9,6 +9,22 @@ class AppLocalizationsEn extends AppLocalizations {
   AppLocalizationsEn([String locale = 'en']) : super(locale);
 
   @override
+  String get smartGoalsDeleteGoalTitle => 'Delete your goal?';
+
+  @override
+  String get areYouSureToDelete => 'Are you sure you want to delete the selected SMART goal?';
+
+  @override
+  String get loseProgress =>
+      'By deleting the goals, you are losing the current progress, but you can always start a new one.';
+
+  @override
+  String get takeBack => 'No, take me back';
+
+  @override
+  String get yesDeleteGoal => 'Yes, delete goals';
+
+  @override
   String get interactiveLessonsTextAreaLabel => 'Your thoughts';
 
   @override
@@ -5441,7 +5457,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get reflection => 'Reflection';
 
   @override
-  String get reflections => 'What\'s your why?';
+  String get reflections => 'Reflections';
 
   @override
   String get seeLesson => 'See lesson';
@@ -5603,7 +5619,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get logYourWeight => 'Log your weight';
 
   @override
-  String get mealLog => 'Meal log';
+  String get mealLog => 'Food log';
 
   @override
   String get planYourMeals => 'Plan your meals';
@@ -5621,7 +5637,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get today => 'today';
 
   @override
-  String get physicalActivities => 'Physical activity';
+  String get physicalActivities => 'Exercise library';
 
   @override
   String get physicalActivitiesPreferences => 'Physical preferences';
@@ -5728,7 +5744,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get perWeek => 'per week';
 
   @override
-  String get supportGroup => 'Don\'t go it alone';
+  String get supportGroup => 'Support group';
 
   @override
   String get account => 'Account';
@@ -6319,15 +6335,40 @@ class AppLocalizationsEn extends AppLocalizations {
   String get chooseAlternative => 'Choose alternative';
 
   @override
-  String get featureUnlocksAtPool => 'Feature unlocks at Pool';
+  String get selectAStream => 'Select a stream';
+
+  @override
+  String get deleteGoals => 'Delete goals';
+
+  @override
+  String get medicalInsights => 'Medical insights';
+
+  @override
+  String get backToTodayLogging => 'Back to today logging';
+
+  @override
+  String get featureUnlocksAtPool => 'Feature unlocks at pool';
+
+  @override
+  String get reflectionsUnlock => 'What\'s your why?';
 
   @override
   String get reflectionsDescription =>
       'are tailored to help you understand yourself and your relationship with food.';
 
   @override
+  String get supportGroupUnlock => 'Don\'t go it alone';
+
+  @override
   String get supportGroupDescription =>
       'Guided group sessions give you a safe space to share your successes and challenges with like-minded individuals. We’re all here to help.';
+
+  @override
+  String get commitmentUnlock => 'What\'s your why?';
+
+  @override
+  String get commitmentDescription =>
+      'We’re committed to helping you, but we need input to do so! Give us an honest list of everything you ate for the first few days of the program and we’ll customise our program to focus on the topics most likely to make a positive impact on your weight and happiness.';
 
   @override
   String get exerciseLibraryDescription =>
@@ -6337,7 +6378,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get exerciseLibrary => 'Don\'t go it alone';
 
   @override
-  String get moodLog => 'Back to Basics';
+  String get moodLog => 'Back to basics';
 
   @override
   String get moodLogLockedDescription =>

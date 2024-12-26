@@ -5,6 +5,23 @@ import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 class AppIcons {
   static const String iconsFilePath = 'assets/icons';
   static const String upArrow = 'assets/images/up_arrow.png';
+  static const String timer = 'assets/images/timer.png';
+  static const String feature = 'assets/images/commitment.png';
+  static const String account = 'assets/images/person.png';
+  static const String tick = 'assets/images/tick.png';
+  static const String spoons = 'assets/images/spoons.png';
+  static const String educationLocked = 'assets/images/education_locked.png';
+  static const String educationUnlocked = 'assets/images/education_unlocked.png';
+  static const String vector = 'assets/images/weight.png';
+  static const String commitmentUnlocked = 'assets/icons/commitment_unlocked.png';
+  static const String reflectionUnlocked = 'assets/icons/reflection_unlocked.png';
+  static const String weightUnlocked = 'assets/icons/weight_unlocked.png';
+  static const String foodUnlocked = 'assets/icons/food_unlocked.png';
+  static const String goalUnlocked = 'assets/icons/goal_unlocked.png';
+  static const String goalLocked = 'assets/icons/goal_locked.png';
+  static const String checkBox = 'assets/images/checkbox.png';
+  static const String check = 'assets/images/check.png';
+  static const String achievements = 'assets/icons/achievements.png';
 
   // TODO replace with material svg icons
   static const AssetImage arrow = AssetImage('$iconsFilePath/arrow.png');
@@ -34,6 +51,18 @@ class AppIcons {
       colorFilter: const ColorFilter.mode(AppColors.white, BlendMode.srcIn));
   static SvgPicture clockGrey = SvgPicture.asset('$iconsFilePath/clock.svg', width: 21, height: 21);
   static SvgPicture lockGoals = SvgPicture.asset('$iconsFilePath/lock_goals.svg');
+  static SvgPicture psychologyGoals =
+      SvgPicture.asset('$iconsFilePath/psychology.svg', width: 44, height: 44);
+  static SvgPicture mindInsightsGoals =
+      SvgPicture.asset('$iconsFilePath/medical_insights.svg', width: 44, height: 44);
+
+  static SvgPicture physicalActivityGoals =
+      SvgPicture.asset('$iconsFilePath/physical_activity_goal.svg', width: 44, height: 44);
+  static SvgPicture communityGoals =
+      SvgPicture.asset('$iconsFilePath/community.svg', width: 44, height: 44);
+
+  static SvgPicture deleteGoals =
+      SvgPicture.asset('$iconsFilePath/delete_goals.svg', width: 28, height: 28);
 
   static SvgPicture checkmarkCircle(bool selected, Color selectedColor, Color regularColor) =>
       SvgPicture.asset('$iconsFilePath/checkmark_circle.svg',
@@ -187,9 +216,12 @@ class AppIcons {
   static SvgPicture customDashboardMindGrey =
       SvgPicture.asset('$iconsFilePath/mind_training.svg', width: 44, height: 44);
   static SvgPicture customDashboardSmartGoals =
-      SvgPicture.asset('$iconsFilePath/custom_dashboard_smart_goals.svg', width: 44, height: 44);
+      SvgPicture.asset('$iconsFilePath/smart_goal_dark_blue.svg', width: 44, height: 44);
   static SvgPicture customDashboardSmartGoalsGrey =
       SvgPicture.asset('$iconsFilePath/my_goals.svg', width: 44, height: 44);
+  static SvgPicture customMyGoalIcon =
+      SvgPicture.asset('$iconsFilePath/my_goal_icon.svg', width: 44, height: 44);
+
   static SvgPicture customRedPhone = SvgPicture.asset('$iconsFilePath/custom_red_phone.svg');
   static SvgPicture microphoneOn = SvgPicture.asset('$iconsFilePath/icon_microphone_on.svg');
   static SvgPicture microphoneOff = SvgPicture.asset('$iconsFilePath/icon_microphone_off.svg');
@@ -268,15 +300,15 @@ class AppIcons {
   static SvgPicture maleAvatarTone3 = SvgPicture.asset('$iconsFilePath/male_avatar_tone3.svg');
   static SvgPicture maleAvatarTone4 = SvgPicture.asset('$iconsFilePath/male_avatar_tone4.svg');
 
-// nutrition intake
+  // nutrition intake buttons
   static SvgPicture doneDayButton = SvgPicture.asset('$iconsFilePath/done_day.svg');
   static SvgPicture commitmentButton = SvgPicture.asset('$iconsFilePath/commitment_intake.svg');
   static SvgPicture intakePlus = SvgPicture.asset('$iconsFilePath/intake_plus.svg');
 
   static SvgPicture nutritionSubtract = SvgPicture.asset(
     '$iconsFilePath/subtract.svg',
-    width: 24.0,
-    height: 24.0,
+    width: 20.0,
+    height: 20.0,
   );
 
   static const String avatarIconPhotoPath = '$iconsFilePath/user_avatar_icon_photo.svg';

@@ -17,12 +17,14 @@ class GoalCategoryCard extends StatefulWidget {
   final void Function(SmartGoalCategory value) onPressed;
   final void Function() onUnlocked;
   final SmartGoalCategory category;
+  final String stream;
 
   const GoalCategoryCard({
     super.key,
     required this.onPressed,
     required this.category,
     required this.onUnlocked,
+    required this.stream,
   });
 
   @override
@@ -113,15 +115,36 @@ class _GoalCategoryCardState extends State<GoalCategoryCard>
   @override
   Widget build(BuildContext context) {
     super.build(context);
+    final streamStyles = {
+      'psychology': {
+        'color': AppColors.petrolLightest,
+      },
+      'nutrition': {
+        'color': AppColors.greenLightest,
+      },
+      'physical_activities': {
+        'color': AppColors.yellowLightest,
+      },
+      'community': {
+        'color': AppColors.orangeLightest,
+      },
+      'medical': {
+        'color': AppColors.coralLightest,
+      },
+    };
+    final currentStyle = streamStyles[widget.stream] ?? {'color': AppColors.petrolLightest};
 
+    // Now use the `currentStyle['color']` here
     return VisibilityDetector(
       key: ValueKey(widget.category.hashCode),
       onVisibilityChanged: onVisibilityChanged,
-      child: CustomTappableCard.greenLightest(
+      child: CustomTappableCard(
         contentPadding: const EdgeInsets.fromLTRB(8.0, 8.0, 8.0, 0.0),
         enabled: widget.category.isUnlocked,
         borderRadius: _borderRadius,
         onPressed: () => widget.onPressed(widget.category),
+        // Pass the dynamic color here
+        color: currentStyle['color']!,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [

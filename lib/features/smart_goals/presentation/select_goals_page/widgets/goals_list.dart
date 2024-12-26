@@ -11,12 +11,14 @@ class GoalsList extends StatefulWidget {
   final int categoryId;
   final SmartGoal? selectedGoal;
   final void Function(SmartGoal goal, bool isSelected) onGoalSelect;
+  final String stream;
 
   const GoalsList({
     super.key,
     required this.categoryId,
     required this.onGoalSelect,
     required this.selectedGoal,
+    required this.stream,
   });
 
   @override
@@ -58,6 +60,7 @@ class _GoalsListState extends State<GoalsList> {
                 final item = state.data.goals[index];
                 final isSelected = widget.selectedGoal == item;
                 return GoalsListItem(
+                  stream: widget.stream,
                   item: item,
                   onItemPressed: widget.onGoalSelect,
                   isSelected: isSelected,

@@ -15,7 +15,6 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   final PreferredSizeWidget? bottom;
   final GestureTapCallback? onTap;
   final Color? customColor;
-  final bool? isPsychology;
 
   const CustomAppBar(
       {super.key,
@@ -28,8 +27,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
       this.backgroundColor,
       this.bottom,
       this.onTap,
-      this.customColor,
-      this.isPsychology});
+      this.customColor});
 
   factory CustomAppBar.customColor(
           {String? title,
@@ -37,18 +35,16 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
           Widget? leading,
           List<Widget>? actions,
           PreferredSizeWidget? bottom,
-          bool isPsychology = false,
           Color? customColor}) =>
       CustomAppBar(
         systemOverlayStyle: SystemUiOverlayStyle.dark,
-        textTheme: isPsychology ? CustomAppBarTextTheme.light : CustomAppBarTextTheme.dark,
+        textTheme: CustomAppBarTextTheme.dark,
         backgroundColor: customColor,
         title: title,
         subtitle: subtitle,
         leading: leading,
         actions: actions,
         bottom: bottom,
-        isPsychology: isPsychology,
       );
 
   factory CustomAppBar.transparent({

@@ -11,6 +11,7 @@ import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 import 'package:loopcare_frontend/core/presentation/utils/build_context_extensions.dart';
 import 'package:loopcare_frontend/core/presentation/utils/string_extensions.dart';
 import 'package:loopcare_frontend/features/dashboard/presentation/widgets/dashboard_card_title/dashboard_card_title.dart';
+import 'package:loopcare_frontend/features/dashboard/presentation/widgets/pool_status/application/pool_bloc/pool_module_bloc.dart';
 import 'package:loopcare_frontend/features/reflections/application/reflections_bloc.dart';
 import 'package:loopcare_frontend/features/reflections/presentation/widgets/reflections_list.dart';
 import 'package:loopcare_frontend/localization/service/localization_extension.dart';
@@ -38,6 +39,8 @@ class _ReflectionsDashboardWidgetState extends State<ReflectionsDashboardWidget>
   void _onErrorHandler(BuildContext context) =>
       context.read<ReflectionsBloc>().add(const ReflectionsEvent.getReflections());
 
+  void getPoolData(e) => context.read<PoolModuleBloc>().add(const PoolModuleEvent.getPoolData());
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -51,19 +54,20 @@ class _ReflectionsDashboardWidgetState extends State<ReflectionsDashboardWidget>
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             DashboardCardTitle(
-              onTap: () =>
-                  widget.locked ? context.router.push(const MyReflectionsRoute()) : toggleOnClick(),
+              onTap: () => widget.locked
+                  ? context.router.push(const MyReflectionsRoute()).then(getPoolData)
+                  : toggleOnClick(),
               highlightColor: widget.locked ? AppColors.petrolLightest : AppColors.white,
               leadingIcon: widget.locked
                   ? const CustomAppIcon.reflection()
                   : const CustomAppIcon.reflectionGrey(),
               title: widget.locked
                   ? CustomText.bitter600(
-                      LocalizedTexts.reflections.tr(),
+                      LocalizedTexts.reflection.tr(),
                       style: context.textTheme.headlineSmall,
                     )
                   : CustomText.bitter400(
-                      LocalizedTexts.reflections.tr(),
+                      LocalizedTexts.reflection.tr(),
                       style: const TextStyle(color: AppColors.greyLight, fontSize: 20),
                     ),
               actionIcon: widget.locked
@@ -89,14 +93,14 @@ class _ReflectionsDashboardWidgetState extends State<ReflectionsDashboardWidget>
                         SizedBox(
                           width: 250,
                           child: CustomText.w400(
-                            "${LocalizedTexts.featureUnlocksAtPool.tr()} #${LocalizedTexts.reflections.tr()}",
+                            "${LocalizedTexts.featureUnlocksAtPool.tr()} ${LocalizedTexts.reflectionsUnlock.tr()}",
                             style: const TextStyle(color: AppColors.greyLight, fontSize: 16),
                           ),
                         ),
                       ],
                     ),
                   ),
-            onClick
+            onClick && !widget.locked
                 ? Padding(
                     padding: const EdgeInsets.only(left: 12.0, right: 12.0, bottom: 12),
                     child: Row(

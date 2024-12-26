@@ -53,12 +53,13 @@ class APISmartGoalsService implements SmartGoalsService {
   }
 
   @override
-  Future<Either<RequestError, GetGoalsCategoriesResponse>> getGoalsCategories() async {
+  Future<Either<RequestError, GetGoalsCategoriesResponse>> getGoalsCategories(
+      {required String stream}) async {
     // TODO use to mock goals categories server response
     // return right(GetGoalsCategoriesResponse.fromJson({'data': goalsCategories}));
 
     return await client.get(
-      '/smart-goal/categories',
+      '/smart-goal/categories?stream=$stream',
       fromJson: GetGoalsCategoriesResponse.fromJson,
     );
   }
@@ -71,6 +72,20 @@ class APISmartGoalsService implements SmartGoalsService {
     return await client.get(
       '/smart-goal/session/last',
       fromJson: GetWeeklySessionsResponse.fromJson,
+    );
+  }
+
+  @override
+  Future<Either<RequestError, WeeklyGoalsSession>> multiDeleteSession({
+    required List<int> sessionIds,
+  }) async {
+    return await client.delete(
+      '/smart-goal/sessions',
+      data: {"sessionIds": sessionIds, "reason": "notLike"},
+      // data: {'reason': "This is Not Liked",
+      // "sessionIds":sessionIds
+      // },
+      fromJson: WeeklyGoalsSession.fromJson,
     );
   }
 

@@ -26,7 +26,8 @@ class SmartGoalsCategoriesBloc extends Bloc<SmartGoalsCategoriesEvent, SmartGoal
   ) async {
     emit(SmartGoalsCategoriesState.goalsCategoriesLoading(state.data.copyWith(isLoading: true)));
 
-    final response = await _smartGoalsService.getGoalsCategories();
+    // Use the stream from the event
+    final response = await _smartGoalsService.getGoalsCategories(stream: event.stream);
 
     response.fold(
       (l) => emit(SmartGoalsCategoriesState.goalsCategoriesError(

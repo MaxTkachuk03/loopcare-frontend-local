@@ -49,7 +49,7 @@ class ReflectionsStateData with _$ReflectionsStateData {
 
       if (unlockedDate == null) return false;
 
-      return r.completedAt != null || unlockedDate.isBefore(endDate) && !r.isComplete;
+      return r.isComplete || unlockedDate.isBefore(endDate);
     }).toList();
   }
 

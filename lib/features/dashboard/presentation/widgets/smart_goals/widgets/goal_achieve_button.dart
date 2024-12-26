@@ -10,8 +10,9 @@ const duration = Duration(seconds: 2);
 class GoalAchieveButton extends StatefulWidget {
   final WeeklySmartGoal item;
   final VoidCallback? onPressed;
+  final Color bgColor;
 
-  const GoalAchieveButton({super.key, required this.item, this.onPressed});
+  const GoalAchieveButton({super.key, required this.item, this.onPressed, required this.bgColor});
 
   @override
   State<GoalAchieveButton> createState() => _GoalAchieveButtonState();
@@ -20,7 +21,7 @@ class GoalAchieveButton extends StatefulWidget {
 class _GoalAchieveButtonState extends State<GoalAchieveButton> with SingleTickerProviderStateMixin {
   AnimationController? _controller;
 
-  Color get bgColor => widget.item.isAchieved ? AppColors.greenRegular : AppColors.blueLightest;
+  Color get bgColor => widget.item.isAchieved ? widget.bgColor : AppColors.blueLightest;
 
   Color get fgColor => widget.item.isAchieved ? AppColors.white : AppColors.blueDarkest;
 

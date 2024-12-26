@@ -10,7 +10,6 @@ class MarkdownRenderer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Markdown(
-      padding: const EdgeInsets.all(0),
       data: data,
       shrinkWrap: true,
       physics: const NeverScrollableScrollPhysics(),
