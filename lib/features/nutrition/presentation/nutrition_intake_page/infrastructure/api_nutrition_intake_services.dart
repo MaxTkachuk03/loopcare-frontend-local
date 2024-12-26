@@ -30,7 +30,7 @@ class ApiNutritionIntakeServices implements NutritionIntakeServices {
         queryParameters: {"date": convertedDate},
         fromJson: GetNutritionIntakeResponse.fromJson,
       );
-      log.d('Raw Response: response !!!!!!!!!!!!!!');
+      log.d('Raw Response: getLessonsINTAKE');
       return response;
     } catch (e, stackTrace) {
       log.w('Error in client.get: $e');
@@ -40,14 +40,41 @@ class ApiNutritionIntakeServices implements NutritionIntakeServices {
   }
 
   @override
-  Future<Either<RequestError, GetNutritionIntakeResponse>> closeDay(
-      {required bool isDayClosed}) async {
-    return await client.post(
-      '',
-      data: {
-        "isDayClosed": isDayClosed,
-      },
-      fromJson: GetNutritionIntakeResponse.fromJson,
-    );
+  Future<Either<RequestError, GetNutritionIntakeResponse>> completeDay(
+      {required DateTime date}) async {
+    String convertedDate = DateFormat("yyyy-MM-dd").format(date);
+
+    try {
+      final response = await client.post(
+        '/smart-goal/complete-day',
+        queryParameters: {"date": convertedDate},
+        fromJson: GetNutritionIntakeResponse.fromJson,
+      );
+      log.d('Raw Response: completeDay');
+      return response;
+    } catch (e, stackTrace) {
+      log.w('Error in client.get: $e');
+      log.w('Stack Trace: $stackTrace');
+      rethrow;
+    }
+  }
+
+  @override
+  Future<Either<RequestError, GetNutritionIntakeResponse>> finishLesson(
+      {required DateTime date, required int iLessonId}) async {
+    String convertedDate = DateFormat("yyyy-MM-dd").format(date);
+    try {
+      final response = await client.post(
+        '/smart-goal/finish-lesson',
+        queryParameters: {"date": convertedDate, "iLessonId": iLessonId},
+        fromJson: GetNutritionIntakeResponse.fromJson,
+      );
+      log.d('Raw Response: finishLessonINTAKE');
+      return response;
+    } catch (e, stackTrace) {
+      log.w('Error in client.get: $e');
+      log.w('Stack Trace: $stackTrace');
+      rethrow;
+    }
   }
 }

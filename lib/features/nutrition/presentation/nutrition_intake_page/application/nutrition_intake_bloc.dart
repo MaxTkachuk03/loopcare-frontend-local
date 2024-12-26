@@ -10,36 +10,56 @@ part 'nutrition_intake_state.dart';
 part 'nutrition_intake_bloc.freezed.dart';
 
 @singleton
-class NutritionIntakeBloc extends Bloc<NutritionIntakeEvent, NutritionIntakeState> {
+class NutritionIntakeBloc
+    extends Bloc<NutritionIntakeEvent, NutritionIntakeState> {
   final NutritionIntakeServices _nutritionIntakeServices;
 
   NutritionIntakeBloc(this._nutritionIntakeServices)
       : super(const NutritionIntakeState.initial(NutritionIntakeStateData())) {
-    on<FetchProgress>(_onGetProgress);
-    on<CloseDay>(_closeDay);
+    on<FetchProgress>(_onFetchProgress);
+    on<CompleteDay>(_completeDay);
+    on<FinishLesson>(_onFinishLesson);
   }
 
-  Future<void> _onGetProgress(
+  Future<void> _onFetchProgress(
     FetchProgress event,
     Emitter<NutritionIntakeState> emit,
   ) async {
     emit(NutritionIntakeState.loading(state.data.copyWith(isLoading: true)));
 
-    final response = await _nutritionIntakeServices.getLessons(date: event.date);
+    final response =
+        await _nutritionIntakeServices.getLessons(date: event.date);
 
     response.fold(
-        (left) =>
-            emit(NutritionIntakeState.error(state.data.copyWith(error: left, isLoading: false))),
+        (left) => emit(NutritionIntakeState.error(
+            state.data.copyWith(error: left, isLoading: false))),
         (right) => emit(NutritionIntakeState.loaded(state.data.copyWith(
-            isDayClosed: right.isDayClosed, progress: right.progress, isLoading: false))));
+            isDayClosed: right.isDayClosed,
+            progress: right.progress,
+            isLoading: false))));
   }
 
-  Future<void> _closeDay(
-    CloseDay event,
+  Future<void> _completeDay(
+    CompleteDay event,
     Emitter<NutritionIntakeState> emit,
   ) async {
-    await _nutritionIntakeServices.closeDay(isDayClosed: event.isDayClosed);
+    await _nutritionIntakeServices.completeDay(date: event.date);
 
-    emit(NutritionIntakeState.closeDay(state.data.copyWith(isDayClosed: event.isDayClosed)));
+    emit(NutritionIntakeState.completeDay(
+        state.data.copyWith(dateTime: event.date.toLocal().toString())));
+  }
+
+  Future<void> _onFinishLesson(
+    FinishLesson event,
+    Emitter<NutritionIntakeState> emit,
+  ) async {
+    await _nutritionIntakeServices.finishLesson(
+      date: event.date,
+      iLessonId: event.iLessonId,
+    );
+
+    emit(NutritionIntakeState.finishLesson(state.data.copyWith(
+        dateTime: event.date.toLocal().toString(),
+        iLessonId: event.iLessonId)));
   }
 }
