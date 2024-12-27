@@ -11,6 +11,7 @@ class GoalProgressIndicator extends StatelessWidget {
   final double progressSize;
   final double strokeWidth;
   final bool isAchievedNotifier;
+  final Color? valueColor;
 
   const GoalProgressIndicator({
     super.key,
@@ -20,6 +21,7 @@ class GoalProgressIndicator extends StatelessWidget {
     this.progressSize = 48,
     this.strokeWidth = 8,
     required this.isAchievedNotifier,
+    this.valueColor,
   });
 
   @override
@@ -37,7 +39,7 @@ class GoalProgressIndicator extends StatelessWidget {
               value: _calculateValue(),
               strokeWidth: strokeWidth,
               backgroundColor: AppColors.blueLightest,
-              valueColor: const AlwaysStoppedAnimation<Color>(AppColors.greenRegular),
+              valueColor: AlwaysStoppedAnimation<Color>(valueColor ?? AppColors.greenRegular),
             ),
           ),
           Positioned(

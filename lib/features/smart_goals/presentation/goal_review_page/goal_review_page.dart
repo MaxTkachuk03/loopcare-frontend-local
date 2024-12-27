@@ -94,10 +94,47 @@ class _GoalReviewPageState extends State<GoalReviewPage> {
 
   @override
   Widget build(BuildContext context) {
-    return CustomScaffold.greenLightest(
-      appBar: CustomAppBar.green(
+    final streamStyles = {
+      'psychology': {
+        'scaffoldColor': AppColors.petrolLightest,
+        'appBarColor': AppColors.petrolRegular,
+        'leadingIcon': CustomFilledIconButton.leadingPetrolLighter(),
+      },
+      'nutrition': {
+        'scaffoldColor': AppColors.greenLightest,
+        'appBarColor': AppColors.greenRegular,
+        'leadingIcon': CustomFilledIconButton.leadingGreenLighter(),
+      },
+      'physicalActivity': {
+        'scaffoldColor': AppColors.yellowLightest,
+        'appBarColor': AppColors.yellowRegular,
+        'leadingIcon': CustomFilledIconButton.leadingYellowLighter(),
+      },
+      'community': {
+        'scaffoldColor': AppColors.orangeLightest,
+        'appBarColor': AppColors.orangeRegular,
+        'leadingIcon': CustomFilledIconButton.leadingOrangeLighter(),
+      },
+      'medical': {
+        'scaffoldColor': AppColors.coralLightest,
+        'appBarColor': AppColors.coralRegular,
+        'leadingIcon': CustomFilledIconButton.leadingCoralLighter(),
+      },
+    };
+
+    final currentStyle = streamStyles[widget.goal.smartGoal.category.stream] ??
+        {
+          'scaffoldColor': AppColors.petrolLightest,
+          'appBarColor': AppColors.petrolRegular,
+          'leadingIcon': CustomFilledIconButton.leadingPetrolLighter(),
+        };
+
+    return CustomScaffold(
+      color: currentStyle['scaffoldColor'] as Color,
+      appBar: CustomAppBar(
+        backgroundColor: currentStyle['appBarColor'] as Color,
         title: LocalizedTexts.smartGoalsGoalReview.tr(),
-        leading: CustomFilledIconButton.leadingGreenLighter(),
+        leading: currentStyle['leadingIcon'] as Widget,
         actions: const [
           ErrorInvokeButton(),
         ],

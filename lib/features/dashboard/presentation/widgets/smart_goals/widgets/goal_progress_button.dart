@@ -10,11 +10,17 @@ class GoalProgressButton extends StatelessWidget {
   final int times;
   final VoidCallback? onPressed;
   final VoidCallback? onResetProgress;
+  final Color? bgColor;
 
   const GoalProgressButton(
-      {super.key, required this.item, required this.times, this.onPressed, this.onResetProgress});
+      {super.key,
+      required this.item,
+      required this.times,
+      this.onPressed,
+      this.onResetProgress,
+      this.bgColor});
 
-  Color get bgColor => times > 0 ? AppColors.greenRegular : AppColors.blueLightest;
+  // Color get bgColor => times > 0 ? AppColors.greenRegular : AppColors.blueLightest;
 
   Color get fgColor => times > 0 ? AppColors.white : AppColors.blueDarkest;
 
@@ -25,7 +31,7 @@ class GoalProgressButton extends StatelessWidget {
       onTap: onPressed,
       child: Container(
         decoration: BoxDecoration(
-          color: bgColor,
+          color: bgColor ?? AppColors.greenRegular,
           shape: BoxShape.circle,
         ),
         width: 44.0,

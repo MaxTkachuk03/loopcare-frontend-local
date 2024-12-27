@@ -17,10 +17,14 @@ abstract class SmartGoalsService {
 
   Future<Either<RequestError, WeeklyGoalsSession>> deleteSession(
       {required int sessionId, required CancelGoalReason reason});
+  Future<Either<RequestError, WeeklyGoalsSession>> multiDeleteSession({
+    required List<int> sessionIds,
+  });
 
   Future<Either<RequestError, GetWeeklySessionsResponse>> getWeeklySessions();
 
-  Future<Either<RequestError, GetGoalsCategoriesResponse>> getGoalsCategories();
+  Future<Either<RequestError, GetGoalsCategoriesResponse>> getGoalsCategories(
+      {required String stream});
 
   Future<Either<RequestError, dynamic>> unlockCategory({required int id});
 

@@ -9,6 +9,23 @@ class AppLocalizationsDe extends AppLocalizations {
   AppLocalizationsDe([String locale = 'de']) : super(locale);
 
   @override
+  String get smartGoalsDeleteGoalTitle => 'Löschen Sie Ihr Ziel?';
+
+  @override
+  String get areYouSureToDelete =>
+      'Sind Sie sicher, dass Sie das ausgewählte SMART-Ziel löschen möchten?';
+
+  @override
+  String get loseProgress =>
+      'Durch das Löschen der Ziele geht der aktuelle Fortschritt verloren, Sie können aber jederzeit einen neuen beginnen.';
+
+  @override
+  String get takeBack => 'Nein, nimm mich zurück';
+
+  @override
+  String get yesDeleteGoal => 'Ja, Ziele löschen';
+
+  @override
   String get interactiveLessonsTextAreaLabel => 'Uw gedachten';
 
   @override
@@ -6484,15 +6501,40 @@ class AppLocalizationsDe extends AppLocalizations {
   String get chooseAlternative => 'Wähle eine Alternative';
 
   @override
+  String get selectAStream => 'Select a stream';
+
+  @override
+  String get deleteGoals => 'Delete goals';
+
+  @override
+  String get medicalInsights => 'Medical insights';
+
+  @override
+  String get backToTodayLogging => 'Back to today logging';
+
+  @override
   String get featureUnlocksAtPool => 'Feature unlocks at Pool';
+
+  @override
+  String get reflectionsUnlock => 'What\'s your why?';
 
   @override
   String get reflectionsDescription =>
       'are tailored to help you understand yourself and your relationship with food.';
 
   @override
+  String get supportGroupUnlock => 'Don\'t go it alone';
+
+  @override
   String get supportGroupDescription =>
       'Guided group sessions give you a safe space to share your successes and challenges with like-minded individuals. We’re all here to help.';
+
+  @override
+  String get commitmentUnlock => 'What\'s your why?';
+
+  @override
+  String get commitmentDescription =>
+      'We’re committed to helping you, but we need input to do so! Give us an honest list of everything you ate for the first few days of the program and we’ll customise our program to focus on the topics most likely to make a positive impact on your weight and happiness.';
 
   @override
   String get exerciseLibraryDescription =>

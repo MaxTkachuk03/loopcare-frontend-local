@@ -1,5 +1,6 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loopcare_frontend/core/presentation/buttons/custom_elevated_button.dart';
 import 'package:loopcare_frontend/core/presentation/icon_images/app_icons.dart';
 import 'package:loopcare_frontend/core/presentation/routes/app_router.dart';
@@ -7,6 +8,7 @@ import 'package:loopcare_frontend/core/presentation/text/custom_text.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 import 'package:loopcare_frontend/core/presentation/utils/build_context_extensions.dart';
 import 'package:loopcare_frontend/features/dashboard/presentation/widgets/dashboard_card_title/dashboard_card_title.dart';
+import 'package:loopcare_frontend/features/dashboard/presentation/widgets/pool_status/application/pool_bloc/pool_module_bloc.dart';
 import 'package:loopcare_frontend/localization/service/localization_extension.dart';
 import 'package:loopcare_frontend/localization/service/localized_texts.dart';
 
@@ -27,8 +29,10 @@ class _DashboardMindWidgetState extends State<DashboardMindWidget> {
     });
   }
 
-  void onPressHandler(BuildContext context) => context.router.pushNamed(AppRoutes.mindTechniques);
+  void onPressHandler(BuildContext context) =>
+      context.router.pushNamed(AppRoutes.mindTechniques).then(getPoolData);
 
+  void getPoolData(e) => context.read<PoolModuleBloc>().add(const PoolModuleEvent.getPoolData());
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -86,14 +90,14 @@ class _DashboardMindWidgetState extends State<DashboardMindWidget> {
                       SizedBox(
                         width: 250,
                         child: Text(
-                          "${LocalizedTexts.featureUnlocksAtPool.tr()} #${LocalizedTexts.mindTraining.tr()}",
+                          "${LocalizedTexts.featureUnlocksAtPool.tr()} ${LocalizedTexts.mindTraining.tr()}",
                           style: const TextStyle(color: AppColors.greyLight, fontSize: 16),
                         ),
                       ),
                     ],
                   ),
                 ),
-          onClick
+          onClick && !widget.locked
               ? Padding(
                   padding: const EdgeInsets.only(left: 12.0, right: 12.0, bottom: 12),
                   child: Row(

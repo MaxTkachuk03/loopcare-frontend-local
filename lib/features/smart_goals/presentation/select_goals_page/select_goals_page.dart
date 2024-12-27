@@ -18,11 +18,14 @@ import 'package:loopcare_frontend/features/smart_goals/presentation/select_goals
 import 'package:loopcare_frontend/localization/service/localization_extension.dart';
 import 'package:loopcare_frontend/localization/service/localized_texts.dart';
 
+import '../../../../core/presentation/themes/themes.dart';
+
 @RoutePage()
 class SelectGoalsPage extends StatefulWidget {
   final SmartGoalCategory category;
+  final String stream;
 
-  const SelectGoalsPage({super.key, required this.category});
+  const SelectGoalsPage({super.key, required this.category, required this.stream});
 
   @override
   State<SelectGoalsPage> createState() => _SelectGoalsPageState();
@@ -46,13 +49,59 @@ class _SelectGoalsPageState extends State<SelectGoalsPage> {
 
   @override
   Widget build(BuildContext context) {
-    return CustomScaffold.greenLightest(
-      appBar: CustomAppBar.green(
+    final streamStyles = {
+      'psychology': {
+        'scaffoldColor': AppColors.petrolLightest,
+        'appBarColor': AppColors.petrolRegular,
+        'leadingIcon': CustomFilledIconButton.leadingPetrolLighter(),
+        'button': BottomPlacedButton.petrolLightest,
+      },
+      'nutrition': {
+        'scaffoldColor': AppColors.greenLightest,
+        'appBarColor': AppColors.greenRegular,
+        'leadingIcon': CustomFilledIconButton.leadingGreenLighter(),
+        'button': BottomPlacedButton.greenLightest,
+      },
+      'physicalActivity': {
+        'scaffoldColor': AppColors.yellowLightest,
+        'appBarColor': AppColors.yellowRegular,
+        'leadingIcon': CustomFilledIconButton.leadingYellowLighter(),
+        'button': BottomPlacedButton.yellowLightest,
+      },
+      'community': {
+        'scaffoldColor': AppColors.orangeLightest,
+        'appBarColor': AppColors.orangeRegular,
+        'leadingIcon': CustomFilledIconButton.leadingOrangeLighter(),
+        'button': BottomPlacedButton.orangeLightest,
+      },
+      'medical': {
+        'scaffoldColor': AppColors.coralLightest,
+        'appBarColor': AppColors.coralRegular,
+        'leadingIcon': CustomFilledIconButton.leadingCoralLighter(),
+        'button': BottomPlacedButton.coralLightest,
+      },
+    };
+
+    final currentStyle = streamStyles[widget.stream] ??
+        {
+          'scaffoldColor': AppColors.petrolLightest,
+          'appBarColor': AppColors.petrolRegular,
+          'leadingIcon': CustomFilledIconButton.leadingPetrolLighter(),
+          'button': BottomPlacedButton.petrolLightest,
+        };
+
+    return CustomScaffold(
+      color: currentStyle['scaffoldColor'] as Color,
+      appBar: CustomAppBar(
+        backgroundColor: currentStyle['appBarColor'] as Color,
         title: widget.category.name,
-        leading: CustomFilledIconButton.leadingGreenLighter(),
+        leading: currentStyle['leadingIcon'] as Widget,
       ),
       body: CustomSafeArea(
-        child: BottomPlacedButton.greenLightest(
+        child: (currentStyle['button'] as Function({
+          required Widget body,
+          required Widget button,
+        }))(
           body: CustomScrollView(
             slivers: [
               SliverPadding(
@@ -82,6 +131,7 @@ class _SelectGoalsPageState extends State<SelectGoalsPage> {
                 ),
               ),
               GoalsList(
+                stream: widget.stream,
                 categoryId: widget.category.id,
                 onGoalSelect: _onGoalSelectHandler,
                 selectedGoal: _selectedGoal,

@@ -17,6 +17,20 @@ class CustomText extends StatelessWidget {
     this.overflow,
   });
 
+  factory CustomText.bitter100(
+    String text, {
+    TextStyle? style,
+    TextAlign? textAlign,
+    TextOverflow? overflow,
+  }) =>
+      CustomText(
+        text,
+        textAlign: textAlign,
+        overflow: overflow,
+        style: style?.copyWith(
+            fontFamily: ThemeConstants.bitterFontFamily, fontWeight: FontWeight.w100, fontSize: 17),
+      );
+
   factory CustomText.bitter300(
     String text, {
     TextStyle? style,
@@ -174,6 +188,18 @@ class CustomText extends StatelessWidget {
         textAlign: textAlign,
         overflow: overflow,
         style: style?.copyWith(fontWeight: FontWeight.w700),
+      );
+  factory CustomText.w800(
+    String text, {
+    TextStyle? style,
+    TextAlign? textAlign,
+    TextOverflow? overflow,
+  }) =>
+      CustomText(
+        text,
+        textAlign: textAlign,
+        overflow: overflow,
+        style: style?.copyWith(fontWeight: FontWeight.w800),
       );
 
   @override

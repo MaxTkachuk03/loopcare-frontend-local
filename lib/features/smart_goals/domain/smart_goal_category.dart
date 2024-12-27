@@ -12,6 +12,7 @@ class SmartGoalCategory with _$SmartGoalCategory {
     required String externalId,
     @Default('') String image,
     @Default('') String name,
+    @Default('') String stream,
     @Default(false) bool isUnlocked,
     @Default(false) bool isNew,
   }) = _SmartGoalCategory;

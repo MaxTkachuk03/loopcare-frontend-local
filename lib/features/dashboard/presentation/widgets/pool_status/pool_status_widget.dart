@@ -13,7 +13,7 @@ import 'application/domain/module_item.dart';
 import 'application/pool_bloc/pool_module_bloc.dart';
 import 'widget/wave_widget.dart';
 
-class PoolStatusWidget extends StatefulWidget {
+class PoolStatusWidget extends StatefulWidget with RouteAware {
   const PoolStatusWidget({super.key});
 
   @override
@@ -156,6 +156,13 @@ class _PoolStatusWidgetState extends State<PoolStatusWidget> {
                 ? AppIcons.foodUnlocked
                 : AppIcons.spoons);
         break;
+      case 'education':
+        iconPath = module.states?.itemState == 'completed'
+            ? AppIcons.tick
+            : (module.states?.itemState == 'unlocked' || module.states?.itemState == 'read'
+                ? AppIcons.educationUnlocked
+                : AppIcons.educationLocked);
+        break;
       case 'goal':
         iconPath = module.states?.itemState == 'completed'
             ? AppIcons.tick
@@ -187,97 +194,115 @@ class _PoolStatusWidgetState extends State<PoolStatusWidget> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<PoolModuleBloc, PoolModuleState>(builder: (BuildContext context, state) {
-      return state.when(initial: () {
-        return Container();
-      }, loading: () {
-        return Container();
-      }, loaded: (moduleItem) {
-        return Container(
-          decoration: const BoxDecoration(
-            color: AppColors.white,
-            borderRadius: BorderRadius.all(Radius.circular(15)),
-          ),
-          padding: const EdgeInsets.symmetric(horizontal: 35, vertical: 25),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                moduleItem.title.toString(),
-                style: const TextStyle(
-                    fontFamily: ThemeConstants.bitterFontFamily,
-                    fontSize: 18,
-                    color: AppColors.blueRegular,
-                    fontWeight: FontWeight.w700),
+    return PopScope(
+        onPopInvokedWithResult: (e, _) => _onWillPop(context),
+        child: BlocBuilder<PoolModuleBloc, PoolModuleState>(builder: (BuildContext context, state) {
+          return state.when(initial: () {
+            return Container();
+          }, loading: () {
+            return Container();
+          }, loaded: (moduleItem) {
+            return Container(
+              decoration: const BoxDecoration(
+                color: AppColors.white,
+                borderRadius: BorderRadius.all(Radius.circular(15)),
               ),
-              const SizedBox(
-                height: 5,
-              ),
-              CustomTile(
-                text: moduleItem.nextModuleUnlocksAt == null
-                    ? "${LocalizedTexts.tapReflection.tr()} $totalDays timer."
-                    : "${LocalizedTexts.timeReq.tr()} ${formatDate(moduleItem.nextModuleUnlocksAt.toString())}",
-                color: AppColors.blueDarker,
-                fontSize: 15,
-                fontWeight: FontWeight.w400,
-                image: Image.asset(
-                  AppIcons.timer,
-                  scale: 4,
-                ),
-              ),
-              Center(
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 15),
-                  child: SizedBox(
-                    height: 30,
-                    width: 280,
-                    child: ClipRRect(
-                      borderRadius: BorderRadius.circular(20),
-                      child: WavyProgressContainer(progress: progress),
-                    ),
+              padding: const EdgeInsets.symmetric(horizontal: 35, vertical: 25),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    moduleItem.title.toString(),
+                    style: const TextStyle(
+                        fontFamily: ThemeConstants.bitterFontFamily,
+                        fontSize: 18,
+                        color: AppColors.blueRegular,
+                        fontWeight: FontWeight.w700),
                   ),
-                ),
-              ),
-              const Divider(
-                color: AppColors.black,
-                indent: 8.0,
-                endIndent: 8.0,
-              ),
-              ListView.builder(
-                shrinkWrap: true,
-                primary: false,
-                itemCount: moduleItem.moduleItems!
-                    .where((module) =>
-                        module.actions != null &&
-                        module.actions!.any((action) => action.actionType == 'required'))
-                    .length,
-                itemBuilder: (context, index) {
-                  final filteredModules = moduleItem.moduleItems!
-                      .where((module) =>
-                          module.actions != null &&
-                          module.actions!.any((action) => action.actionType == 'required'))
-                      .toList();
-                  final module = filteredModules[index];
-                  String text = module.widgetStatus!.text.toString();
-                  String iconPath = getIconPathForModule(module);
-                  return CustomTile(
-                    text: text,
+                  const SizedBox(
+                    height: 5,
+                  ),
+                  CustomTile(
+                    text: moduleItem.nextModuleUnlocksAt == null
+                        ? "${LocalizedTexts.tapReflection.tr()} $totalDays timer."
+                        : "${LocalizedTexts.timeReq.tr()} ${formatDate(moduleItem.nextModuleUnlocksAt.toString())}",
                     color: AppColors.blueDarker,
                     fontSize: 15,
+                    fontWeight: FontWeight.w400,
                     image: Image.asset(
-                      iconPath,
-                      height: 36,
-                      width: 36,
+                      AppIcons.timer,
+                      scale: 4,
                     ),
-                  );
-                },
-              )
-            ],
-          ),
-        );
-      }, error: (error) {
-        return Text("Error ${error.toString()}");
-      });
-    });
+                  ),
+                  Center(
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 15),
+                      child: SizedBox(
+                        height: 30,
+                        width: 280,
+                        child: ClipRRect(
+                          borderRadius: BorderRadius.circular(20),
+                          child: WavyProgressContainer(progress: progress),
+                        ),
+                      ),
+                    ),
+                  ),
+                  const Divider(
+                    color: AppColors.black,
+                    indent: 8.0,
+                    endIndent: 8.0,
+                  ),
+                  ListView.builder(
+                    shrinkWrap: true,
+                    primary: false,
+                    itemCount: moduleItem.moduleItems!
+                        .where((module) =>
+                            module.actions != null &&
+                            module.actions!.any((action) => action.actionType == 'required'))
+                        .length,
+                    itemBuilder: (context, index) {
+                      final filteredModules = moduleItem.moduleItems!
+                          .where((module) =>
+                              module.actions != null &&
+                              module.actions!.any((action) => action.actionType == 'required'))
+                          .toList();
+                      final module = filteredModules[index];
+                      String text = module.widgetStatus!.text.toString();
+                      String iconPath = getIconPathForModule(module);
+                      return CustomTile(
+                        text: text,
+                        color: AppColors.blueDarker,
+                        fontSize: 15,
+                        image: (iconPath == AppIcons.educationUnlocked ||
+                                iconPath == AppIcons.educationLocked)
+                            ? Padding(
+                                padding: const EdgeInsets.symmetric(horizontal: 4, vertical: 6),
+                                child: Image.asset(
+                                  iconPath,
+                                  height: 28,
+                                  width: 28,
+                                ),
+                              )
+                            : Image.asset(
+                                iconPath,
+                                height: 36,
+                                width: 36,
+                              ),
+                      );
+                    },
+                  )
+                ],
+              ),
+            );
+          }, error: (error) {
+            return Text("Error ${error.toString()}");
+          });
+        }));
+  }
+
+  Future<bool> _onWillPop(BuildContext context) {
+    context.read<PoolModuleBloc>().add(const PoolModuleEvent.getPoolData());
+
+    return Future.value(true);
   }
 }

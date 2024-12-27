@@ -78,8 +78,7 @@ class _SingleSelectWithFeedbackState extends State<SingleSelectWithFeedback> {
           style: context.textTheme.bodyMedium!.copyWith(fontWeight: FontWeight.w700),
         ),
         const SizedBox(height: 20),
-         ListView.separated(
-          padding: EdgeInsets.zero,
+        ListView.separated(
           physics: const NeverScrollableScrollPhysics(),
           shrinkWrap: true,
           separatorBuilder: (context, index) => const SizedBox(height: 8),
@@ -87,7 +86,7 @@ class _SingleSelectWithFeedbackState extends State<SingleSelectWithFeedback> {
           itemBuilder: (context, index) {
             final answer = content.answers[index];
             final isSelected = answer == _answerForFeedback;
-        
+
             return CustomChoiceChip.blue(
               label: answer.label,
               selected: isSelected,

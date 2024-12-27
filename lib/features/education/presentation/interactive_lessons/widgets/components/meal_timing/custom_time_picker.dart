@@ -50,6 +50,8 @@ class _CustomTimePickerState extends State<CustomTimePicker> {
                       CupertinoDatePicker(
                         initialDateTime: widget.initialTime,
                         onDateTimeChanged: (DateTime value) {
+                          // print("value: $value");
+                          // state.
                           newTime = value;
                         },
                         mode: CupertinoDatePickerMode.time,
@@ -80,3 +82,116 @@ class _CustomTimePickerState extends State<CustomTimePicker> {
     );
   }
 }
+
+/*
+
+ Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            CustomText(
+              "Select your time",
+              style: context.textTheme.bodyMedium!
+                  .copyWith(fontWeight: FontWeight.w700),
+            ),
+            const SizedBox(height: 16),
+            Container(
+              width: width,
+              padding: const EdgeInsets.symmetric(horizontal: 16),
+              decoration: BoxDecoration(
+                color: AppColors.greenLight, // Світлий фон пікера
+                borderRadius: BorderRadius.circular(22),
+              ),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  // Години
+                  Expanded(
+                    child: CupertinoPicker(
+                      selectionOverlay:
+                          const CupertinoPickerDefaultSelectionOverlay(
+                        background: Colors.transparent,
+                      ),
+                      squeeze: 2,
+                      diameterRatio: 5,
+                      scrollController: FixedExtentScrollController(
+                          initialItem: widget.selectedHour - 1),
+                      itemExtent: 40,
+                      onSelectedItemChanged: (int index) {
+                        setState(() {
+                          widget.selectedHour = index + 1;
+                        });
+                      },
+                      children: List<Widget>.generate(12, (int index) {
+                        return Center(
+                          child: CustomText.w400(
+                            "${index + 1}",
+                            style: context.textTheme.displayMedium,
+                          ),
+                        );
+                      }),
+                    ),
+                  ),
+                  // Хвилини
+                  Expanded(
+                    child: CupertinoPicker(
+                      selectionOverlay:
+                          const CupertinoPickerDefaultSelectionOverlay(
+                        background: Colors.transparent,
+                      ),
+                      scrollController: FixedExtentScrollController(
+                          initialItem: widget.selectedMinute),
+                      itemExtent: 40,
+                      onSelectedItemChanged: (int index) {
+                        setState(() {
+                          widget.selectedMinute = index;
+                        });
+                      },
+                      children: List<Widget>.generate(60, (int index) {
+                        return Center(
+                          child: CustomText.w400(
+                            "${index.toString().padLeft(2, '0')}",
+                            style: context.textTheme.displayMedium,
+                          ),
+                        );
+                      }),
+                    ),
+                  ),
+                  // AM/PM
+                  Expanded(
+                    child: CupertinoPicker(
+                      selectionOverlay:
+                          const CupertinoPickerDefaultSelectionOverlay(
+                        background: Colors.transparent,
+                      ),
+                      scrollController: FixedExtentScrollController(
+                          initialItem: widget.selectedPeriod == "AM" ? 0 : 1),
+                      itemExtent: 40,
+                      onSelectedItemChanged: (int index) {
+                        setState(() {
+                          widget.selectedPeriod = index == 0 ? "AM" : "PM";
+                        });
+                      },
+                      children: ["AM", "PM"].map((e) {
+                        return Center(
+                          child: CustomText.w400(
+                            e,
+                            style: context.textTheme.displayMedium,
+                          ),
+                        );
+                      }).toList(),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            const SizedBox(height: 25.0),
+            ContinueBtn(
+                onPressed: () {
+                   print("Selected Time: ${widget.selectedHour}:${{widget.selectedMinute}.toString().padLeft(2, '0')} ${widget.selectedPeriod}");
+                  context.router.maybePop(context);
+                },
+                isDisable: false),
+          ],
+        ),
+*/
