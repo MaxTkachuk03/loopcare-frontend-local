@@ -256,7 +256,7 @@ class _LongAnswerTextAreaState extends State<LongAnswerTextArea> {
                   ),
                   Center(
                     child: CustomText(
-                      'Add textfield',
+                      LocalizedTexts.addTextField.tr(),
                       style: context.textTheme.bodyMedium!.copyWith(fontWeight: FontWeight.w400),
                     ),
                   ),

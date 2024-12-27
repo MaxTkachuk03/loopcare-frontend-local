@@ -6090,4 +6090,19 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get tapReflection => 'Tap the reflection icon to read the article to start the';
+
+  @override
+  String get textAreaHintText => 'Type your answer here';
+
+  @override
+  String get textAreaSave => 'Save';
+
+  @override
+  String get addTextField => 'Add textfield';
+
+  @override
+  String get selectYourTime => 'Select your time';
+
+  @override
+  String get question => 'Question';
 }

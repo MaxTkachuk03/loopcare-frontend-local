@@ -8,6 +8,8 @@ import 'package:loopcare_frontend/features/education/domain/interactive_lesson/s
 import 'package:loopcare_frontend/features/education/domain/interactive_lesson/select_content/select_content.dart';
 import 'package:loopcare_frontend/features/river/domain/river_module_stream_type.dart';
 import 'package:loopcare_frontend/features/education/domain/interactive_lesson/interactive_lesson_component_progress.dart';
+import 'package:loopcare_frontend/localization/service/localization_extension.dart';
+import 'package:loopcare_frontend/localization/service/localized_texts.dart';
 
 class Survey extends StatefulWidget {
   const Survey({
@@ -65,7 +67,7 @@ class _SurveyState extends State<Survey> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         CategoryLabel.interactiveLesson(
-          label: 'Question',
+          label: LocalizedTexts.question.tr(),
           lessonStreamType: widget.lessonStreamType,
         ),
         const SizedBox(height: 20),

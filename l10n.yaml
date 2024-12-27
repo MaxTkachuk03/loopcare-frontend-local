@@ -8,4 +8,5 @@ nullable-getter: false
 template-arb-file: app_en.arb
 output-dir: lib/localization/src
 output-localization-file: app_localizations.dart
+untranslated-messages-file: desiredFileName.txt
 #output-class: Localizer

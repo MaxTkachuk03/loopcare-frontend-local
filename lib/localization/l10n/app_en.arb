@@ -2486,5 +2486,10 @@
   "unlockWeight": "Unlock your weight",
   "unlockFoodLog": "Unlock food log",
   "readyGraduate": "ready to graduate",
-  "tapReflection": "Tap the reflection icon to read the article to start the"
+  "tapReflection": "Tap the reflection icon to read the article to start the",
+  "textAreaHintText": "Type your answer here",
+  "textAreaSave": "Save",
+  "addTextField": "Add textfield",
+  "selectYourTime": "Select your time",
+  "question": "Question"
 }

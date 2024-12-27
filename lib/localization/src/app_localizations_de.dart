@@ -30,13 +30,13 @@ class AppLocalizationsDe extends AppLocalizations {
   String get interactiveLessonsMultipleChoiceBtnLabel => 'Save';
 
   @override
-  String get interactiveLessonsScaleLabel => 'Rate on a scale';
+  String get interactiveLessonsScaleLabel => 'Bewerten Sie auf einer Skala';
 
   @override
-  String get interactiveLessonsSingleSelectLabel => 'Single answer';
+  String get interactiveLessonsSingleSelectLabel => 'Einzelne Antwort';
 
   @override
-  String get interactiveLessonsMultipleSelectLabel => 'Choose All That Apply';
+  String get interactiveLessonsMultipleSelectLabel => 'Wählen Sie alle zutreffenden Optionen aus.';
 
   @override
   String get mealTiming => 'Essenszeiten';
@@ -51,16 +51,16 @@ class AppLocalizationsDe extends AppLocalizations {
   String get interactiveLessonsIncorrectFeedbackTitle => 'Das ist falsch';
 
   @override
-  String get interactiveLessonsScaleFeedbackTitle => 'Scale selection feedback';
+  String get interactiveLessonsScaleFeedbackTitle => 'Feedback zur Skalenauswahl';
 
   @override
-  String get interactiveLessonsOrderingLabel => 'Arrange in order';
+  String get interactiveLessonsOrderingLabel => 'Ordnen Sie in Ordnung';
 
   @override
-  String get interactiveLessonsOrderingCheck => 'Check';
+  String get interactiveLessonsOrderingCheck => 'Überprüfen';
 
   @override
-  String get interactiveLessonsOrderingShowAnswer => 'Show answer';
+  String get interactiveLessonsOrderingShowAnswer => 'Antwort anzeigen';
 
   @override
   String get errorValidationIosMinVersionNotANumber => 'iOS-Mindestversion muss eine Zahl sein.';
@@ -5990,22 +5990,22 @@ class AppLocalizationsDe extends AppLocalizations {
   String get featureUnlocksAtPool => 'Feature unlocks at Pool';
 
   @override
-  String get reflectionsUnlock => 'What\'s your why?';
+  String get reflectionsUnlock => 'Was ist Ihr Warum?';
 
   @override
   String get reflectionsDescription => 'are tailored to help you understand yourself and your relationship with food.';
 
   @override
-  String get supportGroupUnlock => 'Don\'t go it alone';
+  String get supportGroupUnlock => 'Gehen Sie es nicht allein an';
 
   @override
   String get supportGroupDescription => 'Guided group sessions give you a safe space to share your successes and challenges with like-minded individuals. We’re all here to help.';
 
   @override
-  String get commitmentUnlock => 'What\'s your why?';
+  String get commitmentUnlock => 'Was ist Ihr Warum?';
 
   @override
-  String get commitmentDescription => 'We’re committed to helping you, but we need input to do so! Give us an honest list of everything you ate for the first few days of the program and we’ll customise our program to focus on the topics most likely to make a positive impact on your weight and happiness.';
+  String get commitmentDescription => 'Wir möchten Ihnen helfen, aber dazu brauchen wir Ihre Meinung! Geben Sie uns in den ersten Tagen des Programms eine ehrliche Liste mit allem, was Sie gegessen haben. Wir passen unser Programm dann individuell an und konzentrieren uns auf die Themen, die sich am wahrscheinlichsten positiv auf Ihr Gewicht und Ihr Wohlbefinden auswirken.';
 
   @override
   String get exerciseLibraryDescription => 'library of exercise videos designed specifically for people with higher BMIs or people who aren’t comfortable with physical activity. You can do these from home or anywhere you like.';
@@ -6090,4 +6090,19 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String get tapReflection => 'Tippen Sie auf das Reflexionssymbol, um den Artikel zu lesen und den zu starten.';
+
+  @override
+  String get textAreaHintText => 'Geben Sie hier Ihre Antwort ein';
+
+  @override
+  String get textAreaSave => 'Speichern';
+
+  @override
+  String get addTextField => 'Textfeld hinzufügen';
+
+  @override
+  String get selectYourTime => 'Wählen Sie Ihre Zeit';
+
+  @override
+  String get question => 'Frage';
 }

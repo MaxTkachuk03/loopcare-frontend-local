@@ -11938,6 +11938,36 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Tap the reflection icon to read the article to start the'**
   String get tapReflection;
+
+  /// No description provided for @textAreaHintText.
+  ///
+  /// In en, this message translates to:
+  /// **'Type your answer here'**
+  String get textAreaHintText;
+
+  /// No description provided for @textAreaSave.
+  ///
+  /// In en, this message translates to:
+  /// **'Save'**
+  String get textAreaSave;
+
+  /// No description provided for @addTextField.
+  ///
+  /// In en, this message translates to:
+  /// **'Add textfield'**
+  String get addTextField;
+
+  /// No description provided for @selectYourTime.
+  ///
+  /// In en, this message translates to:
+  /// **'Select your time'**
+  String get selectYourTime;
+
+  /// No description provided for @question.
+  ///
+  /// In en, this message translates to:
+  /// **'Question'**
+  String get question;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

@@ -30,14 +30,18 @@ class LocalizedTexts {
   static const String connectionLost = 'connectionLost';
 
   // Validation
-  static const String pleaseEnterYourEmailAddress = 'pleaseEnterYourEmailAddress';
-  static const String pleaseEnterValidEmailAddress = 'pleaseEnterValidEmailAddress';
+  static const String pleaseEnterYourEmailAddress =
+      'pleaseEnterYourEmailAddress';
+  static const String pleaseEnterValidEmailAddress =
+      'pleaseEnterValidEmailAddress';
   static const String pleaseEnterYourName = 'pleaseEnterYourName';
   static const String nameRegexValidationError = 'nameRegexValidationError';
   static const String enterYourHeight = 'enterYourHeight';
   static const String forgotEmailSuccessMessage = 'forgotEmailSuccessMessage';
-  static const String pleaseEnterRegistrationCode = 'pleaseEnterRegistrationCode';
-  static const String pleaseEnterValidRegistrationCode = 'pleaseEnterValidRegistrationCode';
+  static const String pleaseEnterRegistrationCode =
+      'pleaseEnterRegistrationCode';
+  static const String pleaseEnterValidRegistrationCode =
+      'pleaseEnterValidRegistrationCode';
 
   // Food and You
   static const String youAndFoodItemThree = 'youAndFoodItemThree';
@@ -76,12 +80,14 @@ class LocalizedTexts {
   static const String nutritionCalorieDensity = 'nutritionCalorieDensity';
   static const String nutritionFiber = 'nutritionFiber';
   static const String dailyCalorieBudget = 'dailyCalorieBudget';
-  static const String dailyCalorieBudgetDescription = 'dailyCalorieBudgetDescription';
+  static const String dailyCalorieBudgetDescription =
+      'dailyCalorieBudgetDescription';
   static const String dailyCalorieBudgetLink = 'dailyCalorieBudgetLink';
   static const String whatIsCalorieDensity = 'whatIsCalorieDensity';
   static const String whatIsProtein = 'whatIsProtein';
   static const String calorieDensityExplanation = 'calorieDensityExplanation';
-  static const String forMoreInformationSeeLesson = 'forMoreInformationSeeLesson';
+  static const String forMoreInformationSeeLesson =
+      'forMoreInformationSeeLesson';
   static const String proteinDegreeExplanation = 'proteinDegreeExplanation';
   static const String fiberExplanation = 'fiberExplanation';
   static const String importanceOfProtein = 'importanceOfProtein';
@@ -189,9 +195,12 @@ class LocalizedTexts {
 
   //Dashboard
   static const String deleteMealModalMessage = 'deleteMealModalMessage';
-  static const String deleteMultiDateMealModalMessage = 'deleteMultiDateMealModalMessage';
-  static const String deleteMultiDateMealModalExplain = 'deleteMultiDateMealModalExplain';
-  static const String deleteMultiDateMealModalExplain2 = 'deleteMultiDateMealModalExplain2';
+  static const String deleteMultiDateMealModalMessage =
+      'deleteMultiDateMealModalMessage';
+  static const String deleteMultiDateMealModalExplain =
+      'deleteMultiDateMealModalExplain';
+  static const String deleteMultiDateMealModalExplain2 =
+      'deleteMultiDateMealModalExplain2';
   static const String openDatepicker = 'openDatepicker';
   static const String remove = 'remove';
   static const String hello = 'hello';
@@ -204,33 +213,52 @@ class LocalizedTexts {
   static const String mood = 'mood';
   static const String today = 'today';
   static const String physicalActivities = 'physicalActivities';
-  static const String physicalActivitiesPreferences = 'physicalActivitiesPreferences';
-  static const String physicalActivitiesPreferencesLabel = 'physicalActivitiesPreferencesLabel';
+  static const String physicalActivitiesPreferences =
+      'physicalActivitiesPreferences';
+  static const String physicalActivitiesPreferencesLabel =
+      'physicalActivitiesPreferencesLabel';
   static const String trainingFrequency = 'trainingFrequency';
   static const String trainingFocus = 'trainingFocus';
-  static const String physicalActivitiesPreferencesDesc = 'physicalActivitiesPreferencesDesc';
-  static const String physicalActivitiesPreferencesItemOne = 'physicalActivitiesPreferencesItemOne';
-  static const String physicalActivitiesPreferencesItemTwo = 'physicalActivitiesPreferencesItemTwo';
+  static const String physicalActivitiesPreferencesDesc =
+      'physicalActivitiesPreferencesDesc';
+  static const String physicalActivitiesPreferencesItemOne =
+      'physicalActivitiesPreferencesItemOne';
+  static const String physicalActivitiesPreferencesItemTwo =
+      'physicalActivitiesPreferencesItemTwo';
   static const String physicalActivitiesPreferencesItemThree =
       'physicalActivitiesPreferencesItemThree';
-  static const String physicalActivitiesFrequencyTitle = 'physicalActivitiesFrequencyTitle';
-  static const String physicalActivitiesFrequencyItemOne = 'physicalActivitiesFrequencyItemOne';
-  static const String physicalActivitiesFrequencyItemTwo = 'physicalActivitiesFrequencyItemTwo';
-  static const String physicalActivitiesFrequencyItemThree = 'physicalActivitiesFrequencyItemThree';
-  static const String physicalActivitiesFrequencyItemFour = 'physicalActivitiesFrequencyItemFour';
-  static const String physicalActivitiesFrequencyItemFive = 'physicalActivitiesFrequencyItemFive';
-  static const String physicalActivitiesFrequencyItemSix = 'physicalActivitiesFrequencyItemSix';
-  static const String physicalActivitiesFrequencyZero = 'physicalActivitiesFrequencyZero';
-  static const String physicalActivitiesNoActivities = 'physicalActivitiesNoActivities';
-  static const String whatWouldYouLikeToStartWorkingOn = 'whatWouldYouLikeToStartWorkingOn';
+  static const String physicalActivitiesFrequencyTitle =
+      'physicalActivitiesFrequencyTitle';
+  static const String physicalActivitiesFrequencyItemOne =
+      'physicalActivitiesFrequencyItemOne';
+  static const String physicalActivitiesFrequencyItemTwo =
+      'physicalActivitiesFrequencyItemTwo';
+  static const String physicalActivitiesFrequencyItemThree =
+      'physicalActivitiesFrequencyItemThree';
+  static const String physicalActivitiesFrequencyItemFour =
+      'physicalActivitiesFrequencyItemFour';
+  static const String physicalActivitiesFrequencyItemFive =
+      'physicalActivitiesFrequencyItemFive';
+  static const String physicalActivitiesFrequencyItemSix =
+      'physicalActivitiesFrequencyItemSix';
+  static const String physicalActivitiesFrequencyZero =
+      'physicalActivitiesFrequencyZero';
+  static const String physicalActivitiesNoActivities =
+      'physicalActivitiesNoActivities';
+  static const String whatWouldYouLikeToStartWorkingOn =
+      'whatWouldYouLikeToStartWorkingOn';
   static const String buildUpMuscle = 'buildUpMuscle';
   static const String inceaseYourStamina = 'inceaseYourStamina';
   static const String youCanAlsoOptionally = 'youCanAlsoOptionally';
   static const String moreFlexibility = 'moreFlexibility';
-  static const String physicalActivitiesCompletedTitle = 'physicalActivitiesCompletedTitle';
-  static const String physicalActivitiesCompletedDesc = 'physicalActivitiesCompletedDesc';
-  static const String physicalActivitiesUnlockedTitle = 'physicalActivitiesUnlockedTitle';
-  static const String physicalActivitiesUnlockedText = 'physicalActivitiesUnlockedText';
+  static const String physicalActivitiesCompletedTitle =
+      'physicalActivitiesCompletedTitle';
+  static const String physicalActivitiesCompletedDesc =
+      'physicalActivitiesCompletedDesc';
+  static const String physicalActivitiesUnlockedTitle =
+      'physicalActivitiesUnlockedTitle';
+  static const String physicalActivitiesUnlockedText =
+      'physicalActivitiesUnlockedText';
   static const String perWeek = 'perWeek';
   static const String physicalExercises = 'physicalExercises';
   static const String supportGroup = 'supportGroup';
@@ -250,21 +278,34 @@ class LocalizedTexts {
   static const String protein = 'protein';
   static const String degree = 'degree';
   static const String fiber = 'fiber';
-  static const String calorieDensityHighQualityDescription = 'calorieDensityHighQualityDescription';
-  static const String calorieDensityHighQualityLabel = 'calorieDensityHighQualityLabel';
-  static const String calorieDensityMidQualityDescription = 'calorieDensityMidQualityDescription';
-  static const String calorieDensityMidQualityLabel = 'calorieDensityMidQualityLabel';
-  static const String calorieDensityLowQualityDescription = 'calorieDensityLowQualityDescription';
-  static const String calorieDensityLowQualityLabel = 'calorieDensityLowQualityLabel';
-  static const String proteinDegreeLowQualityDescription = 'proteinDegreeLowQualityDescription';
-  static const String proteinDegreeLowQualityLabel = 'proteinDegreeLowQualityLabel';
+  static const String calorieDensityHighQualityDescription =
+      'calorieDensityHighQualityDescription';
+  static const String calorieDensityHighQualityLabel =
+      'calorieDensityHighQualityLabel';
+  static const String calorieDensityMidQualityDescription =
+      'calorieDensityMidQualityDescription';
+  static const String calorieDensityMidQualityLabel =
+      'calorieDensityMidQualityLabel';
+  static const String calorieDensityLowQualityDescription =
+      'calorieDensityLowQualityDescription';
+  static const String calorieDensityLowQualityLabel =
+      'calorieDensityLowQualityLabel';
+  static const String proteinDegreeLowQualityDescription =
+      'proteinDegreeLowQualityDescription';
+  static const String proteinDegreeLowQualityLabel =
+      'proteinDegreeLowQualityLabel';
   static const String proteinDegreeLowMidQualityDescription =
       'proteinDegreeLowMidQualityDescription';
-  static const String proteinDegreeLowMidQualityLabel = 'proteinDegreeLowMidQualityLabel';
-  static const String proteinDegreeMidQualityDescription = 'proteinDegreeMidQualityDescription';
-  static const String proteinDegreeMidQualityLabel = 'proteinDegreeMidQualityLabel';
-  static const String proteinDegreeHighQualityDescription = 'proteinDegreeHighQualityDescription';
-  static const String proteinDegreeHighQualityLabel = 'proteinDegreeHighQualityLabel';
+  static const String proteinDegreeLowMidQualityLabel =
+      'proteinDegreeLowMidQualityLabel';
+  static const String proteinDegreeMidQualityDescription =
+      'proteinDegreeMidQualityDescription';
+  static const String proteinDegreeMidQualityLabel =
+      'proteinDegreeMidQualityLabel';
+  static const String proteinDegreeHighQualityDescription =
+      'proteinDegreeHighQualityDescription';
+  static const String proteinDegreeHighQualityLabel =
+      'proteinDegreeHighQualityLabel';
   static const String fiberHighQualityLabel = 'fiberHighQualityLabel';
   static const String fiberMidQualityLabel = 'fiberMidQualityLabel';
   static const String fiberLowQualityLabel = 'fiberLowQualityLabel';
@@ -304,10 +345,14 @@ class LocalizedTexts {
   static const String foodItemWasAddedToDish = 'foodItemWasAddedToDish';
   static const String foodItemWasDeletedFromDish = 'foodItemWasDeletedFromDish';
   static const String invalidDishNameMessage = 'invalidDishNameMessage';
-  static const String invalidDishSelectedMealCategory = 'invalidDishSelectedMealCategory';
-  static const String invalidDishServingsAmountMessage = 'invalidDishServingsAmountMessage';
-  static const String invalidDishPortionsAmountMessage = 'invalidDishPortionsAmountMessage';
-  static const String invalidCreateDishFromMealMessage = 'invalidCreateDishFromMealMessage';
+  static const String invalidDishSelectedMealCategory =
+      'invalidDishSelectedMealCategory';
+  static const String invalidDishServingsAmountMessage =
+      'invalidDishServingsAmountMessage';
+  static const String invalidDishPortionsAmountMessage =
+      'invalidDishPortionsAmountMessage';
+  static const String invalidCreateDishFromMealMessage =
+      'invalidCreateDishFromMealMessage';
 
   // Account
   static const String deleteAccount = 'deleteAccount';
@@ -344,7 +389,8 @@ class LocalizedTexts {
   static const String easy = 'easy';
   static const String medium = 'medium';
   static const String hard = 'hard';
-  static const String whatPhysicalActivityDidYouDo = 'whatPhysicalActivityDidYouDo';
+  static const String whatPhysicalActivityDidYouDo =
+      'whatPhysicalActivityDidYouDo';
   static const String errorActivityMessage = 'errorActivityMessage';
   static const String logActivity = 'logActivity';
   static const String howHard = 'howHard';
@@ -409,10 +455,13 @@ class LocalizedTexts {
   static const String avatarMoveToResize = 'avatarMoveToResize';
   static const String avatarChooseYourAvatar = 'avatarChooseYourAvatar';
   static const String avatarAddPhoto = 'avatarAddPhoto';
-  static const String avatarSizeErrorMessageTitle = 'avatarSizeErrorMessageTitle';
-  static const String avatarSizeErrorMessageSubtitle = 'avatarSizeErrorMessageSubtitle';
+  static const String avatarSizeErrorMessageTitle =
+      'avatarSizeErrorMessageTitle';
+  static const String avatarSizeErrorMessageSubtitle =
+      'avatarSizeErrorMessageSubtitle';
   static const String avatarGoToAppSettings = 'avatarGoToAppSettings';
-  static const String avatarGaleryPermissionsMessage = 'avatarGaleryPermissionsMessage';
+  static const String avatarGaleryPermissionsMessage =
+      'avatarGaleryPermissionsMessage';
   static const String avatarGaleryPermissionsMessageAndroid =
       'avatarGaleryPermissionsMessageAndroid';
   static const String avatarCropper = 'avatarCropper';
@@ -438,7 +487,8 @@ class LocalizedTexts {
   // Group preferences
   static const String groupPreferences = 'groupPreferences';
   static const String groupRules = 'groupRules';
-  static const String wouldYouLikeToJoinSupportGroup = 'wouldYouLikeToJoinSupportGroup';
+  static const String wouldYouLikeToJoinSupportGroup =
+      'wouldYouLikeToJoinSupportGroup';
   static const String weAreLookingForAMatch = 'weAreLookingForAMatch';
   static const String weAreLookingForAGroupSince = 'weAreLookingForAGroupSince';
   static const String genderPreference = 'genderPreference';
@@ -456,9 +506,11 @@ class LocalizedTexts {
   static const String whatIsYourTimezone = 'whatIsYourTimezone';
   static const String searchTimezone = 'searchTimezone';
   static const String genderPreferencesQuestion = 'genderPreferencesQuestion';
-  static const String nicknamePreferencesQuestion = 'nicknamePreferencesQuestion';
+  static const String nicknamePreferencesQuestion =
+      'nicknamePreferencesQuestion';
   static const String nicknamePlaceholder = 'nicknamePlaceholder';
-  static const String registrationCodePlaceholder = 'registrationCodePlaceholder';
+  static const String registrationCodePlaceholder =
+      'registrationCodePlaceholder';
   static const String registrationCodeTitle = 'registrationCodeTitle';
   static const String registrationCodeLabel = 'registrationCodeLabel';
   static const String checkAccessCode = 'checkAccessCode';
@@ -467,7 +519,8 @@ class LocalizedTexts {
   static const String at = 'at';
   static const String joinAGroup = 'joinAGroup';
   static const String findingMatchingGroup = 'findingMatchingGroup';
-  static const String moreInformationInPreferences = 'moreInformationInPreferences';
+  static const String moreInformationInPreferences =
+      'moreInformationInPreferences';
   static const String bookYourSeat = 'bookYourSeat';
   static const String comingUpThisWeek = 'comingUpThisWeek';
   static const String happeningNow = 'happeningNow';
@@ -502,15 +555,24 @@ class LocalizedTexts {
   static const String supportGroupPreferences = "supportGroupPreferences";
   static const String groupRulesTwoParagraphOne = "groupRulesTwoParagraphOne";
   static const String groupRulesTwoParagraphTwo = "groupRulesTwoParagraphTwo";
-  static const String groupRulesTwoParagraphThree = "groupRulesTwoParagraphThree";
-  static const String groupRulesThreeParagraphOne = "groupRulesThreeParagraphOne";
-  static const String groupRulesThreeParagraphTwo = "groupRulesThreeParagraphTwo";
-  static const String groupRulesThreeParagraphThree = "groupRulesThreeParagraphThree";
-  static const String groupRulesFourParagraphOnePartOne = "groupRulesFourParagraphOnePartOne";
-  static const String groupRulesFourParagraphOnePartTwo = "groupRulesFourParagraphOnePartTwo";
-  static const String groupRulesFourParagraphOnePartThree = "groupRulesFourParagraphOnePartThree";
-  static const String groupRulesFourParagraphOneItalicOne = "groupRulesFourParagraphOneItalicOne";
-  static const String groupRulesFourParagraphOneItalicTwo = "groupRulesFourParagraphOneItalicTwo";
+  static const String groupRulesTwoParagraphThree =
+      "groupRulesTwoParagraphThree";
+  static const String groupRulesThreeParagraphOne =
+      "groupRulesThreeParagraphOne";
+  static const String groupRulesThreeParagraphTwo =
+      "groupRulesThreeParagraphTwo";
+  static const String groupRulesThreeParagraphThree =
+      "groupRulesThreeParagraphThree";
+  static const String groupRulesFourParagraphOnePartOne =
+      "groupRulesFourParagraphOnePartOne";
+  static const String groupRulesFourParagraphOnePartTwo =
+      "groupRulesFourParagraphOnePartTwo";
+  static const String groupRulesFourParagraphOnePartThree =
+      "groupRulesFourParagraphOnePartThree";
+  static const String groupRulesFourParagraphOneItalicOne =
+      "groupRulesFourParagraphOneItalicOne";
+  static const String groupRulesFourParagraphOneItalicTwo =
+      "groupRulesFourParagraphOneItalicTwo";
   static const String groupRulesFourParagraphOneItalicThree =
       "groupRulesFourParagraphOneItalicThree";
   static const String groupRulesFourParagraphTwo = "groupRulesFourParagraphTwo";
@@ -518,7 +580,8 @@ class LocalizedTexts {
   static const String groupRulesFiveParagraphTwo = "groupRulesFiveParagraphTwo";
   static const String groupRulesSixParagraphOne = "groupRulesSixParagraphOne";
   static const String groupRulesSixParagraphTwo = "groupRulesSixParagraphTwo";
-  static const String groupRulesSixParagraphThree = "groupRulesSixParagraphThree";
+  static const String groupRulesSixParagraphThree =
+      "groupRulesSixParagraphThree";
   static const String groupRulesSixParagraphFour = "groupRulesSixParagraphFour";
 
   // Session waiting room
@@ -555,7 +618,8 @@ class LocalizedTexts {
   static const String badConnectionMessage = "badConnectionMessage";
   static const String exercise = "exercise";
   static const String noMicrophoneAccessTitle = "noMicrophoneAccessTitle";
-  static const String noMicrophoneAccessDescription = "noMicrophoneAccessDescription";
+  static const String noMicrophoneAccessDescription =
+      "noMicrophoneAccessDescription";
   static const String noCameraAccessTitle = "noCameraAccessTitle";
   static const String noCameraAccessDescription = "noCameraAccessDescription";
 
@@ -579,14 +643,16 @@ class LocalizedTexts {
   static const String learnMoreButton = "learnMoreButton";
   static const String lock = "lock";
   static const String unlocksOn = "unlocksOn";
-  static const String unlocksAfterCompletionExercise = "unlocksAfterCompletionExercise";
+  static const String unlocksAfterCompletionExercise =
+      "unlocksAfterCompletionExercise";
   static const String intro = "intro";
   static const String exercises = "exercises";
   static const String countMins = "countMins";
   static const String chooseAnExercise = "chooseAnExercise";
   static const String completedExerciseMessage1 = "completedExerciseMessage1";
   static const String completedExerciseMessage2 = "completedExerciseMessage2";
-  static const String completedIntroductionMessage2 = "completedIntroductionMessage2";
+  static const String completedIntroductionMessage2 =
+      "completedIntroductionMessage2";
   static const String chooseTechnique = "chooseTechnique";
   static const String chooseExercise = "chooseExercise";
   static const String startExercise = "startExercise";
@@ -606,20 +672,26 @@ class LocalizedTexts {
 
   //Subscription
   static const String subscriptionSubscription = "subscriptionSubscription";
-  static const String subscriptionManageSubscription = "subscriptionManageSubscription";
+  static const String subscriptionManageSubscription =
+      "subscriptionManageSubscription";
   static const String subscriptionGenericTitle = "subscriptionGenericTitle";
   static const String subscriptionTrialTitle = "subscriptionTrialTitle";
   static const String subscriptionTrialLabel = "subscriptionTrialLabel";
-  static const String subscriptionTrialExpiredTitle = "subscriptionTrialExpiredTitle";
-  static const String subscriptionTrialExpiredLabel1 = "subscriptionTrialExpiredLabel1";
-  static const String subscriptionTrialExpiredLabel2 = "subscriptionTrialExpiredLabel2";
+  static const String subscriptionTrialExpiredTitle =
+      "subscriptionTrialExpiredTitle";
+  static const String subscriptionTrialExpiredLabel1 =
+      "subscriptionTrialExpiredLabel1";
+  static const String subscriptionTrialExpiredLabel2 =
+      "subscriptionTrialExpiredLabel2";
   static const String subscriptionEndedTitle = "subscriptionEndedTitle";
   static const String subscriptionEmptyToRestore = "subscriptionEmptyToRestore";
   static const String subscriptionEndedLabel1 = "subscriptionEndedLabel1";
   static const String subscriptionEndedLabel2 = "subscriptionEndedLabel2";
   static const String subscriptionCancelledTitle = "subscriptionCancelledTitle";
-  static const String subscriptionCancelledLabel1 = "subscriptionCancelledLabel1";
-  static const String subscriptionCancelledLabel2 = "subscriptionCancelledLabel2";
+  static const String subscriptionCancelledLabel1 =
+      "subscriptionCancelledLabel1";
+  static const String subscriptionCancelledLabel2 =
+      "subscriptionCancelledLabel2";
   static const String subscriptionRenewedTitle = "subscriptionRenewedTitle";
   static const String subscriptionRenewedLabel = "subscriptionRenewedLabel";
   static const String subscriptionRestoreLabel = "subscriptionRestoreLabel";
@@ -632,17 +704,21 @@ class LocalizedTexts {
   static const String subscriptionSubTitlePrice = "subscriptionSubTitlePrice";
   static const String subscriptionTitlePrice = "subscriptionTitlePrice";
   static const String subscriptionType = "subscriptionType";
-  static const String subscriptionSubscriptionVia = "subscriptionSubscriptionVia";
+  static const String subscriptionSubscriptionVia =
+      "subscriptionSubscriptionVia";
   static const String subscriptionMemberSince = "subscriptionMemberSince";
-  static const String subscriptionAutomaticRenewalOn = "subscriptionAutomaticRenewalOn";
-  static const String subscriptionOtherPurchaseVendor = "subscriptionOtherPurchaseVendor";
+  static const String subscriptionAutomaticRenewalOn =
+      "subscriptionAutomaticRenewalOn";
+  static const String subscriptionOtherPurchaseVendor =
+      "subscriptionOtherPurchaseVendor";
   static const String subscriptionAppStore = "subscriptionAppStore";
   static const String subscriptionGoogleMarket = "subscriptionGoogleMarket";
   static const String subscriptionCancelAccountSubscription =
       "subscriptionCancelAccountSubscription";
   static const String subscriptionRestoreSubscriptionFromSettings =
       "subscriptionRestoreSubscriptionFromSettings";
-  static const String subscriptionAskRestoreSubscription = "subscriptionAskRestoreSubscription";
+  static const String subscriptionAskRestoreSubscription =
+      "subscriptionAskRestoreSubscription";
   static const String subscriptionDuplicateSubscriptionFromSettings =
       "subscriptionDuplicateSubscriptionFromSettings";
   static const String subscriptionOtherPurchaseVendorCancelAccountSubscription =
@@ -650,14 +726,16 @@ class LocalizedTexts {
 
   static const String subscriptionLimitedAccess = 'subscriptionLimitedAccess';
   static const String subscriptionLifeTimeAccess = 'subscriptionLifeTimeAccess';
-  static const String subscriptionRecommendedAccess = 'subscriptionRecommendedAccess';
+  static const String subscriptionRecommendedAccess =
+      'subscriptionRecommendedAccess';
   static const String subscriptionFlexibleAccess = 'subscriptionFlexibleAccess';
   static const String subscriptionDaily = 'subscriptionDaily';
   static const String subscriptionWeekly = 'subscriptionWeekly';
   static const String subscriptionMonth = 'subscriptionMonth';
   static const String subscriptionQuarterly = 'subscriptionQuarterly';
   static const String subscriptionAnnually = 'subscriptionAnnually';
-  static const String subscriptionDescriptionLabel = 'subscriptionDescriptionLabel';
+  static const String subscriptionDescriptionLabel =
+      'subscriptionDescriptionLabel';
 
   // Quizzes
   static const String quiz = "quiz";
@@ -733,12 +811,18 @@ class LocalizedTexts {
   static const String onboardingIntroTitle = 'onboardingIntroTitle';
   static const String onboardingIntroProgram1 = 'onboardingIntroProgram1';
   static const String onboardingIntroProgram2 = 'onboardingIntroProgram2';
-  static const String onboardingIntroMissionTitle = 'onboardingIntroMissionTitle';
-  static const String onboardingIntroMissionAndrew = 'onboardingIntroMissionAndrew';
-  static const String onboardingIntroMissionMaria = 'onboardingIntroMissionMaria';
-  static const String onboardingIntroMissionShalu = 'onboardingIntroMissionShalu';
-  static const String onboardingIntroMissionJoshua = 'onboardingIntroMissionJoshua';
-  static const String onboardingIntroMissionDenise = 'onboardingIntroMissionDenise';
+  static const String onboardingIntroMissionTitle =
+      'onboardingIntroMissionTitle';
+  static const String onboardingIntroMissionAndrew =
+      'onboardingIntroMissionAndrew';
+  static const String onboardingIntroMissionMaria =
+      'onboardingIntroMissionMaria';
+  static const String onboardingIntroMissionShalu =
+      'onboardingIntroMissionShalu';
+  static const String onboardingIntroMissionJoshua =
+      'onboardingIntroMissionJoshua';
+  static const String onboardingIntroMissionDenise =
+      'onboardingIntroMissionDenise';
   static const String onboardingPacingTitle = 'onboardingPacingTitle';
   static const String onboardingPacingMessage = 'onboardingPacingMessage';
   static const String onboardingIAmReady = 'onboardingIAmReady';
@@ -746,13 +830,17 @@ class LocalizedTexts {
 
   // Onboarding Physical
   // Intro
-  static const String onboardingPhysicalIntroTitle = 'onboardingPhysicalIntroTitle';
-  static const String onboardingPhysicalIntroBody = 'onboardingPhysicalIntroBody';
+  static const String onboardingPhysicalIntroTitle =
+      'onboardingPhysicalIntroTitle';
+  static const String onboardingPhysicalIntroBody =
+      'onboardingPhysicalIntroBody';
   static const String minutes = 'minutes';
 
   // Age check failed
-  static const String onboardingAgeCheckFailedTitle = 'onboardingAgeCheckFailedTitle';
-  static const String onboardingAgeCheckFailedBody = 'onboardingAgeCheckFailedBody';
+  static const String onboardingAgeCheckFailedTitle =
+      'onboardingAgeCheckFailedTitle';
+  static const String onboardingAgeCheckFailedBody =
+      'onboardingAgeCheckFailedBody';
 
   // Sex
   static const String onboardingWhatYourSex = 'onboardingWhatYourSex';
@@ -782,17 +870,26 @@ class LocalizedTexts {
   static const String onboardingYourWeight = 'onboardingYourWeight';
 
   // Bmi failed
-  static const String onboardingBmiExclusionBodyTitle = 'onboardingBmiExclusionBodyTitle';
-  static const String onboardingHighBmiDescription1 = 'onboardingHighBmiDescription1';
-  static const String onboardingHighBmiDescription2 = 'onboardingHighBmiDescription2';
-  static const String onboardingHighBmiDescription3 = 'onboardingHighBmiDescription3';
-  static const String onboardingLowerBmiDescription1 = 'onboardingLowerBmiDescription1';
-  static const String onboardingLowerBmiDescription2 = 'onboardingLowerBmiDescription2';
-  static const String onboardingBmiExclusionBody1 = 'onboardingBmiExclusionBody1';
-  static const String onboardingBmiExclusionBody2 = 'onboardingBmiExclusionBody2';
+  static const String onboardingBmiExclusionBodyTitle =
+      'onboardingBmiExclusionBodyTitle';
+  static const String onboardingHighBmiDescription1 =
+      'onboardingHighBmiDescription1';
+  static const String onboardingHighBmiDescription2 =
+      'onboardingHighBmiDescription2';
+  static const String onboardingHighBmiDescription3 =
+      'onboardingHighBmiDescription3';
+  static const String onboardingLowerBmiDescription1 =
+      'onboardingLowerBmiDescription1';
+  static const String onboardingLowerBmiDescription2 =
+      'onboardingLowerBmiDescription2';
+  static const String onboardingBmiExclusionBody1 =
+      'onboardingBmiExclusionBody1';
+  static const String onboardingBmiExclusionBody2 =
+      'onboardingBmiExclusionBody2';
 
   // Physical check completed
-  static const String onboardingPhysicalCheckPassedTitle = 'onboardingPhysicalCheckPassedTitle';
+  static const String onboardingPhysicalCheckPassedTitle =
+      'onboardingPhysicalCheckPassedTitle';
   static const String onboardingAge = 'onboardingAge';
   static const String onboardingSex = 'onboardingSex';
   static const String onboardingHeight = 'onboardingHeight';
@@ -801,15 +898,18 @@ class LocalizedTexts {
   static const String onboardingYears = 'onboardingYears';
   static const String onboardingBmiDescription1 = 'onboardingBmiDescription1';
   static const String onboardingBmiDescription2 = 'onboardingBmiDescription2';
-  static const String onboardingBmiDescriptionAccent = 'onboardingBmiDescriptionAccent';
+  static const String onboardingBmiDescriptionAccent =
+      'onboardingBmiDescriptionAccent';
   static const String onboardingLetsMoveOn = 'onboardingLetsMoveOn';
 
   // Profile screen
-  static const String reportIssueAndEmergencyTitle = 'reportIssueAndEmergencyTitle';
+  static const String reportIssueAndEmergencyTitle =
+      'reportIssueAndEmergencyTitle';
 
   // Onboarding Medical
   // Intro
-  static const String onboardingMedicalIntroTitle = 'onboardingMedicalIntroTitle';
+  static const String onboardingMedicalIntroTitle =
+      'onboardingMedicalIntroTitle';
   static const String stepCounter = 'stepCounter';
   static const String onboardingMedicalIntroBody = 'onboardingMedicalIntroBody';
 
@@ -819,14 +919,20 @@ class LocalizedTexts {
   static const String no = 'no';
 
   // Pregnant failed
-  static const String onboardingFailedPregnancyTitle = 'onboardingFailedPregnancyTitle';
-  static const String onboardingFailedPregnancyBody1 = 'onboardingFailedPregnancyBody1';
-  static const String onboardingFailedPregnancyBody2 = 'onboardingFailedPregnancyBody2';
-  static const String onboardingFailedPregnancyBody3 = 'onboardingFailedPregnancyBody3';
-  static const String onboardingFailedPregnancyBody4 = 'onboardingFailedPregnancyBody4';
+  static const String onboardingFailedPregnancyTitle =
+      'onboardingFailedPregnancyTitle';
+  static const String onboardingFailedPregnancyBody1 =
+      'onboardingFailedPregnancyBody1';
+  static const String onboardingFailedPregnancyBody2 =
+      'onboardingFailedPregnancyBody2';
+  static const String onboardingFailedPregnancyBody3 =
+      'onboardingFailedPregnancyBody3';
+  static const String onboardingFailedPregnancyBody4 =
+      'onboardingFailedPregnancyBody4';
 
   static const String onboardingMedicinesTitle = 'onboardingMedicinesTitle';
-  static const String onboardingMedicinesPlaceholder = 'onboardingMedicinesPlaceholder';
+  static const String onboardingMedicinesPlaceholder =
+      'onboardingMedicinesPlaceholder';
 
   // Taking medication
   static const String onboardingWeightLossMedicationQuestion =
@@ -834,28 +940,42 @@ class LocalizedTexts {
   static const String onboardingTreatmentByTheDoctorQuestion =
       'onboardingTreatmentByTheDoctorQuestion';
   static const String onboardingObesityQuestion = 'onboardingObesityQuestion';
-  static const String onboardingThyroidDiseaseQuestion = 'onboardingThyroidDiseaseQuestion';
-  static const String onboardingMetabolicDiseaseQuestion = 'onboardingMetabolicDiseaseQuestion';
-  static const String onboardingHypertensionQuestion = 'onboardingHypertensionQuestion';
+  static const String onboardingThyroidDiseaseQuestion =
+      'onboardingThyroidDiseaseQuestion';
+  static const String onboardingMetabolicDiseaseQuestion =
+      'onboardingMetabolicDiseaseQuestion';
+  static const String onboardingHypertensionQuestion =
+      'onboardingHypertensionQuestion';
   static const String onboardingCardiovascularDiseaseQuestion =
       'onboardingCardiovascularDiseaseQuestion';
-  static const String onboardingStomachReductionQuestion = 'onboardingStomachReductionQuestion';
+  static const String onboardingStomachReductionQuestion =
+      'onboardingStomachReductionQuestion';
   static const String onboardingDiabetesQuestion = 'onboardingDiabetesQuestion';
-  static const String onboardingRenalFailureQuestion = 'onboardingRenalFailureQuestion';
+  static const String onboardingRenalFailureQuestion =
+      'onboardingRenalFailureQuestion';
   static const String onboardingAsthmaQuestion = 'onboardingAsthmaQuestion';
-  static const String onboardingLiverDiseaseQuestion = 'onboardingLiverDiseaseQuestion';
-  static const String onboardingSleepApneaSyndromeQuestion = 'onboardingSleepApneaSyndromeQuestion';
+  static const String onboardingLiverDiseaseQuestion =
+      'onboardingLiverDiseaseQuestion';
+  static const String onboardingSleepApneaSyndromeQuestion =
+      'onboardingSleepApneaSyndromeQuestion';
   static const String onboardingLocomotorSystemDiseaseQuestion =
       'onboardingLocomotorSystemDiseaseQuestion';
-  static const String onboardingMedicalCheckPassedTitle = 'onboardingMedicalCheckPassedTitle';
-  static const String onboardingMedicalCheckPassedBody = 'onboardingMedicalCheckPassedBody';
-  static const String onboardingMedicalCheckFailedTitle = 'onboardingMedicalCheckFailedTitle';
-  static const String onboardingMedicalCheckFailedBody = 'onboardingMedicalCheckFailedBody';
-  static const String onboardingMedicalCheckFailedBody2 = 'onboardingMedicalCheckFailedBody2';
+  static const String onboardingMedicalCheckPassedTitle =
+      'onboardingMedicalCheckPassedTitle';
+  static const String onboardingMedicalCheckPassedBody =
+      'onboardingMedicalCheckPassedBody';
+  static const String onboardingMedicalCheckFailedTitle =
+      'onboardingMedicalCheckFailedTitle';
+  static const String onboardingMedicalCheckFailedBody =
+      'onboardingMedicalCheckFailedBody';
+  static const String onboardingMedicalCheckFailedBody2 =
+      'onboardingMedicalCheckFailedBody2';
 
   // Diseases
-  static const String onboardingCardioVascularDisease = 'onboardingCardioVascularDisease';
-  static const String onboardingStomachReductionDisease = 'onboardingStomachReductionDisease';
+  static const String onboardingCardioVascularDisease =
+      'onboardingCardioVascularDisease';
+  static const String onboardingStomachReductionDisease =
+      'onboardingStomachReductionDisease';
   static const String onboardingObesity = 'onboardingObesity';
   static const String onboardingThyroidDisease = 'onboardingThyroidDisease';
   static const String onboardingMetabolicDisease = 'onboardingMetabolicDisease';
@@ -866,8 +986,10 @@ class LocalizedTexts {
   static const String onboardingRenalFailure = 'onboardingRenalFailure';
   static const String onboardingAsthma = 'onboardingAsthma';
   static const String onboardingLiverDisease = 'onboardingLiverDisease';
-  static const String onboardingSleepApneaSyndrome = 'onboardingSleepApneaSyndrome';
-  static const String onboardingLocomotorSystemDisease = 'onboardingLocomotorSystemDisease';
+  static const String onboardingSleepApneaSyndrome =
+      'onboardingSleepApneaSyndrome';
+  static const String onboardingLocomotorSystemDisease =
+      'onboardingLocomotorSystemDisease';
 
   // Onboarding mental
   // Intro
@@ -876,19 +998,28 @@ class LocalizedTexts {
   static const String onboardingMentalIntroBody2 = "onboardingMentalIntroBody2";
 
   static const String onboardingYourMentalHealth = "onboardingYourMentalHealth";
-  static const String onboardingMentalHealthMoreInfo = "onboardingMentalHealthMoreInfo";
-  static const String onboardingMentalHealthMoreInfoBold1 = "onboardingMentalHealthMoreInfoBold1";
-  static const String onboardingMentalHealthMoreInfoBold2 = "onboardingMentalHealthMoreInfoBold2";
-  static const String onboardingMentalHealthIntroTextOne = "onboardingMentalHealthIntroTextOne";
-  static const String onboardingMentalHealthIntroTextTwo = "onboardingMentalHealthIntroTextTwo";
+  static const String onboardingMentalHealthMoreInfo =
+      "onboardingMentalHealthMoreInfo";
+  static const String onboardingMentalHealthMoreInfoBold1 =
+      "onboardingMentalHealthMoreInfoBold1";
+  static const String onboardingMentalHealthMoreInfoBold2 =
+      "onboardingMentalHealthMoreInfoBold2";
+  static const String onboardingMentalHealthIntroTextOne =
+      "onboardingMentalHealthIntroTextOne";
+  static const String onboardingMentalHealthIntroTextTwo =
+      "onboardingMentalHealthIntroTextTwo";
   static const String onboardingMentalHealthIntroTextTwoAccent =
       "onboardingMentalHealthIntroTextTwoAccent";
-  static const String onboardingMentalHealthIntroTextThree = "onboardingMentalHealthIntroTextThree";
+  static const String onboardingMentalHealthIntroTextThree =
+      "onboardingMentalHealthIntroTextThree";
   static const String onboardingMentalHealthIntroTextThreeAccent =
       "onboardingMentalHealthIntroTextThreeAccent";
-  static const String onboardingMentalHealthIntroTextFour = "onboardingMentalHealthIntroTextFour";
-  static const String onboardingMentalHealthIntroTextFive = "onboardingMentalHealthIntroTextFive";
-  static const String onboardingMentalHealthIntroTextSix = "onboardingMentalHealthIntroTextSix";
+  static const String onboardingMentalHealthIntroTextFour =
+      "onboardingMentalHealthIntroTextFour";
+  static const String onboardingMentalHealthIntroTextFive =
+      "onboardingMentalHealthIntroTextFive";
+  static const String onboardingMentalHealthIntroTextSix =
+      "onboardingMentalHealthIntroTextSix";
   static const String onboardingWho8Question = "onboardingWho8Question";
   static const String onboardingLastTwoWeeks = "onboardingLastTwoWeeks";
   static const String onboardingPastFourWeeks = "onboardingPastFourWeeks";
@@ -897,29 +1028,41 @@ class LocalizedTexts {
   static const String onboardingStartAgain = "onboardingStartAgain";
 
   // Mental texts results
-  static const String onboardingWho5ResultTestMinimal = "onboardingWho5ResultTestMinimal";
-  static const String onboardingWho5ResultTestHigh = "onboardingWho5ResultTestHigh";
-  static const String onboardingPhq15ResultMinimal = "onboardingPhq15ResultMinimal";
+  static const String onboardingWho5ResultTestMinimal =
+      "onboardingWho5ResultTestMinimal";
+  static const String onboardingWho5ResultTestHigh =
+      "onboardingWho5ResultTestHigh";
+  static const String onboardingPhq15ResultMinimal =
+      "onboardingPhq15ResultMinimal";
   static const String onboardingPhq15ResultMild = "onboardingPhq15ResultMild";
-  static const String onboardingPhq15ResultMedium = "onboardingPhq15ResultMedium";
+  static const String onboardingPhq15ResultMedium =
+      "onboardingPhq15ResultMedium";
   static const String onboardingPhq15ResultHigh = "onboardingPhq15ResultHigh";
-  static const String onboardingGad7ResultMinimal = "onboardingGad7ResultMinimal";
+  static const String onboardingGad7ResultMinimal =
+      "onboardingGad7ResultMinimal";
   static const String onboardingGad7ResultMild = "onboardingGad7ResultMild";
   static const String onboardingGad7ResultMedium = "onboardingGad7ResultMedium";
   static const String onboardingGad7ResultHigh = "onboardingGad7ResultHigh";
-  static const String onboardingPhq8ResultMinimal = "onboardingPhq8ResultMinimal";
+  static const String onboardingPhq8ResultMinimal =
+      "onboardingPhq8ResultMinimal";
   static const String onboardingPhq8ResultMild = "onboardingPhq8ResultMild";
   static const String onboardingPhq8ResultMedium = "onboardingPhq8ResultMedium";
   static const String onboardingPhq8ResultHigh = "onboardingPhq8ResultHigh";
-  static const String onboardingPhq8ResultHighest = "onboardingPhq8ResultHighest";
+  static const String onboardingPhq8ResultHighest =
+      "onboardingPhq8ResultHighest";
 
   // Mental final results
-  static const String onboardingIfYouHaveSuicidalThoughts = "onboardingIfYouHaveSuicidalThoughts";
+  static const String onboardingIfYouHaveSuicidalThoughts =
+      "onboardingIfYouHaveSuicidalThoughts";
 
-  static const String onboardingPhq8FinalResultHigh1 = "onboardingPhq8FinalResultHigh1";
-  static const String onboardingPhq8FinalResultHigh2 = "onboardingPhq8FinalResultHigh2";
-  static const String onboardingPhq8FinalResultHigh3 = "onboardingPhq8FinalResultHigh3";
-  static const String onboardingPhq8FinalResultHigh4 = "onboardingPhq8FinalResultHigh4";
+  static const String onboardingPhq8FinalResultHigh1 =
+      "onboardingPhq8FinalResultHigh1";
+  static const String onboardingPhq8FinalResultHigh2 =
+      "onboardingPhq8FinalResultHigh2";
+  static const String onboardingPhq8FinalResultHigh3 =
+      "onboardingPhq8FinalResultHigh3";
+  static const String onboardingPhq8FinalResultHigh4 =
+      "onboardingPhq8FinalResultHigh4";
   static const String onboardingPersonalProgram = "onboardingPersonalProgram";
   static const String onboardingSupportMessage = "onboardingSupportMessage";
   static const String onboardingFeelLimited1 = "onboardingFeelLimited1";
@@ -928,31 +1071,43 @@ class LocalizedTexts {
   static const String onboardingFeelLimited4 = "onboardingFeelLimited4";
   static const String onboardingNotATherapy = "onboardingNotATherapy";
   static const String onboardingLearnManyThings = "onboardingLearnManyThings";
-  static const String onboardingUnlockAllSections = "onboardingUnlockAllSections";
+  static const String onboardingUnlockAllSections =
+      "onboardingUnlockAllSections";
   static const String onboardingAwailableAreas = "onboardingAwailableAreas";
-  static const String onboardingUnlockBuddyMessage = "onboardingUnlockBuddyMessage";
+  static const String onboardingUnlockBuddyMessage =
+      "onboardingUnlockBuddyMessage";
   static const String onboardingWeWillGuideYou = "onboardingWeWillGuideYou";
 
   static const String onboardingPhq8Fail = "onboardingPhq8Fail";
-  static const String onboardingGeneralWellBeingSummary = "onboardingGeneralWellBeingSummary";
-  static const String onboardingBodyAndMindBalanceSummary = "onboardingBodyAndMindBalanceSummary";
-  static const String onboardingStateOfMindSummary = "onboardingStateOfMindSummary";
+  static const String onboardingGeneralWellBeingSummary =
+      "onboardingGeneralWellBeingSummary";
+  static const String onboardingBodyAndMindBalanceSummary =
+      "onboardingBodyAndMindBalanceSummary";
+  static const String onboardingStateOfMindSummary =
+      "onboardingStateOfMindSummary";
   static const String onboardingCheckCompleted = "onboardingCheckCompleted";
-  static const String onboardingMentalResultSubText1 = "onboardingMentalResultSubText1";
-  static const String onboardingMentalResultSubText2 = "onboardingMentalResultSubText2";
-  static const String onboardingMentalResultSubText3 = "onboardingMentalResultSubText3";
+  static const String onboardingMentalResultSubText1 =
+      "onboardingMentalResultSubText1";
+  static const String onboardingMentalResultSubText2 =
+      "onboardingMentalResultSubText2";
+  static const String onboardingMentalResultSubText3 =
+      "onboardingMentalResultSubText3";
 
   // Time ends message
-  static const String onboardingYouExceededTimeMessage = "onboardingYouExceededTimeMessage";
-  static const String onboardingNoWorriesYouCanDoItLater = "onboardingNoWorriesYouCanDoItLater";
+  static const String onboardingYouExceededTimeMessage =
+      "onboardingYouExceededTimeMessage";
+  static const String onboardingNoWorriesYouCanDoItLater =
+      "onboardingNoWorriesYouCanDoItLater";
 
   // Legal Statement
   static const String legalStatement = 'legalStatement';
   static const String legalStatementTextOne = 'legalStatementTextOne';
   static const String legalStatementTextTwo = 'legalStatementTextTwo';
   static const String readLegalStatement = 'readLegalStatement';
-  static const String legalStatementCheckboxTitle = 'legalStatementCheckboxTitle';
-  static const String legalStatementCheckboxItemOne = 'legalStatementCheckboxItemOne';
+  static const String legalStatementCheckboxTitle =
+      'legalStatementCheckboxTitle';
+  static const String legalStatementCheckboxItemOne =
+      'legalStatementCheckboxItemOne';
   static const String confirm = 'confirm';
   static const String openLinkErrorMessage = 'openLinkErrorMessage';
 
@@ -992,16 +1147,22 @@ class LocalizedTexts {
   static const String receiveEmailCheckboxLabel = 'receiveEmailCheckboxLabel';
 
   //Waiting for confirmation page
-  static const String waitingForConfirmationTitle = 'waitingForConfirmationTitle';
+  static const String waitingForConfirmationTitle =
+      'waitingForConfirmationTitle';
   static const String resendConfirmationMessage = 'resendConfirmationMessage';
-  static const String waitingForConfirmationSubtitle = 'waitingForConfirmationSubtitle';
+  static const String waitingForConfirmationSubtitle =
+      'waitingForConfirmationSubtitle';
   static const String waitingForConfirmationBody = 'waitingForConfirmationBody';
-  static const String waitingForConfirmationBody3 = 'waitingForConfirmationBody3';
-  static const String waitingForConfirmationBody4 = 'waitingForConfirmationBody4';
+  static const String waitingForConfirmationBody3 =
+      'waitingForConfirmationBody3';
+  static const String waitingForConfirmationBody4 =
+      'waitingForConfirmationBody4';
   static const String resend = 'resend';
   static const String changeAddress = 'changeAddress';
-  static const String emailConfirmedBottomSheetTitle = 'emailConfirmedBottomSheetTitle';
-  static const String emailConfirmedBottomSheetContent = 'emailConfirmedBottomSheetContent';
+  static const String emailConfirmedBottomSheetTitle =
+      'emailConfirmedBottomSheetTitle';
+  static const String emailConfirmedBottomSheetContent =
+      'emailConfirmedBottomSheetContent';
   static const String incorrectEmail = 'incorrectEmail';
 
   // Change Email
@@ -1018,13 +1179,17 @@ class LocalizedTexts {
   static const String lesson = 'lesson';
   static const String lessonCompleted = 'lessonCompleted';
   static const String groupSessionsUnlocked = 'groupSessionsUnlocked';
-  static const String waitingForGroupCompletedLesson = 'waitingForGroupCompletedLesson';
-  static const String groupSessionUnlockOnTrialPeriod = 'groupSessionUnlockOnTrialPeriod';
-  static const String notJoinedToGroupCompletedLesson = 'notJoinedToGroupCompletedLesson';
+  static const String waitingForGroupCompletedLesson =
+      'waitingForGroupCompletedLesson';
+  static const String groupSessionUnlockOnTrialPeriod =
+      'groupSessionUnlockOnTrialPeriod';
+  static const String notJoinedToGroupCompletedLesson =
+      'notJoinedToGroupCompletedLesson';
   static const String unlockFeatureDescription = 'unlockFeatureDescription';
   static const String lessonCompleteDescription = 'lessonCompleteDescription';
   static const String assignmentCompleted = 'assignmentCompleted';
-  static const String assignmentCompleteDescription = 'assignmentCompleteDescription';
+  static const String assignmentCompleteDescription =
+      'assignmentCompleteDescription';
   static const String consultYourTherapist = 'consultYourTherapist';
   static const String consultYourTherapistBody1 = 'consultYourTherapistBody1';
   static const String consultYourTherapistBody2 = 'consultYourTherapistBody2';
@@ -1033,9 +1198,12 @@ class LocalizedTexts {
   static const String completeLesson = 'completeLesson';
   static const String didYouCheckWithSpecialist = 'didYouCheckWithSpecialist';
   static const String iConsultedTherapist = 'iConsultedTherapist';
-  static const String treatedByTherapistLessonComplete = 'treatedByTherapistLessonComplete';
-  static const String trialSubscriptionLessonComplete = 'trialSubscriptionLessonComplete';
-  static const String groupSessionsJoinLaterLessonComplete = 'groupSessionsJoinLaterLessonComplete';
+  static const String treatedByTherapistLessonComplete =
+      'treatedByTherapistLessonComplete';
+  static const String trialSubscriptionLessonComplete =
+      'trialSubscriptionLessonComplete';
+  static const String groupSessionsJoinLaterLessonComplete =
+      'groupSessionsJoinLaterLessonComplete';
   static const String needSubscrionScreenTitle = 'needSubscrionScreenTitle';
   static const String needSubscrionScreenBody1 = 'needSubscrionScreenBody1';
   static const String needSubscrionScreenBody2 = 'needSubscrionScreenBody2';
@@ -1043,11 +1211,14 @@ class LocalizedTexts {
   static const String needSubscrionScreenBody4 = 'needSubscrionScreenBody4';
 
   // Interactive lessons
-  static const String interactiveLessonsTextAreaLabel = 'interactiveLessonsTextAreaLabel';
+  static const String interactiveLessonsTextAreaLabel =
+      'interactiveLessonsTextAreaLabel';
   static const String interactiveLessonsMultipleChoiceBtnLabel =
       'interactiveLessonsMultipleChoiceBtnLabel';
-  static const String interactiveLessonsScaleLabel = 'interactiveLessonsScaleLabel';
-  static const String interactiveLessonsSingleSelectLabel = 'interactiveLessonsSingleSelectLabel';
+  static const String interactiveLessonsScaleLabel =
+      'interactiveLessonsScaleLabel';
+  static const String interactiveLessonsSingleSelectLabel =
+      'interactiveLessonsSingleSelectLabel';
   static const String interactiveLessonsMultipleSelectLabel =
       'interactiveLessonsMultipleSelectLabel';
   static const String mealTiming = 'mealTiming';
@@ -1056,10 +1227,19 @@ class LocalizedTexts {
       'interactiveLessonsCorrectFeedbackTitle';
   static const String interactiveLessonsIncorrectFeedbackTitle =
       'interactiveLessonsIncorrectFeedbackTitle';
-  static const String interactiveLessonsScaleFeedbackTitle = 'interactiveLessonsScaleFeedbackTitle';
-  static const String interactiveLessonsOrderingLabel = 'interactiveLessonsOrderingLabel';
-  static const String interactiveLessonsOrderingCheck = 'interactiveLessonsOrderingCheck';
-  static const String interactiveLessonsOrderingShowAnswer = 'interactiveLessonsOrderingShowAnswer';
+  static const String interactiveLessonsScaleFeedbackTitle =
+      'interactiveLessonsScaleFeedbackTitle';
+  static const String interactiveLessonsOrderingLabel =
+      'interactiveLessonsOrderingLabel';
+  static const String interactiveLessonsOrderingCheck =
+      'interactiveLessonsOrderingCheck';
+  static const String interactiveLessonsOrderingShowAnswer =
+      'interactiveLessonsOrderingShowAnswer';
+  static const String textAreaHintText = 'textAreaHintText';
+  static const String textAreaSave = 'textAreaSave';
+  static const String addTextField = 'addTextField';
+  static const String selectYourTime = 'selectYourTime';
+  static const String question = 'question';
 
   // Group session
   static const String groupSession = 'groupSession';
@@ -1075,8 +1255,10 @@ class LocalizedTexts {
   static const String updateRequiredBodyText1 = 'updateRequiredBodyText1';
   static const String updateRequiredBodyText2 = 'updateRequiredBodyText2';
   static const String updatePoliciesDocuments = 'updatePoliciesDocuments';
-  static const String updatePoliciesDocumentsBodyText1 = 'updatePoliciesDocumentsBodyText1';
-  static const String updatePoliciesDocumentsBodyText2 = 'updatePoliciesDocumentsBodyText2';
+  static const String updatePoliciesDocumentsBodyText1 =
+      'updatePoliciesDocumentsBodyText1';
+  static const String updatePoliciesDocumentsBodyText2 =
+      'updatePoliciesDocumentsBodyText2';
   static const String minorUpdateTitle = 'minorUpdateTitle';
   static const String minorUpdateBody = 'minorUpdateBody';
   static const String doItLaterButton = 'doItLaterButton';
@@ -1119,8 +1301,10 @@ class LocalizedTexts {
   static const String removeBuddy = 'buddyRemoveBuddy';
   static const String inviteBuddy = 'buddyInviteBuddy';
   static const String buddyFindAnotherBuddyLabel = 'buddyFindAnotherBuddyLabel';
-  static const String buddyFindAnotherBuddyContentOne = 'buddyFindAnotherBuddyContentOne';
-  static const String buddyFindAnotherBuddyContentTwo = 'buddyFindAnotherBuddyContentTwo';
+  static const String buddyFindAnotherBuddyContentOne =
+      'buddyFindAnotherBuddyContentOne';
+  static const String buddyFindAnotherBuddyContentTwo =
+      'buddyFindAnotherBuddyContentTwo';
   static const String buddyFindAnotherBuddy = 'buddyFindAnotherBuddy';
   static const String buddyNotNeedAnotherBuddy = 'buddyNotNeedAnotherBuddy';
   static const String buddyEmail = 'buddyEmail';
@@ -1134,55 +1318,78 @@ class LocalizedTexts {
   // Smart goals
   static const String smartGoalsMyGoals = 'smartGoalsMyGoals';
   static const String smartGoalsNoGoalsSelected = 'smartGoalsNoGoalsSelected';
-  static const String smartGoalsChooseGoalsForUpcomingDays = 'smartGoalsChooseGoalsForUpcomingDays';
+  static const String smartGoalsChooseGoalsForUpcomingDays =
+      'smartGoalsChooseGoalsForUpcomingDays';
   static const String smartGoalsUpcomingGoals = 'smartGoals';
-  static const String smartGoalsUpcomingGoalsTitle = 'smartGoalsUpcomingGoalsTitle';
-  static const String smartGoalsUpcomingGoalsDescription = 'smartGoalsUpcomingGoalsDescription';
+  static const String smartGoalsUpcomingGoalsTitle =
+      'smartGoalsUpcomingGoalsTitle';
+  static const String smartGoalsUpcomingGoalsDescription =
+      'smartGoalsUpcomingGoalsDescription';
   static const String smartGoalsSetGoal = 'smartGoalsSetGoal';
   static const String smartGoalsCancelGoal = 'smartGoalsCancelGoal';
   static const String smartGoalsCancelGoalTitle = 'smartGoalsCancelGoalTitle';
-  static const String smartGoalsCancelGoalSubTitle = 'smartGoalsCancelGoalSubTitle';
-  static const String smartGoalsSelectGoalsCategoryTitle = 'smartGoalsSelectGoalsCategoryTitle';
+  static const String smartGoalsCancelGoalSubTitle =
+      'smartGoalsCancelGoalSubTitle';
+  static const String smartGoalsSelectGoalsCategoryTitle =
+      'smartGoalsSelectGoalsCategoryTitle';
   static const String smartGoalsNewLabel = 'smartGoalsNewLabel';
   static const String smartGoalsSelectGoalsTitle = 'smartGoalsSelectGoalsTitle';
-  static const String smartGoalsSelectGoalsSubtitle = 'smartGoalsSelectGoalsSubtitle';
+  static const String smartGoalsSelectGoalsSubtitle =
+      'smartGoalsSelectGoalsSubtitle';
   static const String smartGoalsSaveWeeklyGoalsSuccessMessage =
       'smartGoalsSaveWeeklyGoalsSuccessMessage';
   static const String smartGoalsStatisticsTitle = 'smartGoalsStatisticsTitle';
-  static const String smartGoalsAccomplishedInTotal = 'smartGoalsAccomplishedInTotal';
-  static const String smartGoalsAccomplishedEmptyMessage = 'smartGoalsAccomplishedEmptyMessage';
+  static const String smartGoalsAccomplishedInTotal =
+      'smartGoalsAccomplishedInTotal';
+  static const String smartGoalsAccomplishedEmptyMessage =
+      'smartGoalsAccomplishedEmptyMessage';
   static const String smartGoalsAccomplished = 'smartGoalsAccomplished';
 
   static const String smartGoalsGoalLogged = 'smartGoalsGoalLogged';
   static const String smartGoalsGoalLogDays = 'smartGoalsGoalLogDays';
-  static const String smartGoalsGoalTotalCompletions = 'smartGoalsGoalTotalCompletions';
+  static const String smartGoalsGoalTotalCompletions =
+      'smartGoalsGoalTotalCompletions';
   static const String smartGoalsGoalCompleted = 'smartGoalsGoalCompleted';
   static const String smartGoalsGoalNotCompleted = 'smartGoalsGoalNotCompleted';
-  static const String smartGoalsHowHardWasTheGoal = 'smartGoalsHowHardWasTheGoal';
-  static const String smartGoalsWantToTryInFuture = 'smartGoalsWantToTryInFuture';
+  static const String smartGoalsHowHardWasTheGoal =
+      'smartGoalsHowHardWasTheGoal';
+  static const String smartGoalsWantToTryInFuture =
+      'smartGoalsWantToTryInFuture';
   static const String smartGoalsGoalReview = 'smartGoalsGoalReview';
   static const String smartGoalsWeeklyDaysLeft = 'smartGoalsWeeklyDaysLeft';
   static const String smartGoalsWeeklyDaysReview = 'smartGoalsWeeklyDaysReview';
-  static const String smartGoalsReasonGoalNotLike = 'smartGoalsReasonGoalNotLike';
-  static const String smartGoalsReasonGoalChallenging = 'smartGoalsReasonGoalChallenging';
-  static const String smartGoalsReasonGoalMissing = 'smartGoalsReasonGoalMissing';
+  static const String smartGoalsReasonGoalNotLike =
+      'smartGoalsReasonGoalNotLike';
+  static const String smartGoalsReasonGoalChallenging =
+      'smartGoalsReasonGoalChallenging';
+  static const String smartGoalsReasonGoalMissing =
+      'smartGoalsReasonGoalMissing';
   static const String smartGoalsReasonGoalHabit = 'smartGoalsReasonGoalHabit';
-  static const String smartGoalsReasonGoalSpecific = 'smartGoalsReasonGoalSpecific';
+  static const String smartGoalsReasonGoalSpecific =
+      'smartGoalsReasonGoalSpecific';
   static const String selectAStream = 'selectAStream';
   static const String deleteGoals = 'deleteGoals';
 
   // River
   static const String riverGuidancePracticeTitle = 'riverGuidancePracticeTitle';
-  static const String riverGuidancePracticeDescription = 'riverGuidancePracticeDescription';
+  static const String riverGuidancePracticeDescription =
+      'riverGuidancePracticeDescription';
   static const String riverGuidanceProfileTitle = 'riverGuidanceProfileTitle';
-  static const String riverGuidanceProfileDescription = 'riverGuidanceProfileDescription';
-  static const String riverGuidanceCompletedTitle = 'riverGuidanceCompletedTitle';
-  static const String riverGuidanceCompletedDescription = 'riverGuidanceCompletedDescription';
-  static const String riverGuidanceStartRiverTitle = 'riverGuidanceStartRiverTitle';
-  static const String riverGuidanceStartRiverDescription = 'riverGuidanceStartRiverDescription';
+  static const String riverGuidanceProfileDescription =
+      'riverGuidanceProfileDescription';
+  static const String riverGuidanceCompletedTitle =
+      'riverGuidanceCompletedTitle';
+  static const String riverGuidanceCompletedDescription =
+      'riverGuidanceCompletedDescription';
+  static const String riverGuidanceStartRiverTitle =
+      'riverGuidanceStartRiverTitle';
+  static const String riverGuidanceStartRiverDescription =
+      'riverGuidanceStartRiverDescription';
   static const String riverModuleCompletedTitle = 'riverModuleCompletedTitle';
-  static const String riverModuleCompletedDescription = 'riverModuleCompletedDescription';
-  static const String riverLastModuleCompletedDescription = 'riverLastModuleCompletedDescription';
+  static const String riverModuleCompletedDescription =
+      'riverModuleCompletedDescription';
+  static const String riverLastModuleCompletedDescription =
+      'riverLastModuleCompletedDescription';
   static const String riverModuleGraduationCompletedItemsTitle =
       'riverModuleGraduationCompletedItemsTitle';
   static const String riverModuleGraduationCompletedTimeTitle =
@@ -1215,7 +1422,8 @@ class LocalizedTexts {
       'errorValidationTermsAndConditionsVersionNotANumber';
   static const String errorValidationTermsAndConditionsVersionNotAnInteger =
       'errorValidationTermsAndConditionsVersionNotAnInteger';
-  static const String errorValidationTermsAndConditionsVersionNotAPositiveNumber =
+  static const String
+      errorValidationTermsAndConditionsVersionNotAPositiveNumber =
       'errorValidationTermsAndConditionsVersionNotAPositiveNumber';
   static const String errorValidationPrivacyPolicyVersionNotANumber =
       'errorValidationPrivacyPolicyVersionNotANumber';
@@ -1223,51 +1431,77 @@ class LocalizedTexts {
       'errorValidationPrivacyPolicyVersionNotAnInteger';
   static const String errorValidationPrivacyPolicyVersionNotAPositiveNumber =
       'errorValidationPrivacyPolicyVersionNotAPositiveNumber';
-  static const String errorValidationRefreshTokenNotAJwt = 'errorValidationRefreshTokenNotAJwt';
-  static const String errorValidationVersionEmpty = 'errorValidationVersionEmpty';
-  static const String errorValidationVersionNotAString = 'errorValidationVersionNotAString';
+  static const String errorValidationRefreshTokenNotAJwt =
+      'errorValidationRefreshTokenNotAJwt';
+  static const String errorValidationVersionEmpty =
+      'errorValidationVersionEmpty';
+  static const String errorValidationVersionNotAString =
+      'errorValidationVersionNotAString';
   static const String errorValidationNotificationTypeInvalidEnum =
       'errorValidationNotificationTypeInvalidEnum';
-  static const String errorValidationPurchaseTokenEmpty = 'errorValidationPurchaseTokenEmpty';
+  static const String errorValidationPurchaseTokenEmpty =
+      'errorValidationPurchaseTokenEmpty';
   static const String errorValidationPurchaseTokenNotAString =
       'errorValidationPurchaseTokenNotAString';
-  static const String errorValidationSubscriptionIdEmpty = 'errorValidationSubscriptionIdEmpty';
+  static const String errorValidationSubscriptionIdEmpty =
+      'errorValidationSubscriptionIdEmpty';
   static const String errorValidationSubscriptionIdNotAString =
       'errorValidationSubscriptionIdNotAString';
-  static const String errorValidationPackageNameEmpty = 'errorValidationPackageNameEmpty';
-  static const String errorValidationPackageNameNotAString = 'errorValidationPackageNameNotAString';
+  static const String errorValidationPackageNameEmpty =
+      'errorValidationPackageNameEmpty';
+  static const String errorValidationPackageNameNotAString =
+      'errorValidationPackageNameNotAString';
   static const String errorValidationEventTimeMillisNotANumberString =
       'errorValidationEventTimeMillisNotANumberString';
   static const String errorValidationSubscriptionNotificationEmptyObject =
       'errorValidationSubscriptionNotificationEmptyObject';
   static const String errorValidationFilenameStringTooShort =
       'errorValidationFilenameStringTooShort';
-  static const String errorValidationFilenameNotAString = 'errorValidationFilenameNotAString';
-  static const String errorValidationFilenameEmpty = 'errorValidationFilenameEmpty';
-  static const String errorValidationMimetypeInvalidEnum = 'errorValidationMimetypeInvalidEnum';
-  static const String errorValidationMimetypeNotAString = 'errorValidationMimetypeNotAString';
-  static const String errorValidationMimetypeEmpty = 'errorValidationMimetypeEmpty';
-  static const String errorValidationFieldnameInvalidEnum = 'errorValidationFieldnameInvalidEnum';
-  static const String errorValidationFieldnameEmpty = 'errorValidationFieldnameEmpty';
-  static const String errorValidationFieldnameNotAString = 'errorValidationFieldnameNotAString';
+  static const String errorValidationFilenameNotAString =
+      'errorValidationFilenameNotAString';
+  static const String errorValidationFilenameEmpty =
+      'errorValidationFilenameEmpty';
+  static const String errorValidationMimetypeInvalidEnum =
+      'errorValidationMimetypeInvalidEnum';
+  static const String errorValidationMimetypeNotAString =
+      'errorValidationMimetypeNotAString';
+  static const String errorValidationMimetypeEmpty =
+      'errorValidationMimetypeEmpty';
+  static const String errorValidationFieldnameInvalidEnum =
+      'errorValidationFieldnameInvalidEnum';
+  static const String errorValidationFieldnameEmpty =
+      'errorValidationFieldnameEmpty';
+  static const String errorValidationFieldnameNotAString =
+      'errorValidationFieldnameNotAString';
   static const String errorValidationPasswordPasswordTooWeak =
       'errorValidationPasswordPasswordTooWeak';
-  static const String errorValidationPasswordEmpty = 'errorValidationPasswordEmpty';
-  static const String errorValidationPasswordNotAString = 'errorValidationPasswordNotAString';
-  static const String errorValidationEmailStringTooLong = 'errorValidationEmailStringTooLong';
-  static const String errorValidationEmailStringTooShort = 'errorValidationEmailStringTooShort';
-  static const String errorValidationEmailInvalidEmail = 'errorValidationEmailInvalidEmail';
-  static const String errorValidationEmailNotAString = 'errorValidationEmailNotAString';
-  static const String errorValidationNameStringTooLong = 'errorValidationNameStringTooLong';
-  static const String errorValidationNameStringTooShort = 'errorValidationNameStringTooShort';
+  static const String errorValidationPasswordEmpty =
+      'errorValidationPasswordEmpty';
+  static const String errorValidationPasswordNotAString =
+      'errorValidationPasswordNotAString';
+  static const String errorValidationEmailStringTooLong =
+      'errorValidationEmailStringTooLong';
+  static const String errorValidationEmailStringTooShort =
+      'errorValidationEmailStringTooShort';
+  static const String errorValidationEmailInvalidEmail =
+      'errorValidationEmailInvalidEmail';
+  static const String errorValidationEmailNotAString =
+      'errorValidationEmailNotAString';
+  static const String errorValidationNameStringTooLong =
+      'errorValidationNameStringTooLong';
+  static const String errorValidationNameStringTooShort =
+      'errorValidationNameStringTooShort';
   static const String errorValidationNameEmpty = 'errorValidationNameEmpty';
-  static const String errorValidationNameNotAString = 'errorValidationNameNotAString';
-  static const String errorValidationInvitationTokenEmpty = 'errorValidationInvitationTokenEmpty';
+  static const String errorValidationNameNotAString =
+      'errorValidationNameNotAString';
+  static const String errorValidationInvitationTokenEmpty =
+      'errorValidationInvitationTokenEmpty';
   static const String errorValidationInvitationTokenNotAString =
       'errorValidationInvitationTokenNotAString';
   static const String errorValidationInvitationTokenNotAJwt =
       'errorValidationInvitationTokenNotAJwt';
-  static const String errorValidationNumberOfUnitsEmpty = 'errorValidationNumberOfUnitsEmpty';
+  static const String errorValidationNumberOfUnitsEmpty =
+      'errorValidationNumberOfUnitsEmpty';
   static const String errorValidationNumberOfUnitsNotANumber =
       'errorValidationNumberOfUnitsNotANumber';
   static const String errorValidationNumberOfUnitsNotAPositiveNumber =
@@ -1276,89 +1510,121 @@ class LocalizedTexts {
       'errorValidationNumberOfUnitsNumberTooBig';
   static const String errorValidationNumberOfUnitsNumberTooSmall =
       'errorValidationNumberOfUnitsNumberTooSmall';
-  static const String errorValidationFoodItemIdEmpty = 'errorValidationFoodItemIdEmpty';
+  static const String errorValidationFoodItemIdEmpty =
+      'errorValidationFoodItemIdEmpty';
   static const String errorValidationFoodItemIdNotANumberString =
       'errorValidationFoodItemIdNotANumberString';
-  static const String errorValidationServingIdEmpty = 'errorValidationServingIdEmpty';
+  static const String errorValidationServingIdEmpty =
+      'errorValidationServingIdEmpty';
   static const String errorValidationServingIdNotANumberString =
       'errorValidationServingIdNotANumberString';
-  static const String errorValidationMealCategoriesEmpty = 'errorValidationMealCategoriesEmpty';
+  static const String errorValidationMealCategoriesEmpty =
+      'errorValidationMealCategoriesEmpty';
   static const String errorValidationMealCategoriesNotAnArray =
       'errorValidationMealCategoriesNotAnArray';
   static const String errorValidationMealCategoriesEmptyArray =
       'errorValidationMealCategoriesEmptyArray';
   static const String errorValidationMealCategoriesInvalidEnum =
       'errorValidationMealCategoriesInvalidEnum';
-  static const String errorValidationNicknameEmpty = 'errorValidationNicknameEmpty';
-  static const String errorValidationNicknameNotAString = 'errorValidationNicknameNotAString';
-  static const String errorValidationNicknameStringTooLong = 'errorValidationNicknameStringTooLong';
+  static const String errorValidationNicknameEmpty =
+      'errorValidationNicknameEmpty';
+  static const String errorValidationNicknameNotAString =
+      'errorValidationNicknameNotAString';
+  static const String errorValidationNicknameStringTooLong =
+      'errorValidationNicknameStringTooLong';
   static const String errorValidationNicknameStringTooShort =
       'errorValidationNicknameStringTooShort';
-  static const String errorValidationGenderPreferenceEmpty = 'errorValidationGenderPreferenceEmpty';
+  static const String errorValidationGenderPreferenceEmpty =
+      'errorValidationGenderPreferenceEmpty';
   static const String errorValidationGenderPreferenceInvalidEnum =
       'errorValidationGenderPreferenceInvalidEnum';
-  static const String errorValidationTimezoneEmpty = 'errorValidationTimezoneEmpty';
-  static const String errorValidationTimezoneNotAString = 'errorValidationTimezoneNotAString';
+  static const String errorValidationTimezoneEmpty =
+      'errorValidationTimezoneEmpty';
+  static const String errorValidationTimezoneNotAString =
+      'errorValidationTimezoneNotAString';
   static const String errorValidationRulesAcceptedNotABoolean =
       'errorValidationRulesAcceptedNotABoolean';
   static const String errorValidationMealIdEmpty = 'errorValidationMealIdEmpty';
-  static const String errorValidationMealIdNotANumber = 'errorValidationMealIdNotANumber';
-  static const String errorValidationMealIdNotAnInteger = 'errorValidationMealIdNotAnInteger';
+  static const String errorValidationMealIdNotANumber =
+      'errorValidationMealIdNotANumber';
+  static const String errorValidationMealIdNotAnInteger =
+      'errorValidationMealIdNotAnInteger';
   static const String errorValidationMealIdNotAPositiveNumber =
       'errorValidationMealIdNotAPositiveNumber';
-  static const String errorValidationMealRecipeIdEmpty = 'errorValidationMealRecipeIdEmpty';
+  static const String errorValidationMealRecipeIdEmpty =
+      'errorValidationMealRecipeIdEmpty';
   static const String errorValidationMealRecipeIdNotANumber =
       'errorValidationMealRecipeIdNotANumber';
   static const String errorValidationMealRecipeIdNotAnInteger =
       'errorValidationMealRecipeIdNotAnInteger';
   static const String errorValidationMealRecipeIdNotAPositiveNumber =
       'errorValidationMealRecipeIdNotAPositiveNumber';
-  static const String errorValidationTypeInvalidEnum = 'errorValidationTypeInvalidEnum';
+  static const String errorValidationTypeInvalidEnum =
+      'errorValidationTypeInvalidEnum';
   static const String errorValidationMealCategoryInvalidEnum =
       'errorValidationMealCategoryInvalidEnum';
-  static const String errorValidationStartDateNotAString = 'errorValidationStartDateNotAString';
+  static const String errorValidationStartDateNotAString =
+      'errorValidationStartDateNotAString';
   static const String errorValidationStartDateNotADateString =
       'errorValidationStartDateNotADateString';
-  static const String errorValidationEndDateNotAString = 'errorValidationEndDateNotAString';
-  static const String errorValidationEndDateNotADateString = 'errorValidationEndDateNotADateString';
-  static const String errorValidationPregnantEmpty = 'errorValidationPregnantEmpty';
-  static const String errorValidationPregnantNotABoolean = 'errorValidationPregnantNotABoolean';
-  static const String errorValidationMedicinesNotAnArray = 'errorValidationMedicinesNotAnArray';
-  static const String errorValidationMedicinesEmptyArray = 'errorValidationMedicinesEmptyArray';
+  static const String errorValidationEndDateNotAString =
+      'errorValidationEndDateNotAString';
+  static const String errorValidationEndDateNotADateString =
+      'errorValidationEndDateNotADateString';
+  static const String errorValidationPregnantEmpty =
+      'errorValidationPregnantEmpty';
+  static const String errorValidationPregnantNotABoolean =
+      'errorValidationPregnantNotABoolean';
+  static const String errorValidationMedicinesNotAnArray =
+      'errorValidationMedicinesNotAnArray';
+  static const String errorValidationMedicinesEmptyArray =
+      'errorValidationMedicinesEmptyArray';
   static const String errorValidationUseSemaglutideMedicationNotAString =
       'errorValidationUseSemaglutideMedicationNotAString';
-  static const String errorValidationHowLongTakeSemaglutideMedicationNotAString =
+  static const String
+      errorValidationHowLongTakeSemaglutideMedicationNotAString =
       'errorValidationHowLongTakeSemaglutideMedicationNotAString';
   static const String errorValidationHowLongSemaglutideTreatmentLastNotAString =
       'errorValidationHowLongSemaglutideTreatmentLastNotAString';
   static const String errorValidationIsUseSemaglutideMedicationNotABoolean =
       'errorValidationIsUseSemaglutideMedicationNotABoolean';
-  static const String errorValidationObesityNotABoolean = 'errorValidationObesityNotABoolean';
-  static const String errorValidationObesityEmpty = 'errorValidationObesityEmpty';
-  static const String errorValidationThyroidDeseaseEmpty = 'errorValidationThyroidDeseaseEmpty';
+  static const String errorValidationObesityNotABoolean =
+      'errorValidationObesityNotABoolean';
+  static const String errorValidationObesityEmpty =
+      'errorValidationObesityEmpty';
+  static const String errorValidationThyroidDeseaseEmpty =
+      'errorValidationThyroidDeseaseEmpty';
   static const String errorValidationThyroidDeseaseNotABoolean =
       'errorValidationThyroidDeseaseNotABoolean';
-  static const String errorValidationMetabolicDeseaseEmpty = 'errorValidationMetabolicDeseaseEmpty';
+  static const String errorValidationMetabolicDeseaseEmpty =
+      'errorValidationMetabolicDeseaseEmpty';
   static const String errorValidationMetabolicDeseaseNotABoolean =
       'errorValidationMetabolicDeseaseNotABoolean';
-  static const String errorValidationHypertensionEmpty = 'errorValidationHypertensionEmpty';
+  static const String errorValidationHypertensionEmpty =
+      'errorValidationHypertensionEmpty';
   static const String errorValidationHypertensionNotABoolean =
       'errorValidationHypertensionNotABoolean';
   static const String errorValidationCardiovascularDeseaseEmpty =
       'errorValidationCardiovascularDeseaseEmpty';
   static const String errorValidationCardiovascularDeseaseNotABoolean =
       'errorValidationCardiovascularDeseaseNotABoolean';
-  static const String errorValidationStomachReductionEmpty = 'errorValidationStomachReductionEmpty';
+  static const String errorValidationStomachReductionEmpty =
+      'errorValidationStomachReductionEmpty';
   static const String errorValidationStomachReductionNotABoolean =
       'errorValidationStomachReductionNotABoolean';
-  static const String errorValidationDiabetesEmpty = 'errorValidationDiabetesEmpty';
-  static const String errorValidationDiabetesNotAString = 'errorValidationDiabetesNotAString';
-  static const String errorValidationRenalFailureEmpty = 'errorValidationRenalFailureEmpty';
+  static const String errorValidationDiabetesEmpty =
+      'errorValidationDiabetesEmpty';
+  static const String errorValidationDiabetesNotAString =
+      'errorValidationDiabetesNotAString';
+  static const String errorValidationRenalFailureEmpty =
+      'errorValidationRenalFailureEmpty';
   static const String errorValidationRenalFailureNotABoolean =
       'errorValidationRenalFailureNotABoolean';
   static const String errorValidationAsthmaEmpty = 'errorValidationAsthmaEmpty';
-  static const String errorValidationAsthmaNotABoolean = 'errorValidationAsthmaNotABoolean';
-  static const String errorValidationLiverDeseaseEmpty = 'errorValidationLiverDeseaseEmpty';
+  static const String errorValidationAsthmaNotABoolean =
+      'errorValidationAsthmaNotABoolean';
+  static const String errorValidationLiverDeseaseEmpty =
+      'errorValidationLiverDeseaseEmpty';
   static const String errorValidationLiverDeseaseNotABoolean =
       'errorValidationLiverDeseaseNotABoolean';
   static const String errorValidationSleepApneaSyndromeEmpty =
@@ -1375,106 +1641,159 @@ class LocalizedTexts {
       'errorValidationTreatedByPsychiatristNotABoolean';
   static const String errorValidationItemStateNotFromDefinedList =
       'errorValidationItemStateNotFromDefinedList';
-  static const String errorValidationItemStateNotAString = 'errorValidationItemStateNotAString';
+  static const String errorValidationItemStateNotAString =
+      'errorValidationItemStateNotAString';
   static const String errorValidationHatesEmpty = 'errorValidationHatesEmpty';
-  static const String errorValidationHatesNotAnArray = 'errorValidationHatesNotAnArray';
-  static const String errorValidationHatesNotANumber = 'errorValidationHatesNotANumber';
-  static const String errorValidationHatesNotAnInteger = 'errorValidationHatesNotAnInteger';
+  static const String errorValidationHatesNotAnArray =
+      'errorValidationHatesNotAnArray';
+  static const String errorValidationHatesNotANumber =
+      'errorValidationHatesNotANumber';
+  static const String errorValidationHatesNotAnInteger =
+      'errorValidationHatesNotAnInteger';
   static const String errorValidationHatesNotAPositiveNumber =
       'errorValidationHatesNotAPositiveNumber';
-  static const String errorValidationAllergicEmpty = 'errorValidationAllergicEmpty';
-  static const String errorValidationAllergicNotAnArray = 'errorValidationAllergicNotAnArray';
-  static const String errorValidationAllergicNotANumber = 'errorValidationAllergicNotANumber';
-  static const String errorValidationAllergicNotAnInteger = 'errorValidationAllergicNotAnInteger';
+  static const String errorValidationAllergicEmpty =
+      'errorValidationAllergicEmpty';
+  static const String errorValidationAllergicNotAnArray =
+      'errorValidationAllergicNotAnArray';
+  static const String errorValidationAllergicNotANumber =
+      'errorValidationAllergicNotANumber';
+  static const String errorValidationAllergicNotAnInteger =
+      'errorValidationAllergicNotAnInteger';
   static const String errorValidationAllergicNotAPositiveNumber =
       'errorValidationAllergicNotAPositiveNumber';
-  static const String errorValidationDislikeEmpty = 'errorValidationDislikeEmpty';
-  static const String errorValidationDislikeNotAnArray = 'errorValidationDislikeNotAnArray';
-  static const String errorValidationDislikeNotANumber = 'errorValidationDislikeNotANumber';
-  static const String errorValidationDislikeNotAnInteger = 'errorValidationDislikeNotAnInteger';
+  static const String errorValidationDislikeEmpty =
+      'errorValidationDislikeEmpty';
+  static const String errorValidationDislikeNotAnArray =
+      'errorValidationDislikeNotAnArray';
+  static const String errorValidationDislikeNotANumber =
+      'errorValidationDislikeNotANumber';
+  static const String errorValidationDislikeNotAnInteger =
+      'errorValidationDislikeNotAnInteger';
   static const String errorValidationDislikeNotAPositiveNumber =
       'errorValidationDislikeNotAPositiveNumber';
-  static const String errorValidationQuestionIdEmpty = 'errorValidationQuestionIdEmpty';
-  static const String errorValidationQuestionIdNotANumber = 'errorValidationQuestionIdNotANumber';
+  static const String errorValidationQuestionIdEmpty =
+      'errorValidationQuestionIdEmpty';
+  static const String errorValidationQuestionIdNotANumber =
+      'errorValidationQuestionIdNotANumber';
   static const String errorValidationQuestionIdNotAnInteger =
       'errorValidationQuestionIdNotAnInteger';
   static const String errorValidationQuestionIdNotAPositiveNumber =
       'errorValidationQuestionIdNotAPositiveNumber';
-  static const String errorValidationOptionIdEmpty = 'errorValidationOptionIdEmpty';
-  static const String errorValidationOptionIdNotANumber = 'errorValidationOptionIdNotANumber';
-  static const String errorValidationOptionIdNotAnInteger = 'errorValidationOptionIdNotAnInteger';
+  static const String errorValidationOptionIdEmpty =
+      'errorValidationOptionIdEmpty';
+  static const String errorValidationOptionIdNotANumber =
+      'errorValidationOptionIdNotANumber';
+  static const String errorValidationOptionIdNotAnInteger =
+      'errorValidationOptionIdNotAnInteger';
   static const String errorValidationOptionIdNotAPositiveNumber =
       'errorValidationOptionIdNotAPositiveNumber';
-  static const String errorValidationAnswersEmpty = 'errorValidationAnswersEmpty';
-  static const String errorValidationAnswersNotAnArray = 'errorValidationAnswersNotAnArray';
-  static const String errorValidationAnswersEmptyArray = 'errorValidationAnswersEmptyArray';
+  static const String errorValidationAnswersEmpty =
+      'errorValidationAnswersEmpty';
+  static const String errorValidationAnswersNotAnArray =
+      'errorValidationAnswersNotAnArray';
+  static const String errorValidationAnswersEmptyArray =
+      'errorValidationAnswersEmptyArray';
   static const String errorValidationIsConsentApprovedEmpty =
       'errorValidationIsConsentApprovedEmpty';
   static const String errorValidationIsConsentApprovedNotABoolean =
       'errorValidationIsConsentApprovedNotABoolean';
-  static const String errorValidationIsLegalApprovedEmpty = 'errorValidationIsLegalApprovedEmpty';
+  static const String errorValidationIsLegalApprovedEmpty =
+      'errorValidationIsLegalApprovedEmpty';
   static const String errorValidationIsLegalApprovedNotABoolean =
       'errorValidationIsLegalApprovedNotABoolean';
   static const String errorValidationHeightEmpty = 'errorValidationHeightEmpty';
-  static const String errorValidationHeightNotANumber = 'errorValidationHeightNotANumber';
-  static const String errorValidationHeightNumberTooBig = 'errorValidationHeightNumberTooBig';
-  static const String errorValidationHeightNumberTooSmall = 'errorValidationHeightNumberTooSmall';
-  static const String errorValidationBirthDateEmpty = 'errorValidationBirthDateEmpty';
+  static const String errorValidationHeightNotANumber =
+      'errorValidationHeightNotANumber';
+  static const String errorValidationHeightNumberTooBig =
+      'errorValidationHeightNumberTooBig';
+  static const String errorValidationHeightNumberTooSmall =
+      'errorValidationHeightNumberTooSmall';
+  static const String errorValidationBirthDateEmpty =
+      'errorValidationBirthDateEmpty';
   static const String errorValidationBirthDateNotADateString =
       'errorValidationBirthDateNotADateString';
   static const String errorValidationWeightEmpty = 'errorValidationWeightEmpty';
-  static const String errorValidationWeightNotANumber = 'errorValidationWeightNotANumber';
+  static const String errorValidationWeightNotANumber =
+      'errorValidationWeightNotANumber';
   static const String errorValidationWeightNotAPositiveNumber =
       'errorValidationWeightNotAPositiveNumber';
   static const String errorValidationBmiEmpty = 'errorValidationBmiEmpty';
-  static const String errorValidationBmiNotANumber = 'errorValidationBmiNotANumber';
-  static const String errorValidationBmiNotAPositiveNumber = 'errorValidationBmiNotAPositiveNumber';
+  static const String errorValidationBmiNotANumber =
+      'errorValidationBmiNotANumber';
+  static const String errorValidationBmiNotAPositiveNumber =
+      'errorValidationBmiNotAPositiveNumber';
   static const String errorValidationGenderEmpty = 'errorValidationGenderEmpty';
-  static const String errorValidationGenderNotAString = 'errorValidationGenderNotAString';
-  static const String errorValidationGenderInvalidEnum = 'errorValidationGenderInvalidEnum';
+  static const String errorValidationGenderNotAString =
+      'errorValidationGenderNotAString';
+  static const String errorValidationGenderInvalidEnum =
+      'errorValidationGenderInvalidEnum';
   static const String errorValidationSexEmpty = 'errorValidationSexEmpty';
-  static const String errorValidationSexNotAString = 'errorValidationSexNotAString';
-  static const String errorValidationSexInvalidEnum = 'errorValidationSexInvalidEnum';
-  static const String errorValidationHappinessEmpty = 'errorValidationHappinessEmpty';
-  static const String errorValidationHappinessInvalidEnum = 'errorValidationHappinessInvalidEnum';
+  static const String errorValidationSexNotAString =
+      'errorValidationSexNotAString';
+  static const String errorValidationSexInvalidEnum =
+      'errorValidationSexInvalidEnum';
+  static const String errorValidationHappinessEmpty =
+      'errorValidationHappinessEmpty';
+  static const String errorValidationHappinessInvalidEnum =
+      'errorValidationHappinessInvalidEnum';
   static const String errorValidationMentalHealthTestEmptyObject =
       'errorValidationMentalHealthTestEmptyObject';
   static const String errorValidationMedicalOnboardingEmptyObject =
       'errorValidationMedicalOnboardingEmptyObject';
-  static const String errorValidationCustomerIoIdEmpty = 'errorValidationCustomerIoIdEmpty';
+  static const String errorValidationCustomerIoIdEmpty =
+      'errorValidationCustomerIoIdEmpty';
   static const String errorValidationCustomerIoIdNotAString =
       'errorValidationCustomerIoIdNotAString';
   static const String errorValidationNameLettersAndNumbersRequired =
       'errorValidationNameLettersAndNumbersRequired';
-  static const String errorValidationBucketStringTooShort = 'errorValidationBucketStringTooShort';
+  static const String errorValidationBucketStringTooShort =
+      'errorValidationBucketStringTooShort';
   static const String errorValidationBucketLettersAndNumbersRequired =
       'errorValidationBucketLettersAndNumbersRequired';
   static const String errorValidationBucketEmpty = 'errorValidationBucketEmpty';
-  static const String errorValidationBucketNotAString = 'errorValidationBucketNotAString';
+  static const String errorValidationBucketNotAString =
+      'errorValidationBucketNotAString';
   static const String errorValidationDistributionUrlNotUrlAddress =
       'errorValidationDistributionUrlNotUrlAddress';
-  static const String errorValidationDistributionUrlEmpty = 'errorValidationDistributionUrlEmpty';
+  static const String errorValidationDistributionUrlEmpty =
+      'errorValidationDistributionUrlEmpty';
   static const String errorValidationDistributionUrlNotAString =
       'errorValidationDistributionUrlNotAString';
-  static const String errorValidationTypeNotAString = 'errorValidationTypeNotAString';
-  static const String errorValidationAccountIdEmpty = 'errorValidationAccountIdEmpty';
-  static const String errorValidationAccountIdNotANumber = 'errorValidationAccountIdNotANumber';
-  static const String errorValidationAccountIdNotAnInteger = 'errorValidationAccountIdNotAnInteger';
+  static const String errorValidationTypeNotAString =
+      'errorValidationTypeNotAString';
+  static const String errorValidationAccountIdEmpty =
+      'errorValidationAccountIdEmpty';
+  static const String errorValidationAccountIdNotANumber =
+      'errorValidationAccountIdNotANumber';
+  static const String errorValidationAccountIdNotAnInteger =
+      'errorValidationAccountIdNotAnInteger';
   static const String errorValidationAccountIdNotAPositiveNumber =
       'errorValidationAccountIdNotAPositiveNumber';
-  static const String errorValidationProductIdEmpty = 'errorValidationProductIdEmpty';
-  static const String errorValidationProductIdNotANumber = 'errorValidationProductIdNotANumber';
-  static const String errorValidationProductIdNotAnInteger = 'errorValidationProductIdNotAnInteger';
+  static const String errorValidationProductIdEmpty =
+      'errorValidationProductIdEmpty';
+  static const String errorValidationProductIdNotANumber =
+      'errorValidationProductIdNotANumber';
+  static const String errorValidationProductIdNotAnInteger =
+      'errorValidationProductIdNotAnInteger';
   static const String errorValidationProductIdNotAPositiveNumber =
       'errorValidationProductIdNotAPositiveNumber';
-  static const String errorValidationStateInvalidEnum = 'errorValidationStateInvalidEnum';
-  static const String errorValidationExpiresAtEmpty = 'errorValidationExpiresAtEmpty';
-  static const String errorValidationExpiresAtNotADate = 'errorValidationExpiresAtNotADate';
-  static const String errorValidationCreatedAtEmpty = 'errorValidationCreatedAtEmpty';
-  static const String errorValidationCreatedAtNotADate = 'errorValidationCreatedAtNotADate';
-  static const String errorValidationReceiptEmpty = 'errorValidationReceiptEmpty';
-  static const String errorValidationReceiptNotAString = 'errorValidationReceiptNotAString';
-  static const String errorValidationTransactionIdEmpty = 'errorValidationTransactionIdEmpty';
+  static const String errorValidationStateInvalidEnum =
+      'errorValidationStateInvalidEnum';
+  static const String errorValidationExpiresAtEmpty =
+      'errorValidationExpiresAtEmpty';
+  static const String errorValidationExpiresAtNotADate =
+      'errorValidationExpiresAtNotADate';
+  static const String errorValidationCreatedAtEmpty =
+      'errorValidationCreatedAtEmpty';
+  static const String errorValidationCreatedAtNotADate =
+      'errorValidationCreatedAtNotADate';
+  static const String errorValidationReceiptEmpty =
+      'errorValidationReceiptEmpty';
+  static const String errorValidationReceiptNotAString =
+      'errorValidationReceiptNotAString';
+  static const String errorValidationTransactionIdEmpty =
+      'errorValidationTransactionIdEmpty';
   static const String errorValidationTransactionIdNotANumberString =
       'errorValidationTransactionIdNotANumberString';
   static const String errorValidationBaseTransactionIdEmpty =
@@ -1485,33 +1804,51 @@ class LocalizedTexts {
       'errorValidationLinkedPurchaseTokenEmpty';
   static const String errorValidationLinkedPurchaseTokenNotAString =
       'errorValidationLinkedPurchaseTokenNotAString';
-  static const String errorValidationDataEmptyObject = 'errorValidationDataEmptyObject';
-  static const String errorValidationSignedPayloadNotAJwt = 'errorValidationSignedPayloadNotAJwt';
-  static const String errorValidationSignedPayloadEmpty = 'errorValidationSignedPayloadEmpty';
-  static const String errorValidationMessageIdEmpty = 'errorValidationMessageIdEmpty';
+  static const String errorValidationDataEmptyObject =
+      'errorValidationDataEmptyObject';
+  static const String errorValidationSignedPayloadNotAJwt =
+      'errorValidationSignedPayloadNotAJwt';
+  static const String errorValidationSignedPayloadEmpty =
+      'errorValidationSignedPayloadEmpty';
+  static const String errorValidationMessageIdEmpty =
+      'errorValidationMessageIdEmpty';
   static const String errorValidationMessageIdNotANumberString =
       'errorValidationMessageIdNotANumberString';
   static const String errorValidationDataEmpty = 'errorValidationDataEmpty';
-  static const String errorValidationDataNotBase64Encoded = 'errorValidationDataNotBase64Encoded';
-  static const String errorValidationDataNotAString = 'errorValidationDataNotAString';
-  static const String errorValidationMessageEmptyObject = 'errorValidationMessageEmptyObject';
-  static const String errorValidationSubscriptionEmpty = 'errorValidationSubscriptionEmpty';
+  static const String errorValidationDataNotBase64Encoded =
+      'errorValidationDataNotBase64Encoded';
+  static const String errorValidationDataNotAString =
+      'errorValidationDataNotAString';
+  static const String errorValidationMessageEmptyObject =
+      'errorValidationMessageEmptyObject';
+  static const String errorValidationSubscriptionEmpty =
+      'errorValidationSubscriptionEmpty';
   static const String errorValidationSubscriptionNotAString =
       'errorValidationSubscriptionNotAString';
-  static const String errorValidationProductIdNotAString = 'errorValidationProductIdNotAString';
-  static const String errorValidationOfferIdEmpty = 'errorValidationOfferIdEmpty';
-  static const String errorValidationOfferIdNotAString = 'errorValidationOfferIdNotAString';
-  static const String errorValidationAccountTokenEmpty = 'errorValidationAccountTokenEmpty';
+  static const String errorValidationProductIdNotAString =
+      'errorValidationProductIdNotAString';
+  static const String errorValidationOfferIdEmpty =
+      'errorValidationOfferIdEmpty';
+  static const String errorValidationOfferIdNotAString =
+      'errorValidationOfferIdNotAString';
+  static const String errorValidationAccountTokenEmpty =
+      'errorValidationAccountTokenEmpty';
   static const String errorValidationAccountTokenNotAString =
       'errorValidationAccountTokenNotAString';
-  static const String errorValidationAccountTokenNotUuidV4 = 'errorValidationAccountTokenNotUuidV4';
-  static const String errorValidationVendorInvalidEnum = 'errorValidationVendorInvalidEnum';
-  static const String errorValidationLiveTogetherEmpty = 'errorValidationLiveTogetherEmpty';
+  static const String errorValidationAccountTokenNotUuidV4 =
+      'errorValidationAccountTokenNotUuidV4';
+  static const String errorValidationVendorInvalidEnum =
+      'errorValidationVendorInvalidEnum';
+  static const String errorValidationLiveTogetherEmpty =
+      'errorValidationLiveTogetherEmpty';
   static const String errorValidationLiveTogetherNotABoolean =
       'errorValidationLiveTogetherNotABoolean';
-  static const String errorValidationRelationEmpty = 'errorValidationRelationEmpty';
-  static const String errorValidationRelationNotAString = 'errorValidationRelationNotAString';
-  static const String errorValidationRelationInvalidEnum = 'errorValidationRelationInvalidEnum';
+  static const String errorValidationRelationEmpty =
+      'errorValidationRelationEmpty';
+  static const String errorValidationRelationNotAString =
+      'errorValidationRelationNotAString';
+  static const String errorValidationRelationInvalidEnum =
+      'errorValidationRelationInvalidEnum';
   static const String errorValidationEmailEmpty = 'errorValidationEmailEmpty';
   static const String errorValidationRegistrationTokenEmpty =
       'errorValidationRegistrationTokenEmpty';
@@ -1519,27 +1856,38 @@ class LocalizedTexts {
       'errorValidationRegistrationTokenNotAString';
   static const String errorValidationRegistrationTokenNotAJwt =
       'errorValidationRegistrationTokenNotAJwt';
-  static const String errorValidationPasswordTokenEmpty = 'errorValidationPasswordTokenEmpty';
+  static const String errorValidationPasswordTokenEmpty =
+      'errorValidationPasswordTokenEmpty';
   static const String errorValidationPasswordTokenNotAString =
       'errorValidationPasswordTokenNotAString';
-  static const String errorValidationPasswordTokenNotAJwt = 'errorValidationPasswordTokenNotAJwt';
-  static const String errorValidationBuddyIdEmpty = 'errorValidationBuddyIdEmpty';
-  static const String errorValidationBuddyIdNotANumber = 'errorValidationBuddyIdNotANumber';
-  static const String errorValidationBuddyIdNotAnInteger = 'errorValidationBuddyIdNotAnInteger';
+  static const String errorValidationPasswordTokenNotAJwt =
+      'errorValidationPasswordTokenNotAJwt';
+  static const String errorValidationBuddyIdEmpty =
+      'errorValidationBuddyIdEmpty';
+  static const String errorValidationBuddyIdNotANumber =
+      'errorValidationBuddyIdNotANumber';
+  static const String errorValidationBuddyIdNotAnInteger =
+      'errorValidationBuddyIdNotAnInteger';
   static const String errorValidationBuddyIdNotAPositiveNumber =
       'errorValidationBuddyIdNotAPositiveNumber';
   static const String errorValidationIdEmpty = 'errorValidationIdEmpty';
-  static const String errorValidationIdNotANumber = 'errorValidationIdNotANumber';
-  static const String errorValidationIdNotAnInteger = 'errorValidationIdNotAnInteger';
-  static const String errorValidationIdNotAPositiveNumber = 'errorValidationIdNotAPositiveNumber';
+  static const String errorValidationIdNotANumber =
+      'errorValidationIdNotANumber';
+  static const String errorValidationIdNotAnInteger =
+      'errorValidationIdNotAnInteger';
+  static const String errorValidationIdNotAPositiveNumber =
+      'errorValidationIdNotAPositiveNumber';
   static const String errorValidationDishIdEmpty = 'errorValidationDishIdEmpty';
-  static const String errorValidationDishIdNotANumber = 'errorValidationDishIdNotANumber';
-  static const String errorValidationDishIdNotAnInteger = 'errorValidationDishIdNotAnInteger';
+  static const String errorValidationDishIdNotANumber =
+      'errorValidationDishIdNotANumber';
+  static const String errorValidationDishIdNotAnInteger =
+      'errorValidationDishIdNotAnInteger';
   static const String errorValidationDishIdNotAPositiveNumber =
       'errorValidationDishIdNotAPositiveNumber';
   static const String errorValidationMealCategoriesNotAString =
       'errorValidationMealCategoriesNotAString';
-  static const String errorValidationNumberOfServingsEmpty = 'errorValidationNumberOfServingsEmpty';
+  static const String errorValidationNumberOfServingsEmpty =
+      'errorValidationNumberOfServingsEmpty';
   static const String errorValidationNumberOfServingsNotANumber =
       'errorValidationNumberOfServingsNotANumber';
   static const String errorValidationNumberOfServingsNotAPositiveNumber =
@@ -1548,9 +1896,12 @@ class LocalizedTexts {
       'errorValidationExternalFoodItemIdEmpty';
   static const String errorValidationExternalFoodItemIdNotANumberString =
       'errorValidationExternalFoodItemIdNotANumberString';
-  static const String errorValidationFoodItemsEmpty = 'errorValidationFoodItemsEmpty';
-  static const String errorValidationFoodItemsNotAnArray = 'errorValidationFoodItemsNotAnArray';
-  static const String errorValidationFoodItemsEmptyArray = 'errorValidationFoodItemsEmptyArray';
+  static const String errorValidationFoodItemsEmpty =
+      'errorValidationFoodItemsEmpty';
+  static const String errorValidationFoodItemsNotAnArray =
+      'errorValidationFoodItemsNotAnArray';
+  static const String errorValidationFoodItemsEmptyArray =
+      'errorValidationFoodItemsEmptyArray';
   static const String errorValidationInternalFoodItemIdEmpty =
       'errorValidationInternalFoodItemIdEmpty';
   static const String errorValidationInternalFoodItemIdNotANumber =
@@ -1563,90 +1914,127 @@ class LocalizedTexts {
       'errorValidationMealRecipeIdNumberTooBig';
   static const String errorValidationMealRecipeIdNumberTooSmall =
       'errorValidationMealRecipeIdNumberTooSmall';
-  static const String errorValidationRecipeIdNotANumber = 'errorValidationRecipeIdNotANumber';
-  static const String errorValidationRecipeIdNotAnInteger = 'errorValidationRecipeIdNotAnInteger';
+  static const String errorValidationRecipeIdNotANumber =
+      'errorValidationRecipeIdNotANumber';
+  static const String errorValidationRecipeIdNotAnInteger =
+      'errorValidationRecipeIdNotAnInteger';
   static const String errorValidationRecipeIdNotAPositiveNumber =
       'errorValidationRecipeIdNotAPositiveNumber';
-  static const String errorValidationRecipeIdNumberTooBig = 'errorValidationRecipeIdNumberTooBig';
+  static const String errorValidationRecipeIdNumberTooBig =
+      'errorValidationRecipeIdNumberTooBig';
   static const String errorValidationRecipeIdNumberTooSmall =
       'errorValidationRecipeIdNumberTooSmall';
-  static const String errorValidationRegionInvalidEnum = 'errorValidationRegionInvalidEnum';
-  static const String errorValidationBarcodeEmpty = 'errorValidationBarcodeEmpty';
-  static const String errorValidationBarcodeNotAString = 'errorValidationBarcodeNotAString';
-  static const String errorValidationBarcodeStringTooLong = 'errorValidationBarcodeStringTooLong';
-  static const String errorValidationBarcodeStringTooShort = 'errorValidationBarcodeStringTooShort';
+  static const String errorValidationRegionInvalidEnum =
+      'errorValidationRegionInvalidEnum';
+  static const String errorValidationBarcodeEmpty =
+      'errorValidationBarcodeEmpty';
+  static const String errorValidationBarcodeNotAString =
+      'errorValidationBarcodeNotAString';
+  static const String errorValidationBarcodeStringTooLong =
+      'errorValidationBarcodeStringTooLong';
+  static const String errorValidationBarcodeStringTooShort =
+      'errorValidationBarcodeStringTooShort';
   static const String errorValidationExternalFoodItemIdNotAString =
       'errorValidationExternalFoodItemIdNotAString';
-  static const String errorValidationServingIdNotAString = 'errorValidationServingIdNotAString';
+  static const String errorValidationServingIdNotAString =
+      'errorValidationServingIdNotAString';
   static const String errorValidationFoodItemsArraySizeTooSmall =
       'errorValidationFoodItemsArraySizeTooSmall';
-  static const String errorValidationInternalRecipeIdEmpty = 'errorValidationInternalRecipeIdEmpty';
+  static const String errorValidationInternalRecipeIdEmpty =
+      'errorValidationInternalRecipeIdEmpty';
   static const String errorValidationInternalRecipeIdNotANumber =
       'errorValidationInternalRecipeIdNotANumber';
   static const String errorValidationInternalRecipeIdNotAnInteger =
       'errorValidationInternalRecipeIdNotAnInteger';
   static const String errorValidationInternalRecipeIdNotAPositiveNumber =
       'errorValidationInternalRecipeIdNotAPositiveNumber';
-  static const String errorValidationLoggingDateEmpty = 'errorValidationLoggingDateEmpty';
+  static const String errorValidationLoggingDateEmpty =
+      'errorValidationLoggingDateEmpty';
   static const String errorValidationLoggingDateNotADateString =
       'errorValidationLoggingDateNotADateString';
-  static const String errorValidationMealCategoryEmpty = 'errorValidationMealCategoryEmpty';
+  static const String errorValidationMealCategoryEmpty =
+      'errorValidationMealCategoryEmpty';
   static const String errorValidationInternalFoodItemIdNotANumberString =
       'errorValidationInternalFoodItemIdNotANumberString';
   static const String errorValidationDateEmpty = 'errorValidationDateEmpty';
-  static const String errorValidationDateNotADateString = 'errorValidationDateNotADateString';
+  static const String errorValidationDateNotADateString =
+      'errorValidationDateNotADateString';
   static const String errorValidationQueryEmpty = 'errorValidationQueryEmpty';
-  static const String errorValidationQueryNotAString = 'errorValidationQueryNotAString';
-  static const String errorValidationQueryStringTooShort = 'errorValidationQueryStringTooShort';
+  static const String errorValidationQueryNotAString =
+      'errorValidationQueryNotAString';
+  static const String errorValidationQueryStringTooShort =
+      'errorValidationQueryStringTooShort';
   static const String errorValidationModesEmpty = 'errorValidationModesEmpty';
   static const String errorValidationModesNotFromDefinedList =
       'errorValidationModesNotFromDefinedList';
-  static const String errorValidationPageNotANumber = 'errorValidationPageNotANumber';
-  static const String errorValidationPageNotAnInteger = 'errorValidationPageNotAnInteger';
+  static const String errorValidationPageNotANumber =
+      'errorValidationPageNotANumber';
+  static const String errorValidationPageNotAnInteger =
+      'errorValidationPageNotAnInteger';
   static const String errorValidationPageNotAPositiveNumber =
       'errorValidationPageNotAPositiveNumber';
-  static const String errorValidationPageSizeNotANumber = 'errorValidationPageSizeNotANumber';
-  static const String errorValidationPageSizeNotAnInteger = 'errorValidationPageSizeNotAnInteger';
+  static const String errorValidationPageSizeNotANumber =
+      'errorValidationPageSizeNotANumber';
+  static const String errorValidationPageSizeNotAnInteger =
+      'errorValidationPageSizeNotAnInteger';
   static const String errorValidationPageSizeNotAPositiveNumber =
       'errorValidationPageSizeNotAPositiveNumber';
-  static const String errorValidationPageSizeNumberTooBig = 'errorValidationPageSizeNumberTooBig';
+  static const String errorValidationPageSizeNumberTooBig =
+      'errorValidationPageSizeNumberTooBig';
   static const String errorValidationPlanningDatesDateTooSmall =
       'errorValidationPlanningDatesDateTooSmall';
   static const String errorValidationPlanningDatesDateTooBig =
       'errorValidationPlanningDatesDateTooBig';
-  static const String errorValidationPlanningDatesEmpty = 'errorValidationPlanningDatesEmpty';
+  static const String errorValidationPlanningDatesEmpty =
+      'errorValidationPlanningDatesEmpty';
   static const String errorValidationPlanningDatesEmptyArray =
       'errorValidationPlanningDatesEmptyArray';
   static const String errorValidationPlanningDatesNotADateString =
       'errorValidationPlanningDatesNotADateString';
   static const String errorValidationStartDateDateEmptyPeriod =
       'errorValidationStartDateDateEmptyPeriod';
-  static const String errorValidationPlannedMealIdEmpty = 'errorValidationPlannedMealIdEmpty';
+  static const String errorValidationPlannedMealIdEmpty =
+      'errorValidationPlannedMealIdEmpty';
   static const String errorValidationPlannedMealIdNotANumber =
       'errorValidationPlannedMealIdNotANumber';
   static const String errorValidationPlannedMealIdNotAnInteger =
       'errorValidationPlannedMealIdNotAnInteger';
   static const String errorValidationPlannedMealIdNotAPositiveNumber =
       'errorValidationPlannedMealIdNotAPositiveNumber';
-  static const String errorValidationLoggingDateDateTooBig = 'errorValidationLoggingDateDateTooBig';
+  static const String errorValidationLoggingDateDateTooBig =
+      'errorValidationLoggingDateDateTooBig';
   static const String errorValidationLoggingDateDateTooSmall =
       'errorValidationLoggingDateDateTooSmall';
-  static const String errorValidationLimitNumberTooSmall = 'errorValidationLimitNumberTooSmall';
-  static const String errorValidationLimitNotAnInteger = 'errorValidationLimitNotAnInteger';
+  static const String errorValidationLimitNumberTooSmall =
+      'errorValidationLimitNumberTooSmall';
+  static const String errorValidationLimitNotAnInteger =
+      'errorValidationLimitNotAnInteger';
   static const String errorValidationLimitNotAPositiveNumber =
       'errorValidationLimitNotAPositiveNumber';
-  static const String errorValidationLimitNotANumber = 'errorValidationLimitNotANumber';
-  static const String errorValidationUrlNotAString = 'errorValidationUrlNotAString';
-  static const String errorValidationUrlNotUrlAddress = 'errorValidationUrlNotUrlAddress';
-  static const String errorValidationDataArraySizeTooSmall = 'errorValidationDataArraySizeTooSmall';
-  static const String errorValidationDataNotAnArray = 'errorValidationDataNotAnArray';
-  static const String errorValidationDateNotAString = 'errorValidationDateNotAString';
-  static const String errorValidationDateDateTooSmall = 'errorValidationDateDateTooSmall';
-  static const String errorValidationDateDateTooBig = 'errorValidationDateDateTooBig';
-  static const String errorValidationWeightNumberTooBig = 'errorValidationWeightNumberTooBig';
-  static const String errorValidationStartDateDateTooBig = 'errorValidationStartDateDateTooBig';
-  static const String errorValidationEndDateDateTooBig = 'errorValidationEndDateDateTooBig';
-  static const String errorValidationStateNotAString = 'errorValidationStateNotAString';
+  static const String errorValidationLimitNotANumber =
+      'errorValidationLimitNotANumber';
+  static const String errorValidationUrlNotAString =
+      'errorValidationUrlNotAString';
+  static const String errorValidationUrlNotUrlAddress =
+      'errorValidationUrlNotUrlAddress';
+  static const String errorValidationDataArraySizeTooSmall =
+      'errorValidationDataArraySizeTooSmall';
+  static const String errorValidationDataNotAnArray =
+      'errorValidationDataNotAnArray';
+  static const String errorValidationDateNotAString =
+      'errorValidationDateNotAString';
+  static const String errorValidationDateDateTooSmall =
+      'errorValidationDateDateTooSmall';
+  static const String errorValidationDateDateTooBig =
+      'errorValidationDateDateTooBig';
+  static const String errorValidationWeightNumberTooBig =
+      'errorValidationWeightNumberTooBig';
+  static const String errorValidationStartDateDateTooBig =
+      'errorValidationStartDateDateTooBig';
+  static const String errorValidationEndDateDateTooBig =
+      'errorValidationEndDateDateTooBig';
+  static const String errorValidationStateNotAString =
+      'errorValidationStateNotAString';
   static const String errorValidationGenderPreferenceIdEmpty =
       'errorValidationGenderPreferenceIdEmpty';
   static const String errorValidationGenderPreferenceIdNotANumber =
@@ -1656,42 +2044,60 @@ class LocalizedTexts {
   static const String errorValidationGenderPreferenceIdNotAPositiveNumber =
       'errorValidationGenderPreferenceIdNotAPositiveNumber';
   static const String errorValidationTypeIdEmpty = 'errorValidationTypeIdEmpty';
-  static const String errorValidationTypeIdNotANumber = 'errorValidationTypeIdNotANumber';
-  static const String errorValidationTypeIdNotAnInteger = 'errorValidationTypeIdNotAnInteger';
+  static const String errorValidationTypeIdNotANumber =
+      'errorValidationTypeIdNotANumber';
+  static const String errorValidationTypeIdNotAnInteger =
+      'errorValidationTypeIdNotAnInteger';
   static const String errorValidationTypeIdNotAPositiveNumber =
       'errorValidationTypeIdNotAPositiveNumber';
-  static const String errorValidationBmiRangeNotAString = 'errorValidationBmiRangeNotAString';
-  static const String errorValidationBmiRangeInvalidEnum = 'errorValidationBmiRangeInvalidEnum';
-  static const String errorValidationAgeRangeNotAString = 'errorValidationAgeRangeNotAString';
-  static const String errorValidationAgeRangeInvalidEnum = 'errorValidationAgeRangeInvalidEnum';
+  static const String errorValidationBmiRangeNotAString =
+      'errorValidationBmiRangeNotAString';
+  static const String errorValidationBmiRangeInvalidEnum =
+      'errorValidationBmiRangeInvalidEnum';
+  static const String errorValidationAgeRangeNotAString =
+      'errorValidationAgeRangeNotAString';
+  static const String errorValidationAgeRangeInvalidEnum =
+      'errorValidationAgeRangeInvalidEnum';
   static const String errorValidationTimezoneStringTooShort =
       'errorValidationTimezoneStringTooShort';
-  static const String errorValidationGroupIdEmpty = 'errorValidationGroupIdEmpty';
-  static const String errorValidationGroupIdNotANumber = 'errorValidationGroupIdNotANumber';
-  static const String errorValidationGroupIdNotAnInteger = 'errorValidationGroupIdNotAnInteger';
+  static const String errorValidationGroupIdEmpty =
+      'errorValidationGroupIdEmpty';
+  static const String errorValidationGroupIdNotANumber =
+      'errorValidationGroupIdNotANumber';
+  static const String errorValidationGroupIdNotAnInteger =
+      'errorValidationGroupIdNotAnInteger';
   static const String errorValidationGroupIdNotAPositiveNumber =
       'errorValidationGroupIdNotAPositiveNumber';
-  static const String errorValidationGroupSessionIdEmpty = 'errorValidationGroupSessionIdEmpty';
+  static const String errorValidationGroupSessionIdEmpty =
+      'errorValidationGroupSessionIdEmpty';
   static const String errorValidationGroupSessionIdNotANumber =
       'errorValidationGroupSessionIdNotANumber';
   static const String errorValidationGroupSessionIdNotAnInteger =
       'errorValidationGroupSessionIdNotAnInteger';
   static const String errorValidationGroupSessionIdNotAPositiveNumber =
       'errorValidationGroupSessionIdNotAPositiveNumber';
-  static const String errorValidationEventInvalidEnum = 'errorValidationEventInvalidEnum';
-  static const String errorValidationEventNotAString = 'errorValidationEventNotAString';
+  static const String errorValidationEventInvalidEnum =
+      'errorValidationEventInvalidEnum';
+  static const String errorValidationEventNotAString =
+      'errorValidationEventNotAString';
   static const String errorValidationEventEmpty = 'errorValidationEventEmpty';
   static const String errorValidationStartDateNotAnIsoDateString =
       'errorValidationStartDateNotAnIsoDateString';
   static const String errorValidationEndDateNotAnIsoDateString =
       'errorValidationEndDateNotAnIsoDateString';
   static const String errorValidationStatusEmpty = 'errorValidationStatusEmpty';
-  static const String errorValidationStatusNotAString = 'errorValidationStatusNotAString';
-  static const String errorValidationStatusInvalidEnum = 'errorValidationStatusInvalidEnum';
-  static const String errorValidationTopicStringTooLong = 'errorValidationTopicStringTooLong';
-  static const String errorValidationTopicStringTooShort = 'errorValidationTopicStringTooShort';
-  static const String errorValidationTopicNotAString = 'errorValidationTopicNotAString';
-  static const String errorValidationPasswordStringTooLong = 'errorValidationPasswordStringTooLong';
+  static const String errorValidationStatusNotAString =
+      'errorValidationStatusNotAString';
+  static const String errorValidationStatusInvalidEnum =
+      'errorValidationStatusInvalidEnum';
+  static const String errorValidationTopicStringTooLong =
+      'errorValidationTopicStringTooLong';
+  static const String errorValidationTopicStringTooShort =
+      'errorValidationTopicStringTooShort';
+  static const String errorValidationTopicNotAString =
+      'errorValidationTopicNotAString';
+  static const String errorValidationPasswordStringTooLong =
+      'errorValidationPasswordStringTooLong';
   static const String errorValidationPasswordStringTooShort =
       'errorValidationPasswordStringTooShort';
   static const String errorValidationGroupSessionProgramIdNotAPositiveNumber =
@@ -1700,34 +2106,52 @@ class LocalizedTexts {
       'errorValidationGroupSessionProgramIdNotAnInteger';
   static const String errorValidationGroupSessionProgramIdNotANumber =
       'errorValidationGroupSessionProgramIdNotANumber';
-  static const String errorValidationPreparationNotAString = 'errorValidationPreparationNotAString';
-  static const String errorValidationPreparationEmpty = 'errorValidationPreparationEmpty';
-  static const String errorValidationTitleNotAString = 'errorValidationTitleNotAString';
+  static const String errorValidationPreparationNotAString =
+      'errorValidationPreparationNotAString';
+  static const String errorValidationPreparationEmpty =
+      'errorValidationPreparationEmpty';
+  static const String errorValidationTitleNotAString =
+      'errorValidationTitleNotAString';
   static const String errorValidationTitleEmpty = 'errorValidationTitleEmpty';
-  static const String errorValidationEventsNotAnArray = 'errorValidationEventsNotAnArray';
-  static const String errorValidationImageNotAString = 'errorValidationImageNotAString';
+  static const String errorValidationEventsNotAnArray =
+      'errorValidationEventsNotAnArray';
+  static const String errorValidationImageNotAString =
+      'errorValidationImageNotAString';
   static const String errorValidationImageEmpty = 'errorValidationImageEmpty';
-  static const String errorValidationStartNotAString = 'errorValidationStartNotAString';
+  static const String errorValidationStartNotAString =
+      'errorValidationStartNotAString';
   static const String errorValidationStartEmpty = 'errorValidationStartEmpty';
-  static const String errorValidationPromptNotAString = 'errorValidationPromptNotAString';
-  static const String errorValidationVideoNotAString = 'errorValidationVideoNotAString';
-  static const String errorValidationDurationNotAnInteger = 'errorValidationDurationNotAnInteger';
+  static const String errorValidationPromptNotAString =
+      'errorValidationPromptNotAString';
+  static const String errorValidationVideoNotAString =
+      'errorValidationVideoNotAString';
+  static const String errorValidationDurationNotAnInteger =
+      'errorValidationDurationNotAnInteger';
   static const String errorValidationDurationNotAPositiveNumber =
       'errorValidationDurationNotAPositiveNumber';
-  static const String errorValidationDurationNotANumber = 'errorValidationDurationNotANumber';
-  static const String errorValidationSessionIdNotAnInteger = 'errorValidationSessionIdNotAnInteger';
+  static const String errorValidationDurationNotANumber =
+      'errorValidationDurationNotANumber';
+  static const String errorValidationSessionIdNotAnInteger =
+      'errorValidationSessionIdNotAnInteger';
   static const String errorValidationSessionIdNotAPositiveNumber =
       'errorValidationSessionIdNotAPositiveNumber';
-  static const String errorValidationSessionIdNotANumber = 'errorValidationSessionIdNotANumber';
+  static const String errorValidationSessionIdNotANumber =
+      'errorValidationSessionIdNotANumber';
   static const String errorValidationTypeEmpty = 'errorValidationTypeEmpty';
   static const String errorValidationImagePathStringTooShort =
       'errorValidationImagePathStringTooShort';
-  static const String errorValidationImagePathNotAString = 'errorValidationImagePathNotAString';
-  static const String errorValidationImagePathEmpty = 'errorValidationImagePathEmpty';
-  static const String errorValidationDifficultyNotAString = 'errorValidationDifficultyNotAString';
-  static const String errorValidationDifficultyInvalidEnum = 'errorValidationDifficultyInvalidEnum';
-  static const String errorValidationPlaceNotAString = 'errorValidationPlaceNotAString';
-  static const String errorValidationPlaceInvalidEnum = 'errorValidationPlaceInvalidEnum';
+  static const String errorValidationImagePathNotAString =
+      'errorValidationImagePathNotAString';
+  static const String errorValidationImagePathEmpty =
+      'errorValidationImagePathEmpty';
+  static const String errorValidationDifficultyNotAString =
+      'errorValidationDifficultyNotAString';
+  static const String errorValidationDifficultyInvalidEnum =
+      'errorValidationDifficultyInvalidEnum';
+  static const String errorValidationPlaceNotAString =
+      'errorValidationPlaceNotAString';
+  static const String errorValidationPlaceInvalidEnum =
+      'errorValidationPlaceInvalidEnum';
   static const String errorValidationPhysicalProgramIdEmpty =
       'errorValidationPhysicalProgramIdEmpty';
   static const String errorValidationPhysicalProgramIdNotANumber =
@@ -1737,84 +2161,121 @@ class LocalizedTexts {
   static const String errorValidationPhysicalProgramIdNotAPositiveNumber =
       'errorValidationPhysicalProgramIdNotAPositiveNumber';
   static const String errorValidationScoreEmpty = 'errorValidationScoreEmpty';
-  static const String errorValidationScoreNotANumber = 'errorValidationScoreNotANumber';
-  static const String errorValidationScoreNumberTooBig = 'errorValidationScoreNumberTooBig';
-  static const String errorValidationScoreNumberTooSmall = 'errorValidationScoreNumberTooSmall';
+  static const String errorValidationScoreNotANumber =
+      'errorValidationScoreNotANumber';
+  static const String errorValidationScoreNumberTooBig =
+      'errorValidationScoreNumberTooBig';
+  static const String errorValidationScoreNumberTooSmall =
+      'errorValidationScoreNumberTooSmall';
   static const String errorValidationLikeEmpty = 'errorValidationLikeEmpty';
-  static const String errorValidationLikeNotABoolean = 'errorValidationLikeNotABoolean';
+  static const String errorValidationLikeNotABoolean =
+      'errorValidationLikeNotABoolean';
   static const String errorValidationTrainingFrequencyEmpty =
       'errorValidationTrainingFrequencyEmpty';
   static const String errorValidationTrainingFrequencyNotAString =
       'errorValidationTrainingFrequencyNotAString';
   static const String errorValidationTrainingFrequencyInvalidEnum =
       'errorValidationTrainingFrequencyInvalidEnum';
-  static const String errorValidationTrainingTargetsEmpty = 'errorValidationTrainingTargetsEmpty';
+  static const String errorValidationTrainingTargetsEmpty =
+      'errorValidationTrainingTargetsEmpty';
   static const String errorValidationTrainingTargetsNotAString =
       'errorValidationTrainingTargetsNotAString';
   static const String errorValidationTrainingTargetsInvalidEnum =
       'errorValidationTrainingTargetsInvalidEnum';
-  static const String errorValidationFlexibleEmpty = 'errorValidationFlexibleEmpty';
-  static const String errorValidationFlexibleNotABoolean = 'errorValidationFlexibleNotABoolean';
-  static const String errorValidationImageStringTooShort = 'errorValidationImageStringTooShort';
-  static const String errorValidationVideoStringTooShort = 'errorValidationVideoStringTooShort';
+  static const String errorValidationFlexibleEmpty =
+      'errorValidationFlexibleEmpty';
+  static const String errorValidationFlexibleNotABoolean =
+      'errorValidationFlexibleNotABoolean';
+  static const String errorValidationImageStringTooShort =
+      'errorValidationImageStringTooShort';
+  static const String errorValidationVideoStringTooShort =
+      'errorValidationVideoStringTooShort';
   static const String errorValidationVideoEmpty = 'errorValidationVideoEmpty';
-  static const String errorValidationDurationNotAString = 'errorValidationDurationNotAString';
-  static const String errorValidationDurationEmpty = 'errorValidationDurationEmpty';
-  static const String errorValidationSkipToNotAString = 'errorValidationSkipToNotAString';
+  static const String errorValidationDurationNotAString =
+      'errorValidationDurationNotAString';
+  static const String errorValidationDurationEmpty =
+      'errorValidationDurationEmpty';
+  static const String errorValidationSkipToNotAString =
+      'errorValidationSkipToNotAString';
   static const String errorValidationSkipToEmpty = 'errorValidationSkipToEmpty';
-  static const String errorValidationExerciseIdEmpty = 'errorValidationExerciseIdEmpty';
-  static const String errorValidationExerciseIdNotANumber = 'errorValidationExerciseIdNotANumber';
+  static const String errorValidationExerciseIdEmpty =
+      'errorValidationExerciseIdEmpty';
+  static const String errorValidationExerciseIdNotANumber =
+      'errorValidationExerciseIdNotANumber';
   static const String errorValidationExerciseIdNotAnInteger =
       'errorValidationExerciseIdNotAnInteger';
   static const String errorValidationExerciseIdNotAPositiveNumber =
       'errorValidationExerciseIdNotAPositiveNumber';
-  static const String errorValidationCategoryInvalidEnum = 'errorValidationCategoryInvalidEnum';
-  static const String errorValidationLocationInvalidEnum = 'errorValidationLocationInvalidEnum';
+  static const String errorValidationCategoryInvalidEnum =
+      'errorValidationCategoryInvalidEnum';
+  static const String errorValidationLocationInvalidEnum =
+      'errorValidationLocationInvalidEnum';
   static const String errorValidationEquipmentStringTooShort =
       'errorValidationEquipmentStringTooShort';
-  static const String errorValidationEquipmentNotAString = 'errorValidationEquipmentNotAString';
-  static const String errorValidationEquipmentEmpty = 'errorValidationEquipmentEmpty';
+  static const String errorValidationEquipmentNotAString =
+      'errorValidationEquipmentNotAString';
+  static const String errorValidationEquipmentEmpty =
+      'errorValidationEquipmentEmpty';
   static const String errorValidationTargetMusclesStringTooShort =
       'errorValidationTargetMusclesStringTooShort';
   static const String errorValidationTargetMusclesNotAString =
       'errorValidationTargetMusclesNotAString';
-  static const String errorValidationTargetMusclesEmpty = 'errorValidationTargetMusclesEmpty';
+  static const String errorValidationTargetMusclesEmpty =
+      'errorValidationTargetMusclesEmpty';
   static const String errorValidationDurationStringTooShort =
       'errorValidationDurationStringTooShort';
-  static const String errorValidationVideoNotUrlAddress = 'errorValidationVideoNotUrlAddress';
-  static const String errorValidationProgramIdEmpty = 'errorValidationProgramIdEmpty';
-  static const String errorValidationProgramIdNotANumber = 'errorValidationProgramIdNotANumber';
-  static const String errorValidationProgramIdNotAnInteger = 'errorValidationProgramIdNotAnInteger';
+  static const String errorValidationVideoNotUrlAddress =
+      'errorValidationVideoNotUrlAddress';
+  static const String errorValidationProgramIdEmpty =
+      'errorValidationProgramIdEmpty';
+  static const String errorValidationProgramIdNotANumber =
+      'errorValidationProgramIdNotANumber';
+  static const String errorValidationProgramIdNotAnInteger =
+      'errorValidationProgramIdNotAnInteger';
   static const String errorValidationProgramIdNotAPositiveNumber =
       'errorValidationProgramIdNotAPositiveNumber';
-  static const String errorValidationImageNotUrlAddress = 'errorValidationImageNotUrlAddress';
+  static const String errorValidationImageNotUrlAddress =
+      'errorValidationImageNotUrlAddress';
   static const String errorValidationOrderNotAPositiveNumber =
       'errorValidationOrderNotAPositiveNumber';
-  static const String errorValidationOrderNotAnInteger = 'errorValidationOrderNotAnInteger';
+  static const String errorValidationOrderNotAnInteger =
+      'errorValidationOrderNotAnInteger';
   static const String errorValidationModuleIdNotAPositiveNumber =
       'errorValidationModuleIdNotAPositiveNumber';
-  static const String errorValidationModuleIdNotAnInteger = 'errorValidationModuleIdNotAnInteger';
-  static const String errorValidationModuleIdNotANumber = 'errorValidationModuleIdNotANumber';
-  static const String errorValidationModuleIdEmpty = 'errorValidationModuleIdEmpty';
+  static const String errorValidationModuleIdNotAnInteger =
+      'errorValidationModuleIdNotAnInteger';
+  static const String errorValidationModuleIdNotANumber =
+      'errorValidationModuleIdNotANumber';
+  static const String errorValidationModuleIdEmpty =
+      'errorValidationModuleIdEmpty';
   static const String errorValidationExternalIdNotAPositiveNumber =
       'errorValidationExternalIdNotAPositiveNumber';
   static const String errorValidationExternalIdNotAnInteger =
       'errorValidationExternalIdNotAnInteger';
-  static const String errorValidationExternalIdNotANumber = 'errorValidationExternalIdNotANumber';
-  static const String errorValidationExternalIdEmpty = 'errorValidationExternalIdEmpty';
-  static const String errorValidationStreamTypeInvalidEnum = 'errorValidationStreamTypeInvalidEnum';
-  static const String errorValidationStreamTypeEmpty = 'errorValidationStreamTypeEmpty';
-  static const String errorValidationIconTypeInvalidEnum = 'errorValidationIconTypeInvalidEnum';
-  static const String errorValidationIconTypeEmpty = 'errorValidationIconTypeEmpty';
-  static const String errorValidationIsRootItemNotABoolean = 'errorValidationIsRootItemNotABoolean';
-  static const String errorValidationIsRootItemEmpty = 'errorValidationIsRootItemEmpty';
+  static const String errorValidationExternalIdNotANumber =
+      'errorValidationExternalIdNotANumber';
+  static const String errorValidationExternalIdEmpty =
+      'errorValidationExternalIdEmpty';
+  static const String errorValidationStreamTypeInvalidEnum =
+      'errorValidationStreamTypeInvalidEnum';
+  static const String errorValidationStreamTypeEmpty =
+      'errorValidationStreamTypeEmpty';
+  static const String errorValidationIconTypeInvalidEnum =
+      'errorValidationIconTypeInvalidEnum';
+  static const String errorValidationIconTypeEmpty =
+      'errorValidationIconTypeEmpty';
+  static const String errorValidationIsRootItemNotABoolean =
+      'errorValidationIsRootItemNotABoolean';
+  static const String errorValidationIsRootItemEmpty =
+      'errorValidationIsRootItemEmpty';
   static const String errorValidationLessonExternalIdNotAPositiveNumber =
       'errorValidationLessonExternalIdNotAPositiveNumber';
   static const String errorValidationLessonExternalIdNotAnInteger =
       'errorValidationLessonExternalIdNotAnInteger';
   static const String errorValidationLessonExternalIdNotANumber =
       'errorValidationLessonExternalIdNotANumber';
-  static const String errorValidationLessonExternalIdEmpty = 'errorValidationLessonExternalIdEmpty';
+  static const String errorValidationLessonExternalIdEmpty =
+      'errorValidationLessonExternalIdEmpty';
   static const String errorValidationUnlocksItemExternalIdsNotANumber =
       'errorValidationUnlocksItemExternalIdsNotANumber';
   static const String errorValidationUnlocksItemExternalIdsNotAnArray =
@@ -1825,24 +2286,31 @@ class LocalizedTexts {
       'errorValidationUnlocksFeatureNotAString';
   static const String errorValidationUnlocksFeatureNotAnArray =
       'errorValidationUnlocksFeatureNotAnArray';
-  static const String errorValidationUnlocksFeatureEmpty = 'errorValidationUnlocksFeatureEmpty';
+  static const String errorValidationUnlocksFeatureEmpty =
+      'errorValidationUnlocksFeatureEmpty';
   static const String errorValidationUnlocksReflectionExternalIdNotANumber =
       'errorValidationUnlocksReflectionExternalIdNotANumber';
   static const String errorValidationUnlocksReflectionExternalIdEmpty =
       'errorValidationUnlocksReflectionExternalIdEmpty';
-  static const String errorValidationUnlocksSmartGoalCategoryExternalIdNotANumber =
+  static const String
+      errorValidationUnlocksSmartGoalCategoryExternalIdNotANumber =
       'errorValidationUnlocksSmartGoalCategoryExternalIdNotANumber';
   static const String errorValidationUnlocksSmartGoalCategoryExternalIdEmpty =
       'errorValidationUnlocksSmartGoalCategoryExternalIdEmpty';
   static const String errorValidationCrossModuleNotABoolean =
       'errorValidationCrossModuleNotABoolean';
-  static const String errorValidationCrossModuleEmpty = 'errorValidationCrossModuleEmpty';
+  static const String errorValidationCrossModuleEmpty =
+      'errorValidationCrossModuleEmpty';
   static const String errorValidationFeaturePlacementInvalidEnum =
       'errorValidationFeaturePlacementInvalidEnum';
-  static const String errorValidationFeaturePlacementEmpty = 'errorValidationFeaturePlacementEmpty';
-  static const String errorValidationModuleItemsNotAnArray = 'errorValidationModuleItemsNotAnArray';
-  static const String errorValidationModuleItemsEmpty = 'errorValidationModuleItemsEmpty';
-  static const String errorValidationRiverModuleIdEmpty = 'errorValidationRiverModuleIdEmpty';
+  static const String errorValidationFeaturePlacementEmpty =
+      'errorValidationFeaturePlacementEmpty';
+  static const String errorValidationModuleItemsNotAnArray =
+      'errorValidationModuleItemsNotAnArray';
+  static const String errorValidationModuleItemsEmpty =
+      'errorValidationModuleItemsEmpty';
+  static const String errorValidationRiverModuleIdEmpty =
+      'errorValidationRiverModuleIdEmpty';
   static const String errorValidationRiverModuleIdNotANumber =
       'errorValidationRiverModuleIdNotANumber';
   static const String errorValidationRiverModuleIdNotAnInteger =
@@ -1857,8 +2325,10 @@ class LocalizedTexts {
       'errorValidationRiverModuleItemIdNotAnInteger';
   static const String errorValidationRiverModuleItemIdNotAPositiveNumber =
       'errorValidationRiverModuleItemIdNotAPositiveNumber';
-  static const String errorValidationLanguageNotAString = 'errorValidationLanguageNotAString';
-  static const String errorValidationCountryNotAString = 'errorValidationCountryNotAString';
+  static const String errorValidationLanguageNotAString =
+      'errorValidationLanguageNotAString';
+  static const String errorValidationCountryNotAString =
+      'errorValidationCountryNotAString';
   static const String errorValidationTimezoneOffsetNotANumber =
       'errorValidationTimezoneOffsetNotANumber';
   static const String errorValidationTimezoneNameNotAString =
@@ -1869,63 +2339,94 @@ class LocalizedTexts {
       'errorValidationRefreshTokenNotAString';
   static const String errorValidationDiabetesNotAPositiveNumber =
       'errorValidationDiabetesNotAPositiveNumber';
-  static const String errorValidationDiabetesNotANumber = 'errorValidationDiabetesNotANumber';
-  static const String errorValidationTextStringTooLong = 'errorValidationTextStringTooLong';
-  static const String errorValidationTextStringTooShort = 'errorValidationTextStringTooShort';
+  static const String errorValidationDiabetesNotANumber =
+      'errorValidationDiabetesNotANumber';
+  static const String errorValidationTextStringTooLong =
+      'errorValidationTextStringTooLong';
+  static const String errorValidationTextStringTooShort =
+      'errorValidationTextStringTooShort';
   static const String errorValidationTextEmpty = 'errorValidationTextEmpty';
-  static const String errorValidationTextNotAString = 'errorValidationTextNotAString';
+  static const String errorValidationTextNotAString =
+      'errorValidationTextNotAString';
   static const String errorValidationReplyMessageIdNotANumberString =
       'errorValidationReplyMessageIdNotANumberString';
-  static const String errorValidationMessageIdNotANumber = 'errorValidationMessageIdNotANumber';
-  static const String errorValidationMessageIdNotAnInteger = 'errorValidationMessageIdNotAnInteger';
+  static const String errorValidationMessageIdNotANumber =
+      'errorValidationMessageIdNotANumber';
+  static const String errorValidationMessageIdNotAnInteger =
+      'errorValidationMessageIdNotAnInteger';
   static const String errorValidationMessageIdNotAPositiveNumber =
       'errorValidationMessageIdNotAPositiveNumber';
   static const String errorValidationTimeEmpty = 'errorValidationTimeEmpty';
-  static const String errorValidationTimeNotAString = 'errorValidationTimeNotAString';
-  static const String errorValidationTimeStringTooLong = 'errorValidationTimeStringTooLong';
-  static const String errorValidationTimeStringTooShort = 'errorValidationTimeStringTooShort';
-  static const String errorValidationSubjectEmpty = 'errorValidationSubjectEmpty';
-  static const String errorValidationSubjectNotAString = 'errorValidationSubjectNotAString';
-  static const String errorValidationSubjectStringTooLong = 'errorValidationSubjectStringTooLong';
-  static const String errorValidationSubjectStringTooShort = 'errorValidationSubjectStringTooShort';
-  static const String errorValidationMessageEmpty = 'errorValidationMessageEmpty';
-  static const String errorValidationMessageNotAString = 'errorValidationMessageNotAString';
-  static const String errorValidationMessageStringTooLong = 'errorValidationMessageStringTooLong';
-  static const String errorValidationMessageStringTooShort = 'errorValidationMessageStringTooShort';
-  static const String errorValidationAppVersionEmpty = 'errorValidationAppVersionEmpty';
-  static const String errorValidationAppVersionNotAString = 'errorValidationAppVersionNotAString';
+  static const String errorValidationTimeNotAString =
+      'errorValidationTimeNotAString';
+  static const String errorValidationTimeStringTooLong =
+      'errorValidationTimeStringTooLong';
+  static const String errorValidationTimeStringTooShort =
+      'errorValidationTimeStringTooShort';
+  static const String errorValidationSubjectEmpty =
+      'errorValidationSubjectEmpty';
+  static const String errorValidationSubjectNotAString =
+      'errorValidationSubjectNotAString';
+  static const String errorValidationSubjectStringTooLong =
+      'errorValidationSubjectStringTooLong';
+  static const String errorValidationSubjectStringTooShort =
+      'errorValidationSubjectStringTooShort';
+  static const String errorValidationMessageEmpty =
+      'errorValidationMessageEmpty';
+  static const String errorValidationMessageNotAString =
+      'errorValidationMessageNotAString';
+  static const String errorValidationMessageStringTooLong =
+      'errorValidationMessageStringTooLong';
+  static const String errorValidationMessageStringTooShort =
+      'errorValidationMessageStringTooShort';
+  static const String errorValidationAppVersionEmpty =
+      'errorValidationAppVersionEmpty';
+  static const String errorValidationAppVersionNotAString =
+      'errorValidationAppVersionNotAString';
   static const String errorValidationAppVersionStringTooLong =
       'errorValidationAppVersionStringTooLong';
   static const String errorValidationAppVersionStringTooShort =
       'errorValidationAppVersionStringTooShort';
-  static const String errorValidationEmailTokenEmpty = 'errorValidationEmailTokenEmpty';
-  static const String errorValidationEmailTokenNotAString = 'errorValidationEmailTokenNotAString';
-  static const String errorValidationEmailTokenNotAJwt = 'errorValidationEmailTokenNotAJwt';
+  static const String errorValidationEmailTokenEmpty =
+      'errorValidationEmailTokenEmpty';
+  static const String errorValidationEmailTokenNotAString =
+      'errorValidationEmailTokenNotAString';
+  static const String errorValidationEmailTokenNotAJwt =
+      'errorValidationEmailTokenNotAJwt';
   static const String errorValidationExtraAccountsCountNumberTooSmall =
       'errorValidationExtraAccountsCountNumberTooSmall';
   static const String errorValidationExtraAccountsCountNotAnInteger =
       'errorValidationExtraAccountsCountNotAnInteger';
   static const String errorValidationExtraAccountsCountNotANumber =
       'errorValidationExtraAccountsCountNotANumber';
-  static const String errorValidationUidNotAString = 'errorValidationUidNotAString';
-  static const String errorValidationPlatformInvalidEnum = 'errorValidationPlatformInvalidEnum';
-  static const String errorValidationPlatformNotAString = 'errorValidationPlatformNotAString';
-  static const String errorValidationDeviceIdNotAString = 'errorValidationDeviceIdNotAString';
-  static const String errorValidationDeviceIdEmpty = 'errorValidationDeviceIdEmpty';
-  static const String errorValidationDeviceIdStringTooLong = 'errorValidationDeviceIdStringTooLong';
+  static const String errorValidationUidNotAString =
+      'errorValidationUidNotAString';
+  static const String errorValidationPlatformInvalidEnum =
+      'errorValidationPlatformInvalidEnum';
+  static const String errorValidationPlatformNotAString =
+      'errorValidationPlatformNotAString';
+  static const String errorValidationDeviceIdNotAString =
+      'errorValidationDeviceIdNotAString';
+  static const String errorValidationDeviceIdEmpty =
+      'errorValidationDeviceIdEmpty';
+  static const String errorValidationDeviceIdStringTooLong =
+      'errorValidationDeviceIdStringTooLong';
   static const String errorValidationAdvertisingIdNotAString =
       'errorValidationAdvertisingIdNotAString';
-  static const String errorValidationAdvertisingIdEmpty = 'errorValidationAdvertisingIdEmpty';
+  static const String errorValidationAdvertisingIdEmpty =
+      'errorValidationAdvertisingIdEmpty';
   static const String errorValidationAdvertisingIdStringTooLong =
       'errorValidationAdvertisingIdStringTooLong';
-  static const String errorValidationLimitNumberTooBig = 'errorValidationLimitNumberTooBig';
+  static const String errorValidationLimitNumberTooBig =
+      'errorValidationLimitNumberTooBig';
   static const String errorValidationFromMessageIdNotANumberString =
       'errorValidationFromMessageIdNotANumberString';
   static const String errorValidationChatMessageIdNotAString =
       'errorValidationChatMessageIdNotAString';
   static const String errorValidationChatMessageIdNotANumberString =
       'errorValidationChatMessageIdNotANumberString';
-  static const String errorValidationReflectionIdEmpty = 'errorValidationReflectionIdEmpty';
+  static const String errorValidationReflectionIdEmpty =
+      'errorValidationReflectionIdEmpty';
   static const String errorValidationReflectionIdNotANumber =
       'errorValidationReflectionIdNotANumber';
   static const String errorValidationReflectionIdNotAnInteger =
@@ -1944,7 +2445,8 @@ class LocalizedTexts {
       'errorValidationReflectionQuestionOptionIdsNumberTooBig';
   static const String errorValidationReflectionQuestionOptionIdsNumberTooSmall =
       'errorValidationReflectionQuestionOptionIdsNumberTooSmall';
-  static const String errorValidationReflectionQuestionOptionIdsNotAPositiveNumber =
+  static const String
+      errorValidationReflectionQuestionOptionIdsNotAPositiveNumber =
       'errorValidationReflectionQuestionOptionIdsNotAPositiveNumber';
   static const String errorValidationReflectionQuestionOptionIdsNotAnInteger =
       'errorValidationReflectionQuestionOptionIdsNotAnInteger';
@@ -1954,78 +2456,117 @@ class LocalizedTexts {
       'errorValidationReflectionQuestionOptionIdsEmptyArray';
   static const String errorValidationReflectionQuestionOptionIdsNotAnArray =
       'errorValidationReflectionQuestionOptionIdsNotAnArray';
-  static const String errorValidationValueNumberTooBig = 'errorValidationValueNumberTooBig';
-  static const String errorValidationValueNumberTooSmall = 'errorValidationValueNumberTooSmall';
+  static const String errorValidationValueNumberTooBig =
+      'errorValidationValueNumberTooBig';
+  static const String errorValidationValueNumberTooSmall =
+      'errorValidationValueNumberTooSmall';
   static const String errorValidationValueNotAPositiveNumber =
       'errorValidationValueNotAPositiveNumber';
-  static const String errorValidationValueNotAnInteger = 'errorValidationValueNotAnInteger';
-  static const String errorValidationValueNotANumber = 'errorValidationValueNotANumber';
-  static const String errorValidationLessonIdEmpty = 'errorValidationLessonIdEmpty';
-  static const String errorValidationLessonIdNotANumber = 'errorValidationLessonIdNotANumber';
-  static const String errorValidationLessonIdNotAnInteger = 'errorValidationLessonIdNotAnInteger';
+  static const String errorValidationValueNotAnInteger =
+      'errorValidationValueNotAnInteger';
+  static const String errorValidationValueNotANumber =
+      'errorValidationValueNotANumber';
+  static const String errorValidationLessonIdEmpty =
+      'errorValidationLessonIdEmpty';
+  static const String errorValidationLessonIdNotANumber =
+      'errorValidationLessonIdNotANumber';
+  static const String errorValidationLessonIdNotAnInteger =
+      'errorValidationLessonIdNotAnInteger';
   static const String errorValidationLessonIdNotAPositiveNumber =
       'errorValidationLessonIdNotAPositiveNumber';
-  static const String errorValidationLabelNotAString = 'errorValidationLabelNotAString';
-  static const String errorValidationIsCorrectNotABoolean = 'errorValidationIsCorrectNotABoolean';
+  static const String errorValidationLabelNotAString =
+      'errorValidationLabelNotAString';
+  static const String errorValidationIsCorrectNotABoolean =
+      'errorValidationIsCorrectNotABoolean';
   static const String errorValidationMinValueNotAPositiveNumber =
       'errorValidationMinValueNotAPositiveNumber';
-  static const String errorValidationMinValueNotAnInteger = 'errorValidationMinValueNotAnInteger';
-  static const String errorValidationMinValueNotANumber = 'errorValidationMinValueNotANumber';
+  static const String errorValidationMinValueNotAnInteger =
+      'errorValidationMinValueNotAnInteger';
+  static const String errorValidationMinValueNotANumber =
+      'errorValidationMinValueNotANumber';
   static const String errorValidationMaxValueNotAPositiveNumber =
       'errorValidationMaxValueNotAPositiveNumber';
-  static const String errorValidationMaxValueNotAnInteger = 'errorValidationMaxValueNotAnInteger';
-  static const String errorValidationMaxValueNotANumber = 'errorValidationMaxValueNotANumber';
-  static const String errorValidationLowestTextNotAString = 'errorValidationLowestTextNotAString';
-  static const String errorValidationHighestTextNotAString = 'errorValidationHighestTextNotAString';
-  static const String errorValidationScaleNotAnArray = 'errorValidationScaleNotAnArray';
-  static const String errorValidationQuestionNotAString = 'errorValidationQuestionNotAString';
-  static const String errorValidationAnswerTypeInvalidEnum = 'errorValidationAnswerTypeInvalidEnum';
-  static const String errorValidationAnswerTypeNotAString = 'errorValidationAnswerTypeNotAString';
+  static const String errorValidationMaxValueNotAnInteger =
+      'errorValidationMaxValueNotAnInteger';
+  static const String errorValidationMaxValueNotANumber =
+      'errorValidationMaxValueNotANumber';
+  static const String errorValidationLowestTextNotAString =
+      'errorValidationLowestTextNotAString';
+  static const String errorValidationHighestTextNotAString =
+      'errorValidationHighestTextNotAString';
+  static const String errorValidationScaleNotAnArray =
+      'errorValidationScaleNotAnArray';
+  static const String errorValidationQuestionNotAString =
+      'errorValidationQuestionNotAString';
+  static const String errorValidationAnswerTypeInvalidEnum =
+      'errorValidationAnswerTypeInvalidEnum';
+  static const String errorValidationAnswerTypeNotAString =
+      'errorValidationAnswerTypeNotAString';
   static const String errorValidationIntroductionNotAString =
       'errorValidationIntroductionNotAString';
-  static const String errorValidationFeedbackNotAnArray = 'errorValidationFeedbackNotAnArray';
+  static const String errorValidationFeedbackNotAnArray =
+      'errorValidationFeedbackNotAnArray';
   static const String errorValidationExtraInstructionNotAString =
       'errorValidationExtraInstructionNotAString';
-  static const String errorValidationInstructionNotAString = 'errorValidationInstructionNotAString';
-  static const String errorValidationCategoryNotAString = 'errorValidationCategoryNotAString';
+  static const String errorValidationInstructionNotAString =
+      'errorValidationInstructionNotAString';
+  static const String errorValidationCategoryNotAString =
+      'errorValidationCategoryNotAString';
   static const String errorValidationExternalLessonIdNotAPositiveNumber =
       'errorValidationExternalLessonIdNotAPositiveNumber';
   static const String errorValidationExternalLessonIdNotAnInteger =
       'errorValidationExternalLessonIdNotAnInteger';
   static const String errorValidationExternalLessonIdNotANumber =
       'errorValidationExternalLessonIdNotANumber';
-  static const String errorValidationQuestionsNotAnArray = 'errorValidationQuestionsNotAnArray';
-  static const String errorValidationOrderNotANumber = 'errorValidationOrderNotANumber';
+  static const String errorValidationQuestionsNotAnArray =
+      'errorValidationQuestionsNotAnArray';
+  static const String errorValidationOrderNotANumber =
+      'errorValidationOrderNotANumber';
   static const String errorValidationOrderEmpty = 'errorValidationOrderEmpty';
   static const String errorValidationContentTypeInvalidEnum =
       'errorValidationContentTypeInvalidEnum';
-  static const String errorValidationContentTypeNotAString = 'errorValidationContentTypeNotAString';
-  static const String errorValidationContentTypeEmpty = 'errorValidationContentTypeEmpty';
+  static const String errorValidationContentTypeNotAString =
+      'errorValidationContentTypeNotAString';
+  static const String errorValidationContentTypeEmpty =
+      'errorValidationContentTypeEmpty';
   static const String errorValidationCardImageUrlNotAString =
       'errorValidationCardImageUrlNotAString';
-  static const String errorValidationImageUrlNotAString = 'errorValidationImageUrlNotAString';
-  static const String errorValidationAudioUrlNotAString = 'errorValidationAudioUrlNotAString';
-  static const String errorValidationHtmlUrlNotAString = 'errorValidationHtmlUrlNotAString';
+  static const String errorValidationImageUrlNotAString =
+      'errorValidationImageUrlNotAString';
+  static const String errorValidationAudioUrlNotAString =
+      'errorValidationAudioUrlNotAString';
+  static const String errorValidationHtmlUrlNotAString =
+      'errorValidationHtmlUrlNotAString';
   static const String errorValidationSubtitlesImagesNotAString =
       'errorValidationSubtitlesImagesNotAString';
-  static const String errorValidationConclusionNotAString = 'errorValidationConclusionNotAString';
-  static const String errorValidationUnlockTitleNotAString = 'errorValidationUnlockTitleNotAString';
+  static const String errorValidationConclusionNotAString =
+      'errorValidationConclusionNotAString';
+  static const String errorValidationUnlockTitleNotAString =
+      'errorValidationUnlockTitleNotAString';
   static const String errorValidationUnlockDescriptionNotAString =
       'errorValidationUnlockDescriptionNotAString';
   static const String errorValidationAudioEmpty = 'errorValidationAudioEmpty';
-  static const String errorValidationAudioNotAString = 'errorValidationAudioNotAString';
-  static const String errorValidationSubtitlesImagesEmpty = 'errorValidationSubtitlesImagesEmpty';
-  static const String errorValidationCorrectNotAString = 'errorValidationCorrectNotAString';
-  static const String errorValidationIncorrectNotAString = 'errorValidationIncorrectNotAString';
+  static const String errorValidationAudioNotAString =
+      'errorValidationAudioNotAString';
+  static const String errorValidationSubtitlesImagesEmpty =
+      'errorValidationSubtitlesImagesEmpty';
+  static const String errorValidationCorrectNotAString =
+      'errorValidationCorrectNotAString';
+  static const String errorValidationIncorrectNotAString =
+      'errorValidationIncorrectNotAString';
   static const String errorValidationVisualEmpty = 'errorValidationVisualEmpty';
-  static const String errorValidationVisualNotAString = 'errorValidationVisualNotAString';
+  static const String errorValidationVisualNotAString =
+      'errorValidationVisualNotAString';
   static const String errorValidationCompletionTimeNotAString =
       'errorValidationCompletionTimeNotAString';
-  static const String errorValidationCompletionTimeEmpty = 'errorValidationCompletionTimeEmpty';
+  static const String errorValidationCompletionTimeEmpty =
+      'errorValidationCompletionTimeEmpty';
   static const String errorValidationLessonsArraySizeTooSmall =
       'errorValidationLessonsArraySizeTooSmall';
-  static const String errorValidationLessonsNotAnArray = 'errorValidationLessonsNotAnArray';
-  static const String errorValidationLessonQuizIdEmpty = 'errorValidationLessonQuizIdEmpty';
+  static const String errorValidationLessonsNotAnArray =
+      'errorValidationLessonsNotAnArray';
+  static const String errorValidationLessonQuizIdEmpty =
+      'errorValidationLessonQuizIdEmpty';
   static const String errorValidationLessonQuizIdNotANumber =
       'errorValidationLessonQuizIdNotANumber';
   static const String errorValidationLessonQuizIdNotAnInteger =
@@ -2036,7 +2577,8 @@ class LocalizedTexts {
       'errorValidationLessonQuizQuestionOptionIdsNumberTooBig';
   static const String errorValidationLessonQuizQuestionOptionIdsNumberTooSmall =
       'errorValidationLessonQuizQuestionOptionIdsNumberTooSmall';
-  static const String errorValidationLessonQuizQuestionOptionIdsNotAPositiveNumber =
+  static const String
+      errorValidationLessonQuizQuestionOptionIdsNotAPositiveNumber =
       'errorValidationLessonQuizQuestionOptionIdsNotAPositiveNumber';
   static const String errorValidationLessonQuizQuestionOptionIdsNotAnInteger =
       'errorValidationLessonQuizQuestionOptionIdsNotAnInteger';
@@ -2056,10 +2598,12 @@ class LocalizedTexts {
       'errorValidationExplanationTypeInvalidEnum';
   static const String errorValidationExplanationTypeNotAString =
       'errorValidationExplanationTypeNotAString';
-  static const String errorValidationExplanationTypeEmpty = 'errorValidationExplanationTypeEmpty';
+  static const String errorValidationExplanationTypeEmpty =
+      'errorValidationExplanationTypeEmpty';
   static const String errorValidationExplanationSrcNotAString =
       'errorValidationExplanationSrcNotAString';
-  static const String errorValidationExplanationSrcEmpty = 'errorValidationExplanationSrcEmpty';
+  static const String errorValidationExplanationSrcEmpty =
+      'errorValidationExplanationSrcEmpty';
   static const String errorValidationExplanationDurationNotAPositiveNumber =
       'errorValidationExplanationDurationNotAPositiveNumber';
   static const String errorValidationExplanationDurationNotANumber =
@@ -2074,7 +2618,8 @@ class LocalizedTexts {
       'errorValidationExerciseTypeInvalidEnum';
   static const String errorValidationExerciseTypeNotAString =
       'errorValidationExerciseTypeNotAString';
-  static const String errorValidationExerciseTypeEmpty = 'errorValidationExerciseTypeEmpty';
+  static const String errorValidationExerciseTypeEmpty =
+      'errorValidationExerciseTypeEmpty';
   static const String errorValidationExerciseOrientationInvalidEnum =
       'errorValidationExerciseOrientationInvalidEnum';
   static const String errorValidationExerciseOrientationNotAString =
@@ -2085,13 +2630,18 @@ class LocalizedTexts {
       'errorValidationExerciseDurationNotAPositiveNumber';
   static const String errorValidationExerciseDurationNotANumber =
       'errorValidationExerciseDurationNotANumber';
-  static const String errorValidationExerciseDurationEmpty = 'errorValidationExerciseDurationEmpty';
-  static const String errorValidationExerciseSrcNotAString = 'errorValidationExerciseSrcNotAString';
-  static const String errorValidationExerciseSrcEmpty = 'errorValidationExerciseSrcEmpty';
+  static const String errorValidationExerciseDurationEmpty =
+      'errorValidationExerciseDurationEmpty';
+  static const String errorValidationExerciseSrcNotAString =
+      'errorValidationExerciseSrcNotAString';
+  static const String errorValidationExerciseSrcEmpty =
+      'errorValidationExerciseSrcEmpty';
   static const String errorValidationShortDescriptionNotAString =
       'errorValidationShortDescriptionNotAString';
-  static const String errorValidationShortDescriptionEmpty = 'errorValidationShortDescriptionEmpty';
-  static const String errorValidationDifficultyEmpty = 'errorValidationDifficultyEmpty';
+  static const String errorValidationShortDescriptionEmpty =
+      'errorValidationShortDescriptionEmpty';
+  static const String errorValidationDifficultyEmpty =
+      'errorValidationDifficultyEmpty';
   static const String errorValidationScaleBeforeQuestionNotAString =
       'errorValidationScaleBeforeQuestionNotAString';
   static const String errorValidationScaleBeforeLowestTextNotAString =
@@ -2108,18 +2658,26 @@ class LocalizedTexts {
       'errorValidationTechniqueIdNotAPositiveNumber';
   static const String errorValidationTechniqueIdNotAnInteger =
       'errorValidationTechniqueIdNotAnInteger';
-  static const String errorValidationTechniqueIdNotANumber = 'errorValidationTechniqueIdNotANumber';
-  static const String errorValidationTechniqueIdEmpty = 'errorValidationTechniqueIdEmpty';
-  static const String errorValidationSubtitleNotAString = 'errorValidationSubtitleNotAString';
-  static const String errorValidationSubtitleEmpty = 'errorValidationSubtitleEmpty';
+  static const String errorValidationTechniqueIdNotANumber =
+      'errorValidationTechniqueIdNotANumber';
+  static const String errorValidationTechniqueIdEmpty =
+      'errorValidationTechniqueIdEmpty';
+  static const String errorValidationSubtitleNotAString =
+      'errorValidationSubtitleNotAString';
+  static const String errorValidationSubtitleEmpty =
+      'errorValidationSubtitleEmpty';
   static const String errorValidationShortIntroductionNotAString =
       'errorValidationShortIntroductionNotAString';
   static const String errorValidationShortIntroductionEmpty =
       'errorValidationShortIntroductionEmpty';
-  static const String errorValidationExplanationEmptyArray = 'errorValidationExplanationEmptyArray';
-  static const String errorValidationExplanationNotAnArray = 'errorValidationExplanationNotAnArray';
-  static const String errorValidationTechniquesEmptyArray = 'errorValidationTechniquesEmptyArray';
-  static const String errorValidationTechniquesNotAnArray = 'errorValidationTechniquesNotAnArray';
+  static const String errorValidationExplanationEmptyArray =
+      'errorValidationExplanationEmptyArray';
+  static const String errorValidationExplanationNotAnArray =
+      'errorValidationExplanationNotAnArray';
+  static const String errorValidationTechniquesEmptyArray =
+      'errorValidationTechniquesEmptyArray';
+  static const String errorValidationTechniquesNotAnArray =
+      'errorValidationTechniquesNotAnArray';
   static const String errorValidationExternalTechniqueIdNotAPositiveNumber =
       'errorValidationExternalTechniqueIdNotAPositiveNumber';
   static const String errorValidationExternalTechniqueIdNotAnInteger =
@@ -2134,7 +2692,8 @@ class LocalizedTexts {
       'errorValidationExerciseUnlockStyleNotAString';
   static const String errorValidationExerciseUnlockStyleEmpty =
       'errorValidationExerciseUnlockStyleEmpty';
-  static const String errorValidationExercisesNotAnArray = 'errorValidationExercisesNotAnArray';
+  static const String errorValidationExercisesNotAnArray =
+      'errorValidationExercisesNotAnArray';
   static const String errorValidationScaleBeforeAnswerNumberTooBig =
       'errorValidationScaleBeforeAnswerNumberTooBig';
   static const String errorValidationScaleBeforeAnswerNumberTooSmall =
@@ -2152,49 +2711,75 @@ class LocalizedTexts {
   static const String errorValidationScaleAfterAnswerNotANumber =
       'errorValidationScaleAfterAnswerNotANumber';
   static const String errorValidationScaleEmpty = 'errorValidationScaleEmpty';
-  static const String errorValidationScaleInvalidEnum = 'errorValidationScaleInvalidEnum';
-  static const String errorValidationTimeNotADateString = 'errorValidationTimeNotADateString';
-  static const String errorValidationEmotionNotAnArray = 'errorValidationEmotionNotAnArray';
+  static const String errorValidationScaleInvalidEnum =
+      'errorValidationScaleInvalidEnum';
+  static const String errorValidationTimeNotADateString =
+      'errorValidationTimeNotADateString';
+  static const String errorValidationEmotionNotAnArray =
+      'errorValidationEmotionNotAnArray';
   static const String errorValidationEmotionArrayContainsDuplicates =
       'errorValidationEmotionArrayContainsDuplicates';
   static const String errorValidationEmotionArraySizeTooBig =
       'errorValidationEmotionArraySizeTooBig';
-  static const String errorValidationEmotionNotAString = 'errorValidationEmotionNotAString';
-  static const String errorValidationEmotionInvalidEnum = 'errorValidationEmotionInvalidEnum';
-  static const String errorValidationPersonNotAnArray = 'errorValidationPersonNotAnArray';
+  static const String errorValidationEmotionNotAString =
+      'errorValidationEmotionNotAString';
+  static const String errorValidationEmotionInvalidEnum =
+      'errorValidationEmotionInvalidEnum';
+  static const String errorValidationPersonNotAnArray =
+      'errorValidationPersonNotAnArray';
   static const String errorValidationPersonArrayContainsDuplicates =
       'errorValidationPersonArrayContainsDuplicates';
-  static const String errorValidationPersonArraySizeTooBig = 'errorValidationPersonArraySizeTooBig';
-  static const String errorValidationPersonNotAString = 'errorValidationPersonNotAString';
-  static const String errorValidationPersonInvalidEnum = 'errorValidationPersonInvalidEnum';
-  static const String errorValidationLocationNotAnArray = 'errorValidationLocationNotAnArray';
+  static const String errorValidationPersonArraySizeTooBig =
+      'errorValidationPersonArraySizeTooBig';
+  static const String errorValidationPersonNotAString =
+      'errorValidationPersonNotAString';
+  static const String errorValidationPersonInvalidEnum =
+      'errorValidationPersonInvalidEnum';
+  static const String errorValidationLocationNotAnArray =
+      'errorValidationLocationNotAnArray';
   static const String errorValidationLocationArrayContainsDuplicates =
       'errorValidationLocationArrayContainsDuplicates';
   static const String errorValidationLocationArraySizeTooBig =
       'errorValidationLocationArraySizeTooBig';
-  static const String errorValidationLocationNotAString = 'errorValidationLocationNotAString';
-  static const String errorValidationFoodNotAnArray = 'errorValidationFoodNotAnArray';
+  static const String errorValidationLocationNotAString =
+      'errorValidationLocationNotAString';
+  static const String errorValidationFoodNotAnArray =
+      'errorValidationFoodNotAnArray';
   static const String errorValidationFoodArrayContainsDuplicates =
       'errorValidationFoodArrayContainsDuplicates';
-  static const String errorValidationFoodArraySizeTooBig = 'errorValidationFoodArraySizeTooBig';
-  static const String errorValidationFoodNotAString = 'errorValidationFoodNotAString';
-  static const String errorValidationFoodInvalidEnum = 'errorValidationFoodInvalidEnum';
-  static const String errorValidationNoteNotAString = 'errorValidationNoteNotAString';
-  static const String errorValidationNoteStringTooShort = 'errorValidationNoteStringTooShort';
-  static const String errorValidationNoteStringTooLong = 'errorValidationNoteStringTooLong';
+  static const String errorValidationFoodArraySizeTooBig =
+      'errorValidationFoodArraySizeTooBig';
+  static const String errorValidationFoodNotAString =
+      'errorValidationFoodNotAString';
+  static const String errorValidationFoodInvalidEnum =
+      'errorValidationFoodInvalidEnum';
+  static const String errorValidationNoteNotAString =
+      'errorValidationNoteNotAString';
+  static const String errorValidationNoteStringTooShort =
+      'errorValidationNoteStringTooShort';
+  static const String errorValidationNoteStringTooLong =
+      'errorValidationNoteStringTooLong';
   static const String errorValidationMoodIdEmpty = 'errorValidationMoodIdEmpty';
-  static const String errorValidationMoodIdNotANumber = 'errorValidationMoodIdNotANumber';
-  static const String errorValidationMoodIdNotAnInteger = 'errorValidationMoodIdNotAnInteger';
+  static const String errorValidationMoodIdNotANumber =
+      'errorValidationMoodIdNotANumber';
+  static const String errorValidationMoodIdNotAnInteger =
+      'errorValidationMoodIdNotAnInteger';
   static const String errorValidationMoodIdNotAPositiveNumber =
       'errorValidationMoodIdNotAPositiveNumber';
   static const String errorValidationExternalIdNotANumberString =
       'errorValidationExternalIdNotANumberString';
-  static const String errorValidationShortTitleNotAString = 'errorValidationShortTitleNotAString';
-  static const String errorValidationShortTitleEmpty = 'errorValidationShortTitleEmpty';
-  static const String errorValidationDescriptionNotAString = 'errorValidationDescriptionNotAString';
-  static const String errorValidationDescriptionEmpty = 'errorValidationDescriptionEmpty';
-  static const String errorValidationFunFactNotAString = 'errorValidationFunFactNotAString';
-  static const String errorValidationFunFactEmpty = 'errorValidationFunFactEmpty';
+  static const String errorValidationShortTitleNotAString =
+      'errorValidationShortTitleNotAString';
+  static const String errorValidationShortTitleEmpty =
+      'errorValidationShortTitleEmpty';
+  static const String errorValidationDescriptionNotAString =
+      'errorValidationDescriptionNotAString';
+  static const String errorValidationDescriptionEmpty =
+      'errorValidationDescriptionEmpty';
+  static const String errorValidationFunFactNotAString =
+      'errorValidationFunFactNotAString';
+  static const String errorValidationFunFactEmpty =
+      'errorValidationFunFactEmpty';
   static const String errorValidationRequiredCompletionDaysNotANumber =
       'errorValidationRequiredCompletionDaysNotANumber';
   static const String errorValidationRequiredCompletionDaysNotAnInteger =
@@ -2218,8 +2803,10 @@ class LocalizedTexts {
   static const String errorValidationRelatedExternalGoalIdsNotAnArray =
       'errorValidationRelatedExternalGoalIdsNotAnArray';
   static const String errorValidationGoalIdEmpty = 'errorValidationGoalIdEmpty';
-  static const String errorValidationGoalIdNotANumber = 'errorValidationGoalIdNotANumber';
-  static const String errorValidationGoalIdNotAnInteger = 'errorValidationGoalIdNotAnInteger';
+  static const String errorValidationGoalIdNotANumber =
+      'errorValidationGoalIdNotANumber';
+  static const String errorValidationGoalIdNotAnInteger =
+      'errorValidationGoalIdNotAnInteger';
   static const String errorValidationGoalIdNotAPositiveNumber =
       'errorValidationGoalIdNotAPositiveNumber';
   static const String errorValidationCompletionDaysPer7DaysNotANumber =
@@ -2230,74 +2817,113 @@ class LocalizedTexts {
       'errorValidationCompletionDaysPer7DaysNotAPositiveNumber';
   static const String errorValidationCompletionDaysPer7DaysNumberTooBig =
       'errorValidationCompletionDaysPer7DaysNumberTooBig';
-  static const String errorValidationFilePathEmpty = 'errorValidationFilePathEmpty';
-  static const String errorValidationFilePathNotAString = 'errorValidationFilePathNotAString';
-  static const String errorValidationCategoryIdEmpty = 'errorValidationCategoryIdEmpty';
-  static const String errorValidationCategoryIdNotANumber = 'errorValidationCategoryIdNotANumber';
+  static const String errorValidationFilePathEmpty =
+      'errorValidationFilePathEmpty';
+  static const String errorValidationFilePathNotAString =
+      'errorValidationFilePathNotAString';
+  static const String errorValidationCategoryIdEmpty =
+      'errorValidationCategoryIdEmpty';
+  static const String errorValidationCategoryIdNotANumber =
+      'errorValidationCategoryIdNotANumber';
   static const String errorValidationCategoryIdNotAnInteger =
       'errorValidationCategoryIdNotAnInteger';
   static const String errorValidationCategoryIdNotAPositiveNumber =
       'errorValidationCategoryIdNotAPositiveNumber';
-  static const String errorValidationTimesNotAnInteger = 'errorValidationTimesNotAnInteger';
-  static const String errorValidationTimesNumberTooSmall = 'errorValidationTimesNumberTooSmall';
-  static const String errorValidationReviewIdEmpty = 'errorValidationReviewIdEmpty';
-  static const String errorValidationReviewIdNotANumber = 'errorValidationReviewIdNotANumber';
-  static const String errorValidationReviewIdNotAnInteger = 'errorValidationReviewIdNotAnInteger';
+  static const String errorValidationTimesNotAnInteger =
+      'errorValidationTimesNotAnInteger';
+  static const String errorValidationTimesNumberTooSmall =
+      'errorValidationTimesNumberTooSmall';
+  static const String errorValidationReviewIdEmpty =
+      'errorValidationReviewIdEmpty';
+  static const String errorValidationReviewIdNotANumber =
+      'errorValidationReviewIdNotANumber';
+  static const String errorValidationReviewIdNotAnInteger =
+      'errorValidationReviewIdNotAnInteger';
   static const String errorValidationReviewIdNotAPositiveNumber =
       'errorValidationReviewIdNotAPositiveNumber';
-  static const String errorValidationProgressNotAnArray = 'errorValidationProgressNotAnArray';
-  static const String errorValidationProgressEmptyArray = 'errorValidationProgressEmptyArray';
-  static const String errorValidationDifficultyNotANumber = 'errorValidationDifficultyNotANumber';
+  static const String errorValidationProgressNotAnArray =
+      'errorValidationProgressNotAnArray';
+  static const String errorValidationProgressEmptyArray =
+      'errorValidationProgressEmptyArray';
+  static const String errorValidationDifficultyNotANumber =
+      'errorValidationDifficultyNotANumber';
   static const String errorValidationDifficultyNotAnInteger =
       'errorValidationDifficultyNotAnInteger';
   static const String errorValidationDifficultyNotAPositiveNumber =
       'errorValidationDifficultyNotAPositiveNumber';
   static const String errorValidationDifficultyNumberTooBig =
       'errorValidationDifficultyNumberTooBig';
-  static const String errorValidationIsTryAgainNotABoolean = 'errorValidationIsTryAgainNotABoolean';
-  static const String errorValidationSmartGoalIdEmpty = 'errorValidationSmartGoalIdEmpty';
-  static const String errorValidationSmartGoalIdNotANumber = 'errorValidationSmartGoalIdNotANumber';
+  static const String errorValidationIsTryAgainNotABoolean =
+      'errorValidationIsTryAgainNotABoolean';
+  static const String errorValidationSmartGoalIdEmpty =
+      'errorValidationSmartGoalIdEmpty';
+  static const String errorValidationSmartGoalIdNotANumber =
+      'errorValidationSmartGoalIdNotANumber';
   static const String errorValidationSmartGoalIdNotAnInteger =
       'errorValidationSmartGoalIdNotAnInteger';
   static const String errorValidationSmartGoalIdNotAPositiveNumber =
       'errorValidationSmartGoalIdNotAPositiveNumber';
-  static const String errorValidationStartedAtEmpty = 'errorValidationStartedAtEmpty';
-  static const String errorValidationStartedAtNotAString = 'errorValidationStartedAtNotAString';
+  static const String errorValidationStartedAtEmpty =
+      'errorValidationStartedAtEmpty';
+  static const String errorValidationStartedAtNotAString =
+      'errorValidationStartedAtNotAString';
   static const String errorValidationStartedAtNotADateString =
       'errorValidationStartedAtNotADateString';
-  static const String errorValidationReasonInvalidEnum = 'errorValidationReasonInvalidEnum';
-  static const String errorValidationSessionIdEmpty = 'errorValidationSessionIdEmpty';
-  static const String errorValidationProgressIdEmpty = 'errorValidationProgressIdEmpty';
-  static const String errorValidationProgressIdNotANumber = 'errorValidationProgressIdNotANumber';
+  static const String errorValidationReasonInvalidEnum =
+      'errorValidationReasonInvalidEnum';
+  static const String errorValidationSessionIdEmpty =
+      'errorValidationSessionIdEmpty';
+  static const String errorValidationProgressIdEmpty =
+      'errorValidationProgressIdEmpty';
+  static const String errorValidationProgressIdNotANumber =
+      'errorValidationProgressIdNotANumber';
   static const String errorValidationProgressIdNotAnInteger =
       'errorValidationProgressIdNotAnInteger';
   static const String errorValidationProgressIdNotAPositiveNumber =
       'errorValidationProgressIdNotAPositiveNumber';
   static const String errorCoreAccountIdFailedToSendMessage =
       'errorCoreAccountIdFailedToSendMessage';
-  static const String errorCoreRequestNeedToBeRefetched = 'errorCoreRequestNeedToBeRefetched';
+  static const String errorCoreRequestNeedToBeRefetched =
+      'errorCoreRequestNeedToBeRefetched';
   static const String errorCoreMvpAccessDenied = 'errorCoreMvpAccessDenied';
-  static const String errorCoreAccountIdCanNotParse = 'errorCoreAccountIdCanNotParse';
-  static const String errorCoreAccountIdNotAuthenticated = 'errorCoreAccountIdNotAuthenticated';
-  static const String errorCoreEmailOrPasswordAreIncorrect = 'errorCoreEmailOrPasswordAreIncorrect';
+  static const String errorCoreAccountIdCanNotParse =
+      'errorCoreAccountIdCanNotParse';
+  static const String errorCoreAccountIdNotAuthenticated =
+      'errorCoreAccountIdNotAuthenticated';
+  static const String errorCoreEmailOrPasswordAreIncorrect =
+      'errorCoreEmailOrPasswordAreIncorrect';
   static const String errorCoreEmailNotApproved = 'errorCoreEmailNotApproved';
-  static const String errorCoreRefreshTokenHasBeenExpired = 'errorCoreRefreshTokenHasBeenExpired';
-  static const String errorCorePasswordTokenNotFound = 'errorCorePasswordTokenNotFound';
-  static const String errorCorePasswordTokenExpired = 'errorCorePasswordTokenExpired';
-  static const String errorAuthAccessTokenInvalid = 'errorAuthAccessTokenInvalid';
-  static const String errorAuthRefreshTokenNotFound = 'errorAuthRefreshTokenNotFound';
-  static const String errorAccountIdAlreadyExists = 'errorAccountIdAlreadyExists';
+  static const String errorCoreRefreshTokenHasBeenExpired =
+      'errorCoreRefreshTokenHasBeenExpired';
+  static const String errorCorePasswordTokenNotFound =
+      'errorCorePasswordTokenNotFound';
+  static const String errorCorePasswordTokenExpired =
+      'errorCorePasswordTokenExpired';
+  static const String errorAuthAccessTokenInvalid =
+      'errorAuthAccessTokenInvalid';
+  static const String errorAuthRefreshTokenNotFound =
+      'errorAuthRefreshTokenNotFound';
+  static const String errorAccountIdAlreadyExists =
+      'errorAccountIdAlreadyExists';
   static const String errorAccountIdNotFound = 'errorAccountIdNotFound';
   static const String errorAccountEmailNotFound = 'errorAccountEmailNotFound';
-  static const String errorAccountInvitationNotFound = 'errorAccountInvitationNotFound';
-  static const String errorAccountEmailTokenNotFound = 'errorAccountEmailTokenNotFound';
-  static const String errorAccountPasswordTokenNotFound = 'errorAccountPasswordTokenNotFound';
-  static const String errorAccountPasswordTokenExpired = 'errorAccountPasswordTokenExpired';
+  static const String errorAccountInvitationNotFound =
+      'errorAccountInvitationNotFound';
+  static const String errorAccountEmailTokenNotFound =
+      'errorAccountEmailTokenNotFound';
+  static const String errorAccountPasswordTokenNotFound =
+      'errorAccountPasswordTokenNotFound';
+  static const String errorAccountPasswordTokenExpired =
+      'errorAccountPasswordTokenExpired';
   static const String errorAccountEmailExpired = 'errorAccountEmailExpired';
-  static const String errorAccountEmailPreviouslySubmitted = 'errorAccountEmailPreviouslySubmitted';
-  static const String errorAccountDiabetesTypeNotFound = 'errorAccountDiabetesTypeNotFound';
-  static const String errorAccountSubscriptionCancelActive = 'errorAccountSubscriptionCancelActive';
-  static const String errorAccountPasswordTokenInvalid = 'errorAccountPasswordTokenInvalid';
+  static const String errorAccountEmailPreviouslySubmitted =
+      'errorAccountEmailPreviouslySubmitted';
+  static const String errorAccountDiabetesTypeNotFound =
+      'errorAccountDiabetesTypeNotFound';
+  static const String errorAccountSubscriptionCancelActive =
+      'errorAccountSubscriptionCancelActive';
+  static const String errorAccountPasswordTokenInvalid =
+      'errorAccountPasswordTokenInvalid';
   static const String errorCoreFileInvalid = 'errorCoreFileInvalid';
   static const String errorAccountEmailLessThanADayFromLastChange =
       'errorAccountEmailLessThanADayFromLastChange';
@@ -2306,74 +2932,115 @@ class LocalizedTexts {
       'errorSubscriptionIosProductIdNotFound';
   static const String errorSubscriptionAndroidProductIdNotFound =
       'errorSubscriptionAndroidProductIdNotFound';
-  static const String errorSubscriptionAccountIdAbsent = 'errorSubscriptionAccountIdAbsent';
-  static const String errorSubscriptionPurchaseTokenAbsent = 'errorSubscriptionPurchaseTokenAbsent';
-  static const String errorSubscriptionPackageNameInvalid = 'errorSubscriptionPackageNameInvalid';
-  static const String errorSubscriptionAccountIdInvalid = 'errorSubscriptionAccountIdInvalid';
-  static const String errorSubscriptionVendorInvalid = 'errorSubscriptionVendorInvalid';
+  static const String errorSubscriptionAccountIdAbsent =
+      'errorSubscriptionAccountIdAbsent';
+  static const String errorSubscriptionPurchaseTokenAbsent =
+      'errorSubscriptionPurchaseTokenAbsent';
+  static const String errorSubscriptionPackageNameInvalid =
+      'errorSubscriptionPackageNameInvalid';
+  static const String errorSubscriptionAccountIdInvalid =
+      'errorSubscriptionAccountIdInvalid';
+  static const String errorSubscriptionVendorInvalid =
+      'errorSubscriptionVendorInvalid';
   static const String errorSubscriptionPurchaseTokenInvalid =
       'errorSubscriptionPurchaseTokenInvalid';
-  static const String errorSubscriptionEnvironmentInvalid = 'errorSubscriptionEnvironmentInvalid';
+  static const String errorSubscriptionEnvironmentInvalid =
+      'errorSubscriptionEnvironmentInvalid';
   static const String errorSubscriptionBaseTransactionIdInvalid =
       'errorSubscriptionBaseTransactionIdInvalid';
   static const String errorSubscriptionTransactionIdInvalid =
       'errorSubscriptionTransactionIdInvalid';
-  static const String errorSubscriptionAndroidDataEmpty = 'errorSubscriptionAndroidDataEmpty';
-  static const String errorSubscriptionWithAccountNotFound = 'errorSubscriptionWithAccountNotFound';
+  static const String errorSubscriptionAndroidDataEmpty =
+      'errorSubscriptionAndroidDataEmpty';
+  static const String errorSubscriptionWithAccountNotFound =
+      'errorSubscriptionWithAccountNotFound';
   static const String errorGroupingAccountIdAppFeatureLocked =
       'errorGroupingAccountIdAppFeatureLocked';
   static const String errorGroupingDataOneOptionalFieldRequired =
       'errorGroupingDataOneOptionalFieldRequired';
-  static const String errorGroupingGenderPreferenceInvalid = 'errorGroupingGenderPreferenceInvalid';
-  static const String errorGroupingBmiRangeCanNotCalculate = 'errorGroupingBmiRangeCanNotCalculate';
-  static const String errorGroupingAgeRangeCanNotCalculate = 'errorGroupingAgeRangeCanNotCalculate';
+  static const String errorGroupingGenderPreferenceInvalid =
+      'errorGroupingGenderPreferenceInvalid';
+  static const String errorGroupingBmiRangeCanNotCalculate =
+      'errorGroupingBmiRangeCanNotCalculate';
+  static const String errorGroupingAgeRangeCanNotCalculate =
+      'errorGroupingAgeRangeCanNotCalculate';
   static const String errorGroupingAccountGroupingStateCanNotCancel =
       'errorGroupingAccountGroupingStateCanNotCancel';
-  static const String errorGroupingGroupIdNotFound = 'errorGroupingGroupIdNotFound';
-  static const String errorGroupingAccountIdAlreadyInGroup = 'errorGroupingAccountIdAlreadyInGroup';
-  static const String errorBuddyAccountAlreadyHaveABuddy = 'errorBuddyAccountAlreadyHaveABuddy';
+  static const String errorGroupingGroupIdNotFound =
+      'errorGroupingGroupIdNotFound';
+  static const String errorGroupingAccountIdAlreadyInGroup =
+      'errorGroupingAccountIdAlreadyInGroup';
+  static const String errorBuddyAccountAlreadyHaveABuddy =
+      'errorBuddyAccountAlreadyHaveABuddy';
   static const String errorBuddyEntityNotFound = 'errorBuddyEntityNotFound';
-  static const String errorBuddyRefreshTokenNotFound = 'errorBuddyRefreshTokenNotFound';
-  static const String errorBuddyRegistrationAlreadyExists = 'errorBuddyRegistrationAlreadyExists';
+  static const String errorBuddyRefreshTokenNotFound =
+      'errorBuddyRefreshTokenNotFound';
+  static const String errorBuddyRegistrationAlreadyExists =
+      'errorBuddyRegistrationAlreadyExists';
   static const String errorBuddyRegistrationAlreadyConfirmed =
       'errorBuddyRegistrationAlreadyConfirmed';
-  static const String errorBuddyPasswordTokenInvalid = 'errorBuddyPasswordTokenInvalid';
-  static const String errorBuddyRegistrationTokenExpired = 'errorBuddyRegistrationTokenExpired';
-  static const String errorBuddyRegistrationTokenInvalid = 'errorBuddyRegistrationTokenInvalid';
-  static const String errorBuddyInvitationTokenExpired = 'errorBuddyInvitationTokenExpired';
-  static const String errorBuddyInvitationBuddyOccupied = 'errorBuddyInvitationBuddyOccupied';
-  static const String errorBuddyInvitationTokenInvalid = 'errorBuddyInvitationTokenInvalid';
-  static const String errorBuddyInvitationEmailInvalid = 'errorBuddyInvitationEmailInvalid';
-  static const String errorBuddyInvitationNotFound = 'errorBuddyInvitationNotFound';
-  static const String errorBuddyInvitationHasBeenRejected = 'errorBuddyInvitationHasBeenRejected';
-  static const String errorBuddyInvitationAlreadyApproved = 'errorBuddyInvitationAlreadyApproved';
+  static const String errorBuddyPasswordTokenInvalid =
+      'errorBuddyPasswordTokenInvalid';
+  static const String errorBuddyRegistrationTokenExpired =
+      'errorBuddyRegistrationTokenExpired';
+  static const String errorBuddyRegistrationTokenInvalid =
+      'errorBuddyRegistrationTokenInvalid';
+  static const String errorBuddyInvitationTokenExpired =
+      'errorBuddyInvitationTokenExpired';
+  static const String errorBuddyInvitationBuddyOccupied =
+      'errorBuddyInvitationBuddyOccupied';
+  static const String errorBuddyInvitationTokenInvalid =
+      'errorBuddyInvitationTokenInvalid';
+  static const String errorBuddyInvitationEmailInvalid =
+      'errorBuddyInvitationEmailInvalid';
+  static const String errorBuddyInvitationNotFound =
+      'errorBuddyInvitationNotFound';
+  static const String errorBuddyInvitationHasBeenRejected =
+      'errorBuddyInvitationHasBeenRejected';
+  static const String errorBuddyInvitationAlreadyApproved =
+      'errorBuddyInvitationAlreadyApproved';
   static const String errorDiabetesTypeNotFound = 'errorDiabetesTypeNotFound';
-  static const String errorNutritionMealIdNotFound = 'errorNutritionMealIdNotFound';
-  static const String errorNutritionMealFoodItemIdNotFound = 'errorNutritionMealFoodItemIdNotFound';
-  static const String errorNutritionMealRecipeIdNotFound = 'errorNutritionMealRecipeIdNotFound';
-  static const String errorNutritionMealDishIdNotFound = 'errorNutritionMealDishIdNotFound';
+  static const String errorNutritionMealIdNotFound =
+      'errorNutritionMealIdNotFound';
+  static const String errorNutritionMealFoodItemIdNotFound =
+      'errorNutritionMealFoodItemIdNotFound';
+  static const String errorNutritionMealRecipeIdNotFound =
+      'errorNutritionMealRecipeIdNotFound';
+  static const String errorNutritionMealDishIdNotFound =
+      'errorNutritionMealDishIdNotFound';
   static const String errorNutritionFavoriteFoodItemIdNotFound =
       'errorNutritionFavoriteFoodItemIdNotFound';
   static const String errorNutritionFavoriteServingIdNotFound =
       'errorNutritionFavoriteServingIdNotFound';
   static const String errorNutritionFavoriteAccountIdNotFound =
       'errorNutritionFavoriteAccountIdNotFound';
-  static const String errorNutritionFavoriteAlreadyExists = 'errorNutritionFavoriteAlreadyExists';
-  static const String errorNutritionWeightLogNotFound = 'errorNutritionWeightLogNotFound';
-  static const String errorNutritionRecipeIdNotFound = 'errorNutritionRecipeIdNotFound';
-  static const String errorNutritionAccountDishesNotFound = 'errorNutritionAccountDishesNotFound';
+  static const String errorNutritionFavoriteAlreadyExists =
+      'errorNutritionFavoriteAlreadyExists';
+  static const String errorNutritionWeightLogNotFound =
+      'errorNutritionWeightLogNotFound';
+  static const String errorNutritionRecipeIdNotFound =
+      'errorNutritionRecipeIdNotFound';
+  static const String errorNutritionAccountDishesNotFound =
+      'errorNutritionAccountDishesNotFound';
   static const String errorNutritionDishNotFound = 'errorNutritionDishNotFound';
-  static const String errorNutritionDishFoodItemNotFound = 'errorNutritionDishFoodItemNotFound';
-  static const String errorNutritionDishMealRecipeNotFound = 'errorNutritionDishMealRecipeNotFound';
-  static const String errorNutritionDishFoodItemsEmpty = 'errorNutritionDishFoodItemsEmpty';
-  static const String errorFoodPreferencesHateTagNotFound = 'errorFoodPreferencesHateTagNotFound';
+  static const String errorNutritionDishFoodItemNotFound =
+      'errorNutritionDishFoodItemNotFound';
+  static const String errorNutritionDishMealRecipeNotFound =
+      'errorNutritionDishMealRecipeNotFound';
+  static const String errorNutritionDishFoodItemsEmpty =
+      'errorNutritionDishFoodItemsEmpty';
+  static const String errorFoodPreferencesHateTagNotFound =
+      'errorFoodPreferencesHateTagNotFound';
   static const String errorFoodPreferencesAllergenTagNotFound =
       'errorFoodPreferencesAllergenTagNotFound';
   static const String errorFoodPreferencesDislikeTagNotFound =
       'errorFoodPreferencesDislikeTagNotFound';
-  static const String errorMentalHealthQuestionIdInvalid = 'errorMentalHealthQuestionIdInvalid';
-  static const String errorMentalHealthOptionIdInvalid = 'errorMentalHealthOptionIdInvalid';
-  static const String errorMentalHealthTypeInvalid = 'errorMentalHealthTypeInvalid';
+  static const String errorMentalHealthQuestionIdInvalid =
+      'errorMentalHealthQuestionIdInvalid';
+  static const String errorMentalHealthOptionIdInvalid =
+      'errorMentalHealthOptionIdInvalid';
+  static const String errorMentalHealthTypeInvalid =
+      'errorMentalHealthTypeInvalid';
   static const String errorMedicalOnboardingQuestionTypeInvalid =
       'errorMedicalOnboardingQuestionTypeInvalid';
   static const String errorPhysicalActivitiesPhysicalProgramIdNotFound =
@@ -2383,14 +3050,21 @@ class LocalizedTexts {
   static const String errorPhysicalActivitiesPreferencesNotFound =
       'errorPhysicalActivitiesPreferencesNotFound';
   static const String errorRiverModuleNotFound = 'errorRiverModuleNotFound';
-  static const String errorRiverModuleItemNotFound = 'errorRiverModuleItemNotFound';
-  static const String errorEducationLessonNotFound = 'errorEducationLessonNotFound';
-  static const String errorEducationQuizUpdateNotAllowed = 'errorEducationQuizUpdateNotAllowed';
-  static const String errorEducationQuizSubmitNotFound = 'errorEducationQuizSubmitNotFound';
-  static const String errorEducationQuizAlreadySubmitted = 'errorEducationQuizAlreadySubmitted';
-  static const String errorEducationQuizOptionNotFound = 'errorEducationQuizOptionNotFound';
+  static const String errorRiverModuleItemNotFound =
+      'errorRiverModuleItemNotFound';
+  static const String errorEducationLessonNotFound =
+      'errorEducationLessonNotFound';
+  static const String errorEducationQuizUpdateNotAllowed =
+      'errorEducationQuizUpdateNotAllowed';
+  static const String errorEducationQuizSubmitNotFound =
+      'errorEducationQuizSubmitNotFound';
+  static const String errorEducationQuizAlreadySubmitted =
+      'errorEducationQuizAlreadySubmitted';
+  static const String errorEducationQuizOptionNotFound =
+      'errorEducationQuizOptionNotFound';
   static const String errorEducationQuizNotFound = 'errorEducationQuizNotFound';
-  static const String errorEducationReflectionNotFound = 'errorEducationReflectionNotFound';
+  static const String errorEducationReflectionNotFound =
+      'errorEducationReflectionNotFound';
   static const String errorEducationReflectionOptionNotFound =
       'errorEducationReflectionOptionNotFound';
   static const String errorEducationReflectionFeedbackNotFound =
@@ -2399,11 +3073,16 @@ class LocalizedTexts {
       'errorEducationReflectionAlreadySubmitted';
   static const String errorEducationReflectionFeedbackAlreadySubmitted =
       'errorEducationReflectionFeedbackAlreadySubmitted';
-  static const String errorNutritionPlannedMealIdNotFound = 'errorNutritionPlannedMealIdNotFound';
-  static const String errorNutritionPlannedMealDateInvalid = 'errorNutritionPlannedMealDateInvalid';
-  static const String errorGroupSessionIdNotFound = 'errorGroupSessionIdNotFound';
-  static const String errorGroupSessionAccountIdNotGrouped = 'errorGroupSessionAccountIdNotGrouped';
-  static const String errorGroupSessionAccountIdNotFound = 'errorGroupSessionAccountIdNotFound';
+  static const String errorNutritionPlannedMealIdNotFound =
+      'errorNutritionPlannedMealIdNotFound';
+  static const String errorNutritionPlannedMealDateInvalid =
+      'errorNutritionPlannedMealDateInvalid';
+  static const String errorGroupSessionIdNotFound =
+      'errorGroupSessionIdNotFound';
+  static const String errorGroupSessionAccountIdNotGrouped =
+      'errorGroupSessionAccountIdNotGrouped';
+  static const String errorGroupSessionAccountIdNotFound =
+      'errorGroupSessionAccountIdNotFound';
   static const String errorGroupSessionAccountIdAlreadySigned =
       'errorGroupSessionAccountIdAlreadySigned';
   static const String errorGroupSessionAccountIdWasNotSigned =
@@ -2414,25 +3093,36 @@ class LocalizedTexts {
       'errorGroupSessionProgramImageInvalidMimeType';
   static const String errorGroupSessionStatusMismatchUpdateFlow =
       'errorGroupSessionStatusMismatchUpdateFlow';
-  static const String errorChatAccountIdNotAssignedToGroup = 'errorChatAccountIdNotAssignedToGroup';
+  static const String errorChatAccountIdNotAssignedToGroup =
+      'errorChatAccountIdNotAssignedToGroup';
   static const String errorChatMessageIdNotFound = 'errorChatMessageIdNotFound';
-  static const String errorMindTechniqueIdNotFound = 'errorMindTechniqueIdNotFound';
-  static const String errorMindExerciseIdNotFound = 'errorMindExerciseIdNotFound';
+  static const String errorMindTechniqueIdNotFound =
+      'errorMindTechniqueIdNotFound';
+  static const String errorMindExerciseIdNotFound =
+      'errorMindExerciseIdNotFound';
   static const String errorMoodIdNotFound = 'errorMoodIdNotFound';
   static const String errorMoodCreatedAyIsOld = 'errorMoodCreatedAyIsOld';
   static const String errorSmartGoalStartDateActiveSessionExists =
       'errorSmartGoalStartDateActiveSessionExists';
   static const String errorSmartGoalIdNotFound = 'errorSmartGoalIdNotFound';
-  static const String errorSmartGoalSessionIdNotFound = 'errorSmartGoalSessionIdNotFound';
-  static const String errorSmartGoalReviewIdNotFound = 'errorSmartGoalReviewIdNotFound';
-  static const String errorSmartGoalProgressLogsInvalid = 'errorSmartGoalProgressLogsInvalid';
-  static const String errorSmartGoalCategoryIdsLocked = 'errorSmartGoalCategoryIdsLocked';
-  static const String errorSmartGoalCategoryIdLocked = 'errorSmartGoalCategoryIdLocked';
+  static const String errorSmartGoalSessionIdNotFound =
+      'errorSmartGoalSessionIdNotFound';
+  static const String errorSmartGoalReviewIdNotFound =
+      'errorSmartGoalReviewIdNotFound';
+  static const String errorSmartGoalProgressLogsInvalid =
+      'errorSmartGoalProgressLogsInvalid';
+  static const String errorSmartGoalCategoryIdsLocked =
+      'errorSmartGoalCategoryIdsLocked';
+  static const String errorSmartGoalCategoryIdLocked =
+      'errorSmartGoalCategoryIdLocked';
   static const String errorSmartGoalSessionIdActiveLimitExceeded =
       'errorSmartGoalSessionIdActiveLimitExceeded';
-  static const String errorSmartGoalCategoryIdNotFound = 'errorSmartGoalCategoryIdNotFound';
-  static const String errorSmartGoalIdConflictsWithActive = 'errorSmartGoalIdConflictsWithActive';
-  static const String errorSmartGoalIdDuplicatesFound = 'errorSmartGoalIdDuplicatesFound';
+  static const String errorSmartGoalCategoryIdNotFound =
+      'errorSmartGoalCategoryIdNotFound';
+  static const String errorSmartGoalIdConflictsWithActive =
+      'errorSmartGoalIdConflictsWithActive';
+  static const String errorSmartGoalIdDuplicatesFound =
+      'errorSmartGoalIdDuplicatesFound';
   static const String errorCoreInternalServer = 'errorCoreInternalServer';
 
   // Error Screen
@@ -2445,10 +3135,12 @@ class LocalizedTexts {
   static const String errorSomethingIsIncorrect = 'errorSomethingIsIncorrect';
 
   //Error Subscriptions
-  static const String errorSubscriptionServiceUnavailable = 'errorSubscriptionServiceUnavailable';
+  static const String errorSubscriptionServiceUnavailable =
+      'errorSubscriptionServiceUnavailable';
   static const String errorPurchaseStreamError = 'errorPurchaseStreamError';
   static const String errorPurchaseErrorMessage = 'errorPurchaseErrorMessage';
-  static const String errorPurchaseVerificationError = 'errorPurchaseVerificationError';
+  static const String errorPurchaseVerificationError =
+      'errorPurchaseVerificationError';
 
   //DioException
   static const String errorRequestCancelledDio = 'errorRequestCancelledDio';
@@ -2460,7 +3152,8 @@ class LocalizedTexts {
   static const String errorNotFoundDio = 'errorNotFoundDio';
   static const String errorConflictDio = 'errorConflictDio';
   static const String errorServerErrorDio = 'errorServerErrorDio';
-  static const String errorUnprocessableEntityDio = 'errorUnprocessableEntityDio';
+  static const String errorUnprocessableEntityDio =
+      'errorUnprocessableEntityDio';
   static const String errorUnhandledResponseDio = 'errorUnhandledResponseDio';
   static const String errorUnhandledErrorDio = 'errorUnhandledErrorDio';
   static const String errorOtherDio = 'errorOtherDio';
@@ -2476,20 +3169,26 @@ class LocalizedTexts {
   static const String emergencyAssistanceNumber = 'emergencyAssistanceNumber';
   static const String emergencyAssistanceLabel = 'emergencyAssistanceLabel';
   static const String emergencyUsLifelineTitle = 'emergencyUsLifelineTitle';
-  static const String emergencyUsLifelineTitleNumber = 'emergencyUsLifelineTitleNumber';
-  static const String emergencyUsLifelineTitleLabel = 'emergencyUsLifelineTitleLabel';
+  static const String emergencyUsLifelineTitleNumber =
+      'emergencyUsLifelineTitleNumber';
+  static const String emergencyUsLifelineTitleLabel =
+      'emergencyUsLifelineTitleLabel';
   static const String emergencyCrisisChatTitle = 'emergencyCrisisChatTitle';
   static const String emergencyCrisisChatUrl = 'emergencyCrisisChatUrl';
   static const String emergencyCrisisChatLabel = 'emergencyCrisisChatLabel';
   static const String emergencySelfHarmLineTitle = 'emergencySelfHarmLineTitle';
-  static const String emergencySelfHarmLineNumber = 'emergencySelfHarmLineNumber';
+  static const String emergencySelfHarmLineNumber =
+      'emergencySelfHarmLineNumber';
   static const String emergencySelfHarmLineLabel = 'emergencySelfHarmLineLabel';
   static const String emergencyLGBTQLineTitle = 'emergencyLGBTQLineTitle';
   static const String emergencyLGBTQLineNumber = 'emergencyLGBTQLineNumber';
   static const String emergencyLGBTQLineLabel = 'emergencyLGBTQLineLabel';
-  static const String emergencyNationalHotlineTitle = 'emergencyNationalHotlineTitle';
-  static const String emergencyNationalHotlineNumber = 'emergencyNationalHotlineNumber';
-  static const String emergencyNationalHotlineLabel = 'emergencyNationalHotlineLabel';
+  static const String emergencyNationalHotlineTitle =
+      'emergencyNationalHotlineTitle';
+  static const String emergencyNationalHotlineNumber =
+      'emergencyNationalHotlineNumber';
+  static const String emergencyNationalHotlineLabel =
+      'emergencyNationalHotlineLabel';
   static const String emergencyVeteransLineTitle = 'emergencyVeteransLineTitle';
   static const String emergencyVeteransLineUrl = 'emergencyVeteransLineUrl';
   static const String emergencyVeteransLineLabel = 'emergencyVeteransLineLabel';
@@ -2508,7 +3207,8 @@ class LocalizedTexts {
   static const String moodLogLockedDescription = 'moodLogLockedDescription';
   static const String foodLog = 'foodLog';
   static const String foodLogLockedDescription = 'foodLogLockedDescription';
-  static const String mindTrainingLockedDescription = 'mindTrainingLockedDescription';
+  static const String mindTrainingLockedDescription =
+      'mindTrainingLockedDescription';
   static const String weightLog = 'weightLog';
   static const String weightLogLockedDescription = 'weightLogLockedDescription';
   static const String goals = 'goals';
@@ -2527,6 +3227,7 @@ class LocalizedTexts {
   //Links
   static const String linksTermsAndConditionsUrl = 'linksTermsAndConditionsUrl';
   static const String linksPrivacyPolicyUrl = 'linksPrivacyPolicyUrl';
-  static const String linksPsychologistConsulting = 'linksPsychologistConsulting';
+  static const String linksPsychologistConsulting =
+      'linksPsychologistConsulting';
   static const String linksInstructionsUrl = 'linksInstructionsUrl';
 }

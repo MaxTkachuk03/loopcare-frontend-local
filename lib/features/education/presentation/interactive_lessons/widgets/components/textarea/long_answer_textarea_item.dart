@@ -7,6 +7,9 @@ import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 import 'package:loopcare_frontend/core/presentation/utils/build_context_extensions.dart';
 import 'package:loopcare_frontend/core/presentation/utils/date_time_extensions.dart';
 import 'package:loopcare_frontend/features/river/domain/river_module_stream_type.dart';
+import 'package:loopcare_frontend/localization/service/localization_extension.dart';
+import 'package:loopcare_frontend/localization/service/localized_texts.dart';
+import 'package:loopcare_frontend/localization/service/localized_texts.dart';
 
 class LongAnswerTextAreaItem extends StatelessWidget {
   const LongAnswerTextAreaItem({
@@ -49,7 +52,8 @@ class LongAnswerTextAreaItem extends StatelessWidget {
         Container(
           padding: const EdgeInsets.all(12),
           decoration: BoxDecoration(
-            border: Border.all(color: Colors.black, width: 1.0, style: BorderStyle.solid),
+            border: Border.all(
+                color: Colors.black, width: 1.0, style: BorderStyle.solid),
             borderRadius: const BorderRadius.all(
               Radius.circular(12),
             ),
@@ -61,7 +65,8 @@ class LongAnswerTextAreaItem extends StatelessWidget {
                 children: [
                   CustomText(
                     "${dateTime.isoStringWithoutTime} ${dateTime.timeHoursMinutes24}",
-                    style: context.textTheme.bodyMedium!.copyWith(fontWeight: FontWeight.w700),
+                    style: context.textTheme.bodyMedium!
+                        .copyWith(fontWeight: FontWeight.w700),
                   ),
                 ],
               ),
@@ -73,15 +78,16 @@ class LongAnswerTextAreaItem extends StatelessWidget {
                 controller: controller,
                 focusNode: focusNode,
                 onChanged: onChangeHandler,
-                decoration: const InputDecoration(
-                    hintText: "Type your answer here.",
+                decoration: InputDecoration(
+                    hintText: LocalizedTexts.textAreaHintText.tr(),
                     focusedBorder: InputBorder.none,
-                    enabledBorder:
-                        OutlineInputBorder(borderSide: BorderSide(color: Colors.transparent)),
-                    hintStyle: TextStyle(color: AppColors.black),
+                    enabledBorder: const OutlineInputBorder(
+                        borderSide: BorderSide(color: Colors.transparent)),
+                    hintStyle: const TextStyle(color: AppColors.black),
                     fillColor: AppColors.white,
                     filled: true,
-                    contentPadding: EdgeInsets.symmetric(horizontal: 8, vertical: 20)),
+                    contentPadding: const EdgeInsets.symmetric(
+                        horizontal: 8, vertical: 20)),
               ),
               Container(
                 width: double.infinity,
@@ -90,13 +96,13 @@ class LongAnswerTextAreaItem extends StatelessWidget {
                   children: [
                     CustomIconButton.custom(
                       onPressed: canDelete ? clearTextHandler : null,
-                      icon: AppIcons.interactiveLessonBucket(
-                          canDelete, lessonStreamType.regularColor, AppColors.greyLighter),
+                      icon: AppIcons.interactiveLessonBucket(canDelete,
+                          lessonStreamType.regularColor, AppColors.greyLighter),
                     ),
                     CustomIconButton.custom(
                       onPressed: readOnly ? editTextHandler : null,
-                      icon: AppIcons.interactiveLessonEditPencil(
-                          readOnly, lessonStreamType.regularColor, AppColors.greyLighter),
+                      icon: AppIcons.interactiveLessonEditPencil(readOnly,
+                          lessonStreamType.regularColor, AppColors.greyLighter),
                     ),
                     const Spacer(),
                     CustomElevatedButton(
@@ -106,10 +112,11 @@ class LongAnswerTextAreaItem extends StatelessWidget {
                               onSaveHandler(controller.text);
                             },
                       styles: ButtonStyle(
-                          backgroundColor: WidgetStateProperty.all(text.isEmpty || !isButtonDisabled
-                              ? null
-                              : lessonStreamType.regularColor)),
-                      label: successText.isNotEmpty ? '   ✓  ' : 'Save',
+                          backgroundColor: WidgetStateProperty.all(
+                              text.isEmpty || !isButtonDisabled
+                                  ? null
+                                  : lessonStreamType.regularColor)),
+                      label: successText.isNotEmpty ? '   ✓  ' : LocalizedTexts.textAreaSave.tr(),
                     ),
                   ],
                 ),
