@@ -12,6 +12,7 @@ class SaveInteractiveLessonProgressBody {
   final int lessonId;
   final int componentId;
   final String answerType;
+  final String answeredAt;
   final InteractiveLessonComponentProgress progress;
 
   const SaveInteractiveLessonProgressBody({
@@ -21,6 +22,7 @@ class SaveInteractiveLessonProgressBody {
     required this.componentId,
     required this.progress,
     required this.answerType,
+    required this.answeredAt,
   });
 
   factory SaveInteractiveLessonProgressBody.fromJson(Map<String, dynamic> json) =>

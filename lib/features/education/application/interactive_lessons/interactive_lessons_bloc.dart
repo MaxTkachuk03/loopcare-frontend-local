@@ -1,6 +1,7 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
+import 'package:intl/intl.dart';
 import 'package:loopcare_frontend/core/infrastructure/dio_client/request_error.dart';
 import 'package:loopcare_frontend/features/education/application/education_service.dart';
 import 'package:loopcare_frontend/features/education/domain/interactive_lesson/interactive_lesson_chunk.dart';
@@ -117,12 +118,15 @@ class InteractiveLessonsBloc extends Bloc<InteractiveLessonsEvent, InteractiveLe
             activeChunk.componentsIds.contains(component.id))
         .toList();
 
+    String convertedDate = DateFormat("yyyy-MM-dd").format(DateTime.now());
+
     final data = SaveInteractiveLessonProgressBody(
         lessonId: state.data.id,
         topicId: state.data.activePage!.topicId,
         pageId: state.data.activePage!.id,
         componentId: event.component.id,
         answerType: event.component.type.name,
+        answeredAt: convertedDate,
         progress: componentWithProgress.progress!);
 
     final response = await _educationService.saveInteractiveLessonProgress(chunkId, data);
