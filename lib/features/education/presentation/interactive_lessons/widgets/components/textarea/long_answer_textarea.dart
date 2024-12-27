@@ -47,7 +47,7 @@ class _LongAnswerTextAreaState extends State<LongAnswerTextArea> {
   final List<bool> _disabled = [];
   final List<DateTime> _dateTime = [];
   final List<FocusNode> _focusNodes = [];
-  final List<InteractiveLessonTextAreaHistory> componentHistory = [];
+  final List<InteractiveLessonHistory> componentHistory = [];
 
   @override
   void initState() {
@@ -112,7 +112,7 @@ class _LongAnswerTextAreaState extends State<LongAnswerTextArea> {
     });
 
     if (isEditing) {
-      componentHistory[i] = InteractiveLessonTextAreaHistory(
+      componentHistory[i] = InteractiveLessonHistory(
           id: componentHistory[i].id,
           text: textToSave,
           updatedAt: _dateTime[i],
@@ -121,7 +121,7 @@ class _LongAnswerTextAreaState extends State<LongAnswerTextArea> {
         isEditing = false;
       });
     } else {
-      final answer = InteractiveLessonTextAreaHistory(text: textToSave, createdAt: _dateTime[i]);
+      final answer = InteractiveLessonHistory(text: textToSave, createdAt: _dateTime[i]);
       componentHistory.add(answer);
       setDeleteButtonStatus();
     }

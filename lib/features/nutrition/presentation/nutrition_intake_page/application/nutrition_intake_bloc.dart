@@ -2,7 +2,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
 import 'package:loopcare_frontend/core/infrastructure/dio_client/request_error.dart';
-import 'package:loopcare_frontend/features/nutrition/presentation/nutrition_intake_page/application/dto/nutrition_intake_done_lessons/nutrition_intake_done_lessons.dart';
+import 'package:loopcare_frontend/features/nutrition/presentation/nutrition_intake_page/application/dto/nutrition_intake_goal_progress/nutrition_intake_goal_progress.dart';
 import 'package:loopcare_frontend/features/nutrition/presentation/nutrition_intake_page/domain/nutrition_intake_services.dart';
 
 part 'nutrition_intake_event.dart';
@@ -10,7 +10,8 @@ part 'nutrition_intake_state.dart';
 part 'nutrition_intake_bloc.freezed.dart';
 
 @singleton
-class NutritionIntakeBloc extends Bloc<NutritionIntakeEvent, NutritionIntakeState> {
+class NutritionIntakeBloc
+    extends Bloc<NutritionIntakeEvent, NutritionIntakeState> {
   final NutritionIntakeServices _nutritionIntakeServices;
 
   NutritionIntakeBloc(this._nutritionIntakeServices)
@@ -18,6 +19,7 @@ class NutritionIntakeBloc extends Bloc<NutritionIntakeEvent, NutritionIntakeStat
     on<FetchProgress>(_onFetchProgress);
     on<CompleteDay>(_completeDay);
     on<FinishLesson>(_onFinishLesson);
+    on<GetLessonId>(_onGetLessonId);
   }
 
   Future<void> _onFetchProgress(
@@ -26,13 +28,17 @@ class NutritionIntakeBloc extends Bloc<NutritionIntakeEvent, NutritionIntakeStat
   ) async {
     emit(NutritionIntakeState.loading(state.data.copyWith(isLoading: true)));
 
-    final response = await _nutritionIntakeServices.getLessons(date: event.date);
+    final response =
+        await _nutritionIntakeServices.getLessons(date: event.date);
 
     response.fold(
-        (left) =>
-            emit(NutritionIntakeState.error(state.data.copyWith(error: left, isLoading: false))),
+        (left) => emit(NutritionIntakeState.error(
+            state.data.copyWith(error: left, isLoading: false))),
         (right) => emit(NutritionIntakeState.loaded(state.data.copyWith(
-            isDayClosed: right.isDayClosed, progress: right.progress, isLoading: false))));
+              isDayClosed: right.isDayClosed,
+              progress: right.progress,
+              isLoading: false,
+            ))));
   }
 
   Future<void> _completeDay(
@@ -45,6 +51,14 @@ class NutritionIntakeBloc extends Bloc<NutritionIntakeEvent, NutritionIntakeStat
         state.data.copyWith(dateTime: event.date.toLocal().toString())));
   }
 
+  Future<void> _onGetLessonId(
+    GetLessonId event,
+    Emitter<NutritionIntakeState> emit,
+  ) async {
+    emit(NutritionIntakeState.loaded(
+        state.data.copyWith(iLessonId: event.iLessonId)));
+  }
+
   Future<void> _onFinishLesson(
     FinishLesson event,
     Emitter<NutritionIntakeState> emit,
@@ -54,7 +68,8 @@ class NutritionIntakeBloc extends Bloc<NutritionIntakeEvent, NutritionIntakeStat
       iLessonId: event.iLessonId,
     );
 
-    emit(NutritionIntakeState.finishLesson(state.data
-        .copyWith(dateTime: event.date.toLocal().toString(), iLessonId: event.iLessonId)));
+    emit(NutritionIntakeState.finishLesson(state.data.copyWith(
+        dateTime: event.date.toLocal().toString(),
+        iLessonId: event.iLessonId)));
   }
 }

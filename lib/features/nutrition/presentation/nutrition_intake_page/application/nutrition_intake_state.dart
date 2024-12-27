@@ -14,11 +14,11 @@ class NutritionIntakeState with _$NutritionIntakeState {
   const factory NutritionIntakeState.loaded(NutritionIntakeStateData data) =
       NutritionIntakeStateLoaded;
 
-  const factory NutritionIntakeState.completeDay(NutritionIntakeStateData data) =
-      NutritionIntakeStateCloseDay;
+  const factory NutritionIntakeState.completeDay(
+      NutritionIntakeStateData data) = NutritionIntakeStateCloseDay;
 
-  const factory NutritionIntakeState.finishLesson(NutritionIntakeStateData data) =
-      NutritionIntakeStateFinishLesson;
+  const factory NutritionIntakeState.finishLesson(
+      NutritionIntakeStateData data) = NutritionIntakeStateFinishLesson;
 }
 
 @freezed
@@ -27,8 +27,8 @@ class NutritionIntakeStateData with _$NutritionIntakeStateData {
 
   const factory NutritionIntakeStateData({
     @Default(false) bool isDayClosed,
-    @Default([]) List<NutritionIntakeDoneLessons> progress,
-    @Default(null) NutritionIntakeDoneLessons? doneLessons,
+    @Default([]) List<NutritionIntakeGoalProgress> progress,
+    @Default(null) NutritionIntakeGoalProgress? doneLessons,
     @Default(false) bool isLoading,
     @Default('') String dateTime,
     @Default(0) int iLessonId,

@@ -17,7 +17,7 @@ class InteractiveLessonComponentProgress with _$InteractiveLessonComponentProgre
     String? text,
     int? survey,
     required String type,
-    List<InteractiveLessonTextAreaHistory>? history,
+    List<InteractiveLessonHistory>? history,
   }) = _InteractiveLessonComponentProgress;
 
   factory InteractiveLessonComponentProgress.fromJson(Map<String, dynamic> json) =>
@@ -44,7 +44,7 @@ class InteractiveLessonComponentProgress with _$InteractiveLessonComponentProgre
       log.d('Parsed type: $type');
 
       final history = (json['history'] as List<dynamic>?)
-          ?.map((e) => InteractiveLessonTextAreaHistory.debugFromJson(e as Map<String, dynamic>))
+          ?.map((e) => InteractiveLessonHistory.debugFromJson(e as Map<String, dynamic>))
           .toList();
       log.d('Parsed history: $history');
 

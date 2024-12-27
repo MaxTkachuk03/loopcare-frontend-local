@@ -6,22 +6,22 @@ part 'interactive_lesson_text_area_history.freezed.dart';
 part 'interactive_lesson_text_area_history.g.dart';
 
 @freezed
-class InteractiveLessonTextAreaHistory with _$InteractiveLessonTextAreaHistory {
-  const InteractiveLessonTextAreaHistory._();
+class InteractiveLessonHistory with _$InteractiveLessonHistory {
+  const InteractiveLessonHistory._();
 
-  const factory InteractiveLessonTextAreaHistory({
+  const factory InteractiveLessonHistory({
     int? id,
     required String text,
     DateTime? createdAt,
     DateTime? updatedAt,
-  }) = _InteractiveLessonTextAreaHistory;
+  }) = _InteractiveLessonHistory;
 
-  factory InteractiveLessonTextAreaHistory.fromJson(Map<String, dynamic> json) =>
-      _$InteractiveLessonTextAreaHistoryFromJson(json);
+  factory InteractiveLessonHistory.fromJson(Map<String, dynamic> json) =>
+      _$InteractiveLessonHistoryFromJson(json);
 
-  factory InteractiveLessonTextAreaHistory.debugFromJson(Map<String, dynamic> json) {
+  factory InteractiveLessonHistory.debugFromJson(Map<String, dynamic> json) {
     try {
-      log.d('Parsing InteractiveLessonTextAreaHistory: $json');
+      log.d('Parsing InteractiveLessonHistory: $json');
 
       final id = json['id'] != null
           ? (json['id'] is int ? json['id'] as int : int.tryParse(json['id'].toString()))
@@ -40,14 +40,14 @@ class InteractiveLessonTextAreaHistory with _$InteractiveLessonTextAreaHistory {
       log.d('Parsed updatedAt: $updatedAt');
 
       // Return parsed object
-      return InteractiveLessonTextAreaHistory(
+      return InteractiveLessonHistory(
         id: id,
         text: text,
         createdAt: createdAt,
         updatedAt: updatedAt,
       );
     } catch (e, stackTrace) {
-      log.w('Error in InteractiveLessonTextAreaHistory.debugFromJson: $e');
+      log.w('Error in InteractiveLessonHistory.debugFromJson: $e');
       log.d('Stack Trace: $stackTrace');
       log.d('Problematic JSON: $json');
       rethrow;

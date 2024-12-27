@@ -11,7 +11,8 @@ import 'package:loopcare_frontend/features/education/application/interactive_les
 import 'package:loopcare_frontend/features/nutrition/application/meals/dto/meal_item.dart';
 import 'package:loopcare_frontend/features/nutrition/application/meals/meals_bloc.dart';
 import 'package:loopcare_frontend/features/nutrition/domain/select_serving/meal_category.dart';
-import 'package:loopcare_frontend/features/nutrition/presentation/nutrition_intake_page/application/dto/nutrition_intake_done_lessons/nutrition_intake_done_lessons.dart';
+import 'package:loopcare_frontend/features/nutrition/presentation/nutrition_intake_page/application/dto/nutrition_intake_goal_progress/nutrition_intake_goal_progress.dart';
+import 'package:loopcare_frontend/features/nutrition/presentation/nutrition_intake_page/application/nutrition_intake_bloc.dart';
 
 class NutritionIntakeButton extends StatelessWidget {
   const NutritionIntakeButton({
@@ -24,6 +25,7 @@ class NutritionIntakeButton extends StatelessWidget {
     this.mealItems,
     required this.isDisabled,
     this.progress,
+    required this.lessonDate,
   });
 
   final String text;
@@ -34,7 +36,8 @@ class NutritionIntakeButton extends StatelessWidget {
   final double? calorieDensity;
   final List<MealItem>? mealItems;
   final bool isDisabled;
-  final NutritionIntakeDoneLessons? progress;
+  final NutritionIntakeGoalProgress? progress;
+  final DateTime lessonDate;
 
   void _onTapHandler(BuildContext context) {
     if (isDisabled && mealId == null) return;
@@ -49,9 +52,14 @@ class NutritionIntakeButton extends StatelessWidget {
 
   void _goToNutritionTest(BuildContext context, int lessonId) {
     context.read<InteractiveLessonsBloc>().add(
-        InteractiveLessonsEvent.getInteractiveLesson(lessonId: lessonId, date: DateTime.now()));
+        InteractiveLessonsEvent.getInteractiveLesson(
+            lessonId: lessonId, date: lessonDate));
 
     context.read<MealsBloc>().add(MealsEvent.setMealId(mealId!, category));
+
+    context
+        .read<NutritionIntakeBloc>()
+        .add(NutritionIntakeEvent.getLessonId(iLessonId: lessonId));
 
     Future.delayed(
       const Duration(milliseconds: 800),
@@ -65,8 +73,8 @@ class NutritionIntakeButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final bool isThisCategory =
-        (mealId != null && category.title.toLowerCase().contains(text.toLowerCase()));
+    final bool isThisCategory = (mealId != null &&
+        category.title.toLowerCase().contains(text.toLowerCase()));
 
     final bool isCompleted = progress?.isLessonFinished == true;
     return Column(

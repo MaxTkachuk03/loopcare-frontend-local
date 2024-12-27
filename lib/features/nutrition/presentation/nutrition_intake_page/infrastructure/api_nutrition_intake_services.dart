@@ -1,11 +1,12 @@
 import 'package:dartz/dartz.dart';
 import 'package:injectable/injectable.dart';
 import 'package:intl/intl.dart';
-
 import 'package:loopcare_frontend/core/infrastructure/dio_client/dio_client.dart';
 import 'package:loopcare_frontend/core/infrastructure/dio_client/request_error.dart';
 import 'package:loopcare_frontend/core/infrastructure/services/logger/logger.dart';
 import 'package:loopcare_frontend/features/nutrition/presentation/nutrition_intake_page/application/dto/get_nutrition_intake_response.dart';
+import 'package:loopcare_frontend/features/nutrition/presentation/nutrition_intake_page/application/dto/nutrition_intake_complete_day/nutrition_intake_complete_day.dart';
+import 'package:loopcare_frontend/features/nutrition/presentation/nutrition_intake_page/application/dto/nutrition_intake_finfish_lessons/nutrition_intake_finish_lessons.dart';
 import 'package:loopcare_frontend/features/nutrition/presentation/nutrition_intake_page/domain/nutrition_intake_services.dart';
 // import 'package:loopcare_frontend/features/nutrition/presentation/nutrition_intake_page/infrastructure/nutrition_intake_mock.dart';
 
@@ -40,7 +41,7 @@ class ApiNutritionIntakeServices implements NutritionIntakeServices {
   }
 
   @override
-  Future<Either<RequestError, GetNutritionIntakeResponse>> completeDay(
+  Future<Either<RequestError, NutritionIntakeCompleteDay>> completeDay(
       {required DateTime date}) async {
     String convertedDate = DateFormat("yyyy-MM-dd").format(date);
 
@@ -48,7 +49,7 @@ class ApiNutritionIntakeServices implements NutritionIntakeServices {
       final response = await client.post(
         '/smart-goal/complete-day',
         queryParameters: {"date": convertedDate},
-        fromJson: GetNutritionIntakeResponse.fromJson,
+        fromJson: NutritionIntakeCompleteDay.fromJson,
       );
       log.d('Raw Response: completeDay');
       return response;
@@ -60,14 +61,14 @@ class ApiNutritionIntakeServices implements NutritionIntakeServices {
   }
 
   @override
-  Future<Either<RequestError, GetNutritionIntakeResponse>> finishLesson(
+  Future<Either<RequestError, NutritionIntakeFinishLessons>> finishLesson(
       {required DateTime date, required int iLessonId}) async {
     String convertedDate = DateFormat("yyyy-MM-dd").format(date);
     try {
       final response = await client.post(
         '/smart-goal/finish-lesson',
         queryParameters: {"date": convertedDate, "iLessonId": iLessonId},
-        fromJson: GetNutritionIntakeResponse.fromJson,
+        fromJson: NutritionIntakeFinishLessons.fromJson,
       );
       log.d('Raw Response: finishLessonINTAKE');
       return response;
