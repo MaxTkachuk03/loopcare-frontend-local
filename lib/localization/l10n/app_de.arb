@@ -2474,6 +2474,8 @@
   "unlockWeight": "Schalten Sie Ihr Gewicht frei",
   "unlockFoodLog": "Schalte das Lebensmittelprotokoll frei",
   "readyGraduate": "bereit für den Abschluss",
-  "tapReflection": "Tippen Sie auf das Reflexionssymbol, um den Artikel zu lesen und den zu starten."
+  "tapReflection": "Tippen Sie auf das Reflexionssymbol, um den Artikel zu lesen und den zu starten.",
+  "interactiveLessonsCorrectFeedbackTitle": "Das ist richtig",
+  "interactiveLessonsIncorrectFeedbackTitle": "Das ist falsch"
 }
 
