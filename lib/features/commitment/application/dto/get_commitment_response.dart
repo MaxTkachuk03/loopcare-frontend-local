@@ -11,7 +11,7 @@ class GetCommitmentResponse with _$GetCommitmentResponse {
   const factory GetCommitmentResponse({
     required int completedCommitments,
     required int totalCommitments,
-    required bool showCommitment,
+    required bool isCommitmentUnlocked,
   }) = _GetCommitmentResponse;
 
   factory GetCommitmentResponse.fromJson(Map<String, dynamic> json) =>

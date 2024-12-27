@@ -67,7 +67,7 @@ class _DashboardSmartGoalsState extends State<DashboardSmartGoals> {
                           highlightColor:
                               widget.showSmartGoalsCard ? AppColors.greenLightest : AppColors.white,
                           leadingIcon: (widget.showSmartGoalsCard
-                              ? AppIcons.customDashboardSmartGoals
+                              ? AppIcons.customDashboardSmartGoalsBlue
                               : AppIcons.customDashboardSmartGoalsGrey),
                           editable: true,
                           title: Column(
@@ -167,7 +167,7 @@ class _DashboardSmartGoalsState extends State<DashboardSmartGoals> {
                                 ? AppColors.greenLightest
                                 : AppColors.white,
                             leadingIcon: (widget.showSmartGoalsCard
-                                ? AppIcons.customDashboardSmartGoals
+                                ? AppIcons.customDashboardSmartGoalsBlue
                                 : AppIcons.customDashboardSmartGoalsGrey),
                             editable: true,
                             title: Column(

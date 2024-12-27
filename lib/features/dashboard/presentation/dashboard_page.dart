@@ -284,21 +284,17 @@ class _DashboardPageState extends State<DashboardPage> with WidgetsBindingObserv
                             final isCommitmentUnlocked = state.data.isCommitmentUnlocked;
                             return BlocBuilder<CommitmentBloc, CommitmentState>(
                               builder: (context, state) {
-                                final showCommitment = state.data.showCommitment;
-
-                                if (isCommitmentUnlocked && showCommitment) {
-                                  return Column(
-                                    crossAxisAlignment: CrossAxisAlignment.start,
-                                    children: [
-                                      CommitmentDashboard(
-                                        selectedDay: _selectedDay,
-                                      ),
-                                      const SizedBox(height: 19.0),
-                                    ],
-                                  );
-                                } else {
-                                  return const SizedBox.shrink();
-                                }
+                                final isUnlocked = state.data.isCommitmentUnlocked;
+                                return Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    CommitmentDashboard(
+                                      selectedDay: _selectedDay,
+                                      isUnlocked: isCommitmentUnlocked && isUnlocked,
+                                    ),
+                                    const SizedBox(height: 19.0),
+                                  ],
+                                );
                               },
                             );
                           }),

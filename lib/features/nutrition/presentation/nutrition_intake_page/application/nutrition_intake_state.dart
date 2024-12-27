@@ -14,11 +14,11 @@ class NutritionIntakeState with _$NutritionIntakeState {
   const factory NutritionIntakeState.loaded(NutritionIntakeStateData data) =
       NutritionIntakeStateLoaded;
 
-  const factory NutritionIntakeState.completeDay(
-      NutritionIntakeStateData data) = NutritionIntakeStateCloseDay;
+  const factory NutritionIntakeState.completeDay(NutritionIntakeStateData data) =
+      NutritionIntakeStateCloseDay;
 
-  const factory NutritionIntakeState.finishLesson(
-      NutritionIntakeStateData data) = NutritionIntakeStateFinishLesson;
+  const factory NutritionIntakeState.finishLesson(NutritionIntakeStateData data) =
+      NutritionIntakeStateFinishLesson;
 }
 
 @freezed

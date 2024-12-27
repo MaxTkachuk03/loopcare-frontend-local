@@ -192,6 +192,11 @@ class _PoolStatusWidgetState extends State<PoolStatusWidget> {
     return iconPath;
   }
 
+  String getLocalTime(String nextModuleUnlocksAt) {
+    final date = DateTime.parse(nextModuleUnlocksAt);
+    return formatDate(date.toLocal().toString());
+  }
+
   @override
   Widget build(BuildContext context) {
     return PopScope(
@@ -225,7 +230,7 @@ class _PoolStatusWidgetState extends State<PoolStatusWidget> {
                   CustomTile(
                     text: moduleItem.nextModuleUnlocksAt == null
                         ? "${LocalizedTexts.tapReflection.tr()} $totalDays timer."
-                        : "${LocalizedTexts.timeReq.tr()} ${formatDate(moduleItem.nextModuleUnlocksAt.toString())}",
+                        : "${LocalizedTexts.timeReq.tr()} ${moduleItem.nextModuleUnlocksAt != null ? getLocalTime(moduleItem.nextModuleUnlocksAt!) : ''}",
                     color: AppColors.blueDarker,
                     fontSize: 15,
                     fontWeight: FontWeight.w400,

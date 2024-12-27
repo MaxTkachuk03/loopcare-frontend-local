@@ -189,6 +189,8 @@ class AppIcons {
       SvgPicture.asset('$iconsFilePath/custom_dashboard_reflections.svg', width: 44, height: 44);
   static SvgPicture commitment =
       SvgPicture.asset('$iconsFilePath/commitment.svg', width: 44, height: 44);
+  static SvgPicture commitmentLocked =
+      SvgPicture.asset('$iconsFilePath/commitment_locked.svg', width: 44, height: 44);
   static SvgPicture customSupportGroup =
       SvgPicture.asset('$iconsFilePath/custom_support_group.svg', width: 44, height: 44);
   static SvgPicture customSupportGroupGrey =
@@ -216,6 +218,8 @@ class AppIcons {
   static SvgPicture customDashboardMindGrey =
       SvgPicture.asset('$iconsFilePath/mind_training.svg', width: 44, height: 44);
   static SvgPicture customDashboardSmartGoals =
+      SvgPicture.asset('$iconsFilePath/custom_dashboard_smart_goals.svg', width: 44, height: 44);
+  static SvgPicture customDashboardSmartGoalsBlue =
       SvgPicture.asset('$iconsFilePath/smart_goal_dark_blue.svg', width: 44, height: 44);
   static SvgPicture customDashboardSmartGoalsGrey =
       SvgPicture.asset('$iconsFilePath/my_goals.svg', width: 44, height: 44);

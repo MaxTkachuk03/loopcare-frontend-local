@@ -145,18 +145,9 @@ class _RiverScreenState extends State<RiverScreen> with RiverUtils {
       if (lessonId != item.lessonId) {
         context.read<InteractiveLessonsBloc>().add(InteractiveLessonsEvent.getInteractiveLesson(
             lessonId: item.lessonId, lessonStatus: item.states.itemState));
+
+        context.router.pushNamed(AppRoutes.interactiveLesson);
       }
-
-      // TODO: delete after connecting to backend
-      context.read<InteractiveLessonsBloc>().add(InteractiveLessonsEvent.getInteractiveLesson(
-          lessonId: item.lessonId, lessonStatus: item.states.itemState));
-
-      Future.delayed(
-        const Duration(milliseconds: 800),
-        () {
-          if (mounted) context.router.pushNamed(AppRoutes.interactiveLesson);
-        },
-      );
     }
   }
 

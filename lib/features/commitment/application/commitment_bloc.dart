@@ -18,6 +18,7 @@ class CommitmentBloc extends Bloc<CommitmentEvent, CommitmentState> {
   CommitmentBloc(this._commitmentService)
       : super(const CommitmentState.initial(CommitmentStateData())) {
     on<GetCommitment>(_onGetCommitment);
+    on<UpdateCommitment>(_onUpdateCommitment);
   }
 
   FutureOr<void> _onGetCommitment(
@@ -33,8 +34,17 @@ class CommitmentBloc extends Bloc<CommitmentEvent, CommitmentState> {
       (r) => emit(CommitmentState.commitmentLoaded(state.data.copyWith(
           totalCommitments: r.totalCommitments,
           completedCommitments: r.completedCommitments,
-          showCommitment: r.showCommitment,
+          isCommitmentUnlocked: r.isCommitmentUnlocked,
           isLoading: false))),
     );
+  }
+
+  FutureOr<void> _onUpdateCommitment(
+    UpdateCommitment event,
+    Emitter<CommitmentState> emit,
+  ) async {
+    final previouslyCompleted = state.data.completedCommitments;
+    emit(CommitmentState.commitmentLoaded(
+        state.data.copyWith(completedCommitments: previouslyCompleted + 1)));
   }
 }

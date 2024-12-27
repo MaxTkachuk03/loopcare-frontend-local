@@ -20,6 +20,6 @@ class CommitmentStateData with _$CommitmentStateData {
     RequestError? error,
     @Default(0) int completedCommitments,
     @Default(0) int totalCommitments,
-    @Default(false) bool showCommitment,
+    @Default(false) bool isCommitmentUnlocked,
   }) = _CommitmentStateData;
 }
