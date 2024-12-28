@@ -27,9 +27,8 @@ class MealTiming extends StatefulWidget {
 
   final InteractiveLessonChunkComponentMealTiming component;
   final RiverModuleStreamType lessonStreamType;
-  final Function(
-          InteractiveLessonComponentProgress progress, InteractiveLessonChunkComponent component)
-      onSaveProgress;
+  final Function(InteractiveLessonComponentProgress progress,
+      InteractiveLessonChunkComponent component) onSaveProgress;
 
   @override
   State<MealTiming> createState() => _MealTimingState();
@@ -58,6 +57,8 @@ class _MealTimingState extends State<MealTiming> {
   Widget build(BuildContext context) {
     return BlocBuilder<MealsBloc, MealsState>(
       builder: (context, mealsState) {
+        print(
+            " %%%%%%%% ${_getMealList(mealsState.data.currentFoodItems, mealsState.data.currentMealCategory!)}");
         return Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -68,35 +69,52 @@ class _MealTimingState extends State<MealTiming> {
             const SizedBox(height: 20),
             CustomText(
               content.question,
-              style: context.textTheme.bodyMedium!.copyWith(fontWeight: FontWeight.w700),
+              style: context.textTheme.bodyMedium!
+                  .copyWith(fontWeight: FontWeight.w700),
             ),
             const SizedBox(height: 20),
             ListView.separated(
               physics: const NeverScrollableScrollPhysics(),
               shrinkWrap: true,
               separatorBuilder: (context, index) => const SizedBox(height: 8.0),
-              itemCount: _getMealList(
-                  mealsState.data.currentFoodItems, mealsState.data.currentMealCategory!),
+              itemCount: _getMealList(mealsState.data.currentFoodItems,
+                  mealsState.data.currentMealCategory!),
               itemBuilder: (context, index) {
                 final meal = meals.toList()[index];
                 final mealName = meal.name;
                 // SJC remove? final time = mealsState.data.currentDateTime ?? meal.createdAt.toLocal();
                 // warning • The left operand can't be null, so the right operand is never executed • lib/features/education/presentation/interactive_lessons/widgets/components/meal_timing/meal_timing.dart:81:65 • dead_null_aware_expression
-                final time = mealsState.data.currentDateTime;
+                // ignore: prefer_is_empty
+                final time = widget.component.progress?.history?.length != 0
+                    ? widget.component.progress!.history![index].updatedAt!
+                    : meal.updatedAt;
+
+                final category = mealsState.data.currentMealCategory!;
 
                 return GestureDetector(
                   onTap: () async => await showAdaptiveDialog(
                     barrierDismissible: true,
                     context: context,
                     builder: (BuildContext context) => CustomTimePicker(
+                      category: category.title,
                       initialTime: time,
+                      secondTime: meal.createdAt,
+                      mealName: mealName,
+                      onSaveProgress: widget.onSaveProgress,
+                      component: widget.component,
+                      lessonStreamType: widget.lessonStreamType,
+                      id: meal.id,
                     ),
                   ),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     mainAxisSize: MainAxisSize.min,
                     children: [
-                      Expanded(child: CustomText.w400(mealName)),
+                      Expanded(
+                          child: CustomText.w400(
+                              category == MealCategory.inbetweens
+                                  ? mealName
+                                  : category.title)),
                       Container(
                         padding: const EdgeInsets.all(10.0),
                         decoration: BoxDecoration(
@@ -128,3 +146,4 @@ class _MealTimingState extends State<MealTiming> {
     );
   }
 }
+
