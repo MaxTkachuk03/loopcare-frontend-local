@@ -46,8 +46,7 @@ class _DashboardSmartGoalsState extends State<DashboardSmartGoals> {
   void onPressHandler(BuildContext context) =>
       context.router.pushNamed(AppRoutes.goalFlavors).then(getPoolData);
 
-  void getPoolData(e) =>
-      context.read<PoolModuleBloc>().add(const PoolModuleEvent.getPoolData());
+  void getPoolData(e) => context.read<PoolModuleBloc>().add(const PoolModuleEvent.getPoolData());
 
   @override
   Widget build(BuildContext context) {
@@ -67,9 +66,8 @@ class _DashboardSmartGoalsState extends State<DashboardSmartGoals> {
                               toggleOnClick();
                             }
                           },
-                          highlightColor: widget.showSmartGoalsCard
-                              ? AppColors.greenLightest
-                              : AppColors.white,
+                          highlightColor:
+                              widget.showSmartGoalsCard ? AppColors.greenLightest : AppColors.white,
                           leadingIcon: (widget.showSmartGoalsCard
                               ? AppIcons.customDashboardSmartGoalsBlue
                               : AppIcons.customDashboardSmartGoalsGrey),
@@ -83,19 +81,16 @@ class _DashboardSmartGoalsState extends State<DashboardSmartGoals> {
                                   : widget.showSmartGoalsCard
                                       ? CustomText.bitter600(
                                           LocalizedTexts.smartGoalsMyGoals.tr(),
-                                          style:
-                                              context.textTheme.headlineSmall,
+                                          style: context.textTheme.headlineSmall,
                                         )
                                       : CustomText.bitter400(
                                           LocalizedTexts.smartGoalsMyGoals.tr(),
                                           style: const TextStyle(
-                                              color: AppColors.greyLight,
-                                              fontSize: 20),
+                                              color: AppColors.greyLight, fontSize: 20),
                                         ),
                             ],
                           ),
-                          circleButton:
-                              widget.showSmartGoalsCard ? true : false,
+                          circleButton: widget.showSmartGoalsCard ? true : false,
                           actionIcon: (widget.showSmartGoalsCard)
                               ? AppIcons.plus
                               : onClick
@@ -118,8 +113,7 @@ class _DashboardSmartGoalsState extends State<DashboardSmartGoals> {
                             width: 250,
                             child: CustomText.w400(
                               "${LocalizedTexts.featureUnlocksAtPool.tr()} ${LocalizedTexts.goals.tr()}",
-                              style: const TextStyle(
-                                  color: AppColors.greyLight, fontSize: 16),
+                              style: const TextStyle(color: AppColors.greyLight, fontSize: 16),
                             ),
                           ),
                         ],
@@ -127,8 +121,7 @@ class _DashboardSmartGoalsState extends State<DashboardSmartGoals> {
                     ),
               onClick
                   ? Padding(
-                      padding: const EdgeInsets.only(
-                          left: 12.0, right: 12.0, bottom: 12),
+                      padding: const EdgeInsets.only(left: 12.0, right: 12.0, bottom: 12),
                       child: Row(
                         children: [
                           SizedBox(
@@ -136,8 +129,7 @@ class _DashboardSmartGoalsState extends State<DashboardSmartGoals> {
                             child: CustomText.w400(
                               maxLines: 10,
                               LocalizedTexts.myGoalsLockedDescription.tr(),
-                              style: const TextStyle(
-                                  color: AppColors.greyLight, fontSize: 16),
+                              style: const TextStyle(color: AppColors.greyLight, fontSize: 16),
                             ),
                           ),
                         ],
@@ -152,8 +144,7 @@ class _DashboardSmartGoalsState extends State<DashboardSmartGoals> {
             ],
           )
         : Container(
-            padding: const EdgeInsets.only(
-                top: 8.0, bottom: 8.0, right: 8.0, left: 8.0),
+            padding: const EdgeInsets.only(top: 8.0, bottom: 8.0, right: 8.0, left: 8.0),
             alignment: Alignment.center,
             decoration: const BoxDecoration(
               color: AppColors.white,
@@ -170,8 +161,7 @@ class _DashboardSmartGoalsState extends State<DashboardSmartGoals> {
                             onTap: widget.showSmartGoalsCard && widget.isFuture
                                 ? null
                                 : () {
-                                    if (widget.showSmartGoalsCard &&
-                                        !widget.isFuture) {
+                                    if (widget.showSmartGoalsCard && !widget.isFuture) {
                                       onPressHandler(context);
                                     } else {
                                       toggleOnClick();
@@ -190,27 +180,20 @@ class _DashboardSmartGoalsState extends State<DashboardSmartGoals> {
                               children: [
                                 widget.isDeleteModule
                                     ? const SizedBox.shrink()
-                                    : widget.showSmartGoalsCard &&
-                                            !widget.isFuture
+                                    : widget.showSmartGoalsCard && !widget.isFuture
                                         ? CustomText.bitter600(
-                                            LocalizedTexts.smartGoalsMyGoals
-                                                .tr(),
-                                            style:
-                                                context.textTheme.headlineSmall,
+                                            LocalizedTexts.smartGoalsMyGoals.tr(),
+                                            style: context.textTheme.headlineSmall,
                                           )
                                         : CustomText.bitter400(
-                                            LocalizedTexts.smartGoalsMyGoals
-                                                .tr(),
+                                            LocalizedTexts.smartGoalsMyGoals.tr(),
                                             style: const TextStyle(
-                                                color: AppColors.greyLight,
-                                                fontSize: 20),
+                                                color: AppColors.greyLight, fontSize: 20),
                                           ),
                               ],
                             ),
                             circleButton:
-                                widget.showSmartGoalsCard && !widget.isFuture
-                                    ? true
-                                    : false,
+                                widget.showSmartGoalsCard && !widget.isFuture ? true : false,
                             actionIcon: widget.showSmartGoalsCard
                                 ? AppIcons.plus
                                 : onClick
@@ -233,8 +216,7 @@ class _DashboardSmartGoalsState extends State<DashboardSmartGoals> {
                               width: 250,
                               child: CustomText.w400(
                                 "${LocalizedTexts.featureUnlocksAtPool.tr()} ${LocalizedTexts.goals.tr()}",
-                                style: const TextStyle(
-                                    color: AppColors.greyLight, fontSize: 16),
+                                style: const TextStyle(color: AppColors.greyLight, fontSize: 16),
                               ),
                             ),
                           ],
@@ -242,8 +224,7 @@ class _DashboardSmartGoalsState extends State<DashboardSmartGoals> {
                       ),
                 onClick
                     ? Padding(
-                        padding: const EdgeInsets.only(
-                            left: 12.0, right: 12.0, bottom: 12),
+                        padding: const EdgeInsets.only(left: 12.0, right: 12.0, bottom: 12),
                         child: Row(
                           children: [
                             SizedBox(
@@ -251,8 +232,7 @@ class _DashboardSmartGoalsState extends State<DashboardSmartGoals> {
                               child: CustomText.w400(
                                 maxLines: 10,
                                 LocalizedTexts.myGoalsLockedDescription.tr(),
-                                style: const TextStyle(
-                                    color: AppColors.greyLight, fontSize: 16),
+                                style: const TextStyle(color: AppColors.greyLight, fontSize: 16),
                               ),
                             ),
                           ],

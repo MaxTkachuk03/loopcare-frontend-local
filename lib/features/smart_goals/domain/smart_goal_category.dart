@@ -1,6 +1,7 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'smart_goal_category.freezed.dart';
+
 part 'smart_goal_category.g.dart';
 
 @freezed
@@ -13,6 +14,7 @@ class SmartGoalCategory with _$SmartGoalCategory {
     @Default('') String image,
     @Default('') String name,
     @Default('') String stream,
+    @Default('') String type,
     @Default(false) bool isUnlocked,
     @Default(false) bool isNew,
   }) = _SmartGoalCategory;

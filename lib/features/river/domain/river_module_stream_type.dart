@@ -75,7 +75,8 @@ enum RiverModuleStreamType with StreamColorMapper {
   bool get isCommunity => this == community;
 
   CustomAppBarTextTheme get appBarTextTheme => switch (this) {
-        (RiverModuleStreamType t) when t.isPsychology => CustomAppBarTextTheme.light,
+        (RiverModuleStreamType t) when t.isPsychology =>
+          CustomAppBarTextTheme.light,
         (_) => CustomAppBarTextTheme.dark,
       };
 

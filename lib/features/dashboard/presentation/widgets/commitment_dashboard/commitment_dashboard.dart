@@ -21,7 +21,11 @@ class CommitmentDashboard extends StatefulWidget {
   final DateTime selectedDay;
   final bool isUnlocked;
 
-  const CommitmentDashboard({super.key, required this.selectedDay, required this.isUnlocked});
+  const CommitmentDashboard({
+    super.key,
+    required this.selectedDay,
+    required this.isUnlocked,
+  });
 
   @override
   State<CommitmentDashboard> createState() => _CommitmentDashboardState();
@@ -47,7 +51,10 @@ class _CommitmentDashboardState extends State<CommitmentDashboard> {
   void onErrorHandler(BuildContext context) =>
       context.read<CommitmentBloc>().add(CommitmentEvent.getCommitment(date: widget.selectedDay));
 
-  Color get _textColor => !widget.selectedDay.isFuture ? AppColors.blueDarker : AppColors.greyLabel;
+  Color get _textColor =>
+      !widget.selectedDay.isFuture && context.read<CommitmentBloc>().state.data.isCommitmentUnlocked
+          ? AppColors.blueDarker
+          : AppColors.greyLabel;
 
   @override
   Widget build(BuildContext context) {
@@ -55,6 +62,8 @@ class _CommitmentDashboardState extends State<CommitmentDashboard> {
       builder: (context, state) {
         final totalCommitments = state.data.totalCommitments;
         final completedCommitments = state.data.completedCommitments;
+        final isCommitmentExists = state.data.isCommitmentUnlocked;
+
         return Container(
           padding: const EdgeInsets.only(top: 8.0, bottom: 8.0, right: 8.0, left: 8.0),
           decoration: const BoxDecoration(
@@ -64,14 +73,20 @@ class _CommitmentDashboardState extends State<CommitmentDashboard> {
           child: Column(
             children: [
               DashboardCardTitle(
-                onTap: widget.isUnlocked ? () => _onPressHandler(context) : () => toggleOnClick(),
-                highlightColor: widget.isUnlocked ? AppColors.greenLightest : AppColors.white,
+                onTap: widget.isUnlocked && !isCommitmentExists
+                    ? null
+                    : widget.isUnlocked && isCommitmentExists
+                        ? () => _onPressHandler(context)
+                        : () => toggleOnClick(),
+                highlightColor: widget.isUnlocked && isCommitmentExists
+                    ? AppColors.greenLightest
+                    : AppColors.white,
                 leadingIcon: widget.isUnlocked ? AppIcons.commitment : AppIcons.commitmentLocked,
                 title: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    widget.isUnlocked
+                    widget.isUnlocked && isCommitmentExists
                         ? CustomText.bitter600(
                             LocalizedTexts.commitment.tr(),
                             style: context.textTheme.headlineSmall?.copyWith(color: _textColor),
