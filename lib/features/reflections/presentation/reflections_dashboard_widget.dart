@@ -21,13 +21,16 @@ class ReflectionsDashboardWidget extends StatefulWidget {
   final DateTime date;
   final bool locked;
 
-  const ReflectionsDashboardWidget({super.key, required this.date, required this.locked});
+  const ReflectionsDashboardWidget(
+      {super.key, required this.date, required this.locked});
 
   @override
-  State<ReflectionsDashboardWidget> createState() => _ReflectionsDashboardWidgetState();
+  State<ReflectionsDashboardWidget> createState() =>
+      _ReflectionsDashboardWidgetState();
 }
 
-class _ReflectionsDashboardWidgetState extends State<ReflectionsDashboardWidget> {
+class _ReflectionsDashboardWidgetState
+    extends State<ReflectionsDashboardWidget> {
   bool onClick = false;
 
   void toggleOnClick() {
@@ -36,10 +39,12 @@ class _ReflectionsDashboardWidgetState extends State<ReflectionsDashboardWidget>
     });
   }
 
-  void _onErrorHandler(BuildContext context) =>
-      context.read<ReflectionsBloc>().add(const ReflectionsEvent.getReflections());
+  void _onErrorHandler(BuildContext context) => context
+      .read<ReflectionsBloc>()
+      .add(const ReflectionsEvent.getReflections());
 
-  void getPoolData(e) => context.read<PoolModuleBloc>().add(const PoolModuleEvent.getPoolData());
+  void getPoolData(e) =>
+      context.read<PoolModuleBloc>().add(const PoolModuleEvent.getPoolData());
 
   @override
   Widget build(BuildContext context) {
@@ -49,15 +54,19 @@ class _ReflectionsDashboardWidgetState extends State<ReflectionsDashboardWidget>
         borderRadius: BorderRadius.all(Radius.circular(8)),
       ),
       child: Padding(
-        padding: const EdgeInsets.only(top: 8.0, bottom: 16.0, right: 8.0, left: 8.0),
+        padding: const EdgeInsets.only(
+            top: 8.0, bottom: 16.0, right: 8.0, left: 8.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             DashboardCardTitle(
               onTap: () => widget.locked
-                  ? context.router.push(const MyReflectionsRoute()).then(getPoolData)
+                  ? context.router
+                      .push(const MyReflectionsRoute())
+                      .then(getPoolData)
                   : toggleOnClick(),
-              highlightColor: widget.locked ? AppColors.petrolLightest : AppColors.white,
+              highlightColor:
+                  widget.locked ? AppColors.petrolLightest : AppColors.white,
               leadingIcon: widget.locked
                   ? const CustomAppIcon.reflection()
                   : const CustomAppIcon.reflectionGrey(),
@@ -68,7 +77,8 @@ class _ReflectionsDashboardWidgetState extends State<ReflectionsDashboardWidget>
                     )
                   : CustomText.bitter400(
                       LocalizedTexts.reflection.tr(),
-                      style: const TextStyle(color: AppColors.greyLight, fontSize: 20),
+                      style: const TextStyle(
+                          color: AppColors.greyLight, fontSize: 20),
                     ),
               actionIcon: widget.locked
                   ? AppIcons.arrow
@@ -78,7 +88,8 @@ class _ReflectionsDashboardWidgetState extends State<ReflectionsDashboardWidget>
               circleButton: widget.locked ? true : false,
             ),
             widget.locked
-                ? const Divider(color: AppColors.blueLighter, indent: 8.0, endIndent: 8.0)
+                ? const Divider(
+                    color: AppColors.blueLighter, indent: 8.0, endIndent: 8.0)
                 : const SizedBox(),
             widget.locked
                 ? Container()
@@ -90,11 +101,12 @@ class _ReflectionsDashboardWidgetState extends State<ReflectionsDashboardWidget>
                         const SizedBox(
                           width: 36,
                         ),
-                        SizedBox(
-                          width: 250,
+                        Expanded(
                           child: CustomText.w400(
                             "${LocalizedTexts.featureUnlocksAtPool.tr()} ${LocalizedTexts.reflectionsUnlock.tr()}",
-                            style: const TextStyle(color: AppColors.greyLight, fontSize: 16),
+                            style: const TextStyle(
+                                color: AppColors.greyLight, fontSize: 16),
+                            overflow: TextOverflow.visible,
                           ),
                         ),
                       ],
@@ -102,15 +114,17 @@ class _ReflectionsDashboardWidgetState extends State<ReflectionsDashboardWidget>
                   ),
             onClick && !widget.locked
                 ? Padding(
-                    padding: const EdgeInsets.only(left: 12.0, right: 12.0, bottom: 12),
+                    padding: const EdgeInsets.only(
+                        left: 12.0, right: 12.0, bottom: 12),
                     child: Row(
                       children: [
-                        SizedBox(
-                          width: 350,
+                        Expanded(
                           child: CustomText.w400(
                             maxLines: 10,
                             LocalizedTexts.reflectionsDescription.tr(),
-                            style: const TextStyle(color: AppColors.greyLight, fontSize: 16),
+                            overflow: TextOverflow.visible,
+                            style: const TextStyle(
+                                color: AppColors.greyLight, fontSize: 16),
                           ),
                         ),
                       ],
@@ -120,19 +134,21 @@ class _ReflectionsDashboardWidgetState extends State<ReflectionsDashboardWidget>
             widget.locked
                 ? BlocBuilder<ReflectionsBloc, ReflectionsState>(
                     builder: (context, state) {
-                      final hasReflections = state.data.hasReflectionsForCurrentWeek(widget.date);
+                      final hasReflections =
+                          state.data.hasReflectionsForCurrentWeek(widget.date);
 
-                      final selectedWeekReflections =
-                          state.data.getSelectedWeekUndoneReflections(widget.date);
+                      final selectedWeekReflections = state.data
+                          .getSelectedWeekUndoneReflections(widget.date);
 
                       final doneTodayReflections =
                           state.data.getSelectedDayDoneReflections(widget.date);
 
-                      final showDivider =
-                          doneTodayReflections.isNotEmpty && selectedWeekReflections.isNotEmpty;
+                      final showDivider = doneTodayReflections.isNotEmpty &&
+                          selectedWeekReflections.isNotEmpty;
 
                       return state.maybeMap(
-                        loading: (_) => const SizedBox(height: 100, child: Loader()),
+                        loading: (_) =>
+                            const SizedBox(height: 100, child: Loader()),
                         error: (errorState) {
                           final error = errorState.data.error;
 
@@ -149,14 +165,20 @@ class _ReflectionsDashboardWidgetState extends State<ReflectionsDashboardWidget>
                                     if (selectedWeekReflections.isNotEmpty)
                                       ReflectionsList(
                                         list: selectedWeekReflections,
-                                        title: LocalizedTexts.thisWeek.tr().capitalize(),
+                                        title: LocalizedTexts.thisWeek
+                                            .tr()
+                                            .capitalize(),
                                         fromDashboard: true,
                                       ),
-                                    if (showDivider) const Divider(color: AppColors.blueLighter),
+                                    if (showDivider)
+                                      const Divider(
+                                          color: AppColors.blueLighter),
                                     if (doneTodayReflections.isNotEmpty)
                                       ReflectionsList(
                                         list: doneTodayReflections,
-                                        title: LocalizedTexts.doneToday.tr().capitalize(),
+                                        title: LocalizedTexts.doneToday
+                                            .tr()
+                                            .capitalize(),
                                         fromDashboard: true,
                                       ),
                                   ],
