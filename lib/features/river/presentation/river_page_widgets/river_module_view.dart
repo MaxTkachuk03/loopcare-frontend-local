@@ -132,7 +132,6 @@ class _RiverScreenState extends State<RiverScreen> with RiverUtils {
 
   void _navigateToLesson(RiverModuleItem item) {
     context.read<RiverBloc>().add(RiverEvent.selectModuleItem(item: item));
-
     if (item.isRegularLesson) {
       context
           .read<EducationLessonBloc>()
@@ -140,14 +139,10 @@ class _RiverScreenState extends State<RiverScreen> with RiverUtils {
 
       context.router.push(LessonRoute(lessonId: item.lessonId, streamType: item.streamType));
     } else if (item.isInteractiveLesson) {
-      final lessonId = context.read<InteractiveLessonsBloc>().state.data.id;
+      context.read<InteractiveLessonsBloc>().add(InteractiveLessonsEvent.getInteractiveLesson(
+          lessonId: item.lessonId, lessonStatus: item.states.itemState));
 
-      if (lessonId != item.lessonId) {
-        context.read<InteractiveLessonsBloc>().add(InteractiveLessonsEvent.getInteractiveLesson(
-            lessonId: item.lessonId, lessonStatus: item.states.itemState));
-
-        context.router.pushNamed(AppRoutes.interactiveLesson);
-      }
+      context.router.pushNamed(AppRoutes.interactiveLesson);
     }
   }
 

@@ -21,14 +21,12 @@ class CustomReorderableList extends StatefulWidget {
   final Function(
           InteractiveLessonComponentProgress progress, InteractiveLessonChunkComponent component)
       onSaveProgress;
-
   const CustomReorderableList({
     super.key,
     required this.component,
     required this.lessonStreamType,
     required this.onSaveProgress,
   });
-
   @override
   State<CustomReorderableList> createState() => _CustomReorderableListState();
 }
@@ -36,11 +34,8 @@ class CustomReorderableList extends StatefulWidget {
 class _CustomReorderableListState extends State<CustomReorderableList> {
   bool _showOrderValidation = false;
   bool _isNotReordered = false;
-
   List<ContentOrderingItem> get items => widget.component.content.items;
-
   OrderingContent get content => widget.component.content;
-
   @override
   void initState() {
     final rightOrder = content.correctOrder;
@@ -73,7 +68,6 @@ class _CustomReorderableListState extends State<CustomReorderableList> {
           ),
         )
       : null;
-
   void _onReorderHandler(int oldIndex, int newIndex) {
     setState(() {
       if (oldIndex < newIndex) {
@@ -127,16 +121,13 @@ class _CustomReorderableListState extends State<CustomReorderableList> {
   }
 
   static const double iconSize = 80.0;
-
-  int countLines(String text, TextStyle style, double maxWidth) {
+  int countLines(String text, TextStyle style) {
     final TextPainter textPainter = TextPainter(
       text: TextSpan(text: text, style: style),
       textDirection: TextDirection.ltr,
       maxLines: null,
     );
-
-    textPainter.layout(maxWidth: maxWidth);
-
+    textPainter.layout(maxWidth: 115);
     return textPainter.computeLineMetrics().length;
   }
 
@@ -162,16 +153,14 @@ class _CustomReorderableListState extends State<CustomReorderableList> {
               int index = entry.key;
               ContentOrderingItem item = entry.value;
               final bool isValid = content.correctOrder[index] == item.order;
-              final descriptionLines =
-                  countLines(item.description, context.textTheme.bodyMedium!, 150);
-              final titleLines = countLines(item.title,
-                  context.textTheme.bodyMedium!.copyWith(fontWeight: FontWeight.w700), 150);
+              final descriptionLines = countLines(item.description, context.textTheme.bodyMedium!);
+              final titleLines = countLines(
+                  item.title, context.textTheme.bodyMedium!.copyWith(fontWeight: FontWeight.w700));
               final imageHeight = descriptionLines > 1 && titleLines > 1
                   ? 120.0
                   : descriptionLines > 1 || titleLines > 1
                       ? 95.0
                       : 80.0;
-
               return Card(
                 key: ValueKey(item.id),
                 shape: getShape(isValid),
@@ -193,7 +182,6 @@ class _CustomReorderableListState extends State<CustomReorderableList> {
                     ),
                     const SizedBox(width: 15.0),
                     Expanded(
-                      flex: 3,
                       child: Padding(
                         padding: const EdgeInsets.symmetric(vertical: 12.0),
                         child: Column(

@@ -30,6 +30,8 @@ class DashboardWeeklyGoalItem extends StatefulWidget {
   final Function() onRemoveFromLocal;
   final void Function()? onTap;
   final bool isSelect;
+  final bool isFuture;
+
   const DashboardWeeklyGoalItem({
     super.key,
     required this.item,
@@ -39,20 +41,24 @@ class DashboardWeeklyGoalItem extends StatefulWidget {
     required this.onRemoveFromLocal,
     required this.isDeleteModule,
     this.onTap,
+    required this.isFuture,
     required this.isSelect,
   });
 
   @override
-  State<DashboardWeeklyGoalItem> createState() => _DashboardWeeklyGoalItemState();
+  State<DashboardWeeklyGoalItem> createState() =>
+      _DashboardWeeklyGoalItemState();
 }
 
 class _DashboardWeeklyGoalItemState extends State<DashboardWeeklyGoalItem> {
-  int get times =>
-      widget.item.progressForDate(context.read<SmartGoalsBloc>().state.data.selectedDate);
+  int get times => widget.item
+      .progressForDate(context.read<SmartGoalsBloc>().state.data.selectedDate);
 
   void _onProgressHandler(BuildContext context, WeeklySmartGoal item) {
     HapticFeedback.vibrate();
-    context.read<SmartGoalsBloc>().add(SmartGoalsEvent.postCompletions(weeklySmartGoal: item));
+    context
+        .read<SmartGoalsBloc>()
+        .add(SmartGoalsEvent.postCompletions(weeklySmartGoal: item));
   }
 
   void _onResetProgressHandler(BuildContext context, WeeklySmartGoal item) {
@@ -60,7 +66,9 @@ class _DashboardWeeklyGoalItemState extends State<DashboardWeeklyGoalItem> {
     final progressId = item.progressIdForDate(selectedDate);
     if (progressId != null) {
       HapticFeedback.vibrate();
-      context.read<SmartGoalsBloc>().add(SmartGoalsEvent.resetCompletions(progressId: progressId));
+      context
+          .read<SmartGoalsBloc>()
+          .add(SmartGoalsEvent.resetCompletions(progressId: progressId));
     }
   }
 
@@ -73,14 +81,21 @@ class _DashboardWeeklyGoalItemState extends State<DashboardWeeklyGoalItem> {
       );
 
   void _onQuickReviewHandler() {
-    final goal = context.read<SmartGoalsBloc>().state.data.getWeeklySession(widget.sessionId)?.goal;
+    final goal = context
+        .read<SmartGoalsBloc>()
+        .state
+        .data
+        .getWeeklySession(widget.sessionId)
+        ?.goal;
     if (goal != null) {
       context.router.push(GoalReviewRoute(goal: goal));
     }
   }
 
   void _onConfirmRemove(BuildContext context) {
-    context.read<SmartGoalsBloc>().add(const SmartGoalsEvent.resetCancelGoalReason());
+    context
+        .read<SmartGoalsBloc>()
+        .add(const SmartGoalsEvent.resetCancelGoalReason());
     HapticFeedback.vibrate();
     ModalBottomSheet.smartGoalComplete(
       context: context,
@@ -104,7 +119,7 @@ class _DashboardWeeklyGoalItemState extends State<DashboardWeeklyGoalItem> {
       case 'psychology':
         valueColor = AppColors.petrolRegular;
         break;
-      case 'physical activity':
+      case 'physicalActivity':
         valueColor = AppColors.yellowRegular;
 
         break;
@@ -112,7 +127,7 @@ class _DashboardWeeklyGoalItemState extends State<DashboardWeeklyGoalItem> {
         valueColor = AppColors.orangeRegular;
 
         break;
-      case 'medical insights':
+      case 'medical':
         valueColor = AppColors.coralMedium;
 
         break;
@@ -150,10 +165,13 @@ class _DashboardWeeklyGoalItemState extends State<DashboardWeeklyGoalItem> {
         child: Card(
           color: AppColors.white,
           surfaceTintColor: AppColors.transparent,
-          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8.0)),
+          shape:
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(8.0)),
           child: ListTile(
               contentPadding: const EdgeInsets.only(left: 8.0, right: 8.0),
-              onTap: widget.isDeleteModule ? null : () => _onItemHandler(context, widget.item),
+              onTap: widget.isDeleteModule
+                  ? null
+                  : () => _onItemHandler(context, widget.item),
               title: Row(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -163,7 +181,8 @@ class _DashboardWeeklyGoalItemState extends State<DashboardWeeklyGoalItem> {
                     currentStep: widget.item.completionsDays,
                     steps: widget.item.smartGoal.requiredCompletionDays,
                     isAchievedNotifier: widget.item.isAchieved,
-                    valueColor: getStreamColor(widget.item.smartGoal.category.stream),
+                    valueColor:
+                        getStreamColor(widget.item.smartGoal.category.stream),
                   ),
                   const SizedBox(width: 16.0),
                   _LeftDaysWidget(
@@ -189,20 +208,23 @@ class _DashboardWeeklyGoalItemState extends State<DashboardWeeklyGoalItem> {
               trailing: widget.isDeleteModule == false
                   ? (widget.editable)
                       ? GoalProgressButton(
-                          bgColor: getStreamColor(widget.item.smartGoal.category.stream),
+                          bgColor: getStreamColor(
+                              widget.item.smartGoal.category.stream),
                           item: widget.item,
                           times: times,
-                          onPressed: times < _maxCompletions
+                          onPressed: times < _maxCompletions && !widget.isFuture
                               ? () => _onProgressHandler(context, widget.item)
                               : null,
                           onResetProgress: times > 0
-                              ? () => _onResetProgressHandler(context, widget.item)
+                              ? () =>
+                                  _onResetProgressHandler(context, widget.item)
                               : null,
                         )
                       : GoalAchieveButton(
                           item: widget.item,
                           onPressed: _onQuickReviewHandler,
-                          bgColor: getStreamColor(widget.item.smartGoal.category.stream),
+                          bgColor: getStreamColor(
+                              widget.item.smartGoal.category.stream),
                         )
                   : null),
         ),
@@ -227,8 +249,8 @@ class _SlideRemoveButton extends StatelessWidget {
           child: Container(
               margin: const EdgeInsets.all(4),
               alignment: Alignment.center,
-              decoration:
-                  BoxDecoration(color: AppColors.red, borderRadius: BorderRadius.circular(8)),
+              decoration: BoxDecoration(
+                  color: AppColors.red, borderRadius: BorderRadius.circular(8)),
               child: const Icon(
                 Icons.delete_forever,
                 color: Colors.white,
@@ -245,7 +267,9 @@ class _LeftDaysWidget extends StatelessWidget {
   final bool readyForReview;
 
   const _LeftDaysWidget(
-      {required this.item, required this.sessionId, required this.readyForReview});
+      {required this.item,
+      required this.sessionId,
+      required this.readyForReview});
 
   @override
   Widget build(BuildContext context) {
@@ -284,7 +308,9 @@ class _LeftDaysWidget extends StatelessWidget {
 
     if (session.hasActiveSession) {
       return LocalizedTexts.smartGoalsWeeklyDaysLeft.plural(
-        count: session.daysLeft == 1 || session.daysLeft == 0 ? 1 : session.daysLeft + 1,
+        count: session.daysLeft == 1 || session.daysLeft == 0
+            ? 1
+            : session.daysLeft + 1,
       );
     }
     return '';

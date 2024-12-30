@@ -79,6 +79,7 @@ class _SingleSelectWithFeedbackState extends State<SingleSelectWithFeedback> {
         ),
         const SizedBox(height: 20),
         ListView.separated(
+          padding: EdgeInsets.zero,
           physics: const NeverScrollableScrollPhysics(),
           shrinkWrap: true,
           separatorBuilder: (context, index) => const SizedBox(height: 8),
