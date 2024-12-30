@@ -114,12 +114,12 @@ class _DashboardSmartGoalsState extends State<DashboardSmartGoals> {
                           const SizedBox(
                             width: 36,
                           ),
-                          SizedBox(
-                            width: 250,
+                          Expanded(
                             child: CustomText.w400(
                               "${LocalizedTexts.featureUnlocksAtPool.tr()} ${LocalizedTexts.goals.tr()}",
                               style: const TextStyle(
                                   color: AppColors.greyLight, fontSize: 16),
+                              overflow: TextOverflow.visible,
                             ),
                           ),
                         ],
@@ -131,13 +131,13 @@ class _DashboardSmartGoalsState extends State<DashboardSmartGoals> {
                           left: 12.0, right: 12.0, bottom: 12),
                       child: Row(
                         children: [
-                          SizedBox(
-                            width: 350,
+                          Expanded(
                             child: CustomText.w400(
                               maxLines: 10,
                               LocalizedTexts.myGoalsLockedDescription.tr(),
                               style: const TextStyle(
                                   color: AppColors.greyLight, fontSize: 16),
+                              overflow: TextOverflow.visible,
                             ),
                           ),
                         ],
@@ -229,12 +229,12 @@ class _DashboardSmartGoalsState extends State<DashboardSmartGoals> {
                             const SizedBox(
                               width: 36,
                             ),
-                            SizedBox(
-                              width: 250,
+                            Expanded(
                               child: CustomText.w400(
                                 "${LocalizedTexts.featureUnlocksAtPool.tr()} ${LocalizedTexts.goals.tr()}",
                                 style: const TextStyle(
                                     color: AppColors.greyLight, fontSize: 16),
+                                overflow: TextOverflow.visible,
                               ),
                             ),
                           ],
@@ -246,13 +246,13 @@ class _DashboardSmartGoalsState extends State<DashboardSmartGoals> {
                             left: 12.0, right: 12.0, bottom: 12),
                         child: Row(
                           children: [
-                            SizedBox(
-                              width: 350,
+                            Expanded(
                               child: CustomText.w400(
                                 maxLines: 10,
                                 LocalizedTexts.myGoalsLockedDescription.tr(),
                                 style: const TextStyle(
                                     color: AppColors.greyLight, fontSize: 16),
+                                overflow: TextOverflow.visible,
                               ),
                             ),
                           ],

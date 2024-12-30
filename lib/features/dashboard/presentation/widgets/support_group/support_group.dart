@@ -42,9 +42,11 @@ class _SupportGroupState extends State<SupportGroup> {
     context.read<TopicsBloc>().add(const TopicsEvent.fetchTopics());
   }
 
-  void onPressHandler() => context.router.pushNamed(AppRoutes.groupPreferences).then(getPoolData);
+  void onPressHandler() =>
+      context.router.pushNamed(AppRoutes.groupPreferences).then(getPoolData);
 
-  void getPoolData(e) => context.read<PoolModuleBloc>().add(const PoolModuleEvent.getPoolData());
+  void getPoolData(e) =>
+      context.read<PoolModuleBloc>().add(const PoolModuleEvent.getPoolData());
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -53,7 +55,8 @@ class _SupportGroupState extends State<SupportGroup> {
         borderRadius: BorderRadius.all(Radius.circular(8)),
       ),
       child: Padding(
-        padding: const EdgeInsets.only(top: 8.0, bottom: 16.0, right: 8.0, left: 8.0),
+        padding: const EdgeInsets.only(
+            top: 8.0, bottom: 16.0, right: 8.0, left: 8.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -65,9 +68,11 @@ class _SupportGroupState extends State<SupportGroup> {
                   toggleOnClick();
                 }
               },
-              highlightColor: widget.locked ? AppColors.orangeLightest : AppColors.white,
-              leadingIcon:
-                  widget.locked ? AppIcons.customSupportGroup : AppIcons.customSupportGroupGrey,
+              highlightColor:
+                  widget.locked ? AppColors.orangeLightest : AppColors.white,
+              leadingIcon: widget.locked
+                  ? AppIcons.customSupportGroup
+                  : AppIcons.customSupportGroupGrey,
               title: widget.locked
                   ? CustomText.bitter600(
                       LocalizedTexts.supportGroup.tr(),
@@ -75,7 +80,8 @@ class _SupportGroupState extends State<SupportGroup> {
                     )
                   : CustomText.bitter400(
                       LocalizedTexts.supportGroup.tr(),
-                      style: const TextStyle(color: AppColors.greyLight, fontSize: 20),
+                      style: const TextStyle(
+                          color: AppColors.greyLight, fontSize: 20),
                     ),
               actionIcon: widget.locked
                   ? AppIcons.arrow
@@ -94,11 +100,12 @@ class _SupportGroupState extends State<SupportGroup> {
                         const SizedBox(
                           width: 36,
                         ),
-                        SizedBox(
-                          width: 250,
+                        Expanded(
                           child: CustomText.w400(
                             "${LocalizedTexts.featureUnlocksAtPool.tr()} ${LocalizedTexts.supportGroupUnlock.tr()}",
-                            style: const TextStyle(color: AppColors.greyLight, fontSize: 16),
+                            style: const TextStyle(
+                                color: AppColors.greyLight, fontSize: 16),
+                            overflow: TextOverflow.visible,
                           ),
                         ),
                       ],
@@ -106,15 +113,17 @@ class _SupportGroupState extends State<SupportGroup> {
                   ),
             onClick && !widget.locked
                 ? Padding(
-                    padding: const EdgeInsets.only(left: 12.0, right: 12.0, bottom: 12),
+                    padding: const EdgeInsets.only(
+                        left: 12.0, right: 12.0, bottom: 12),
                     child: Row(
                       children: [
-                        SizedBox(
-                          width: 350,
+                        Expanded(
                           child: CustomText.w400(
                             maxLines: 10,
                             LocalizedTexts.supportGroupDescription.tr(),
-                            style: const TextStyle(color: AppColors.greyLight, fontSize: 16),
+                            style: const TextStyle(
+                                color: AppColors.greyLight, fontSize: 16),
+                            overflow: TextOverflow.visible,
                           ),
                         ),
                       ],

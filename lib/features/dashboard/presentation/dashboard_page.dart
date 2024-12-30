@@ -351,15 +351,7 @@ class _DashboardPageState extends State<DashboardPage>
                                           state.data.isDateHasActiveSession(
                                               _selectedDay) &&
                                           !_selectedDay.isFuture);
-                                  print('state.data ${state.data}');
 
-                                  print('unlockedGoals $unlockedGoals');
-                                  print(
-                                      'state.data.hasGoalActiveSessions ${state.data.hasGoalActiveSessions}');
-                                  print(
-                                      'state.data.isDateHasActiveSession(_selectedDay) ${state.data.isDateHasActiveSession(_selectedDay)}');
-                                  print(
-                                      'showSmartGoalsCard $showSmartGoalsCard');
                                   return Column(
                                     crossAxisAlignment:
                                         CrossAxisAlignment.start,

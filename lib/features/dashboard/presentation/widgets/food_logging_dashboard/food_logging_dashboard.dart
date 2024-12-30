@@ -21,7 +21,8 @@ class FoodLoggingDashboard extends StatefulWidget {
   final DateTime selectedDay;
   final bool locked;
 
-  const FoodLoggingDashboard({super.key, required this.selectedDay, required this.locked});
+  const FoodLoggingDashboard(
+      {super.key, required this.selectedDay, required this.locked});
 
   @override
   State<FoodLoggingDashboard> createState() => _FoodLoggingDashboardState();
@@ -39,19 +40,22 @@ class _FoodLoggingDashboardState extends State<FoodLoggingDashboard> {
   void _onPressHandler(BuildContext context) =>
       context.router.pushNamed(AppRoutes.dailyIntake).then(getPoolData);
 
-  void getPoolData(e) => context.read<PoolModuleBloc>().add(const PoolModuleEvent.getPoolData());
-  void onErrorHandler(BuildContext context) => context
-      .read<MealsBloc>()
-      .add(MealsEvent.fetchMeals(startDate: widget.selectedDay, endDate: widget.selectedDay));
+  void getPoolData(e) =>
+      context.read<PoolModuleBloc>().add(const PoolModuleEvent.getPoolData());
+  void onErrorHandler(BuildContext context) =>
+      context.read<MealsBloc>().add(MealsEvent.fetchMeals(
+          startDate: widget.selectedDay, endDate: widget.selectedDay));
 
-  Color get _textColor => !widget.selectedDay.isFuture ? AppColors.blueDarker : AppColors.greyLabel;
+  Color get _textColor =>
+      !widget.selectedDay.isFuture ? AppColors.blueDarker : AppColors.greyLabel;
 
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<MealsBloc, MealsState>(
       builder: (context, state) {
         return Container(
-          padding: const EdgeInsets.only(top: 8.0, bottom: 8.0, right: 8.0, left: 8.0),
+          padding: const EdgeInsets.only(
+              top: 8.0, bottom: 8.0, right: 8.0, left: 8.0),
           decoration: const BoxDecoration(
             color: AppColors.white,
             borderRadius: BorderRadius.all(Radius.circular(8)),
@@ -66,7 +70,8 @@ class _FoodLoggingDashboardState extends State<FoodLoggingDashboard> {
                     toggleOnClick();
                   }
                 },
-                highlightColor: widget.locked ? AppColors.greenLightest : AppColors.white,
+                highlightColor:
+                    widget.locked ? AppColors.greenLightest : AppColors.white,
                 leadingIcon: widget.locked
                     ? AppIcons.customDashboardLogMeals
                     : AppIcons.customDashboardLogMealsGrey,
@@ -77,11 +82,13 @@ class _FoodLoggingDashboardState extends State<FoodLoggingDashboard> {
                     widget.locked
                         ? CustomText.bitter600(
                             LocalizedTexts.mealLog.tr(),
-                            style: context.textTheme.headlineSmall?.copyWith(color: _textColor),
+                            style: context.textTheme.headlineSmall
+                                ?.copyWith(color: _textColor),
                           )
                         : CustomText.bitter400(
                             LocalizedTexts.mealLog.tr(),
-                            style: const TextStyle(color: AppColors.greyLight, fontSize: 20),
+                            style: const TextStyle(
+                                color: AppColors.greyLight, fontSize: 20),
                           ),
                   ],
                 ),
@@ -96,9 +103,10 @@ class _FoodLoggingDashboardState extends State<FoodLoggingDashboard> {
               widget.locked
                   ? Container()
                   : BlocBuilder<AuthenticationBloc, AuthenticationState>(
-                      builder: (context, state) => state.data.isNutritionScalesLocked
-                          ? const SizedBox.shrink()
-                          : const Divider(color: AppColors.blueOffRegular),
+                      builder: (context, state) =>
+                          state.data.isNutritionScalesLocked
+                              ? const SizedBox.shrink()
+                              : const Divider(color: AppColors.blueOffRegular),
                     ),
               widget.locked
                   ? Container()
@@ -108,15 +116,20 @@ class _FoodLoggingDashboardState extends State<FoodLoggingDashboard> {
                         final error = s.data.error;
 
                         return ErrorScreen(
-                            error: error!, onButtonPressed: () => onErrorHandler(context));
+                            error: error!,
+                            onButtonPressed: () => onErrorHandler(context));
                       },
                       orElse: () => NutritionSummary(
-                        proteinDegree: state.data.selectedDayMealProteinDegreeSum,
-                        calorieDensity: state.data.selectedDayMealCalorieDensitySum,
+                        proteinDegree:
+                            state.data.selectedDayMealProteinDegreeSum,
+                        calorieDensity:
+                            state.data.selectedDayMealCalorieDensitySum,
                         fiber: state.data.selectedDayMealFiber,
-                        carbFiberRatio: state.data.selectedDayMealCarbFiberRatio,
+                        carbFiberRatio:
+                            state.data.selectedDayMealCarbFiberRatio,
                         carbsPercent: state.data.selectedDayMealCarbsPercent,
-                        totalCalories: state.data.selectedDayMealTotalCaloriesWithDrinks,
+                        totalCalories:
+                            state.data.selectedDayMealTotalCaloriesWithDrinks,
                         totalCarbs: state.data.selectedDayMealTotalCarbs,
                         showCaloriesTracker: false,
                       ),
@@ -131,11 +144,12 @@ class _FoodLoggingDashboardState extends State<FoodLoggingDashboard> {
                           const SizedBox(
                             width: 36,
                           ),
-                          SizedBox(
-                            width: 250,
+                          Expanded(
                             child: CustomText.w400(
                               "${LocalizedTexts.featureUnlocksAtPool.tr()} ${LocalizedTexts.foodLog.tr()}",
-                              style: const TextStyle(color: AppColors.greyLight, fontSize: 16),
+                              style: const TextStyle(
+                                  color: AppColors.greyLight, fontSize: 16),
+                              overflow: TextOverflow.visible,
                             ),
                           ),
                         ],
@@ -143,16 +157,20 @@ class _FoodLoggingDashboardState extends State<FoodLoggingDashboard> {
                     ),
               onClick && !widget.locked
                   ? Padding(
-                      padding: const EdgeInsets.only(left: 12.0, right: 12.0, bottom: 12),
+                      padding: const EdgeInsets.only(
+                          left: 12.0, right: 12.0, bottom: 12),
                       child: Row(
                         children: [
-                          Container(
-                            width: 350,
-                            padding: const EdgeInsets.only(bottom: 10),
-                            child: CustomText.w400(
-                              maxLines: 10,
-                              LocalizedTexts.foodLogLockedDescription.tr(),
-                              style: const TextStyle(color: AppColors.greyLight, fontSize: 16),
+                          Expanded(
+                            child: Padding(
+                              padding: const EdgeInsets.only(bottom: 10),
+                              child: CustomText.w400(
+                                maxLines: 10,
+                                LocalizedTexts.foodLogLockedDescription.tr(),
+                                style: const TextStyle(
+                                    color: AppColors.greyLight, fontSize: 16),
+                                overflow: TextOverflow.visible,
+                              ),
                             ),
                           ),
                         ],
