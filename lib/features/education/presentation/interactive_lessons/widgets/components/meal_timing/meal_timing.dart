@@ -6,6 +6,7 @@ import 'package:loopcare_frontend/core/presentation/text/custom_text.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 import 'package:loopcare_frontend/core/presentation/utils/build_context_extensions.dart';
 import 'package:loopcare_frontend/features/education/domain/interactive_lesson/interactive_lesson_chunk_component.dart';
+import 'package:loopcare_frontend/features/education/domain/interactive_lesson/interactive_lesson_text_area_history.dart';
 import 'package:loopcare_frontend/features/education/domain/interactive_lesson/meal_timing_content/meal_timing_content.dart';
 import 'package:loopcare_frontend/features/education/presentation/interactive_lessons/widgets/components/meal_timing/custom_time_picker.dart';
 import 'package:loopcare_frontend/features/nutrition/application/meals/dto/meal_item.dart';
@@ -27,9 +28,8 @@ class MealTiming extends StatefulWidget {
 
   final InteractiveLessonChunkComponentMealTiming component;
   final RiverModuleStreamType lessonStreamType;
-  final Function(
-          InteractiveLessonComponentProgress progress, InteractiveLessonChunkComponent component)
-      onSaveProgress;
+  final Function(InteractiveLessonComponentProgress progress,
+      InteractiveLessonChunkComponent component) onSaveProgress;
 
   @override
   State<MealTiming> createState() => _MealTimingState();
@@ -37,10 +37,6 @@ class MealTiming extends StatefulWidget {
 
 class _MealTimingState extends State<MealTiming> {
   Set<MealItem> meals = {};
-  @override
-  initState() {
-    super.initState();
-  }
 
   int _getMealList(List<MealItem> currentFoodItems, MealCategory category) {
     if (category == MealCategory.inbetweens) {
@@ -68,21 +64,24 @@ class _MealTimingState extends State<MealTiming> {
             const SizedBox(height: 20),
             CustomText(
               content.question,
-              style: context.textTheme.bodyMedium!.copyWith(fontWeight: FontWeight.w700),
+              style: context.textTheme.bodyMedium!
+                  .copyWith(fontWeight: FontWeight.w700),
             ),
             const SizedBox(height: 20),
             ListView.separated(
               physics: const NeverScrollableScrollPhysics(),
               shrinkWrap: true,
               separatorBuilder: (context, index) => const SizedBox(height: 8.0),
-              itemCount: _getMealList(
-                  mealsState.data.currentFoodItems, mealsState.data.currentMealCategory!),
+              itemCount: _getMealList(mealsState.data.currentFoodItems,
+                  mealsState.data.currentMealCategory!),
               itemBuilder: (context, index) {
                 final meal = meals.toList()[index];
                 final mealName = meal.name;
                 // SJC remove? final time = mealsState.data.currentDateTime ?? meal.createdAt.toLocal();
                 // warning • The left operand can't be null, so the right operand is never executed • lib/features/education/presentation/interactive_lessons/widgets/components/meal_timing/meal_timing.dart:81:65 • dead_null_aware_expression
-                final time = mealsState.data.currentDateTime;
+                final time = meal.updatedAt.toLocal();
+                final secondTime = meal.createdAt;
+                final category = mealsState.data.currentMealCategory!;
 
                 return GestureDetector(
                   onTap: () async => await showAdaptiveDialog(
@@ -90,13 +89,25 @@ class _MealTimingState extends State<MealTiming> {
                     context: context,
                     builder: (BuildContext context) => CustomTimePicker(
                       initialTime: time,
+                      onSaveProgress: widget.onSaveProgress,
+                      component: widget.component,
+                      lessonStreamType: widget.lessonStreamType,
+                      mealName: mealName,
+                      category: category.title,
+                      id: meal.id,
+                      secondTime: secondTime,
                     ),
                   ),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     mainAxisSize: MainAxisSize.min,
                     children: [
-                      Expanded(child: CustomText.w400(mealName)),
+                      Expanded(
+                          child: CustomText.w400(
+                        category == MealCategory.inbetweens
+                            ? mealName
+                            : category.title,
+                      )),
                       Container(
                         padding: const EdgeInsets.all(10.0),
                         decoration: BoxDecoration(

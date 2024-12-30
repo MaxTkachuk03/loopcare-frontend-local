@@ -10,7 +10,8 @@ part 'nutrition_intake_state.dart';
 part 'nutrition_intake_bloc.freezed.dart';
 
 @singleton
-class NutritionIntakeBloc extends Bloc<NutritionIntakeEvent, NutritionIntakeState> {
+class NutritionIntakeBloc
+    extends Bloc<NutritionIntakeEvent, NutritionIntakeState> {
   final NutritionIntakeServices _nutritionIntakeServices;
 
   NutritionIntakeBloc(this._nutritionIntakeServices)
@@ -27,16 +28,21 @@ class NutritionIntakeBloc extends Bloc<NutritionIntakeEvent, NutritionIntakeStat
   ) async {
     emit(NutritionIntakeState.loading(state.data.copyWith(isLoading: true)));
 
-    final response = await _nutritionIntakeServices.getLessons(date: event.date);
+    final response =
+        await _nutritionIntakeServices.getLessons(date: event.date);
 
     response.fold(
-        (left) =>
-            emit(NutritionIntakeState.error(state.data.copyWith(error: left, isLoading: false))),
-        (right) => emit(NutritionIntakeState.loaded(state.data.copyWith(
-              isDayClosed: right.isDayClosed,
-              progress: right.progress,
-              isLoading: false,
-            ))));
+        (left) => emit(NutritionIntakeState.error(
+            state.data.copyWith(error: left, isLoading: false))), (right) {
+      var sortedProgress = [...right.progress]
+        ..sort((a, b) => a.iLessonId.compareTo(b.iLessonId));
+
+      emit(NutritionIntakeState.loaded(state.data.copyWith(
+        isDayClosed: right.isDayClosed,
+        progress: sortedProgress,
+        isLoading: false,
+      )));
+    });
   }
 
   Future<void> _completeDay(
@@ -53,7 +59,8 @@ class NutritionIntakeBloc extends Bloc<NutritionIntakeEvent, NutritionIntakeStat
     GetLessonId event,
     Emitter<NutritionIntakeState> emit,
   ) async {
-    emit(NutritionIntakeState.loaded(state.data.copyWith(iLessonId: event.iLessonId)));
+    emit(NutritionIntakeState.loaded(
+        state.data.copyWith(iLessonId: event.iLessonId)));
   }
 
   Future<void> _onFinishLesson(
@@ -65,7 +72,8 @@ class NutritionIntakeBloc extends Bloc<NutritionIntakeEvent, NutritionIntakeStat
       iLessonId: event.iLessonId,
     );
 
-    emit(NutritionIntakeState.finishLesson(state.data
-        .copyWith(dateTime: event.date.toLocal().toString(), iLessonId: event.iLessonId)));
+    emit(NutritionIntakeState.finishLesson(state.data.copyWith(
+        dateTime: event.date.toLocal().toString(),
+        iLessonId: event.iLessonId)));
   }
 }

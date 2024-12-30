@@ -4,8 +4,12 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loopcare_frontend/core/presentation/text/custom_text.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 import 'package:loopcare_frontend/core/presentation/utils/build_context_extensions.dart';
+import 'package:loopcare_frontend/features/education/domain/interactive_lesson/interactive_lesson_chunk_component.dart';
+import 'package:loopcare_frontend/features/education/domain/interactive_lesson/interactive_lesson_component_progress.dart';
+import 'package:loopcare_frontend/features/education/domain/interactive_lesson/interactive_lesson_text_area_history.dart';
 import 'package:loopcare_frontend/features/education/presentation/interactive_lessons/widgets/continue_btn.dart';
 import 'package:loopcare_frontend/features/nutrition/application/meals/meals_bloc.dart';
+import 'package:loopcare_frontend/features/river/domain/river_module_stream_type.dart';
 import 'package:loopcare_frontend/localization/service/localization_extension.dart';
 import 'package:loopcare_frontend/localization/service/localized_texts.dart';
 
@@ -13,9 +17,24 @@ class CustomTimePicker extends StatefulWidget {
   const CustomTimePicker({
     super.key,
     required this.initialTime,
+    required this.onSaveProgress,
+    required this.component,
+    required this.lessonStreamType,
+    required this.mealName,
+    required this.category,
+    required this.id,
+    required this.secondTime,
   });
 
   final DateTime initialTime;
+  final DateTime secondTime;
+  final int id;
+  final String mealName;
+  final String category;
+  final InteractiveLessonChunkComponentMealTiming component;
+  final RiverModuleStreamType lessonStreamType;
+  final Function(InteractiveLessonComponentProgress progress,
+      InteractiveLessonChunkComponent component) onSaveProgress;
 
   @override
   State<CustomTimePicker> createState() => _CustomTimePickerState();
@@ -23,6 +42,20 @@ class CustomTimePicker extends StatefulWidget {
 
 class _CustomTimePickerState extends State<CustomTimePicker> {
   DateTime newTime = DateTime.now();
+
+  void _onSaveHandler(DateTime updateAt) {
+    var componentHistory = InteractiveLessonHistory(
+        id: widget.id,
+        text: widget.component.type.name,
+        updatedAt: updateAt,
+        createdAt: widget.secondTime);
+
+    widget.onSaveProgress(
+        InteractiveLessonComponentProgress(
+            history: [componentHistory], type: widget.component.type.name),
+        widget.component);
+  }
+
   @override
   Widget build(BuildContext context) {
     final width = MediaQuery.sizeOf(context).width;
@@ -33,7 +66,8 @@ class _CustomTimePickerState extends State<CustomTimePicker> {
           child: Container(
             height: height / 2.5,
             width: width / 1.15,
-            padding: const EdgeInsets.symmetric(vertical: 26.0, horizontal: 20.0),
+            padding:
+                const EdgeInsets.symmetric(vertical: 26.0, horizontal: 20.0),
             decoration: BoxDecoration(
               color: AppColors.bgGreen,
               borderRadius: BorderRadius.circular(20),
@@ -43,7 +77,8 @@ class _CustomTimePickerState extends State<CustomTimePicker> {
               children: [
                 CustomText(
                   LocalizedTexts.selectYourTime.tr(),
-                  style: context.textTheme.bodyMedium!.copyWith(fontWeight: FontWeight.w700),
+                  style: context.textTheme.bodyMedium!
+                      .copyWith(fontWeight: FontWeight.w700),
                 ),
                 Expanded(
                   child: Stack(
@@ -70,7 +105,8 @@ class _CustomTimePickerState extends State<CustomTimePicker> {
                 ContinueBtn(
                     bottom: 0,
                     onPressed: () {
-                      context.read<MealsBloc>().add(MealsEvent.setCurrentDate(newTime));
+                      _onSaveHandler(newTime);
+
                       context.router.maybePop(context);
                     },
                     isDisable: false),
