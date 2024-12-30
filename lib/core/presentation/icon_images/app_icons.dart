@@ -22,6 +22,8 @@ class AppIcons {
   static const String checkBox = 'assets/images/checkbox.png';
   static const String check = 'assets/images/check.png';
   static const String achievements = 'assets/icons/achievements.png';
+  static const String moodMeterUnlocked = 'assets/icons/mood_meter_unlocked.png';
+  static const String moodMeterLocked = 'assets/icons/mood_meter_locked.png';
 
   // TODO replace with material svg icons
   static const AssetImage arrow = AssetImage('$iconsFilePath/arrow.png');

@@ -8,12 +8,14 @@ import 'package:loopcare_frontend/features/smart_goals/application/smart_goals_b
 import 'package:loopcare_frontend/features/smart_goals/domain/weekly_goals_session.dart';
 
 class DashboardWeeklyGoals extends StatefulWidget {
+  final bool isFuture;
   final bool isDeleteModule;
   final void Function(WeeklyGoalsSession item) onTap;
   final Set<int>? selectedItems;
 
   const DashboardWeeklyGoals({
     super.key,
+    this.isFuture = false,
     required this.isDeleteModule,
     required this.onTap,
     this.selectedItems,
@@ -32,12 +34,14 @@ class _DashboardWeeklyGoalsState extends State<DashboardWeeklyGoals> {
     context.read<SmartGoalsBloc>().add(const SmartGoalsEvent.getWeeklyGoals());
   }
 
-  void _onErrorRetryHandler() =>
-      context.read<SmartGoalsBloc>().add(const SmartGoalsEvent.getWeeklyGoals());
+  void _onErrorRetryHandler() => context
+      .read<SmartGoalsBloc>()
+      .add(const SmartGoalsEvent.getWeeklyGoals());
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<SmartGoalsBloc, SmartGoalsState>(builder: (context, state) {
+    return BlocBuilder<SmartGoalsBloc, SmartGoalsState>(
+        builder: (context, state) {
       return state.maybeMap(
         error: (s) => ErrorScreen(
           error: s.data.error!,
@@ -50,7 +54,9 @@ class _DashboardWeeklyGoalsState extends State<DashboardWeeklyGoals> {
           }
           itemKey = itemKey + 1;
 
-          List<WeeklyGoalsSession> sessions = [...state.data.weeklyGoalsSessions];
+          List<WeeklyGoalsSession> sessions = [
+            ...state.data.weeklyGoalsSessions
+          ];
 
           if (sessions.isNotEmpty && state.data.selectedDate != null) {
             final selectedDate = state.data.selectedDate?.dateOnly;
@@ -79,9 +85,11 @@ class _DashboardWeeklyGoalsState extends State<DashboardWeeklyGoals> {
                 (session) {
                   if (session.goal != null) {
                     return DashboardWeeklyGoalItem(
+                      isFuture: widget.isFuture,
                       keyItem: itemKey,
                       sessionId: session.id!,
-                      isSelect: widget.selectedItems != null && widget.selectedItems!.isNotEmpty
+                      isSelect: widget.selectedItems != null &&
+                              widget.selectedItems!.isNotEmpty
                           ? widget.selectedItems!.contains(session.id)
                           : false,
                       onTap: () {
@@ -93,7 +101,8 @@ class _DashboardWeeklyGoalsState extends State<DashboardWeeklyGoals> {
                         });
                       },
                       item: session.goal!,
-                      editable: !(session.goal!.isAchieved || session.hasQuickReviewWeeklyGoals),
+                      editable: !(session.goal!.isAchieved ||
+                          session.hasQuickReviewWeeklyGoals),
                       isDeleteModule: widget.isDeleteModule,
                     );
                   } else {

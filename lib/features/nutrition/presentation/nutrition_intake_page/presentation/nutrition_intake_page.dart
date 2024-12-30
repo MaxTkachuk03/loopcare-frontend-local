@@ -181,7 +181,7 @@ class _NutritionIntakePageState extends State<NutritionIntakePage> {
                                         ],
                                       )
                                     : const SizedBox.shrink(),
-                                isCompleted && !isAddFood
+                                isCompleted
                                     ? Column(
                                         crossAxisAlignment: CrossAxisAlignment.start,
                                         children: [

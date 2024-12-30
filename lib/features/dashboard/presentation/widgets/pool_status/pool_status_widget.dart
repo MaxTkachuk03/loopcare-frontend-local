@@ -184,6 +184,13 @@ class _PoolStatusWidgetState extends State<PoolStatusWidget> {
                 ? AppIcons.commitmentUnlocked
                 : AppIcons.feature);
         break;
+      case 'mood':
+        iconPath = module.states?.itemState == 'completed'
+            ? AppIcons.tick
+            : (module.states?.itemState == 'unlocked' || module.states?.itemState == 'read'
+                ? AppIcons.moodMeterUnlocked
+                : AppIcons.moodMeterLocked);
+        break;
       default:
         iconPath = AppIcons.tick;
         break;
