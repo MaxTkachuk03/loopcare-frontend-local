@@ -13,6 +13,7 @@ import 'package:loopcare_frontend/core/presentation/text/custom_text.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 import 'package:loopcare_frontend/core/presentation/utils/build_context_extensions.dart';
 import 'package:loopcare_frontend/core/presentation/utils/date_time_extensions.dart';
+import 'package:loopcare_frontend/features/commitment/application/commitment_bloc.dart';
 import 'package:loopcare_frontend/features/education/presentation/interactive_lessons/widgets/continue_btn.dart';
 import 'package:loopcare_frontend/features/nutrition/application/meals/meals_bloc.dart';
 import 'package:loopcare_frontend/features/nutrition/domain/select_serving/meal_category.dart';
@@ -227,6 +228,9 @@ class _NutritionIntakePageState extends State<NutritionIntakePage> {
                                                 value: isSwitched,
                                                 onChanged: (value) {
                                                   setState(() {
+                                                    if (isSwitched == true) {
+                                                      return;
+                                                    }
                                                     context
                                                         .read<
                                                             NutritionIntakeBloc>()
@@ -241,6 +245,11 @@ class _NutritionIntakePageState extends State<NutritionIntakePage> {
                                                             .fetchProgress(
                                                                 date:
                                                                     lessonDate));
+
+                                                    context
+                                                        .read<CommitmentBloc>()
+                                                        .add(const CommitmentEvent
+                                                            .updateCommitment());
                                                   });
                                                 },
                                                 activeColor:

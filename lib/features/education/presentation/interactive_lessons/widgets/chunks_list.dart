@@ -39,8 +39,6 @@ class _ChunksListState extends State<ChunksList> {
     final showDivider =
         chunk.id != renderedChunks.last.id && renderedChunks.length > 1;
 
-    print("!!!!! ${blocState.isAllComponentChecked}");
-
     return [
       ..._renderChunkComponents(components),
       if (showDivider) const ChunkDivider(),
