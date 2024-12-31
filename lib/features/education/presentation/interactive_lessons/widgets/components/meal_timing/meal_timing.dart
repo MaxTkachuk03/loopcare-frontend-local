@@ -37,6 +37,16 @@ class MealTiming extends StatefulWidget {
 
 class _MealTimingState extends State<MealTiming> {
   Set<MealItem> meals = {};
+  final List<InteractiveLessonHistory> componentHistory = [];
+
+  @override
+  void initState() {
+    super.initState();
+    if (widget.component.progress?.history == null) return;
+    final history = widget.component.progress!.history!;
+
+    componentHistory.addAll(history);
+  }
 
   int _getMealList(List<MealItem> currentFoodItems, MealCategory category) {
     if (category == MealCategory.inbetweens) {
@@ -54,6 +64,8 @@ class _MealTimingState extends State<MealTiming> {
   Widget build(BuildContext context) {
     return BlocBuilder<MealsBloc, MealsState>(
       builder: (context, mealsState) {
+        final category = mealsState.data.currentMealCategory!;
+
         return Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -72,22 +84,27 @@ class _MealTimingState extends State<MealTiming> {
               physics: const NeverScrollableScrollPhysics(),
               shrinkWrap: true,
               separatorBuilder: (context, index) => const SizedBox(height: 8.0),
-              itemCount: _getMealList(mealsState.data.currentFoodItems,
-                  mealsState.data.currentMealCategory!),
+              itemCount:
+                  _getMealList(mealsState.data.currentFoodItems, category),
               itemBuilder: (context, index) {
                 final meal = meals.toList()[index];
                 final mealName = meal.name;
                 // SJC remove? final time = mealsState.data.currentDateTime ?? meal.createdAt.toLocal();
                 // warning • The left operand can't be null, so the right operand is never executed • lib/features/education/presentation/interactive_lessons/widgets/components/meal_timing/meal_timing.dart:81:65 • dead_null_aware_expression
-                final time = meal.updatedAt.toLocal();
+                final time = componentHistory.isNotEmpty
+                    ? category == MealCategory.inbetweens
+                        ? componentHistory.last.updatedAt!
+                        : componentHistory.last.updatedAt!
+                    : meal.updatedAt.toLocal();
                 final secondTime = meal.createdAt;
-                final category = mealsState.data.currentMealCategory!;
 
+                print("!!!!! ${widget.component.progress?.history ?? "OHHH"}");
                 return GestureDetector(
                   onTap: () async => await showAdaptiveDialog(
                     barrierDismissible: true,
                     context: context,
                     builder: (BuildContext context) => CustomTimePicker(
+                      index: index,
                       initialTime: time,
                       onSaveProgress: widget.onSaveProgress,
                       component: widget.component,
@@ -96,6 +113,7 @@ class _MealTimingState extends State<MealTiming> {
                       category: category.title,
                       id: meal.id,
                       secondTime: secondTime,
+                      componentHistory: componentHistory,
                     ),
                   ),
                   child: Row(

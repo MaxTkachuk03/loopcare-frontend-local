@@ -10,6 +10,7 @@ class InteractiveLessonHistory with _$InteractiveLessonHistory {
   const InteractiveLessonHistory._();
 
   const factory InteractiveLessonHistory({
+    int? mealItemId,
     int? id,
     required String text,
     DateTime? createdAt,

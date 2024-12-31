@@ -1,6 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+
 import 'package:loopcare_frontend/core/presentation/text/custom_text.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 import 'package:loopcare_frontend/core/presentation/utils/build_context_extensions.dart';
@@ -17,18 +18,22 @@ class CustomTimePicker extends StatefulWidget {
   const CustomTimePicker({
     super.key,
     required this.initialTime,
-    required this.onSaveProgress,
-    required this.component,
-    required this.lessonStreamType,
+    required this.secondTime,
+    required this.id,
+    required this.index,
     required this.mealName,
     required this.category,
-    required this.id,
-    required this.secondTime,
+    required this.component,
+    required this.lessonStreamType,
+    required this.onSaveProgress,
+    required this.componentHistory,
   });
 
   final DateTime initialTime;
   final DateTime secondTime;
   final int id;
+  final int index;
+  final List<InteractiveLessonHistory> componentHistory;
   final String mealName;
   final String category;
   final InteractiveLessonChunkComponentMealTiming component;
@@ -44,20 +49,22 @@ class _CustomTimePickerState extends State<CustomTimePicker> {
   DateTime newTime = DateTime.now();
 
   void _onSaveHandler(DateTime updateAt) {
-    var componentHistory = InteractiveLessonHistory(
+    widget.componentHistory[widget.index] = InteractiveLessonHistory(
+        mealItemId: widget.id,
         id: widget.id,
-        text: widget.component.type.name,
+        text: widget.category.toLowerCase().split('&').last.trim(),
         updatedAt: updateAt,
         createdAt: widget.secondTime);
 
     widget.onSaveProgress(
         InteractiveLessonComponentProgress(
-            history: [componentHistory], type: widget.component.type.name),
+            history: widget.componentHistory, type: widget.component.type.name),
         widget.component);
   }
 
   @override
   Widget build(BuildContext context) {
+    print("id: ${widget.category.toLowerCase().split('&').last.trim()}");
     final width = MediaQuery.sizeOf(context).width;
     final height = MediaQuery.sizeOf(context).height;
     return BlocBuilder<MealsBloc, MealsState>(
