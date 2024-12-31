@@ -10,6 +10,7 @@ import 'package:loopcare_frontend/features/education/domain/interactive_lesson/i
 import 'package:loopcare_frontend/features/education/domain/interactive_lesson/interactive_lesson_text_area_history.dart';
 import 'package:loopcare_frontend/features/education/presentation/interactive_lessons/widgets/continue_btn.dart';
 import 'package:loopcare_frontend/features/nutrition/application/meals/meals_bloc.dart';
+import 'package:loopcare_frontend/features/nutrition/domain/select_serving/meal_category.dart';
 import 'package:loopcare_frontend/features/river/domain/river_module_stream_type.dart';
 import 'package:loopcare_frontend/localization/service/localization_extension.dart';
 import 'package:loopcare_frontend/localization/service/localized_texts.dart';
@@ -49,22 +50,37 @@ class _CustomTimePickerState extends State<CustomTimePicker> {
   DateTime newTime = DateTime.now();
 
   void _onSaveHandler(DateTime updateAt) {
-    widget.componentHistory[widget.index] = InteractiveLessonHistory(
-        mealItemId: widget.id,
-        id: widget.id,
-        text: widget.category.toLowerCase().split('&').last.trim(),
-        updatedAt: updateAt,
-        createdAt: widget.secondTime);
+    if (widget.category == MealCategory.inbetweens.originalValue) {
+      widget.componentHistory[widget.index] = InteractiveLessonHistory(
+          mealItemId: widget.id,
+          id: widget.id,
+          text: widget.category.toLowerCase().split('&').last.trim(),
+          updatedAt: updateAt,
+          createdAt: widget.secondTime);
 
-    widget.onSaveProgress(
-        InteractiveLessonComponentProgress(
-            history: widget.componentHistory, type: widget.component.type.name),
-        widget.component);
+      widget.onSaveProgress(
+          InteractiveLessonComponentProgress(
+              history: widget.componentHistory,
+              type: widget.component.type.name),
+          widget.component);
+    } else {
+      var componentHistory = InteractiveLessonHistory(
+          mealItemId: widget.id,
+          id: widget.id,
+          text: widget.category.toLowerCase().split('&').last.trim(),
+          updatedAt: updateAt,
+          createdAt: widget.secondTime);
+
+      widget.onSaveProgress(
+          InteractiveLessonComponentProgress(
+              history: [componentHistory], type: widget.component.type.name),
+          widget.component);
+    }
   }
 
   @override
   Widget build(BuildContext context) {
-    print("id: ${widget.category.toLowerCase().split('&').last.trim()}");
+    print("id: ${widget.id}");
     final width = MediaQuery.sizeOf(context).width;
     final height = MediaQuery.sizeOf(context).height;
     return BlocBuilder<MealsBloc, MealsState>(
@@ -112,7 +128,9 @@ class _CustomTimePickerState extends State<CustomTimePicker> {
                 ContinueBtn(
                     bottom: 0,
                     onPressed: () {
-                      _onSaveHandler(newTime);
+                      setState(() {
+                        _onSaveHandler(newTime);
+                      });
 
                       context.router.maybePop(context);
                     },

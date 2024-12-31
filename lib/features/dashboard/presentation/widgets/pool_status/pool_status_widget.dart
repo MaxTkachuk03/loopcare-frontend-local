@@ -144,8 +144,6 @@ class _PoolStatusWidgetState extends State<PoolStatusWidget> {
   String getIconPathForModule(ModuleItem module) {
     String iconPath;
 
-    print("${module.iconType.toString()}:  ${module.states?.itemState}");
-
     switch (module.iconType.toString()) {
       case 'reflection':
         iconPath = module.states?.itemState == 'completed'

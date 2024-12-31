@@ -182,7 +182,7 @@ class _NutritionIntakePageState extends State<NutritionIntakePage> {
                                         }),
                                   ),
                                 ),
-                                isAddFood
+                                isAddFood && !isCompleted
                                     ? Column(
                                         children: [
                                           Row(

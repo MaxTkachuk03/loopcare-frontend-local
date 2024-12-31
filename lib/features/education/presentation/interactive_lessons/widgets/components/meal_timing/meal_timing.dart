@@ -37,19 +37,23 @@ class MealTiming extends StatefulWidget {
 
 class _MealTimingState extends State<MealTiming> {
   Set<MealItem> meals = {};
-  final List<InteractiveLessonHistory> componentHistory = [];
+  final Set<InteractiveLessonHistory> componentHistory = {};
+  final List<DateTime> snacksTime = [];
 
   @override
   void initState() {
     super.initState();
-    if (widget.component.progress?.history == null) return;
-    final history = widget.component.progress!.history!;
+    if (widget.component.progress == null) {
+      return;
+    }
 
-    componentHistory.addAll(history);
+    final history = widget.component.progress!.history!;
+    componentHistory.addAll(history.toSet());
   }
 
   int _getMealList(List<MealItem> currentFoodItems, MealCategory category) {
     if (category == MealCategory.inbetweens) {
+      currentFoodItems.sort((a, b) => a.id.compareTo(b.id));
       meals = currentFoodItems.toSet();
     } else {
       meals.add(currentFoodItems.last);
@@ -58,6 +62,72 @@ class _MealTimingState extends State<MealTiming> {
     return meals.length;
   }
 
+  void _snackTimes() {
+    componentHistory.clear();
+    // Перевірка, чи існує прогрес
+    if (widget.component.progress != null) {
+      final history = widget.component.progress!.history!;
+      // Додаємо існуючі дані в componentHistory, якщо вони ще не додані
+      componentHistory.addAll(history.toSet());
+    }
+
+    // Проходимо по кожному елементу meals
+    for (int index = 0; index < meals.length; index++) {
+      final meal = meals.toList()[index];
+
+      // Перевірка, чи існує відповідний елемент у componentHistory
+      if (index < componentHistory.length &&
+          meal.id == componentHistory.toList()[index].mealItemId) {
+        print(" meal.id ${meal.id}");
+        print(
+            "componentHistory[index].mealItemId:  ${componentHistory.toList()[index].mealItemId}");
+        // Оновлюємо існуючий елемент у componentHistory
+        componentHistory.toList()[index] = InteractiveLessonHistory(
+          mealItemId: meal.id,
+          id: meal.id,
+          updatedAt: componentHistory.toList()[index].updatedAt,
+          createdAt: meal.createdAt.toLocal(),
+          text: 'snacks', // Позначка для оновлених елементів
+        );
+      } else {
+        // Додаємо новий елемент у componentHistory, якщо його ще немає
+        componentHistory.add(InteractiveLessonHistory(
+          mealItemId: meal.id,
+          id: meal.id,
+          updatedAt: meal.updatedAt.toLocal(),
+          createdAt: meal.createdAt.toLocal(),
+          text: 'snacks', // Новий запис
+        ));
+      }
+    }
+  }
+
+  // void _snackTimes() {
+  //   // Перевірка, чи існує прогрес
+  //   componentHistory.clear();
+  //   if (widget.component.progress != null) {
+  //     final history = widget.component.progress!.history!;
+  //     // Додаємо існуючі дані в componentHistory, якщо вони ще не додані
+  //     componentHistory.addAll(history);
+  //   }
+
+  //   // Поки кількість елементів у componentHistory менша, ніж у meals
+  //   while (componentHistory.length < meals.length) {
+  //     // Додаємо нові записи у componentHistory, щоб відповідати кількості meals
+  //     final newMeal = meals.toList()[componentHistory.length];
+  //     // Отримуємо відповідний meal
+  //     componentHistory.add(InteractiveLessonHistory(
+  //       mealItemId: newMeal.id,
+  //       id: newMeal.id,
+  //       updatedAt: newMeal.updatedAt.toLocal(),
+  //       createdAt: newMeal.createdAt.toLocal(),
+  //       text: 'snacks', // Додаємо необхідний текст
+  //     ));
+  //   }
+
+  //   // print("@@@@ ${componentHistory}");
+  // }
+
   MealTimingContent get content => widget.component.content;
 
   @override
@@ -65,7 +135,7 @@ class _MealTimingState extends State<MealTiming> {
     return BlocBuilder<MealsBloc, MealsState>(
       builder: (context, mealsState) {
         final category = mealsState.data.currentMealCategory!;
-
+        _snackTimes();
         return Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -91,31 +161,34 @@ class _MealTimingState extends State<MealTiming> {
                 final mealName = meal.name;
                 // SJC remove? final time = mealsState.data.currentDateTime ?? meal.createdAt.toLocal();
                 // warning • The left operand can't be null, so the right operand is never executed • lib/features/education/presentation/interactive_lessons/widgets/components/meal_timing/meal_timing.dart:81:65 • dead_null_aware_expression
-                final time = componentHistory.isNotEmpty
-                    ? category == MealCategory.inbetweens
-                        ? componentHistory.last.updatedAt!
-                        : componentHistory.last.updatedAt!
-                    : meal.updatedAt.toLocal();
                 final secondTime = meal.createdAt;
+                final time = widget.component.progress != null
+                    ? category == MealCategory.inbetweens
+                        ? componentHistory.toList()[index].updatedAt!
+                        : widget.component.progress!.history!.last.updatedAt!
+                    : meal.updatedAt.toLocal();
 
-                print("!!!!! ${widget.component.progress?.history ?? "OHHH"}");
+                print("HISTORY ${componentHistory}");
                 return GestureDetector(
-                  onTap: () async => await showAdaptiveDialog(
-                    barrierDismissible: true,
-                    context: context,
-                    builder: (BuildContext context) => CustomTimePicker(
-                      index: index,
-                      initialTime: time,
-                      onSaveProgress: widget.onSaveProgress,
-                      component: widget.component,
-                      lessonStreamType: widget.lessonStreamType,
-                      mealName: mealName,
-                      category: category.title,
-                      id: meal.id,
-                      secondTime: secondTime,
-                      componentHistory: componentHistory,
-                    ),
-                  ),
+                  onTap: () async {
+                    await showAdaptiveDialog(
+                      barrierDismissible: true,
+                      context: context,
+                      builder: (BuildContext context) => CustomTimePicker(
+                        index: index,
+                        initialTime: time,
+                        onSaveProgress: widget.onSaveProgress,
+                        component: widget.component,
+                        lessonStreamType: widget.lessonStreamType,
+                        mealName: mealName,
+                        category: category.originalValue,
+                        id: meal.id,
+                        secondTime: secondTime,
+                        componentHistory: componentHistory.toList(),
+                      ),
+                    );
+                    setState(() {});
+                  },
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     mainAxisSize: MainAxisSize.min,
