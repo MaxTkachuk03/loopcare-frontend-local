@@ -49,6 +49,7 @@ class InteractiveLessonsStateData with _$InteractiveLessonsStateData {
     @Default(null) InteractiveLessonTopicsPage? activePage,
     @Default(null) InteractiveLessonChunk? activeChunk,
     @Default([]) List<InteractiveLessonChunkComponent> unlockedChunkComponents,
+    @Default([]) List<DateTime> updateAt,
     @Default(0) int activePageIndex,
     @Default(0) int activeChunkIndex,
     @Default({}) Map<int, List<InteractiveLessonChunk>> unlockedChunksByPage,

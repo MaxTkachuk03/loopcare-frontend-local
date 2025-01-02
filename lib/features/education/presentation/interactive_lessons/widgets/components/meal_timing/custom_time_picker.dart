@@ -5,6 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loopcare_frontend/core/presentation/text/custom_text.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 import 'package:loopcare_frontend/core/presentation/utils/build_context_extensions.dart';
+import 'package:loopcare_frontend/features/education/application/interactive_lessons/interactive_lessons_bloc.dart';
 import 'package:loopcare_frontend/features/education/domain/interactive_lesson/interactive_lesson_chunk_component.dart';
 import 'package:loopcare_frontend/features/education/domain/interactive_lesson/interactive_lesson_component_progress.dart';
 import 'package:loopcare_frontend/features/education/domain/interactive_lesson/interactive_lesson_text_area_history.dart';
@@ -27,16 +28,14 @@ class CustomTimePicker extends StatefulWidget {
     required this.component,
     required this.lessonStreamType,
     required this.onSaveProgress,
-    required this.componentHistory,
   });
 
   final DateTime initialTime;
   final DateTime secondTime;
   final int id;
   final int index;
-  final List<InteractiveLessonHistory> componentHistory;
   final String mealName;
-  final String category;
+  final MealCategory category;
   final InteractiveLessonChunkComponentMealTiming component;
   final RiverModuleStreamType lessonStreamType;
   final Function(InteractiveLessonComponentProgress progress,
@@ -50,32 +49,24 @@ class _CustomTimePickerState extends State<CustomTimePicker> {
   DateTime newTime = DateTime.now();
 
   void _onSaveHandler(DateTime updateAt) {
-    if (widget.category == MealCategory.inbetweens.originalValue) {
-      widget.componentHistory[widget.index] = InteractiveLessonHistory(
-          mealItemId: widget.id,
-          id: widget.id,
-          text: widget.category.toLowerCase().split('&').last.trim(),
-          updatedAt: updateAt,
-          createdAt: widget.secondTime);
+    var componentHistory = InteractiveLessonHistory(
+        mealItemId: widget.id,
+        id: widget.id,
+        text:
+            widget.category.originalValue.toLowerCase().split('&').last.trim(),
+        updatedAt: updateAt,
+        createdAt: widget.secondTime);
 
-      widget.onSaveProgress(
-          InteractiveLessonComponentProgress(
-              history: widget.componentHistory,
-              type: widget.component.type.name),
-          widget.component);
-    } else {
-      var componentHistory = InteractiveLessonHistory(
-          mealItemId: widget.id,
-          id: widget.id,
-          text: widget.category.toLowerCase().split('&').last.trim(),
-          updatedAt: updateAt,
-          createdAt: widget.secondTime);
-
-      widget.onSaveProgress(
-          InteractiveLessonComponentProgress(
-              history: [componentHistory], type: widget.component.type.name),
-          widget.component);
+    if (widget.category == MealCategory.inbetweens) {
+      context.read<InteractiveLessonsBloc>().add(
+          InteractiveLessonsEvent.updateMealTime(
+              updateAt, widget.category, widget.component, widget.index));
     }
+
+    widget.onSaveProgress(
+        InteractiveLessonComponentProgress(
+            history: [componentHistory], type: widget.component.type.name),
+        widget.component);
   }
 
   @override
