@@ -93,17 +93,16 @@ class _MealTimingState extends State<MealTiming> {
                   itemBuilder: (context, index) {
                     final meal = meals.toList()[index];
                     final mealName = meal.name;
-                    // SJC remove? final time = mealsState.data.currentDateTime ?? meal.createdAt.toLocal();
-                    // warning • The left operand can't be null, so the right operand is never executed • lib/features/education/presentation/interactive_lessons/widgets/components/meal_timing/meal_timing.dart:81:65 • dead_null_aware_expression
                     final secondTime = meal.createdAt;
 
                     final finalTime = category != MealCategory.inbetweens
-                        ? (widget.component.progress!.history!.isNotEmpty
+                        ? (widget.component.progress != null &&
+                                widget.component.progress!.history != null
                             ? widget
                                 .component.progress!.history![index].updatedAt!
                             : meal.updatedAt.toLocal())
-                        : (interactiveState.data.updateAt.isNotEmpty
-                            ? interactiveState.data.updateAt[index].toLocal()
+                        : (interactiveState.data.mealsTime.isNotEmpty
+                            ? interactiveState.data.mealsTime[index]
                             : meal.updatedAt.toLocal());
 
                     return GestureDetector(

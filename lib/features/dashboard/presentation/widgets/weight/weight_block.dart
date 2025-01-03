@@ -34,17 +34,14 @@ class _WeightBlockState extends State<WeightBlock> {
     });
   }
 
-  void onPressHandler(BuildContext context) => context.router
-      .push(LogWeightRoute(selectedDay: widget.date))
-      .then(getPoolData);
+  void onPressHandler(BuildContext context) =>
+      context.router.push(LogWeightRoute(selectedDay: widget.date)).then(getPoolData);
 
-  void getPoolData(e) =>
-      context.read<PoolModuleBloc>().add(const PoolModuleEvent.getPoolData());
+  void getPoolData(e) => context.read<PoolModuleBloc>().add(const PoolModuleEvent.getPoolData());
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding:
-          const EdgeInsets.only(top: 8.0, bottom: 8.0, right: 8.0, left: 8.0),
+      padding: const EdgeInsets.only(top: 8.0, bottom: 8.0, right: 8.0, left: 8.0),
       decoration: const BoxDecoration(
         color: AppColors.white,
         borderRadius: BorderRadius.all(Radius.circular(8)),
@@ -52,16 +49,15 @@ class _WeightBlockState extends State<WeightBlock> {
       child: BlocConsumer<DashboardWeightBloc, DashboardWeightState>(
         listener: (context, state) {
           state.whenOrNull(
-            error: (_) => context.read<DashboardWeightBloc>().add(
-                DashboardWeightEvent.fetchWeights(
-                    widget.date.toUtc().toIso8601String())),
+            error: (_) => context
+                .read<DashboardWeightBloc>()
+                .add(DashboardWeightEvent.fetchWeights(widget.date.toUtc().toIso8601String())),
           );
         },
         builder: (context, state) {
           return state.maybeMap(
             updated: (s) {
-              final weightValue =
-                  s.data.getSelectedDayWeight(widget.date.isoStringWithoutTime);
+              final weightValue = s.data.getSelectedDayWeight(widget.date.isoStringWithoutTime);
               final bool isEditable = s.isEditable(widget.date);
               final hasLog = weightValue != null;
 
@@ -89,9 +85,7 @@ class _WeightBlockState extends State<WeightBlock> {
                         toggleOnClick();
                       }
                     },
-                    highlightColor: widget.locked
-                        ? AppColors.coralLightest
-                        : AppColors.white,
+                    highlightColor: widget.locked ? AppColors.coralLightest : AppColors.white,
                     leadingIcon: widget.locked
                         ? AppIcons.customDashboardWeight
                         : AppIcons.customDashboardWeightGrey,
@@ -102,28 +96,21 @@ class _WeightBlockState extends State<WeightBlock> {
                         widget.locked
                             ? CustomText.bitter600(
                                 text,
-                                style:
-                                    context.textTheme.headlineSmall!.copyWith(
-                                  color: isEditable
-                                      ? AppColors.blueDarker
-                                      : AppColors.greyLabel,
+                                style: context.textTheme.headlineSmall!.copyWith(
+                                  color: isEditable ? AppColors.blueDarker : AppColors.greyLabel,
                                 ),
                               )
                             : CustomText.bitter400(
                                 LocalizedTexts.logWeight.tr(),
                                 style: context.textTheme.headlineSmall!
-                                    .copyWith(
-                                        color: AppColors.greyLight,
-                                        fontSize: 20),
+                                    .copyWith(color: AppColors.greyLight, fontSize: 20),
                               ),
                         if (widget.locked)
                           if (showSubText)
                             CustomText.w400(
                               LocalizedTexts.preferableInTheMorning.tr(),
                               style: context.textTheme.bodySmall!.copyWith(
-                                color: isEditable
-                                    ? AppColors.blueDarker
-                                    : AppColors.greyLabel,
+                                color: isEditable ? AppColors.blueDarker : AppColors.greyLabel,
                               ),
                             ),
                       ],
@@ -151,8 +138,7 @@ class _WeightBlockState extends State<WeightBlock> {
                               Expanded(
                                 child: CustomText.w400(
                                   "${LocalizedTexts.featureUnlocksAtPool.tr()} ${LocalizedTexts.weightLog.tr()}",
-                                  style: const TextStyle(
-                                      color: AppColors.greyLight, fontSize: 16),
+                                  style: const TextStyle(color: AppColors.greyLight, fontSize: 16),
                                   overflow: TextOverflow.visible,
                                 ),
                               ),
@@ -161,8 +147,7 @@ class _WeightBlockState extends State<WeightBlock> {
                         ),
                   onClick && !widget.locked
                       ? Padding(
-                          padding: const EdgeInsets.only(
-                              left: 12.0, right: 12.0, bottom: 12),
+                          padding: const EdgeInsets.only(left: 12.0, right: 12.0, bottom: 12),
                           child: Row(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
@@ -171,12 +156,10 @@ class _WeightBlockState extends State<WeightBlock> {
                                   padding: const EdgeInsets.only(bottom: 10),
                                   child: CustomText.w400(
                                     maxLines: 10,
-                                    LocalizedTexts.weightLogLockedDescription
-                                        .tr(),
-                                    style: const TextStyle(
-                                        color: AppColors.greyLight,
-                                        fontSize: 16),
-                                        overflow: TextOverflow.visible,
+                                    LocalizedTexts.weightLogLockedDescription.tr(),
+                                    style:
+                                        const TextStyle(color: AppColors.greyLight, fontSize: 16),
+                                    overflow: TextOverflow.visible,
                                   ),
                                 ),
                               ),

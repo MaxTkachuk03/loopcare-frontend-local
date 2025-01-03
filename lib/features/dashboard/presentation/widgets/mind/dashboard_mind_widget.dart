@@ -32,13 +32,11 @@ class _DashboardMindWidgetState extends State<DashboardMindWidget> {
   void onPressHandler(BuildContext context) =>
       context.router.pushNamed(AppRoutes.mindTechniques).then(getPoolData);
 
-  void getPoolData(e) =>
-      context.read<PoolModuleBloc>().add(const PoolModuleEvent.getPoolData());
+  void getPoolData(e) => context.read<PoolModuleBloc>().add(const PoolModuleEvent.getPoolData());
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding:
-          const EdgeInsets.only(top: 8.0, bottom: 8.0, right: 8.0, left: 8.0),
+      padding: const EdgeInsets.only(top: 8.0, bottom: 8.0, right: 8.0, left: 8.0),
       alignment: Alignment.center,
       decoration: const BoxDecoration(
         color: AppColors.white,
@@ -54,11 +52,9 @@ class _DashboardMindWidgetState extends State<DashboardMindWidget> {
                 toggleOnClick();
               }
             },
-            highlightColor:
-                widget.locked ? AppColors.petrolLightest : AppColors.white,
-            leadingIcon: widget.locked
-                ? AppIcons.customDashboardMind
-                : AppIcons.customDashboardMindGrey,
+            highlightColor: widget.locked ? AppColors.petrolLightest : AppColors.white,
+            leadingIcon:
+                widget.locked ? AppIcons.customDashboardMind : AppIcons.customDashboardMindGrey,
             title: widget.locked
                 ? CustomText.bitter600(
                     LocalizedTexts.mindDashboardTitle.tr(),
@@ -66,19 +62,15 @@ class _DashboardMindWidgetState extends State<DashboardMindWidget> {
                   )
                 : CustomText.bitter400(
                     LocalizedTexts.mindDashboardTitle.tr(),
-                    style: const TextStyle(
-                        color: AppColors.greyLight, fontSize: 20),
+                    style: const TextStyle(color: AppColors.greyLight, fontSize: 20),
                   ),
             editable: true,
-            actionIcon: onClick
-                ? const AssetImage(AppIcons.upArrow)
-                : AppIcons.downArrow,
+            actionIcon: onClick ? const AssetImage(AppIcons.upArrow) : AppIcons.downArrow,
             circleButton: widget.locked ? true : false,
           ),
           widget.locked
               ? Padding(
-                  padding: const EdgeInsets.symmetric(
-                      horizontal: 8.0, vertical: 16.0),
+                  padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 16.0),
                   child: CustomElevatedButton.petrolSmall(
                     label: LocalizedTexts.mindDashboardBtn.tr(),
                     onPressed: () => onPressHandler(context),
@@ -98,8 +90,7 @@ class _DashboardMindWidgetState extends State<DashboardMindWidget> {
                       Expanded(
                         child: Text(
                           "${LocalizedTexts.featureUnlocksAtPool.tr()} ${LocalizedTexts.mindTraining.tr()}",
-                          style: const TextStyle(
-                              color: AppColors.greyLight, fontSize: 16),
+                          style: const TextStyle(color: AppColors.greyLight, fontSize: 16),
                           overflow: TextOverflow.visible,
                         ),
                       ),
@@ -108,16 +99,14 @@ class _DashboardMindWidgetState extends State<DashboardMindWidget> {
                 ),
           onClick && !widget.locked
               ? Padding(
-                  padding: const EdgeInsets.only(
-                      left: 12.0, right: 12.0, bottom: 12),
+                  padding: const EdgeInsets.only(left: 12.0, right: 12.0, bottom: 12),
                   child: Row(
                     children: [
                       Expanded(
                         child: CustomText.w400(
                           maxLines: 10,
                           LocalizedTexts.mindTrainingLockedDescription.tr(),
-                          style: const TextStyle(
-                              color: AppColors.greyLight, fontSize: 16),
+                          style: const TextStyle(color: AppColors.greyLight, fontSize: 16),
                           overflow: TextOverflow.visible,
                         ),
                       ),

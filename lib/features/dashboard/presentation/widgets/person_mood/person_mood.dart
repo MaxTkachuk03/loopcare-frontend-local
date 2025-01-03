@@ -39,24 +39,21 @@ class _PersonMoodState extends State<PersonMood> {
 
   void onPressHandler(BuildContext context) {
     context.router
-        .push(CreateMoodRoute(
-            mode: const MoodPageMode.create(), date: widget.date))
+        .push(CreateMoodRoute(mode: const MoodPageMode.create(), date: widget.date))
         .then(getPoolData);
   }
 
   void _onMoodItemPressedHandler(BuildContext context, Mood item) {
-    context.router.push(CreateMoodRoute(
-        mode: MoodPageMode.edit(moodRecord: item), date: widget.date));
+    context.router
+        .push(CreateMoodRoute(mode: MoodPageMode.edit(moodRecord: item), date: widget.date));
   }
 
-  void getPoolData(e) =>
-      context.read<PoolModuleBloc>().add(const PoolModuleEvent.getPoolData());
+  void getPoolData(e) => context.read<PoolModuleBloc>().add(const PoolModuleEvent.getPoolData());
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding:
-          const EdgeInsets.only(top: 8.0, bottom: 16.0, right: 8.0, left: 8.0),
+      padding: const EdgeInsets.only(top: 8.0, bottom: 16.0, right: 8.0, left: 8.0),
       decoration: const BoxDecoration(
         color: AppColors.white,
         borderRadius: BorderRadius.all(Radius.circular(8)),
@@ -67,12 +64,11 @@ class _PersonMoodState extends State<PersonMood> {
             loading: (_) => const Loader(),
             orElse: () {
               final bool isEditable = DashboardUtils.isEditable(widget.date);
-              final List<Mood> moodValues = state.data
-                  .getSelectedDayMoods(widget.date.isoStringWithoutTime);
+              final List<Mood> moodValues =
+                  state.data.getSelectedDayMoods(widget.date.isoStringWithoutTime);
               moodValues.sort((a, b) => a.time.compareTo(b.time));
 
-              final Color textColor =
-                  isEditable ? AppColors.blueDarker : AppColors.greyLabel;
+              final Color textColor = isEditable ? AppColors.blueDarker : AppColors.greyLabel;
 
               return Column(
                 children: [
@@ -84,22 +80,19 @@ class _PersonMoodState extends State<PersonMood> {
                         toggleOnClick();
                       }
                     },
-                    highlightColor: widget.locked
-                        ? AppColors.orangeLightest
-                        : AppColors.white,
+                    highlightColor: widget.locked ? AppColors.orangeLightest : AppColors.white,
                     leadingIcon: widget.locked
                         ? AppIcons.customDashboardMood
                         : AppIcons.customDashboardMoodGrey,
                     title: widget.locked
                         ? CustomText.bitter600(
                             LocalizedTexts.mood.tr(),
-                            style: context.textTheme.headlineSmall
-                                ?.copyWith(color: textColor),
+                            style: context.textTheme.headlineSmall?.copyWith(color: textColor),
                           )
                         : CustomText.bitter400(
                             LocalizedTexts.mood.tr(),
-                            style: context.textTheme.headlineSmall?.copyWith(
-                                color: AppColors.greyLight, fontSize: 20),
+                            style: context.textTheme.headlineSmall
+                                ?.copyWith(color: AppColors.greyLight, fontSize: 20),
                           ),
                     actionIcon: widget.locked
                         ? AppIcons.plus
@@ -122,8 +115,7 @@ class _PersonMoodState extends State<PersonMood> {
                               Expanded(
                                 child: CustomText.w400(
                                   "${LocalizedTexts.featureUnlocksAtPool.tr()} ${LocalizedTexts.moodLog.tr()}",
-                                  style: const TextStyle(
-                                      color: AppColors.greyLight, fontSize: 16),
+                                  style: const TextStyle(color: AppColors.greyLight, fontSize: 16),
                                   overflow: TextOverflow.visible,
                                 ),
                               ),
@@ -132,16 +124,14 @@ class _PersonMoodState extends State<PersonMood> {
                         ),
                   onClick && !widget.locked
                       ? Padding(
-                          padding: const EdgeInsets.only(
-                              left: 12.0, right: 12.0, bottom: 12),
+                          padding: const EdgeInsets.only(left: 12.0, right: 12.0, bottom: 12),
                           child: Row(
                             children: [
                               Expanded(
                                 child: CustomText.w400(
                                   maxLines: 10,
                                   LocalizedTexts.moodLogLockedDescription.tr(),
-                                  style: const TextStyle(
-                                      color: AppColors.greyLight, fontSize: 16),
+                                  style: const TextStyle(color: AppColors.greyLight, fontSize: 16),
                                   overflow: TextOverflow.visible,
                                 ),
                               ),
@@ -156,17 +146,14 @@ class _PersonMoodState extends State<PersonMood> {
                           endIndent: 8.0,
                         )
                       : const SizedBox(),
-                  widget.locked
-                      ? const SizedBox(height: 4.0)
-                      : const SizedBox(),
+                  widget.locked ? const SizedBox(height: 4.0) : const SizedBox(),
                   widget.locked
                       ? Padding(
                           padding: const EdgeInsets.symmetric(horizontal: 8.0),
                           child: MoodList(
                             list: moodValues,
                             isEditable: isEditable,
-                            onPressItem: (Mood item) =>
-                                _onMoodItemPressedHandler(context, item),
+                            onPressItem: (Mood item) => _onMoodItemPressedHandler(context, item),
                           ),
                         )
                       : const SizedBox(),

@@ -190,7 +190,7 @@ class DoubleRange {
 
   double get length => (to - from).abs();
 
-  double get middle => from + (to - from) / 2;
+  double get middle => from + (to - from) / 1.7;
 
   bool inRange(double value) => value > from && value < to;
 

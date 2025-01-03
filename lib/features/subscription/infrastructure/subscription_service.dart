@@ -27,17 +27,42 @@ class AppSubscriptionService {
   final List purchasedList = [];
 
   Future<List<ProductDetails>> getSubscriptionPlans(Set<String> main) async {
+    final Set<String> main = {'monthly', 'quarterly', "annual", "NY_2025_15", "ny_2025_15"};
     final bool isAvailable = await _inAppPurchase.isAvailable();
     if (!isAvailable) {
       _pushAnalyticServiceUnAvailable();
+      // print('In-App Purchases are not available.');
       return [];
     }
+
     final ProductDetailsResponse productDetailResponse =
         await _inAppPurchase.queryProductDetails(main);
 
-    if (productDetailResponse.error != null || productDetailResponse.productDetails.isEmpty) {
+    if (productDetailResponse.error != null) {
+      // print('Error fetching product details: ${productDetailResponse.error}');
       return [];
     }
+
+    if (productDetailResponse.productDetails.isEmpty) {
+      // print('No product details found.');
+      return [];
+    }
+
+    // Log product details
+    // for (var product in productDetailResponse.productDetails) {
+    // print("|---------------------------------------|");
+    // print('Product ID: ${product.id}');
+    // print('Title: ${product.title}');
+    // print('Description: ${product.description}');
+    // print('Price: ${product.price}');
+    // print('Symbol: ${product.currencySymbol}');
+    // print("|---------------------------------------|");
+    // }
+    final queriedIds = productDetailResponse.productDetails.map((e) => e.id).toSet();
+    main.difference(queriedIds);
+    // final missingIds = main.difference(queriedIds);
+    // print(missingIds);
+
     return productDetailResponse.productDetails;
   }
 

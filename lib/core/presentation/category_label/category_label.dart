@@ -85,6 +85,9 @@ class CategoryLabel extends StatelessWidget {
         textColor: AppColors.black,
       );
 
+  factory CategoryLabel.subscription({required String label}) =>
+      CategoryLabel(label: label, color: AppColors.blueDarker);
+
   factory CategoryLabel.nutritionIntake() => CategoryLabel(
         label: LocalizedTexts.selectTheFoodCategory.tr(),
         color: AppColors.greenRegular,

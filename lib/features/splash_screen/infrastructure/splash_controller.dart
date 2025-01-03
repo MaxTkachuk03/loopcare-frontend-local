@@ -91,7 +91,7 @@ class SplashController {
     if (accessToken.isEmpty || refreshToken.isEmpty) {
       return const LoginRoute();
     } else if (!hasActiveSubscription && kIsProd) {
-      return const SubscriptionRoute();
+      return const SubscriptionRouteV2();
     } else if (!riverBloc.state.data.isBeginningStarted &&
         !riverBloc.state.data.isBeginningComplete &&
         !storage.isRiverOverviewVisited) {

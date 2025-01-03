@@ -51,15 +51,13 @@ class NutritionIntakeButton extends StatelessWidget {
   }
 
   void _goToNutritionTest(BuildContext context, int lessonId) {
-    context.read<InteractiveLessonsBloc>().add(
-        InteractiveLessonsEvent.getInteractiveLesson(
-            lessonId: lessonId, date: lessonDate));
+    context
+        .read<InteractiveLessonsBloc>()
+        .add(InteractiveLessonsEvent.getInteractiveLesson(lessonId: lessonId, date: lessonDate));
 
     context.read<MealsBloc>().add(MealsEvent.setMealId(mealId!, category));
 
-    context
-        .read<NutritionIntakeBloc>()
-        .add(NutritionIntakeEvent.getLessonId(iLessonId: lessonId));
+    context.read<NutritionIntakeBloc>().add(NutritionIntakeEvent.getLessonId(iLessonId: lessonId));
 
     Future.delayed(
       const Duration(milliseconds: 800),
@@ -73,8 +71,8 @@ class NutritionIntakeButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final bool isThisCategory = (mealId != null &&
-        category.title.toLowerCase().contains(text.toLowerCase()));
+    final bool isThisCategory =
+        (mealId != null && category.title.toLowerCase().contains(text.toLowerCase()));
 
     final bool isCompleted = progress?.isLessonFinished == true;
     return Column(
