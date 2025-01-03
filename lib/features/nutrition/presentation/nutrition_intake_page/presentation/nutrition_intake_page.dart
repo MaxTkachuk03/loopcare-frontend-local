@@ -155,7 +155,7 @@ class _NutritionIntakePageState extends State<NutritionIntakePage> {
                                           } else if (screenWidth < 400) {
                                             return SizedBox(width: screenWidth / 11);
                                           } else {
-                                            return SizedBox(width: screenWidth / 8.5);
+                                            return SizedBox(width: screenWidth / 10);
                                           }
                                         }),
                                   ),

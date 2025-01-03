@@ -2,7 +2,6 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loopcare_frontend/core/presentation/icon_images/app_icons.dart';
-import 'package:loopcare_frontend/core/presentation/routes/app_router.dart';
 import 'package:loopcare_frontend/core/presentation/routes/app_router.gr.dart';
 import 'package:loopcare_frontend/core/presentation/text/custom_text.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
@@ -63,7 +62,7 @@ class NutritionIntakeButton extends StatelessWidget {
       const Duration(milliseconds: 800),
       () {
         if (context.mounted) {
-          context.router.pushNamed(AppRoutes.interactiveLesson);
+          context.router.push(InteractiveLessonRoute(startDate: lessonDate.toIso8601String()));
         }
       },
     );

@@ -97,7 +97,9 @@ class _CustomTimePickerState extends State<CustomTimePicker> {
                       CupertinoDatePicker(
                         initialDateTime: widget.initialTime,
                         onDateTimeChanged: (DateTime value) {
-                          newTime = value;
+                          setState(() {
+                            newTime = value;
+                          });
                         },
                         mode: CupertinoDatePickerMode.time,
                       ),

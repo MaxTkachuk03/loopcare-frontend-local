@@ -13,8 +13,30 @@ import 'package:loopcare_frontend/features/onboarding/presentation/widgets/progr
 import 'package:loopcare_frontend/features/river/domain/river_module_stream_type.dart';
 
 @RoutePage()
-class InteractiveLessonPage extends StatelessWidget {
-  const InteractiveLessonPage({super.key});
+class InteractiveLessonPage extends StatefulWidget {
+  final String startDate;
+
+  const InteractiveLessonPage({
+    super.key,
+    @PathParam('startDate') required this.startDate,
+  });
+
+  @override
+  State<InteractiveLessonPage> createState() => _InteractiveLessonPageState();
+}
+
+class _InteractiveLessonPageState extends State<InteractiveLessonPage> {
+  late InteractiveLessonsStateData iLessonBlocState;
+
+  @override
+  void initState() {
+    super.initState();
+    iLessonBlocState = context.read<InteractiveLessonsBloc>().state.data;
+
+    context
+        .read<InteractiveLessonsBloc>()
+        .add(InteractiveLessonsEvent.setAnswerDate(widget.startDate));
+  }
 
   int getProgressPercentage(InteractiveLessonsState state) {
     final activePage = state.data.activePage;
@@ -25,8 +47,7 @@ class InteractiveLessonPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final bloc = context.watch<InteractiveLessonsBloc>().state.data;
-    final lessonStreamType = RiverModuleStreamType.getLessonStreamType(bloc.type);
+    final lessonStreamType = RiverModuleStreamType.getLessonStreamType(iLessonBlocState.type);
 
     return BlocBuilder<InteractiveLessonsBloc, InteractiveLessonsState>(builder: (context, state) {
       return state.maybeWhen(

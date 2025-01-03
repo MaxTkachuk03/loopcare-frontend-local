@@ -21,4 +21,6 @@ class InteractiveLessonsEvent with _$InteractiveLessonsEvent {
       InteractiveLessonChunkComponentMealTiming mealTimingComponent, int index) = UpdateMealTime;
 
   const factory InteractiveLessonsEvent.getMealTime() = GetMealTime;
+
+  const factory InteractiveLessonsEvent.setAnswerDate(String answerDate) = SetAnswerDate;
 }

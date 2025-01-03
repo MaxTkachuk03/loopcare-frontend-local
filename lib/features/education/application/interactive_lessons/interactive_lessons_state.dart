@@ -54,6 +54,7 @@ class InteractiveLessonsStateData with _$InteractiveLessonsStateData {
     @Default({}) Map<int, List<InteractiveLessonChunk>> unlockedChunksByPage,
     @Default(false) bool isLoading,
     @Default(false) bool allTextAreasAdded,
+    @Default('') String answerDate,
     RequestError? error,
   }) = _InteractiveLessonsStateData;
 
