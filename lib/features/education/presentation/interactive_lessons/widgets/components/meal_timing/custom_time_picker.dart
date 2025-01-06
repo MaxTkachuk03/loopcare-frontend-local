@@ -38,9 +38,8 @@ class CustomTimePicker extends StatefulWidget {
   final MealCategory category;
   final InteractiveLessonChunkComponentMealTiming component;
   final RiverModuleStreamType lessonStreamType;
-  final Function(
-          InteractiveLessonComponentProgress progress, InteractiveLessonChunkComponent component)
-      onSaveProgress;
+  final Function(InteractiveLessonComponentProgress progress,
+      InteractiveLessonChunkComponent component) onSaveProgress;
 
   @override
   State<CustomTimePicker> createState() => _CustomTimePickerState();
@@ -53,14 +52,17 @@ class _CustomTimePickerState extends State<CustomTimePicker> {
     var componentHistory = InteractiveLessonHistory(
         mealItemId: widget.id,
         id: widget.id,
-        text: widget.category.originalValue.toLowerCase().split('&').last.trim(),
+        text:
+            widget.category.originalValue.toLowerCase().split('&').last.trim(),
         updatedAt: DateTime.parse(updateAt.toIso8601String()),
         createdAt: widget.secondTime);
 
-    if (widget.category == MealCategory.inbetweens) {
-      context.read<InteractiveLessonsBloc>().add(InteractiveLessonsEvent.updateMealTime(
-          updateAt, widget.category, widget.component, widget.index));
-    }
+    print(
+        "DateTime.parse(updateAt.toIso8601String()), ${DateTime.parse(updateAt.toIso8601String())}");
+
+    context.read<InteractiveLessonsBloc>().add(
+        InteractiveLessonsEvent.updateMealTime(
+            updateAt, widget.category, widget.component, widget.index));
 
     widget.onSaveProgress(
         InteractiveLessonComponentProgress(
@@ -78,7 +80,8 @@ class _CustomTimePickerState extends State<CustomTimePicker> {
           child: Container(
             height: height / 2.5,
             width: width / 1.15,
-            padding: const EdgeInsets.symmetric(vertical: 26.0, horizontal: 20.0),
+            padding:
+                const EdgeInsets.symmetric(vertical: 26.0, horizontal: 20.0),
             decoration: BoxDecoration(
               color: AppColors.bgGreen,
               borderRadius: BorderRadius.circular(20),
@@ -88,7 +91,8 @@ class _CustomTimePickerState extends State<CustomTimePicker> {
               children: [
                 CustomText(
                   LocalizedTexts.selectYourTime.tr(),
-                  style: context.textTheme.bodyMedium!.copyWith(fontWeight: FontWeight.w700),
+                  style: context.textTheme.bodyMedium!
+                      .copyWith(fontWeight: FontWeight.w700),
                 ),
                 Expanded(
                   child: Stack(

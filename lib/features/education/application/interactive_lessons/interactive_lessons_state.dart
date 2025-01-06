@@ -55,6 +55,7 @@ class InteractiveLessonsStateData with _$InteractiveLessonsStateData {
     @Default(false) bool isLoading,
     @Default(false) bool allTextAreasAdded,
     @Default('') String answerDate,
+    @Default('') String mealCategory,
     RequestError? error,
   }) = _InteractiveLessonsStateData;
 

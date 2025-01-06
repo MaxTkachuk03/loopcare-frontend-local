@@ -2,6 +2,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loopcare_frontend/core/presentation/icon_images/app_icons.dart';
+import 'package:loopcare_frontend/core/presentation/routes/app_router.dart';
 import 'package:loopcare_frontend/core/presentation/routes/app_router.gr.dart';
 import 'package:loopcare_frontend/core/presentation/text/custom_text.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
@@ -50,19 +51,28 @@ class NutritionIntakeButton extends StatelessWidget {
   }
 
   void _goToNutritionTest(BuildContext context, int lessonId) {
-    context
-        .read<InteractiveLessonsBloc>()
-        .add(InteractiveLessonsEvent.getInteractiveLesson(lessonId: lessonId, date: lessonDate));
+    context.read<InteractiveLessonsBloc>().add(
+        InteractiveLessonsEvent.getInteractiveLesson(
+            lessonId: lessonId, date: lessonDate));
 
     context.read<MealsBloc>().add(MealsEvent.setMealId(mealId!, category));
 
-    context.read<NutritionIntakeBloc>().add(NutritionIntakeEvent.getLessonId(iLessonId: lessonId));
+    context
+        .read<NutritionIntakeBloc>()
+        .add(NutritionIntakeEvent.getLessonId(iLessonId: lessonId));
+
+    context
+        .read<InteractiveLessonsBloc>()
+        .add(InteractiveLessonsEvent.setMealCategory(category.originalValue));
+
+    context.read<InteractiveLessonsBloc>().add(
+        InteractiveLessonsEvent.setAnswerDate(lessonDate.toIso8601String()));
 
     Future.delayed(
-      const Duration(milliseconds: 800),
+      const Duration(milliseconds: 1200),
       () {
         if (context.mounted) {
-          context.router.push(InteractiveLessonRoute(startDate: lessonDate.toIso8601String()));
+          context.router.pushNamed(AppRoutes.interactiveLesson);
         }
       },
     );
@@ -70,8 +80,8 @@ class NutritionIntakeButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final bool isThisCategory =
-        (mealId != null && category.title.toLowerCase().contains(text.toLowerCase()));
+    final bool isThisCategory = (mealId != null &&
+        category.title.toLowerCase().contains(text.toLowerCase()));
 
     final bool isCompleted = progress?.isLessonFinished == true;
     return Column(
