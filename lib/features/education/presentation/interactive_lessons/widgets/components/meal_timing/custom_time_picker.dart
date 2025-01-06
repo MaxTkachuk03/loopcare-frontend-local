@@ -54,7 +54,7 @@ class _CustomTimePickerState extends State<CustomTimePicker> {
         id: widget.id,
         text:
             widget.category.originalValue.toLowerCase().split('&').last.trim(),
-        updatedAt: DateTime.parse(updateAt.toIso8601String()),
+        updatedAt: DateTime.parse(updateAt.toIso8601String()).toUtc(),
         createdAt: widget.secondTime);
 
     print(

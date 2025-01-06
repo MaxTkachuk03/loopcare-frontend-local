@@ -101,7 +101,7 @@ class _MealTimingState extends State<MealTiming> {
                         //         : meal.updatedAt.toLocal())
                         //     :
                         (interactiveState.data.mealsTime.isNotEmpty
-                            ? interactiveState.data.mealsTime[index]
+                            ? interactiveState.data.mealsTime[index].toLocal()
                             : reversedMeals[index].mealCategory ==
                                     MealCategory.inbetweens.originalValue
                                 ? reversedMeals[index]
