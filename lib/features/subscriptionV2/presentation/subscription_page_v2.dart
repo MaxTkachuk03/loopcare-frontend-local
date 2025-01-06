@@ -44,6 +44,10 @@ class _SubscriptionPageV2State extends State<SubscriptionPageV2> {
 
     _fetchSubscriptionPlans();
 
+    appSubscriptionService.storeSubscription.listen((purchaseDetailsList) {
+      _handlePurchaseUpdates(purchaseDetailsList);
+    });
+
     WidgetsBinding.instance.addPostFrameCallback((_) {
       Future.delayed(const Duration(milliseconds: 500), () {
         _controller.animateTo(
@@ -67,29 +71,39 @@ class _SubscriptionPageV2State extends State<SubscriptionPageV2> {
     context.read<SubscriptionV2Bloc>().add(SubscriptionV2Event.onCheckedPlan(isChecked, index));
   }
 
-  Future<void> _fetchSubscriptionPlans() async {
-    try {
-      final Set<String> planIds = {
-        'monthly',
-        'quarterly',
-        'annual',
-        'NY_2025_15',
-        'ny_2025_15',
-      };
-
-      final fetchedPlans = await appSubscriptionService.getSubscriptionPlans(planIds);
-      setState(() {
-        subscriptionPlans = fetchedPlans;
-        for (var plan in fetchedPlans) {
-          final double? price = _cleanAndParsePrice(plan.price);
-          if (price != null) {
-            productIdToPriceMap[plan.id] = price;
-          }
-        }
-      });
-    } catch (e) {
-      // print('Error fetching subscription plans: $e');
+  void _handlePurchaseUpdates(List<PurchaseDetails> purchaseDetailsList) {
+    for (var purchaseDetails in purchaseDetailsList) {
+      if (purchaseDetails.status == PurchaseStatus.purchased) {
+        appSubscriptionService.completePurchase(purchaseDetails);
+        _onPurchaseSuccess(purchaseDetails);
+      } else if (purchaseDetails.status == PurchaseStatus.error) {
+      } else if (purchaseDetails.status == PurchaseStatus.canceled) {}
     }
+  }
+
+  void _onPurchaseSuccess(PurchaseDetails purchaseDetails) {
+    _navigateToHome();
+  }
+
+  Future<void> _fetchSubscriptionPlans() async {
+    final Set<String> planIds = {
+      'monthly',
+      'quarterly',
+      'annual',
+      'NY_2025_15',
+      'ny_2025_15',
+    };
+
+    final fetchedPlans = await appSubscriptionService.getSubscriptionPlans(planIds);
+    setState(() {
+      subscriptionPlans = fetchedPlans;
+      for (var plan in fetchedPlans) {
+        final double? price = _cleanAndParsePrice(plan.price);
+        if (price != null) {
+          productIdToPriceMap[plan.id] = price;
+        }
+      }
+    });
   }
 
   @override
@@ -150,7 +164,6 @@ class _SubscriptionPageV2State extends State<SubscriptionPageV2> {
                       }).toList();
 
                       if (filteredPlans.isEmpty) {
-                        // print("No valid plans found.");
                         return Container();
                       }
 
@@ -164,7 +177,6 @@ class _SubscriptionPageV2State extends State<SubscriptionPageV2> {
                       final matchingPlan = filteredPlans.firstWhere(
                         (plan) => plan.id == platformSpecificProductId,
                       );
-                      // print(matchingPlan.id);
 
                       double price = _cleanAndParsePrice(matchingPlan.price) ?? 0.0;
 
@@ -176,7 +188,6 @@ class _SubscriptionPageV2State extends State<SubscriptionPageV2> {
                       final symbol = matchingPlan.currencySymbol.isNotEmpty
                           ? matchingPlan.currencySymbol[matchingPlan.currencySymbol.length - 1]
                           : '';
-                      // print(matchingPlan.currencySymbol);
 
                       return SubscriptionPageV2Item(
                         price: price,
@@ -216,10 +227,10 @@ class _SubscriptionPageV2State extends State<SubscriptionPageV2> {
 
                         var selectedPlan = filteredPlans[selectedPlanIndex];
                         appSubscriptionService.buyItemInStore(selectedPlan);
-                        bool isSuccess = await appSubscriptionService.buyItemInStore(selectedPlan);
-                        if (isSuccess) {
-                          _navigateToHome();
-                        }
+                        // bool isSuccess = await appSubscriptionService.buyItemInStore(selectedPlan);
+                        // if (isSuccess) {
+                        //   _navigateToHome();
+                        // }
                       }
                     },
                     label: LocalizedTexts.subscriptionSubscribe.tr(),

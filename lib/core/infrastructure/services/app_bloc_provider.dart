@@ -154,6 +154,9 @@ class AppBlocProvider {
         BlocProvider<SubscriptionBloc>(
           create: (_) => getIt<SubscriptionBloc>(),
         ),
+        BlocProvider<SubscriptionV2Bloc>(
+          create: (_) => getIt<SubscriptionV2Bloc>(),
+        ),
         BlocProvider<ReflectionsBloc>(
           create: (_) => getIt<ReflectionsBloc>(),
         ),

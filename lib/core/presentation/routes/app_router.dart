@@ -399,7 +399,6 @@ class AppRouter extends $AppRouter {
           path: AppRoutes.manageSubscription,
           page: ManageSubscriptionRoute.page,
         ), // added
-
         // Buddy
         AutoRoute(
           path: AppRoutes.buddyIntro,
