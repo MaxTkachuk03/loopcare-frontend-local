@@ -211,7 +211,8 @@ class _NutritionIntakePageState extends State<NutritionIntakePage> {
                                                             date: lessonDate));
 
                                                     context.read<CommitmentBloc>().add(
-                                                        const CommitmentEvent.updateCommitment());
+                                                        CommitmentEvent.getCommitment(
+                                                            date: lessonDate));
                                                   });
                                                 },
                                                 activeColor: AppColors.greenLight,

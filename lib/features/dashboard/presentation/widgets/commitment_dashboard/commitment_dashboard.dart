@@ -33,6 +33,7 @@ class CommitmentDashboard extends StatefulWidget {
 
 class _CommitmentDashboardState extends State<CommitmentDashboard> {
   bool toggleArrowIcon = false;
+  bool isDayClosed = false;
 
   void toggleOnClick() {
     setState(() {
@@ -163,7 +164,7 @@ class _CommitmentDashboardState extends State<CommitmentDashboard> {
                                 ],
                               ),
                               if (completedCommitments > 0 &&
-                                  completedCommitments != totalCommitments)
+                                  completedCommitments < totalCommitments)
                                 const ImageIcon(AppIcons.checkmark,
                                     color: AppColors.blueDarker, size: 44),
                               if (completedCommitments >= totalCommitments &&

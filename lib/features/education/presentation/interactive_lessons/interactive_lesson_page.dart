@@ -26,13 +26,9 @@ class InteractiveLessonPage extends StatefulWidget {
 }
 
 class _InteractiveLessonPageState extends State<InteractiveLessonPage> {
-  late InteractiveLessonsStateData iLessonBlocState;
-
   @override
   void initState() {
     super.initState();
-    iLessonBlocState = context.read<InteractiveLessonsBloc>().state.data;
-
     context
         .read<InteractiveLessonsBloc>()
         .add(InteractiveLessonsEvent.setAnswerDate(widget.startDate));
@@ -47,6 +43,7 @@ class _InteractiveLessonPageState extends State<InteractiveLessonPage> {
 
   @override
   Widget build(BuildContext context) {
+    final iLessonBlocState = context.watch<InteractiveLessonsBloc>().state.data;
     final lessonStreamType = RiverModuleStreamType.getLessonStreamType(iLessonBlocState.type);
 
     return BlocBuilder<InteractiveLessonsBloc, InteractiveLessonsState>(builder: (context, state) {
