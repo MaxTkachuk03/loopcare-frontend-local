@@ -46,8 +46,6 @@ class InteractiveLessonsBloc
   ) async {
     emit(InteractiveLessonsState.loading(state.data.copyWith(isLoading: true)));
 
-    print("Category: ${state.data.mealCategory}");
-
     final mealTimingComponent = state.data.unlockedChunkComponents
         .whereType<InteractiveLessonChunkComponentMealTiming>()
         .first;
@@ -59,18 +57,15 @@ class InteractiveLessonsBloc
         .expand((meals) => meals.mealItems.map((meal) => meal.updatedAt))
         .toList();
 
-    print("3: ${mealsTime}");
-
-    print("DATE: ${state.data.answerDate}");
-
     emit(InteractiveLessonsState.lessonLoaded(
       state.data.copyWith(
-        mealsTime: mealsTime,
+        mealsTime: mealsTime.length > 1 &&
+                state.data.mealCategory != MealCategory.inbetweens.originalValue
+            ? mealsTime.reversed.toList()
+            : mealsTime,
         isLoading: false,
       ),
     ));
-
-    print("4: ${state.data.mealsTime}");
   }
 
   Future<void> _onUpdateMealTime(

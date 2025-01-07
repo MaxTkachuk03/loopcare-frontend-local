@@ -57,9 +57,6 @@ class _CustomTimePickerState extends State<CustomTimePicker> {
         updatedAt: DateTime.parse(updateAt.toIso8601String()).toUtc(),
         createdAt: widget.secondTime);
 
-    print(
-        "DateTime.parse(updateAt.toIso8601String()), ${DateTime.parse(updateAt.toIso8601String())}");
-
     context.read<InteractiveLessonsBloc>().add(
         InteractiveLessonsEvent.updateMealTime(
             updateAt, widget.category, widget.component, widget.index));

@@ -93,29 +93,17 @@ class _MealTimingState extends State<MealTiming> {
                     final mealName = meal.name;
                     final secondTime = meal.createdAt;
 
-                    final finalTime =
-                        //  category != MealCategory.inbetweens
-                        //     ? (widget.component.progress!.history!.isNotEmpty
-                        //         ? widget
-                        //             .component.progress!.history![index].updatedAt!
-                        //         : meal.updatedAt.toLocal())
-                        //     :
-                        (interactiveState.data.mealsTime.isNotEmpty
-                            ? interactiveState.data.mealsTime[index].toLocal()
-                            : reversedMeals[index].mealCategory ==
-                                    MealCategory.inbetweens.originalValue
-                                ? reversedMeals[index]
-                                    .mealItems[index]
-                                    .updatedAt
-                                : meal.updatedAt.toLocal());
+                    final finalTime = interactiveState.data.mealsTime.isNotEmpty
+                        ? interactiveState.data.mealsTime[index].toLocal()
+                        : reversedMeals[index].mealCategory ==
+                                MealCategory.inbetweens.originalValue
+                            ? reversedMeals[index].mealItems[index].updatedAt
+                            : meal.updatedAt.toLocal();
 
                     final initialTime =
                         interactiveState.data.answerDate.isNotEmpty
                             ? DateTime.parse(interactiveState.data.answerDate)
                             : finalTime;
-
-                    print(
-                        "interactiveState.data.answerDate: ${interactiveState.data.answerDate}");
 
                     return GestureDetector(
                       onTap: () async {
