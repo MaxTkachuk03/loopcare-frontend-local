@@ -206,9 +206,6 @@ class _NutritionIntakePageState extends State<NutritionIntakePage> {
                                                     context.read<NutritionIntakeBloc>().add(
                                                         NutritionIntakeEvent.completeDay(
                                                             date: lessonDate));
-                                                    context.read<NutritionIntakeBloc>().add(
-                                                        NutritionIntakeEvent.fetchProgress(
-                                                            date: lessonDate));
 
                                                     context.read<CommitmentBloc>().add(
                                                         CommitmentEvent.getCommitment(

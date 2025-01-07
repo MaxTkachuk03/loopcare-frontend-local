@@ -14,8 +14,11 @@ import 'package:loopcare_frontend/features/river/domain/river_module_stream_type
 
 @RoutePage()
 class InteractiveLessonPage extends StatefulWidget {
+  final RiverModuleStreamType streamType;
+
   const InteractiveLessonPage({
     super.key,
+    this.streamType = RiverModuleStreamType.nutrition,
   });
 
   @override
@@ -23,28 +26,16 @@ class InteractiveLessonPage extends StatefulWidget {
 }
 
 class _InteractiveLessonPageState extends State<InteractiveLessonPage> {
-  @override
-  void initState() {
-    super.initState();
-  }
-
   int getProgressPercentage(InteractiveLessonsState state) {
     final activePage = state.data.activePage;
     if (activePage == null || activePage.chunksIds.isEmpty) return 0;
 
-    return (((state.data.activeChunkIndex + 1) /
-                (activePage.chunksIds.length)) *
-            100)
-        .round();
+    return (((state.data.activeChunkIndex + 1) / (activePage.chunksIds.length)) * 100).round();
   }
 
   @override
   Widget build(BuildContext context) {
-    final iLessonBlocState = context.watch<InteractiveLessonsBloc>().state.data;
-    final lessonStreamType = RiverModuleStreamType.getLessonStreamType(iLessonBlocState.type);
-
-    return BlocBuilder<InteractiveLessonsBloc, InteractiveLessonsState>(
-        builder: (context, state) {
+    return BlocBuilder<InteractiveLessonsBloc, InteractiveLessonsState>(builder: (context, state) {
       return state.maybeWhen(
         error: (_) => const SizedBox.shrink(),
         loading: (_) => CustomScaffold.customColor(
@@ -54,18 +45,16 @@ class _InteractiveLessonPageState extends State<InteractiveLessonPage> {
         orElse: () => CustomScaffold.customColor(
           color: AppColors.white,
           appBar: CustomAppBar.customColor(
-            isPsychology: lessonStreamType.isPsychology,
-            customColor: lessonStreamType.regularColor,
+            isPsychology: widget.streamType.isPsychology,
+            customColor: widget.streamType.regularColor,
             title: context.watch<InteractiveLessonsBloc>().state.data.title,
-            leading: CustomFilledIconButton.fromColor(
-                color: lessonStreamType.lighterColor),
+            leading: CustomFilledIconButton.fromColor(color: widget.streamType.lighterColor),
             bottom: PreferredSize(
               preferredSize: const Size.fromHeight(50),
-              child:
-                  BlocBuilder<InteractiveLessonsBloc, InteractiveLessonsState>(
+              child: BlocBuilder<InteractiveLessonsBloc, InteractiveLessonsState>(
                 builder: (context, state) {
                   return ProgressBar(
-                    backgroundColor: lessonStreamType.regularColor,
+                    backgroundColor: widget.streamType.regularColor,
                     progressFillColor: AppColors.white,
                     progressEmptyColor: AppColors.white.withOpacity(0.4),
                     segments: state.data.pages.length,
@@ -80,13 +69,11 @@ class _InteractiveLessonPageState extends State<InteractiveLessonPage> {
             child:
                 // ScrollableContainer(
                 MainContainer(
-              child:
-                  BlocBuilder<InteractiveLessonsBloc, InteractiveLessonsState>(
+              child: BlocBuilder<InteractiveLessonsBloc, InteractiveLessonsState>(
                 builder: (context, state) {
                   return state.maybeWhen(
                     error: (_) => const SizedBox.shrink(),
-                    loading: (_) =>
-                        const Center(child: CircularProgressIndicator()),
+                    loading: (_) => const Center(child: CircularProgressIndicator()),
                     orElse: () => const ChunksList(),
                   );
                 },

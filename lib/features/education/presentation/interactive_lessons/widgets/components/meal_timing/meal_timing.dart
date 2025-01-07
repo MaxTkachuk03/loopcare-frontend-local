@@ -28,8 +28,9 @@ class MealTiming extends StatefulWidget {
 
   final InteractiveLessonChunkComponentMealTiming component;
   final RiverModuleStreamType lessonStreamType;
-  final Function(InteractiveLessonComponentProgress progress,
-      InteractiveLessonChunkComponent component) onSaveProgress;
+  final Function(
+          InteractiveLessonComponentProgress progress, InteractiveLessonChunkComponent component)
+      onSaveProgress;
 
   @override
   State<MealTiming> createState() => _MealTimingState();
@@ -38,13 +39,12 @@ class MealTiming extends StatefulWidget {
 class _MealTimingState extends State<MealTiming> {
   Set<MealItem> meals = {};
   int i = 0;
+
   @override
   void initState() {
     super.initState();
 
-    context
-        .read<InteractiveLessonsBloc>()
-        .add(const InteractiveLessonsEvent.getMealTime());
+    context.read<InteractiveLessonsBloc>().add(const InteractiveLessonsEvent.getMealTime());
   }
 
   int _getMealList(List<MealItem> currentFoodItems, MealCategory category) {
@@ -76,17 +76,14 @@ class _MealTimingState extends State<MealTiming> {
                 const SizedBox(height: 20),
                 CustomText(
                   content.question,
-                  style: context.textTheme.bodyMedium!
-                      .copyWith(fontWeight: FontWeight.w700),
+                  style: context.textTheme.bodyMedium!.copyWith(fontWeight: FontWeight.w700),
                 ),
                 const SizedBox(height: 20),
                 ListView.separated(
                   physics: const NeverScrollableScrollPhysics(),
                   shrinkWrap: true,
-                  separatorBuilder: (context, index) =>
-                      const SizedBox(height: 8.0),
-                  itemCount:
-                      _getMealList(mealsState.data.currentFoodItems, category),
+                  separatorBuilder: (context, index) => const SizedBox(height: 8.0),
+                  itemCount: _getMealList(mealsState.data.currentFoodItems, category),
                   itemBuilder: (context, index) {
                     final reversedMeals = content.meals.reversed.toList();
                     final meal = meals.toList()[index];
@@ -94,16 +91,14 @@ class _MealTimingState extends State<MealTiming> {
                     final secondTime = meal.createdAt;
 
                     final finalTime = interactiveState.data.mealsTime.isNotEmpty
-                        ? interactiveState.data.mealsTime[index].toLocal()
-                        : reversedMeals[index].mealCategory ==
-                                MealCategory.inbetweens.originalValue
+                        ? interactiveState.data.mealsTime[index]
+                        : reversedMeals[index].mealCategory == MealCategory.inbetweens.originalValue
                             ? reversedMeals[index].mealItems[index].updatedAt
                             : meal.updatedAt.toLocal();
 
-                    final initialTime =
-                        interactiveState.data.answerDate.isNotEmpty
-                            ? DateTime.parse(interactiveState.data.answerDate)
-                            : finalTime;
+                    final initialTime = interactiveState.data.answerDate.isNotEmpty
+                        ? DateTime.parse(interactiveState.data.answerDate)
+                        : finalTime;
 
                     return GestureDetector(
                       onTap: () async {
@@ -130,9 +125,7 @@ class _MealTimingState extends State<MealTiming> {
                         children: [
                           Expanded(
                               child: CustomText.w400(
-                            category == MealCategory.inbetweens
-                                ? mealName
-                                : category.title,
+                            category == MealCategory.inbetweens ? mealName : category.title,
                           )),
                           Container(
                             padding: const EdgeInsets.all(10.0),

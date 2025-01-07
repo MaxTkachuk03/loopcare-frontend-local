@@ -6,7 +6,9 @@ import 'package:loopcare_frontend/features/nutrition/presentation/nutrition_inta
 import 'package:loopcare_frontend/features/nutrition/presentation/nutrition_intake_page/domain/nutrition_intake_services.dart';
 
 part 'nutrition_intake_event.dart';
+
 part 'nutrition_intake_state.dart';
+
 part 'nutrition_intake_bloc.freezed.dart';
 
 @singleton
@@ -50,7 +52,7 @@ class NutritionIntakeBloc extends Bloc<NutritionIntakeEvent, NutritionIntakeStat
     await _nutritionIntakeServices.completeDay(date: event.date);
 
     emit(NutritionIntakeState.completeDay(
-        state.data.copyWith(dateTime: event.date.toLocal().toString())));
+        state.data.copyWith(isDayClosed: true, dateTime: event.date.toLocal().toString())));
   }
 
   Future<void> _onGetLessonId(

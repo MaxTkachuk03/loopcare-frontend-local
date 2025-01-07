@@ -24,5 +24,5 @@ class InteractiveLessonsEvent with _$InteractiveLessonsEvent {
 
   const factory InteractiveLessonsEvent.setAnswerDate(String answerDate) = SetAnswerDate;
 
-    const factory InteractiveLessonsEvent.setMealCategory(String mealCategory) = SetMealCategory;
+  const factory InteractiveLessonsEvent.setMealCategory(String mealCategory) = SetMealCategory;
 }
