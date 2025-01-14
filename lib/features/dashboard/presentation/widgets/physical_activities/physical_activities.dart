@@ -25,8 +25,7 @@ import 'package:loopcare_frontend/localization/service/localized_texts.dart';
 class PhysicalActivities extends StatefulWidget {
   final DateTime selectedDay;
   final bool locked;
-  const PhysicalActivities(
-      {super.key, required this.selectedDay, required this.locked});
+  const PhysicalActivities({super.key, required this.selectedDay, required this.locked});
 
   @override
   State<PhysicalActivities> createState() => _PhysicalActivitiesState();
@@ -49,8 +48,7 @@ class _PhysicalActivitiesState extends State<PhysicalActivities> {
 
   @override
   void didUpdateWidget(covariant PhysicalActivities oldWidget) {
-    if (oldWidget.selectedDay.isoStringWithoutTime ==
-        widget.selectedDay.isoStringWithoutTime) {
+    if (oldWidget.selectedDay.isoStringWithoutTime == widget.selectedDay.isoStringWithoutTime) {
       return;
     }
     _updateData();
@@ -58,9 +56,9 @@ class _PhysicalActivitiesState extends State<PhysicalActivities> {
   }
 
   void _updateData() {
-    context.read<PhysicalActivitiesBloc>().add(
-        PhysicalActivitiesEvent.getWeeklyPhysicalActivities(
-            widget.selectedDay));
+    context
+        .read<PhysicalActivitiesBloc>()
+        .add(PhysicalActivitiesEvent.getWeeklyPhysicalActivities(widget.selectedDay));
 
     context
         .read<ProgramsInProgressBloc>()
@@ -71,17 +69,15 @@ class _PhysicalActivitiesState extends State<PhysicalActivities> {
     context.router.pushNamed(AppRoutes.selectExercise).then(getPoolData);
   }
 
-  get _isActive =>
-      widget.selectedDay.midnightTime == DateTime.now().midnightTime;
+  get _isActive => widget.selectedDay.midnightTime == DateTime.now().midnightTime;
 
   void _programLogged(BuildContext context, PhysicalProgramsState state) {
-    context.read<PhysicalActivitiesBloc>().add(
-        PhysicalActivitiesEvent.getWeeklyPhysicalActivities(
-            widget.selectedDay));
+    context
+        .read<PhysicalActivitiesBloc>()
+        .add(PhysicalActivitiesEvent.getWeeklyPhysicalActivities(widget.selectedDay));
   }
 
-  void getPoolData(e) =>
-      context.read<PoolModuleBloc>().add(const PoolModuleEvent.getPoolData());
+  void getPoolData(e) => context.read<PoolModuleBloc>().add(const PoolModuleEvent.getPoolData());
 
   @override
   Widget build(BuildContext context) {
@@ -89,14 +85,12 @@ class _PhysicalActivitiesState extends State<PhysicalActivities> {
       listenWhen: (prev, cur) => cur is ProgramUpdated,
       listener: _programLogged,
       child: Container(
-        padding: const EdgeInsets.only(
-            top: 8.0, bottom: 16.0, right: 8.0, left: 8.0),
+        padding: const EdgeInsets.only(top: 8.0, bottom: 16.0, right: 8.0, left: 8.0),
         decoration: const BoxDecoration(
           color: AppColors.white,
           borderRadius: BorderRadius.all(Radius.circular(8)),
         ),
-        child: BlocBuilder<PhysicalActivitiesPreferencesBloc,
-            PhysicalActivitiesPreferencesState>(
+        child: BlocBuilder<PhysicalActivitiesPreferencesBloc, PhysicalActivitiesPreferencesState>(
           builder: (context, state) {
             final isAvailable = state.data.needActivitiesType;
 
@@ -104,13 +98,9 @@ class _PhysicalActivitiesState extends State<PhysicalActivities> {
               children: [
                 DashboardCardTitle(
                   onTap: _isActive && isAvailable
-                      ? () => widget.locked
-                          ? onPressHandler(context)
-                          : toggleOnClick()
+                      ? () => widget.locked ? onPressHandler(context) : toggleOnClick()
                       : null,
-                  highlightColor: widget.locked
-                      ? AppColors.yellowLightest
-                      : AppColors.white,
+                  highlightColor: widget.locked ? AppColors.yellowLightest : AppColors.white,
                   leadingIcon: widget.locked
                       ? AppIcons.customPhysicalExercise
                       : AppIcons.customPhysicalExerciseGrey,
@@ -125,8 +115,8 @@ class _PhysicalActivitiesState extends State<PhysicalActivities> {
                         )
                       : CustomText.bitter400(
                           LocalizedTexts.physicalActivities.tr(),
-                          style: context.textTheme.headlineSmall!.copyWith(
-                              color: AppColors.greyLight, fontSize: 20),
+                          style: context.textTheme.headlineSmall!
+                              .copyWith(color: AppColors.greyLight, fontSize: 20),
                         ),
                   actionIcon: widget.locked
                       ? AppIcons.arrow
@@ -149,8 +139,7 @@ class _PhysicalActivitiesState extends State<PhysicalActivities> {
                             Expanded(
                               child: CustomText.w400(
                                 "${LocalizedTexts.featureUnlocksAtPool.tr()} ${LocalizedTexts.exerciseLibrary.tr()}",
-                                style: const TextStyle(
-                                    color: AppColors.greyLight, fontSize: 16),
+                                style: const TextStyle(color: AppColors.greyLight, fontSize: 16),
                                 overflow: TextOverflow.visible,
                               ),
                             ),
@@ -159,16 +148,14 @@ class _PhysicalActivitiesState extends State<PhysicalActivities> {
                       ),
                 onClick && !widget.locked
                     ? Padding(
-                        padding: const EdgeInsets.only(
-                            left: 12.0, right: 12.0, bottom: 12),
+                        padding: const EdgeInsets.only(left: 12.0, right: 12.0, bottom: 12),
                         child: Row(
                           children: [
                             Expanded(
                               child: CustomText.w400(
                                 maxLines: 10,
                                 LocalizedTexts.exerciseLibraryDescription.tr(),
-                                style: const TextStyle(
-                                    color: AppColors.greyLight, fontSize: 16),
+                                style: const TextStyle(color: AppColors.greyLight, fontSize: 16),
                                 overflow: TextOverflow.visible,
                               ),
                             ),
@@ -187,41 +174,33 @@ class _PhysicalActivitiesState extends State<PhysicalActivities> {
                 widget.locked
                     ? Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                        child: BlocBuilder<ProgramsInProgressBloc,
-                            ProgramsInProgressState>(
+                        child: BlocBuilder<ProgramsInProgressBloc, ProgramsInProgressState>(
                           builder: (context, state) {
                             final activePrograms = state.programsList;
 
-                            return BlocBuilder<PhysicalActivitiesBloc,
-                                PhysicalActivitiesState>(
+                            return BlocBuilder<PhysicalActivitiesBloc, PhysicalActivitiesState>(
                               builder: (context, state) {
                                 return state.maybeMap(
                                   error: (errorState) => ErrorScreen(
                                     error: errorState.data.error!,
-                                    onButtonPressed: () => context
-                                        .read<PhysicalActivitiesBloc>()
-                                        .add(
-                                          PhysicalActivitiesEvent
-                                              .getWeeklyPhysicalActivities(
-                                            widget.selectedDay,
-                                          ),
-                                        ),
+                                    onButtonPressed: () =>
+                                        context.read<PhysicalActivitiesBloc>().add(
+                                              PhysicalActivitiesEvent.getWeeklyPhysicalActivities(
+                                                widget.selectedDay,
+                                              ),
+                                            ),
                                   ),
-                                  loading: (_) => const SizedBox(
-                                      height: 100, child: Loader()),
+                                  loading: (_) => const SizedBox(height: 100, child: Loader()),
                                   orElse: () => const SizedBox.shrink(),
                                   activitiesLoaded: (s) {
                                     final int timesPerWeek =
-                                        getIt<SharedStorageService>()
-                                            .account!
-                                            .trainingFrequency;
+                                        getIt<SharedStorageService>().account!.trainingFrequency;
 
                                     return isAvailable
                                         ? FilledActivitiesList(
                                             programsList: [
                                               ...activePrograms,
-                                              ...s.data
-                                                  .activities(timesPerWeek),
+                                              ...s.data.activities(timesPerWeek),
                                             ],
                                           )
                                         : const EmptyActivitiesList();

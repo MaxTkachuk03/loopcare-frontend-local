@@ -48,8 +48,8 @@ class _BuddyPreferencesPageState extends State<BuddyPreferencesPage> {
   Function get _btnHandler {
     final buddyState = context.read<BuddyBloc>().state.data.buddyState;
     return switch (buddyState) {
-      BuddyStatus.invited || BuddyStatus.approved => _onRemoveInvite,
-      BuddyStatus.rejected || BuddyStatus.left || BuddyStatus.expired => _onInviteBuddy,
+      BuddyStatus.invited || BuddyStatus.approved || BuddyStatus.rejected => _onRemoveInvite,
+      BuddyStatus.left || BuddyStatus.expired => _onInviteBuddy,
       _ => () {},
     };
   }

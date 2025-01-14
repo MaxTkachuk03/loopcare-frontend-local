@@ -77,6 +77,7 @@ final _screenNames = {
   'GroupChatRoute': 'Group Chat Screen', // added
   'GroupUsersRoute': 'Group Users Screen', // added
   'SubscriptionRoute': 'Subscription Screen',
+  'SubscriptionRouteV2': 'SubscriptionV2 Screen',
   'ManageSubscriptionRoute': 'Manage Subscription Screen',
   'BuddyIntroRoute': 'Buddy Intro Screen',
   'BuddyDescriptionRoute': 'Buddy Description Screen',

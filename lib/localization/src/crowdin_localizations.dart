@@ -6197,6 +6197,10 @@ class CrowdinLocalization extends AppLocalizations {
       _fallbackTexts.subscriptionGenericTitle;
 
   @override
+  String get subscriptionProgram =>
+      Crowdin.getText(localeName, 'subscriptionProgram') ?? _fallbackTexts.subscriptionProgram;
+  @override
+  @override
   String get emergencyAssistanceTitle =>
       Crowdin.getText(localeName, 'emergencyAssistanceTitle') ??
       _fallbackTexts.emergencyAssistanceTitle;

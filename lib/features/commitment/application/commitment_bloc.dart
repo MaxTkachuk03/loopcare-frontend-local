@@ -25,6 +25,7 @@ class CommitmentBloc extends Bloc<CommitmentEvent, CommitmentState> {
     GetCommitment event,
     Emitter<CommitmentState> emit,
   ) async {
+    emit(const CommitmentState.initial(CommitmentStateData()));
     emit(CommitmentState.loading(state.data.copyWith(isLoading: true)));
 
     final response = await _commitmentService.getCommitment(date: event.date);
@@ -43,8 +44,9 @@ class CommitmentBloc extends Bloc<CommitmentEvent, CommitmentState> {
     UpdateCommitment event,
     Emitter<CommitmentState> emit,
   ) async {
-    final previouslyCompleted = state.data.completedCommitments;
-    emit(CommitmentState.commitmentLoaded(
-        state.data.copyWith(completedCommitments: previouslyCompleted + 1)));
+    final previousCompleted = state.data.completedCommitments;
+    emit(CommitmentState.commitmentLoaded(state.data.copyWith(
+      completedCommitments: previousCompleted + 1,
+    )));
   }
 }

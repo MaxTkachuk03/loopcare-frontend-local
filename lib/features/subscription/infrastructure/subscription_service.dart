@@ -27,17 +27,25 @@ class AppSubscriptionService {
   final List purchasedList = [];
 
   Future<List<ProductDetails>> getSubscriptionPlans(Set<String> main) async {
+    final Set<String> main = {'monthly', 'quarterly', "annual", "NY_2025_15", "ny_2025_15"};
     final bool isAvailable = await _inAppPurchase.isAvailable();
     if (!isAvailable) {
       _pushAnalyticServiceUnAvailable();
+
       return [];
     }
+
     final ProductDetailsResponse productDetailResponse =
         await _inAppPurchase.queryProductDetails(main);
 
-    if (productDetailResponse.error != null || productDetailResponse.productDetails.isEmpty) {
+    if (productDetailResponse.error != null) {
       return [];
     }
+
+    if (productDetailResponse.productDetails.isEmpty) {
+      return [];
+    }
+
     return productDetailResponse.productDetails;
   }
 

@@ -42,13 +42,11 @@ class ApiNutritionIntakeServices implements NutritionIntakeServices {
 
   @override
   Future<Either<RequestError, NutritionIntakeCompleteDay>> completeDay(
-      {required DateTime date}) async {
-    String convertedDate = DateFormat("yyyy-MM-dd").format(date);
-
+      {required String date}) async {
     try {
       final response = await client.post(
         '/smart-goal/complete-day',
-        queryParameters: {"date": convertedDate},
+        queryParameters: {"date": date},
         fromJson: NutritionIntakeCompleteDay.fromJson,
       );
       log.d('Raw Response: completeDay');
@@ -62,12 +60,11 @@ class ApiNutritionIntakeServices implements NutritionIntakeServices {
 
   @override
   Future<Either<RequestError, NutritionIntakeFinishLessons>> finishLesson(
-      {required DateTime date, required int iLessonId}) async {
-    String convertedDate = DateFormat("yyyy-MM-dd").format(date);
+      {required String date, required int iLessonId}) async {
     try {
       final response = await client.post(
         '/smart-goal/finish-lesson',
-        queryParameters: {"date": convertedDate, "iLessonId": iLessonId},
+        queryParameters: {"date": date, "iLessonId": iLessonId},
         fromJson: NutritionIntakeFinishLessons.fromJson,
       );
       log.d('Raw Response: finishLessonINTAKE');

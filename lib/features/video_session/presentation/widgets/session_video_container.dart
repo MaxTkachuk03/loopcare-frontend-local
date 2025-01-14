@@ -104,7 +104,9 @@ class _SessionVideoContainerState extends State<SessionVideoContainer> with Widg
     final videoEventForCurrentTime = videoEvents.lastWhereOrNull(
         (e) => e.eventStartTime <= widget.sessionTimer && widget.sessionTimer <= e.eventEndTime);
     if (videoEventForCurrentTime == null ||
-        _completedEventsIds.contains(videoEventForCurrentTime.id)) return;
+        _completedEventsIds.contains(videoEventForCurrentTime.id)) {
+      return;
+    }
     setState(() {
       _currentVideoEvent = videoEventForCurrentTime;
     });

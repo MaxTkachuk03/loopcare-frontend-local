@@ -7,8 +7,8 @@ import 'package:loopcare_frontend/features/nutrition/presentation/nutrition_inta
 abstract interface class NutritionIntakeServices {
   Future<Either<RequestError, GetNutritionIntakeResponse>> getLessons({required DateTime date});
 
-  Future<Either<RequestError, NutritionIntakeCompleteDay>> completeDay({required DateTime date});
+  Future<Either<RequestError, NutritionIntakeCompleteDay>> completeDay({required String date});
 
   Future<Either<RequestError, NutritionIntakeFinishLessons>> finishLesson(
-      {required DateTime date, required int iLessonId});
+      {required String date, required int iLessonId});
 }

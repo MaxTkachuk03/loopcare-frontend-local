@@ -22,13 +22,11 @@ part 'interactive_lessons_event.dart';
 part 'interactive_lessons_state.dart';
 
 @singleton
-class InteractiveLessonsBloc
-    extends Bloc<InteractiveLessonsEvent, InteractiveLessonsState> {
+class InteractiveLessonsBloc extends Bloc<InteractiveLessonsEvent, InteractiveLessonsState> {
   final EducationService _educationService;
 
   InteractiveLessonsBloc(this._educationService)
-      : super(const InteractiveLessonsState.initial(
-            InteractiveLessonsStateData())) {
+      : super(const InteractiveLessonsState.initial(InteractiveLessonsStateData())) {
     on<GetInteractiveLesson>(_onGetInteractiveLesson);
     on<SetNextPage>(_onSetNextPage);
     on<SetPrevPage>(_onSetPrevPage);
@@ -36,26 +34,37 @@ class InteractiveLessonsBloc
     on<SaveAnswer>(_onSaveAnswer);
     on<GetMealTime>(_onGetMealTime);
     on<UpdateMealTime>(_onUpdateMealTime);
+    on<SetAnswerDate>(_onSetAnswerDate);
+    on<SetMealCategory>(_onSetMealCategory);
   }
 
   Future<void> _onGetMealTime(
     GetMealTime event,
     Emitter<InteractiveLessonsState> emit,
   ) async {
-    final mealComponent = state.data.unlockedChunkComponents
+    emit(InteractiveLessonsState.loading(state.data.copyWith(isLoading: true)));
+
+    final mealTimingComponent = state.data.unlockedChunkComponents
         .whereType<InteractiveLessonChunkComponentMealTiming>()
-        .firstOrNull;
+        .first;
 
-    final mealsListItems = mealComponent!.content.meals;
+    final mealsListItems = mealTimingComponent.content.meals;
 
-    final times = mealsListItems
-        .where((meals) =>
-            meals.mealCategory == MealCategory.inbetweens.originalValue)
-        .expand((meals) => meals.mealItems.map((meal) => meal.updatedAt))
-        .toList();
+    final mealsTimeCategory =
+        mealsListItems.where((meals) => meals.mealCategory == state.data.mealCategory).toList();
+
+    final correctMealCategory = mealsTimeCategory.reduce(
+      (current, next) => current.id < next.id ? current : next,
+    );
+
+    final sortedMealsTime =
+        correctMealCategory.mealItems.map((meal) => meal.updatedAt.toLocal()).toList();
 
     emit(InteractiveLessonsState.lessonLoaded(
-      state.data.copyWith(updateAt: times),
+      state.data.copyWith(
+        mealsTime: sortedMealsTime,
+        isLoading: false,
+      ),
     ));
   }
 
@@ -63,12 +72,12 @@ class InteractiveLessonsBloc
     UpdateMealTime event,
     Emitter<InteractiveLessonsState> emit,
   ) async {
-    final updatedTimes = List<DateTime>.from(state.data.updateAt);
+    final updatedMealsTime = List<DateTime>.from(state.data.mealsTime);
 
-    updatedTimes[event.index] = event.updatedAt;
+    updatedMealsTime[event.index] = event.updatedAt;
 
     emit(InteractiveLessonsState.lessonLoaded(
-      state.data.copyWith(updateAt: updatedTimes),
+      state.data.copyWith(mealsTime: updatedMealsTime),
     ));
   }
 
@@ -80,12 +89,10 @@ class InteractiveLessonsBloc
 
     emit(InteractiveLessonsState.loading(state.data.copyWith(isLoading: true)));
 
-    final response = await _educationService.getInteractiveLesson(
-        event.lessonId, event.date);
+    final response = await _educationService.getInteractiveLesson(event.lessonId, event.date);
 
     response.fold(
-      (l) => emit(InteractiveLessonsState.error(
-          state.data.copyWith(error: l, isLoading: false))),
+      (l) => emit(InteractiveLessonsState.error(state.data.copyWith(error: l, isLoading: false))),
       (r) {
         if (r.pages.isEmpty) return;
         final activePage = r.pages.values.first;
@@ -93,16 +100,13 @@ class InteractiveLessonsBloc
         if (r.chunks.isEmpty) return;
         final activeChunk = r.chunks.values.first;
 
-        final activePageUnlockedChunks =
-            state.data.getPagesUnlockedChunks(activePage.id);
+        final activePageUnlockedChunks = state.data.getPagesUnlockedChunks(activePage.id);
         final hasUnlockedChunks = activePageUnlockedChunks.isNotEmpty;
         final unlockedChunksByPage = hasUnlockedChunks
             ? state.data.unlockedChunksByPage
             : _updateUnlockedChunks(activePage.id, activeChunk);
 
-        final components = state.data.components.isEmpty
-            ? r.components
-            : state.data.components;
+        final components = state.data.components.isEmpty ? r.components : state.data.components;
 
         final unlockedChunkComponents = components.values
             .where((component) =>
@@ -128,8 +132,7 @@ class InteractiveLessonsBloc
           activePage: activePage,
           activeChunk: activeChunk,
           activePageIndex: 0,
-          activeChunkIndex:
-              hasUnlockedChunks ? activePageUnlockedChunks.length - 1 : 0,
+          activeChunkIndex: hasUnlockedChunks ? activePageUnlockedChunks.length - 1 : 0,
           unlockedChunksByPage: unlockedChunksByPage,
           isLoading: false,
         )));
@@ -143,13 +146,13 @@ class InteractiveLessonsBloc
   ) async {
     final activeChunk = state.data.activeChunk;
     final int chunkId = event.component.chunkId;
+    String convertedDate;
 
     final InteractiveLessonChunkComponent componentWithProgress =
         event.component.copyWith(progress: event.progress);
 
     final componentInx = event.component.id;
-    final updatedComponents =
-        Map<int, InteractiveLessonChunkComponent>.from(state.data.components);
+    final updatedComponents = Map<int, InteractiveLessonChunkComponent>.from(state.data.components);
 
     updatedComponents.updateAll((key, component) {
       if (component.id == componentInx && component.chunkId == chunkId) {
@@ -163,8 +166,12 @@ class InteractiveLessonsBloc
             component.chunkId == activeChunk!.id &&
             activeChunk.componentsIds.contains(component.id))
         .toList();
-
-    String convertedDate = DateFormat("yyyy-MM-dd").format(DateTime.now());
+    if (state.data.answerDate.isNotEmpty) {
+      final date = DateTime.parse(state.data.answerDate);
+      convertedDate = DateFormat("yyyy-MM-dd").format(date);
+    } else {
+      convertedDate = DateFormat("yyyy-MM-dd").format(DateTime.now());
+    }
 
     final data = SaveInteractiveLessonProgressBody(
         lessonId: state.data.id,
@@ -175,12 +182,11 @@ class InteractiveLessonsBloc
         answeredAt: convertedDate,
         progress: componentWithProgress.progress!);
 
-    final response =
-        await _educationService.saveInteractiveLessonProgress(chunkId, data);
+    final response = await _educationService.saveInteractiveLessonProgress(chunkId, data);
 
     response.fold(
-        (l) => emit(InteractiveLessonsState.error(
-            state.data.copyWith(error: l, isLoading: false))), (r) {
+        (l) => emit(InteractiveLessonsState.error(state.data.copyWith(error: l, isLoading: false))),
+        (r) {
       emit(
         InteractiveLessonsState.saveAnswer(
           state.data.copyWith(
@@ -203,15 +209,13 @@ class InteractiveLessonsBloc
     final topic = state.data.topics.values.first;
 
     if (state.data.pages.isEmpty) return;
-    final nextPage = state.data.pages.values
-        .where((page) => page.id == topic.pagesIds[nextPageIndex])
-        .first;
+    final nextPage =
+        state.data.pages.values.where((page) => page.id == topic.pagesIds[nextPageIndex]).first;
 
     final unlockedChunks = state.data.getPagesUnlockedChunks(nextPage.id);
     final hasUnlockedChunks = unlockedChunks.isNotEmpty;
-    final activeChunk = hasUnlockedChunks
-        ? unlockedChunks.last
-        : state.data.getActiveChunk(nextPage);
+    final activeChunk =
+        hasUnlockedChunks ? unlockedChunks.last : state.data.getActiveChunk(nextPage);
 
     final unlockedChunksByPage = hasUnlockedChunks
         ? state.data.unlockedChunksByPage
@@ -241,9 +245,7 @@ class InteractiveLessonsBloc
 
     if (state.data.pages.isEmpty) return;
     final prevPage = state.data.pages.values
-        .where((page) =>
-            page.topicId == topic.id &&
-            page.id == topic.pagesIds[prevPageIndex])
+        .where((page) => page.topicId == topic.id && page.id == topic.pagesIds[prevPageIndex])
         .first;
 
     final activeChunk = state.data.getActiveChunk(prevPage);
@@ -273,8 +275,7 @@ class InteractiveLessonsBloc
 
     final nextChunk = state.data.chunks.values
         .where((chunk) =>
-            chunk.pageId == activePage.id &&
-            chunk.id == activePage.chunksIds[nextChunkIndex])
+            chunk.pageId == activePage.id && chunk.id == activePage.chunksIds[nextChunkIndex])
         .first;
 
     final unlockedChunkComponents = state.data.getChunkComponents(nextChunk);
@@ -286,6 +287,21 @@ class InteractiveLessonsBloc
       unlockedChunksByPage: _updateUnlockedChunks(activePage.id, nextChunk),
       allTextAreasAdded: state.data.hasProgress(unlockedChunkComponents),
     )));
+  }
+
+  Future<void> _onSetAnswerDate(
+    SetAnswerDate event,
+    Emitter<InteractiveLessonsState> emit,
+  ) async {
+    emit(InteractiveLessonsState.lessonLoaded(state.data.copyWith(answerDate: event.answerDate)));
+  }
+
+  Future<void> _onSetMealCategory(
+    SetMealCategory event,
+    Emitter<InteractiveLessonsState> emit,
+  ) async {
+    emit(InteractiveLessonsState.lessonLoaded(
+        state.data.copyWith(mealCategory: event.mealCategory)));
   }
 
   Map<int, List<InteractiveLessonChunk>> _updateUnlockedChunks(

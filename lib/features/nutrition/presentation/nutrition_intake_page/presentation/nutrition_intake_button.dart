@@ -2,7 +2,6 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loopcare_frontend/core/presentation/icon_images/app_icons.dart';
-import 'package:loopcare_frontend/core/presentation/routes/app_router.dart';
 import 'package:loopcare_frontend/core/presentation/routes/app_router.gr.dart';
 import 'package:loopcare_frontend/core/presentation/text/custom_text.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
@@ -12,7 +11,7 @@ import 'package:loopcare_frontend/features/nutrition/application/meals/dto/meal_
 import 'package:loopcare_frontend/features/nutrition/application/meals/meals_bloc.dart';
 import 'package:loopcare_frontend/features/nutrition/domain/select_serving/meal_category.dart';
 import 'package:loopcare_frontend/features/nutrition/presentation/nutrition_intake_page/application/dto/nutrition_intake_goal_progress/nutrition_intake_goal_progress.dart';
-import 'package:loopcare_frontend/features/nutrition/presentation/nutrition_intake_page/application/nutrition_intake_bloc.dart';
+import 'package:loopcare_frontend/features/river/domain/river_module_stream_type.dart';
 
 class NutritionIntakeButton extends StatelessWidget {
   const NutritionIntakeButton({
@@ -37,7 +36,7 @@ class NutritionIntakeButton extends StatelessWidget {
   final List<MealItem>? mealItems;
   final bool isDisabled;
   final NutritionIntakeGoalProgress? progress;
-  final DateTime lessonDate;
+  final String lessonDate;
 
   void _onTapHandler(BuildContext context) {
     if (isDisabled && mealId == null) return;
@@ -51,30 +50,29 @@ class NutritionIntakeButton extends StatelessWidget {
   }
 
   void _goToNutritionTest(BuildContext context, int lessonId) {
-    context.read<InteractiveLessonsBloc>().add(
-        InteractiveLessonsEvent.getInteractiveLesson(
-            lessonId: lessonId, date: lessonDate));
+    context
+        .read<InteractiveLessonsBloc>()
+        .add(InteractiveLessonsEvent.getInteractiveLesson(lessonId: lessonId, date: lessonDate));
 
     context.read<MealsBloc>().add(MealsEvent.setMealId(mealId!, category));
 
     context
-        .read<NutritionIntakeBloc>()
-        .add(NutritionIntakeEvent.getLessonId(iLessonId: lessonId));
+        .read<InteractiveLessonsBloc>()
+        .add(InteractiveLessonsEvent.setMealCategory(category.originalValue));
 
-    Future.delayed(
-      const Duration(milliseconds: 800),
-      () {
-        if (context.mounted) {
-          context.router.pushNamed(AppRoutes.interactiveLesson);
-        }
-      },
-    );
+    context.read<InteractiveLessonsBloc>().add(InteractiveLessonsEvent.setAnswerDate(lessonDate));
+
+    Future.delayed(const Duration(milliseconds: 800), () {
+      if (context.mounted) {
+        context.router.push(InteractiveLessonRoute(streamType: RiverModuleStreamType.nutrition));
+      }
+    });
   }
 
   @override
   Widget build(BuildContext context) {
-    final bool isThisCategory = (mealId != null &&
-        category.title.toLowerCase().contains(text.toLowerCase()));
+    final bool isThisCategory =
+        (mealId != null && category.title.toLowerCase().contains(text.toLowerCase()));
 
     final bool isCompleted = progress?.isLessonFinished == true;
     return Column(

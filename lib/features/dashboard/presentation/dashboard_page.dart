@@ -44,8 +44,7 @@ class DashboardPage extends StatefulWidget {
   State<DashboardPage> createState() => _DashboardPageState();
 }
 
-class _DashboardPageState extends State<DashboardPage>
-    with WidgetsBindingObserver {
+class _DashboardPageState extends State<DashboardPage> with WidgetsBindingObserver {
   DateTime _selectedDay = DateTime.now();
 
   @override
@@ -82,8 +81,7 @@ class _DashboardPageState extends State<DashboardPage>
     context.read<MealsBloc>()
       ..add(MealsEvent.setCurrentDate(_selectedDay))
       ..add(MealsEvent.fetchMeals(
-          startDate: _selectedDay.subtract(const Duration(days: 8)),
-          endDate: _selectedDay));
+          startDate: _selectedDay.subtract(const Duration(days: 8)), endDate: _selectedDay));
 
     context.read<MindBloc>().add(const MindEvent.init());
     context.read<PoolModuleBloc>().add(const PoolModuleEvent.getPoolData());
@@ -92,9 +90,7 @@ class _DashboardPageState extends State<DashboardPage>
   }
 
   Future<void> _onRefresh() async {
-    context
-        .read<AuthenticationBloc>()
-        .add(const AuthenticationEvent.getAccount());
+    context.read<AuthenticationBloc>().add(const AuthenticationEvent.getAccount());
   }
 
   void updateDashboardData(AuthenticationState state) {
@@ -115,24 +111,16 @@ class _DashboardPageState extends State<DashboardPage>
     }
 
     if (state.data.isReflectionsUnlocked) {
-      context
-          .read<ReflectionsBloc>()
-          .add(const ReflectionsEvent.getReflections());
+      context.read<ReflectionsBloc>().add(const ReflectionsEvent.getReflections());
     }
 
     if (state.data.isSmartGoalUnlocked) {
-      context
-          .read<SmartGoalsBloc>()
-          .add(SmartGoalsEvent.selectDate(selectedDate: _selectedDay));
-      context
-          .read<SmartGoalsBloc>()
-          .add(const SmartGoalsEvent.getWeeklyGoals());
+      context.read<SmartGoalsBloc>().add(SmartGoalsEvent.selectDate(selectedDate: _selectedDay));
+      context.read<SmartGoalsBloc>().add(const SmartGoalsEvent.getWeeklyGoals());
     }
 
     if (state.data.isCommitmentUnlocked) {
-      context
-          .read<CommitmentBloc>()
-          .add(CommitmentEvent.getCommitment(date: _selectedDay));
+      context.read<CommitmentBloc>().add(CommitmentEvent.getCommitment(date: _selectedDay));
     }
   }
 
@@ -149,9 +137,7 @@ class _DashboardPageState extends State<DashboardPage>
     context.read<BmrBloc>().add(BmrEvent.getBmr(date: day));
 
     if (context.read<AuthenticationBloc>().state.data.isSmartGoalUnlocked) {
-      context
-          .read<SmartGoalsBloc>()
-          .add(SmartGoalsEvent.selectDate(selectedDate: day));
+      context.read<SmartGoalsBloc>().add(SmartGoalsEvent.selectDate(selectedDate: day));
     }
 
     handleCommitment(day);
@@ -161,8 +147,7 @@ class _DashboardPageState extends State<DashboardPage>
     });
   }
 
-  void _weightLogChangedListener(
-      BuildContext context, DashboardWeightState state) {
+  void _weightLogChangedListener(BuildContext context, DashboardWeightState state) {
     context.read<BmrBloc>().add(BmrEvent.getBmr(date: _selectedDay));
   }
 
@@ -193,14 +178,10 @@ class _DashboardPageState extends State<DashboardPage>
   }
 
   void handleCommitment(DateTime day) {
-    final isCommitmentUnlocked =
-        context.read<AuthenticationBloc>().state.data.isCommitmentUnlocked;
-    final isFuture = day.isFuture;
+    final isCommitmentUnlocked = context.read<AuthenticationBloc>().state.data.isCommitmentUnlocked;
 
-    if (isCommitmentUnlocked && !isFuture) {
-      context
-          .read<CommitmentBloc>()
-          .add(CommitmentEvent.getCommitment(date: day));
+    if (isCommitmentUnlocked) {
+      context.read<CommitmentBloc>().add(CommitmentEvent.getCommitment(date: day));
     }
   }
 
@@ -209,19 +190,24 @@ class _DashboardPageState extends State<DashboardPage>
     return MultiBlocListener(
       listeners: [
         BlocListener<AuthenticationBloc, AuthenticationState>(
-          listenWhen: (previous, current) =>
-              (ModalRoute.of(context)?.isCurrent ?? false),
+          listenWhen: (previous, current) => (ModalRoute.of(context)?.isCurrent ?? false),
           listener: _accountListener,
         ),
         BlocListener<DashboardWeightBloc, DashboardWeightState>(
           listenWhen: (prev, cur) =>
-              prev is DashboardWeightStateLoading &&
-              cur is DashboardWeightStateUpdated,
+              prev is DashboardWeightStateLoading && cur is DashboardWeightStateUpdated,
           listener: _weightLogChangedListener,
         ),
         BlocListener<PoolModuleBloc, PoolModuleState>(
           listenWhen: (prev, cur) => prev is PoolLoading && cur is PoolLoaded,
           listener: poolStateListener,
+        ),
+        BlocListener<AuthenticationBloc, AuthenticationState>(
+          listenWhen: (prev, cur) =>
+              prev.data.isCommitmentUnlocked == false && cur.data.isCommitmentUnlocked == true,
+          listener: (context, state) {
+            handleCommitment(_selectedDay);
+          },
         ),
       ],
       child: CustomScaffold.blue(
@@ -279,8 +265,7 @@ class _DashboardPageState extends State<DashboardPage>
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   ReflectionsDashboardWidget(
-                                      date: _selectedDay,
-                                      locked: state.data.isReflectionsUnlocked),
+                                      date: _selectedDay, locked: state.data.isReflectionsUnlocked),
                                   const SizedBox(height: 19.0),
                                 ],
                               );
@@ -302,25 +287,28 @@ class _DashboardPageState extends State<DashboardPage>
                           ),
                           BlocBuilder<AuthenticationBloc, AuthenticationState>(
                               builder: (BuildContext context, state) {
-                            final isCommitmentUnlocked =
-                                state.data.isCommitmentUnlocked;
+                            final isCommitmentUnlocked = state.data.isCommitmentUnlocked;
                             return BlocBuilder<CommitmentBloc, CommitmentState>(
-                              builder: (context, state) {
-                                final isUnlocked =
-                                    state.data.isCommitmentUnlocked;
-                                return Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    CommitmentDashboard(
-                                      selectedDay: _selectedDay,
-                                      isUnlocked:
-                                          isCommitmentUnlocked && isUnlocked,
-                                    ),
-                                    const SizedBox(height: 19.0),
-                                  ],
-                                );
-                              },
-                            );
+                                builder: (BuildContext context, commitmentState) {
+                              final isCommitmentExists = commitmentState.data.isCommitmentUnlocked;
+                              final totalCommitments = commitmentState.data.totalCommitments;
+                              final completedCommitments =
+                                  commitmentState.data.completedCommitments;
+
+                              return Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  CommitmentDashboard(
+                                    selectedDay: _selectedDay,
+                                    isUnlocked: isCommitmentUnlocked,
+                                    isCommitmentExists: isCommitmentExists,
+                                    totalCommitments: totalCommitments,
+                                    completedCommitments: completedCommitments,
+                                  ),
+                                  const SizedBox(height: 19.0),
+                                ],
+                              );
+                            });
                           }),
                           BlocBuilder<AuthenticationBloc, AuthenticationState>(
                             builder: (BuildContext context, state) {
@@ -330,9 +318,7 @@ class _DashboardPageState extends State<DashboardPage>
                                 children: [
                                   WeightBlock(
                                       date: _selectedDay,
-                                      locked: state.data.account
-                                              ?.isWeightLoggingUnlocked ??
-                                          false),
+                                      locked: state.data.account?.isWeightLoggingUnlocked ?? false),
                                   const SizedBox(height: 19.0),
                                 ],
                               );
@@ -341,20 +327,16 @@ class _DashboardPageState extends State<DashboardPage>
                           BlocBuilder<AuthenticationBloc, AuthenticationState>(
                             builder: (BuildContext context, state) {
                               final unlockedGoals =
-                                  state.data.account?.isSmartGoalsUnlocked ??
-                                      false;
-                              return BlocBuilder<SmartGoalsBloc,
-                                  SmartGoalsState>(
+                                  state.data.account?.isSmartGoalsUnlocked ?? false;
+                              return BlocBuilder<SmartGoalsBloc, SmartGoalsState>(
                                 builder: (context, state) {
-                                  final showSmartGoalsCard =
-                                      (state.data.hasGoalActiveSessions &&
-                                          state.data.isDateHasActiveSession(
-                                              _selectedDay) &&
-                                          !_selectedDay.isFuture);
-
+                                  // final showSmartGoalsCard =
+                                  //     (state.data.hasGoalActiveSessions &&
+                                  //         state.data.isDateHasActiveSession(
+                                  //             _selectedDay) &&
+                                  //         !_selectedDay.isFuture);
                                   return Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
+                                    crossAxisAlignment: CrossAxisAlignment.start,
                                     children: [
                                       DashboardSmartGoals(
                                         isFuture: _selectedDay.isFuture,
@@ -376,9 +358,7 @@ class _DashboardPageState extends State<DashboardPage>
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   DashboardMindWidget(
-                                      locked:
-                                          state.data.account?.isMindUnlocked ??
-                                              false),
+                                      locked: state.data.account?.isMindUnlocked ?? false),
                                   const SizedBox(height: 19.0),
                                 ],
                               );
@@ -390,9 +370,7 @@ class _DashboardPageState extends State<DashboardPage>
                               return Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  SupportGroup(
-                                      locked:
-                                          state.data.isGroupSessionsUnlocked),
+                                  SupportGroup(locked: state.data.isGroupSessionsUnlocked),
                                   const SizedBox(height: 19.0),
                                 ],
                               );
@@ -405,8 +383,7 @@ class _DashboardPageState extends State<DashboardPage>
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   PersonMood(
-                                      date: _selectedDay,
-                                      locked: state.data.isMoodLoggingUnlocked),
+                                      date: _selectedDay, locked: state.data.isMoodLoggingUnlocked),
                                   const SizedBox(height: 19.0),
                                 ],
                               );
@@ -420,8 +397,7 @@ class _DashboardPageState extends State<DashboardPage>
                                 children: [
                                   PhysicalActivities(
                                       selectedDay: _selectedDay,
-                                      locked: state
-                                          .data.isPhysicalActivitiesUnlocked),
+                                      locked: state.data.isPhysicalActivitiesUnlocked),
                                   const SizedBox(height: 19.0),
                                 ],
                               );

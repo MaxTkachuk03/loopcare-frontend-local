@@ -15,7 +15,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get areYouSureToDelete => 'Are you sure you want to delete the selected SMART goal?';
 
   @override
-  String get loseProgress => 'By deleting the goals, you are losing the current progress, but you can always start a new one.';
+  String get loseProgress => 'If you delete goals, you lose their progress. But you can always start over.';
 
   @override
   String get takeBack => 'No, take me back';
@@ -36,22 +36,22 @@ class AppLocalizationsEn extends AppLocalizations {
   String get interactiveLessonsSingleSelectLabel => 'Single answer';
 
   @override
-  String get interactiveLessonsMultipleSelectLabel => 'Choose All That Apply';
+  String get interactiveLessonsMultipleSelectLabel => 'Choose all that apply';
 
   @override
-  String get mealTiming => 'Meal Timing';
+  String get mealTiming => 'Meal timing';
 
   @override
   String get selectTheFoodCategory => 'Select the food category';
 
   @override
-  String get interactiveLessonsCorrectFeedbackTitle => 'This is correct';
+  String get interactiveLessonsCorrectFeedbackTitle => 'That\'s right!';
 
   @override
-  String get interactiveLessonsIncorrectFeedbackTitle => 'This is incorrect';
+  String get interactiveLessonsIncorrectFeedbackTitle => 'Sorry, that\'s wrong.';
 
   @override
-  String get interactiveLessonsScaleFeedbackTitle => 'Scale selection feedback';
+  String get interactiveLessonsScaleFeedbackTitle => '';
 
   @override
   String get interactiveLessonsOrderingLabel => 'Arrange in order';
@@ -3627,23 +3627,23 @@ class AppLocalizationsEn extends AppLocalizations {
   String get riverGuidanceProfileDescription => 'In the profile, you can customize your account settings, change personal preferences and access past assignments and features.';
 
   @override
-  String get riverGuidanceCompletedTitle => 'Congratulation, you finished the Beginning.';
+  String get riverGuidanceCompletedTitle => 'Congratulations, you finished \'The Beginning\'.';
 
   @override
-  String get riverGuidanceCompletedDescription => 'You can now move on to the first Practice session: What’s your why?.';
+  String get riverGuidanceCompletedDescription => 'You can now move on to pool: \'What’s your why?\'.';
 
   @override
   String riverModuleCompletedTitle(String module) {
-    return 'Congratulation, you completed the module: \"$module\"';
+    return 'Congratulations, you completed the pool:  \"$module\"';
   }
 
   @override
   String riverModuleCompletedDescription(String nextModule) {
-    return 'No rush, you can stay in this module and repeat the practices as often as you prefer. When you feel comfortable, you can move to the next module: \"$nextModule\".\nGreat job.';
+    return 'No rush, you can stay in this pool and keep doing the practice on the dashboard as long as you want. When you feel comfortable, you can move to the next pool \"$nextModule\".\nGreat job.';
   }
 
   @override
-  String get riverLastModuleCompletedDescription => 'Take your time to revisit the previous modules and reinforce the practices whenever you need.\nYou\'ve done an amazing job reaching this point! Stay tuned, more exciting content is coming soon!';
+  String get riverLastModuleCompletedDescription => 'Take your time to revisit the previous pools and keep doing the practice on the dashboard to reinforce your new habits.\nYou\'ve done an amazing job reaching this point! Stay tuned, more exciting content is coming soon!';
 
   @override
   String get riverGuidanceStartRiverTitle => 'Great!';
@@ -3655,7 +3655,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get riverModuleGraduationCompletedItemsTitle => 'Great job. You have completed the lessons in this pool.';
 
   @override
-  String get riverModuleGraduationCompletedTimeTitle => 'Your module is fully colored-in, meaning you  first read the Reflection over 7 days ago.';
+  String get riverModuleGraduationCompletedTimeTitle => 'Your pool is fully colored-in, meaning you first read the reflection over 7 days ago.';
 
   @override
   String get riverModuleGraduationCompletedItemsMessage => 'You are one step closer to finishing this section. But before you can graduate, we encourage you to practice and reflect on what you have learned in this Pool.\n\nOnce the 7 day timer has filled this section with color, you can move on to the next pool.';
@@ -3812,7 +3812,10 @@ class AppLocalizationsEn extends AppLocalizations {
   String get subscriptionDescriptionLabel => 'Cancel anytime in subscriptions center';
 
   @override
-  String get subscriptionGenericTitle => 'Your journey is about to begin.';
+  String get subscriptionProgram => 'Choose your program offering';
+
+  @override
+  String get subscriptionGenericTitle => 'Start your journey';
 
   @override
   String get emergencyAssistanceTitle => 'Emergency assistance: (call or text)';
@@ -4022,10 +4025,10 @@ class AppLocalizationsEn extends AppLocalizations {
   String get waitingForConfirmationTitle => 'You’ve got mail';
 
   @override
-  String get resendConfirmationMessage => 'We\'ve just sent another email to you';
+  String get resendConfirmationMessage => 'We just sent you another email.';
 
   @override
-  String get waitingForConfirmationSubtitle => 'Please confirm your e-mail';
+  String get waitingForConfirmationSubtitle => 'Please confirm your email.';
 
   @override
   String get waitingForConfirmationBody => 'No rush, you can confirm your email address later. We sent it to:';
@@ -5171,7 +5174,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get descriptionFood => 'Choose what food you were eating?';
 
   @override
-  String get logWeight => 'Log Weight';
+  String get logWeight => 'Weight log';
 
   @override
   String get foodLoggingUnlocked => 'Food logging unlocked';
@@ -5993,7 +5996,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get reflectionsUnlock => 'What\'s your why?';
 
   @override
-  String get reflectionsDescription => 'are tailored to help you understand yourself and your relationship with food.';
+  String get reflectionsDescription => 'Reflections are tailored to help you understand yourself and your relationship with food.';
 
   @override
   String get supportGroupUnlock => 'Don\'t go it alone';

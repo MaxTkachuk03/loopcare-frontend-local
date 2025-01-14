@@ -14,6 +14,8 @@ import 'package:loopcare_frontend/features/education/domain/interactive_lesson/i
 import 'package:loopcare_frontend/localization/service/localization_extension.dart';
 import 'package:loopcare_frontend/localization/service/localized_texts.dart';
 
+import '../../../../../domain/interactive_lesson/interactive_lesson_component_type.dart';
+
 class LongAnswerTextArea extends StatefulWidget {
   const LongAnswerTextArea({
     super.key,
@@ -104,6 +106,7 @@ class _LongAnswerTextAreaState extends State<LongAnswerTextArea> {
   }
 
   void _onSaveHandler(String textToSave, int i) {
+    InteractiveLessonHistory answer;
     setState(() {
       successText[i] = 'Saved';
       _dateTime[i] = DateTime.now();
@@ -117,18 +120,24 @@ class _LongAnswerTextAreaState extends State<LongAnswerTextArea> {
           text: textToSave,
           updatedAt: _dateTime[i],
           createdAt: componentHistory[i].createdAt);
+
+      answer = InteractiveLessonHistory(
+          id: componentHistory[i].id,
+          text: textToSave,
+          updatedAt: _dateTime[i],
+          createdAt: componentHistory[i].createdAt);
+
       setState(() {
         isEditing = false;
       });
     } else {
-      final answer = InteractiveLessonHistory(text: textToSave, createdAt: _dateTime[i]);
+      answer = InteractiveLessonHistory(text: textToSave, createdAt: _dateTime[i]);
       componentHistory.add(answer);
       setDeleteButtonStatus();
     }
 
     widget.onSaveProgress(
-        InteractiveLessonComponentProgress(
-            history: componentHistory, type: widget.component.type.name),
+        InteractiveLessonComponentProgress(history: [answer], type: widget.component.type.name),
         widget.component);
 
     setState(() {
@@ -146,6 +155,8 @@ class _LongAnswerTextAreaState extends State<LongAnswerTextArea> {
   }
 
   void _clearTextHandler(int i) {
+    final itemToDelete = componentHistory[i];
+
     setState(() {
       numberOfTextField--;
       _controllers.removeAt(i);
@@ -161,7 +172,7 @@ class _LongAnswerTextAreaState extends State<LongAnswerTextArea> {
 
     widget.onSaveProgress(
         InteractiveLessonComponentProgress(
-            history: componentHistory, type: widget.component.type.name),
+            history: [itemToDelete], type: InteractiveLessonComponentType.textField.name),
         widget.component);
   }
 

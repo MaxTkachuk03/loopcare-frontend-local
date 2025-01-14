@@ -84,8 +84,7 @@ class _PoolStatusWidgetState extends State<PoolStatusWidget> {
       _updateTimer();
     } else {
       initialVisitDate = DateTime.now();
-      await prefs.setString(
-          'initialVisitDate', initialVisitDate!.toIso8601String());
+      await prefs.setString('initialVisitDate', initialVisitDate!.toIso8601String());
 
       _updateTimer();
     }
@@ -117,8 +116,7 @@ class _PoolStatusWidgetState extends State<PoolStatusWidget> {
         savedTitle = currentTitle;
         prefs.setString('savedTitle', savedTitle!);
         initialVisitDate = DateTime.now();
-        prefs.setString(
-            'initialVisitDate', initialVisitDate!.toIso8601String());
+        prefs.setString('initialVisitDate', initialVisitDate!.toIso8601String());
       }
       daysSpent = difference.inDays + 1;
       daysLeft = totalDays - daysSpent;
@@ -148,56 +146,49 @@ class _PoolStatusWidgetState extends State<PoolStatusWidget> {
       case 'reflection':
         iconPath = module.states?.itemState == 'completed'
             ? AppIcons.tick
-            : (module.states?.itemState == 'unlocked' ||
-                    module.states?.itemState == 'read'
+            : (module.states?.itemState == 'unlocked' || module.states?.itemState == 'read'
                 ? AppIcons.reflectionUnlocked
                 : AppIcons.account);
         break;
       case 'nutrition':
         iconPath = module.states?.itemState == 'completed'
             ? AppIcons.tick
-            : (module.states?.itemState == 'unlocked' ||
-                    module.states?.itemState == 'read'
+            : (module.states?.itemState == 'unlocked' || module.states?.itemState == 'read'
                 ? AppIcons.foodUnlocked
                 : AppIcons.spoons);
         break;
       case 'education':
         iconPath = module.states?.itemState == 'completed'
             ? AppIcons.tick
-            : (module.states?.itemState == 'unlocked' ||
-                    module.states?.itemState == 'read'
+            : (module.states?.itemState == 'unlocked' || module.states?.itemState == 'read'
                 ? AppIcons.educationUnlocked
                 : AppIcons.educationLocked);
         break;
       case 'goal':
         iconPath = module.states?.itemState == 'completed'
             ? AppIcons.tick
-            : (module.states?.itemState == 'unlocked' ||
-                    module.states?.itemState == 'read'
+            : (module.states?.itemState == 'unlocked' || module.states?.itemState == 'read'
                 ? AppIcons.goalUnlocked
                 : AppIcons.goalLocked);
         break;
       case 'weight':
         iconPath = module.states?.itemState == 'completed'
             ? AppIcons.tick
-            : (module.states?.itemState == 'unlocked' ||
-                    module.states?.itemState == 'read'
+            : (module.states?.itemState == 'unlocked' || module.states?.itemState == 'read'
                 ? AppIcons.weightUnlocked
                 : AppIcons.vector);
         break;
       case 'commitment':
         iconPath = module.states?.itemState == 'completed'
             ? AppIcons.tick
-            : (module.states?.itemState == 'unlocked' ||
-                    module.states?.itemState == 'read'
+            : (module.states?.itemState == 'unlocked' || module.states?.itemState == 'read'
                 ? AppIcons.commitmentUnlocked
                 : AppIcons.feature);
         break;
       case 'mood':
         iconPath = module.states?.itemState == 'completed'
             ? AppIcons.tick
-            : (module.states?.itemState == 'unlocked' ||
-                    module.states?.itemState == 'read'
+            : (module.states?.itemState == 'unlocked' || module.states?.itemState == 'read'
                 ? AppIcons.moodMeterUnlocked
                 : AppIcons.moodMeterLocked);
         break;
@@ -218,8 +209,7 @@ class _PoolStatusWidgetState extends State<PoolStatusWidget> {
   Widget build(BuildContext context) {
     return PopScope(
         onPopInvokedWithResult: (e, _) => _onWillPop(context),
-        child: BlocBuilder<PoolModuleBloc, PoolModuleState>(
-            builder: (BuildContext context, state) {
+        child: BlocBuilder<PoolModuleBloc, PoolModuleState>(builder: (BuildContext context, state) {
           return state.when(initial: () {
             return Container();
           }, loading: () {
@@ -281,15 +271,13 @@ class _PoolStatusWidgetState extends State<PoolStatusWidget> {
                     itemCount: moduleItem.moduleItems!
                         .where((module) =>
                             module.actions != null &&
-                            module.actions!.any(
-                                (action) => action.actionType == 'required'))
+                            module.actions!.any((action) => action.actionType == 'required'))
                         .length,
                     itemBuilder: (context, index) {
                       final filteredModules = moduleItem.moduleItems!
                           .where((module) =>
                               module.actions != null &&
-                              module.actions!.any(
-                                  (action) => action.actionType == 'required'))
+                              module.actions!.any((action) => action.actionType == 'required'))
                           .toList();
                       final module = filteredModules[index];
                       String text = module.widgetStatus!.text.toString();
@@ -302,8 +290,7 @@ class _PoolStatusWidgetState extends State<PoolStatusWidget> {
                         image: (iconPath == AppIcons.educationUnlocked ||
                                 iconPath == AppIcons.educationLocked)
                             ? Padding(
-                                padding: const EdgeInsets.symmetric(
-                                    horizontal: 4, vertical: 6),
+                                padding: const EdgeInsets.symmetric(horizontal: 4, vertical: 6),
                                 child: Image.asset(
                                   iconPath,
                                   height: 28,
@@ -316,9 +303,8 @@ class _PoolStatusWidgetState extends State<PoolStatusWidget> {
                                     ? AppColors.blueRegular
                                     : module.states?.itemState == 'unlocked' ||
                                             module.states?.itemState == 'read'
-                                        ? RiverModuleStreamType
-                                                .getLessonStreamType(
-                                                    module.streamType!)
+                                        ? RiverModuleStreamType.getLessonStreamType(
+                                                module.streamType!)
                                             .regularColor
                                         : AppColors.greyLighter,
                                 height: 36,

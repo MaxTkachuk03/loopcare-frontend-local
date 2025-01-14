@@ -5,7 +5,7 @@ import 'package:loopcare_frontend/core/presentation/error/error_screen.dart';
 import 'package:loopcare_frontend/core/presentation/icon_images/app_icons.dart';
 import 'package:loopcare_frontend/core/presentation/loader/loader.dart';
 import 'package:loopcare_frontend/core/presentation/nutrition/nutrition_indicator/nutrition_indicator.dart';
-import 'package:loopcare_frontend/core/presentation/routes/app_router.dart';
+import 'package:loopcare_frontend/core/presentation/routes/app_router.gr.dart';
 import 'package:loopcare_frontend/core/presentation/text/custom_text.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 import 'package:loopcare_frontend/core/presentation/utils/build_context_extensions.dart';
@@ -14,15 +14,24 @@ import 'package:loopcare_frontend/features/authentication/application/authentica
 import 'package:loopcare_frontend/features/commitment/application/commitment_bloc.dart';
 import 'package:loopcare_frontend/features/dashboard/presentation/widgets/dashboard_card_title/dashboard_card_title.dart';
 import 'package:loopcare_frontend/features/dashboard/presentation/widgets/pool_status/application/pool_bloc/pool_module_bloc.dart';
+import 'package:loopcare_frontend/features/nutrition/presentation/nutrition_intake_page/application/nutrition_intake_bloc.dart';
 import 'package:loopcare_frontend/localization/service/localization_extension.dart';
 import 'package:loopcare_frontend/localization/service/localized_texts.dart';
 
 class CommitmentDashboard extends StatefulWidget {
   final DateTime selectedDay;
   final bool isUnlocked;
+  final bool isCommitmentExists;
+  final int totalCommitments;
+  final int completedCommitments;
 
   const CommitmentDashboard(
-      {super.key, required this.selectedDay, required this.isUnlocked});
+      {super.key,
+      required this.selectedDay,
+      required this.isUnlocked,
+      required this.isCommitmentExists,
+      required this.totalCommitments,
+      required this.completedCommitments});
 
   @override
   State<CommitmentDashboard> createState() => _CommitmentDashboardState();
@@ -30,6 +39,7 @@ class CommitmentDashboard extends StatefulWidget {
 
 class _CommitmentDashboardState extends State<CommitmentDashboard> {
   bool toggleArrowIcon = false;
+  bool isDayClosed = false;
 
   void toggleOnClick() {
     setState(() {
@@ -40,28 +50,31 @@ class _CommitmentDashboardState extends State<CommitmentDashboard> {
   void _onPressHandler(BuildContext context) {
     if (widget.selectedDay.isFuture) return;
 
-    context.router.pushNamed(AppRoutes.nutritionIntake).then(getPoolData);
+    context
+        .read<NutritionIntakeBloc>()
+        .add(NutritionIntakeEvent.fetchProgress(date: widget.selectedDay));
+
+    context.router
+        .push(NutritionIntakeRoute(selectedDay: widget.selectedDay.toString()))
+        .then(getPoolData);
   }
 
-  void getPoolData(e) =>
-      context.read<PoolModuleBloc>().add(const PoolModuleEvent.getPoolData());
+  void getPoolData(e) => context.read<PoolModuleBloc>().add(const PoolModuleEvent.getPoolData());
 
-  void onErrorHandler(BuildContext context) => context
-      .read<CommitmentBloc>()
-      .add(CommitmentEvent.getCommitment(date: widget.selectedDay));
+  void onErrorHandler(BuildContext context) =>
+      context.read<CommitmentBloc>().add(CommitmentEvent.getCommitment(date: widget.selectedDay));
 
   Color get _textColor =>
-      !widget.selectedDay.isFuture ? AppColors.blueDarker : AppColors.greyLabel;
+      !widget.selectedDay.isFuture && context.read<CommitmentBloc>().state.data.isCommitmentUnlocked
+          ? AppColors.blueDarker
+          : AppColors.greyLabel;
 
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<CommitmentBloc, CommitmentState>(
       builder: (context, state) {
-        final totalCommitments = state.data.totalCommitments;
-        final completedCommitments = state.data.completedCommitments;
         return Container(
-          padding: const EdgeInsets.only(
-              top: 8.0, bottom: 8.0, right: 8.0, left: 8.0),
+          padding: const EdgeInsets.only(top: 8.0, bottom: 8.0, right: 8.0, left: 8.0),
           decoration: const BoxDecoration(
             color: AppColors.white,
             borderRadius: BorderRadius.all(Radius.circular(8)),
@@ -69,29 +82,27 @@ class _CommitmentDashboardState extends State<CommitmentDashboard> {
           child: Column(
             children: [
               DashboardCardTitle(
-                onTap: widget.isUnlocked
-                    ? () => _onPressHandler(context)
-                    : () => toggleOnClick(),
-                highlightColor: widget.isUnlocked
+                onTap: widget.isUnlocked && !widget.isCommitmentExists
+                    ? null
+                    : widget.isUnlocked
+                        ? () => _onPressHandler(context)
+                        : () => toggleOnClick(),
+                highlightColor: widget.isUnlocked && widget.isCommitmentExists
                     ? AppColors.greenLightest
                     : AppColors.white,
-                leadingIcon: widget.isUnlocked
-                    ? AppIcons.commitment
-                    : AppIcons.commitmentLocked,
+                leadingIcon: widget.isUnlocked ? AppIcons.commitment : AppIcons.commitmentLocked,
                 title: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    widget.isUnlocked
+                    widget.isUnlocked && widget.isCommitmentExists
                         ? CustomText.bitter600(
                             LocalizedTexts.commitment.tr(),
-                            style: context.textTheme.headlineSmall
-                                ?.copyWith(color: _textColor),
+                            style: context.textTheme.headlineSmall?.copyWith(color: _textColor),
                           )
                         : CustomText.bitter400(
                             LocalizedTexts.commitment.tr(),
-                            style: const TextStyle(
-                                color: AppColors.greyLight, fontSize: 20),
+                            style: const TextStyle(color: AppColors.greyLight, fontSize: 20),
                           ),
                   ],
                 ),
@@ -101,8 +112,7 @@ class _CommitmentDashboardState extends State<CommitmentDashboard> {
                         ? const AssetImage(AppIcons.upArrow)
                         : AppIcons.downArrow,
                 circleButton: widget.isUnlocked ? true : false,
-                editable:
-                    widget.isUnlocked ? true : !widget.selectedDay.isFuture,
+                editable: widget.isUnlocked ? true : !widget.selectedDay.isFuture,
               ),
               widget.isUnlocked
                   ? Container()
@@ -114,12 +124,11 @@ class _CommitmentDashboardState extends State<CommitmentDashboard> {
                           const SizedBox(
                             width: 36,
                           ),
-                          Expanded(
+                          SizedBox(
+                            width: 250,
                             child: CustomText.w400(
                               "${LocalizedTexts.featureUnlocksAtPool.tr()} ${LocalizedTexts.commitmentUnlock.tr()}",
-                              style: const TextStyle(
-                                  color: AppColors.greyLight, fontSize: 16),
-                              overflow: TextOverflow.visible,
+                              style: const TextStyle(color: AppColors.greyLight, fontSize: 16),
                             ),
                           ),
                         ],
@@ -127,22 +136,17 @@ class _CommitmentDashboardState extends State<CommitmentDashboard> {
                     ),
               BlocBuilder<AuthenticationBloc, AuthenticationState>(
                   builder: (context, state) => widget.isUnlocked
-                      ? const Divider(
-                          color: AppColors.blueOffRegular,
-                          indent: 8.0,
-                          endIndent: 8.0)
+                      ? const Divider(color: AppColors.blueOffRegular, indent: 8.0, endIndent: 8.0)
                       : const SizedBox.shrink()),
               state.maybeMap(
                 loading: (_) => const Loader(),
                 error: (s) {
                   final error = s.data.error;
 
-                  return ErrorScreen(
-                      error: error!,
-                      onButtonPressed: () => onErrorHandler(context));
+                  return ErrorScreen(error: error!, onButtonPressed: () => onErrorHandler(context));
                 },
                 orElse: () {
-                  return !toggleArrowIcon && widget.isUnlocked
+                  return widget.isUnlocked
                       ? Padding(
                           padding: const EdgeInsets.all(8.0),
                           child: Row(
@@ -153,10 +157,9 @@ class _CommitmentDashboardState extends State<CommitmentDashboard> {
                                   NutritionIndicator.small(
                                     color: AppColors.blueLightest,
                                     label:
-                                        '$completedCommitments/$totalCommitments',
-                                    progress: totalCommitments != 0
-                                        ? completedCommitments /
-                                            totalCommitments
+                                        '${widget.completedCommitments}/${widget.totalCommitments}',
+                                    progress: widget.totalCommitments != 0
+                                        ? widget.completedCommitments / widget.totalCommitments
                                         : 0.0,
                                   ),
                                   const SizedBox(
@@ -164,17 +167,17 @@ class _CommitmentDashboardState extends State<CommitmentDashboard> {
                                   ),
                                   CustomText.w600(
                                     LocalizedTexts.completeYourSurveys.tr(),
-                                    style: context.textTheme.titleSmall
-                                        ?.copyWith(color: _textColor),
+                                    style:
+                                        context.textTheme.titleSmall?.copyWith(color: _textColor),
                                   ),
                                 ],
                               ),
-                              if (completedCommitments > 0 &&
-                                  completedCommitments != totalCommitments)
+                              if (widget.completedCommitments > 0 &&
+                                  widget.completedCommitments < widget.totalCommitments)
                                 const ImageIcon(AppIcons.checkmark,
                                     color: AppColors.blueDarker, size: 44),
-                              if (completedCommitments >= totalCommitments &&
-                                  completedCommitments != 0)
+                              if (widget.completedCommitments >= widget.totalCommitments &&
+                                  widget.completedCommitments != 0)
                                 Image.asset(
                                   AppIcons.achievements,
                                   width: 44,
@@ -187,24 +190,18 @@ class _CommitmentDashboardState extends State<CommitmentDashboard> {
                         )
                       : toggleArrowIcon && !widget.isUnlocked
                           ? Padding(
-                              padding: const EdgeInsets.only(
-                                  left: 12.0, right: 12.0, bottom: 12),
+                              padding: const EdgeInsets.only(left: 12.0, right: 12.0, bottom: 12),
                               child: Row(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  Expanded(
-                                    child: Padding(
-                                      padding:
-                                          const EdgeInsets.only(bottom: 10),
-                                      child: CustomText.w400(
-                                        maxLines: 10,
-                                        LocalizedTexts.commitmentDescription
-                                            .tr(),
-                                        style: const TextStyle(
-                                            color: AppColors.greyLight,
-                                            fontSize: 16),
-                                        overflow: TextOverflow.visible,
-                                      ),
+                                  Container(
+                                    width: 330,
+                                    padding: const EdgeInsets.only(bottom: 10),
+                                    child: CustomText.w400(
+                                      maxLines: 10,
+                                      LocalizedTexts.commitmentDescription.tr(),
+                                      style:
+                                          const TextStyle(color: AppColors.greyLight, fontSize: 16),
                                     ),
                                   ),
                                 ],

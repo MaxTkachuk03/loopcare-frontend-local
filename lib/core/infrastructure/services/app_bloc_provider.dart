@@ -49,6 +49,7 @@ import 'package:loopcare_frontend/features/subscription/application/subscription
 import 'package:loopcare_frontend/features/video_player/application/video_player_bloc.dart';
 import 'package:loopcare_frontend/features/video_session/application/session_call_bloc.dart';
 import 'package:loopcare_frontend/injection.dart';
+import 'package:loopcare_frontend/features/subscriptionV2/application/subscription_v2_bloc.dart';
 
 class AppBlocProvider {
   AppBlocProvider._();
@@ -153,6 +154,9 @@ class AppBlocProvider {
         BlocProvider<SubscriptionBloc>(
           create: (_) => getIt<SubscriptionBloc>(),
         ),
+        BlocProvider<SubscriptionV2Bloc>(
+          create: (_) => getIt<SubscriptionV2Bloc>(),
+        ),
         BlocProvider<ReflectionsBloc>(
           create: (_) => getIt<ReflectionsBloc>(),
         ),
@@ -192,12 +196,13 @@ class AppBlocProvider {
         BlocProvider<InteractiveLessonsNavBloc>(
           create: (_) => getIt<InteractiveLessonsNavBloc>(),
         ),
-        BlocProvider<CommitmentBloc>(
-          create: (_) => getIt<CommitmentBloc>(),
-        ),
         BlocProvider<NutritionIntakeBloc>(
           create: (_) => getIt<NutritionIntakeBloc>(),
         ),
+        BlocProvider<CommitmentBloc>(
+          create: (_) => getIt<CommitmentBloc>(),
+        ),
+        BlocProvider<SubscriptionV2Bloc>(create: (_) => getIt<SubscriptionV2Bloc>()),
         BlocProvider<PoolModuleBloc>(
           create: (_) => getIt<PoolModuleBloc>(),
         ),

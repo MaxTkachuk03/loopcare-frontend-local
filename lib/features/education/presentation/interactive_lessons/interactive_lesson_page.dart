@@ -13,9 +13,19 @@ import 'package:loopcare_frontend/features/onboarding/presentation/widgets/progr
 import 'package:loopcare_frontend/features/river/domain/river_module_stream_type.dart';
 
 @RoutePage()
-class InteractiveLessonPage extends StatelessWidget {
-  const InteractiveLessonPage({super.key});
+class InteractiveLessonPage extends StatefulWidget {
+  final RiverModuleStreamType streamType;
 
+  const InteractiveLessonPage({
+    super.key,
+    this.streamType = RiverModuleStreamType.nutrition,
+  });
+
+  @override
+  State<InteractiveLessonPage> createState() => _InteractiveLessonPageState();
+}
+
+class _InteractiveLessonPageState extends State<InteractiveLessonPage> {
   int getProgressPercentage(InteractiveLessonsState state) {
     final activePage = state.data.activePage;
     if (activePage == null || activePage.chunksIds.isEmpty) return 0;
@@ -25,9 +35,6 @@ class InteractiveLessonPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final bloc = context.watch<InteractiveLessonsBloc>().state.data;
-    final lessonStreamType = RiverModuleStreamType.getLessonStreamType(bloc.type);
-
     return BlocBuilder<InteractiveLessonsBloc, InteractiveLessonsState>(builder: (context, state) {
       return state.maybeWhen(
         error: (_) => const SizedBox.shrink(),
@@ -38,16 +45,16 @@ class InteractiveLessonPage extends StatelessWidget {
         orElse: () => CustomScaffold.customColor(
           color: AppColors.white,
           appBar: CustomAppBar.customColor(
-            isPsychology: lessonStreamType.isPsychology,
-            customColor: lessonStreamType.regularColor,
+            isPsychology: widget.streamType.isPsychology,
+            customColor: widget.streamType.regularColor,
             title: context.watch<InteractiveLessonsBloc>().state.data.title,
-            leading: CustomFilledIconButton.fromColor(color: lessonStreamType.lighterColor),
+            leading: CustomFilledIconButton.fromColor(color: widget.streamType.lighterColor),
             bottom: PreferredSize(
               preferredSize: const Size.fromHeight(50),
               child: BlocBuilder<InteractiveLessonsBloc, InteractiveLessonsState>(
                 builder: (context, state) {
                   return ProgressBar(
-                    backgroundColor: lessonStreamType.regularColor,
+                    backgroundColor: widget.streamType.regularColor,
                     progressFillColor: AppColors.white,
                     progressEmptyColor: AppColors.white.withOpacity(0.4),
                     segments: state.data.pages.length,

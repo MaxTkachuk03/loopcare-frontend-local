@@ -3,6 +3,7 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 import '../../../../core/infrastructure/services/logger/logger.dart';
 
 part 'interactive_lesson_text_area_history.freezed.dart';
+
 part 'interactive_lesson_text_area_history.g.dart';
 
 @freezed
@@ -11,7 +12,7 @@ class InteractiveLessonHistory with _$InteractiveLessonHistory {
 
   const factory InteractiveLessonHistory({
     int? mealItemId,
-    int? id,
+    String? id,
     required String text,
     DateTime? createdAt,
     DateTime? updatedAt,
@@ -24,9 +25,8 @@ class InteractiveLessonHistory with _$InteractiveLessonHistory {
     try {
       log.d('Parsing InteractiveLessonHistory: $json');
 
-      final id = json['id'] != null
-          ? (json['id'] is int ? json['id'] as int : int.tryParse(json['id'].toString()))
-          : null;
+      final id = json['id'];
+
       log.d('History ID: $id');
       // Parse individual fields with debug output
       final text = json['text'] as String;

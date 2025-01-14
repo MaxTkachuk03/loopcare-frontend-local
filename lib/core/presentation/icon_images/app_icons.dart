@@ -306,6 +306,8 @@ class AppIcons {
   static SvgPicture maleAvatarTone3 = SvgPicture.asset('$iconsFilePath/male_avatar_tone3.svg');
   static SvgPicture maleAvatarTone4 = SvgPicture.asset('$iconsFilePath/male_avatar_tone4.svg');
 
+  static SvgPicture dashedBorder = SvgPicture.asset('$iconsFilePath/dashed_border.svg');
+
 // nutrition intake
   static SvgPicture doneDayButton = SvgPicture.asset('$iconsFilePath/done_day.svg');
   static SvgPicture commitmentButton = SvgPicture.asset('$iconsFilePath/commitment_intake.svg');

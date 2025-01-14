@@ -658,6 +658,7 @@ class LocalizedTexts {
   static const String subscriptionQuarterly = 'subscriptionQuarterly';
   static const String subscriptionAnnually = 'subscriptionAnnually';
   static const String subscriptionDescriptionLabel = 'subscriptionDescriptionLabel';
+  static const String subscriptionProgram = 'subscriptionProgram';
 
   // Quizzes
   static const String quiz = "quiz";

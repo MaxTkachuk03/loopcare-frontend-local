@@ -32,7 +32,6 @@ extension SearchItemTypesX on SearchItemTypes {
         return AppIcons.magnifyingGlass;
       case SearchItemTypes.recipe:
         return AppIcons.cook;
-
       default:
         return AppIcons.magnifyingGlass;
     }

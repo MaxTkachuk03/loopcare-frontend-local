@@ -1,6 +1,5 @@
 import 'package:dartz/dartz.dart';
 import 'package:injectable/injectable.dart';
-import 'package:intl/intl.dart';
 import 'package:loopcare_frontend/core/infrastructure/dio_client/dio_client.dart';
 import 'package:loopcare_frontend/core/infrastructure/dio_client/request_error.dart';
 import 'package:loopcare_frontend/features/education/application/dto/get_lesson_content_response.dart';
@@ -56,7 +55,7 @@ class APIEducationService implements EducationService {
 
   @override
   Future<Either<RequestError, InteractiveLesson>> getInteractiveLesson(
-      int lessonId, DateTime? date) async {
+      int lessonId, String? date) async {
     // TODO: delete after dev phase
     // if (lessonId == 6) {
     //   return right(InteractiveLesson.debugFromJson(commitmentLesson));
@@ -77,7 +76,7 @@ class APIEducationService implements EducationService {
     //   fromJson: InteractiveLesson.fromJson,
     // );
 
-    String convertedDate = date != null ? DateFormat("yyyy-MM-dd").format(date) : "";
+    String convertedDate = date ?? "";
 
     try {
       final response = await client.get(

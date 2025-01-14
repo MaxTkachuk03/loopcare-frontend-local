@@ -32,14 +32,15 @@ class CustomTimePicker extends StatefulWidget {
 
   final DateTime initialTime;
   final DateTime secondTime;
-  final int id;
+  final String id;
   final int index;
   final String mealName;
   final MealCategory category;
   final InteractiveLessonChunkComponentMealTiming component;
   final RiverModuleStreamType lessonStreamType;
-  final Function(InteractiveLessonComponentProgress progress,
-      InteractiveLessonChunkComponent component) onSaveProgress;
+  final Function(
+          InteractiveLessonComponentProgress progress, InteractiveLessonChunkComponent component)
+      onSaveProgress;
 
   @override
   State<CustomTimePicker> createState() => _CustomTimePickerState();
@@ -48,20 +49,35 @@ class CustomTimePicker extends StatefulWidget {
 class _CustomTimePickerState extends State<CustomTimePicker> {
   DateTime newTime = DateTime.now();
 
+  @override
+  void initState() {
+    super.initState();
+    newTime = widget.initialTime;
+  }
+
   void _onSaveHandler(DateTime updateAt) {
+    final date = context.read<InteractiveLessonsBloc>().state.data.answerDate;
+    final parsedDate = DateTime.parse(date);
+
+    final combinedDateTime = DateTime(
+      parsedDate.year,
+      parsedDate.month,
+      parsedDate.day,
+      updateAt.hour,
+      updateAt.minute,
+      updateAt.second,
+      updateAt.millisecond,
+      updateAt.microsecond,
+    );
+
     var componentHistory = InteractiveLessonHistory(
-        mealItemId: widget.id,
-        id: widget.id,
-        text:
-            widget.category.originalValue.toLowerCase().split('&').last.trim(),
-        updatedAt: updateAt,
+        mealItemId: int.parse(widget.id),
+        text: widget.category.originalValue.toLowerCase().split('&').last.trim(),
+        updatedAt: combinedDateTime.toUtc(),
         createdAt: widget.secondTime);
 
-    if (widget.category == MealCategory.inbetweens) {
-      context.read<InteractiveLessonsBloc>().add(
-          InteractiveLessonsEvent.updateMealTime(
-              updateAt, widget.category, widget.component, widget.index));
-    }
+    context.read<InteractiveLessonsBloc>().add(InteractiveLessonsEvent.updateMealTime(
+        updateAt, widget.category, widget.component, widget.index));
 
     widget.onSaveProgress(
         InteractiveLessonComponentProgress(
@@ -71,7 +87,6 @@ class _CustomTimePickerState extends State<CustomTimePicker> {
 
   @override
   Widget build(BuildContext context) {
-    print("id: ${widget.id}");
     final width = MediaQuery.sizeOf(context).width;
     final height = MediaQuery.sizeOf(context).height;
     return BlocBuilder<MealsBloc, MealsState>(
@@ -80,8 +95,7 @@ class _CustomTimePickerState extends State<CustomTimePicker> {
           child: Container(
             height: height / 2.5,
             width: width / 1.15,
-            padding:
-                const EdgeInsets.symmetric(vertical: 26.0, horizontal: 20.0),
+            padding: const EdgeInsets.symmetric(vertical: 26.0, horizontal: 20.0),
             decoration: BoxDecoration(
               color: AppColors.bgGreen,
               borderRadius: BorderRadius.circular(20),
@@ -91,8 +105,7 @@ class _CustomTimePickerState extends State<CustomTimePicker> {
               children: [
                 CustomText(
                   LocalizedTexts.selectYourTime.tr(),
-                  style: context.textTheme.bodyMedium!
-                      .copyWith(fontWeight: FontWeight.w700),
+                  style: context.textTheme.bodyMedium!.copyWith(fontWeight: FontWeight.w700),
                 ),
                 Expanded(
                   child: Stack(
@@ -101,7 +114,9 @@ class _CustomTimePickerState extends State<CustomTimePicker> {
                       CupertinoDatePicker(
                         initialDateTime: widget.initialTime,
                         onDateTimeChanged: (DateTime value) {
-                          newTime = value;
+                          setState(() {
+                            newTime = value;
+                          });
                         },
                         mode: CupertinoDatePickerMode.time,
                       ),

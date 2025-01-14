@@ -75,6 +75,7 @@ class ModuleItemsUtils {
     List<RiverModuleItem> items,
   ) {
     final List<({Offset offset, RiverModuleItem item})> list = [];
+    final List<Offset> usedOffsets = [];
 
     final root = items.where((i) => i.isRootItem).toList();
     final activity = items.where((i) => i.streamType.isPhysicalActivity && !i.isRootItem).toList();
@@ -95,9 +96,9 @@ class ModuleItemsUtils {
 
         final range = ranges.elementAt(item.streamType.streamIndex);
 
+        Offset offset;
         if (item.isRootItem) {
-          final offset = _getRootOffset(page);
-          list.add((offset: offset, item: item));
+          offset = _getRootOffset(page);
           ranges.insertGaps(2, 0.5);
         } else {
           final biggestRanges = range.biggest;
@@ -114,15 +115,34 @@ class ModuleItemsUtils {
             position = range.middle;
           }
 
-          final offset = _getOffset(position, page, item.streamType.streamIndex);
-          list.add((offset: offset, item: item));
+          offset = _getOffset(position, page, item.streamType.streamIndex);
           ranges.insertGaps(item.streamType.streamIndex, position);
         }
+
+        offset = _adjustOffsetIfOverlap(offset, usedOffsets);
+
+        list.add((offset: offset, item: item));
+        usedOffsets.add(offset);
       }
     }
 
     return list;
   }
+}
+
+Offset _adjustOffsetIfOverlap(Offset offset, List<Offset> usedOffsets) {
+  const double minDistanceX = 0.14;
+  double minDistanceY = 0.0;
+
+  for (final usedOffset in usedOffsets) {
+    if ((offset - usedOffset).distance < minDistanceX) {
+      if (usedOffsets.length > 9 || usedOffsets.length <= 5) {
+        minDistanceY = -0.15;
+      }
+      offset = Offset(offset.dx + minDistanceX, offset.dy + minDistanceY);
+    }
+  }
+  return offset;
 }
 
 class RangeBox {
@@ -190,7 +210,7 @@ class DoubleRange {
 
   double get length => (to - from).abs();
 
-  double get middle => from + (to - from) / 2;
+  double get middle => from + (to - from) / 1.7;
 
   bool inRange(double value) => value > from && value < to;
 

@@ -110,7 +110,7 @@ abstract class AppLocalizations {
   /// No description provided for @loseProgress.
   ///
   /// In en, this message translates to:
-  /// **'By deleting the goals, you are losing the current progress, but you can always start a new one.'**
+  /// **'If you delete goals, you lose their progress. But you can always start over.'**
   String get loseProgress;
 
   /// No description provided for @takeBack.
@@ -152,13 +152,13 @@ abstract class AppLocalizations {
   /// No description provided for @interactiveLessonsMultipleSelectLabel.
   ///
   /// In en, this message translates to:
-  /// **'Choose All That Apply'**
+  /// **'Choose all that apply'**
   String get interactiveLessonsMultipleSelectLabel;
 
   /// No description provided for @mealTiming.
   ///
   /// In en, this message translates to:
-  /// **'Meal Timing'**
+  /// **'Meal timing'**
   String get mealTiming;
 
   /// No description provided for @selectTheFoodCategory.
@@ -170,19 +170,19 @@ abstract class AppLocalizations {
   /// No description provided for @interactiveLessonsCorrectFeedbackTitle.
   ///
   /// In en, this message translates to:
-  /// **'This is correct'**
+  /// **'That\'s right!'**
   String get interactiveLessonsCorrectFeedbackTitle;
 
   /// No description provided for @interactiveLessonsIncorrectFeedbackTitle.
   ///
   /// In en, this message translates to:
-  /// **'This is incorrect'**
+  /// **'Sorry, that\'s wrong.'**
   String get interactiveLessonsIncorrectFeedbackTitle;
 
   /// No description provided for @interactiveLessonsScaleFeedbackTitle.
   ///
   /// In en, this message translates to:
-  /// **'Scale selection feedback'**
+  /// **''**
   String get interactiveLessonsScaleFeedbackTitle;
 
   /// No description provided for @interactiveLessonsOrderingLabel.
@@ -7232,31 +7232,31 @@ abstract class AppLocalizations {
   /// No description provided for @riverGuidanceCompletedTitle.
   ///
   /// In en, this message translates to:
-  /// **'Congratulation, you finished the Beginning.'**
+  /// **'Congratulations, you finished \'The Beginning\'.'**
   String get riverGuidanceCompletedTitle;
 
   /// No description provided for @riverGuidanceCompletedDescription.
   ///
   /// In en, this message translates to:
-  /// **'You can now move on to the first Practice session: What’s your why?.'**
+  /// **'You can now move on to pool: \'What’s your why?\'.'**
   String get riverGuidanceCompletedDescription;
 
   /// This is complete module message.
   ///
   /// In en, this message translates to:
-  /// **'Congratulation, you completed the module: \"{module}\"'**
+  /// **'Congratulations, you completed the pool:  \"{module}\"'**
   String riverModuleCompletedTitle(String module);
 
   /// This is next module name.
   ///
   /// In en, this message translates to:
-  /// **'No rush, you can stay in this module and repeat the practices as often as you prefer. When you feel comfortable, you can move to the next module: \"{nextModule}\".\nGreat job.'**
+  /// **'No rush, you can stay in this pool and keep doing the practice on the dashboard as long as you want. When you feel comfortable, you can move to the next pool \"{nextModule}\".\nGreat job.'**
   String riverModuleCompletedDescription(String nextModule);
 
   /// No description provided for @riverLastModuleCompletedDescription.
   ///
   /// In en, this message translates to:
-  /// **'Take your time to revisit the previous modules and reinforce the practices whenever you need.\nYou\'ve done an amazing job reaching this point! Stay tuned, more exciting content is coming soon!'**
+  /// **'Take your time to revisit the previous pools and keep doing the practice on the dashboard to reinforce your new habits.\nYou\'ve done an amazing job reaching this point! Stay tuned, more exciting content is coming soon!'**
   String get riverLastModuleCompletedDescription;
 
   /// No description provided for @riverGuidanceStartRiverTitle.
@@ -7280,7 +7280,7 @@ abstract class AppLocalizations {
   /// No description provided for @riverModuleGraduationCompletedTimeTitle.
   ///
   /// In en, this message translates to:
-  /// **'Your module is fully colored-in, meaning you  first read the Reflection over 7 days ago.'**
+  /// **'Your pool is fully colored-in, meaning you first read the reflection over 7 days ago.'**
   String get riverModuleGraduationCompletedTimeTitle;
 
   /// No description provided for @riverModuleGraduationCompletedItemsMessage.
@@ -7583,10 +7583,16 @@ abstract class AppLocalizations {
   /// **'Cancel anytime in subscriptions center'**
   String get subscriptionDescriptionLabel;
 
+  /// No description provided for @subscriptionProgram.
+  ///
+  /// In en, this message translates to:
+  /// **'Choose your program offering'**
+  String get subscriptionProgram;
+
   /// No description provided for @subscriptionGenericTitle.
   ///
   /// In en, this message translates to:
-  /// **'Your journey is about to begin.'**
+  /// **'Start your journey'**
   String get subscriptionGenericTitle;
 
   /// No description provided for @emergencyAssistanceTitle.
@@ -7994,13 +8000,13 @@ abstract class AppLocalizations {
   /// No description provided for @resendConfirmationMessage.
   ///
   /// In en, this message translates to:
-  /// **'We\'ve just sent another email to you'**
+  /// **'We just sent you another email.'**
   String get resendConfirmationMessage;
 
   /// No description provided for @waitingForConfirmationSubtitle.
   ///
   /// In en, this message translates to:
-  /// **'Please confirm your e-mail'**
+  /// **'Please confirm your email.'**
   String get waitingForConfirmationSubtitle;
 
   /// No description provided for @waitingForConfirmationBody.
@@ -10154,7 +10160,7 @@ abstract class AppLocalizations {
   /// No description provided for @logWeight.
   ///
   /// In en, this message translates to:
-  /// **'Log Weight'**
+  /// **'Weight log'**
   String get logWeight;
 
   /// No description provided for @foodLoggingUnlocked.
@@ -11744,7 +11750,7 @@ abstract class AppLocalizations {
   /// No description provided for @reflectionsDescription.
   ///
   /// In en, this message translates to:
-  /// **'are tailored to help you understand yourself and your relationship with food.'**
+  /// **'Reflections are tailored to help you understand yourself and your relationship with food.'**
   String get reflectionsDescription;
 
   /// No description provided for @supportGroupUnlock.

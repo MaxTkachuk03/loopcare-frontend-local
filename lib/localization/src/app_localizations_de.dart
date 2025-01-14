@@ -12,37 +12,37 @@ class AppLocalizationsDe extends AppLocalizations {
   String get smartGoalsDeleteGoalTitle => 'Löschen Sie Ihr Ziel?';
 
   @override
-  String get areYouSureToDelete => 'Sind Sie sicher, dass Sie das ausgewählte SMART-Ziel löschen möchten?';
+  String get areYouSureToDelete => 'Bist du dir sicher, dass du die ausgewählte Ziele löschen möchtest?';
 
   @override
-  String get loseProgress => 'Durch das Löschen der Ziele geht der aktuelle Fortschritt verloren, Sie können aber jederzeit einen neuen beginnen.';
+  String get loseProgress => 'Durch das Löschen der Ziele geht der aktuelle Fortschritt verloren, du kannst aber jederzeit einen neuen beginnen.';
 
   @override
-  String get takeBack => 'Nein, nimm mich zurück';
+  String get takeBack => 'Nein, zurück';
 
   @override
-  String get yesDeleteGoal => 'Ja, Ziele löschen';
+  String get yesDeleteGoal => 'Ja, Ziel(e) löschen';
 
   @override
-  String get interactiveLessonsTextAreaLabel => 'Uw gedachten';
+  String get interactiveLessonsTextAreaLabel => 'Deine Gedanken';
 
   @override
   String get interactiveLessonsMultipleChoiceBtnLabel => 'Save';
 
   @override
-  String get interactiveLessonsScaleLabel => 'Bewerten Sie auf einer Skala';
+  String get interactiveLessonsScaleLabel => 'Bewerte auf der Skala';
 
   @override
-  String get interactiveLessonsSingleSelectLabel => 'Einzelne Antwort';
+  String get interactiveLessonsSingleSelectLabel => 'Wähle eine Antwort';
 
   @override
-  String get interactiveLessonsMultipleSelectLabel => 'Wählen Sie alle zutreffenden Optionen aus.';
+  String get interactiveLessonsMultipleSelectLabel => 'Wähle zutreffendes';
 
   @override
-  String get mealTiming => 'Essenszeiten';
+  String get mealTiming => 'Check die Zeiten';
 
   @override
-  String get selectTheFoodCategory => 'Wählen Sie die Lebensmittelkategorie';
+  String get selectTheFoodCategory => 'Wähle eine Mahlzeit';
 
   @override
   String get interactiveLessonsCorrectFeedbackTitle => 'Das ist richtig';
@@ -51,10 +51,10 @@ class AppLocalizationsDe extends AppLocalizations {
   String get interactiveLessonsIncorrectFeedbackTitle => 'Das ist falsch';
 
   @override
-  String get interactiveLessonsScaleFeedbackTitle => 'Feedback zur Skalenauswahl';
+  String get interactiveLessonsScaleFeedbackTitle => '';
 
   @override
-  String get interactiveLessonsOrderingLabel => 'Ordnen Sie in Ordnung';
+  String get interactiveLessonsOrderingLabel => 'Sortiere nach der Reihe';
 
   @override
   String get interactiveLessonsOrderingCheck => 'Überprüfen';
@@ -3812,6 +3812,9 @@ class AppLocalizationsDe extends AppLocalizations {
   String get subscriptionDescriptionLabel => 'Jederzeit im Abo-Center kündigen';
 
   @override
+  String get subscriptionProgram => 'Wählen dein Abonnement';
+
+  @override
   String get subscriptionGenericTitle => 'Deine Reise beginnt jetzt.';
 
   @override
@@ -5990,22 +5993,22 @@ class AppLocalizationsDe extends AppLocalizations {
   String get featureUnlocksAtPool => 'Feature unlocks at Pool';
 
   @override
-  String get reflectionsUnlock => 'Was ist Ihr Warum?';
+  String get reflectionsUnlock => 'Was motiviert dich?';
 
   @override
-  String get reflectionsDescription => 'are tailored to help you understand yourself and your relationship with food.';
+  String get reflectionsDescription => 'Die Reflexionen sollen dir helfen, dich selbst und deine Beziehung zum Essen zu verstehen..';
 
   @override
-  String get supportGroupUnlock => 'Gehen Sie es nicht allein an';
+  String get supportGroupUnlock => 'Du bist nich allein';
 
   @override
   String get supportGroupDescription => 'Guided group sessions give you a safe space to share your successes and challenges with like-minded individuals. We’re all here to help.';
 
   @override
-  String get commitmentUnlock => 'Was ist Ihr Warum?';
+  String get commitmentUnlock => 'Was motiviert dich?';
 
   @override
-  String get commitmentDescription => 'Wir möchten Ihnen helfen, aber dazu brauchen wir Ihre Meinung! Geben Sie uns in den ersten Tagen des Programms eine ehrliche Liste mit allem, was Sie gegessen haben. Wir passen unser Programm dann individuell an und konzentrieren uns auf die Themen, die sich am wahrscheinlichsten positiv auf Ihr Gewicht und Ihr Wohlbefinden auswirken.';
+  String get commitmentDescription => 'Wir wollen dir helfen, aber dazu brauchen wir deine Meinung! Mache in den ersten Tagen des Programms eine ehrliche Liste mit allem, was du gegessen hast. Wir passen unser Programm dann individuell an und konzentrieren uns auf die Themen, die sich am ehesten positiv auf dein Gewicht und dein Wohlbefinden auswirken.';
 
   @override
   String get exerciseLibraryDescription => 'library of exercise videos designed specifically for people with higher BMIs or people who aren’t comfortable with physical activity. You can do these from home or anywhere you like.';
@@ -6038,7 +6041,7 @@ class AppLocalizationsDe extends AppLocalizations {
   String get goals => 'Was motiviert dich?';
 
   @override
-  String get myGoalsLockedDescription => 'Whether its psychology, nutrition, physical activity, or community: Small, achievable, and measurable goals help you make small changes that lead to big results.';
+  String get myGoalsLockedDescription => 'Ob Psychologie, Ernährung, Bewegung oder Community: Kleine, erreichbare und messbare Ziele helfen dir, kleine Veränderungen vorzunehmen, die zu großen Ergebnissen führen.';
 
   @override
   String get whenAndWhyIAte => 'Wann und warum ich gegessen habe';
@@ -6056,43 +6059,43 @@ class AppLocalizationsDe extends AppLocalizations {
   String get pleaseLogFood => 'Bitte protokollieren Sie Lebensmittel';
 
   @override
-  String get leanOnMeDoesNot => 'LeanOnMe unterstützt keine nicht nachhaltigen Diäten wie ganztägiges Fasten. Bitte protokollieren Sie Lebensmittel in mindestens einer Kategorie, damit wir unsere Verpflichtung gemeinsam erfüllen können.';
+  String get leanOnMeDoesNot => 'LeanOnMe unterstützt keine nicht nachhaltigen Diäten wie ganztägiges Fasten. Bitte protokolliere Lebensmittel in mindestens einer Kategorie, damit wir unsere Verpflichtung gemeinsam erfüllen können.';
 
   @override
-  String get haveYouLogged => 'Haben Sie alles protokolliert, was Sie gegessen haben, und sind Sie sicher, dass Sie das nicht mehr tun werden?';
+  String get haveYouLogged => 'Hast du alles protokolliert, was du gegessen hast, und bist du dir sicher, das du heute nicht mehr essen wirst?';
 
   @override
   String get thisDayIsComplete => 'Dieser Tag ist komplett';
 
   @override
-  String get backToPracticeBoard => 'Zurück zur Übungstafel';
+  String get backToPracticeBoard => 'Zurück zu heute';
 
   @override
-  String get whatYouWhy => 'Was ist dein Warum';
+  String get whatYouWhy => 'Was motiviert dich?';
 
   @override
   String get timeReq => 'Zeitbedarf: ';
 
   @override
-  String get completeRef => 'Vollständige Reflexion';
+  String get completeRef => 'Schließe die Reflexion ab';
 
   @override
-  String get foodCmmitment => 'Vollständige Verpflichtung zum Lebensmittelprotokoll';
+  String get foodCmmitment => 'Schließe die Verpflichtung zum Ernährungsprotokoll ab';
 
   @override
-  String get unlockWeight => 'Schalten Sie Ihr Gewicht frei';
+  String get unlockWeight => 'Schalte den Gewichtstracker frei';
 
   @override
-  String get unlockFoodLog => 'Schalte das Lebensmittelprotokoll frei';
+  String get unlockFoodLog => 'Schalte das Ernährungsprotokoll frei';
 
   @override
   String get readyGraduate => 'bereit für den Abschluss';
 
   @override
-  String get tapReflection => 'Tippen Sie auf das Reflexionssymbol, um den Artikel zu lesen und den zu starten.';
+  String get tapReflection => 'Tippen auf das Reflexionssymbol, um den zu starten.';
 
   @override
-  String get textAreaHintText => 'Geben Sie hier Ihre Antwort ein';
+  String get textAreaHintText => 'Gebe hier deine Antwort ein';
 
   @override
   String get textAreaSave => 'Speichern';
@@ -6101,7 +6104,7 @@ class AppLocalizationsDe extends AppLocalizations {
   String get addTextField => 'Textfeld hinzufügen';
 
   @override
-  String get selectYourTime => 'Wählen Sie Ihre Zeit';
+  String get selectYourTime => 'Wähle deine Zeit';
 
   @override
   String get question => 'Frage';

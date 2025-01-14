@@ -4,7 +4,7 @@ part of 'interactive_lessons_bloc.dart';
 class InteractiveLessonsEvent with _$InteractiveLessonsEvent {
   const factory InteractiveLessonsEvent.getInteractiveLesson(
       {required int lessonId,
-      DateTime? date,
+      String? date,
       RiverModuleItemState? lessonStatus}) = GetInteractiveLesson;
 
   const factory InteractiveLessonsEvent.setNextPage() = SetNextPage;
@@ -12,16 +12,17 @@ class InteractiveLessonsEvent with _$InteractiveLessonsEvent {
   const factory InteractiveLessonsEvent.setPrevPage() = SetPrevPage;
 
   const factory InteractiveLessonsEvent.saveAnswer(
-      InteractiveLessonComponentProgress progress,
-      InteractiveLessonChunkComponent component) = SaveAnswer;
+          InteractiveLessonComponentProgress progress, InteractiveLessonChunkComponent component) =
+      SaveAnswer;
 
   const factory InteractiveLessonsEvent.unlockNextChunk() = UnlockNextChunk;
 
-  const factory InteractiveLessonsEvent.updateMealTime(
-      DateTime updatedAt,
-      MealCategory category,
-      InteractiveLessonChunkComponentMealTiming mealTimingComponent,
-      int index) = UpdateMealTime;
+  const factory InteractiveLessonsEvent.updateMealTime(DateTime updatedAt, MealCategory category,
+      InteractiveLessonChunkComponentMealTiming mealTimingComponent, int index) = UpdateMealTime;
 
   const factory InteractiveLessonsEvent.getMealTime() = GetMealTime;
+
+  const factory InteractiveLessonsEvent.setAnswerDate(String answerDate) = SetAnswerDate;
+
+  const factory InteractiveLessonsEvent.setMealCategory(String mealCategory) = SetMealCategory;
 }

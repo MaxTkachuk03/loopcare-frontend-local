@@ -3,7 +3,6 @@ import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loopcare_frontend/core/presentation/alerting/modal_bottom_sheet.dart';
-import 'package:loopcare_frontend/core/presentation/routes/app_router.dart';
 import 'package:loopcare_frontend/core/presentation/routes/app_router.gr.dart';
 import 'package:loopcare_frontend/features/dashboard/presentation/widgets/pool_status/application/pool_bloc/pool_module_bloc.dart';
 import 'package:loopcare_frontend/features/education/application/education_lesson/education_lesson_bloc.dart';
@@ -142,7 +141,7 @@ class _RiverScreenState extends State<RiverScreen> with RiverUtils {
       context.read<InteractiveLessonsBloc>().add(InteractiveLessonsEvent.getInteractiveLesson(
           lessonId: item.lessonId, lessonStatus: item.states.itemState));
 
-      context.router.pushNamed(AppRoutes.interactiveLesson);
+      context.router.push(InteractiveLessonRoute(streamType: item.streamType));
     }
   }
 

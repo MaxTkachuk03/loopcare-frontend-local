@@ -17,6 +17,7 @@ class AppRoutes {
 
   // Subscription
   static const String subscription = '/subscription';
+  static const String subscriptionV2 = '/subscriptionV2';
   static const String manageSubscription = '/manage-subscription';
 
   // Create account

@@ -28,10 +28,7 @@ class NutritionIntakeStateData with _$NutritionIntakeStateData {
   const factory NutritionIntakeStateData({
     @Default(false) bool isDayClosed,
     @Default([]) List<NutritionIntakeGoalProgress> progress,
-    @Default(null) NutritionIntakeGoalProgress? doneLessons,
     @Default(false) bool isLoading,
-    @Default('') String dateTime,
-    @Default(0) int iLessonId,
     RequestError? error,
   }) = _NutritionIntakeStateData;
 }
