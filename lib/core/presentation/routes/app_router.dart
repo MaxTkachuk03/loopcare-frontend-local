@@ -366,6 +366,10 @@ class AppRouter extends $AppRouter {
           page: MyReflectionsRoute.page,
         ), // added
         AutoRoute(
+          path: AppRoutes.myReflectionsV2,
+          page: MyReflectionsRouteV2.page,
+        ), // added
+        AutoRoute(
           path: AppRoutes.reflectionsIntro,
           page: ReflectionsIntroRoute.page,
         ), // added

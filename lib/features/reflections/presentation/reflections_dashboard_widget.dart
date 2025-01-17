@@ -55,7 +55,8 @@ class _ReflectionsDashboardWidgetState extends State<ReflectionsDashboardWidget>
           children: [
             DashboardCardTitle(
               onTap: () => widget.locked
-                  ? context.router.push(const MyReflectionsRoute()).then(getPoolData)
+                  ?  context.router.push(const MyReflectionsRouteV2()).then(getPoolData) 
+                 // context.router.push(const MyReflectionsRoute()).then(getPoolData)
                   : toggleOnClick(),
               highlightColor: widget.locked ? AppColors.petrolLightest : AppColors.white,
               leadingIcon: widget.locked
