@@ -83,4 +83,21 @@ class UsageAnalyticsAttributes {
   static const String reflectionId = 'Reflection ID';
   static const String reflectionTitle = 'Reflection title';
   static const String reflectionPool = 'Reflection pool';
+
+  // iLessons
+  static const String iLessonId = 'iLesson ID';
+  static const String iLessonTitle = 'iLesson title';
+  static const String iLessonModuleId = 'Module ID';
+  static const String iLessonModuleTitle = 'iLesson Module Title';
+  static const String iLessonPage = 'iLesson Page';
+  static const String iLessonTotalPages = 'iLesson Total Pages';
+
+  //River
+  static const String riverModuleId = 'ID';
+  static const String riverModuleTitle = 'Title';
+  static const String riverModuleItemId = 'ID';
+  static const String riverModuleItemFeature = 'Feature';
+  static const String riverModuleItemStream = 'Stream';
+  static const String riverModuleItemPrevState = 'Previous state';
+  static const String riverModuleItemNewState = 'New State';
 }

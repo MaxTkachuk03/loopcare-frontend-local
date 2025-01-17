@@ -73,4 +73,13 @@ class AnalyticsParameters {
   static const String iapErrorMessage = 'iapMessage';
   static const String productOfferID = 'product_offer_id';
   static const String productOfferPrice = 'product_offer_price';
+
+  //Interactive Lessons
+  static const String iLessonId = 'i_Lesson_Id';
+  static const String iLessonTitle = 'i_Lesson_Title';
+  static const String iLessonModuleId = 'i_Lesson_Module_Id';
+  static const String iLessonModuleTitle = 'i_Lesson_Module_Title';
+  static const String iLessonPage = 'i_Lesson_Page';
+  static const String iLessonTotalPages = 'i_Lesson_Total_Pages';
+  static const String iLessonChunks = 'chunks';
 }

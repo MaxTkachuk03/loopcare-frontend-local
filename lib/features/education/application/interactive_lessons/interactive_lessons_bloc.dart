@@ -11,9 +11,16 @@ import 'package:loopcare_frontend/features/education/domain/interactive_lesson/i
 import 'package:loopcare_frontend/features/education/domain/interactive_lesson/interactive_lesson_topics_page.dart';
 import 'package:loopcare_frontend/features/education/domain/interactive_lesson/interactive_lesson_component_progress.dart';
 import 'package:loopcare_frontend/features/nutrition/domain/select_serving/meal_category.dart';
+import 'package:loopcare_frontend/features/river/domain/river_module_item.dart';
 import 'package:loopcare_frontend/features/river/domain/river_module_item_state.dart';
-
-import '../dto/save_interactive_lesson_progress_body.dart';
+import 'package:loopcare_frontend/core/domain/analytics/usage_analytics/usage_analytics.dart';
+import 'package:loopcare_frontend/core/domain/analytics/usage_analytics/usage_analytics_attributes.dart';
+import 'package:loopcare_frontend/core/domain/analytics/usage_analytics/usage_analytics_events.dart';
+import 'package:loopcare_frontend/features/education/application/dto/save_interactive_lesson_progress_body.dart';
+import 'package:loopcare_frontend/features/river/application/river_bloc.dart';
+import 'package:loopcare_frontend/core/domain/analytics/analytics_parameters.dart';
+import 'package:loopcare_frontend/core/domain/analytics/mixpanel/events.dart';
+import 'package:loopcare_frontend/core/domain/analytics/mixpanel/mixpanel_event_service.dart';
 
 part 'interactive_lessons_bloc.freezed.dart';
 
@@ -24,8 +31,10 @@ part 'interactive_lessons_state.dart';
 @singleton
 class InteractiveLessonsBloc extends Bloc<InteractiveLessonsEvent, InteractiveLessonsState> {
   final EducationService _educationService;
+  final _usageAnalytics = UsageAnalytics();
+  final RiverBloc _riverBloc;
 
-  InteractiveLessonsBloc(this._educationService)
+  InteractiveLessonsBloc(this._educationService, this._riverBloc)
       : super(const InteractiveLessonsState.initial(InteractiveLessonsStateData())) {
     on<GetInteractiveLesson>(_onGetInteractiveLesson);
     on<SetNextPage>(_onSetNextPage);
@@ -94,6 +103,25 @@ class InteractiveLessonsBloc extends Bloc<InteractiveLessonsEvent, InteractiveLe
     response.fold(
       (l) => emit(InteractiveLessonsState.error(state.data.copyWith(error: l, isLoading: false))),
       (r) {
+        final id = _riverBloc.state.data.activeModule?.id;
+        final title = _riverBloc.state.data.activeModule?.title;
+        _usageAnalytics.track(
+          eventName: UsageAnalyticsEvents.iLessonOpened,
+          attributes: {
+            UsageAnalyticsAttributes.iLessonId: r.id,
+            UsageAnalyticsAttributes.iLessonTitle: r.title,
+            UsageAnalyticsAttributes.iLessonModuleId: id,
+            UsageAnalyticsAttributes.iLessonModuleTitle: title
+          },
+        );
+        MixpanelEventService.instance.track(
+          AppMixpanelEvents.iLessonOpened,
+          parameters: {
+            AnalyticsParameters.iLessonId: r.id,
+            AnalyticsParameters.iLessonTitle: r.title,
+            AnalyticsParameters.iLessonChunks: r.chunks,
+          },
+        );
         if (r.pages.isEmpty) return;
         final activePage = r.pages.values.first;
 
@@ -128,6 +156,7 @@ class InteractiveLessonsBloc extends Bloc<InteractiveLessonsEvent, InteractiveLe
           topics: r.topics,
           pages: r.pages,
           chunks: r.chunks,
+          riverModuleItem: r.riverModuleItem,
           components: components,
           activePage: activePage,
           activeChunk: activeChunk,
@@ -187,6 +216,27 @@ class InteractiveLessonsBloc extends Bloc<InteractiveLessonsEvent, InteractiveLe
     response.fold(
         (l) => emit(InteractiveLessonsState.error(state.data.copyWith(error: l, isLoading: false))),
         (r) {
+      final id = _riverBloc.state.data.activeModule?.id;
+      final title = _riverBloc.state.data.activeModule?.title;
+      _usageAnalytics.track(
+        eventName: UsageAnalyticsEvents.iLessonProgress,
+        attributes: {
+          UsageAnalyticsAttributes.iLessonId: state.data.id,
+          UsageAnalyticsAttributes.iLessonTitle: state.data.title,
+          UsageAnalyticsAttributes.iLessonPage: state.data.activePageIndex,
+          UsageAnalyticsAttributes.iLessonTotalPages: state.data.pages.length,
+          UsageAnalyticsAttributes.iLessonModuleId: id,
+          UsageAnalyticsAttributes.iLessonModuleTitle: title
+        },
+      );
+      MixpanelEventService.instance.track(
+        AppMixpanelEvents.iLessonProgress,
+        parameters: {
+          AnalyticsParameters.iLessonId: state.data.id,
+          AnalyticsParameters.iLessonTitle: state.data.title,
+          AnalyticsParameters.iLessonChunks: state.data.chunks,
+        },
+      );
       emit(
         InteractiveLessonsState.saveAnswer(
           state.data.copyWith(
