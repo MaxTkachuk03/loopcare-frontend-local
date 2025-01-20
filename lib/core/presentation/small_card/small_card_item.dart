@@ -42,7 +42,11 @@ class SmallCardItem extends StatelessWidget {
                 ? NetworkImage(url) as ImageProvider<Object>
                 : AppImages.nutrition,
             width: iconSize,
-            height: iconSize,
+            height: checking
+                ? iconSize
+                : !isCompleted
+                    ? 150
+                    : iconSize,
             fit: BoxFit.cover,
             filterQuality: FilterQuality.high,
           ),
