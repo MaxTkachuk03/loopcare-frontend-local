@@ -30,11 +30,13 @@ class _SearchPageState extends State<SearchPage> {
   void initState() {
     super.initState();
     context.read<SearchBloc>().add(const SearchEvent.resetData());
-    const AnalyticsEventService().logEvent(eventName: AnalyticsEvents.searchScreenOpened);
+    const AnalyticsEventService()
+        .logEvent(eventName: AnalyticsEvents.searchScreenOpened);
   }
 
   Future<bool> _onPreviousPage(bool e) async {
-    const AnalyticsEventService().logEvent(eventName: AnalyticsEvents.searchScreenClosed);
+    const AnalyticsEventService()
+        .logEvent(eventName: AnalyticsEvents.searchScreenClosed);
     return Future.value(true);
   }
 
@@ -44,19 +46,28 @@ class _SearchPageState extends State<SearchPage> {
       onPopInvokedWithResult: (e, _) => _onPreviousPage,
       child: Scaffold(
         backgroundColor: AppColors.greenOffRegular,
-        appBar: SearchAppBar(
-          mode: widget.mode,
-          onTabChanged: _onTabChanged,
-          searchController: _searchTextController,
-        ),
         body: CustomSafeArea(
-          child: SearchResultList(
-            selectedTab: currentTab,
-            onItemTap: widget.onItemTap,
-            onRecentSearchItemTap: (item) {
-              context.read<SearchBloc>().add(SearchEvent.search(item, mode: currentTab));
-              _searchTextController.text = item;
-            },
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              SearchAppBar(
+                mode: widget.mode,
+                onTabChanged: _onTabChanged,
+                searchController: _searchTextController,
+              ),
+              Expanded(
+                child: SearchResultList(
+                  selectedTab: currentTab,
+                  onItemTap: widget.onItemTap,
+                  onRecentSearchItemTap: (item) {
+                    context
+                        .read<SearchBloc>()
+                        .add(SearchEvent.search(item, mode: currentTab));
+                    _searchTextController.text = item;
+                  },
+                ),
+              ),
+            ],
           ),
         ),
       ),
