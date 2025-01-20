@@ -12,24 +12,23 @@ class SmallCardItem extends StatelessWidget {
   const SmallCardItem({
     super.key,
     required this.url,
-    required this.iconSize,
     required this.text,
-    required this.status,
-    required this.isCompleted,
+    required this.checking,
     this.onPressed,
+    required this.isCompleted,
   });
 
   final String url;
-  final double iconSize;
   final String text;
-  final String status;
+  final bool checking;
   final bool isCompleted;
 
   final void Function()? onPressed;
 
+  static const double iconSize = 120.0;
+
   @override
   Widget build(BuildContext context) {
-    final bool checking = status.contains("null") && isCompleted == false;
     return Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       mainAxisAlignment: MainAxisAlignment.start,
@@ -60,7 +59,7 @@ class SmallCardItem extends StatelessWidget {
                   padding: const EdgeInsets.symmetric(vertical: 10.0),
                   child: CustomText.bitter600(
                     text,
-                    maxLines: 3,
+                    maxLines: 2,
                     overflow: TextOverflow.visible,
                     textAlign: TextAlign.left,
                     style: context.textTheme.titleMedium?.copyWith(
@@ -71,13 +70,13 @@ class SmallCardItem extends StatelessWidget {
                     ? _CustomStatus(
                         text: LocalizedTexts.locked.tr(),
                         image: AppIcons.reflectionLocked,
-                        status: status,
+                        checking: checking,
                       )
                     : isCompleted
                         ? _CustomStatus(
                             text: LocalizedTexts.completed.tr(),
                             image: AppIcons.reflectionCheckMark,
-                            status: status,
+                            checking: checking,
                           )
                         : CustomElevatedButton.petrolSmall(
                             label: LocalizedTexts.start.tr(),
@@ -96,12 +95,12 @@ class _CustomStatus extends StatelessWidget {
   const _CustomStatus({
     required this.text,
     required this.image,
-    required this.status,
+    required this.checking,
   });
 
   final String text;
   final ImageProvider<Object> image;
-  final String status;
+  final bool checking;
 
   static const double checkmarkSize = 20.0;
 
@@ -119,7 +118,7 @@ class _CustomStatus extends StatelessWidget {
           text,
           textAlign: TextAlign.left,
           style: context.textTheme.bodySmall
-              ?.copyWith(color: status.isNotEmpty ? null : AppColors.greyLight),
+              ?.copyWith(color: checking ? AppColors.greyLight : null),
         ),
       ],
     );

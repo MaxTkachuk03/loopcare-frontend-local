@@ -18,8 +18,6 @@ class SmallCard extends StatelessWidget {
     this.onPressed,
   });
 
-  static const double iconSize = 120.0;
-
   @override
   Widget build(BuildContext context) {
     final bool checking = status.contains("null") && isCompleted == false;
@@ -44,18 +42,16 @@ class SmallCard extends StatelessWidget {
       child: checking
           ? SmallCardItem(
               url: url,
-              iconSize: iconSize,
               text: text,
-              status: status,
+              checking: checking,
               isCompleted: isCompleted,
             )
           : Card(
               color: AppColors.white,
               child: SmallCardItem(
                 url: url,
-                iconSize: iconSize,
                 text: text,
-                status: status,
+                checking: checking,
                 isCompleted: isCompleted,
                 onPressed: onPressed,
               ),
