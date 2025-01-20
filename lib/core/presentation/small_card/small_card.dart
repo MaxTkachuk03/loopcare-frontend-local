@@ -7,6 +7,7 @@ class SmallCard extends StatelessWidget {
   final String text;
   final bool isCompleted;
   final String status;
+  final void Function()? onPressed;
 
   const SmallCard({
     super.key,
@@ -14,20 +15,22 @@ class SmallCard extends StatelessWidget {
     required this.text,
     required this.isCompleted,
     required this.status,
+    this.onPressed,
   });
 
   static const double iconSize = 120.0;
 
   @override
   Widget build(BuildContext context) {
+    final bool checking = status.contains("null") && isCompleted == false;
     return Container(
       margin: const EdgeInsets.only(bottom: 10.0),
       decoration: BoxDecoration(
-        border:
-            status.isNotEmpty ? null : Border.all(color: AppColors.greyLight),
-        borderRadius: status.isNotEmpty ? null : BorderRadius.circular(10.0),
-        boxShadow: status.isNotEmpty
-            ? [
+        border: checking ? Border.all(color: AppColors.greyLight) : null,
+        borderRadius: checking ? BorderRadius.circular(10.0) : null,
+        boxShadow: checking
+            ? []
+            : [
                 BoxShadow(
                     offset: const Offset(0, 4),
                     blurRadius: 4,
@@ -36,26 +39,26 @@ class SmallCard extends StatelessWidget {
                     offset: const Offset(0, 4),
                     blurRadius: 16,
                     color: AppColors.black.withOpacity(0.05))
-              ]
-            : [],
+              ],
       ),
-      child: status.isNotEmpty
-          ? Card(
-              color: status.isNotEmpty ? null : AppColors.white,
+      child: checking
+          ? SmallCardItem(
+              url: url,
+              iconSize: iconSize,
+              text: text,
+              status: status,
+              isCompleted: isCompleted,
+            )
+          : Card(
+              color: AppColors.white,
               child: SmallCardItem(
                 url: url,
                 iconSize: iconSize,
                 text: text,
                 status: status,
                 isCompleted: isCompleted,
+                onPressed: onPressed,
               ),
-            )
-          : SmallCardItem(
-              url: url,
-              iconSize: iconSize,
-              text: text,
-              status: status,
-              isCompleted: isCompleted,
             ),
     );
   }

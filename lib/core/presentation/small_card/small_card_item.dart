@@ -16,6 +16,7 @@ class SmallCardItem extends StatelessWidget {
     required this.text,
     required this.status,
     required this.isCompleted,
+    this.onPressed,
   });
 
   final String url;
@@ -24,10 +25,13 @@ class SmallCardItem extends StatelessWidget {
   final String status;
   final bool isCompleted;
 
+  final void Function()? onPressed;
+
   @override
   Widget build(BuildContext context) {
+    final bool checking = status.contains("null") && isCompleted == false;
     return Row(
-      crossAxisAlignment: CrossAxisAlignment.center,
+      crossAxisAlignment: CrossAxisAlignment.start,
       mainAxisAlignment: MainAxisAlignment.start,
       mainAxisSize: MainAxisSize.min,
       children: [
@@ -44,40 +48,43 @@ class SmallCardItem extends StatelessWidget {
             filterQuality: FilterQuality.high,
           ),
         ),
-        const SizedBox(width: 20),
         Flexible(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Padding(
-                padding: const EdgeInsets.symmetric(vertical: 10.0),
-                child: CustomText.bitter600(
-                  text,
-                  maxLines: 3,
-                  overflow: TextOverflow.visible,
-                  textAlign: TextAlign.left,
-                  style: context.textTheme.titleMedium?.copyWith(
-                      color: status.isNotEmpty ? null : AppColors.greyLight),
+          child: Padding(
+            padding:
+                const EdgeInsets.symmetric(vertical: 15.0, horizontal: 15.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 10.0),
+                  child: CustomText.bitter600(
+                    text,
+                    maxLines: 3,
+                    overflow: TextOverflow.visible,
+                    textAlign: TextAlign.left,
+                    style: context.textTheme.titleMedium?.copyWith(
+                        color: checking ? AppColors.greyLight : null),
+                  ),
                 ),
-              ),
-              status.isNotEmpty
-                  ? isCompleted
-                      ? _CustomStatus(
-                          text: LocalizedTexts.completed.tr(),
-                          image: AppIcons.reflectionCheckMark,
-                          status: status,
-                        )
-                      : CustomElevatedButton.petrolSmall(
-                          label: LocalizedTexts.start.tr(),
-                          onPressed: () {},
-                        )
-                  : _CustomStatus(
-                      text: LocalizedTexts.locked.tr(),
-                      image: AppIcons.reflectionLocked,
-                      status: status,
-                    )
-            ],
+                checking
+                    ? _CustomStatus(
+                        text: LocalizedTexts.locked.tr(),
+                        image: AppIcons.reflectionLocked,
+                        status: status,
+                      )
+                    : isCompleted
+                        ? _CustomStatus(
+                            text: LocalizedTexts.completed.tr(),
+                            image: AppIcons.reflectionCheckMark,
+                            status: status,
+                          )
+                        : CustomElevatedButton.petrolSmall(
+                            label: LocalizedTexts.start.tr(),
+                            onPressed: onPressed,
+                          )
+              ],
+            ),
           ),
         ),
       ],
