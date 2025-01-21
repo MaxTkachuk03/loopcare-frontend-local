@@ -64,10 +64,9 @@ class _CommitmentDashboardState extends State<CommitmentDashboard> {
   void onErrorHandler(BuildContext context) =>
       context.read<CommitmentBloc>().add(CommitmentEvent.getCommitment(date: widget.selectedDay));
 
-  Color get _textColor =>
-      !widget.selectedDay.isFuture && context.read<CommitmentBloc>().state.data.isCommitmentUnlocked
-          ? AppColors.blueDarker
-          : AppColors.greyLabel;
+  Color get _textColor => !widget.selectedDay.isFuture && widget.isCommitmentExists
+      ? AppColors.blueDarker
+      : AppColors.greyLabel;
 
   @override
   Widget build(BuildContext context) {
