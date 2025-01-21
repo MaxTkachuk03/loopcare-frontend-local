@@ -25,6 +25,7 @@ class InteractiveLesson with _$InteractiveLesson {
     required Map<int, InteractiveLessonTopicsPage> pages,
     required Map<int, InteractiveLessonChunk> chunks,
     required Map<int, InteractiveLessonChunkComponent> components,
+    required int? riverModuleItem,
   }) = _InteractiveLesson;
 
   factory InteractiveLesson.fromJson(Map<String, dynamic> json) =>
@@ -58,6 +59,7 @@ class InteractiveLesson with _$InteractiveLesson {
         conclusion: json['conclusion'] as String,
         unlockTitle: json['unlockTitle'] as String?,
         unlockDescription: json['unlockDescription'] as String?,
+        riverModuleItem: json['riverModuleItem']?['id'] as int?,
         topics: Map.fromEntries(
           (json['topics'] as List<dynamic>)
               .map((value) => InteractiveLessonTopic.debugFromJson(value as Map<String, dynamic>))

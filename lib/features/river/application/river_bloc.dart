@@ -22,6 +22,9 @@ import 'package:loopcare_frontend/features/river/infrastructure/dto/river_module
 import 'package:loopcare_frontend/features/river/infrastructure/dto/river_module_state_data.dart';
 import 'package:loopcare_frontend/features/river/presentation/widgets/painters/river_stream_shaders.dart';
 import 'package:loopcare_frontend/injection.dart';
+import 'package:loopcare_frontend/core/domain/analytics/usage_analytics/usage_analytics.dart';
+import 'package:loopcare_frontend/core/domain/analytics/usage_analytics/usage_analytics_attributes.dart';
+import 'package:loopcare_frontend/core/domain/analytics/usage_analytics/usage_analytics_events.dart';
 
 part 'river_bloc.freezed.dart';
 part 'river_event.dart';
@@ -31,6 +34,7 @@ part 'river_state.dart';
 class RiverBloc extends Bloc<RiverEvent, RiverState> {
   final RiverService _riverService;
   final AppSyncService _syncService;
+  final usageAnalytics = UsageAnalytics();
 
   RiverBloc(
     this._syncService,
@@ -390,6 +394,19 @@ class RiverBloc extends Bloc<RiverEvent, RiverState> {
         : RiverModuleItemState.completed;
 
     final prevItemState = moduleItem.states.prevItemState;
+    final checkModuleState = moduleItem;
+
+    usageAnalytics.track(
+      eventName: UsageAnalyticsEvents.moduleItemUnlocked,
+      attributes: {
+        UsageAnalyticsAttributes.riverModuleItemId: checkModuleState.id,
+        UsageAnalyticsAttributes.riverModuleItemStream: checkModuleState.streamType.name,
+        UsageAnalyticsAttributes.riverModuleItemFeature: checkModuleState.unlocksFeature,
+        UsageAnalyticsAttributes.riverModuleItemPrevState:
+            checkModuleState.states.prevItemState.name,
+        UsageAnalyticsAttributes.riverModuleItemNewState: checkModuleState.states.itemState.name,
+      },
+    );
 
     return moduleItem.copyWith(
       states: RiverModuleItemViewState(
