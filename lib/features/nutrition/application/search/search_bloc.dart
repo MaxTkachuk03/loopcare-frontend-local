@@ -57,14 +57,15 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
 
   Future<void> _addRecentSearch(String query, SearchMode type) async {
     final userId = _authenticationBloc.state.data.id;
-    _sharedStorageService.findOrAddRecentUser(userId, RecentSearchData(type: type, query: query));
+    _sharedStorageService.findOrAddRecentUser(
+        userId, RecentSearchData(type: type, query: query));
   }
 
   List<String> _getRecentSearch({SearchMode? type}) {
     var list = <String>[];
     final userId = _authenticationBloc.state.data.id;
-    List<String> savedList =
-        _sharedStorageService.searchValues(userId, type: type ?? SearchMode.food);
+    List<String> savedList = _sharedStorageService.searchValues(userId,
+        type: type ?? SearchMode.food);
 
     list.add('header');
 
@@ -84,8 +85,9 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
     var searchMode = <String>[];
 
     if (mode != null && mode.isNotEmpty) {
-      searchMode =
-          mode == SearchMode.dish.name ? [SearchMode.dish.name, SearchMode.favorite.name] : [mode];
+      searchMode = mode == SearchMode.dish.name
+          ? [SearchMode.dish.name, SearchMode.favorite.name]
+          : [mode];
     }
     if (filteredMode != null) {
       searchMode = [
@@ -106,14 +108,15 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
     Search event,
     Emitter<SearchState> emit,
   ) async {
+    emit(SearchState.loading(state.data.copyWith(isLoading: true)));
+
     if (event.query.length < 3) return;
 
     if (isPaginatedSearchRequstRun) {
-      cancelRequestToken.cancel(DioRequestCancellationReason.searchManualCancel);
+      cancelRequestToken
+          .cancel(DioRequestCancellationReason.searchManualCancel);
       isPaginatedSearchRequstRun = false;
     }
-
-    emit(SearchState.loading(state.data.copyWith(isLoading: true)));
 
     final response = await searchRequst(
       event.query,
@@ -126,7 +129,8 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
 
     response.fold(
       (error) {
-        emit(SearchState.error(state.data.copyWith(error: error, isLoading: false)));
+        emit(SearchState.error(
+            state.data.copyWith(error: error, isLoading: false)));
       },
       (response) {
         emit(
@@ -140,7 +144,8 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
                 mode: event.mode,
                 limit: event.limit,
                 page: event.page,
-                isLastPage: response.data.length != (event.limit ?? searchLimit),
+                isLastPage:
+                    response.data.length != (event.limit ?? searchLimit),
               ),
             ),
           ),
@@ -191,7 +196,8 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
                 mode: event.mode,
                 limit: event.limit,
                 page: event.page,
-                isLastPage: response.data.length != (event.limit ?? searchLimit),
+                isLastPage:
+                    response.data.length != (event.limit ?? searchLimit),
               ),
             ),
           ),
@@ -200,8 +206,9 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
     );
   }
 
-  FutureOr<void> _onResetData(ResetData event, Emitter<SearchState> emit) async {
-    emit(
-        SearchState.initial(state.data.copyWith(recentSearch: _getRecentSearch(type: event.mode))));
+  FutureOr<void> _onResetData(
+      ResetData event, Emitter<SearchState> emit) async {
+    emit(SearchState.initial(
+        state.data.copyWith(recentSearch: _getRecentSearch(type: event.mode))));
   }
 }

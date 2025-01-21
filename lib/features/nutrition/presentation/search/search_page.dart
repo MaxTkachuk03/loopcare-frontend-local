@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loopcare_frontend/core/domain/analytics/analytics_events.dart';
 import 'package:loopcare_frontend/core/infrastructure/services/analytics_service.dart';
-import 'package:loopcare_frontend/core/presentation/custom_safe_area.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 import 'package:loopcare_frontend/features/nutrition/application/search/dto/search_item.dart';
 import 'package:loopcare_frontend/features/nutrition/application/search/dto/search_mode.dart';
@@ -45,30 +44,36 @@ class _SearchPageState extends State<SearchPage> {
     return PopScope(
       onPopInvokedWithResult: (e, _) => _onPreviousPage,
       child: Scaffold(
-        backgroundColor: AppColors.greenOffRegular,
-        body: CustomSafeArea(
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              SearchAppBar(
-                mode: widget.mode,
-                onTabChanged: _onTabChanged,
+        appBar: AppBar(
+          backgroundColor: AppColors.greenOffRegular,
+          automaticallyImplyLeading: false,
+          toolbarHeight: 0,
+        ),
+        backgroundColor: AppColors.greenLightest,
+        body: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            SearchAppBar(
+              onItemTap: widget.onItemTap,
+              selectedTab: currentTab,
+              mode: widget.mode,
+              onTabChanged: _onTabChanged,
+              searchController: _searchTextController,
+            ),
+            Expanded(
+              child: SearchResultList(
                 searchController: _searchTextController,
-              ),
-              Expanded(
-                child: SearchResultList(
-                  selectedTab: currentTab,
-                  onItemTap: widget.onItemTap,
-                  onRecentSearchItemTap: (item) {
+                onRecentSearchItemTap: (item) {
+                  setState(() {
                     context
                         .read<SearchBloc>()
                         .add(SearchEvent.search(item, mode: currentTab));
                     _searchTextController.text = item;
-                  },
-                ),
+                  });
+                },
               ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     );
