@@ -88,6 +88,12 @@ class _SearchAppBarState extends State<SearchAppBar>
     _tabController.dispose();
   }
 
+  OutlineInputBorder get _borderStyle => const OutlineInputBorder(
+      borderRadius: BorderRadius.all(Radius.circular(8.0)),
+      borderSide: BorderSide(
+        color: AppColors.white,
+      ));
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -156,8 +162,9 @@ class _SearchAppBarState extends State<SearchAppBar>
                     ),
                   ),
                   Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 16.0),
+                    padding: const EdgeInsets.only(top: 16.0),
                     child: CustomTextField.search(
+                      borderStyle: _borderStyle,
                       controller: widget.searchController,
                       onCleared: _onCleared,
                       onChanged: _onTextChange

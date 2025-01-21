@@ -237,7 +237,7 @@
     }
   },
   "total": "total",
-  "searchHint": "Search for food",
+  "searchHint": "Search food item",
   "searchFilterAll": "All",
   "searchFilterProducts": "Products",
   "searchFilterRecipes": "Recipes",

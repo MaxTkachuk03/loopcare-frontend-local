@@ -4414,7 +4414,7 @@ class AppLocalizationsDe extends AppLocalizations {
   String get total => 'Summe';
 
   @override
-  String get searchHint => 'Suche nach Lebensmitteln';
+  String get searchHint => 'SLebensmittel suchen';
 
   @override
   String get searchFilterAll => 'Alle';

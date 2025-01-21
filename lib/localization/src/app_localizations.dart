@@ -8762,7 +8762,7 @@ abstract class AppLocalizations {
   /// No description provided for @searchHint.
   ///
   /// In en, this message translates to:
-  /// **'Search for food'**
+  /// **'Search food item'**
   String get searchHint;
 
   /// No description provided for @searchFilterAll.
