@@ -125,7 +125,7 @@ class AppRoutes {
 
   // Reflections
   static const String myReflections = '/my-reflections';
-  static const String myReflectionsV2 = '/my-reflectionsV2';
+  static const String reflectionsPage = '/reflections-page';
   static const String reflectionsIntro = '/reflections-intro';
   static const String reflectionQuestion = '/reflection-question';
   static const String reflectionComplete = '/reflection-complete';
