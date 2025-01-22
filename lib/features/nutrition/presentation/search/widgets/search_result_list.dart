@@ -36,6 +36,7 @@ class _SearchResultListState extends State<SearchResultList> {
   final ScrollController _scrollController = ScrollController();
   SearchListLayout selectedLayout = SearchListLayout.list;
   late final MealCategory? mealCategory;
+  bool isSearching = false;
 
   @override
   void initState() {
@@ -75,52 +76,54 @@ class _SearchResultListState extends State<SearchResultList> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<SearchBloc, SearchState>(
-      builder: (BuildContext context, state) {
-        final recentSearchList = state.data.recentSearch ?? <String>[];
+    return ValueListenableBuilder(
+      valueListenable: widget.searchController,
+      builder: (BuildContext context, dynamic value, Widget? child) {
+        return BlocBuilder<SearchBloc, SearchState>(
+          builder: (BuildContext context, state) {
+            var recentSearchList = state.data.recentSearch ?? <String>[];
+            isSearching = value.text.isEmpty;
 
-        if (widget.selectedTab == 'favorite' &&
-            widget.searchController.text.isEmpty) {
-          return FavoriteList(mealCategory: mealCategory);
-        }
+            if (widget.selectedTab == 'favorite' && isSearching) {
+              return FavoriteList(mealCategory: mealCategory);
+            }
+            if (recentSearchList.isNotEmpty && isSearching) {
+              return ListView.builder(
+                itemCount: recentSearchList.length,
+                shrinkWrap: true,
+                physics: const NeverScrollableScrollPhysics(),
+                itemBuilder: (BuildContext context, int index) {
+                  if (index == 0) {
+                    // return the header
+                    return SearchListTitleItem(
+                      text: LocalizedTexts.recentSearch.tr(),
+                    );
+                  }
 
-        if (recentSearchList.isNotEmpty &&
-            widget.searchController.text.isEmpty) {
-          return ListView.builder(
-            itemCount: recentSearchList.length,
-            shrinkWrap: true,
-            physics: const NeverScrollableScrollPhysics(),
-            itemBuilder: (BuildContext context, int index) {
-              if (index == 0) {
-                // return the header
-                return SearchListTitleItem(
-                  text: LocalizedTexts.recentSearch.tr(),
-                );
-              }
+                  final item = recentSearchList[index].split('*-*');
+                  final itemName = item[0];
+                  final itemType = item.length > 1
+                      ? SearchItemTypes.values.firstWhere(
+                          (e) => e.toString() == item[1],
+                          orElse: () => SearchItemTypes.recent)
+                      : SearchItemTypes.recent;
 
-              final item = recentSearchList[index].split('*-*');
-              final itemName = item[0];
-              final itemType = item.length > 1
-                  ? SearchItemTypes.values.firstWhere(
-                      (e) => e.toString() == item[1],
-                      orElse: () => SearchItemTypes.recent)
-                  : SearchItemTypes.recent;
-
-              return SearchResultListItem(
-                item: SearchItem(
-                  id: index.toString(),
-                  name: itemName,
-                  type: itemType,
-                ),
-                onTap: (SearchItem item) {
-                  widget.onRecentSearchItemTap(item.name);
+                  return SearchResultListItem(
+                    item: SearchItem(
+                      id: index.toString(),
+                      name: itemName,
+                      type: itemType,
+                    ),
+                    onTap: (SearchItem item) {
+                      widget.onRecentSearchItemTap(item.name);
+                    },
+                  );
                 },
               );
-            },
-          );
-        } else {
-          return const SizedBox.shrink();
-        }
+            }
+            return const SizedBox.shrink();
+          },
+        );
       },
     );
   }
