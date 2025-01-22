@@ -41,7 +41,7 @@ class SearchResultListItem extends StatelessWidget {
             onTap: () => onTap(item),
             child: Padding(
               padding: EdgeInsets.symmetric(
-                horizontal: 20.0,
+                horizontal: 16.0,
                 vertical: _subTitle.isNotEmpty ? 7.0 : 14.0,
               ),
               child: Row(
@@ -63,9 +63,6 @@ class SearchResultListItem extends StatelessWidget {
                         CustomText.w600(
                           item.name,
                           style: context.textTheme.titleSmall,
-                          textAlign: TextAlign.left,
-                          overflow: TextOverflow.visible,
-                          maxLines: 3,
                         ),
                         if (_subTitle.isNotEmpty)
                           CustomText.w400(

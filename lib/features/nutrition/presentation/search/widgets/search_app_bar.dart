@@ -177,29 +177,32 @@ class _SearchAppBarState extends State<SearchAppBar>
                     ),
                   ),
                   const SizedBox(height: 16.0),
-                  Container(
-                    constraints: BoxConstraints(maxHeight: height / 2.15),
+                  ConstrainedBox(
+                    constraints: BoxConstraints(
+                      maxHeight: (height / 2.25) - 16,
+                    ),
                     child: Stack(
                       fit: widget.searchController.text.isNotEmpty
                           ? StackFit.expand
                           : StackFit.loose,
                       children: [
                         CustomTextField.search(
+                          contentPadding: const EdgeInsets.only(bottom: 4.0),
                           borderStyle: _borderStyle,
                           controller: widget.searchController,
                           onCleared: _onCleared,
-                          onChanged: _onTextChange
-                              .withDebounce(const Duration(milliseconds: 500)),
+                          onChanged: _onTextChange.withDebounce(
+                              const Duration(milliseconds: 500)),
                         ),
                         widget.searchController.text.isNotEmpty
                             ? Positioned(
-                                top: 40,
+                                top: 42,
                                 child: Container(
                                   constraints:
                                       BoxConstraints(maxWidth: width - 40),
                                   foregroundDecoration: BoxDecoration(
-                                    border:
-                                        Border.all(color: AppColors.greyLight),
+                                    border: Border.all(
+                                        color: AppColors.greyLight),
                                     borderRadius: const BorderRadius.vertical(
                                         bottom: Radius.circular(16.0)),
                                   ),
@@ -210,7 +213,7 @@ class _SearchAppBarState extends State<SearchAppBar>
                                         if (itemsState.data.isLoading) {
                                           return const Loader();
                                         }
-
+                    
                                         return itemsState.data.items.isEmpty
                                             ? const SearchEmptyResult()
                                             : Column(
@@ -224,20 +227,23 @@ class _SearchAppBarState extends State<SearchAppBar>
                                                       SearchListLayout.list)
                                                     listLayout(itemsState),
                                                   if (selectedLayout ==
-                                                      SearchListLayout.detailed)
-                                                    detailedLayout(itemsState),
+                                                      SearchListLayout
+                                                          .detailed)
+                                                    detailedLayout(
+                                                        itemsState),
                                                 ],
                                               );
                                       },
                                       loading: (_) => SizedBox(
-                                          height: 240,
+                                          height: 250,
                                           child: Container(
                                               decoration: const BoxDecoration(
                                                 color: AppColors.greenLighter,
                                                 borderRadius:
                                                     BorderRadius.vertical(
-                                                        bottom: Radius.circular(
-                                                            16.0)),
+                                                        bottom:
+                                                            Radius.circular(
+                                                                16.0)),
                                               ),
                                               child: const Loader())),
                                       orElse: () => const SizedBox.shrink(),

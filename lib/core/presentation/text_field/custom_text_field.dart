@@ -36,6 +36,7 @@ class CustomTextField extends StatefulWidget {
   final Iterable<String>? autofillHints;
   final void Function()? onEditingComplete;
   final OutlineInputBorder? borderStyle;
+  final EdgeInsetsGeometry? contentPadding;
 
   const CustomTextField({
     super.key,
@@ -66,6 +67,7 @@ class CustomTextField extends StatefulWidget {
     this.onEditingComplete,
     this.scribbleEnabled = false,
     this.borderStyle,
+    this.contentPadding,
   });
 
   factory CustomTextField.search({
@@ -75,6 +77,7 @@ class CustomTextField extends StatefulWidget {
     ValueChanged<String>? onChanged,
     VoidCallback? onCleared,
     OutlineInputBorder? borderStyle,
+    EdgeInsetsGeometry? contentPadding,
   }) =>
       CustomTextField(
         key: key,
@@ -86,6 +89,7 @@ class CustomTextField extends StatefulWidget {
         isClearField: false,
         fillColor: fillColor,
         borderStyle: borderStyle,
+        contentPadding: contentPadding,
       );
 
   factory CustomTextField.nickname({
@@ -309,6 +313,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
 
   InputDecoration get _defaultDecoration => InputDecoration(
         isDense: true,
+        contentPadding: widget.contentPadding,
         fillColor: widget.fillColor ?? AppColors.white.withOpacity(0.7),
         errorText: widget.errorText,
         counterText: '',
