@@ -63,6 +63,7 @@ class _SearchPageState extends State<SearchPage> {
             Expanded(
               child: SearchResultList(
                 searchController: _searchTextController,
+                selectedTab: currentTab,
                 onRecentSearchItemTap: (item) {
                   setState(() {
                     context

@@ -1,21 +1,26 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:loopcare_frontend/features/nutrition/application/meals/meals_bloc.dart';
 import 'package:loopcare_frontend/features/nutrition/application/search/dto/search_item.dart';
 import 'package:loopcare_frontend/features/nutrition/application/search/dto/search_item_types.dart';
 import 'package:loopcare_frontend/features/nutrition/application/search/search_bloc.dart';
+import 'package:loopcare_frontend/features/nutrition/domain/select_serving/meal_category.dart';
 import 'package:loopcare_frontend/features/nutrition/presentation/search/widgets/search_list_title_item.dart';
 import 'package:loopcare_frontend/features/nutrition/presentation/search/widgets/search_result_list_item.dart';
+import 'package:loopcare_frontend/features/nutrition/presentation/select_food/widgets/favorites_list.dart';
 import 'package:loopcare_frontend/localization/service/localization_extension.dart';
 import 'package:loopcare_frontend/localization/service/localized_texts.dart';
 
 class SearchResultList extends StatefulWidget {
   final Function(String) onRecentSearchItemTap;
   final TextEditingController searchController;
+  final String? selectedTab;
 
   const SearchResultList({
     super.key,
     required this.onRecentSearchItemTap,
     required this.searchController,
+    this.selectedTab,
   });
 
   @override
@@ -30,11 +35,12 @@ enum SearchListLayout {
 class _SearchResultListState extends State<SearchResultList> {
   final ScrollController _scrollController = ScrollController();
   SearchListLayout selectedLayout = SearchListLayout.list;
+  late final MealCategory? mealCategory;
 
   @override
   void initState() {
     _scrollController.addListener(_onScrollChangeListener);
-
+    mealCategory = context.read<MealsBloc>().state.data.currentMealCategory;
     super.initState();
   }
 
@@ -71,9 +77,12 @@ class _SearchResultListState extends State<SearchResultList> {
   Widget build(BuildContext context) {
     return BlocBuilder<SearchBloc, SearchState>(
       builder: (BuildContext context, state) {
-        var recentSearchList = state.data.recentSearch ?? <String>[];
+        final recentSearchList = state.data.recentSearch ?? <String>[];
 
-
+        if (widget.selectedTab == 'favorite' &&
+            widget.searchController.text.isEmpty) {
+          return FavoriteList(mealCategory: mealCategory);
+        }
 
         if (recentSearchList.isNotEmpty &&
             widget.searchController.text.isEmpty) {

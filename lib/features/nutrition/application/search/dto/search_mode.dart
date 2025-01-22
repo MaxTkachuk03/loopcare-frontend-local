@@ -4,8 +4,8 @@ import 'package:loopcare_frontend/localization/service/localized_texts.dart';
 enum SearchMode {
   food,
   recipe,
-  dish,
   favorite,
+  dish,
 }
 
 extension SearchModeX on SearchMode {
@@ -15,10 +15,10 @@ extension SearchModeX on SearchMode {
         return LocalizedTexts.searchFilterRecipes.tr();
       case SearchMode.food:
         return LocalizedTexts.searchFilterProducts.tr();
-      case SearchMode.dish:
-        return LocalizedTexts.searchFilterMy.tr();
       case SearchMode.favorite:
         return LocalizedTexts.favorite.tr();
+      case SearchMode.dish:
+        return LocalizedTexts.searchFilterMy.tr();
     }
   }
 
@@ -28,10 +28,10 @@ extension SearchModeX on SearchMode {
         return SearchMode.recipe.name;
       case SearchMode.food:
         return SearchMode.food.name;
-      case SearchMode.dish:
-        return SearchMode.dish.name;
       case SearchMode.favorite:
         return SearchMode.favorite.name;
+      case SearchMode.dish:
+        return SearchMode.dish.name;
     }
   }
 }
