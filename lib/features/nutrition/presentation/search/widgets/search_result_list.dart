@@ -1,12 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:loopcare_frontend/core/presentation/error/error_screen.dart';
+import 'package:loopcare_frontend/core/presentation/loader/loader.dart';
+import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 import 'package:loopcare_frontend/features/nutrition/application/meals/meals_bloc.dart';
 import 'package:loopcare_frontend/features/nutrition/application/search/dto/search_item.dart';
 import 'package:loopcare_frontend/features/nutrition/application/search/dto/search_item_types.dart';
 import 'package:loopcare_frontend/features/nutrition/application/search/dto/search_mode.dart';
 import 'package:loopcare_frontend/features/nutrition/application/search/search_bloc.dart';
 import 'package:loopcare_frontend/features/nutrition/domain/select_serving/meal_category.dart';
+import 'package:loopcare_frontend/features/nutrition/presentation/search/widgets/recipe_button_layout.dart';
+import 'package:loopcare_frontend/features/nutrition/presentation/search/widgets/search_empty_result.dart';
 import 'package:loopcare_frontend/features/nutrition/presentation/search/widgets/search_list_title_item.dart';
+import 'package:loopcare_frontend/features/nutrition/presentation/search/widgets/search_result_grid_item.dart';
 import 'package:loopcare_frontend/features/nutrition/presentation/search/widgets/search_result_list_item.dart';
 import 'package:loopcare_frontend/features/nutrition/presentation/select_food/widgets/favorites_list.dart';
 import 'package:loopcare_frontend/localization/service/localization_extension.dart';
@@ -14,16 +20,16 @@ import 'package:loopcare_frontend/localization/service/localized_texts.dart';
 
 class SearchResultList extends StatefulWidget {
   final Function(String) onRecentSearchItemTap;
-  final TextEditingController searchController;
+  final void Function(SearchItem item) onItemTap;
   final String? selectedTab;
   final SearchMode? mode;
 
   const SearchResultList({
     super.key,
     required this.onRecentSearchItemTap,
-    required this.searchController,
     this.selectedTab,
     this.mode,
+    required this.onItemTap,
   });
 
   @override
@@ -39,7 +45,6 @@ class _SearchResultListState extends State<SearchResultList> {
   final ScrollController _scrollController = ScrollController();
   SearchListLayout selectedLayout = SearchListLayout.list;
   late final MealCategory? mealCategory;
-  bool isSearching = false;
 
   @override
   void initState() {
@@ -84,18 +89,48 @@ class _SearchResultListState extends State<SearchResultList> {
 
   @override
   Widget build(BuildContext context) {
-    if (widget.selectedTab == 'favorite' && isSearching) {
+    if (widget.selectedTab != 'recipe') selectedLayout = SearchListLayout.list;
+
+    if (widget.selectedTab == 'favorite') {
       return FavoriteList(mealCategory: mealCategory);
     }
-    return ValueListenableBuilder(
-      valueListenable: widget.searchController,
-      builder: (BuildContext context, dynamic value, Widget? child) {
-        return BlocBuilder<SearchBloc, SearchState>(
-          builder: (BuildContext context, state) {
-            var recentSearchList = state.data.recentSearch ?? <String>[];
-            isSearching = value.text.isEmpty;
+    return BlocBuilder<SearchBloc, SearchState>(
+      builder: (BuildContext context, state) {
+        return state.maybeMap(
+          searchResult: (itemsState) {
+            if (itemsState.data.isLoading) {
+              return const Loader();
+            }
 
-            if (recentSearchList.isNotEmpty && isSearching) {
+            print("itemsState.data.items: ${itemsState.data.items}");
+
+            return itemsState.data.items.isEmpty
+                ? const SearchEmptyResult()
+                : SingleChildScrollView(
+                    controller: _scrollController,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        if (widget.selectedTab == 'recipe')
+                          RecipeButtonLayout(selectedLayout: selectedLayout),
+                        if (selectedLayout == SearchListLayout.list)
+                          _ListLayout(
+                              onItemTap: widget.onItemTap,
+                              itemsState: itemsState),
+                        if (selectedLayout == SearchListLayout.detailed)
+                          _DetailedLayout(
+                              onItemTap: widget.onItemTap,
+                              itemsState: itemsState),
+                      ],
+                    ),
+                  );
+          },
+          initial: (initialState) {
+            var recentSearchList = state.data.recentSearch ?? <String>[];
+
+            print("recentSearchList: ${recentSearchList}");
+
+            if (recentSearchList.isNotEmpty) {
               return Column(
                 children: [
                   SearchListTitleItem(
@@ -130,11 +165,104 @@ class _SearchResultListState extends State<SearchResultList> {
                   ),
                 ],
               );
+            } else {
+              return const SizedBox.shrink();
             }
-            return const SizedBox.shrink();
           },
+          error: (errorState) {
+            final error = errorState.data.error;
+            return Center(
+              child: ErrorScreen(
+                error: error!,
+              ),
+            );
+          },
+          loading: (_) => const SizedBox(height: 250, child: Loader()),
+          orElse: () => const SizedBox.shrink(),
         );
       },
+    );
+  }
+}
+
+class _DetailedLayout extends StatelessWidget {
+  const _DetailedLayout({
+    required this.onItemTap,
+    required this.itemsState,
+  });
+
+  final void Function(SearchItem) onItemTap;
+  final SearchState itemsState;
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 24.0),
+      child: GridView.builder(
+        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+          crossAxisCount: 2,
+          crossAxisSpacing: 16,
+          mainAxisSpacing: 16,
+        ),
+        itemCount: itemsState.data.items.length + 1,
+        shrinkWrap: true,
+        physics: const NeverScrollableScrollPhysics(),
+        itemBuilder: (BuildContext context, int index) {
+          if (index == itemsState.data.items.length) {
+            if (itemsState.data.loadingMore) {
+              return const Loader();
+            }
+
+            return const SizedBox.shrink();
+          }
+          final item = itemsState.data.items[index];
+
+          return SearchResultGridItem(
+            item: item,
+            onTap: onItemTap,
+          );
+        },
+      ),
+    );
+  }
+}
+
+class _ListLayout extends StatelessWidget {
+  const _ListLayout({
+    required this.onItemTap,
+    required this.itemsState,
+  });
+
+  final void Function(SearchItem) onItemTap;
+  final SearchState itemsState;
+
+  @override
+  Widget build(BuildContext context) {
+    return ListView.separated(
+      padding: EdgeInsets.zero,
+      itemCount: itemsState.data.items.length,
+      shrinkWrap: true,
+      physics: const NeverScrollableScrollPhysics(),
+      itemBuilder: (BuildContext context, int index) {
+        if (index == itemsState.data.items.length) {
+          if (itemsState.data.loadingMore) {
+            return const Loader();
+          }
+
+          return const SizedBox.shrink();
+        }
+
+        final item = itemsState.data.items[index];
+
+        return SearchResultListItem(
+          showLeading: false,
+          item: item,
+          onTap: onItemTap,
+          color: AppColors.greenLighter,
+        );
+      },
+      separatorBuilder: (_, __) =>
+          const Divider(color: AppColors.blueLighter, height: 1, thickness: 1),
     );
   }
 }

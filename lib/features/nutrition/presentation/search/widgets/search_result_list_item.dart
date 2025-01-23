@@ -33,15 +33,12 @@ class SearchResultListItem extends StatelessWidget {
       child: Container(
         decoration: BoxDecoration(
           color: color ?? AppColors.greenLightest,
-          borderRadius: isLast
-              ? const BorderRadius.vertical(bottom: Radius.circular(16.0))
-              : null,
         ),
         child: Column(
           children: [
             Padding(
               padding: EdgeInsets.symmetric(
-                horizontal: 16.0,
+                horizontal: 20.0,
                 vertical: _subTitle.isNotEmpty ? 7.0 : 14.0,
               ),
               child: Row(
@@ -50,7 +47,7 @@ class SearchResultListItem extends StatelessWidget {
                 children: [
                   if (showLeading)
                     Padding(
-                      padding: const EdgeInsets.only(right: 8.0),
+                      padding: const EdgeInsets.only(right: 10.0),
                       child: ImageIcon(
                         item.type.icon,
                         color: AppColors.blueDarker,
@@ -77,10 +74,6 @@ class SearchResultListItem extends StatelessWidget {
                 ],
               ),
             ),
-            isLast
-                ? const SizedBox.shrink()
-                : const Divider(
-                    color: AppColors.blueLighter, height: 1, thickness: 1)
           ],
         ),
       ),

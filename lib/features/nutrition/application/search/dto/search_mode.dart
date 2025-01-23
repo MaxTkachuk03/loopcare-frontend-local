@@ -3,8 +3,8 @@ import 'package:loopcare_frontend/localization/service/localized_texts.dart';
 
 enum SearchMode {
   food,
-  recipe,
   favorite,
+  recipe,
   dish,
 }
 

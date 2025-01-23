@@ -19,11 +19,9 @@ class SearchListTitleItem extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Padding(
-            padding: const EdgeInsets.only(
-              top: 16,
-              bottom: 16,
-              left: 25,
-              right: 16,
+            padding: const EdgeInsets.symmetric(
+              horizontal: 22.0,
+              vertical: 24.0,
             ),
             child: CustomText.w600(
               text,

@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loopcare_frontend/core/domain/analytics/analytics_events.dart';
 import 'package:loopcare_frontend/core/infrastructure/services/analytics_service.dart';
+import 'package:loopcare_frontend/core/presentation/custom_safe_area.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 import 'package:loopcare_frontend/features/nutrition/application/search/dto/search_item.dart';
 import 'package:loopcare_frontend/features/nutrition/application/search/dto/search_mode.dart';
@@ -28,8 +29,8 @@ class _SearchPageState extends State<SearchPage> {
   @override
   void initState() {
     super.initState();
-    
     // context.read<SearchBloc>().add(const SearchEvent.resetData());
+
     const AnalyticsEventService()
         .logEvent(eventName: AnalyticsEvents.searchScreenOpened);
   }
@@ -55,25 +56,26 @@ class _SearchPageState extends State<SearchPage> {
           mainAxisSize: MainAxisSize.min,
           children: [
             SearchAppBar(
-              onItemTap: widget.onItemTap,
               selectedTab: currentTab,
               mode: widget.mode,
               onTabChanged: _onTabChanged,
               searchController: _searchTextController,
             ),
             Expanded(
-              child: SearchResultList(
-                searchController: _searchTextController,
-                mode: widget.mode ?? SearchMode.food,
-                selectedTab: currentTab,
-                onRecentSearchItemTap: (item) {
-                  setState(() {
-                    context
-                        .read<SearchBloc>()
-                        .add(SearchEvent.search(item, mode: currentTab));
-                    _searchTextController.text = item;
-                  });
-                },
+              child: CustomSafeArea(
+                child: SearchResultList(
+                  onItemTap: widget.onItemTap,
+                  mode: widget.mode ?? SearchMode.food,
+                  selectedTab: currentTab,
+                  onRecentSearchItemTap: (item) {
+                    setState(() {
+                      context
+                          .read<SearchBloc>()
+                          .add(SearchEvent.search(item, mode: currentTab));
+                      _searchTextController.text = item;
+                    });
+                  },
+                ),
               ),
             ),
           ],

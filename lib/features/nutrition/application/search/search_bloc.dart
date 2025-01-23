@@ -78,6 +78,7 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
     Emitter<SearchState> emit,
   ) async {
     emit(SearchState.loading(state.data.copyWith(isLoading: true)));
+
     final getRecent =
         await nutritionService.getRecentLogs(event.category, event.mode.name);
 
@@ -89,7 +90,7 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
     final recentResult = recentList.expand((list) => list).toList();
 
     emit(SearchState.searchResult(
-        state.data.copyWith(recentSearch: recentResult)));
+        state.data.copyWith(isLoading: false, recentSearch: recentResult)));
   }
 
   Future<dartz.Either<RequestError, SearchResponse>> searchRequst(
@@ -127,8 +128,6 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
     Search event,
     Emitter<SearchState> emit,
   ) async {
-    emit(SearchState.loading(state.data.copyWith(isLoading: true)));
-
     if (event.query.length < 3) return;
 
     if (isPaginatedSearchRequstRun) {
@@ -136,6 +135,8 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
           .cancel(DioRequestCancellationReason.searchManualCancel);
       isPaginatedSearchRequstRun = false;
     }
+
+    emit(SearchState.loading(state.data.copyWith(isLoading: true)));
 
     final response = await searchRequst(
       event.query,
