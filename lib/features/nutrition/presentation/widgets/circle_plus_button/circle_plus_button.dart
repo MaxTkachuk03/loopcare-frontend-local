@@ -44,6 +44,11 @@ class CirclePlusButton extends StatelessWidget {
     );
   }
 
+  // _onSearchTap(BuildContext context){
+  //   final mealCategory = context.read<MealsBloc>().state.data.currentMealCategory;
+  //   context.router.push(SelectFoodRoute(mealCategory: mealCategory));
+  // }
+
   _onSearchTap(BuildContext context) {
     context.router.push(
       SearchRoute(
@@ -53,10 +58,10 @@ class CirclePlusButton extends StatelessWidget {
           if (mealId == null) {
             return;
           }
-          context.read<SearchBloc>().add(
-                SearchEvent.addSearchResult(
-                    item.name, item.type.searchModeValue),
-              );
+          // context.read<SearchBloc>().add(
+          //       SearchEvent.addSearchResult(
+          //           item.name, item.type.searchModeValue),
+          //     );
 
           if (item.type == SearchItemTypes.food) {
             context.router.push(
@@ -116,5 +121,4 @@ class CirclePlusButton extends StatelessWidget {
       ),
     );
   }
-
 }

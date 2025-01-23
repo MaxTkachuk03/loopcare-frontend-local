@@ -28,7 +28,8 @@ class _SearchPageState extends State<SearchPage> {
   @override
   void initState() {
     super.initState();
-    context.read<SearchBloc>().add(const SearchEvent.resetData());
+    
+    // context.read<SearchBloc>().add(const SearchEvent.resetData());
     const AnalyticsEventService()
         .logEvent(eventName: AnalyticsEvents.searchScreenOpened);
   }
@@ -63,6 +64,7 @@ class _SearchPageState extends State<SearchPage> {
             Expanded(
               child: SearchResultList(
                 searchController: _searchTextController,
+                mode: widget.mode ?? SearchMode.food,
                 selectedTab: currentTab,
                 onRecentSearchItemTap: (item) {
                   setState(() {

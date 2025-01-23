@@ -191,8 +191,8 @@ class _SearchAppBarState extends State<SearchAppBar>
                           borderStyle: _borderStyle,
                           controller: widget.searchController,
                           onCleared: _onCleared,
-                          onChanged: _onTextChange.withDebounce(
-                              const Duration(milliseconds: 500)),
+                          onChanged: _onTextChange
+                              .withDebounce(const Duration(milliseconds: 500)),
                         ),
                         widget.searchController.text.isNotEmpty
                             ? Positioned(
@@ -201,8 +201,8 @@ class _SearchAppBarState extends State<SearchAppBar>
                                   constraints:
                                       BoxConstraints(maxWidth: width - 40),
                                   foregroundDecoration: BoxDecoration(
-                                    border: Border.all(
-                                        color: AppColors.greyLight),
+                                    border:
+                                        Border.all(color: AppColors.greyLight),
                                     borderRadius: const BorderRadius.vertical(
                                         bottom: Radius.circular(16.0)),
                                   ),
@@ -213,7 +213,7 @@ class _SearchAppBarState extends State<SearchAppBar>
                                         if (itemsState.data.isLoading) {
                                           return const Loader();
                                         }
-                    
+
                                         return itemsState.data.items.isEmpty
                                             ? const SearchEmptyResult()
                                             : Column(
@@ -227,10 +227,8 @@ class _SearchAppBarState extends State<SearchAppBar>
                                                       SearchListLayout.list)
                                                     listLayout(itemsState),
                                                   if (selectedLayout ==
-                                                      SearchListLayout
-                                                          .detailed)
-                                                    detailedLayout(
-                                                        itemsState),
+                                                      SearchListLayout.detailed)
+                                                    detailedLayout(itemsState),
                                                 ],
                                               );
                                       },
@@ -241,9 +239,8 @@ class _SearchAppBarState extends State<SearchAppBar>
                                                 color: AppColors.greenLighter,
                                                 borderRadius:
                                                     BorderRadius.vertical(
-                                                        bottom:
-                                                            Radius.circular(
-                                                                16.0)),
+                                                        bottom: Radius.circular(
+                                                            16.0)),
                                               ),
                                               child: const Loader())),
                                       orElse: () => const SizedBox.shrink(),
@@ -391,7 +388,8 @@ class _SearchAppBarState extends State<SearchAppBar>
 
   void _tabsChangeListener() {
     if (_tabController.indexIsChanging) {
-      context.read<SearchBloc>().add(SearchEvent.resetData(mode: searchType));
+      context.read<SearchBloc>().add(
+          SearchEvent.getRecentLogs(mealCategory!.originalValue, searchType));
       String? selectedMode = searchType.searchModeValue;
       searchMode = selectedMode;
       if (widget.onTabChanged != null) {
@@ -422,7 +420,8 @@ class _SearchAppBarState extends State<SearchAppBar>
     setState(() {});
 
     if (value.isEmpty) {
-      context.read<SearchBloc>().add(SearchEvent.resetData(mode: searchType));
+      context.read<SearchBloc>().add(
+          SearchEvent.getRecentLogs(mealCategory!.originalValue, searchType));
       return;
     }
 
@@ -444,6 +443,7 @@ class _SearchAppBarState extends State<SearchAppBar>
         );
   }
 
-  void _onCleared() =>
-      context.read<SearchBloc>().add(SearchEvent.resetData(mode: searchType));
+  void _onCleared() => context
+      .read<SearchBloc>()
+      .add(SearchEvent.getRecentLogs(mealCategory!.originalValue, searchType));
 }

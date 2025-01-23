@@ -1,5 +1,6 @@
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
+import 'package:loopcare_frontend/core/domain/recent_search_user/recent_search_list.dart';
 import 'package:loopcare_frontend/core/infrastructure/dio_client/request_error.dart';
 import 'package:loopcare_frontend/features/nutrition/application/dashboard_weight/dto/get_dashboard_weights_response.dart';
 import 'package:loopcare_frontend/features/nutrition/application/dashboard_weight/dto/log_weight_body.dart';
@@ -40,9 +41,13 @@ import 'package:loopcare_frontend/features/nutrition/application/select_serving/
 import 'package:loopcare_frontend/features/nutrition/application/select_serving/dto/update_favorite_body.dart';
 
 abstract class NutritionService {
+  Future<Either<RequestError, RecentSearchList>> getRecentLogs(
+      String category, String mode);
+
   Future<Either<RequestError, GetBmrResponse>> getBmr(DateTime date);
 
-  Future<Either<RequestError, FavoritesResponse>> getFavorites(List<String>? mealCategories);
+  Future<Either<RequestError, FavoritesResponse>> getFavorites(
+      List<String>? mealCategories);
 
   Future<Either<RequestError, FoodItemServingsResponse>> getFoodItemServings(
     String id,
@@ -65,7 +70,8 @@ abstract class NutritionService {
     UpdateFavoriteBody data,
   );
 
-  Future<Either<RequestError, BarcodeInformationResponse>> getBarcodeInformation(
+  Future<Either<RequestError, BarcodeInformationResponse>>
+      getBarcodeInformation(
     String barCode,
   );
 
@@ -138,7 +144,8 @@ abstract class NutritionService {
     AddPlannedMealBody data,
   );
 
-  Future<Either<RequestError, MealsListItem>> logPlannedMeal(LogPlannedMealBody data);
+  Future<Either<RequestError, MealsListItem>> logPlannedMeal(
+      LogPlannedMealBody data);
 
   Future<Either<RequestError, MealsListItem>> getMealById(
     int mealId,
@@ -242,7 +249,8 @@ abstract class NutritionService {
     UpdateFoodItemInDishBody data,
   );
 
-  Future<Either<RequestError, UpdateDishFoodItemResponse>> deleteFoodItemFromDish(
+  Future<Either<RequestError, UpdateDishFoodItemResponse>>
+      deleteFoodItemFromDish(
     int dishId,
     int internalFoodItemId,
   );

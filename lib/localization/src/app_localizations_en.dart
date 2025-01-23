@@ -5545,7 +5545,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get noCancel => 'No, cancel';
 
   @override
-  String get recentSearch => 'Recent searches';
+  String get recentSearch => 'Recent logs';
 
   @override
   String get dishWasSaved => 'Dish was saved';

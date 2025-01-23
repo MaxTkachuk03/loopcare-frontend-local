@@ -4,7 +4,6 @@ import 'package:dio/dio.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
 import 'package:injectable/injectable.dart';
-import 'package:loopcare_frontend/core/domain/recent_search_user/recent_search_data.dart';
 import 'package:loopcare_frontend/core/infrastructure/dio_client/dio_client.dart';
 import 'package:loopcare_frontend/core/infrastructure/dio_client/request_error.dart';
 import 'package:loopcare_frontend/core/infrastructure/services/shared_storage/shared_storage_service.dart';
@@ -44,33 +43,53 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
       _onPaginatedSearch,
       transformer: droppable(),
     );
-    on<ResetData>(_onResetData);
-    on<AddSearchResult>(_onAddSearchResult);
+    on<GetRecentLogs>(_onGetRecentLogs);
+    // on<ResetData>(_onResetData);
+    // on<AddSearchResult>(_onAddSearchResult);
   }
 
-  FutureOr<void> _onAddSearchResult(
-    AddSearchResult event,
+  // FutureOr<void> _onAddSearchResult(
+  //   AddSearchResult event,
+  //   Emitter<SearchState> emit,
+  // ) {
+  //   _addRecentSearch(event.query, event.mode);
+  // }
+
+  // Future<void> _addRecentSearch(String query, SearchMode type) async {
+  //   final userId = _authenticationBloc.state.data.id;
+  //   _sharedStorageService.findOrAddRecentUser(
+  //       userId, RecentSearchData(type: type, query: query));
+  // }
+
+  // List<String> _getRecentSearch({SearchMode? type}) {
+  //   var list = <String>[];
+  //   final userId = _authenticationBloc.state.data.id;
+  //   List<String> savedList = _sharedStorageService.searchValues(userId,
+  //       type: type ?? SearchMode.food);
+
+  //   list.add('header');
+
+  //   list.addAll(savedList);
+  //   return list;
+  // }
+
+  FutureOr<void> _onGetRecentLogs(
+    GetRecentLogs event,
     Emitter<SearchState> emit,
-  ) {
-    _addRecentSearch(event.query, event.mode);
-  }
+  ) async {
+    emit(SearchState.loading(state.data.copyWith(isLoading: true)));
+    final getRecent =
+        await nutritionService.getRecentLogs(event.category, event.mode.name);
 
-  Future<void> _addRecentSearch(String query, SearchMode type) async {
-    final userId = _authenticationBloc.state.data.id;
-    _sharedStorageService.findOrAddRecentUser(
-        userId, RecentSearchData(type: type, query: query));
-  }
+    final recentList = getRecent
+        .map((recentSearchList) => recentSearchList.data)
+        .toIterable()
+        .toList();
 
-  List<String> _getRecentSearch({SearchMode? type}) {
-    var list = <String>[];
-    final userId = _authenticationBloc.state.data.id;
-    List<String> savedList = _sharedStorageService.searchValues(userId,
-        type: type ?? SearchMode.food);
+    final recentResult = recentList.expand((list) => list).toList();
 
-    list.add('header');
-
-    list.addAll(savedList);
-    return list;
+    emit(SearchState.searchResult(
+        state.data.copyWith(recentSearch: recentResult)));
   }
 
   Future<dartz.Either<RequestError, SearchResponse>> searchRequst(
@@ -206,9 +225,9 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
     );
   }
 
-  FutureOr<void> _onResetData(
-      ResetData event, Emitter<SearchState> emit) async {
-    emit(SearchState.initial(
-        state.data.copyWith(recentSearch: _getRecentSearch(type: event.mode))));
-  }
+  // FutureOr<void> _onResetData(
+  //     ResetData event, Emitter<SearchState> emit) async {
+  //   emit(SearchState.initial(
+  //       state.data.copyWith(recentSearch: _getRecentSearch(type: event.mode))));
+  // }
 }

@@ -28,18 +28,18 @@ class SearchResultListItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      decoration: BoxDecoration(
-        color: color ?? AppColors.greenLightest,
-        borderRadius: isLast
-            ? const BorderRadius.vertical(bottom: Radius.circular(16.0))
-            : null,
-      ),
-      child: Column(
-        children: [
-          GestureDetector(
-            onTap: () => onTap(item),
-            child: Padding(
+    return GestureDetector(
+      onTap: () => onTap(item),
+      child: Container(
+        decoration: BoxDecoration(
+          color: color ?? AppColors.greenLightest,
+          borderRadius: isLast
+              ? const BorderRadius.vertical(bottom: Radius.circular(16.0))
+              : null,
+        ),
+        child: Column(
+          children: [
+            Padding(
               padding: EdgeInsets.symmetric(
                 horizontal: 16.0,
                 vertical: _subTitle.isNotEmpty ? 7.0 : 14.0,
@@ -77,12 +77,12 @@ class SearchResultListItem extends StatelessWidget {
                 ],
               ),
             ),
-          ),
-          isLast
-              ? const SizedBox.shrink()
-              : const Divider(
-                  color: AppColors.blueLighter, height: 1, thickness: 1)
-        ],
+            isLast
+                ? const SizedBox.shrink()
+                : const Divider(
+                    color: AppColors.blueLighter, height: 1, thickness: 1)
+          ],
+        ),
       ),
     );
   }

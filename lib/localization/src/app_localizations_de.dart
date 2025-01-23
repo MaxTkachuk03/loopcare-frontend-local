@@ -5545,7 +5545,7 @@ class AppLocalizationsDe extends AppLocalizations {
   String get noCancel => 'Nein, abbrechen';
 
   @override
-  String get recentSearch => 'Letzte Suche';
+  String get recentSearch => 'Neueste Protokolle';
 
   @override
   String get dishWasSaved => 'Das Gericht wurde gespeichert';

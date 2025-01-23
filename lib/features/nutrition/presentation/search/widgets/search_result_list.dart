@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loopcare_frontend/features/nutrition/application/meals/meals_bloc.dart';
 import 'package:loopcare_frontend/features/nutrition/application/search/dto/search_item.dart';
 import 'package:loopcare_frontend/features/nutrition/application/search/dto/search_item_types.dart';
+import 'package:loopcare_frontend/features/nutrition/application/search/dto/search_mode.dart';
 import 'package:loopcare_frontend/features/nutrition/application/search/search_bloc.dart';
 import 'package:loopcare_frontend/features/nutrition/domain/select_serving/meal_category.dart';
 import 'package:loopcare_frontend/features/nutrition/presentation/search/widgets/search_list_title_item.dart';
@@ -15,12 +16,14 @@ class SearchResultList extends StatefulWidget {
   final Function(String) onRecentSearchItemTap;
   final TextEditingController searchController;
   final String? selectedTab;
+  final SearchMode? mode;
 
   const SearchResultList({
     super.key,
     required this.onRecentSearchItemTap,
     required this.searchController,
     this.selectedTab,
+    this.mode,
   });
 
   @override
@@ -41,7 +44,12 @@ class _SearchResultListState extends State<SearchResultList> {
   @override
   void initState() {
     _scrollController.addListener(_onScrollChangeListener);
+
     mealCategory = context.read<MealsBloc>().state.data.currentMealCategory;
+
+    context.read<SearchBloc>().add(
+        SearchEvent.getRecentLogs(mealCategory!.originalValue, widget.mode!));
+
     super.initState();
   }
 
@@ -76,6 +84,9 @@ class _SearchResultListState extends State<SearchResultList> {
 
   @override
   Widget build(BuildContext context) {
+    if (widget.selectedTab == 'favorite' && isSearching) {
+      return FavoriteList(mealCategory: mealCategory);
+    }
     return ValueListenableBuilder(
       valueListenable: widget.searchController,
       builder: (BuildContext context, dynamic value, Widget? child) {
@@ -84,41 +95,40 @@ class _SearchResultListState extends State<SearchResultList> {
             var recentSearchList = state.data.recentSearch ?? <String>[];
             isSearching = value.text.isEmpty;
 
-            if (widget.selectedTab == 'favorite' && isSearching) {
-              return FavoriteList(mealCategory: mealCategory);
-            }
             if (recentSearchList.isNotEmpty && isSearching) {
-              return ListView.builder(
-                itemCount: recentSearchList.length,
-                shrinkWrap: true,
-                physics: const NeverScrollableScrollPhysics(),
-                itemBuilder: (BuildContext context, int index) {
-                  if (index == 0) {
-                    // return the header
-                    return SearchListTitleItem(
-                      text: LocalizedTexts.recentSearch.tr(),
-                    );
-                  }
+              return Column(
+                children: [
+                  SearchListTitleItem(
+                    text: LocalizedTexts.recentSearch.tr(),
+                  ),
+                  Expanded(
+                    child: ListView.builder(
+                      itemCount: recentSearchList.length,
+                      shrinkWrap: true,
+                      physics: const NeverScrollableScrollPhysics(),
+                      itemBuilder: (BuildContext context, int index) {
+                        final item = recentSearchList[index].split('*-*');
+                        final itemName = item[0];
+                        final itemType = item.length > 1
+                            ? SearchItemTypes.values.firstWhere(
+                                (e) => e.toString() == item[1],
+                                orElse: () => SearchItemTypes.recent)
+                            : SearchItemTypes.recent;
 
-                  final item = recentSearchList[index].split('*-*');
-                  final itemName = item[0];
-                  final itemType = item.length > 1
-                      ? SearchItemTypes.values.firstWhere(
-                          (e) => e.toString() == item[1],
-                          orElse: () => SearchItemTypes.recent)
-                      : SearchItemTypes.recent;
-
-                  return SearchResultListItem(
-                    item: SearchItem(
-                      id: index.toString(),
-                      name: itemName,
-                      type: itemType,
+                        return SearchResultListItem(
+                          item: SearchItem(
+                            id: index.toString(),
+                            name: itemName,
+                            type: itemType,
+                          ),
+                          onTap: (SearchItem item) {
+                            widget.onRecentSearchItemTap(item.name);
+                          },
+                        );
+                      },
                     ),
-                    onTap: (SearchItem item) {
-                      widget.onRecentSearchItemTap(item.name);
-                    },
-                  );
-                },
+                  ),
+                ],
               );
             }
             return const SizedBox.shrink();
