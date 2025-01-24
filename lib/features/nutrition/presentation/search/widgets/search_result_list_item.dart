@@ -11,16 +11,12 @@ class SearchResultListItem extends StatelessWidget {
   final SearchItem item;
   final Function(SearchItem item) onTap;
   final bool showLeading;
-  final bool isLast;
-  final Color? color;
 
   const SearchResultListItem({
     super.key,
     required this.item,
     required this.onTap,
     this.showLeading = true,
-    this.isLast = false,
-    this.color,
   });
 
   String get _subTitle =>
@@ -31,8 +27,8 @@ class SearchResultListItem extends StatelessWidget {
     return GestureDetector(
       onTap: () => onTap(item),
       child: Container(
-        decoration: BoxDecoration(
-          color: color ?? AppColors.greenLightest,
+        decoration: const BoxDecoration(
+          color: AppColors.greenLightest,
         ),
         child: Column(
           children: [
@@ -74,6 +70,7 @@ class SearchResultListItem extends StatelessWidget {
                 ],
               ),
             ),
+            const Divider(color: AppColors.blueLighter, height: 1, thickness: 1)
           ],
         ),
       ),

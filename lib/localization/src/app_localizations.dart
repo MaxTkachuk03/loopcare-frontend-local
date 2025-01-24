@@ -10880,7 +10880,7 @@ abstract class AppLocalizations {
   /// No description provided for @recentSearch.
   ///
   /// In en, this message translates to:
-  /// **'Recent logs'**
+  /// **'Recent logged'**
   String get recentSearch;
 
   /// No description provided for @dishWasSaved.

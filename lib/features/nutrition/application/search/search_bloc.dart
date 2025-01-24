@@ -89,8 +89,8 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
 
     final recentResult = recentList.expand((list) => list).toList();
 
-    emit(SearchState.searchResult(
-        state.data.copyWith(isLoading: false, recentSearch: recentResult)));
+    emit(SearchState.loading(state.data.copyWith(isLoading: false)));
+    emit(SearchState.initial(state.data.copyWith(recentSearch: recentResult)));
   }
 
   Future<dartz.Either<RequestError, SearchResponse>> searchRequst(

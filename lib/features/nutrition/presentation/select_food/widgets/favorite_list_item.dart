@@ -27,7 +27,7 @@ class FavoriteListItem extends StatelessWidget {
             false;
 
         return ListTile(
-          contentPadding: EdgeInsets.zero,
+          contentPadding: const EdgeInsets.symmetric(horizontal: 6.0),
           onTap: () => _onChanged(!isSelected, foodItem, context),
           title: Row(
             mainAxisAlignment: MainAxisAlignment.start,

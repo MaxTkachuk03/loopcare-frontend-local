@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loopcare_frontend/core/presentation/error/error_screen.dart';
 import 'package:loopcare_frontend/core/presentation/loader/loader.dart';
-import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 import 'package:loopcare_frontend/features/nutrition/application/meals/meals_bloc.dart';
 import 'package:loopcare_frontend/features/nutrition/application/search/dto/search_item.dart';
 import 'package:loopcare_frontend/features/nutrition/application/search/dto/search_item_types.dart';
@@ -102,8 +101,6 @@ class _SearchResultListState extends State<SearchResultList> {
               return const Loader();
             }
 
-            print("itemsState.data.items: ${itemsState.data.items}");
-
             return itemsState.data.items.isEmpty
                 ? const SearchEmptyResult()
                 : SingleChildScrollView(
@@ -126,9 +123,7 @@ class _SearchResultListState extends State<SearchResultList> {
                   );
           },
           initial: (initialState) {
-            var recentSearchList = state.data.recentSearch ?? <String>[];
-
-            print("recentSearchList: ${recentSearchList}");
+            final recentSearchList = state.data.recentSearch ?? <String>[];
 
             if (recentSearchList.isNotEmpty) {
               return Column(
@@ -142,8 +137,7 @@ class _SearchResultListState extends State<SearchResultList> {
                       shrinkWrap: true,
                       physics: const NeverScrollableScrollPhysics(),
                       itemBuilder: (BuildContext context, int index) {
-                        final item = recentSearchList[index].split('*-*');
-                        final itemName = item[0];
+                        final item = recentSearchList[index];
                         final itemType = item.length > 1
                             ? SearchItemTypes.values.firstWhere(
                                 (e) => e.toString() == item[1],
@@ -153,7 +147,7 @@ class _SearchResultListState extends State<SearchResultList> {
                         return SearchResultListItem(
                           item: SearchItem(
                             id: index.toString(),
-                            name: itemName,
+                            name: item,
                             type: itemType,
                           ),
                           onTap: (SearchItem item) {
@@ -165,9 +159,8 @@ class _SearchResultListState extends State<SearchResultList> {
                   ),
                 ],
               );
-            } else {
-              return const SizedBox.shrink();
             }
+            return const SizedBox.shrink();
           },
           error: (errorState) {
             final error = errorState.data.error;
@@ -197,7 +190,7 @@ class _DetailedLayout extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 24.0),
+      padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 16.0),
       child: GridView.builder(
         gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
           crossAxisCount: 2,
@@ -238,8 +231,7 @@ class _ListLayout extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ListView.separated(
-      padding: EdgeInsets.zero,
+    return ListView.builder(
       itemCount: itemsState.data.items.length,
       shrinkWrap: true,
       physics: const NeverScrollableScrollPhysics(),
@@ -258,11 +250,8 @@ class _ListLayout extends StatelessWidget {
           showLeading: false,
           item: item,
           onTap: onItemTap,
-          color: AppColors.greenLighter,
         );
       },
-      separatorBuilder: (_, __) =>
-          const Divider(color: AppColors.blueLighter, height: 1, thickness: 1),
     );
   }
 }
