@@ -160,7 +160,13 @@ class _SearchResultListState extends State<SearchResultList> {
                 ],
               );
             }
-            return const SizedBox.shrink();
+            return Column(
+              children: [
+                SearchListTitleItem(
+                  text: LocalizedTexts.recentSearch.tr(),
+                ),
+              ],
+            );
           },
           error: (errorState) {
             final error = errorState.data.error;
