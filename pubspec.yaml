@@ -89,6 +89,8 @@ dependencies:
   shimmer: ^3.0.0
   smooth_page_indicator: ^1.1.0
   socket_io_client: 2.0.3+1
+  syncfusion_flutter_charts: ^27.2.5
+
   timezone: ^0.9.2
   url_launcher: ^6.3.0
   uuid: ^4.4.0

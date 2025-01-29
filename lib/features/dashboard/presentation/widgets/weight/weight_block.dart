@@ -15,6 +15,8 @@ import 'package:loopcare_frontend/features/nutrition/application/dashboard_weigh
 import 'package:loopcare_frontend/features/onboarding/utils/weight_conversion_utils.dart';
 import 'package:loopcare_frontend/localization/service/localization_extension.dart';
 import 'package:loopcare_frontend/localization/service/localized_texts.dart';
+import 'package:syncfusion_flutter_charts/charts.dart';
+import 'package:syncfusion_flutter_charts/sparkcharts.dart';
 
 class WeightBlock extends StatefulWidget {
   final DateTime date;
@@ -262,14 +264,13 @@ class _WeightIndicators extends StatelessWidget {
 
 class _Chart extends StatelessWidget {
   const _Chart({
-    super.key,
     required this.inputWeightValue,
   });
 
   static final List<Color> gradientColors = [
-    AppColors.white,
-    AppColors.yellowRegular,
-    AppColors.white.withOpacity(0),
+    AppColors.yellowRegular.withOpacity(0.7),
+    AppColors.yellowRegular.withOpacity(0.5),
+    AppColors.yellowRegular.withOpacity(0.2),
   ];
 
   final num inputWeightValue;
@@ -277,8 +278,72 @@ class _Chart extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 8.0),
-      child: LineChart(
+        padding: const EdgeInsets.symmetric(horizontal: 8.0),
+        child: SfCartesianChart(
+            enableAxisAnimation: true,
+            trackballBehavior: TrackballBehavior(
+              markerSettings: const TrackballMarkerSettings(
+                  height: 20.0,
+                  width: 20.0,
+                  borderWidth: 4.0,
+                  borderColor: AppColors.white,
+                  markerVisibility: TrackballVisibilityMode.visible,
+                  color: AppColors.yellowRegular),
+              // lineType: TrackballLineType.none,
+              lineColor: AppColors.greenRegular,
+              enable: true,
+              activationMode: ActivationMode.singleTap,
+              shouldAlwaysShow: true,
+              tooltipSettings: const InteractiveTooltip(
+                canShowMarker: false,
+                color: AppColors.blueRegular,
+                borderRadius: 20,
+              ),
+            ),
+            margin: const EdgeInsets.all(0),
+            primaryYAxis: const NumericAxis(isVisible: false),
+            primaryXAxis: const CategoryAxis(
+                maximum: 5,
+                labelPlacement: LabelPlacement.onTicks,
+                interval: 1,
+                labelAlignment: LabelAlignment.start,
+                majorTickLines: MajorTickLines(width: 0),
+                borderColor: AppColors.greyRegular),
+            series: <AreaSeries<SalesData, String>>[
+              AreaSeries<SalesData, String>(
+                dataSource: <SalesData>[
+                  SalesData('week', 30),
+                  SalesData('Feb', 28),
+                  SalesData('Mar', 34),
+                  SalesData('Apr', 32),
+                  SalesData('May', 40),
+                  SalesData('May', 40),
+                  SalesData('May', 40)
+                ],
+                xValueMapper: (SalesData sales, index) => sales.year,
+                yValueMapper: (SalesData sales, _) => sales.sales,
+                color: AppColors.yellowRegular,
+                borderWidth: 1.5,
+                gradient: LinearGradient(
+                  begin: Alignment.topCenter,
+                  end: Alignment.bottomCenter,
+                  colors: gradientColors,
+                ),
+              ),
+            ]));
+  }
+}
+
+class SalesData {
+  SalesData(this.year, this.sales);
+  final String year;
+  final double sales;
+}
+
+
+/* 
+
+ LineChart(
         LineChartData(
           lineTouchData: LineTouchData(
             touchSpotThreshold: 5,
@@ -407,6 +472,7 @@ class _Chart extends StatelessWidget {
         duration: const Duration(milliseconds: 300), // Optional
         curve: Curves.linearToEaseOut, // Optional
       ),
-    );
-  }
-}
+
+
+
+ */
