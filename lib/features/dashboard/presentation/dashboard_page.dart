@@ -31,10 +31,12 @@ import 'package:loopcare_frontend/features/nutrition/application/bmr/bmr_bloc.da
 import 'package:loopcare_frontend/features/nutrition/application/dashboard_weight/dashboard_weight_bloc.dart';
 import 'package:loopcare_frontend/features/nutrition/application/meals/meals_bloc.dart';
 import 'package:loopcare_frontend/features/reflections/application/reflections_bloc.dart';
-import 'package:loopcare_frontend/features/reflections/presentation/reflections_dashboard_widget.dart';
+import 'package:loopcare_frontend/features/reflections/presentation/new_design/reflections_dashboard.dart';
 import 'package:loopcare_frontend/features/smart_goals/application/smart_goals_bloc.dart';
 import 'package:loopcare_frontend/localization/service/localization_extension.dart';
 import 'package:loopcare_frontend/localization/service/localized_texts.dart';
+
+import '../../river/application/river_bloc.dart';
 
 @RoutePage()
 class DashboardPage extends StatefulWidget {
@@ -185,6 +187,8 @@ class _DashboardPageState extends State<DashboardPage> with WidgetsBindingObserv
     }
   }
 
+  int getActiveModuleId() => context.read<RiverBloc>().state.data.activeModule!.id;
+
   @override
   Widget build(BuildContext context) {
     return MultiBlocListener(
@@ -259,16 +263,24 @@ class _DashboardPageState extends State<DashboardPage> with WidgetsBindingObserv
                           }),
                           BlocBuilder<AuthenticationBloc, AuthenticationState>(
                             builder: (BuildContext context, state) {
-                              // if (state.data.account?.isMindUnlocked ?? false) {
-                              // if (state.data.isReflectionsUnlocked) {
-                              return Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  ReflectionsDashboardWidget(
-                                      date: _selectedDay, locked: state.data.isReflectionsUnlocked),
-                                  const SizedBox(height: 19.0),
-                                ],
-                              );
+                              return BlocBuilder<ReflectionsBloc, ReflectionsState>(
+                                  builder: (BuildContext context, reflectionState) {
+                                final activeModuleId = getActiveModuleId();
+                                final currentReflections = reflectionState.data
+                                    .getCurrentReflectionsByActiveModule(activeModuleId);
+                                final hasReflection = currentReflections.isNotEmpty;
+                                return Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    ReflectionsDashboard(
+                                      unlocked: state.data.isReflectionsUnlocked,
+                                      hasReflection: hasReflection,
+                                      currentReflections: currentReflections,
+                                    ),
+                                    const SizedBox(height: 19.0),
+                                  ],
+                                );
+                              });
                             },
                           ),
                           BlocBuilder<AuthenticationBloc, AuthenticationState>(
