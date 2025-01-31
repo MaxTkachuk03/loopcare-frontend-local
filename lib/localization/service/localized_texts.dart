@@ -729,6 +729,7 @@ class LocalizedTexts {
 
   //Log weight
   static const String logWeight = 'logWeight';
+  static const String weight = 'weight';
 
   // Onboarding River
   static const String onboardingIntroTitle = 'onboardingIntroTitle';

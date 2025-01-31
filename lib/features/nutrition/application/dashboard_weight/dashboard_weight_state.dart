@@ -46,6 +46,8 @@ class DashBoardWeightData with _$DashBoardWeightData {
 
   const factory DashBoardWeightData({
     @Default({}) Map<String, DashboardWeightItem> weights,
+    @Default(0.0) double weightDifference,
+    @Default(false) bool showChart,
     @Default(false) bool isLoading,
     RequestError? error,
   }) = _DashBoardWeightData;
@@ -53,4 +55,32 @@ class DashBoardWeightData with _$DashBoardWeightData {
   double? getSelectedDayWeight(String date) => weights[date]?.weight;
 
   bool hasLogOnSelectedDate(DateTime date) => weights.containsKey(date.isoStringWithoutTime);
+
+  DateTime get firstLoggedWeightDate => weights.values.first.date;
+
+  DateTime get lastLoggedWeightDate => weights.values.last.date;
+
+  List<Map<String, double>> getSpotsForChart() {
+    final spots = <Map<String, double>>[];
+    final startDate = firstLoggedWeightDate;
+
+    for (final w in weights.values) {
+      final adjustedX = w.date.difference(startDate).inDays.toDouble();
+      final adjustedY = w.weight;
+
+      spots.add({'x': adjustedX, 'y': adjustedY});
+    }
+
+    return spots;
+  }
+
+  double? get weightLogTimeLineMax {
+    if (weights.isEmpty) return null;
+    return weights.values
+        .map((w) => w.date.difference(firstLoggedWeightDate).inDays.toDouble())
+        .reduce((a, b) => a > b ? a : b);
+  }
+
+  double get loggedWeightYMax =>
+      weights.values.map((w) => w.weight).reduce((a, b) => a > b ? a : b);
 }

@@ -98,4 +98,14 @@ class UsageAnalyticsEvents {
   // Reflection
   static const String reflectionOpened = 'reflection_opened';
   static const String reflectionCompleted = 'reflection_completed';
+
+  // iLessons
+  static const String iLessonOpened = 'i_lesson_opened';
+  static const String iLessonProgress = 'i_lesson_progress';
+  static const String iLessonCompleted = "i_lesson_completed";
+
+  //River
+  static const String moduleUnlocked = 'module_unlocked';
+  static const String lockedModuleViewed = 'locked_module_viewed';
+  static const String moduleItemUnlocked = 'module_item_unlocked';
 }

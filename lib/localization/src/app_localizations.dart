@@ -8762,7 +8762,7 @@ abstract class AppLocalizations {
   /// No description provided for @searchHint.
   ///
   /// In en, this message translates to:
-  /// **'Search food item'**
+  /// **'Search for food'**
   String get searchHint;
 
   /// No description provided for @searchFilterAll.
@@ -10880,7 +10880,7 @@ abstract class AppLocalizations {
   /// No description provided for @recentSearch.
   ///
   /// In en, this message translates to:
-  /// **'Recent logged'**
+  /// **'Recent searches'**
   String get recentSearch;
 
   /// No description provided for @dishWasSaved.
@@ -11974,6 +11974,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Question'**
   String get question;
+
+  /// No description provided for @weight.
+  ///
+  /// In en, this message translates to:
+  /// **'Weight'**
+  String get weight;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

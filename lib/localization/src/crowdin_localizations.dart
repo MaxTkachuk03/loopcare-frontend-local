@@ -70,6 +70,9 @@ class CrowdinLocalization extends AppLocalizations {
   String get weightLog => Crowdin.getText(localeName, 'weightLog') ?? _fallbackTexts.weightLog;
 
   @override
+  String get weight => Crowdin.getText(localeName, 'weight') ?? _fallbackTexts.weight;
+
+  @override
   String get weightLogLockedDescription =>
       Crowdin.getText(localeName, 'weightLogLockedDescription') ??
       _fallbackTexts.weightLogLockedDescription;

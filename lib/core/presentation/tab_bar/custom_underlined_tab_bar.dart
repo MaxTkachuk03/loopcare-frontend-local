@@ -20,23 +20,21 @@ class CustomUnderlinedTabBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TabBar(
-      indicatorPadding: const EdgeInsets.symmetric(horizontal: 7.0),
       controller: tabController,
       tabs: tabs,
       isScrollable: tabAlignment != TabAlignment.fill,
       indicatorSize: TabBarIndicatorSize.tab,
       tabAlignment: tabAlignment,
-      labelStyle: TabBarTheme.of(context)
-          .labelStyle
-          ?.copyWith(color: labelColor ?? AppColors.white),
+      labelStyle:
+          TabBarTheme.of(context).labelStyle?.copyWith(color: labelColor ?? AppColors.white),
       unselectedLabelStyle: TabBarTheme.of(context)
           .unselectedLabelStyle
           ?.copyWith(color: unselectedLabelColor ?? AppColors.white),
-      dividerColor: AppColors.transparent,
+      dividerColor: AppColors.white.withOpacity(0.4),
       dividerHeight: ThemeConstants.tabBarDividerHeight,
       automaticIndicatorColorAdjustment: false,
       indicator: const UnderlineTabIndicator(
-        borderSide: BorderSide(width: 2.0, color: AppColors.blueDarker),
+        borderSide: BorderSide(width: 2.0, color: AppColors.white),
       ),
     );
   }

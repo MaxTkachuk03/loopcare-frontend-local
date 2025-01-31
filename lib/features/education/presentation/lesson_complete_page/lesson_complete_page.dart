@@ -32,6 +32,9 @@ import 'package:loopcare_frontend/features/river/domain/river_module_stream_type
 import 'package:loopcare_frontend/injection.dart';
 import 'package:loopcare_frontend/localization/service/localization_extension.dart';
 import 'package:loopcare_frontend/localization/service/localized_texts.dart';
+import 'package:loopcare_frontend/core/domain/analytics/analytics_parameters.dart';
+import 'package:loopcare_frontend/core/domain/analytics/mixpanel/events.dart';
+import 'package:loopcare_frontend/core/domain/analytics/mixpanel/mixpanel_event_service.dart';
 
 @RoutePage()
 class LessonCompletePage extends StatefulWidget {
@@ -55,17 +58,38 @@ class _LessonCompletePageState extends State<LessonCompletePage> {
     super.initState();
 
     final lesson = context.read<EducationLessonBloc>().state.data;
+    final iLesson = context.read<InteractiveLessonsBloc>().state.data;
     context.read<RiverBloc>().add(RiverEvent.updateActiveModuleItemStatus(lessonId: lesson.id));
     final riverModule = context.read<RiverBloc>().state.data.activeModule;
 
-    usageAnalytics.track(
-      eventName: UsageAnalyticsEvents.lessonCompleted,
-      attributes: {
-        UsageAnalyticsAttributes.articleId: lesson.id,
-        UsageAnalyticsAttributes.articleTitle: lesson.title,
-        UsageAnalyticsAttributes.articlePool: riverModule?.title,
-      },
-    );
+    if (widget.lessonType == LessonType.interactive) {
+      usageAnalytics.track(
+        eventName: UsageAnalyticsEvents.iLessonCompleted,
+        attributes: {
+          UsageAnalyticsAttributes.iLessonId: iLesson.id,
+          UsageAnalyticsAttributes.iLessonTitle: iLesson.title,
+          UsageAnalyticsAttributes.iLessonModuleId: riverModule?.id,
+          UsageAnalyticsAttributes.iLessonModuleTitle: riverModule?.title,
+        },
+      );
+      MixpanelEventService.instance.track(
+        AppMixpanelEvents.iLessonCompleted,
+        parameters: {
+          AnalyticsParameters.iLessonId: iLesson.id,
+          AnalyticsParameters.iLessonTitle: iLesson.title,
+          AnalyticsParameters.iLessonChunks: iLesson.chunks,
+        },
+      );
+    } else {
+      usageAnalytics.track(
+        eventName: UsageAnalyticsEvents.lessonCompleted,
+        attributes: {
+          UsageAnalyticsAttributes.articleId: lesson.id,
+          UsageAnalyticsAttributes.articleTitle: lesson.title,
+          UsageAnalyticsAttributes.articlePool: riverModule?.title,
+        },
+      );
+    }
 
     const AnalyticsEventService().logLessonCompletedEvent(
       AnalyticsEvents.lessonCompletedScreen,

@@ -10,5 +10,4 @@ enum InteractiveLessonComponentType {
   textField,
   survey,
   mealTiming,
-  multipleSelectWithFeedback,
 }

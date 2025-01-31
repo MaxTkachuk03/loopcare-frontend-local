@@ -202,4 +202,9 @@ class AnalyticsEvents {
   static const String subscriptionErrorVerifyOnServer = 'subscription_error_verify_on_server';
   static const String subscriptionErrorVerifyLastPurchaseOnServer =
       'subscription_error_verify_last_purchase_on_server';
+
+  //Interactive lessons
+  static const String iLessonsOpened = 'i_lessons_opened';
+  static const String iLessonsProcessing = 'i_lessons_opened';
+  static const String iLessonsCompleted = 'i_lessons_opened';
 }

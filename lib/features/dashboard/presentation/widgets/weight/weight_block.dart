@@ -1,5 +1,4 @@
 import 'package:auto_route/auto_route.dart';
-import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loopcare_frontend/core/presentation/icon_images/app_icons.dart';
@@ -11,18 +10,20 @@ import 'package:loopcare_frontend/core/presentation/utils/build_context_extensio
 import 'package:loopcare_frontend/core/presentation/utils/date_time_extensions.dart';
 import 'package:loopcare_frontend/features/dashboard/presentation/widgets/dashboard_card_title/dashboard_card_title.dart';
 import 'package:loopcare_frontend/features/dashboard/presentation/widgets/pool_status/application/pool_bloc/pool_module_bloc.dart';
+import 'package:loopcare_frontend/features/dashboard/presentation/widgets/weight/line_chart/line_chart.dart';
+import 'package:loopcare_frontend/features/dashboard/presentation/widgets/weight/widgets/measuring_params.dart';
 import 'package:loopcare_frontend/features/nutrition/application/dashboard_weight/dashboard_weight_bloc.dart';
 import 'package:loopcare_frontend/features/onboarding/utils/weight_conversion_utils.dart';
 import 'package:loopcare_frontend/localization/service/localization_extension.dart';
 import 'package:loopcare_frontend/localization/service/localized_texts.dart';
-import 'package:syncfusion_flutter_charts/charts.dart';
-import 'package:syncfusion_flutter_charts/sparkcharts.dart';
 
 class WeightBlock extends StatefulWidget {
-  final DateTime date;
-  final bool locked;
+  final DateTime startDate;
+  final DateTime endDate;
+  final bool unlocked;
 
-  const WeightBlock({super.key, required this.date, required this.locked});
+  const WeightBlock(
+      {super.key, required this.startDate, required this.endDate, required this.unlocked});
 
   @override
   State<WeightBlock> createState() => _WeightBlockState();
@@ -30,6 +31,7 @@ class WeightBlock extends StatefulWidget {
 
 class _WeightBlockState extends State<WeightBlock> {
   bool onClick = false;
+  final twoWeeksPeriod = 14.0;
 
   void toggleOnClick() {
     setState(() {
@@ -37,17 +39,15 @@ class _WeightBlockState extends State<WeightBlock> {
     });
   }
 
-  void onPressHandler(BuildContext context) => context.router
-      .push(LogWeightRoute(selectedDay: widget.date))
-      .then(getPoolData);
+  void onPressHandler(BuildContext context) =>
+      context.router.push(LogWeightRoute(selectedDay: widget.endDate)).then(getPoolData);
 
-  void getPoolData(e) =>
-      context.read<PoolModuleBloc>().add(const PoolModuleEvent.getPoolData());
+  void getPoolData(e) => context.read<PoolModuleBloc>().add(const PoolModuleEvent.getPoolData());
+
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding:
-          const EdgeInsets.only(top: 8.0, bottom: 8.0, right: 8.0, left: 8.0),
+      padding: const EdgeInsets.only(top: 8.0, bottom: 8.0, right: 8.0, left: 8.0),
       decoration: const BoxDecoration(
         color: AppColors.white,
         borderRadius: BorderRadius.all(Radius.circular(8)),
@@ -55,17 +55,16 @@ class _WeightBlockState extends State<WeightBlock> {
       child: BlocConsumer<DashboardWeightBloc, DashboardWeightState>(
         listener: (context, state) {
           state.whenOrNull(
-            error: (_) => context.read<DashboardWeightBloc>().add(
-                DashboardWeightEvent.fetchWeights(
-                    widget.date.toUtc().toIso8601String())),
+            error: (_) => context.read<DashboardWeightBloc>().add(DashboardWeightEvent.fetchWeights(
+                widget.startDate.toString(), widget.endDate.toUtc().toIso8601String())),
           );
         },
         builder: (context, state) {
           return state.maybeMap(
             updated: (s) {
-              final weightValue =
-                  s.data.getSelectedDayWeight(widget.date.isoStringWithoutTime);
-              final bool isEditable = s.isEditable(widget.date);
+              final weightValue = s.data.getSelectedDayWeight(widget.endDate.isoStringWithoutTime);
+              final weightDifferenceValue = s.data.weightDifference;
+              final bool isEditable = s.isEditable(widget.endDate);
               final hasLog = weightValue != null;
 
               final inputWeightValue = s.isMetricSystem
@@ -73,6 +72,10 @@ class _WeightBlockState extends State<WeightBlock> {
                   : WeightConversionUtils.convertKgToLbs(
                       weightValue ?? 0.0,
                     );
+
+              final convertedWeightDifference = s.isMetricSystem
+                  ? weightDifferenceValue
+                  : WeightConversionUtils.convertKgToLbs(weightDifferenceValue);
 
               final text = hasLog
                   ? "${LocalizedTexts.onboardingWeight.tr()} : $inputWeightValue ${s.userWeightUnits}"
@@ -82,58 +85,60 @@ class _WeightBlockState extends State<WeightBlock> {
 
               final showSubText = !hasLog && isEditable;
 
+              final templateSpots = [
+                {'x': 0.0, 'y': 100.0},
+                {'x': 1.0, 'y': 90.0},
+                {'x': 3.0, 'y': 85.0},
+                {'x': 4.0, 'y': 75.0},
+                {'x': 6.0, 'y': 70.0},
+                {'x': 7.0, 'y': 63.0},
+                {'x': 8.0, 'y': 60.0},
+                {'x': 9.0, 'y': 68.0},
+                {'x': 10.0, 'y': 64.0},
+              ];
+
               return Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   DashboardCardTitle(
                     onTap: () {
-                      if (widget.locked) {
+                      if (widget.unlocked) {
                         onPressHandler(context);
                       } else {
                         toggleOnClick();
                       }
                     },
-                    highlightColor: widget.locked
-                        ? AppColors.coralLightest
-                        : AppColors.white,
-                    leadingIcon: widget.locked
+                    highlightColor: widget.unlocked ? AppColors.coralLightest : AppColors.white,
+                    leadingIcon: widget.unlocked
                         ? AppIcons.customDashboardWeight
                         : AppIcons.customDashboardWeightGrey,
                     title: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       // mainAxisSize: MainAxisSize.min,
                       children: [
-                        widget.locked
+                        widget.unlocked
                             ? CustomText.bitter600(
                                 text,
-                                style:
-                                    context.textTheme.headlineSmall!.copyWith(
-                                  color: isEditable
-                                      ? AppColors.blueDarker
-                                      : AppColors.greyLabel,
+                                style: context.textTheme.headlineSmall!.copyWith(
+                                  color: isEditable ? AppColors.blueDarker : AppColors.greyLabel,
                                 ),
                               )
                             : CustomText.bitter400(
                                 LocalizedTexts.logWeight.tr(),
                                 style: context.textTheme.headlineSmall!
-                                    .copyWith(
-                                        color: AppColors.greyLight,
-                                        fontSize: 20),
+                                    .copyWith(color: AppColors.greyLight, fontSize: 20),
                               ),
-                        if (widget.locked)
+                        if (widget.unlocked)
                           if (showSubText)
                             CustomText.w400(
                               LocalizedTexts.preferableInTheMorning.tr(),
                               style: context.textTheme.bodySmall!.copyWith(
-                                color: isEditable
-                                    ? AppColors.blueDarker
-                                    : AppColors.greyLabel,
+                                color: isEditable ? AppColors.blueDarker : AppColors.greyLabel,
                               ),
                             ),
                       ],
                     ),
-                    circleButton: widget.locked ? true : false,
-                    actionIcon: widget.locked
+                    circleButton: widget.unlocked ? true : false,
+                    actionIcon: widget.unlocked
                         ? hasLog
                             ? AppIcons.edit
                             : AppIcons.plus
@@ -142,7 +147,14 @@ class _WeightBlockState extends State<WeightBlock> {
                             : AppIcons.downArrow,
                     editable: isEditable,
                   ),
-                  widget.locked
+                  widget.unlocked
+                      ? const Divider(
+                          color: AppColors.blueLighter,
+                          indent: 8.0,
+                          endIndent: 8.0,
+                        )
+                      : const SizedBox(),
+                  widget.unlocked
                       ? Container()
                       : Padding(
                           padding: const EdgeInsets.all(12.0),
@@ -155,18 +167,16 @@ class _WeightBlockState extends State<WeightBlock> {
                               Expanded(
                                 child: CustomText.w400(
                                   "${LocalizedTexts.featureUnlocksAtPool.tr()} ${LocalizedTexts.weightLog.tr()}",
-                                  style: const TextStyle(
-                                      color: AppColors.greyLight, fontSize: 16),
+                                  style: const TextStyle(color: AppColors.greyLight, fontSize: 16),
                                   overflow: TextOverflow.visible,
                                 ),
                               ),
                             ],
                           ),
                         ),
-                  onClick && !widget.locked
+                  onClick && !widget.unlocked
                       ? Padding(
-                          padding: const EdgeInsets.only(
-                              left: 12.0, right: 12.0, bottom: 12),
+                          padding: const EdgeInsets.only(left: 12.0, right: 12.0, bottom: 12),
                           child: Row(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
@@ -175,11 +185,9 @@ class _WeightBlockState extends State<WeightBlock> {
                                   padding: const EdgeInsets.only(bottom: 10),
                                   child: CustomText.w400(
                                     maxLines: 10,
-                                    LocalizedTexts.weightLogLockedDescription
-                                        .tr(),
-                                    style: const TextStyle(
-                                        color: AppColors.greyLight,
-                                        fontSize: 16),
+                                    LocalizedTexts.weightLogLockedDescription.tr(),
+                                    style:
+                                        const TextStyle(color: AppColors.greyLight, fontSize: 16),
                                     overflow: TextOverflow.visible,
                                   ),
                                 ),
@@ -188,43 +196,41 @@ class _WeightBlockState extends State<WeightBlock> {
                           ),
                         )
                       : Container(),
-                  const Padding(
-                    padding: EdgeInsets.symmetric(vertical: 6.0),
-                    child: Divider(
-                        color: AppColors.greyRegular,
-                        height: 1.0,
-                        indent: 8.0,
-                        endIndent: 8.0),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        _WeightIndicators(
-                            text: LocalizedTexts.onboardingWeight.tr(),
-                            number:
-                                s.data.weights.values.first.weight.toString(),
-                            userWeightUnits: s.userWeightUnits),
-                        _WeightIndicators(
-                            text: 'Bodyfat',
-                            number: '-3,1',
-                            userWeightUnits: '%'),
-                        _WeightIndicators(
-                            text: 'BMI', number: '-2,4', userWeightUnits: ''),
-                      ],
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 15.0),
-                    child: SizedBox(
-                      height: 140,
-                      width: double.infinity,
-                      child: _Chart(
-                        inputWeightValue: s.data.weights.values.first.weight,
-                      ),
-                    ),
-                  ),
+                  widget.unlocked
+                      ? Column(
+                          children: [
+                            MeasuringParams(
+                                textColor: state.data.weights.isNotEmpty
+                                    ? AppColors.yellowRegular
+                                    : AppColors.greyLight,
+                                weightDifference: convertedWeightDifference.toDouble(),
+                                userWeightUnits: s.userWeightUnits),
+                            if (state.data.showChart)
+                              LineChartWidget(
+                                spots: state.data.getSpotsForChart(),
+                                yMax: state.data.loggedWeightYMax,
+                                xMax: twoWeeksPeriod,
+                                lastDatePlacement: state.data.weightLogTimeLineMax!,
+                                firstDate: state.data.firstLoggedWeightDate,
+                                lastDate: state.data.lastLoggedWeightDate,
+                                mainLineColor: AppColors.yellowOffRegular,
+                                secondaryLineColor: AppColors.greyLight,
+                              ),
+                            if (!state.data.showChart)
+                              // template
+                              LineChartWidget(
+                                spots: templateSpots,
+                                yMax: 100.0,
+                                xMax: twoWeeksPeriod,
+                                lastDatePlacement: 10.0,
+                                firstDate: widget.startDate,
+                                lastDate: widget.endDate,
+                                mainLineColor: AppColors.greyLight,
+                                secondaryLineColor: AppColors.greyLight,
+                              ),
+                          ],
+                        )
+                      : Container(),
                 ],
               );
             },
@@ -236,243 +242,3 @@ class _WeightBlockState extends State<WeightBlock> {
     );
   }
 }
-
-class _WeightIndicators extends StatelessWidget {
-  const _WeightIndicators({
-    super.key,
-    required this.text,
-    required this.number,
-    required this.userWeightUnits,
-  });
-
-  final String text;
-  final String number;
-  final String userWeightUnits;
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      children: [
-        CustomText.w700("$number$userWeightUnits",
-            style: context.textTheme.bodyMedium
-                ?.copyWith(color: AppColors.yellowMid)),
-        CustomText.w400(text, style: context.textTheme.bodySmall),
-      ],
-    );
-  }
-}
-
-class _Chart extends StatelessWidget {
-  const _Chart({
-    required this.inputWeightValue,
-  });
-
-  static final List<Color> gradientColors = [
-    AppColors.yellowRegular.withOpacity(0.7),
-    AppColors.yellowRegular.withOpacity(0.5),
-    AppColors.yellowRegular.withOpacity(0.2),
-  ];
-
-  final num inputWeightValue;
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 8.0),
-        child: SfCartesianChart(
-            enableAxisAnimation: true,
-            trackballBehavior: TrackballBehavior(
-              markerSettings: const TrackballMarkerSettings(
-                  height: 20.0,
-                  width: 20.0,
-                  borderWidth: 4.0,
-                  borderColor: AppColors.white,
-                  markerVisibility: TrackballVisibilityMode.visible,
-                  color: AppColors.yellowRegular),
-              // lineType: TrackballLineType.none,
-              lineColor: AppColors.greenRegular,
-              enable: true,
-              activationMode: ActivationMode.singleTap,
-              shouldAlwaysShow: true,
-              tooltipSettings: const InteractiveTooltip(
-                canShowMarker: false,
-                color: AppColors.blueRegular,
-                borderRadius: 20,
-              ),
-            ),
-            margin: const EdgeInsets.all(0),
-            primaryYAxis: const NumericAxis(isVisible: false),
-            primaryXAxis: const CategoryAxis(
-                maximum: 5,
-                labelPlacement: LabelPlacement.onTicks,
-                interval: 1,
-                labelAlignment: LabelAlignment.start,
-                majorTickLines: MajorTickLines(width: 0),
-                borderColor: AppColors.greyRegular),
-            series: <AreaSeries<SalesData, String>>[
-              AreaSeries<SalesData, String>(
-                dataSource: <SalesData>[
-                  SalesData('week', 30),
-                  SalesData('Feb', 28),
-                  SalesData('Mar', 34),
-                  SalesData('Apr', 32),
-                  SalesData('May', 40),
-                  SalesData('May', 40),
-                  SalesData('May', 40)
-                ],
-                xValueMapper: (SalesData sales, index) => sales.year,
-                yValueMapper: (SalesData sales, _) => sales.sales,
-                color: AppColors.yellowRegular,
-                borderWidth: 1.5,
-                gradient: LinearGradient(
-                  begin: Alignment.topCenter,
-                  end: Alignment.bottomCenter,
-                  colors: gradientColors,
-                ),
-              ),
-            ]));
-  }
-}
-
-class SalesData {
-  SalesData(this.year, this.sales);
-  final String year;
-  final double sales;
-}
-
-
-/* 
-
- LineChart(
-        LineChartData(
-          lineTouchData: LineTouchData(
-            touchSpotThreshold: 5,
-            handleBuiltInTouches: true,
-            touchTooltipData: LineTouchTooltipData(
-              tooltipPadding:
-                  const EdgeInsets.symmetric(horizontal: 8.0, vertical: 4.0),
-              tooltipRoundedRadius: 20,
-              tooltipBorder: const BorderSide(color: AppColors.white),
-              getTooltipColor: (touchedSpot) => AppColors.blueRegular,
-
-              getTooltipItems: (touchedSpots) {
-                return touchedSpots.map((touchedSpot) {
-                  if (touchedSpot.x == 3) {
-                    // Точка "today"
-                    return LineTooltipItem(
-                      'today',
-                      const TextStyle(
-                        color: Colors.white,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    );
-                  }
-                  return null;
-                }).toList();
-              },
-            ),
-          ),
-          gridData: const FlGridData(show: false),
-          titlesData: FlTitlesData(
-            bottomTitles: AxisTitles(
-              // drawBelowEverything: true,
-              sideTitles: SideTitles(
-                showTitles: true,
-                reservedSize: 35,
-                interval: 1,
-                getTitlesWidget: (double value, TitleMeta meta) {
-                  const style = TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 16,
-                  );
-                  Widget text;
-                  switch (value.toInt()) {
-                    case 2:
-                      text = const Text('week', style: style);
-                      break;
-                    case 7:
-                      text = const Text('44', style: style);
-                      break;
-                    case 12:
-                      text = const Text('45', style: style);
-                      break;
-                    default:
-                      text = const Text('');
-                      break;
-                  }
-
-                  return SideTitleWidget(
-                    // meta: meta,
-                    space: 2,
-                    axisSide: AxisSide.bottom,
-                    child: text,
-                  );
-                },
-              ),
-            ),
-            rightTitles: const AxisTitles(
-              sideTitles: SideTitles(showTitles: false),
-            ),
-            topTitles: const AxisTitles(
-              sideTitles: SideTitles(showTitles: false),
-            ),
-            leftTitles: const AxisTitles(
-              sideTitles: SideTitles(showTitles: false),
-            ),
-          ),
-          borderData: FlBorderData(
-            show: true,
-            border: const Border(
-              bottom: BorderSide(color: AppColors.greyRegular, width: 1.0),
-            ),
-          ),
-          lineBarsData: [
-            LineChartBarData(
-              preventCurveOverShooting: true,
-              isCurved: true,
-              color: AppColors.yellowRegular,
-              barWidth: 1.5,
-              isStrokeCapRound: true,
-              dotData: FlDotData(
-                show: false,
-                getDotPainter: (spot, _, __, ___) {
-                  return FlDotCirclePainter(
-                    radius: 6,
-                    color: Colors.white,
-                    strokeWidth: 3,
-                    strokeColor: Colors.orange,
-                  );
-                },
-              ),
-              belowBarData: BarAreaData(
-                show: true,
-                gradient: LinearGradient(
-                  tileMode: TileMode.mirror,
-                  begin: Alignment.topCenter,
-                  end: Alignment.bottomCenter,
-                  colors:
-                      gradientColors.map((c) => c.withOpacity(0.8)).toList(),
-                ),
-              ),
-              spots: [
-                FlSpot(1, 68),
-                FlSpot(3, 71),
-                FlSpot(7, 75),
-                FlSpot(10, inputWeightValue.toDouble()),
-                FlSpot(12, 73),
-                FlSpot(13, 70),
-              ],
-            ),
-          ],
-          minX: 1,
-          maxX: 20,
-          maxY: 100,
-          minY: 0,
-        ),
-        duration: const Duration(milliseconds: 300), // Optional
-        curve: Curves.linearToEaseOut, // Optional
-      ),
-
-
-
- */

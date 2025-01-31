@@ -29,15 +29,12 @@ class _SearchPageState extends State<SearchPage> {
   @override
   void initState() {
     super.initState();
-    // context.read<SearchBloc>().add(const SearchEvent.resetData());
-
-    const AnalyticsEventService()
-        .logEvent(eventName: AnalyticsEvents.searchScreenOpened);
+    context.read<SearchBloc>().add(const SearchEvent.resetData());
+    const AnalyticsEventService().logEvent(eventName: AnalyticsEvents.searchScreenOpened);
   }
 
   Future<bool> _onPreviousPage(bool e) async {
-    const AnalyticsEventService()
-        .logEvent(eventName: AnalyticsEvents.searchScreenClosed);
+    const AnalyticsEventService().logEvent(eventName: AnalyticsEvents.searchScreenClosed);
     return Future.value(true);
   }
 
@@ -46,39 +43,21 @@ class _SearchPageState extends State<SearchPage> {
     return PopScope(
       onPopInvokedWithResult: (e, _) => _onPreviousPage,
       child: Scaffold(
-        appBar: AppBar(
-          backgroundColor: AppColors.greenOffRegular,
-          automaticallyImplyLeading: false,
-          toolbarHeight: 0,
+        backgroundColor: AppColors.greenOffRegular,
+        appBar: SearchAppBar(
+          mode: widget.mode,
+          onTabChanged: _onTabChanged,
+          searchController: _searchTextController,
         ),
-        backgroundColor: AppColors.greenLightest,
-        body: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            SearchAppBar(
-              selectedTab: currentTab,
-              mode: widget.mode,
-              onTabChanged: _onTabChanged,
-              searchController: _searchTextController,
-            ),
-            Expanded(
-              child: CustomSafeArea(
-                child: SearchResultList(
-                  onItemTap: widget.onItemTap,
-                  mode: widget.mode ?? SearchMode.food,
-                  selectedTab: currentTab,
-                  onRecentSearchItemTap: (item) {
-                    setState(() {
-                      context
-                          .read<SearchBloc>()
-                          .add(SearchEvent.search(item, mode: currentTab));
-                      _searchTextController.text = item;
-                    });
-                  },
-                ),
-              ),
-            ),
-          ],
+        body: CustomSafeArea(
+          child: SearchResultList(
+            selectedTab: currentTab,
+            onItemTap: widget.onItemTap,
+            onRecentSearchItemTap: (item) {
+              context.read<SearchBloc>().add(SearchEvent.search(item, mode: currentTab));
+              _searchTextController.text = item;
+            },
+          ),
         ),
       ),
     );

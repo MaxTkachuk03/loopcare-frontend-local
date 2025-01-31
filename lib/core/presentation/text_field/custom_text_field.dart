@@ -35,7 +35,6 @@ class CustomTextField extends StatefulWidget {
   final bool scribbleEnabled;
   final Iterable<String>? autofillHints;
   final void Function()? onEditingComplete;
-  final OutlineInputBorder? borderStyle;
 
   const CustomTextField({
     super.key,
@@ -65,7 +64,6 @@ class CustomTextField extends StatefulWidget {
     this.textInputAction = TextInputAction.next,
     this.onEditingComplete,
     this.scribbleEnabled = false,
-    this.borderStyle,
   });
 
   factory CustomTextField.search({
@@ -74,7 +72,6 @@ class CustomTextField extends StatefulWidget {
     required TextEditingController controller,
     ValueChanged<String>? onChanged,
     VoidCallback? onCleared,
-    OutlineInputBorder? borderStyle,
   }) =>
       CustomTextField(
         key: key,
@@ -85,7 +82,6 @@ class CustomTextField extends StatefulWidget {
         onCleared: onCleared,
         isClearField: onCleared != null,
         fillColor: fillColor,
-        borderStyle: borderStyle,
       );
 
   factory CustomTextField.nickname({
@@ -253,8 +249,7 @@ class CustomTextField extends StatefulWidget {
         controller: controller,
         maxLength: maxLength,
         focusNode: focusNode,
-        keyboardType:
-            TextInputType.numberWithOptions(decimal: isDecimal ?? false),
+        keyboardType: TextInputType.numberWithOptions(decimal: isDecimal ?? false),
         fillColor: fillColor,
         inputFormatters: inputFormatters,
         onChanged: onChanged,
@@ -317,8 +312,6 @@ class _CustomTextFieldState extends State<CustomTextField> {
         prefixIcon: widget.prefixIcon,
         suffixIcon: _suffixIcon,
         enabled: !widget.readOnly,
-        focusedBorder: widget.borderStyle,
-        enabledBorder: widget.borderStyle,
       );
 
   @override
@@ -334,8 +327,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
       keyboardType: widget.keyboardType,
       obscureText: _isObscureText,
       textAlign: widget.textAlign,
-      style: widget.style ??
-          context.textTheme.bodyMedium?.copyWith(fontWeight: FontWeight.w600),
+      style: widget.style ?? context.textTheme.bodyMedium?.copyWith(fontWeight: FontWeight.w600),
       maxLength: widget.maxLength,
       minLines: widget.minLines,
       maxLines: widget.maxLines,

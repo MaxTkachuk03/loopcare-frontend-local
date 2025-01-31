@@ -95,8 +95,8 @@ class _DashboardPageState extends State<DashboardPage> with WidgetsBindingObserv
 
   void updateDashboardData(AuthenticationState state) {
     context.read<DashboardWeightBloc>().add(
-          DashboardWeightEvent.fetchWeights(
-              _selectedDay.utsIsoStringWeekBeforeDateWithMidnightTime),
+          DashboardWeightEvent.fetchWeights(getStartDateForWeightLog(_selectedDay).toString(),
+              _selectedDay.midnightTime.toString()),
         );
 
     if (state.data.isFoodLoggingUnlocked) {
@@ -129,7 +129,9 @@ class _DashboardPageState extends State<DashboardPage> with WidgetsBindingObserv
   }
 
   void _onDaySelected(DateTime day) {
-    context.read<DashboardWeightBloc>().add(DashboardWeightEvent.setDate(day));
+    context
+        .read<DashboardWeightBloc>()
+        .add(DashboardWeightEvent.setDate(getStartDateForWeightLog(day), day.midnightTime));
     context.read<MealsBloc>()
       ..add(MealsEvent.setCurrentDate(day))
       ..add(MealsEvent.fetchMeals(startDate: day, endDate: day));
@@ -183,6 +185,11 @@ class _DashboardPageState extends State<DashboardPage> with WidgetsBindingObserv
     if (isCommitmentUnlocked) {
       context.read<CommitmentBloc>().add(CommitmentEvent.getCommitment(date: day));
     }
+  }
+
+  DateTime getStartDateForWeightLog(DateTime date) {
+    const twoWeeksPeriod = 14;
+    return date.subtract(const Duration(days: twoWeeksPeriod)).midnightTime;
   }
 
   @override
@@ -317,8 +324,10 @@ class _DashboardPageState extends State<DashboardPage> with WidgetsBindingObserv
                               return Column(
                                 children: [
                                   WeightBlock(
-                                      date: _selectedDay,
-                                      locked: state.data.account?.isWeightLoggingUnlocked ?? false),
+                                      startDate: getStartDateForWeightLog(_selectedDay),
+                                      endDate: _selectedDay,
+                                      unlocked:
+                                          state.data.account?.isWeightLoggingUnlocked ?? false),
                                   const SizedBox(height: 19.0),
                                 ],
                               );

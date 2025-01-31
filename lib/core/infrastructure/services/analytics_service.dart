@@ -205,6 +205,24 @@ class AnalyticsEventService {
     );
   }
 
+  void logILessonEvent(
+    String eventName,
+    int iLessonId,
+    String iLessonTitle,
+    int moduleId,
+    String moduleTitle,
+  ) async {
+    logEvent(
+      eventName: eventName,
+      parameters: {
+        AnalyticsParameters.iLessonId: iLessonId.toString(),
+        AnalyticsParameters.iLessonTitle: iLessonTitle,
+        AnalyticsParameters.iLessonModuleId: moduleId,
+        AnalyticsParameters.iLessonModuleTitle: moduleTitle
+      },
+    );
+  }
+
   void openedTextLessonVersionEvent(int lessonId) async {
     logEvent(
       eventName: AnalyticsEvents.openedTextLessonVersion,

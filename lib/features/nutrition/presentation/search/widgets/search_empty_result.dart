@@ -11,6 +11,7 @@ class SearchEmptyResult extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
+      color: AppColors.greenLightest,
       width: double.infinity,
       padding: const EdgeInsets.all(26.0),
       child: Column(
@@ -18,8 +19,7 @@ class SearchEmptyResult extends StatelessWidget {
         children: [
           CustomText.w600(
             LocalizedTexts.searchEmptyResultTitle.tr(),
-            style: context.textTheme.titleLarge
-                ?.copyWith(color: AppColors.blueRegular),
+            style: context.textTheme.titleLarge?.copyWith(color: AppColors.blueRegular),
           ),
           const SizedBox(height: 8.0),
           CustomText.w500(

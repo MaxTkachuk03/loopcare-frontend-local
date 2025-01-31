@@ -85,54 +85,54 @@ class SharedStorageService {
 
   Future<bool> removeAccount() => _prefs.remove('account');
 
-  // List<String> searchValues(int userId, {SearchMode? type}) {
-  //   final list = <String>[];
-  //   if (hasRecentSearchUser(userId)) {
-  //     final searchUser = recentSearches.users.firstWhere((entity) => entity.id == userId);
-  //     if (type == null) {
-  //       for (var e in searchUser.data.list) {
-  //         list.add(e.query);
-  //       }
-  //     } else {
-  //       searchUser.data.list
-  //           .where((entity) => entity.type == type)
-  //           .forEach((e) => list.add(e.query));
-  //     }
-  //   }
-  //   return list;
-  // }
+  List<String> searchValues(int userId, {SearchMode? type}) {
+    final list = <String>[];
+    if (hasRecentSearchUser(userId)) {
+      final searchUser = recentSearches.users.firstWhere((entity) => entity.id == userId);
+      if (type == null) {
+        for (var e in searchUser.data.list) {
+          list.add(e.query);
+        }
+      } else {
+        searchUser.data.list
+            .where((entity) => entity.type == type)
+            .forEach((e) => list.add(e.query));
+      }
+    }
+    return list;
+  }
 
-  // bool hasRecentSearchUser(int id) => recentSearches.users
-  //     .where(
-  //       (entity) => entity.id == id,
-  //     )
-  //     .isNotEmpty;
+  bool hasRecentSearchUser(int id) => recentSearches.users
+      .where(
+        (entity) => entity.id == id,
+      )
+      .isNotEmpty;
 
-  // void _addRecentSearchData(RecentSearchUser user, RecentSearchData data) {
-  //   if (user.data.list.contains(data)) {
-  //     return;
-  //   }
-  //   if (user.data.list.length > maxRecentSearchListSize - 1) {
-  //     user.data.list.removeAt(maxRecentSearchListSize - 1);
-  //     user.data.list[0] = data;
-  //   } else {
-  //     user.data.list.add(data);
-  //   }
-  // }
+  void _addRecentSearchData(RecentSearchUser user, RecentSearchData data) {
+    if (user.data.list.contains(data)) {
+      return;
+    }
+    if (user.data.list.length > maxRecentSearchListSize - 1) {
+      user.data.list.removeAt(maxRecentSearchListSize - 1);
+      user.data.list[0] = data;
+    } else {
+      user.data.list.add(data);
+    }
+  }
 
-  // void findOrAddRecentUser(int id, RecentSearchData data) {
-  //   final userList = recentSearches;
-  //   final recentUser = userList.users.firstWhere(
-  //     (entity) => entity.id == id,
-  //     orElse: () {
-  //       final user = RecentSearchUser(id: id, data: RecentSearchList(list: []));
-  //       userList.users.add(user);
-  //       return user;
-  //     },
-  //   );
-  //   _addRecentSearchData(recentUser, data);
-  //   recentSearches = userList;
-  // }
+  void findOrAddRecentUser(int id, RecentSearchData data) {
+    final userList = recentSearches;
+    final recentUser = userList.users.firstWhere(
+      (entity) => entity.id == id,
+      orElse: () {
+        final user = RecentSearchUser(id: id, data: RecentSearchList(list: []));
+        userList.users.add(user);
+        return user;
+      },
+    );
+    _addRecentSearchData(recentUser, data);
+    recentSearches = userList;
+  }
 
   void setGroupPreferencesMessageVisibility(int userId, UserGroupingState state) {
     final key = userId.toString();
