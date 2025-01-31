@@ -18,8 +18,7 @@ class SearchEmptyResult extends StatelessWidget {
         children: [
           CustomText.w600(
             LocalizedTexts.searchEmptyResultTitle.tr(),
-            style: context.textTheme.titleLarge
-                ?.copyWith(color: AppColors.blueRegular),
+            style: context.textTheme.titleLarge?.copyWith(color: AppColors.blueRegular),
           ),
           const SizedBox(height: 8.0),
           CustomText.w500(

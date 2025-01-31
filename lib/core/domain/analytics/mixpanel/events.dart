@@ -42,4 +42,8 @@ class AppMixpanelEvents {
   static String get appflyerSdkStartError => 'appflyer_sdk_start_error';
 
   static String get accessTokenSecureStorageError => 'access_token_secure_storage_error';
+
+  static String get iLessonOpened => 'i_lesson_opened';
+  static String get iLessonProgress => 'i_lesson_progress';
+  static String get iLessonCompleted => 'i_lesson_completed';
 }

@@ -1633,7 +1633,7 @@
     }
   },
   "total": "Summe",
-  "searchHint": "SLebensmittel suchen",
+  "searchHint": "Voedingsmiddel zoeken",
   "searchFilterAll": "Alle",
   "searchFilterProducts": "Produkte",
   "searchFilterRecipes": "Rezepte",
@@ -2256,7 +2256,7 @@
   "remove": "Entferne",
   "recommendations": "Empfehlungen",
   "noCancel": "Nein, abbrechen",
-  "recentSearch": "Zuletzt protokolliert",
+  "recentSearch": "Recent gelogd",
   "dishWasSaved": "Das Gericht wurde gespeichert",
   "foodItemWasAddedToDish": "Das Lebensmittel wurde dem Gericht hinzugefügt",
   "foodItemWasDeletedFromDish": "Das Lebensmittel wurde aus dem Gericht entfernt",

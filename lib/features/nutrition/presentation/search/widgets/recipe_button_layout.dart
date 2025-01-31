@@ -5,21 +5,16 @@ import 'package:loopcare_frontend/features/nutrition/presentation/search/widgets
 
 class RecipeButtonLayout extends StatefulWidget {
   final SearchListLayout selectedLayout;
+  final Function(SearchListLayout value) onSelectLayoutTap;
 
-  const RecipeButtonLayout({super.key, required this.selectedLayout});
+  const RecipeButtonLayout(
+      {super.key, required this.selectedLayout, required this.onSelectLayoutTap});
 
   @override
   State<RecipeButtonLayout> createState() => _RecipeButtonLayoutState();
 }
 
 class _RecipeButtonLayoutState extends State<RecipeButtonLayout> {
-  SearchListLayout selectedLayout = SearchListLayout.list;
-  void _onSelectLayoutTap(SearchListLayout value) {
-    setState(() {
-      selectedLayout = value;
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -39,13 +34,12 @@ class _RecipeButtonLayoutState extends State<RecipeButtonLayout> {
             children: [
               SizedBox(
                 child: IconButton(
-                  onPressed: () =>
-                      _onSelectLayoutTap(SearchListLayout.detailed),
+                  onPressed: () => widget.onSelectLayoutTap(SearchListLayout.detailed),
                   iconSize: 16,
                   padding: const EdgeInsets.all(0.0),
                   icon: ImageIcon(
                     AppIcons.detailsLayout,
-                    color: (selectedLayout == SearchListLayout.detailed)
+                    color: (widget.selectedLayout == SearchListLayout.detailed)
                         ? AppColors.blueRegular
                         : AppColors.yellowLight,
                   ),
@@ -57,12 +51,12 @@ class _RecipeButtonLayoutState extends State<RecipeButtonLayout> {
               ),
               SizedBox(
                 child: IconButton(
-                  onPressed: () => _onSelectLayoutTap(SearchListLayout.list),
+                  onPressed: () => widget.onSelectLayoutTap(SearchListLayout.list),
                   iconSize: 16,
                   padding: const EdgeInsets.all(0.0),
                   icon: ImageIcon(
                     AppIcons.listLayout,
-                    color: (selectedLayout == SearchListLayout.list)
+                    color: (widget.selectedLayout == SearchListLayout.list)
                         ? AppColors.blueRegular
                         : AppColors.yellowLight,
                   ),

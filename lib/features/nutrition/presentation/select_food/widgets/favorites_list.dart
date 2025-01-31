@@ -33,7 +33,6 @@ class _FavoriteListState extends State<FavoriteList> with AutomaticKeepAliveClie
 
   @override
   void initState() {
-    context.read<SelectFoodBloc>().add(SelectFoodEvent.fetchFavorites(_defaultMealCategory));
     const AnalyticsEventService().logEvent(eventName: AnalyticsEvents.selectFoodScreenMyFavorites);
     super.initState();
   }

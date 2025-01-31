@@ -12,20 +12,21 @@ import 'package:loopcare_frontend/core/presentation/text/custom_text.dart';
 import 'package:loopcare_frontend/core/presentation/text_field/custom_text_field.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 import 'package:loopcare_frontend/core/presentation/utils/build_context_extensions.dart';
-import 'package:loopcare_frontend/core/presentation/utils/date_time_extensions.dart';
 import 'package:loopcare_frontend/core/presentation/utils/function_extensions.dart';
-import 'package:loopcare_frontend/features/nutrition/application/meals/meals_bloc.dart';
 import 'package:loopcare_frontend/features/nutrition/application/search/dto/search_mode.dart';
 import 'package:loopcare_frontend/features/nutrition/application/search/search_bloc.dart';
 import 'package:loopcare_frontend/features/nutrition/domain/select_serving/meal_category.dart';
 import 'package:loopcare_frontend/localization/service/localization_extension.dart';
 import 'package:loopcare_frontend/localization/service/localized_texts.dart';
 
+import '../../../application/select_food/select_food_bloc.dart';
+
 class SearchAppBar extends StatefulWidget implements PreferredSizeWidget {
   final SearchMode? mode;
+  final MealCategory mealCategory;
   final TextEditingController searchController;
   final void Function(String? tabName)? onTabChanged;
-
+  final String loggedDate;
   final String? selectedTab;
 
   const SearchAppBar(
@@ -33,7 +34,9 @@ class SearchAppBar extends StatefulWidget implements PreferredSizeWidget {
       this.mode,
       this.onTabChanged,
       required this.searchController,
-      this.selectedTab});
+      this.selectedTab,
+      required this.mealCategory,
+      required this.loggedDate});
 
   @override
   State<SearchAppBar> createState() => _SearchAppBarState();
@@ -42,13 +45,10 @@ class SearchAppBar extends StatefulWidget implements PreferredSizeWidget {
   Size get preferredSize => Size.fromHeight(AppBar().preferredSize.height * 2);
 }
 
-class _SearchAppBarState extends State<SearchAppBar>
-    with TickerProviderStateMixin {
+class _SearchAppBarState extends State<SearchAppBar> with TickerProviderStateMixin {
   String? searchMode = '';
   late TabController _tabController;
   late List<String> tabs;
-  late final MealCategory? mealCategory;
-  DateTime logDay = DateTime.now();
 
   SearchMode get searchType => SearchMode.values.toList()[_tabController.index];
 
@@ -78,9 +78,6 @@ class _SearchAppBarState extends State<SearchAppBar>
         }
       },
     );
-
-    mealCategory = context.read<MealsBloc>().state.data.currentMealCategory;
-    logDay = context.read<MealsBloc>().state.data.currentDate!;
   }
 
   @override
@@ -114,7 +111,7 @@ class _SearchAppBarState extends State<SearchAppBar>
                 ),
                 const Spacer(),
                 CustomText.w600(
-                  "${mealCategory!.title} ${logDay.shortDate}",
+                  "${widget.mealCategory.title} ${widget.loggedDate}",
                   style: context.textTheme.titleLarge,
                 ),
                 const Spacer(flex: 2),
@@ -146,11 +143,9 @@ class _SearchAppBarState extends State<SearchAppBar>
                               borderRadius: BorderRadius.circular(4.0)),
                           child: TextButton.icon(
                             onPressed: () {
-                              context.router
-                                  .pushNamed(AppRoutes.barcodeScanner);
+                              context.router.pushNamed(AppRoutes.barcodeScanner);
                             },
-                            icon: const ImageIcon(AppIcons.scan,
-                                color: AppColors.blueDarker),
+                            icon: const ImageIcon(AppIcons.scan, color: AppColors.blueDarker),
                             label: CustomText.w400(LocalizedTexts.scan.tr()),
                             style: TextButton.styleFrom(
                               padding: const EdgeInsets.all(0),
@@ -170,8 +165,7 @@ class _SearchAppBarState extends State<SearchAppBar>
                       borderStyle: _borderStyle,
                       controller: widget.searchController,
                       onCleared: _onCleared,
-                      onChanged: _onTextChange
-                          .withDebounce(const Duration(milliseconds: 500)),
+                      onChanged: _onTextChange.withDebounce(const Duration(milliseconds: 500)),
                     ),
                   ),
                 ],
@@ -185,10 +179,21 @@ class _SearchAppBarState extends State<SearchAppBar>
 
   void _tabsChangeListener() {
     if (_tabController.indexIsChanging) {
-      context.read<SearchBloc>().add(
-          SearchEvent.getRecentLogs(mealCategory!.originalValue, searchType));
       String? selectedMode = searchType.searchModeValue;
       searchMode = selectedMode;
+
+      if (searchMode != SearchMode.favorite.name) {
+        context
+            .read<SearchBloc>()
+            .add(SearchEvent.getRecentLogged(widget.mealCategory.originalValue, searchType));
+      }
+
+      if (searchMode == SearchMode.favorite.name) {
+        context
+            .read<SelectFoodBloc>()
+            .add(SelectFoodEvent.fetchFavorites(widget.mealCategory.originalValue));
+      }
+
       if (widget.onTabChanged != null) {
         widget.onTabChanged!(searchMode);
       }
@@ -198,8 +203,7 @@ class _SearchAppBarState extends State<SearchAppBar>
         eventName: AnalyticsEvents.performedSearch,
         parameters: {
           AnalyticsParameters.value: widget.searchController.text,
-          AnalyticsParameters.filters:
-              widget.mode == null ? searchMode : filters,
+          AnalyticsParameters.filters: widget.mode == null ? searchMode : filters,
         },
       );
 
@@ -214,11 +218,10 @@ class _SearchAppBarState extends State<SearchAppBar>
   }
 
   void _onTextChange(String value) {
-    setState(() {});
-
     if (value.isEmpty) {
-      context.read<SearchBloc>().add(
-          SearchEvent.getRecentLogs(mealCategory!.originalValue, searchType));
+      context
+          .read<SearchBloc>()
+          .add(SearchEvent.getRecentLogged(widget.mealCategory.originalValue, searchType));
       return;
     }
 
@@ -242,5 +245,5 @@ class _SearchAppBarState extends State<SearchAppBar>
 
   void _onCleared() => context
       .read<SearchBloc>()
-      .add(SearchEvent.getRecentLogs(mealCategory!.originalValue, searchType));
+      .add(SearchEvent.getRecentLogged(widget.mealCategory.originalValue, searchType));
 }

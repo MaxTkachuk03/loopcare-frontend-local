@@ -13,6 +13,9 @@ import 'package:loopcare_frontend/features/river/application/river_bloc.dart';
 import 'package:loopcare_frontend/features/river/domain/river_module.dart';
 import 'package:loopcare_frontend/features/river/presentation/river_page_widgets/river_module_view.dart';
 import 'package:visibility_detector/visibility_detector.dart';
+import 'package:loopcare_frontend/core/domain/analytics/usage_analytics/usage_analytics.dart';
+import 'package:loopcare_frontend/core/domain/analytics/usage_analytics/usage_analytics_attributes.dart';
+import 'package:loopcare_frontend/core/domain/analytics/usage_analytics/usage_analytics_events.dart';
 
 @RoutePage()
 class RiverPage extends StatefulWidget {
@@ -25,6 +28,7 @@ class RiverPage extends StatefulWidget {
 class _RiverPageState extends State<RiverPage> {
   late PageController _controller;
   late int _page;
+  final usageAnalytics = UsageAnalytics();
 
   bool _isOnViewport = true;
 
@@ -103,7 +107,16 @@ class _RiverPageState extends State<RiverPage> {
     if (_page < page) {
       _checkCompletion(page);
     }
-
+    final checkLockedPages = context.read<RiverBloc>().state.data.modules[page];
+    if (checkLockedPages.isLocked) {
+      usageAnalytics.track(
+        eventName: UsageAnalyticsEvents.lockedModuleViewed,
+        attributes: {
+          UsageAnalyticsAttributes.riverModuleId: checkLockedPages.id,
+          UsageAnalyticsAttributes.riverModuleTitle: checkLockedPages.title,
+        },
+      );
+    }
     _page = page;
   }
 
@@ -148,9 +161,18 @@ class _RiverPageState extends State<RiverPage> {
         currentModule: completedModule?.title ?? '',
         nextModule: riverData.activeModule?.title ?? '',
       );
+
+      usageAnalytics.track(
+        eventName: UsageAnalyticsEvents.moduleUnlocked,
+        attributes: {
+          UsageAnalyticsAttributes.riverModuleId: riverData.nextModule?.id,
+          UsageAnalyticsAttributes.riverModuleTitle: riverData.nextModule?.title,
+        },
+      );
     }
   }
 
-  void _checkCompletion([int? page]) =>
-      context.read<RiverBloc>().add(RiverEvent.checkCompletion(page: page));
+  void _checkCompletion([int? page]) {
+    context.read<RiverBloc>().add(RiverEvent.checkCompletion(page: page));
+  }
 }

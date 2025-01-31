@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loopcare_frontend/core/presentation/error/error_screen.dart';
 import 'package:loopcare_frontend/core/presentation/loader/loader.dart';
-import 'package:loopcare_frontend/features/nutrition/application/meals/meals_bloc.dart';
 import 'package:loopcare_frontend/features/nutrition/application/search/dto/search_item.dart';
 import 'package:loopcare_frontend/features/nutrition/application/search/dto/search_item_types.dart';
 import 'package:loopcare_frontend/features/nutrition/application/search/dto/search_mode.dart';
@@ -17,17 +16,21 @@ import 'package:loopcare_frontend/features/nutrition/presentation/select_food/wi
 import 'package:loopcare_frontend/localization/service/localization_extension.dart';
 import 'package:loopcare_frontend/localization/service/localized_texts.dart';
 
+import '../../../application/select_food/select_food_bloc.dart';
+
 class SearchResultList extends StatefulWidget {
   final Function(String) onRecentSearchItemTap;
   final void Function(SearchItem item) onItemTap;
   final String? selectedTab;
-  final SearchMode? mode;
+  final SearchMode mode;
+  final MealCategory mealCategory;
 
   const SearchResultList({
     super.key,
     required this.onRecentSearchItemTap,
     this.selectedTab,
-    this.mode,
+    required this.mode,
+    required this.mealCategory,
     required this.onItemTap,
   });
 
@@ -43,17 +46,13 @@ enum SearchListLayout {
 class _SearchResultListState extends State<SearchResultList> {
   final ScrollController _scrollController = ScrollController();
   SearchListLayout selectedLayout = SearchListLayout.list;
-  late final MealCategory? mealCategory;
 
   @override
   void initState() {
     _scrollController.addListener(_onScrollChangeListener);
-
-    mealCategory = context.read<MealsBloc>().state.data.currentMealCategory;
-
-    context.read<SearchBloc>().add(
-        SearchEvent.getRecentLogs(mealCategory!.originalValue, widget.mode!));
-
+    context
+        .read<SelectFoodBloc>()
+        .add(SelectFoodEvent.fetchFavorites(widget.mealCategory.originalValue));
     super.initState();
   }
 
@@ -66,8 +65,7 @@ class _SearchResultListState extends State<SearchResultList> {
   }
 
   void _onScrollChangeListener() {
-    if (_scrollController.offset >=
-        _scrollController.position.maxScrollExtent) {
+    if (_scrollController.offset >= _scrollController.position.maxScrollExtent) {
       final searchBloc = context.read<SearchBloc>();
       final searchState = searchBloc.state;
 
@@ -86,13 +84,24 @@ class _SearchResultListState extends State<SearchResultList> {
     }
   }
 
+  void _onSelectLayoutTap(SearchListLayout value) {
+    setState(() {
+      selectedLayout = value;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     if (widget.selectedTab != 'recipe') selectedLayout = SearchListLayout.list;
 
     if (widget.selectedTab == 'favorite') {
-      return FavoriteList(mealCategory: mealCategory);
+      return BlocBuilder<SearchBloc, SearchState>(builder: (BuildContext context, state) {
+        return state.maybeWhen(
+            loading: (state) => const SizedBox(height: 250, child: Loader()),
+            orElse: () => FavoriteList(mealCategory: widget.mealCategory));
+      });
     }
+
     return BlocBuilder<SearchBloc, SearchState>(
       builder: (BuildContext context, state) {
         return state.maybeMap(
@@ -109,15 +118,14 @@ class _SearchResultListState extends State<SearchResultList> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         if (widget.selectedTab == 'recipe')
-                          RecipeButtonLayout(selectedLayout: selectedLayout),
+                          RecipeButtonLayout(
+                            selectedLayout: selectedLayout,
+                            onSelectLayoutTap: _onSelectLayoutTap,
+                          ),
                         if (selectedLayout == SearchListLayout.list)
-                          _ListLayout(
-                              onItemTap: widget.onItemTap,
-                              itemsState: itemsState),
+                          _ListLayout(onItemTap: widget.onItemTap, itemsState: itemsState),
                         if (selectedLayout == SearchListLayout.detailed)
-                          _DetailedLayout(
-                              onItemTap: widget.onItemTap,
-                              itemsState: itemsState),
+                          _DetailedLayout(onItemTap: widget.onItemTap, itemsState: itemsState),
                       ],
                     ),
                   );
@@ -125,45 +133,35 @@ class _SearchResultListState extends State<SearchResultList> {
           initial: (initialState) {
             final recentSearchList = state.data.recentSearch ?? <String>[];
 
-            if (recentSearchList.isNotEmpty) {
-              return Column(
-                children: [
-                  SearchListTitleItem(
-                    text: LocalizedTexts.recentSearch.tr(),
-                  ),
-                  Expanded(
-                    child: ListView.builder(
-                      itemCount: recentSearchList.length,
-                      shrinkWrap: true,
-                      physics: const NeverScrollableScrollPhysics(),
-                      itemBuilder: (BuildContext context, int index) {
-                        final item = recentSearchList[index];
-                        final itemType = item.length > 1
-                            ? SearchItemTypes.values.firstWhere(
-                                (e) => e.toString() == item[1],
-                                orElse: () => SearchItemTypes.recent)
-                            : SearchItemTypes.recent;
-
-                        return SearchResultListItem(
-                          item: SearchItem(
-                            id: index.toString(),
-                            name: item,
-                            type: itemType,
-                          ),
-                          onTap: (SearchItem item) {
-                            widget.onRecentSearchItemTap(item.name);
-                          },
-                        );
-                      },
-                    ),
-                  ),
-                ],
-              );
-            }
             return Column(
               children: [
                 SearchListTitleItem(
                   text: LocalizedTexts.recentSearch.tr(),
+                ),
+                Expanded(
+                  child: ListView.builder(
+                    itemCount: recentSearchList.length,
+                    shrinkWrap: true,
+                    physics: const NeverScrollableScrollPhysics(),
+                    itemBuilder: (BuildContext context, int index) {
+                      final item = recentSearchList[index];
+                      final itemType = item.length > 1
+                          ? SearchItemTypes.values.firstWhere((e) => e.toString() == item[1],
+                              orElse: () => SearchItemTypes.recent)
+                          : SearchItemTypes.recent;
+
+                      return SearchResultListItem(
+                        item: SearchItem(
+                          id: index.toString(),
+                          name: item,
+                          type: itemType,
+                        ),
+                        onTap: (SearchItem item) {
+                          widget.onRecentSearchItemTap(item.name);
+                        },
+                      );
+                    },
+                  ),
                 ),
               ],
             );

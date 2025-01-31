@@ -99,8 +99,8 @@ class _MealPageState extends State<MealPage> {
     final state = context.read<MealsBloc>().state;
 
     return state.data.currentDateTime.dateOnly.isSameDate(DateTime.now().dateOnly)
-        ? state.data.currentDateTime.shortDate
-        : LocalizedTexts.today.tr().capitalize();
+        ? LocalizedTexts.today.tr().capitalize()
+        : state.data.currentDateTime.shortDate;
   }
 
   void _onNutritionFactSelect(NutritionValuesTypes item) {

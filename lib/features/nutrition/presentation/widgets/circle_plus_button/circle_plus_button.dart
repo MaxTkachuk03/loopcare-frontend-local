@@ -12,16 +12,10 @@ import 'package:loopcare_frontend/features/nutrition/application/meals/dto/add_f
 import 'package:loopcare_frontend/features/nutrition/application/meals/meals_bloc.dart';
 import 'package:loopcare_frontend/features/nutrition/application/search/dto/search_item.dart';
 import 'package:loopcare_frontend/features/nutrition/application/search/dto/search_item_types.dart';
-import 'package:loopcare_frontend/features/nutrition/application/search/search_bloc.dart';
 
 class CirclePlusButton extends StatelessWidget {
   const CirclePlusButton(
-      {super.key,
-      this.color,
-      this.onPressed,
-      this.width,
-      this.icon,
-      this.iconColor});
+      {super.key, this.color, this.onPressed, this.width, this.icon, this.iconColor});
 
   final Color? color;
   final void Function()? onPressed;
@@ -44,11 +38,6 @@ class CirclePlusButton extends StatelessWidget {
     );
   }
 
-  // _onSearchTap(BuildContext context){
-  //   final mealCategory = context.read<MealsBloc>().state.data.currentMealCategory;
-  //   context.router.push(SelectFoodRoute(mealCategory: mealCategory));
-  // }
-
   _onSearchTap(BuildContext context) {
     context.router.push(
       SearchRoute(
@@ -58,10 +47,6 @@ class CirclePlusButton extends StatelessWidget {
           if (mealId == null) {
             return;
           }
-          // context.read<SearchBloc>().add(
-          //       SearchEvent.addSearchResult(
-          //           item.name, item.type.searchModeValue),
-          //     );
 
           if (item.type == SearchItemTypes.food) {
             context.router.push(
@@ -86,13 +71,11 @@ class CirclePlusButton extends StatelessWidget {
                     const AnalyticsEventService().logEvent(
                       eventName: AnalyticsEvents.foodLogged,
                       parameters: {
-                        AnalyticsParameters.timestamp:
-                            DateTime.now().toIso8601String(),
+                        AnalyticsParameters.timestamp: DateTime.now().toIso8601String(),
                         AnalyticsParameters.mealId: mealId.toString(),
                         AnalyticsParameters.foodItem: item.id,
                         AnalyticsParameters.servingId: servingId,
-                        AnalyticsParameters.numberOfUnits:
-                            numberOfUnits.toString(),
+                        AnalyticsParameters.numberOfUnits: numberOfUnits.toString(),
                         AnalyticsParameters.isMeal: 'true',
                       },
                     );

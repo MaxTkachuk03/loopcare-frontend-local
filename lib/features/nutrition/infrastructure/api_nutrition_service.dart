@@ -1,7 +1,6 @@
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
 import 'package:injectable/injectable.dart';
-import 'package:loopcare_frontend/core/domain/recent_search_user/recent_search_list.dart';
 import 'package:loopcare_frontend/core/infrastructure/dio_client/dio_client.dart';
 import 'package:loopcare_frontend/core/infrastructure/dio_client/request_error.dart';
 import 'package:loopcare_frontend/core/infrastructure/services/logger/logger.dart';
@@ -44,6 +43,8 @@ import 'package:loopcare_frontend/features/nutrition/application/select_serving/
 import 'package:loopcare_frontend/features/nutrition/application/select_serving/dto/food_item_servings_response.dart';
 import 'package:loopcare_frontend/features/nutrition/application/select_serving/dto/update_favorite_body.dart';
 
+import '../../../core/domain/recent_logged/recent_logged_list.dart';
+
 @Injectable(as: NutritionService)
 class APINutritionService implements NutritionService {
   DioClient client;
@@ -51,19 +52,17 @@ class APINutritionService implements NutritionService {
   APINutritionService(this.client);
 
   @override
-  Future<Either<RequestError, RecentSearchList>> getRecentLogs(
-    String category,
-    String mode,
-  ) async {
+  Future<Either<RequestError, RecentLoggedList>> getRecentLogged(
+      String category, String mode, int maxRecentLoggedListSize) async {
     try {
       final response = await client.get(
         '/meals/recent',
         queryParameters: {
           'category': category,
           'mode': mode,
-          'limit': 10,
+          'limit': maxRecentLoggedListSize,
         },
-        fromJson: RecentSearchList.fromJson,
+        fromJson: RecentLoggedList.fromJson,
       );
       log.d('Raw Response: getRecentLogs');
       return response;
@@ -97,8 +96,7 @@ class APINutritionService implements NutritionService {
   }
 
   @override
-  Future<Either<RequestError, FoodItemServingsResponse>> getFoodItemServings(
-      String id) async {
+  Future<Either<RequestError, FoodItemServingsResponse>> getFoodItemServings(String id) async {
     return await client.get(
       '/food-items/$id/servings',
       fromJson: FoodItemServingsResponse.fromJson,
@@ -143,8 +141,8 @@ class APINutritionService implements NutritionService {
   }
 
   @override
-  Future<Either<RequestError, BarcodeInformationResponse>>
-      getBarcodeInformation(String barCode) async {
+  Future<Either<RequestError, BarcodeInformationResponse>> getBarcodeInformation(
+      String barCode) async {
     return await client.get(
       '/food-items/barcode/$barCode',
       fromJson: BarcodeInformationResponse.fromJson,
@@ -340,8 +338,7 @@ class APINutritionService implements NutritionService {
   }
 
   @override
-  Future<Either<RequestError, MealsListItem>> addPlannedMeal(
-      AddPlannedMealBody data) async {
+  Future<Either<RequestError, MealsListItem>> addPlannedMeal(AddPlannedMealBody data) async {
     return await client.post(
       '/planned-meals',
       data: data,
@@ -350,8 +347,7 @@ class APINutritionService implements NutritionService {
   }
 
   @override
-  Future<Either<RequestError, MealsListItem>> getPlannedMealById(
-      int mealId) async {
+  Future<Either<RequestError, MealsListItem>> getPlannedMealById(int mealId) async {
     return await client.get(
       '/planned-meals/$mealId',
       fromJson: MealsListItem.fromJson,
@@ -371,8 +367,7 @@ class APINutritionService implements NutritionService {
   }
 
   @override
-  Future<Either<RequestError, MealsListItem>> removePlannedMeal(
-      int mealId) async {
+  Future<Either<RequestError, MealsListItem>> removePlannedMeal(int mealId) async {
     return await client.delete(
       '/planned-meals/$mealId',
       fromJson: MealsListItem.fromJson,
@@ -380,8 +375,7 @@ class APINutritionService implements NutritionService {
   }
 
   @override
-  Future<Either<RequestError, MealsListItem>> logPlannedMeal(
-      LogPlannedMealBody data) async {
+  Future<Either<RequestError, MealsListItem>> logPlannedMeal(LogPlannedMealBody data) async {
     return await client.post(
       '/planned-meals/log',
       data: data,
@@ -448,10 +442,7 @@ class APINutritionService implements NutritionService {
 
   @override
   Future<Either<RequestError, SearchResponse>> search(String query,
-      {List<String>? mode,
-      int? page,
-      int? limit,
-      CancelToken? cancelRequestToken}) async {
+      {List<String>? mode, int? page, int? limit, CancelToken? cancelRequestToken}) async {
     return await client.get(
       '/nutrition/search',
       cancelToken: cancelRequestToken,
@@ -568,8 +559,7 @@ class APINutritionService implements NutritionService {
   }
 
   @override
-  Future<Either<RequestError, UpdateDishFoodItemResponse>>
-      deleteFoodItemFromDish(
+  Future<Either<RequestError, UpdateDishFoodItemResponse>> deleteFoodItemFromDish(
     int dishId,
     int internalFoodItemId,
   ) async {

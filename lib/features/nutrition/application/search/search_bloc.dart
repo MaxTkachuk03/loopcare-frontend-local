@@ -6,8 +6,6 @@ import 'package:hydrated_bloc/hydrated_bloc.dart';
 import 'package:injectable/injectable.dart';
 import 'package:loopcare_frontend/core/infrastructure/dio_client/dio_client.dart';
 import 'package:loopcare_frontend/core/infrastructure/dio_client/request_error.dart';
-import 'package:loopcare_frontend/core/infrastructure/services/shared_storage/shared_storage_service.dart';
-import 'package:loopcare_frontend/features/authentication/application/authentication_bloc.dart';
 import 'package:loopcare_frontend/features/nutrition/application/nutrition_service.dart';
 import 'package:loopcare_frontend/features/nutrition/application/search/dto/search_item.dart';
 import 'package:loopcare_frontend/features/nutrition/application/search/dto/search_mode.dart';
@@ -25,75 +23,39 @@ part 'search_bloc.g.dart';
 
 @singleton
 class SearchBloc extends Bloc<SearchEvent, SearchState> {
-  final AuthenticationBloc _authenticationBloc;
   final NutritionService nutritionService;
-  final SharedStorageService _sharedStorageService;
-  static const maxRecentSearchListSize = 10;
+  static const maxRecentLoggedListSize = 10;
   static const searchLimit = 20;
   late CancelToken cancelRequestToken;
-  bool isPaginatedSearchRequstRun = false;
+  bool isPaginatedSearchRequestRun = false;
 
   SearchBloc(
     this.nutritionService,
-    this._authenticationBloc,
-    this._sharedStorageService,
   ) : super(const SearchState.initial(SearchData())) {
     on<Search>(_onSearch);
     on<PaginatedSearch>(
       _onPaginatedSearch,
       transformer: droppable(),
     );
-    on<GetRecentLogs>(_onGetRecentLogs);
-    // on<ResetData>(_onResetData);
-    // on<AddSearchResult>(_onAddSearchResult);
+    on<GetRecentLogged>(_onGetRecentLogged);
   }
 
-  // FutureOr<void> _onAddSearchResult(
-  //   AddSearchResult event,
-  //   Emitter<SearchState> emit,
-  // ) {
-  //   _addRecentSearch(event.query, event.mode);
-  // }
-
-  // Future<void> _addRecentSearch(String query, SearchMode type) async {
-  //   final userId = _authenticationBloc.state.data.id;
-  //   _sharedStorageService.findOrAddRecentUser(
-  //       userId, RecentSearchData(type: type, query: query));
-  // }
-
-  // List<String> _getRecentSearch({SearchMode? type}) {
-  //   var list = <String>[];
-  //   final userId = _authenticationBloc.state.data.id;
-  //   List<String> savedList = _sharedStorageService.searchValues(userId,
-  //       type: type ?? SearchMode.food);
-
-  //   list.add('header');
-
-  //   list.addAll(savedList);
-  //   return list;
-  // }
-
-  FutureOr<void> _onGetRecentLogs(
-    GetRecentLogs event,
+  FutureOr<void> _onGetRecentLogged(
+    GetRecentLogged event,
     Emitter<SearchState> emit,
   ) async {
     emit(SearchState.loading(state.data.copyWith(isLoading: true)));
 
-    final getRecent =
-        await nutritionService.getRecentLogs(event.category, event.mode.name);
+    final response = await nutritionService.getRecentLogged(
+        event.category, event.mode.name, maxRecentLoggedListSize);
 
-    final recentList = getRecent
-        .map((recentSearchList) => recentSearchList.data)
-        .toIterable()
-        .toList();
-
-    final recentResult = recentList.expand((list) => list).toList();
-
-    emit(SearchState.loading(state.data.copyWith(isLoading: false)));
-    emit(SearchState.initial(state.data.copyWith(recentSearch: recentResult)));
+    response.fold(
+        (l) => emit(SearchState.error(state.data.copyWith(error: l, isLoading: false))),
+        (r) =>
+            emit(SearchState.initial(state.data.copyWith(recentSearch: r.data, isLoading: false))));
   }
 
-  Future<dartz.Either<RequestError, SearchResponse>> searchRequst(
+  Future<dartz.Either<RequestError, SearchResponse>> searchRequest(
     String query,
     String? filteredMode,
     String? mode,
@@ -105,9 +67,8 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
     var searchMode = <String>[];
 
     if (mode != null && mode.isNotEmpty) {
-      searchMode = mode == SearchMode.dish.name
-          ? [SearchMode.dish.name, SearchMode.favorite.name]
-          : [mode];
+      searchMode =
+          mode == SearchMode.dish.name ? [SearchMode.dish.name, SearchMode.favorite.name] : [mode];
     }
     if (filteredMode != null) {
       searchMode = [
@@ -130,15 +91,14 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
   ) async {
     if (event.query.length < 3) return;
 
-    if (isPaginatedSearchRequstRun) {
-      cancelRequestToken
-          .cancel(DioRequestCancellationReason.searchManualCancel);
-      isPaginatedSearchRequstRun = false;
+    if (isPaginatedSearchRequestRun) {
+      cancelRequestToken.cancel(DioRequestCancellationReason.searchManualCancel);
+      isPaginatedSearchRequestRun = false;
     }
 
     emit(SearchState.loading(state.data.copyWith(isLoading: true)));
 
-    final response = await searchRequst(
+    final response = await searchRequest(
       event.query,
       event.filteredMode,
       event.mode,
@@ -149,8 +109,7 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
 
     response.fold(
       (error) {
-        emit(SearchState.error(
-            state.data.copyWith(error: error, isLoading: false)));
+        emit(SearchState.error(state.data.copyWith(error: error, isLoading: false)));
       },
       (response) {
         emit(
@@ -164,8 +123,7 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
                 mode: event.mode,
                 limit: event.limit,
                 page: event.page,
-                isLastPage:
-                    response.data.length != (event.limit ?? searchLimit),
+                isLastPage: response.data.length != (event.limit ?? searchLimit),
               ),
             ),
           ),
@@ -186,9 +144,9 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
 
     emit(SearchState.searchResult(state.data.copyWith(loadingMore: true)));
     cancelRequestToken = CancelToken();
-    isPaginatedSearchRequstRun = true;
+    isPaginatedSearchRequestRun = true;
 
-    final response = await searchRequst(
+    final response = await searchRequest(
       event.query,
       event.filteredMode,
       event.mode,
@@ -199,11 +157,11 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
 
     response.fold(
       (error) {
-        isPaginatedSearchRequstRun = false;
+        isPaginatedSearchRequestRun = false;
         emit(SearchState.error(state.data.copyWith(error: error)));
       },
       (response) {
-        isPaginatedSearchRequstRun = false;
+        isPaginatedSearchRequestRun = false;
         final newItems = [...oldItems, ...response.data];
         emit(
           SearchState.searchResult(
@@ -216,8 +174,7 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
                 mode: event.mode,
                 limit: event.limit,
                 page: event.page,
-                isLastPage:
-                    response.data.length != (event.limit ?? searchLimit),
+                isLastPage: response.data.length != (event.limit ?? searchLimit),
               ),
             ),
           ),
@@ -225,10 +182,4 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
       },
     );
   }
-
-  // FutureOr<void> _onResetData(
-  //     ResetData event, Emitter<SearchState> emit) async {
-  //   emit(SearchState.initial(
-  //       state.data.copyWith(recentSearch: _getRecentSearch(type: event.mode))));
-  // }
 }

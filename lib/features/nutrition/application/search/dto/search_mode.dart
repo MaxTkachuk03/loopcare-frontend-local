@@ -16,7 +16,7 @@ extension SearchModeX on SearchMode {
       case SearchMode.food:
         return LocalizedTexts.searchFilterProducts.tr();
       case SearchMode.favorite:
-        return LocalizedTexts.favorite.tr();
+        return LocalizedTexts.favorites.tr();
       case SearchMode.dish:
         return LocalizedTexts.searchFilterMy.tr();
     }

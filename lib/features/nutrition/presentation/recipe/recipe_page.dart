@@ -150,10 +150,6 @@ class _RecipePageState extends State<RecipePage> {
       child: MultiBlocListener(
         listeners: [
           BlocListener<RecipeBloc, RecipeState>(
-            listener: _recipeListener,
-            listenWhen: (previous, current) => previous is LoadingRecipe && current is RecipeInfo,
-          ),
-          BlocListener<RecipeBloc, RecipeState>(
             listenWhen: _whenRecipeUpdated,
             listener: _recipeUpdatingListener,
           ),
@@ -276,7 +272,7 @@ class _RecipePageState extends State<RecipePage> {
                                 children: [
                                   const SizedBox(height: 26.0),
                                   CustomElevatedButton.blueFullWidth(
-                                    onPressed: _onLogRecipePressed,
+                                    onPressed: () => _onLogRecipePressed(recipeState),
                                     label: LocalizedTexts.logItem.tr(),
                                   ),
                                   const SizedBox(height: 20.0),
@@ -317,7 +313,7 @@ class _RecipePageState extends State<RecipePage> {
         mealId: mealId, servingAmount: double.parse(val), recipeId: recipeId));
   }
 
-  void _recipeListener(BuildContext context, RecipeState state) {
+  void _addRecipeToMeal(BuildContext context, RecipeState state) {
     final recipe = state.mapOrNull(recipeInfo: (s) => s.data.recipe);
 
     if (recipe == null || _isLogRecipePressed) return;
@@ -362,7 +358,8 @@ class _RecipePageState extends State<RecipePage> {
     context.router.pushNamed(AppRoutes.recipeDetails);
   }
 
-  void _onLogRecipePressed() {
+  void _onLogRecipePressed(RecipeState state) {
+    _addRecipeToMeal(context, state);
     setState(() {
       _isLogRecipePressed = true;
     });
