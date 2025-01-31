@@ -2,11 +2,14 @@ part of 'reflections_bloc.dart';
 
 @freezed
 class ReflectionsState with _$ReflectionsState {
-  const factory ReflectionsState.initial(ReflectionsStateData data) = ReflectionsStateInitial;
+  const factory ReflectionsState.initial(ReflectionsStateData data) =
+      ReflectionsStateInitial;
 
-  const factory ReflectionsState.loading(ReflectionsStateData data) = ReflectionsStateLoading;
+  const factory ReflectionsState.loading(ReflectionsStateData data) =
+      ReflectionsStateLoading;
 
-  const factory ReflectionsState.error(ReflectionsStateData data) = ReflectionsStateError;
+  const factory ReflectionsState.error(ReflectionsStateData data) =
+      ReflectionsStateError;
 
   const factory ReflectionsState.reflectionsLoaded(ReflectionsStateData data) =
       ReflectionsStateReflectionsLoaded;
@@ -37,9 +40,11 @@ class ReflectionsStateData with _$ReflectionsStateData {
     }).toList();
   }
 
-  List<Reflection> getSelectedDayDoneReflections(DateTime selectedDay) => reflections
-      .where((r) => r.completedAt?.dateOnly.isSameDate(selectedDay.dateOnly) ?? false)
-      .toList();
+  List<Reflection> getSelectedDayDoneReflections(DateTime selectedDay) =>
+      reflections
+          .where((r) =>
+              r.completedAt?.dateOnly.isSameDate(selectedDay.dateOnly) ?? false)
+          .toList();
 
   List<Reflection> getPastReflections(DateTime selectedDay) {
     final endDate = selectedDay.subtract(7.days);
@@ -53,36 +58,43 @@ class ReflectionsStateData with _$ReflectionsStateData {
     }).toList();
   }
 
-  String get errorKey => error?.message ?? LocalizedTexts.errorSomethingWentWrong;
+  String get errorKey =>
+      error?.message ?? LocalizedTexts.errorSomethingWentWrong;
 
   List<Reflection> get sortedReflections {
     final sortedReflections = List<Reflection>.from(reflections)
       ..sort((a, b) {
         int getStatusPriority(Reflection reflection) {
           if (reflection.unlockedAt != null && reflection.completedAt != null) {
-            return 0; // Completed
-          } else if (reflection.unlockedAt != null && reflection.completedAt == null) {
-            return 1; // Unlocked
+            return 1; // Completed
+          } else if (reflection.unlockedAt != null &&
+              reflection.completedAt == null) {
+            return 2; // Unlocked
           } else {
-            return 2; // Locked
+            return 3; // Locked
           }
         }
 
         return getStatusPriority(a).compareTo(getStatusPriority(b));
       });
 
-    return sortedReflections;
+    return sortedReflections..sort((a, b) => a.moduleId.compareTo(b.moduleId));
   }
 
-  PracticeLessonCardStatusTypes getReflectionStatus(int i, List<Reflection> reflections) {
-    return reflections[i].unlockedAt == null && reflections[i].completedAt == null
+  PracticeLessonCardStatusTypes getReflectionStatus(
+      int i, List<Reflection> reflections) {
+    return reflections[i].unlockedAt == null &&
+            reflections[i].completedAt == null
         ? PracticeLessonCardStatusTypes.locked
-        : reflections[i].unlockedAt != null && reflections[i].completedAt == null
+        : reflections[i].unlockedAt != null &&
+                reflections[i].completedAt == null
             ? PracticeLessonCardStatusTypes.unlocked
             : PracticeLessonCardStatusTypes.completed;
   }
 
   List<Reflection> getCurrentReflectionsByActiveModule(int activeModuleId) {
-    return sortedReflections.where((r) => r.moduleId == activeModuleId).toList();
+    return sortedReflections
+        .where((r) => r.moduleId == activeModuleId)
+        .toList();
   }
 }

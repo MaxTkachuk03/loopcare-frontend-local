@@ -27,8 +27,9 @@ class ReflectionsPage extends StatefulWidget {
 }
 
 class _ReflectionsPageState extends State<ReflectionsPage> {
-  void _onItemPressedHandler(BuildContext context, Reflection reflectionItem) => context.router
-      .push(ReflectionsIntroRoute(reflectionItem: reflectionItem, fromDashboard: false));
+  void _onItemPressedHandler(BuildContext context, Reflection reflectionItem) =>
+      context.router.push(ReflectionsIntroRoute(
+          reflectionItem: reflectionItem, fromDashboard: false));
 
   @override
   Widget build(BuildContext context) {
@@ -43,20 +44,6 @@ class _ReflectionsPageState extends State<ReflectionsPage> {
           child: MainContainer(
             child: BlocBuilder<ReflectionsBloc, ReflectionsState>(
               builder: (context, state) {
-                final sortedReflections = List<Reflection>.from(state.data.reflections)
-                  ..sort((a, b) {
-                    int getStatusPriority(Reflection reflection) {
-                      if (reflection.unlockedAt != null && reflection.completedAt != null) {
-                        return 0; // Completed
-                      } else if (reflection.unlockedAt != null && reflection.completedAt == null) {
-                        return 1; // Unlocked
-                      } else {
-                        return 2; // Locked
-                      }
-                    }
-
-                    return getStatusPriority(a).compareTo(getStatusPriority(b));
-                  });
 
                 return state.maybeMap(
                   loading: (_) => const Loader(),
@@ -67,13 +54,14 @@ class _ReflectionsPageState extends State<ReflectionsPage> {
                         shrinkWrap: true,
                         itemCount: state.data.reflections.length,
                         itemBuilder: (context, index) {
-                          final reflection = sortedReflections[index];
-                          final cardStatus =
-                              reflection.unlockedAt == null && reflection.completedAt == null
-                                  ? PracticeLessonCardStatusTypes.locked
-                                  : reflection.unlockedAt != null && reflection.completedAt == null
-                                      ? PracticeLessonCardStatusTypes.unlocked
-                                      : PracticeLessonCardStatusTypes.completed;
+                          final reflection = state.data.reflections[index];
+                          final cardStatus = reflection.unlockedAt == null &&
+                                  reflection.completedAt == null
+                              ? PracticeLessonCardStatusTypes.locked
+                              : reflection.unlockedAt != null &&
+                                      reflection.completedAt == null
+                                  ? PracticeLessonCardStatusTypes.unlocked
+                                  : PracticeLessonCardStatusTypes.completed;
 
                           return PracticeLessonCard(
                             key: ValueKey(reflection.id),
@@ -81,7 +69,8 @@ class _ReflectionsPageState extends State<ReflectionsPage> {
                             text: reflection.title,
                             buttonText: LocalizedTexts.start.tr(),
                             status: cardStatus.name,
-                            onPressed: cardStatus == PracticeLessonCardStatusTypes.locked
+                            onPressed: cardStatus ==
+                                    PracticeLessonCardStatusTypes.locked
                                 ? null
                                 : () {
                                     _onItemPressedHandler(context, reflection);
