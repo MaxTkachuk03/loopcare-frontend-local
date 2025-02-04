@@ -21,5 +21,6 @@ class CommitmentStateData with _$CommitmentStateData {
     @Default(0) int completedCommitments,
     @Default(0) int totalCommitments,
     @Default(false) bool isCommitmentUnlocked,
+    @Default(true) bool showCommitmentWidget,
   }) = _CommitmentStateData;
 }

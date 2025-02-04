@@ -24,42 +24,53 @@ class SearchResultListItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Material(
-      child: InkWell(
-        onTap: () => onTap(item),
-        child: Ink(
+    return GestureDetector(
+      onTap: () => onTap(item),
+      child: Container(
+        decoration: const BoxDecoration(
           color: AppColors.greenLightest,
-          child: Padding(
-            padding: EdgeInsets.symmetric(
-              horizontal: 20.0,
-              vertical: _subTitle.isNotEmpty ? 7.0 : 14.0,
-            ),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                if (showLeading)
-                  Padding(
-                    padding: const EdgeInsets.only(right: 8.0),
-                    child: ImageIcon(
-                      item.type.icon,
-                      color: AppColors.blueDarker,
+        ),
+        child: Column(
+          children: [
+            Padding(
+              padding: EdgeInsets.symmetric(
+                horizontal: 20.0,
+                vertical: _subTitle.isNotEmpty ? 7.0 : 14.0,
+              ),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  if (showLeading)
+                    Padding(
+                      padding: const EdgeInsets.only(right: 10.0),
+                      child: ImageIcon(
+                        item.type.icon,
+                        color: AppColors.blueDarker,
+                      ),
+                    ),
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        CustomText.w600(
+                          item.name,
+                          style: context.textTheme.titleSmall,
+                        ),
+                        if (_subTitle.isNotEmpty)
+                          CustomText.w400(
+                            _subTitle,
+                            style: context.textTheme.bodySmall,
+                          ),
+                      ],
                     ),
                   ),
-                Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      CustomText.w600(item.name, style: context.textTheme.titleSmall),
-                      if (_subTitle.isNotEmpty)
-                        CustomText.w400(_subTitle, style: context.textTheme.bodySmall),
-                    ],
-                  ),
-                ),
-                const Icon(Icons.arrow_forward_ios, color: AppColors.blueDarker, size: 16),
-              ],
+                  const Icon(Icons.arrow_forward_ios, color: AppColors.blueDarker, size: 16),
+                ],
+              ),
             ),
-          ),
+            const Divider(color: AppColors.blueLighter, height: 1, thickness: 1)
+          ],
         ),
       ),
     );

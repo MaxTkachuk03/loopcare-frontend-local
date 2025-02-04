@@ -1,23 +1,42 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loopcare_frontend/core/domain/analytics/analytics_events.dart';
 import 'package:loopcare_frontend/core/domain/analytics/analytics_parameters.dart';
 import 'package:loopcare_frontend/core/infrastructure/services/analytics_service.dart';
 import 'package:loopcare_frontend/core/presentation/buttons/custom_filled_icon_button.dart';
+import 'package:loopcare_frontend/core/presentation/icon_images/app_icons.dart';
+import 'package:loopcare_frontend/core/presentation/routes/app_router.dart';
 import 'package:loopcare_frontend/core/presentation/tab_bar/custom_underlined_tab_bar.dart';
+import 'package:loopcare_frontend/core/presentation/text/custom_text.dart';
 import 'package:loopcare_frontend/core/presentation/text_field/custom_text_field.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
+import 'package:loopcare_frontend/core/presentation/utils/build_context_extensions.dart';
 import 'package:loopcare_frontend/core/presentation/utils/function_extensions.dart';
 import 'package:loopcare_frontend/features/nutrition/application/search/dto/search_mode.dart';
 import 'package:loopcare_frontend/features/nutrition/application/search/search_bloc.dart';
+import 'package:loopcare_frontend/features/nutrition/domain/select_serving/meal_category.dart';
+import 'package:loopcare_frontend/localization/service/localization_extension.dart';
+import 'package:loopcare_frontend/localization/service/localized_texts.dart';
+
+import '../../../application/select_food/select_food_bloc.dart';
 
 class SearchAppBar extends StatefulWidget implements PreferredSizeWidget {
   final SearchMode? mode;
+  final MealCategory mealCategory;
   final TextEditingController searchController;
   final void Function(String? tabName)? onTabChanged;
+  final String loggedDate;
+  final String? selectedTab;
 
-  const SearchAppBar({super.key, this.mode, this.onTabChanged, required this.searchController});
+  const SearchAppBar(
+      {super.key,
+      this.mode,
+      this.onTabChanged,
+      required this.searchController,
+      this.selectedTab,
+      required this.mealCategory,
+      required this.loggedDate});
 
   @override
   State<SearchAppBar> createState() => _SearchAppBarState();
@@ -42,7 +61,7 @@ class _SearchAppBarState extends State<SearchAppBar> with TickerProviderStateMix
       tabs = <String>[mode.label];
     } else {
       tabs = SearchMode.values
-          .where((e) => e.label != SearchMode.favorite.label)
+          .where((e) => e.label != SearchMode.dish.label)
           .map((e) => e.label)
           .toList();
     }
@@ -69,34 +88,90 @@ class _SearchAppBarState extends State<SearchAppBar> with TickerProviderStateMix
     _tabController.dispose();
   }
 
+  OutlineInputBorder get _borderStyle => const OutlineInputBorder(
+      borderRadius: BorderRadius.all(Radius.circular(8.0)),
+      borderSide: BorderSide(
+        color: AppColors.white,
+      ));
+
   @override
   Widget build(BuildContext context) {
-    return DefaultTabController(
-      length: tabs.length,
-      child: AppBar(
-        leading: Padding(
-          padding: const EdgeInsets.all(6.0),
-          child: CustomFilledIconButton.leadingGreenLighter(),
-        ),
-        systemOverlayStyle: SystemUiOverlayStyle.dark,
-        backgroundColor: AppColors.greenRegular,
-        title: CustomTextField.search(
-          controller: widget.searchController,
-          onCleared: _onCleared,
-          onChanged: _onTextChange.withDebounce(const Duration(milliseconds: 500)),
-        ),
-        bottom: PreferredSize(
-          preferredSize: const Size.fromHeight(kToolbarHeight),
-          child: Padding(
-            padding: const EdgeInsets.only(bottom: 8, left: 25, right: 25),
-            child: CustomUnderlinedTabBar(
-              tabs: tabs.map((e) => Tab(text: e)).toList(),
-              tabController: _tabController,
-              tabAlignment: TabAlignment.center,
-              labelColor: AppColors.blueDarker,
-              unselectedLabelColor: AppColors.blueDarker,
+    return Container(
+      color: AppColors.greenOffRegular,
+      child: DefaultTabController(
+        length: tabs.length,
+        child: Column(
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                Padding(
+                  padding: const EdgeInsets.only(left: 20.0),
+                  child: CustomFilledIconButton.leadingGreenLighter(),
+                ),
+                const Spacer(),
+                CustomText.w600(
+                  "${widget.mealCategory.title} ${widget.loggedDate}",
+                  style: context.textTheme.titleLarge,
+                ),
+                const Spacer(flex: 2),
+              ],
             ),
-          ),
+            const SizedBox(height: 10.0),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 20.0),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  SizedBox(
+                    height: 30,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        CustomUnderlinedTabBar(
+                          tabs: tabs.map((e) => Tab(text: e)).toList(),
+                          tabController: _tabController,
+                          tabAlignment: TabAlignment.center,
+                          labelColor: AppColors.blueDarker,
+                          unselectedLabelColor: AppColors.blueDarker,
+                        ),
+                        Container(
+                          padding: const EdgeInsets.all(4.0),
+                          decoration: BoxDecoration(
+                              color: AppColors.greenLighter,
+                              borderRadius: BorderRadius.circular(4.0)),
+                          child: TextButton.icon(
+                            onPressed: () {
+                              context.router.pushNamed(AppRoutes.barcodeScanner);
+                            },
+                            icon: const ImageIcon(AppIcons.scan, color: AppColors.blueDarker),
+                            label: CustomText.w400(LocalizedTexts.scan.tr()),
+                            style: TextButton.styleFrom(
+                              padding: const EdgeInsets.all(0),
+                              minimumSize: const Size(0, 0),
+                              foregroundColor: AppColors.blueDarker,
+                              textStyle: context.textTheme.bodyMedium,
+                              alignment: Alignment.bottomCenter,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 16.0),
+                    child: CustomTextField.search(
+                      borderStyle: _borderStyle,
+                      controller: widget.searchController,
+                      onCleared: _onCleared,
+                      onChanged: _onTextChange.withDebounce(const Duration(milliseconds: 500)),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ],
         ),
       ),
     );
@@ -104,9 +179,21 @@ class _SearchAppBarState extends State<SearchAppBar> with TickerProviderStateMix
 
   void _tabsChangeListener() {
     if (_tabController.indexIsChanging) {
-      context.read<SearchBloc>().add(SearchEvent.resetData(mode: searchType));
       String? selectedMode = searchType.searchModeValue;
       searchMode = selectedMode;
+
+      if (searchMode != SearchMode.favorite.name) {
+        context
+            .read<SearchBloc>()
+            .add(SearchEvent.getRecentLogged(widget.mealCategory.originalValue, searchType));
+      }
+
+      if (searchMode == SearchMode.favorite.name) {
+        context
+            .read<SelectFoodBloc>()
+            .add(SelectFoodEvent.fetchFavorites(widget.mealCategory.originalValue));
+      }
+
       if (widget.onTabChanged != null) {
         widget.onTabChanged!(searchMode);
       }
@@ -132,7 +219,9 @@ class _SearchAppBarState extends State<SearchAppBar> with TickerProviderStateMix
 
   void _onTextChange(String value) {
     if (value.isEmpty) {
-      context.read<SearchBloc>().add(SearchEvent.resetData(mode: searchType));
+      context
+          .read<SearchBloc>()
+          .add(SearchEvent.getRecentLogged(widget.mealCategory.originalValue, searchType));
       return;
     }
 
@@ -154,5 +243,7 @@ class _SearchAppBarState extends State<SearchAppBar> with TickerProviderStateMix
         );
   }
 
-  void _onCleared() => context.read<SearchBloc>().add(SearchEvent.resetData(mode: searchType));
+  void _onCleared() => context
+      .read<SearchBloc>()
+      .add(SearchEvent.getRecentLogged(widget.mealCategory.originalValue, searchType));
 }

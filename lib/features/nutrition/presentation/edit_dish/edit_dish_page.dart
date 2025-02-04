@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -32,6 +34,9 @@ import 'package:loopcare_frontend/features/nutrition/presentation/widgets/meal_p
 import 'package:loopcare_frontend/features/nutrition/presentation/widgets/servings_amount/servings_amount.dart';
 import 'package:loopcare_frontend/localization/service/localization_extension.dart';
 import 'package:loopcare_frontend/localization/service/localized_texts.dart';
+
+import '../../application/meals/meals_bloc.dart';
+import '../../domain/dish/dish.dart';
 
 enum EditDishPageMode { edit, create }
 
@@ -115,7 +120,7 @@ class _EditDishPageState extends State<EditDishPage> {
     context.router.popUntilRouteWithName(SearchRoute.name);
   }
 
-  void _onSaveDishHandler() {
+  void _onSaveDishHandler(Dish currentDish) {
     final error = _controller.validate();
 
     if (error != null) {
@@ -123,10 +128,33 @@ class _EditDishPageState extends State<EditDishPage> {
       return;
     }
 
+    final mealsBloc = context.read<MealsBloc>();
+    final mealId = mealsBloc.state.data.getCurrentMealId;
+    final dishId = currentDish.id;
+
+    _deleteItemsInLog(currentDish.foodItems);
+
+    mealsBloc
+        .add(MealsEvent.addDishToMeal(mealId!, currentDish.numberOfServings.toString(), dishId));
+
     _controller.saveDish();
 
     context.showSuccessBar(content: CustomText(LocalizedTexts.dishWasSaved.tr()));
+
     context.router.maybePop();
+  }
+
+  void _deleteItemsInLog(List<DishFoodItem> items) {
+    final mealBloc = context.read<MealsBloc>();
+
+    final foodItemIdsToDelete = mealBloc.state.data.meals.values
+        .expand((mealList) => mealList)
+        .expand((meal) => meal.mealItems)
+        .where((foodItem) => items.any((i) => i.externalId == foodItem.externalId))
+        .map((foodItem) => foodItem.id.toString())
+        .toList();
+
+    mealBloc.add(MealsEvent.deleteFoodItemFromMeal(foodItemIdsToDelete));
   }
 
   void _showValidationSnackbar(String error) => context.showError(content: CustomText(error));
@@ -274,7 +302,9 @@ class _EditDishPageState extends State<EditDishPage> {
                               child: MainContainer(
                                 child: dishState.maybeMap(
                                   dishInfo: (state) => CustomElevatedButton.blueFullWidth(
-                                    onPressed: state.data.hasFoodItems ? _onSaveDishHandler : null,
+                                    onPressed: state.data.hasFoodItems
+                                        ? () => _onSaveDishHandler(currentDish)
+                                        : null,
                                     label: LocalizedTexts.save.tr(),
                                   ),
                                   orElse: () => const SizedBox.shrink(),

@@ -75,4 +75,21 @@ class MindStateData with _$MindStateData {
 
     return steps;
   }
+
+  List<MindTechnique> get sortedTechniques {
+    final sortedTechniques = List<MindTechnique>.from(techniques)
+      ..sort((a, b) {
+        int getStatusPriority(MindTechnique reflection) {
+          if (reflection.unlocksAt != null) {
+            return 0; // Unlocked
+          } else {
+            return 1; // Locked
+          }
+        }
+
+        return getStatusPriority(a).compareTo(getStatusPriority(b));
+      });
+
+    return sortedTechniques;
+  }
 }

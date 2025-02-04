@@ -1,5 +1,5 @@
 name: loopcare_frontend
-version: 1.8.0+260
+version: 1.9.8+292
 publish_to: none
 description: Lean on me
 environment:
@@ -16,8 +16,9 @@ dependencies:
   bloc_concurrency: ^0.2.2
   bubble: ^1.2.1
   cached_network_image: ^3.3.0
+  chewie: 1.8.5
   circular_countdown_timer: ^0.2.3
-  collection: 1.18.0
+  collection: ^1.18.0
   connectivity_plus: ^6.0.3
   crowdin_sdk: ^0.6.3
   cupertino_icons: ^1.0.6
@@ -51,8 +52,7 @@ dependencies:
   flutter_udid: ^3.0.0
   flutter_uxcam: ^2.5.2
   flutter_widget_from_html: ^0.15.0
-  flutter_zoom_videosdk:
-    path: ./local_plugins/zoom_video_sdk_update
+  flutter_zoom_videosdk: 1.12.10
   split_intl:
     path: ./local_plugins/split_intl
   freezed_annotation: ^2.4.1
@@ -60,11 +60,11 @@ dependencies:
   hive: ^2.2.3
   http_parser: ^4.0.2
   hydrated_bloc: ^9.1.2
-  image_cropper: ^8.0.2
+  image_cropper: 8.0.2
   image_picker: ^1.1.2
   in_app_purchase: ^3.2.0
   injectable: ^2.3.2
-  json_annotation: ^4.8.1
+  json_annotation: ^4.9.0
   just_audio: ^0.9.39
   just_audio_background: ^0.0.1-beta.13
   lint: 2.3.0

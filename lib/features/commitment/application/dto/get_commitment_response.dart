@@ -12,6 +12,7 @@ class GetCommitmentResponse with _$GetCommitmentResponse {
     required int completedCommitments,
     required int totalCommitments,
     required bool isCommitmentUnlocked,
+    required bool showCommitmentWidget,
   }) = _GetCommitmentResponse;
 
   factory GetCommitmentResponse.fromJson(Map<String, dynamic> json) =>

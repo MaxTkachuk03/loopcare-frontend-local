@@ -3,6 +3,7 @@ import 'package:dio/dio.dart';
 import 'package:injectable/injectable.dart';
 import 'package:loopcare_frontend/core/infrastructure/dio_client/dio_client.dart';
 import 'package:loopcare_frontend/core/infrastructure/dio_client/request_error.dart';
+import 'package:loopcare_frontend/core/infrastructure/services/logger/logger.dart';
 import 'package:loopcare_frontend/features/nutrition/application/barcode_scanner/dto/barcode_information_response.dart';
 import 'package:loopcare_frontend/features/nutrition/application/bmr/dto/get_bmr_response.dart';
 import 'package:loopcare_frontend/features/nutrition/application/dashboard_weight/dto/get_dashboard_weights_response.dart';
@@ -42,11 +43,35 @@ import 'package:loopcare_frontend/features/nutrition/application/select_serving/
 import 'package:loopcare_frontend/features/nutrition/application/select_serving/dto/food_item_servings_response.dart';
 import 'package:loopcare_frontend/features/nutrition/application/select_serving/dto/update_favorite_body.dart';
 
+import '../../../core/domain/recent_logged/recent_logged_list.dart';
+
 @Injectable(as: NutritionService)
 class APINutritionService implements NutritionService {
   DioClient client;
 
   APINutritionService(this.client);
+
+  @override
+  Future<Either<RequestError, RecentLoggedList>> getRecentLogged(
+      String category, String mode, int maxRecentLoggedListSize) async {
+    try {
+      final response = await client.get(
+        '/meals/recent',
+        queryParameters: {
+          'category': category,
+          'mode': mode,
+          'limit': maxRecentLoggedListSize,
+        },
+        fromJson: RecentLoggedList.fromJson,
+      );
+      log.d('Raw Response: getRecentLogs');
+      return response;
+    } catch (e, stackTrace) {
+      log.w('Error in client.get: $e');
+      log.w('Stack Trace: $stackTrace');
+      rethrow; // Optional: rethrow the error for further handling
+    }
+  }
 
   @override
   Future<Either<RequestError, GetBmrResponse>> getBmr(DateTime date) async {

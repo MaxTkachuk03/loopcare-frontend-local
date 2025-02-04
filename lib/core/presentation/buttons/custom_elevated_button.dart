@@ -329,6 +329,7 @@ class CustomElevatedButton extends StatelessWidget {
           textStyle: ButtonStyles.fullWidthLabel,
         ),
       );
+
   factory CustomElevatedButton.greyBorder(
           {Key? key,
           VoidCallback? onPressed,
@@ -381,6 +382,31 @@ class CustomElevatedButton extends StatelessWidget {
           backgroundColor: AppColors.blueRegular,
           foregroundColor: AppColors.white,
           minimumSize: ButtonStyles.smallSize,
+        ),
+      );
+
+  factory CustomElevatedButton.transparentSmall({
+    Key? key,
+    VoidCallback? onPressed,
+    required Color streamColor,
+    required String label,
+    bool isLoading = false,
+  }) =>
+      CustomElevatedButton(
+        key: key,
+        onPressed: onPressed,
+        color: AppColors.blueDarker,
+        label: label,
+        isLoading: isLoading,
+        styles: ElevatedButton.styleFrom(
+          backgroundColor: AppColors.white,
+          foregroundColor: AppColors.blueDarker,
+          minimumSize: ButtonStyles.smallSize,
+          side: BorderSide(
+              color: streamColor, // Border color
+              width: 2.0,
+              strokeAlign: BorderSide.strokeAlignInside // Border width
+              ),
         ),
       );
 

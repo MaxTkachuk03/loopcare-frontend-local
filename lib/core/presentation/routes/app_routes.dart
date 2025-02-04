@@ -114,6 +114,7 @@ class AppRoutes {
   static const String techniqueExercises = '/exercises';
   static const String mindExercise = '/mind-exercise';
   static const String mindIntroExercise = '/mind-intro-exercise';
+  static const String mindTrainingPage = '/mind-training';
 
   // Mood
   static const String createMood = '/create-mood';
@@ -125,6 +126,7 @@ class AppRoutes {
 
   // Reflections
   static const String myReflections = '/my-reflections';
+  static const String reflectionsPage = '/reflections-page';
   static const String reflectionsIntro = '/reflections-intro';
   static const String reflectionQuestion = '/reflection-question';
   static const String reflectionComplete = '/reflection-complete';

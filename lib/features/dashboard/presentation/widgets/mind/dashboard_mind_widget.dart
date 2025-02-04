@@ -13,8 +13,9 @@ import 'package:loopcare_frontend/localization/service/localization_extension.da
 import 'package:loopcare_frontend/localization/service/localized_texts.dart';
 
 class DashboardMindWidget extends StatefulWidget {
-  final bool locked;
-  const DashboardMindWidget({super.key, required this.locked});
+  final bool unlocked;
+
+  const DashboardMindWidget({super.key, required this.unlocked});
 
   @override
   State<DashboardMindWidget> createState() => _DashboardMindWidgetState();
@@ -30,9 +31,10 @@ class _DashboardMindWidgetState extends State<DashboardMindWidget> {
   }
 
   void onPressHandler(BuildContext context) =>
-      context.router.pushNamed(AppRoutes.mindTechniques).then(getPoolData);
+      context.router.pushNamed(AppRoutes.mindTrainingPage).then(getPoolData);
 
   void getPoolData(e) => context.read<PoolModuleBloc>().add(const PoolModuleEvent.getPoolData());
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -47,15 +49,16 @@ class _DashboardMindWidgetState extends State<DashboardMindWidget> {
         children: [
           DashboardCardTitle(
             onTap: () {
-              if (widget.locked) {
+              if (widget.unlocked) {
+                onPressHandler(context);
               } else {
                 toggleOnClick();
               }
             },
-            highlightColor: widget.locked ? AppColors.petrolLightest : AppColors.white,
+            highlightColor: widget.unlocked ? AppColors.petrolLightest : AppColors.white,
             leadingIcon:
-                widget.locked ? AppIcons.customDashboardMind : AppIcons.customDashboardMindGrey,
-            title: widget.locked
+                widget.unlocked ? AppIcons.customDashboardMind : AppIcons.customDashboardMindGrey,
+            title: widget.unlocked
                 ? CustomText.bitter600(
                     LocalizedTexts.mindDashboardTitle.tr(),
                     style: context.textTheme.headlineSmall,
@@ -65,10 +68,17 @@ class _DashboardMindWidgetState extends State<DashboardMindWidget> {
                     style: const TextStyle(color: AppColors.greyLight, fontSize: 20),
                   ),
             editable: true,
-            actionIcon: onClick ? const AssetImage(AppIcons.upArrow) : AppIcons.downArrow,
-            circleButton: widget.locked ? true : false,
+            actionIcon: widget.unlocked
+                ? AppIcons.arrow
+                : onClick
+                    ? const AssetImage(AppIcons.upArrow)
+                    : AppIcons.downArrow,
+            circleButton: widget.unlocked ? true : false,
           ),
-          widget.locked
+          widget.unlocked
+              ? const Divider(color: AppColors.blueLighter, indent: 8.0, endIndent: 8.0)
+              : const SizedBox(),
+          widget.unlocked
               ? Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 16.0),
                   child: CustomElevatedButton.petrolSmall(
@@ -77,7 +87,7 @@ class _DashboardMindWidgetState extends State<DashboardMindWidget> {
                   ),
                 )
               : const SizedBox(),
-          widget.locked
+          widget.unlocked
               ? Container()
               : Padding(
                   padding: const EdgeInsets.all(12.0),
@@ -97,7 +107,7 @@ class _DashboardMindWidgetState extends State<DashboardMindWidget> {
                     ],
                   ),
                 ),
-          onClick && !widget.locked
+          onClick && !widget.unlocked
               ? Padding(
                   padding: const EdgeInsets.only(left: 12.0, right: 12.0, bottom: 12),
                   child: Row(

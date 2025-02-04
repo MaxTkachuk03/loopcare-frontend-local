@@ -8,4 +8,6 @@ class NutritionIntakeEvent with _$NutritionIntakeEvent {
 
   const factory NutritionIntakeEvent.finishLesson({required String date, required int iLessonId}) =
       FinishLesson;
+
+  const factory NutritionIntakeEvent.resetSurvey() = ResetSurvey;
 }

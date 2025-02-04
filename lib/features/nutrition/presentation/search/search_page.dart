@@ -5,11 +5,15 @@ import 'package:loopcare_frontend/core/domain/analytics/analytics_events.dart';
 import 'package:loopcare_frontend/core/infrastructure/services/analytics_service.dart';
 import 'package:loopcare_frontend/core/presentation/custom_safe_area.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
+import 'package:loopcare_frontend/core/presentation/utils/date_time_extensions.dart';
 import 'package:loopcare_frontend/features/nutrition/application/search/dto/search_item.dart';
 import 'package:loopcare_frontend/features/nutrition/application/search/dto/search_mode.dart';
 import 'package:loopcare_frontend/features/nutrition/application/search/search_bloc.dart';
 import 'package:loopcare_frontend/features/nutrition/presentation/search/widgets/search_app_bar.dart';
 import 'package:loopcare_frontend/features/nutrition/presentation/search/widgets/search_result_list.dart';
+
+import '../../application/meals/meals_bloc.dart';
+import '../../domain/select_serving/meal_category.dart';
 
 @RoutePage()
 class SearchPage extends StatefulWidget {
@@ -25,11 +29,21 @@ class SearchPage extends StatefulWidget {
 class _SearchPageState extends State<SearchPage> {
   String? currentTab = '';
   final TextEditingController _searchTextController = TextEditingController();
+  late MealCategory mealCategory;
+  DateTime loggedDate = DateTime.now();
 
   @override
   void initState() {
     super.initState();
-    context.read<SearchBloc>().add(const SearchEvent.resetData());
+
+    final mealsBlocState = context.read<MealsBloc>().state.data;
+    loggedDate = mealsBlocState.currentDate!;
+    mealCategory = mealsBlocState.currentMealCategory!;
+
+    context
+        .read<SearchBloc>()
+        .add(SearchEvent.getRecentLogged(mealCategory.originalValue, SearchMode.food));
+
     const AnalyticsEventService().logEvent(eventName: AnalyticsEvents.searchScreenOpened);
   }
 
@@ -43,21 +57,40 @@ class _SearchPageState extends State<SearchPage> {
     return PopScope(
       onPopInvokedWithResult: (e, _) => _onPreviousPage,
       child: Scaffold(
-        backgroundColor: AppColors.greenOffRegular,
-        appBar: SearchAppBar(
-          mode: widget.mode,
-          onTabChanged: _onTabChanged,
-          searchController: _searchTextController,
+        appBar: AppBar(
+          backgroundColor: AppColors.greenOffRegular,
+          automaticallyImplyLeading: false,
+          toolbarHeight: 0,
         ),
-        body: CustomSafeArea(
-          child: SearchResultList(
-            selectedTab: currentTab,
-            onItemTap: widget.onItemTap,
-            onRecentSearchItemTap: (item) {
-              context.read<SearchBloc>().add(SearchEvent.search(item, mode: currentTab));
-              _searchTextController.text = item;
-            },
-          ),
+        backgroundColor: AppColors.greenLightest,
+        body: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            SearchAppBar(
+              selectedTab: currentTab,
+              mode: widget.mode,
+              mealCategory: mealCategory,
+              onTabChanged: _onTabChanged,
+              searchController: _searchTextController,
+              loggedDate: loggedDate.shortDate,
+            ),
+            Expanded(
+              child: CustomSafeArea(
+                child: SearchResultList(
+                  onItemTap: widget.onItemTap,
+                  mode: widget.mode ?? SearchMode.food,
+                  mealCategory: mealCategory,
+                  selectedTab: currentTab,
+                  onRecentSearchItemTap: (item) {
+                    setState(() {
+                      context.read<SearchBloc>().add(SearchEvent.search(item, mode: currentTab));
+                      _searchTextController.text = item;
+                    });
+                  },
+                ),
+              ),
+            ),
+          ],
         ),
       ),
     );
