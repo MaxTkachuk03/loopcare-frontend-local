@@ -7,6 +7,7 @@ import 'package:loopcare_frontend/core/infrastructure/dio_client/request_error.d
 import 'package:loopcare_frontend/core/infrastructure/services/logger/logger.dart';
 import 'package:loopcare_frontend/features/nutrition/application/dish/dto/update_dish_food_item_response.dart';
 import 'package:loopcare_frontend/features/nutrition/application/nutrition_service.dart';
+import 'package:loopcare_frontend/features/nutrition/application/search/dto/search_mode.dart';
 import 'package:loopcare_frontend/features/nutrition/domain/dish/dish.dart';
 import 'package:loopcare_frontend/features/nutrition/domain/dish_favorites_category/dish_favorites_category.dart';
 import 'package:loopcare_frontend/features/nutrition/domain/favorites_item/favorites_item.dart';
@@ -23,7 +24,8 @@ part 'select_food_bloc.freezed.dart';
 class SelectFoodBloc extends Bloc<SelectFoodEvent, SelectFoodState> {
   final NutritionService nutritionService;
 
-  SelectFoodBloc(this.nutritionService) : super(const SelectFoodState.initial()) {
+  SelectFoodBloc(this.nutritionService)
+      : super(const SelectFoodState.initial()) {
     on<FetchFavorites>(_onFetchFavorites);
     on<FetchDishes>(_onFetchDishes);
     on<FilterFavorites>(_onFilterFavorites);
@@ -32,19 +34,25 @@ class SelectFoodBloc extends Bloc<SelectFoodEvent, SelectFoodState> {
     on<ItemDeleted>(_onItemDeleted);
     on<ItemsDeselectAll>(_onItemsDeselectAll);
     on<RemoveDish>(_onRemoveDish);
+    on<DishAdded>(_onDishAdded);
+    on<DishDeleted>(_onDishDeleted);
   }
 
   List<MealCategoryFilter> _getMealFavoriteCategories(String defaultSelected) {
     return MealFavoritesCategory.values
         .map((e) => MealCategoryFilter(
-            name: e.name, selected: e.value == defaultSelected, title: e.label ?? ''))
+            name: e.name,
+            selected: e.value == defaultSelected,
+            title: e.label ?? ''))
         .toList();
   }
 
   List<MealCategoryFilter> _getDishFavoriteCategories(String defaultSelected) {
     return DishFavoritesCategory.values
         .map((e) => MealCategoryFilter(
-            name: e.name, selected: e.value == defaultSelected, title: e.label ?? ''))
+            name: e.name,
+            selected: e.value == defaultSelected,
+            title: e.label ?? ''))
         .toList();
   }
 
@@ -53,7 +61,8 @@ class SelectFoodBloc extends Bloc<SelectFoodEvent, SelectFoodState> {
     Emitter<SelectFoodState> emit,
   ) async {
     final dishes = state.mapOrNull(selectFood: (s) => s.dishes);
-    final dishesFilters = state.mapOrNull(selectFood: (s) => s.dishFavoritesCategories);
+    final dishesFilters =
+        state.mapOrNull(selectFood: (s) => s.dishFavoritesCategories);
 
     emit(const SelectFoodState.loading());
 
@@ -65,9 +74,12 @@ class SelectFoodBloc extends Bloc<SelectFoodEvent, SelectFoodState> {
         SelectFoodState.selectFood(
           favorites: response.data.toList(),
           dishes: dishes ?? <Dish>[].toList(),
-          mealFavoritesCategories: _getMealFavoriteCategories(event.mealCategory),
-          dishFavoritesCategories: dishesFilters ?? <MealCategoryFilter>[].toList(),
+          mealFavoritesCategories:
+              _getMealFavoriteCategories(event.mealCategory),
+          dishFavoritesCategories:
+              dishesFilters ?? <MealCategoryFilter>[].toList(),
           selectedFavoritesItems: <FavoritesItem>[].toList(),
+          selectedDishesItems: <Dish>[].toList(),
         ),
       ),
     );
@@ -78,7 +90,8 @@ class SelectFoodBloc extends Bloc<SelectFoodEvent, SelectFoodState> {
     Emitter<SelectFoodState> emit,
   ) async {
     final favorites = state.mapOrNull(selectFood: (s) => s.favorites);
-    final favoritesFiltes = state.mapOrNull(selectFood: (s) => s.mealFavoritesCategories);
+    final favoritesFiltes =
+        state.mapOrNull(selectFood: (s) => s.mealFavoritesCategories);
 
     final response = await nutritionService.getDishes([event.mealCategory]);
 
@@ -88,9 +101,12 @@ class SelectFoodBloc extends Bloc<SelectFoodEvent, SelectFoodState> {
         SelectFoodState.selectFood(
           favorites: favorites ?? <FavoritesItem>[].toList(),
           dishes: response.data.toList(),
-          mealFavoritesCategories: favoritesFiltes ?? <MealCategoryFilter>[].toList(),
-          dishFavoritesCategories: _getDishFavoriteCategories(event.mealCategory),
+          mealFavoritesCategories:
+              favoritesFiltes ?? <MealCategoryFilter>[].toList(),
+          dishFavoritesCategories:
+              _getDishFavoriteCategories(event.mealCategory),
           selectedFavoritesItems: <FavoritesItem>[].toList(),
+          selectedDishesItems: <Dish>[].toList(),
         ),
       ),
     );
@@ -102,12 +118,17 @@ class SelectFoodBloc extends Bloc<SelectFoodEvent, SelectFoodState> {
   ) async {
     await state.mapOrNull(selectFood: (state) async {
       // TODO refactor logic to get filter values fron the popup
-      final selectedFiltersValues = event.filtersList.where((e) => e.selected).map((element) =>
-          MealFavoritesCategory.values.firstWhereOrNull((e) => e.name == element.name)?.value);
+      final selectedFiltersValues = event.filtersList
+          .where((e) => e.selected)
+          .map((element) => MealFavoritesCategory.values
+              .firstWhereOrNull((e) => e.name == element.name)
+              ?.value);
 
       final isSelectedAll = selectedFiltersValues.contains(null);
 
-      final filters = isSelectedAll ? <String>[] : selectedFiltersValues.whereNotNull().toList();
+      final filters = isSelectedAll
+          ? <String>[]
+          : selectedFiltersValues.whereNotNull().toList();
 
       final response = await nutritionService.getFavorites(filters);
 
@@ -129,19 +150,25 @@ class SelectFoodBloc extends Bloc<SelectFoodEvent, SelectFoodState> {
   ) async {
     await state.mapOrNull(
       selectFood: (state) async {
-        final selectedFiltersValues = event.filtersList.where((e) => e.selected).map((element) =>
-            DishFavoritesCategory.values.firstWhereOrNull((e) => e.name == element.name)?.value);
+        final selectedFiltersValues = event.filtersList
+            .where((e) => e.selected)
+            .map((element) => DishFavoritesCategory.values
+                .firstWhereOrNull((e) => e.name == element.name)
+                ?.value);
 
         final isSelectedAll = selectedFiltersValues.contains(null);
 
-        final filters = isSelectedAll ? <String>[] : selectedFiltersValues.whereNotNull().toList();
+        final filters = isSelectedAll
+            ? <String>[]
+            : selectedFiltersValues.whereNotNull().toList();
 
         final response = await nutritionService.getDishes(filters);
 
         response.fold(
             (l) => emit(SelectFoodState.error(l)),
             (r) => emit(state.copyWith(
-                dishFavoritesCategories: event.filtersList, dishes: r.data.toList())));
+                dishFavoritesCategories: event.filtersList,
+                dishes: r.data.toList())));
       },
     );
   }
@@ -151,7 +178,10 @@ class SelectFoodBloc extends Bloc<SelectFoodEvent, SelectFoodState> {
     Emitter<SelectFoodState> emit,
   ) async {
     state.mapOrNull(selectFood: (state) {
-      final selectedFavoritesItems = [...state.selectedFavoritesItems, event.foodItem];
+      final selectedFavoritesItems = [
+        ...state.selectedFavoritesItems,
+        event.foodItem
+      ];
       emit(state.copyWith(selectedFavoritesItems: selectedFavoritesItems));
       log.i('item added');
     });
@@ -162,8 +192,9 @@ class SelectFoodBloc extends Bloc<SelectFoodEvent, SelectFoodState> {
     Emitter<SelectFoodState> emit,
   ) {
     state.mapOrNull(selectFood: (state) {
-      final selectedFavoritesItems =
-          state.selectedFavoritesItems.where((e) => e.id != event.foodItem.id).toList();
+      final selectedFavoritesItems = state.selectedFavoritesItems
+          .where((e) => e.id != event.foodItem.id)
+          .toList();
       emit(state.copyWith(selectedFavoritesItems: selectedFavoritesItems));
       log.i('item deleted');
     });
@@ -187,6 +218,33 @@ class SelectFoodBloc extends Bloc<SelectFoodEvent, SelectFoodState> {
       final dishes = state.dishes.where((e) => e.id != event.dish.id).toList();
 
       emit(state.copyWith(dishes: dishes));
+    });
+  }
+
+  FutureOr<void> _onDishAdded(
+    DishAdded event,
+    Emitter<SelectFoodState> emit,
+  ) async {
+    state.mapOrNull(selectFood: (state) {
+      final selectedDishesItems = [
+        ...state.selectedDishesItems,
+        event.foodItem
+      ];
+      emit(state.copyWith(selectedDishesItems: selectedDishesItems));
+      log.i('dish added');
+    });
+  }
+
+  FutureOr<void> _onDishDeleted(
+    DishDeleted event,
+    Emitter<SelectFoodState> emit,
+  ) {
+    state.mapOrNull(selectFood: (state) {
+      final selectedDishesItems = state.selectedDishesItems
+          .where((e) => e.id != event.foodItem.id)
+          .toList();
+      emit(state.copyWith(selectedDishesItems: selectedDishesItems));
+      log.i('dish deleted');
     });
   }
 }

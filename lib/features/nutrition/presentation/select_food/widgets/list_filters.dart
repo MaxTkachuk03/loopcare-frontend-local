@@ -10,7 +10,7 @@ import 'package:loopcare_frontend/localization/service/localized_texts.dart';
 
 class ListFilters extends StatelessWidget {
   final String title;
-  final List<MealCategoryFilter> mealsList;
+  final Set<MealCategoryFilter> mealsList;
   final Function(List<MealCategoryFilter> updatedFiltersList) onConfirmed;
 
   const ListFilters({
@@ -52,7 +52,7 @@ class ListFilters extends StatelessWidget {
       context: context,
       title: LocalizedTexts.showMy.tr(),
       onConfirmed: onConfirmed,
-      list: mealsList,
+      list: mealsList.toList(),
     );
   }
 }

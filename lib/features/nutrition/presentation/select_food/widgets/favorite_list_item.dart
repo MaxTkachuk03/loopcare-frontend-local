@@ -23,49 +23,57 @@ class FavoriteListItem extends StatelessWidget {
     return BlocBuilder<SelectFoodBloc, SelectFoodState>(
       builder: (BuildContext context, state) {
         final isSelected = state.mapOrNull(
-                selectFood: (state) => state.selectedFavoritesItems.contains(foodItem)) ??
+                selectFood: (state) =>
+                    state.selectedFavoritesItems.contains(foodItem)) ??
             false;
 
-        return ListTile(
-          contentPadding: const EdgeInsets.symmetric(horizontal: 6.0),
-          onTap: () => _onChanged(!isSelected, foodItem, context),
-          title: Row(
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: [
-              CustomCheckbox.blue(
-                value: isSelected,
-                onChanged: (bool? value) => _onChanged(value, foodItem, context),
-              ),
-              const SizedBox(width: 14.0),
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    CustomText.w600(
-                      foodItem.foodName,
-                      maxLines: 2,
-                      style: context.textTheme.bodySmall,
+        return Column(
+          children: [
+            ListTile(
+              contentPadding: const EdgeInsets.symmetric(horizontal: 6.0),
+              onTap: () => _onChanged(!isSelected, foodItem, context),
+              title: Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  CustomCheckbox.blue(
+                    value: isSelected,
+                    onChanged: (bool? value) =>
+                        _onChanged(value, foodItem, context),
+                  ),
+                  const SizedBox(width: 10.0),
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        CustomText.w600(
+                          foodItem.foodName,
+                          maxLines: 2,
+                          style: context.textTheme.bodySmall,
+                        ),
+                        CustomText.w400(
+                          '${foodItem.brandName} | ${foodItem.serving.servingDescription}',
+                          maxLines: 1,
+                          style: context.textTheme.bodySmall?.copyWith(
+                            color: AppColors.greyLight,
+                          ),
+                        ),
+                      ],
                     ),
-                    CustomText.w400(
-                      '${foodItem.brandName} | ${foodItem.serving.servingDescription}',
-                      maxLines: 1,
-                      style: context.textTheme.bodySmall?.copyWith(
+                  ),
+                  if (!isSelected)
+                    IconButton(
+                      splashRadius: 20,
+                      onPressed: isSelected ? null : () => _onTap(context),
+                      icon: const ImageIcon(
+                        AppIcons.arrow,
                         color: AppColors.greyLight,
                       ),
                     ),
-                  ],
-                ),
+                ],
               ),
-              if (!isSelected)
-                IconButton(
-                  onPressed: isSelected ? null : () => _onTap(context),
-                  icon: const ImageIcon(
-                    AppIcons.arrow,
-                    color: AppColors.greyLight,
-                  ),
-                ),
-            ],
-          ),
+            ),
+            const Divider(height: 1, color: AppColors.blueLighter),
+          ],
         );
       },
     );

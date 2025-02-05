@@ -12,7 +12,7 @@ import 'package:loopcare_frontend/features/nutrition/presentation/search/widgets
 import 'package:loopcare_frontend/features/nutrition/presentation/search/widgets/search_list_title_item.dart';
 import 'package:loopcare_frontend/features/nutrition/presentation/search/widgets/search_result_grid_item.dart';
 import 'package:loopcare_frontend/features/nutrition/presentation/search/widgets/search_result_list_item.dart';
-import 'package:loopcare_frontend/features/nutrition/presentation/select_food/widgets/favorites_list.dart';
+import 'package:loopcare_frontend/features/nutrition/presentation/select_food/widgets/dishes_and_favorites.dart';
 import 'package:loopcare_frontend/localization/service/localization_extension.dart';
 import 'package:loopcare_frontend/localization/service/localized_texts.dart';
 
@@ -98,9 +98,10 @@ class _SearchResultListState extends State<SearchResultList> {
     if (widget.selectedTab == 'favorite') {
       return BlocBuilder<SearchBloc, SearchState>(
           builder: (BuildContext context, state) {
-        return state.maybeWhen(
+        return state.maybeMap(
             loading: (state) => const SizedBox(height: 250, child: Loader()),
-            orElse: () => FavoriteList(mealCategory: widget.mealCategory));
+            orElse: () =>
+                DishesAndFavorites(mealCategory: widget.mealCategory));
       });
     }
 

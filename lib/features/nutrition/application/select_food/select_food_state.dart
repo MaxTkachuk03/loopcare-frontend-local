@@ -12,6 +12,7 @@ class SelectFoodState with _$SelectFoodState {
     required List<FavoritesItem> favorites,
     required List<Dish> dishes,
     required List<FavoritesItem> selectedFavoritesItems,
+    required List<Dish> selectedDishesItems,
     required List<MealCategoryFilter> mealFavoritesCategories,
     required List<MealCategoryFilter> dishFavoritesCategories,
   }) = _SelectFood;
@@ -29,6 +30,13 @@ class SelectFoodState with _$SelectFoodState {
   int get selectedFavoritesItemsLength {
     return mapOrNull(
           selectFood: (state) => state.selectedFavoritesItems.length,
+        ) ??
+        0;
+  }
+
+    int get selectedDishesItemsLength {
+    return mapOrNull(
+          selectFood: (state) => state.selectedDishesItems.length,
         ) ??
         0;
   }
