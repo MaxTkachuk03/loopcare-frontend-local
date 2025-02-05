@@ -59,6 +59,7 @@ class EditDishPage extends StatefulWidget {
 
 class _EditDishPageState extends State<EditDishPage> {
   late final EditDishController _controller;
+  bool isLoading = false;
 
   @override
   void initState() {
@@ -120,7 +121,7 @@ class _EditDishPageState extends State<EditDishPage> {
     context.router.popUntilRouteWithName(SearchRoute.name);
   }
 
-  void _onSaveDishHandler(Dish currentDish) {
+  Future<void> _onSaveDishHandler(Dish currentDish) async {
     final error = _controller.validate();
 
     if (error != null) {
@@ -128,24 +129,35 @@ class _EditDishPageState extends State<EditDishPage> {
       return;
     }
 
+    setState(() {
+      isLoading = true;
+    });
+
     final mealsBloc = context.read<MealsBloc>();
     final mealId = mealsBloc.state.data.getCurrentMealId;
     final dishId = currentDish.id;
 
-    _deleteItemsInLog(currentDish.foodItems);
+    await _deleteItemsInLog(currentDish.foodItems);
+
+    _controller.saveDish();
 
     mealsBloc
         .add(MealsEvent.addDishToMeal(mealId!, currentDish.numberOfServings.toString(), dishId));
 
-    _controller.saveDish();
+    if (mounted) {
+      context.showSuccessBar(content: CustomText(LocalizedTexts.dishWasSaved.tr()));
 
-    context.showSuccessBar(content: CustomText(LocalizedTexts.dishWasSaved.tr()));
+      context.router.maybePop();
+    }
 
-    context.router.maybePop();
+    setState(() {
+      isLoading = false;
+    });
   }
 
-  void _deleteItemsInLog(List<DishFoodItem> items) {
+  Future<void> _deleteItemsInLog(List<DishFoodItem> items) async {
     final mealBloc = context.read<MealsBloc>();
+    final completer = Completer<void>();
 
     final foodItemIdsToDelete = mealBloc.state.data.meals.values
         .expand((mealList) => mealList)
@@ -154,7 +166,23 @@ class _EditDishPageState extends State<EditDishPage> {
         .map((foodItem) => foodItem.id.toString())
         .toList();
 
+    if (foodItemIdsToDelete.isEmpty) {
+      completer.complete();
+      return completer.future;
+    }
+
+    StreamSubscription? subscription;
+
+    subscription = mealBloc.stream.listen((state) {
+      if (state is MealsStateLoaded && !state.data.isLoading) {
+        subscription?.cancel();
+        completer.complete();
+      }
+    });
+
     mealBloc.add(MealsEvent.deleteFoodItemFromMeal(foodItemIdsToDelete));
+
+    return completer.future;
   }
 
   void _showValidationSnackbar(String error) => context.showError(content: CustomText(error));
@@ -302,10 +330,11 @@ class _EditDishPageState extends State<EditDishPage> {
                               child: MainContainer(
                                 child: dishState.maybeMap(
                                   dishInfo: (state) => CustomElevatedButton.blueFullWidth(
-                                    onPressed: state.data.hasFoodItems
+                                    onPressed: state.data.hasFoodItems && !isLoading
                                         ? () => _onSaveDishHandler(currentDish)
                                         : null,
                                     label: LocalizedTexts.save.tr(),
+                                    isLoading: isLoading,
                                   ),
                                   orElse: () => const SizedBox.shrink(),
                                 ),

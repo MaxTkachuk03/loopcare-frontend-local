@@ -320,6 +320,8 @@ class EditDishBloc extends Bloc<EditDishEvent, EditDishState> {
     UpdateDish event,
     Emitter<EditDishState> emit,
   ) async {
+    emit(EditDishState.loading(state.data.copyWith(isLoading: true)));
+
     final dishId = state.data.currentDish?.id ?? -1;
 
     final data = UpdateDishBody(

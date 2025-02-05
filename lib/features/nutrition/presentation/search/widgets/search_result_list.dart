@@ -65,7 +65,8 @@ class _SearchResultListState extends State<SearchResultList> {
   }
 
   void _onScrollChangeListener() {
-    if (_scrollController.offset >= _scrollController.position.maxScrollExtent) {
+    if (_scrollController.offset >=
+        _scrollController.position.maxScrollExtent) {
       final searchBloc = context.read<SearchBloc>();
       final searchState = searchBloc.state;
 
@@ -95,7 +96,8 @@ class _SearchResultListState extends State<SearchResultList> {
     if (widget.selectedTab != 'recipe') selectedLayout = SearchListLayout.list;
 
     if (widget.selectedTab == 'favorite') {
-      return BlocBuilder<SearchBloc, SearchState>(builder: (BuildContext context, state) {
+      return BlocBuilder<SearchBloc, SearchState>(
+          builder: (BuildContext context, state) {
         return state.maybeWhen(
             loading: (state) => const SizedBox(height: 250, child: Loader()),
             orElse: () => FavoriteList(mealCategory: widget.mealCategory));
@@ -123,15 +125,19 @@ class _SearchResultListState extends State<SearchResultList> {
                             onSelectLayoutTap: _onSelectLayoutTap,
                           ),
                         if (selectedLayout == SearchListLayout.list)
-                          _ListLayout(onItemTap: widget.onItemTap, itemsState: itemsState),
+                          _ListLayout(
+                              onItemTap: widget.onItemTap,
+                              itemsState: itemsState),
                         if (selectedLayout == SearchListLayout.detailed)
-                          _DetailedLayout(onItemTap: widget.onItemTap, itemsState: itemsState),
+                          _DetailedLayout(
+                              onItemTap: widget.onItemTap,
+                              itemsState: itemsState),
                       ],
                     ),
                   );
           },
           initial: (initialState) {
-            final recentSearchList = state.data.recentSearch ?? <String>[];
+            final recentSearchList = state.data.recentLogged;
 
             return Column(
               children: [
@@ -145,16 +151,17 @@ class _SearchResultListState extends State<SearchResultList> {
                     physics: const NeverScrollableScrollPhysics(),
                     itemBuilder: (BuildContext context, int index) {
                       final item = recentSearchList[index];
-                      final itemType = item.length > 1
-                          ? SearchItemTypes.values.firstWhere((e) => e.toString() == item[1],
-                              orElse: () => SearchItemTypes.recent)
-                          : SearchItemTypes.recent;
+                      // final itemType = item.length > 1
+                      //     ? SearchItemTypes.values.firstWhere(
+                      //         (e) => e.toString() == item[1],
+                      //         orElse: () => SearchItemTypes.recent)
+                      //     : SearchItemTypes.recent;
 
                       return SearchResultListItem(
                         item: SearchItem(
                           id: index.toString(),
-                          name: item,
-                          type: itemType,
+                          name: item.name,
+                          type: SearchItemTypes.recent,
                         ),
                         onTap: (SearchItem item) {
                           widget.onRecentSearchItemTap(item.name);

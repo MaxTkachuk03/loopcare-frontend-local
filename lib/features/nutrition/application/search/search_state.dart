@@ -16,7 +16,7 @@ class SearchData with _$SearchData {
   const SearchData._();
 
   const factory SearchData({
-    @Default(<String>[]) List<String>? recentSearch,
+    @Default([]) List<RecentLoggedItem> recentLogged,
     @Default(<SearchItem>[]) List<SearchItem> items,
     @Default(SearchParameters()) SearchParameters searchParameters,
     @Default(false) bool loadingMore,
@@ -38,5 +38,6 @@ class SearchParameters with _$SearchParameters {
     @Default(false) bool? isLastPage,
   }) = _SearchParameters;
 
-  factory SearchParameters.fromJson(Map<String, dynamic> json) => _$SearchParametersFromJson(json);
+  factory SearchParameters.fromJson(Map<String, dynamic> json) =>
+      _$SearchParametersFromJson(json);
 }

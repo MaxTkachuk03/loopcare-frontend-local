@@ -11,6 +11,7 @@ import 'package:loopcare_frontend/features/nutrition/application/search/dto/sear
 import 'package:loopcare_frontend/features/nutrition/application/search/dto/search_mode.dart';
 import 'package:dartz/dartz.dart' as dartz;
 
+import '../../../../core/domain/recent_logged/recent_logged_item.dart';
 import 'dto/search_response.dart';
 
 part 'search_event.dart';
@@ -50,9 +51,10 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
         event.category, event.mode.name, maxRecentLoggedListSize);
 
     response.fold(
-        (l) => emit(SearchState.error(state.data.copyWith(error: l, isLoading: false))),
-        (r) =>
-            emit(SearchState.initial(state.data.copyWith(recentSearch: r.data, isLoading: false))));
+        (l) => emit(
+            SearchState.error(state.data.copyWith(error: l, isLoading: false))),
+        (r) => emit(SearchState.initial(
+            state.data.copyWith(recentLogged: r.data, isLoading: false))));
   }
 
   Future<dartz.Either<RequestError, SearchResponse>> searchRequest(
@@ -67,8 +69,9 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
     var searchMode = <String>[];
 
     if (mode != null && mode.isNotEmpty) {
-      searchMode =
-          mode == SearchMode.dish.name ? [SearchMode.dish.name, SearchMode.favorite.name] : [mode];
+      searchMode = mode == SearchMode.dish.name
+          ? [SearchMode.dish.name, SearchMode.favorite.name]
+          : [mode];
     }
     if (filteredMode != null) {
       searchMode = [
@@ -92,7 +95,8 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
     if (event.query.length < 3) return;
 
     if (isPaginatedSearchRequestRun) {
-      cancelRequestToken.cancel(DioRequestCancellationReason.searchManualCancel);
+      cancelRequestToken
+          .cancel(DioRequestCancellationReason.searchManualCancel);
       isPaginatedSearchRequestRun = false;
     }
 
@@ -109,7 +113,8 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
 
     response.fold(
       (error) {
-        emit(SearchState.error(state.data.copyWith(error: error, isLoading: false)));
+        emit(SearchState.error(
+            state.data.copyWith(error: error, isLoading: false)));
       },
       (response) {
         emit(
@@ -123,7 +128,8 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
                 mode: event.mode,
                 limit: event.limit,
                 page: event.page,
-                isLastPage: response.data.length != (event.limit ?? searchLimit),
+                isLastPage:
+                    response.data.length != (event.limit ?? searchLimit),
               ),
             ),
           ),
@@ -174,7 +180,8 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
                 mode: event.mode,
                 limit: event.limit,
                 page: event.page,
-                isLastPage: response.data.length != (event.limit ?? searchLimit),
+                isLastPage:
+                    response.data.length != (event.limit ?? searchLimit),
               ),
             ),
           ),
