@@ -64,6 +64,8 @@ class _DishesAndFavoritesState extends State<DishesAndFavorites>
             .read<SelectFoodBloc>()
             .add(SelectFoodEvent.fetchDishes(_defaultMealCategory));
       }
+      const AnalyticsEventService()
+          .logEvent(eventName: AnalyticsEvents.selectFoodScreenMyDishes);
     });
 
     _servingController = TextEditingController(
@@ -73,10 +75,9 @@ class _DishesAndFavoritesState extends State<DishesAndFavorites>
   }
 
   @override
-  void didChangeDependencies() {
-    super.didChangeDependencies();
-    const AnalyticsEventService()
-        .logEvent(eventName: AnalyticsEvents.selectFoodScreenMyDishes);
+  void dispose() {
+    _servingController.dispose();
+    super.dispose();
   }
 
   Future _onRefreshDishes() async {
@@ -91,15 +92,15 @@ class _DishesAndFavoritesState extends State<DishesAndFavorites>
         .add(SelectFoodEvent.fetchFavorites(_defaultMealCategoryFavorites));
   }
 
-  _updateDishesListener(BuildContext context, state) {
-    context
-        .read<SelectFoodBloc>()
-        .add(SelectFoodEvent.fetchFavorites(_defaultMealCategoryFavorites));
+  // _updateDishesListener(BuildContext context, state) {
+  //   context
+  //       .read<SelectFoodBloc>()
+  //       .add(SelectFoodEvent.fetchFavorites(_defaultMealCategoryFavorites));
 
-    context
-        .read<SelectFoodBloc>()
-        .add(SelectFoodEvent.fetchDishes(_defaultMealCategory));
-  }
+  //   context
+  //       .read<SelectFoodBloc>()
+  //       .add(SelectFoodEvent.fetchDishes(_defaultMealCategory));
+  // }
 
   bool get _canCreateDishWithSelectedMealCategory {
     return DishFavoritesCategory.values
@@ -141,7 +142,7 @@ class _DishesAndFavoritesState extends State<DishesAndFavorites>
                     ? '${LocalizedTexts.my.tr()} ${selectFoodState.selectedDishCategories[0].name}'
                     : LocalizedTexts.myDishes.tr();
 
-                 combinedList = [
+                combinedList = [
                   ...selectFoodState.favorites,
                   ...selectFoodState.dishes
                 ];
@@ -151,15 +152,13 @@ class _DishesAndFavoritesState extends State<DishesAndFavorites>
                   ...selectFoodState.mealFavoritesCategories
                 ];
 
-              
-
                 return Expanded(
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       ListFilters(
                           title: title,
-                          mealsList: favoritesCategories.toSet(),
+                          mealsList: favoritesCategories,
                           onConfirmed: (list) => _onConfirmed(context, list)),
                       selectFoodState.dishes.isEmpty &&
                               selectFoodState.favorites.isEmpty
@@ -168,6 +167,11 @@ class _DishesAndFavoritesState extends State<DishesAndFavorites>
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
+                                  EmptyListWidget(
+                                    type: EmptyListType.myFavorites,
+                                    typeText: title,
+                                  ),
+                                  const SizedBox(height: 20.0),
                                   EmptyListWidget(
                                     type: EmptyListType.myDishes,
                                     typeText: title,
@@ -186,7 +190,7 @@ class _DishesAndFavoritesState extends State<DishesAndFavorites>
                           : Expanded(
                               child: RefreshIndicator(
                                 onRefresh: () async {
-                                  await _onRefreshFavorites();
+                                  // await _onRefreshFavorites();
                                   Future.delayed(
                                       const Duration(milliseconds: 800),
                                       () async {
@@ -218,10 +222,12 @@ class _DishesAndFavoritesState extends State<DishesAndFavorites>
                           ? FooterOverlay(
                               mode: SearchMode.dish,
                               servingController: _servingController,
+                              dishes: selectFoodState.selectedDishesItems,
                             )
-                          : state.selectedFavoritesItemsLength > 0
-                              ? FooterOverlay(mode: SearchMode.favorite)
-                              : const SizedBox.shrink()
+                          : const SizedBox.shrink(),
+                      state.selectedFavoritesItemsLength > 0
+                          ? FooterOverlay(mode: SearchMode.favorite)
+                          : const SizedBox.shrink(),
                     ],
                   ),
                 );
@@ -258,26 +264,8 @@ class _DishesAndFavoritesState extends State<DishesAndFavorites>
   }
 
   void _onConfirmed(BuildContext context, List<MealCategoryFilter> list) {
-    // context.read<SelectFoodBloc>().add(SelectFoodEvent.filterDishes(list));
-    
+    context.read<SelectFoodBloc>().add(SelectFoodEvent.filterDishes(list));
+
     context.read<SelectFoodBloc>().add(SelectFoodEvent.filterFavorites(list));
   }
 }
-
-
-// if (index == selectFoodState.dishes.length) {
-                                      //   return Column(
-                                      //     crossAxisAlignment: CrossAxisAlignment.start,
-                                      //     children: [
-                                      //       const SizedBox(height: 8.0),
-                                      //       if (_canCreateDishWithSelectedMealCategory)
-                                      //         MainContainer(
-                                      //           child: CustomOutlinedButton.blueSmall(
-                                      //             label: LocalizedTexts.createMyDish.tr(),
-                                      //             onPressed: _onCreateDish,
-                                      //           ),
-                                      //         ),
-                                      //         // Expanded(child: FavoriteList(mealCategory: widget.mealCategory))
-                                      //     ],
-                                      //   );
-                                      // }

@@ -16,8 +16,6 @@ import 'package:loopcare_frontend/features/nutrition/presentation/select_food/wi
 import 'package:loopcare_frontend/localization/service/localization_extension.dart';
 import 'package:loopcare_frontend/localization/service/localized_texts.dart';
 
-import '../../../application/select_food/select_food_bloc.dart';
-
 class SearchResultList extends StatefulWidget {
   final Function(String) onRecentSearchItemTap;
   final void Function(SearchItem item) onItemTap;
@@ -50,9 +48,6 @@ class _SearchResultListState extends State<SearchResultList> {
   @override
   void initState() {
     _scrollController.addListener(_onScrollChangeListener);
-    context
-        .read<SelectFoodBloc>()
-        .add(SelectFoodEvent.fetchFavorites(widget.mealCategory.originalValue));
     super.initState();
   }
 

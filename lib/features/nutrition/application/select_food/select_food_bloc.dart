@@ -204,10 +204,18 @@ class SelectFoodBloc extends Bloc<SelectFoodEvent, SelectFoodState> {
     ItemsDeselectAll event,
     Emitter<SelectFoodState> emit,
   ) {
-    state.mapOrNull(selectFood: (state) {
-      emit(state.copyWith(selectedFavoritesItems: <FavoritesItem>[].toList()));
-      log.i('deselect all');
-    });
+    if (event.mode == SearchMode.favorite) {
+      state.mapOrNull(selectFood: (state) {
+        emit(
+            state.copyWith(selectedFavoritesItems: <FavoritesItem>[].toList()));
+        log.i('deselect all favorites');
+      });
+    } else {
+      state.mapOrNull(selectFood: (state) {
+        emit(state.copyWith(selectedDishesItems: <Dish>[].toList()));
+        log.i('deselect all dishes');
+      });
+    }
   }
 
   FutureOr<void> _onRemoveDish(

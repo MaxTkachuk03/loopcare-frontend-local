@@ -5,6 +5,7 @@ import 'package:loopcare_frontend/core/infrastructure/services/analytics_service
 import 'package:loopcare_frontend/core/presentation/error/error_screen.dart';
 import 'package:loopcare_frontend/core/presentation/loader/loader.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
+import 'package:loopcare_frontend/features/nutrition/application/search/dto/search_mode.dart';
 import 'package:loopcare_frontend/features/nutrition/application/select_food/select_food_bloc.dart';
 import 'package:loopcare_frontend/features/nutrition/domain/select_serving/meal_category.dart';
 import 'package:loopcare_frontend/features/nutrition/domain/select_serving/meal_category_filter.dart';
@@ -107,7 +108,7 @@ class _FavoriteListState extends State<FavoriteList> with AutomaticKeepAliveClie
                               ),
                             ),
                       state.selectedFavoritesItemsLength > 0
-                          ? const FooterOverlay()
+                          ? FooterOverlay(mode: SearchMode.favorite,)
                           : const SizedBox.shrink()
                     ],
                   ),
