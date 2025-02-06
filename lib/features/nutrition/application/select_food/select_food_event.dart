@@ -24,7 +24,7 @@ class SelectFoodEvent with _$SelectFoodEvent {
 
   const factory SelectFoodEvent.dishDeleted(Dish foodItem) = DishDeleted;
 
-  const factory SelectFoodEvent.itemsDeselectAll(SearchMode mode) = ItemsDeselectAll;
+  const factory SelectFoodEvent.itemsDeselectAll() = ItemsDeselectAll;
 
   const factory SelectFoodEvent.removeDish(UpdateDishFoodItemResponse dish) =
       RemoveDish;

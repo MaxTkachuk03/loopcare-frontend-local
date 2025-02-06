@@ -108,7 +108,7 @@ class _FavoriteListState extends State<FavoriteList> with AutomaticKeepAliveClie
                               ),
                             ),
                       state.selectedFavoritesItemsLength > 0
-                          ? FooterOverlay(mode: SearchMode.favorite,)
+                          ? FooterOverlay()
                           : const SizedBox.shrink()
                     ],
                   ),

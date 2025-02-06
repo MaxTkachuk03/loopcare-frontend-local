@@ -7,10 +7,7 @@ import 'package:loopcare_frontend/core/domain/analytics/usage_analytics/usage_an
 import 'package:loopcare_frontend/core/presentation/routes/app_router.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 import 'package:loopcare_frontend/core/presentation/utils/string_extensions.dart';
-import 'package:loopcare_frontend/features/nutrition/application/dish/dish_bloc.dart';
-import 'package:loopcare_frontend/features/nutrition/application/edit_dish/edit_dish_bloc.dart';
 import 'package:loopcare_frontend/features/nutrition/application/meals/meals_bloc.dart';
-import 'package:loopcare_frontend/features/nutrition/application/search/dto/search_mode.dart';
 import 'package:loopcare_frontend/features/nutrition/application/select_food/select_food_bloc.dart';
 import 'package:loopcare_frontend/features/nutrition/domain/dish/dish.dart';
 import 'package:loopcare_frontend/features/nutrition/domain/favorites_item/favorites_item.dart';
@@ -18,18 +15,16 @@ import 'package:loopcare_frontend/localization/service/localization_extension.da
 import 'package:loopcare_frontend/localization/service/localized_texts.dart';
 
 class FooterOverlay extends StatelessWidget {
-  final SearchMode mode;
   final TextEditingController? servingController;
-  List<Dish>? dishes;
+  final List<Dish> dishes;
 
   FooterOverlay(
-      {super.key, required this.mode, this.servingController, this.dishes});
+      {super.key, this.servingController, this.dishes = const <Dish>[]});
 
   final usageAnalytics = UsageAnalytics();
 
   @override
   Widget build(BuildContext context) {
-    final whichMode = mode == SearchMode.favorite;
     return Container(
       width: double.infinity,
       padding: const EdgeInsets.only(
@@ -45,9 +40,10 @@ class FooterOverlay extends StatelessWidget {
             builder: (BuildContext context, state) {
               final countFavorites = state.selectedFavoritesItemsLength;
               final countDish = state.selectedDishesItemsLength;
+              final allCount = countFavorites + countDish;
 
               return Text(
-                '${whichMode ? countFavorites : countDish}  ${whichMode ? countFavorites > 1 ? LocalizedTexts.items.tr() : LocalizedTexts.item.tr() : countDish > 1 ? LocalizedTexts.items.tr() : LocalizedTexts.item.tr()} ${LocalizedTexts.selected.tr()}',
+                '$allCount  ${allCount > 1 ? LocalizedTexts.items.tr() : LocalizedTexts.item.tr()} ${LocalizedTexts.selected.tr()}',
                 style: Theme.of(context)
                     .textTheme
                     .bodySmall
@@ -69,10 +65,17 @@ class FooterOverlay extends StatelessWidget {
                 child: BlocBuilder<SelectFoodBloc, SelectFoodState>(
                     builder: (BuildContext context, state) {
                   return ElevatedButton(
-                    onPressed: whichMode
-                        ? () => _onAdd(
-                            context, state.selectedFavoritesItemsList.toList())
-                        : () => _onLogDishHandler(context, dishes!),
+                    onPressed: dishes.isNotEmpty &&
+                            state.selectedFavoritesItemsList.isNotEmpty
+                        ? () {
+                            _onAdd(context,
+                                state.selectedFavoritesItemsList.toList());
+                            _onLogDishHandler(context, dishes);
+                          }
+                        : dishes.isNotEmpty
+                            ? () => _onLogDishHandler(context, dishes)
+                            : () => _onAdd(context,
+                                state.selectedFavoritesItemsList.toList()),
                     child: Text(LocalizedTexts.add.tr()),
                   );
                 }),
@@ -85,7 +88,9 @@ class FooterOverlay extends StatelessWidget {
   }
 
   void _onDeselectAll(BuildContext context) {
-    context.read<SelectFoodBloc>().add(SelectFoodEvent.itemsDeselectAll(mode));
+    context
+        .read<SelectFoodBloc>()
+        .add(const SelectFoodEvent.itemsDeselectAll());
   }
 
   void _onAdd(BuildContext context, List<FavoritesItem> foodItemList) {

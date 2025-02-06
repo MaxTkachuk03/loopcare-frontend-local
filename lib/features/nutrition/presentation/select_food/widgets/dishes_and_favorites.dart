@@ -58,7 +58,7 @@ class _DishesAndFavoritesState extends State<DishesAndFavorites>
     const AnalyticsEventService()
         .logEvent(eventName: AnalyticsEvents.selectFoodScreenMyFavorites);
 
-    Future.delayed(const Duration(milliseconds: 800), () {
+    Future.delayed(const Duration(milliseconds: 500), () {
       if (mounted) {
         context
             .read<SelectFoodBloc>()
@@ -147,10 +147,10 @@ class _DishesAndFavoritesState extends State<DishesAndFavorites>
                   ...selectFoodState.dishes
                 ];
 
-                favoritesCategories = [
-                  ...selectFoodState.dishFavoritesCategories,
-                  ...selectFoodState.mealFavoritesCategories
-                ];
+                // favoritesCategories = [
+                //   ...selectFoodState.dishFavoritesCategories,
+                //   ...selectFoodState.mealFavoritesCategories
+                // ];
 
                 return Expanded(
                   child: Column(
@@ -158,8 +158,9 @@ class _DishesAndFavoritesState extends State<DishesAndFavorites>
                     children: [
                       ListFilters(
                           title: title,
-                          mealsList: favoritesCategories,
-                          onConfirmed: (list) => _onConfirmed(context, list)),
+                          mealsList:
+                              selectFoodState.mealFavoritesCategories.toList(),
+                          onConfirmed: _onConfirmed),
                       selectFoodState.dishes.isEmpty &&
                               selectFoodState.favorites.isEmpty
                           ? Padding(
@@ -171,11 +172,11 @@ class _DishesAndFavoritesState extends State<DishesAndFavorites>
                                     type: EmptyListType.myFavorites,
                                     typeText: title,
                                   ),
-                                  const SizedBox(height: 20.0),
-                                  EmptyListWidget(
-                                    type: EmptyListType.myDishes,
-                                    typeText: title,
-                                  ),
+                                  // const SizedBox(height: 20.0),
+                                  // EmptyListWidget(
+                                  //   type: EmptyListType.myDishes,
+                                  //   typeText: title,
+                                  // ),
                                   const SizedBox(height: 20.0),
                                   if (_canCreateDishWithSelectedMealCategory)
                                     MainContainer(
@@ -190,7 +191,7 @@ class _DishesAndFavoritesState extends State<DishesAndFavorites>
                           : Expanded(
                               child: RefreshIndicator(
                                 onRefresh: () async {
-                                  // await _onRefreshFavorites();
+                                  await _onRefreshFavorites();
                                   Future.delayed(
                                       const Duration(milliseconds: 800),
                                       () async {
@@ -218,15 +219,12 @@ class _DishesAndFavoritesState extends State<DishesAndFavorites>
                                 ),
                               ),
                             ),
-                      state.selectedDishesItemsLength > 0
+                      state.selectedDishesItemsLength > 0 ||
+                              state.selectedFavoritesItemsLength > 0
                           ? FooterOverlay(
-                              mode: SearchMode.dish,
                               servingController: _servingController,
                               dishes: selectFoodState.selectedDishesItems,
                             )
-                          : const SizedBox.shrink(),
-                      state.selectedFavoritesItemsLength > 0
-                          ? FooterOverlay(mode: SearchMode.favorite)
                           : const SizedBox.shrink(),
                     ],
                   ),
@@ -263,9 +261,6 @@ class _DishesAndFavoritesState extends State<DishesAndFavorites>
     return defaultMealCategories;
   }
 
-  void _onConfirmed(BuildContext context, List<MealCategoryFilter> list) {
-    context.read<SelectFoodBloc>().add(SelectFoodEvent.filterDishes(list));
-
-    context.read<SelectFoodBloc>().add(SelectFoodEvent.filterFavorites(list));
-  }
+  void _onConfirmed(List<MealCategoryFilter> list) =>
+      context.read<SelectFoodBloc>().add(SelectFoodEvent.filterFavorites(list));
 }
