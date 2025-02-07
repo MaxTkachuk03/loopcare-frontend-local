@@ -66,6 +66,7 @@ class SelectedListItem extends StatelessWidget {
                 Expanded(
                   child: Center(
                     child: ServingInputField(
+                      isReadOnly: false,
                       controller: inputController,
                       fillColor: AppColors.white,
                       onChange: (value) => _onAmountChange(context, value),

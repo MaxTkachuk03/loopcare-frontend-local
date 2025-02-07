@@ -17,7 +17,6 @@ import 'package:loopcare_frontend/core/presentation/routes/app_router.dart';
 import 'package:loopcare_frontend/core/presentation/routes/app_router.gr.dart';
 import 'package:loopcare_frontend/core/presentation/scaffold/custom_scaffold.dart';
 import 'package:loopcare_frontend/core/presentation/text/custom_text.dart';
-import 'package:loopcare_frontend/core/presentation/utils/function_extensions.dart';
 import 'package:loopcare_frontend/core/presentation/utils/string_extensions.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/main_container.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/scrollable_container.dart';
@@ -85,24 +84,24 @@ class _DishDetailsPageState extends State<DishDetailsPage> {
     super.dispose();
   }
 
-  void _onServingChanges(String val) {
-    setState(() {
-      _servingsAmount = double.parse(val.isEmpty ? '0' : val);
-    });
-
-    _servingController.text = val;
-
-    if (!(widget.isMealDish ?? false)) return;
-
-    final mealState = context.read<MealsBloc>().state;
-    final mealId = mealState.data.getCurrentMealId;
-
-    if (mealId == null || val.isEmpty) return;
-
-    context
-        .read<DishBloc>()
-        .add(DishEvent.servingChanged(mealId: mealId, servingAmount: int.parse(val)));
-  }
+  // void _onServingChanges(String val) {
+  //   setState(() {
+  //     _servingsAmount = double.parse(val.isEmpty ? '0' : val);
+  //   });
+  //
+  //   _servingController.text = val;
+  //
+  //   if (!(widget.isMealDish ?? false)) return;
+  //
+  //   final mealState = context.read<MealsBloc>().state;
+  //   final mealId = mealState.data.getCurrentMealId;
+  //
+  //   if (mealId == null || val.isEmpty) return;
+  //
+  //   context
+  //       .read<DishBloc>()
+  //       .add(DishEvent.servingChanged(mealId: mealId, servingAmount: int.parse(val)));
+  // }
 
   void _onNutritionFactSelect(NutritionValuesTypes item) {
     context.read<DishBloc>().add(DishEvent.nutritionItemChanged(item));
@@ -287,9 +286,9 @@ class _DishDetailsPageState extends State<DishDetailsPage> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               ServingsAmount(
+                                isReadOnly: true,
                                 inputController: _servingController,
-                                onValueChangeHandler: _onServingChanges
-                                    .withDebounce(const Duration(milliseconds: 500)),
+                                onValueChangeHandler: (_) {},
                               ),
                               NutritionValuesBlock(
                                 numberOfPortions: dishState.selectedDish.numberOfServings.toInt(),

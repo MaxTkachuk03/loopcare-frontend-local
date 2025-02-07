@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:loopcare_frontend/core/domain/input_formatters/serving_formatter.dart';
 import 'package:loopcare_frontend/core/presentation/text/custom_text.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 import 'package:loopcare_frontend/core/presentation/utils/build_context_extensions.dart';
@@ -14,11 +13,13 @@ class ServingsAmount extends StatelessWidget {
   final TextEditingController inputController;
   final OnValueChangesHandler onValueChangeHandler;
   final FocusNode? focusNode;
+  final bool isReadOnly;
 
   const ServingsAmount({
     super.key,
     required this.inputController,
     required this.onValueChangeHandler,
+    required this.isReadOnly,
     this.focusNode,
   });
 
@@ -36,11 +37,10 @@ class ServingsAmount extends StatelessWidget {
         child: Row(
           children: [
             ServingInputField(
-              focusNode: focusNode,
+              isReadOnly: isReadOnly,
               controller: inputController,
               fillColor: AppColors.white,
               onChange: onValueChangeHandler,
-              inputFormatter: ServingRangeFormatter(),
             ),
             const SizedBox(width: 10),
             CustomText.w700(

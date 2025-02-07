@@ -4,12 +4,15 @@ import 'package:loopcare_frontend/core/domain/input_formatters/serving_formatter
 import 'package:loopcare_frontend/core/presentation/text_field/custom_text_field.dart';
 import 'package:loopcare_frontend/core/presentation/utils/build_context_extensions.dart';
 
+import '../../../../../core/presentation/themes/themes.dart';
+
 class ServingInputField extends StatefulWidget {
   final TextEditingController controller;
   final Color fillColor;
   final void Function(String) onChange;
   final FocusNode? focusNode;
   final TextInputFormatter? inputFormatter;
+  final bool isReadOnly;
 
   const ServingInputField({
     super.key,
@@ -18,6 +21,7 @@ class ServingInputField extends StatefulWidget {
     required this.onChange,
     this.focusNode,
     this.inputFormatter,
+    required this.isReadOnly,
   });
 
   @override
@@ -57,6 +61,7 @@ class _ServingInputFieldState extends State<ServingInputField> {
       width: 45.0,
       height: 34.0,
       child: CustomTextField(
+        readOnly: widget.isReadOnly,
         controller: widget.controller,
         focusNode: widget.focusNode,
         maxLength: 7,
@@ -71,6 +76,14 @@ class _ServingInputFieldState extends State<ServingInputField> {
           filled: true,
           fillColor: widget.fillColor,
           contentPadding: const EdgeInsets.symmetric(horizontal: 4),
+          enabledBorder: OutlineInputBorder(
+            borderSide: const BorderSide(color: AppColors.grey, width: 1.0),
+            borderRadius: BorderRadius.circular(4.0),
+          ),
+          focusedBorder: OutlineInputBorder(
+            borderSide: const BorderSide(color: AppColors.grey, width: 1.0),
+            borderRadius: BorderRadius.circular(4.0),
+          ),
         ),
         keyboardType: const TextInputType.numberWithOptions(decimal: true),
         style: context.textTheme.bodySmall?.copyWith(

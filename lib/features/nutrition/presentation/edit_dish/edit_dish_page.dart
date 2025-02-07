@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -33,6 +35,9 @@ import 'package:loopcare_frontend/features/nutrition/presentation/widgets/servin
 import 'package:loopcare_frontend/localization/service/localization_extension.dart';
 import 'package:loopcare_frontend/localization/service/localized_texts.dart';
 
+import '../../application/meals/meals_bloc.dart';
+import '../../domain/dish/dish.dart';
+
 enum EditDishPageMode { edit, create }
 
 @RoutePage()
@@ -54,6 +59,7 @@ class EditDishPage extends StatefulWidget {
 
 class _EditDishPageState extends State<EditDishPage> {
   late final EditDishController _controller;
+  bool isLoading = false;
 
   @override
   void initState() {
@@ -115,7 +121,7 @@ class _EditDishPageState extends State<EditDishPage> {
     context.router.popUntilRouteWithName(SearchRoute.name);
   }
 
-  void _onSaveDishHandler() {
+  Future<void> _onSaveDishHandler(Dish currentDish) async {
     final error = _controller.validate();
 
     if (error != null) {
@@ -123,10 +129,60 @@ class _EditDishPageState extends State<EditDishPage> {
       return;
     }
 
+    setState(() {
+      isLoading = true;
+    });
+
+    final mealsBloc = context.read<MealsBloc>();
+    final mealId = mealsBloc.state.data.getCurrentMealId;
+    final dishId = currentDish.id;
+
+    await _deleteItemsInLog(currentDish.foodItems);
+
     _controller.saveDish();
 
-    context.showSuccessBar(content: CustomText(LocalizedTexts.dishWasSaved.tr()));
-    context.router.maybePop();
+    mealsBloc
+        .add(MealsEvent.addDishToMeal(mealId!, currentDish.numberOfServings.toString(), dishId));
+
+    if (mounted) {
+      context.showSuccessBar(content: CustomText(LocalizedTexts.dishWasSaved.tr()));
+
+      context.router.maybePop();
+    }
+
+    setState(() {
+      isLoading = false;
+    });
+  }
+
+  Future<void> _deleteItemsInLog(List<DishFoodItem> items) async {
+    final mealBloc = context.read<MealsBloc>();
+    final completer = Completer<void>();
+
+    final foodItemIdsToDelete = mealBloc.state.data.meals.values
+        .expand((mealList) => mealList)
+        .expand((meal) => meal.mealItems)
+        .where((foodItem) => items.any((i) => i.externalId == foodItem.externalId))
+        .map((foodItem) => foodItem.id.toString())
+        .toList();
+
+    if (foodItemIdsToDelete.isEmpty) {
+      completer.complete();
+      return completer.future;
+    }
+
+    StreamSubscription? subscription;
+
+    subscription = mealBloc.stream.listen((state) {
+      if (state is MealsStateLoaded && !state.data.isLoading) {
+        subscription?.cancel();
+        completer.complete();
+      }
+    });
+
+    mealBloc.add(MealsEvent.deleteFoodItemFromMeal(foodItemIdsToDelete));
+
+    return completer.future;
   }
 
   void _showValidationSnackbar(String error) => context.showError(content: CustomText(error));
@@ -214,9 +270,9 @@ class _EditDishPageState extends State<EditDishPage> {
                             Column(
                               children: [
                                 ServingsAmount(
-                                  focusNode: _controller.servingFocusNode,
+                                  isReadOnly: true,
                                   inputController: _controller.servingController,
-                                  onValueChangeHandler: _controller.servingChanged,
+                                  onValueChangeHandler: (_) {},
                                 ),
                                 NutritionValuesBlock(
                                   portionsFocusNode: _controller.portionsFocusNode,
@@ -274,8 +330,11 @@ class _EditDishPageState extends State<EditDishPage> {
                               child: MainContainer(
                                 child: dishState.maybeMap(
                                   dishInfo: (state) => CustomElevatedButton.blueFullWidth(
-                                    onPressed: state.data.hasFoodItems ? _onSaveDishHandler : null,
+                                    onPressed: state.data.hasFoodItems && !isLoading
+                                        ? () => _onSaveDishHandler(currentDish)
+                                        : null,
                                     label: LocalizedTexts.save.tr(),
+                                    isLoading: isLoading,
                                   ),
                                   orElse: () => const SizedBox.shrink(),
                                 ),

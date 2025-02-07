@@ -1,7 +1,10 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:loopcare_frontend/core/domain/recent_logged/recent_logged_item.dart';
 import 'package:loopcare_frontend/core/presentation/error/error_screen.dart';
 import 'package:loopcare_frontend/core/presentation/loader/loader.dart';
+import 'package:loopcare_frontend/core/presentation/recent_logged/recent_logged_list.dart';
 import 'package:loopcare_frontend/features/nutrition/application/search/dto/search_item.dart';
 import 'package:loopcare_frontend/features/nutrition/application/search/dto/search_item_types.dart';
 import 'package:loopcare_frontend/features/nutrition/application/search/dto/search_mode.dart';
@@ -16,6 +19,13 @@ import 'package:loopcare_frontend/features/nutrition/presentation/select_food/wi
 import 'package:loopcare_frontend/localization/service/localization_extension.dart';
 import 'package:loopcare_frontend/localization/service/localized_texts.dart';
 
+import '../../../../../core/domain/analytics/analytics_events.dart';
+import '../../../../../core/domain/analytics/analytics_parameters.dart';
+import '../../../../../core/infrastructure/services/analytics_service.dart';
+import '../../../../../core/presentation/routes/app_router.dart';
+import '../../../../../core/presentation/routes/app_router.gr.dart';
+import '../../../application/meals/dto/add_food_item_to_meal_body.dart';
+import '../../../application/meals/meals_bloc.dart';
 import '../../../application/select_food/select_food_bloc.dart';
 
 class SearchResultList extends StatefulWidget {
@@ -90,6 +100,64 @@ class _SearchResultListState extends State<SearchResultList> {
     });
   }
 
+  _onLogRecentTap(BuildContext context, RecentLoggedItem item) {
+    final mealBloc = context.read<MealsBloc>();
+    final mealId = mealBloc.state.data.getCurrentMealId;
+    if (mealId == null) {
+      return;
+    }
+
+    if (item.type == SearchItemTypes.food.name) {
+      context.router.push(
+        SelectServingRoute(
+            foodItemId: item.itemExternalId!,
+            foodItemName: item.name,
+            initialServingAmount: item.numberOfUnits.toDouble(),
+            initialServingId: item.servingId,
+            onConfirm: (double numberOfUnits, String servingId) {
+              mealBloc.add(
+                MealsEvent.addFoodItemToMeal(
+                  mealId,
+                  item.itemExternalId!,
+                  AddFoodItemToMealBody(
+                    numberOfUnits: numberOfUnits,
+                    servingId: servingId,
+                  ),
+                ),
+              );
+
+              const AnalyticsEventService().logEvent(
+                eventName: AnalyticsEvents.foodLogged,
+                parameters: {
+                  AnalyticsParameters.timestamp: DateTime.now().toIso8601String(),
+                  AnalyticsParameters.mealId: mealId.toString(),
+                  AnalyticsParameters.foodItem: item.itemExternalId,
+                  AnalyticsParameters.servingId: servingId,
+                  AnalyticsParameters.numberOfUnits: numberOfUnits.toString(),
+                  AnalyticsParameters.isMeal: 'true',
+                },
+              );
+
+              context.router.pushNamed(AppRoutes.meal);
+            }),
+      );
+    } else if (item.type == SearchItemTypes.recipe.name) {
+      context.router.push(
+        RecipeRoute(
+          id: int.parse(item.itemExternalId!),
+          name: item.name,
+        ),
+      );
+    } else if (item.type == SearchItemTypes.dish.name) {
+      context.router.push(
+        DishDetailsRoute(
+          dishId: item.mealItemId,
+          canEditDish: false,
+        ),
+      );
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     if (widget.selectedTab != 'recipe') selectedLayout = SearchListLayout.list;
@@ -131,7 +199,7 @@ class _SearchResultListState extends State<SearchResultList> {
                   );
           },
           initial: (initialState) {
-            final recentSearchList = state.data.recentSearch ?? <String>[];
+            final recentSearchList = state.data.recentLogged;
 
             return Column(
               children: [
@@ -144,22 +212,19 @@ class _SearchResultListState extends State<SearchResultList> {
                     shrinkWrap: true,
                     physics: const NeverScrollableScrollPhysics(),
                     itemBuilder: (BuildContext context, int index) {
-                      final item = recentSearchList[index];
-                      final itemType = item.length > 1
-                          ? SearchItemTypes.values.firstWhere((e) => e.toString() == item[1],
-                              orElse: () => SearchItemTypes.recent)
-                          : SearchItemTypes.recent;
+                      final recentLoggedItem = recentSearchList[index];
 
-                      return SearchResultListItem(
-                        item: SearchItem(
-                          id: index.toString(),
-                          name: item,
-                          type: itemType,
-                        ),
-                        onTap: (SearchItem item) {
-                          widget.onRecentSearchItemTap(item.name);
-                        },
-                      );
+                      return RecentLoggedList(
+                          item: RecentLoggedItem(
+                              mealId: recentLoggedItem.mealId,
+                              mealItemId: recentLoggedItem.mealItemId,
+                              name: recentLoggedItem.name,
+                              type: recentLoggedItem.type,
+                              itemExternalId: recentLoggedItem.itemExternalId,
+                              servingId: recentLoggedItem.servingId,
+                              numberOfUnits: recentLoggedItem.numberOfUnits,
+                              calories: recentLoggedItem.calories),
+                          onTap: (RecentLoggedItem item) => _onLogRecentTap(context, item));
                     },
                   ),
                 ),

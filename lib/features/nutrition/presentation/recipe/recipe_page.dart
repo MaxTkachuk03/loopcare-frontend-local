@@ -16,7 +16,6 @@ import 'package:loopcare_frontend/core/presentation/nutrition/nutrition_summary/
 import 'package:loopcare_frontend/core/presentation/routes/app_router.dart';
 import 'package:loopcare_frontend/core/presentation/routes/app_router.gr.dart';
 import 'package:loopcare_frontend/core/presentation/scaffold/custom_scaffold.dart';
-import 'package:loopcare_frontend/core/presentation/utils/function_extensions.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/main_container.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/scrollable_container.dart';
 import 'package:loopcare_frontend/features/nutrition/application/edit_dish/edit_dish_bloc.dart';
@@ -192,9 +191,9 @@ class _RecipePageState extends State<RecipePage> {
                             mainAxisAlignment: MainAxisAlignment.start,
                             children: [
                               ServingsAmount(
+                                isReadOnly: true,
                                 inputController: _servingController,
-                                onValueChangeHandler: _onValueChangeHandler
-                                    .withDebounce(const Duration(milliseconds: 500)),
+                                onValueChangeHandler: (_) {},
                               ),
                               NutritionValuesBlock(
                                 numberOfPortions: recipeState.data.recipe.numberOfServings,
@@ -293,25 +292,25 @@ class _RecipePageState extends State<RecipePage> {
     );
   }
 
-  void _onValueChangeHandler(String val) {
-    final mealState = context.read<MealsBloc>().state;
-    final mealId = mealState.data.getCurrentMealId;
-
-    final recipeId = _currentRecipeId;
-
-    if (mealId == null ||
-        val.isEmpty ||
-        recipeId == null ||
-        val == '0' ||
-        val == '0.' ||
-        val == '0.0') {
-      return;
-    }
-    if (double.parse(val) == 0 || double.parse(val) < 0.1) return;
-
-    context.read<RecipeBloc>().add(RecipeEvent.servingChanged(
-        mealId: mealId, servingAmount: double.parse(val), recipeId: recipeId));
-  }
+  // void _onValueChangeHandler(String val) {
+  //   final mealState = context.read<MealsBloc>().state;
+  //   final mealId = mealState.data.getCurrentMealId;
+  //
+  //   final recipeId = _currentRecipeId;
+  //
+  //   if (mealId == null ||
+  //       val.isEmpty ||
+  //       recipeId == null ||
+  //       val == '0' ||
+  //       val == '0.' ||
+  //       val == '0.0') {
+  //     return;
+  //   }
+  //   if (double.parse(val) == 0 || double.parse(val) < 0.1) return;
+  //
+  //   context.read<RecipeBloc>().add(RecipeEvent.servingChanged(
+  //       mealId: mealId, servingAmount: double.parse(val), recipeId: recipeId));
+  // }
 
   void _addRecipeToMeal(BuildContext context, RecipeState state) {
     final recipe = state.mapOrNull(recipeInfo: (s) => s.data.recipe);
