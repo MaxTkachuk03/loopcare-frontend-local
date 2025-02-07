@@ -62,7 +62,7 @@ class SelectFoodBloc extends Bloc<SelectFoodEvent, SelectFoodState> {
   ) async {
     final dishes = state.mapOrNull(selectFood: (s) => s.dishes);
     final dishesFilters =
-        state.mapOrNull(selectFood: (s) => s.dishFavoritesCategories);
+        state.mapOrNull(selectFood: (s) => s.mealFavoritesCategories);
 
     emit(const SelectFoodState.loading());
 
@@ -93,6 +93,8 @@ class SelectFoodBloc extends Bloc<SelectFoodEvent, SelectFoodState> {
     final favoritesFiltes =
         state.mapOrNull(selectFood: (s) => s.mealFavoritesCategories);
 
+    emit(const SelectFoodState.loading());
+
     final response = await nutritionService.getDishes([event.mealCategory]);
 
     response.fold(
@@ -104,7 +106,7 @@ class SelectFoodBloc extends Bloc<SelectFoodEvent, SelectFoodState> {
           mealFavoritesCategories:
               favoritesFiltes ?? <MealCategoryFilter>[].toList(),
           dishFavoritesCategories:
-              _getDishFavoriteCategories(event.mealCategory),
+              _getMealFavoriteCategories(event.mealCategory),
           selectedFavoritesItems: <FavoritesItem>[].toList(),
           selectedDishesItems: <Dish>[].toList(),
         ),
@@ -130,6 +132,8 @@ class SelectFoodBloc extends Bloc<SelectFoodEvent, SelectFoodState> {
           ? <String>[]
           : selectedFiltersValues.whereNotNull().toList();
 
+      emit(const SelectFoodState.loading());
+
       final response = await nutritionService.getFavorites(filters);
 
       response.fold(
@@ -141,6 +145,15 @@ class SelectFoodBloc extends Bloc<SelectFoodEvent, SelectFoodState> {
           ),
         ),
       );
+      // emit(const SelectFoodState.loading());
+
+      // final responseDish = await nutritionService.getDishes(filters);
+
+      // responseDish.fold(
+      //     (l) => emit(SelectFoodState.error(l)),
+      //     (r) => emit(state.copyWith(
+      //         mealFavoritesCategories: event.filtersList,
+      //         dishes: r.data.toList())));
     });
   }
 
@@ -152,7 +165,7 @@ class SelectFoodBloc extends Bloc<SelectFoodEvent, SelectFoodState> {
       selectFood: (state) async {
         final selectedFiltersValues = event.filtersList
             .where((e) => e.selected)
-            .map((element) => DishFavoritesCategory.values
+            .map((element) => MealFavoritesCategory.values
                 .firstWhereOrNull((e) => e.name == element.name)
                 ?.value);
 
@@ -162,9 +175,11 @@ class SelectFoodBloc extends Bloc<SelectFoodEvent, SelectFoodState> {
             ? <String>[]
             : selectedFiltersValues.whereNotNull().toList();
 
-        final response = await nutritionService.getDishes(filters);
+        emit(const SelectFoodState.loading());
 
-        response.fold(
+        final responseDish = await nutritionService.getDishes(filters);
+
+        responseDish.fold(
             (l) => emit(SelectFoodState.error(l)),
             (r) => emit(state.copyWith(
                 dishFavoritesCategories: event.filtersList,

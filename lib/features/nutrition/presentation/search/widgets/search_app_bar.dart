@@ -188,11 +188,11 @@ class _SearchAppBarState extends State<SearchAppBar> with TickerProviderStateMix
             .add(SearchEvent.getRecentLogged(widget.mealCategory.originalValue, searchType));
       }
 
-      if (searchMode == SearchMode.favorite.name) {
-        context
-            .read<SelectFoodBloc>()
-            .add(SelectFoodEvent.fetchFavorites(widget.mealCategory.originalValue));
-      }
+      // if (searchMode == SearchMode.favorite.name) {
+      //   context
+      //       .read<SelectFoodBloc>()
+      //       .add(SelectFoodEvent.fetchFavorites(widget.mealCategory.originalValue));
+      // }
 
       if (widget.onTabChanged != null) {
         widget.onTabChanged!(searchMode);

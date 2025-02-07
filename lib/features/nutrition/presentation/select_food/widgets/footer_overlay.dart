@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -99,7 +101,10 @@ class FooterOverlay extends StatelessWidget {
     context.router.pushNamed(AppRoutes.meal);
   }
 
-  void _onLogDishHandler(BuildContext context, List<Dish> dishes) {
+  Future<void> _onLogDishHandler(
+      BuildContext context, List<Dish> dishes) async {
+    final completer = Completer();
+
     final mealId = context.read<MealsBloc>().state.data.getCurrentMealId;
 
     final currentMeal = context.read<MealsBloc>().state.data.currentMeal;
@@ -116,8 +121,6 @@ class FooterOverlay extends StatelessWidget {
           .read<MealsBloc>()
           .add(MealsEvent.addDishToMeal(mealId, numberOfServings, dishId));
 
-      context.router.maybePop();
-
       usageAnalytics.track(
         eventName: UsageAnalyticsEvents.mealLogged,
         attributes: {
@@ -129,5 +132,8 @@ class FooterOverlay extends StatelessWidget {
         },
       );
     }
+    completer.complete();
+
+    context.router.maybePop();
   }
 }

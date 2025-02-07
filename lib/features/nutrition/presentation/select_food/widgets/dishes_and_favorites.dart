@@ -1,3 +1,7 @@
+// ignore_for_file: void_checks
+
+import 'dart:async';
+
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -53,23 +57,23 @@ class _DishesAndFavoritesState extends State<DishesAndFavorites>
   void initState() {
     context
         .read<SelectFoodBloc>()
-        .add(SelectFoodEvent.fetchFavorites(_defaultMealCategoryFavorites));
+        .add(SelectFoodEvent.fetchFavorites(_defaultMealCategory));
 
     const AnalyticsEventService()
         .logEvent(eventName: AnalyticsEvents.selectFoodScreenMyFavorites);
+    const AnalyticsEventService()
+        .logEvent(eventName: AnalyticsEvents.selectFoodScreenMyDishes);
 
-    Future.delayed(const Duration(milliseconds: 500), () {
+    _servingController = TextEditingController(
+        text: context.read<DishBloc>().state.servingAmount);
+
+    Future.delayed(const Duration(milliseconds: 800), () {
       if (mounted) {
         context
             .read<SelectFoodBloc>()
             .add(SelectFoodEvent.fetchDishes(_defaultMealCategory));
       }
-      const AnalyticsEventService()
-          .logEvent(eventName: AnalyticsEvents.selectFoodScreenMyDishes);
     });
-
-    _servingController = TextEditingController(
-        text: context.read<DishBloc>().state.servingAmount);
 
     super.initState();
   }
@@ -89,7 +93,7 @@ class _DishesAndFavoritesState extends State<DishesAndFavorites>
   Future _onRefreshFavorites() async {
     return context
         .read<SelectFoodBloc>()
-        .add(SelectFoodEvent.fetchFavorites(_defaultMealCategoryFavorites));
+        .add(SelectFoodEvent.fetchFavorites(_defaultMealCategory));
   }
 
   // _updateDishesListener(BuildContext context, state) {
@@ -102,18 +106,7 @@ class _DishesAndFavoritesState extends State<DishesAndFavorites>
   //       .add(SelectFoodEvent.fetchDishes(_defaultMealCategory));
   // }
 
-  bool get _canCreateDishWithSelectedMealCategory {
-    return DishFavoritesCategory.values
-        .asNameMap()
-        .containsKey(widget.mealCategory?.name);
-  }
-
-  String get _defaultMealCategory => _canCreateDishWithSelectedMealCategory
-      ? widget.mealCategory?.originalValue ?? ''
-      : MealCategory.breakfast.name;
-
-  String get _defaultMealCategoryFavorites =>
-      widget.mealCategory?.originalValue ?? '';
+  String get _defaultMealCategory => widget.mealCategory?.originalValue ?? '';
 
   @override
   Widget build(BuildContext context) {
@@ -132,25 +125,19 @@ class _DishesAndFavoritesState extends State<DishesAndFavorites>
                   child: ErrorScreen(
                     error: error,
                     onButtonPressed: () => context.read<SelectFoodBloc>().add(
-                        SelectFoodEvent.fetchFavorites(
-                            _defaultMealCategoryFavorites)),
+                        SelectFoodEvent.fetchFavorites(_defaultMealCategory)),
                   ),
                 );
               },
               selectFood: (selectFoodState) {
-                final String title = selectFoodState.hasOneSelectedDishCategory
-                    ? '${LocalizedTexts.my.tr()} ${selectFoodState.selectedDishCategories[0].name}'
+                final String title = selectFoodState.hasOneSelectedMealCategory
+                    ? '${LocalizedTexts.my.tr()} ${selectFoodState.selectedMealCategories[0].name}'
                     : LocalizedTexts.myDishes.tr();
 
                 combinedList = [
                   ...selectFoodState.favorites,
                   ...selectFoodState.dishes
                 ];
-
-                // favoritesCategories = [
-                //   ...selectFoodState.dishFavoritesCategories,
-                //   ...selectFoodState.mealFavoritesCategories
-                // ];
 
                 return Expanded(
                   child: Column(
@@ -178,13 +165,13 @@ class _DishesAndFavoritesState extends State<DishesAndFavorites>
                                   //   typeText: title,
                                   // ),
                                   const SizedBox(height: 20.0),
-                                  if (_canCreateDishWithSelectedMealCategory)
-                                    MainContainer(
-                                      child: CustomOutlinedButton.blueSmall(
-                                        label: LocalizedTexts.createMyDish.tr(),
-                                        onPressed: _onCreateDish,
-                                      ),
+                                  // if (_canCreateDishWithSelectedMealCategory)
+                                  MainContainer(
+                                    child: CustomOutlinedButton.blueSmall(
+                                      label: LocalizedTexts.createMyDish.tr(),
+                                      onPressed: _onCreateDish,
                                     ),
+                                  ),
                                 ],
                               ),
                             )
@@ -192,6 +179,7 @@ class _DishesAndFavoritesState extends State<DishesAndFavorites>
                               child: RefreshIndicator(
                                 onRefresh: () async {
                                   await _onRefreshFavorites();
+
                                   Future.delayed(
                                       const Duration(milliseconds: 800),
                                       () async {
@@ -261,6 +249,22 @@ class _DishesAndFavoritesState extends State<DishesAndFavorites>
     return defaultMealCategories;
   }
 
-  void _onConfirmed(List<MealCategoryFilter> list) =>
-      context.read<SelectFoodBloc>().add(SelectFoodEvent.filterFavorites(list));
+  Future<void> _onConfirmed(List<MealCategoryFilter> list) async {
+    final completer = Completer();
+    context
+        .read<SelectFoodBloc>()
+        .add(SelectFoodEvent.filterDishes(list.toList()));
+
+    Future.delayed(const Duration(milliseconds: 800), () {
+
+      if (mounted) {
+        context
+            .read<SelectFoodBloc>()
+            .add(SelectFoodEvent.filterFavorites(list.toList()));
+      }
+      completer.complete();
+    });
+
+    return completer.future;
+  }
 }
