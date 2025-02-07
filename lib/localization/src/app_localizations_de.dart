@@ -4864,7 +4864,7 @@ class AppLocalizationsDe extends AppLocalizations {
   String get total => 'Summe';
 
   @override
-  String get searchHint => 'Suche nach Lebensmitteln';
+  String get searchHint => 'Voedingsmiddel zoeken';
 
   @override
   String get searchFilterAll => 'Alle';
@@ -6054,7 +6054,7 @@ class AppLocalizationsDe extends AppLocalizations {
   String get noCancel => 'Nein, abbrechen';
 
   @override
-  String get recentSearch => 'Letzte Suche';
+  String get recentSearch => 'Recent gelogd';
 
   @override
   String get dishWasSaved => 'Das Gericht wurde gespeichert';

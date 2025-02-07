@@ -2,9 +2,7 @@ part of 'search_bloc.dart';
 
 @freezed
 class SearchEvent with _$SearchEvent {
-  const factory SearchEvent.resetData({SearchMode? mode}) = ResetData;
-
-  const factory SearchEvent.addSearchResult(String query, SearchMode mode) = AddSearchResult;
+  const factory SearchEvent.getRecentLogged(String category, SearchMode mode) = GetRecentLogged;
 
   const factory SearchEvent.search(
     String query, {

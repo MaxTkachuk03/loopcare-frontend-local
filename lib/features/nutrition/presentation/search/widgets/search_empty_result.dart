@@ -11,7 +11,6 @@ class SearchEmptyResult extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: AppColors.greenLightest,
       width: double.infinity,
       padding: const EdgeInsets.all(26.0),
       child: Column(

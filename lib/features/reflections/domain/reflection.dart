@@ -19,6 +19,7 @@ class Reflection with _$Reflection {
     required DateTime? completedAt,
     required DateTime? unlockedAt,
     required int lessonId,
+    required int moduleId,
     required RiverModuleStreamType riverStreamType,
     required List<ReflectionQuestion> questions,
   }) = _Reflection;

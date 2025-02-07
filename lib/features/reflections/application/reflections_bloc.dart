@@ -12,6 +12,8 @@ import 'package:loopcare_frontend/features/reflections/application/reflections_s
 import 'package:loopcare_frontend/features/reflections/domain/reflection.dart';
 import 'package:loopcare_frontend/localization/service/localized_texts.dart';
 
+import '../../../core/presentation/practice_lesson_list/practice_lesson_card_status_types.dart';
+
 part 'reflections_bloc.freezed.dart';
 part 'reflections_event.dart';
 part 'reflections_state.dart';

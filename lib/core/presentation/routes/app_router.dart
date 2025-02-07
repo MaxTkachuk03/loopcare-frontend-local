@@ -338,6 +338,10 @@ class AppRouter extends $AppRouter {
         AutoRoute(
           path: AppRoutes.mindIntroExercise,
           page: IntroExerciseRoute.page,
+        ),
+        AutoRoute(
+          path: AppRoutes.mindTrainingPage,
+          page: MindTrainingRoute.page,
         ), // added
 
         // Mood
@@ -366,6 +370,10 @@ class AppRouter extends $AppRouter {
           page: MyReflectionsRoute.page,
         ), // added
         AutoRoute(
+          path: AppRoutes.reflectionsPage,
+          page: ReflectionsRoute.page,
+        ), // added
+        AutoRoute(
           path: AppRoutes.reflectionsIntro,
           page: ReflectionsIntroRoute.page,
         ), // added
@@ -390,10 +398,6 @@ class AppRouter extends $AppRouter {
         AutoRoute(
           path: AppRoutes.subscription,
           page: SubscriptionRoute.page,
-        ),
-        AutoRoute(
-          path: AppRoutes.subscriptionV2,
-          page: SubscriptionRouteV2.page,
         ),
         AutoRoute(
           path: AppRoutes.manageSubscription,

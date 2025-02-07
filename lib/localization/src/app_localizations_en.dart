@@ -4713,7 +4713,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get total => 'total';
 
   @override
-  String get searchHint => 'Search for food';
+  String get searchHint => 'Search food item';
 
   @override
   String get searchFilterAll => 'All';
@@ -4737,7 +4737,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get drinks => 'Drinks';
 
   @override
-  String get favorites => 'favorites';
+  String get favorites => 'Favorites';
 
   @override
   String get allMy => 'All my';
@@ -5890,7 +5890,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get noCancel => 'No, cancel';
 
   @override
-  String get recentSearch => 'Recent searches';
+  String get recentSearch => 'Recent logged';
 
   @override
   String get dishWasSaved => 'Dish was saved';

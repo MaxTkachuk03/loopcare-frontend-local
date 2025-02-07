@@ -55,7 +55,7 @@ class ErrorInterceptor extends QueuedInterceptor {
 
   void _pushToSubscriptionScreen() {
     FlutterNativeSplash.remove();
-    kOverlayContext.router.replaceAll([const SubscriptionRouteV2()]);
+    kOverlayContext.router.replaceAll([const SubscriptionRoute()]);
   }
 }
 

@@ -36,6 +36,7 @@ class NutritionIntakePage extends StatefulWidget {
 class _NutritionIntakePageState extends State<NutritionIntakePage> {
   bool isSwitched = false;
   String lessonDate = '';
+  late NutritionIntakeBloc _nutritionIntakeBloc;
 
   static final List<String> categories = [
     LocalizedTexts.breakfast.tr(),
@@ -49,6 +50,18 @@ class _NutritionIntakePageState extends State<NutritionIntakePage> {
     isSwitched = context.read<NutritionIntakeBloc>().state.data.isDayClosed;
     lessonDate = widget.selectedDay;
     super.initState();
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    _nutritionIntakeBloc = context.read<NutritionIntakeBloc>();
+  }
+
+  @override
+  void dispose() {
+    _nutritionIntakeBloc.add(const NutritionIntakeEvent.resetSurvey());
+    super.dispose();
   }
 
   void _completeDay() {

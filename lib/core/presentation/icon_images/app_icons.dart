@@ -44,6 +44,11 @@ class AppIcons {
   static const AssetImage plus = AssetImage('$iconsFilePath/plus.png');
   static const AssetImage scan = AssetImage('$iconsFilePath/scan.png');
 
+  static const AssetImage practiceLessonCompleted =
+      AssetImage('$iconsFilePath/practice_lesson_completed.png');
+  static const AssetImage practiceLessonLocked =
+      AssetImage('$iconsFilePath/practice_lesson_locked.png');
+
   static SvgPicture clock = SvgPicture.asset(
     '$iconsFilePath/clock.svg',
     width: 24,

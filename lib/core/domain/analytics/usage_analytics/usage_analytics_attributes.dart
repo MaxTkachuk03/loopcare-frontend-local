@@ -41,6 +41,7 @@ class UsageAnalyticsAttributes {
   // Subscription
   static const String identifierOption = 'Subscription identifier';
   static const String subscriptionExpirationDate = 'Subscription expiration date';
+  static const String storeProducts = 'Store products';
 
   // Education
   static const String articleId = 'Article ID';

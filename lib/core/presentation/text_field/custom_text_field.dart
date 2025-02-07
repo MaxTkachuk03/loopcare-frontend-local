@@ -35,6 +35,7 @@ class CustomTextField extends StatefulWidget {
   final bool scribbleEnabled;
   final Iterable<String>? autofillHints;
   final void Function()? onEditingComplete;
+  final OutlineInputBorder? borderStyle;
 
   const CustomTextField({
     super.key,
@@ -64,6 +65,7 @@ class CustomTextField extends StatefulWidget {
     this.textInputAction = TextInputAction.next,
     this.onEditingComplete,
     this.scribbleEnabled = false,
+    this.borderStyle,
   });
 
   factory CustomTextField.search({
@@ -72,6 +74,7 @@ class CustomTextField extends StatefulWidget {
     required TextEditingController controller,
     ValueChanged<String>? onChanged,
     VoidCallback? onCleared,
+    OutlineInputBorder? borderStyle,
   }) =>
       CustomTextField(
         key: key,
@@ -82,6 +85,7 @@ class CustomTextField extends StatefulWidget {
         onCleared: onCleared,
         isClearField: onCleared != null,
         fillColor: fillColor,
+        borderStyle: borderStyle,
       );
 
   factory CustomTextField.nickname({
@@ -312,6 +316,8 @@ class _CustomTextFieldState extends State<CustomTextField> {
         prefixIcon: widget.prefixIcon,
         suffixIcon: _suffixIcon,
         enabled: !widget.readOnly,
+        focusedBorder: widget.borderStyle,
+        enabledBorder: widget.borderStyle,
       );
 
   @override

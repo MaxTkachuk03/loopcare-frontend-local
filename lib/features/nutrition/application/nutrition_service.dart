@@ -39,7 +39,12 @@ import 'package:loopcare_frontend/features/nutrition/application/select_serving/
 import 'package:loopcare_frontend/features/nutrition/application/select_serving/dto/food_item_servings_response.dart';
 import 'package:loopcare_frontend/features/nutrition/application/select_serving/dto/update_favorite_body.dart';
 
+import '../../../core/domain/recent_logged/recent_logged_list.dart';
+
 abstract class NutritionService {
+  Future<Either<RequestError, RecentLoggedList>> getRecentLogged(
+      String category, String mode, int maxRecentLoggedListSize);
+
   Future<Either<RequestError, GetBmrResponse>> getBmr(DateTime date);
 
   Future<Either<RequestError, FavoritesResponse>> getFavorites(List<String>? mealCategories);

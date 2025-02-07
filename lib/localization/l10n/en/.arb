@@ -237,7 +237,7 @@
     }
   },
   "total": "total",
-  "searchHint": "Search for food",
+  "searchHint": "Search food item",
   "searchFilterAll": "All",
   "searchFilterProducts": "Products",
   "searchFilterRecipes": "Recipes",
@@ -860,7 +860,7 @@
   "remove": "Remove",
   "recommendations": "Recommendations",
   "noCancel": "No, cancel",
-  "recentSearch": "Recent searches",
+  "recentSearch": "Recent logged",
   "dishWasSaved": "Dish was saved",
   "foodItemWasAddedToDish": "Food item was added to the dish",
   "foodItemWasDeletedFromDish": "Food item was removed from the dish",

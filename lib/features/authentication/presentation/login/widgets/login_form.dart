@@ -176,7 +176,7 @@ class _LoginFormState extends State<LoginForm> {
     final authState = context.read<AuthenticationBloc>().state;
 
     if (!(authState.data.account?.hasActiveSubscription ?? false) && kIsProd) {
-      route = AppRoutes.subscriptionV2;
+      route = AppRoutes.subscription;
     } else if (!state.data.isBeginningComplete && !state.data.isBeginningStarted) {
       route = AppRoutes.riverOverview;
     } else {

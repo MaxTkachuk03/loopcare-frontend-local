@@ -58,6 +58,22 @@ class SubscriptionController {
       isEnableSubscribe.value = true;
     }
 
+    String selectedPlanDetails = selectedPlan.value == null
+        ? "N/A"
+        : "${selectedPlan.value?.details.id ?? 'No ID'} -> ${selectedPlan.value?.skuProduct.offerId ?? 'No Offer ID'}";
+
+    usageAnalytics.track(
+      eventName: UsageAnalyticsEvents.subscriptionsFromStore,
+      attributes: {
+        "product_ids": products.map((product) => product.details.id).toString(),
+        "product_price": products.map((product) => product.skuProduct.regularPrice).toString(),
+        "offer_ids": products.map((product) => product.skuProduct.offerId).toString(),
+        "offer_eligible": products.map((product) => product.isOfferEligible).toString(),
+        "offer_price": products.map((product) => product.skuProduct.offerPriceAmount).toString(),
+        "displayed_plan": selectedPlanDetails,
+      },
+    );
+
     MixpanelEventService.instance.track(
       AppMixpanelEvents.getUserAvailableProductsOffers,
       parameters: {

@@ -27,7 +27,14 @@ class AppSubscriptionService {
   final List purchasedList = [];
 
   Future<List<ProductDetails>> getSubscriptionPlans(Set<String> main) async {
-    final Set<String> main = {'monthly', 'quarterly', "annual", "NY_2025_15", "ny_2025_15"};
+    final Set<String> main = {
+      'monthly',
+      'quarterly',
+      "annual",
+      "NY_2025_15",
+      "ny_2025_15",
+      "monthly99q12025"
+    };
     final bool isAvailable = await _inAppPurchase.isAvailable();
     if (!isAvailable) {
       _pushAnalyticServiceUnAvailable();

@@ -61,6 +61,7 @@ class UsageAnalyticsEvents {
 
   //Subscription
   static const String subscriptionPage = 'subscription_page';
+  static const String subscriptionsFromStore = 'subscriptions_from_store';
   static const String subscriptionPageV2 = 'subscription_page_v2';
   static const String subscriptionSelected = 'subscription_selected';
   static const String subscriptionBought = 'subscription_bought';

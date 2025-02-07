@@ -19,6 +19,7 @@ class CommitmentBloc extends Bloc<CommitmentEvent, CommitmentState> {
       : super(const CommitmentState.initial(CommitmentStateData())) {
     on<GetCommitment>(_onGetCommitment);
     on<UpdateCommitment>(_onUpdateCommitment);
+    on<ResetCommitment>(_onResetCommitment);
   }
 
   FutureOr<void> _onGetCommitment(
@@ -36,6 +37,7 @@ class CommitmentBloc extends Bloc<CommitmentEvent, CommitmentState> {
           totalCommitments: r.totalCommitments,
           completedCommitments: r.completedCommitments,
           isCommitmentUnlocked: r.isCommitmentUnlocked,
+          showCommitmentWidget: r.showCommitmentWidget,
           isLoading: false))),
     );
   }
@@ -48,5 +50,17 @@ class CommitmentBloc extends Bloc<CommitmentEvent, CommitmentState> {
     emit(CommitmentState.commitmentLoaded(state.data.copyWith(
       completedCommitments: previousCompleted + 1,
     )));
+  }
+
+  FutureOr<void> _onResetCommitment(
+    ResetCommitment event,
+    Emitter<CommitmentState> emit,
+  ) async {
+    emit(CommitmentState.commitmentLoaded(state.data.copyWith(
+        totalCommitments: 0,
+        completedCommitments: 0,
+        isCommitmentUnlocked: false,
+        showCommitmentWidget: true,
+        isLoading: false)));
   }
 }

@@ -54,4 +54,35 @@ class ReflectionsStateData with _$ReflectionsStateData {
   }
 
   String get errorKey => error?.message ?? LocalizedTexts.errorSomethingWentWrong;
+
+  List<Reflection> get sortedReflections {
+    final sortedReflections = List<Reflection>.from(reflections)
+      ..sort((a, b) {
+        int getStatusPriority(Reflection reflection) {
+          if (reflection.unlockedAt != null && reflection.completedAt != null) {
+            return 0; // Completed
+          } else if (reflection.unlockedAt != null && reflection.completedAt == null) {
+            return 1; // Unlocked
+          } else {
+            return 2; // Locked
+          }
+        }
+
+        return getStatusPriority(a).compareTo(getStatusPriority(b));
+      });
+
+    return sortedReflections..sort((a, b) => a.moduleId.compareTo(b.moduleId));
+  }
+
+  PracticeLessonCardStatusTypes getReflectionStatus(int i, List<Reflection> reflections) {
+    return reflections[i].unlockedAt == null && reflections[i].completedAt == null
+        ? PracticeLessonCardStatusTypes.locked
+        : reflections[i].unlockedAt != null && reflections[i].completedAt == null
+            ? PracticeLessonCardStatusTypes.unlocked
+            : PracticeLessonCardStatusTypes.completed;
+  }
+
+  List<Reflection> getCurrentReflectionsByActiveModule(int activeModuleId) {
+    return sortedReflections.where((r) => r.moduleId == activeModuleId).toList();
+  }
 }

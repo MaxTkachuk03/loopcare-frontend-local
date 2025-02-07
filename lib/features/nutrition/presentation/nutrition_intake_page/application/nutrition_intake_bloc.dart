@@ -20,6 +20,7 @@ class NutritionIntakeBloc extends Bloc<NutritionIntakeEvent, NutritionIntakeStat
     on<FetchProgress>(_onFetchProgress);
     on<CompleteDay>(_completeDay);
     on<FinishLesson>(_onFinishLesson);
+    on<ResetSurvey>(_onResetSurvey);
   }
 
   Future<void> _onFetchProgress(
@@ -82,5 +83,16 @@ class NutritionIntakeBloc extends Bloc<NutritionIntakeEvent, NutritionIntakeStat
       date: event.date,
       iLessonId: event.iLessonId,
     );
+  }
+
+  Future<void> _onResetSurvey(
+    ResetSurvey event,
+    Emitter<NutritionIntakeState> emit,
+  ) async {
+    emit(NutritionIntakeState.loaded(state.data.copyWith(
+      isDayClosed: false,
+      progress: [],
+      isLoading: false,
+    )));
   }
 }

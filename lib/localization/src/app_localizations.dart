@@ -8760,7 +8760,7 @@ abstract class AppLocalizations {
   /// No description provided for @searchHint.
   ///
   /// In en, this message translates to:
-  /// **'Search for food'**
+  /// **'Search food item'**
   String get searchHint;
 
   /// No description provided for @searchFilterAll.
@@ -8808,7 +8808,7 @@ abstract class AppLocalizations {
   /// No description provided for @favorites.
   ///
   /// In en, this message translates to:
-  /// **'favorites'**
+  /// **'Favorites'**
   String get favorites;
 
   /// No description provided for @allMy.
@@ -10878,7 +10878,7 @@ abstract class AppLocalizations {
   /// No description provided for @recentSearch.
   ///
   /// In en, this message translates to:
-  /// **'Recent searches'**
+  /// **'Recent logged'**
   String get recentSearch;
 
   /// No description provided for @dishWasSaved.
