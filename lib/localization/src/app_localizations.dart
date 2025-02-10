@@ -11974,6 +11974,18 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Question'**
   String get question;
+
+  /// No description provided for @membersOnly.
+  ///
+  /// In en, this message translates to:
+  /// **'members only'**
+  String get membersOnly;
+
+  /// No description provided for @subscribeToUnlock.
+  ///
+  /// In en, this message translates to:
+  /// **'Subscribe to unlock'**
+  String get subscribeToUnlock;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

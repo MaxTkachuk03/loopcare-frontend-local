@@ -6108,4 +6108,10 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String get question => 'Frage';
+
+  @override
+  String get membersOnly => 'nur für Mitglieder';
+
+  @override
+  String get subscribeToUnlock => 'Abonnieren zum Freischalten';
 }

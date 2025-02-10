@@ -2492,5 +2492,7 @@
   "textAreaSave": "Save",
   "addTextField": "Add textfield",
   "selectYourTime": "Select your time",
-  "question": "Question"
+  "question": "Question",
+  "membersOnly": "members only",
+  "subscribeToUnlock": "Subscribe to unlock"
 }

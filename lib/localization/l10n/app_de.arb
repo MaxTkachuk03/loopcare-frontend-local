@@ -2493,6 +2493,8 @@
   "textAreaSave": "Speichern",
   "addTextField": "Textfeld hinzufügen",
   "selectYourTime": "Wähle deine Zeit",
-  "question": "Frage"
+  "question": "Frage",
+  "membersOnly": "nur für Mitglieder",
+  "subscribeToUnlock": "Abonnieren zum Freischalten"
 }
 

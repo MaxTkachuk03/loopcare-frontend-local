@@ -6108,4 +6108,10 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get question => 'Question';
+
+  @override
+  String get membersOnly => 'members only';
+
+  @override
+  String get subscribeToUnlock => 'Subscribe to unlock';
 }

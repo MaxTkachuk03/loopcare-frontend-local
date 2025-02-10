@@ -9100,6 +9100,12 @@ class CrowdinLocalization extends AppLocalizations {
 
   @override
   String get question => Crowdin.getText(localeName, 'question') ?? _fallbackTexts.question;
+
+    @override
+  String get membersOnly => Crowdin.getText(localeName, 'membersOnly') ?? _fallbackTexts.question;
+
+    @override
+  String get subscribeToUnlock => Crowdin.getText(localeName, 'subscribeToUnlock') ?? _fallbackTexts.question;
 }
 
 class _CrowdinLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

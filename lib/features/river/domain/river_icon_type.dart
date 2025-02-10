@@ -11,6 +11,7 @@ enum RiverIconType {
   medical,
   mind,
   mood,
+  foot,
   nutrition,
   weight,
   profile,
@@ -51,6 +52,8 @@ enum RiverIconType {
       case RiverIconType.reflection:
         return AppIconsData.iReflection;
       case RiverIconType.commitment:
+        return AppIconsData.iCommitment;
+      case RiverIconType.foot:
         return AppIconsData.iCommitment;
     }
   }
