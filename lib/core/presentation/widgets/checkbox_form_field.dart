@@ -23,47 +23,55 @@ class _CheckboxFormFieldState extends State<CheckboxFormField> {
   @override
   Widget build(BuildContext context) {
     return FormField<bool>(
-      validator: (newValue) => newValue != null && !newValue ? widget.errorText : null,
+      validator: (newValue) =>
+          newValue != null && !newValue ? widget.errorText : null,
       initialValue: false,
       autovalidateMode: AutovalidateMode.onUserInteraction,
       builder: (state) {
         final errorText = state.errorText;
 
-        return Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Row(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                SizedBox(
-                  height: 22,
-                  width: 22,
-                  child: CustomCheckbox.green(
-                    value: value,
-                    onChanged: (newValue) {
-                      setState(() {
-                        value = newValue ?? false;
-                        widget.onChanged?.call(value);
-                        state.didChange(value);
-                      });
-                    },
+        return InkWell(
+          splashFactory: NoSplash.splashFactory,
+          onTap: () => checkTermsAndConditions(!value, state),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  SizedBox(
+                    height: 22,
+                    width: 22,
+                    child: CustomCheckbox.green(
+                      value: value,
+                      onChanged: (newValue) =>
+                          checkTermsAndConditions(newValue, state),
+                    ),
+                  ),
+                  const SizedBox(width: 16.0),
+                  Expanded(child: widget.text)
+                ],
+              ),
+              if (errorText?.isNotEmpty ?? false)
+                Padding(
+                  padding: const EdgeInsets.only(top: 6.0),
+                  child: Text(
+                    errorText!,
+                    style: Theme.of(context).inputDecorationTheme.errorStyle,
                   ),
                 ),
-                const SizedBox(width: 16.0),
-                Expanded(child: widget.text)
-              ],
-            ),
-            if (errorText?.isNotEmpty ?? false)
-              Padding(
-                padding: const EdgeInsets.only(top: 6.0),
-                child: Text(
-                  errorText!,
-                  style: Theme.of(context).inputDecorationTheme.errorStyle,
-                ),
-              ),
-          ],
+            ],
+          ),
         );
       },
     );
+  }
+
+  void checkTermsAndConditions(bool? newValue, FormFieldState<bool> state) {
+    setState(() {
+      value = newValue ?? false;
+      widget.onChanged?.call(value);
+      state.didChange(value);
+    });
   }
 }
