@@ -61,7 +61,7 @@ class ModalBottomSheet {
       backgroundColor: AppColors.blueLightest,
       builder: (context) {
         return MainContainer(
-          child: ScrollableContainer(
+          child: SingleChildScrollView(
             child: Column(
               mainAxisSize: MainAxisSize.min,
               crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -107,7 +107,7 @@ class ModalBottomSheet {
       context: context,
       builder: (context) {
         return MainContainer(
-          child: ScrollableContainer(
+          child: SingleChildScrollView(
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
@@ -155,10 +155,10 @@ class ModalBottomSheet {
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(24.0)),
       context: context,
       builder: (BuildContext context) {
-        return Container(
-          padding: const EdgeInsets.symmetric(vertical: 10.0, horizontal: 40.0),
-          height: 300,
-          child: ScrollableContainer(
+        return SingleChildScrollView(
+          child: Container(
+            padding: const EdgeInsets.symmetric(vertical: 10.0, horizontal: 40.0),
+            height: 250,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
@@ -198,7 +198,7 @@ class ModalBottomSheet {
       builder: (BuildContext context) {
         return FractionallySizedBox(
           heightFactor: 0.75,
-          child: ScrollableContainer(
+          child: SingleChildScrollView(
             child: MainContainer(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
@@ -243,7 +243,7 @@ class ModalBottomSheet {
       builder: (BuildContext context) {
         return FractionallySizedBox(
           heightFactor: 0.75,
-          child: ScrollableContainer(
+          child: SingleChildScrollView(
             child: MainContainer(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
@@ -348,7 +348,7 @@ class ModalBottomSheet {
       ),
       context: context,
       builder: (BuildContext context) {
-        return ScrollableContainer(
+        return SingleChildScrollView(
           child: Container(
             padding:
                 const EdgeInsets.symmetric(vertical: 10.0, horizontal: 24.0),
@@ -371,94 +371,92 @@ class ModalBottomSheet {
                       ),
                     ),
                   ),
-                  Expanded(
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              const SizedBox(height: 32.0),
-                              Text(
-                                LocalizedTexts.deleteMultiDateMealModalMessage
-                                    .tr({
-                                  'mealCategory': mealCategory,
-                                }),
-                                style:
-                                    Theme.of(context).textTheme.headlineSmall,
-                              ),
-                              const SizedBox(height: 8.0),
-                              Text(
-                                LocalizedTexts.deleteMultiDateMealModalExplain
-                                    .tr(),
-                                style: Theme.of(context).textTheme.bodyMedium,
-                              ),
-                              const SizedBox(height: 8.0),
-                              Row(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  const Icon(
-                                    Icons.calendar_month,
-                                    color: AppColors.darkGreen,
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            const SizedBox(height: 32.0),
+                            Text(
+                              LocalizedTexts.deleteMultiDateMealModalMessage
+                                  .tr({
+                                'mealCategory': mealCategory,
+                              }),
+                              style:
+                                  Theme.of(context).textTheme.headlineSmall,
+                            ),
+                            const SizedBox(height: 8.0),
+                            Text(
+                              LocalizedTexts.deleteMultiDateMealModalExplain
+                                  .tr(),
+                              style: Theme.of(context).textTheme.bodyMedium,
+                            ),
+                            const SizedBox(height: 8.0),
+                            Row(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                const Icon(
+                                  Icons.calendar_month,
+                                  color: AppColors.darkGreen,
+                                ),
+                                const SizedBox(width: 16.0),
+                                Expanded(
+                                  child: Text(
+                                    LocalizedTexts
+                                        .deleteMultiDateMealModalExplain2
+                                        .tr(),
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .bodyMedium,
                                   ),
-                                  const SizedBox(width: 16.0),
-                                  Expanded(
-                                    child: Text(
-                                      LocalizedTexts
-                                          .deleteMultiDateMealModalExplain2
-                                          .tr(),
-                                      style: Theme.of(context)
-                                          .textTheme
-                                          .bodyMedium,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                              const SizedBox(height: 47.0),
-                            ],
-                          ),
-                          Column(
-                            children: [
-                              OutlinedButton(
-                                onPressed: onCanceled,
-                                style: Theme.of(context)
-                                    .outlinedButtonTheme
-                                    .style
-                                    ?.copyWith(
-                                      side: WidgetStateProperty.all(
-                                        const BorderSide(
-                                          width: 1.0,
-                                          color: AppColors.blueDark,
-                                        ),
-                                      ),
-                                    ),
-                                child: Text(
-                                  LocalizedTexts.openDatepicker.tr(),
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .bodyMedium
-                                      ?.copyWith(
+                                ),
+                              ],
+                            ),
+                            const SizedBox(height: 47.0),
+                          ],
+                        ),
+                        Column(
+                          children: [
+                            OutlinedButton(
+                              onPressed: onCanceled,
+                              style: Theme.of(context)
+                                  .outlinedButtonTheme
+                                  .style
+                                  ?.copyWith(
+                                    side: WidgetStateProperty.all(
+                                      const BorderSide(
+                                        width: 1.0,
                                         color: AppColors.blueDark,
                                       ),
-                                ),
+                                    ),
+                                  ),
+                              child: Text(
+                                LocalizedTexts.openDatepicker.tr(),
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .bodyMedium
+                                    ?.copyWith(
+                                      color: AppColors.blueDark,
+                                    ),
                               ),
-                              const SizedBox(
-                                height: 12.0,
-                              ),
-                              ElevatedButton(
-                                onPressed: onDeleted,
-                                child: Text(
-                                    '${LocalizedTexts.remove.tr()} $mealCategory'),
-                              ),
-                              const SizedBox(
-                                height: 24.0,
-                              ),
-                            ],
-                          ),
-                        ],
-                      ),
+                            ),
+                            const SizedBox(
+                              height: 12.0,
+                            ),
+                            ElevatedButton(
+                              onPressed: onDeleted,
+                              child: Text(
+                                  '${LocalizedTexts.remove.tr()} $mealCategory'),
+                            ),
+                            const SizedBox(
+                              height: 24.0,
+                            ),
+                          ],
+                        ),
+                      ],
                     ),
                   ),
                 ],
@@ -481,9 +479,9 @@ class ModalBottomSheet {
       ),
       context: context,
       builder: (BuildContext context) {
-        return ScrollableContainer(
+        return SingleChildScrollView(
           child: Container(
-            height: 300,
+            height: 400,
             padding:
                 const EdgeInsets.symmetric(vertical: 10.0, horizontal: 24.0),
             child: CustomSafeArea(
@@ -505,64 +503,62 @@ class ModalBottomSheet {
                       ),
                     ),
                   ),
-                  Expanded(
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Column(
-                            children: [
-                              const SizedBox(height: 32.0),
-                              Text(
-                                LocalizedTexts.deleteMealModalMessage.tr(),
-                                textAlign: TextAlign.center,
-                                style:
-                                    Theme.of(context).textTheme.headlineSmall,
-                              ),
-                              const SizedBox(height: 47.0),
-                            ],
-                          ),
-                          Column(
-                            children: [
-                              OutlinedButton(
-                                onPressed: () => context.router.maybePop(),
-                                style: Theme.of(context)
-                                    .outlinedButtonTheme
-                                    .style
-                                    ?.copyWith(
-                                      side: WidgetStateProperty.all(
-                                        const BorderSide(
-                                          width: 1.0,
-                                          color: AppColors.blueDark,
-                                        ),
-                                      ),
-                                    ),
-                                child: Text(
-                                  LocalizedTexts.noCancel.tr(),
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .bodyMedium
-                                      ?.copyWith(
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Column(
+                          children: [
+                            const SizedBox(height: 32.0),
+                            Text(
+                              LocalizedTexts.deleteMealModalMessage.tr(),
+                              textAlign: TextAlign.center,
+                              style:
+                                  Theme.of(context).textTheme.headlineSmall,
+                            ),
+                            const SizedBox(height: 47.0),
+                          ],
+                        ),
+                        Column(
+                          children: [
+                            OutlinedButton(
+                              onPressed: () => context.router.maybePop(),
+                              style: Theme.of(context)
+                                  .outlinedButtonTheme
+                                  .style
+                                  ?.copyWith(
+                                    side: WidgetStateProperty.all(
+                                      const BorderSide(
+                                        width: 1.0,
                                         color: AppColors.blueDark,
                                       ),
-                                ),
+                                    ),
+                                  ),
+                              child: Text(
+                                LocalizedTexts.noCancel.tr(),
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .bodyMedium
+                                    ?.copyWith(
+                                      color: AppColors.blueDark,
+                                    ),
                               ),
-                              const SizedBox(
-                                height: 12.0,
-                              ),
-                              ElevatedButton(
-                                onPressed: onDeleted,
-                                child: Text(
-                                    '${LocalizedTexts.remove.tr()} $mealCategory'),
-                              ),
-                              const SizedBox(
-                                height: 24.0,
-                              ),
-                            ],
-                          ),
-                        ],
-                      ),
+                            ),
+                            const SizedBox(
+                              height: 12.0,
+                            ),
+                            ElevatedButton(
+                              onPressed: onDeleted,
+                              child: Text(
+                                  '${LocalizedTexts.remove.tr()} $mealCategory'),
+                            ),
+                            const SizedBox(
+                              height: 24.0,
+                            ),
+                          ],
+                        ),
+                      ],
                     ),
                   ),
                 ],
@@ -585,7 +581,7 @@ class ModalBottomSheet {
         return CustomSafeArea(
           child: FractionallySizedBox(
             heightFactor: 0.5,
-            child: ScrollableContainer(
+            child: SingleChildScrollView(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -951,7 +947,7 @@ class ModalBottomSheet {
       builder: (BuildContext context) {
         return FractionallySizedBox(
           heightFactor: 0.45,
-          child: ScrollableContainer(
+          child: SingleChildScrollView(
             child: CustomSafeArea(
               child: Container(
                 height: 0.45,
@@ -1049,7 +1045,7 @@ class ModalBottomSheet {
       context: context,
       builder: (BuildContext context) {
         return MainContainer(
-          child: ScrollableContainer(
+          child: SingleChildScrollView(
             child: Column(
               mainAxisSize: MainAxisSize.min,
               crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -1140,7 +1136,7 @@ class ModalBottomSheet {
           heightFactor: 0.95,
           child: BlocBuilder<EducationLessonBloc, EducationLessonState>(
             builder: (context, state) {
-              return ScrollableContainer(
+              return SingleChildScrollView(
                 child: Column(
                   children: [
                     const SizedBox(height: 32.0),
@@ -1202,7 +1198,7 @@ class ModalBottomSheet {
           builder: (BuildContext context) {
             return FractionallySizedBox(
               heightFactor: 0.93,
-              child: ScrollableContainer(
+              child: SingleChildScrollView(
                 child: SizedBox(
                   height: 0.93,
                   child: KeyboardContainerListener(
@@ -1234,7 +1230,7 @@ class ModalBottomSheet {
       builder: (BuildContext context) {
         return FractionallySizedBox(
           heightFactor: 0.95,
-          child: ScrollableContainer(
+          child: SingleChildScrollView(
             child: MainContainer(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -1283,7 +1279,7 @@ class ModalBottomSheet {
         return Container(
           padding: const EdgeInsets.symmetric(vertical: 42.0, horizontal: 39.0),
           height: size.height * 0.45,
-          child: ScrollableContainer(
+          child: SingleChildScrollView(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
@@ -1328,7 +1324,7 @@ class ModalBottomSheet {
         return MainContainer(
           child: Padding(
             padding: const EdgeInsets.symmetric(vertical: 30.0),
-            child: ScrollableContainer(
+            child: SingleChildScrollView(
               child: Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [
@@ -1438,7 +1434,7 @@ class ModalBottomSheet {
         return MainContainer(
           child: Padding(
             padding: const EdgeInsets.symmetric(vertical: 30.0),
-            child: ScrollableContainer(
+            child: SingleChildScrollView(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 mainAxisSize: MainAxisSize.min,
@@ -1604,7 +1600,7 @@ class ModalBottomSheet {
       builder: (BuildContext context) {
         return FractionallySizedBox(
             heightFactor: 0.95,
-            child: ScrollableContainer(child: MainContainer(child: content)));
+            child: SingleChildScrollView(child: MainContainer(child: content)));
       },
     );
   }
@@ -1620,7 +1616,7 @@ class ModalBottomSheet {
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12.0)),
       builder: (BuildContext context) {
         return MainContainer(
-          child: ScrollableContainer(
+          child: SingleChildScrollView(
             child: Column(
               mainAxisSize: MainAxisSize.min,
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -1682,7 +1678,7 @@ class ModalBottomSheet {
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12.0)),
       builder: (BuildContext context) {
         return MainContainer(
-          child: ScrollableContainer(
+          child: SingleChildScrollView(
             child: Column(
               mainAxisSize: MainAxisSize.min,
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -1744,7 +1740,7 @@ class ModalBottomSheet {
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12.0)),
       builder: (BuildContext context) {
         return MainContainer(
-          child: ScrollableContainer(
+          child: SingleChildScrollView(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisSize: MainAxisSize.min,
@@ -1800,7 +1796,7 @@ class ModalBottomSheet {
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12.0)),
       builder: (BuildContext context) {
         return MainContainer(
-          child: ScrollableContainer(
+          child: SingleChildScrollView(
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
@@ -1854,7 +1850,7 @@ class ModalBottomSheet {
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12.0)),
       builder: (BuildContext context) {
         return MainContainer(
-          child: ScrollableContainer(
+          child: SingleChildScrollView(
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
@@ -1906,7 +1902,7 @@ class ModalBottomSheet {
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12.0)),
       builder: (BuildContext context) {
         return MainContainer(
-          child: ScrollableContainer(
+          child: SingleChildScrollView(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisSize: MainAxisSize.min,
@@ -1952,7 +1948,7 @@ class ModalBottomSheet {
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12.0)),
       builder: (BuildContext context) {
         return MainContainer(
-          child: ScrollableContainer(
+          child: SingleChildScrollView(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisSize: MainAxisSize.min,
