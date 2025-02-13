@@ -2494,5 +2494,19 @@
   "selectYourTime": "Select your time",
   "question": "Question",
   "membersOnly": "members only",
-  "subscribeToUnlock": "Subscribe to unlock"
+  "subscribeToUnlock": "Subscribe to unlock",
+  "lockTimer" : "Complete {features} to start {days} day timer",
+  "@lockTimer": {
+    "description": "Information about timer",
+    "placeholders": {
+      "features": {
+        "description": "Type of lesson",
+        "type": "String"
+      },
+      "days": {
+        "description": "Number of days for the timer to work",
+        "type": "int"
+      }
+    }
+  }
 }

@@ -417,6 +417,9 @@ class AppIcons {
   static SvgPicture dashedBorder =
       SvgPicture.asset('$iconsFilePath/dashed_border.svg');
 
+  static SvgPicture circularLock =
+      SvgPicture.asset('$iconsFilePath/circular_lock.svg');
+
 // nutrition intake
   static SvgPicture doneDayButton =
       SvgPicture.asset('$iconsFilePath/done_day.svg');

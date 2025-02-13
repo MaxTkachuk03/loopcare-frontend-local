@@ -3234,4 +3234,6 @@ class LocalizedTexts {
   static const String linksPsychologistConsulting =
       'linksPsychologistConsulting';
   static const String linksInstructionsUrl = 'linksInstructionsUrl';
+
+   static const String lockTimer = 'lockTimer';
 }

@@ -11986,6 +11986,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Subscribe to unlock'**
   String get subscribeToUnlock;
+
+  /// Information about timer
+  ///
+  /// In en, this message translates to:
+  /// **'Complete {features} to start {days} day timer'**
+  String lockTimer(String features, int days);
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

@@ -9102,10 +9102,16 @@ class CrowdinLocalization extends AppLocalizations {
   String get question => Crowdin.getText(localeName, 'question') ?? _fallbackTexts.question;
 
     @override
-  String get membersOnly => Crowdin.getText(localeName, 'membersOnly') ?? _fallbackTexts.question;
+  String get membersOnly => Crowdin.getText(localeName, 'membersOnly') ?? _fallbackTexts.membersOnly;
 
     @override
-  String get subscribeToUnlock => Crowdin.getText(localeName, 'subscribeToUnlock') ?? _fallbackTexts.question;
+  String get subscribeToUnlock => Crowdin.getText(localeName, 'subscribeToUnlock') ?? _fallbackTexts.subscribeToUnlock;
+
+    @override
+  String lockTimer(String features, int days) =>
+      Crowdin.getText(localeName, 'lockTimer',
+          {'features': features, 'days': days}) ??
+      _fallbackTexts.lockTimer(features, days);
 }
 
 class _CrowdinLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

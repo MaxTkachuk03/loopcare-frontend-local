@@ -2495,6 +2495,20 @@
   "selectYourTime": "Wähle deine Zeit",
   "question": "Frage",
   "membersOnly": "nur für Mitglieder",
-  "subscribeToUnlock": "Abonnieren zum Freischalten"
+  "subscribeToUnlock": "Abonnieren zum Freischalten",
+  "lockTimer" : "Vollständig {features} um {days}-Tage-Timer-Grad zu starten",
+  "@lockTimer": {
+    "description": "Informationen zum Timer",
+    "placeholders": {
+      "features": {
+        "description": "Art der Lektion",
+        "type": "String"
+      },
+      "days": {
+        "description": "Anzahl der Tage, in denen der Timer läuft",
+        "type": "int"
+      }
+    }
+  }
 }
 
