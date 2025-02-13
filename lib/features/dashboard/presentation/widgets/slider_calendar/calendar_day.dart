@@ -1,8 +1,10 @@
 import 'package:intl/intl.dart';
 import 'package:flutter/material.dart';
+import 'package:loopcare_frontend/core/infrastructure/services/app_config.dart';
 import 'package:loopcare_frontend/core/presentation/text/custom_text.dart';
 import 'package:loopcare_frontend/core/presentation/themes/themes.dart';
 import 'package:loopcare_frontend/core/presentation/utils/build_context_extensions.dart';
+import 'package:loopcare_frontend/injection.dart';
 
 class CalendarDay extends StatelessWidget {
   final Function(DateTime day) onPressHandler;
@@ -28,8 +30,11 @@ class CalendarDay extends StatelessWidget {
 
   double get _fontSize => isSelected ? 16.0 : 14.0;
 
+  Locale get currentLocale => Locale(getIt<AppConfig>().language);
+
   @override
   Widget build(BuildContext context) {
+    print("currentLocale.languageCode: ${currentLocale.languageCode}");
     return GestureDetector(
       onTap: () => onPressHandler(day),
       child: Container(
@@ -43,21 +48,21 @@ class CalendarDay extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             CustomText.w600(
-              DateFormat.E('en_EN').format(day),
+              DateFormat.E(currentLocale.languageCode).format(day),
               style: context.textTheme.bodySmall!.copyWith(
                 color: _textColor,
                 fontSize: _fontSize,
               ),
             ),
             CustomText.w400(
-              DateFormat.d('en_EN').format(day),
+              DateFormat.d(currentLocale.languageCode).format(day),
               style: context.textTheme.titleMedium!.copyWith(
                 color: _textColor,
                 fontSize: _fontSize,
               ),
             ),
             CustomText.w400(
-              DateFormat.MMM('en_EN').format(day),
+              DateFormat.MMM(currentLocale.languageCode).format(day),
               style: context.textTheme.titleMedium!.copyWith(
                 color: _textColor,
                 fontSize: _fontSize,
