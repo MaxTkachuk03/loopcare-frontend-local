@@ -77,7 +77,7 @@ class _LessonCompletePageState extends State<LessonCompletePage> {
         parameters: {
           AnalyticsParameters.iLessonId: iLesson.id,
           AnalyticsParameters.iLessonTitle: iLesson.title,
-          AnalyticsParameters.iLessonChunks: iLesson.chunks,
+          AnalyticsParameters.iLessonChunks: iLesson.chunks.toString(),
         },
       );
     } else {

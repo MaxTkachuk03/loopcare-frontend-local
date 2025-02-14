@@ -20,7 +20,6 @@ import 'package:loopcare_frontend/core/infrastructure/services/logger/logger.dar
 import 'package:loopcare_frontend/core/presentation/custom_error_widget/custom_error_widget.dart';
 import 'package:loopcare_frontend/firebase_options.dart';
 import 'package:loopcare_frontend/injection.dart';
-import 'package:loopcare_frontend/localization/service/crowdin_localization_service.dart';
 import 'package:loopcare_frontend/localization/service/localization_service.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:timezone/data/latest.dart' as tz;
@@ -75,7 +74,6 @@ Future<void> main() async {
   );
 
   await initHive();
-  await CrowdinLocalizationService().initialize();
   await LocalizationService().loadLocalLocalizations();
 
   return runApp(const AppLifeCycleStateListener(child: App()));

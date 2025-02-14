@@ -11,6 +11,7 @@ import 'package:loopcare_frontend/features/nutrition/application/search/dto/sear
 import 'package:loopcare_frontend/features/nutrition/application/search/dto/search_mode.dart';
 import 'package:dartz/dartz.dart' as dartz;
 
+import '../../../../core/domain/recent_logged/recent_logged_item.dart';
 import 'dto/search_response.dart';
 
 part 'search_event.dart';
@@ -52,7 +53,7 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
     response.fold(
         (l) => emit(SearchState.error(state.data.copyWith(error: l, isLoading: false))),
         (r) =>
-            emit(SearchState.initial(state.data.copyWith(recentSearch: r.data, isLoading: false))));
+            emit(SearchState.initial(state.data.copyWith(recentLogged: r.data, isLoading: false))));
   }
 
   Future<dartz.Either<RequestError, SearchResponse>> searchRequest(

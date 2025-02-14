@@ -13,6 +13,7 @@ import 'package:loopcare_frontend/core/presentation/widgets/scrollable_container
 import 'package:loopcare_frontend/features/account/presentation/account_page/widgets/emergency_btn.dart';
 import 'package:loopcare_frontend/features/authentication/application/authentication_bloc.dart';
 import 'package:loopcare_frontend/features/commitment/application/commitment_bloc.dart';
+import 'package:loopcare_frontend/features/dashboard/presentation/widgets/activity_tracker_dashboard/activity_tracker_dashboard.dart';
 import 'package:loopcare_frontend/features/dashboard/presentation/widgets/commitment_dashboard/commitment_dashboard.dart';
 import 'package:loopcare_frontend/features/dashboard/presentation/widgets/food_logging_dashboard/food_logging_dashboard.dart';
 import 'package:loopcare_frontend/features/dashboard/presentation/widgets/mind/dashboard_mind_widget.dart';
@@ -98,8 +99,8 @@ class _DashboardPageState extends State<DashboardPage> with WidgetsBindingObserv
 
   void updateDashboardData(AuthenticationState state) {
     context.read<DashboardWeightBloc>().add(
-          DashboardWeightEvent.fetchWeights(
-              _selectedDay.utsIsoStringWeekBeforeDateWithMidnightTime),
+          DashboardWeightEvent.fetchWeights(getStartDateForWeightLog(_selectedDay).toString(),
+              _selectedDay.midnightTime.toString()),
         );
 
     if (state.data.isFoodLoggingUnlocked) {
@@ -132,7 +133,9 @@ class _DashboardPageState extends State<DashboardPage> with WidgetsBindingObserv
   }
 
   void _onDaySelected(DateTime day) {
-    context.read<DashboardWeightBloc>().add(DashboardWeightEvent.setDate(day));
+    context
+        .read<DashboardWeightBloc>()
+        .add(DashboardWeightEvent.setDate(getStartDateForWeightLog(day), day.midnightTime));
     context.read<MealsBloc>()
       ..add(MealsEvent.setCurrentDate(day))
       ..add(MealsEvent.fetchMeals(startDate: day, endDate: day));
@@ -186,6 +189,11 @@ class _DashboardPageState extends State<DashboardPage> with WidgetsBindingObserv
     if (isCommitmentUnlocked) {
       context.read<CommitmentBloc>().add(CommitmentEvent.getCommitment(date: day));
     }
+  }
+
+  DateTime getStartDateForWeightLog(DateTime date) {
+    const twoWeeksPeriod = 14;
+    return date.subtract(const Duration(days: twoWeeksPeriod)).midnightTime;
   }
 
   int getActiveModuleId() => context.read<RiverBloc>().state.data.activeModule!.id;
@@ -333,8 +341,23 @@ class _DashboardPageState extends State<DashboardPage> with WidgetsBindingObserv
                               return Column(
                                 children: [
                                   WeightBlock(
+                                      startDate: getStartDateForWeightLog(_selectedDay),
+                                      endDate: _selectedDay,
+                                      unlocked:
+                                          state.data.account?.isWeightLoggingUnlocked ?? false),
+                                  const SizedBox(height: 19.0),
+                                ],
+                              );
+                            },
+                          ),
+                          BlocBuilder<AuthenticationBloc, AuthenticationState>(
+                            builder: (BuildContext context, state) {
+                              return Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  ActivityTrackerDashboard(
                                       date: _selectedDay,
-                                      locked: state.data.account?.isWeightLoggingUnlocked ?? false),
+                                      locked: state.data.account?.isFootUnlocked ?? false),
                                   const SizedBox(height: 19.0),
                                 ],
                               );

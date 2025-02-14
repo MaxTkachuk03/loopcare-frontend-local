@@ -114,17 +114,17 @@ class InteractiveLessonsBloc extends Bloc<InteractiveLessonsEvent, InteractiveLe
             UsageAnalyticsAttributes.iLessonModuleTitle: title
           },
         );
+
+        if (r.pages.isEmpty) return;
+        final activePage = r.pages.values.first;
         MixpanelEventService.instance.track(
           AppMixpanelEvents.iLessonOpened,
           parameters: {
             AnalyticsParameters.iLessonId: r.id,
             AnalyticsParameters.iLessonTitle: r.title,
-            AnalyticsParameters.iLessonChunks: r.chunks,
+            AnalyticsParameters.iLessonChunks: r.chunks.toString(),
           },
         );
-        if (r.pages.isEmpty) return;
-        final activePage = r.pages.values.first;
-
         if (r.chunks.isEmpty) return;
         final activeChunk = r.chunks.values.first;
 
@@ -157,6 +157,7 @@ class InteractiveLessonsBloc extends Bloc<InteractiveLessonsEvent, InteractiveLe
           pages: r.pages,
           chunks: r.chunks,
           riverModuleItem: r.riverModuleItem,
+          iconType: r.iconType,
           components: components,
           activePage: activePage,
           activeChunk: activeChunk,
@@ -234,7 +235,7 @@ class InteractiveLessonsBloc extends Bloc<InteractiveLessonsEvent, InteractiveLe
         parameters: {
           AnalyticsParameters.iLessonId: state.data.id,
           AnalyticsParameters.iLessonTitle: state.data.title,
-          AnalyticsParameters.iLessonChunks: state.data.chunks,
+          AnalyticsParameters.iLessonChunks: state.data.chunks.toString(),
         },
       );
       emit(

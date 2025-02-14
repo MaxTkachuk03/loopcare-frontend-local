@@ -13,7 +13,9 @@ import 'package:loopcare_frontend/features/nutrition/domain/weight_units.dart';
 import 'package:loopcare_frontend/core/presentation/utils/date_time_extensions.dart';
 
 part 'dashboard_weight_event.dart';
+
 part 'dashboard_weight_state.dart';
+
 part 'dashboard_weight_bloc.freezed.dart';
 
 @singleton
@@ -49,7 +51,7 @@ class DashboardWeightBloc extends Bloc<DashboardWeightEvent, DashboardWeightStat
 
     final response = await nutritionService.getDashboardWeights(
       event.startDate,
-      DateTime.now().toUtc().toIso8601String(),
+      event.endDate,
     );
 
     response.fold(
@@ -62,6 +64,8 @@ class DashboardWeightBloc extends Bloc<DashboardWeightEvent, DashboardWeightStat
             isLoading: false,
             error: null,
             weights: _combineWeightsByDate(null, r.data),
+            weightDifference: r.highlights['weightDifference'],
+            showChart: r.data.length >= 3 ? true : false,
           ),
         ),
       ),
@@ -72,21 +76,25 @@ class DashboardWeightBloc extends Bloc<DashboardWeightEvent, DashboardWeightStat
     SetDate event,
     Emitter<DashboardWeightState> emit,
   ) async {
-    final weights = state.data.weights;
-
-    if (weights.isEmpty || event.date.isAfter(DateTime.now().toLocal())) return;
-
-    final isoStringDate = event.date.toLocal().isoStringWithoutTime;
-
-    final bool isAlreadyLoaded = weights.containsKey(isoStringDate.split('T')[0]);
-
-    if (isAlreadyLoaded) return;
+    if (event.endDate.isAfter(DateTime.now().toLocal())) {
+      emit(
+        DashboardWeightState.updated(
+          state.data.copyWith(
+            isLoading: false,
+            error: null,
+            showChart: false,
+            weightDifference: 0.0,
+          ),
+        ),
+      );
+      return;
+    }
 
     emit(DashboardWeightState.loading(state.data.copyWith(isLoading: true)));
 
     final response = await nutritionService.getDashboardWeights(
-      event.date.toUtc().toIso8601String(),
-      event.date.toUtc().toIso8601String(),
+      event.startDate.toString(),
+      event.endDate.toString(),
     );
 
     response.fold(
@@ -98,7 +106,9 @@ class DashboardWeightBloc extends Bloc<DashboardWeightEvent, DashboardWeightStat
           state.data.copyWith(
             isLoading: false,
             error: null,
-            weights: _combineWeightsByDate(weights, r.data),
+            weights: _combineWeightsByDate(null, r.data),
+            showChart: r.data.length >= 3 ? true : false,
+            weightDifference: r.highlights['weightDifference'],
           ),
         ),
       ),
@@ -126,10 +136,16 @@ class DashboardWeightBloc extends Bloc<DashboardWeightEvent, DashboardWeightStat
       (r) {
         weights[r.data.date.toLocal().isoStringWithoutTime] = r.data;
 
+        final weightDifference = state.data.weights.length > 1
+            ? double.parse(
+                (r.data.weight - state.data.weights.values.first.weight).toStringAsFixed(1))
+            : 0.0;
+
         emit(
           DashboardWeightState.updated(
             state.data.copyWith(
               weights: weights,
+              weightDifference: weightDifference,
               isLoading: false,
               error: null,
             ),

@@ -1,5 +1,5 @@
 name: loopcare_frontend
-version: 1.9.7+293
+version: 1.10.2+301
 publish_to: none
 description: Lean on me
 environment:
@@ -20,7 +20,6 @@ dependencies:
   circular_countdown_timer: ^0.2.3
   collection: ^1.18.0
   connectivity_plus: ^6.0.3
-  crowdin_sdk: ^0.6.3
   cupertino_icons: ^1.0.6
   customer_io: ^1.4.0
   dartz: ^0.10.1
@@ -94,6 +93,9 @@ dependencies:
   visibility_detector: ^0.4.0+2
   wakelock_plus: ^1.2.5
   flutter_markdown: ^0.7.3+1
+  fl_chart: 0.69.1
+  health_kit_reporter: ^2.3.1
+  flutter_health_connect: ^1.2.3
 
 dev_dependencies:
   auto_route_generator: 8.0.0
@@ -151,10 +153,10 @@ flutter:
 
 flutter_native_splash:
   color: "#ecf5ff"
-  image: assets/images/app_logo.png
+  image: assets/images/android_splash_logo_v2.png
 
   android_12:
-    image: assets/images/android_splash_logo.png
+    image: assets/images/android_splash_logo_v2.png
     color: "#ecf5ff"
 
 license_generator:

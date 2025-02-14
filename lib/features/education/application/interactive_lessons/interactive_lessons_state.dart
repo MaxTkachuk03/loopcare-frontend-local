@@ -47,6 +47,7 @@ class InteractiveLessonsStateData with _$InteractiveLessonsStateData {
     @Default({}) Map<int, InteractiveLessonChunk> chunks,
     @Default({}) Map<int, InteractiveLessonChunkComponent> components,
     @Default(0) int? riverModuleItem,
+    @Default('') String? iconType,
     @Default(null) InteractiveLessonTopicsPage? activePage,
     @Default(null) InteractiveLessonChunk? activeChunk,
     @Default([]) List<InteractiveLessonChunkComponent> unlockedChunkComponents,

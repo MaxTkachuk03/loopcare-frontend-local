@@ -6,6 +6,7 @@ import 'package:loopcare_frontend/features/account/application/food_preference/f
 import 'package:loopcare_frontend/features/account/application/group_preferences/group_preferences_bloc.dart';
 import 'package:loopcare_frontend/features/account/application/user_states/user_states_bloc.dart';
 import 'package:loopcare_frontend/features/account/presentation/buddy_page/application/buddy_bloc.dart';
+import 'package:loopcare_frontend/features/activity_tracker/application/activity_bloc.dart';
 import 'package:loopcare_frontend/features/authentication/application/authentication_bloc.dart';
 import 'package:loopcare_frontend/features/chat/application/chat_bloc/group_chat_bloc.dart';
 import 'package:loopcare_frontend/features/chat/application/chat_watcher_bloc/chat_watcher_bloc.dart';
@@ -204,6 +205,9 @@ class AppBlocProvider {
         BlocProvider<SubscriptionBloc>(create: (_) => getIt<SubscriptionBloc>()),
         BlocProvider<PoolModuleBloc>(
           create: (_) => getIt<PoolModuleBloc>(),
+        ),
+        BlocProvider<ActivityBloc>(
+          create: (_) => getIt<ActivityBloc>(),
         ),
       ];
 }

@@ -82,8 +82,7 @@ abstract class AppLocalizations {
   /// Additional delegates can be added by appending to this list in
   /// MaterialApp. This list does not have to be used at all if a custom list
   /// of delegates is preferred or required.
-  static const List<LocalizationsDelegate<dynamic>> localizationsDelegates =
-      <LocalizationsDelegate<dynamic>>[
+  static const List<LocalizationsDelegate<dynamic>> localizationsDelegates = <LocalizationsDelegate<dynamic>>[
     delegate,
     GlobalMaterialLocalizations.delegate,
     GlobalCupertinoLocalizations.delegate,
@@ -91,7 +90,10 @@ abstract class AppLocalizations {
   ];
 
   /// A list of this localizations delegate's supported locales.
-  static const List<Locale> supportedLocales = <Locale>[Locale('de'), Locale('en')];
+  static const List<Locale> supportedLocales = <Locale>[
+    Locale('de'),
+    Locale('en')
+  ];
 
   /// No description provided for @smartGoalsDeleteGoalTitle.
   ///
@@ -11754,7 +11756,7 @@ abstract class AppLocalizations {
   /// No description provided for @supportGroupUnlock.
   ///
   /// In en, this message translates to:
-  /// **'Don\'t go it alone'**
+  /// **'Back to basics'**
   String get supportGroupUnlock;
 
   /// No description provided for @supportGroupDescription.
@@ -11972,6 +11974,30 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Question'**
   String get question;
+
+  /// No description provided for @weight.
+  ///
+  /// In en, this message translates to:
+  /// **'Weight'**
+  String get weight;
+
+  /// No description provided for @weightProgressionTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Weight Progression'**
+  String get weightProgressionTitle;
+
+  /// No description provided for @activityTracker.
+  ///
+  /// In en, this message translates to:
+  /// **'Activity Tracker'**
+  String get activityTracker;
+
+  /// No description provided for @activityTrackerLocked.
+  ///
+  /// In en, this message translates to:
+  /// **'Connect LeanOnMe to your device health trackers to push your weight loss journey to the next level. Our program + as much data as possible = a match made in heaven, allowing us to give you the best possible advice for YOU.'**
+  String get activityTrackerLocked;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {
@@ -11990,17 +12016,18 @@ class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> 
 }
 
 AppLocalizations lookupAppLocalizations(Locale locale) {
+
+
   // Lookup logic when only language code is specified.
   switch (locale.languageCode) {
-    case 'de':
-      return AppLocalizationsDe();
-    case 'en':
-      return AppLocalizationsEn();
+    case 'de': return AppLocalizationsDe();
+    case 'en': return AppLocalizationsEn();
   }
 
   throw FlutterError(
-      'AppLocalizations.delegate failed to load unsupported locale "$locale". This is likely '
-      'an issue with the localizations generation tool. Please file an issue '
-      'on GitHub with a reproducible sample app and the gen-l10n configuration '
-      'that was used.');
+    'AppLocalizations.delegate failed to load unsupported locale "$locale". This is likely '
+    'an issue with the localizations generation tool. Please file an issue '
+    'on GitHub with a reproducible sample app and the gen-l10n configuration '
+    'that was used.'
+  );
 }

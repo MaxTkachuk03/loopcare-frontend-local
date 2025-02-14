@@ -28,6 +28,7 @@ extension SearchItemTypesX on SearchItemTypes {
       case SearchItemTypes.dish:
         return AppIcons.pan;
       case SearchItemTypes.food:
+        return AppIcons.cutlery;
       case SearchItemTypes.recent:
         return AppIcons.magnifyingGlass;
       case SearchItemTypes.recipe:

@@ -26,5 +26,7 @@ class AppIconsData {
   static const IconData iReflection =
       IconData(0xe80e, fontFamily: _kFontFam, fontPackage: _kFontPkg);
   static const IconData iCommitment =
+      IconData(0xe901, fontFamily: _kFontFam, fontPackage: _kFontPkg);
+  static const IconData iStepCount =
       IconData(0xe900, fontFamily: _kFontFam, fontPackage: _kFontPkg);
 }

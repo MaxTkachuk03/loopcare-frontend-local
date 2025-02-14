@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
 import 'package:injectable/injectable.dart';
@@ -45,7 +43,6 @@ import 'package:loopcare_frontend/features/nutrition/application/select_serving/
 import 'package:loopcare_frontend/features/nutrition/application/select_serving/dto/food_item_servings_response.dart';
 import 'package:loopcare_frontend/features/nutrition/application/select_serving/dto/update_favorite_body.dart';
 
-import '../../../core/infrastructure/services/country_code_service/country_code_service.dart';
 import '../../../core/domain/recent_logged/recent_logged_list.dart';
 
 @Injectable(as: NutritionService)
@@ -446,16 +443,11 @@ class APINutritionService implements NutritionService {
   @override
   Future<Either<RequestError, SearchResponse>> search(String query,
       {List<String>? mode, int? page, int? limit, CancelToken? cancelRequestToken}) async {
-    final region = CountryCodeService.instance.localRegion;
-
     return await client.get(
       '/nutrition/search',
       cancelToken: cancelRequestToken,
       queryParameters: {
         'query': query,
-        'serverRegion': CountryCodeService.instance.useUsServer ? 'US' : 'EU',
-        'locale': Platform.localeName,
-        'region': region,
         if (mode != null && mode.isNotEmpty) 'modes': mode,
         if (limit != null) 'pageSize': limit,
         if (page != null) 'page': page,
@@ -472,7 +464,7 @@ class APINutritionService implements NutritionService {
     return await client.get(
       '/weight/logs',
       queryParameters: {"startDate": startDate, "endDate": endDate},
-      fromJson: GetDashboardWeightsResponse.fromJson,
+      fromJson: GetDashboardWeightsResponse.debugFromJson,
     );
   }
 

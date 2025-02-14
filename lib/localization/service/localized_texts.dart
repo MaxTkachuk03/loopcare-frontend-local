@@ -729,6 +729,8 @@ class LocalizedTexts {
 
   //Log weight
   static const String logWeight = 'logWeight';
+  static const String weight = 'weight';
+  static const String weightProgressionTitle = 'weightProgressionTitle';
 
   // Onboarding River
   static const String onboardingIntroTitle = 'onboardingIntroTitle';
@@ -2535,4 +2537,9 @@ class LocalizedTexts {
   static const String linksPrivacyPolicyUrl = 'linksPrivacyPolicyUrl';
   static const String linksPsychologistConsulting = 'linksPsychologistConsulting';
   static const String linksInstructionsUrl = 'linksInstructionsUrl';
+
+  //Activity Tracker
+
+  static const String activityTracker = 'activityTracker';
+  static const String activityTrackerLocked = 'activityTrackerLocked';
 }

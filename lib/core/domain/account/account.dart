@@ -111,6 +111,8 @@ abstract class Account implements _$Account {
 
   bool get isOnTrial => subscription.state == SubscriptionStatus.trialPeriod;
 
+  bool get isFootUnlocked => isFeatureUnlocked(UnlockedFeatureType.stepCounter);
+
   String get nameCapitalised => name.isNotEmpty ? name.capitalizeEachWordFirstLetter() : '';
 
   int get fiberDailyGoal =>

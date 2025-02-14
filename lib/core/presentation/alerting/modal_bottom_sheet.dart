@@ -26,7 +26,6 @@ import 'package:loopcare_frontend/core/presentation/utils/string_extensions.dart
 import 'package:loopcare_frontend/core/presentation/widgets/custom_rounded_container.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/keyboard_listener_container.dart';
 import 'package:loopcare_frontend/core/presentation/widgets/main_container.dart';
-import 'package:loopcare_frontend/core/presentation/widgets/scrollable_container.dart';
 import 'package:loopcare_frontend/features/account/presentation/buddy_page/application/buddy_bloc.dart';
 import 'package:loopcare_frontend/features/account/presentation/emergency_numbers/emergency_number_card.dart';
 import 'package:loopcare_frontend/features/authentication/application/dto/group_chat_report.dart';
@@ -61,34 +60,36 @@ class ModalBottomSheet {
       backgroundColor: AppColors.blueLightest,
       builder: (context) {
         return MainContainer(
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              const SizedBox(height: 25.0),
-              const CircleAvatar(
-                radius: 22.0,
-                backgroundColor: AppColors.greenRegular,
-                child: Icon(Icons.check, size: 30),
-              ),
-              const SizedBox(height: 26.0),
-              CustomText.w600(
-                '${LocalizedTexts.emailConfirmedBottomSheetTitle.tr()}!',
-                style: context.textTheme.bodyMedium,
-              ),
-              const SizedBox(height: 20.0),
-              CustomText.w400(
-                '${LocalizedTexts.emailConfirmedBottomSheetContent.tr()}.',
-                style: context.textTheme.bodyMedium,
-              ),
-              const SizedBox(height: 40.0),
-              CustomElevatedButton.blueFullWidth(
-                label: LocalizedTexts.continueBtn.tr(),
-                onPressed: context.router.maybePop,
-              ),
-              const SizedBox(height: 30.0),
-            ],
+          child: SingleChildScrollView(
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                const SizedBox(height: 25.0),
+                const CircleAvatar(
+                  radius: 22.0,
+                  backgroundColor: AppColors.greenRegular,
+                  child: Icon(Icons.check, size: 30),
+                ),
+                const SizedBox(height: 26.0),
+                CustomText.w600(
+                  '${LocalizedTexts.emailConfirmedBottomSheetTitle.tr()}!',
+                  style: context.textTheme.bodyMedium,
+                ),
+                const SizedBox(height: 20.0),
+                CustomText.w400(
+                  '${LocalizedTexts.emailConfirmedBottomSheetContent.tr()}.',
+                  style: context.textTheme.bodyMedium,
+                ),
+                const SizedBox(height: 40.0),
+                CustomElevatedButton.blueFullWidth(
+                  label: LocalizedTexts.continueBtn.tr(),
+                  onPressed: context.router.maybePop,
+                ),
+                const SizedBox(height: 30.0),
+              ],
+            ),
           ),
         );
       },
@@ -105,40 +106,42 @@ class ModalBottomSheet {
       context: context,
       builder: (context) {
         return MainContainer(
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              const SizedBox(height: 25.0),
-              const CircleAvatar(
-                radius: 22.0,
-                backgroundColor: AppColors.greenRegular,
-                child: Icon(Icons.check, size: 30),
-              ),
-              const SizedBox(height: 20.0),
-              CustomText.bitter500(
-                LocalizedTexts.emailChangeConfirmedTitle.tr(),
-                style: context.textTheme.displayMedium,
-                textAlign: TextAlign.center,
-              ),
-              const SizedBox(height: 32.0),
-              CustomText.w600(
-                LocalizedTexts.emailChangeConfirmedBody1.tr(),
-                style: context.textTheme.bodyMedium,
-                textAlign: TextAlign.center,
-              ),
-              const SizedBox(height: 32.0),
-              CustomText.w400(
-                LocalizedTexts.emailChangeConfirmedBody2.tr(),
-                style: context.textTheme.bodyMedium,
-                textAlign: TextAlign.center,
-              ),
-              const SizedBox(height: 32.0),
-              CustomElevatedButton.blueFullWidth(
-                label: LocalizedTexts.done.tr(),
-                onPressed: context.router.maybePop,
-              ),
-              const SizedBox(height: 30.0),
-            ],
+          child: SingleChildScrollView(
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                const SizedBox(height: 25.0),
+                const CircleAvatar(
+                  radius: 22.0,
+                  backgroundColor: AppColors.greenRegular,
+                  child: Icon(Icons.check, size: 30),
+                ),
+                const SizedBox(height: 20.0),
+                CustomText.bitter500(
+                  LocalizedTexts.emailChangeConfirmedTitle.tr(),
+                  style: context.textTheme.displayMedium,
+                  textAlign: TextAlign.center,
+                ),
+                const SizedBox(height: 32.0),
+                CustomText.w600(
+                  LocalizedTexts.emailChangeConfirmedBody1.tr(),
+                  style: context.textTheme.bodyMedium,
+                  textAlign: TextAlign.center,
+                ),
+                const SizedBox(height: 32.0),
+                CustomText.w400(
+                  LocalizedTexts.emailChangeConfirmedBody2.tr(),
+                  style: context.textTheme.bodyMedium,
+                  textAlign: TextAlign.center,
+                ),
+                const SizedBox(height: 32.0),
+                CustomElevatedButton.blueFullWidth(
+                  label: LocalizedTexts.done.tr(),
+                  onPressed: context.router.maybePop,
+                ),
+                const SizedBox(height: 30.0),
+              ],
+            ),
           ),
         );
       },
@@ -150,27 +153,29 @@ class ModalBottomSheet {
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(24.0)),
       context: context,
       builder: (BuildContext context) {
-        return Container(
-          padding: const EdgeInsets.symmetric(vertical: 10.0, horizontal: 40.0),
-          height: 300,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: [
-              const SizedBox(height: 32.0),
-              CustomText.w500(
-                message,
-                style: context.textTheme.bodyMedium?.copyWith(color: AppColors.orangeDark),
-              ),
-              CustomText.w400(
-                LocalizedTexts.onboardingCorrectHeight.tr(),
-                style: context.textTheme.bodyMedium,
-              ),
-              const SizedBox(height: 32.0),
-              CustomElevatedButton.blueFullWidth(
-                onPressed: context.router.maybePop,
-                label: LocalizedTexts.onboardingChangeYourHeight.tr(),
-              ),
-            ],
+        return SingleChildScrollView(
+          child: Container(
+            padding: const EdgeInsets.symmetric(vertical: 10.0, horizontal: 40.0),
+            height: 250,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                const SizedBox(height: 32.0),
+                CustomText.w500(
+                  message,
+                  style: context.textTheme.bodyMedium?.copyWith(color: AppColors.orangeDark),
+                ),
+                CustomText.w400(
+                  LocalizedTexts.onboardingCorrectHeight.tr(),
+                  style: context.textTheme.bodyMedium,
+                ),
+                const SizedBox(height: 32.0),
+                CustomElevatedButton.blueFullWidth(
+                  onPressed: context.router.maybePop,
+                  label: LocalizedTexts.onboardingChangeYourHeight.tr(),
+                ),
+              ],
+            ),
           ),
         );
       },
@@ -190,7 +195,7 @@ class ModalBottomSheet {
       builder: (BuildContext context) {
         return FractionallySizedBox(
           heightFactor: 0.75,
-          child: ScrollableContainer(
+          child: SingleChildScrollView(
             child: MainContainer(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
@@ -235,7 +240,7 @@ class ModalBottomSheet {
       builder: (BuildContext context) {
         return FractionallySizedBox(
           heightFactor: 0.75,
-          child: ScrollableContainer(
+          child: SingleChildScrollView(
             child: MainContainer(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
@@ -289,34 +294,36 @@ class ModalBottomSheet {
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(24.0)),
       context: context,
       builder: (BuildContext context) {
-        return Container(
-          padding: const EdgeInsets.fromLTRB(20.0, 38.0, 20.0, 30.0),
-          child: CustomSafeArea(
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 20.0),
-                  child: CustomText.w600(
-                    LocalizedTexts.onboardingYouExceededTimeMessage.tr(),
-                    style: context.textTheme.bodyMedium,
+        return SingleChildScrollView(
+          child: Container(
+            padding: const EdgeInsets.fromLTRB(20.0, 38.0, 20.0, 30.0),
+            child: CustomSafeArea(
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                    child: CustomText.w600(
+                      LocalizedTexts.onboardingYouExceededTimeMessage.tr(),
+                      style: context.textTheme.bodyMedium,
+                    ),
                   ),
-                ),
-                const SizedBox(height: 26.0),
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 20.0),
-                  child: CustomText.w400(
-                    LocalizedTexts.onboardingNoWorriesYouCanDoItLater.tr(),
-                    style: context.textTheme.bodyMedium,
+                  const SizedBox(height: 26.0),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                    child: CustomText.w400(
+                      LocalizedTexts.onboardingNoWorriesYouCanDoItLater.tr(),
+                      style: context.textTheme.bodyMedium,
+                    ),
                   ),
-                ),
-                const SizedBox(height: 40.0),
-                CustomElevatedButton.blueFullWidth(
-                  onPressed: onStartAgain,
-                  label: LocalizedTexts.onboardingStartAgain.tr(),
-                ),
-              ],
+                  const SizedBox(height: 40.0),
+                  CustomElevatedButton.blueFullWidth(
+                    onPressed: onStartAgain,
+                    label: LocalizedTexts.onboardingStartAgain.tr(),
+                  ),
+                ],
+              ),
             ),
           ),
         );
@@ -336,28 +343,29 @@ class ModalBottomSheet {
       ),
       context: context,
       builder: (BuildContext context) {
-        return Container(
-          padding: const EdgeInsets.symmetric(vertical: 10.0, horizontal: 24.0),
-          child: CustomSafeArea(
-            top: false,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                Align(
-                  alignment: Alignment.topRight,
-                  child: Padding(
-                    padding: const EdgeInsets.only(right: 8.0, top: 12.0),
-                    child: IconButton(
-                      onPressed: () => context.router.maybePop(),
-                      icon: const Icon(
-                        Icons.close,
-                        size: 30,
+        return SingleChildScrollView(
+          child: Container(
+            padding: const EdgeInsets.symmetric(vertical: 10.0, horizontal: 24.0),
+            height: 650,
+            child: CustomSafeArea(
+              top: false,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Align(
+                    alignment: Alignment.topRight,
+                    child: Padding(
+                      padding: const EdgeInsets.only(right: 8.0, top: 12.0),
+                      child: IconButton(
+                        onPressed: () => context.router.maybePop(),
+                        icon: const Icon(
+                          Icons.close,
+                          size: 30,
+                        ),
                       ),
                     ),
                   ),
-                ),
-                Expanded(
-                  child: Padding(
+                  Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 16.0),
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -431,8 +439,8 @@ class ModalBottomSheet {
                       ],
                     ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
           ),
         );
@@ -451,28 +459,30 @@ class ModalBottomSheet {
       ),
       context: context,
       builder: (BuildContext context) {
-        return Container(
-          padding: const EdgeInsets.symmetric(vertical: 10.0, horizontal: 24.0),
-          child: CustomSafeArea(
-            top: false,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                Align(
-                  alignment: Alignment.topRight,
-                  child: Padding(
-                    padding: const EdgeInsets.only(right: 8.0, top: 12.0),
-                    child: IconButton(
-                      onPressed: () => context.router.maybePop(),
-                      icon: const Icon(
-                        Icons.close,
-                        size: 30,
+        return SingleChildScrollView(
+          child: Container(
+            height: 400,
+            padding: const EdgeInsets.symmetric(vertical: 10.0, horizontal: 24.0),
+            child: CustomSafeArea(
+              top: false,
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Align(
+                    alignment: Alignment.topRight,
+                    child: Padding(
+                      padding: const EdgeInsets.only(right: 8.0, top: 12.0),
+                      child: IconButton(
+                        onPressed: () => context.router.maybePop(),
+                        icon: const Icon(
+                          Icons.close,
+                          size: 30,
+                        ),
                       ),
                     ),
                   ),
-                ),
-                Expanded(
-                  child: Padding(
+                  Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 16.0),
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -522,8 +532,8 @@ class ModalBottomSheet {
                       ],
                     ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
           ),
         );
@@ -542,27 +552,29 @@ class ModalBottomSheet {
         return CustomSafeArea(
           child: FractionallySizedBox(
             heightFactor: 0.5,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Align(
-                  alignment: Alignment.centerRight,
-                  child: CustomIconButton.close(
-                    onPressed: () => context.router.maybePop(),
-                  ),
-                ),
-                MainContainer(
-                  child: TextWithAccents(
-                    LocalizedTexts.onboardingMentalHealthMoreInfo.tr(
-                      {'appName': _appConfig.projectName},
+            child: SingleChildScrollView(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Align(
+                    alignment: Alignment.centerRight,
+                    child: CustomIconButton.close(
+                      onPressed: () => context.router.maybePop(),
                     ),
-                    accents: [
-                      LocalizedTexts.onboardingMentalHealthMoreInfoBold1.tr(),
-                      LocalizedTexts.onboardingMentalHealthMoreInfoBold2.tr(),
-                    ],
                   ),
-                ),
-              ],
+                  MainContainer(
+                    child: TextWithAccents(
+                      LocalizedTexts.onboardingMentalHealthMoreInfo.tr(
+                        {'appName': _appConfig.projectName},
+                      ),
+                      accents: [
+                        LocalizedTexts.onboardingMentalHealthMoreInfoBold1.tr(),
+                        LocalizedTexts.onboardingMentalHealthMoreInfoBold2.tr(),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
             ),
           ),
         );
@@ -580,76 +592,78 @@ class ModalBottomSheet {
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12.0)),
       context: context,
       builder: (BuildContext context) {
-        return ConstrainedBox(
-          constraints: BoxConstraints(
-            maxHeight: MediaQuery.of(context).size.height - 100,
-          ),
-          child: CustomSafeArea(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: [
-                Align(
-                  alignment: Alignment.topRight,
-                  child: Padding(
-                    padding: const EdgeInsets.only(right: 8.0, top: 12.0),
-                    child: IconButton(
-                      onPressed: () => context.router.maybePop(),
-                      icon: const Icon(Icons.close),
+        return SingleChildScrollView(
+          child: ConstrainedBox(
+            constraints: BoxConstraints(
+              maxHeight: MediaQuery.of(context).size.height - 100,
+            ),
+            child: CustomSafeArea(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+                  Align(
+                    alignment: Alignment.topRight,
+                    child: Padding(
+                      padding: const EdgeInsets.only(right: 8.0, top: 12.0),
+                      child: IconButton(
+                        onPressed: () => context.router.maybePop(),
+                        icon: const Icon(Icons.close),
+                      ),
                     ),
                   ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(left: 40.0, right: 24.0),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.stretch,
-                    children: [
-                      Text(
-                        LocalizedTexts.showNutritionValue.tr(),
-                        style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                              fontWeight: FontWeight.w600,
-                            ),
-                      ),
-                      const SizedBox(height: 24.0),
-                      const Divider(
-                        height: 2,
-                        thickness: 2,
-                        color: AppColors.bgGreen,
-                      ),
-                    ],
-                  ),
-                ),
-                Expanded(
-                  child: Padding(
+                  Padding(
                     padding: const EdgeInsets.only(left: 40.0, right: 24.0),
-                    child: ListView.separated(
-                      itemCount: list.length,
-                      itemBuilder: (BuildContext context, int index) {
-                        final item = list[index];
-
-                        return InkWell(
-                          onTap: () {
-                            context.router.maybePop();
-                            final selectedNutritionType = NutritionValuesTypes.values
-                                .firstWhere((element) => element.name == item.key);
-                            onSelect(selectedNutritionType);
-                          },
-                          child: Container(
-                            padding: const EdgeInsets.symmetric(vertical: 14.0),
-                            child: Text(item.name),
-                          ),
-                        );
-                      },
-                      separatorBuilder: (BuildContext context, int index) {
-                        return const Divider(
-                          thickness: 2.0,
-                          height: 2.0,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.stretch,
+                      children: [
+                        Text(
+                          LocalizedTexts.showNutritionValue.tr(),
+                          style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                                fontWeight: FontWeight.w600,
+                              ),
+                        ),
+                        const SizedBox(height: 24.0),
+                        const Divider(
+                          height: 2,
+                          thickness: 2,
                           color: AppColors.bgGreen,
-                        );
-                      },
+                        ),
+                      ],
                     ),
                   ),
-                ),
-              ],
+                  Expanded(
+                    child: Padding(
+                      padding: const EdgeInsets.only(left: 40.0, right: 24.0),
+                      child: ListView.separated(
+                        itemCount: list.length,
+                        itemBuilder: (BuildContext context, int index) {
+                          final item = list[index];
+
+                          return InkWell(
+                            onTap: () {
+                              context.router.maybePop();
+                              final selectedNutritionType = NutritionValuesTypes.values
+                                  .firstWhere((element) => element.name == item.key);
+                              onSelect(selectedNutritionType);
+                            },
+                            child: Container(
+                              padding: const EdgeInsets.symmetric(vertical: 14.0),
+                              child: Text(item.name),
+                            ),
+                          );
+                        },
+                        separatorBuilder: (BuildContext context, int index) {
+                          return const Divider(
+                            thickness: 2.0,
+                            height: 2.0,
+                            color: AppColors.bgGreen,
+                          );
+                        },
+                      ),
+                    ),
+                  ),
+                ],
+              ),
             ),
           ),
         );
@@ -668,19 +682,21 @@ class ModalBottomSheet {
           child: BlocBuilder<TopicsBloc, TopicsState>(builder: (context, state) {
             return Padding(
               padding: const EdgeInsets.only(bottom: 30.0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  CustomText.bitter500(
-                    state.data.weekTopicName,
-                    style: context.textTheme.displayMedium,
-                  ),
-                  const Divider(thickness: 1.0, height: 24.0, color: AppColors.greyDarker),
-                  state.data.isSigned
-                      ? const BookedSessionModalContent()
-                      : const NotBookedSessionsModalContent()
-                ],
+              child: SingleChildScrollView(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    CustomText.bitter500(
+                      state.data.weekTopicName,
+                      style: context.textTheme.displayMedium,
+                    ),
+                    const Divider(thickness: 1.0, height: 24.0, color: AppColors.greyDarker),
+                    state.data.isSigned
+                        ? const BookedSessionModalContent()
+                        : const NotBookedSessionsModalContent()
+                  ],
+                ),
               ),
             );
           }),
@@ -705,91 +721,93 @@ class ModalBottomSheet {
 
         return StatefulBuilder(
           builder: (BuildContext context, void Function(void Function()) setState) {
-            return Wrap(
-              children: [
-                Align(
-                  alignment: Alignment.topRight,
-                  child: Padding(
-                    padding: const EdgeInsets.only(right: 8, top: 12),
-                    child: IconButton(
-                      onPressed: () => context.router.maybePop(),
-                      icon: const Icon(Icons.close),
+            return SingleChildScrollView(
+              child: Column(
+                children: [
+                  Align(
+                    alignment: Alignment.topRight,
+                    child: Padding(
+                      padding: const EdgeInsets.only(right: 8, top: 12),
+                      child: IconButton(
+                        onPressed: () => context.router.maybePop(),
+                        icon: const Icon(Icons.close),
+                      ),
                     ),
                   ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(
-                    left: 40.0,
-                    right: 24.0,
-                    bottom: 40.0,
-                  ),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.stretch,
-                    children: [
-                      CustomText.w700(
-                        title,
-                        style: context.textTheme.bodyMedium,
-                      ),
-                      if (subtitle != null)
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            const SizedBox(height: 14.0),
-                            CustomText.w400(
-                              subtitle,
-                              style: context.textTheme.bodyMedium?.copyWith(
-                                fontStyle: FontStyle.italic,
-                              ),
-                            ),
-                          ],
+                  Padding(
+                    padding: const EdgeInsets.only(
+                      left: 40.0,
+                      right: 24.0,
+                      bottom: 40.0,
+                    ),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.stretch,
+                      children: [
+                        CustomText.w700(
+                          title,
+                          style: context.textTheme.bodyMedium,
                         ),
-                      const SizedBox(height: 8.0),
-                      ...updatedList.map(
-                        (item) => Container(
-                          padding: const EdgeInsets.symmetric(vertical: 1.0),
-                          child: Row(
-                            crossAxisAlignment: CrossAxisAlignment.center,
+                        if (subtitle != null)
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              SizedBox(
-                                height: 32.0,
-                                width: 32.0,
-                                child: CustomCheckbox.blue(
-                                  onChanged: (bool? value) {
-                                    final index = updatedList.indexOf(item);
-
-                                    setState(
-                                      () {
-                                        updatedList[index] =
-                                            item.copyWith(selected: value ?? false);
-                                      },
-                                    );
-                                  },
-                                  value: item.selected,
+                              const SizedBox(height: 14.0),
+                              CustomText.w400(
+                                subtitle,
+                                style: context.textTheme.bodyMedium?.copyWith(
+                                  fontStyle: FontStyle.italic,
                                 ),
                               ),
-                              const SizedBox(width: 16.0),
-                              Expanded(
-                                child: CustomText.w400(
-                                  item.name.capitalizeOnlyFirstLetter(),
-                                  style: context.textTheme.bodyMedium,
-                                ),
-                              )
                             ],
                           ),
+                        const SizedBox(height: 8.0),
+                        ...updatedList.map(
+                          (item) => Container(
+                            padding: const EdgeInsets.symmetric(vertical: 1.0),
+                            child: Row(
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                SizedBox(
+                                  height: 32.0,
+                                  width: 32.0,
+                                  child: CustomCheckbox.blue(
+                                    onChanged: (bool? value) {
+                                      final index = updatedList.indexOf(item);
+
+                                      setState(
+                                        () {
+                                          updatedList[index] =
+                                              item.copyWith(selected: value ?? false);
+                                        },
+                                      );
+                                    },
+                                    value: item.selected,
+                                  ),
+                                ),
+                                const SizedBox(width: 16.0),
+                                Expanded(
+                                  child: CustomText.w400(
+                                    item.name.capitalizeOnlyFirstLetter(),
+                                    style: context.textTheme.bodyMedium,
+                                  ),
+                                )
+                              ],
+                            ),
+                          ),
                         ),
-                      ),
-                      const SizedBox(height: 26.0),
-                      CustomElevatedButton.blueFullWidth(
-                        onPressed: () {
-                          context.router.maybePop();
-                          onConfirmed?.call(updatedList);
-                        },
-                        label: LocalizedTexts.continueBtn.tr(),
-                      ),
-                    ],
+                        const SizedBox(height: 26.0),
+                        CustomElevatedButton.blueFullWidth(
+                          onPressed: () {
+                            context.router.maybePop();
+                            onConfirmed?.call(updatedList);
+                          },
+                          label: LocalizedTexts.continueBtn.tr(),
+                        ),
+                      ],
+                    ),
                   ),
-                ),
-              ],
+                ],
+              ),
             );
           },
         );
@@ -891,76 +909,80 @@ class ModalBottomSheet {
       builder: (BuildContext context) {
         return FractionallySizedBox(
           heightFactor: 0.45,
-          child: CustomSafeArea(
-            child: Container(
-              padding: const EdgeInsets.only(
-                top: 32.0,
-                left: 24.0,
-                right: 24.0,
-                bottom: 20.0,
-              ),
-              child: CustomRoundedContainer(
-                bgColor: AppColors.greenLightest,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
-                  children: [
-                    Align(
-                      alignment: Alignment.centerRight,
-                      child: SizedBox(
-                        width: 16.0,
-                        height: 16.0,
-                        child: CustomIconButton.close(
-                          onPressed: () => context.router.maybePop(),
+          child: SingleChildScrollView(
+            child: CustomSafeArea(
+              child: Container(
+                height: 0.45,
+                padding: const EdgeInsets.only(
+                  top: 32.0,
+                  left: 24.0,
+                  right: 24.0,
+                  bottom: 20.0,
+                ),
+                child: CustomRoundedContainer(
+                  bgColor: AppColors.greenLightest,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    children: [
+                      Align(
+                        alignment: Alignment.centerRight,
+                        child: SizedBox(
+                          width: 16.0,
+                          height: 16.0,
+                          child: CustomIconButton.close(
+                            onPressed: () => context.router.maybePop(),
+                          ),
                         ),
                       ),
-                    ),
-                    const SizedBox(height: 2.0),
-                    CustomText.bitter600(
-                      '${LocalizedTexts.iWantToLogMy.tr()}...',
-                      style: context.textTheme.displayMedium,
-                    ),
-                    const SizedBox(height: 24.0),
-                    Expanded(
-                      child: ListView.builder(
-                        itemCount: list.length,
-                        itemBuilder: (BuildContext context, int index) {
-                          final item = list[index];
-                          final isFilled = filledList.contains(item.shortValue.toLowerCase());
+                      const SizedBox(height: 2.0),
+                      CustomText.bitter600(
+                        '${LocalizedTexts.iWantToLogMy.tr()}...',
+                        style: context.textTheme.displayMedium,
+                      ),
+                      const SizedBox(height: 24.0),
+                      Expanded(
+                        child: ListView.builder(
+                          itemCount: list.length,
+                          itemBuilder: (BuildContext context, int index) {
+                            final item = list[index];
+                            final isFilled = filledList.contains(item.shortValue.toLowerCase());
 
-                          return InkWell(
-                            onTap: () {
-                              context.router.maybePop();
-                              onSelect(item);
-                            },
-                            child: Row(
-                              children: [
-                                IconButton(
-                                  icon: isFilled
-                                      ? AppIcons.checkmarkSVG
-                                      : item.icon ?? AppIcons.checkmarkSVG,
-                                  color: isFilled ? AppColors.blueDarker : AppColors.darkGreen,
-                                  onPressed: () => {},
-                                  iconSize: 14.0,
-                                ),
-                                Expanded(
-                                  child: CustomText.w500(
-                                    item.name,
-                                    style: context.textTheme.titleSmall?.copyWith(
-                                      color: isFilled ? AppColors.blueDarker : AppColors.darkGreen,
+                            return InkWell(
+                              onTap: () {
+                                context.router.maybePop();
+                                onSelect(item);
+                              },
+                              child: Row(
+                                children: [
+                                  IconButton(
+                                    icon: isFilled
+                                        ? AppIcons.checkmarkSVG
+                                        : item.icon ?? AppIcons.checkmarkSVG,
+                                    color: isFilled ? AppColors.blueDarker : AppColors.darkGreen,
+                                    onPressed: () => {},
+                                    iconSize: 14.0,
+                                  ),
+                                  Expanded(
+                                    child: CustomText.w500(
+                                      item.name,
+                                      style: context.textTheme.titleSmall?.copyWith(
+                                        color:
+                                            isFilled ? AppColors.blueDarker : AppColors.darkGreen,
+                                      ),
                                     ),
                                   ),
-                                ),
-                                const ImageIcon(
-                                  AppIcons.arrow,
-                                  color: AppColors.blueDarker,
-                                ),
-                              ],
-                            ),
-                          );
-                        },
+                                  const ImageIcon(
+                                    AppIcons.arrow,
+                                    color: AppColors.blueDarker,
+                                  ),
+                                ],
+                              ),
+                            );
+                          },
+                        ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
               ),
             ),
@@ -980,28 +1002,30 @@ class ModalBottomSheet {
       context: context,
       builder: (BuildContext context) {
         return MainContainer(
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: [
-              const CircleAvatar(
-                backgroundColor: AppColors.blueRegular,
-                child: Icon(Icons.priority_high_outlined),
-              ),
-              const SizedBox(height: 20.0),
-              CustomText.w600(LocalizedTexts.avatarSizeErrorMessageTitle.tr(),
-                  style: context.textTheme.bodyMedium),
-              const SizedBox(height: 20.0),
-              CustomText.w400(LocalizedTexts.avatarSizeErrorMessageSubtitle.tr(),
-                  style: context.textTheme.bodyMedium),
-              Padding(
-                padding: const EdgeInsets.symmetric(vertical: 20.0),
-                child: CustomElevatedButton.blueFullWidth(
-                  onPressed: context.router.maybePop,
-                  label: LocalizedTexts.ok.tr().toUpperCase(),
+          child: SingleChildScrollView(
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                const CircleAvatar(
+                  backgroundColor: AppColors.blueRegular,
+                  child: Icon(Icons.priority_high_outlined),
                 ),
-              ),
-            ],
+                const SizedBox(height: 20.0),
+                CustomText.w600(LocalizedTexts.avatarSizeErrorMessageTitle.tr(),
+                    style: context.textTheme.bodyMedium),
+                const SizedBox(height: 20.0),
+                CustomText.w400(LocalizedTexts.avatarSizeErrorMessageSubtitle.tr(),
+                    style: context.textTheme.bodyMedium),
+                Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 20.0),
+                  child: CustomElevatedButton.blueFullWidth(
+                    onPressed: context.router.maybePop,
+                    label: LocalizedTexts.ok.tr().toUpperCase(),
+                  ),
+                ),
+              ],
+            ),
           ),
         );
       },
@@ -1019,30 +1043,32 @@ class ModalBottomSheet {
       context: context,
       builder: (BuildContext context) {
         return MainContainer(
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              const CircleAvatar(
-                backgroundColor: AppColors.red,
-                child: Icon(Icons.priority_high_outlined),
-              ),
-              const SizedBox(height: 20.0),
-              CustomText.w600(
-                Platform.isAndroid
-                    ? LocalizedTexts.avatarGaleryPermissionsMessageAndroid.tr()
-                    : LocalizedTexts.avatarGaleryPermissionsMessage.tr(),
-                style: context.textTheme.bodyMedium,
-              ),
-              const SizedBox(height: 20.0),
-              Padding(
-                padding: const EdgeInsets.symmetric(vertical: 20.0),
-                child: CustomElevatedButton.blueFullWidth(
-                  onPressed: onGoToSettings,
-                  label: LocalizedTexts.avatarGoToAppSettings.tr(),
+          child: SingleChildScrollView(
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                const CircleAvatar(
+                  backgroundColor: AppColors.red,
+                  child: Icon(Icons.priority_high_outlined),
                 ),
-              ),
-            ],
+                const SizedBox(height: 20.0),
+                CustomText.w600(
+                  Platform.isAndroid
+                      ? LocalizedTexts.avatarGaleryPermissionsMessageAndroid.tr()
+                      : LocalizedTexts.avatarGaleryPermissionsMessage.tr(),
+                  style: context.textTheme.bodyMedium,
+                ),
+                const SizedBox(height: 20.0),
+                Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 20.0),
+                  child: CustomElevatedButton.blueFullWidth(
+                    onPressed: onGoToSettings,
+                    label: LocalizedTexts.avatarGoToAppSettings.tr(),
+                  ),
+                ),
+              ],
+            ),
           ),
         );
       },
@@ -1065,7 +1091,7 @@ class ModalBottomSheet {
           heightFactor: 0.95,
           child: BlocBuilder<EducationLessonBloc, EducationLessonState>(
             builder: (context, state) {
-              return ScrollableContainer(
+              return SingleChildScrollView(
                 child: Column(
                   children: [
                     const SizedBox(height: 32.0),
@@ -1127,14 +1153,19 @@ class ModalBottomSheet {
           builder: (BuildContext context) {
             return FractionallySizedBox(
               heightFactor: 0.93,
-              child: KeyboardContainerListener(
-                child: CustomSafeArea(
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 16.0, horizontal: 24.0),
-                    child: ReportAbuseWidget(
-                      groupSession: groupSession,
-                      chatReport: chatReport,
-                      close: () => context.router.maybePop(),
+              child: SingleChildScrollView(
+                child: SizedBox(
+                  height: 0.93,
+                  child: KeyboardContainerListener(
+                    child: CustomSafeArea(
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 16.0, horizontal: 24.0),
+                        child: ReportAbuseWidget(
+                          groupSession: groupSession,
+                          chatReport: chatReport,
+                          close: () => context.router.maybePop(),
+                        ),
+                      ),
                     ),
                   ),
                 ),
@@ -1153,7 +1184,7 @@ class ModalBottomSheet {
       builder: (BuildContext context) {
         return FractionallySizedBox(
           heightFactor: 0.95,
-          child: ScrollableContainer(
+          child: SingleChildScrollView(
             child: MainContainer(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -1200,30 +1231,32 @@ class ModalBottomSheet {
         return Container(
           padding: const EdgeInsets.symmetric(vertical: 42.0, horizontal: 39.0),
           height: size.height * 0.45,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: [
-              AppIcons.orangeExclamationMark,
-              const SizedBox(height: 16.0),
-              CustomText.w400(
-                LocalizedTexts.sessionLeaveDialogText.tr(),
-                textAlign: TextAlign.center,
-                style: context.textTheme.bodyMedium,
-              ),
-              const SizedBox(height: 48.0),
-              CustomElevatedButton.blueFullWidth(
-                onPressed: () {
-                  context.router.maybePop();
-                  onLeavePressed();
-                },
-                label: LocalizedTexts.leaveSession.tr(),
-              ),
-              const SizedBox(height: 12.0),
-              CustomElevatedButton.blueFullWidth(
-                onPressed: onStayPressed,
-                label: LocalizedTexts.stayInTheSession.tr(),
-              )
-            ],
+          child: SingleChildScrollView(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                AppIcons.orangeExclamationMark,
+                const SizedBox(height: 16.0),
+                CustomText.w400(
+                  LocalizedTexts.sessionLeaveDialogText.tr(),
+                  textAlign: TextAlign.center,
+                  style: context.textTheme.bodyMedium,
+                ),
+                const SizedBox(height: 48.0),
+                CustomElevatedButton.blueFullWidth(
+                  onPressed: () {
+                    context.router.maybePop();
+                    onLeavePressed();
+                  },
+                  label: LocalizedTexts.leaveSession.tr(),
+                ),
+                const SizedBox(height: 12.0),
+                CustomElevatedButton.blueFullWidth(
+                  onPressed: onStayPressed,
+                  label: LocalizedTexts.stayInTheSession.tr(),
+                )
+              ],
+            ),
           ),
         );
       },
@@ -1243,34 +1276,36 @@ class ModalBottomSheet {
         return MainContainer(
           child: Padding(
             padding: const EdgeInsets.symmetric(vertical: 30.0),
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                const Icon(Icons.error, color: AppColors.coralRegular),
-                const SizedBox(height: 24),
-                CustomText.w600(
-                  LocalizedTexts.updateRequired.tr(),
-                  style: context.textTheme.displayMedium,
-                  textAlign: TextAlign.center,
-                ),
-                const SizedBox(height: 12),
-                CustomText.w400(
-                  LocalizedTexts.updateRequiredBodyText1.tr(),
-                  style: context.textTheme.bodyMedium,
-                  textAlign: TextAlign.center,
-                ),
-                const SizedBox(height: 12),
-                CustomText.w400(
-                  LocalizedTexts.updateRequiredBodyText2.tr(),
-                  style: context.textTheme.bodyMedium,
-                  textAlign: TextAlign.center,
-                ),
-                const SizedBox(height: 24),
-                CustomElevatedButton.blueFullWidth(
-                  label: LocalizedTexts.update.tr(),
-                  onPressed: onUpdatePressed,
-                ),
-              ],
+            child: SingleChildScrollView(
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  const Icon(Icons.error, color: AppColors.coralRegular),
+                  const SizedBox(height: 24),
+                  CustomText.w600(
+                    LocalizedTexts.updateRequired.tr(),
+                    style: context.textTheme.displayMedium,
+                    textAlign: TextAlign.center,
+                  ),
+                  const SizedBox(height: 12),
+                  CustomText.w400(
+                    LocalizedTexts.updateRequiredBodyText1.tr(),
+                    style: context.textTheme.bodyMedium,
+                    textAlign: TextAlign.center,
+                  ),
+                  const SizedBox(height: 12),
+                  CustomText.w400(
+                    LocalizedTexts.updateRequiredBodyText2.tr(),
+                    style: context.textTheme.bodyMedium,
+                    textAlign: TextAlign.center,
+                  ),
+                  const SizedBox(height: 24),
+                  CustomElevatedButton.blueFullWidth(
+                    label: LocalizedTexts.update.tr(),
+                    onPressed: onUpdatePressed,
+                  ),
+                ],
+              ),
             ),
           ),
         );
@@ -1291,42 +1326,44 @@ class ModalBottomSheet {
         return MainContainer(
           child: Padding(
             padding: const EdgeInsets.symmetric(vertical: 30.0),
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                const CircleAvatar(
-                  backgroundColor: AppColors.greenRegular,
-                  radius: 22,
-                  child: Icon(
-                    Icons.upload,
-                    size: 36,
-                    color: AppColors.greenLightest,
+            child: SingleChildScrollView(
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  const CircleAvatar(
+                    backgroundColor: AppColors.greenRegular,
+                    radius: 22,
+                    child: Icon(
+                      Icons.upload,
+                      size: 36,
+                      color: AppColors.greenLightest,
+                    ),
                   ),
-                ),
-                const SizedBox(height: 24),
-                CustomText.w600(
-                  LocalizedTexts.minorUpdateTitle.tr(),
-                  style: context.textTheme.displayMedium,
-                  textAlign: TextAlign.center,
-                ),
-                const SizedBox(height: 20),
-                CustomText.w400(
-                  LocalizedTexts.minorUpdateBody.tr(),
-                  style: context.textTheme.bodyMedium,
-                  textAlign: TextAlign.center,
-                ),
-                const SizedBox(height: 24),
-                CustomElevatedButton.blueFullWidth(
-                  label: LocalizedTexts.update.tr(),
-                  onPressed: onUpdatePressed,
-                ),
-                const SizedBox(height: 20),
-                CustomOutlinedButton.blueFullWidth(
-                  label: LocalizedTexts.doItLaterButton.tr(),
-                  onPressed: context.router.maybePop,
-                ),
-                const SizedBox(height: 12.0),
-              ],
+                  const SizedBox(height: 24),
+                  CustomText.w600(
+                    LocalizedTexts.minorUpdateTitle.tr(),
+                    style: context.textTheme.displayMedium,
+                    textAlign: TextAlign.center,
+                  ),
+                  const SizedBox(height: 20),
+                  CustomText.w400(
+                    LocalizedTexts.minorUpdateBody.tr(),
+                    style: context.textTheme.bodyMedium,
+                    textAlign: TextAlign.center,
+                  ),
+                  const SizedBox(height: 24),
+                  CustomElevatedButton.blueFullWidth(
+                    label: LocalizedTexts.update.tr(),
+                    onPressed: onUpdatePressed,
+                  ),
+                  const SizedBox(height: 20),
+                  CustomOutlinedButton.blueFullWidth(
+                    label: LocalizedTexts.doItLaterButton.tr(),
+                    onPressed: context.router.maybePop,
+                  ),
+                  const SizedBox(height: 12.0),
+                ],
+              ),
             ),
           ),
         );
@@ -1349,44 +1386,46 @@ class ModalBottomSheet {
         return MainContainer(
           child: Padding(
             padding: const EdgeInsets.symmetric(vertical: 30.0),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                const CircleAvatar(
-                  radius: 25.0,
-                  backgroundColor: AppColors.blueRegular,
-                  child: Icon(Icons.check, size: 30),
-                ),
-                const SizedBox(height: 20.0),
-                CustomText.w600(
-                  LocalizedTexts.buddyFindAnotherBuddyLabel.tr({"name": name}),
-                  style: context.textTheme.bodyMedium,
-                ),
-                const SizedBox(height: 20.0),
-                CustomText.w400(
-                  LocalizedTexts.buddyFindAnotherBuddyContentOne.tr(),
-                  style: context.textTheme.bodyMedium,
-                ),
-                const SizedBox(height: 20.0),
-                CustomText.w400(
-                  LocalizedTexts.buddyFindAnotherBuddyContentTwo.tr(),
-                  style: context.textTheme.bodyMedium,
-                ),
-                const SizedBox(height: 20.0),
-                CustomElevatedButton.blueFullWidth(
-                  onPressed: () {
-                    context.router.maybePop();
-                    onAnotherBuddy();
-                  },
-                  label: LocalizedTexts.buddyFindAnotherBuddy.tr(),
-                ),
-                const SizedBox(height: 20.0),
-                CustomOutlinedButton.blueFullWidth(
-                  onPressed: context.router.maybePop,
-                  label: LocalizedTexts.buddyNotNeedAnotherBuddy.tr(),
-                ),
-              ],
+            child: SingleChildScrollView(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  const CircleAvatar(
+                    radius: 25.0,
+                    backgroundColor: AppColors.blueRegular,
+                    child: Icon(Icons.check, size: 30),
+                  ),
+                  const SizedBox(height: 20.0),
+                  CustomText.w600(
+                    LocalizedTexts.buddyFindAnotherBuddyLabel.tr({"name": name}),
+                    style: context.textTheme.bodyMedium,
+                  ),
+                  const SizedBox(height: 20.0),
+                  CustomText.w400(
+                    LocalizedTexts.buddyFindAnotherBuddyContentOne.tr(),
+                    style: context.textTheme.bodyMedium,
+                  ),
+                  const SizedBox(height: 20.0),
+                  CustomText.w400(
+                    LocalizedTexts.buddyFindAnotherBuddyContentTwo.tr(),
+                    style: context.textTheme.bodyMedium,
+                  ),
+                  const SizedBox(height: 20.0),
+                  CustomElevatedButton.blueFullWidth(
+                    onPressed: () {
+                      context.router.maybePop();
+                      onAnotherBuddy();
+                    },
+                    label: LocalizedTexts.buddyFindAnotherBuddy.tr(),
+                  ),
+                  const SizedBox(height: 20.0),
+                  CustomOutlinedButton.blueFullWidth(
+                    onPressed: context.router.maybePop,
+                    label: LocalizedTexts.buddyNotNeedAnotherBuddy.tr(),
+                  ),
+                ],
+              ),
             ),
           ),
         );
@@ -1409,42 +1448,44 @@ class ModalBottomSheet {
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12.0)),
       builder: (BuildContext context) {
         return MainContainer(
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: [
-              SizedBox(width: 44, height: 44, child: AppIcons.lightbulbUnSelect),
-              const SizedBox(height: 20.0),
-              CustomText.bitter600(
-                title,
-                style: context.textTheme.displayMedium,
-                textAlign: TextAlign.center,
-              ),
-              const SizedBox(height: 32.0),
-              CustomText.w600(
-                subtitle,
-                style: context.textTheme.bodyMedium,
-                textAlign: TextAlign.center,
-              ),
-              const SizedBox(height: 20.0),
-              CustomText.w400(
-                task,
-                style: context.textTheme.bodyMedium,
-                textAlign: TextAlign.center,
-              ),
-              const SizedBox(height: 20.0),
-              CustomText.w400(
-                content,
-                style: context.textTheme.bodyMedium,
-                textAlign: TextAlign.center,
-              ),
-              const SizedBox(height: 40.0),
-              CustomElevatedButton.blueFullWidth(
-                label: LocalizedTexts.ok.tr().toUpperCase(),
-                onPressed: context.router.maybePop,
-              ),
-              const SizedBox(height: 30.0),
-            ],
+          child: SingleChildScrollView(
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                SizedBox(width: 44, height: 44, child: AppIcons.lightbulbUnSelect),
+                const SizedBox(height: 20.0),
+                CustomText.bitter600(
+                  title,
+                  style: context.textTheme.displayMedium,
+                  textAlign: TextAlign.center,
+                ),
+                const SizedBox(height: 32.0),
+                CustomText.w600(
+                  subtitle,
+                  style: context.textTheme.bodyMedium,
+                  textAlign: TextAlign.center,
+                ),
+                const SizedBox(height: 20.0),
+                CustomText.w400(
+                  task,
+                  style: context.textTheme.bodyMedium,
+                  textAlign: TextAlign.center,
+                ),
+                const SizedBox(height: 20.0),
+                CustomText.w400(
+                  content,
+                  style: context.textTheme.bodyMedium,
+                  textAlign: TextAlign.center,
+                ),
+                const SizedBox(height: 40.0),
+                CustomElevatedButton.blueFullWidth(
+                  label: LocalizedTexts.ok.tr().toUpperCase(),
+                  onPressed: context.router.maybePop,
+                ),
+                const SizedBox(height: 30.0),
+              ],
+            ),
           ),
         );
       },
@@ -1467,13 +1508,15 @@ class ModalBottomSheet {
       isScrollControlled: true,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12.0)),
       builder: (BuildContext context) {
-        return AppUpdatePoliciesDocuments(
-          updateTermsAndConditions: updateTermsAndConditions,
-          updatePrivacyPolicy: updatePrivacyPolicy,
-          launchTermsAndConditions: launchTermsAndConditions,
-          launchPrivacyPolicy: launchPrivacyPolicy,
-          launchEmail: launchEmail,
-          onConfirmed: onConfirmed,
+        return SingleChildScrollView(
+          child: AppUpdatePoliciesDocuments(
+            updateTermsAndConditions: updateTermsAndConditions,
+            updatePrivacyPolicy: updatePrivacyPolicy,
+            launchTermsAndConditions: launchTermsAndConditions,
+            launchPrivacyPolicy: launchPrivacyPolicy,
+            launchEmail: launchEmail,
+            onConfirmed: onConfirmed,
+          ),
         );
       },
     );
@@ -1506,7 +1549,7 @@ class ModalBottomSheet {
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12.0)),
       builder: (BuildContext context) {
         return FractionallySizedBox(
-            heightFactor: 0.95, child: ScrollableContainer(child: MainContainer(child: content)));
+            heightFactor: 0.95, child: SingleChildScrollView(child: MainContainer(child: content)));
       },
     );
   }
@@ -1522,49 +1565,51 @@ class ModalBottomSheet {
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12.0)),
       builder: (BuildContext context) {
         return MainContainer(
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              const SizedBox(height: 32.0),
-              const Center(
-                child: Material(
-                  elevation: 6,
-                  surfaceTintColor: AppColors.transparent,
-                  color: AppColors.blueRegular,
-                  borderRadius: BorderRadius.all(Radius.circular(25)),
-                  child: SizedBox.square(
-                    dimension: 50.0,
-                    child: Center(
-                      child: Icon(
-                        AppIconsData.iPractice,
-                        color: AppColors.blueLightest,
-                        size: 36.0,
+          child: SingleChildScrollView(
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const SizedBox(height: 32.0),
+                const Center(
+                  child: Material(
+                    elevation: 6,
+                    surfaceTintColor: AppColors.transparent,
+                    color: AppColors.blueRegular,
+                    borderRadius: BorderRadius.all(Radius.circular(25)),
+                    child: SizedBox.square(
+                      dimension: 50.0,
+                      child: Center(
+                        child: Icon(
+                          AppIconsData.iPractice,
+                          color: AppColors.blueLightest,
+                          size: 36.0,
+                        ),
                       ),
                     ),
                   ),
                 ),
-              ),
-              const SizedBox(height: 24.0),
-              CustomText.w600(
-                LocalizedTexts.riverGuidancePracticeTitle.tr(),
-                style: context.textTheme.bodyMedium,
-              ),
-              const SizedBox(height: 20.0),
-              CustomText.w400(
-                LocalizedTexts.riverGuidancePracticeDescription.tr(),
-                style: context.textTheme.bodyMedium,
-              ),
-              const SizedBox(height: 20.0),
-              CustomElevatedButton.blueFullWidth(
-                label: LocalizedTexts.ok.tr().toUpperCase(),
-                onPressed: () {
-                  context.router.maybePop();
-                  onConfirm();
-                },
-              ),
-              const SizedBox(height: 30.0),
-            ],
+                const SizedBox(height: 24.0),
+                CustomText.w600(
+                  LocalizedTexts.riverGuidancePracticeTitle.tr(),
+                  style: context.textTheme.bodyMedium,
+                ),
+                const SizedBox(height: 20.0),
+                CustomText.w400(
+                  LocalizedTexts.riverGuidancePracticeDescription.tr(),
+                  style: context.textTheme.bodyMedium,
+                ),
+                const SizedBox(height: 20.0),
+                CustomElevatedButton.blueFullWidth(
+                  label: LocalizedTexts.ok.tr().toUpperCase(),
+                  onPressed: () {
+                    context.router.maybePop();
+                    onConfirm();
+                  },
+                ),
+                const SizedBox(height: 30.0),
+              ],
+            ),
           ),
         );
       },
@@ -1582,49 +1627,51 @@ class ModalBottomSheet {
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12.0)),
       builder: (BuildContext context) {
         return MainContainer(
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              const SizedBox(height: 32.0),
-              const Center(
-                child: Material(
-                  elevation: 6,
-                  surfaceTintColor: AppColors.transparent,
-                  color: AppColors.blueRegular,
-                  borderRadius: BorderRadius.all(Radius.circular(25)),
-                  child: SizedBox.square(
-                    dimension: 50.0,
-                    child: Center(
-                      child: Icon(
-                        AppIconsData.iProfile,
-                        color: AppColors.blueLightest,
-                        size: 36.0,
+          child: SingleChildScrollView(
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const SizedBox(height: 32.0),
+                const Center(
+                  child: Material(
+                    elevation: 6,
+                    surfaceTintColor: AppColors.transparent,
+                    color: AppColors.blueRegular,
+                    borderRadius: BorderRadius.all(Radius.circular(25)),
+                    child: SizedBox.square(
+                      dimension: 50.0,
+                      child: Center(
+                        child: Icon(
+                          AppIconsData.iProfile,
+                          color: AppColors.blueLightest,
+                          size: 36.0,
+                        ),
                       ),
                     ),
                   ),
                 ),
-              ),
-              const SizedBox(height: 24.0),
-              CustomText.w600(
-                LocalizedTexts.riverGuidanceProfileTitle.tr(),
-                style: context.textTheme.bodyMedium,
-              ),
-              const SizedBox(height: 20.0),
-              CustomText.w400(
-                LocalizedTexts.riverGuidanceProfileDescription.tr(),
-                style: context.textTheme.bodyMedium,
-              ),
-              const SizedBox(height: 20.0),
-              CustomElevatedButton.blueFullWidth(
-                label: LocalizedTexts.ok.tr().toUpperCase(),
-                onPressed: () {
-                  context.router.maybePop();
-                  onConfirm();
-                },
-              ),
-              const SizedBox(height: 30.0),
-            ],
+                const SizedBox(height: 24.0),
+                CustomText.w600(
+                  LocalizedTexts.riverGuidanceProfileTitle.tr(),
+                  style: context.textTheme.bodyMedium,
+                ),
+                const SizedBox(height: 20.0),
+                CustomText.w400(
+                  LocalizedTexts.riverGuidanceProfileDescription.tr(),
+                  style: context.textTheme.bodyMedium,
+                ),
+                const SizedBox(height: 20.0),
+                CustomElevatedButton.blueFullWidth(
+                  label: LocalizedTexts.ok.tr().toUpperCase(),
+                  onPressed: () {
+                    context.router.maybePop();
+                    onConfirm();
+                  },
+                ),
+                const SizedBox(height: 30.0),
+              ],
+            ),
           ),
         );
       },
@@ -1642,41 +1689,43 @@ class ModalBottomSheet {
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12.0)),
       builder: (BuildContext context) {
         return MainContainer(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              const SizedBox(height: 32.0),
-              const Center(
-                child: CircleAvatar(
-                  radius: 25,
-                  backgroundColor: AppColors.blueRegular,
-                  child: Icon(
-                    Icons.check_rounded,
-                    color: AppColors.blueLightest,
-                    size: 36.0,
+          child: SingleChildScrollView(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                const SizedBox(height: 32.0),
+                const Center(
+                  child: CircleAvatar(
+                    radius: 25,
+                    backgroundColor: AppColors.blueRegular,
+                    child: Icon(
+                      Icons.check_rounded,
+                      color: AppColors.blueLightest,
+                      size: 36.0,
+                    ),
                   ),
                 ),
-              ),
-              const SizedBox(height: 24.0),
-              CustomText.w600(
-                LocalizedTexts.riverGuidanceCompletedTitle.tr(),
-                style: context.textTheme.bodyMedium,
-              ),
-              const SizedBox(height: 20.0),
-              CustomText.w400(
-                LocalizedTexts.riverGuidanceCompletedDescription.tr(),
-                style: context.textTheme.bodyMedium,
-              ),
-              const SizedBox(height: 20.0),
-              CustomElevatedButton.blueFullWidth(
-                label: LocalizedTexts.ok.tr().toUpperCase(),
-                onPressed: () {
-                  context.router.maybePop();
-                },
-              ),
-              const SizedBox(height: 30.0),
-            ],
+                const SizedBox(height: 24.0),
+                CustomText.w600(
+                  LocalizedTexts.riverGuidanceCompletedTitle.tr(),
+                  style: context.textTheme.bodyMedium,
+                ),
+                const SizedBox(height: 20.0),
+                CustomText.w400(
+                  LocalizedTexts.riverGuidanceCompletedDescription.tr(),
+                  style: context.textTheme.bodyMedium,
+                ),
+                const SizedBox(height: 20.0),
+                CustomElevatedButton.blueFullWidth(
+                  label: LocalizedTexts.ok.tr().toUpperCase(),
+                  onPressed: () {
+                    context.router.maybePop();
+                  },
+                ),
+                const SizedBox(height: 30.0),
+              ],
+            ),
           ),
         );
       },
@@ -1696,38 +1745,40 @@ class ModalBottomSheet {
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12.0)),
       builder: (BuildContext context) {
         return MainContainer(
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              const SizedBox(height: 32.0),
-              const Center(
-                child: CircleAvatar(
-                  radius: 25,
-                  backgroundColor: AppColors.blueRegular,
-                  child: Icon(
-                    Icons.check_rounded,
-                    color: AppColors.blueLightest,
-                    size: 36.0,
+          child: SingleChildScrollView(
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                const SizedBox(height: 32.0),
+                const Center(
+                  child: CircleAvatar(
+                    radius: 25,
+                    backgroundColor: AppColors.blueRegular,
+                    child: Icon(
+                      Icons.check_rounded,
+                      color: AppColors.blueLightest,
+                      size: 36.0,
+                    ),
                   ),
                 ),
-              ),
-              const SizedBox(height: 24.0),
-              CustomText.w600(
-                LocalizedTexts.riverModuleCompletedTitle.tr({'module': currentModule}),
-                style: context.textTheme.bodyMedium,
-              ),
-              const SizedBox(height: 20.0),
-              CustomText.w400(
-                LocalizedTexts.riverModuleCompletedDescription.tr({'nextModule': nextModule}),
-                style: context.textTheme.bodyMedium,
-              ),
-              const SizedBox(height: 20.0),
-              CustomElevatedButton.blueFullWidth(
-                label: LocalizedTexts.ok.tr().toUpperCase(),
-                onPressed: context.router.maybePop,
-              ),
-              const SizedBox(height: 30.0),
-            ],
+                const SizedBox(height: 24.0),
+                CustomText.w600(
+                  LocalizedTexts.riverModuleCompletedTitle.tr({'module': currentModule}),
+                  style: context.textTheme.bodyMedium,
+                ),
+                const SizedBox(height: 20.0),
+                CustomText.w400(
+                  LocalizedTexts.riverModuleCompletedDescription.tr({'nextModule': nextModule}),
+                  style: context.textTheme.bodyMedium,
+                ),
+                const SizedBox(height: 20.0),
+                CustomElevatedButton.blueFullWidth(
+                  label: LocalizedTexts.ok.tr().toUpperCase(),
+                  onPressed: context.router.maybePop,
+                ),
+                const SizedBox(height: 30.0),
+              ],
+            ),
           ),
         );
       },
@@ -1746,38 +1797,40 @@ class ModalBottomSheet {
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12.0)),
       builder: (BuildContext context) {
         return MainContainer(
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              const SizedBox(height: 32.0),
-              const Center(
-                child: CircleAvatar(
-                  radius: 25,
-                  backgroundColor: AppColors.blueRegular,
-                  child: Icon(
-                    Icons.check_rounded,
-                    color: AppColors.blueLightest,
-                    size: 36.0,
+          child: SingleChildScrollView(
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                const SizedBox(height: 32.0),
+                const Center(
+                  child: CircleAvatar(
+                    radius: 25,
+                    backgroundColor: AppColors.blueRegular,
+                    child: Icon(
+                      Icons.check_rounded,
+                      color: AppColors.blueLightest,
+                      size: 36.0,
+                    ),
                   ),
                 ),
-              ),
-              const SizedBox(height: 24.0),
-              CustomText.w600(
-                LocalizedTexts.riverModuleCompletedTitle.tr({'module': moduleTitle}),
-                style: context.textTheme.bodyMedium,
-              ),
-              const SizedBox(height: 20.0),
-              CustomText.w400(
-                LocalizedTexts.riverLastModuleCompletedDescription.tr(),
-                style: context.textTheme.bodyMedium,
-              ),
-              const SizedBox(height: 20.0),
-              CustomElevatedButton.blueFullWidth(
-                label: LocalizedTexts.ok.tr().toUpperCase(),
-                onPressed: context.router.maybePop,
-              ),
-              const SizedBox(height: 30.0),
-            ],
+                const SizedBox(height: 24.0),
+                CustomText.w600(
+                  LocalizedTexts.riverModuleCompletedTitle.tr({'module': moduleTitle}),
+                  style: context.textTheme.bodyMedium,
+                ),
+                const SizedBox(height: 20.0),
+                CustomText.w400(
+                  LocalizedTexts.riverLastModuleCompletedDescription.tr(),
+                  style: context.textTheme.bodyMedium,
+                ),
+                const SizedBox(height: 20.0),
+                CustomElevatedButton.blueFullWidth(
+                  label: LocalizedTexts.ok.tr().toUpperCase(),
+                  onPressed: context.router.maybePop,
+                ),
+                const SizedBox(height: 30.0),
+              ],
+            ),
           ),
         );
       },
@@ -1795,32 +1848,34 @@ class ModalBottomSheet {
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12.0)),
       builder: (BuildContext context) {
         return MainContainer(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              const SizedBox(height: 32.0),
-              Center(child: AppIcons.confetti),
-              const SizedBox(height: 24.0),
-              CustomText.w600(
-                LocalizedTexts.riverModuleGraduationCompletedItemsTitle.tr(),
-                style: context.textTheme.bodyMedium,
-              ),
-              const SizedBox(height: 20.0),
-              CustomText.w400(
-                LocalizedTexts.riverModuleGraduationCompletedItemsMessage.tr(),
-                style: context.textTheme.bodyMedium,
-              ),
-              const SizedBox(height: 20.0),
-              CustomElevatedButton.blueFullWidth(
-                label: LocalizedTexts.ok.tr().toUpperCase(),
-                onPressed: () {
-                  context.router.maybePop();
-                  onConfirm?.call();
-                },
-              ),
-              const SizedBox(height: 30.0),
-            ],
+          child: SingleChildScrollView(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                const SizedBox(height: 32.0),
+                Center(child: AppIcons.confetti),
+                const SizedBox(height: 24.0),
+                CustomText.w600(
+                  LocalizedTexts.riverModuleGraduationCompletedItemsTitle.tr(),
+                  style: context.textTheme.bodyMedium,
+                ),
+                const SizedBox(height: 20.0),
+                CustomText.w400(
+                  LocalizedTexts.riverModuleGraduationCompletedItemsMessage.tr(),
+                  style: context.textTheme.bodyMedium,
+                ),
+                const SizedBox(height: 20.0),
+                CustomElevatedButton.blueFullWidth(
+                  label: LocalizedTexts.ok.tr().toUpperCase(),
+                  onPressed: () {
+                    context.router.maybePop();
+                    onConfirm?.call();
+                  },
+                ),
+                const SizedBox(height: 30.0),
+              ],
+            ),
           ),
         );
       },
@@ -1838,38 +1893,40 @@ class ModalBottomSheet {
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12.0)),
       builder: (BuildContext context) {
         return MainContainer(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              const SizedBox(height: 32.0),
-              const Center(
-                child: Icon(
-                  Icons.error,
-                  color: AppColors.blueRegular,
-                  size: 50.0,
+          child: SingleChildScrollView(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                const SizedBox(height: 32.0),
+                const Center(
+                  child: Icon(
+                    Icons.error,
+                    color: AppColors.blueRegular,
+                    size: 50.0,
+                  ),
                 ),
-              ),
-              const SizedBox(height: 24.0),
-              CustomText.w600(
-                LocalizedTexts.riverModuleGraduationCompletedTimeTitle.tr(),
-                style: context.textTheme.bodyMedium,
-              ),
-              const SizedBox(height: 20.0),
-              CustomText.w400(
-                LocalizedTexts.riverModuleGraduationCompletedTimeMessage.tr(),
-                style: context.textTheme.bodyMedium,
-              ),
-              const SizedBox(height: 20.0),
-              CustomElevatedButton.blueFullWidth(
-                label: LocalizedTexts.ok.tr().toUpperCase(),
-                onPressed: () {
-                  context.router.maybePop();
-                  onConfirm?.call();
-                },
-              ),
-              const SizedBox(height: 30.0),
-            ],
+                const SizedBox(height: 24.0),
+                CustomText.w600(
+                  LocalizedTexts.riverModuleGraduationCompletedTimeTitle.tr(),
+                  style: context.textTheme.bodyMedium,
+                ),
+                const SizedBox(height: 20.0),
+                CustomText.w400(
+                  LocalizedTexts.riverModuleGraduationCompletedTimeMessage.tr(),
+                  style: context.textTheme.bodyMedium,
+                ),
+                const SizedBox(height: 20.0),
+                CustomElevatedButton.blueFullWidth(
+                  label: LocalizedTexts.ok.tr().toUpperCase(),
+                  onPressed: () {
+                    context.router.maybePop();
+                    onConfirm?.call();
+                  },
+                ),
+                const SizedBox(height: 30.0),
+              ],
+            ),
           ),
         );
       },

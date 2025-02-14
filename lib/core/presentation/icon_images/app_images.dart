@@ -14,7 +14,7 @@ class AppImages {
   static SvgPicture exclamationMark =
       SvgPicture.asset('$imagesFilePath/exclamation_mark.svg', fit: BoxFit.scaleDown);
 
-  static const AssetImage intro = AssetImage('$imagesFilePath/new_intro.png');
+  static const AssetImage intro = AssetImage('$imagesFilePath/new_intro5.png');
 
   static const AssetImage intro2 = AssetImage('$imagesFilePath/new_intro2.png');
 

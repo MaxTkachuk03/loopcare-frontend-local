@@ -16,7 +16,6 @@ import 'package:loopcare_frontend/injection.dart';
 import 'package:loopcare_frontend/localization/service/localization_extension.dart';
 import 'package:loopcare_frontend/localization/service/localized_texts.dart';
 import 'package:loopcare_frontend/localization/src/app_localizations.dart';
-import 'package:loopcare_frontend/localization/src/crowdin_localizations.dart';
 
 final autoRouteObserver = AutoRouteObserver();
 
@@ -75,7 +74,7 @@ class _AppState extends State<_App> {
           ],
         ),
         routeInformationParser: _appRouter.defaultRouteParser(),
-        localizationsDelegates: CrowdinLocalization.localizationsDelegates,
+        localizationsDelegates: AppLocalizations.localizationsDelegates,
         supportedLocales: AppLocalizations.supportedLocales,
         locale: currentLocale,
       ),

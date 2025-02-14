@@ -1,3 +1,4 @@
+import 'dart:io';
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
 import 'package:injectable/injectable.dart';
@@ -41,8 +42,16 @@ class APIAuthenticationService implements AuthenticationService {
 
   @override
   Future<Either<RequestError, LoginResponse>> signUp(SignUpData data) async {
-    return await client.post('/accounts/registration',
-        data: data, fromJson: LoginResponse.fromJson);
+    String platform = Platform.isIOS ? 'iOS' : 'Android';
+    final Map<String, String> header = {'X-Platform': platform};
+    return await client.post(
+      '/accounts/registration',
+      data: data,
+      fromJson: LoginResponse.fromJson,
+      options: Options(
+        headers: header,
+      ),
+    );
   }
 
   @override
@@ -52,7 +61,14 @@ class APIAuthenticationService implements AuthenticationService {
 
   @override
   Future<Either<RequestError, LoginResponse>> login(LoginData data) async {
-    return await client.post('/auth/login', data: data, fromJson: LoginResponse.fromJson);
+    String platform = Platform.isIOS ? 'iOS' : 'Android';
+    final Map<String, String> header = {'X-Platform': platform};
+    return await client.post('/auth/login',
+        data: data,
+        fromJson: LoginResponse.fromJson,
+        options: Options(
+          headers: header,
+        ));
   }
 
   @override

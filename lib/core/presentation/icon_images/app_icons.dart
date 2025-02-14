@@ -356,5 +356,9 @@ class AppIcons {
           height: 24,
           colorFilter: ColorFilter.mode(clicked ? clickedColor : regularColor, BlendMode.srcIn));
 
+  static SvgPicture stepper = SvgPicture.asset('$iconsFilePath/stepper.svg');
+
+  static SvgPicture stepCounter = SvgPicture.asset('$iconsFilePath/step_counter.svg');
+
   AppIcons._();
 }

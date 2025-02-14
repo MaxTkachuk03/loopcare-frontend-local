@@ -72,7 +72,7 @@ class MealsList extends StatelessWidget {
     }
 
     if (item.foodType == MealItemType.food) {
-      context.read<MealsBloc>().add(MealsEvent.deleteFoodItemFromMeal(item.id));
+      context.read<MealsBloc>().add(MealsEvent.deleteFoodItemFromMeal([item.id]));
     }
   }
 

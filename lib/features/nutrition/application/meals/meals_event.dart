@@ -21,7 +21,8 @@ class MealsEvent with _$MealsEvent {
 
   const factory MealsEvent.deleteCurrentMeal() = DeleteCurrentMeal;
 
-  const factory MealsEvent.deleteFoodItemFromMeal(String foodItemId) = DeleteFoodItemFromMeal;
+  const factory MealsEvent.deleteFoodItemFromMeal(List<String> foodItemIds) =
+      DeleteFoodItemFromMeal;
 
   const factory MealsEvent.addRecipeToMeal(int mealId, int recipeId) = AddRecipeToMeal;
 

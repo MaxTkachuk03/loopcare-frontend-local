@@ -1,10 +1,8 @@
 import 'dart:convert';
 
-import 'package:crowdin_sdk/crowdin_sdk.dart';
 import 'package:flutter/widgets.dart';
 import 'package:intl/intl.dart';
 import 'package:loopcare_frontend/core/domain/local_localization/local_localization_service.dart';
-import 'package:loopcare_frontend/core/infrastructure/services/app_config.dart';
 import 'package:loopcare_frontend/injection.dart';
 
 const List<String> _pluralIds = ['=0', '=1', '=2', 'few', 'many', 'other'];
@@ -12,9 +10,7 @@ const String _kCount = 'count';
 
 extension LocalizationExtension on String {
   String tr([Map<String, dynamic> params = const {}]) {
-    String locale = getIt<AppConfig>().language;
-    final string =
-        Crowdin.getText(locale, this, params) ?? _getLocalizedString(this, params: params);
+    final string = _getLocalizedString(this, params: params);
     return string;
   }
 

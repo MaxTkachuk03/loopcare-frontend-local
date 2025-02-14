@@ -2486,13 +2486,17 @@
   "interactiveLessonsOrderingCheck": "Überprüfen",
   "interactiveLessonsOrderingShowAnswer": "Antwort anzeigen",
   "reflectionsUnlock": "Was motiviert dich?",
-  "supportGroupUnlock": "Du bist nich allein",
+  "supportGroupUnlock": "Zurück zu den Grundlagen",
   "commitmentUnlock": "Was motiviert dich?",
   "commitmentDescription": "Wir wollen dir helfen, aber dazu brauchen wir deine Meinung! Mache in den ersten Tagen des Programms eine ehrliche Liste mit allem, was du gegessen hast. Wir passen unser Programm dann individuell an und konzentrieren uns auf die Themen, die sich am ehesten positiv auf dein Gewicht und dein Wohlbefinden auswirken.",
   "textAreaHintText": "Gebe hier deine Antwort ein",
   "textAreaSave": "Speichern",
   "addTextField": "Textfeld hinzufügen",
   "selectYourTime": "Wähle deine Zeit",
-  "question": "Frage"
+  "question": "Frage",
+  "weight": "Gewicht",
+  "weightProgressionTitle": "Gewicht Progressie",
+  "activityTracker": "Aktivitätstracker",
+  "activityTrackerLocked": "Verbinde LeanOnMe mit deinen Gesundheits-Trackern, um deine Abnehmreise auf das nächste Level zu bringen. Unser Programm + so viele Daten wie möglich = ein himmlisches Match, das es uns ermöglicht, dir die bestmögliche Beratung für DICH zu geben."
 }
 

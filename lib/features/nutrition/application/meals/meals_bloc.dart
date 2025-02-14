@@ -216,15 +216,22 @@ class MealsBloc extends Bloc<MealsEvent, MealsState> {
 
     if (mealId == null) return;
 
-    final response = await nutritionService.removeFoodItemFromMeal(mealId, event.foodItemId);
-
-    response.fold(
-      (l) => emit(MealsState.error(state.data.copyWith(error: l, isLoading: false))),
-      (r) {
-        emit(MealsState.mealsInfo(
-            state.data.copyWith(meals: _getUpdatedMealsList(r), isLoading: false)));
-      },
+    final deleteRequests = event.foodItemIds.map(
+      (foodItemId) => nutritionService.removeFoodItemFromMeal(mealId, foodItemId),
     );
+
+    final responses = await Future.wait(deleteRequests);
+
+    Map<String, List<MealsListItem>> updatedMeals = state.data.meals;
+
+    for (var response in responses) {
+      response.fold(
+        (l) => emit(MealsState.error(state.data.copyWith(error: l, isLoading: false))),
+        (r) => updatedMeals = _getUpdatedMealsList(r),
+      );
+    }
+
+    emit(MealsState.mealsInfo(state.data.copyWith(meals: updatedMeals, isLoading: false)));
   }
 
   FutureOr<void> _onDeleteRecipeFromMeal(
